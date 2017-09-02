@@ -3,157 +3,199 @@
 #' The function determines weighted nonlinear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
-#' uses the function \code{\link{nls}} with the \code{port} algorithm.
+#' uses the function [nls] with the `port` algorithm.
 #'
-#' \bold{Fitting function}\cr\cr The function for the fitting has the general
-#' form: \deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, +
-#' exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))} where \eqn{1 < i < 8}\cr This
-#' function and the equations for the conversion to b (detrapping probability)
+#' **Fitting function**
+#'
+#' The function for the fitting has the general
+#' form: 
+#' 
+#' \deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, + exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))} 
+#' 
+#' where \eqn{1 < i < 8}
+#' 
+#' This function and the equations for the conversion to b (detrapping probability)
 #' and n0 (proportional to initially trapped charge) have been taken from Kitis
-#' et al. (2008): \deqn{xm_i=\sqrt{max(t)/b_i}} \deqn{Im_i=exp(-0.5)n0/xm_i}\cr
-#' \bold{Background subtraction}\cr\cr Three methods for background subtraction
-#' are provided for a given background signal (\code{values.bg}).\cr
-#' \code{polynomial}: default method. A polynomial function is fitted using
-#' \link{glm} and the resulting function is used for background subtraction:
-#' \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}\cr \code{linear}: a linear
-#' function is fitted using \link{glm} and the resulting function is used for
-#' background subtraction: \deqn{y = a*x + b}\cr \code{channel}: the measured
-#' background signal is subtracted channelwise from the measured signal.\cr\cr
-#' \bold{Start values}\cr
+#' et al. (2008): 
+#' 
+#' \deqn{xm_i=\sqrt{max(t)/b_i}} 
+#' \deqn{Im_i=exp(-0.5)n0/xm_i}
+#' 
+#' **Background subtraction**
 #'
-#' The choice of the initial parameters for the \code{nls}-fitting is a crucial
+#' Three methods for background subtraction
+#' are provided for a given background signal (`values.bg`).
+#' 
+#' - `polynomial`: default method. A polynomial function is fitted using [glm] 
+#' and the resulting function is used for background subtraction:
+#' \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
+#' 
+#' - `linear`: a linear function is fitted using [glm] and the resulting function 
+#' is used for background subtraction:
+#' \deqn{y = a*x + b}
+#'  
+#' - `channel`: the measured
+#' background signal is subtracted channelwise from the measured signal.
+#'
+#'
+#' **Start values**
+#'
+#' The choice of the initial parameters for the `nls`-fitting is a crucial
 #' point and the fitting procedure may mainly fail due to ill chosen start
-#' parameters. Here, three options are provided:\cr\cr \bold{(a)} If no start
-#' values (\code{start_values}) are provided by the user, a cheap guess is made
+#' parameters. Here, three options are provided:
+#'
+#' **(a)** 
+#' If no start values (`start_values`) are provided by the user, a cheap guess is made
 #' by using the detrapping values found by Jain et al. (2003) for quartz for a
 #' maximum of 7 components. Based on these values, the pseudo start parameters
 #' xm and Im are recalculated for the given data set. In all cases, the fitting
-#' starts with the ultra-fast component and (depending on \code{n.components})
+#' starts with the ultra-fast component and (depending on `n.components`)
 #' steps through the following values. If no fit could be achieved, an error
-#' plot (for \code{plot = TRUE}) with the pseudo curve (based on the
+#' plot (for `plot = TRUE`) with the pseudo curve (based on the
 #' pseudo start parameters) is provided. This may give the opportunity to
-#' identify appropriate start parameters visually.\cr\cr \bold{(b)} If start
-#' values are provided, the function works like a simple \code{\link{nls}}
-#' fitting approach.\cr\cr \bold{(c)} If no start parameters are provided and
-#' the option \code{fit.advanced = TRUE} is chosen, an advanced start paramter
+#' identify appropriate start parameters visually.
+#'
+#' **(b)** 
+#' If start values are provided, the function works like a simple [nls]
+#' fitting approach.
+#'
+#' **(c)** 
+#' If no start parameters are provided and
+#' the option `fit.advanced = TRUE` is chosen, an advanced start paramter
 #' estimation is applied using a stochastical attempt. Therefore, the
-#' recalculated start parameters \bold{(a)} are used to construct a normal
+#' recalculated start parameters **(a)** are used to construct a normal
 #' distribution. The start parameters are then sampled randomly from this
-#' distribution. A maximum of 100 attempts will be made. \bold{Note:} This
-#' process may be time consuming. \cr\cr \bold{Goodness of fit}\cr\cr The
-#' goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
+#' distribution. A maximum of 100 attempts will be made. **Note:** This
+#' process may be time consuming. 
+#'
+#' **Goodness of fit**
+#'
+#' The goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
 #' determination). According to Lave (1970), the value is calculated as:
-#' \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
-#' and \eqn{TSS = Total~Sum~of~Squares}\cr\cr \bold{Error of fitted component
-#' parameters}\cr\cr The 1-sigma error for the components is calculated using
-#' the function \link{confint}. Due to considerable calculation time, this
+#' 
+#' \deqn{pseudoR^2 = 1 - RSS/TSS} 
+#' 
+#' where \eqn{RSS = Residual~Sum~of~Squares}
+#' and \eqn{TSS = Total~Sum~of~Squares}
+#'
+#' **Error of fitted component parameters**
+#'
+#' The 1-sigma error for the components is calculated using
+#' the function [confint]. Due to considerable calculation time, this
 #' option is deactived by default. In addition, the error for the components
-#' can be estimated by using internal R functions like \link{summary}. See the
-#' \link{nls} help page for more information.\cr \emph{For more details on the
-#' nonlinear regression in R, see Ritz & Streibig (2008).}
+#' can be estimated by using internal R functions like [summary]. See the
+#' [nls] help page for more information.
+#' 
+#' *For more details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
-#' (\bold{required}): x,y data of measured values (time and counts). See
-#' examples.
+#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' x,y data of measured values (time and counts). See examples.
 #'
-#' @param values.bg \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
-#' (optional): x,y data of measured values (time and counts) for background
-#' subtraction.
+#' @param values.bg [RLum.Data.Curve-class] or [data.frame] (*optional*): 
+#' x,y data of measured values (time and counts) for background subtraction.
 #'
-#' @param n.components \link{integer} (with default): fixed number of
-#' components that are to be recognised during fitting (min = 1, max = 7).
+#' @param n.components [integer] (*with default*): 
+#' fixed number of components that are to be recognised during fitting 
+#' (min = 1, max = 7).
 #'
-#' @param start_values \link{data.frame} (optional): start parameters for lm
-#' and xm data for the fit. If no start values are given, an automatic start
-#' value estimation is attempted (see details).
+#' @param start_values [data.frame] (*optional*): 
+#' start parameters for lm and xm data for the fit. If no start values are given, 
+#' an automatic start value estimation is attempted (see details).
 #'
-#' @param input.dataType \link{character} (with default): alter the plot output
-#' depending on the input data: "LM" or "pLM" (pseudo-LM). See: \link{CW2pLM}
+#' @param input.dataType [character] (*with default*): 
+#' alter the plot output depending on the input data: "LM" or "pLM" (pseudo-LM). 
+#' See: [CW2pLM]
 #'
-#' @param fit.method \code{\link{character}} (with default): select fit method,
-#' allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-#' routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
-#' function \code{nlsLM} from the package \code{minpack.lm} and with that the
-#' Levenberg-Marquardt algorithm.
+#' @param fit.method [character] (*with default*): 
+#' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
+#' routine usint the funtion [nls] `'LM'` utilises the function `nlsLM` from 
+#' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
 #'
-#' @param sample_code \link{character} (optional): sample code used for the
-#' plot and the optional output table (mtext).
+#' @param sample_code [character] (*optional*): 
+#' sample code used for the plot and the optional output table (mtext).
 #'
-#' @param sample_ID \link{character} (optional): additional identifier used as
-#' column header for the table output.
+#' @param sample_ID [character] (*optional*):
+#' additional identifier used as column header for the table output.
 #'
-#' @param LED.power \link{numeric} (with default): LED power (max.) used for
-#' intensity ramping in mW/cm^2. \bold{Note:} This value is used for the
-#' calculation of the absolute photoionisation cross section.
+#' @param LED.power [numeric] (*with default*): 
+#' LED power (max.) used forintensity ramping in mW/cm^2.
+#' **Note:** This value is used for the calculation of the absolute 
+#' photoionisation cross section.
 #'
-#' @param LED.wavelength \link{numeric} (with default): LED wavelength in nm
-#' used for stimulation. \bold{Note:} This value is used for the calculation of
-#' the absolute photoionisation cross section.
+#' @param LED.wavelength [numeric] (*with default*): 
+#' LED wavelength in nm used for stimulation. 
+#' **Note:** This value is used for the calculation of the absolute 
+#' photoionisation cross section.
 #'
-#' @param fit.trace \link{logical} (with default): traces the fitting process
-#' on the terminal.
+#' @param fit.trace [logical] (*with default*): 
+#' traces the fitting process on the terminal.
 #'
-#' @param fit.advanced \link{logical} (with default): enables advanced fitting
-#' attempt for automatic start parameter recognition. Works only if no start
-#' parameters are provided. \bold{Note:} It may take a while and it is not
-#' compatible with \code{fit.method = "LM"}.
+#' @param fit.advanced [logical] (*with default*): 
+#' enables advanced fitting attempt for automatic start parameter recognition. 
+#' Works only if no start parameters are provided. 
+#' **Note:** It may take a while and it is not compatible with `fit.method = "LM"`.
 #'
-#' @param fit.calcError \link{logical} (with default): calculate 1-sigma error
-#' range of components using \link{confint}.
+#' @param fit.calcError [logical] (*with default*): 
+#' calculate 1-sigma error range of components using [confint].
 #'
-#' @param bg.subtraction \link{character} (with default): specifies method for
-#' background subtraction (\code{polynomial}, \code{linear}, \code{channel},
-#' see Details). \bold{Note:} requires input for \code{values.bg}.
+#' @param bg.subtraction [character] (*with default*): 
+#' specifies method for background subtraction (`polynomial`, `linear`, `channel`,
+#' see Details). **Note:** requires input for `values.bg`.
 #'
-#' @param verbose \link{logical} (with default): terminal output with
-#' fitting results.
+#' @param verbose [logical] (*with default*):
+#'  terminal output with fitting results.
 #'
-#' @param plot \link{logical} (with default): returns a plot of the
-#' fitted curves.
+#' @param plot [logical] (*with default*): 
+#' returns a plot of the fitted curves.
 #'
-#' @param plot.BG \link{logical} (with default): returns a plot of the
-#' background values with the fit used for the background subtraction.
+#' @param plot.BG [logical] (*with default*): 
+#' returns a plot of the background values with the fit used for the 
+#' background subtraction.
 #'
-#' @param \dots Further arguments that may be passed to the plot output, e.g.
-#' \code{xlab}, \code{xlab}, \code{main}, \code{log}.
+#' @param ... Further arguments that may be passed to the plot output, e.g.
+#' `xlab`, `xlab`, `main`, `log`.
 #'
 #' @return
-#' Various types of plots are returned. For details see above.\cr
-#' Furthermore an \code{RLum.Results} object is returned with the following structure:\cr
+#' Various types of plots are returned. For details see above. Furthermore an 
+#' `RLum.Results` object is returned with the following structure:
 #'
-#' data:\cr
-#' .. $data : \code{data.frame} with fitting results\cr
-#' .. $fit : \code{nls} (nls object)\cr
-#' .. $component.contribution.matrix : \code{list} component distribution matrix\cr
+#' **`@data:`**
+#' 
+#' `.. $data` : [data.frame] with fitting results\cr
+#' `.. $fit` : nls ([nls] object)\cr
+#' `.. $component.contribution.matrix` : [list] component distribution matrix
+#' 
 #'
-#' info:\cr
-#' .. $call : \code{call} the original function call\cr
+#' **`info:`**
+#' 
+#' `.. $call` : [call] the original function call
 #'
-#' Matrix structure for the distribution matrix:\cr
+#' Matrix structure for the distribution matrix:
 #'
-#' Column 1 and 2: time and \code{rev(time)} values\cr
+#' Column 1 and 2: time and `rev(time)` values\cr
 #' Additional columns are used for the components, two for each component,
-#' containing I0 and n0. The last columns \code{cont.} provide information on
+#' containing I0 and n0. The last columns `cont.` provide information on
 #' the relative component contribution for each time interval including the row
 #' sum for this values.
 #'
-#' @note The pseudo-R^2 may not be the best parameter to describe the goodness
-#' of the fit. The trade off between the \code{n.components} and the pseudo-R^2
-#' value currently remains unconsidered. \cr
+#' @note 
+#' The pseudo-R^2 may not be the best parameter to describe the goodness
+#' of the fit. The trade off between the `n.components` and the pseudo-R^2
+#' value currently remains unconsidered. 
 #'
-#' The function \bold{does not} ensure that the fitting procedure has reached a
+#' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
 #' @section Function version: 0.3.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}},
-#' \code{\link[minpack.lm]{nlsLM}}, \code{\link{get_RLum}}
+#' @seealso [fit_CWCurve], [plot], [nls], [minpack.lm::nlsLM], [get_RLum]
 #'
-#' @references Bulur, E., 1996. An Alternative Technique For Optically
+#' @references 
+#' Bulur, E., 1996. An Alternative Technique For Optically
 #' Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,
 #' 701-709.
 #'
@@ -174,7 +216,6 @@
 #' @keywords dplot models
 #'
 #' @examples
-#'
 #'
 #' ##(1) fit LM data without background subtraction
 #' data(ExampleData.FittingLM, envir = environment())
@@ -197,6 +238,7 @@
 #'             log = "x",
 #'             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))
 #'
+#' @md
 #' @export
 fit_LMCurve<- function(
   values,

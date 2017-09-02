@@ -10,64 +10,66 @@ Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
   output.plot.single = FALSE, cex.global = 1, ...)
 }
 \arguments{
-\item{input.data}{\link{Risoe.BINfileData-class} (\bold{required}): input
-data from a Risoe BIN file, produced by the function \link{read_BIN2R}.}
+\item{input.data}{\linkS4class{Risoe.BINfileData} (\strong{required}):
+input data from a Risoe BIN file, produced by the function \link{read_BIN2R}.}
 
-\item{signal.integral}{\link{vector} (\bold{required}): channels used for
-the signal integral, e.g. \code{signal.integral=c(1:2)}}
+\item{signal.integral}{\link{vector} (\strong{required}):
+channels used for the signal integral, e.g. \code{signal.integral=c(1:2)}}
 
-\item{background.integral}{\link{vector} (\bold{required}): channels used
-for the background integral, e.g. \code{background.integral=c(85:100)}}
+\item{background.integral}{\link{vector} (\strong{required}):
+channels used for the background integral, e.g. \code{background.integral=c(85:100)}}
 
-\item{position}{\link{vector} (optional): reader positions that want to be
-analysed (e.g. \code{position=c(1:48)}. Empty positions are automatically
-omitted. If no value is given all positions are analysed by default.}
+\item{position}{\link{vector} (\emph{optional}):
+reader positions that want to be analysed (e.g. \code{position=c(1:48)}.
+Empty positions are automatically omitted. If no value is given all
+positions are analysed by default.}
 
-\item{run}{\link{vector} (optional): range of runs used for the analysis. If
-no value is given the range of the runs in the sequence is deduced from the
-Risoe.BINfileData object.}
+\item{run}{\link{vector} (\emph{optional}):
+range of runs used for the analysis. If no value is given the range of the
+runs in the sequence is deduced from the \code{Risoe.BINfileData} object.}
 
-\item{set}{\link{vector} (optional): range of sets used for the analysis. If
-no value is given the range of the sets in the sequence is deduced from the
-\code{Risoe.BINfileData} object.}
+\item{set}{\link{vector} (\emph{optional}):
+range of sets used for the analysis. If no value is given the range of the
+sets in the sequence is deduced from the \code{Risoe.BINfileData} object.}
 
-\item{dtype}{\code{\link{character}} (optional): allows to further limit the
-curves by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural",
-"Dose")} limits the curves to this two data types. By default all values are
-allowed. See \link{Risoe.BINfileData-class} for allowed data types.}
+\item{dtype}{\link{character} (\emph{optional}):
+allows to further limit the curves by their data type (\code{DTYPE}),
+e.g., \code{dtype = c("Natural", "Dose")} limits the curves to this two data types.
+By default all values are allowed.
+See \linkS4class{Risoe.BINfileData} for allowed data types.}
 
-\item{keep.SEL}{\code{\link{logical}} (default): option allowing to use the
-\code{SEL} element of the \link{Risoe.BINfileData-class} manually. NOTE: In
-this case any limitation provided by \code{run}, \code{set} and \code{dtype}
+\item{keep.SEL}{\link{logical} (default):
+option allowing to use the \code{SEL} element of the \linkS4class{Risoe.BINfileData} manually.
+\strong{NOTE:} In this case any limitation provided by \code{run}, \code{set} and \code{dtype}
 are ignored!}
 
-\item{info.measurement}{\link{character} (with default): option to provide
-information about the measurement on the plot output (e.g. name of the BIN
-or BINX file).}
+\item{info.measurement}{\link{character} (\emph{with default}):
+option to provide information about the measurement on the plot
+output (e.g. name of the BIN or BINX file).}
 
-\item{output.plot}{\link{logical} (with default): plot output
-(\code{TRUE/FALSE})}
+\item{output.plot}{\link{logical} (\emph{with default}):
+plot output (\code{TRUE/FALSE})}
 
-\item{output.plot.single}{\link{logical} (with default): single plot output
-(\code{TRUE/FALSE}) to allow for plotting the results in single plot
-windows. Requires \code{output.plot = TRUE}.}
+\item{output.plot.single}{\link{logical} (\emph{with default}):
+single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
+single plot windows. Requires \code{output.plot = TRUE}.}
 
-\item{cex.global}{\link{numeric} (with default): global scaling factor.}
+\item{cex.global}{\link{numeric} (\emph{with default}):
+global scaling factor.}
 
-\item{\dots}{further arguments that will be passed to the function
-\code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution}, \code{sigmab},
-\code{sig0}; e.g., for instrumental error)
-and can be used to adjust the plot. Supported" \code{mtext}, \code{log}}
+\item{...}{further arguments that will be passed to the function
+\link{calc_OSLLxTxRatio} (supported: \code{background.count.distribution}, \code{sigmab},
+\code{sig0}; e.g., for instrumental error) and can be used to adjust the plot.
+Supported" \code{mtext}, \code{log}}
 }
 \value{
-A plot (optional) and \link{list} is returned containing the
-following elements: \item{LnLxTnTx}{\link{data.frame} of all calculated
-Lx/Tx values including signal, background counts and the dose points.}
-\item{RejectionCriteria}{\link{data.frame} with values that might by used as
-rejection criteria. NA is produced if no R0 dose point exists.}
-\item{SARParameters}{\link{data.frame} of additional measurement parameters
-obtained from the BIN file, e.g. preheat or read temperature (not valid for
-all types of measurements).}
+A plot (\emph{optional}) and \link{list} is returned containing the
+following elements:
+
+\item{LnLxTnTx}{\link{data.frame} of all calculated Lx/Tx values including signal, background counts and the dose points.}
+\item{RejectionCriteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+\item{SARParameters}{\link{data.frame} of additional measurement parameters obtained from the BIN file, e.g. preheat or read temperature
+(not valid for all types of measurements).}
 }
 \description{
 The function analyses SAR CW-OSL curve data and provides a summary of the
@@ -77,15 +79,17 @@ for SAR OSL measurements on quartz.
 \details{
 The function works only for standard SAR protocol measurements introduced by
 Murray and Wintle (2000) with CW-OSL curves. For the calculation of the
-Lx/Tx value the function \link{calc_OSLLxTxRatio} is used. \cr\cr
+Lx/Tx value the function \link{calc_OSLLxTxRatio} is used.
 
-\bold{Provided rejection criteria}\cr\cr \sQuote{recyling ratio}: calculated
-for every repeated regeneration dose point.\cr \sQuote{recuperation}:
-recuperation rate calculated by comparing the Lx/Tx values of the zero
+\strong{Provided rejection criteria}
+
+\code{[recyling ratio]}: calculated for every repeated regeneration dose point.
+
+\code{[recuperation]}: recuperation rate calculated by comparing the Lx/Tx values of the zero
 regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
-signal). For methodological background see Aitken and Smith (1988)\cr
+signal). For methodological background see Aitken and Smith (1988)
 
-\sQuote{IRSL/BOSL}: the integrated counts (\code{signal.integral}) of an
+\code{[IRSL/BOSL]}: the integrated counts (\code{signal.integral}) of an
 IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
 regenerated dose point. \strong{Note:} This is not the IR depletation ratio
@@ -93,22 +97,19 @@ described by Duller (2003).
 }
 \note{
 Rejection criteria are calculated but not considered during the
-analysis to discard values.\cr\cr
+analysis to discard values.
 
-\bold{The analysis of IRSL data is not directly supported}. You may want to
-consider using the functions \code{\link{analyse_SAR.CWOSL}} or
-\code{\link{analyse_pIRIRSequence}} instead.\cr
+\strong{The analysis of IRSL data is not directly supported}. You may want to
+consider using the functions \link{analyse_SAR.CWOSL} or
+\link{analyse_pIRIRSequence} instead.
 
-\bold{The development of this function will not be continued. We recommend
-to use the function \link{analyse_SAR.CWOSL} or instead.}
+\strong{The development of this function will not be continued. We recommend to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.17 (2017-06-30 11:23:30)
+ 0.2.17 (2017-09-02 23:27:02)
 }
 
 \examples{
-
-
 ##load data
 data(ExampleData.BINfileData, envir = environment())
 
@@ -128,7 +129,7 @@ output.SAR
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2017). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -143,14 +144,11 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\link{calc_OSLLxTxRatio}, \link{Risoe.BINfileData-class},
-\link{read_BIN2R}
-
-and for further analysis \link{plot_GrowthCurve}
+\link{calc_OSLLxTxRatio}, \linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{plot_GrowthCurve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Margret C. Fuchs, HZDR, Freiberg (Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Margret C. Fuchs, HZDR, Freiberg (Germany)
 \cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{dplot}

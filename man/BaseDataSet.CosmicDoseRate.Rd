@@ -5,17 +5,21 @@
 \title{Base data set for cosmic dose rate calculation}
 \format{\tabular{ll}{
 
-\code{values.cosmic.Softcomp}: \tab data frame containing cosmic dose rates
+\code{values.cosmic.Softcomp}: \tab
+data frame containing cosmic dose rates
 for shallow depths (< 167 g cm^-2) obtained using the "AGE" program by
 Rainer Gruen (cf. Gruen 2009). These data essentially reproduce the graph
 shown in Fig. 1 of Prescott & Hutton (1988). \cr
 
-\code{values.factor.Altitude}: \tab data frame containing altitude factors
+\code{values.factor.Altitude}: \tab
+data frame containing altitude factors
 for adjusting geomagnetic field-change factors. Values were read from Fig. 1
 in Prescott & Hutton (1994). \cr
 
-\code{values.par.FJH}: \tab data frame containing values for parameters F, J
-and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression }
+\code{values.par.FJH}: \tab
+data frame containing values for parameters F, J
+and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression \cr
+}
 
 \deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}}
 \source{
@@ -23,13 +27,12 @@ The following data were carefully read from figures in mentioned
 sources and used for fitting procedures. The derived expressions are used in
 the function \code{calc_CosmicDoseRate}.
 
-\bold{values.cosmic.Softcomp}
+\strong{values.cosmic.Softcomp}
 
 \tabular{ll}{
-
-Program: \tab "AGE"\cr Reference: \tab Gruen (2009) \cr Fit: \tab
-Polynomials in the form of
-
+Program: \tab "AGE"\cr
+Reference: \tab Gruen (2009) \cr
+Fit: \tab Polynomials in the form of
 }
 
 For depths between 40-167 g cm^-2:
@@ -40,24 +43,24 @@ For depths between 40-167 g cm^-2:
 
 \deqn{y = -6*10^-8*x^3+2*10^-5*x^2-0.0025*x+0.2969}
 
-\bold{values.factor.Altitude}
+\strong{values.factor.Altitude}
 
 \tabular{ll}{
-
-Reference: \tab Prescott & Hutton (1994) \cr Page: \tab 499 \cr Figure: \tab
-1 \cr Fit: \tab 2-degree polynomial in the form of
-
+Reference: \tab Prescott & Hutton (1994) \cr
+Page: \tab 499 \cr
+Figure: \tab 1 \cr
+Fit: \tab 2-degree polynomial in the form of
 }
 
 \deqn{y = -0.026*x^2 + 0.6628*x + 1.0435}
 
-\bold{values.par.FJH}
+\strong{values.par.FJH}
 
 \tabular{ll}{
-
-Reference: \tab Prescott & Hutton (1994) \cr Page: \tab 500 \cr Figure: \tab
-2 \cr Fits: \tab 3-degree polynomials and linear fits
-
+Reference: \tab Prescott & Hutton (1994) \cr
+Page: \tab 500 \cr
+Figure: \tab 2 \cr
+Fits: \tab 3-degree polynomials and linear fits
 }
 
 F (non-linear part, \eqn{\lambda} < 36.5 deg.):
@@ -96,6 +99,7 @@ calculation
 
 ##load data
 data(BaseDataSet.CosmicDoseRate)
+
 }
 \references{
 Gruen, R., 2009. The "AGE" program for the calculation of luminescence age estimates.

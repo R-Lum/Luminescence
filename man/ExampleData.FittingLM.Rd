@@ -5,9 +5,12 @@
 \title{Example data for fit_LMCurve() in the package Luminescence}
 \format{Two objects (data.frames) with two columns (time and counts).}
 \source{
-\tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr Lab-Code: \tab
-BT900\cr Location: \tab Norway\cr Material: \tab Beach deposit, coarse grain
-quartz measured on aluminum discs on a Risoe TL/OSL DA-15 reader\cr }
+\tabular{ll}{
+Lab: \tab Luminescence Laboratory Bayreuth\cr
+Lab-Code: \tab BT900\cr
+Location: \tab Norway\cr
+Material: \tab Beach deposit, coarse grain quartz measured on aluminum discs on a Risoe TL/OSL DA-15 reader\cr
+}
 }
 \description{
 Lineraly modulated (LM) measurement data from a quartz sample from Norway

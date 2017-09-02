@@ -1,7 +1,12 @@
-//create_RLumDataCurve_matrix.cpp
-//author: Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-//version: 0.1.0 [2016-06-28]
-//Function to create the RLum.Data.Curve() matrix ... faster than in R itself
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Title:   src_create_RLumDataCurve_matrix()
+// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Version: 0.1.0 [2016-06-28]
+// Purpose: Function to create the RLum.Data.Curve() matrix ... faster than in R itself
+//  - Mainly used by the function Risoe.BINfileData2RLum.Data.Curve()
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -32,7 +37,7 @@ NumericVector seq(int from, int to, double length_out) {
 
 // -----------------------------------------------------------------------------------------------
 // The function we want to export
-// [[Rcpp::export(".create_RLumDataCurve_matrix")]]
+// [[Rcpp::export("src_create_RLumDataCurve_matrix")]]
 NumericMatrix create_RLumDataCurve_matrix(
   NumericVector DATA,
   int VERSION,

@@ -9,65 +9,73 @@ plot_DRTResults(values, given.dose = NULL, error.range = 10, preheat,
   par.local = TRUE, na.rm = FALSE, ...)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Results}} or \code{\link{data.frame}},
-(\bold{required}): input values containing at least De and De error. To plot
+\item{values}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+input values containing at least De and De error. To plot
 more than one data set in one figure, a \code{list} of the individual data
 sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 
-\item{given.dose}{\code{\link{numeric}} (optional): given dose used for the
-dose recovery test to normalise data. If only one given dose is provided
-this given dose is valid for all input data sets (i.e., \code{values} is a
-list).  Otherwise a given dose for each input data set has to be provided
-(e.g., \code{given.dose = c(100,200)}). If no \code{given.dose} values are
-plotted without normalisation (might be useful for preheat plateau tests).
-Note: Unit has to be the same as from the input values (e.g., Seconds or
+\item{given.dose}{\link{numeric} (\emph{optional}):
+given dose used for the dose recovery test to normalise data.
+If only one given dose is provided this given dose is valid for all input
+data sets (i.e., \code{values} is a list).  Oherwise a given dose for each input
+data set has to be provided (e.g., \code{given.dose = c(100,200)}).
+If \code{given.dose} in \code{NULL} the values are plotted without normalisation
+(might be useful for preheat plateau tests).
+\strong{Note:} Unit has to be the same as from the input values (e.g., Seconds or
 Gray).}
 
-\item{error.range}{\code{\link{numeric}}: symmetric error range in percent
-will be shown as dashed lines in the plot. Set \code{error.range} to 0 to
-void plotting of error ranges.}
+\item{error.range}{\link{numeric}:
+symmetric error range in percent will be shown as dashed lines in the plot.
+Set \code{error.range} to 0 to void plotting of error ranges.}
 
-\item{preheat}{\code{\link{numeric}}: optional vector of preheat
-temperatures to be used for grouping the De values. If specified, the
-temperatures are assigned to the x-axis.}
+\item{preheat}{\link{numeric}:
+optional vector of preheat temperatures to be used for grouping the De values.
+If specified, the temperatures are assigned to the x-axis.}
 
-\item{boxplot}{\code{\link{logical}}: optionally plot values, that are
-grouped by preheat temperature as boxplots. Only possible when
-\code{preheat} vector is specified.}
+\item{boxplot}{\link{logical}:
+optionally plot values, that are grouped by preheat temperature as boxplots.
+Only possible when \code{preheat} vector is specified.}
 
-\item{mtext}{\code{\link{character}}: additional text below the plot title.}
+\item{mtext}{\link{character}:
+additional text below the plot title.}
 
-\item{summary}{\code{\link{character}} (optional): adds numerical output to
-the plot.  Can be one or more out of: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"serel"} (relative standard error) and \code{"seabs"} (absolute
-standard error).}
+\item{summary}{\link{character} (\emph{optional}):
+adds numerical output to the plot.  Can be one or more out of:
+\itemize{
+\item \code{"n"} (number of samples),
+\item \code{"mean"} (mean De value),
+\item \code{"weighted$mean"} (error-weighted mean),
+\item \code{"median"} (median of the De values),
+\item \code{"sd.rel"} (relative standard deviation in percent),
+\item \code{"sd.abs"} (absolute standard deviation),
+\item \code{"se.rel"} (relative standard error) and
+\item \code{"se.abs"} (absolute standard error)
+}
 
-\item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
-default): optional position coordinates or keyword (e.g. \code{"topright"})
+and all other measures returned by the function \link{calc_Statistics}.}
+
+\item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
 
-\item{legend}{\code{\link{character}} vector (optional): legend content to
-be added to the plot.}
+\item{legend}{\link{character} vector (\emph{optional}):
+legend content to be added to the plot.}
 
-\item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with
-default): optional position coordinates or keyword (e.g. \code{"topright"})
-for the legend to be plotted.}
+\item{legend.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional position coordinates or keyword (e.g. \code{"topright"}) for the
+legend to be plotted.}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
-parameters for plotting, e.g. the plot is shown in one column and one row.
-If \code{par.local = FALSE}, global parameters are inherited, i.e. parameters
-provided via \code{par()} work}
+\item{par.local}{\link{logical} (\emph{with default}):
+use local graphical parameters for plotting, e.g. the plot is shown in one
+column and one row. If \code{par.local = FALSE}, global parameters are inherited,
+i.e. parameters provided via \code{par()} work}
 
-\item{na.rm}{\code{\link{logical}}: indicating wether \code{NA} values are
+\item{na.rm}{\link{logical}: indicating wether \code{NA} values are
 removed before plotting from the input data set}
 
-\item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}.}
+\item{...}{further arguments and graphical parameters passed to \link{plot}.}
 }
 \value{
 A plot is returned.
@@ -82,19 +90,18 @@ determine the dose of a specific sample. Here, the natural signal is erased
 and a known laboratory dose administered which is treated as unknown. Then
 the De measurement is carried out and the degree of congruence between
 administered and recovered dose is a measure of the protocol's accuracy for
-this sample.\cr In the plot the normalised De is shown on the y-axis, i.e.
-obtained De/Given Dose.
+this sample.\cr
+In the plot the normalised De is shown on the y-axis, i.e. obtained De/Given Dose.
 }
 \note{
 Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.10 (2017-06-30 11:23:30)
+ 0.1.11 (2017-09-02 23:27:02)
 }
 
 \examples{
-
 
 ## read example data set and misapply them for this plot type
 data(ExampleData.DeValues, envir = environment())
@@ -159,7 +166,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.10. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2017). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -169,10 +176,10 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 369-391.
 }
 \seealso{
-\code{\link{plot}}
+\link{plot}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Michael Dietze, GFZ Potsdam (Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team}
 \keyword{dplot}

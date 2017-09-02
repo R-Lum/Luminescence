@@ -1,13 +1,15 @@
-#' Verify single grain data sets and check for invalid grains, i.e. zero-light level grains
+#' Verify single grain data sets and check for invalid grains, i.e. 
+#' zero-light level grains
 #'
-#' This function tries to identify automatically zero-light level curves (grains) from single grain data
-#' measurements. \cr
+#' This function tries to identify automatically zero-light level curves (grains) 
+#' from single grain data measurements.
 #'
-#' \bold{How does the method work?}\cr
+#' **How does the method work?**
 #'
-#' The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
-#' of the count values for each curve. Assuming that the background roughly follows a poisson
-#' distribution the absolute difference of both values should be zero or at least around zero as
+#' The function compares the expected values (\eqn{E(X)}) and the variance 
+#' (\eqn{Var(X)}) of the count values for each curve. Assuming that the 
+#' background roughly follows a poisson distribution the absolute difference 
+#' of both values should be zero or at least around zero as
 #'
 #' \deqn{E(x) = Var(x) = \lambda}
 #'
@@ -15,77 +17,90 @@
 #'
 #' \deqn{abs(E(x) - Var(x)) >= \Theta}
 #'
-#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above the threshold indicating curves
-#' comprising a signal.\cr
+#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above the 
+#' threshold indicating curves comprising a signal.
 #'
-#' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the ratio was chosen as
-#' both terms can become 0 which would result in 0 or \code{Inf}, if the ratio is calculated.
+#' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the 
+#' ratio was chosen as both terms can become 0 which would result in 0 or `Inf`, 
+#' if the ratio is calculated.
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
-#' (\bold{required}): input object. The function also accepts a list with objects of allowed type.
+#' @param object [Risoe.BINfileData-class] or [RLum.Analysis-class] (**required**): 
+#' input object. The function also accepts a list with objects of allowed type.
 #'
-#' @param threshold \code{\link{numeric}} (with default): numeric threshold value for the allowed difference between
-#' the \code{mean} and the \code{var} of the count values (see details)
+#' @param threshold [numeric] (*with default*): 
+#' numeric threshold value for the allowed difference between the `mean` and 
+#' the `var` of the count values (see details)
 #'
-#' @param cleanup \code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
-#' zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
-#' either \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
+#' @param cleanup [logical] (*with default*): 
+#' if set to `TRUE` curves indentified as zero light level curves are 
+#' automatically removed. Ouput is an object as same type as the input, i.e.
+#' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
-#' @param cleanup_level \code{\link{character}} (with default): selects the level for the cleanup
-#' of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
-#' is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
-#' curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
-#' will be only removed if all curves of this aliquot are marked as invalid.
+#' @param cleanup_level [character] (*with default*):
+#' selects the level for the cleanup of the input data sets. 
+#' Two options are allowed: `"curve"` or `"aliquot"`:
+#' 
+#' - If  `"curve"` is selected every single curve marked as `invalid` is removed. 
+#' - If `"aliquot"` is selected, curves of one aliquot (grain or disc) can be 
+#' marked as invalid, but will not be removed. An aliquot will be only removed 
+#' if all curves of this aliquot are marked as invalid.
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables the terminal feedback
+#' @param verbose [logical] (*with default*): 
+#' enables or disables the terminal feedback
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables the graphical feedback
+#' @param plot [logical] (*with default*): 
+#' enables or disables the graphical feedback
 #'
-#' @return The function returns
+#' @return 
+#' The function returns
 #'
 #' -----------------------------------\cr
-#' [ NUMERICAL OUTPUT ]\cr
+#' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' \bold{\code{RLum.Reuslts}}-object\cr
 #'
-#' \bold{slot:} \bold{\code{@data}}\cr
+#' **`RLum.Results`**-object
+#'
+#' **slot:****`@data`**
+#' 
 #' \tabular{lll}{
-#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
-#'  \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
-#'  \code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
-#'  \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
+#' **Element** \tab **Type** \tab **Description**\cr
+#'  `$unique_pairs` \tab `data.frame` \tab the unique position and grain pairs \cr
+#'  `$selection_id` \tab `numeric` \tab the selection as record ID \cr
+#'  `$selection_full` \tab `data.frame` \tab implemented models used in the baSAR-model core \cr
 #' }
 #'
-#'\bold{slot:} \bold{\code{@info}}\cr
+#' **slot:****`@info`**
 #'
-#' The original function call\cr
+#' The original function call
 #'
-#' \bold{Output variation}\cr
+#' **Output variation**
 #'
-#' For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
-#' This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
-#' object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
-#' to a BIN-file by using the function \code{\link{write_R2BIN}}.
+#' For `cleanup = TRUE` the same object as the input is returned, but cleaned up 
+#' (invalid curves were removed). This means: Either an [Risoe.BINfileData-class] 
+#' or an [RLum.Analysis-class] object is returned in such cases. 
+#' An [Risoe.BINfileData-class] object can be exported to a BIN-file by 
+#' using the function [write_R2BIN].
 #'
-#' @note This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
-#' \code{\linkS4class{RLum.Analysis}} objects (or a list of it). However, the function is highly optimised
-#' for \code{\linkS4class{Risoe.BINfileData}} objects as it make sense to remove identify invalid
-#' grains before the conversion to an \code{\linkS4class{RLum.Analysis}} object.\cr
+#' @note 
+#' This function can work with [Risoe.BINfileData-class] objects or
+#' [RLum.Analysis-class] objects (or a list of it). However, the function is 
+#' highly optimised for [Risoe.BINfileData-class] objects as it make sense to 
+#' remove identify invalid grains before the conversion to an 
+#' [RLum.Analysis-class] object.
 #'
-#' The function checking for invalid curves works rather robust and it is likely that Reg0 curves
-#' within a SAR cycle are removed as well. Therefore it is strongly recommended to use the argument
-#' \code{cleanup = TRUE} carefully.
+#' The function checking for invalid curves works rather robust and it is likely 
+#' that Reg0 curves within a SAR cycle are removed as well. Therefore it is 
+#' strongly recommended to use the argument `cleanup = TRUE` carefully.
 #'
 #' @section Function version: 0.2.0
 #'
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
-#'
-#' @references -
+#' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [write_R2BIN], 
+#' [read_BIN2R]
 #'
 #' @keywords manip datagen
 #'
@@ -118,6 +133,7 @@
 #' write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 #' }
 #'
+#' @md
 #' @export
 verify_SingleGrainData <- function(
   object,

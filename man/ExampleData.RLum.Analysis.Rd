@@ -2,26 +2,25 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.RLum.Analysis}
 \alias{ExampleData.RLum.Analysis}
-\title{Example data as \code{\linkS4class{RLum.Analysis}} objects}
+\title{Example data as \linkS4class{RLum.Analysis} objects}
 \format{\code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
 
 Each object contains data needed for the given protocol analysis.}
 \source{
-\bold{IRSAR.RF.Data}
+\strong{IRSAR.RF.Data}
 
 These data were kindly provided by Tobias Lauer and Matthias Krbetschek.
 
 \tabular{ll}{
-
-Lab: \tab Luminescence Laboratory TU Bergakademie Freiberg\cr Lab-Code: \tab
-ZEU/SA1\cr Location: \tab Zeuchfeld (Zeuchfeld Sandur;
-Saxony-Anhalt/Germany)\cr Material: \tab K-feldspar (130-200 \eqn{\mu}m)\cr
-Reference: \tab Kreutzer et al. (2014)\cr
-
+Lab: \tab Luminescence Laboratory TU Bergakademie Freiberg\cr
+Lab-Code: \tab ZEU/SA1\cr
+Location: \tab Zeuchfeld (Zeuchfeld Sandur; Saxony-Anhalt/Germany)\cr
+Material: \tab K-feldspar (130-200 \eqn{\mu}m)\cr
+Reference: \tab Kreutzer et al. (2014)
 }
 }
 \description{
-Collection of different \code{\linkS4class{RLum.Analysis}} objects for
+Collection of different \linkS4class{RLum.Analysis} objects for
 protocol analysis.
 }
 \section{Version}{
@@ -38,7 +37,7 @@ plot_RLum(IRSAR.RF.Data)
 
 }
 \references{
-\bold{IRSAR.RF.Data}
+\strong{IRSAR.RF.Data}
 
 Kreutzer, S., Lauer, T., Meszner, S., Krbetschek, M.R., Faust, D., Fuchs,
 M., 2014. Chronology of the Quaternary profile Zeuchfeld in Saxony-Anhalt /

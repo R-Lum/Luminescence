@@ -4,70 +4,84 @@
 #' heterogeneously bleached samples with a given coefficient of variation
 #' threshold.
 #'
-#' \bold{Used values} \cr If the coefficient of variation (c[v]) of the first
-#' two values is larger than the threshold c[v_threshold], the first value is
-#' skipped.  Use the \code{startDeValue} argument to define a start value for
-#' calculation (e.g. 2nd or 3rd value).\cr
+#' **Used values** 
+#' 
+#' If the coefficient of variation (`c[v]`) of the first
+#' two values is larger than the threshold `c[v_threshold]`, the first value is
+#' skipped.  Use the `startDeValue` argument to define a start value for
+#' calculation (e.g. 2nd or 3rd value).
 #'
-#' \bold{Basic steps of the approach} \cr
+#' **Basic steps of the approach**
 #'
-#' (1) Estimate natural relative variation of the sample using a dose recovery
-#' test\cr (2) Sort the input values ascendingly\cr (3) Calculate a running
-#' mean, starting with the lowermost two values and add values iteratively.\cr
-#' (4) Stop if the calculated c[v] exceeds the specified \code{cvThreshold}\cr
+#' 1. Estimate natural relative variation of the sample using a dose recovery test
+#' 2. Sort the input values ascendingly
+#' 3. Calculate a running mean, starting with the lowermost two values and add values iteratively.
+#' 4. Stop if the calculated `c[v]` exceeds the specified `cvThreshold`
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param cvThreshold \link{numeric} (with default): coefficient of variation
-#' in percent, as threshold for the method, e.g. \code{cvThreshold = 3}. See
-#' details.
-#' @param startDeValue \link{numeric} (with default): number of the first
-#' aliquot that is used for the calculations
-#' @param plot \link{logical} (with default): plot output
-#' \code{TRUE}/\code{FALSE}
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}}
-#' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
+#' 
+#' @param cvThreshold [numeric] (*with default*): 
+#' coefficient of variation in percent, as threshold for the method,
+#' e.g. `cvThreshold = 3`. See details
+#' .
+#' @param startDeValue [numeric] (*with default*): 
+#' number of the first aliquot that is used for the calculations
+#' 
+#' @param plot [logical] (*with default*): 
+#' plot output `TRUE`/`FALSE`
+#' 
+#' @param ... further arguments and graphical parameters passed to [plot]
+#' 
+#' @return 
+#' Returns a plot (*optional*) and terminal output. In addition an
+#' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-#' used arguments} \item{call}{\link{call} the function call}
-#' \item{usedDeValues}{\link{data.frame} containing the used values for the
-#' calculation}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} 
+#' \item{args}{[list] used arguments} 
+#' \item{call}{[call] the function call}
+#' \item{usedDeValues}{[data.frame] containing the used values for the calculation}
+#' 
 #' @note Please consider the requirements and the constraints of this method
 #' (see Fuchs & Lang, 2001)
+#' 
 #' @section Function version: 0.4.1
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France) Christoph Burow, University of Cologne (Germany)
-#' @seealso \code{\link{plot}}, \code{\link{calc_MinDose}},
-#' \code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}},
-#' \code{\link{calc_CommonDose}}, \code{\linkS4class{RLum.Results}}
-#' @references Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
+#' 
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' Christoph Burow, University of Cologne (Germany)
+#' 
+#' @seealso [plot], [calc_MinDose], [calc_FiniteMixture], [calc_CentralDose],
+#' [calc_CommonDose], [RLum.Results-class]
+#' 
+#' @references 
+#' Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 #' quartz using single-aliqout protocols on sediments from NE Peloponnese,
 #' Greece. In: Quaternary Science Reviews 20, 783-787.
 #'
 #' Fuchs, M. & Wagner, G.A., 2003. Recognition of insufficient bleaching by
 #' small aliquots of quartz for reconstructing soil erosion in Greece.
 #' Quaternary Science Reviews 22, 1161-1167.
+#' 
 #' @keywords dplot
+#' 
+#' 
 #' @examples
-#'
-#'
-#' ##load example data
+#' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
 #'
-#' ##calculate De according to Fuchs & Lang (2001)
+#' ## calculate De according to Fuchs & Lang (2001)
 #' temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 #'
+#' @md
 #' @export
 calc_FuchsLang2001 <- function(
   data,
-  cvThreshold=5,
-  startDeValue=1,
-  plot=TRUE,
+  cvThreshold = 5,
+  startDeValue = 1,
+  plot = TRUE,
   ...
 ){
 

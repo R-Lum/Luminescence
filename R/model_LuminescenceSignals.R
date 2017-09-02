@@ -1,30 +1,32 @@
 #' Model Luminescence Signals (wrapper)
 #'
-#' Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from the package
-#' \link[RLumModel]{RLumModel-package}. For the further details and examples please
+#' Wrapper for the function [RLumModel::model_LuminescenceSignals] from the package
+#' [RLumModel::RLumModel-package]. For the further details and examples please
 #' see the manual of this package.
 #'
 #' @inheritParams RLumModel::model_LuminescenceSignals
 #'
-#' @author Johannes Friedrich, University of Bayreuth (Germany),\cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
+#' @author 
+#' Johannes Friedrich, University of Bayreuth (Germany) \cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
 #'
 #'
 #' @section Function version: 0.1.3
 #'
+#' @md
 #' @export
-model_LuminescenceSignals <-
-  function(model,
-           sequence,
-           lab.dose_rate = 1,
-           simulate_sample_history = FALSE,
-           plot = TRUE,
-           verbose = TRUE,
-           show_structure = FALSE,
-           own_parameters = NULL,
-           own_state_parameters = NULL,
-           own_start_temperature = NULL,
-           ...) {
+model_LuminescenceSignals <- function(
+  model,
+  sequence,
+  lab.dose_rate = 1,
+  simulate_sample_history = FALSE,
+  plot = TRUE,
+  verbose = TRUE,
+  show_structure = FALSE,
+  own_parameters = NULL,
+  own_state_parameters = NULL,
+  own_start_temperature = NULL,
+  ...) {
 
     if (!requireNamespace("RLumModel", quietly = TRUE))
       stop("Simulation of luminescence signals requires the 'RLumModel' package.",

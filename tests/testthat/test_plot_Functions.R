@@ -122,6 +122,18 @@ test_that("test pure success of the plotting without warning or error", {
     grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = FALSE, MC.iter = 100)
     expect_silent(plot_RLum.Results(grains))
 
+    ##special plot RLum.Reuslts
+    data(ExampleData.DeValues, envir = environment())
+    mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
+    expect_silent(plot_RLum(mam))
+    cdm <- calc_CentralDose(ExampleData.DeValues$CA1)
+    expect_silent(plot_RLum(cdm))
+    FMM <- calc_FiniteMixture(ExampleData.DeValues$CA1,
+                             sigmab = 0.2, n.components = c(2:4),
+                             pdf.weight = TRUE, dose.scale = c(0, 100))
+    plot_RLum(FMM)
+
+
 
 
 })

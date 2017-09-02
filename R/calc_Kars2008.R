@@ -6,10 +6,9 @@
 #' This function applies the approach described in Kars et al. (2008),
 #' developed from the model of Huntley (2006) to calculate the expected sample
 #' specific fraction of saturation of a feldspar and also to calculate fading
-#' corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination
+#' corrected age using this model. \eqn{\rho}' (`rhop`), the density of recombination
 #' centres, is a crucial parameter of this model and must be determined
-#' separately from a fading measurement. The function
-#' \code{\link[Luminescence]{analyse_FadingMeasurement}}
+#' separately from a fading measurement. The function [analyse_FadingMeasurement]
 #' can be used to calculate the sample specific \eqn{\rho}' value.
 #'
 #' Firstly the unfaded D0 value is determined through applying equation 5 of
@@ -22,97 +21,150 @@
 #'
 #' \deqn{\phi(t*) = exp(-\rho' x ln(1.8 x s_tilde x t*)^3)}
 #'
-#' after King et al. (2016) where \code{A} is a pre-exponential factor,
-#' \code{t*} (s) is the irradiation time, starting at the mid-point of
-#' irradiation (Auclair et al. 2003) and \code{s_tilde} (3x10^15 s^-1) is the athermal
+#' after King et al. (2016) where `A` is a pre-exponential factor,
+#' `t*` (s) is the irradiation time, starting at the mid-point of
+#' irradiation (Auclair et al. 2003) and `s_tilde` (3x10^15 s^-1) is the athermal
 #' frequency factor after Huntley (2006). \cr
 #'
-#' Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
-#' response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
-#' [1] and [2]. Computed LxTx values are then fitted using the
-#' \code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then
+#' Using fit parameters `A` and `D0`, the function then computes a natural dose
+#' response curve using the environmental dose rate, `D_dot` (Gy/s) and equations
+#' `[1]` and `[2]`. Computed LxTx values are then fitted using the
+#' [plot_GrowthCurve] function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
-#' De value, from which the fading corrected age is calculated. \cr
+#' De value, from which the fading corrected age is calculated.
 #'
-#' The \code{calc_Kars2008} function also calculates the level of saturation (n/N)
+#' The `calc_Kars2008` function also calculates the level of saturation (n/N)
 #' and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 #' the sample under investigation using the sample specific \eqn{\rho}',
-#' unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al. (2008). \cr
+#' unfaded `D0` and `D_dot` values, following the approach of Kars et al. (2008).
 #'
 #' Uncertainties are reported at 1 sigma and are assumed to be normally
-#' distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
+#' distributed and are estimated using monte-carlo resamples (`n.MC = 1000`)
 #' of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
 #' in the derivation of (n/N) and (n/N)_SS.
 #'
 #'
+#' **Age calculated from 2\*D0 of the simulated natural DRC**
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}):
-#' A three column data frame with numeric values on a) dose (s), b) LxTx and and
-#' c) LxTx error. If a two column data frame is provided it is automatically
+#' In addition to the age calculated from the equivalent dose derived from
+#' `Ln/Tn` projected on the simulated natural dose response curve (DRC), this function
+#' also calculates an age from twice the characteristic saturation dose (`D0`)
+#' of the simulated natural DRC. This can be a useful information for
+#' (over)saturated samples (ie. no intersect of `Ln/Tn` on the natural DRC)
+#' to obtain at least a "minimum age" estimate of the sample. In the console
+#' output this value is denoted by *"Age @2D0 (ka):"*.
+#'
+#' @param data [data.frame] (**required**):
+#' A `data.frame` with one of the following structures:
+#' - A **three column** data frame with numeric values on a) dose (s), b) LxTx and and
+#' c) LxTx error.
+#' - If a **two column** data frame is provided it is automatically
 #' assumed that errors on LxTx are missing. A third column will be attached
-#' with an arbitrary 5 \% error on the provided LxTx values.\cr
-#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' with an arbitrary 5 \% error on the provided LxTx values.
+#' - Can also be a **wide table**, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the aforementioned column structure.
 #'
-#' @param rhop \code{\link{numeric}} (\bold{required}):
+#' ```
+#'                         (optional)
+#'      | dose (s)| LxTx | LxTx error |
+#'      |  [ ,1]  | [ ,2]|    [ ,3]   |
+#'      |---------|------|------------|
+#' [1, ]|  0      | LnTn | LnTn error | (optional, see arg 'LnTn')
+#' [2, ]|  R1     | L1T1 | L1T1 error |
+#'  ... |    ...  |  ... |     ...    |
+#' [x, ]|  Rx     | LxTx | LxTx error |
+#'
+#' ```
+#' **NOTE:** The function assumes the first row of the function to be the
+#' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-value consider
+#' using the argument `LnTn`.
+#'
+#' @param LnTn [data.frame] (**optional**):
+#' This argument should **only** be used to provide more than one `Ln/Tn`-value.
+#' It assumes a two column data frame with the following structure:
+#'
+#' ```
+#'      |  LnTn  |  LnTn error  |
+#'      |  [ ,1] |      [ ,2]   |
+#'      |--------|--------------|
+#' [1, ]| LnTn_1 | LnTn_1 error |
+#' [2, ]| LnTn_2 | LnTn_2 error |
+#'  ... |   ...  |      ...     |
+#' [x, ]| LnTn_x | LnTn_x error |
+#' ```
+#'
+#' The function will calculate a **mean** `Ln/Tn`-value and uses either the
+#' standard deviation or the highest individual error, whichever is larger. If
+#' another mean value (e.g. a weighted mean or median) or error is preferred,
+#' this value must be calculated beforehand and used in the first row in the
+#' data frame for argument `data`.
+#'
+#' **NOTE:** If you provide `LnTn`-values with this argument the data frame
+#' for the `data`-argument **must not** contain any `LnTn`-values!
+#'
+#' @param rhop [numeric] (**required**):
 #' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
-#' given as numeric vector of length two. Note that \eqn{\rho}' must \bold{not} be
-#' provided as the common logarithm. Example: \code{rhop = c(2.92e-06, 4.93e-07)}.
+#' given as numeric vector of length two. Note that \eqn{\rho}' must **not** be
+#' provided as the common logarithm. Example: `rhop = c(2.92e-06, 4.93e-07)`.
 #'
-#' @param ddot \code{\link{numeric}} (\bold{required}):
+#' @param ddot [numeric] (**required**):
 #' Environmental dose rate and its error, given as a numeric vector of length two.
-#' Expected unit: Gy/ka. Example: \code{ddot = c(3.7, 0.4)}.
+#' Expected unit: Gy/ka. Example: `ddot = c(3.7, 0.4)`.
 #'
-#' @param readerDdot \code{\linkS4class{RLum.Analysis}} (\bold{required}):
+#' @param readerDdot [numeric] (**required**):
 #' Dose rate of the irradiation source of the OSL reader and its error,
 #' given as a numeric vector of length two.
-#' Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.
+#' Expected unit: Gy/s. Example: `readerDdot = c(0.08, 0.01)`.
 #'
-#' @param normalise \code{\link{logical}} (with default):
-#' If \code{TRUE} (the default) all measured and computed LxTx values are
+#' @param normalise [logical] (*with default*):
+#' If `TRUE` (the default) all measured and computed LxTx values are
 #' normalised by the pre-exponential factor A (see details).
 #'
-#' @param summary \code{\link{logical}} (with default):
-#' If \code{TRUE} (the default) various parameters provided by the user
+#' @param summary [logical] (*with default*):
+#' If `TRUE` (the default) various parameters provided by the user
 #' and calculated by the model are added as text on the right-hand side of the
 #' plot.
 #'
-#' @param plot \code{\link{logical}} (with default): enables/disables plot output.
+#' @param plot [logical] (*with default*):
+#' enables/disables plot output.
 #'
-#' @param ... further arguments passed to \code{\link{plot}} and
-#' \code{\link[Luminescence]{plot_GrowthCurve}}.
+#' @param ...
+#' Further parameters:
+#' - `verbose` [logical]: Show or hide console output
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `1000`)
 #'
-#' @return An \code{\linkS4class{RLum.Results}} object is returned:
+#' All other arguments are passed to [plot] and [plot_GrowthCurve].
 #'
-#' Slot: \bold{@data}\cr
+#' @return An [RLum.Results-class] object is returned:
 #'
-#' \tabular{lll}{
-#' \bold{OBJECT} \tab \bold{TYPE} \tab \bold{COMMENT}\cr
-#' \code{results} \tab \code{data.frame} \tab results of the of Kars et al. 2008 model \cr
-#' \code{data} \tab \code{data.frame} \tab original input data \cr
-#' \code{Ln} \tab \code{numeric} \tab Ln and its error \cr
-#' \code{LxTx_tables} \tab \code{list} \tab A \code{list} of \code{data.frames}
-#' containing data on dose, LxTx and LxTx error for each of the dose response curves.
-#' Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
-#' \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
-#'  objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
-#' }
-#'
-#' Slot: \bold{@info}\cr
+#' Slot: **@data**\cr
 #'
 #' \tabular{lll}{
-#' \bold{OBJECT} \tab \bold{TYPE} \tab \bold{COMMENT} \cr
-#' \code{call} \tab \code{call} \tab the original function call \cr
-#' \code{args} \tab \code{list} \tab arguments of the original function call \cr
-#'
+#' **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
+#' `results` \tab [data.frame] \tab results of the of Kars et al. 2008 model \cr
+#' `data` \tab [data.frame] \tab original input data \cr
+#' `Ln` \tab [numeric] \tab Ln and its error \cr
+#' `LxTx_tables` \tab `list` \tab A `list` of `data.frames` containing data on dose,
+#'  LxTx and LxTx error for each of the dose response curves.
+#'  Note that these **do not** contain the natural Ln signal, which is provided separately. \cr
+#' `fits` \tab `list` \tab A `list` of `nls` objects produced by [minpack.lm::nlsLM] when fitting the dose response curves \cr
 #' }
 #'
-#' @section Function version: 0.1.0
+#' Slot: **@info**\cr
 #'
-#' @author Georgina King, University of Cologne (Germany), \cr
+#' \tabular{lll}{
+#' **OBJECT** \tab **TYPE** \tab **COMMENT** \cr
+#' `call` \tab `call` \tab the original function call \cr
+#' `args` \tab `list` \tab arguments of the original function call \cr
+#' }
+#'
+#' @section Function version: 0.2.0
+#'
+#' @author
+#' Georgina King, University of Cologne (Germany)\cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @note \bold{This function has BETA status and should not be used for publication work!}
+#' @note **This function has BETA status and should not be used for publication work!**
 #'
 #' @keywords datagen
 #'
@@ -128,7 +180,7 @@
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
 #'
 #'
-#' \bold{Further reading}
+#' **Further reading**
 #'
 #' Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An attempt to correct
 #' for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
@@ -159,10 +211,28 @@
 #'                       rhop = rhop,
 #'                       ddot = ddot,
 #'                       readerDdot = readerDdot,
-#'                       n.MC = 50
-#'                       )
+#'                       n.MC = 50)
+#'
+#'
+#' # You can also provide LnTn values separately via the 'LnTn' argument.
+#' # Note, however, that the data frame for 'data' must then NOT contain
+#' # a LnTn value. See argument descriptions!
+#' LnTn <- data.frame(LnTn = c(1.84833, 2.24833),
+#'                    LnTn.error = c(0.17, 0.22))
+#'
+#' LxTx <- data[2:nrow(data), ]
+#'
+#' kars <- calc_Kars2008(data = LxTx,
+#'                       LnTn = LnTn,
+#'                       rhop = rhop,
+#'                       ddot = ddot,
+#'                       readerDdot = readerDdot,
+#'                       n.MC = 50)
+#'
+#' @md
 #' @export
 calc_Kars2008 <- function(data,
+                          LnTn = NULL,
                           rhop,
                           ddot,
                           readerDdot,
@@ -185,24 +255,50 @@ calc_Kars2008 <- function(data,
       data[ ,3] <- data[ ,2] * 0.05
     }
 
+    # Check if 'LnTn' is used and overwrite 'data'
+    if (!is.null(LnTn)) {
+
+      if (!is.data.frame(LnTn))
+        stop("Value for 'LnTn' must be a data frame!", call. = FALSE)
+      if (ncol(LnTn) != 2)
+        stop("Data frame for 'LnTn' must have two columns!", call. = FALSE)
+      if (ncol(data) > 3)
+        stop("Argument 'LnTn' requires the data frame 'data' to have 2 or 3 columns only!", call. = FALSE)
+
+      # case 1: only one LnTn value
+      if (nrow(LnTn) == 1) {
+        LnTn <- setNames(cbind(0, LnTn), names(data))
+        data <- rbind(LnTn, data)
+
+        # case 2: >1 LnTn value
+      } else {
+        LnTn_mean <- mean(LnTn[ ,1])
+        LnTn_sd <- sd(LnTn[ ,1])
+        LnTn_error <- max(LnTn_sd, LnTn[ ,2])
+        LnTn <- setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
+        data <- rbind(LnTn, data)
+      }
+
+    }
+
     # check number of columns
     if (ncol(data) %% 3 != 0) {
-      stop("[calc_Kars2008] the number of columns in 'data' must be a multiple of 3.", 
+      stop("[calc_Kars2008] the number of columns in 'data' must be a multiple of 3.",
            call. = FALSE)
     } else {
       # extract all LxTx values
-      data_tmp <- do.call(rbind, 
-                        lapply(seq(1, ncol(data), 3), function(col) {
-                          setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
-                        })
-      )
-      # extract the LnTn values (assumed to be the first row) and calculate the column mean
-      LnTn_tmp <- do.call(rbind, 
+      data_tmp <- do.call(rbind,
                           lapply(seq(1, ncol(data), 3), function(col) {
-                            setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                            setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError"))
                           })
       )
-      
+      # extract the LnTn values (assumed to be the first row) and calculate the column mean
+      LnTn_tmp <- do.call(rbind,
+                          lapply(seq(1, ncol(data), 3), function(col) {
+                            setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError"))
+                          })
+      )
+
       # check whether the standard deviation of LnTn estimates or the largest
       # individual error is highest, and take the larger one
       LnTn_error_tmp <- max(c(sd(LnTn_tmp[ ,2]), mean(LnTn_tmp[ ,3])), na.rm = TRUE)
@@ -213,8 +309,8 @@ calc_Kars2008 <- function(data,
       data[1, 3] <- LnTn_error_tmp
       data <- data[complete.cases(data), ]
     }
-    
-    
+
+
   } else {
     stop("\n[calc_Kars2008] 'data' must be a data frame.",
          call. = FALSE)
@@ -295,7 +391,7 @@ calc_Kars2008 <- function(data,
 
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
-  
+
   GC.settings <- list(sample = data.tmp,
                       mode = "interpolation",
                       fit.method = "EXP",
@@ -303,12 +399,12 @@ calc_Kars2008 <- function(data,
                       main = "Measured dose response curve",
                       xlab = "Dose (Gy)",
                       verbose = FALSE)
-  
+
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$verbose <- FALSE
 
   GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
-  
+
   if (inherits(GC.measured, "try-error"))
     stop("\n[calc_Kars2008()] Unable to fit growth curve to data", call. = FALSE)
 
@@ -334,7 +430,7 @@ calc_Kars2008 <- function(data,
   #
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
     fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
-                     start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
+                                     start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
     else
@@ -343,23 +439,16 @@ calc_Kars2008 <- function(data,
   }, simplify = FALSE))
 
   # final fit for export
-  fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
-                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
+  # fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
+  #                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
 
   # scaling factor
   A <- mean(fitcoef[, 1], na.rm = TRUE)
   A.error <- sd(fitcoef[ ,1], na.rm = TRUE)
 
-  # derive unfaded D0
-  D0.sim <- mean(fitcoef[ ,2], na.rm = TRUE)
-  D0.sim.error <- sd(fitcoef[ ,2], na.rm = TRUE)
-  D0.sim.Gy <- D0.sim * readerDdot
-  D0.sim.Gy.error <- D0.sim.Gy * sqrt( (D0.sim.error / D0.sim)^2 + (readerDdot.error / readerDdot)^2)
-
-
   # calculate measured fraction of saturation
   nN <- Ln / A
-  nN.error <- sqrt( (Ln.error / Ln)^2 + (A.error / A)^2)
+  nN.error <- nN * sqrt( (Ln.error / Ln)^2 + (A.error / A)^2)
 
   # compute a natural dose response curve following the assumptions of
   # Morthekai et al. 2011, Geochronometria
@@ -373,7 +462,7 @@ calc_Kars2008 <- function(data,
   LxTx.sim <- A * theta(natdosetime, rhop[1]) * (1 - exp(-natdosetime / mean(computedD0, na.rm = TRUE)))
 
   # calculate Age
-  if (Ln < max(LxTx.sim)) {
+
 
     positive <- which(diff(LxTx.sim) > 0)
 
@@ -390,31 +479,39 @@ calc_Kars2008 <- function(data,
                         verbose = FALSE,
                         main = "Simulated dose response curve",
                         xlab = "Dose (Gy)")
-    
+
     GC.settings <- modifyList(GC.settings, list(...))
     GC.settings$verbose <- FALSE
-    
+
     suppressWarnings(
-      GC.unfaded <- try(do.call(plot_GrowthCurve, GC.settings))
+      GC.simulated <- try(do.call(plot_GrowthCurve, GC.settings))
     )
 
-    if (!inherits(GC.unfaded, "try-error")) {
-      GC.unfaded.results <- get_RLum(GC.unfaded)
-      De.sim <- GC.unfaded.results$De
-      De.error.sim <- GC.unfaded.results$De.Error
+    if (!inherits(GC.simulated, "try-error")) {
+      GC.simulated.results <- get_RLum(GC.simulated)
+      fit_simulated <- get_RLum(GC.simulated, "Fit")
+      De.sim <- GC.simulated.results$De
+      De.error.sim <- GC.simulated.results$De.Error
+
+      # derive simulated D0
+      D0.sim.Gy <- GC.simulated.results$D01
+      D0.sim.Gy.error <- GC.simulated.results$D01.ERROR
+
       Age.sim <- De.sim / ddot
       Age.sim.error <- Age.sim * sqrt( ( De.error.sim/ De.sim)^2 +
                                          (readerDdot.error / readerDdot)^2 +
                                          (ddot.error / ddot)^2)
 
+      Age.sim.2D0 <- 2 * D0.sim.Gy / ddot
+      Age.sim.2D0.error <- Age.sim.2D0 * sqrt( ( D0.sim.Gy.error / D0.sim.Gy)^2 +
+                                                 (readerDdot.error / readerDdot)^2 +
+                                                 (ddot.error / ddot)^2)
 
     } else {
-      De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- NA
+      De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- fit_simulated <- D0.sim.Gy <- D0.sim.Gy.error <-  NA
+      Age.sim.2D0 <- Age.sim.2D0.error <- NA
     }
 
-  } else {
-    De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- NA
-  }
 
   if (Ln > max(LxTx.sim) * 1.1)
     warning("[calc_Kars2008] Ln is >10 % larger than the maximum computed LxTx value.",
@@ -439,8 +536,14 @@ calc_Kars2008 <- function(data,
 
   }, rhop_MC, ddot_MC, UFD0_MC, SIMPLIFY = TRUE)
 
-  nN_SS <- mean(nN_SS_MC, na.rm = TRUE)
-  nN_SS.error <- sd(nN_SS_MC, na.rm = TRUE)
+  nN_SS <- exp(mean(log(nN_SS_MC), na.rm = TRUE))
+  nN_SS.error <- nN_SS * abs(sd(log(nN_SS_MC), na.rm = TRUE) / mean(log(nN_SS_MC), na.rm = TRUE))
+
+  ## legacy code for debugging purposes
+  ## nN_SS is often lognormally distributed, so we now take the mean and sd
+  ## of the log values.
+  # warning(mean(nN_SS_MC, na.rm = TRUE))
+  # warning(sd(nN_SS_MC, na.rm = TRUE))
 
   ## (3) UNFADED ---------------------------------------------------------------
   LxTx.unfaded <- LxTx.measured / theta(dosetime, rhop[1])
@@ -448,7 +551,7 @@ calc_Kars2008 <- function(data,
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
   fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
-                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
+                                   start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
 
@@ -505,10 +608,10 @@ calc_Kars2008 <- function(data,
       par(oma = c(0, 3, 0, 9))
     else
       par(oma = c(0, 9, 0, 9))
-    
+
     # Find a good estimate of the x-axis limits
     xlim <- range(pretty(dosetimeGray))
-    if (De.sim > xlim[2])
+    if (!is.na(De.sim) & De.sim > xlim[2])
       xlim <- range(pretty(c(min(dosetimeGray), De.sim)))
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
@@ -586,6 +689,10 @@ calc_Kars2008 <- function(data,
       points(x = De.sim,
              y = Ln,
              col = "red" , pch = 16)
+    } else {
+      lines(x = c(De.measured, xlim[2]),
+            y = c(Ln, Ln),
+            col = "black", lty = 3)
     }
 
     # add unfaded DRC
@@ -663,6 +770,8 @@ calc_Kars2008 <- function(data,
                            "Sim_D0.error" = D0.sim.Gy.error,
                            "Sim_Age" = Age.sim,
                            "Sim_Age.error" = Age.sim.error,
+                           "Sim_Age_2D0" = Age.sim.2D0,
+                           "Sim_Age_2D0.error" = Age.sim.2D0.error,
                            "Unfaded_D0" = D0.unfaded,
                            "Unfaded_D0.error" = D0.error.unfaded,
                            row.names = NULL),
@@ -680,7 +789,7 @@ calc_Kars2008 <- function(data,
     ),
     info = list(call = sys.call(),
                 args = as.list(sys.call())[-1])
-)
+  )
 
   ## Console output ------------------------------------------------------------
   if (settings$verbose) {
@@ -702,6 +811,10 @@ calc_Kars2008 <- function(data,
     cat("\n Age [ka]:\t",
         round(results@data$results$Meas_Age, 2), "\u00b1",
         round(results@data$results$Meas_Age.error, 2))
+    cat("\n\n ---------- Un-faded -----------")
+    cat("\n D0 [Gy]:\t",
+        round(results@data$results$Unfaded_D0, 2), "\u00b1",
+        round(results@data$results$Unfaded_D0.error, 2))
     cat("\n\n ---------- Simulated ----------")
     cat("\n DE [Gy]:\t",
         round(results@data$results$Sim_De, 2), "\u00b1",
@@ -712,10 +825,9 @@ calc_Kars2008 <- function(data,
     cat("\n Age [ka]:\t",
         round(results@data$results$Sim_Age, 2), "\u00b1",
         round(results@data$results$Sim_Age.error, 2))
-    cat("\n\n ---------- Un-faded -----------")
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Unfaded_D0, 2), "\u00b1",
-        round(results@data$results$Unfaded_D0.error, 2))
+    cat("\n Age @2D0 [ka]:\t",
+        round(results@data$results$Sim_Age_2D0, 2), "\u00b1",
+        round(results@data$results$Sim_Age_2D0.error, 2))
     cat("\n -------------------------------\n\n")
 
   }

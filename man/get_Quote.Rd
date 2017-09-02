@@ -7,11 +7,11 @@
 get_Quote(ID, author, separated = FALSE)
 }
 \arguments{
-\item{ID}{\code{\link{character}}, qoute ID to be returned.}
+\item{ID}{\link{character} (\emph{optional}): qoute ID to be returned.}
 
-\item{author}{\code{\link{character}}, all quotes by specified author.}
+\item{author}{\link{character} (\emph{optional}): all quotes by specified author.}
 
-\item{separated}{\code{\link{logical}}, return result in separated form.}
+\item{separated}{\link{logical} (\emph{with default}): return result in separated form.}
 }
 \value{
 Returns a character with quote and respective (false) author.
@@ -22,7 +22,7 @@ growing library. If called without any parameters, a random quote is
 returned.
 }
 \section{Function version}{
- 0.1.1 (2017-06-30 11:23:30)
+ 0.1.1 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -36,6 +36,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M. (2017). get_Quote(): Function to return essential quotes. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2017). get_Quote(): Function to return essential quotes. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

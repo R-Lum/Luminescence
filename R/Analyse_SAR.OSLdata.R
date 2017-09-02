@@ -6,101 +6,106 @@
 #'
 #' The function works only for standard SAR protocol measurements introduced by
 #' Murray and Wintle (2000) with CW-OSL curves. For the calculation of the
-#' Lx/Tx value the function \link{calc_OSLLxTxRatio} is used. \cr\cr
+#' Lx/Tx value the function [calc_OSLLxTxRatio] is used.
 #'
-#' \bold{Provided rejection criteria}\cr\cr \sQuote{recyling ratio}: calculated
-#' for every repeated regeneration dose point.\cr \sQuote{recuperation}:
-#' recuperation rate calculated by comparing the Lx/Tx values of the zero
+#' **Provided rejection criteria**
+#' 
+#' `[recyling ratio]`: calculated for every repeated regeneration dose point.
+#' 
+#' `[recuperation]`: recuperation rate calculated by comparing the Lx/Tx values of the zero
 #' regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
-#' signal). For methodological background see Aitken and Smith (1988)\cr
+#' signal). For methodological background see Aitken and Smith (1988)
 #'
-#' \sQuote{IRSL/BOSL}: the integrated counts (\code{signal.integral}) of an
+#' `[IRSL/BOSL]`: the integrated counts (`signal.integral`) of an
 #' IRSL curve are compared to the integrated counts of the first regenerated
 #' dose point. It is assumed that IRSL curves got the same dose as the first
-#' regenerated dose point. \strong{Note:} This is not the IR depletation ratio
+#' regenerated dose point. **Note:** This is not the IR depletation ratio
 #' described by Duller (2003).
 #'
-#' @param input.data \link{Risoe.BINfileData-class} (\bold{required}): input
-#' data from a Risoe BIN file, produced by the function \link{read_BIN2R}.
+#' @param input.data [Risoe.BINfileData-class] (**required**): 
+#' input data from a Risoe BIN file, produced by the function [read_BIN2R].
 #'
-#' @param signal.integral \link{vector} (\bold{required}): channels used for
-#' the signal integral, e.g. \code{signal.integral=c(1:2)}
+#' @param signal.integral [vector] (**required**): 
+#' channels used for the signal integral, e.g. `signal.integral=c(1:2)`
 #'
-#' @param background.integral \link{vector} (\bold{required}): channels used
-#' for the background integral, e.g. \code{background.integral=c(85:100)}
+#' @param background.integral [vector] (**required**): 
+#' channels used for the background integral, e.g. `background.integral=c(85:100)`
 #'
-#' @param position \link{vector} (optional): reader positions that want to be
-#' analysed (e.g. \code{position=c(1:48)}. Empty positions are automatically
-#' omitted. If no value is given all positions are analysed by default.
+#' @param position [vector] (*optional*): 
+#' reader positions that want to be analysed (e.g. `position=c(1:48)`. 
+#' Empty positions are automatically omitted. If no value is given all 
+#' positions are analysed by default.
 #'
-#' @param run \link{vector} (optional): range of runs used for the analysis. If
-#' no value is given the range of the runs in the sequence is deduced from the
-#' Risoe.BINfileData object.
+#' @param run [vector] (*optional*): 
+#' range of runs used for the analysis. If no value is given the range of the 
+#' runs in the sequence is deduced from the `Risoe.BINfileData` object.
 #'
-#' @param set \link{vector} (optional): range of sets used for the analysis. If
-#' no value is given the range of the sets in the sequence is deduced from the
-#' \code{Risoe.BINfileData} object.
+#' @param set [vector] (*optional*): 
+#' range of sets used for the analysis. If no value is given the range of the 
+#' sets in the sequence is deduced from the `Risoe.BINfileData` object.
 #'
-#' @param dtype \code{\link{character}} (optional): allows to further limit the
-#' curves by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural",
-#' "Dose")} limits the curves to this two data types. By default all values are
-#' allowed. See \link{Risoe.BINfileData-class} for allowed data types.
+#' @param dtype [character] (*optional*): 
+#' allows to further limit the curves by their data type (`DTYPE`), 
+#' e.g., `dtype = c("Natural", "Dose")` limits the curves to this two data types. 
+#' By default all values are allowed. 
+#' See [Risoe.BINfileData-class] for allowed data types.
 #'
-#' @param keep.SEL \code{\link{logical}} (default): option allowing to use the
-#' \code{SEL} element of the \link{Risoe.BINfileData-class} manually. NOTE: In
-#' this case any limitation provided by \code{run}, \code{set} and \code{dtype}
+#' @param keep.SEL [logical] (default): 
+#' option allowing to use the `SEL` element of the [Risoe.BINfileData-class] manually. 
+#' **NOTE:** In this case any limitation provided by `run`, `set` and `dtype`
 #' are ignored!
 #'
-#' @param info.measurement \link{character} (with default): option to provide
-#' information about the measurement on the plot output (e.g. name of the BIN
-#' or BINX file).
+#' @param info.measurement [character] (*with default*): 
+#' option to provide information about the measurement on the plot 
+#' output (e.g. name of the BIN or BINX file).
 #'
-#' @param output.plot \link{logical} (with default): plot output
-#' (\code{TRUE/FALSE})
+#' @param output.plot [logical] (*with default*): 
+#' plot output (`TRUE/FALSE`)
 #'
-#' @param output.plot.single \link{logical} (with default): single plot output
-#' (\code{TRUE/FALSE}) to allow for plotting the results in single plot
-#' windows. Requires \code{output.plot = TRUE}.
+#' @param output.plot.single [logical] (*with default*): 
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in 
+#' single plot windows. Requires `output.plot = TRUE`.
 #'
-#' @param cex.global \link{numeric} (with default): global scaling factor.
+#' @param cex.global [numeric] (*with default*): 
+#' global scaling factor.
 #'
-#' @param \dots further arguments that will be passed to the function
-#' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution}, \code{sigmab},
-#' \code{sig0}; e.g., for instrumental error)
-#' and can be used to adjust the plot. Supported" \code{mtext}, \code{log}
+#' @param ... further arguments that will be passed to the function
+#' [calc_OSLLxTxRatio] (supported: `background.count.distribution`, `sigmab`,
+#' `sig0`; e.g., for instrumental error) and can be used to adjust the plot. 
+#' Supported" `mtext`, `log`
 #'
-#' @return A plot (optional) and \link{list} is returned containing the
-#' following elements: \item{LnLxTnTx}{\link{data.frame} of all calculated
-#' Lx/Tx values including signal, background counts and the dose points.}
-#' \item{RejectionCriteria}{\link{data.frame} with values that might by used as
-#' rejection criteria. NA is produced if no R0 dose point exists.}
-#' \item{SARParameters}{\link{data.frame} of additional measurement parameters
-#' obtained from the BIN file, e.g. preheat or read temperature (not valid for
-#' all types of measurements).}
+#' @return 
+#' A plot (*optional*) and [list] is returned containing the
+#' following elements: 
+#' 
+#' \item{LnLxTnTx}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points.}
+#' \item{RejectionCriteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+#' \item{SARParameters}{[data.frame] of additional measurement parameters obtained from the BIN file, e.g. preheat or read temperature 
+#' (not valid for all types of measurements).}
 #'
 #'
-#' @note Rejection criteria are calculated but not considered during the
-#' analysis to discard values.\cr\cr
+#' @note 
+#' Rejection criteria are calculated but not considered during the
+#' analysis to discard values.
 #'
-#' \bold{The analysis of IRSL data is not directly supported}. You may want to
-#' consider using the functions \code{\link{analyse_SAR.CWOSL}} or
-#' \code{\link{analyse_pIRIRSequence}} instead.\cr
+#' **The analysis of IRSL data is not directly supported**. You may want to
+#' consider using the functions [analyse_SAR.CWOSL] or
+#' [analyse_pIRIRSequence] instead.
 #'
-#' \bold{The development of this function will not be continued. We recommend
-#' to use the function \link{analyse_SAR.CWOSL} or instead.}
+#' **The development of this function will not be continued. We recommend to use the function [analyse_SAR.CWOSL] or instead.**
 #'
 #'
 #' @section Function version: 0.2.17
 #'
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Margret C. Fuchs, HZDR, Freiberg (Germany)
-#' @seealso \link{calc_OSLLxTxRatio}, \link{Risoe.BINfileData-class},
-#' \link{read_BIN2R}
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Margret C. Fuchs, HZDR, Freiberg (Germany)
+#' 
+#' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [plot_GrowthCurve]
 #'
-#' and for further analysis \link{plot_GrowthCurve}
-#'
-#' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
+#' @references 
+#' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
 #'
 #' Duller, G., 2003. Distinguishing quartz and feldspar in single grain
@@ -109,11 +114,10 @@
 #' Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #' 32, 57-73.
+#' 
 #' @keywords datagen dplot
 #'
 #' @examples
-#'
-#'
 #' ##load data
 #' data(ExampleData.BINfileData, envir = environment())
 #'
@@ -130,6 +134,7 @@
 #'                          LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error)
 #' output.SAR
 #'
+#' @md
 #' @export
 Analyse_SAR.OSLdata <- function(
   input.data,

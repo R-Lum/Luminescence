@@ -1,71 +1,78 @@
-#' Plot function for an \code{RLum.Data.Image} S4 class object
+#' Plot function for an `RLum.Data.Image` S4 class object
 #'
 #' The function provides a standardised plot output for image data of an
-#' \code{RLum.Data.Image}S4 class object, mainly using the plot functions
-#' provided by the \code{\link{raster}} package.
+#' `RLum.Data.Image`S4 class object, mainly using the plot functions
+#' provided by the [raster] package.
 #'
-#' \bold{Details on the plot functions} \cr
+#' **Details on the plot functions**
 #'
 #' Image is visualised as 2D plot usinng generic plot types provided by other
 #' packages.
 #'
-#' Supported plot types: \cr
+#' Supported plot types:
 #'
-#' \bold{\code{plot.type = "plot.raster"}}\cr
+#' **`plot.type = "plot.raster"`**
 #'
 #' Uses the standard plot function for raster data from the package
-#' \code{\link[raster]{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
+#' [raster::raster]: [raster::plot]. For each raster layer in a
 #' raster brick one plot is produced.
 #'
-#' Arguments that are passed through the function call:\cr
+#' Arguments that are passed through the function call:
 #'
-#' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
-#' \code{col}
+#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
+#' `col`
 #'
-#' \bold{\code{plot.type = "plotRGB"}}\cr
+#' **`plot.type = "plotRGB"`**
 #'
-#' Uses the function \code{\link[raster]{plotRGB}} from the
-#' \code{\link[raster]{raster}} package. Only one image plot is produced as all layers
+#' Uses the function [raster::plotRGB] from the
+#' [raster::raster] package. Only one image plot is produced as all layers
 #' in a brick a combined.  This plot type is useful to see whether any signal
-#' is recorded by the camera.\cr Arguments that are passed through the function
-#' call:\cr
+#' is recorded by the camera.\cr 
+#' Arguments that are passed through the function call:
 #'
-#' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext},
-#' \code{interpolate}, \code{maxpixels}, \code{alpha}, \code{colNA},
-#' \code{stretch}\cr
+#' `main`,`axes`, `xlab`, `ylab`, `ext`, `interpolate`, `maxpixels`, 
+#' `alpha`, `colNA`, `stretch`
 #'
-#' \bold{\code{plot.type = "contour"}}\cr
+#' **`plot.type = "contour"`**
 #'
-#' Uses the function contour plot function from the \code{\link{raster}}
-#' function (\code{\link[raster]{contour}}). For each raster layer one contour
+#' Uses the function contour plot function from the [raster]
+#' function ([raster::contour]). For each raster layer one contour
 #' plot is produced. Arguments that are passed through the function call:\cr
 #'
-#' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
-#' \code{col}
+#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
+#' `col`
 #'
-#' @param object \code{\linkS4class{RLum.Data.Image}} (\bold{required}): S4
-#' object of class \code{RLum.Data.Image}
-#' @param par.local \code{\link{logical}} (with default): use local graphical
+#' @param object [RLum.Data.Image-class] (**required**): S4
+#' object of class `RLum.Data.Image`
+#' 
+#' @param par.local [logical] (*with default*): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If \code{par.local = FALSE} global parameters are inherited.
-#' @param plot.type \code{\link{character}} (with default): plot types.
-#' Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}
-#' @param \dots further arguments and graphical parameters that will be passed
+#' If `par.local = FALSE` global parameters are inherited.
+#' 
+#' @param plot.type [character] (*with default*): plot types.
+#' Supported types are `plot.raster`, `plotRGB` or `contour`
+#' 
+#' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions.
+#' 
 #' @return Returns a plot.
-#' @note This function has been created to faciliate the plotting of image data
-#' imported by the function \code{\link{read_SPE2R}}. However, so far the
+#' 
+#' @note 
+#' This function has been created to faciliate the plotting of image data
+#' imported by the function [read_SPE2R]. However, so far the
 #' function is not optimized to handle image data > ca. 200 MByte and thus
 #' plotting of such data is extremely slow.
+#' 
 #' @section Function version: 0.1
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
-#' @seealso \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link[raster]{raster}},
-#' @references -
+#' 
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
+#' @seealso [RLum.Data.Image-class], [plot], [plot_RLum], [raster::raster]
+#' 
 #' @keywords aplot
+#' 
 #' @examples
-#'
 #'
 #' ##load data
 #' data(ExampleData.RLum.Data.Image, envir = environment())
@@ -73,6 +80,7 @@
 #' ##plot data
 #' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 #'
+#' @md
 #' @export
 plot_RLum.Data.Image <- function(
   object,

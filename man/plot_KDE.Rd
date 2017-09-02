@@ -9,52 +9,52 @@ plot_KDE(data, na.rm = TRUE, values.cumulative = TRUE, order = TRUE,
   summary.method = "MCM", bw = "nrd0", output = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-object (required): for \code{data.frame}: two columns: De
-(\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
-data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
-dataset2)}).}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+for \code{data.frame}: two columns: De (\code{values[,1]}) and De error (\code{values[,2]}).
+For plotting multiple data sets, these must be provided as
+\code{list} (e.g. \code{list(dataset1, dataset2)}).}
 
-\item{na.rm}{\code{\link{logical}} (with default): exclude NA values
-from the data set prior to any further operation.}
+\item{na.rm}{\link{logical} (\emph{with default}):
+exclude NA values from the data set prior to any further operation.}
 
-\item{values.cumulative}{\code{\link{logical}} (with default): show
-cumulative individual data.}
+\item{values.cumulative}{\link{logical} (\emph{with default}):
+show cumulative individual data.}
 
-\item{order}{\code{\link{logical}}: Order data in ascending order.}
+\item{order}{\link{logical}:
+Order data in ascending order.}
 
-\item{boxplot}{\code{\link{logical}} (with default): optionally show a
-boxplot (depicting median as thick central line, first and third quartile
-as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
-further outliers).}
+\item{boxplot}{\link{logical} (\emph{with default}):
+optionally show a boxplot (depicting median as thick central line,
+first and third quartile as box limits, whiskers denoting +/- 1.5
+interquartile ranges and dots further outliers).}
 
-\item{rug}{\code{\link{logical}} (with default): optionally add rug.}
+\item{rug}{\link{logical} (\emph{with default}):
+optionally add rug.}
 
-\item{summary}{\code{\link{character}} (optional): add statistic measures of
-centrality and dispersion to the plot. Can be one or more of several
-keywords. See details for available keywords.}
+\item{summary}{\link{character} (\emph{optional}):
+add statistic measures of centrality and dispersion to the plot. Can be one
+or more of several keywords. See details for available keywords.}
 
-\item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
-default): optional position coordinates or keyword (e.g. \code{"topright"})
+\item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used. In case of coordinate
 specification, y-coordinate refers to the right y-axis.}
 
-\item{summary.method}{\code{\link{character}} (with default): keyword
-indicating the method used to calculate the statistic summary. One out of
-\code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
-\code{\link{calc_Statistics}} for details.}
+\item{summary.method}{\link{character} (\emph{with default}):
+keyword indicating the method used to calculate the statistic summary.
+One out of \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}.
+See \link{calc_Statistics} for details.}
 
-\item{bw}{\code{\link{character}} (with default): bin-width, chose a numeric
-value for manual setting.}
+\item{bw}{\link{character} (\emph{with default}):
+bin-width, chose a numeric value for manual setting.}
 
-\item{output}{\code{\link{logical}}: Optional output of numerical plot
-parameters. These can be useful to reproduce similar plots. Default is
-\code{TRUE}.}
+\item{output}{\link{logical}:
+Optional output of numerical plot parameters. These can be useful to
+reproduce similar plots. Default is \code{TRUE}.}
 
-\item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}.}
+\item{...}{further arguments and graphical parameters passed to \link{plot}.}
 }
 \description{
 Plot a kernel density estimate of measurement values in combination with the
@@ -71,7 +71,8 @@ separate plots, \code{ylim} must be specified in the order: c(ymin_axis1,
 ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
 option. See examples for some further explanations. For details on the
 calculation of the bin-width (parameter \code{bw}) see
-\code{\link{density}}.\cr\cr
+\link{density}.
+
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
 one or more of the following keywords:
@@ -87,22 +88,24 @@ one or more of the following keywords:
 \item \code{"kurtosis"} (kurtosis)
 \item \code{"skewness"} (skewness)
 }
-Note that the input data for the statistic summary is sent to the function
+
+\strong{Note} that the input data for the statistic summary is sent to the function
 \code{calc_Statistics()} depending on the log-option for the z-scale. If
 \code{"log.z = TRUE"}, the summary is based on the logarithms of the input
-data. If \code{"log.z = FALSE"} the linearly scaled data is used. \cr
-Note as well, that \code{"calc_Statistics()"} calculates these statistic
+data. If \code{"log.z = FALSE"} the linearly scaled data is used.
+
+\strong{Note} as well, that \code{"calc_Statistics()"} calculates these statistic
 measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
-with the appropriate keyword using the argument \code{summary.method}.\cr\cr
+with the appropriate keyword using the argument \code{summary.method}.
 }
 \note{
 The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.5 (2017-06-30 11:23:30)
+ 3.5.5 (2017-09-02 23:27:03)
 }
 
 \examples{
@@ -161,14 +164,14 @@ output = TRUE)
 
 }
 \seealso{
-\code{\link{density}}, \code{\link{plot}}
+\link{density}, \link{plot}
 }
 \author{
-Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne
+Michael Dietze, GFZ Potsdam (Germany)\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2017). plot_KDE(): Plot kernel density estimate with statistics. Function version 3.5.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2017). plot_KDE(): Plot kernel density estimate with statistics. Function version 3.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

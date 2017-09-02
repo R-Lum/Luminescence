@@ -1,46 +1,48 @@
 #' Import PSL files to R
 #' 
-#' Imports PSL files produced by a SUERC portable OSL reader into R \bold{(BETA)}.
+#' Imports PSL files produced by a SUERC portable OSL reader into R **(BETA)**.
 #'
-#' This function provides an import routine for the SUERC portable OSL Reader PSL format.
-#' PSL files are just plain text and can be viewed with any text editor. Due to the 
-#' formatting of PSL files this import function relies heavily on regular expression to find and 
-#' extract all relevant information. See \bold{note}.
+#' This function provides an import routine for the SUERC portable OSL Reader PSL 
+#' format. PSL files are just plain text and can be viewed with any text editor. 
+#' Due to the formatting of PSL files this import function relies heavily on 
+#' regular expression to find and extract all relevant information. See **note**.
 #'
-#' @param file \code{\link{character}} (\bold{required}): path and file name of the
-#' PSL file. If input is a \code{vector} it should comprise only \code{character}s representing
-#' valid paths and PSL file names.
+#' @param file [character] (**required**): 
+#' path and file name of the PSL file. If input is a `vector` it should comprise 
+#' only `character`s representing valid paths and PSL file names.
 #' Alternatively the input character can be just a directory (path). In this case the
 #' the function tries to detect and import all PSL files found in the directory.
 #'
-#' @param drop_bg \code{\link{logical}} (with default): \code{TRUE} to automatically 
-#' remove all non-OSL/IRSL curves.
+#' @param drop_bg [logical] (*with default*): 
+#' `TRUE` to automatically remove all non-OSL/IRSL curves.
 #'
-#' @param as_decay_curve  \code{\link{logical}} (with default): Portable OSL Reader curves
-#' are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
-#' the curves to the more usual decay form.
+#' @param as_decay_curve  [logical] (*with default*): 
+#' Portable OSL Reader curves are often given as cumulative light sum curves. 
+#' Use `TRUE` (default) to convert the curves to the more usual decay form.
 #' 
-#' @param smooth \code{\link{logical}} (with default): \code{TRUE} to apply 
-#' Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
-#' encouraged if you see random signal drops within the decay curves related 
+#' @param smooth [logical] (*with default*): 
+#' `TRUE` to apply Tukey's Running Median Smoothing for OSL and IRSL decay curves. 
+#' Smoothing is encouraged if you see random signal drops within the decay curves related 
 #' to hardware errors.
 #' 
-#' @param merge \code{\link{logical}} (with default): \code{TRUE} to merge all 
-#' \code{RLum.Analysis} objects. Only applicable if multiple files are imported.
+#' @param merge [logical] (*with default*): 
+#' `TRUE` to merge all `RLum.Analysis` objects. Only applicable if multiple 
+#' files are imported.
 #' 
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
-#' \code{\linkS4class{RLum.Data.Curve}} objects for each curve.  
+#' @return 
+#' Returns an S4 [RLum.Analysis-class] object containing
+#' [RLum.Data.Curve-class] objects for each curve.  
 #' 
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [RLum.Data.Curve-class]
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
 #' @section Function version: 0.0.1
 #' 
-#' @note Because this function relies heavily on regular expressions to parse 
+#' @note 
+#' Because this function relies heavily on regular expressions to parse 
 #' PSL files it is currently only in beta status. If the routine fails to import
 #' a specific PSL file please report to <christoph.burow@@uni-koeln.de> so the
 #' function can be updated.
@@ -57,6 +59,7 @@
 #' temp
 #' }
 #' 
+#' @md
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
   

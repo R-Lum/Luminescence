@@ -8,45 +8,49 @@ reader}
 
 The data contain two elements: (a) \code{$Sequence.Header} is a
 \link{data.frame} with metadata from the measurement,(b)
-\code{Sequence.Object} contains an \code{\linkS4class{RLum.Analysis}} object
-for further analysis.\cr
+\code{Sequence.Object} contains an \linkS4class{RLum.Analysis} object
+for further analysis.
 
 \code{TL.Spectrum}: TL spectrum data
 
-\code{\linkS4class{RLum.Data.Spectrum}} object for further analysis. The
+\linkS4class{RLum.Data.Spectrum} object for further analysis. The
 spectrum was cleaned from cosmic-rays using the function
+
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 was performed.}
 \source{
-\bold{OSL.SARMeasurement}
+\strong{OSL.SARMeasurement}
 
 \tabular{ll}{
+Lab: \tab Luminescence Laboratory Giessen\cr
+Lab-Code: \tab no code\cr
+Location: \tab not specified\cr
+Material: \tab Coarse grain quartz  on steel cups on lexsyg research reader\cr
+Reference: \tab unpublished
+}
 
-Lab: \tab Luminescence Laboratory Giessen\cr Lab-Code: \tab no code\cr
-Location: \tab not specified\cr Material: \tab Coarse grain quartz \cr \tab
-on steel cups on lexsyg research reader\cr Reference: \tab unpublished }
-
-\bold{TL.Spectrum}
+\strong{TL.Spectrum}
 
 \tabular{ll}{
-
-Lab: \tab Luminescence Laboratory Giessen\cr Lab-Code: \tab BT753\cr
-Location: \tab Dolni Vestonice/Czech Republic\cr Material: \tab Fine grain
-polymineral \cr \tab on steel cups on lexsyg rearch reader\cr Reference:
-\tab Fuchs et al., 2013 \cr Spectrum: \tab Integration time 19 s, channel
-time 20 s\cr Heating: \tab 1 K/s, up to 500 deg. C }
+Lab: \tab Luminescence Laboratory Giessen\cr
+Lab-Code: \tab BT753\cr
+Location: \tab Dolni Vestonice/Czech Republic\cr
+Material: \tab Fine grain polymineral on steel cups on lexsyg rearch reader\cr
+Reference: \tab Fuchs et al., 2013 \cr
+Spectrum: \tab Integration time 19 s, channel time 20 s\cr
+Heating: \tab 1 K/s, up to 500 deg. C
+}
 }
 \description{
 Example data from a SAR OSL measurement and a TL spectrum for package
 Luminescence imported from a Freiberg Instruments XSYG file using the
-function \code{\link{read_XSYG2R}}.
+function \link{read_XSYG2R}.
 }
 \section{Version}{
  0.1
 }
 
 \examples{
-
 ##show data
 data(ExampleData.XSYG, envir = environment())
 
@@ -90,8 +94,7 @@ of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
-\code{\link{read_XSYG2R}}, \code{\linkS4class{RLum.Analysis}},\cr
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot_RLum}},\cr
-\code{\link{plot_RLum.Analysis}}, \code{\link{plot_RLum.Data.Spectrum}}
+\link{read_XSYG2R}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Spectrum},
+\link{plot_RLum}, \link{plot_RLum.Analysis}, \link{plot_RLum.Data.Spectrum}
 }
 \keyword{datasets}

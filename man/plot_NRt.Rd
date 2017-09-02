@@ -8,31 +8,30 @@ plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
   legend = TRUE, legend.pos = "topright", ...)
 }
 \arguments{
-\item{data}{a \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}} or
-\code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
-(time and counts). See details on individual data structure.}
+\item{data}{\link{list}, \link{data.frame}, \link{matrix} or \linkS4class{RLum.Analysis} (\strong{required}):
+X,Y data of measured values (time and counts). See details on individual data structure.}
 
-\item{log}{\code{\link{character}} (optional): logarithmic axes
-(\code{c("x", "y", "xy")}).}
+\item{log}{\link{character} (\emph{optional}):
+logarithmic axes (\code{c("x", "y", "xy")}).}
 
-\item{smooth}{\code{\link{character}} (optional): apply data smoothing. Use
-\code{"rmean"} to calculate the rolling where \code{k} determines the width
-of the rolling window (see \code{\link{rollmean}}).
-\code{"spline"} applies a smoothing spline to each curve
-(see \code{\link{smooth.spline}})}
+\item{smooth}{\link{character} (\emph{optional}):
+apply data smoothing. Use \code{"rmean"} to calculate the rolling where \code{k}
+determines the width of the rolling window (see \link{rollmean}). \code{"spline"}
+applies a smoothing spline to each curve (see \link{smooth.spline})}
 
-\item{k}{\code{\link{integer}} (with default): integer width of the rolling
-window.}
+\item{k}{\link{integer} (\emph{with default}):
+integer width of the rolling window.}
 
-\item{legend}{\code{\link{logical}} (with default): show or hide the plot legend.}
+\item{legend}{\link{logical} (\emph{with default}):
+show or hide the plot legend.}
 
-\item{legend.pos}{\code{\link{character}} (with default): keyword specifying
-the position of the legend (see \code{\link{legend}}).}
+\item{legend.pos}{\link{character} (\emph{with default}):
+keyword specifying the position of the legend (see \link{legend}).}
 
-\item{...}{further parameters passed to \code{\link{plot}} (also see \code{\link{par}}).}
+\item{...}{further parameters passed to \link{plot} (also see \link{par}).}
 }
 \value{
-Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
+Returns a plot and \linkS4class{RLum.Analysis} object.
 }
 \description{
 This function creates a Natural/Regenerated signal vs. time (NR(t)) plot
@@ -43,7 +42,8 @@ This function accepts the individual curve data in many different formats. If
 \code{data} is a \code{list}, each element of the list must contain a two
 column \code{data.frame} or \code{matrix} containing the XY data of the curves
 (time and counts). Alternatively, the elements can be objects of class
-\code{\linkS4class{RLum.Data.Curve}}.
+\linkS4class{RLum.Data.Curve}.
+
 Input values can also be provided as a \code{data.frame} or \code{matrix} where
 the first column contains the time values and each following column contains
 the counts of each curve.
@@ -124,7 +124,7 @@ par(mfrow = c(1, 1))
 } 
 
 \section{How to cite}{
-Burow, C. (2017). plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -132,7 +132,7 @@ Steffen, D., Preusser, F., Schlunegger, F., 2009. OSL quartz underestimation due
 unstable signal components. Quaternary Geochronology, 4, 353-362.
 }
 \seealso{
-\code{\link{plot}}
+\link{plot}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

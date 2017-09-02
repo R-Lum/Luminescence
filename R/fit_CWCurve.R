@@ -1,119 +1,186 @@
-#' Nonlinear Least Squares Fit for CW-OSL curves [beta version]
+#' Nonlinear Least Squares Fit for CW-OSL curves `[beta version]`
 #'
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
 #' components and returns various component parameters. The fitting procedure
-#' uses the \code{\link{nls}} function with the \code{port} algorithm.
+#' uses the [nls] function with the `port` algorithm.
 #'
-#' \bold{Fitting function}\cr\cr The function for the CW-OSL fitting has the
-#' general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
-#' I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}\cr\cr and
-#' \eqn{\lambda} is the decay constant and \eqn{I0} the intial number of
-#' trapped electrons.\cr (for the used equation cf. Boetter-Jensen et al.,
-#' 2003, Eq. 2.31)\cr\cr \bold{Start values}\cr
+#' **Fitting function**
+#'
+#' The function for the CW-OSL fitting has the general form: 
+#' 
+#' \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } 
+#' 
+#' where \eqn{0 < i < 8}
+#' 
+#' and \eqn{\lambda} is the decay constant \cr
+#' and \eqn{I0} the intial number of trapped electrons.
+#' 
+#' *(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)*
+#'
+#' **Start values**
 #'
 #' Start values are estimated automatically by fitting a linear function to the
 #' logarithmized input data set. Currently, there is no option to manually
-#' provide start parameters. \cr\cr \bold{Goodness of fit}\cr\cr The goodness
-#' of the fit is given as pseudoR^2 value (pseudo coefficient of
-#' determination). According to Lave (1970), the value is calculated as:
-#' \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
-#' and \eqn{TSS = Total~Sum~of~Squares}\cr\cr
+#' provide start parameters. 
 #'
-#' \bold{Error of fitted component parameters}\cr\cr The 1-sigma error for the
-#' components is calculated using the function \code{\link{confint}}. Due to
+#' **Goodness of fit**
+#'
+#' The goodness of the fit is given as pseudoR^2 value (pseudo coefficient of
+#' determination). According to Lave (1970), the value is calculated as:
+#' 
+#' \deqn{pseudoR^2 = 1 - RSS/TSS} 
+#' 
+#' where \eqn{RSS = Residual~Sum~of~Squares} \cr
+#' and \eqn{TSS = Total~Sum~of~Squares}
+#'
+#'
+#'
+#' **Error of fitted component parameters**
+#'
+#' The 1-sigma error for the
+#' components is calculated using the function [confint]. Due to
 #' considerable calculation time, this option is deactived by default. In
 #' addition, the error for the components can be estimated by using internal R
-#' functions like \code{\link{summary}}. See the \code{\link{nls}} help page
-#' for more information.\cr\cr \emph{For details on the nonlinear regression in
-#' R, see Ritz & Streibig (2008).}
+#' functions like [summary]. See the [nls] help page
+#' for more information.
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
-#' (\bold{required}): x, y data of measured values (time and counts). See
-#' examples.
-#' @param n.components.max \link{vector} (optional): maximum number of
-#' components that are to be used for fitting. The upper limit is 7.
-#' @param fit.failure_threshold \link{vector} (with default): limits the failed
-#' fitting attempts.
-#' @param fit.method \link{character} (with default): select fit method,
-#' allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-#' routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
-#' function \code{nlsLM} from the package \code{minpack.lm} and with that the
-#' Levenberg-Marquardt algorithm.
-#' @param fit.trace \link{logical} (with default): traces the fitting process
-#' on the terminal.
-#' @param fit.calcError \link{logical} (with default): calculate 1-sigma error
-#' range of components using \code{\link{confint}}
-#' @param LED.power \link{numeric} (with default): LED power (max.) used for
-#' intensity ramping in mW/cm^2. \bold{Note:} The value is used for the
-#' calculation of the absolute photoionisation cross section.
-#' @param LED.wavelength \link{numeric} (with default): LED wavelength used for
-#' stimulation in nm. \bold{Note:} The value is used for the calculation of the
-#' absolute photoionisation cross section.
-#' @param cex.global \link{numeric} (with default): global scaling factor.
-#' @param sample_code \link{character} (optional): sample code used for the
-#' plot and the optional output table (mtext).
-#' @param output.path \link{character} (optional): output path for table output
-#' containing the results of the fit. The file name is set automatically. If
-#' the file already exists in the directory, the values are appended.
-#' @param output.terminal \link{logical} (with default): terminal ouput with
-#' fitting results.
-#' @param output.terminalAdvanced \link{logical} (with default): enhanced
-#' terminal output. Requires \code{output.terminal = TRUE}. If
-#' \code{output.terminal = FALSE} no advanced output is possible.
-#' @param plot \link{logical} (with default): returns a plot of the fitted
-#' curves.
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}}.
-#' @return \item{plot}{(optional) the fitted CW-OSL curves are returned as
-#' plot.} \item{table}{(optional) an output table (*.csv) with parameters of
-#' the fitted components is provided if the \code{output.path} is set.}
-#' \item{list(list("RLum.Results"))}{beside the plot and table output options,
-#' an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr \code{fit}:
-#' an \code{nls} object (\code{$fit}) for which generic R functions are
-#' provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
-#' details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
-#' containing the summarised parameters including the error\cr
-#' \code{component.contribution.matrix}: \link{matrix} containing the values
-#' for the component to sum contribution plot
-#' (\code{$component.contribution.matrix}).\cr
+#' *For details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
+#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' x, y data of measured values (time and counts). See examples.
+#' 
+#' @param n.components.max [vector] (*optional*): 
+#' maximum number of components that are to be used for fitting. 
+#' The upper limit is 7.
+#' 
+#' @param fit.failure_threshold [vector] (*with default*): 
+#' limits the failed fitting attempts.
+#' 
+#' @param fit.method [character] (*with default*): 
+#' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
+#' routine usint the funtion [nls] `'LM'` utilises the function `nlsLM` from 
+#' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
+#' 
+#' @param fit.trace [logical] (*with default*): 
+#' traces the fitting process on the terminal.
+#' 
+#' @param fit.calcError [logical] (*with default*): 
+#' calculate 1-sigma error range of components using [confint]
+#' 
+#' @param LED.power [numeric] (*with default*): 
+#' LED power (max.) used for intensity ramping in mW/cm^2. 
+#' **Note:** The value is used for the calculation of the absolute 
+#' photoionisation cross section.
+#' 
+#' @param LED.wavelength [numeric] (*with default*): 
+#' LED wavelength used for stimulation in nm. 
+#' **Note:** The value is used for the calculation of the absolute 
+#' photoionisation cross section.
+#' 
+#' @param cex.global [numeric] (*with default*): 
+#' global scaling factor.
+#' 
+#' @param sample_code [character] (*optional*): 
+#' sample code used for the plot and the optional output table (mtext).
+#' 
+#' @param output.path [character] (*optional*): 
+#' output path for table output containing the results of the fit. The file 
+#' name is set automatically. If the file already exists in the directory,
+#' the values are appended.
+#' 
+#' @param output.terminal [logical] (*with default*): 
+#' terminal ouput with fitting results.
+#' 
+#' @param output.terminalAdvanced [logical] (*with default*): 
+#' enhanced terminal output. Requires `output.terminal = TRUE`. 
+#' If `output.terminal = FALSE` no advanced output is possible.
+#' 
+#' @param plot [logical] (*with default*): 
+#' returns a plot of the fitted curves.
+#' 
+#' @param ... further arguments and graphical parameters passed to [plot].
+#' 
+#' @return 
+#' **plot (*optional*)**
+#' 
+#' the fitted CW-OSL curves are returned as plot.
+#' 
+#' **table (*optional*)** 
+#' 
+#' an output table (*.csv) with parameters of the fitted components is 
+#' provided if the `output.path` is set.
+#' 
+#' 
+#' **RLum.Results**
+#'  
+#' Beside the plot and table output options, an [RLum.Results-class] object is 
+#' returned.
+#'
+#' `fit`:
+#' an `nls` object (`$fit`) for which generic R functions are
+#' provided, e.g. [summary], [confint], [profile]. For more
+#' details, see [nls].
+#'
+#' `output.table`: 
+#' a [data.frame] containing the summarised parameters including the error
+#' 
+#' `component.contribution.matrix`: 
+#' [matrix] containing the values for the component to sum contribution plot
+#' (`$component.contribution.matrix`).
+#'
+#' Matrix structure:\cr 
+#' Column 1 and 2: time and `rev(time)` values \cr
 #' Additional columns are used for the components, two for each component,
-#' containing I0 and n0. The last columns \code{cont.} provide information on
+#' containing I0 and n0. The last columns `cont.` provide information on
 #' the relative component contribution for each time interval including the row
-#' sum for this values. }\item{ object}{beside the plot and table output
-#' options, an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr
-#' \code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions
-#' are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
-#' details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
-#' containing the summarised parameters including the error\cr
-#' \code{component.contribution.matrix}: \link{matrix} containing the values
-#' for the component to sum contribution plot
-#' (\code{$component.contribution.matrix}).\cr
+#' sum for this values.
+#' 
+#' **object**
+#' 
+#' beside the plot and table output options, an [RLum.Results-class] object 
+#' is returned.
 #'
-#' Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
+#' `fit`: 
+#' an `nls` object (`$fit`) for which generic R functions
+#' are provided, e.g. [summary], [confint], [profile]. For more
+#' details, see [nls].
+#'
+#' `output.table`: 
+#' a [data.frame] containing the summarised parameters including the error\cr
+#' `component.contribution.matrix`: [matrix] containing the values
+#' for the component to sum contribution plot (`$component.contribution.matrix`).\cr
+#'
+#' Matrix structure:\cr
+#' Column 1 and 2: time and `rev(time)` values\cr
 #' Additional columns are used for the components, two for each component,
-#' containing I0 and n0. The last columns \code{cont.} provide information on
+#' containing I0 and n0. The last columns `cont.` provide information on
 #' the relative component contribution for each time interval including the row
-#' sum for this values. }
-#' @note \bold{Beta version - This function has not been properly tested yet
-#' and should therefore not be used for publication purposes!}\cr\cr The
-#' pseudo-R^2 may not be the best parameter to describe the goodness of the
-#' fit. The trade off between the \code{n.components} and the pseudo-R^2 value
-#' is currently not considered.\cr\cr The function \bold{does not} ensure that
-#' the fitting procedure has reached a global minimum rather than a local
-#' minimum!
+#' sum for this values.
+#' 
+#' 
+#' @note 
+#' 
+#' **Beta version - This function has not been properly tested yet and**
+#' **should therefore not be used for publication purposes!**
+#'
+#' The pseudo-R^2 may not be the best parameter to describe the goodness of the
+#' fit. The trade off between the `n.components` and the pseudo-R^2 value
+#' is currently not considered.
+#'
+#' The function **does not** ensure that the fitting procedure has reached a 
+#' global minimum rather than a local minimum!
 #'
 #' @section Function version: 0.5.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
-#' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-#' \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
-#' @references Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
+#' @seealso [fit_LMCurve], [plot],[nls], [RLum.Data.Curve-class], 
+#' [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM]
+#' 
+#' @references 
+#' Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
 #'
 #' Lave, C.A.T., 1970. The Demand for Urban Mass Transportation. The Review of
@@ -121,9 +188,10 @@
 #'
 #' Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R.
 #' Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
+#' 
 #' @keywords dplot models
+#' 
 #' @examples
-#'
 #'
 #' ##load data
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
@@ -133,7 +201,8 @@
 #'                    main = "CW Curve Fit",
 #'                    n.components.max = 4,
 #'                    log = "x")
-#'
+#'                    
+#' @md
 #' @export
 fit_CWCurve<- function(
   values,
@@ -683,9 +752,13 @@ fit_CWCurve<- function(
 
     }#endif :: (exists("fit"))
 
-  }else{writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
-        output.table<-NA
-        component.contribution.matrix <- NA
+  }else{
+
+    if (output.terminal==TRUE)
+      writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
+    
+    output.table<-NA
+    component.contribution.matrix <- NA
   }
 
   ##============================================================================##

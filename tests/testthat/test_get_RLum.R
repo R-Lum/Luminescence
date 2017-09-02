@@ -13,6 +13,7 @@ temp_RLumResults <- set_RLum(class = "RLum.Results")
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+
   expect_is(get_RLum(temp), class = "data.frame")
   expect_is(get_RLum(temp, data.object = "args"), class = "list")
 
@@ -22,5 +23,15 @@ test_that("check class and length of output", {
   expect_is(get_RLum(temp_RLumDataSpectrum), class = "matrix")
   expect_null(get_RLum(temp_RLumAnalysis))
   expect_null(get_RLum(temp_RLumResults))
+
+})
+
+test_that("check get_RLum on a list and NULL", {
+  testthat::skip_on_cran()
+
+  object <- set_RLum(class = "RLum.Analysis", records = rep(set_RLum(class = "RLum.Data.Curve"), 10))
+  expect_warning(get_RLum(object, recordType = "test"))
+
+  expect_is(get_RLum(NULL), "NULL")
 
 })

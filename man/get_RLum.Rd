@@ -4,48 +4,54 @@
 \name{get_RLum}
 \alias{get_RLum}
 \alias{get_RLum,list-method}
+\alias{get_RLum,NULL-method}
 \title{General accessor function for RLum S4 class objects}
 \usage{
 get_RLum(object, ...)
 
 \S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
+
+\S4method{get_RLum}{`NULL`}(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum} or an object of type \code{\link{list}} containing only objects of type
-\code{\linkS4class{RLum}}}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum} or an object of type \link{list} containing only objects
+of type \linkS4class{RLum}}
 
-\item{\dots}{further arguments that will be passed to the object specific methods. For
+\item{...}{further arguments that will be passed to the object specific methods. For
 furter details on the supported arguments please see the class
-documentation: \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}}
+documentation: \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Image}, \linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}}
 
-\item{null.rm}{\code{\link{logical}} (with default): option to get rid of empty and NULL objects}
+\item{null.rm}{\link{logical} (\emph{with default}): option to get rid of empty and NULL objects}
 }
 \value{
 Return is the same as input objects as provided in the list.
 }
 \description{
 Function calls object-specific get functions for RLum S4 class objects.
+
+Method to handle NULL if the user calls get_RLum
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
-corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \code{\linkS4class{RLum}} class.
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the corresponding get function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum} class.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
+\item \code{list}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{get_RLum}
+
+\item \code{NULL}: Returns NULL
 }}
 
 \section{Function version}{
- 0.3.0 (2017-06-30 11:23:30)
+ 0.3.1 (2017-09-02 23:27:02)
 }
 
 \examples{
-
 
 ##Example based using data and from the calc_CentralDose() function
 
@@ -58,22 +64,17 @@ temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 ##get results and store them in a new object
 temp.get <- get_RLum(object = temp1)
 
-
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

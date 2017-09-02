@@ -7,18 +7,17 @@
 Second2Gray(data, dose.rate, error.propagation = "omit")
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): input values,
-structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
-required}
+\item{data}{\link{data.frame} (\strong{required}):
+input values, structure: data (\code{values[,1]}) and data error (\code{values [,2]})
+are required}
 
-\item{dose.rate}{\code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
-(\bold{required}): \code{RLum.Results} needs to be orginated from the
-function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
-Gy/s and dose rate error in Gy/s}
+\item{dose.rate}{\linkS4class{RLum.Results}, \link{data.frame} or \link{numeric} (\strong{required}):
+\code{RLum.Results} needs to be orginated from the function \link{calc_SourceDoseRate},
+for \code{vector} dose rate in Gy/s and dose rate error in Gy/s}
 
-\item{error.propagation}{\code{\link{character}} (with default): error propagation method used for error
-calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
-information}
+\item{error.propagation}{\link{character} (\emph{with default}):
+error propagation method used for error calculation (\code{omit}, \code{gaussian} or
+\code{absolute}), see details for further information}
 }
 \value{
 Returns a \link{data.frame} with converted values.
@@ -28,29 +27,32 @@ Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
 (Gy) including error propagation. Normally used for equivalent dose data.
 }
 \details{
-Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
-[s] * Dose Rate [Gy/s])} \cr
+Calculation of De values from seconds (s) to gray (Gy)
 
-Provided calculation error propagation methods for error calculation (with 'se' as the standard error
-and 'DR' of the dose rate of the beta-source):\cr
+\deqn{De [Gy] = De [s] * Dose Rate [Gy/s])}
 
-\bold{(1) \code{omit}} (default)\cr
+Provided calculation error propagation methods for error calculation
+(with 'se' as the standard error and 'DR' of the dose rate of the beta-source):
+
+\strong{(1) \code{omit}} (default)
 
 \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 
-In this case the standard error of the dose rate of the beta-source is treated as systematic
-(i.e. non-random), it error propagation is omitted. However, the error must be considered during
-calculation of the final age. (cf. Aitken, 1985, pp. 242). This approach can be seen as
-method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
-0. Which particular method is requested depends on the situation and cannot be prescriptive.
+In this case the standard error of the dose rate of the beta-source is
+treated as systematic (i.e. non-random), it error propagation is omitted.
+However, the error must be considered during calculation of the final age.
+(cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian)
+for the case the (random) standard error of the beta-source calibration is
+0. Which particular method is requested depends on the situation and cannot
+be prescriptive.
 
-\bold{(2) \code{gaussian}} error propagation \cr
+\strong{(2) \code{gaussian}} error propagation
 
 \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 
 Applicable under the assumption that errors of De and se are uncorrelated.
 
-\bold{(3) \code{absolute}} error propagation \cr
+\strong{(3) \code{absolute}} error propagation
 
 \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 
@@ -62,11 +64,10 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.6.0 (2017-06-30 11:23:30)
+ 0.6.0 (2017-09-02 23:27:02)
 }
 
 \examples{
-
 
 ##(A) for known source dose rate at date of measurement
 ## - load De data from the example data help file
@@ -93,19 +94,18 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Fuchs, M.C., Fuchs, M. (2017). Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Fuchs, M.C. (2017). Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 }
 \seealso{
-\code{\link{calc_SourceDoseRate}}
+\link{calc_SourceDoseRate}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
-Helmholtz-Institute Freiberg for Resource Technology
-(Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Michael Dietze, GFZ Potsdam (Germany)\cr
+Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 \cr R Luminescence Package Team}
 \keyword{manip}

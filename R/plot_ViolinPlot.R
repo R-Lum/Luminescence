@@ -6,52 +6,56 @@
 #' based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.
 #' The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 #'
-#' The function is passing several arguments to the function \code{\link{plot}},
-#' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}:
-#' Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
-#' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
+#' The function is passing several arguments to the function [plot],
+#' [stats::density], [graphics::boxplot]:
 #'
-#' \bold{\code{Valid summary keywords}}\cr
+#' Supported arguments are:
+#' `xlim`, `main`, `xlab`, `ylab`, `col.violin`, `col.boxplot`, `mtext`, `cex`, `mtext`
 #'
-#' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
+#' **`Valid summary keywords`**
 #'
-#' @param data \code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
-#' object (required): input data for plotting. Alternatively a \code{\link{data.frame}} or
-#' a \code{\link{matrix}} can be provided, but only the first column will be considered by the
+#' `'n'`, `'mean'`, `'median'`, `'sd.abs'`, `'sd.rel'`, `'se.abs'`, `'se.rel'`.
+#' `'skewness'`, `'kurtosis'`
+#'
+#' @param data [numeric] or [RLum.Results-class] (**required**):
+#' input data for plotting. Alternatively a [data.frame] or a [matrix] can
+#' be provided, but only the first column will be considered by the
 #' function
 #'
-#' @param boxplot \code{\link{logical}} (with default): enable or disable boxplot
+#' @param boxplot [logical] (*with default*):
+#' enable or disable boxplot
 #'
-#' @param rug \code{\link{logical}} (with default): enable or disable rug
+#' @param rug [logical] (*with default*):
+#' enable or disable rug
 #'
-#' @param summary \code{\link{character}} (optional): add statistic measures of
-#' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords.
+#' @param summary [character] (*optional*):
+#' add statistic measures of centrality and dispersion to the plot.
+#' Can be one or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
-#' default): optional position keywords (cf., \code{\link{legend}})
-#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
-#' specified to place the summary below the plot header. However, this latter
-#' option in only possible if \code{mtext} is not used.
+#' @param summary.pos [numeric] or [character] (*with default*):
+#' optional position keywords (cf., [legend]) for the statistical summary.
+#' Alternatively, the keyword `"sub"` may be specified to place the summary
+#' below the plot header. However, this latter option in only possible if
+#' `mtext` is not used.
 #'
-#' @param na.rm \code{\link{logical}} (with default): exclude NA values
-#' from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*):
+#' exclude NA values from the data set prior to any further operations.
 #'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}, \code{\link[stats]{density}} and \code{\link{boxplot}}. See details for
-#' further information
+#' @param ... further arguments and graphical parameters passed to
+#' [plot.default], [stats::density] and [boxplot]. See details for further information
 #'
-#' @note Although the code for this function was developed independently and just the idea for the plot
+#' @note
+#' Although the code for this function was developed independently and just the idea for the plot
 #' was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
 #' two other R packages exist providing a possibility to produces this kind of plot, namely:
 #' 'vioplot' and 'violinmplot' (see References for details).
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @references
-#'
 #' Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
 #' R package version 0.2 http://CRAN.R-project.org/package=violplot
 #'
@@ -62,10 +66,10 @@
 #'
 #' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
-#' @seealso \code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}},
-#' \code{\link{calc_Statistics}}
+#' @seealso [stats::density], [plot], [boxplot], [rug], [calc_Statistics]
 #'
 #' @examples
+#'
 #' ## read example data set
 #' data(ExampleData.DeValues, envir = environment())
 #' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
@@ -73,6 +77,7 @@
 #' ## create plot straightforward
 #' plot_ViolinPlot(data = ExampleData.DeValues)
 #'
+#' @md
 #' @export
 plot_ViolinPlot <- function(
   data,
@@ -147,7 +152,8 @@ plot_ViolinPlot <- function(
 
 
   ##some statistical parameter, get rid of the weighted statistics
-  stat.summary <- suppressWarnings(calc_Statistics(as.data.frame(data), digits = 2)[["unweighted"]])
+  stat.summary <- list(suppressWarnings(calc_Statistics(as.data.frame(data), digits = 2)[["unweighted"]]))
+  names(stat.summary) <- "unweighted"
 
     ##make valid summary string
     if(is.null(summary)){
@@ -156,22 +162,16 @@ plot_ViolinPlot <- function(
     }
 
     ##at least show a warning for invalid keywords
-    if(!all(summary %in% names(stat.summary))){
-      warning(paste0("[plot_ViolinePlot()] At least one 'summary' keyword is invalid. Valid keywords are: ",
-                     paste(names(stat.summary), collapse = ", ")), call. = FALSE)
+    if(!all(summary %in% names(stat.summary[[1]]))){
+      warning(paste0("[plot_ViolinePlot()] Only keywords for weighted statistical measures are supported. Valid keywords are: ",
+                     paste(names(stat.summary[[1]]), collapse = ", ")), call. = FALSE)
     }
 
     ##make sure that only valid keywords make it
-    summary <- summary[(summary %in% names(stat.summary))]
+    summary <- summary[(summary %in% names(stat.summary[[1]]))]
 
-    stat.text <-
-      paste(names(stat.summary[summary]), " = ", stat.summary[summary], collapse = " \n")
-
-    stat.mtext <-
-      paste(names(stat.summary[summary]), " = ", stat.summary[summary], collapse = " | ")
-
-
-
+    stat.text <- .create_StatisticalSummaryText(stat.summary, keywords = summary, sep = " \n ")
+    stat.mtext <- .create_StatisticalSummaryText(stat.summary, keywords = summary, sep = " | ")
 
 
   # Plot settings -------------------------------------------------------------------------------

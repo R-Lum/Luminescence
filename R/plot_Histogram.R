@@ -4,76 +4,87 @@
 #' suggested by Rex Galbraith at the UK LED in Oxford 2010.
 #'
 #' If the normal curve is added, the y-axis in the histogram will show the
-#' probability density.\cr\cr
+#' probability density.
+#'
+#'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
-#' one or more of the following keywords: \code{"n"} (number of samples),
-#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
-#' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation),
-#' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
-#' error-weighted relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
+#' one or more of the following keywords: 
+#' - `"n"` (number of samples),
+#' - `"mean"` (mean De value), 
+#' - `"mean.weighted"` (error-weighted mean),
+#' - `"median"` (median of the De values), 
+#' - `"sdrel"` (relative standard deviation in percent), 
+#' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent), 
+#' - `"sdabs"` (absolute standard deviation),
+#' - `"sdabs.weighted"` (error-weighted absolute standard deviation),
+#' - `"serel"` (relative standard error), 
+#' - `"serel.weighted"` (error-weighted relative standard error), 
+#' - `"seabs"` (absolute standard error), 
+#' - `"seabs.weighted"` (error-weighted absolute standard error),
+#' - `"kurtosis"` (kurtosis) and 
+#' - `"skewness"` (skewness).
 #'
-#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-#' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
-#' and De error (\code{data[,2]})
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for `data.frame`: two columns: De (`data[,1]`) and De error (`data[,2]`)
 #'
-#' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
-#' values from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*): 
+#' excludes `NA` values from the data set prior to any further operations.
 #'
-#' @param mtext \code{\link{character}} (optional): further sample information
-#' (\link{mtext}).
+#' @param mtext [character] (*optional*): 
+#' further sample information ([mtext]).
 #'
-#' @param cex.global \code{\link{numeric}} (with default): global scaling
-#' factor.
+#' @param cex.global [numeric] (*with default*): 
+#' global scaling factor.
 #'
-#' @param se \code{\link{logical}} (optional): plots standard error points over
-#' the histogram, default is \code{FALSE}.
+#' @param se [logical] (*optional*): 
+#' plots standard error points over the histogram, default is `FALSE`.
 #'
-#' @param rug \code{\link{logical}} (optional): adds rugs to the histogram,
-#' default is \code{TRUE}.
+#' @param rug [logical] (*optional*): 
+#' adds rugs to the histogram, default is `TRUE`.
 #'
-#' @param normal_curve \code{\link{logical}} (with default): adds a normal
-#' curve to the histogram. Mean and sd are calculated from the input data. More
-#' see details section.
+#' @param normal_curve [logical] (*with default*): 
+#' adds a normal curve to the histogram. Mean and sd are calculated from the 
+#' input data. More see details section.
 #'
-#' @param summary \code{\link{character}} (optional): add statistic measures of
-#' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords.
+#' @param summary [character] (*optional*): 
+#' add statistic measures of centrality and dispersion to the plot. 
+#' Can be one or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
-#' default): optional position coordinates or keyword (e.g. \code{"topright"})
-#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' @param summary.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`)
+#' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
-#' option in only possible if \code{mtext} is not used. In case of coordinate
+#' option in only possible if `mtext` is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
 #'
-#' @param colour \code{\link{numeric}} or \link{character} (with default):
+#' @param colour [numeric] or [character] (*with default*):
 #' optional vector of length 4 which specifies the colours of the following
 #' plot items in exactly this order: histogram bars, rug lines, normal
-#' distribution curve and standard error points\cr (e.g., \code{c("grey",
-#' "black", "red", "grey")}).
+#' distribution curve and standard error points 
+#' (e.g., `c("grey", "black", "red", "grey")`).
 #'
-#' @param interactive \code{\link{logical}} (with default): create an interactive
-#' histogram plot (requires the 'plotly' package)
+#' @param interactive [logical] (*with default*): 
+#' create an interactive histogram plot (requires the 'plotly' package)
 #'
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}} or \code{\link{hist}}. If y-axis labels are provided,
-#' these must be specified as a vector of length 2 since the plot features two
-#' axes (e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes limits
-#' (\code{ylim}) must be provided as vector of length four, with the first two
+#' @param ... further arguments and graphical parameters passed to [plot] or 
+#' [hist]. If y-axis labels are provided, these must be specified as a vector 
+#' of length 2 since the plot features two axes 
+#' (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes limits
+#' (`ylim`) must be provided as vector of length four, with the first two
 #' elements specifying the left axes limits and the latter two elements giving
 #' the right axis limits.
 #'
 #' @note The input data is not restricted to a special type.
+#' 
 #' @section Function version: 0.4.4
-#' @author Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-#' @seealso \code{\link{hist}}, \code{\link{plot}}
+#' 
+#' @author 
+#' Michael Dietze, GFZ Potsdam (Germany)\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
+#' @seealso [hist], [plot]
+#' 
 #' @examples
 #'
 #' ## load data
@@ -101,6 +112,7 @@
 #'                ylim = c(0, 0.1, 5, 20))
 #'
 #'
+#' @md
 #' @export
 plot_Histogram <- function(
   data,
@@ -213,15 +225,21 @@ plot_Histogram <- function(
 
   if("breaks" %in% names(extraArgs)) {
     breaks.plot <- extraArgs$breaks
+    
+    breaks_calc <- hist(x = data[,1], 
+                        breaks = breaks.plot,
+                        plot = FALSE)$breaks
   } else {
     breaks.plot <- hist(x = data[,1],
                         plot = FALSE)$breaks
+    
+    breaks_calc <- breaks.plot
   }
 
   if("xlim" %in% names(extraArgs)) {
     xlim.plot <- extraArgs$xlim
   } else {
-    xlim.plot <- range(breaks.plot)
+    xlim.plot <- range(breaks_calc)
   }
 
   if("ylim" %in% names(extraArgs)) {

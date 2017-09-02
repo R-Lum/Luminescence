@@ -8,68 +8,72 @@ calc_AverageDose(data, sigma_m = NULL, Nb_BE = 500, na.rm = TRUE,
   plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(values[,2])}}
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{sigma_m}{\code{\link{numeric}} (\bold{required}): the overdispersion resulting from a dose recovery
+\item{sigma_m}{\link{numeric} (\strong{required}):
+the overdispersion resulting from a dose recovery
 experiment, i.e. when all grains have  received the same dose. Indeed in such a case, any
 overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 unrecognised measurement uncertainty.}
 
-\item{Nb_BE}{\code{\link{integer}} (with default): sample size used for the bootstrapping}
+\item{Nb_BE}{\link{integer} (\emph{with default}):
+sample size used for the bootstrapping}
 
-\item{na.rm}{\code{\link{logical}} (with default): exclude NA values
-from the data set prior to any further operation.}
+\item{na.rm}{\link{logical} (\emph{with default}):
+exclude NA values from the data set prior to any further operation.}
 
-\item{plot}{\code{\link{logical}} (with default): enables/disables plot output}
+\item{plot}{\link{logical} (\emph{with default}):
+enables/disables plot output}
 
-\item{verbose}{\code{\link{logical}} (with default): enables/disables terminal output}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables/disables terminal output}
 
-\item{...}{further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-are returned all arguments need to be provided as \code{\link{list}},
-e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
+\item{...}{further arguments that can be passed to \link[graphics:hist]{graphics::hist}. As three plots
+are returned all arguments need to be provided as \link{list},
+e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}.
+Note: not all arguments of \code{hist} are
 supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 
-Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).}
+Further supported arguments: \code{mtext} (\link{character}), \code{rug} (\code{TRUE/FALSE}).}
 }
 \value{
-The function returns numerical output and an (optional) plot.
+The function returns numerical output and an (\emph{optional}) plot.
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]} \cr
 -----------------------------------\cr
-\bold{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Results}}-object\cr
 
-\bold{slot:} \bold{\code{@data}} \cr
+\strong{slot:} \strong{\code{@data}} \cr
 
-[.. $summary : \code{data.frame}]\cr
+\code{[.. $summary : data.frame]}\cr
 
 \tabular{lll}{
-\bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
- AVERAGE_DOSE \tab \code{numeric} \tab the obtained averge dose\cr
- AVERAGE_DOSE.SE \tab \code{numeric} \tab the average dose error \cr
- SIGMA_D \tab \code{numeric}\tab sigma \cr
- SIGMA_D.SE \tab \code{numeric}\tab standard error of the sigma  \cr
- IC_AVERAGE_DOSE.LEVEL  \tab \code{character}\tab confidence level average dose\cr
- IC_AVERAGE_DOSE.LOWER  \tab \code{charcter}\tab lower quantile of average dose \cr
- IC_AVERAGE_DOSE.UPPER \tab \code{character}\tab upper quantile of average dose\cr
- IC_SIGMA_D.LEVEL \tab \code{integer}\tab confidence level sigma\cr
- IC_SIGMA_D.LOWER \tab \code{character}\tab lower sigma quantile\cr
- IC_SIGMA_D.UPPER \tab \code{character}\tab upper sigma quantile\cr
- L_MAX \tab \code{character}\tab maximum likelihood value
+\strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
+AVERAGE_DOSE \tab \link{numeric} \tab the obtained averge dose\cr
+AVERAGE_DOSE.SE \tab \link{numeric} \tab the average dose error \cr
+SIGMA_D \tab \link{numeric}\tab sigma \cr
+SIGMA_D.SE \tab \link{numeric}\tab standard error of the sigma  \cr
+IC_AVERAGE_DOSE.LEVEL  \tab \link{character}\tab confidence level average dose\cr
+IC_AVERAGE_DOSE.LOWER  \tab \link{character}\tab lower quantile of average dose \cr
+IC_AVERAGE_DOSE.UPPER \tab \link{character}\tab upper quantile of average dose\cr
+IC_SIGMA_D.LEVEL \tab \link{integer}\tab confidence level sigma\cr
+IC_SIGMA_D.LOWER \tab \link{character}\tab lower sigma quantile\cr
+IC_SIGMA_D.UPPER \tab \link{character}\tab upper sigma quantile\cr
+L_MAX \tab \link{character}\tab maximum likelihood value
 }
 
-[.. $dstar : \code{matrix}]\cr
+\code{[.. $dstar : matrix]} \cr
 
 Matrix with bootstrap values\cr
 
-[.. $hist : \code{list}]\cr
+\code{[.. $hist : list]}\cr
 
 Object as produced by the function histogram
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 The function returns two different plot panels.
@@ -84,7 +88,7 @@ This functions calculates the Average Dose and their extrinsic dispersion and es
 the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2017
 }
 \details{
-\bold{\code{sigma_m}}\cr
+\strong{\code{sigma_m}}\cr
 
 The program requires the input of a known value of sigma_m,
 which corresponds to the intrinsic overdispersion, as determined
@@ -95,7 +99,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.4 (2017-06-30 11:23:30)
+ 0.1.4 (2017-09-02 23:33:29)
 }
 
 \examples{
@@ -106,8 +110,7 @@ data(ExampleData.DeValues, envir = environment())
 
 ##calculate Average dose
 ##(use only the first 56 values here)
-AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
-sigma_m = 0.1)
+AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,], sigma_m = 0.1)
 
 ##plot De and set Average dose as central value
 plot_AbanicoPlot(
@@ -117,7 +120,7 @@ plot_AbanicoPlot(
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -126,13 +129,13 @@ Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dos
 measured dose rates, and implications for OSL age estimates: Introducing the Average Dose Model.
 Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2017.04.002
 
-\bold{Further reading}\cr
+\strong{Further reading}\cr
 
 Efron, B., Tibshirani, R., 1986. Bootstrap Methods for Standard Errors, Confidence Intervals,
 and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 }
 \seealso{
-\code{\link{read.table}}, \code{\link[graphics]{hist}}
+\link{read.table}, \link[graphics:hist]{graphics::hist}
 }
 \author{
 Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),

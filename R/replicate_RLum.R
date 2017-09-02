@@ -2,23 +2,24 @@
 #'
 #' Function replicates RLum S4 class objects and returns a list for this objects
 #'
-#' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
+#' @param object [RLum-class] (**required**):
+#' an [RLum-class] object
 #'
-#' @param times \code{\link{integer}} (optional): number for times each element is repeated
-#' element
+#' @param times [integer] (*optional*): 
+#' number for times each element is repeated element
 #'
-#' @return Returns a \code{\link{list}} of the object to be repeated
+#' @return Returns a [list] of the object to be repeated
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso
-#' \code{\linkS4class{RLum}},
+#' @seealso [RLum-class]
 #'
 #' @keywords utilities
 #'
+#' @md
 #' @export
 setGeneric("replicate_RLum", function (object, times = NULL) {
    standardGeneric("replicate_RLum")

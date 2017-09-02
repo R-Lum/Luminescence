@@ -8,54 +8,54 @@ calc_SourceDoseRate(measurement.date, calib.date, calib.dose.rate, calib.error,
   source.type = "Sr-90", dose.rate.unit = "Gy/s", predict = NULL)
 }
 \arguments{
-\item{measurement.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
-measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
+\item{measurement.date}{\link{character} or \link{Date} (\strong{required}):
+date of measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
 The argument can be provided as vector.}
 
-\item{calib.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
-calibration in "YYYY-MM-DD"}
+\item{calib.date}{\link{character} or \link{Date} (\strong{required}):
+date of source calibration in "YYYY-MM-DD"}
 
-\item{calib.dose.rate}{\code{\link{numeric}} (\bold{required}): dose rate at
-date of calibration in Gy/s or Gy/min}
+\item{calib.dose.rate}{\link{numeric} (\strong{required}):
+dose rate at date of calibration in Gy/s or Gy/min}
 
-\item{calib.error}{\code{\link{numeric}} (\bold{required}): error of dose
-rate at date of calibration Gy/s or Gy/min}
+\item{calib.error}{\link{numeric} (\strong{required}):
+error of dose rate at date of calibration Gy/s or Gy/min}
 
-\item{source.type}{\code{\link{character}} (with default): specify
-irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see
-details for further information}
+\item{source.type}{\link{character} (\emph{with default}):
+specify irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}),
+see details for further information}
 
-\item{dose.rate.unit}{\code{\link{character}} (with default): specify dose
-rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
-Gy/s as valid for the function \code{\link{Second2Gray}}}
+\item{dose.rate.unit}{\link{character} (\emph{with default}):
+specify dose rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
+Gy/s as valid for the function \link{Second2Gray}}
 
-\item{predict}{\code{\link{integer}} (with default): option allowing to predicit the dose
-rate of the source over time in days set by the provided value. Starting date is the value set
-with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)} calculates
+\item{predict}{\link{integer} (\emph{with default}):
+option allowing to predicit the dose rate of the source over time in days
+set by the provided value. Starting date is the value set with
+\code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
 the source dose rate for the next 100 days.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
-Slot \code{data} contains a \code{\link{list}} with the following
-structure:\cr
-$ dose.rate (data.frame)\cr
-.. $ dose.rate \cr
-.. $ dose.rate.error \cr
-.. $ date (corresponding measurement date)\cr
-$ parameters (list) \cr
-.. $ source.type\cr
-.. $ halflife\cr
-.. $ dose.rate.unit\cr
-$ call (the original function call)\cr
+Returns an S4 object of type \linkS4class{RLum.Results}.
+Slot \code{data} contains a \link{list} with the following structure:\preformatted{$ dose.rate (data.frame)
+.. $ dose.rate 
+.. $ dose.rate.error 
+.. $ date (corresponding measurement date)
+$ parameters (list) 
+.. $ source.type
+.. $ halflife
+.. $ dose.rate.unit
+$ call (the original function call)
+}
 
-The output should be accessed using the function \code{\link{get_RLum}}.\cr
-A plot method of the output is provided via \code{\link{plot_RLum}}
+The output should be accessed using the function \link{get_RLum}.\cr
+A plot method of the output is provided via \link{plot_RLum}
 }
 \description{
 Calculating the dose rate of the irradiation source via the date of
 measurement based on: source calibration date, source dose rate, dose rate
 error. The function returns a data.frame that provides the input argument
-dose_rate for the function \code{\link{Second2Gray}}.
+dose_rate for the function \link{Second2Gray}.
 }
 \details{
 Calculation of the source dose rate based on the time elapsed since the last
@@ -66,16 +66,16 @@ days) t <- time since source calibration (in days) log(2) / T.1/2 equals the
 decay constant lambda
 
 Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., BINfile <- readBIN2R() and the slot
-BINfile@METADATA$DATE)
+original .BIN file (using e.g., \code{BINfile <- readBIN2R()} and the slot
+\code{BINfile@METADATA$DATE})
 
-\bold{Allowed source types and related values}
+\strong{Allowed source types and related values}
 
-\tabular{rllll}{ \bold{#} \tab \bold{Source type} \tab \bold{T.1/2} \tab
-\bold{Reference} \cr [1] \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven
-National Laboratory \cr [2] \tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven
-National Laboratory \cr [3] \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
-National Laboratory }
+\tabular{rllll}{
+\strong{#} \tab \strong{Source type} \tab \strong{T.1/2} \tab \strong{Reference} \cr
+\code{[1]} \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
+\code{[2]}\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
+\code{[3]} \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory }
 }
 \note{
 Please be careful when using the option \code{predict}, especially when a multiple set
@@ -88,7 +88,7 @@ it is not recommended to use this option when multiple calibration dates (\code{
 are provided.
 }
 \section{Function version}{
- 0.3.0 (2017-06-30 11:23:30)
+ 0.3.0 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -127,22 +127,20 @@ xtable::xtable(get_RLum(dose.rate))
 
 }
 
-
 } 
 
 \section{How to cite}{
-Fuchs, M.C., Fuchs, M., Kreutzer, S. (2017). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., Kreutzer, S. (2017). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-NNDC, Brookhaven National Laboratory
-(\code{http://www.nndc.bnl.gov/})
+NNDC, Brookhaven National Laboratory \url{http://www.nndc.bnl.gov/}
 }
 \seealso{
-\code{\link{Second2Gray}}, \code{\link{get_RLum}}, \code{\link{plot_RLum}}
+\link{Second2Gray}, \link{get_RLum}, \link{plot_RLum}
 }
 \author{
-Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
-\cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{manip}

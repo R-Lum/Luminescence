@@ -8,36 +8,36 @@ De distribution}
 calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(data[,2])}}
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}}
 
-\item{sigmab}{\code{\link{numeric}} (with default): additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be 
+\item{sigmab}{\link{numeric} (\emph{with default}):
+additional spread in De values.
+This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
-\bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+\strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
-\item{log}{\code{\link{logical}} (with default): fit the (un-)logged central
-age model to De data}
+\item{log}{\link{logical} (\emph{with default}):
+fit the (un-)logged central age model to De data}
 
-\item{plot}{\code{\link{logical}} (with default): plot output}
+\item{plot}{\link{logical} (\emph{with default}):
+plot output}
 
-\item{\dots}{further arguments (\code{trace, verbose}).}
+\item{...}{further arguments (\code{trace}, \code{verbose}).}
 }
 \value{
-Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
-following element:
+Returns a plot (\emph{optional}) and terminal output. In addition an
+\linkS4class{RLum.Results} object is returned containing the following elements:
 
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-used arguments} \item{call}{\link{call} the function call}
-\item{profile}{\link{data.frame} the log likelihood profile for sigma}
+\item{.$summary}{\link{data.frame} summary of all relevant model results.}
+\item{.$data}{\link{data.frame} original input data}
+\item{.$args}{\link{list} used arguments}
+\item{.$call}{\link{call} the function call}
+\item{.$profile}{\link{data.frame} the log likelihood profile for sigma}
 
-The output should be accessed using the function
-\code{\link{get_RLum}}
+The output should be accessed using the function \link{get_RLum}
 }
 \description{
 This function calculates the central dose and dispersion of the De
@@ -49,14 +49,14 @@ This function uses the equations of Galbraith & Roberts (2012). The
 parameters \code{delta} and \code{sigma} are estimated by numerically solving
 eq. 15 and 16. Their standard errors are approximated using eq. 17.
 In addition, the profile log-likelihood function for \code{sigma} is
-calculated using eq. 18 and presented as a plot. Numerical values of the 
-maximum likelihood approach are \bold{only} presented in the plot and \bold{not}
-in the console. A detailed explanation on maximum likelihood estimation can be found in the
-appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
-(2012, 15)
+calculated using eq. 18 and presented as a plot. Numerical values of the
+maximum likelihood approach are \strong{only} presented in the plot and \strong{not}
+in the console. A detailed explanation on maximum likelihood estimation can
+be found in the appendix of Galbraith & Laslett (1993, 468-470) and
+Galbraith & Roberts (2012, 15)
 }
 \section{Function version}{
- 1.3.2 (2017-06-30 11:23:30)
+ 1.3.2 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -70,38 +70,46 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 } 
 
 \section{How to cite}{
-Burow, C. (2017). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
-\cr \cr Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
+
+Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
 J.M., 1999. Optical dating of single grains of quartz from Jinmium rock
 shelter, northern Australia. Part I: experimental design and statistical
-models.  Archaeometry 41, 339-364. \cr \cr Galbraith, R.F. & Roberts, R.G.,
-2012. Statistical aspects of equivalent dose and error calculation and
+models.  Archaeometry 41, 339-364.
+
+Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error calculation and
 display in OSL dating: An overview and some recommendations. Quaternary
-Geochronology 11, 1-27. \cr \cr \bold{Further reading} \cr \cr Arnold, L.J.
-& Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
+Geochronology 11, 1-27.
+
+\strong{Further reading}
+
+Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
-Quaternary Geochronology 4, 204-230. \cr \cr Bailey, R.M. & Arnold, L.J.,
-2006. Statistical modelling of single grain quartz De distributions and an
+Quaternary Geochronology 4, 204-230.
+
+Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 assessment of procedures for estimating burial dose. Quaternary Science
-Reviews 25, 2475-2502. \cr \cr Cunningham, A.C. & Wallinga, J., 2012.
-Realizing the potential of fluvial archives using robust OSL chronologies.
-Quaternary Geochronology 12, 98-106. \cr \cr Rodnight, H., Duller, G.A.T.,
-Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
+Reviews 25, 2475-2502.
+
+Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
+Quaternary Geochronology 12, 98-106.
+
+Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
 of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120.
-\cr \cr Rodnight, H., 2008. How many equivalent dose values are needed to
+
+Rodnight, H., 2008. How many equivalent dose values are needed to
 obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{calc_CommonDose}},
-\code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-\code{\link{calc_MinDose}}
+\link{plot}, \link{calc_CommonDose}, \link{calc_FiniteMixture},
+\link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
-Christoph Burow, University of Cologne (Germany) \cr Based on a
-rewritten S script of Rex Galbraith, 2010 \cr
+Christoph Burow, University of Cologne (Germany) \cr
+Based on a rewritten S script of Rex Galbraith, 2010
 \cr R Luminescence Package Team}

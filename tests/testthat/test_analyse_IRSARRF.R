@@ -47,7 +47,7 @@ test_that("test controlled chrash conditions", {
       n.MC = 10,
       method.control = list(vslide_range = c(0,1e+08)),
       txtProgressBar = FALSE
-    ), regexp = "[:::.analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!", fixed = TRUE)
+    ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!", fixed = TRUE)
 
 
 

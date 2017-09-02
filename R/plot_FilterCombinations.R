@@ -1,117 +1,122 @@
 #' Plot filter combinations along with the (optional) net transmission window
 #'
 #' The function allows to plot transmission windows for different filters. Missing data for specific
-#' wavelenghts are automatically interpolated for the given filter data using the function \code{\link{approx}}.
-#' With that a standardised output is reached and a net transmission window can be shown.\cr
+#' wavelenghts are automatically interpolated for the given filter data using the function [approx].
+#' With that a standardised output is reached and a net transmission window can be shown.
 #'
-#' \bold{Calculations}\cr
+#' **Calculations**
 #'
-#' \bold{Net transmission window}\cr
+#' **Net transmission window**
+#' 
 #' The net transmission window of two filters is approximated by
 #'
 #' \deqn{T_{final} = T_{1} * T_{2}}
 #'
-#'
-#' \bold{Optical density}\cr
+#' **Optical density**
 #'
 #' \deqn{OD = -log(T)}
 #'
-#' \bold{Total optical density}\cr
+#' **Total optical density**
 #'
 #' \deqn{OD_{total} = OD_{1} +  OD_{2}}
 #'
 #' Please consider using own calculations for more precise values.
 #'
-#' \bold{How to provide input data?}\cr
+#' **How to provide input data?**
 #'
-#' CASE 1\cr
+#' *CASE 1*
 #'
-#' The function expects that all filter values are either of type \code{matrix} or \code{data.frame}
+#' The function expects that all filter values are either of type `matrix` or `data.frame`
 #' with two columns. The first columens contains the wavelength, the second the relative transmission
 #' (but not in percentage, i.e. the maximum transmission can be only become 1).
 #'
 #' In this case only the transmission window is show as provided. Changes in filter thickness and
-#' relection factor are not considered. \cr
+#' relection factor are not considered.
 #'
-#' CASE 2\cr
+#' *CASE 2*
 #'
-#' The filter data itself are provided as list element containing a \code{matrix} or \code{data.frame}
-#' and additional information on the thickness of the filter, e.g., \code{list(filter1 = list(filter_matrix, d = 2))}.
+#' The filter data itself are provided as list element containing a `matrix` or 
+#' `data.frame` and additional information on the thickness of the filter, e.g., 
+#' `list(filter1 = list(filter_matrix, d = 2))`.
 #' The given filter data are always considered as standard input and the filter thickness value
 #' is taken into account by
 #'
 #' \deqn{Transmission = Transmission^(d)}
 #'
-#' with d given in the same dimension as the original filter data.\cr
+#' with d given in the same dimension as the original filter data.
 #'
-#' CASE 3\cr
+#' *CASE 3*
 #'
 #' Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
-#' \code{list(filter1 = list(filter_matrix, d = 2, P = 0.9))}. The final transmission
-#' becomes:
+#' `list(filter1 = list(filter_matrix, d = 2, P = 0.9))`. 
+#' The final transmission becomes:
 #'
-#' \deqn{Transmission = Transmission^(d) * P}\cr
+#' \deqn{Transmission = Transmission^(d) * P}
 #'
-#' \bold{Advanced plotting parameters}\cr
+#' **Advanced plotting parameters**
 #'
-#' The following further non-common plotting parameters can be passed to the function:\cr
+#' The following further non-common plotting parameters can be passed to the function:
 #'
 #' \tabular{lll}{
-#' \bold{Argument} \tab \bold{Datatype} \tab \bold{Description}\cr
-#' \code{legend} \tab \code{logical} \tab enable/disable legend \cr
-#' \code{legend.pos} \tab \code{character} \tab change legend position (\code{\link[graphics]{legend}}) \cr
-#' \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in (\code{\link[graphics]{legend}}) \cr
-#' \code{net_transmission.col} \tab \code{col} \tab colour of net transmission window polygon \cr
-#' \code{net_transmission.col_lines} \tab \code{col} \tab colour of net transmission window polygon lines \cr
-#' \code{ net_transmission.density} \tab  \code{numeric} \tab specify line density in the transmission polygon \cr
-#' \code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function \code{\link[graphics]{grid}}
+#' **`Argument`** \tab **`Datatype`** \tab **`Description`**\cr
+#' `legend` \tab `logical` \tab enable/disable legend \cr
+#' `legend.pos` \tab `character` \tab change legend position ([graphics::legend]) \cr
+#' `legend.text` \tab `character` \tab same as the argument `legend` in ([graphics::legend]) \cr
+#' `net_transmission.col` \tab `col` \tab colour of net transmission window polygon \cr
+#' `net_transmission.col_lines` \tab `col` \tab colour of net transmission window polygon lines \cr
+#' `net_transmission.density` \tab  `numeric` \tab specify line density in the transmission polygon \cr
+#' `grid` \tab `list` \tab full list of arguments that can be passd to the function [graphics::grid]
 #' }
 #'
 #' For further modifications standard additional R plot functions are recommend, e.g., the legend
-#' can be fully customised by disabling the standard legend and use the function \code{\link[graphics]{legend}}
+#' can be fully customised by disabling the standard legend and use the function [graphics::legend]
 #' instead.
 #'
 #'
-#' @param filters \code{\link{list}} (\bold{required}): a named list of filter data for each filter to be shown.
-#' The filter data itself should be either provided as \code{\link{data.frame}} or \code{\link{matrix}}.
+#' @param filters [list] (**required**): 
+#' a named list of filter data for each filter to be shown. 
+#' The filter data itself should be either provided as [data.frame] or [matrix].
 #' (for more options s. Details)
 #'
-#' @param wavelength_range \code{\link{numeric}} (with default): wavelength range used for the interpolation
+#' @param wavelength_range [numeric] (*with default*): 
+#' wavelength range used for the interpolation
 #'
-#' @param show_net_transmission \code{\link{logical}} (with default): show net transmission window
-#' as polygon.
+#' @param show_net_transmission [logical] (*with default*): 
+#' show net transmission window as polygon.
 #'
-#' @param interactive \code{\link{logical}} (with default): enable/disable interactive plot
+#' @param interactive [logical] (*with default*): 
+#' enable/disable interactive plot
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables the plot output
+#' @param plot [logical] (*with default*): 
+#' enables or disables the plot output
 #'
-#' @param \dots further arguments that can be passed to control the plot output. Suppored are \code{main},
-#' \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
+#' @param ... further arguments that can be passed to control the plot output. 
+#' Suppored are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
 #' For non common plotting parameters see the details section.
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+#' @return Returns an S4 object of type [RLum.Results-class].
 #'
-#' \bold{@data}
+#' **@data**
+#' 
 #' \tabular{lll}{
-#' \bold{Object} \tab \bold{Type} \bold{Description} \cr
-#'  net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
-#'  OD_total \tab \code{matrix} \tab the total optical density\cr
-#'  filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
-#'
+#'  **`Object`** \tab **`Type`** **`Description`** \cr
+#'  `net_transmission_window` \tab `matrix` \tab the resulting net transmission window \cr
+#'  `OD_total` \tab `matrix` \tab the total optical density\cr
+#'  `filter_matrix` \tab `matrix` \tab the filter matrix used for plotting
 #' }
 #'
-#' \bold{@info}
+#' **@info**
+#' 
 #' \tabular{lll}{
-#' \bold{Object} \tab \bold{Type} \bold{Description} \cr
-#' call \tab \code{call} \tab the original function call
-#'
+#' **Object** \tab **Type** **Description** \cr
+#' `call` \tab [call] \tab the original function call
 #' }
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{approx}}
+#' @seealso [RLum.Results-class], [approx]
 #'
 #' @keywords datagen aplot
 #'
@@ -143,6 +148,7 @@
 #' }
 #'
 #'
+#' @md
 #' @export
 plot_FilterCombinations <- function(
   filters,

@@ -5,9 +5,9 @@
 #' Details and the theoretical background of the radial plot are given in the
 #' cited literature. This function is based on an S script of Rex Galbraith. To
 #' reduce the manual adjustments, the function has been rewritten. Thanks to
-#' Rex Galbraith for useful comments on this function. \cr Plotting can be
-#' disabled by adding the argument \code{plot = "FALSE"}, e.g. to return only
-#' numeric plot output.\cr
+#' Rex Galbraith for useful comments on this function. \cr 
+#' Plotting can be disabled by adding the argument `plot = "FALSE"`, e.g. 
+#' to return only numeric plot output.
 #'
 #' Earlier versions of the Radial Plot in this package had the 2-sigma-bar
 #' drawn onto the z-axis. However, this might have caused misunderstanding in
@@ -15,89 +15,127 @@
 #' Rather it applies only to the x-y-coordinate system (standardised error vs.
 #' precision). A spread in doses or ages must be drawn as lines originating at
 #' zero precision (x0) and zero standardised estimate (y0). Such a range may be
-#' drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
-#' \code{line.label}, cf. examples).\cr\cr
+#' drawn by adding lines to the radial plot ( `line`, `line.col`,
+#' `line.label`, cf. examples).
 #'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
-#' one or more of the following keywords: \code{"n"} (number of samples),
-#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
-#' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation),
-#' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
-#' error-weighted relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-#' \code{"in.2s"} (percent of samples in 2-sigma range),
-#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
+#' one or more of the following keywords: 
+#' - `"n"` (number of samples),
+#' - `"mean"` (mean De value), 
+#' - `"mean.weighted"` (error-weighted mean),
+#' - `"median"` (median of the De values), 
+#' - `"sdrel"` (relative standard deviation in percent), 
+#' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent), 
+#' - `"sdabs"` (absolute standard deviation),
+#' - `"sdabs.weighted"` (error-weighted absolute standard deviation),
+#' - `"serel"` (relative standard error), 
+#' - `"serel.weighted"` (error-weighted relative standard error), 
+#' - `"seabs"` (absolute standard error), 
+#' - `"seabs.weighted"` (error-weighted absolute standard error),
+#' - `"in.2s"` (percent of samples in 2-sigma range),
+#' - `"kurtosis"` (kurtosis) and 
+#' - `"skewness"` (skewness).
 #'
-#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-#' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
-#' and De error (\code{data[,2]}). To plot several data sets in one plot, the
-#' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
-#' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
-#' values from the data set prior to any further operations.
-#' @param log.z \code{\link{logical}} (with default): Option to display the
-#' z-axis in logarithmic scale. Default is \code{TRUE}.
-#' @param central.value \code{\link{numeric}}: User-defined central value,
-#' primarily used for horizontal centering of the z-axis.
-#' @param centrality \code{\link{character}} or \code{\link{numeric}} (with
-#' default): measure of centrality, used for automatically centering the plot
-#' and drawing the central line. Can either be one out of \code{"mean"},
-#' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
-#' numeric value used for the standardisation.
-#' @param mtext \code{\link{character}}: additional text below the plot title.
-#' @param summary \code{\link{character}} (optional): add statistic measures of
-#' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords.
-#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
-#' default): optional position coordinates or keyword (e.g. \code{"topright"})
-#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`). 
+#' To plot several data sets in one plot, the data sets must be provided as 
+#' `list`, e.g. `list(data.1, data.2)`.
+#' 
+#' @param na.rm [logical] (*with default*): 
+#' excludes `NA` values from the data set prior to any further operations.
+#' 
+#' @param log.z [logical] (*with default*): 
+#' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
+#' 
+#' @param central.value [numeric]: 
+#' User-defined central value, primarily used for horizontal centering 
+#' of the z-axis.
+#' 
+#' @param centrality [character] or [numeric] (*with default*): 
+#' measure of centrality, used for automatically centering the plot and drawing 
+#' the central line. Can either be one out of 
+#' - `"mean"`, 
+#' - `"median"`, 
+#' - `"mean.weighted"` and 
+#' - `"median.weighted"` or a
+#' - numeric value used for the standardisation.
+#' 
+#' @param mtext [character]: 
+#' additional text below the plot title.
+#' 
+#' @param summary [character] (*optional*): 
+#' add statistic measures of centrality and dispersion to the plot. 
+#' Can be one or more of several keywords. See details for available keywords.
+#' 
+#' @param summary.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`)
+#' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
-#' option is only possible if \code{mtext} is not used.
-#' @param legend \code{\link{character}} vector (optional): legend content to
-#' be added to the plot.
-#' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
-#' default): optional position coordinates or keyword (e.g. \code{"topright"})
+#' option is only possible if `mtext` is not used.
+#' 
+#' @param legend [character] vector (*optional*): 
+#' legend content to be added to the plot.
+#' 
+#' @param legend.pos [numeric] or [character] (with
+#' default): optional position coordinates or keyword (e.g. `"topright"`)
 #' for the legend to be plotted.
-#' @param stats \code{\link{character}}: additional labels of statistically
+#' 
+#' @param stats [character]: additional labels of statistically
 #' important values in the plot. One or more out of the following:
-#' \code{"min"}, \code{"max"}, \code{"median"}.
-#' @param rug \code{\link{logical}}: Option to add a rug to the z-scale, to
-#' indicate the location of individual values
-#' @param plot.ratio \code{\link{numeric}}: User-defined plot area ratio (i.e.
-#' curvature of the z-axis). If omitted, the default value (\code{4.5/5.5}) is
-#' used and modified automatically to optimise the z-axis curvature. The
-#' parameter should be decreased when data points are plotted outside the
-#' z-axis or when the z-axis gets too elliptic.
-#' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
-#' default): colour of the bar showing the 2-sigma range around the central
-#' value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.
-#' @param y.ticks \code{\link{logical}}: Option to hide y-axis labels. Useful
-#' for data with small scatter.
-#' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
-#' default): colour of the grid lines (originating at [0,0] and stretching to
-#' the z-scale). To disable grid lines, use \code{"none"}. Default is
-#' \code{"grey"}.
-#' @param line \code{\link{numeric}}: numeric values of the additional lines to
-#' be added.
-#' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
-#' the additional lines.
-#' @param line.label \code{\link{character}}: labels for the additional lines.
-#' @param output \code{\link{logical}}: Optional output of numerical plot
-#' parameters. These can be useful to reproduce similar plots. Default is
-#' \code{FALSE}.
-#' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
+#' - `"min"`, 
+#' - `"max"`,
+#' - `"median"`.
+#' 
+#' @param rug [logical]: 
+#' Option to add a rug to the z-scale, to indicate the location of individual values
+#' 
+#' @param plot.ratio [numeric]: 
+#' User-defined plot area ratio (i.e. curvature of the z-axis). If omitted, 
+#' the default value (`4.5/5.5`) is used and modified automatically to optimise 
+#' the z-axis curvature. The parameter should be decreased when data points 
+#' are plotted outside the z-axis or when the z-axis gets too elliptic.
+#' 
+#' @param bar.col [character] or [numeric] (*with default*): 
+#' colour of the bar showing the 2-sigma range around the central
+#' value. To disable the bar, use `"none"`. Default is `"grey"`.
+#' 
+#' @param y.ticks [logical]: 
+#' Option to hide y-axis labels. Useful for data with small scatter.
+#' 
+#' @param grid.col [character] or [numeric] (*with default*): 
+#' colour of the grid lines (originating at `[0,0]` and stretching to 
+#' the z-scale). To disable grid lines, use `"none"`. Default is `"grey"`.
+#' 
+#' @param line [numeric]: 
+#' numeric values of the additional lines to be added.
+#' 
+#' @param line.col [character] or [numeric]: 
+#' colour of the additional lines.
+#' 
+#' @param line.label [character]: 
+#' labels for the additional lines.
+#' 
+#' @param output [logical]: 
+#' Optional output of numerical plot parameters. These can be useful to 
+#' reproduce similar plots. Default is `FALSE`.
+#' 
+#' @param ... Further plot arguments to pass. `xlab` must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
+#' 
 #' @return Returns a plot object.
+#' 
 #' @section Function version: 0.5.4
-#' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
-#' S script of Rex Galbraith, 2010
-#' @seealso \code{\link{plot}}, \code{\link{plot_KDE}},
-#' \code{\link{plot_Histogram}}
-#' @references Galbraith, R.F., 1988. Graphical Display of Estimates Having
+#' 
+#' @author 
+#' Michael Dietze, GFZ Potsdam (Germany)\cr 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Based on a rewritten S script of Rex Galbraith, 2010
+#' 
+#' @seealso [plot], [plot_KDE], [plot_Histogram]
+#' 
+#' @references 
+#' Galbraith, R.F., 1988. Graphical Display of Estimates Having
 #' Differing Standard Errors. Technometrics, 30 (3), 271-281.
 #'
 #' Galbraith, R.F., 1990. The radial plot: Graphical assessment of spread in
@@ -121,6 +159,7 @@
 #' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
 #' dose and error calculation and display in OSL dating: An overview and some
 #' recommendations. Quaternary Geochronology, 11, 1-27.
+#' 
 #' @examples
 #'
 #' ## load example data
@@ -212,6 +251,7 @@
 #'                 summary.pos = "sub",
 #'                 legend = c("Sample 1", "Sample 2"))
 #'
+#' @md
 #' @export
 plot_RadialPlot <- function(
   data,

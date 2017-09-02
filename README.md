@@ -2,9 +2,6 @@
 
 The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
 
-## Documentation
-[![Rdoc](http://www.rdocumentation.org/badges/version/Luminescence)](http://www.rdocumentation.org/packages/Luminescence)
-
 ## Package metrics 
 ### CRAN statistics
 [![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](http://cran.rstudio.com/package=Luminescence)
@@ -25,11 +22,9 @@ The R package 'Luminescence' by the R-Luminescence Group provides a collection o
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
 
 ## Social media and other resources 
-Follow us on [![]( http://i.imgur.com/wWzX9uB.png)](http://www.twitter.com/RLuminescence)
+Follow us on [![](http://i.imgur.com/wWzX9uB.png)](http://www.twitter.com/RLuminescence)
 
 For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
-
-Ways to reproducible research: [RLumDocker](https://github.com/R-Lum/RLumDocker)
 
 ## Installation
 
@@ -52,12 +47,20 @@ For **Linux** users *gcc* often comes pre-installed in most distributions. Shoul
 
 #### ii. Install the package
 
+##### Since version 0.8.0 with RStudio
+
+Install any development versions using our *RStudio* add-in
+
+![](RLum.Images/Screenshot_AddIn.png)
+
+
+##### The plain **R** way
+
 To install the stable version from CRAN, simply run the following from an R console:
 
 ```r
 install.packages("Luminescence")
 ```
-
 
 To install the latest development builds directly from GitHub, run
 

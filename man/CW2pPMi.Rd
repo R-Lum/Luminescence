@@ -8,28 +8,34 @@ parabolic modulation conditions}
 CW2pPMi(values, P)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (\bold{required}):
-\code{\linkS4class{RLum.Data.Curve}} or \code{data.frame} with measured
-curve data of type stimulation time (t) (\code{values[,1]}) and measured
-counts (cts) (\code{values[,2]})}
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\linkS4class{RLum.Data.Curve} or \code{data.frame} with measured curve data of type
+stimulation time (t) (\code{values[,1]}) and measured counts (cts) (\code{values[,2]})}
 
-\item{P}{\code{\link{vector}} (optional): stimulation period in seconds. If
-no value is given, the optimal value is estimated automatically (see
-details). Greater values of P produce more points in the rising tail of the
-curve.}
+\item{P}{\link{vector} (\emph{optional}):
+stimulation period in seconds. If no value is given, the optimal value is
+estimated automatically (see details). Greater values of P produce more
+points in the rising tail of the curve.}
 }
 \value{
 The function returns the same data type as the input data type with
-the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-\code{\linkS4class{RLum} object} with two additional info elements:
-\tabular{rl}{ $CW2pPMi.x.t \tab: transformed time values \cr $CW2pPMi.method
-\tab: used method for the production of the new data points }}
+the transformed curve values.
 
-\item{list(list("data.frame"))}{with four columns: \tabular{rl}{ $x \tab:
-time\cr $y.t \tab: transformed count values\cr $x.t \tab: transformed time
-values \cr $method \tab: used method for the production of the new data
-points }}
+\code{RLum.Data.Curve}
+
+\tabular{rl}{
+\code{$CW2pPMi.x.t} \tab: transformed time values \cr
+\code{$CW2pPMi.method} \tab: used method for the production of the new data points
+}
+
+\code{data.frame}
+
+\tabular{rl}{
+\code{$x} \tab: time\cr
+\code{$y.t} \tab: transformed count values\cr
+\code{$x.t} \tab: transformed time values \cr
+\code{$method} \tab: used method for the production of the new data points
+}
 }
 \description{
 Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
@@ -39,30 +45,51 @@ using the interpolation procedure described by Bos & Wallinga (2012).
 \details{
 The complete procedure of the transformation is given in Bos & Wallinga
 (2012). The input \code{data.frame} consists of two columns: time (t) and
-count values (CW(t))\cr\cr
+count values (CW(t))
 
-\bold{Nomenclature}\cr\cr P = stimulation time (s)\cr 1/P = stimulation rate
-(1/s)\cr\cr
+\strong{Nomenclature}
+\itemize{
+\item P = stimulation time (s)
+\item 1/P = stimulation rate (1/s)
+}
 
-\bold{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr\cr (2)
-Calculate t' which is the transformed time: \deqn{t' = (1/3)*(1/P^2)t^3} (3)
+\strong{Internal transformation steps}
+
+(1)
+log(CW-OSL) values
+
+(2)
+Calculate t' which is the transformed time:
+\deqn{t' = (1/3)*(1/P^2)t^3}
+
+(3)
 Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values for
 the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
-produce \code{NA} values.\cr\cr (4) Select all values for t' <
-\code{min(t)}, i.e. values beyond the time resolution of t. Select the first
-two values of the transformed data set which contain no \code{NA} values and
-use these values for a linear fit using \code{\link{lm}}.\cr\cr (5)
+produce \code{NA} values.
+
+(4)
+Select all values for t' < \code{min(t)}, i.e. values beyond the time resolution
+of t. Select the first two values of the transformed data set which contain
+no \code{NA} values and use these values for a linear fit using \link{lm}.
+
+(5)
 Extrapolate values for t' < \code{min(t)} based on the previously obtained
 fit parameters. The extrapolation is limited to two values. Other values at
-the beginning of the transformed curve are set to 0.\cr\cr (6) Transform
-values using \deqn{pLM(t) = t^2/P^2*CW(t')} (7) Combine all values and
-truncate all values for t' > \code{max(t)}\cr\cr
+the beginning of the transformed curve are set to 0.
 
-\emph{The number of values for t' < \code{min(t)} depends on the stimulation
+(6)
+Transform values using
+\deqn{pLM(t) = t^2/P^2*CW(t')}
+
+(7)
+Combine all values and truncate all values for t' > \code{max(t)}
+
+\strong{NOTE:}
+The number of values for t' < \code{min(t)} depends on the stimulation
 period \code{P}. To avoid the production of too many artificial data at the
 raising tail of the determined pPM curve, it is recommended to use the
 automatic estimation routine for \code{P}, i.e. provide no value for
-\code{P}.}
+\code{P}.
 }
 \note{
 According to Bos & Wallinga (2012), the number of extrapolated points
@@ -70,7 +97,7 @@ should be limited to avoid artificial intensity data. If \code{P} is
 provided manually, not more than two points are extrapolated.
 }
 \section{Function version}{
- 0.2.1 (2017-06-30 11:23:30)
+ 0.2.1 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -116,18 +143,19 @@ lines(values[1:length(values.t[,1]),1], CW2pPMi(values, P = 1/10)[,2],
       col = "blue", lwd = 1.3)
 text(0.5,6500,"PM", col = "blue", cex = .8)
 
-
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
-signal components. Radiation Measurements, 47, 752-758.\cr
+signal components. Radiation Measurements, 47, 752-758.
 
-\bold{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+\strong{Further Reading}
+
+Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 
@@ -135,12 +163,12 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-\code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pHMi}},
-\code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}}
+\link{CW2pLM}, \link{CW2pLMi}, \link{CW2pHMi}, \link{fit_LMCurve}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
-Delft University of Technology, The Netherlands\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+
+Based on comments and suggestions from:\cr
+Adrie J.J. Bos, Delft University of Technology, The Netherlands
 \cr R Luminescence Package Team}
 \keyword{manip}

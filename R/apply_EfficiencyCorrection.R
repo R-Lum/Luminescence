@@ -7,44 +7,43 @@
 #' The efficiency correction is based on a spectral response dataset provided
 #' by the user. Usually the data set for the quantum efficiency is of lower
 #' resolution and values are interpolated for the required spectral resolution using
-#' the function \code{\link[stats]{approx}}
+#' the function [stats::approx]
 #'
-#' If the energy calibration differes for both data set \code{NA} values are produces that
+#' If the energy calibration differes for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
-#' object of class \code{RLum.Data.Spectrum}
+#' @param object [RLum.Data.Spectrum-class] (**required**): 
+#' S4 object of class `RLum.Data.Spectrum`
 #'
-#' @param spectral.efficiency \code{\link{data.frame}} (\bold{required}): Data
-#' set containing wavelengths (x-column) and relative spectral response values
+#' @param spectral.efficiency [data.frame] (**required**): 
+#' Data set containing wavelengths (x-column) and relative spectral response values
 #' (y-column) in percentage
 #'
-#' @return Returns same object as input
-#' (\code{\linkS4class{RLum.Data.Spectrum}})
+#' @return Returns same object as input ([RLum.Data.Spectrum-class])
 #'
-#' @note Please note that the spectral efficiency data from the camera alone may not
+#' @note 
+#' Please note that the spectral efficiency data from the camera alone may not
 #' sufficiently correct for spectral efficiency of the entire optical system
 #' (e.g., spectrometer, camera ...).
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France),\cr Johannes Friedrich, University of Bayreuth (Germany)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Johannes Friedrich, University of Bayreuth (Germany)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}
-#'
-#' @references -
+#' @seealso [RLum.Data.Spectrum-class]
 #'
 #' @keywords manip
 #'
 #' @examples
-#'
 #'
 #' ##(1) - use with your own data (uncomment for usage)
 #' ## spectral.efficiency <- read.csv("your data")
 #' ##
 #' ## your.spectrum <- apply_EfficiencyCorrection(your.spectrum, )
 #'
+#' @md
 #' @export
 apply_EfficiencyCorrection <- function(
   object,

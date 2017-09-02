@@ -7,22 +7,24 @@
 convert_Daybreak2CSV(file, ...)
 }
 \arguments{
-\item{file}{\code{\link{character}} (\bold{required}): name of the Daybreak-file (TXT-file, DAT-file) to be converted to CSV-files}
+\item{file}{\link{character} (\strong{required}):
+name of the Daybreak-file (TXT-file, DAT-file) to be converted to CSV-files}
 
-\item{\dots}{further arguments that will be passed to the function \code{\link{read_Daybreak2R}} and \code{\link{write_RLum2CSV}}}
+\item{...}{further arguments that will be passed to the function
+\link{read_Daybreak2R} and \link{write_RLum2CSV}}
 }
 \value{
 The function returns either a CSV-file (or many of them) or for the option \code{export = FALSE}
-a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
-This function is a wrapper function around the functions \code{\link{read_Daybreak2R}} and
-\code{\link{write_RLum2CSV}} and it imports an Daybreak-file (TXT-file, DAT-file)
-and directly exports its content to CSV-files.  If nothing is set for the argument \code{path} (\code{\link{write_RLum2CSV}})
-the input folder will become the output folder.
+This function is a wrapper function around the functions \link{read_Daybreak2R} and
+\link{write_RLum2CSV} and it imports an Daybreak-file (TXT-file, DAT-file)
+and directly exports its content to CSV-files.  If nothing is set for the
+argument \code{path} (\link{write_RLum2CSV}) the input folder will become the output folder.
 }
 \section{Function version}{
- 0.1.0 (2017-06-30 11:23:30)
+ 0.1.0 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -38,15 +40,15 @@ convert_Daybreak2CSV(file)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-\code{\link[utils]{write.table}}, \code{\link{write_RLum2CSV}}, \code{\link{read_Daybreak2R}}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data}, \linkS4class{RLum.Results},
+\link[utils:write.table]{utils::write.table}, \link{write_RLum2CSV}, \link{read_Daybreak2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). convert_Daybreak2CSV(): Export measurement data produced by a Daybreak luminescence reader to CSV-files. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). convert_Daybreak2CSV(): Export measurement data produced by a Daybreak luminescence reader to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

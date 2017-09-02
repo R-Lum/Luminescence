@@ -11,8 +11,8 @@ smooth_RLum(object, ...)
 \S4method{smooth_RLum}{list}(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum}}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specifc class method}
 }
@@ -24,21 +24,23 @@ Function calls the object-specific smooth functions for provided RLum S4-class o
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
-corresponding function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \code{\linkS4class{RLum}} class. The smoothing
-is based on an internal function called \code{.smoothing}.
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the corresponding function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum} class. The smoothing is based on an internal function
+called \code{.smoothing}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{smooth_RLum}}
+\item \code{list}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{smooth_RLum}
 }}
 
 \note{
-Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis} (with curve data) are supported!
+Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis}
+(with curve data) are supported!
 }
 \section{Function version}{
- 0.1.0 (2017-06-30 11:23:30)
+ 0.1.0 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -60,15 +62,14 @@ plot_RLum(smooth_RLum(curve))
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Analysis}}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

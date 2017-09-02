@@ -7,13 +7,14 @@
 get_Layout(layout)
 }
 \arguments{
-\item{layout}{\code{\link{character}} or \code{\link{list}} object
-(required): name of the layout definition to be returned. If name is
-provided the respective definition is returned. One of the following
+\item{layout}{\link{character} or \link{list} object (\strong{required}):
+name of the layout definition to be returned. If name is provided the
+respective definition is returned. One of the following
 supported layout definitions is possible: \code{"default"},
-\code{"journal.1"}, \code{"small"}, \code{"empty"}. User-specific layout
-definitions must be provided as a list object of predefined structure, see
-details.}
+\code{"journal.1"}, \code{"small"}, \code{"empty"}.
+
+User-specific layout definitions must be provided as a list object of
+predefined structure, see details.}
 }
 \value{
 A list object with layout definitions for plot functions.
@@ -28,7 +29,7 @@ create either an empty or a default layout object and fill/modify the
 definitions (\code{user.layout <- get_Layout(data = "empty")}).
 }
 \section{Function version}{
- 0.1 (2017-06-30 11:23:30)
+ 0.1 (2017-09-02 23:27:03)
 }
 
 \examples{
@@ -60,6 +61,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M. (2017). get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2017). get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

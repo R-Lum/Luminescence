@@ -7,26 +7,26 @@
 merge_RLum.Results(objects)
 }
 \arguments{
-\item{objects}{\code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects}
+\item{objects}{\link{list} (\strong{required}):
+a list of \linkS4class{RLum.Results} objects}
 }
 \description{
-Function merges objects of class \code{\linkS4class{RLum.Results}}. The slots in the objects
-are combined depending on the object type, e.g., for \code{\link{data.frame}} and \code{\link{matrix}}
+Function merges objects of class \linkS4class{RLum.Results}. The slots in the objects
+are combined depending on the object type, e.g., for \link{data.frame} and \link{matrix}
 rows are appended.
 }
 \note{
 The originator is taken from the first element and not reset to \code{merge_RLum}
 }
 \section{Function version}{
- 0.2.0 (2017-06-30 11:23:30)
+ 0.2.0 (2017-09-02 23:27:02)
 }
 
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). merge_RLum.Results(): Merge function for RLum.Results S4-class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). merge_RLum.Results(): Merge function for RLum.Results S4-class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

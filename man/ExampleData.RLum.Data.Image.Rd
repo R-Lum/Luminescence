@@ -2,19 +2,19 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.RLum.Data.Image}
 \alias{ExampleData.RLum.Data.Image}
-\title{Example data as \code{\linkS4class{RLum.Data.Image}} objects}
-\format{Object of class \code{\linkS4class{RLum.Data.Image}}}
+\title{Example data as \linkS4class{RLum.Data.Image} objects}
+\format{Object of class \linkS4class{RLum.Data.Image}}
 \source{
-\bold{ExampleData.RLum.Data.Image}
+\strong{ExampleData.RLum.Data.Image}
 
 These data were kindly provided by Regina DeWitt.
 
 \tabular{ll}{
-
 Lab.: \tab Department of Physics, East-Carolina University, NC, USA\cr
-Lab-Code: \tab -\cr Location: \tab - \cr Material: \tab - \cr Reference:
-\tab - \cr
-
+Lab-Code: \tab - \cr
+Location: \tab - \cr
+Material: \tab - \cr
+Reference: \tab - \cr
 }
 
 Image data is a measurement of fluorescent ceiling lights with a cooled
@@ -22,8 +22,8 @@ Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
 }
 \description{
 Measurement of Princton Instruments camera imported with the function
-\code{\link{read_SPE2R}} to R to produce an
-\code{\linkS4class{RLum.Data.Image}} object.
+\link{read_SPE2R} to R to produce an
+\linkS4class{RLum.Data.Image} object.
 }
 \section{Version}{
  0.1

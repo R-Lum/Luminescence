@@ -1,491 +1,104 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.7.5 (30th June, 2017):
-
-  Bugfixes and changes:
-
-         • ‘analyse_SAR.CWOSL()’
-
-             • If the signal integral was wrong, the default value was
-               not set correctly (#46).
-
-         • ‘calc_AverageDose()’
-
-             • Update documentation and add produced output,
-
-             • unify data.frame return output arguments (all capital
-               letters).
-
-         • ‘calc_FastRatio()’
-
-             • Update slot names, which led to an output error.
-
-         • ‘extract_IrradiationTimes()’
-
-             • The exported BINX-file now works with the Analyst and
-               the g-value can be calculated therein (thanks to Geoff
-               Duller).
-
-         • ‘plot_FilterCombinations()’
-
-             • Calculate optical density and return it,
-
-             • fix calclation of transmission window,
-
-             • improve plot output.
-
-         • ‘plot_RadialPlot()’
-
-             • Fix error which occasionally occurred if a list of
-               ‘data.frame’s are provided (thanks to Christina Neudorf
-               for spotting the bug).
-
-         • ‘read_BIN2R()’
-
-             • Improve error messages for corrupted BIN/BINX-files,
-
-             • ensure that the file connection is closed sufficiently.
-
-         • ‘RisoeBINfileData2RLum.Analysis()’
-
-             • The grain selection was not accepted and caused a
-               constant error (#45).
-
-         • ‘use_DRAC()’
-
-             • The DRAC URL had changed; fixed.
-
-  Miscellaneous:
-
-         • Fix package welcome message.
-
-Changes in version 0.7.4 (31st March, 2017):
-
-  Changes in S4-classes and methods:
-
-         • ‘get_RLum’ for ‘RLum.Analysis’-objects now returns an error
-           and ‘NULL’ if the ‘record.id’ is not valid.
-
-  Bugfixes and changes:
-
-         • ‘analyse_baSAR()’
-
-             • The option to force the dose response curve trough the
-               origin was not correctly implemented; fixed.
-
-         • ‘analyse_FadingMeasurement()’
-
-             • The function returned unreliable results since the time
-               since irradiation had been doubled. This bug only
-               affected Lx/Tx data imported from an XSYG-file.
-
-         • ‘analyse_SAR.TL()’
-
-             • A test code snippet made it into the final package. With
-               this the Lx/Tx error was taken as fixed value (10/100)
-               from the Lx/Tx value itself. The calculated error was
-               not considered; corrected,
-
-             • function returns ‘NA’ for the error if the background
-               signals are similar and the error would become 0,
-
-             • new argument ‘integral_input’ added to allow for an
-               integral definition based on temperatures and not
-               channels.
-
-         • ‘calc_TLLxTxRatio()’
-
-             • Arguments ‘Lx.data.background’ and ‘Tx.data.background’
-               are now pre-set to ‘NULL’, i.e. the function does not
-               longer check for missing entries.
-
-         • ‘plot_KDE()’
-
-             • Further support for layout options as requested by
-               Christopher Luethgens.
-
-         • ‘plot_GrowthCurve)’
-
-             • Rename argument options for argument ‘mode’ to
-               ‘'interpolation'’ and ‘'extrapolation'’ instead of
-               ‘'regenerative'’ and ‘'additive'’.
-
-             • fix a rather rare bug using the combination
-               ‘fit.force_through_origin = FALSE’ and ‘mode =
-               "extrapolation"’,
-
-             • the graphical representation for ‘mode =
-               "extrapolation"’ was not correct (#38).
-
-         • ‘plot_RLum.Data.Spectrum)’
-
-             • Fixwrong axtick labels for interactive plot option
-               (#39),
-
-             • correct manual.
-
-         • ‘plot_RLum.Analysis)’
-
-             • Add support for the argument 'type' of the argument
-               'combine = TRUE' is used.
-
-         • ‘read_BIN2R()’
-
-             • Correct minor bug while importing corrupt BIN-files,
-
-             • add support for internet connections,
-
-             • if a directory was provided the functions was trapped in
-               an endless loop (#36)
-
-         • ‘write_R2BIN()’
-
-             • Argument 'BL_UNIT' was not correctly exported; fixed,
-
-             • export behaviour for BIN-file version 08 improved.
-
-  Miscellaneous:
-
-         • BIN-file example data sets can now be exported without error
-           to BIN-files using ‘write_R2BIN()’.
-
-Changes in version 0.7.3 (8th Feburary, 2017):
-
-  Bugfixes and changes:
-
-         • ‘Risoe.BINfileData()’
-
-             • Correct for mistakes in the manual.
-
-         • ‘write_R2BIN()’
-
-             • Correct for broken function (introduced with v0.7.0).
-
-  Miscellaneous:
-
-         • Correct wrong package date format.
-
-         • Add NEWS again to the package.
-
-Changes in version 0.7.2 (7th February (evening), 2017):
-
-        • The CRAN check on the Solaris machines gave an error while
-          performing the (on all other platform sucessful) unit tests.
-          Consequently, and to reduce the load for the CRAN resources
-          all tests are skipped on CRAN.
-
-        • This version never made it on CRAN!
-
-Changes in version 0.7.1 (6th February (evening), 2017):
-
-        • This release accounts for the CRAN check errors on the
-          Solaris machines by preventing the unfortunate overload of
-          the C++ function pow() with integer values.
-
-Changes in version 0.7.0 (6th February (morning), 2017):
+Changes in version 0.8.0 ( ,2017):
 
   New functions:
 
-         • ‘analyse_FadingMeasurement()’: Analyse fading measurements
-           to calculate g-values and to estimate the density of
-           recombination centres.
+         • ‘analyse_Al2O3_ITC()’: Function to analyse data determined
+           to correct irradiation times as suggested by Kreutzer et
+           al., 2017
 
-         • ‘analyse_portableOSL()’: The function analyses CW-OSL curve
-           data produced by a SUERC portable OSL reader and produces a
-           combined plot of OSL/IRSL signal intensities, OSL/IRSL
-           depletion ratios and the IRSL/OSL ratio.
+         • ‘analyse_Al2O3_CrossTalk()’: Function to analyse data to
+           analyse cross talk measurments as shown in Kreutzer et al.,
+           2017
 
-         • ‘calc_Kars2008()’: A function to calculate the expected
-           sample specific fraction of saturation following Kars et al.
-           (2008) and Huntley (2006).
+         • ‘convert_Activity2Concentration()’: converts nuclide
+           activity data (Bq/kg) to concentrations (ppm or %) and vice
+           versa
 
-         • ‘calc_AverageDose()’: Function to calculate the average dose
-           and their extrinsic dispersion.
+         • ‘convert_RLum2Risoe.BINfileData()’: Function to convert
+           ‘RLum.Analysis’ and ‘RLum.Data.Curve’ objects to
+           ‘Risoe.BINfileData’, which can be exported to BIN/BINX-files
+           using the function ‘write_R2BIN()’.
 
-         • ‘convert_BIN2R()’: wrapper function around the functions
-           ‘read_BIN2R()’ and ‘write_RLum2CSV()’ to convert a BIN-file
-           to CSV-files; so far possible.
+         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
+           dose using the approach proposed by Woda and Fuchs, 2008.
 
-         • ‘convert_Daybreak2R()’: wrapper function around the
-           functions ‘read_Daybreak2R()’ and ‘write_RLum2CSV()’ to
-           convert Daybreak measurement data (TXT-file, DATE-file) to
-           CSV-files; so far possible.
+  S4-classes and methods:
 
-         • ‘convert_PSL2R()’: wrapper function around the functions
-           ‘read_PSL2R()’ and ‘write_RLum2CSV()’ to convert a PSL-file
-           (SUERC portable OSL reader file format) to CSV-files; so far
-           possible.
+         • The ‘RLum.Analysis’ show method failed for
+           ‘RLum.Data.Spectrum’ objects; fixed.
 
-         • ‘convert_XSYG2R()’: wrapper function around the functions
-           ‘read_XSYG2R()’ and ‘write_RLum2CSV()’ to convert XSYG-file
-           to CSV-files; so far possible.
+         • Method for ‘get_RLum’ with signature ‘NULL’ added. Now it
+           returns ‘NULL’.
 
-         • ‘github_branches(), github_commits(), github_issues()’: R
-           Interface to the GitHub API v3. These functions can be used
-           to query a specific repository hosted on GitHub.
-
-         • ‘install_DevelopmentVersion()’: This function is a
-           convenient method for installing the development version of
-           the R package 'Luminescence' directly from GitHub.
-
-         • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
-           object produced by the function ‘read_PSL2R()’ to an
-           ‘Risoe.BINfileData’ object.
-
-         • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
-           portable OSL reader into R.
-
-         • ‘smooth_RLum()’: wrapper function to call the corresponding
-           methods to smooth data based on the function ‘zoo:rollmean’.
-
-         • ‘write_RLum2CSV()’: Exports ‘RLum’-objects to CSV-files to
-           improve the compatibility to other software.  Supported are
-           only numerical values, i.e., ‘data.frame’, ‘matrix’ and
-           ‘numeric’.
-
-  New example data:
-
-         • ‘ExampleData.fading’: Example data set for fading
-           measurements of the IR50, IR100, IR150 and IR225 feldspar
-           signals of sample UNIL/NB123. It further contains regular
-           equivalent dose measurement data of the same sample, which
-           can be used to apply a fading correction to. These data were
-           kindly provided by Georgina King.
-
-  Changes in S4-classes and methods:
-
-         • Method ‘get_RLum’ for ‘RLum.Analysis’-objects did not
-           respect ‘.pid’, fixed.
-
-         • Method ‘get_RLum’ for ‘list’-objects now accepts lists with
-           all kinds of ‘RLum’-objects. Previously, only lists of
-           ‘RLum.Analysis’-objects were allowed.
-
-         • ‘plot_RLum’ was not passing the argument ‘sub’, as it was
-           fetched by the partial argument matching; fixed.
-
-         • ‘set_RLum’ produced ‘NA’ as originator, if the function
-           calling the function ‘set_RLum()’ was called from outside of
-           the package using the double colons (e.g.,
-           ‘Luminescence::function()’); fixed.
-
-         • ‘smooth_RLum’ add method support for ‘RLum.Data.Curve’,
-           ‘RLum.Analysis’ and ‘list’ of this objects implemented.
+         • The coercion from ‘list’ to ‘RLum.Results’ using ‘as()’ did
+           not work; fixed.
 
   Bugfixes and changes:
 
-         • ‘analyse_baSARL()’
+         • ‘analyse_IRSAR.RF()’
 
-             • Due to a typo in the manual the ‘method_control’
-               parameter ‘variable.names’ was not working if correctly
-               typed as written in the manual (in the manual:
-               'variables.names', but correct is 'variable.names');
-               typo corrected fixed,
+             • Multicore processing now also supports Windows (#47)
 
-             • minor improvements and error corrections.
+             • Fixed a bug where manually specifying the number of CPU
+               cores via 'method.control = list(cores = x)' was not
+               respected
 
-             • ‘analyse_IRSAR.RF()’
+         • ‘plot_FilterCombinations()’
 
-                 • Add option for a vertical sliding of the RF_nat
-                   curve (‘method_control = list(vslide_range =
-                   'auto')’). This feature has beta status and usage
-                   for publication work is not recommended yet. By
-                   default no vertical sliding is applied,
+             • Add interative mode (‘interative = TRUE’)
 
-                 • allow a parallel processing of MC runs by using the
-                   argument ‘method_control = list(cores = 'auto')’.
+         • ‘plot_GrowthCurve()’
 
-             • ‘analyse_SAR.CWOSL()’
+             • The function now turns ‘Inf’ into ‘NA’,
 
-                 • Fix wrongly set threshold value for recuperation
-                   rate (#26),
+             • the argument ‘na.rm’ is defunct and should not be used
+               anymore,
 
-                 • fix a rare bug for the combination 'recyling.ratio =
-                   NA' and more than one provided recyling point,
+             • minor code modifications to handle special cases such as
+               input values with a ‘data.frame’ with no error column,
 
-                 • a check has been implemented to refrain from using
-                   wrong rejection criteria keywords.
+             • extent examples by for test data set by Berger & Huntley
+               (1989).
 
-             • ‘calc_AliquotSize()’
+         • ‘plot_Historgram()’
 
-                 • Console output can now be suppressed via 'verbose =
-                   TRUE' (#24).
+             • The forwarded argument ‘breaks’ was not treated
+               correctly (#54); fixed.
 
-             • ‘calc_CosmicDoseRate()’
+         • ‘read_BIN2R()’
 
-                 • Console output can now be suppressed via 'verbose =
-                   TRUE' (#24).
+             • The function unexpectetly dropped are warning for an
+               unused connection; fixed,
 
-             • ‘calc_FastRatio()’
+             • if a file link was provided and the argument ‘pattern’
+               was set and error was shown; fixed.
 
-                 • New arguments 'Ch_L2' and 'Ch_L3' to allow the user
-                   to specify custom values for channels L2 and L3.
-                   Feature requested by A. Versendaal (#29).
+         • ‘read_Daybreak2R()’
 
-             • ‘calc_FadingCorr()’
+             • The functions did not work anymore on ASCII files;
+               fixed!
 
-                 • Fixed a bug where the function would crash when
-                   providing an ‘RLum.Results’ object for ‘g_value’,
+         • ‘read_XSYG2R()’
 
-                 • new argument ‘interval’ to control the age interval
-                   for solving the equation via ‘uniroot’.
+             • Argument ‘verbose’ added for more consistency with other
+               functions,
 
-             • ‘calc_FiniteMixture()’
+             • the functions now supports the import form files via the
+               internet,
 
-                 • Fixed a bug where certain arguments where not passed
-                   to `plot_RLum.Results` so that the plot was not as
-                   customisable as intended.  Thanks to Daniele
-                   Questiaux for reporting the bug.
+             • minor modifications to support minimal examples without
+               'recordType',
 
-             • ‘calc_MaxDose()’
-
-                 • Fixed a bug in the console output, which provided
-                   wrong values for the asymmetric error on gamma (Note
-                   that the values in the output object were correct!).
-                   Thankfully reported by Xue Rui.
-
-             • ‘calc_Statistics()’
-
-                 • The argument ‘n.MC’ got a new value ‘NULL’ which is
-                   now used as default. With this the basic statistical
-                   measures are in accordance with the expectations
-                   (e.g., the standard deviation is returned by default
-                   in the conventional way and not calculated using an
-                   MC simulation).
-
-             • ‘calc_OSLLxTxRatio()’
-
-                 • Add argument ‘use_previousBG’ to use the background
-                   of the Lx-curve to get the net signal of the
-                   Tx-curve (request #15).
-
-             • ‘fit_CWCurve()’
-
-                 • Change order of ‘RLum.Results’ output list elements,
-
-                 • rename first element to ‘data’,
-
-                 • add element slot 'info'.
-
-             • ‘fit_LWCurve()’
-
-                 • Change order of ‘RLum.Results’ output list elements,
-
-                 • rename first element to ‘data’,
-
-                 • add element slot 'info'.
-
-             • ‘model_LuminescenceSignals()’
-
-                 • Update function arguments to account for changes in
-                   RLumModel version 0.2.0.
-
-             • ‘plot_DetPlot()’
-
-                 • Correct negative y-axis, the minimum is now the real
-                   minimum.
-
-             • ‘plot_GrowthCurve()’
-
-                 • Reduce number of confusing warning,
-
-                 • add new argument ‘mode’ to select the calculation
-                   mode of the function.  This allows in particular to
-                   only fit data without calculating a De or
-                   calculating a De assuming an additive dose response
-                   curve,
-
-                 • account for the very specifc case that all dose
-                   points are similar. The function stops with an error
-                   and returns NULL,
-
-                 • under weird circumstances points on the growth curve
-                   were not plotted correctly; fixed.
-
-             • ‘plot_RadialPlot()’
-
-                 • Sometimes the function crashed with an out of bonds
-                   error if more than one data set was provided; fixed,
-
-                 • argument ‘negatives’ caused an error if not set to
-                   ‘'remove'’ and fix some errors around this option,
-
-                 • De-adjustment for negative values optimised for
-                   large scatter.
-
-             • ‘plot_RLum.Analysis()’
-
-                 • The usage of the argument ‘smooth’ led to a crash;
-                   fixed.
-
-             • ‘plot_RLum.Data.Curve()’
-
-                 • Function will not stop anymore if the curve contains
-                   ‘NA’ values, but if the curve consists of only ‘NA’
-                   values.
-
-             • ‘plot_RLum.Data.Spectrum()’
-
-                 • The interactive plot option was broken with the last
-                   update of the package 'plotly'; fixed.
-
-             • ‘plot_ViolinPlot()’
-
-                 • The function erroneously produced a NA value
-                   warning; fixed.
-
-             • ‘read_BIN2R()’
-
-                 • If BIN-files are automatically imported the function
-                   skipped non BIN-files without crashing if it is used
-                   in combination with the argument ‘pattern’,
-
-                 • add new argument ‘irgnore.RECTYPE’ to provide a
-                   solution for broken BIN-files are BIN-files with non
-                   documented entries. Furthermore the general
-                   behaviour for such cases had been optimised.
-
-             • ‘read_Daybreak2R()’
-
-                 • Add support for DAT-files produced by at 1100 reader
-                   using the software (TLAPLLIC v.3.2).  Thanks to
-                   Antoine Zink,
-
-                 • minor error corrections and adding example code.
-
-             • ‘template_DRAC()’
-
-                 • Fixed a typo in the column names (#28).
-
-             • ‘use_DRAC()’
-
-                 • Now supports DRAC v1.2 and the newly introduced CSV
-                   input template.  Older v1.1 excel sheet input
-                   templates are still supported, but users are highly
-                   encouraged to use the new CSV file.
-
-                 • Columns in the output tables are now assigned proper
-                   classes (#27).
+             • give the XSYG-file import a 50% performance boost.
 
   Internals:
 
-         • The internal function converting BIN-file curves to
-           RLum.Data.Curve() objects had been optimised and, amongst
-           others, now uses a function written using Rcpp to create the
-           curve matrix.  The conversion now works ca. two times
-           faster,
+         • Start supporting RStudio add-ins for more advanced users.
 
-         • add ‘`[<-]`’ method for ‘RLum.Data.Curve’ objects,
+         • Add fitting test data set by Berger & Huntley (1989) as
+           external data.
 
-         • a hint on how to cite a function is now added automatically
-           to every major function manual page,
-
-         • add 'magrittr' to the package dependencies (imports) to
-           further support the usage of this amazing pipe operator,
-
-         • thanks to Johannes Friedrich this release introduces regular
-           unit tests using the package 'testthat' to improve the code
-           quality and stability,
-
-         • add internal helper function ‘.smoothing’; no Rd entry.
+         • The internal documentation now uses 'markdown'.
 

@@ -2,98 +2,97 @@
 #'
 #' Function allows merging of RLum.Data.Curve objects in different ways
 #'
-#' This function simply allowing to merge \code{\linkS4class{RLum.Data.Curve}}
+#' This function simply allowing to merge [RLum.Data.Curve-class]
 #' objects without touching the objects itself. Merging is always applied on
-#' the 2nd colum of the data matrix of the object.\cr
+#' the 2nd colum of the data matrix of the object.
 #'
-#' \bold{Supported merge operations are
-#' \code{\linkS4class{RLum.Data.Curve}}}\cr
+#' **Supported merge operations are [RLum.Data.Curve-class]**
 #'
-#' \code{"sum"}\cr
+#' `"sum"`
 #'
-#' All count values will be summed up using the function \code{\link{rowSums}}.
+#' All count values will be summed up using the function [rowSums].
 #'
-#' \code{"mean"}\cr
+#' `"mean"`
 #'
 #' The mean over the count values is calculated using the function
-#' \code{\link{rowMeans}}.
+#' [rowMeans].
 #'
-#' \code{"median"}\cr
+#' `"median"`
 #'
 #' The median over the count values is calculated using the function
-#' \code{\link[matrixStats]{rowMedians}}.
+#' [matrixStats::rowMedians].
 #'
-#' \code{"sd"}\cr
+#' `"sd"`
 #'
 #' The standard deviation over the count values is calculated using the function
-#' \code{\link[matrixStats]{rowSds}}.
+#' [matrixStats::rowSds].
 #'
-#' \code{"var"}\cr
+#' `"var"`
 #'
 #' The variance over the count values is calculated using the function
-#' \code{\link[matrixStats]{rowVars}}.
+#' [matrixStats::rowVars].
 #'
-#' \code{"min"}\cr
+#' `"min"`
 #'
 #' The min values from the count values is chosen using the function
-#' \code{\link[matrixStats]{rowMins}}.
+#' [matrixStats::rowMins].
 #'
-#' \code{"max"}\cr
+#' `"max"`
 #'
 #' The max values from the count values is chosen using the function
-#' \code{\link[matrixStats]{rowMins}}.
+#' [matrixStats::rowMins].
 #' 
-#' \code{"append"}\cr
+#' `"append"`
 #' 
 #' Appends count values of all curves to one combined data curve. The channel width
 #' is automatically re-calculated, but requires a constant channel width of the 
 #' original data.
 #'
-#' \code{"-"}\cr
+#' `"-"`
 #'
 #' The row sums of the last objects are subtracted from the first object.
 #'
-#' \code{"*"}\cr
+#' `"*"`
 #'
 #' The row sums of the last objects are mutliplied with the first object.
 #'
-#' \code{"/"}\cr
+#' `"/"`
 #'
 #' Values of the first object are divided by row sums of the last objects.
 #'
-#' @param object \code{\link{list}} of \code{\linkS4class{RLum.Data.Curve}}
-#' (\bold{required}): list of S4 objects of class \code{RLum.Curve}.
+#' @param object [list] of [RLum.Data.Curve-class] (**required**): 
+#' list of S4 objects of class `RLum.Curve`.
 #'
-#' @param merge.method \code{\link{character}} (\bold{required}): method for
-#' combining of the objects, e.g.  \code{'mean'}, \code{'sum'}, see details for
+#' @param merge.method [character] (**required**): 
+#' method for combining of the objects, e.g.  `'mean'`, `'sum'`, see details for
 #' further information and allowed methods.  Note: Elements in slot info will
 #' be taken from the first curve in the list.
 #'
-#' @param method.info \code{\link{numeric}} (optional): allows to specify how
-#' info elements of the input objects are combined, e.g. \code{1} means that
-#' just the elements from the first object are kept, \code{2} keeps only the
-#' info elements from the 2 object etc.  If nothing is provided all elements
-#' are combined.
+#' @param method.info [numeric] (*optional*): 
+#' allows to specify how info elements of the input objects are combined, 
+#' e.g. `1` means that just the elements from the first object are kept, 
+#' `2` keeps only the info elements from the 2 object etc.  
+#' If nothing is provided all elements are combined.
 #'
-#' @return Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+#' @return Returns an [RLum.Data.Curve-class] object.
 #'
-#' @note The information from the slot 'recordType' is taken from the first
-#' \code{\linkS4class{RLum.Data.Curve}} object in the input list. The slot
-#' 'curveType' is filled with the name \code{merged}.
+#' @note 
+#' The information from the slot `recordType` is taken from the first
+#' [RLum.Data.Curve-class] object in the input list. The slot
+#' 'curveType' is filled with the name `merged`.
 #'
 #' @section S3-generic support:
 #'
 #' This function is fully operational via S3-generics:
-#' \code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
+#' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
+#' @seealso [merge_RLum], [RLum.Data.Curve-class]
 #'
-#' @seealso \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
-#'
-#' @references -
 #'
 #' @keywords utilities
 #'
@@ -116,6 +115,7 @@
 #' TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.method = "/")
 #' plot_RLum(TL.curve.merged)
 #'
+#' @md
 #' @export
 merge_RLum.Data.Curve<- function(
   object,

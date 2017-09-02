@@ -2,123 +2,150 @@
 #'
 #' Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 #'
-#' \bold{How does the import function work?}\cr\cr The function uses the
-#' \code{\link{xml}} package to parse the file structure. Each sequence is
-#' subsequently translated into an \code{\linkS4class{RLum.Analysis}}
-#' object.\cr\cr
+#' **How does the import function work?**
 #'
-#' \bold{General structure XSYG format}\cr\cr \code{<?xml?}\cr \code{
-#' <Sample>}\cr \code{ <Sequence>}\cr \code{ <Record>}\cr \code{ <Curve
-#' name="first curve" />}\cr \code{ <Curve name="curve with data">}\cr \code{
-#' x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3}\cr \code{ </Curve>}\cr \code{
-#' </Record>}\cr \code{ </Sequence>}\cr \code{ </Sample>}\cr\cr So far, each
-#' XSYG file can only contain one \code{<Sample></Sample>}, but multiple
-#' sequences. \cr\cr Each record may comprise several curves.\cr\cr
+#' The function uses the [xml] package to parse the file structure. Each
+#' sequence is subsequently translated into an [RLum.Analysis-class] object.
 #'
-#' \bold{TL curve recalculation}\cr
+#' **General structure XSYG format**
+#'
+#' ```
+#' <?xml?>
+#' <Sample>
+#'   <Sequence>
+#'     <Record>
+#'       <Curve name="first curve" />
+#'       <Curve name="curve with data">x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3</Curve>
+#'     </Record>
+#'   </Sequence>
+#' </Sample>
+#' ```
+#'
+#' So far, each
+#' XSYG file can only contain one `<Sample></Sample>`, but multiple
+#' sequences.
+#'
+#' Each record may comprise several curves.
+#'
+#' **TL curve recalculation**
 #'
 #' On the FI lexsyg device TL curves are recorded as time against count values.
 #' Temperature values are monitored on the heating plate and stored in a
 #' separate curve (time vs. temperature). If the option
-#' \code{recalculate.TL.curves = TRUE} is chosen, the time values for each TL
-#' curve are replaced by temperature values.\cr
+#' `recalculate.TL.curves = TRUE` is chosen, the time values for each TL
+#' curve are replaced by temperature values.
 #'
 #' Practically, this means combining two matrices (Time vs. Counts and Time vs.
 #' Temperature) with different row numbers by their time values. Three cases
 #' are considered:
 #'
-#' HE: Heating element\cr PMT: Photomultiplier tube\cr Interpolation is done
-#' using the function \code{\link{approx}}\cr
+#' 1. HE: Heating element
+#' 2. PMT: Photomultiplier tube
+#' 3. Interpolation is done using the function [approx]
 #'
-#' CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))} \cr
+#' CASE (1): `nrow(matrix(PMT))` > `nrow(matrix(HE))`
 #'
 #' Missing temperature values from the heating element are calculated using
-#' time values from the PMT measurement.\cr
+#' time values from the PMT measurement.
 #'
-#' CASE (2): \code{nrow(matrix(PMT))} < \code{nrow(matrix(HE))} \cr
+#' CASE (2): `nrow(matrix(PMT))` < `nrow(matrix(HE))`
 #'
 #' Missing count values from the PMT are calculated using time values from the
-#' heating element measurement.\cr
+#' heating element measurement.
 #'
-#' CASE (3): \code{nrow(matrix(PMT))} == \code{nrow(matrix(HE))} \cr
+#' CASE (3): `nrow(matrix(PMT))` == `nrow(matrix(HE))`
 #'
 #' A new matrix is produced using temperature values from the heating element
-#' and count values from the PMT. \cr
+#' and count values from the PMT.
 #'
-#' \emph{Note: Please note that due to the recalculation of the temperature
+#' **Note:**
+#' Please note that due to the recalculation of the temperature
 #' values based on values delivered by the heating element, it may happen that
 #' mutiple count values exists for each temperature value and temperature
-#' values may also decrease during heating, not only increase. }\cr
+#' values may also decrease during heating, not only increase.
 #'
-#' \bold{Advanced file import}\cr
+#' **Advanced file import**
 #'
-#' To allow for a more efficient usage of the function, instead of single path to a file just
-#' a directory can be passed as input. In this particular case the function tries to extract
-#' all XSYG-files found in the directory and import them all. Using this option internally the function
-#' constructs as list of the XSYG-files found in the directory. Please note no recursive detection
+#' To allow for a more efficient usage of the function, instead of single path
+#' to a file just a directory can be passed as input. In this particular case
+#' the function tries to extract all XSYG-files found in the directory and import
+#' them all. Using this option internally the function constructs as list of
+#' the XSYG-files found in the directory. Please note no recursive detection
 #' is supported as this may lead to endless loops.
 #'
-#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-#' XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
-#' path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
+#' @param file [character] or [list] (**required**):
+#' path and file name of the XSYG file. If input is a `list` it should comprise
+#' only `character`s representing each valid path and xsyg-file names.
+#' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all xsyg files found in the directory.
 #'
-#' @param recalculate.TL.curves \link{logical} (with default): if set to
-#' \code{TRUE}, TL curves are returned as temperature against count values (see
-#' details for more information) Note: The option overwrites the time vs. count
-#' TL curve. Select \code{FALSE} to import the raw data delivered by the
+#' @param recalculate.TL.curves [logical] (*with default*):
+#' if set to `TRUE`, TL curves are returned as temperature against count values
+#' (see details for more information) Note: The option overwrites the time vs.
+#' count TL curve. Select `FALSE` to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
 #'
-#' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
-#' more efficient data processing only a list of \code{RLum.Analysis} objects is returned.
+#' @param fastForward [logical] (*with default*):
+#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis`
+#' objects is returned.
 #'
-#' @param import \code{\link{logical}} (with default): if set to \code{FALSE}, only
-#' the XSYG file structure is shown.
+#' @param import [logical] (*with default*):
+#' if set to `FALSE`, only the XSYG file structure is shown.
 #'
-#' @param pattern \code{\link{regex}} (with default): optional regular expression if \code{file} is
-#' a link to a folder, to select just specific XSYG-files
+#' @param pattern [regex] (*with default*):
+#' optional regular expression if `file` is a link to a folder, to select just
+#' specific XSYG-files
 #'
-#' @param txtProgressBar \link{logical} (with default): enables \code{TRUE} or
-#' disables \code{FALSE} the progression bar during import
+#' @param verbose [logical] (*with default*): enable or disable verbose mode. If verbose is `FALSE`
+#' the `txtProgressBar` is also switched off
 #'
-#' @return \bold{Using the option \code{import = FALSE}}\cr\cr A list
-#' consisting of two elements is shown: \item{Sample}{\link{data.frame} with
-#' information on file.} \item{Sequences}{\link{data.frame} with information on
-#' the sequences stored in the XSYG file}.\cr\cr \bold{Using the option
-#' \code{import = TRUE} (default)} \cr\cr A list is provided, the list elements
-#' contain: \item{Sequence.Header}{\link{data.frame} with information on the
-#' sequence.} \item{Sequence.Object}{\code{\linkS4class{RLum.Analysis}}
+#' @param txtProgressBar [logical] (*with default*):
+#' enables `TRUE` or disables `FALSE` the progression bar during import
+#'
+#' @return
+#' **Using the option `import = FALSE`**
+#'
+#' A list consisting of two elements is shown:
+#' - [data.frame] with information on file.
+#' - [data.frame] with information on the sequences stored in the XSYG file.
+#'
+#' **Using the option `import = TRUE` (default)**
+#'
+#' A list is provided, the list elements
+#' contain: \item{Sequence.Header}{[data.frame] with information on the
+#' sequence.} \item{Sequence.Object}{[RLum.Analysis-class]
 #' containing the curves.}
 #'
-#' @note This function is a beta version as the XSYG file format is not yet
+#' @note
+#' This function is a beta version as the XSYG file format is not yet
 #' fully specified. Thus, further file operations (merge, export, write) should
-#' be done using the functions provided with the package \code{\link{xml}}.\cr
+#' be done using the functions provided with the package [xml].
 #'
-#' \bold{So far, no image data import is provided!}\cr Corresponding values in
-#' the XSXG file are skipped.
-#'
-#'
-#' @section Function version: 0.5.8
+#' **So far, no image data import is provided!** \cr
+#' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @section Function version: 0.6.4
 #'
 #'
-#' @seealso \code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
-#' XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
+#' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]
 #'
-#' \bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
 #'
+#' @references
+#' Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
+#' XSYG file format. Unpublished Technical Note. Freiberg, Germany
+#'
+#' **Further reading**
+#'
+#' XML: [http://en.wikipedia.org/wiki/XML]()
 #'
 #' @keywords IO
 #'
 #' @examples
-#'
 #'
 #' ##(1) import XSYG file to R (uncomment for usage)
 #'
@@ -144,7 +171,7 @@
 #' ##(3) How to see the structure of an object?
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
-#'
+#' @md
 #' @export
 read_XSYG2R <- function(
   file,
@@ -152,8 +179,16 @@ read_XSYG2R <- function(
   fastForward = FALSE,
   import = TRUE,
   pattern = ".xsyg",
+  verbose = TRUE,
   txtProgressBar = TRUE
 ){
+
+  ##TODO: this function should be reshaped:
+  ##  - metadata from the sequence should go into the info slot of the RLum.Analysis object
+  ##   >> however, the question is whether this works with subsequent functions
+  ##  - currently not all metadata are supported, it should be extended
+  ##  - the should be a mode importing ALL metadata
+  ##  - xlum should be general, xsyg should take care about subsequent details
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -165,7 +200,7 @@ read_XSYG2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      message("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
+      if(verbose) ("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
       file <-
         as.list(paste0(file,dir(
           file, recursive = TRUE, pattern = pattern
@@ -182,6 +217,7 @@ read_XSYG2R <- function(
         recalculate.TL.curves = recalculate.TL.curves,
         fastForward = fastForward,
         import = import,
+        verbose = verbose,
         txtProgressBar = txtProgressBar
       )
     })
@@ -206,14 +242,55 @@ read_XSYG2R <- function(
   }
 
 
-  # Consistency check -------------------------------------------------------
+  # On exit case --------------------------------------------------------------------------------
 
+  ##set file_link for internet downloads
+  file_link <- NULL
+  on_exit <- function(){
+
+    ##unlink internet connection
+    if(!is.null(file_link)){
+      unlink(file_link)
+    }
+
+  }
+  on.exit(expr = on_exit())
+
+  # Consistency check -------------------------------------------------------
 
   ##check if file exists
   if(!file.exists(file)){
 
-    warning("[read_XSYG2R()] Wrong file name or file does not exist, nothing imported!")
-    return(NULL)
+    ##check if the file as an URL ... you never know
+    if(grepl(pattern = "http", x = file, fixed = TRUE)){
+      if(verbose){
+        cat("[read_XSYG2R()] URL detected, checking connection ... ")
+      }
+
+      ##check URL
+      if(!httr::http_error(file)){
+        if(verbose) cat("OK")
+
+        ##dowload file
+        file_link <- tempfile("read_XSYG2R_FILE")
+        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
+        file <- file_link
+
+      }else{
+        cat("FAILED")
+        file <- NULL
+        try(stop("[read_XSYG2R()] File does not exist! Return NULL!", call. = FALSE))
+        return(NULL)
+
+      }
+
+    }else{
+      file <- NULL
+      try(stop("[read_XSYG2R()] File does not exist, return NULL!", call. = FALSE))
+      return(NULL)
+
+    }
+
   }
 
   #TODO to be included again in a future version, if the format is given in the file itself
@@ -230,26 +307,8 @@ read_XSYG2R <- function(
   #version.supported <- c("1.0")
 
   #additional functions
-  ##get curve values
-  get_XSYG.curve.values <- function(curve.node){
-
-    ##Four steps
-    ##(1) split string to paris of xy-values
-    ##(2) split string to xy-values itself
-    ##(3) convert to numeric
-    ##(4) create matrix
-
-   curve.node <- t(
-      vapply(
-        strsplit(
-          strsplit(
-            XML::xmlValue(curve.node), split = ";", fixed = TRUE)[[1]],
-          split = ",", fixed = TRUE),
-        FUN = as.numeric,
-        FUN.VALUE = c(1,1L)))
-
-  }
-
+  #get spectrum values
+  # TODO: This function could be written also in C++, however, not necessary due to a low demand
   get_XSYG.spectrum.values <- function(curve.node){
 
     ##1st grep wavelength table
@@ -274,7 +333,6 @@ read_XSYG2R <- function(
     ##4th combine to spectrum matrix
     spectrum.matrix <- matrix(0,length(wavelength),length(curve.node.time))
     spectrum.matrix <- sapply(1:length(curve.node.time), function(x){
-
       as.numeric(unlist(strsplit(curve.node.count[x], "[|]")))
 
     })
@@ -299,8 +357,7 @@ read_XSYG2R <- function(
 
   ##show error
   if(is(temp, "try-error") == TRUE){
-
-    warning("[read_XSYG2R()] XML file not readable, nothing imported!)")
+    try(stop("[read_XSYG2R()] XML file not readable, nothing imported!)", call. = FALSE))
     return(NULL)
 
   }
@@ -354,10 +411,11 @@ read_XSYG2R <- function(
     ##IMPORT XSYG FILE
 
     ##Display output
-    message(paste0("[read_XSYG2R()]\n  Importing: ",file))
+    if(verbose)
+      paste0("[read_XSYG2R()]\n  Importing: ",file)
 
     ##PROGRESS BAR
-    if(txtProgressBar){
+    if(verbose && txtProgressBar){
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
 
@@ -366,7 +424,10 @@ read_XSYG2R <- function(
 
       ##read sequence header
       temp.sequence.header <- as.data.frame(XML::xmlAttrs(temp[[x]]), stringsAsFactors = FALSE)
-      colnames(temp.sequence.header) <- ""
+
+      ##account for non set value
+      if(length(temp.sequence.header)!= 0)
+        colnames(temp.sequence.header) <- ""
 
       ###-----------------------------------------------------------------------
       ##LOOP
@@ -377,9 +438,16 @@ read_XSYG2R <- function(
         temp.sequence.object.recordType <- try(XML::xmlAttrs(temp[[x]][[i]])["recordType"],
                                                silent = TRUE)
 
+
         ##the XSYG file might be broken due to a machine error during the measurement, this
         ##control flow helps; if a try-error is observed NULL is returned
         if(!inherits(temp.sequence.object.recordType, "try-error")){
+
+         ##create a fallback, the function should not fail
+         if(is.null(temp.sequence.object.recordType) || is.na(temp.sequence.object.recordType)){
+           temp.sequence.object.recordType <- "not_set"
+
+         }
 
         ##correct record type in depending on the stimulator
         if(temp.sequence.object.recordType == "OSL"){
@@ -418,14 +486,14 @@ read_XSYG2R <- function(
 
           ##get parentID
           temp.sequence.object.parentID <- as.numeric(
-            XML::xmlAttrs(temp[[x]][[i]][[j]])["partentID"])
+            XML::xmlAttrs(temp[[x]][[i]][[j]])["parentID"])
 
           ##get additional information
           temp.sequence.object.info <- as.list(XML::xmlAttrs(temp.sequence.object.curveValue))
 
           ##add stimulator and detector and so on
           temp.sequence.object.info <- c(temp.sequence.object.info,
-                                         partentID = temp.sequence.object.parentID,
+                                         parentID = temp.sequence.object.parentID,
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
 
@@ -433,7 +501,7 @@ read_XSYG2R <- function(
 
 
           ## TL curve recalculation ============================================
-          if(recalculate.TL.curves == TRUE){
+          if(recalculate.TL.curves){
 
             ##TL curve heating values is stored in the 3rd curve of every set
             if(temp.sequence.object.recordType == "TL" && j == 1){
@@ -441,8 +509,8 @@ read_XSYG2R <- function(
               #grep values from PMT measurement or spectrometer
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
 
-                temp.sequence.object.curveValue.PMT <- get_XSYG.curve.values(
-                  temp[[x]][[i]][[j]])
+                temp.sequence.object.curveValue.PMT <- src_get_XSYG_curve_values(XML::xmlValue(
+                  temp[[x]][[i]][[j]]))
 
 
                 ##round values (1 digit is technical resolution of the heating element)
@@ -450,8 +518,8 @@ read_XSYG2R <- function(
                   temp.sequence.object.curveValue.PMT[,1], digits = 1)
 
                 #grep values from heating element
-                temp.sequence.object.curveValue.heating.element <- get_XSYG.curve.values(
-                  temp[[x]][[i]][[3]])
+                temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
+                  temp[[x]][[i]][[3]]))
 
 
 
@@ -471,8 +539,8 @@ read_XSYG2R <- function(
               }
 
               #grep values from heating element
-              temp.sequence.object.curveValue.heating.element <- get_XSYG.curve.values(
-                temp[[x]][[i]][[3]])
+              temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
+                temp[[x]][[i]][[3]]))
 
 
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
@@ -604,7 +672,7 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
 
-                    warning("read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
+                    warning("[read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
 
                   }
 
@@ -641,7 +709,7 @@ read_XSYG2R <- function(
             if(is(temp.sequence.object.curveValue, "matrix") == FALSE){
 
               temp.sequence.object.curveValue <-
-                get_XSYG.curve.values(temp.sequence.object.curveValue)
+                src_get_XSYG_curve_values(XML::xmlValue(temp.sequence.object.curveValue))
 
             }
 
@@ -705,7 +773,7 @@ read_XSYG2R <- function(
         temp.sequence.object <- .set_pid(temp.sequence.object)
 
         ##update progress bar
-        if (txtProgressBar) {
+        if (verbose && txtProgressBar) {
           setTxtProgressBar(pb, x)
         }
 
@@ -727,17 +795,21 @@ read_XSYG2R <- function(
     })##end loop for sequence list
 
     ##close ProgressBar
-    if(txtProgressBar ){close(pb)}
+    if(verbose && txtProgressBar ){close(pb)}
 
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
 
-      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
+      if(verbose)
+        paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n")
 
     }else{
 
-      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
-                XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n"), sep = "")
+      if(verbose){
+        paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.", XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n")
+
+      }
+
 
       warning(paste0(length(output[sapply(output, is.null)])), " incomplete sequence(s) removed.")
 

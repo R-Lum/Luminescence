@@ -7,8 +7,8 @@
 bin_RLum.Data(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data}} (\bold{required}): S4 object of
-class \code{RLum.Data}}
+\item{object}{\linkS4class{RLum.Data} (\strong{required}):
+S4 object of class \code{RLum.Data}}
 
 \item{...}{further arguments passed to the specifc class method}
 }
@@ -20,15 +20,16 @@ Function calls the object-specific bin functions for RLum.Data S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{RLum.Data}} objects.\cr Depending on the input object, the
-corresponding function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \code{\linkS4class{RLum.Data}} class.
+\linkS4class{RLum.Data} objects. \cr
+Depending on the input object, the corresponding function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum.Data} class.
 }
 \note{
-Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
+Currenlty only \code{RLum.Data} objects of class \linkS4class{RLum.Data.Curve} are supported!
 }
 \section{Function version}{
- 0.1.0 (2017-06-30 11:23:30)
+ 0.1.0 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -51,7 +52,7 @@ plot_RLum(bin_RLum.Data(curve, bin_size = 4))
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}}
+\linkS4class{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -59,7 +60,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

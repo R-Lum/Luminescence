@@ -4,35 +4,36 @@
 #' produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios
 #' and the IRSL/OSL ratio.
 #'
-#' This function only works with \code{RLum.Analysis} objects produced by \code{\link{read_PSL2R}}.
+#' This function only works with `RLum.Analysis` objects produced by [read_PSL2R].
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-#' the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral})
-#' is divided by cumulative signal of the first n channels (\code{signal.integral}).
+#' the cumulative signal of the last n channels (same number of channels as specified
+#' by `signal.integral`) is divided by cumulative signal of the first n channels (`signal.integral`).
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}):
-#' \code{RLum.Analysis} object produced by \code{\link{read_PSL2R}}.
+#' @param object [RLum.Analysis-class] (**required**):
+#' `RLum.Analysis` object produced by [read_PSL2R].
 #'
-#' @param signal.integral \code{\link{vector}} (\bold{required}): A vector of two values
-#' specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can
-#' be provided in form of \code{c(1, 5)} or \code{1:5}.
+#' @param signal.integral [vector] (**required**): 
+#' A vector of two values specifying the lower and upper channel used to 
+#' calculate the OSL/IRSL signal. Can be provided in form of `c(1, 5)` or `1:5`.
 #'
 #'
-#' @param invert \code{\link{logical}} (with default): \code{TRUE} to calculate
-#' and plot the data in reverse order.
+#' @param invert [logical] (*with default*): 
+#' `TRUE` to calculate and plot the data in reverse order.
 #'
-#' @param normalise \code{\link{logical}} (with default):
-#' \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
+#' @param normalise [logical] (*with default*):
+#' `TRUE` to normalise the OSL/IRSL signals by the mean of all corresponding
 #' data curves.
 #'
-#' @param plot \code{\link{logical}} (with default): enable/disable plot output
+#' @param plot [logical] (*with default*): 
+#' enable/disable plot output
 #'
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 \code{\linkS4class{RLum.Results}} object containing
-#' the following elements:
+#' @return 
+#' Returns an S4 [RLum.Results-class] object.
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class]
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
@@ -56,6 +57,7 @@
 #'
 #'
 #'
+#' @md
 #' @export
 analyse_portableOSL <-
   function(object,

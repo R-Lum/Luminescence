@@ -4,103 +4,113 @@
 #' reader into R.
 #'
 #' The binary data file is parsed byte by byte following the data structure
-#' published in the Appendices of the Analyst manual p. 42.\cr\cr For the
-#' general BIN-file structure, the reader is referred to the Risoe website:
-#' \code{http://www.nutech.dtu.dk/}
+#' published in the Appendices of the Analyst manual p. 42.
 #'
-#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-#' BIN/BINX file (URLs are supported). If input is a \code{list} it should comprise only \code{character}s representing
-#' each valid path and BIN/BINX-file names. Alternatively the input character can be just a directory (path), in this case the
+#' For the general BIN-file structure, the reader is referred to the
+#' Risoe website: [http://www.nutech.dtu.dk/]()
+#'
+#' @param file [character] or [list] (**required**): path and file name of the
+#' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
+#' only `character`s representing each valid path and BIN/BINX-file names.
+#' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all BIN/BINX files found in the directory.
 #'
-#' @param show.raw.values \link{logical} (with default): shows raw values from
-#' BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
-#' translation in characters. Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param show.raw.values [logical] (*with default*):
+#' shows raw values from BIN file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
+#' translation in characters. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param n.records \link{raw} (optional): limits the number of imported
-#' records. Can be used in combination with \code{show.record.number} for
-#' debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param n.records [raw] (*optional*):
+#' limits the number of imported records. Can be used in combination with
+#' `show.record.number` for debugging purposes, e.g. corrupt BIN-files.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param zero_data.rm \code{\link{logical}} (with default): remove erroneous data with no count
-#' values. As such data are usally not needed for the subsequent data analysis they will be removed
-#' by default. Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param zero_data.rm [logical] (*with default*):
+#' remove erroneous data with no count values. As such data are usally not
+#' needed for the subsequent data analysis they will be removed by default.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
-#' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
-#' predeccessor and successor. Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param duplicated.rm [logical] (*with default*):
+#' remove duplicated entries if `TRUE`. This may happen due to an erroneous
+#' produced BIN/BINX-file. This option compares only predeccessor and successor.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param position \code{\link{numeric}} (optional): imports only the selected position. Note:
-#' the import performance will not benefit by any selection made here.
-#' Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param position [numeric] (*optional*):
+#' imports only the selected position. Note: the import performance will not
+#' benefit by any selection made here.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
-#' more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
-#' of a \link{Risoe.BINfileData-class} object. Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param fastForward [logical] (*with default*):
+#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis`
+#' objects is returned instead of a [Risoe.BINfileData-class] object.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param show.record.number \link{logical} (with default): shows record number
-#' of the imported record, for debugging usage only. Can be provided as \code{list} if \code{file} is a \code{list}.
+#' @param show.record.number [logical] (*with default*):
+#' shows record number of the imported record, for debugging usage only.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param txtProgressBar \link{logical} (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' @param txtProgressBar [logical] (*with default*):
+#' enables or disables [txtProgressBar].
 #'
-#' @param forced.VersionNumber \code{\link{integer}} (optional): allows to cheat the
-#' version number check in the function by own values for cases where the
-#' BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
-#' Note: The usage is at own risk, only supported BIN-file versions have been tested.
+#' @param forced.VersionNumber [integer] (*optional*):
+#' allows to cheat the version number check in the function by own values for
+#' cases where the BIN-file version is not supported.
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param ignore.RECTYPE \code{\link{logical}} (with default): this argument allows to ignore values
-#' in the byte 'REGTYPE' (BIN-file version 08), in case there are not documented or faulty set.
-#' If set all records are treated like records of 'REGYPE' 0 or 1.
+#' **Note:** The usage is at own risk, only supported BIN-file versions have been tested.
 #'
-#' @param pattern \code{\link{character}} (optional): argument that is used if only a path is provided.
-#' The argument will than be passed to the function \code{\link{list.files}} used internally to
-#' construct a \code{list} of wanted files
+#' @param ignore.RECTYPE [logical] (*with default*):
+#' this argument allows to ignore values in the byte 'RECTYPE' (BIN-file version 08),
+#' in case there are not documented or faulty set. In this case the corrupted records are skipped.
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
+#' @param pattern [character] (*optional*):
+#' argument that is used if only a path is provided. The argument will than be
+#' passed to the function [list.files] used internally to construct a `list`
+#' of wanted files
 #'
-#' @param \dots further arguments that will be passed to the function
-#' \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
-#' automatically sets \code{fastForward = TRUE}
+#' @param verbose [logical] (*with default*):
+#' enables or disables verbose mode
 #'
-#' @return Returns an S4 \link{Risoe.BINfileData-class} object containing two
-#' slots:\cr \item{METADATA}{A \link{data.frame} containing all variables
-#' stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
-#' \link{vector} of the measured data. The ID corresponds to the record ID in
-#' METADATA.}\cr
+#' @param ... further arguments that will be passed to the function
+#' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
+#' automatically sets `fastForward = TRUE`
 #'
-#' If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
-#' internal coercing is done using the function \code{\link{Risoe.BINfileData2RLum.Analysis}}
+#' @return
+#' Returns an S4 [Risoe.BINfileData-class] object containing two
+#' slots:
 #'
+#' \item{METADATA}{A [data.frame] containing all variables stored in the bin-file.}
+#' \item{DATA}{A [list] containing a numeric [vector] of the measured data. The ID corresponds to the record ID in METADATA.}
 #'
-#' @note The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
-#' version number depends on the used Sequence Editor.\cr\cr
+#' If `fastForward = TRUE` a list of [RLum.Analysis-class] object is returned. The
+#' internal coercing is done using the function [Risoe.BINfileData2RLum.Analysis]
 #'
-#' \bold{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint
-#' import.}
+#' @note
+#' The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
+#' version number depends on the used Sequence Editor.
 #'
+#' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
-#' @section Function version: 0.15.6
-#'
-#'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
+#' @section Function version: 0.15.7
 #'
 #'
-#' @seealso \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
-#' \code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Margret C. Fuchs, HZDR Freiberg, (Germany)
+#'
+#'
+#' @seealso [write_R2BIN], [Risoe.BINfileData-class],
+#' [base::readBin], [merge_Risoe.BINfileData], [RLum.Analysis-class]
+#' [utils::txtProgressBar], [list.files]
 #'
 #'
 #' @references
 #' DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
-#' \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
+#' [http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals]()
 #'
 #'
 #' @keywords IO
 #'
-#'
 #' @examples
-#'
 #'
 #' ##(1) import Risoe BIN-file to R (uncomment for usage)
 #'
@@ -108,6 +118,7 @@
 #' #temp <- read_BIN2R(FILE)
 #' #temp
 #'
+#' @md
 #' @export
 read_BIN2R <- function(
   file,
@@ -132,7 +143,7 @@ read_BIN2R <- function(
   # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
   # directory and import them, if this is detected, we proceed as list
 
-  if (is(file, "character")) {
+  if (is.character(file)) {
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here
       if (dir.exists(file) & length(dir(file)) > 0) {
@@ -143,37 +154,37 @@ read_BIN2R <- function(
         }
         file <-
           as.list(c(
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".bin"
-            )),
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".binx"
-            )),
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".BIN"
-            )),
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".BINX"
-            ))
+            dir(
+              file, recursive = FALSE, pattern = ".bin", full.names = TRUE,
+            ),
+            dir(
+              file, recursive = FALSE, pattern = ".binx", full.names = TRUE
+            ),
+            dir(
+              file, recursive = FALSE, pattern = ".BIN", full.names = TRUE
+            ),
+            dir(
+              file, recursive = FALSE, pattern = ".BINX", full.names = TRUE
+            )
           ))
 
       }
 
 
-    }else{
+    }else if(dir.exists(file)){
       file <- as.list(list.files(file, pattern = pattern, full.names = TRUE, recursive = TRUE))
-
 
     }
 
   }
 
-  if (is(file, "list")) {
+
+  if (is.list(file)) {
 
     ##extend list of parameters
 
     ##position
-    position <- if(is(position, "list")){
+    position <- if(is.list(position)){
       rep(position, length = length(file))
 
     }else{
@@ -182,7 +193,7 @@ read_BIN2R <- function(
     }
 
     ##n.records
-    n.records <- if(is(n.records, "list")){
+    n.records <- if(is.list(n.records)){
       rep(n.records, length = length(file))
 
     }else{
@@ -191,7 +202,7 @@ read_BIN2R <- function(
     }
 
     ##zero_data.rm
-    zero_data.rm<- if(is(zero_data.rm, "list")){
+    zero_data.rm<- if(is.list(zero_data.rm)){
       rep(zero_data.rm, length = length(file))
 
     }else{
@@ -200,7 +211,7 @@ read_BIN2R <- function(
     }
 
     ##duplicated.rm
-    duplicated.rm <- if(is(duplicated.rm, "list")){
+    duplicated.rm <- if(is.list(duplicated.rm)){
       rep(duplicated.rm, length = length(file))
 
     }else{
@@ -209,7 +220,7 @@ read_BIN2R <- function(
     }
 
     ## show.raw.values
-    show.raw.values <- if(is( show.raw.values, "list")){
+    show.raw.values <- if(is.list(show.raw.values)){
       rep( show.raw.values, length = length(file))
 
     }else{
@@ -218,7 +229,7 @@ read_BIN2R <- function(
     }
 
     ## show.record.number
-    show.record.number <- if(is(show.record.number, "list")){
+    show.record.number <- if(is.list(show.record.number)){
       rep(show.record.number, length = length(file))
 
     }else{
@@ -227,7 +238,7 @@ read_BIN2R <- function(
     }
 
     ##forced.VersionNumber
-    forced.VersionNumber <- if(is(forced.VersionNumber, "list")){
+    forced.VersionNumber <- if(is.list(forced.VersionNumber)){
       rep(forced.VersionNumber, length = length(file))
 
     }else{
@@ -280,6 +291,7 @@ read_BIN2R <- function(
 
     }
 
+
   }
   on.exit(expr = on_exit())
 
@@ -301,7 +313,7 @@ read_BIN2R <- function(
 
         ##dowload file
         file_link <- tempfile("read_BIN2R_FILE")
-        download.file(file, destfile = file_link, quiet = ifelse(verbose, FALSE, TRUE), mode = "wb")
+        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
 
       }else{
         cat("FAILED")
@@ -357,7 +369,7 @@ read_BIN2R <- function(
 
 
   ##start for BIN-file check up
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
+  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
      ##force version number
     if(!is.null(forced.VersionNumber)){
@@ -392,20 +404,21 @@ read_BIN2R <- function(
 
     }
 
+
     #empty byte position
-    EMPTY<-readBin(con, what="raw", 1, size=1, endian="little")
+    EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
 
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
-      STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="little")
+      STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="litte")
 
     }else{
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=2, endian="little")
-      STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="little")
+      STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="litte")
 
     }
 
@@ -424,6 +437,7 @@ read_BIN2R <- function(
 
   }
   rm(temp.ID)
+  close(con) ##we have to close the connection here
 
 
 
@@ -657,7 +671,7 @@ read_BIN2R <- function(
   # LOOP --------------------------------------------------------------------
 
   ##start loop for import BIN data
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
+  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
     if(!is.null(forced.VersionNumber)){
@@ -689,7 +703,7 @@ read_BIN2R <- function(
 
 
     #empty byte position
-    EMPTY<-readBin(con, what="raw", 1, size=1, endian="little")
+    EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
@@ -1510,7 +1524,7 @@ read_BIN2R <- function(
   if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
      fastForward == FALSE) {
     fastForward <- TRUE
-    warning("[read_BIN2R()] automatically reset 'fastForward = TRUE'")
+    warning("[read_BIN2R()] automatically reset 'fastForward = TRUE'", call. = FALSE)
 
   }
 
@@ -1521,7 +1535,7 @@ read_BIN2R <- function(
 
 
      ##because we expect a list
-     if(!is(object, "list")){
+     if(!is.list(object)){
        object <- list(object)
 
      }

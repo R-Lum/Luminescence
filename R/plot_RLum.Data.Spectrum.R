@@ -3,24 +3,23 @@
 #' The function provides a standardised plot output for spectrum data of an
 #' RLum.Data.Spectrum S4 class object
 #'
-#' \bold{Matrix structure} \cr (cf. \code{\linkS4class{RLum.Data.Spectrum}})
+#' **Matrix structure** \cr (cf. [RLum.Data.Spectrum-class])
 #'
-#' \itemize{ \item \code{rows} (x-values): wavelengths/channels (xlim, xlab)
-#' \item \code{columns} (y-values): time/temperature (ylim, ylab) \item
-#' \code{cells} (z-values): count values (zlim, zlab) }
+#' - `rows` (x-values): wavelengths/channels (xlim, xlab)
+#' - `columns` (y-values): time/temperature (ylim, ylab) 
+#' - `cells` (z-values): count values (zlim, zlab) 
 #'
-#' \emph{Note: This nomenclature is valid for all plot types of this
-#' function!}\cr
+#' *Note: This nomenclature is valid for all plot types of this function!*
 #'
-#' \bold{Nomenclature for value limiting}
+#' **Nomenclature for value limiting**
 #'
-#' \code{xlim}: Limits values along the wavelength axis\cr \code{ylim}: Limits
-#' values along the time/temperature axis\cr \code{zlim}: Limits values along
-#' the count value axis\cr
+#' - `xlim`: Limits values along the wavelength axis
+#' - `ylim`: Limits values along the time/temperature axis
+#' - `zlim`: Limits values along the count value axis
 #'
-#' \bold{Energy axis re-calculation}
+#' **Energy axis re-calculation**
 #'
-#' If the argument \code{xaxis.energy = TRUE} is chosen, instead intensity vs.
+#' If the argument `xaxis.energy = TRUE` is chosen, instead intensity vs.
 #' wavelength the spectrum is plotted as intensiyt vs. energy. Therefore the
 #' entire spectrum is re-recaluated (e.g., Appendix 4 in Blasse and Grabmeier,
 #' 1994):
@@ -30,128 +29,133 @@
 #'
 #' \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
 #'
-#' with \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV),
+#' with 
+#' \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV), 
 #' \eqn{\phi_{\lambda}} the intensity per interval of wavelength \eqn{\lambda}
-#' (nm) and \eqn{h} (eV/s) the Planck constant and \eqn{c} (m/s) the velocity
-#' of light.
+#' (nm) and 
+#' \eqn{h} (eV/s) the Planck constant and \eqn{c} (m/s) the velocity of light.
 #'
 #' For transforming the wavelength axis (x-values) the equation
 #'
 #' \deqn{E = hc/\lambda}
 #'
-#' is used. For further details please see the cited the literature.\cr
+#' is used. For further details please see the cited the literature.
 #'
-#' \bold{Details on the plot functions}
+#' **Details on the plot functions**
 #'
 #' Spectrum is visualised as 3D or 2D plot. Both plot types are based on
-#' internal R plot functions. \cr
+#' internal R plot functions.
 #'
-#' \bold{\code{plot.type = "persp"}}
+#'**`plot.type = "persp"`**
 #'
-#' Arguments that will be passed to \code{\link{persp}}: \itemize{ \item
-#' \code{shade}: default is \code{0.4} \item \code{phi}: default is \code{15}
-#' \item \code{theta}: default is \code{-30} \item \code{expand}: default is
-#' \code{1} \item \code{ticktype}: default is \code{detailed}, \code{r}: default is \code{10}}
+#' Arguments that will be passed to [persp]:
+#'  
+#' - `shade`: default is `0.4` 
+#' - `phi`: default is `15`
+#' - `theta`: default is `-30` 
+#' - `expand`: default is `1` 
+#' - `ticktype`: default is `detailed`, `r`: default is `10`
 #'
-#' \emph{Note: Further parameters can be adjusted via \code{par}. For example
+#' **Note:** Further parameters can be adjusted via `par`. For example
 #' to set the background transparent and reduce the thickness of the lines use:
-#' \code{par(bg = NA, lwd = 0.7)} previous the function call.}
+#' `par(bg = NA, lwd = 0.7)` previous the function call.
 #'
-#' \bold{\code{plot.type = "single"}}\cr
+#'**`plot.type = "single"`**
 #'
 #' Per frame a single curve is returned. Frames are time or temperature
-#' steps.\cr
+#' steps.
 #'
-#' \bold{\code{plot.type = "multiple.lines"}}\cr
+#'**`plot.type = "multiple.lines"`**
 #'
-#' All frames plotted in one frame.\cr
+#' All frames plotted in one frame.
 #'
-#' \bold{\code{plot.type = "transect"}}\cr
+#'**`plot.type = "transect"`**
 #'
 #' Depending on the selected wavelength/channel range a transect over the
 #' time/temperature (y-axis) will be plotted along the wavelength/channels
 #' (x-axis). If the range contains more than one channel, values (z-values) are
-#' summed up. To select a transect use the \code{xlim} argument, e.g.
-#' \code{xlim = c(300,310)} plot along the summed up count values of channel
-#' 300 to 310.\cr
+#' summed up. To select a transect use the `xlim` argument, e.g.
+#' `xlim = c(300,310)` plot along the summed up count values of channel
+#' 300 to 310.
 #'
-#' \bold{Further arguments that will be passed (depending on the plot type)}
+#' **Further arguments that will be passed (depending on the plot type)**
 #'
-#' \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
-#' \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} ("single", "multiple.lines",
-#' "interactive"), \code{col},
-#' \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} ("interactive") \cr
+#' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
+#' `zlim`, `main`, `mtext`, `pch`, `type` ("single", "multiple.lines", "interactive"), 
+#' `col`, `border`, `box` `lwd`, `bty`, `showscale` ("interactive")
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
-#' object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
-#' Please note that in case of a matrix rownames and colnames are set automatically if not provided.
+#' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**): 
+#' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count 
+#' values of the spectrum.\cr
+#' Please note that in case of a matrix rownames and colnames are set 
+#' automatically if not provided.
 #'
-#' @param par.local \code{\link{logical}} (with default): use local graphical
-#' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If \code{par.local = FALSE} global parameters are inherited.
-#' @param plot.type \code{\link{character}} (with default): plot type, for
-#' 3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
-#' \code{single} or \code{multiple.lines} (along the time or temperature axis)
-#' or \code{transect} (along the wavelength axis) \cr
+#' @param par.local [logical] (*with default*): 
+#' use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
+#' If `par.local = FALSE` global parameters are inherited.
+#' @param plot.type [character] (*with default*): plot type, for
+#' 3D-plot use `persp`, or `interactive`, for a 2D-plot `contour`,
+#' `single` or `multiple.lines` (along the time or temperature axis)
+#' or `transect` (along the wavelength axis) \cr
 #'
-#' @param optical.wavelength.colours \code{\link{logical}} (with default): use
-#' optical wavelength colour palette. Note: For this, the spectrum range is
-#' limited: \code{c(350,750)}. Own colours can be set with the argument
-#' \code{col}.
+#' @param optical.wavelength.colours [logical] (*with default*): 
+#' use optical wavelength colour palette. Note: For this, the spectrum range is
+#' limited: `c(350,750)`. Own colours can be set with the argument `col`.
 #'
-#' @param bg.channels \code{\link{vector}} (optional): defines channel for
-#' background subtraction If a vector is provided the mean of the channels is
-#' used for subtraction. Note: Background subtraction is applied prior to
-#' channel binning
+#' @param bg.channels [vector] (*optional*): 
+#' defines channel for background subtraction If a vector is provided the mean 
+#' of the channels is used for subtraction. 
+#' 
+#' **Note:** Background subtraction is applied prior to channel binning
 #'
-#' @param bin.rows \code{\link{integer}} (with defaul): allow summing-up
-#' wavelength channels (horizontal binning), e.g. \code{bin.rows = 2} two
-#' channels are summed up
+#' @param bin.rows [integer] (with defaul): 
+#' allow summing-up wavelength channels (horizontal binning), 
+#' e.g. `bin.rows = 2` two channels are summed up
 #'
-#' @param bin.cols \code{\link{integer}} (with default): allow summing-up
-#' channel counts (vertical binning) for plotting, e.g. \code{bin.cols = 2} two
-#' channels are summed up
+#' @param bin.cols [integer] (*with default*): 
+#' allow summing-up channel counts (vertical binning) for plotting, 
+#' e.g. `bin.cols = 2` two channels are summed up
 #'
-#' @param rug \code{\link{logical}} (with default): enables or disables colour
-#' rug. Currently only implemented for plot type \code{multiple.lines} and
-#' \code{single}
+#' @param rug [logical] (*with default*): 
+#' enables or disables colour rug. Currently only implemented for plot 
+#' type `multiple.lines` and `single`
 #'
-#' @param limit_counts \code{\link{numeric}} (optional): value to limit all count values to
-#' this value, i.e. all count values above this threshold will be replaced by this threshold. This
-#' is helpfull especially in case of TL-spectra.
+#' @param limit_counts [numeric] (*optional*): 
+#' value to limit all count values to this value, i.e. all count values above 
+#' this threshold will be replaced by this threshold. This is helpful
+#' especially in case of TL-spectra.
 #'
-#' @param xaxis.energy \code{\link{logical}} (with default): enables or
-#' disables energy instead of wavelength axis. Note: This option means not only
-#' simnply redrawing the axis, insteadly the spectrum in terms of intensity is
-#' recalculated, s. details.
+#' @param xaxis.energy [logical] (*with default*): 
+#' enables or disables energy instead of wavelength axis. 
+#' 
+#' **Note:** This option means not only simnply redrawing the axis, 
+#' instead the spectrum in terms of intensity is recalculated, s. details.
 #'
-#' @param legend.text \code{\link{character}} (with default): possiblity to
-#' provide own legend text. This argument is only considered for plot types
-#' providing a legend, e.g. \code{plot.type="transect"}
+#' @param legend.text [character] (*with default*): 
+#' possiblity to provide own legend text. This argument is only considered for 
+#' plot types providing a legend, e.g. `plot.type="transect"`
 #'
-#' @param \dots further arguments and graphical parameters that will be passed
-#' to the \code{plot} function.
+#' @param ... further arguments and graphical parameters that will be passed
+#' to the `plot` function.
 #'
 #' @return Returns a plot.
 #'
-#' @note Not all additional arguments (\code{...}) will be passed similarly!
+#' @note Not all additional arguments (`...`) will be passed similarly!
 #'
 #' @section Function version: 0.5.3
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
-#' \code{\link{contour}}
+#' @seealso [RLum.Data.Spectrum-class], [plot], [plot_RLum], [persp], 
+#' [plotly::plot_ly], [contour]
 #'
-#' @references Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
-#' Springer.
+#' @references 
+#' Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 #'
 #' @keywords aplot
 #'
 #' @examples
-#'
 #'
 #' ##load example data
 #' data(ExampleData.XSYG, envir = environment())
@@ -206,6 +210,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 plot_RLum.Data.Spectrum <- function(
   object,

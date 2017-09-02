@@ -6,71 +6,86 @@
 #' for sigma.
 #'
 #' This function uses the equations of Galbraith & Roberts (2012). The
-#' parameters \code{delta} and \code{sigma} are estimated by numerically solving
+#' parameters `delta` and `sigma` are estimated by numerically solving
 #' eq. 15 and 16. Their standard errors are approximated using eq. 17.
-#' In addition, the profile log-likelihood function for \code{sigma} is
+#' In addition, the profile log-likelihood function for `sigma` is
 #' calculated using eq. 18 and presented as a plot. Numerical values of the 
-#' maximum likelihood approach are \bold{only} presented in the plot and \bold{not}
-#' in the console. A detailed explanation on maximum likelihood estimation can be found in the
-#' appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
-#' (2012, 15)
+#' maximum likelihood approach are **only** presented in the plot and **not**
+#' in the console. A detailed explanation on maximum likelihood estimation can 
+#' be found in the appendix of Galbraith & Laslett (1993, 468-470) and 
+#' Galbraith & Roberts (2012, 15)
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(data[,2])}
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[,1])` and De error `(data[,2])`
 #' 
-#' @param sigmab \code{\link{numeric}} (with default): additional spread in De values.
+#' @param sigmab [numeric] (*with default*): 
+#' additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be 
 #' well-bleached (Cunningham & Walling 2012, p. 100).
-#' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+#' **NOTE**: For the logged model (`log = TRUE`) this value must be
+#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' 
-#' @param log \code{\link{logical}} (with default): fit the (un-)logged central
-#' age model to De data
+#' @param log [logical] (*with default*): 
+#' fit the (un-)logged central age model to De data
 #' 
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (*with default*): 
+#' plot output
 #' 
-#' @param \dots further arguments (\code{trace, verbose}).
+#' @param ... further arguments (`trace`, `verbose`).
 #' 
-#' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
-#' following element:
+#' @return Returns a plot (*optional*) and terminal output. In addition an
+#' [RLum.Results-class] object is returned containing the following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-#' used arguments} \item{call}{\link{call} the function call}
-#' \item{profile}{\link{data.frame} the log likelihood profile for sigma}
+#' \item{.$summary}{[data.frame] summary of all relevant model results.}
+#' \item{.$data}{[data.frame] original input data} 
+#' \item{.$args}{[list] used arguments} 
+#' \item{.$call}{[call] the function call}
+#' \item{.$profile}{[data.frame] the log likelihood profile for sigma}
 #'
-#' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' The output should be accessed using the function [get_RLum]
+#' 
 #' @section Function version: 1.3.2
-#' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
-#' rewritten S script of Rex Galbraith, 2010 \cr
-#' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-#' \code{\link{calc_MinDose}}
-#' @references Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
-#' mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
-#' \cr \cr Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
+#' 
+#' @author 
+#' Christoph Burow, University of Cologne (Germany) \cr 
+#' Based on a rewritten S script of Rex Galbraith, 2010
+#' 
+#' @seealso [plot], [calc_CommonDose], [calc_FiniteMixture], 
+#' [calc_FuchsLang2001], [calc_MinDose]
+#' 
+#' @references 
+#' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
+#' mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470. 
+#' 
+#' Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
 #' J.M., 1999. Optical dating of single grains of quartz from Jinmium rock
 #' shelter, northern Australia. Part I: experimental design and statistical
-#' models.  Archaeometry 41, 339-364. \cr \cr Galbraith, R.F. & Roberts, R.G.,
-#' 2012. Statistical aspects of equivalent dose and error calculation and
+#' models.  Archaeometry 41, 339-364. 
+#' 
+#' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error calculation and
 #' display in OSL dating: An overview and some recommendations. Quaternary
-#' Geochronology 11, 1-27. \cr \cr \bold{Further reading} \cr \cr Arnold, L.J.
-#' & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
+#' Geochronology 11, 1-27. 
+#' 
+#' **Further reading** 
+#'
+#' Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 #' (De) distributions: Implications for OSL dating of sediment mixtures.
-#' Quaternary Geochronology 4, 204-230. \cr \cr Bailey, R.M. & Arnold, L.J.,
-#' 2006. Statistical modelling of single grain quartz De distributions and an
+#' Quaternary Geochronology 4, 204-230. 
+#'
+#' Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 #' assessment of procedures for estimating burial dose. Quaternary Science
-#' Reviews 25, 2475-2502. \cr \cr Cunningham, A.C. & Wallinga, J., 2012.
-#' Realizing the potential of fluvial archives using robust OSL chronologies.
-#' Quaternary Geochronology 12, 98-106. \cr \cr Rodnight, H., Duller, G.A.T.,
-#' Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
-#' of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120.
-#' \cr \cr Rodnight, H., 2008. How many equivalent dose values are needed to
+#' Reviews 25, 2475-2502. 
+#'
+#' Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
+#' Quaternary Geochronology 12, 98-106. 
+#'
+#' Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
+#' of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120. 
+#'
+#' Rodnight, H., 2008. How many equivalent dose values are needed to
 #' obtain a reproducible distribution?. Ancient TL 26, 3-10.
+#' 
 #' @examples
 #'
 #' ##load example data
@@ -79,6 +94,7 @@
 #' ##apply the central dose model
 #' calc_CentralDose(ExampleData.DeValues$CA1)
 #'
+#' @md
 #' @export
 calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   

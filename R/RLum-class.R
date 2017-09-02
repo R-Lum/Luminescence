@@ -1,7 +1,7 @@
 #' @include replicate_RLum.R RcppExports.R
 NULL
 
-#' Class \code{"RLum"}
+#' Class `"RLum"`
 #'
 #' Abstract class for data in the package Luminescence
 #'
@@ -10,28 +10,32 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot originator Object of class \code{\link{character}} containing the name of the producing
-#' function for the object. Set automatically by using the function \code{\link{set_RLum}}.
+#' @slot originator 
+#' Object of class [character] containing the name of the producing
+#' function for the object. Set automatically by using the function [set_RLum].
 #'
-#' @slot info Object of class \code{\link{list}} for additional information on the object itself
+#' @slot info 
+#' Object of class [list] for additional information on the object itself
 #'
-#' @slot .uid Object of class \code{\link{character}} for a unique object identifier. This id is
-#' usually calculated using the internal function \code{.create_UID()} if the funtion \code{\link{set_RLum}}
+#' @slot .uid 
+#' Object of class [character] for a unique object identifier. This id is
+#' usually calculated using the internal function `create_UID()` if the funtion [set_RLum]
 #' is called.
 #'
-#' @slot .pid Object of class \code{\link{character}} for a parent id. This allows nesting RLum-objects
+#' @slot .pid 
+#' Object of class [character] for a parent id. This allows nesting RLum-objects
 #' at will. The parent id can be the uid of another object.
 #'
-#' @note \code{RLum} is a virtual class.
+#' @note `RLum` is a virtual class.
 #'
-#' @section Objects from the Class: A virtual Class: No objects can be created
-#' from it.
+#' @section Objects from the Class: 
+#' A virtual Class: No objects can be created from it.
 #'
 #' @section Class version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
+#' @seealso [RLum.Data-class], [RLum.Analysis-class]
 #'
 #' @keywords classes
 #'
@@ -39,6 +43,7 @@ NULL
 #'
 #' showClass("RLum")
 #'
+#' @md
 #' @export
 setClass("RLum",
            slots = list(
@@ -62,11 +67,13 @@ setClass("RLum",
 #' @describeIn RLum
 #' Replication method RLum-objects
 #'
-#' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
+#' @param object [RLum-class] (**required**):
+#' an object of class [RLum-class] 
 #'
-#' @param times \code{\link{integer}} (optional): number for times each element is repeated
-#' element
+#' @param times [integer] (*optional*): 
+#' number for times each element is repeated element
 #'
+#' @md
 #' @export
 setMethod(
   "replicate_RLum",

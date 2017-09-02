@@ -7,18 +7,18 @@
 app_RLum(app = NULL, ...)
 }
 \arguments{
-\item{app}{\code{\link{character}} (required): name of the application to start. See details for a list
-of available apps.}
+\item{app}{\link{character} (\strong{required}):
+name of the application to start. See details for a list of available apps.}
 
-\item{...}{further arguments to pass to \code{\link[shiny]{runApp}}}
+\item{...}{further arguments passed \link[shiny:runApp]{shiny::runApp}}
 }
 \description{
-Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
-\link[RLumShiny]{RLumShiny-package}. For further details and examples please
+Wrapper for the function \link[RLumShiny:app_RLum]{RLumShiny::app_RLum} from the package
+\link[RLumShiny:RLumShiny-package]{RLumShiny::RLumShiny-package}. For further details and examples please
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.1 (2017-06-30 11:23:30)
+ 0.1.1 (2017-09-02 23:27:02)
 }
 
 \author{
@@ -26,6 +26,6 @@ Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2017). app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

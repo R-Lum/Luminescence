@@ -10,57 +10,57 @@ calc_FadingCorr(age.faded, g_value, tc = NULL, tc.g_value = tc,
   txtProgressBar = TRUE, verbose = TRUE)
 }
 \arguments{
-\item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
-age with error in ka (see example)}
+\item{age.faded}{\link{numeric} \link{vector} (\strong{required}):
+uncorrected age with error in ka (see example)}
 
-\item{g_value}{\code{\link{vector}} (\bold{required}): g-value and error obtained
-from separate fading measurements (see example). Alternatively an \code{\linkS4class{RLum.Results}} object
-can be provided produced by the function \code{analyse_FadingMeasurement}, in this case tc is set
-automatically}
+\item{g_value}{\link{vector} (\strong{required}):
+g-value and error obtained from separate fading measurements (see example).
+Alternatively an \linkS4class{RLum.Results} object can be provided produced by the function
+\link{analyse_FadingMeasurement}, in this case tc is set automatically}
 
-\item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds between
-irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
-if \code{g_value} was an \code{RLum.Results} object}
+\item{tc}{\link{numeric} (\strong{required}):
+time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
+Argument will be ignored if \code{g_value} was an \linkS4class{RLum.Results} object}
 
-\item{tc.g_value}{\code{\link{numeric}} (with default): the time in seconds between irradiation
-and the prompt measurement used for estimating the g-value. If the g-value was normalised
-to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
-the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
-that had been not normalised to 2 days.}
+\item{tc.g_value}{\link{numeric} (\emph{with default}):
+the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
+If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
+If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
+SAR method and g-values that had been not normalised to 2 days.}
 
-\item{n.MC}{\code{\link{integer}} (with default): number of Monte Carlo
-simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
-tries to find a 'stable' error for the age. Note: This may take a while!}
+\item{n.MC}{\link{integer} (\emph{with default}):
+number of Monte Carlo simulation runs for error estimation.
+If \code{n.MC = 'auto'} is used the function tries to find a 'stable' error for the age.
+\strong{Note:} This may take a while!}
 
-\item{seed}{\code{\link{integer}} (optional): sets the seed for the random number generator
-in R using \code{\link{set.seed}}}
+\item{seed}{\link{integer} (\emph{optional}):
+sets the seed for the random number generator in R using \link{set.seed}}
 
-\item{interval}{\code{\link{numeric}} (with default): a vector containing the end-points (age interval) of the
-interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
-used for solving the equation.}
+\item{interval}{\link{numeric} (\emph{with default}):
+a vector containing the end-points (age interval) of the interval to be searched for the root in 'ka'.
+This argument is passed to the function \link[stats:uniroot]{stats::uniroot} used for solving the equation.}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}}
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
+enables or disables \link{txtProgressBar}}
 
-\item{verbose}{\code{\link{logical}} (with default): enables or disables terminal output}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables or disables terminal output}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
+Returns an S4 object of type \linkS4class{RLum.Results}.\cr
 
-Slot: \bold{@data}\cr
+Slot: \strong{\code{@data}}\cr
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
- \code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
- \code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
- that simulation\cr
+\strong{Object} \tab \strong{Type} \tab \strong{Comment} \cr
+\code{age.corr} \tab \link{data.frame} \tab Corrected age \cr
+\code{age.corr.MC} \tab \link{numeric} \tab MC simulation results with all possible ages from that simulation \cr
 }
 
-Slot: \bold{@info}\cr
+Slot: \strong{\code{@info}}\cr
 
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
- \code{info} \tab \code{character} \tab the original function call
-
+\strong{Object} \tab \strong{Type} \tab \strong{Comment} \cr
+\code{info} \tab \link{character} \tab the original function call
 }
 }
 \description{
@@ -80,14 +80,14 @@ where
 
 \deqn{\kappa_{tc.g} = g / 100 / log(10)}
 
-with \eqn{log} the natural logarithm.
+with \code{log} the natural logarithm.
 
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is realised using
-\code{\link{uniroot}}. Large values for \code{n.MC} will significantly
+\link{uniroot}. Large values for \code{n.MC} will significantly
 increase the computation time.\cr
 
-\bold{\code{n.MC = 'auto'}}
+\strong{\code{n.MC = 'auto'}}
 
 The error estimation based on a stochastic process, i.e. for a small number of MC runs the calculated
 error varies considerably every time the function is called, even with the same input values.
@@ -108,15 +108,17 @@ This limitation can be overwritten by setting the number of MC runs manually,
 e.g. \code{n.MC = 10000001}. Note: For this case the function is not checking whether the calculated
 error is stable.\cr
 
-\bold{\code{seed}}
+\strong{\code{seed}}
 
 This option allows to recreate previously calculated results by setting the seed
-for the R random number generator (see \code{\link{set.seed}} for details). This option
-should not be mixed up with the option \bold{\code{n.MC = 'auto'}}. The results may
+for the R random number generator (see \link{set.seed} for details). This option
+should not be mixed up with the option \strong{\code{n.MC = 'auto'}}. The results may
 appear similar, but they are not comparable!\cr
 
-\bold{FAQ}\cr
+\strong{FAQ}\cr
+
 Q: Which tc value is expected?\cr
+
 A: tc is the time in seconds between irradiation and the prompt measurement applied during your
 De measurement. However, this tc might differ from the tc used for estimating the g-value. In the
 case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
@@ -126,7 +128,7 @@ tc value (the one used for estimating the g-value) using the argument \code{tc.g
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.2 (2017-06-30 11:23:30)
+ 0.4.2 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -163,7 +165,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -172,8 +174,7 @@ in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
-\code{\link{uniroot}}
+\linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

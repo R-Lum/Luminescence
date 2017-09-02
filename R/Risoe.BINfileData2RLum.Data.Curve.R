@@ -4,49 +4,48 @@
 #' The function converts one specified single record from a Risoe.BINfileData
 #' object to an RLum.Data.Curve object.
 #'
-#' The function extracts all \code{METADATA} from the \code{Risoe.BINfileData}
-#' object and stores them in the \code{RLum.Data.Curve} object. This function
-#' can be used stand-alone, but is the base function for \code{\link{Risoe.BINfileData2RLum.Analysis}}.
+#' The function extracts all `METADATA` from the `Risoe.BINfileData`
+#' object and stores them in the `RLum.Data.Curve` object. This function
+#' can be used stand-alone, but is the base function for [Risoe.BINfileData2RLum.Analysis].
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
-#' \code{Risoe.BINfileData} object
+#' @param object [Risoe.BINfileData-class] (**required**):
+#' `Risoe.BINfileData` object
 #'
-#' @param id \code{\link{integer}} (\bold{required}): record id in the
-#' \code{Risoe.BINfileData} object of the curve that is to be stored in the
-#' \code{RLum.Data.Curve} object. If no value for id is provided, the record
-#' has to be specified by \code{pos}, \code{set} and \code{run}.
+#' @param id [integer] (**required**):
+#' record id in the `Risoe.BINfileData` object of the curve that is to be
+#' stored in the `RLum.Data.Curve` object. If no value for id is provided,
+#' the record has to be specified by `pos`, `set` and `run`.
 #'
-#' @param pos \code{\link{integer}} (optional): record position number in the
-#' \code{Risoe.BINfileData} object of the curve that is to be stored in the
-#' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
-#' argument is ignored.
+#' @param pos [integer] (*optional*):
+#' record position number in the `Risoe.BINfileData` object of the curve that
+#' is to be stored in the `RLum.Data.Curve` object. If a value for `id` is
+#' provided, this argument is ignored.
 #'
-#' @param run \code{\link{integer}} (optional): record run number in the
-#' \code{Risoe.BINfileData} object of the curve that is to be stored in the
-#' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
-#' argument is ignored.
+#' @param run [integer] (*optional*):
+#' record run number in the `Risoe.BINfileData` object of the curve that is
+#' to be stored in the `RLum.Data.Curve` object. If a value for `id` is
+#' provided, this argument is ignored.
 #'
-#' @param set \code{\link{integer}} (optional): record set number in the
-#' \code{Risoe.BINfileData} object of the curve that is to be stored in the
-#' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
-#' argument is ignored.
+#' @param set [integer] (*optional*):
+#' record set number in the `Risoe.BINfileData` object of the curve that is
+#' to be stored in the `RLum.Data.Curve` object. If a value for `id` is
+#' provided, this argument is ignored.
 #'
-#' @return Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+#' @return Returns an [RLum.Data.Curve-class] object.
 #'
-#' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
+#' @note
+#' Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
 #' @section Function version: 0.5.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
-#' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
-#' \code{\link{set_RLum}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link{plot_RLum}}
-#'
-#' @references #
+#' @seealso [Risoe.BINfileData2RLum.Analysis], [set_RLum],
+#' [RLum.Data.Curve-class], [RLum.Analysis-class], [Risoe.BINfileData-class],
+#' [plot_RLum]
 #'
 #' @keywords manip
 #'
@@ -58,6 +57,7 @@
 #' ##convert one record
 #' Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 #'
+#' @md
 #' @noRd
 .Risoe.BINfileData2RLum.Data.Curve <- function(
   object,
@@ -92,7 +92,7 @@
   set_RLum(
     class = "RLum.Data.Curve",
     recordType = METADATA[["LTYPE"]][id],
-    data =  .create_RLumDataCurve_matrix(
+    data =  src_create_RLumDataCurve_matrix(
       DATA = DATA[[id]],
       NPOINTS = METADATA[["NPOINTS"]][id],
       VERSION = METADATA[["VERSION"]][id],
@@ -100,7 +100,7 @@
       LOW =  METADATA[["LOW"]][id],
       HIGH =  METADATA[["HIGH"]][id],
       AN_TEMP = METADATA[["AN_TEMP"]][id],
-      TOLDELAY =METADATA[["TOLDELAY"]][id],
+      TOLDELAY = METADATA[["TOLDELAY"]][id],
       TOLON = METADATA[["TOLON"]][id],
       TOLOFF = METADATA[["TOLOFF"]][id]
 

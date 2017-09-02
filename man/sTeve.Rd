@@ -7,14 +7,17 @@
 sTeve(n_frames = 10, t_animation = 2, n.tree = 7, type)
 }
 \arguments{
-\item{n_frames}{\code{\link{integer}} (with default): n frames}
+\item{n_frames}{\link{integer} (\emph{with default}):
+n frames}
 
-\item{t_animation}{\code{\link{integer}} (with default): t animation}
+\item{t_animation}{\link{integer} (\emph{with default}):
+t animation}
 
-\item{n.tree}{\code{\link{integer}} (with default): How many trees do you
-want to cut?}
+\item{n.tree}{\link{integer} (\emph{with default}):
+how many trees do you want to cut?}
 
-\item{type}{\code{\link{integer}} (optional): Make a decision: 1, 2 or 3}
+\item{type}{\link{integer} (\emph{optional}):
+Make a decision: 1, 2 or 3}
 }
 \value{
 Validates your data.
@@ -33,19 +36,16 @@ This function should not be taken too seriously.
 
 ##no example available
 
-} 
-
-\section{How to cite}{
-NA, NA, ,  (2017). sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-#
 }
 \seealso{
 \link{plot_KDE}
 }
 \author{
-R Luminescence Team, 2012-2013
+R Luminescence Team, 2012-2046
+} 
+
+\section{How to cite}{
+NA, NA, ,  (2017). sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{manip}

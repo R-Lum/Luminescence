@@ -8,17 +8,17 @@ plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
   ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Image}} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
 object of class \code{RLum.Data.Image}}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
+\item{par.local}{\link{logical} (\emph{with default}): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
-\item{plot.type}{\code{\link{character}} (with default): plot types.
+\item{plot.type}{\link{character} (\emph{with default}): plot types.
 Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions.}
 }
 \value{
@@ -27,43 +27,42 @@ Returns a plot.
 \description{
 The function provides a standardised plot output for image data of an
 \code{RLum.Data.Image}S4 class object, mainly using the plot functions
-provided by the \code{\link{raster}} package.
+provided by the \link{raster} package.
 }
 \details{
-\bold{Details on the plot functions} \cr
+\strong{Details on the plot functions}
 
 Image is visualised as 2D plot usinng generic plot types provided by other
 packages.
 
-Supported plot types: \cr
+Supported plot types:
 
-\bold{\code{plot.type = "plot.raster"}}\cr
+\strong{\code{plot.type = "plot.raster"}}
 
 Uses the standard plot function for raster data from the package
-\code{\link[raster]{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
+\link[raster:raster]{raster::raster}: \link[raster:plot]{raster::plot}. For each raster layer in a
 raster brick one plot is produced.
 
-Arguments that are passed through the function call:\cr
+Arguments that are passed through the function call:
 
 \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
 \code{col}
 
-\bold{\code{plot.type = "plotRGB"}}\cr
+\strong{\code{plot.type = "plotRGB"}}
 
-Uses the function \code{\link[raster]{plotRGB}} from the
-\code{\link[raster]{raster}} package. Only one image plot is produced as all layers
+Uses the function \link[raster:plotRGB]{raster::plotRGB} from the
+\link[raster:raster]{raster::raster} package. Only one image plot is produced as all layers
 in a brick a combined.  This plot type is useful to see whether any signal
-is recorded by the camera.\cr Arguments that are passed through the function
-call:\cr
+is recorded by the camera.\cr
+Arguments that are passed through the function call:
 
-\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext},
-\code{interpolate}, \code{maxpixels}, \code{alpha}, \code{colNA},
-\code{stretch}\cr
+\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext}, \code{interpolate}, \code{maxpixels},
+\code{alpha}, \code{colNA}, \code{stretch}
 
-\bold{\code{plot.type = "contour"}}\cr
+\strong{\code{plot.type = "contour"}}
 
-Uses the function contour plot function from the \code{\link{raster}}
-function (\code{\link[raster]{contour}}). For each raster layer one contour
+Uses the function contour plot function from the \link{raster}
+function (\link[raster:contour]{raster::contour}). For each raster layer one contour
 plot is produced. Arguments that are passed through the function call:\cr
 
 \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
@@ -71,16 +70,15 @@ plot is produced. Arguments that are passed through the function call:\cr
 }
 \note{
 This function has been created to faciliate the plotting of image data
-imported by the function \code{\link{read_SPE2R}}. However, so far the
+imported by the function \link{read_SPE2R}. However, so far the
 function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1 (2017-06-30 11:23:30)
+ 0.1 (2017-09-02 23:27:02)
 }
 
 \examples{
-
 
 ##load data
 data(ExampleData.RLum.Data.Image, envir = environment())
@@ -88,21 +86,16 @@ data(ExampleData.RLum.Data.Image, envir = environment())
 ##plot data
 plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
--
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link[raster]{raster}},
+\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum}, \link[raster:raster]{raster::raster}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{aplot}

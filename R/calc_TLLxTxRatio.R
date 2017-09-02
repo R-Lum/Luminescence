@@ -1,8 +1,8 @@
-#' Calculate the Lx/Tx ratio for a given set of TL curves [beta version]
+#' Calculate the Lx/Tx ratio for a given set of TL curves `[beta version]`
 #'
 #' Calculate Lx/Tx ratio for a given set of TL curves.
 #'
-#' \bold{Uncertainty estimation}\cr
+#' **Uncertainty estimation**
 #'
 #' The standard errors are calculated using the following generalised equation:
 #'
@@ -12,51 +12,57 @@
 #' the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However,
 #' if both signals are similar the error becomes zero.
 #'
-#' @param Lx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (\bold{required}): TL data (x =
-#' temperature, y = counts) (TL signal)
+#' @param Lx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' TL data (x = temperature, y = counts) (TL signal)
 #'
-#' @param Lx.data.background \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (optional): TL data (x =
-#' temperature, y = counts). If no data are provided no background subtraction
-#' is performed.
+#' @param Lx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*): 
+#' TL data (x = temperature, y = counts). 
+#' If no data are provided no background subtraction is performed.
 #'
-#' @param Tx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (\bold{required}): TL data (x =
-#' temperature, y = counts) (TL test signal)
+#' @param Tx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' TL data (x = temperature, y = counts) (TL test signal)
 #'
-#' @param Tx.data.background \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (optional): TL data (x =
-#' temperature, y = counts). If no data are provided no background subtraction
-#' is performed.
+#' @param Tx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*): 
+#' TL data (x = temperature, y = counts). 
+#' If no data are provided no background subtraction is performed.
 #'
-#' @param signal.integral.min \code{\link{integer}} (\bold{required}): channel number
-#' for the lower signal integral bound (e.g. \code{signal.integral.min = 100})
+#' @param signal.integral.min [integer] (**required**): 
+#' channel number for the lower signal integral bound 
+#' (e.g. `signal.integral.min = 100`)
 #'
-#' @param signal.integral.max \code{\link{integer}} (\bold{required}): channel number
-#' for the upper signal integral bound (e.g. \code{signal.integral.max = 200})
+#' @param signal.integral.max [integer] (**required**): 
+#' channel number for the upper signal integral bound 
+#' (e.g. `signal.integral.max = 200`)
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
-#' Slot \code{data} contains a \link{list} with the following structure:\cr\cr
-#' $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
-#' \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
+#' @return 
+#' Returns an S4 object of type [RLum.Results-class].
+#' Slot `data` contains a [list] with the following structure:
+#' 
+#' ```
+#' $ LxTx.table  
+#' .. $ LnLx  
+#' .. $ LnLx.BG  
+#' .. $ TnTx  
+#' .. $ TnTx.BG
+#' .. $ Net_LnLx  
+#' .. $ Net_LnLx.Error
+#' ```
 #'
-#' @note \bold{This function has still BETA status!} Please further note that a similar
-#' background for both curves results in a zero error and is therefore set to \code{NA}.
+#' @note 
+#' **This function has still BETA status!** Please further note that a similar
+#' background for both curves results in a zero error and is therefore set to `NA`.
 #'
 #' @section Function version: 0.3.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Christoph Schmidt, University of Bayreuth (Germany)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' Christoph Schmidt, University of Bayreuth (Germany)
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
-#'
-#' @references -
+#' @seealso [RLum.Results-class], [analyse_SAR.TL]
 #'
 #' @keywords datagen
 #'
 #' @examples
-#'
 #'
 #' ##load package example data
 #' data(ExampleData.BINfileData, envir = environment())
@@ -78,6 +84,7 @@
 #'                            signal.integral.min, signal.integral.max)
 #' get_RLum(output)
 #'
+#' @md
 #' @export
 calc_TLLxTxRatio <- function(
   Lx.data.signal,

@@ -4,43 +4,43 @@
 #' as shown in Steffen et al. 2009
 #'
 #' This function accepts the individual curve data in many different formats. If
-#' \code{data} is a \code{list}, each element of the list must contain a two
-#' column \code{data.frame} or \code{matrix} containing the XY data of the curves
+#' `data` is a `list`, each element of the list must contain a two
+#' column `data.frame` or `matrix` containing the XY data of the curves
 #' (time and counts). Alternatively, the elements can be objects of class
-#' \code{\linkS4class{RLum.Data.Curve}}.
-#' Input values can also be provided as a \code{data.frame} or \code{matrix} where
+#' [RLum.Data.Curve-class].
+#' 
+#' Input values can also be provided as a `data.frame` or `matrix` where
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
-#' @param data a \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}} or
-#' \code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
-#' (time and counts). See details on individual data structure.
+#' @param data [list], [data.frame], [matrix] or [RLum.Analysis-class] (**required**): 
+#' X,Y data of measured values (time and counts). See details on individual data structure.
 #'
-#' @param log \code{\link{character}} (optional): logarithmic axes
-#' (\code{c("x", "y", "xy")}).
+#' @param log [character] (*optional*): 
+#' logarithmic axes (`c("x", "y", "xy")`).
 #'
-#' @param smooth \code{\link{character}} (optional): apply data smoothing. Use
-#' \code{"rmean"} to calculate the rolling where \code{k} determines the width
-#' of the rolling window (see \code{\link{rollmean}}).
-#' \code{"spline"} applies a smoothing spline to each curve
-#' (see \code{\link{smooth.spline}})
+#' @param smooth [character] (*optional*): 
+#' apply data smoothing. Use `"rmean"` to calculate the rolling where `k` 
+#' determines the width of the rolling window (see [rollmean]). `"spline"` 
+#' applies a smoothing spline to each curve (see [smooth.spline])
 #'
-#' @param k \code{\link{integer}} (with default): integer width of the rolling
-#' window.
+#' @param k [integer] (*with default*): 
+#' integer width of the rolling window.
 #'
-#' @param legend \code{\link{logical}} (with default): show or hide the plot legend.
+#' @param legend [logical] (*with default*): 
+#' show or hide the plot legend.
 #'
-#' @param legend.pos \code{\link{character}} (with default): keyword specifying
-#' the position of the legend (see \code{\link{legend}}).
+#' @param legend.pos [character] (*with default*): 
+#' keyword specifying the position of the legend (see [legend]).
 #'
-#' @param ... further parameters passed to \code{\link{plot}} (also see \code{\link{par}}).
+#' @param ... further parameters passed to [plot] (also see [par]).
 #'
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso [plot]
 #'
-#' @return Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
+#' @return Returns a plot and [RLum.Analysis-class] object.
 #'
 #' @references
 #' Steffen, D., Preusser, F., Schlunegger, F., 2009. OSL quartz underestimation due to
@@ -119,6 +119,7 @@
 #' par(mfrow = c(1, 1))
 #'
 #'
+#' @md
 #' @export
 plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
                      legend = TRUE, legend.pos = "topright", ...) {

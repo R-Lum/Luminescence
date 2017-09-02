@@ -9,7 +9,35 @@ temp <- calc_gSGC(data = data.frame(
   verbose = FALSE
   )
 
+test_that("plot and verbose and so", {
+  expect_output(calc_gSGC(data = data.frame(
+    LnTn =  2.361, LnTn.error = 0.087,
+    Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
+    Dr1 = 34.4),
+    plot = TRUE,
+    verbose = TRUE
+  ))
 
+})
+
+
+test_that("test errors", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_gSGC(data = NA))
+  expect_error(calc_gSGC(data = data.frame(
+    LnTn =  2.361, LnTn.error = 0.087,
+    Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
+    Dr1 = 34.4),
+    gSGC.type = 1,
+    plot = FALSE,
+    verbose = FALSE))
+
+  expect_error(calc_gSGC(data = data.frame(a = 1, b = 1, c = 1, d = 1, e = 1, f = 1)))
+
+
+
+})
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()

@@ -1,38 +1,42 @@
 #' Import measurement data produced by a Daybreak TL/OSL reader into R
 #'
-#' Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a Daybreak reader into R.
-#' The import of the DAT-files is limited to the file format described for the software TLAPLLIC v.3.2
-#' used for a Daybreak, model 1100.
+#' Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
+#' Daybreak reader into R. The import of the DAT-files is limited to the file
+#' format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100.
 #'
-#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-#' file to be imported. Alternatively a list of file names can be provided or just the path a folder
-#' containing measurement data. Please note that the specific, common, file extension (txt) is likely
+#' @param file [character] or [list] (**required**):
+#' path and file name of the file to be imported. Alternatively a list of file
+#' names can be provided or just the path a folder containing measurement data.
+#' Please note that the specific, common, file extension (txt) is likely
 #' leading to function failures during import when just a path is provided.
 #'
-#' @param raw \code{\link{logical}} (with default): if the input is a DAT-file (binary) a
-#' \code{\link[data.table]{data.table}} instead of the \code{\linkS4class{RLum.Analysis}} object
-#' can be returned for debugging purposes.
+#' @param raw [logical] (*with default*):
+#' if the input is a DAT-file (binary) a [data.table::data.table] instead of
+#' the [RLum.Analysis-class] object can be returned for debugging purposes.
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback
+#' @param verbose [logical] (*with default*):
+#' enables or disables terminal feedback
 #'
-#' @param txtProgressBar \code{\link{logical}} (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' @param txtProgressBar [logical] (*with default*):
+#' enables or disables [txtProgressBar].
 #'
-#' @return  A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
+#' @return
+#' A list of [RLum.Analysis-class] objects (each per position) is provided.
 #'
-#' @note \bold{[BETA VERSION]} This function still needs to be tested properly. In particular
+#' @note
+#' **`[BETA VERSION]`**
+#' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough rests using a few files.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
-#' Anotine Zink, C2RMF, Palais du Louvre, Paris (France)\cr
-#' \cr The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Anotine Zink, C2RMF, Palais du Louvre, Paris (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\link[data.table]{data.table}}
+#' The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 #'
-#' @references -
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [data.table::data.table]
 #'
 #' @keywords IO
 #'
@@ -41,9 +45,9 @@
 #' \dontrun{
 #' file <- file.choose()
 #' temp <- read_Daybreak2R(file)
-#'
 #' }
 #'
+#' @md
 #' @export
 read_Daybreak2R <- function(
   file,
@@ -303,7 +307,7 @@ read_Daybreak2R <- function(
     # Read ASCII file -----------------------------------------------------------------------------
 
     if(verbose){
-      cat("\n[read_Daybreak] >> file extension not of type '.DAT' try to import ASCII-file ...")
+      cat("\n[read_Daybreak] file extension not of type '.DAT' try to import ASCII-file ... \n")
 
     }
 
@@ -311,7 +315,7 @@ read_Daybreak2R <- function(
     file2read <- suppressWarnings(readLines(file))
 
     ##check whether this is a binary file
-    if(all(charToRaw(file2read[1]) != as.raw(127))){
+    if(!all(charToRaw(file2read[1]) <= as.raw(127))){
       stop("[read_Daybreak2R()] The provided file is no ASCII-file and cannot be imported!", call. = FALSE)
 
     }

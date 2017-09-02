@@ -7,19 +7,14 @@
 CW2pLM(values)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (\bold{required}): \code{RLum.Data.Curve} data
-object. Alternatively, a \code{data.frame} of the measured curve data of
-type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\code{RLum.Data.Curve} data object. Alternatively, a \code{data.frame} of the measured
+curve data of type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
 (\code{values[,2]}) can be provided.}
 }
 \value{
 The function returns the same data type as the input data type with
-the transformed curve values.
-
-\item{list(list("data.frame"))}{generic R data structure}
-\item{list(list("RLum.Data.Curve"))}{package \code{\linkS4class{RLum}
-object}}
+the transformed curve values (\link{data.frame} or \linkS4class{RLum.Data.Curve}).
 }
 \description{
 Transforms a conventionally measured continuous-wave (CW) curve into a
@@ -29,20 +24,25 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
 \details{
 According to Bulur (2000) the curve data are transformed by introducing two
 new parameters P (stimulation period) and u (transformed time):
-\deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}} The new count values are then
-calculated by \deqn{ctsNEW = cts(u/P)} and the returned \code{data.frame} is
-produced by: \code{data.frame(u,ctsNEW)}
+
+\deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}}
+
+The new count values are then calculated by
+\deqn{ctsNEW = cts(u/P)}
+
+and the returned \code{data.frame} is produced by: \code{data.frame(u,ctsNEW)}
+
+The output of the function can be further used for LM-OSL fitting.
 }
 \note{
 The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.1 (2017-06-30 11:23:30)
+ 0.4.1 (2017-09-02 23:27:02)
 }
 
 \examples{
-
 
 ##read curve from CWOSL.SAR.Data transform curve and plot values
 data(ExampleData.BINfileData, envir = environment())
@@ -63,33 +63,26 @@ values.transformed <- CW2pLM(values)
 ##plot
 plot(values.transformed)
 
-
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Bulur, E., 2000. A simple transformation for converting CW-OSL
 curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 
-\bold{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
-Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
-26, 701-709.
+\strong{Further Reading}
+
+Bulur, E., 1996. An Alternative Technique For Optically Stimulated
+Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
 }
 \seealso{
-\code{\link{CW2pHMi}}, \code{\link{CW2pLMi}},
-\code{\link{CW2pPMi}}, \code{\link{fit_LMCurve}}, \code{\link{lm}},
-\code{\linkS4class{RLum.Data.Curve}}
-
-The output of the function can be further used for LM-OSL fitting:
-\code{\link{CW2pLMi}}, \code{\link{CW2pHMi}}, \code{\link{CW2pPMi}},
-\code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}},
-\code{\link{plot_RLum}}
+\link{CW2pHMi}, \link{CW2pLMi}, \link{CW2pPMi}, \link{fit_LMCurve}, \link{lm},
+\linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{manip}

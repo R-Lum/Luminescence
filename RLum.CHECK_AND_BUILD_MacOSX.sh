@@ -81,6 +81,11 @@ echo ""
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_roxygen2.R /dev/null
   check_status
 
+# Set entry points
+# =================================================================================================
+  echo -ne "-> Set entry points ... \t\t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_EntryPointRegistration.R /dev/null
+  check_status
 
 #
 # NEWS
@@ -116,6 +121,7 @@ echo "[BUILD PACKAGE]"
 echo ""
 
   eval R CMD build ${PATHPACKAGE}
+
 
 #
 # CHECK PACKAGE
@@ -162,7 +168,7 @@ echo ""
   echo -ne "-> Compile function argument list ...\t\t"
   eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_Arguments.R /dev/null
   check_status
-  
+
   echo -ne "-> Moving packge source files (*.tar.gz) ... \t"
   mv Luminescence_*.tar.gz RLum.BuildResults/ &>/dev/null
   check_status

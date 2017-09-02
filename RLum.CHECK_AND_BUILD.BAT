@@ -28,14 +28,16 @@ echo -^> Remove old ^*. ...
 find %PATHPACKAGE%\src -name RcppExports.cpp -delete
 call :check
 
-echo -^> Remove NAMESPACE ...
-find %PATHPACKAGE% -name NAMESPACE -delete
-call :check
-
 :: Rcpp
 :: -----------------------
 echo -^> Build Rcpp ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Rcpp.R" NULL
+call :check
+
+:: REMOVE NAMESPACE
+:: -----------------------
+echo -^> Remove NAMESPACE ...
+find %PATHPACKAGE% -name NAMESPACE -delete
 call :check
 
 :: roxygen2
@@ -48,19 +50,26 @@ echo -^> Build documentation ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_roxygen2.R" NULL
 call :check
 
+:: SET ENTRY POINTS
+:: -----------------------
+echo -^> Set entry points ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_EntryPointRegistration.R" NULL
+call :check
+
+
 :: NEWS
 :: -----------------------
 echo -^> Build ASCII NEWS ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_NEWS.R" NULL
 call :check
 
-:: PARSE RD files
+:: ADD RLum.Team TO AUTHORS
 :: -----------------------
 echo -^> Add RLum.Team ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_AddRLumTeam.R" NULL
 call :check
 
-:: Citation
+:: ADD FUNCTION CITATION
 :: -----------------------
 echo -^> Add function citation ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Citation.R" NULL

@@ -1,16 +1,18 @@
-//create_UID.cpp
-//author: Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-//version: 0.1.0 [2016-01-26]
-// -------------------------------------------------------------------------------------------------
-//The purpose of this function is to create a unique ID for RLum objects based on the system time
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Title:   create_UID()
+// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Version: 0.1.0 [2016-01-26]
+// Purpose: The purpose of this function is to create a unique ID for RLum objects based on the system time
 //and a random number.
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #include <Rcpp.h>
 #include <time.h>
 
 using namespace Rcpp;
 
-// [[Rcpp::export(".create_UID")]]
+// [[Rcpp::export("create_UID")]]
 CharacterVector create_UID() {
 
   //define variables

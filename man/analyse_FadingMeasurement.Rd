@@ -9,61 +9,66 @@ analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
   plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
-measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-objects or a \code{\link{data.frame}} with three columns
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+input object with the measurement data. Alternatively, a \link{list} containing \linkS4class{RLum.Analysis}
+objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
 and where each triplet has the before mentioned column structure.}
 
-\item{structure}{\code{\link{character}} (with default): sets the structure of the measurement
-data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored}
+\item{structure}{\link{character} (\emph{with default}):
+sets the structure of the measurement data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}.
+Other input is ignored}
 
-\item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
-limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
-provided.}
+\item{signal.integral}{\link{vector} (\strong{required}):
+vector with the limits for the signal integral.
+Not required if a \code{data.frame} with LxTx values are provided.}
 
-\item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
-bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
-provided.}
+\item{background.integral}{\link{vector} (\strong{required}):
+vector with the bounds for the background integral.
+Not required if a \code{data.frame} with LxTx values are provided.}
 
-\item{t_star}{\code{\link{character}} (with default): method for calculating the time elasped
-since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
-and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}}
+\item{t_star}{\link{character} (\emph{with default}):
+method for calculating the time elasped since irradiaton. Options are:
+\code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+and \code{'end'}, which takes the time between irradiation and the measurement step.
+Default is \code{'half'}}
 
-\item{n.MC}{\code{\link{integer}} (with default): number for Monte Carlo runs for the error
-estimation}
+\item{n.MC}{\link{integer} (\emph{with default}):
+number for Monte Carlo runs for the error estimation}
 
-\item{verbose}{\code{\link{logical}} (with default): enables/disables verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables/disables verbose mode}
 
-\item{plot}{\code{\link{logical}} (with default): enables/disables plot output}
+\item{plot}{\link{logical} (\emph{with default}):
+enables/disables plot output}
 
-\item{plot.single}{\code{\link{logical}} (with default): enables/disables single plot
-mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
+\item{plot.single}{\link{logical} (\emph{with default}):
+enables/disables single plot mode, i.e. one plot window per plot.
+Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot.single = c(3,4)} draws only the last two plots}
 
-\item{\dots}{(optional) further arguments that can be passed to internally used functions (see details)}
+\item{...}{(\emph{optional}) further arguments that can be passed to internally used functions (see details)}
 }
 \value{
-An \code{\linkS4class{RLum.Results}} object is returned:
+An \linkS4class{RLum.Results} object is returned:
 
-Slot: \bold{@data}\cr
+Slot: \strong{@data}
 
 \tabular{lll}{
-\bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\strong{OBJECT} \tab \strong{TYPE} \tab \strong{COMMENT}\cr
 \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
-\code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
+\code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \link[stats:lm]{stats::lm}\cr
 \code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
 \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
 \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
 }
 
-Slot: \bold{@info}\cr
+Slot: \strong{@info}
 
 \tabular{lll}{
-\bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\strong{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
 \code{call} \tab \code{call} \tab the original function call\cr
-
 }
 }
 \description{
@@ -75,27 +80,27 @@ Kars et al. 2008.
 \details{
 All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 in the output object the g-value normalised to 2-days is provided. The output of this function
-can be passed to the function \code{\link{calc_FadingCorr}}.\cr
+can be passed to the function \link{calc_FadingCorr}.
 
-\bold{Fitting and error estimation}\cr
+\strong{Fitting and error estimation}
 
-For the fitting the function \code{\link[stats]{lm}} is used without applying weights. For the
+For the fitting the function \link[stats:lm]{stats::lm} is used without applying weights. For the
 error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
-for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
+for each value with the value as the mean and the provided uncertainty as standard deviation.
 
-\bold{Density of recombination centres}
+\strong{Density of recombination centres}
 
 The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
-\code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
+\link[stats:nls]{stats::nls} is used without applying weights. For the error estimation the same
 procedure as for the g-value is applied (see above).
 }
 \note{
-\bold{This function has BETA status and should not be used for publication work!}
+\strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.5 (2017-06-30 11:23:30)
+ 0.1.5 (2017-09-02 23:27:03)
 }
 
 \examples{
@@ -124,7 +129,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -139,8 +144,8 @@ Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fa
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
 }
 \seealso{
-\code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
-\code{\link{extract_IrradiationTimes}}
+\link{calc_OSLLxTxRatio}, \link{read_BIN2R}, \link{read_XSYG2R},
+\link{extract_IrradiationTimes}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr

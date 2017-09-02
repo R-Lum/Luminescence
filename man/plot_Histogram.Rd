@@ -8,53 +8,52 @@ plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
   summary, summary.pos, colour, interactive = FALSE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
-and De error (\code{data[,2]})}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]})}
 
-\item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
-values from the data set prior to any further operations.}
+\item{na.rm}{\link{logical} (\emph{with default}):
+excludes \code{NA} values from the data set prior to any further operations.}
 
-\item{mtext}{\code{\link{character}} (optional): further sample information
-(\link{mtext}).}
+\item{mtext}{\link{character} (\emph{optional}):
+further sample information (\link{mtext}).}
 
-\item{cex.global}{\code{\link{numeric}} (with default): global scaling
-factor.}
+\item{cex.global}{\link{numeric} (\emph{with default}):
+global scaling factor.}
 
-\item{se}{\code{\link{logical}} (optional): plots standard error points over
-the histogram, default is \code{FALSE}.}
+\item{se}{\link{logical} (\emph{optional}):
+plots standard error points over the histogram, default is \code{FALSE}.}
 
-\item{rug}{\code{\link{logical}} (optional): adds rugs to the histogram,
-default is \code{TRUE}.}
+\item{rug}{\link{logical} (\emph{optional}):
+adds rugs to the histogram, default is \code{TRUE}.}
 
-\item{normal_curve}{\code{\link{logical}} (with default): adds a normal
-curve to the histogram. Mean and sd are calculated from the input data. More
-see details section.}
+\item{normal_curve}{\link{logical} (\emph{with default}):
+adds a normal curve to the histogram. Mean and sd are calculated from the
+input data. More see details section.}
 
-\item{summary}{\code{\link{character}} (optional): add statistic measures of
-centrality and dispersion to the plot. Can be one or more of several
-keywords. See details for available keywords.}
+\item{summary}{\link{character} (\emph{optional}):
+add statistic measures of centrality and dispersion to the plot.
+Can be one or more of several keywords. See details for available keywords.}
 
-\item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
-default): optional position coordinates or keyword (e.g. \code{"topright"})
+\item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used. In case of coordinate
 specification, y-coordinate refers to the right y-axis.}
 
-\item{colour}{\code{\link{numeric}} or \link{character} (with default):
+\item{colour}{\link{numeric} or \link{character} (\emph{with default}):
 optional vector of length 4 which specifies the colours of the following
 plot items in exactly this order: histogram bars, rug lines, normal
-distribution curve and standard error points\cr (e.g., \code{c("grey",
-"black", "red", "grey")}).}
+distribution curve and standard error points
+(e.g., \code{c("grey", "black", "red", "grey")}).}
 
-\item{interactive}{\code{\link{logical}} (with default): create an interactive
-histogram plot (requires the 'plotly' package)}
+\item{interactive}{\link{logical} (\emph{with default}):
+create an interactive histogram plot (requires the 'plotly' package)}
 
-\item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}} or \code{\link{hist}}. If y-axis labels are provided,
-these must be specified as a vector of length 2 since the plot features two
-axes (e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes limits
+\item{...}{further arguments and graphical parameters passed to \link{plot} or
+\link{hist}. If y-axis labels are provided, these must be specified as a vector
+of length 2 since the plot features two axes
+(e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes limits
 (\code{ylim}) must be provided as vector of length four, with the first two
 elements specifying the left axes limits and the latter two elements giving
 the right axis limits.}
@@ -65,25 +64,33 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010.
 }
 \details{
 If the normal curve is added, the y-axis in the histogram will show the
-probability density.\cr\cr
+probability density.
+
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
-one or more of the following keywords: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
-standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
-\code{"serel"} (relative standard error), \code{"serel.weighted"} (
-error-weighted relative standard error), \code{"seabs"} (absolute standard
-error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
+one or more of the following keywords:
+\itemize{
+\item \code{"n"} (number of samples),
+\item \code{"mean"} (mean De value),
+\item \code{"mean.weighted"} (error-weighted mean),
+\item \code{"median"} (median of the De values),
+\item \code{"sdrel"} (relative standard deviation in percent),
+\item \code{"sdrel.weighted"} (error-weighted relative standard deviation in percent),
+\item \code{"sdabs"} (absolute standard deviation),
+\item \code{"sdabs.weighted"} (error-weighted absolute standard deviation),
+\item \code{"serel"} (relative standard error),
+\item \code{"serel.weighted"} (error-weighted relative standard error),
+\item \code{"seabs"} (absolute standard error),
+\item \code{"seabs.weighted"} (error-weighted absolute standard error),
+\item \code{"kurtosis"} (kurtosis) and
+\item \code{"skewness"} (skewness).
+}
 }
 \note{
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2017-06-30 11:23:30)
+ 0.4.4 (2017-09-02 23:27:02)
 }
 
 \examples{
@@ -115,14 +122,14 @@ plot_Histogram(ExampleData.DeValues,
 
 }
 \seealso{
-\code{\link{hist}}, \code{\link{plot}}
+\link{hist}, \link{plot}
 }
 \author{
-Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Michael Dietze, GFZ Potsdam (Germany)\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2017). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2017). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

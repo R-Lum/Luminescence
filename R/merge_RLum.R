@@ -3,39 +3,35 @@
 #' Function calls object-specific merge functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for merge specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' [RLum-class] objects. Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
-#' found in the documentations of each merge function. Empty list elements (\code{NULL}) are
-#' automatically removed from the input \code{list}.
+#' found in the documentations of each merge function. 
+#' Empty list elements (`NULL`) are automatically removed from the input `list`.
 #'
 #' \tabular{lll}{
-#' \bold{object} \tab \tab \bold{corresponding merge function} \cr
-#'
-#' \code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{merge_RLum.Data.Curve} \cr
-#' \code{\linkS4class{RLum.Analysis}} \tab : \tab \code{merge_RLum.Analysis} \cr
-#' \code{\linkS4class{RLum.Results}} \tab : \tab \code{merge_RLum.Results}
-#
+#' **object** \tab \tab **corresponding merge function** \cr
+#' [RLum.Data.Curve-class] \tab : \tab `merge_RLum.Data.Curve` \cr
+#' [RLum.Analysis-class] \tab : \tab `merge_RLum.Analysis` \cr
+#' [RLum.Results-class] \tab : \tab `merge_RLum.Results`
 #' }
 #'
-#' @param objects \code{\link{list}} of \code{\linkS4class{RLum}}
-#' (\bold{required}): list of S4 object of class \code{RLum}
+#' @param objects [list] of [RLum-class] (**required**): 
+#' list of S4 object of class `RLum`
 #'
-#' @param \dots further arguments that one might want to pass to the specific
-#' merge function
+#' @param ... further arguments that one might want to pass to the specific merge function
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
-#' @note So far not for every \code{RLum} object a merging function exists.
+#' @note So far not for every `RLum` object a merging function exists.
 #'
 #' @section Function version: 0.1.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
+#' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
+#' [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
 #'
-#' @references #
 #'
 #' @keywords utilities
 #'
@@ -57,6 +53,7 @@
 #' temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 #'
 #'
+#' @md
 #' @export
 merge_RLum<- function(
   objects,

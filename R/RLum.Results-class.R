@@ -1,29 +1,31 @@
 #' @include get_RLum.R set_RLum.R length_RLum.R names_RLum.R
 NULL
 
-#' Class \code{"RLum.Results"}
+#' Class `"RLum.Results"`
 #'
-#' Object class contains results data from functions (e.g., \code{\link{analyse_SAR.CWOSL}}).
+#' Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).
 #'
 #' @name RLum.Results-class
 #'
 #' @docType class
 #'
-#' @slot data Object of class "list" containing output data
+#' @slot data
+#' Object of class "list" containing output data
 #'
-#' @note The class is intended to store results from functions to be used by
+#' @note
+#' The class is intended to store results from functions to be used by
 #' other functions. The data in the object should always be accessed by the
-#' method \code{get_RLum}.
+#' method `get_RLum`.
 #'
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Results", ...)}.
+#' @section Objects from the Class:
+#' Objects can be created by calls of the form `new("RLum.Results", ...)`.
 #'
-#' @section Class version: 0.5.1
+#' @section Class version: 0.5.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+#' @seealso [RLum-class], [plot_RLum], [merge_RLum]
 #'
 #' @keywords classes methods
 #'
@@ -55,6 +57,7 @@ NULL
 #' ##alternatively objects can be accessed using S3 generics, such as
 #' dose.rate$parameters
 #'
+#' @md
 #' @export
 setClass(
   Class = "RLum.Results",
@@ -71,32 +74,29 @@ setClass(
 ##COERCE RLum.Results >> list AND list >> RLum.Results
 #' as() - RLum-object coercion
 #'
-#' for \code{[RLum.Results]}
+#' for `[RLum.Results-class]`
 #'
-#' \bold{[RLum.Results]}\cr
+#' **[RLum.Results-class]**
 #'
 #' \tabular{ll}{
-#'  \bold{from} \tab \bold{to}\cr
-#'   \code{list} \tab \code{list}\cr
+#'  **from** \tab **to**\cr
+#'   `list` \tab `list`\cr
 #' }
 #'
-#' Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Results}} objects.
+#' Given that the [list] consits of [RLum.Results-class] objects.
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("list", "RLum.Results",
       function(from,to){
-
         new(to,
-            orginator = "coercion",
+            originator = "coercion",
             data = from)
 
       })
 
 setAs("RLum.Results", "list",
       function(from){
-
         from@data
 
       })
@@ -105,7 +105,9 @@ setAs("RLum.Results", "list",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Results
-#' Show structure of \code{RLum.Results} object
+#' Show structure of `RLum.Results` object
+#'
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
@@ -132,7 +134,7 @@ setMethod("show",
 
 
             ##print information
-            cat("\n [RLum.Results]")
+            cat("\n [RLum.Results-class]")
             cat("\n\t originator: ", object@originator, "()", sep = "")
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
@@ -148,24 +150,33 @@ setMethod("show",
 #' @describeIn RLum.Results
 #' Construction method for an RLum.Results object.
 #'
-#' @param class [\code{set_RLum}] \code{\link{character}} \bold{(required)}: name of the \code{RLum} class to create
-#' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the
-#' name of the calling function
-#' (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
-#' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
-#' at will.
-#' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
+#' @param class [`set_RLum`]; [character] **(required)**:
+#' name of the `RLum` class to create
+#'
+#' @param originator [`set_RLum`]; [character] (*automatic*):
+#' contains the name of the calling function (the function that produces this object);
+#' can be set manually.
+#'
+#' @param .uid [`set_RLum`]; [character] (*automatic*):
+#' sets an unique ID for this object using the internal C++ function `create_UID`.
+#'
+#' @param .pid [`set_RLum`]; [character] (*with default*):
+#' option to provide a parent id for nesting at will.
+#'
+#' @param data [`set_RLum`]; [list] (*optional*):
+#' a list containing the data to
 #' be stored in the object
-#' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
-#' info data for the object
+#'
+#' @param info [`set_RLum`]; [list] (*optional*):
+#' a list containing additional info data for the object
+#'
 #' @return
 #'
-#' \bold{\code{set_RLum}}:\cr
+#' **`set_RLum`**:
 #'
-#' Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
+#' Returns an object from the class [RLum.Results-class]
 #'
+#' @md
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
@@ -198,34 +209,37 @@ setMethod("set_RLum",
 #' @describeIn RLum.Results
 #' Accessor method for RLum.Results object. The argument data.object allows
 #' directly accessing objects delivered within the slot data. The default
-#' return object depends on the object originator (e.g., \code{fit_LMCurve}).
-#' If nothing is specified always the first \code{data.object} will be returned.
+#' return object depends on the object originator (e.g., `fit_LMCurve`).
+#' If nothing is specified always the first `data.object` will be returned.
 #'
 #' Note: Detailed specification should be made in combination with the originator slot in the
 #' receiving function if results are pipped.
 #'
-#' @param object [\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
-#' \code{\linkS4class{RLum.Results}} to be evaluated
+#' @param object [`get_RLum`]; [RLum.Results-class] (**required**):
+#' an object of class [RLum.Results-class] to be evaluated
 #'
-#' @param data.object [\code{get_RLum}] \code{\link{character}} or
-#' \code{\link{numeric}}: name or index of the data slot to be returned
+#' @param data.object [`get_RLum`]; [character] or [numeric]:
+#' name or index of the data slot to be returned
 #'
-#' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
-#' element
+#' @param info.object [`get_RLum`]; [character] (*optional*):
+#' name of the wanted info element
 #'
-#' @param drop [\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
-#' (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}
+#' @param drop [`get_RLum`]; [logical] (*with default*):
+#' coerce to the next possible layer (which are data objects, `drop = FALSE`
+#' keeps the original `RLum.Results`
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}:\cr
+#' **`get_RLum`**:
 #'
-#' Returns: \cr
-#' (1) Data object from the specified slot \cr
-#' (2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
-#' (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
+#' Returns:
+#'
+#' 1. Data object from the specified slot
+#' 2. [list] of data objects from the slots if 'data.object' is vector or
+#' 3. an [RLum.Results-class] for `drop = FALSE`.
 #'
 #'
+#' @md
 #' @export
 setMethod(
   "get_RLum",
@@ -357,10 +371,11 @@ setMethod(
 #'
 #' @return
 #'
-#' \bold{\code{length_RLum}}\cr
+#' **`length_RLum`**
 #'
-#' Returns the number of data elements in the \code{RLum.Results} object.
+#' Returns the number of data elements in the `RLum.Results` object.
 #'
+#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Results",
@@ -378,10 +393,11 @@ setMethod("length_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#' **`names_RLum`**
 #'
 #' Returns the names of the data elements in the object.
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Results",

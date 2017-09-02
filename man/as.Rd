@@ -10,73 +10,71 @@
 \alias{as}
 \title{as() - RLum-object coercion}
 \arguments{
-\item{from}{\code{\linkS4class{RLum}} or \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}}
-(\bold{required}): object to be coerced from}
+\item{from}{\linkS4class{RLum}, \link{list}, \link{data.frame}, \link{matrix} (\strong{required}):
+object to be coerced from}
 
-\item{to}{\code{\link{character}} (\bold{required}): class name to be coerced to}
+\item{to}{\link{character} (\strong{required}):
+class name to be coerced to}
 }
 \description{
-for \code{[RLum.Analysis]}
+for \code{[RLum.Analysis-class]}
 
-for \code{[RLum.Data.Curve]}
+for \code{[RLum.Data.Curve-class]}
 
-for \code{[RLum.Data.Image]}
+for \code{[RLum.Data.Image-class]}
 
-for \code{[RLum.Data.Spectrum]}
+for \code{[RLum.Data.Spectrum-class]}
 
-for \code{[RLum.Results]}
+for \code{[RLum.Results-class]}
 }
 \details{
-\bold{[RLum.Analysis]}\cr
+\strong{\linkS4class{RLum.Analysis}}
 
 \tabular{ll}{
- \bold{from} \tab \bold{to}\cr
-  \code{list} \tab \code{list}\cr
+\strong{from} \tab \strong{to}\cr
+\code{list} \tab \code{list}\cr
 }
 
-Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Analysis}} objects.
+Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 
-\bold{[RLum.Data.Curve]}\cr
+\strong{\linkS4class{RLum.Data.Curve}}
 
 \tabular{ll}{
- \bold{from} \tab \bold{to}\cr
-  \code{list} \tab \code{list} \cr
-  \code{data.frame} \tab \code{data.frame}\cr
-  \code{matrix} \tab \code{matrix}
-
+\strong{from} \tab \strong{to}\cr
+\code{list} \tab \code{list} \cr
+\code{data.frame} \tab \code{data.frame}\cr
+\code{matrix} \tab \code{matrix}
 }
 
-\bold{[RLum.Data.Image]}\cr
+\strong{\linkS4class{RLum.Data.Image}}
 
 \tabular{ll}{
- \bold{from} \tab \bold{to}\cr
-  \code{data.frame} \tab \code{data.frame}\cr
-  \code{matrix} \tab \code{matrix}
-
+\strong{from} \tab \strong{to}\cr
+\code{data.frame} \tab \code{data.frame}\cr
+\code{matrix} \tab \code{matrix}
 }
 
-\bold{[RLum.Data.Spectrum]}\cr
+\strong{\linkS4class{RLum.Data.Spectrum}}
 
 \tabular{ll}{
- \bold{from} \tab \bold{to}\cr
-  \code{data.frame} \tab \code{data.frame}\cr
-  \code{matrix} \tab \code{matrix}
-
+\strong{from} \tab \strong{to}\cr
+\code{data.frame} \tab \code{data.frame}\cr
+\code{matrix} \tab \code{matrix}
 }
 
-\bold{[RLum.Results]}\cr
+\strong{\linkS4class{RLum.Results}}
 
 \tabular{ll}{
- \bold{from} \tab \bold{to}\cr
-  \code{list} \tab \code{list}\cr
+\strong{from} \tab \strong{to}\cr
+\code{list} \tab \code{list}\cr
 }
 
-Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Results}} objects.
+Given that the \link{list} consits of \linkS4class{RLum.Results} objects.
 }
 \note{
 Due to the complex structure of the \code{RLum} objects itself a coercing to standard
 R data structures will be always loosely!
 }
 \seealso{
-\code{\link[methods]{as}}
+\link[methods:as]{methods::as}
 }

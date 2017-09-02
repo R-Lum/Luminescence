@@ -4,85 +4,96 @@
 #' aliquot curves after Durcan & Duller (2011). 
 #' 
 #' This function follows the equations of Durcan & Duller (2011). The energy
-#' required to reduce the fast and medium quartz OSL components to \code{x} and
-#' \code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start 
+#' required to reduce the fast and medium quartz OSL components to `x` and
+#' `x2` \% respectively using eq. 3 to determine channels L2 and L3 (start 
 #' and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}. 
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}}, 
-#' \code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} 
-#' (\bold{required}): x, y data of measured values (time and counts).
+#' @param object [RLum.Analysis-class], [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' x, y data of measured values (time and counts).
 #' 
-#' @param stimulation.power \code{\link{numeric}} (with default): Stimulation power in mW/cm^2
+#' @param stimulation.power [numeric] (*with default*): 
+#' Stimulation power in mW/cm^2
 #' 
-#' @param wavelength \code{\link{numeric}} (with default): Stimulation wavelength in nm
+#' @param wavelength [numeric] (*with default*): 
+#' Stimulation wavelength in nm
 #' 
-#' @param sigmaF \code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
-#' fast component. Default value after Durcan & Duller (2011).
+#' @param sigmaF [numeric] (*with default*): 
+#' Photoionisation cross-section (cm^2) of the fast component. 
+#' Default value after Durcan & Duller (2011).
 #' 
-#' @param sigmaM \code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
-#' medium component. Default value after Durcan & Duller (2011).
+#' @param sigmaM [numeric] (*with default*): 
+#' Photoionisation cross-section (cm^2) of the medium component. 
+#' Default value after Durcan & Duller (2011).
 #' 
-#' @param Ch_L1 \code{\link{numeric}} (with default): An integer specifying the channel for L1.
+#' @param Ch_L1 [numeric] (*with default*): 
+#' An integer specifying the channel for L1.
 #' 
-#' @param Ch_L2 \code{\link{numeric}} (optional): An integer specifying the channel for L2.
+#' @param Ch_L2 [numeric] (*optional*): 
+#' An integer specifying the channel for L2.
 #' 
-#' @param Ch_L3 \code{\link{numeric}} (optional): A vector of length 2 with integer
-#' values specifying the start and end channels for L3 (e.g., \code{c(40, 50)}).
+#' @param Ch_L3 [numeric] (*optional*): 
+#' A vector of length 2 with integer values specifying the start and end channels for L3 
+#' (e.g., `c(40, 50)`).
 #' 
-#' @param x \code{\link{numeric}} (with default): \% of signal remaining from the fast component.
+#' @param x [numeric] (*with default*): 
+#' \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
 #' 
-#' @param x2 \code{\link{numeric}} (with default): \% of signal remaining from the medium component.
+#' @param x2 [numeric] (*with default*): 
+#' \% of signal remaining from the medium component.
 #' Used to define the location of L3 (end). 
 #' 
-#' @param dead.channels \code{\link{numeric}} (with default): Vector of length 2 in the form of
-#' \code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
-#' measurement.
+#' @param dead.channels [numeric] (*with default*): 
+#' Vector of length 2 in the form of `c(x, y)`. 
+#' Channels that do not contain OSL data, i.e. at the start or end of measurement.
 #' 
-#' @param fitCW.sigma \code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
-#' to calculate \code{sigmaF} and \code{sigmaM} (experimental).
+#' @param fitCW.sigma [logical] (*optional*): 
+#' fit CW-OSL curve using [fit_CWCurve] to calculate `sigmaF` and `sigmaM` (**experimental**).
 #' 
-#' @param fitCW.curve \code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
-#' and derive the counts of L2 and L3 from the fitted OSL curve (experimental).
+#' @param fitCW.curve [logical] (*optional*): 
+#' fit CW-OSL curve using [fit_CWCurve] and derive the counts of L2 and L3 
+#' from the fitted OSL curve (**experimental**).
 #' 
-#' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}/\code{FALSE})
+#' @param plot [logical] (*with default*): 
+#' plot output (`TRUE`/`FALSE`)
 #' 
-#' @param ... available options: \code{verbose} (\code{\link{logical}}). Further
-#' arguments passed to \code{\link{fit_CWCurve}}.
+#' @param ... available options: `verbose` ([logical]). 
+#' Further arguments passed to [fit_CWCurve].
 #'
-#' @return Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
-#' The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
+#' @return 
+#' Returns a plot (*optional*) and an S4 object of type [RLum.Results-class]. 
+#' The slot `data` contains a [list] with the following elements:
 #'
-#' \item{summary}{\code{\link{data.frame}} summary of all relevant results}
+#' \item{summary}{[data.frame] summary of all relevant results}
 #' \item{data}{the original input data}
-#' \item{fit}{\code{\linkS4class{RLum.Results}} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
-#' \item{args}{\code{\link{list}} of used arguments}
-#' \item{call}{\code{\link{call}} the function call}
+#' \item{fit}{[RLum.Results-class] object if either `fitCW.sigma` or `fitCW.curve` is `TRUE`}
+#' \item{args}{[list] of used arguments}
+#' \item{call}{`[call]` the function call}
 #' 
 #' @section Function version: 0.1.1
 #'
 #' @author 
 #' Georgina King, University of Cologne (Germany) \cr
 #' Julie A. Durcan, University of Oxford (United Kingdom) \cr
-#' Christoph Burow, University of Cologne (Germany) \cr
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #' @references 
 #' Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 #' the dominance of the fast component in the initial OSL signal from quartz.
-#' Radiation Measurements 46, 1065-1072. \cr\cr
+#' Radiation Measurements 46, 1065-1072. 
 #' 
 #' Madsen, A.T., Duller, G.A.T., Donnelly, J.P., Roberts, H.M. & Wintle, A.G., 2009.
 #' A chronology of hurricane landfalls at Little Sippewissett Marsh, Massachusetts, USA,
-#' using optical dating. Geomorphology 109, 36-45. \cr\cr
+#' using optical dating. Geomorphology 109, 36-45. 
 #'
-#' \bold{Further reading} \cr\cr
+#' **Further reading** 
 #' 
 #' Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.
 #' 
 #'
-#' @seealso \code{\link{fit_CWCurve}}, \code{\link{get_RLum}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso [fit_CWCurve], [get_RLum], [RLum.Analysis-class],
+#' [RLum.Results-class], [RLum.Data.Curve-class]
 #' 
 #' @examples
 #' # load example CW-OSL curve
@@ -94,6 +105,7 @@
 #' # show the summary table
 #' get_RLum(res)
 #'
+#' @md
 #' @export
 calc_FastRatio <- function(object, 
                            stimulation.power = 30.6, 

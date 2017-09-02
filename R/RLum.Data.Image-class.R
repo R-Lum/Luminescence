@@ -1,37 +1,41 @@
 #' @include get_RLum.R set_RLum.R names_RLum.R
 NULL
 
-#' Class \code{"RLum.Data.Image"}
+#' Class `"RLum.Data.Image"`
 #'
 #' Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
-#' by the function \code{\link{read_SPE2R}}
+#' by the function [read_SPE2R]
 #'
 #' @name RLum.Data.Image-class
 #'
 #' @docType class
 #'
-#' @slot recordType Object of class \code{\link{character}}
-#' containing the type of the curve (e.g. "OSL image", "TL image")
+#' @slot recordType 
+#' Object of class [character] containing the type of the curve (e.g. "OSL image", "TL image")
 #'
-#' @slot curveType Object of class \code{\link{character}} containing curve type, allowed values
+#' @slot curveType 
+#' Object of class [character] containing curve type, allowed values
 #' are measured or predefined
 #'
-#' @slot data Object of class \code{\link[raster]{brick}} containing images (raster data).
+#' @slot data 
+#' Object of class [raster::brick] containing images (raster data).
 #'
-#' @slot info Object of class \code{\link{list}} containing further meta information objects
+#' @slot info 
+#' Object of class [list] containing further meta information objects
 #'
-#' @note The class should only contain data for a set of images. For additional
-#' elements the slot \code{info} can be used.
+#' @note 
+#' The class should only contain data for a set of images. For additional
+#' elements the slot `info` can be used.
 #'
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{set_RLum("RLum.Data.Image", ...)}.
+#' @section Objects from the Class: 
+#' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
 #' @section Class version: 0.4.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}, \code{\link{read_SPE2R}}
+#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R]
 #'
 #' @keywords classes
 #'
@@ -43,6 +47,8 @@ NULL
 #' set_RLum(class = "RLum.Data.Image")
 #'
 #' @importClassesFrom raster RasterBrick
+#' 
+#' @md
 #' @export
 setClass(
   "RLum.Data.Image",
@@ -68,22 +74,21 @@ setClass(
 
 ##DATA.FRAME
 ##COERCE RLum.Data.Image >> data.frame AND data.frame >> RLum.Data.Image
+
 #' as()
 #'
-#' for \code{[RLum.Data.Image]}
+#' for `[RLum.Data.Image-class]`
 #'
-#' \bold{[RLum.Data.Image]}\cr
+#' **[RLum.Data.Image-class]**
 #'
 #' \tabular{ll}{
-#'  \bold{from} \tab \bold{to}\cr
-#'   \code{data.frame} \tab \code{data.frame}\cr
-#'   \code{matrix} \tab \code{matrix}
-#'
+#'  **from** \tab **to**\cr
+#'   `data.frame` \tab `data.frame`\cr
+#'   `matrix` \tab `matrix`
 #' }
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
 
@@ -128,7 +133,9 @@ setAs("RLum.Data.Image", "matrix",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Data.Image
-#' Show structure of \code{RLum.Data.Image} object
+#' Show structure of `RLum.Data.Image` object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Image"),
@@ -140,7 +147,7 @@ setMethod("show",
 
             ##print information
 
-            cat("\n [RLum.Data.Image]")
+            cat("\n [RLum.Data.Image-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t .. recorded frames:", length(object@data@data@names))
@@ -161,25 +168,39 @@ setMethod("show",
 #' Construction method for RLum.Data.Image object. The slot info is optional
 #' and predefined as empty list by default..
 #'
-#' @param class \code{[set_RLum]}\code{\link{character}}: name of the \code{RLum} class to create
-#' @param originator \code{[set_RLum]} \code{\link{character}} (automatic):
-#' contains the name of the calling function (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
-#' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
-#' at will.
-#' @param recordType \code{[set_RLum]} \code{\link{character}}: record type (e.g. "OSL")
-#' @param curveType \code{[set_RLum]} \code{\link{character}}: curve type (e.g. "predefined" or "measured")
-#' @param data \code{[set_RLum]} \code{\link{matrix}}: raw curve data. If data is of type \code{RLum.Data.Image}
-#' this can be used to re-construct the object.
-#' @param info \code{[set_RLum]} \code{\link{list}}: info elements
+#' @param class [`set_RLum`]; [character]: 
+#' name of the `RLum` class to create
+#' 
+#' @param originator [`set_RLum`]; [character] (*automatic*):
+#' contains the name of the calling function (the function that produces this object); 
+#' can be set manually.
+#' 
+#' @param .uid [`set_RLum`]; [character] (*automatic*): 
+#' sets an unique ID for this object using the internal C++ function `create_UID`.
+#' 
+#' @param .pid [`set_RLum`]; [character] (*with default*): 
+#' option to provide a parent id for nesting at will.
+#' 
+#' @param recordType [`set_RLum`]; [character]: 
+#' record type (e.g. "OSL")
+#' 
+#' @param curveType [`set_RLum`]; [character]: 
+#' curve type (e.g. "predefined" or "measured")
+#' 
+#' @param data [`set_RLum`]; [matrix]: 
+#' raw curve data. If data is of type `RLum.Data.Image` this can be used to
+#' re-construct the object.
+#' 
+#' @param info [`set_RLum`]; [list]: 
+#' info elements
 #'
 #' @return
 #'
-#' \bold{\code{set_RLum}}\cr
+#' **`set_RLum`**
 #'
-#' Returns an object from class \code{RLum.Data.Image}
+#' Returns an object from class `RLum.Data.Image`
 #'
+#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -270,17 +291,20 @@ setMethod(
 #'  optional to directly access the info elements. If no info element name is
 #'  provided, the raw image data (RasterBrick) will be returned.
 #'
-#' @param object \code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
-#' of class \code{\linkS4class{RLum.Data.Image}}
-#' @param info.object \code{[get_RLum]} \code{\link{character}} name of the info object to returned
+#' @param object [`get_RLum`], [`names_RLum`] (**required**):  
+#' an object of class [RLum.Data.Image-class]
+#'
+#' @param info.object [`get_RLum`]; [character]: 
+#' name of the info object to returned
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}\cr
+#' **`get_RLum`**
 #'
-#' (1) Returns the data object (\code{\link[raster]{brick}})\cr
-#' (2) only the info object if \code{info.object} was set.\cr
+#' 1. Returns the data object ([raster::brick])
+#' 2. only the info object if `info.object` was set.
 #'
+#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Image"),
@@ -332,10 +356,11 @@ setMethod("get_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#' **`names_RLum`**
 #'
 #' Returns the names of the info elements
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Image",
