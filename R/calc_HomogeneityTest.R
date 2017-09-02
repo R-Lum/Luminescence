@@ -90,10 +90,10 @@ calc_HomogeneityTest <- function(
     dat <- data
   }
 
-  wi <- 1 / dat[2] ^ 2
-  wizi <- wi * dat[1]
+  wi <- 1 / dat[[2]] ^ 2
+  wizi <- wi * dat[[1]]
   mu <- sum(wizi) / sum(wi)
-  gi <- wi * (dat[1] - mu) ^ 2
+  gi <- wi * (dat[[1]] - mu) ^ 2
 
   G <- sum(gi)
   df <- length(wi) - 1
