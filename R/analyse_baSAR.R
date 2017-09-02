@@ -36,7 +36,7 @@
 #' **(1) - `object` is BIN-file or link to a BIN-file**
 #'
 #' Finally it does not matter how the information of the BIN/BINX file are provided. The function
-#' supports **(a)** either a path to a file or directory or a `list` of file names or paths or 
+#' supports **(a)** either a path to a file or directory or a `list` of file names or paths or
 #' **(b)** a [Risoe.BINfileData-class] object or a list of these objects. The latter one can
 #' be produced by using the function [read_BIN2R], but this function is called automatically
 #' if only a filename and/or a path is provided. In both cases it will become the data that can be
@@ -104,10 +104,10 @@
 #' **FAQ**
 #'
 #' Q: How can I set the seed for the random number generator (RNG)?
-#' 
+#'
 #' A: Use the argument `method_control`, e.g., for three MCMC chains
 #' (as it is the default):
-#' 
+#'
 #' ```
 #' method_control = list(
 #' inits = list(
@@ -116,16 +116,16 @@
 #'  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
 #' ))
 #' ```
-#' 
+#'
 #' This sets a reproducible set for every chain separately.\cr
 #'
 #' Q: How can I modify the output plots?
-#' 
+#'
 #' A: You can't, but you can use the function output to create own, modified plots.
 #'
 #'
 #' Q: Can I change the boundaries for the central_D?
-#' 
+#'
 #' A: Yes, we made it possible, but we DO NOT recommend it, except you know what you are doing!\cr
 #' Example: `method_control = list(lower_centralD = 10))`
 #'
@@ -161,101 +161,101 @@
 #' providing a file connection. Mixing of both types is not allowed. If an [RLum.Results-class]
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
-#' @param XLS_file [character] (*optional*): 
-#' XLS_file with data for the analysis. This file must contain 3 columns: 
-#' the name of the file, the disc position and the grain position 
+#' @param XLS_file [character] (*optional*):
+#' XLS_file with data for the analysis. This file must contain 3 columns:
+#' the name of the file, the disc position and the grain position
 #' (the last being 0 for multi-grain measurements).\cr
 #' Alternatively a `data.frame` of similar structure can be provided.
 #'
-#' @param aliquot_range [numeric] (*optional*): 
-#' allows to limit the range of the aliquots used for the analysis. 
+#' @param aliquot_range [numeric] (*optional*):
+#' allows to limit the range of the aliquots used for the analysis.
 #' This argument has only an effect if the argument `XLS_file` is used or
 #' the input is the previous output (i.e. is [RLum.Results-class]). In this case the
 #' new selection will add the aliquots to the removed aliquots table.
 #'
-#' @param source_doserate [numeric] **(required)**: 
-#' source dose rate of beta-source used for the measuremnt and its uncertainty 
-#' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Paramater can be provided 
+#' @param source_doserate [numeric] **(required)**:
+#' source dose rate of beta-source used for the measuremnt and its uncertainty
+#' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Paramater can be provided
 #' as `list`, for the case that more than one BIN-file is provided, e.g.,
 #' `source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))`.
 #'
-#' @param signal.integral [vector] (**required**): 
-#' vector with the limits for the signal integral used for the calculation, 
+#' @param signal.integral [vector] (**required**):
+#' vector with the limits for the signal integral used for the calculation,
 #' e.g., `signal.integral = c(1:5)`. Ignored if `object` is an [RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
-#' @param signal.integral.Tx [vector] (*optional*): 
+#' @param signal.integral.Tx [vector] (*optional*):
 #' vector with the limits for the signal integral for the Tx curve. I
 #' f nothing is provided the value from `signal.integral` is used and it is ignored
 #' if `object` is an [RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
-#' @param background.integral [vector] (**required**): 
+#' @param background.integral [vector] (**required**):
 #' vector with the bounds for the background integral.
 #' Ignored if `object` is an [RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
-#' @param background.integral.Tx [vector] (*optional*): 
-#' vector with the limits for the background integral for the Tx curve. 
+#' @param background.integral.Tx [vector] (*optional*):
+#' vector with the limits for the background integral for the Tx curve.
 #' If nothing is provided the value from `background.integral` is used.
 #' Ignored if `object` is an [RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
-#' @param sigmab [numeric] (*with default*): 
-#' option to set a manual value for the overdispersion (for LnTx and TnTx), 
-#' used for the Lx/Tx error calculation. The value should be provided as 
+#' @param sigmab [numeric] (*with default*):
+#' option to set a manual value for the overdispersion (for LnTx and TnTx),
+#' used for the Lx/Tx error calculation. The value should be provided as
 #' absolute squared count values, cf. [calc_OSLLxTxRatio].
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
-#' @param sig0 [numeric] (*with default*): 
-#' allow adding an extra component of error to the final Lx/Tx error value 
+#' @param sig0 [numeric] (*with default*):
+#' allow adding an extra component of error to the final Lx/Tx error value
 #' (e.g., instrumental errror, see details is [calc_OSLLxTxRatio]).
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
-#' @param distribution [character] (*with default*): 
-#' type of distribution that is used during Bayesian calculations for 
+#' @param distribution [character] (*with default*):
+#' type of distribution that is used during Bayesian calculations for
 #' determining the Central dose and overdispersion values.
 #' Allowed inputs are `"cauchy"`, `"normal"` and `"log_normal"`.
 #'
-#' @param baSAR_model [character] (*optional*): 
-#' option to provide an own modified or new model for the Bayesian calculation 
-#' (see details). If an own model is provided the argument `distribution` is 
+#' @param baSAR_model [character] (*optional*):
+#' option to provide an own modified or new model for the Bayesian calculation
+#' (see details). If an own model is provided the argument `distribution` is
 #' ignored and set to `'user_defined'`
 #'
-#' @param n.MCMC [integer] (*with default*): 
+#' @param n.MCMC [integer] (*with default*):
 #' number of iterations for the Markov chain Monte Carlo (MCMC) simulations
 #'
-#' @param fit.method [character] (*with default*): 
-#' fit method used for fitting the growth curve using the function 
+#' @param fit.method [character] (*with default*):
+#' fit method used for fitting the growth curve using the function
 #' [plot_GrowthCurve]. Here supported methods: `EXP`, `EXP+LIN` and `LIN`
 #'
-#' @param fit.force_through_origin [logical] (*with default*): 
+#' @param fit.force_through_origin [logical] (*with default*):
 #' force fitting through origin
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes the recycling point (assumed to be measured during the last cycle)
 #'
-#' @param method_control [list] (*optional*): 
+#' @param method_control [list] (*optional*):
 #' named list of control parameters that can be directly
 #' passed to the Bayesian analysis, e.g., `method_control = list(n.chains = 4)`.
 #' See details for further information
 #'
-#' @param digits [integer] (*with default*): 
+#' @param digits [integer] (*with default*):
 #' round output to the number of given digits
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enables or disables plot output
 #'
-#' @param plot_reduced [logical] (*with default*): 
+#' @param plot_reduced [logical] (*with default*):
 #' enables or disables the advanced plot output
 #'
-#' @param plot.single [logical] (*with default*): 
+#' @param plot.single [logical] (*with default*):
 #' enables or disables single plots or plots arranged by `analyse_baSAR`
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enables or disables verbose mode
 #'
-#' @param ... parameters that can be passed to the function [calc_OSLLxTxRatio] 
+#' @param ... parameters that can be passed to the function [calc_OSLLxTxRatio]
 #' (almost full support), [readxl::read_excel] (full support), [read_BIN2R] (`n.records`,
 #' `position`, `duplicated.rm`), see details.
 #'
@@ -265,11 +265,11 @@
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' 
+#'
 #' **`RLum.Results`**-object
 #'
 #' **slot:** **`@data`**
-#' 
+#'
 #' \tabular{lll}{
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$summary` \tab `data.frame` \tab statistical summary, including the central dose \cr
@@ -305,7 +305,7 @@
 #'
 #' @section Function version: 0.1.29
 #'
-#' @author 
+#' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' The underlying Bayesian model based on a contribution by Combes et al., 2015.
@@ -333,10 +333,10 @@
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 #' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 #'
-#' @note 
+#' @note
 #' **If you provide more than one BIN-file**, it is **strongly** recommanded to provide
 #' a `list` with the same number of elements for the following parameters:
-#' 
+#'
 #' `source_doserate`, `signal.integral`, `signal.integral.Tx`, `background.integral`,
 #' `background.integral.Tx`, `sigmab`, `sig0`.
 #'
@@ -350,12 +350,12 @@
 #'
 #' ##(1) load package test data set
 #' data(ExampleData.BINfileData, envir = environment())
-#' 
+#'
 #' ##(2) selecting relevant curves, and limit dataset
 #' CWOSL.SAR.Data <- subset(
 #'   CWOSL.SAR.Data,
 #'   subset = POSITION%in%c(1:3) & LTYPE == "OSL")
-#' 
+#'
 #' \dontrun{
 #' ##(3) run analysis
 #' ##please not that the here selected parameters are
@@ -368,9 +368,9 @@
 #'   fit.method = "LIN",
 #'   plot = FALSE,
 #'   n.MCMC = 200
-#' 
+#'
 #' )
-#' 
+#'
 #' print(results)
 #'
 #'
@@ -529,6 +529,11 @@ analyse_baSAR <- function(
       }
 
       # Bayesian Models ----------------------------------------------------------------------------
+      # INFO: >
+      #  > sometimes lines apear to be in a wrong logical order, however, this is allowed in the
+      #  > model definition since:
+      #  > "The data block is not limited to logical relations, but may also include stochastic relations."
+      #  > (Plummer, 2017. JAGS Version 4.3.0 user manual, p. 9)
       baSAR_model <- list(
 
         cauchy = "model {
@@ -578,6 +583,7 @@ analyse_baSAR <- function(
               Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
               Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
 
+
               for (m in 2:Limited_cycles[i]) {
                 S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
                 Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
@@ -621,11 +627,11 @@ analyse_baSAR <- function(
 
       ##check whether the input for distribution was sufficient
       if(!any(distribution%in%names(baSAR_model))){
-        stop(paste0("[analyse_baSAR()] No model is pre-defined for the requested distribution. Please select ", paste(rev(names(baSAR_model))[-1], collapse = ", ")), " or define an own model using the argument 'baSAR_model'!")
+        stop(paste0("[analyse_baSAR()] No model is pre-defined for the requested distribution. Please select ", paste(rev(names(baSAR_model))[-1], collapse = ", ")), " or define an own model using the argument 'baSAR_model'!", call. = FALSE)
 
       }else{
         if(is.null(baSAR_model)){
-          stop("[analyse_baSAR()] You have specified a 'user_defined' distribution, but you have not provided a model via 'baSAR_model'!")
+          stop("[analyse_baSAR()] You have specified a 'user_defined' distribution, but you have not provided a model via 'baSAR_model'!", call. = FALSE)
 
         }
 
@@ -672,7 +678,6 @@ analyse_baSAR <- function(
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
        )
-
 
       ##update jags model (it is a S3-method)
       update(
@@ -818,7 +823,7 @@ analyse_baSAR <- function(
       fit.method != "EXP+LIN" &
       fit.method != "LIN"){
 
-    stop("[analyse_baSAR()] Unsupported fitting method. Supported: 'EXP', 'EXP+LIN' and 'LIN'")
+    stop("[analyse_baSAR()] Unsupported fitting method. Supported: 'EXP', 'EXP+LIN' and 'LIN'", call. = FALSE)
   }
 
   # Set input -----------------------------------------------------------------------------------
@@ -960,7 +965,7 @@ analyse_baSAR <- function(
      rm(max_cycles)
 
     }else{
-      stop("[analyse_baSAR()] 'object' is of type 'RLum.Results', but has not been produced by analyse_baSAR()!")
+      stop("[analyse_baSAR()] 'object' is of type 'RLum.Results', but has not been produced by analyse_baSAR()!", call. = FALSE)
 
     }
 
@@ -1008,12 +1013,13 @@ analyse_baSAR <- function(
           )
         } else{
           stop(
-            "[analyse_baSAR()] data type in the input list provided for 'object' is not supported!"
+            "[analyse_baSAR()] data type in the input list provided for 'object' is not supported!",
+            call. = FALSE
           )
         }
 
       } else{
-        stop("[analyse_baSAR()] 'object' only accepts a list with objects of similar type!")
+        stop("[analyse_baSAR()] 'object' only accepts a list with objects of similar type!", call. = FALSE)
       }
 
     } else if (is(object, "character")) {
@@ -1033,7 +1039,7 @@ analyse_baSAR <- function(
           "[analyse_baSAR()] '",
           is(object)[1],
           "' as input is not supported. Check manual for allowed input objects."
-        )
+        ), call. = FALSE
       )
     }
 
@@ -1132,7 +1138,8 @@ analyse_baSAR <- function(
       source_doserate <- rep(list(source_doserate), length = length(fileBIN.list))
     }
   }else{
-    stop("[analyse_baSAR()] 'source_doserate' is missing, but required as the current implementation expects dose values in Gy!")
+    stop("[analyse_baSAR()] 'source_doserate' is missing, but required as the current implementation expects dose values in Gy!",
+         call. = FALSE)
 
   }
 
@@ -1273,7 +1280,7 @@ analyse_baSAR <- function(
     if (is(XLS_file, "character")) {
       ##test for valid file
       if(!file.exists(XLS_file)){
-        stop("[analyse_baSAR()] XLS_file does not exist!")
+        stop("[analyse_baSAR()] XLS_file does not exist!", call. = FALSE)
 
       }
 
@@ -1367,7 +1374,7 @@ analyse_baSAR <- function(
       } else{
 
         if (Nb_ali == 0) {
-          stop("[analyse_baSAR()] Nb. discs/grains  = 0 !")
+          stop("[analyse_baSAR()] Nb. discs/grains  = 0 !", call. = FALSE)
         }
 
         break()
@@ -1377,12 +1384,12 @@ analyse_baSAR <- function(
     ##if k is NULL it means it was not set so far, so there was
     ##no corresponding BIN-file found
     if(is.null(k)){
-      stop("[analyse_baSAR()] BIN-file names in XLS-file do not fit to the loaded BIN-files!")
+      stop("[analyse_baSAR()] BIN-file names in XLS-file do not fit to the loaded BIN-files!", call. = FALSE)
 
     }
 
   } else{
-    stop("[analyse_baSAR()] input type for 'XLS_file' not supported!")
+    stop("[analyse_baSAR()] input type for 'XLS_file' not supported!", call. = FALSE)
   }
 
 
