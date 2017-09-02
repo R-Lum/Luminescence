@@ -143,7 +143,7 @@ read_BIN2R <- function(
   # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
   # directory and import them, if this is detected, we proceed as list
 
-  if (is(file, "character")) {
+  if (is.character(file)) {
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here
       if (dir.exists(file) & length(dir(file)) > 0) {
@@ -179,12 +179,12 @@ read_BIN2R <- function(
   }
 
 
-  if (is(file, "list")) {
+  if (is.list(file)) {
 
     ##extend list of parameters
 
     ##position
-    position <- if(is(position, "list")){
+    position <- if(is.list(position)){
       rep(position, length = length(file))
 
     }else{
@@ -193,7 +193,7 @@ read_BIN2R <- function(
     }
 
     ##n.records
-    n.records <- if(is(n.records, "list")){
+    n.records <- if(is.list(n.records)){
       rep(n.records, length = length(file))
 
     }else{
@@ -202,7 +202,7 @@ read_BIN2R <- function(
     }
 
     ##zero_data.rm
-    zero_data.rm<- if(is(zero_data.rm, "list")){
+    zero_data.rm<- if(is.list(zero_data.rm)){
       rep(zero_data.rm, length = length(file))
 
     }else{
@@ -211,7 +211,7 @@ read_BIN2R <- function(
     }
 
     ##duplicated.rm
-    duplicated.rm <- if(is(duplicated.rm, "list")){
+    duplicated.rm <- if(is.list(duplicated.rm)){
       rep(duplicated.rm, length = length(file))
 
     }else{
@@ -220,7 +220,7 @@ read_BIN2R <- function(
     }
 
     ## show.raw.values
-    show.raw.values <- if(is( show.raw.values, "list")){
+    show.raw.values <- if(is.list(show.raw.values)){
       rep( show.raw.values, length = length(file))
 
     }else{
@@ -229,7 +229,7 @@ read_BIN2R <- function(
     }
 
     ## show.record.number
-    show.record.number <- if(is(show.record.number, "list")){
+    show.record.number <- if(is.list(show.record.number)){
       rep(show.record.number, length = length(file))
 
     }else{
@@ -238,7 +238,7 @@ read_BIN2R <- function(
     }
 
     ##forced.VersionNumber
-    forced.VersionNumber <- if(is(forced.VersionNumber, "list")){
+    forced.VersionNumber <- if(is.list(forced.VersionNumber)){
       rep(forced.VersionNumber, length = length(file))
 
     }else{
@@ -1524,7 +1524,7 @@ read_BIN2R <- function(
   if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
      fastForward == FALSE) {
     fastForward <- TRUE
-    warning("[read_BIN2R()] automatically reset 'fastForward = TRUE'")
+    warning("[read_BIN2R()] automatically reset 'fastForward = TRUE'", call. = FALSE)
 
   }
 
@@ -1535,7 +1535,7 @@ read_BIN2R <- function(
 
 
      ##because we expect a list
-     if(!is(object, "list")){
+     if(!is.list(object)){
        object <- list(object)
 
      }
