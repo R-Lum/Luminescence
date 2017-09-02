@@ -129,6 +129,11 @@
 #' A: Yes, we made it possible, but we DO NOT recommend it, except you know what you are doing!\cr
 #' Example: `method_control = list(lower_centralD = 10))`
 #'
+#' Q: The lines in the baSAR-model appear to be in a wrong logical order?\cr
+#'
+#' A: This is correct and allowed (cf. JAGS manual)
+#'
+#'
 #' **Additional arguments support via the `...` argument**
 #'
 #' This list summarizes the additional arguments that can be passed to the internally used
@@ -332,6 +337,8 @@
 #'
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 #' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
+#'
+#' Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download
 #'
 #' @note
 #' **If you provide more than one BIN-file**, it is **strongly** recommanded to provide
