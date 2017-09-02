@@ -4,27 +4,37 @@
 #'
 #' For details see Galbraith (2003).
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param log \code{\link{logical}} (with default): peform the homogeniety test
-#' with (un-)logged data
-#' @param \dots further arguments (for internal compatibility only).
-#' @return Returns a terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
-#' following element:
+#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-#' used arguments} \item{call}{\link{call} the function call}
+#' @param log [logical] (*with default*):
+#' perform the homogeneity test with (un-)logged data
 #'
-#' The output should be accessed using the function
-#' \code{\link{get_RLum}}
-#' @section Function version: 0.2
+#' @param ... further arguments (for internal compatibility only).
+#'
+#' @return
+#' Returns a terminal output. In addition an
+#' [RLum.Results-class]-object is returned containing the
+#' following elements:
+#'
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data}
+#' \item{args}{[list] used arguments}
+#' \item{call}{[call] the function call}
+#'
+#' The output should be accessed using the function [get_RLum]
+#'
+#' @section Function version: 0.2.1
+#'
 #' @author Christoph Burow, University of Cologne (Germany)
-#' @seealso \code{\link{pchisq}}
-#' @references Galbraith, R.F., 2003. A simple homogeneity test for estimates
+#'
+#' @seealso [pchisq]
+#'
+#' @references
+#' Galbraith, R.F., 2003. A simple homogeneity test for estimates
 #' of dose obtained using OSL. Ancient TL 21, 75-77.
+#'
+#'
 #' @examples
 #'
 #' ## load example data
@@ -33,10 +43,11 @@
 #' ## apply the homogeneity test
 #' calc_HomogeneityTest(ExampleData.DeValues$BT998)
 #'
+#' @md
 #' @export
 calc_HomogeneityTest <- function(
   data,
-  log=TRUE,
+  log = TRUE,
   ...
 ){
 
@@ -45,11 +56,13 @@ calc_HomogeneityTest <- function(
   ##============================================================================##
 
   if(missing(data)==FALSE){
-    if(is(data, "data.frame") == FALSE & is(data, "RLum.Results") == FALSE){
-      stop("[calc_FiniteMixture] Error: 'data' object has to be of type
-           'data.frame' or 'RLum.Results'!")
+    if(!is(data, "data.frame") & !is(data, "RLum.Results")){
+      stop(
+        "[calc_HomogeneityTest()] 'data' object has to be of type 'data.frame' or 'RLum.Results'!",
+        call. = FALSE
+      )
     } else {
-      if(is(data, "RLum.Results") == TRUE){
+      if(is(data, "RLum.Results")){
         data <- get_RLum(data, "data")
 
       }
@@ -59,7 +72,6 @@ calc_HomogeneityTest <- function(
   ##==========================================================================##
   ## ... ARGUMENTS
   ##==========================================================================##
-
   extraArgs <- list(...)
 
   ## set plot main title
@@ -72,29 +84,29 @@ calc_HomogeneityTest <- function(
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
-
-  if(log==TRUE){
-    dat<- log(data)
+  if(log) {
+    dat <- log(data)
   } else {
-    dat<- data
+    dat <- data
   }
 
-  wi<- 1/dat[2]^2
-  wizi<- wi*dat[1]
-  mu<- sum(wizi)/sum(wi)
-  gi<- wi*(dat[1]-mu)^2
+  wi <- 1 / dat[[2]] ^ 2
+  wizi <- wi * dat[[1]]
+  mu <- sum(wizi) / sum(wi)
+  gi <- wi * (dat[[1]] - mu) ^ 2
 
-  G<- sum(gi)
-  df<- length(wi)-1
-  n<- length(wi)
-  P<- pchisq(G, df, lower.tail = FALSE)
+  G <- sum(gi)
+  df <- length(wi) - 1
+  n <- length(wi)
+  P <- pchisq(G, df, lower.tail = FALSE)
+
 
   ##============================================================================##
   ## OUTPUT
   ##============================================================================##
 
-  if(verbose == TRUE) {
-    cat("\n [calc_HomogeneityTest]")
+  if(verbose) {
+    cat("\n [calc_HomogeneityTest()]")
     cat(paste("\n\n ---------------------------------"))
     cat(paste("\n n:                 ", n))
     cat(paste("\n ---------------------------------"))
@@ -108,21 +120,23 @@ calc_HomogeneityTest <- function(
   ##============================================================================##
   ## RETURN VALUES
   ##============================================================================##
+  summary <- data.frame(
+    n = n,
+    g.value = G,
+    df = df,
+    P.value = P
+  )
 
-  summary<- data.frame(n=n,g.value=G,df=df,P.value=P)
+  args <- list(log = log)
 
-  call<- sys.call()
-  args<- list(log=log)
-
-  newRLumResults.calc_HomogeneityTest <- set_RLum(
+  return(set_RLum(
     class = "RLum.Results",
     data = list(
-      summary=summary,
-      data=data,
-      args=args,
-      call=call
-    ))
-
-  invisible(newRLumResults.calc_HomogeneityTest)
+      summary = summary,
+      data = data,
+      args = args
+    ),
+    info = list(call = sys.call())
+  ))
 
 }
