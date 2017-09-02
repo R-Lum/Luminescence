@@ -25,7 +25,7 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.10
+#' @section Class version: 0.4.11
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -461,15 +461,15 @@ setMethod("get_RLum",
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
 
-              } else if (!is(record.id, "numeric") &
-                         !is(record.id, "logical")) {
+              } else if (!is.numeric(record.id) &
+                         !is.logical(record.id)) {
                 stop("[get_RLum()] 'record.id' has to be of type 'numeric' or 'logical'!", call. = FALSE)
 
               }
               ##logical needs a slightly different treatment
               ##Why do we need this? Because a lot of standard R functions work with logical
               ##values instead of numerical indicies
-              if (is(record.id, "logical")) {
+              if (is.logical(record.id)) {
                 record.id <- c(1:length(object@records))[record.id]
 
               }

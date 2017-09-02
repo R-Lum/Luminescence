@@ -142,8 +142,8 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
-deconstructing the object. For example:\preformatted{set_RLum(class = 'RLum.Data.Curve', 
-         data = Your.RLum.Data.Curve, 
+deconstructing the object. For example:\preformatted{set_RLum(class = 'RLum.Data.Curve',
+         data = Your.RLum.Data.Curve,
          recordType = 'never seen before')
 }
 

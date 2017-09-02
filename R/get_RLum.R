@@ -57,8 +57,6 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 setMethod("get_RLum",
           signature = "list",
           function(object, null.rm = FALSE, ...){
-
-
             selection <- lapply(1:length(object), function(x){
 
               ##get rid of all objects that are not of type RLum, this is better than leaving that

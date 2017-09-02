@@ -183,7 +183,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 }
 
 \section{Class version}{
- 0.4.10
+ 0.4.11
 }
 
 \examples{

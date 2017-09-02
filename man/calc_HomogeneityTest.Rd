@@ -11,7 +11,7 @@ calc_HomogeneityTest(data, log = TRUE, ...)
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{log}{\link{logical} (\emph{with default}):
-peform the homogeneity test with (un-)logged data}
+perform the homogeneity test with (un-)logged data}
 
 \item{...}{further arguments (for internal compatibility only).}
 }
@@ -34,7 +34,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2017-07-30 13:10:59)
+ 0.2.1 (2017-09-02 19:14:19)
 }
 
 \examples{
@@ -48,7 +48,7 @@ calc_HomogeneityTest(ExampleData.DeValues$BT998)
 } 
 
 \section{How to cite}{
-Burow, C. (2017). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
