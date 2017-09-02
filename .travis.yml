@@ -20,11 +20,10 @@ r_packages:
   - raster
   - readxl
   - shape
-  - parallel
   - XML
   - zoo
   - RLumShiny
-  - RLumMode
+  - RLumModel
   - plotly
   - rmarkdown
   - rstudioapi
@@ -33,7 +32,6 @@ r_packages:
   - testthat
   - R.rsp
 
-## test different platforms
 ## test different platforms
 matrix:
   include:
