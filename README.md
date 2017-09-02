@@ -100,6 +100,8 @@ any later version.
 
 * [RLumModel](https://github.com/R-Lum/RLumModel)
 * [RLumShiny](https://github.com/R-Lum/RLumShiny)
+* [BayLum](https://github.com/R-Lum/BayLum)
+* [RLumDocker](https://github.com/R-Lum/RLumDocker)
 
 ## R package dependencies
 ![](RLum.Images/Package_DependencyGraph.png)
