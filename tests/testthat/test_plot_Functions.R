@@ -127,7 +127,7 @@ test_that("test pure success of the plotting without warning or error", {
     mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
     expect_silent(plot_RLum(mam))
     cdm <- calc_CentralDose(ExampleData.DeValues$CA1)
-    expect_silend(plot_RLum(cdm))
+    expect_silent(plot_RLum(cdm))
     FMM <- calc_FiniteMixture(ExampleData.DeValues$CA1,
                              sigmab = 0.2, n.components = c(2:4),
                              pdf.weight = TRUE, dose.scale = c(0, 100))
