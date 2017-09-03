@@ -9,7 +9,7 @@ test_that("Test DRAC", {
  input <- template_DRAC()
 
  ##test
- expect_s3_class(temp, "DRAC.list")
+ expect_s3_class(input, "DRAC.list")
 
  ##fill (which also tests the methods)
  input$`Project ID` <- "DRAC-Example"
