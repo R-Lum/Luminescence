@@ -27,10 +27,10 @@ test_that("Full check of analyse_baSAR function", {
         list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
         list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
       )),
-      plot = FALSE,
-      verbose = FALSE,
-      n.MCMC = 1000,
-      txtProgressBar = FALSE
+      plot = TRUE,
+      verbose = TRUE,
+      n.MCMC = 100,
+      txtProgressBar = TRUE
 
     )
 
