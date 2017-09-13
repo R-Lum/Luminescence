@@ -59,11 +59,10 @@ function can be updated.
 
 # (1) Import PSL file to R
 
-\dontrun{
-FILE <- file.choose()
-temp <- read_PSL2R(FILE)
-temp
-}
+file <- system.file("extdata", "DorNie_0016.psl", package = "Luminescence")
+psl <- read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = TRUE, merge = FALSE)
+print(str(psl, max.level = 3))
+plot(psl, combine = TRUE)
 
 }
 \seealso{
@@ -76,5 +75,4 @@ Christoph Burow, University of Cologne (Germany)
 \section{How to cite}{
 Burow, C. (2017). read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{IO}
