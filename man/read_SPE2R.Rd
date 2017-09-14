@@ -5,14 +5,15 @@
 \title{Import Princeton Intruments (TM) SPE-file into R}
 \usage{
 read_SPE2R(file, output.object = "RLum.Data.Image", frame.range,
-  txtProgressBar = TRUE)
+  txtProgressBar = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
 spe-file name (including path), e.g.
 \itemize{
 \item \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
-\item \code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}
+\item \code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}. Additionally internet connections
+are supported.
 }}
 
 \item{output.object}{\link{character} (\emph{with default}):
@@ -24,6 +25,8 @@ limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables or disables \link{txtProgressBar}.}
+
+\item{verbose}{\link{logical} (\emph{with default}): enables or disables verbose mode}
 }
 \value{
 Depending on the chosen option the functions returns three different
@@ -68,7 +71,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.0 (2017-09-02 23:27:02)
+ 0.1.1 (2017-09-14 11:57:33)
 }
 
 \examples{
@@ -99,7 +102,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

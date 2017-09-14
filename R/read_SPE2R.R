@@ -8,25 +8,28 @@
 #' Princton Instruments and a MatLab script written by Carl Hall (s.
 #' references).
 #'
-#' @param file [character] (**required**): 
+#' @param file [character] (**required**):
 #' spe-file name (including path), e.g.
 #' - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
-#' - `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`
+#' - `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`. Additionally internet connections
+#' are supported.
 #'
-#' @param output.object [character] (*with default*): 
+#' @param output.object [character] (*with default*):
 #' set `RLum` output object.  Allowed types are `"RLum.Data.Spectrum"`,
 #' `"RLum.Data.Image"` or `"matrix"`
 #'
-#' @param frame.range [vector] (*optional*): 
+#' @param frame.range [vector] (*optional*):
 #' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`
 #'
-#' @param txtProgressBar [logical] (*with default*): 
+#' @param txtProgressBar [logical] (*with default*):
 #' enables or disables [txtProgressBar].
 #'
-#' @return 
+#' @param verbose [logical] (*with default*): enables or disables verbose mode
+#'
+#' @return
 #' Depending on the chosen option the functions returns three different
 #' type of objects:
-#' 
+#'
 #' `output.object`
 #'
 #' `RLum.Data.Spectrum`
@@ -47,7 +50,7 @@
 #' transformation the function [get_RLum] is used,
 #' meaning that the same results can be obtained by using the function
 #' [get_RLum] on an `RLum.Data.Spectrum` or `RLum.Data.Image` object.
-#' 
+#'
 #' @note
 #' **The function does not test whether the input data are spectra or pictures for spatial resolved analysis!**
 #'
@@ -55,14 +58,14 @@
 #'
 #' *Currently not all information provided by the SPE format are supported.*
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [readBin], [RLum.Data.Spectrum-class], [raster::raster]
 #'
-#' @references 
+#' @references
 #' Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 #' Format Specification, Version 1.A (for document URL please use an internet search machine)
 #'
@@ -102,33 +105,65 @@ read_SPE2R <- function(
   file,
   output.object = "RLum.Data.Image",
   frame.range,
-  txtProgressBar = TRUE
+  txtProgressBar = TRUE,
+  verbose = TRUE
 ){
 
   # Consistency check -------------------------------------------------------
 
   ##check if file exists
-  if(file.exists(file) == FALSE){
+  if(!file.exists(file)){
 
-    stop("[read_SPE2R()] File not found!")
+    ##check if the file as an URL ... you never know
+    if(grepl(pattern = "http", x = file, fixed = TRUE)){
+      if(verbose){
+        cat("[read_SPE2R()] URL detected, checking connection ... ")
+      }
+
+      ##check URL
+      if(!httr::http_error(file)){
+        if(verbose) cat("OK")
+
+        ##dowload file
+        file_link <- tempfile("read_SPE2R_FILE")
+        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
+        file <- file_link
+
+      }else{
+        cat("FAILED")
+        file <- NULL
+        try(stop("[read_SPE2R()] File does not exist! Return NULL!", call. = FALSE))
+        return(NULL)
+
+      }
+
+    }else{
+      file <- NULL
+      try(stop("[read_SPE2R()] File does not exist! Return NULL!", call. = FALSE))
+      return(NULL)
+
+    }
 
   }
 
   ##check file extension
-  if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
+  ##TODO this test is not stable, but the best for the moment
+  if(!grepl(file, pattern = "SPE", fixed = TRUE)){
+    if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
+      temp.text <- paste("[read_SPE2R()] Unsupported file format: *.",
+                         strsplit(file, split = "\\.")[[1]][2], sep = "")
 
-    temp.text <- paste("[read_SPE2R()] Unsupported file format: *.",
-                       strsplit(file, split = "\\.")[[1]][2], sep = "")
+      stop(temp.text)
 
-    stop(temp.text)
-
-  }
+  }}
 
 
   # Open Connection ---------------------------------------------------------
 
   #open connection
-  con<-file(file, "rb")
+  con <- file(file, "rb")
+
+
 
   # read header -------------------------------------------------------------
 
@@ -317,7 +352,7 @@ read_SPE2R <- function(
   cat(paste("\n[read_SPE2R.R]\n\t >> ",file,sep=""), fill=TRUE)
 
   ##set progressbar
-  if(txtProgressBar==TRUE){
+  if(txtProgressBar & verbose){
     pb<-txtProgressBar(min=0,max=diff(frame.range)+1, char="=", style=3)
   }
 
@@ -341,14 +376,14 @@ read_SPE2R <- function(
     }
 
     ##update progress bar
-    if(txtProgressBar==TRUE){
+    if(txtProgressBar & verbose){
       setTxtProgressBar(pb, i)
     }
 
   }
 
   ##close
-  if(txtProgressBar==TRUE){close(pb)
+  if(txtProgressBar & verbose){close(pb)
 
                            ##output
                            cat(paste("\t >> ",i," records have been read successfully!\n\n", sep=""))

@@ -106,6 +106,14 @@
     }
   }
 
+    \item \code{read_SPE2R()}{
+        \itemize{
+         \item Add support for internet connections.
+
+
+    }
+  }
+
 
  }
 

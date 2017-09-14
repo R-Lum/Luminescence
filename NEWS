@@ -93,6 +93,10 @@ Changes in version 0.8.0 ( ,2017):
 
              • give the XSYG-file import a 50% performance boost.
 
+         • ‘read_SPE2R()’
+
+             • Add support for internet connections.
+
   Internals:
 
          • Start supporting RStudio add-ins for more advanced users.
