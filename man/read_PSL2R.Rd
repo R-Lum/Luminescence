@@ -52,7 +52,7 @@ a specific PSL file please report to \href{mailto:christoph.burow@uni-koeln.de}{
 function can be updated.
 }
 \section{Function version}{
- 0.0.1 (2017-09-02 23:27:02)
+ 0.0.1 (2017-09-14 09:26:37)
 }
 
 \examples{
@@ -75,4 +75,5 @@ Christoph Burow, University of Cologne (Germany)
 \section{How to cite}{
 Burow, C. (2017). read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{IO}
