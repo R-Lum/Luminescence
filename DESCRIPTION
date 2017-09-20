@@ -45,36 +45,36 @@ Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 3.3.2),
+    R (>= 3.4.1),
     utils,
     magrittr (>= 1.5)
-LinkingTo: Rcpp (>= 0.12.9),
-    RcppArmadillo (>= 0.7.600.1.0)
+LinkingTo: Rcpp (>= 0.12.12),
+    RcppArmadillo (>= 0.7.960.1.2)
 Imports:
-    bbmle (>= 1.0.18),
-    data.table (>= 1.10.0),
-    httr (>= 1.2.1),
-    matrixStats (>= 0.51.0),
+    bbmle (>= 1.0.19),
+    data.table (>= 1.10.4),
+    httr (>= 1.3.1),
+    matrixStats (>= 0.52.2),
     methods,
     minpack.lm (>= 1.2-1),
-    plotrix (>= 3.6-4),
+    plotrix (>= 3.6-6),
     raster (>= 2.5-8),
-    readxl (>= 0.1.1),
-    shape (>= 1.4.2),
+    readxl (>= 1.0.0),
+    shape (>= 1.4.3),
     parallel,
-    XML (>= 3.98-1.5),
-    zoo (>= 1.7-14)
+    XML (>= 3.98-1.9),
+    zoo (>= 1.8-0)
 Suggests:
-    RLumShiny (>= 0.1.1),
-    RLumModel (>= 0.1.2),
-    plotly (>= 4.5.6),
-    rmarkdown (>= 1.3),
-    rstudioapi (>= 0.6),
+    RLumShiny (>= 0.2.0),
+    RLumModel (>= 0.2.1),
+    plotly (>= 4.7.1),
+    rmarkdown (>= 1.6),
+    rstudioapi (>= 0.7),
     rjags (>= 4-6),
     coda (>= 0.19-1),
-    pander (>= 0.6.0),
+    pander (>= 0.6.1),
     testthat (>= 1.0.2),
-    devtools (>= 1.12.0),
+    devtools (>= 1.13.3),
     R.rsp (>= 0.41.0)
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence

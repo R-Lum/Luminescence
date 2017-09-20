@@ -1,6 +1,6 @@
 context("report_RLum")
 
-test_that("Test Simple Report", {
+test_that("Test Simple RLum Report", {
   testthat::skip_on_cran()
 
   ### load example data
