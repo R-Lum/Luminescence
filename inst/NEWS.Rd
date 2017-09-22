@@ -114,6 +114,15 @@
     }
   }
 
+  \item \code{write_R2BIN()}{
+        \itemize{
+         \item The BIN-file export to version 04 failed in very rare cases for \code{NA} values
+         in the byte position \code{SEQUENCE}; fixed.
+
+
+    }
+  }
+
 
  }
 

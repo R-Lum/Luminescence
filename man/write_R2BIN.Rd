@@ -68,7 +68,7 @@ ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.4.2 (2017-09-02 23:29:24)
+ 0.4.3 (2017-09-22 17:12:15)
 }
 
 \examples{
@@ -81,7 +81,7 @@ There are furthermore ignored by the function \link{read_BIN2R}.
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

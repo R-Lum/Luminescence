@@ -97,6 +97,12 @@ Changes in version 0.8.0 ( ,2017):
 
              • Add support for internet connections.
 
+         • ‘write_R2BIN()’
+
+             • The BIN-file export to version 04 failed in very rare
+               cases for ‘NA’ values in the byte position ‘SEQUENCE’;
+               fixed.
+
   Internals:
 
          • Start supporting RStudio add-ins for more advanced users.
