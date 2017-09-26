@@ -101,7 +101,12 @@ Changes in version 0.8.0 ( ,2017):
 
              • The BIN-file export to version 04 failed in very rare
                cases for ‘NA’ values in the byte position ‘SEQUENCE’;
-               fixed.
+               fixed,
+
+             • the compatibility mode was extended to limit the maxium
+               number of points for one curve to 9,999 (if the option
+               is chosen). This gives more compatibility with older
+               versions of the Analyst.
 
   Internals:
 

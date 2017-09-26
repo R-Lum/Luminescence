@@ -28,7 +28,9 @@ This argument can be used to convert BIN-file versions.}
 \item{compatibility.mode}{\link{logical} (\emph{with default}):
 this option recalculates the position values if necessary and set the max.
 value to 48. The old position number is appended as comment (e.g., 'OP: 70).
-This option accounts for potential compatibility problems with the Analyst software.}
+This option accounts for potential compatibility problems with the Analyst software.
+It further limits the maximum number of points per curve to 9,999. If a curve contains more
+data the curve data got binned using the smallest possible bin width.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables or disables \link{txtProgressBar}.}
@@ -68,7 +70,7 @@ ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.4.3 (2017-09-22 17:12:15)
+ 0.4.4 (2017-09-26 14:05:26)
 }
 
 \examples{
@@ -81,7 +83,7 @@ There are furthermore ignored by the function \link{read_BIN2R}.
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
