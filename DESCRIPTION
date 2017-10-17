@@ -153,6 +153,7 @@ Collate:
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
+    'fit_SurfaceExposure.R'
     'get_Layout.R'
     'get_Quote.R'
     'get_rightAnswer.R'
