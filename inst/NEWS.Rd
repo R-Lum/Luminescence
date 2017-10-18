@@ -22,7 +22,25 @@
         \item \code{calc_WodaFuchs2008()}:
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.
+        
+        \item \code{fit_SurfaceExposure()}:
+        Function to fit eq. 1 in Sohbati et al. (2012a) to OSL surface exposure data
+        and derive estimates of its parameters (i.a., the age). Alternatively, 
+        eq. 12 in Sohbati et al. (2012b) can be fitted, which also considers the
+        dose rate.
 
+    }
+  }
+  
+    \subsection{New example data}{
+    \itemize{
+    
+        \item \code{ExampleData.SurfaceExposure}:
+        A set of synthetic OSL surface exposure dating data to demonstrate 
+        the fit_SurfaceExposure() functionality. See ?ExampleData.SurfaceExposure
+        for details.
+    
+    
     }
   }
 
