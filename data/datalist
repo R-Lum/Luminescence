@@ -8,5 +8,6 @@ ExampleData.BINfileData
 ExampleData.CW_OSL_Curve
 ExampleData.RLum.Analysis
 ExampleData.RLum.Data.Image
+ExampleData.SurfaceExposure
 ExampleData.XSYG
 ExampleData.portableOSL
