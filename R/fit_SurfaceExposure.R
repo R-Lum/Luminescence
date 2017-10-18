@@ -180,7 +180,7 @@ fit_SurfaceExposure <- function(data,
     # TODO: Support weighted fitting for global fit
     if (weights) {
       if (settings$verbose)
-        warning("Argument 'weights' is not support when multiple data sets are provided for global fitting.", call. = FALSE)
+        warning("Argument 'weights' is not supported when multiple data sets are provided for global fitting.", call. = FALSE)
       weights <- FALSE
     }
     
