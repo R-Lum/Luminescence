@@ -415,33 +415,32 @@ fit_SurfaceExposure <- function(data,
       legend("center", legend = "Unable to fit the data!\t\t")
     }
     
-  } 
-  
-  # add error bars (if weighted fit)
-  if (!is.null(error) && error_bars) {
-    segments(plot_settings$x[ ,1], plot_settings$x[ ,2] - error,
-             plot_settings$x[ ,1], plot_settings$x[ ,2] + error)
-    
-  }
-  
-  # add formula
-  if (legend && !inherits(fit, "simpleError")) {
-    formula_text <- paste0("y = ", as.character(fit$m$formula())[3], "\t\t")
-    
-    if (!is.null(age)) {
-      if (!global_fit) {
-        formula_text <- gsub("age", age, formula_text)
-      } else {
-        formula_text <- gsub("age", paste0("[", paste(age, collapse = "|"), "]"), formula_text)
-        formula_text <- gsub("\\[group\\]", "", formula_text)
-      }
+    # add error bars (if weighted fit)
+    if (!is.null(error) && error_bars) {
+      segments(plot_settings$x[ ,1], plot_settings$x[ ,2] - error,
+               plot_settings$x[ ,1], plot_settings$x[ ,2] + error)
+      
     }
-    if (!is.null(sigmaphi))
-      formula_text <- gsub("sigmaphi", sigmaphi, formula_text)
-    if (!is.null(mu))
-      formula_text <- gsub("mu", mu, formula_text)
     
-    legend(ifelse(coord_flip, "bottomleft", "bottomright"), legend = formula_text, cex = 0.8, bty = "n")
+    # add formula
+    if (legend && !inherits(fit, "simpleError")) {
+      formula_text <- paste0("y = ", as.character(fit$m$formula())[3], "\t\t")
+      
+      if (!is.null(age)) {
+        if (!global_fit) {
+          formula_text <- gsub("age", age, formula_text)
+        } else {
+          formula_text <- gsub("age", paste0("[", paste(age, collapse = "|"), "]"), formula_text)
+          formula_text <- gsub("\\[group\\]", "", formula_text)
+        }
+      }
+      if (!is.null(sigmaphi))
+        formula_text <- gsub("sigmaphi", sigmaphi, formula_text)
+      if (!is.null(mu))
+        formula_text <- gsub("mu", mu, formula_text)
+      
+      legend(ifelse(coord_flip, "bottomleft", "bottomright"), legend = formula_text, cex = 0.8, bty = "n")
+    }
   }
   
   ## CONSOLE ----
