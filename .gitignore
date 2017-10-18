@@ -1,5 +1,5 @@
 /.Rproj.user/*
-*.RData
+/*.RData
 *.Rhistory
 *.Rproj
 *.Rbuildignore
