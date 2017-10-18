@@ -9,27 +9,61 @@ fit_SurfaceExposure(data, sigmaphi = NULL, mu = NULL, age = NULL,
   error_bars = TRUE, coord_flip = FALSE, ...)
 }
 \arguments{
-\item{data}{\link{data.frame} or \link{list} (\strong{required}):}
+\item{data}{\link{data.frame} or \link{list} (\strong{required}):
+Measured OSL surface exposure data with the following structure:\preformatted{                               (optional)
+     | depth (a.u.)| intensity | error |
+     |     [ ,1]   |    [ ,2]  | [ ,3] |
+     |-------------|-----------|-------|
+[1, ]|    ~~~~     |    ~~~~   | ~~~~  |
+[2, ]|    ~~~~     |    ~~~~   | ~~~~  |
+ ... |     ...     |     ...   |  ...  |
+[x, ]|    ~~~~     |    ~~~~   | ~~~~  |
 
-\item{sigmaphi}{\link{numeric} (\emph{optional}):}
+}
 
-\item{mu}{\link{numeric} (\emph{optional}):}
+Alternatively, a \link{list} of \code{data.frames} can be provided, where each
+\code{data.frame} has the same structure as shown above, with the exception that
+they must \strong{not} include the optional error column. Providing a \link{list} as
+input automatically activates the global fitting procedure (see details).}
 
-\item{age}{\link{numeric} (\emph{optional}):}
+\item{sigmaphi}{\link{numeric} (\emph{optional}):
+A numeric value for sigmaphi, i.e. the charge detrapping rate.
+Example: \code{sigmaphi = 5e-10}}
 
-\item{Ddot}{\link{numeric} (\emph{optional}):}
+\item{mu}{\link{numeric} (\emph{optional}):
+A numeric value for mu, i.e. the light attenuation coefficient.
+Example: \code{mu = 0.9}}
 
-\item{D0}{\link{numeric} (\emph{optional}):}
+\item{age}{\link{numeric} (\emph{optional}):
+The age (a) of the sample, if known. If \code{data} is a \link{list} of \emph{x} samples,
+then \code{age} must be a numeric vector of length \emph{x}.
+Example: \code{age = 10000}, or \code{age = c(1e4, 1e5, 1e6)}.}
 
-\item{weights}{\link{logical} (\emph{optional}):}
+\item{Ddot}{\link{numeric} (\emph{optional}):
+A numeric value for the environmental dose rate (Gy/ka). For this argument
+to be considered a value for \code{D0} must also be provided; otherwise it will be
+ignored.}
 
-\item{plot}{\link{logical} (\emph{optional}):}
+\item{D0}{\link{numeric} (\emph{optional}):
+A numeric value for the characteristic saturation dose (Gy). For this argument
+to be considered a value for \code{Ddot} must also be provided; otherwise it will be
+ignored.}
 
-\item{legend}{\link{logical} (\emph{optional}):}
+\item{weights}{\link{logical} (\emph{optional}):
+If \code{TRUE} the fit will be weighted by the inverse square of the error.
+Requires \code{data} to be a \link{data.frame} with three columns.}
 
-\item{error_bars}{\link{logical} (\emph{optional}):}
+\item{plot}{\link{logical} (\emph{optional}):
+Show or hide the plot.}
 
-\item{coord_flip}{\link{logical} (\emph{optional}):}
+\item{legend}{\link{logical} (\emph{optional}):
+Show or hide the equation inside the plot.}
+
+\item{error_bars}{\link{logical} (\emph{optional}):
+Show or hide error bars (only applies if errors were provided).}
+
+\item{coord_flip}{\link{logical} (\emph{optional}):
+Flip the coordinate system.}
 
 \item{...}{Further parameters passed to \link{plot}.
 Custom parameters include:

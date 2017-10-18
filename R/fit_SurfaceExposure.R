@@ -18,26 +18,63 @@
 #' 
 #' 
 #' @param data [data.frame] or [list] (**required**):
+#' Measured OSL surface exposure data with the following structure:
+#' 
+#' ```
+#'                                (optional)
+#'      | depth (a.u.)| intensity | error |
+#'      |     [ ,1]   |    [ ,2]  | [ ,3] |
+#'      |-------------|-----------|-------|
+#' [1, ]|    ~~~~     |    ~~~~   | ~~~~  |
+#' [2, ]|    ~~~~     |    ~~~~   | ~~~~  |
+#'  ... |     ...     |     ...   |  ...  |
+#' [x, ]|    ~~~~     |    ~~~~   | ~~~~  |
+#'
+#' ```
+#' 
+#' Alternatively, a [list] of `data.frames` can be provided, where each
+#' `data.frame` has the same structure as shown above, with the exception that
+#' they must **not** include the optional error column. Providing a [list] as
+#' input automatically activates the global fitting procedure (see details).
 #' 
 #' @param sigmaphi [numeric] (*optional*):
+#' A numeric value for sigmaphi, i.e. the charge detrapping rate.
+#' Example: `sigmaphi = 5e-10`
 #' 
 #' @param mu [numeric] (*optional*):
+#' A numeric value for mu, i.e. the light attenuation coefficient.
+#' Example: `mu = 0.9`
 #' 
 #' @param age [numeric] (*optional*):
+#' The age (a) of the sample, if known. If `data` is a [list] of *x* samples,
+#' then `age` must be a numeric vector of length *x*.
+#' Example: `age = 10000`, or `age = c(1e4, 1e5, 1e6)`.
 #' 
 #' @param Ddot [numeric] (*optional*):
+#' A numeric value for the environmental dose rate (Gy/ka). For this argument
+#' to be considered a value for `D0` must also be provided; otherwise it will be
+#' ignored.
 #' 
 #' @param D0 [numeric] (*optional*):
+#' A numeric value for the characteristic saturation dose (Gy). For this argument
+#' to be considered a value for `Ddot` must also be provided; otherwise it will be
+#' ignored.
 #' 
 #' @param weights [logical] (*optional*):
+#' If `TRUE` the fit will be weighted by the inverse square of the error.
+#' Requires `data` to be a [data.frame] with three columns.
 #' 
 #' @param plot [logical] (*optional*):
+#' Show or hide the plot.
 #' 
 #' @param legend [logical] (*optional*):
+#' Show or hide the equation inside the plot.
 #' 
 #' @param error_bars [logical] (*optional*):
+#' Show or hide error bars (only applies if errors were provided).
 #' 
 #' @param coord_flip [logical] (*optional*):
+#' Flip the coordinate system.
 #' 
 #' @param ... Further parameters passed to [plot]. 
 #' Custom parameters include:
@@ -497,4 +534,3 @@ fit_SurfaceExposure <- function(data,
   ## EXIT ----
   return(results)
 }
-
