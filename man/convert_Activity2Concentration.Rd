@@ -60,7 +60,7 @@ example for U238:
 }
 }
 \section{Function version}{
- 0.1.0 (2017-09-02 23:27:02)
+ 0.1.0 (2017-09-13 10:50:39)
 }
 
 \examples{

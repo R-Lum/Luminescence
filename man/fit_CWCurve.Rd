@@ -180,7 +180,7 @@ The function \strong{does not} ensure that the fitting procedure has reached a
 global minimum rather than a local minimum!
 }
 \section{Function version}{
- 0.5.2 (2017-09-02 23:27:02)
+ 0.5.2 (2017-09-13 10:50:39)
 }
 
 \examples{

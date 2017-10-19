@@ -97,7 +97,7 @@ Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
 thermal contact of the pellet
 }
 \section{Function version}{
- 0.1.7 (2017-09-02 23:27:02)
+ 0.1.7 (2017-09-13 10:50:39)
 }
 
 \examples{

@@ -11,7 +11,8 @@ model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
-"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008" and "Friedrich2017".}
+"Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017" and for own models "customized" (or "customised").
+Note: When model = "customized" is set, the argument 'own_parameters' has to be set.}
 
 \item{sequence}{\code{\link{list}} (\bold{required}): set sequence to model as \code{\link{list}} or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).}
@@ -52,8 +53,7 @@ For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using ow
 and example 3.}
 
 \item{own_state_parameters}{\code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
-offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
-You have to submit the state parameters for the conduction band and the valence band, too. For further details
+offer state parameters. With this argument the user can submit this state parameters. For further details
 see vignette ""RLumModel - Using own parameter sets" and example 3.}
 
 \item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
@@ -68,7 +68,7 @@ Wrapper for the function \link[RLumModel:model_LuminescenceSignals]{RLumModel::m
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.3 (2017-09-02 23:27:02)
+ 0.1.3 (2017-09-13 10:50:40)
 }
 
 \author{

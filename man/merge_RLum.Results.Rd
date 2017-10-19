@@ -19,7 +19,7 @@ rows are appended.
 The originator is taken from the first element and not reset to \code{merge_RLum}
 }
 \section{Function version}{
- 0.2.0 (2017-09-02 23:27:02)
+ 0.2.0 (2017-09-13 10:50:40)
 }
 
 \author{

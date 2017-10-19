@@ -18,7 +18,7 @@ Wrapper for the function \link[RLumShiny:app_RLum]{RLumShiny::app_RLum} from the
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.1 (2017-09-02 23:27:02)
+ 0.1.1 (2017-09-13 10:50:39)
 }
 
 \author{

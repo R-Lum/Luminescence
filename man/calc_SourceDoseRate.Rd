@@ -88,7 +88,7 @@ it is not recommended to use this option when multiple calibration dates (\code{
 are provided.
 }
 \section{Function version}{
- 0.3.0 (2017-09-02 23:27:02)
+ 0.3.0 (2017-09-13 10:50:39)
 }
 
 \examples{

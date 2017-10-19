@@ -43,7 +43,7 @@ the cumulative signal of the last n channels (same number of channels as specifi
 by \code{signal.integral}) is divided by cumulative signal of the first n channels (\code{signal.integral}).
 }
 \section{Function version}{
- 0.0.3 (2017-09-02 23:27:02)
+ 0.0.3 (2017-09-13 10:50:39)
 }
 
 \examples{

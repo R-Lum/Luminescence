@@ -48,7 +48,7 @@ If the input is a \link{list} of objects all explicit function arguments can be 
 as \link{list}.
 }
 \section{Function version}{
- 0.1.1 (2017-09-02 23:27:02)
+ 0.1.1 (2017-09-13 10:50:40)
 }
 
 \examples{

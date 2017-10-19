@@ -71,7 +71,7 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.2 (2017-09-02 23:27:02)
+ 0.1.2 (2017-09-13 10:50:39)
 }
 
 \examples{

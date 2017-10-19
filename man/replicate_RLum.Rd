@@ -20,7 +20,7 @@ Returns a \link{list} of the object to be repeated
 Function replicates RLum S4 class objects and returns a list for this objects
 }
 \section{Function version}{
- 0.1.0 (2017-09-02 23:27:02)
+ 0.1.0 (2017-09-13 10:50:40)
 }
 
 \seealso{

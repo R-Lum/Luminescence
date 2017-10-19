@@ -35,7 +35,7 @@ The information for the slot 'protocol' is taken from the first
 least one object of type \linkS4class{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
- 0.2.0 (2017-09-02 23:27:02)
+ 0.2.0 (2017-09-13 10:50:40)
 }
 
 \examples{

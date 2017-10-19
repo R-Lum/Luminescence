@@ -33,7 +33,7 @@ model is estimated based on all input equivalent doses smaller that the
 modelled central value.
 }
 \section{Function version}{
- 0.2.0 (2017-09-02 23:29:24)
+ 0.2.0 (2017-09-13 10:50:39)
 }
 
 \examples{

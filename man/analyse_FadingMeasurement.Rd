@@ -100,7 +100,7 @@ procedure as for the g-value is applied (see above).
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.5 (2017-09-02 23:27:03)
+ 0.1.5 (2017-09-13 10:50:39)
 }
 
 \examples{
