@@ -6,15 +6,34 @@
 #'
 #' **Weighted fitting**
 #' 
-#' TODO
+#' If `weights = TRUE` the function will use the inverse square of the error (\eqn{1/\sigma^2})
+#' as weights during fitting using [minpack.lm::nlsLM]. Naturally, for this to
+#' take effect individual errors must be provided in the third column of the
+#' `data.frame` for `data`. Weighted fitting is **not** supported if `data`
+#' is a list of multiple `data.frame`s, i.e., it is not available for global
+#' fitting.
 #'
 #' **Dose rate**
 #' 
-#' TODO
+#' If any of the arguments `Ddot` or `D0` is at its default value (`NULL`),
+#' this function will fit eq. 1 in Sohbati et al. (2012a) to the data. If 
+#' the effect of dose rate (i.e., signal saturation) needs to be considered,
+#' numeric values for the dose rate (`Ddot`) (in Gy/ka) and the characteristic
+#' saturation dose (`D0`) (in Gy) must be provided. The function will then fit
+#' eq. 12 in Sohbati et al. (2012b) to the data.
+#' 
+#' **NOTE**: Currently, this function does **not** consider the variability 
+#' of the dose rate with sample depth (`x`)! In the original equation the dose 
+#' rate `D` is an arbitrary function of `x` (term `D(x)`), but here `D` is assumed 
+#' constant.
 #'
 #' **Global fitting**
 #' 
-#' TODO
+#' If `data` is [list] of multiple `data.frame`s, each representing a separate
+#' sample, the function automatically performs a global fit to the data. This
+#' may be useful to better constrain the parameters `sigmaphi` or `mu` and
+#' **requires** that known ages for each sample is provided 
+#' (e.g., `age = c(100, 1000)` if `data` is a list with two samples).
 #' 
 #' 
 #' @param data [data.frame] or [list] (**required**):
@@ -138,7 +157,7 @@
 #' ## Load example data
 #' data("ExampleData.SurfaceExposure")
 #' 
-#' ## Example 1
+#' ## Example 1 - Single sample
 #' # Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10
 #' sample_1 <- ExampleData.SurfaceExposure$sample_1
 #' head(sample_1)
@@ -146,7 +165,7 @@
 #' get_RLum(results)
 #' 
 #' 
-#' ## Example 2
+#' ## Example 2 - Single sample and considering dose rate
 #' # Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10, 
 #' # dose rate = 2.5 Gy/ka, D0 = 40 Gy
 #' sample_2 <- ExampleData.SurfaceExposure$sample_2
@@ -156,7 +175,7 @@
 #' get_RLum(results)
 #' 
 #' 
-#' ## Example 3
+#' ## Example 3 - Multiple samples (global fit) to better constrain 'mu'
 #' # Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10
 #' set_1 <- ExampleData.SurfaceExposure$set_1
 #' str(set_1, max.level = 2)
@@ -165,7 +184,7 @@
 #' get_RLum(results)
 #' 
 #' 
-#' ## Example 3
+#' ## Example 4 - Multiple samples (global fit) and considering dose rate
 #' # Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,
 #' # dose rate = 1.0 Ga/ka, D0 = 40 Gy
 #' set_2 <- ExampleData.SurfaceExposure$set_2
