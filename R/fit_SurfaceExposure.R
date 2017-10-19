@@ -138,7 +138,7 @@
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
-#' @seealso [minpack.lm::nlsLM]
+#' @seealso  [ExampleData.SurfaceExposure], [minpack.lm::nlsLM]
 #'
 #' @references 
 #' 

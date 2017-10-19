@@ -198,7 +198,7 @@ non-terrestial bodies using optically stimulated luminescence: A new method.
 Icarus 221, 160-166.
 }
 \seealso{
-\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
+\link{ExampleData.SurfaceExposure}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
