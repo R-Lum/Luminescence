@@ -2,7 +2,7 @@
 #' 
 #' This function determines the (weighted) least-squares estimates of the 
 #' parameters of either eq. 1 in *Sohbati et al. (2012a)* or eq. 12 in
-#' *Sohbati et al. (2012b)* for a given OSL surface exposure data set.
+#' *Sohbati et al. (2012b)* for a given OSL surface exposure data set (**BETA**).
 #'
 #' **Weighted fitting**
 #' 
@@ -135,6 +135,10 @@
 #' with the fitted model.
 #' 
 #' @section Function version: 0.1.0
+#' 
+#' @note 
+#' **This function has BETA status. If possible, results should be**
+#' **cross-checked.**
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'

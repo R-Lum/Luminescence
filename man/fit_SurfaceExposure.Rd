@@ -108,7 +108,7 @@ with the fitted model.
 \description{
 This function determines the (weighted) least-squares estimates of the
 parameters of either eq. 1 in \emph{Sohbati et al. (2012a)} or eq. 12 in
-\emph{Sohbati et al. (2012b)} for a given OSL surface exposure data set.
+\emph{Sohbati et al. (2012b)} for a given OSL surface exposure data set (\strong{BETA}).
 }
 \details{
 \strong{Weighted fitting}
@@ -141,6 +141,10 @@ sample, the function automatically performs a global fit to the data. This
 may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} and
 \strong{requires} that known ages for each sample is provided
 (e.g., \code{age = c(100, 1000)} if \code{data} is a list with two samples).
+}
+\note{
+\strong{This function has BETA status. If possible, results should be}
+\strong{cross-checked.}
 }
 \section{Function version}{
  0.1.0 (2017-10-19 10:12:06)
