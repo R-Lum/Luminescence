@@ -475,7 +475,7 @@ fit_SurfaceExposure <- function(data,
           seg <- seq(i * 101 - 100, 10000, nrow(data))
           points(newx[seg], newy[seg], 
                  type = "l",
-                 col = ifelse("line_col" %in% names(list(...)), list(...)$line_col, "blue"),
+                 col = ifelse("line_col" %in% names(list(...)), list(...)$line_col, i),
                  lty = ifelse("line_lty" %in% names(list(...)), list(...)$line_lty, 1),
                  lwd = ifelse("line_lwd" %in% names(list(...)), list(...)$line_lwd, 1))
         }
