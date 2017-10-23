@@ -405,7 +405,7 @@ fit_SurfaceExposure <- function(data,
     
     # set default plot settings
     plot_settings <- list(
-      x = NA,
+      x = data,
       main = "",
       pch = 21,
       col = "black",
@@ -434,7 +434,7 @@ fit_SurfaceExposure <- function(data,
     }
     
     ## create main plot
-    do.call("plot", plot_settings)
+    do.call("plot", modifyList(plot_settings, list(x = NA)))
     
     
     ## add data points
