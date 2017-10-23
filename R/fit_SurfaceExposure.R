@@ -405,7 +405,7 @@ fit_SurfaceExposure <- function(data,
     
     # set default plot settings
     plot_settings <- list(
-      x = data,
+      x = NA,
       main = "",
       pch = 21,
       col = "black",
@@ -435,6 +435,16 @@ fit_SurfaceExposure <- function(data,
     
     ## create main plot
     do.call("plot", plot_settings)
+    
+    
+    ## add data points
+    if (!global_fit) {
+      points(data, type = "p", pch = plot_settings$pch, bg = plot_settings$bg, col = plot_settings$col)
+    } else {
+      Map(function(d, i) {
+        points(d, type = "p", pch = plot_settings$pch, bg = i, col = plot_settings$col)
+      }, split(results$data, results$data$group), 1:length(unique(results$data$group)))
+    }
     
     ## add fitted curve
     if (!inherits(fit, "error") && !inherits(fit, "simpleError")) {
