@@ -4,27 +4,27 @@ Changes in version 0.8.0 ( ,2017):
 
   New functions:
 
-         • 'analyse_Al2O3_ITC()': Function to analyse data determined
+         • ‘analyse_Al2O3_ITC()’: Function to analyse data determined
            to correct irradiation times as suggested by Kreutzer et
            al., 2017
 
-         • 'analyse_Al2O3_CrossTalk()': Function to analyse data to
+         • ‘analyse_Al2O3_CrossTalk()’: Function to analyse data to
            analyse cross talk measurments as shown in Kreutzer et al.,
            2017
 
-         • 'convert_Activity2Concentration()': converts nuclide
+         • ‘convert_Activity2Concentration()’: converts nuclide
            activity data (Bq/kg) to concentrations (ppm or %) and vice
            versa
 
-         • 'convert_RLum2Risoe.BINfileData()': Function to convert
-           'RLum.Analysis' and 'RLum.Data.Curve' objects to
-           'Risoe.BINfileData', which can be exported to BIN/BINX-files
-           using the function 'write_R2BIN()'.
+         • ‘convert_RLum2Risoe.BINfileData()’: Function to convert
+           ‘RLum.Analysis’ and ‘RLum.Data.Curve’ objects to
+           ‘Risoe.BINfileData’, which can be exported to BIN/BINX-files
+           using the function ‘write_R2BIN()’.
 
-         • 'calc_WodaFuchs2008()': Function to obtain the equivalent
+         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
 
-         • 'fit_SurfaceExposure()': Function to fit eq. 1 in Sohbati et
+         • ‘fit_SurfaceExposure()’: Function to fit eq. 1 in Sohbati et
            al. (2012a) to OSL surface exposure data and derive
            estimates of its parameters (i.a., the age). Alternatively,
            eq. 12 in Sohbati et al. (2012b) can be fitted, which also
@@ -32,25 +32,25 @@ Changes in version 0.8.0 ( ,2017):
 
   New example data:
 
-         • 'ExampleData.SurfaceExposure': A set of synthetic OSL
+         • ‘ExampleData.SurfaceExposure’: A set of synthetic OSL
            surface exposure dating data to demonstrate the
            fit_SurfaceExposure() functionality. See
            ?ExampleData.SurfaceExposure for details.
 
   S4-classes and methods:
 
-         • The 'RLum.Analysis' show method failed for
-           'RLum.Data.Spectrum' objects; fixed.
+         • The ‘RLum.Analysis’ show method failed for
+           ‘RLum.Data.Spectrum’ objects; fixed.
 
-         • Method for 'get_RLum' with signature 'NULL' added. Now it
-           returns 'NULL'.
+         • Method for ‘get_RLum’ with signature ‘NULL’ added. Now it
+           returns ‘NULL’.
 
-         • The coercion from 'list' to 'RLum.Results' using 'as()' did
+         • The coercion from ‘list’ to ‘RLum.Results’ using ‘as()’ did
            not work; fixed.
 
   Bugfixes and changes:
 
-         • 'analyse_IRSAR.RF()'
+         • ‘analyse_IRSAR.RF()’
 
              • Multicore processing now also supports Windows (#47)
 
@@ -58,44 +58,44 @@ Changes in version 0.8.0 ( ,2017):
                cores via 'method.control = list(cores = x)' was not
                respected
 
-         • 'plot_FilterCombinations()'
+         • ‘plot_FilterCombinations()’
 
-             • Add interative mode ('interative = TRUE')
+             • Add interative mode (‘interative = TRUE’)
 
-         • 'plot_GrowthCurve()'
+         • ‘plot_GrowthCurve()’
 
-             • The function now turns 'Inf' into 'NA',
+             • The function now turns ‘Inf’ into ‘NA’,
 
-             • the argument 'na.rm' is defunct and should not be used
+             • the argument ‘na.rm’ is defunct and should not be used
                anymore,
 
              • minor code modifications to handle special cases such as
-               input values with a 'data.frame' with no error column,
+               input values with a ‘data.frame’ with no error column,
 
              • extent examples by for test data set by Berger & Huntley
                (1989).
 
-         • 'plot_Historgram()'
+         • ‘plot_Historgram()’
 
-             • The forwarded argument 'breaks' was not treated
+             • The forwarded argument ‘breaks’ was not treated
                correctly (#54); fixed.
 
-         • 'read_BIN2R()'
+         • ‘read_BIN2R()’
 
              • The function unexpectetly dropped are warning for an
                unused connection; fixed,
 
-             • if a file link was provided and the argument 'pattern'
+             • if a file link was provided and the argument ‘pattern’
                was set and error was shown; fixed.
 
-         • 'read_Daybreak2R()'
+         • ‘read_Daybreak2R()’
 
              • The functions did not work anymore on ASCII files;
                fixed!
 
-         • 'read_XSYG2R()'
+         • ‘read_XSYG2R()’
 
-             • Argument 'verbose' added for more consistency with other
+             • Argument ‘verbose’ added for more consistency with other
                functions,
 
              • the functions now supports the import form files via the
@@ -106,14 +106,14 @@ Changes in version 0.8.0 ( ,2017):
 
              • give the XSYG-file import a 50% performance boost.
 
-         • 'read_SPE2R()'
+         • ‘read_SPE2R()’
 
              • Add support for internet connections.
 
-         • 'write_R2BIN()'
+         • ‘write_R2BIN()’
 
              • The BIN-file export to version 04 failed in very rare
-               cases for 'NA' values in the byte position 'SEQUENCE';
+               cases for ‘NA’ values in the byte position ‘SEQUENCE’;
                fixed,
 
              • the compatibility mode was extended to limit the maxium

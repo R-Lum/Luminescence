@@ -379,7 +379,7 @@ analyse_Al2O3C_ITC <- function(
     data = list(
       data = data.frame(
         VALUE = as.numeric(GC$De$De),
-        VALUE_ERROR = as.numeric(GC$De$De.Error)
+        VALUE_ERROR = as.numeric(sd(GC$De.MC))
       ),
       table = df,
       table_mean = df_mean,
