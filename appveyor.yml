@@ -20,10 +20,12 @@ environment:
   matrix:
   - R_VERSION: devel
     GCC_PATH: mingw_32
+    PKGTYPE: source
 
   - R_VERSION: devel
     R_ARCH: x64
     GCC_PATH: mingw_64
+    PKGTYPE: source
 
   - R_VERSION: release
     R_ARCH: x64
