@@ -142,8 +142,8 @@
 #'
 #' \dontrun{
 #' ##Example 4
-#' ##show the filters using the interative mode
-#' plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
+#' ##show the filters using the interactive mode
+#' plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 #'
 #' }
 #'

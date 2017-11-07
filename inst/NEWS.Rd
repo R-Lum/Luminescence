@@ -72,7 +72,7 @@
 
    \item \code{plot_FilterCombinations()}{
         \itemize{
-         \item Add interative mode (\code{interative = TRUE})
+         \item Add interactive mode (\code{interactive = TRUE})
 
 
     }
