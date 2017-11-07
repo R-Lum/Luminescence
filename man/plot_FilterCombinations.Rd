@@ -123,7 +123,7 @@ can be fully customised by disabling the standard legend and use the function \l
 instead.
 }
 \section{Function version}{
- 0.3.0 (2017-09-13 10:50:40)
+ 0.3.0 (2017-09-02 23:29:24)
 }
 
 \examples{

@@ -47,9 +47,9 @@
 #'
 #' **`method = "SLIDE"`**
 #'
-#' For this method the natural curve is slided along the x-axis until
+#' For this method, the natural curve is slid along the x-axis until
 #' congruence with the regenerated curve is reached. Instead of fitting this
-#' allows to work with the original data without the need of any physical
+#' allows working with the original data without the need for any physical
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
@@ -306,15 +306,11 @@
 #' @note
 #' This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
-#' findings by Buylaert et al. (2012). Furthermore: In course of ongoing research this function has
-#' been almost fully re-written, but further thoughtful tests are still pending!
-#' However, as a lot new package functionality was introduced with the changes made
-#' for this function and to allow a part of such tests the re-newed code was made part
-#' of the current package.
+#' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.2
+#' @section Function version: 0.7.3
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
 #' [nls], [minpack.lm::nlsLM], [parallel::mclapply]
@@ -584,17 +580,14 @@ analyse_IRSAR.RF<- function(
   }
 
 
-
-
   ##set structure values
   temp.sequence_structure$protocol.step <-
     rep(sequence_structure, length_RLum(object))[1:length_RLum(object)]
 
   ##check if the first curve is shorter than the first curve
-  if (temp.sequence_structure[1,"n.channels"] > temp.sequence_structure[2,"n.channels"]) {
-    stop(
-      "[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!"
-    )
+  if (temp.sequence_structure[which(temp.sequence_structure[["protocol.step"]] == "NATURAL"),"n.channels"] >
+        temp.sequence_structure[which(temp.sequence_structure[["protocol.step"]] == "REGENERATED"),"n.channels"]) {
+     stop("[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!", call. = FALSE)
 
   }
 
@@ -1282,13 +1275,15 @@ analyse_IRSAR.RF<- function(
           if(method.control.settings$cores > parallel::detectCores()){
             warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"), call. = FALSE)
 
-            ##assign them anyway, it is not our problem
+            ##assign all they have, it is not our problem
             cores <- parallel::detectCores()
 
           } else if (method.control.settings$cores >= 1 && method.control.settings$cores <= parallel::detectCores()) {
             cores <- method.control.settings$cores
+
           } else { # Negative values
             cores <- 1
+
           }
 
         }else{

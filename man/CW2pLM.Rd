@@ -39,7 +39,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.1 (2017-09-13 10:50:39)
+ 0.4.1 (2017-09-02 23:27:02)
 }
 
 \examples{

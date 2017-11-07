@@ -200,9 +200,9 @@ The fitting is done using the \code{port} algorithm of the \link{nls} function.
 
 \strong{\code{method = "SLIDE"}}
 
-For this method the natural curve is slided along the x-axis until
+For this method, the natural curve is slid along the x-axis until
 congruence with the regenerated curve is reached. Instead of fitting this
-allows to work with the original data without the need of any physical
+allows working with the original data without the need for any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
@@ -312,14 +312,10 @@ to \code{NULL} also prevents a calculation of the remaining two.
 \note{
 This function assumes that there is no sensitivity change during the
 measurements (natural vs. regenerated signal), which is in contrast to the
-findings by Buylaert et al. (2012). Furthermore: In course of ongoing research this function has
-been almost fully re-written, but further thoughtful tests are still pending!
-However, as a lot new package functionality was introduced with the changes made
-for this function and to allow a part of such tests the re-newed code was made part
-of the current package.
+findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.2 (2017-09-13 10:50:39)
+ 0.7.3 (2017-11-07 17:59:17)
 }
 
 \examples{
@@ -350,7 +346,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -403,6 +399,6 @@ Measurements 32, 685-690.
 \link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{datagen}

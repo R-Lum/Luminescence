@@ -255,7 +255,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.10 (2017-09-13 10:50:40)
+ 0.1.10 (2017-09-02 23:27:02)
 }
 
 \examples{

@@ -70,7 +70,7 @@ ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.4.4 (2017-10-04 16:07:31)
+ 0.4.4 (2017-09-26 14:05:26)
 }
 
 \examples{

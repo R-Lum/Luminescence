@@ -47,7 +47,7 @@ values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 \link{plot_AbanicoPlot} for details.
 }
 \section{Function version}{
- 0.1.7 (2017-09-13 10:50:39)
+ 0.1.7 (2017-09-02 23:27:02)
 }
 
 \examples{

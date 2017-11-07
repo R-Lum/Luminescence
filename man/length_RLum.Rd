@@ -24,7 +24,7 @@ Allowed arguments can be found in the documentations of the corresponding
 \linkS4class{RLum} class.
 }
 \section{Function version}{
- 0.1.0 (2017-09-13 10:50:40)
+ 0.1.0 (2017-09-02 23:27:02)
 }
 
 \seealso{
