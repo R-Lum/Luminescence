@@ -84,6 +84,11 @@ Changes in version 0.8.0 ( ,2017):
              • The forwarded argument ‘breaks’ was not treated
                correctly (#54); fixed.
 
+         • ‘plot_RLum()’
+
+             • The function now supports plotting even of highly nested
+               lists of `RLum-objects`.
+
          • ‘read_BIN2R()’
 
              • The function unexpectetly dropped are warning for an
@@ -133,4 +138,7 @@ Changes in version 0.8.0 ( ,2017):
            external data.
 
          • The internal documentation now uses 'markdown'.
+
+         • Internal function `.unlist_RLum()` allows to get rid of
+           nested lists.
 

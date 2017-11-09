@@ -3,23 +3,23 @@
 #' Function calls object specific plot functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for plotting specific
-#' [RLum-class] objects.\cr 
+#' [RLum-class] objects.\cr
 #' Depending on the input object, the
 #' corresponding plot function will be selected.  Allowed arguments can be
-#' found in the documentations of each plot function.  
-#' 
+#' found in the documentations of each plot function.
+#'
 #' \tabular{lll}{
 #' **object** \tab \tab **corresponding plot function** \cr
 #' [RLum.Data.Curve-class] \tab : \tab [plot_RLum.Data.Curve] \cr
 #' [RLum.Data.Spectrum-class] \tab : \tab [plot_RLum.Data.Spectrum]\cr
-#' [RLum.Data.Image-class] \tab : \tab [plot_RLum.Data.Image]\cr 
+#' [RLum.Data.Image-class] \tab : \tab [plot_RLum.Data.Image]\cr
 #' [RLum.Analysis-class] \tab : \tab [plot_RLum.Analysis]\cr
-#' [RLum.Results-class] \tab : \tab [plot_RLum.Results] 
+#' [RLum.Results-class] \tab : \tab [plot_RLum.Results]
 #' }
 #'
-#' @param object [RLum-class] (**required**): 
-#' S4 object of class `RLum`. Optional a [list] containing objects of 
-#' class [RLum-class] can be provided. In this case the function tries to plot 
+#' @param object [RLum-class] (**required**):
+#' S4 object of class `RLum`. Optional a [list] containing objects of
+#' class [RLum-class] can be provided. In this case the function tries to plot
 #' every object in this list according to its `RLum` class.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
@@ -34,11 +34,11 @@
 #'
 #' @section Function version: 0.4.3
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [plot_RLum.Data.Curve], [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
-#' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image], [RLum.Data.Image-class], 
+#' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image], [RLum.Data.Image-class],
 #' [plot_RLum.Analysis], [RLum.Analysis-class], [plot_RLum.Results],
 #' [RLum.Results-class]
 #'
@@ -81,7 +81,7 @@ plot_RLum<- function(
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
         RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
 
-        ##this we have to do prevent the partial matching with 'sub' by 'subset'
+        ##here we have to do prevent the partial matching with 'sub' by 'subset'
         RLum.Analysis =
           if(!grepl(pattern = "subset", x = paste(deparse(match.call()), collapse = " "), fixed = TRUE)){
           plot_RLum.Analysis(object = object, subset = NULL, ...)
@@ -98,18 +98,22 @@ plot_RLum<- function(
     }else{
       stop(paste0(
         "[plot_RLum()] Sorry, I don't know what to do for object of type '", is(object)[1], "'."
-      ))
+      ), call. = FALSE)
 
     }
 
   }
 
 
-
   # Run dispatcher ------------------------------------------------------------------------------
 
   ##call for the list, if not just proceed as normal
-  if(is(object, "list")) {
+  if(class(object) == "list") {
+
+    ##(0) we might have plenty of sublists before we have the list containing only
+    ##RLum-objects
+    object <- .unlist_RLum(object)
+
     ##(1) get rid of objects which are not RLum objects to avoid errors
     object.cleaned <-
       object[sapply(object, inherits, what = "RLum")]

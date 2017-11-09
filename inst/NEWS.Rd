@@ -96,6 +96,14 @@
     }
   }
 
+    \item \code{plot_RLum()}{
+        \itemize{
+         \item The function now supports plotting even of highly nested lists of `RLum-objects`.
+
+    }
+  }
+
+
   \item \code{read_BIN2R()}{
         \itemize{
          \item The function unexpectetly dropped are warning for an unused connection; fixed,
@@ -157,6 +165,7 @@
         \item Start supporting RStudio add-ins for more advanced users.
         \item Add fitting test data set by Berger & Huntley (1989) as external data.
         \item The internal documentation now uses 'markdown'.
+        \item Internal function `.unlist_RLum()` allows to get rid of nested lists.
 
 
     }
