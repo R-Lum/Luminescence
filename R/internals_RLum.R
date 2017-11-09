@@ -322,3 +322,37 @@ fancy_scientific <- function(l) {
 
 }
 
+#++++++++++++++++++++++++++++++
+#+ Unlist RLum               +
+#++++++++++++++++++++++++++++++
+#'
+#' Recursive unlisting of lists until the first element in the list
+#' is something, but not a list. This funktion helps
+#' to get rid of nested lists. The function stops running if a single
+#' level list is reached.
+#'
+#' @param x [list] (**required**): list with lists
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#'
+#' @example
+#' a <- list(b = list(c = list("test")))
+#' .unlist_RLum(a)
+#'
+#' @return [list] with only one level left
+#' @md
+#' @noRd
+.unlist_RLum <- function(x){
+  stopifnot(class(x) == "list")
+
+  if(length(x) > 0 && class(x[[1]]) == "list"){
+    x <- unlist(x, recursive = FALSE)
+    .unlist_RLum(x)
+  }else{
+    return(x)
+
+  }
+
+}
+
+
