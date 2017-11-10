@@ -64,7 +64,7 @@ Changes in version 0.8.0 ( ,2017):
 
          • ‘plot_FilterCombinations()’
 
-             • Add interative mode (‘interative = TRUE’)
+             • Add interactive mode (‘interactive = TRUE’)
 
          • ‘plot_GrowthCurve()’
 
@@ -113,7 +113,10 @@ Changes in version 0.8.0 ( ,2017):
              • minor modifications to support minimal examples without
                'recordType',
 
-             • give the XSYG-file import a 50% performance boost.
+             • give the XSYG-file import a 50% performance boost,
+
+             • set option `XML_PARSE_HUGE` to allow parsing of larger
+               nodes within the XSYG-file.
 
          • ‘read_SPE2R()’
 

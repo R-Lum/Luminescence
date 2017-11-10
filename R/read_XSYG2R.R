@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.4
+#' @section Function version: 0.6.5
 #'
 #'
 #' @author
@@ -350,8 +350,12 @@ read_XSYG2R <- function(
 
   # (1) Integrity tests -----------------------------------------------------
 
+  ##set HUGE for larger nodes
+  HUGE <- 524288
+
   ##parse XML tree using the package XML
-  temp <- try(XML::xmlRoot(XML::xmlTreeParse(file, useInternalNodes = TRUE)), silent = TRUE)
+  temp <- try(
+    XML::xmlRoot(XML::xmlTreeParse(file, useInternalNodes = TRUE, options = HUGE)), silent = TRUE)
 
 
 
@@ -381,7 +385,6 @@ read_XSYG2R <- function(
 
     ##fill information in data.frame
     for(i in 1:XML::xmlSize(temp)){
-
       temp.sequence.header[i,] <- t(XML::xmlAttrs(temp[[i]]))
 
     }

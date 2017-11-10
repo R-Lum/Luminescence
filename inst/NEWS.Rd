@@ -128,7 +128,8 @@
          \item Argument \code{verbose} added for more consistency with other functions,
          \item the functions now supports the import form files via the internet,
          \item minor modifications to support minimal examples without 'recordType',
-         \item give the XSYG-file import a 50\% performance boost.
+         \item give the XSYG-file import a 50\% performance boost,
+         \item set option `XML_PARSE_HUGE` to allow parsing of larger nodes within the XSYG-file.
 
 
     }
