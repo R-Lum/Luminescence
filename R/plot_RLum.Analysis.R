@@ -20,62 +20,62 @@
 #' helpful.
 #'
 #'
-#' @param object [RLum.Analysis-class] (**required**): 
+#' @param object [RLum.Analysis-class] (**required**):
 #' S4 object of class `RLum.Analysis`
 #'
-#' @param subset named [list] (*optional*): 
-#' subsets elements for plotting. The arguments in the named [list] will be 
-#' directly passed to the function [get_RLum] 
+#' @param subset named [list] (*optional*):
+#' subsets elements for plotting. The arguments in the named [list] will be
+#' directly passed to the function [get_RLum]
 #' (e.g., `subset = list(curveType = "measured")`)
 #'
-#' @param nrows [integer] (*optional*): 
-#' sets number of rows for plot output, if nothing is set the function 
+#' @param nrows [integer] (*optional*):
+#' sets number of rows for plot output, if nothing is set the function
 #' tries to find a value.
 #'
-#' @param ncols [integer] (*optional*): 
-#' sets number of columns for plot output, if nothing is set the function 
+#' @param ncols [integer] (*optional*):
+#' sets number of columns for plot output, if nothing is set the function
 #' tries to find a value.
 #'
-#' @param abline [list] (*optional*): 
+#' @param abline [list] (*optional*):
 #' allows to add ablines to the plot. Argument are provided
-#' in a list and will be forwared to the function [abline], 
-#' e.g., `list(v = c(10, 100))` adds two vertical lines add 10 and 100 to all 
-#' plots. In contrast `list(v = c(10), v = c(100)` adds a vertical at 10 to 
+#' in a list and will be forwared to the function [abline],
+#' e.g., `list(v = c(10, 100))` adds two vertical lines add 10 and 100 to all
+#' plots. In contrast `list(v = c(10), v = c(100)` adds a vertical at 10 to
 #' the first and a vertical line at 100 to the 2nd plot.
 #'
-#' @param combine [logical] (*with default*): 
+#' @param combine [logical] (*with default*):
 #' allows to combine all [RLum.Data.Curve-class] objects in one single plot.
 #'
-#' @param curve.transformation [character] (*optional*): 
+#' @param curve.transformation [character] (*optional*):
 #' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 #' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`,
 #' `CW2pHMi` and `CW2pPMi`. See details.
 #'
-#' @param plot.single [logical] (*with default*): 
+#' @param plot.single [logical] (*with default*):
 #' global par settings are considered, normally this should end in one plot per page
 #'
 #' @param ... further arguments and graphical parameters will be passed to
-#' the `plot` function. 
-#' 
+#' the `plot` function.
+#'
 #' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
-#' `norm`, `xlim`,`ylim`, `xlab`, `ylab`... 
-#' 
-#' and for `combine = TRUE` also: `sub`, `legend`, `legend.text`, `legend.pos` 
+#' `norm`, `xlim`,`ylim`, `xlab`, `ylab`...
+#'
+#' and for `combine = TRUE` also: `sub`, `legend`, `legend.text`, `legend.pos`
 #' (typical plus 'outside'), `legend.col`, `smooth`.
-#' 
+#'
 #' All arguments can be provided as `vector` or `list` to gain in full control
 #' of all plot settings.
 #'
 #' @return Returns multiple plots.
 #'
-#' @note 
+#' @note
 #' Not all arguments available for [plot] will be passed!
 #' Only plotting of `RLum.Data.Curve` and `RLum.Data.Spectrum`
 #' objects are currently supported.
 #'
-#' @section Function version: 0.3.8
+#' @section Function version: 0.3.9
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [plot], [plot_RLum], [plot_RLum.Data.Curve]
@@ -157,7 +157,7 @@ plot_RLum.Analysis <- function(
     xlim = NULL,
     ylim = NULL,
     pch = 1,
-    col = "black",
+    col = "auto",
     norm = FALSE,
     sub = NULL,
     cex = 1,
@@ -367,8 +367,9 @@ plot_RLum.Analysis <- function(
         }
 
         ##col
-        if (unique(plot.settings$col) != "black") {
+        if (unique(plot.settings$col) != "auto") {
           col <- plot.settings$col[i]
+
         } else{
           if (grepl("IRSL", temp[[i]]@recordType)) {
             col <- "red"
@@ -377,7 +378,7 @@ plot_RLum.Analysis <- function(
               col <- "blue"
             } else
             {
-              col <- plot.settings$col[[i]]
+              col <- "black"
             }
         }
 
@@ -463,7 +464,8 @@ plot_RLum.Analysis <- function(
 
     sapply(1:length(object.list), function(x){
       if(is(object.list[[x]])[1] != "RLum.Data.Curve"){
-        stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.")
+        stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.",
+             call. = FALSE)
 
       }
 
@@ -629,11 +631,12 @@ plot_RLum.Analysis <- function(
         ylim[which(ylim == 0)] <- 1
 
       ##col (again)
-      col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "black"){
+      col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "auto"){
         plot.settings$col[[k]]
 
       }else{
         col <- get("col", pos = .LuminescenceEnv)
+
       }
 
       ##if length of provided colours is < the number of objects, just one colour is supported
