@@ -462,8 +462,6 @@ calc_Kars2008 <- function(data,
   LxTx.sim <- A * theta(natdosetime, rhop[1]) * (1 - exp(-natdosetime / mean(computedD0, na.rm = TRUE)))
 
   # calculate Age
-
-
     positive <- which(diff(LxTx.sim) > 0)
 
     data.unfaded <- data.frame(dose = c(0, natdosetime[positive] * ddot / ka),
@@ -720,8 +718,8 @@ calc_Kars2008 <- function(data,
 
       # define labels as expressions
       labels.text <- list(
-        bquote(dot(D) == .(format(ddot, digits = 2, nsmall = 2)) %+-% .(format(ddot.error, digits = 2, nsmall = 2)) ~ frac(Gy, ka)),
-        bquote(dot(D)["Reader"] == .(format(readerDdot, digits = 2, nsmall = 2)) %+-% .(format(readerDdot.error, digits = 2, nsmall = 2)) ~ frac(Gy, s)),
+        bquote(dot(D) == .(format(ddot, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(ddot.error, digits = 3, nsmall = 3)), 3)) ~ frac(Gy, ka)),
+        bquote(dot(D)["Reader"] == .(format(readerDdot, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(readerDdot.error, digits = 3, nsmall = 3)), 3)) ~ frac(Gy, s)),
         bquote(log[10]~(rho~"'") == .(format(log10(rhop[1]), digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(rhop[2] / (rhop[1] * log(10, base = exp(1))), digits = 2, nsmall = 2)), 2)) ),
         bquote(bgroup("(", frac(n, N), ")") == .(format(nN, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN.error, digits = 2, nsmall = 2)), 2)) ),
         bquote(bgroup("(", frac(n, N), ")")[SS] == .(format(nN_SS, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN_SS.error, digits = 2, nsmall = 2)), 2)) ),
