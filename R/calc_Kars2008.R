@@ -720,14 +720,14 @@ calc_Kars2008 <- function(data,
 
       # define labels as expressions
       labels.text <- list(
-        bquote(dot(D) == .(round(ddot, 2)) %+-% .(round(ddot.error, 2)) ~ frac(Gy, ka)),
-        bquote(dot(D)["Reader"] == .(round(readerDdot, 3)) %+-% .(round(readerDdot.error, 3)) ~ frac(Gy, s)),
-        bquote(log[10]~(rho~"'") == .(round(log10(rhop[1]), 2)) %+-% .(round(rhop[2] / (rhop[1] * log(10, base = exp(1))), 2)) ),
-        bquote(bgroup("(", frac(n, N), ")") == .(round(nN, 2)) %+-% .(round(nN.error, 2)) ),
-        bquote(bgroup("(", frac(n, N), ")")[SS] == .(round(nN_SS, 2)) %+-% .(round(nN_SS.error, 2)) ),
-        bquote(D["E,sim"] == .(round(De.sim, 2)) %+-% .(round(De.error.sim, 2)) ~ Gy),
-        bquote(D["0,sim"] == .(round(D0.sim.Gy, 2)) %+-% .(round(D0.sim.Gy.error, 2)) ~ Gy),
-        bquote(Age["sim"] == .(round(Age.sim, 2)) %+-% .(round(Age.sim.error, 2)) ~ ka)
+        bquote(dot(D) == .(format(ddot, digits = 2, nsmall = 2)) %+-% .(format(ddot.error, digits = 2, nsmall = 2)) ~ frac(Gy, ka)),
+        bquote(dot(D)["Reader"] == .(format(readerDdot, digits = 2, nsmall = 2)) %+-% .(format(readerDdot.error, digits = 2, nsmall = 2)) ~ frac(Gy, s)),
+        bquote(log[10]~(rho~"'") == .(format(log10(rhop[1]), digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(rhop[2] / (rhop[1] * log(10, base = exp(1))), digits = 2, nsmall = 2)), 2)) ),
+        bquote(bgroup("(", frac(n, N), ")") == .(format(nN, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN.error, digits = 2, nsmall = 2)), 2)) ),
+        bquote(bgroup("(", frac(n, N), ")")[SS] == .(format(nN_SS, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN_SS.error, digits = 2, nsmall = 2)), 2)) ),
+        bquote(D["E,sim"] == .(format(De.sim, digits = 0, nsmall = 0)) %+-% .(format(De.error.sim, digits = 0, nsmall = 0)) ~ Gy),
+        bquote(D["0,sim"] == .(format(D0.sim.Gy, digits = 0, nsmall = 0)) %+-% .(format(D0.sim.Gy.error, digits = 0, nsmall = 0)) ~ Gy),
+        bquote(Age["sim"] == .(format(Age.sim, digits = 0, nsmall = 0)) %+-% .(format(Age.sim.error, digits = 0, nsmall = 0)) ~ ka)
       )
 
       # each of the labels is positioned at 1/10 of the availalbe y-axis space
