@@ -738,7 +738,7 @@ calc_Kars2008 <- function(data,
 
       # add labels iteratively
       mapply(function(label, pos) {
-        text(x = max(axTicks(1)) * 1.15,
+        text(x = max(axTicks(1)) * 1.05,
              y = pos,
              labels = label,
              pos = 4)
