@@ -94,10 +94,16 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX
 \code{TL_peak_shift} \link{numeric} (default: \code{15}):
 
 Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
-thermal contact of the pellet
+thermal contact of the chip.
+
+\code{stimulation_power} \link{numeric} (default: \code{0.01}):
+
+So far available, information on the delievered optical stimulation are compared. Compared are
+the information from the first curves with all others. If the ratio differs more from
+unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.1.7 (2017-09-02 23:27:02)
+ 0.1.8 (2017-11-16 12:12:31)
 }
 
 \examples{
@@ -107,7 +113,7 @@ thermal contact of the pellet
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

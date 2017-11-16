@@ -11,7 +11,13 @@
 #' `TL_peak_shift` [numeric] (default: `15`):
 #'
 #' Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
-#' thermal contact of the pellet
+#' thermal contact of the chip.
+#'
+#' `stimulation_power` [numeric] (default: `0.01`):
+#'
+#' So far available, information on the delievered optical stimulation are compared. Compared are
+#' the information from the first curves with all others. If the ratio differs more from
+#' unity than the defined by the threshold, a warning is returned.
 #'
 #'
 #' @param object [RLum.Analysis-class] **(required)**:
@@ -83,7 +89,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.1.8
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -270,6 +276,7 @@ analyse_Al2O3C_Measurement <- function(
 
   ##select curves based on the recordType selection; if not NULL
   if(!is.null(recordType)){
+    object_raw <- object
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
 
   }
@@ -365,7 +372,8 @@ analyse_Al2O3C_Measurement <- function(
 
   ##set test parameters
   test_parameters.default <- list(
-    TL_peak_shift = 15
+    TL_peak_shift = 15,
+    stimulation_power = 0.01
   )
 
   ##modify default values by given input
@@ -452,6 +460,8 @@ analyse_Al2O3C_Measurement <- function(
 
 
 
+  ##calculate test parameters
+  ##TL_peak_shift
   ##check TL peak positions, if it differes more than the threshold, return a message
   ##can be done better, but should be enough here.
   if(any("TL_peak_shift"%in%names(test_parameters))){
@@ -480,11 +490,67 @@ analyse_Al2O3C_Measurement <- function(
 
   }
 
+  ##stimulation_power
+  if(any("stimulation_power"%in%names(test_parameters))){
 
-   ##compile test parameter df
+     ##get curves ids holding the information on the stimulation power
+     temp_curves_OSL <- get_RLum(object_raw, recordType = "OSL", curveType = "measured")
+     temp_curves_OSL <- lapply(temp_curves_OSL, function(o){
+       if("stimulator"%in%names(o@info)){
+         if(grepl(o@info$stimulator, pattern = "LED", fixed = TRUE)){
+           return(o)
+         }
+       }
+      return(NULL)
+     })
+
+     ##remove NULL
+     temp_curves_OSL <- temp_curves_OSL[!sapply(temp_curves_OSL, is.null)]
+
+     ##check whether something is left
+     if(length(temp_curves_OSL) < 2){
+       TP_stimulation_power.value <- NA
+       TP_stimulation_power.stauts <- FALSE
+
+     }else{
+       ##calculate sum of the power
+       TP_stimulation_power.value <-  vapply(temp_curves_OSL, function(x){
+         sum(x@data[,2])
+
+       }, numeric(1))
+
+       ##estimate a theoretical value based on the first value ... it does not
+       ##matter which value is correct or not
+       TP_stimulation_power.value <- abs(1 -
+         sum(TP_stimulation_power.value)/(TP_stimulation_power.value[1] * length(TP_stimulation_power.value)))
+
+       TP_stimulation_power.status <- TP_stimulation_power.value > test_parameters$stimulation_power
+
+       if(TP_stimulation_power.status)
+         warning("Stimulation power was not stable for ALQ ",POSITION, "! Results are likely to be wrong!", call. = FALSE)
+
+     }
+
+     ##remove object
+     rm(temp_curves_OSL)
+
+     ##set data.frame
+     TP_stimulation_power <- data.frame(
+       CRITERIA = "stimulation_power",
+       THRESHOLD = test_parameters$stimulation_power,
+       VALUE = TP_stimulation_power.value,
+       STATUS = TP_stimulation_power.status,
+       stringsAsFactors = FALSE)
+
+   }else{
+     TP_stimulation_power <- data.frame(stringsAsFactors = FALSE)
+
+   }
+
+   ##compile all test parameter df
    df_test_parameters <- rbind(
-     TP_TL_peak_shift)
-
+     TP_TL_peak_shift,
+     TP_stimulation_power)
 
 
   # Terminal output -----------------------------------------------------------------------------
