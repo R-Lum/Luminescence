@@ -510,7 +510,7 @@ analyse_Al2O3C_Measurement <- function(
      ##check whether something is left
      if(length(temp_curves_OSL) < 2){
        TP_stimulation_power.value <- NA
-       TP_stimulation_power.stauts <- FALSE
+       TP_stimulation_power.status <- FALSE
 
      }else{
        ##calculate sum of the power
