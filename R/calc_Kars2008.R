@@ -431,6 +431,7 @@ calc_Kars2008 <- function(data,
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
     fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
+    
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
     else
@@ -452,19 +453,43 @@ calc_Kars2008 <- function(data,
 
   # compute a natural dose response curve following the assumptions of
   # Morthekai et al. 2011, Geochronometria
-  natdosetime <- seq(0, 1e14, length.out = settings$n.MC)
-  natdosetimeGray <- natdosetime * ddot / ka
+  # natdosetime <- seq(0, 1e14, length.out = settings$n.MC)
+  # natdosetimeGray <- natdosetime * ddot / ka
 
   # calculate D0 dose in seconds
   computedD0 <- (fitcoef[ ,2] * readerDdot) / (ddot / ka)
+  
+  # Legacy code:
+  # This is an older approximation to calculate the natural dose response curve,
+  # which sometimes tended to slightly underestimate nN_ss. This is now replaced
+  # with the newer approach below.
+  # compute natural dose response curve
+  # LxTx.sim <- A * theta(natdosetime, rhop[1]) * (1 - exp(-natdosetime / mean(computedD0, na.rm = TRUE) ))
+  # warning("LxTx Curve: ", round(max(LxTx.sim) / A, 3), call. = FALSE)
 
   # compute natural dose response curve
-  LxTx.sim <- A * theta(natdosetime, rhop[1]) * (1 - exp(-natdosetime / mean(computedD0, na.rm = TRUE)))
-
+  ddots <- ddot / ka
+  natdosetimeGray <- seq(0, max(data[ ,1]) * 2, length.out = settings$n.MC)
+  natdosetime <- natdosetimeGray
+  rprime <- seq(0.01, 5, length.out = 500)
+  pr <- 3 * rprime^2 * exp(-rprime^3)
+  K <- Hs * exp(-rhop[1]^-(1/3) * rprime) 
+  TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
+  UFD0 <- mean(fitcoef[ ,2], na.rm = TRUE) * readerDdot
+  
+  for (j in 1:length(natdosetime)) {
+    for (k in 1:length(rprime)) {
+      TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
+    }}
+  
+  LxTx.sim <- colSums(TermA) / sum(pr)
+  
+  # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
+  
   # calculate Age
     positive <- which(diff(LxTx.sim) > 0)
 
-    data.unfaded <- data.frame(dose = c(0, natdosetime[positive] * ddot / ka),
+    data.unfaded <- data.frame(dose = c(0, natdosetimeGray[positive]),
                                LxTx = c(Ln, LxTx.sim[positive]),
                                LxTx.error = c(Ln.error, LxTx.sim[positive] * A.error/A))
 
