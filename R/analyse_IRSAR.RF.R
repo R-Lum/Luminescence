@@ -506,17 +506,17 @@ analyse_IRSAR.RF<- function(
 
   ##MISSING INPUT
   if(missing("object")){
-    stop("[analyse_IRSAR.RF()] No input 'object' set!")
+    stop("[analyse_IRSAR.RF()] No input 'object' set!", call. = FALSE)
   }
 
   ##INPUT OBJECTS
   if(!is(object, "RLum.Analysis")){
-    stop("[analyse_IRSAR.RF()] Input object is not of type 'RLum.Analysis'!")
+    stop("[analyse_IRSAR.RF()] Input object is not of type 'RLum.Analysis'!", call. = FALSE)
   }
 
   ##CHECK OTHER ARGUMENTS
   if(!is(sequence_structure, "character")){
-    stop("[analyse_IRSAR.RF()] argument 'sequence_structure' needs to be of type character.")
+    stop("[analyse_IRSAR.RF()] argument 'sequence_structure' needs to be of type character.", call. = FALSE)
   }
 
     ##n.MC
@@ -633,7 +633,7 @@ analyse_IRSAR.RF<- function(
       warning(paste0(
         "RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
         paste(range(RF_nat.lim), collapse = ":")
-      ),")")
+      ),")", call. = FALSE)
     }
 
   }
@@ -657,7 +657,7 @@ analyse_IRSAR.RF<- function(
       warning(paste0(
         "RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
         paste(range(RF_reg.lim), collapse = ":")
-      ),")")
+      ),")", call. = FALSE)
 
     }
   }
@@ -667,7 +667,7 @@ analyse_IRSAR.RF<- function(
     RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
 
     warning(paste0("Length intervall RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
-                   paste(range(RF_reg.lim), collapse=":")),")")
+                   paste(range(RF_reg.lim), collapse=":")),")", call. = FALSE)
 
   }
 
@@ -696,7 +696,7 @@ analyse_IRSAR.RF<- function(
   if(!is.null(method.control)){
 
     if(!is(method.control, "list")){
-      stop("[analyse_IRSAR.RF()] 'method.control' has to be of type 'list'!")
+      stop("[analyse_IRSAR.RF()] 'method.control' has to be of type 'list'!", call. = FALSE)
 
     }
 
@@ -711,7 +711,7 @@ analyse_IRSAR.RF<- function(
         paste(names(method.control.settings), collapse = ", ")
       )
 
-      warning(temp.text)
+      warning(temp.text, call. = FALSE)
       rm(temp.text)
 
     }
