@@ -650,7 +650,6 @@ calc_Kars2008 <- function(data,
            type = "l",
            lty = 2)
 
-
     # Ln and DE as points
     points(x = c(0, De.measured),
            y = c(Ln, Ln),
