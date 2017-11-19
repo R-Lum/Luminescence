@@ -25,6 +25,7 @@ revdep
 R/README\.md
 NEWS_cache
 NEWS_files
+CODE_OF_CONDUCT.md
 
 # Exclude RLum related stuff
 ^RLum.*$
