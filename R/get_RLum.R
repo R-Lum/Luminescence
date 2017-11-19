@@ -19,7 +19,7 @@
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -65,7 +65,7 @@ setMethod("get_RLum",
 
                 ##it might be the case the object already comes with empty objects, this would
                 ##cause a crash
-                if(is(object[[x]], "RLum.Analysis") && length(object[[x]]@records) == 0)
+                if(class(object[[x]]) == "RLum.Analysis" && length(object[[x]]@records) == 0)
                   return(NULL)
 
                 get_RLum(object[[x]], ...)
@@ -87,7 +87,7 @@ setMethod("get_RLum",
 
               ##first set all empty objects to NULL ... for RLum.Analysis objects
               selection <- lapply(1:length(selection), function(x){
-                if(is(selection[[x]], "RLum.Analysis") && length(selection[[x]]@records) == 0){
+                if(class(selection[[x]]) == "RLum.Analysis" && length(selection[[x]]@records) == 0){
                   return(NULL)
 
                 }else{
