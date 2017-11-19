@@ -5,17 +5,15 @@
 #' returned.
 #'
 #' @param ID [character] (*optional*): qoute ID to be returned.
-#' 
-#' @param author [character] (*optional*): all quotes by specified author.
-#' 
+#'
 #' @param separated [logical] (*with default*): return result in separated form.
-#' 
+#'
 #' @return Returns a character with quote and respective (false) author.
-#' 
-#' @section Function version: 0.1.1
-#' 
+#'
+#' @section Function version: 0.1.2
+#'
 #' @author Michael Dietze, GFZ Potsdam (Germany)
-#' 
+#'
 #' @examples
 #'
 #' ## ask for an arbitrary qoute
@@ -25,7 +23,6 @@
 #' @export
 get_Quote <- function(
   ID,
-  author,
   separated = FALSE
 ) {
 
@@ -74,13 +71,10 @@ get_Quote <- function(
     )
 
   ## Check input data
-  if(missing(ID) == TRUE & missing(author) == TRUE) {
+  if(missing(ID) == TRUE) {
     ID <- sample(x = seq(from = 1,
                          to = nrow(quotes)),
                  size = 1)
-  } else if(missing(ID) == TRUE) {
-    ID <- seq(from = 1,
-              to = nrow(quotes))[quotes[,1] == author]
   }
 
   ## check for correct ID and generate qoute
