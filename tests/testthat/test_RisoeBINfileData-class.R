@@ -12,5 +12,10 @@ test_that("Check the example and the numerical values", {
 
   ##check object
   expect_is(temp, class = "Risoe.BINfileData")
+  expect_output(show(temp))
+
+  ##show method
+  data(ExampleData.BINfileData, envir = environment())
+  expect_output(show(CWOSL.SAR.Data))
 
 })
