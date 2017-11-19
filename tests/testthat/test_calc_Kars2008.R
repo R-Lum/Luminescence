@@ -47,7 +47,7 @@ test_that("check values from analyse_FadingMeasurement()", {
 
 test_that("check values from calc_Kars2008()", {
   testthat::skip_on_cran()
-  expect_equal(round(sum(kars$results),0), 2562)
+  expect_equal(round(sum(kars$results),0), 2794)
   expect_equal(round(sum(kars$data),0), 191530)
   expect_equal(round(sum(kars$Ln),4), 0.1585)
   expect_equal(round(sum(residuals(kars$fits$simulated)),4),  0)
@@ -55,3 +55,4 @@ test_that("check values from calc_Kars2008()", {
   expect_equal(round(sum(residuals(kars$fits$unfaded)),4),  1.6293)
 
 })
+
