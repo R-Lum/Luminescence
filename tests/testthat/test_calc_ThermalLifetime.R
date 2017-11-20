@@ -1,6 +1,5 @@
 context("calc_ThermalLifetime")
 
-
 ##EXAMPLE 1
 ##calculation for two trap-depths with similar frequency factor for different temperatures
 E <- c(1.66, 1.70)
@@ -78,4 +77,26 @@ test_that("check values from output example 2", {
   expect_equal(is(temp$lifetimes), c("numeric", "vector"))
   expect_equal(length(temp$lifetimes), 1000)
   expect_equal(dim(temp$profiling_matrix), c(1000, 4))
+
+
+
+})
+
+
+test_that("check arguments", {
+  testthat::skip_on_cran()
+
+  ##missing E and/or s
+  expect_error(calc_ThermalLifetime())
+
+  ##profiling settings
+  expect_warning(calc_ThermalLifetime(E = 1.4, s = 1e05, profiling_config = list(n = 10)))
+  expect_error(calc_ThermalLifetime(E = 1.4, s = 1e05, profiling = TRUE, profiling_config = list(E.distribution = "test")))
+  expect_error(calc_ThermalLifetime(E = 1.4, s = 1e05, profiling = TRUE, profiling_config = list(s.distribution = "test")))
+
+  ##output
+  expect_warning(calc_ThermalLifetime(E = 1.4, s = 1e05, output_unit = "test"))
+  expect_output(calc_ThermalLifetime(E = 1.4, s = 1e05, verbose = TRUE))
+  expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03), plot = TRUE, profiling = TRUE))
+
 })
