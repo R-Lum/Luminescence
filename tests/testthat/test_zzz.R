@@ -15,5 +15,7 @@ test_that("Test zzz functions ... they should still work", {
 
   ##tune data
   expect_warning(tune_Data(1:10))
+  expect_warning(tune_Data(data.frame(runif(n = 10, 8,12),runif(n = 10, 0.1,0.3) ), decrease.error = TRUE))
+  expect_warning(tune_Data(data.frame(runif(n = 10, 8,12),runif(n = 10, 0.1,0.3) ), increase.data = TRUE))
 
 })
