@@ -142,7 +142,7 @@
 #' @return
 #' Returns the same object as the input and a warning table
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -161,8 +161,9 @@
   method = "mean") {
 
   ##set k
-  if (is.null(k)) k <- ceiling(length(x) / 100)
-    if(method == "median" && k %%2 !=0) k <- k + 1
+  if (is.null(k)) k <- ceiling(length(x) / 100){
+   if(method == "median" && k %%2 ==0) k <- k + 1
+  }
 
   ##smooth data
   if(method == "mean"){
