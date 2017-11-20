@@ -170,7 +170,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.2.0 (2017-09-02 23:27:03)
+ 0.3.0
 }
 
 \examples{

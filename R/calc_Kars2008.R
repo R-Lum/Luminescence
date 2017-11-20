@@ -158,7 +158,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author
 #' Georgina King, University of Cologne (Germany)\cr
