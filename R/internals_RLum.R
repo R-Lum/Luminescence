@@ -161,8 +161,10 @@
   method = "mean") {
 
   ##set k
-  if (is.null(k)) k <- ceiling(length(x) / 100){
-   if(method == "median" && k %%2 ==0) k <- k + 1
+  if (is.null(k)){
+   k <- ceiling(length(x) / 100)
+   if(method == "median" && k %%2 ==0)
+     k <- k + 1
   }
 
   ##smooth data
