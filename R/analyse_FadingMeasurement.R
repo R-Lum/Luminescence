@@ -23,12 +23,23 @@
 #' [stats::nls] is used without applying weights. For the error estimation the same
 #' procedure as for the g-value is applied (see above).
 #'
+#' **Multiple aliquots & Lx/Tx normalisation**
+#' 
+#' Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+#' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
+#' inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+#' of each aliquot by its individual prompt measurement please do so **before** running
+#' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
+#' 
 #' @param object [RLum.Analysis-class] (**required**): 
 #' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
 #' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
+#' 
+#' If data from multiple aliquots are provided please **see the details below** with regard to
+#' Lx/Tx normalisation.
 #'
 #' @param structure [character] (*with default*): 
 #' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`. 
@@ -259,7 +270,7 @@ analyse_FadingMeasurement <- function(
       Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
 
       ##we need only every 2nd irradiation time, the one from the Tx should be the same ... all the time
-      TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by =2)]
+      TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by = 2)]
 
 
     }else if(length(structure) == 1){

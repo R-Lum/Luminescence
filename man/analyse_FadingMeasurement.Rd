@@ -14,7 +14,10 @@ input object with the measurement data. Alternatively, a \link{list} containing 
 objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
-and where each triplet has the before mentioned column structure.}
+and where each triplet has the before mentioned column structure.
+
+If data from multiple aliquots are provided please \strong{see the details below} with regard to
+Lx/Tx normalisation.}
 
 \item{structure}{\link{character} (\emph{with default}):
 sets the structure of the measurement data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}.
@@ -95,12 +98,20 @@ The density of recombination centres, expressed by the dimensionless variable rh
 by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
 \link[stats:nls]{stats::nls} is used without applying weights. For the error estimation the same
 procedure as for the g-value is applied (see above).
+
+\strong{Multiple aliquots & Lx/Tx normalisation}
+
+Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
+inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+of each aliquot by its individual prompt measurement please do so \strong{before} running
+\link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \note{
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.5 (2017-09-02 23:27:03)
+ 0.1.5
 }
 
 \examples{
@@ -126,12 +137,7 @@ g_value = g_value,
 n.MC = 10)
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
@@ -150,5 +156,5 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
