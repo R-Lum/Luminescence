@@ -195,6 +195,7 @@ Collate:
     'template_DRAC.R'
     'tune_Data.R'
     'use_DRAC.R'
+    'utils_DRAC.R'
     'verify_SingleGrainData.R'
     'write_R2BIN.R'
     'write_RLum2CSV.R'
