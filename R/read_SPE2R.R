@@ -126,7 +126,7 @@ read_SPE2R <- function(
 
         ##dowload file
         file_link <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
-        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
+        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE}, mode = "wb")
         file <- file_link
 
       }else{
