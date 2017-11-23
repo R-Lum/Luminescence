@@ -3,7 +3,77 @@
 # subset the DRAC reference list
 # 'x' is the input table from use_DRAC()
 get_DRAC_references <- function(x) {
+  
   refs <- DRAC_refs()
+  refs_names <- names(refs)
+  
+  used <- list(refs = NULL, desc = NULL)
+  
+  # TI:4 - Conversion factors
+  ref_tmp <- unique(x$`TI:4`)
+  for (i in 1:length(ref_tmp)) {
+    if (ref_tmp[i] == "X") 
+      next
+    used$refs <- c(used$refs, refs[refs_names %in% ref_tmp[i]])
+    used$desc <- c(used$desc, "Conversion factors")
+  }
+  
+  # TI:13 - External Rubidium
+  ref_tmp <- unique(x$`TI:13`)
+  if (any(ref_tmp == "Y")) {
+    used$refs <- c(used$refs, refs["Mejdahl1987"])
+    used$desc <- c(used$desc, "External rubidium")
+  }
+  
+  # TI:22 - Internal Rubidium
+  ref_tmp <- unique(x$`TI:22`)
+  if (any(ref_tmp == "Y")) {
+    used$refs <- c(used$refs, refs["Mejdahl1987"])
+    used$desc <- c(used$desc, "Internal rubidium")
+  }
+  
+  # TI:31 - Gamma dose rate scaling
+  ref_tmp <- unique(x$`TI:31`)
+  if (any(ref_tmp == "Y")) {
+    used$refs <- c(used$refs, refs["Aitken1985"])
+    used$desc <- c(used$desc, "Gamma dose rate scaling")
+  }
+  
+  # TI:34 - alpha grain size attenuation
+  ref_tmp <- unique(x$`TI:34`)
+  for (i in 1:length(ref_tmp)) {
+    if (ref_tmp[i] == "X") 
+      next
+    used$refs <- c(used$refs, refs[refs_names %in% ref_tmp[i]])
+    used$desc <- c(used$desc, "Alpha grain size attenuation factors")
+  }
+  
+  # TI:35 - Beta grain size attenuation
+  ref_tmp <- unique(x$`TI:35`)
+  for (i in 1:length(ref_tmp)) {
+    if (ref_tmp[i] == "X") 
+      next
+    used$refs <- c(used$refs, refs[refs_names %in% ref_tmp[i]])
+    used$desc <- c(used$desc, "Beta grain size attenuation factors")
+  }
+  
+  # TI:38 - beta etch attenuation factor
+  ref_tmp <- unique(x$`TI:38`)
+  for (i in 1:length(ref_tmp)) {
+    if (ref_tmp[i] == "X") 
+      next
+    used$refs <- c(used$refs, refs[refs_names %in% ref_tmp[i]])
+    used$desc <- c(used$desc, "Beta etch attenuation factor")
+  }
+  
+  # TI:50 - Cosmic dose rate
+  ref_tmp <- unique(x$`TI:50`)
+  if (any(ref_tmp == "X")) {
+    used$refs <- c(used$refs, refs[c("PrescottHutton1994", "PrescottStephan1982")])
+    used$desc <- c(used$desc, c("Cosmic dose rate", "Cosmic dose rate"))
+  }
+ 
+  return(used)
 }
 
 ## REFERENCE LIST --------------------------------------------------------------
@@ -148,7 +218,23 @@ DRAC_refs <- function() {
       pages = "299-303"
     ),
     
-    Guerinetal2012 = bibentry(
+    `Guerinetal2012-Q` = bibentry(
+      bibtype = "Article", 
+      author = c(
+        person("G.", "Guerin"),
+        person("N.", "Mercier"),
+        person("R.", "Nathan"),
+        person("G.", "Adamiec"),
+        person("Y.", "Lefrais")
+      ), 
+      title = "On the use of the infinite matrix assumption and associated concepts: A critical review", 
+      year = "2012",
+      journal = "Radiation Measurements",
+      volume = "47",
+      pages = "778-785"
+    ),
+    
+    `Guerinetal2012-F` = bibentry(
       bibtype = "Article", 
       author = c(
         person("G.", "Guerin"),

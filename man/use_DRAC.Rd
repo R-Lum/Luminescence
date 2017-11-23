@@ -4,7 +4,7 @@
 \alias{use_DRAC}
 \title{Use DRAC to calculate dose rate data}
 \usage{
-use_DRAC(file, name, ...)
+use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
@@ -13,6 +13,14 @@ DRAC template object obtained from \code{template_DRAC()}.}
 
 \item{name}{\link{character} (\emph{with defautl}):
 Optional user name submitted to DRAC. If omitted, a random name will be generated}
+
+\item{print_references}{(\emph{with default}):
+Print all references used in the input data table to the console.}
+
+\item{citation_style}{(\emph{with default}):
+If \code{print_references = TRUE} this argument determines the output style of the
+used references. Valid options are \code{"Bibtex"}, \code{"citation"}, \code{"html"}, \code{"latex"}
+or \code{"R"}. Default is \code{"text"}.}
 
 \item{...}{Further arguments.
 \itemize{
@@ -32,6 +40,7 @@ Returns an \linkS4class{RLum.Results} object containing the following elements:
 \code{$content} \tab \link{data.frame} \tab complete DRAC input/output table \cr
 \code{$input} \tab \link{data.frame} \tab DRAC input table \cr
 \code{$output} \tab \link{data.frame} \tab DRAC output table \cr
+\code{references}\tab \link{list} \tab A list of \link{bibentry}s of used references \cr
 }
 
 }
@@ -47,7 +56,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.1 (2017-09-02 23:27:03)
+ 0.1.2
 }
 
 \examples{
@@ -100,12 +109,7 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C. (2017). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
@@ -114,4 +118,4 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}

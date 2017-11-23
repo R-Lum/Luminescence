@@ -11,6 +11,14 @@
 #'
 #' @param name [character] (*with defautl*): 
 #' Optional user name submitted to DRAC. If omitted, a random name will be generated
+#' 
+#' @param print_references (*with default*):
+#' Print all references used in the input data table to the console.
+#' 
+#' @param citation_style (*with default*):
+#' If `print_references = TRUE` this argument determines the output style of the
+#' used references. Valid options are `"Bibtex"`, `"citation"`, `"html"`, `"latex"`
+#' or `"R"`. Default is `"text"`.
 #'
 #' @param ... Further arguments.
 #' 
@@ -28,6 +36,7 @@
 #'    `$content` \tab [data.frame] \tab complete DRAC input/output table \cr
 #'    `$input` \tab [data.frame] \tab DRAC input table \cr
 #'    `$output` \tab [data.frame] \tab DRAC output table \cr
+#'    `references`\tab [list] \tab A list of [bibentry]s of used references \cr
 #' }
 #'
 #' }
@@ -37,7 +46,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author 
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -103,6 +112,8 @@
 use_DRAC <- function(
   file,
   name,
+  print_references = TRUE,
+  citation_style = "text",
   ...
 ){
   ## TODO:
@@ -356,6 +367,16 @@ use_DRAC <- function(
   
   if (settings$verbose) lapply(messages, message)
   
+  ## Get and print used references
+  references <- get_DRAC_references(DRAC.content.input)
+  
+  if (print_references && settings$verbose) {
+    for (i in 1:length(references$refs)) {
+      message("\nReference for: ", references$desc[i])
+      print(references$refs[[i]], style = citation_style)
+    }
+  }
+  
   
   ## return output
   DRAC.return <- set_RLum("RLum.Results",
@@ -365,7 +386,8 @@ use_DRAC <- function(
                                         labels = DRAC.labels,
                                         content = DRAC.content,
                                         input = DRAC.content.input,
-                                        output = DRAC.content.output),
+                                        output = DRAC.content.output,
+                                        references = references),
                             data = file,
                             call = sys.call(),
                             args = as.list(sys.call()[-1])))
