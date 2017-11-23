@@ -148,7 +148,7 @@ read_SPE2R <- function(
 
   ##check file extension
   ##TODO this test is not stable, but the best for the moment
-  if(!grepl(file, pattern = "SPE", fixed = TRUE)){
+  if(!grepl(file, pattern = "SPE$", ignore.case = TRUE)){
     if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
       temp.text <- paste("[read_SPE2R()] Unsupported file format: *.",
                          strsplit(file, split = "\\.")[[1]][2], sep = "")
