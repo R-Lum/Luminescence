@@ -140,7 +140,9 @@ Changes in version 0.8.0 ( ,2017):
 
          • ‘read_SPE2R()’
 
-             • Add support for internet connections.
+             • Add support for internet connections,
+
+             • fix unclear file extension recognition.
 
          • ‘write_R2BIN()’
 

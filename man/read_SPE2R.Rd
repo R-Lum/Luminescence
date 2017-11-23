@@ -71,7 +71,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.1 (2017-09-14 11:57:33)
+ 0.1.2 (2017-11-23 13:47:37)
 }
 
 \examples{
@@ -102,7 +102,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -116,6 +116,6 @@ Hall, C., 2012: readSPE.m.
 \link{readBin}, \linkS4class{RLum.Data.Spectrum}, \link[raster:raster]{raster::raster}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{IO}

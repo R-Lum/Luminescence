@@ -58,10 +58,10 @@
 #'
 #' *Currently not all information provided by the SPE format are supported.*
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [readBin], [RLum.Data.Spectrum-class], [raster::raster]
 #'
@@ -125,7 +125,7 @@ read_SPE2R <- function(
         if(verbose) cat("OK")
 
         ##dowload file
-        file_link <- tempfile("read_SPE2R_FILE")
+        file_link <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
         download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
         file <- file_link
 
@@ -147,13 +147,12 @@ read_SPE2R <- function(
   }
 
   ##check file extension
-  ##TODO this test is not stable, but the best for the moment
-  if(!grepl(file, pattern = "SPE$", ignore.case = TRUE)){
+  if(!grepl(basename(file), pattern = "SPE$", ignore.case = TRUE)){
     if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
       temp.text <- paste("[read_SPE2R()] Unsupported file format: *.",
                          strsplit(file, split = "\\.")[[1]][2], sep = "")
 
-      stop(temp.text)
+      stop(temp.text, call. = FALSE)
 
   }}
 

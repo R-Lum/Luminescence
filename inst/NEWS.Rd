@@ -69,7 +69,7 @@
            of the function, even the new structure was correctly specified; fixed (#61).
      }
    }
-   
+
       \item \code{calc_Kars2008()}{
         \itemize{
          \item In some cases the calculated LxTx values of the simulated natural
@@ -77,10 +77,10 @@
          differed from the individually calculated nN(ss) value. The approach
          to calculate the natural DRC was changed and now yields a maximum LxTx
          value indistinguishable from nN(ss).
-         
+
          \item Numeric output in the plot should now always be inside the plotting
          frame.
-         
+
          \item The number of digits for the numeric output in the plot was slightly
          adjusted.
 
@@ -163,7 +163,8 @@
 
     \item \code{read_SPE2R()}{
         \itemize{
-         \item Add support for internet connections.
+         \item Add support for internet connections,
+         \item fix unclear file extension recognition.
 
 
     }
