@@ -94,12 +94,16 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2017-10-27 12:55:51)
+ 0.1.1 (2017-11-24 14:28:24)
 }
 
 \examples{
 
-## nothing so far TODO ... add tests with example
+##load data
+data(ExampleData.Al2O3C, envir = environment())
+
+##run analysis
+analyse_Al2O3C_ITC(data_ITC)
 
 } 
 

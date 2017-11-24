@@ -71,12 +71,16 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.2 (2017-09-02 23:27:02)
+ 0.1.2 (2017-11-24 14:28:59)
 }
 
 \examples{
 
-## nothing so far TODO ... add tests with example
+##load data
+data(ExampleData.Al2O3C, envir = environment())
+
+##run analysis
+analyse_Al2O3C_CrossTalk(data_CrossTalk)
 
 } 
 

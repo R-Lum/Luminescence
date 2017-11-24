@@ -101,7 +101,11 @@
 #'
 #' @examples
 #'
-#' ## nothing so far TODO ... add tests with example
+#' ##load data
+#' data(ExampleData.Al2O3C, envir = environment())
+#'
+#' ##run analysis
+#' analyse_Al2O3C_Measurement(data_CrossTalk)
 #'
 #' @md
 #' @export

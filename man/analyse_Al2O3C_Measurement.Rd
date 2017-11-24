@@ -103,12 +103,16 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.1.8 (2017-11-16 12:12:31)
+ 0.1.8 (2017-11-24 14:27:22)
 }
 
 \examples{
 
-## nothing so far TODO ... add tests with example
+##load data
+data(ExampleData.Al2O3C, envir = environment())
+
+##run analysis
+analyse_Al2O3C_Measurement(data_CrossTalk)
 
 } 
 
