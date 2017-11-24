@@ -76,8 +76,8 @@ mu <- 0.9
 x <- seq(0, 10, 0.1)
 Ddot <- 2.5   / 1000 / 365.25 / 24 / 60 / 60 # 2.5 Gy/ka in Seconds
 D0 <- 40
-fun <- (sigmaphi * exp(-mu * x) * 
-          exp(-(age * 365.25*24*3600) * 
+fun <- (sigmaphi * exp(-mu * x) *
+          exp(-(age * 365.25*24*3600) *
                 (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
   (sigmaphi * exp(-mu * x) + Ddot/D0)
 
@@ -98,7 +98,7 @@ x <- seq(0, 15, 0.2)
 age <- c(1e3, 1e4, 1e5, 1e6)
 set.seed(666)
 
-synth_3 <- vector("list", length = length(age)) 
+synth_3 <- vector("list", length = length(age))
 
 for (i in 1:length(age)) {
   fun <- exp(-sigmaphi * age[i] * 365.25*24*3600 * exp(-mu * x))
@@ -121,14 +121,14 @@ Ddot <- 1.0 / 1000 / 365.25 / 24 / 60 / 60 # 2.0 Gy/ka in Seconds
 D0 <- 40
 set.seed(666)
 
-synth_4 <- vector("list", length = length(age)) 
+synth_4 <- vector("list", length = length(age))
 
 for (i in 1:length(age)) {
-  fun <- (sigmaphi * exp(-mu * x) * 
-            exp(-(age[i] * 365.25*24*3600) * 
+  fun <- (sigmaphi * exp(-mu * x) *
+            exp(-(age[i] * 365.25*24*3600) *
                   (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
     (sigmaphi * exp(-mu * x) + Ddot/D0)
-  
+
   synth_4[[i]] <- data.frame(depth = x,
                              intensity = jitter(fun, 1, 0.05))
 }

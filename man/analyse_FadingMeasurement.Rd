@@ -111,7 +111,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.5
+ 0.1.5 (2017-11-23 13:29:21)
 }
 
 \examples{
@@ -137,7 +137,12 @@ g_value = g_value,
 n.MC = 10)
 
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
@@ -156,5 +161,5 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

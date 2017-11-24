@@ -123,7 +123,7 @@ can be fully customised by disabling the standard legend and use the function \l
 instead.
 }
 \section{Function version}{
- 0.3.0 (2017-09-02 23:29:24)
+ 0.3.0 (2017-11-09 11:07:36)
 }
 
 \examples{
@@ -148,8 +148,8 @@ plot(results$OD_total)
 
 \dontrun{
 ##Example 4
-##show the filters using the interative mode
-plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
+##show the filters using the interactive mode
+plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 
 }
 
