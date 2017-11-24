@@ -12,16 +12,16 @@ vignette: >
 ---
 
 # Scope
-The package 'Luminescence' offers three distinct functions dealing with the analysis of Al$_{2}$O$_{3}$:C pellet measurements:
+The package 'Luminescence' offers three distinct functions dealing with the analysis of Al$_{2}$O$_{3}$:C chip measurements:
 
 1. `analyse_Al2O3C_ITC()`
 2. `analyse_Al2O3C_CrossTalk()`
 3. `analyse_Al2O3C_Measurement()`
 
-Only the last function is really needed to routinely estimate the (environmental $\gamma$-) dose the pellet had received. However, the first two functions are needed to correct for equipment related issues. If you have already performed the first two analyses or you do not feel the need for them, you can directly start with the Sec. [4](#Al2O3_Dose_Determination).
+Only the last function is usually needed to routinely estimate the (environmental $\gamma$-) dose the chip had received. However, the first two functions are needed to correct for equipment related issues. If you have already performed the first two analyses or you do not feel the need for them, you can directly start with the Sec. [4](#Al2O3_Dose_Determination).
 
-The following tutorial assumes that all measurements have been performed on a Freiberg Instruments *lexsyg SMART* luminescence reader (Richter et al., 2015). Nevertheless, the general procedure should work also for other luminescence readers. However, please keep in mind that for readers without a separate measurement chamber the determination 
-of the cross talk becomes indispensable and should not be skipped.  
+The following tutorial assumes that all measurements have been performed on a Freiberg Instruments *lexsyg SMART* luminescence reader (Richter et al., 2015). Nevertheless, the general procedure should also work for other luminescence readers. However, please keep in mind that for readers without a separate measurement chamber the determination 
+of the irradiation cross-talk becomes indispensable and should not be skipped.  
 
 Please further note that this vignette covers only the **R** related part of the data analysis and will 
 not explain the theoretical and physical background. Please see Kreutzer et al. (XXXX), for details. 
@@ -47,7 +47,7 @@ temp_CAL_info <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", impo
 To determine the irradiation time correction factor the function `analyse_Al2O3C_ITC()` is used. The measurement 
 sequence is based on the suggestions made by Kreutzer et al. (XXXX). To import the measurement data run the function 
 `read_XSYG2R()`. The curve selection is done automatically by the function using the argument `recordType` (preset). 
-Modify this argument if the selection here does not fit to your equipment. 
+Modify this argument if the selection here does not fit your equipment. 
 
 ```{r,eval = FALSE}
 library(Luminescence)
@@ -75,7 +75,7 @@ results_ITC <- analyse_Al2O3C_ITC(object = data_ITC)
 The analysis returns a plot (Fig.\ref{fig:Fig1}) and the output is stored in the object `results_ITC` and will be used later.  
 \clearpage{}
 
-# Irradiation crosstalk estimation
+# Irradiation cross-talk estimation
 
 ## Data import
 
@@ -110,8 +110,8 @@ results_CT <- analyse_Al2O3C_CrossTalk(
 
 # Al$_{2}$O$_{3}$:C dose determination {#Al2O3_Dose_Determination}
 
-This section describes the workflow for the final apparent dose estimation of an Al$_{2}$O$_{3}$ pellet. 
-The analyses done above are not necessary, but recommended to correct for the equipment characteristics. 
+This section describes the workflow for the final apparent dose estimation of an Al$_{2}$O$_{3}$ chip. 
+The analyses done above are not necessary but recommended to correct for the equipment characteristics. 
 
 ## Data import
 
@@ -126,9 +126,9 @@ data_EnvD
 
 ## Data analysis
 
-For the analysis of the environmental dose the Al$_{2}$O$_{3}$ pellets received, the results from the estimation 
+For the analysis of the environmental dose the Al$_{2}$O$_{3}$ chips received, the results from the estimation 
 of the irradiation time correction analysis and the cross-talk measurements are provided as input 
-objects. The function automatically correct for both effects. If this is not wanted the arguments 
+objects. The function automatically corrects for both effects. If this is not wanted the arguments 
 can be set to `NULL` (the default)
 
 ```{r, eval = FALSE, echo = TRUE, fig.height = 4, fig.width=8, fig.align="center"}
@@ -138,7 +138,7 @@ results_EnvD <- analyse_Al2O3C_Measurement(
   cross_talk_correction = results_CT)
 ```
 
-```{r, echo = FALSE, fig.height = 4, fig.width=8, fig.align="center", fig.cap="Representive curve plots for one pellet. Shown are OSL and TL curves."}
+```{r, echo = FALSE, fig.height = 4, fig.width=8, fig.align="center", fig.cap="Representive curve plots for one chip. Shown are OSL and TL curves."}
 analyse_Al2O3C_Measurement(
   object = data_EnvD[[2]], 
   irradiation_time_correction = results_ITC, 
@@ -153,7 +153,7 @@ results_EnvD <- analyse_Al2O3C_Measurement(
   verbose = FALSE, plot = FALSE)
 ```
 
-For this example six Al$_{2}$O$_{3}$:C pellets have been measured. The function returns an object
+For this example six Al$_{2}$O$_{3}$:C chips have been measured. The function returns an object
 of type `RLum.Results`:
 
 ```{r}
@@ -196,10 +196,8 @@ To further data processing steps might be of particular interest in the given co
 
 ### Travel dosimeter(s)
 
-Usually, the data set to analyse contains pellets, which were used as travel dosimeters, i.e. this 
-pellets were reset in the field at the time the other dosimeters were taken and then transported
-along with the field dosimeters. The dose of the travel dosimeters is subtracted from the determined
-dose of the field dosimeters. This can be done manually or automatically using the argument `travel_dosimeter` in the function `analyse_Al2O3C_Measurement()`. For the data set given above the analysis can be used 
+Usually, the data set to analyse contains chips, which were used as travel dosimeters, i.e. this chips were reset in the field at the time the other dosimeters were taken and then transported
+along with the field dosimeters. The dose of the travel dosimeters is subtracted from the measured dose of the field dosimeters. This can be done manually or automatically using the argument `travel_dosimeter` in the function `analyse_Al2O3C_Measurement()`. For the data set given above the analysis can be used 
 as follows, assuming that the travel dosimeters were placed on measurement position 2 and 3:  
 
 ```{r, echo = TRUE}
@@ -221,14 +219,14 @@ results_EnvD_alternative$data_TDcorrected
 
 ### Gray to seconds 
 
-So far all returned values had the unit s (seconds), however, usually the energy dose is wanted. 
-The transform the values from the time domain to the dose domain, the function `Second2Gray()` 
+So far all returned values had the unit s (seconds), however, usually, the energy dose is wanted. 
+To transform the values from the time domain to the dose domain, the function `Second2Gray()` 
 can be used. 
 
 # Ease your workflow
 
 The analysis steps for the irradiation time correction and the irradiation cross-talk estimation 
-might do not wanted to be repeated for every analysis. Thus, **R** allows the save results 
+might do not want to be repeated for every analysis. Thus, **R** allows the save results 
 and recall them for the next analysis using the functions `save()` and `load()` 
 
 ```{r, eval = FALSE}
