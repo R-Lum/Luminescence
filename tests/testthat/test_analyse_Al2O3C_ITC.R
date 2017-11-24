@@ -14,9 +14,13 @@ test_that("Full check", {
    object <- set_RLum(class = "RLum.Analysis", records = list(a,b))
    expect_error(object = analyse_Al2O3_ITC(object))
 
-   ##signal_integral
-   object <- set_RLum(class = "RLum.Analysis", records = list(a, a))
-   #expect_warning(object = analyse_Al2O3_ITC(object, signal_integral = 1:100))
+   ##check with example data
+   ##load data
+   data(ExampleData.Al2O3C, envir = environment())
+
+   ##run analysis
+   expect_is(analyse_Al2O3C_ITC(data_ITC), "RLum.Results")
+
 
 
 
