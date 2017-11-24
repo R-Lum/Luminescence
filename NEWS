@@ -37,6 +37,10 @@ Changes in version 0.8.0 ( ,2017):
            fit_SurfaceExposure() functionality. See
            ?ExampleData.SurfaceExposure for details.
 
+         • ‘ExampleData.Al2O3C’: Al2O3:C chips measurement data to
+           supplement the newly implemented functions to analyse
+           Al2O3:C data.
+
   S4-classes and methods:
 
          • The ‘RLum.Analysis’ show method failed for

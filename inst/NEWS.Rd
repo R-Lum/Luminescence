@@ -40,6 +40,10 @@
         the fit_SurfaceExposure() functionality. See ?ExampleData.SurfaceExposure
         for details.
 
+        \item \code{ExampleData.Al2O3C}:
+        Al2O3:C chips measurement data to supplement the newly implemented functions to analyse
+        Al2O3:C data.
+
 
     }
   }

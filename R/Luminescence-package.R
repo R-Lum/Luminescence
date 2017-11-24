@@ -847,29 +847,29 @@ NULL
 #' [fit_SurfaceExposure] functionality. See examples to reproduce the data
 #' interactively.
 #'
-#' @details 
-#' 
+#' @details
+#'
 #' **`$sample_1`**
-#' 
+#'
 #' \tabular{ccc}{
 #' **mu** \tab **sigmaphi** \tab **age** \cr
 #'   0.9 \tab 5e-10 \tab 10000 \cr
 #' }
-#' 
+#'
 #' **`$sample_2`**
-#' 
+#'
 #' \tabular{ccccc}{
 #' **mu** \tab **sigmaphi** \tab **age** \tab **Dose rate** \tab **D0** \cr
 #'   0.9 \tab 5e-10 \tab 10000 \tab 2.5 \tab 40 \cr
 #' }
-#' 
+#'
 #' **`$set_1`**
-#' 
+#'
 #' \tabular{ccc}{
 #' **mu** \tab **sigmaphi** \tab **ages** \cr
 #'   0.9 \tab 5e-10 \tab 1e3, 1e4, 1e5, 1e6 \cr
 #' }
-#' 
+#'
 #' **`$set_2`**
 #'
 #' \tabular{ccccc}{
@@ -878,7 +878,7 @@ NULL
 #' }
 #'
 #' @format A [list] with 4 elements:
-#' 
+#'
 #' \tabular{ll}{
 #' **Element** \tab **Content** \cr
 #' `$sample_1` \tab A [data.frame] with 3 columns (depth, intensity, error) \cr
@@ -894,25 +894,25 @@ NULL
 #' See examples for the code used to create the data sets.
 #'
 #' @examples
-#' 
+#'
 #' ## ExampleData.SurfaceExposure$sample_1
 #' sigmaphi <- 5e-10
 #' age <- 10000
 #' mu <- 0.9
 #' x <- seq(0, 10, 0.1)
 #' fun <- exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x))
-#' 
+#'
 #' set.seed(666)
 #' synth_1 <- data.frame(depth = x,
 #'                       intensity = jitter(fun, 1, 0.1),
 #'                       error = runif(length(x), 0.01, 0.2))
-#' 
+#'
 #' ## VALIDATE sample_1
 #' fit_SurfaceExposure(synth_1, mu = mu, sigmaphi = sigmaphi)
-#' 
-#' 
-#' 
-#' 
+#'
+#'
+#'
+#'
 #' ## ExampleData.SurfaceExposure$sample_2
 #' sigmaphi <- 5e-10
 #' age <- 10000
@@ -920,42 +920,42 @@ NULL
 #' x <- seq(0, 10, 0.1)
 #' Ddot <- 2.5   / 1000 / 365.25 / 24 / 60 / 60 # 2.5 Gy/ka in Seconds
 #' D0 <- 40
-#' fun <- (sigmaphi * exp(-mu * x) * 
-#'           exp(-(age * 365.25*24*3600) * 
+#' fun <- (sigmaphi * exp(-mu * x) *
+#'           exp(-(age * 365.25*24*3600) *
 #'                 (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
 #'   (sigmaphi * exp(-mu * x) + Ddot/D0)
-#' 
+#'
 #' set.seed(666)
 #' synth_2 <- data.frame(depth = x,
 #'                       intensity = jitter(fun, 1, 0.1),
 #'                       error = runif(length(x), 0.01, 0.2))
-#' 
+#'
 #' ## VALIDATE sample_2
 #' fit_SurfaceExposure(synth_2, mu = mu, sigmaphi = sigmaphi, Ddot = 2.5, D0 = D0)
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' ## ExampleData.SurfaceExposure$set_1
 #' sigmaphi <- 5e-10
 #' mu <- 0.9
 #' x <- seq(0, 15, 0.2)
 #' age <- c(1e3, 1e4, 1e5, 1e6)
 #' set.seed(666)
-#' 
-#' synth_3 <- vector("list", length = length(age)) 
-#' 
+#'
+#' synth_3 <- vector("list", length = length(age))
+#'
 #' for (i in 1:length(age)) {
 #'   fun <- exp(-sigmaphi * age[i] * 365.25*24*3600 * exp(-mu * x))
 #'   synth_3[[i]] <- data.frame(depth = x,
 #'                              intensity = jitter(fun, 1, 0.05))
 #' }
-#' 
-#' 
+#'
+#'
 #' ## VALIDATE set_1
 #' fit_SurfaceExposure(synth_3, age = age, sigmaphi = sigmaphi)
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' ## ExampleData.SurfaceExposure$set_2
 #' sigmaphi <- 5e-10
 #' mu <- 0.9
@@ -964,23 +964,23 @@ NULL
 #' Ddot <- 1.0 / 1000 / 365.25 / 24 / 60 / 60 # 2.0 Gy/ka in Seconds
 #' D0 <- 40
 #' set.seed(666)
-#' 
-#' synth_4 <- vector("list", length = length(age)) 
-#' 
+#'
+#' synth_4 <- vector("list", length = length(age))
+#'
 #' for (i in 1:length(age)) {
-#'   fun <- (sigmaphi * exp(-mu * x) * 
-#'             exp(-(age[i] * 365.25*24*3600) * 
+#'   fun <- (sigmaphi * exp(-mu * x) *
+#'             exp(-(age[i] * 365.25*24*3600) *
 #'                   (sigmaphi * exp(-mu * x) + Ddot/D0)) + Ddot/D0) /
 #'     (sigmaphi * exp(-mu * x) + Ddot/D0)
-#'   
+#'
 #'   synth_4[[i]] <- data.frame(depth = x,
 #'                              intensity = jitter(fun, 1, 0.05))
 #' }
-#' 
-#' 
+#'
+#'
 #' ## VALIDATE set_2
 #' fit_SurfaceExposure(synth_4, age = age, sigmaphi = sigmaphi, D0 = D0, Ddot = 1.0)
-#' 
+#'
 #' \dontrun{
 #' ExampleData.SurfaceExposure <- list(
 #'   sample_1 = synth_1,
@@ -995,6 +995,43 @@ NULL
 #' @md
 NULL
 
+#' Example Al2O3:C Measurement Data
+#'
+#' Measurement data obtained from measuring Al2O3:C chips at the IRAMAT-CRP2A, Université Bordeaux
+#' Montainge in 2017 on a Freiberg Instruments lexsyg SMART reader.
+#' The example data used in particular to allow test of the functions
+#' developed in framework of the work by Kreutzer et al., 2018.
+#'
+#' @format Two datasets comprising [RLum.Analysis-class] data imported using the function [read_XSYG2R]
+#'
+#' \describe{
+#' `data_ITC`: Measurement data to determine the irradiation time correction, the data can
+#' be analysed with the function [analyse_Al2O3C_ITC]
+#'
+#' `data_CrossTalk`: Measurement data obtained while estimating the irradiation cross-talk of the
+#' reader used for the experiments. The data can be analysed either with the function
+#' [analyse_Al2O3C_CrossTalk] or [analyse_Al2O3C_Measurement]
+#' }
+#'
+#' @note From both datasets unneeded curves have been removed and
+#' the number of aliquots have been reduced to a required minimum to keep the file size small, but
+#' still being able to run the corresponding functions.
+#'
+#' @seealso [analyse_Al2O3C_ITC], [analyse_Al2O3C_CrossTalk], [analyse_Al2O3C_Measurement]
+#'
+#' @references Kreutzer et al., 2018 (TODO)
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ##(1) curves
+#' data(ExampleData.Al2O3C, envir = environment())
+#' plot_RLum(data_ITC[1:2])
+#'
+#' @name ExampleData.Al2O3C
+#' @md
+NULL
 
 #' Collection of External Data
 #'
