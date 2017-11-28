@@ -70,7 +70,9 @@
            \item Fixed a bug where manually specifying the number of CPU cores
            via 'method.control = list(cores = x)' was not respected,
            \item mixing of curves (e.g., regenerated first, natural second) led to a crash
-           of the function, even the new structure was correctly specified; fixed (#61).
+           of the function, even the new structure was correctly specified; fixed (#61),
+           \item the function will not break anymore uncontrolled of both RF curves are of similar
+           extension on the x-axis.
      }
    }
 

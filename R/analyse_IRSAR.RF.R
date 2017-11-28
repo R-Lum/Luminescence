@@ -308,7 +308,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.3
+#' @section Function version: 0.7.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
@@ -416,7 +416,7 @@ analyse_IRSAR.RF<- function(
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
 
-    ##extent the list of arguments if set
+     ##extent the list of arguments if set
 
     ##sequence_structure
     sequence_structure <- rep(list(sequence_structure), length = length(object))
@@ -537,6 +537,14 @@ analyse_IRSAR.RF<- function(
 
   ##grep object strucute
   temp.sequence_structure <- structure_RLum(object)
+
+  ##check whether both curve have the same length, in this case we cannot proceed (sliding
+  ##is not allowed)
+  if(length(unique(temp.sequence_structure[["x.max"]])) == 1 &&
+     method == "SLIDE" &&
+     (is.null(RF_nat.lim) & is.null(RF_reg.lim))) {
+    stop("[analyse_IRSAR.RF()] There is no further sliding space left. All curves have the same length and no limitation was set!", call. = FALSE)
+  }
 
   ##grep name of the sequence and the position this will be useful later on
   ##name
@@ -1098,7 +1106,7 @@ analyse_IRSAR.RF<- function(
 
       }
 
-      ##now run the final sliding with the identified range that corresponds to the minium value
+      ##now run the final sliding with the identified range that corresponds to the minimum value
       temp.sum.residuals <-
         src_analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],

@@ -64,7 +64,10 @@ Changes in version 0.8.0 ( ,2017):
 
              • mixing of curves (e.g., regenerated first, natural
                second) led to a crash of the function, even the new
-               structure was correctly specified; fixed (#61).
+               structure was correctly specified; fixed (#61),
+
+             • the function will not break anymore uncontrolled of both
+               RF curves are of similar extension on the x-axis.
 
          • ‘calc_Kars2008()’
 
