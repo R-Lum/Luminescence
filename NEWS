@@ -86,7 +86,13 @@ Changes in version 0.8.0 ( ,2017):
 
          • ‘plot_FilterCombinations()’
 
-             • Add interactive mode (‘interactive = TRUE’)
+             • Add interactive mode (‘interactive = TRUE’),
+
+             • correct wrong visualisation of transmission windows for
+               long or short pass filters,
+
+             • fix legend error if only one filter was provided (due to
+               a recent matrix behaviour change).
 
          • ‘plot_GrowthCurve()’
 

@@ -96,7 +96,9 @@
 
    \item \code{plot_FilterCombinations()}{
         \itemize{
-         \item Add interactive mode (\code{interactive = TRUE})
+         \item Add interactive mode (\code{interactive = TRUE}),
+         \item correct wrong visualisation of transmission windows for long or short pass filters,
+         \item fix legend error if only one filter was provided (due to a recent matrix behaviour change).
 
 
     }

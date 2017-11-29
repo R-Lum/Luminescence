@@ -7,7 +7,7 @@
 #' **Calculations**
 #'
 #' **Net transmission window**
-#' 
+#'
 #' The net transmission window of two filters is approximated by
 #'
 #' \deqn{T_{final} = T_{1} * T_{2}}
@@ -35,8 +35,8 @@
 #'
 #' *CASE 2*
 #'
-#' The filter data itself are provided as list element containing a `matrix` or 
-#' `data.frame` and additional information on the thickness of the filter, e.g., 
+#' The filter data itself are provided as list element containing a `matrix` or
+#' `data.frame` and additional information on the thickness of the filter, e.g.,
 #' `list(filter1 = list(filter_matrix, d = 2))`.
 #' The given filter data are always considered as standard input and the filter thickness value
 #' is taken into account by
@@ -48,7 +48,7 @@
 #' *CASE 3*
 #'
 #' Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
-#' `list(filter1 = list(filter_matrix, d = 2, P = 0.9))`. 
+#' `list(filter1 = list(filter_matrix, d = 2, P = 0.9))`.
 #' The final transmission becomes:
 #'
 #' \deqn{Transmission = Transmission^(d) * P}
@@ -73,31 +73,31 @@
 #' instead.
 #'
 #'
-#' @param filters [list] (**required**): 
-#' a named list of filter data for each filter to be shown. 
+#' @param filters [list] (**required**):
+#' a named list of filter data for each filter to be shown.
 #' The filter data itself should be either provided as [data.frame] or [matrix].
 #' (for more options s. Details)
 #'
-#' @param wavelength_range [numeric] (*with default*): 
+#' @param wavelength_range [numeric] (*with default*):
 #' wavelength range used for the interpolation
 #'
-#' @param show_net_transmission [logical] (*with default*): 
+#' @param show_net_transmission [logical] (*with default*):
 #' show net transmission window as polygon.
 #'
-#' @param interactive [logical] (*with default*): 
+#' @param interactive [logical] (*with default*):
 #' enable/disable interactive plot
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enables or disables the plot output
 #'
-#' @param ... further arguments that can be passed to control the plot output. 
+#' @param ... further arguments that can be passed to control the plot output.
 #' Suppored are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
 #' For non common plotting parameters see the details section.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].
 #'
 #' **@data**
-#' 
+#'
 #' \tabular{lll}{
 #'  **`Object`** \tab **`Type`** **`Description`** \cr
 #'  `net_transmission_window` \tab `matrix` \tab the resulting net transmission window \cr
@@ -106,13 +106,13 @@
 #' }
 #'
 #' **@info**
-#' 
+#'
 #' \tabular{lll}{
 #' **Object** \tab **Type** **Description** \cr
 #' `call` \tab [call] \tab the original function call
 #' }
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
 #'
@@ -243,6 +243,7 @@ plot_FilterCombinations <- function(
     c(wavelength_range, matrixStats::rowProds(filter_matrix)),
     ncol = 2)
 
+
   ##add optical density to filter matrix
 
   ##calculate OD
@@ -260,12 +261,12 @@ plot_FilterCombinations <- function(
   ##set column names for filter matrix
   colnames(filter_matrix) <- c(names(filters), paste0(names(filters), "_OD"))
 
-  # Plotting ------------------------------------------------------------------------------------
 
+  # Plotting ------------------------------------------------------------------------------------
   if (plot) {
 
     ##(1) ... select transmission values
-    filter_matrix_transmisison <- filter_matrix[,!grepl(pattern = "OD", x = colnames(filter_matrix))]
+    filter_matrix_transmisison <- filter_matrix[,!grepl(pattern = "OD", x = colnames(filter_matrix)), drop = FALSE]
 
     ##set plot settings
     plot_settings <- list(
@@ -319,6 +320,9 @@ plot_FilterCombinations <- function(
 
 
       ##add polygon
+      ##replace all NA vaules with 0, otherwise it looks odd
+      net_transmission_window[is.na(net_transmission_window)] <- 0
+
       p <-  plotly::add_polygons(p,
                         x = c(wavelength_range, rev(wavelength_range)),
                         y = c(net_transmission_window[, 2], rep(0, length(wavelength_range))),
@@ -367,6 +371,10 @@ plot_FilterCombinations <- function(
 
       ##show effective transmission, which is the minimum for each row
       if (show_net_transmission) {
+
+        ##replace all NA vaules with 0, otherwise it looks odd
+        net_transmission_window[is.na(net_transmission_window)] <- 0
+
         polygon(
           x = c(wavelength_range, rev(wavelength_range)),
           y = c(net_transmission_window[, 2],
