@@ -498,7 +498,7 @@ calc_Kars2008 <- function(data,
     GC.settings <- list(sample = data.unfaded,
                         mode = "interpolation",
                         fit.method = "EXP",
-                        output.plot = TRUE,
+                        output.plot = plot,
                         verbose = FALSE,
                         main = "Simulated dose response curve",
                         xlab = "Dose (Gy)")
