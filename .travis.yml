@@ -46,6 +46,7 @@ matrix:
     before_install:
       - rm '/usr/local/bin/gfortran'
       - sudo chown -R travis /usr/local
+      - sudo rm '/usr/local/include/c++'
       - brew update
       - brew install jags
       - brew install libssh2
