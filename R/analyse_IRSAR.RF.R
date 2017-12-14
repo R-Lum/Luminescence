@@ -308,7 +308,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.4
+#' @section Function version: 0.7.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
@@ -416,7 +416,7 @@ analyse_IRSAR.RF<- function(
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
 
-     ##extent the list of arguments if set
+    ##extent the list of arguments if set
 
     ##sequence_structure
     sequence_structure <- rep(list(sequence_structure), length = length(object))
@@ -1367,7 +1367,7 @@ analyse_IRSAR.RF<- function(
 
   }else{
 
-    warning("Analysis skipped: Unknown method or threshold of test parameter exceeded.")
+    warning("[analyse_IRSAR.RF()] Analysis skipped: Unknown method or threshold of test parameter exceeded.", call. = FALSE)
 
   }
 
@@ -1582,8 +1582,9 @@ analyse_IRSAR.RF<- function(
     }
 
   ##===============================================================================================#
-  ## PLOTTING
+  # Plotting ------------------------------------------------------------------------------------
   ##===============================================================================================#
+
   if(plot){
 
 
@@ -1664,7 +1665,7 @@ analyse_IRSAR.RF<- function(
       mtext(text = mtext.message,
             side = 3, outer = TRUE, col = "red",
             cex = 0.8 * par()[["cex"]])
-      warning(mtext.message)
+      warning(mtext.message, call. = FALSE)
 
     }
 
@@ -1718,7 +1719,7 @@ analyse_IRSAR.RF<- function(
 
         rm(fit.lambda_coef)
       }else{
-        warning("[analyse_IRSAR.RF()] No fit possible, no fit shown.")
+        warning("[analyse_IRSAR.RF()] No fit possible, no fit shown.", call. = FALSE)
 
 
       }

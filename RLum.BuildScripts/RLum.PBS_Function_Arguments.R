@@ -3,7 +3,7 @@
 ### Function_Arguments
 ### christoph.burow@uni-koeln.de
 ### 2017-01-10
-### Note: Previous versions were written by Michal Dietze and Sebastian Kreutzer.
+### Note: Previous versions were written by Michael Dietze and Sebastian Kreutzer.
 ### This version programmatically fetches all functions and arguments and does
 ### not rely on parsing the .Rd files with regular expressions.
 ### ===============================================================================================
@@ -13,7 +13,7 @@ temp.version <- packageVersion("Luminescence")
 args <- sapply(lsf.str("package:Luminescence"), formalArgs)
 M <- matrix(NA, ncol = length(args), nrow = max(sapply(args, length)))
 
-for (i in 1:ncol(M)) 
+for (i in 1:ncol(M))
   M[1:length(args[[i]]), i] <- args[[i]]
 
 colnames(M) <- names(args)
