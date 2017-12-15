@@ -24,9 +24,10 @@
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.3.0
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
+#' IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [pchisq]
 #'
@@ -42,6 +43,15 @@
 #'
 #' ## apply the homogeneity test
 #' calc_HomogeneityTest(ExampleData.DeValues$BT998)
+#'
+#' ## using the data presented by Galbraith (2003)
+#' df <-
+#'  data.frame(
+#'    x = c(30.1, 53.8, 54.3, 29.0, 47.6, 44.2, 43.1),
+#'    y = c(4.8, 7.1, 6.8, 4.3, 5.2, 5.9, 3.0))
+#'
+#' calc_HomogeneityTest(df)
+#'
 #'
 #' @md
 #' @export
@@ -86,8 +96,11 @@ calc_HomogeneityTest <- function(
   ##============================================================================##
   if(log) {
     dat <- log(data)
+    dat[[2]] <- data[[2]]/data[[1]]
+
   } else {
     dat <- data
+
   }
 
   wi <- 1 / dat[[2]] ^ 2
@@ -98,6 +111,7 @@ calc_HomogeneityTest <- function(
   G <- sum(gi)
   df <- length(wi) - 1
   n <- length(wi)
+
   P <- pchisq(G, df, lower.tail = FALSE)
 
 

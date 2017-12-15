@@ -69,6 +69,11 @@ Changes in version 0.8.0 ( ,2017):
              • the function will not break anymore uncontrolled of both
                RF curves are of similar extension on the x-axis.
 
+         • ‘calc_HomogeneityTest()’
+
+             • The calculation was wrong for the option ‘log = TRUE’
+               (the default); fixed (#63).
+
          • ‘calc_Kars2008()’
 
              • In some cases the calculated LxTx values of the

@@ -76,6 +76,13 @@
      }
    }
 
+     \item \code{calc_HomogeneityTest()}{
+        \itemize{
+          \item The calculation was wrong for the option \code{log = TRUE} (the default); fixed (#63).
+
+        }
+    }
+
       \item \code{calc_Kars2008()}{
         \itemize{
          \item In some cases the calculated LxTx values of the simulated natural

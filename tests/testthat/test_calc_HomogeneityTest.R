@@ -1,8 +1,12 @@
 context("calc_HomogeneityTest")
 
-data(ExampleData.DeValues, envir = environment())
-temp <- calc_HomogeneityTest(ExampleData.DeValues$BT998,
-                           verbose = FALSE)
+##use the data example given by Galbraith (2003)
+df <-
+  data.frame(
+    x = c(30.1, 53.8, 54.3, 29.0, 47.6, 44.2, 43.1),
+    y = c(4.8, 7.1, 6.8, 4.3, 5.2, 5.9, 3.0))
+
+temp <- calc_HomogeneityTest(df)
 
 
 test_that("check class and length of output", {
@@ -17,9 +21,13 @@ test_that("check values from output example", {
 
   results <- get_RLum(temp)
 
-  expect_equal(results$n, 25)
-  expect_equal(results$g.value, 0.008687915)
-  expect_equal(results$df, 24)
-  expect_equal(results$P.value, 1)
+  ##test the normal
+  expect_equal(results$n, 7)
+  expect_equal(round(results$g.value, 4), 19.2505)
+  expect_equal(results$df, 6)
+  expect_equal(round(results$P.value,3), 0.004)
 
+  ##test the unlogged version
+  temp <- calc_HomogeneityTest(df, log = FALSE)$summary
+  expect_equal(round(temp$P.value,3),0.001)
 })
