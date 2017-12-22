@@ -82,7 +82,10 @@ enables/disables plot output.}
 \item{...}{Further parameters:
 \itemize{
 \item \code{verbose} \link{logical}: Show or hide console output
-\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{1000})
+\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{100000}).
+\strong{Note} that it is generally advised to have a large number of Monte Carlo
+iterations for the results to converge. Decreasing the number of iterations
+will often result in unstable estimates.
 }
 
 All other arguments are passed to \link{plot} and \link{plot_GrowthCurve}.}
@@ -170,7 +173,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.3.0 (2017-12-13 11:56:09)
+ 0.3.1
 }
 
 \examples{
@@ -217,12 +220,7 @@ kars <- calc_Kars2008(data = LxTx,
                       readerDdot = readerDdot,
                       n.MC = 50)
 
-} 
-
-\section{How to cite}{
-King, G., Burow, C. (2017). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -241,5 +239,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina King, University of Cologne (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

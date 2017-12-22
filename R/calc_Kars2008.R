@@ -131,7 +131,10 @@
 #' @param ...
 #' Further parameters:
 #' - `verbose` [logical]: Show or hide console output
-#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `1000`)
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `100000`). 
+#' **Note** that it is generally advised to have a large number of Monte Carlo
+#' iterations for the results to converge. Decreasing the number of iterations
+#' will often result in unstable estimates.
 #'
 #' All other arguments are passed to [plot] and [plot_GrowthCurve].
 #'
@@ -158,7 +161,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
 #' @author
 #' Georgina King, University of Cologne (Germany)\cr
@@ -351,7 +354,7 @@ calc_Kars2008 <- function(data,
 
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE,
-                   n.MC = 1000)
+                   n.MC = 100000)
   settings <- modifyList(settings, list(...))
 
   ## Define Constants ----------------------------------------------------------
