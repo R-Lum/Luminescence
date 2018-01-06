@@ -20,10 +20,10 @@ test_that("check values from output example", {
   testthat::skip_on_cran()
 
   expect_equal(fit$data$n.components, 3)
-  expect_equal(round(fit$data$Im1, digits = 3), 169.44)
-  expect_equal(round(fit$data$xm1, digits = 5), 49.00643)
-  expect_equal(round(fit$data$b1, digits = 5), 1.66554)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 4), 0.9437)
+  expect_equal(round(fit$data$Im1, digits = 0), 169)
+  expect_equal(round(fit$data$xm1, digits = 0), 49)
+  expect_equal(round(fit$data$b1, digits = 0), 2)
+  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
 
 })
 
@@ -47,9 +47,9 @@ test_that("check values from output example", {
   testthat::skip_on_cran()
 
   expect_equal(fit$data$n.components, 3)
-  expect_equal(round(fit$data$Im1, digits = 3), 169.437)
-  expect_equal(round(fit$data$xm1, digits = 5), 49.00509)
-  expect_equal(round(fit$data$b1, digits = 5), 1.66563)
-  expect_equal(round(fit$data$`pseudo-R^2`, digits = 4), 0.9437)
+  expect_equal(round(fit$data$Im1, digits = 0), 169)
+  expect_equal(round(fit$data$xm1, digits = 0), 49)
+  expect_equal(round(fit$data$b1, digits = 0), 2)
+  expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
 
 })
