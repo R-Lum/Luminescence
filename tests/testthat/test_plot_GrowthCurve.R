@@ -91,9 +91,9 @@ test_that("check extrapolation", {
   EXP <- plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP")
   EXPLIN <- plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")
 
-  expect_equivalent(round(LIN$De$De,2), 165.14)
-  expect_equivalent(round(EXP$De$De,2),  109.74)
-  expect_equivalent(round(EXPLIN$De$De,2), 109.69)
+  expect_equivalent(round(LIN$De$De,0), 165)
+  expect_equivalent(round(EXP$De$De,0),  110)
+  expect_equivalent(round(EXPLIN$De$De,0), 110)
 
 })
 
