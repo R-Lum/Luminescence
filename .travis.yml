@@ -7,6 +7,7 @@ apt_packages:
   - jags
 
 r_packages:
+  - devtools
   - covr
   - magrittr
   - Rcpp
