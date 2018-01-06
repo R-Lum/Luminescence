@@ -4,6 +4,7 @@ This is a major release, inlcuding various new features.
 
 ## Addressed CRAN requests 
 
+### Email by Kurt Hornik (2017-08-03)
 > [Kurt Hornik via e-mail (2017-08-03)] "These have package CITATION files with author fields using BibTeX style
 > {...} brace grouping, which will not work as intended for bibentries
 > processed by R." Specific case: "Luminescence6  "Mercier, Norbert and Kreutzer, Sebastian and 
@@ -19,6 +20,10 @@ accented character.
 > Family_1, Given_1 and Family_2, Given_2
 
 Changed as requested.
+
+###  Dependence on R version ‘3.3.2’ not with patchlevel 0 
+
+Corrected and required version set to 3.4.0.
 
 ## Test environments
 * local macOS Sierra 10.12.6, R-devel

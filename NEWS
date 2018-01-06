@@ -185,3 +185,5 @@ Changes in version 0.8.0 ( ,2017):
          • Internal function `.unlist_RLum()` allows to get rid of
            nested lists.
 
+         • Required R version increased to 3.4.0 (patchlevel 0).
+

@@ -209,6 +209,7 @@
         \item Add fitting test data set by Berger & Huntley (1989) as external data.
         \item The internal documentation now uses 'markdown'.
         \item Internal function `.unlist_RLum()` allows to get rid of nested lists.
+        \item Required R version increased to 3.4.0 (patchlevel 0).
 
 
     }
