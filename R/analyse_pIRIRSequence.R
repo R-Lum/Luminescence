@@ -16,16 +16,15 @@
 #' for different sets of parameters for every single input element.
 #' For further information see [analyse_SAR.CWOSL].
 #'
-#'
-#' @param object [RLum.Analysis-class] or [list] of [RLum.Analysis-class] objects (**required**): 
-#' input object containing data for analysis. 
+#' @param object [RLum.Analysis-class] or [list] of [RLum.Analysis-class] objects (**required**):
+#' input object containing data for analysis.
 #' If a [list] is provided the functions tries to iteratre over the list.
 #'
-#' @param signal.integral.min [integer] (**required**): 
+#' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
 #'
-#' @param signal.integral.max [integer] (**required**): 
+#' @param signal.integral.max [integer] (**required**):
 #' upper bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
 #'
@@ -37,7 +36,7 @@
 #' upper bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
 #'
-#' @param dose.points [numeric] (*optional*): 
+#' @param dose.points [numeric] (*optional*):
 #' a numeric vector containing the dose points values. Using this argument overwrites dose point
 #' values in the signal curves.
 #'
@@ -46,19 +45,19 @@
 #' any `"IR"` combination (e.g., `"IR50"`,`"pIRIR225"`).
 #' Additionally a parameter `"EXCLUDE"` is allowed to exclude curves from
 #' the analysis (Note: If a preheat without PMT measurement is used, i.e.
-#' preheat as non TL, remove the TL step.)
+#' preheat as none TL, remove the TL step.)
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enables or disables plot output.
 #'
-#' @param plot.single [logical] (*with default*): 
+#' @param plot.single [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot
 #' windows. Requires `plot = TRUE`.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [analyse_SAR.CWOSL] and [plot_GrowthCurve]
 #'
-#' @return 
+#' @return
 #' Plots (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
@@ -73,10 +72,10 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @note 
+#' @note
 #' Best graphical output can be achieved by using the function `pdf`
-#' with the following options: 
-#' 
+#' with the following options:
+#'
 #' `pdf(file = "...", height = 15, width = 15)`
 #'
 #' @section Function version: 0.2.2
@@ -84,10 +83,10 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso [analyse_SAR.CWOSL], [calc_OSLLxTxRatio], [plot_GrowthCurve], 
+#' @seealso [analyse_SAR.CWOSL], [calc_OSLLxTxRatio], [plot_GrowthCurve],
 #' [RLum.Analysis-class], [RLum.Results-class] [get_RLum]
 #'
-#' @references 
+#' @references
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
 #' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
@@ -324,8 +323,17 @@ analyse_pIRIRSequence <- function(
   temp.sequence.structure  <- structure_RLum(object)
 
   ##set values to structure data.frame
-  temp.sequence.structure[, "protocol.step"] <- rep(
-    sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))
+  ##but check first
+  if(2 * length(
+    rep(sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))) == length(temp.sequence.structure[["protocol.step"]])){
+    temp.sequence.structure[["protocol.step"]] <- rep(
+      sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))
+
+  }else{
+    try(stop("[analyse_pIRIRSequence()] Number of records is not a multiple of the defined sequence structure! NULL returned!", call. = FALSE))
+    return(NULL)
+
+  }
 
   ##remove values that have been excluded
   temp.sequence.rm.id <- temp.sequence.structure[
@@ -347,7 +355,7 @@ analyse_pIRIRSequence <- function(
       sequence.structure, nrow(temp.sequence.structure)/2/length(temp.sequence.structure))
 
     ##print warning message
-    warning(length(temp.sequence.rm.id), " records have been removed due to EXCLUDE!")
+    warning("[analyse_pIRIRSequence()] ", length(temp.sequence.rm.id), " records have been removed due to EXCLUDE!", call. = FALSE)
 
   }
 
@@ -529,12 +537,12 @@ analyse_pIRIRSequence <- function(
       output.plotExtended.single = TRUE,
       cex.global = cex,
       ...
-    ) ##TODO should be replaced be useful explizit arguments
+    ) ##TODO should be replaced be useful explicit arguments
 
 
       ##check whether NULL was return
       if (is.null(temp.results)) {
-        warning("[plot_pIRIRSequence()] An error occurred, analysis skipped. Check your sequence!", call. = FALSE)
+        try(stop("[plot_pIRIRSequence()] An error occurred, analysis skipped. Check your sequence!", call. = FALSE))
         return(NULL)
       }
 

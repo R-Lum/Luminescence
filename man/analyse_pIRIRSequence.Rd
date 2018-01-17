@@ -39,7 +39,7 @@ specifies the general sequence structure. Allowed values are \code{"TL"} and
 any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
 Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
 the analysis (Note: If a preheat without PMT measurement is used, i.e.
-preheat as non TL, remove the TL step.)}
+preheat as none TL, remove the TL step.)}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output.}
@@ -90,7 +90,7 @@ with the following options:
 \code{pdf(file = "...", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.2 (2017-09-02 23:27:02)
+ 0.2.2 (2018-01-17 18:21:07)
 }
 
 \examples{
