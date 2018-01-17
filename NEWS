@@ -69,6 +69,12 @@ Changes in version 0.8.0 ( ,2017):
              • the function will not break anymore uncontrolled of both
                RF curves are of similar extension on the x-axis.
 
+         • ‘analyse_pIRIRSequence()’
+
+             • If the number of records did not match the sequence
+               structure the function crashed with a confusing error
+               message. Now it shows an error and returns ‘NULL’.
+
          • ‘calc_HomogeneityTest()’
 
              • The calculation was wrong for the option ‘log = TRUE’
@@ -110,7 +116,10 @@ Changes in version 0.8.0 ( ,2017):
                input values with a ‘data.frame’ with no error column,
 
              • extent examples by for test data set by Berger & Huntley
-               (1989).
+               (1989),
+
+             • remove one more confusion warning if the fit did not
+               work.
 
          • ‘plot_Historgram()’
 

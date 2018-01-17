@@ -76,6 +76,14 @@
      }
    }
 
+
+    \item \code{analyse_pIRIRSequence()}{
+        \itemize{
+           \item If the number of records did not match the sequence structure the function crashed
+           with a confusing error message. Now it shows an error and returns \code{NULL}.
+     }
+   }
+
      \item \code{calc_HomogeneityTest()}{
         \itemize{
           \item The calculation was wrong for the option \code{log = TRUE} (the default); fixed (#63).
@@ -117,7 +125,8 @@
          \item the argument \code{na.rm} is defunct and should not be used anymore,
          \item minor code modifications to handle special cases such as input values with a
          \code{data.frame} with no error column,
-         \item extent examples by for test data set by Berger & Huntley (1989).
+         \item extent examples by for test data set by Berger & Huntley (1989),
+         \item remove one more confusion warning if the fit did not work.
 
     }
   }
