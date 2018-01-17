@@ -165,7 +165,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.9
+#' @section Function version: 1.9.10
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -540,7 +540,8 @@ plot_GrowthCurve <- function(
     a.MC <- rnorm(50, mean = a, sd = a / 100)
 
     if (!is.na(b)) {
-      b.MC <- rnorm(50, mean = b, sd = b / 100)
+      b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
+
     } else{
       b <- NA
 
