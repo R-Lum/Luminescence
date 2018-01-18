@@ -73,7 +73,12 @@ Changes in version 0.8.0 ( ,2017):
 
              • If the number of records did not match the sequence
                structure the function crashed with a confusing error
-               message. Now it shows an error and returns ‘NULL’.
+               message. Now it shows an error and returns ‘NULL’,
+
+             • make the argument ‘main’ more powerful if the input is a
+               list,
+
+             • add missing items to the manual.
 
          • ‘calc_HomogeneityTest()’
 

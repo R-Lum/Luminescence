@@ -2,7 +2,7 @@
 % Please edit documentation in R/analyse_pIRIRSequence.R
 \name{analyse_pIRIRSequence}
 \alias{analyse_pIRIRSequence}
-\title{Analyse post-IR IRSL sequences}
+\title{Analyse post-IR IRSL measurement sequences}
 \usage{
 analyse_pIRIRSequence(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max, dose.points = NULL,
@@ -49,7 +49,9 @@ single plot output (\code{TRUE/FALSE}) to allow for plotting the results in sing
 windows. Requires \code{plot = TRUE}.}
 
 \item{...}{further arguments that will be passed to the function
-\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}}
+\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}. Furthermore, the arguments \code{main} (headers), \code{log} (IRSL curves), \code{cex} (control
+the size) and \code{mtext.outer} (additional text on the plot area) can be passed to influence the plotting. If the input
+is list, \code{main} can be passed as \link{vector} or \link{list}.}
 }
 \value{
 Plots (\emph{optional}) and an \linkS4class{RLum.Results} object is
@@ -90,7 +92,7 @@ with the following options:
 \code{pdf(file = "...", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.2 (2018-01-17 18:21:07)
+ 0.2.3 (2018-01-18 12:19:24)
 }
 
 \examples{
@@ -152,7 +154,7 @@ pdf(file = "...", height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_pIRIRSequence(): Analyse post-IR IRSL sequences. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -80,7 +80,9 @@
     \item \code{analyse_pIRIRSequence()}{
         \itemize{
            \item If the number of records did not match the sequence structure the function crashed
-           with a confusing error message. Now it shows an error and returns \code{NULL}.
+           with a confusing error message. Now it shows an error and returns \code{NULL},
+           \item make the argument \code{main} more powerful if the input is a list,
+           \item add missing items to the manual.
      }
    }
 

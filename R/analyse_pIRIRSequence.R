@@ -1,8 +1,7 @@
-#' Analyse post-IR IRSL sequences
+#' Analyse post-IR IRSL measurement sequences
 #'
 #' The function performs an analysis of post-IR IRSL sequences including curve
 #' fitting on [RLum.Analysis-class] objects.
-#'
 #'
 #' To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
 #' this function has been written as extended wrapper function for the function
@@ -55,7 +54,9 @@
 #' windows. Requires `plot = TRUE`.
 #'
 #' @param ... further arguments that will be passed to the function
-#' [analyse_SAR.CWOSL] and [plot_GrowthCurve]
+#' [analyse_SAR.CWOSL] and [plot_GrowthCurve]. Furthermore, the arguments `main` (headers), `log` (IRSL curves), `cex` (control
+#' the size) and `mtext.outer` (additional text on the plot area) can be passed to influence the plotting. If the input
+#' is list, `main` can be passed as [vector] or [list].
 #'
 #' @return
 #' Plots (*optional*) and an [RLum.Results-class] object is
@@ -78,7 +79,7 @@
 #'
 #' `pdf(file = "...", height = 15, width = 15)`
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.2.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -206,6 +207,17 @@ analyse_pIRIRSequence <- function(
 
     }
 
+    ##main
+    if("main" %in% names(list(...))){
+      main_list <- rep(list(...)$main, length.out = length(object))
+
+      if(class(main_list) != "list"){
+        main_list <- as.list(main_list)
+
+      }
+
+    }
+
     ##run analysis
     temp <- lapply(1:length(object), function(x){
 
@@ -218,7 +230,7 @@ analyse_pIRIRSequence <- function(
                         sequence.structure = sequence.structure[[x]],
                         plot = plot,
                         plot.single = plot.single,
-                        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+                        main = ifelse("main"%in% names(list(...)), main_list[[x]], paste0("ALQ #",x)),
                         ...)
 
     })
@@ -777,7 +789,6 @@ if(plot){
 
    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
    ##polygon for recuperation rate
-
    text(x = -.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
 
    if(length(as.character(temp.rc.recuperation.rate$Threshold))>0){
