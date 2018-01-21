@@ -217,4 +217,5 @@ Kreutzer, S. (2018). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer,
 }
 
 \keyword{classes}
+\keyword{internal}
 \keyword{methods}

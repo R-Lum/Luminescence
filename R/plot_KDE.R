@@ -29,13 +29,13 @@
 #' - `"in.2s"` (percent of samples in 2-sigma range)
 #' - `"kurtosis"` (kurtosis)
 #' - `"skewness"` (skewness)
-#' 
-#' 
+#'
+#'
 #' **Note** that the input data for the statistic summary is sent to the function
 #' `calc_Statistics()` depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
 #' data. If `"log.z = FALSE"` the linearly scaled data is used.
-#' 
+#'
 #' **Note** as well, that `"calc_Statistics()"` calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
@@ -43,61 +43,61 @@
 #' with the appropriate keyword using the argument `summary.method`.
 #'
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
-#' for `data.frame`: two columns: De (`values[,1]`) and De error (`values[,2]`). 
-#' For plotting multiple data sets, these must be provided as 
+#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' for `data.frame`: two columns: De (`values[,1]`) and De error (`values[,2]`).
+#' For plotting multiple data sets, these must be provided as
 #' `list` (e.g. `list(dataset1, dataset2)`).
 #'
-#' @param na.rm [logical] (*with default*): 
+#' @param na.rm [logical] (*with default*):
 #' exclude NA values from the data set prior to any further operation.
 #'
-#' @param values.cumulative [logical] (*with default*): 
+#' @param values.cumulative [logical] (*with default*):
 #' show cumulative individual data.
 #'
-#' @param order [logical]: 
+#' @param order [logical]:
 #' Order data in ascending order.
 #'
-#' @param boxplot [logical] (*with default*): 
-#' optionally show a boxplot (depicting median as thick central line, 
-#' first and third quartile as box limits, whiskers denoting +/- 1.5 
+#' @param boxplot [logical] (*with default*):
+#' optionally show a boxplot (depicting median as thick central line,
+#' first and third quartile as box limits, whiskers denoting +/- 1.5
 #' interquartile ranges and dots further outliers).
 #'
-#' @param rug [logical] (*with default*): 
+#' @param rug [logical] (*with default*):
 #' optionally add rug.
 #'
-#' @param summary [character] (*optional*): 
-#' add statistic measures of centrality and dispersion to the plot. Can be one 
+#' @param summary [character] (*optional*):
+#' add statistic measures of centrality and dispersion to the plot. Can be one
 #' or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos [numeric] or [character] (*with default*): 
+#' @param summary.pos [numeric] or [character] (*with default*):
 #' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if `mtext` is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
 #'
-#' @param summary.method [character] (*with default*): 
-#' keyword indicating the method used to calculate the statistic summary. 
-#' One out of `"unweighted"`, `"weighted"` and `"MCM"`. 
+#' @param summary.method [character] (*with default*):
+#' keyword indicating the method used to calculate the statistic summary.
+#' One out of `"unweighted"`, `"weighted"` and `"MCM"`.
 #' See [calc_Statistics] for details.
 #'
-#' @param bw [character] (*with default*): 
+#' @param bw [character] (*with default*):
 #' bin-width, chose a numeric value for manual setting.
 #'
-#' @param output [logical]: 
-#' Optional output of numerical plot parameters. These can be useful to 
+#' @param output [logical]:
+#' Optional output of numerical plot parameters. These can be useful to
 #' reproduce similar plots. Default is `TRUE`.
 #'
 #' @param ... further arguments and graphical parameters passed to [plot].
 #'
-#' @note 
+#' @note
 #' The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
 #' @section Function version: 3.5.5
 #'
 #' @author
-#' Michael Dietze, GFZ Potsdam (Germany)\cr 
+#' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #'
 #' @seealso [density], [plot]

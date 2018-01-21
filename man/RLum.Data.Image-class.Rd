@@ -131,3 +131,4 @@ Kreutzer, S. (2018). RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreut
 }
 
 \keyword{classes}
+\keyword{internal}

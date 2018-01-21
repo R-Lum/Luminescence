@@ -140,3 +140,4 @@ Kreutzer, S. (2018). RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In:
 }
 
 \keyword{classes}
+\keyword{internal}

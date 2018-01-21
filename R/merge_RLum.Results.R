@@ -6,12 +6,14 @@
 #'
 #' @note The originator is taken from the first element and not reset to `merge_RLum`
 #'
-#' @param objects [list] (**required**): 
+#' @param objects [list] (**required**):
 #' a list of [RLum.Results-class] objects
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author 
+#' @keywords internal
+#'
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @md

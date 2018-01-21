@@ -41,11 +41,11 @@
 #'
 #' The max values from the count values is chosen using the function
 #' [matrixStats::rowMins].
-#' 
+#'
 #' `"append"`
-#' 
+#'
 #' Appends count values of all curves to one combined data curve. The channel width
-#' is automatically re-calculated, but requires a constant channel width of the 
+#' is automatically re-calculated, but requires a constant channel width of the
 #' original data.
 #'
 #' `"-"`
@@ -60,23 +60,23 @@
 #'
 #' Values of the first object are divided by row sums of the last objects.
 #'
-#' @param object [list] of [RLum.Data.Curve-class] (**required**): 
+#' @param object [list] of [RLum.Data.Curve-class] (**required**):
 #' list of S4 objects of class `RLum.Curve`.
 #'
-#' @param merge.method [character] (**required**): 
+#' @param merge.method [character] (**required**):
 #' method for combining of the objects, e.g.  `'mean'`, `'sum'`, see details for
 #' further information and allowed methods.  Note: Elements in slot info will
 #' be taken from the first curve in the list.
 #'
-#' @param method.info [numeric] (*optional*): 
-#' allows to specify how info elements of the input objects are combined, 
-#' e.g. `1` means that just the elements from the first object are kept, 
-#' `2` keeps only the info elements from the 2 object etc.  
+#' @param method.info [numeric] (*optional*):
+#' allows to specify how info elements of the input objects are combined,
+#' e.g. `1` means that just the elements from the first object are kept,
+#' `2` keeps only the info elements from the 2 object etc.
 #' If nothing is provided all elements are combined.
 #'
 #' @return Returns an [RLum.Data.Curve-class] object.
 #'
-#' @note 
+#' @note
 #' The information from the slot `recordType` is taken from the first
 #' [RLum.Data.Curve-class] object in the input list. The slot
 #' 'curveType' is filled with the name `merged`.
@@ -88,13 +88,13 @@
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-#' 
+#'
 #' @seealso [merge_RLum], [RLum.Data.Curve-class]
 #'
 #'
-#' @keywords utilities
+#' @keywords utilities internal
 #'
 #' @examples
 #'
@@ -225,7 +225,7 @@ merge_RLum.Data.Curve<- function(
   }else if(merge.method == "append") {
 
     temp.matrix <- sapply(temp.matrix, c)
-    
+
   }else if(merge.method == "-"){
 
     if(ncol(temp.matrix) > 2){
@@ -277,7 +277,7 @@ merge_RLum.Data.Curve<- function(
   } else {
     temp.matrix <- cbind(object[[1]]@data[1:min(check.length),1], temp.matrix)
   }
-  
+
 
 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

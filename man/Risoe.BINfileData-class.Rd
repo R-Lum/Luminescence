@@ -232,3 +232,4 @@ The Sequence Editor User Manual - Feburar 2016
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{classes}
+\keyword{internal}

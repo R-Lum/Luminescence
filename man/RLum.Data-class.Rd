@@ -32,3 +32,4 @@ showClass("RLum.Data")
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{classes}
+\keyword{internal}

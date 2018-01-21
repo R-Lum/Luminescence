@@ -9,18 +9,18 @@
 #'
 #' @note Just a virtual class.
 #'
-#' @section Objects from the Class: 
+#' @section Objects from the Class:
 #' A virtual Class: No objects can be created from it.
 #'
 #' @section Class version: 0.2.1
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [RLum.Data.Curve-class],
 #' [RLum.Data.Spectrum-class]
 #'
-#' @keywords classes
+#' @keywords classes internal
 #'
 #' @examples
 #'

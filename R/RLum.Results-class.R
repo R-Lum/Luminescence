@@ -107,6 +107,8 @@ setAs("RLum.Results", "list",
 #' @describeIn RLum.Results
 #' Show structure of `RLum.Results` object
 #'
+#' @keywords internal
+#'
 #' @md
 #' @export
 setMethod("show",

@@ -278,3 +278,4 @@ curve1 * curve2
 IRSAR.RF.Data$RF
 
 }
+\keyword{internal}

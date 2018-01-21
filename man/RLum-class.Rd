@@ -17,6 +17,17 @@ number for times each element is repeated element}
 }
 \description{
 Abstract class for data in the package Luminescence
+Sublasses are:
+}
+\details{
+\strong{RLum-class}\cr
+|\cr
+|----\linkS4class{RLum.Data}\cr
+|----|-- \linkS4class{RLum.Data.Curve}\cr
+|----|-- \linkS4class{RLum.Data.Spectrum}\cr
+|----|-- \linkS4class{RLum.Data.Image}\cr
+|----\linkS4class{RLum.Analysis}\cr
+|----\linkS4class{RLum.Results}
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -57,10 +68,11 @@ showClass("RLum")
 
 }
 \seealso{
-\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis}
+\linkS4class{RLum.Data}, \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{methods_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 } 
 
 \section{How to cite}{

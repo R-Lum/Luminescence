@@ -25,59 +25,59 @@
 #'
 #' Methods for S3-generics implemented for the package 'Luminescence'.
 #' This document summarises all implemented S3-generics. The name of the function
-#' is given before the first dot, after the dot the name of the object that is 
-#' supported by this method is given, e.g. `plot.RLum.Data.Curve` can be called 
+#' is given before the first dot, after the dot the name of the object that is
+#' supported by this method is given, e.g. `plot.RLum.Data.Curve` can be called
 #' by `plot(object, ...)`, where `object` is the `RLum.Data.Curve` object.
 #'
-#' The term S3-generics sounds complicated, however, it just means that something 
-#' has been implemented in the package to increase the usability for users new 
-#' in R and who are not familiar with the underlying `RLum`-object structure of 
-#' the package. The practical outcome is that operations and functions presented 
-#' in standard books on R can be used without knowing the specifica of the R 
+#' The term S3-generics sounds complicated, however, it just means that something
+#' has been implemented in the package to increase the usability for users new
+#' in R and who are not familiar with the underlying `RLum`-object structure of
+#' the package. The practical outcome is that operations and functions presented
+#' in standard books on R can be used without knowing the specifica of the R
 #' package 'Luminescence'. For examples see the example section.
 #'
-#' @param x [RLum-class] or [Risoe.BINfileData-class] (**required**): 
+#' @param x [RLum-class] or [Risoe.BINfileData-class] (**required**):
 #' input opject
 #'
-#' @param object [RLum-class] (**required**): 
+#' @param object [RLum-class] (**required**):
 #' input opject
 #'
-#' @param y [integer] (*optional*): 
+#' @param y [integer] (*optional*):
 #' the row index of the matrix, data.frame
 #'
-#' @param z [integer] (*optional*): 
+#' @param z [integer] (*optional*):
 #' the column index of the matrix, data.frame
 #'
-#' @param i [character] (*optional*): 
+#' @param i [character] (*optional*):
 #' name of the wanted record type or data object or row in the `RLum.Data.Curve` object
 #'
-#' @param j [integer] (*optional*): 
+#' @param j [integer] (*optional*):
 #' column of the data matrix in the `RLum.Data.Curve` object
 #'
-#' @param value [numeric] **(required)**: 
+#' @param value [numeric] **(required)**:
 #' numeric value which replace the value in the `RLum.Data.Curve` object
 #'
-#' @param drop [logical] (*with default*): 
+#' @param drop [logical] (*with default*):
 #' keep object structure or drop it
 #'
-#' @param subset `[subset]` [expression] (**required**): 
-#' logical expression indicating elements or rows to keep, this function works 
+#' @param subset `[subset]` [expression] (**required**):
+#' logical expression indicating elements or rows to keep, this function works
 #' in [Risoe.BINfileData-class] objects like [subset.data.frame], but takes care
 #' of the object structure
 #'
-#' @param row.names [logical] (*with default*): 
+#' @param row.names [logical] (*with default*):
 #' enables or disables row names (`as.data.frame`)
 #'
-#' @param recursive [logical] (*with default*): 
+#' @param recursive [logical] (*with default*):
 #' enables or disables further subsetting (`unlist`)
 #'
-#' @param optional [logical] (*with default*): 
-#' logical. If TRUE, setting row names and converting column names 
+#' @param optional [logical] (*with default*):
+#' logical. If TRUE, setting row names and converting column names
 #' (to syntactic names: see make.names) is optional (see [base::as.data.frame])
 #'
 #' @param ... further arguments that can be passed to the method
 #'
-#' @note 
+#' @note
 #' `methods_RLum` are not really new functions, everything given here are mostly just
 #' surrogates for existing functions in the package.
 #'
@@ -86,6 +86,7 @@
 #' ##load example data
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'
+#' @keywords internal
 #' @md
 #' @name methods_RLum
 NULL
@@ -190,10 +191,10 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 # ##################################################################################################
 #' @rdname methods_RLum
 #' @method subset Risoe.BINfileData
-#' 
-#' @param records.rm [subset] [logical] (*with default*): 
+#'
+#' @param records.rm [subset] [logical] (*with default*):
 #' remove records from data set, can be disabled, to just set the column `SET` to `TRUE` or `FALSE`
-#' 
+#'
 #' @md
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {

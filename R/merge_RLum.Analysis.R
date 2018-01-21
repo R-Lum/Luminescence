@@ -13,27 +13,27 @@
 #' The order in the new [RLum.Analysis-class] object is the object
 #' order provided with the input list.
 #'
-#' @param objects [list] of [RLum.Analysis-class] (**required**): 
-#' list of S4 objects of class `RLum.Analysis`. Furthermore other objects of 
+#' @param objects [list] of [RLum.Analysis-class] (**required**):
+#' list of S4 objects of class `RLum.Analysis`. Furthermore other objects of
 #' class [RLum-class] can be added, see details.
 #'
 #' @return Return an [RLum.Analysis-class] object.
 #'
-#' @note 
+#' @note
 #' The information for the slot 'protocol' is taken from the first
 #' [RLum.Analysis-class] object in the input list. Therefore at
 #' least one object of type [RLum.Analysis-class] has to be provided.
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [merge_RLum], [RLum.Analysis-class], [RLum.Data.Curve-class],
 #' [RLum.Data.Spectrum-class], [RLum.Data.Image-class], [RLum-class]
 #'
 #'
-#' @keywords utilities
+#' @keywords utilities internal
 #'
 #' @examples
 #'

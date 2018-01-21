@@ -10,29 +10,29 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot recordType 
+#' @slot recordType
 #' Object of class [character] containing the type of the curve (e.g. "OSL image", "TL image")
 #'
-#' @slot curveType 
+#' @slot curveType
 #' Object of class [character] containing curve type, allowed values
 #' are measured or predefined
 #'
-#' @slot data 
+#' @slot data
 #' Object of class [raster::brick] containing images (raster data).
 #'
-#' @slot info 
+#' @slot info
 #' Object of class [list] containing further meta information objects
 #'
-#' @note 
+#' @note
 #' The class should only contain data for a set of images. For additional
 #' elements the slot `info` can be used.
 #'
-#' @section Objects from the Class: 
+#' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
 #' @section Class version: 0.4.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R]
@@ -47,7 +47,7 @@ NULL
 #' set_RLum(class = "RLum.Data.Image")
 #'
 #' @importClassesFrom raster RasterBrick
-#' 
+#'
 #' @md
 #' @export
 setClass(
@@ -134,7 +134,9 @@ setAs("RLum.Data.Image", "matrix",
 ####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Show structure of `RLum.Data.Image` object
-#' 
+#'
+#' @keywords internal
+#'
 #' @md
 #' @export
 setMethod("show",
@@ -168,30 +170,30 @@ setMethod("show",
 #' Construction method for RLum.Data.Image object. The slot info is optional
 #' and predefined as empty list by default..
 #'
-#' @param class [`set_RLum`]; [character]: 
+#' @param class [`set_RLum`]; [character]:
 #' name of the `RLum` class to create
-#' 
+#'
 #' @param originator [`set_RLum`]; [character] (*automatic*):
-#' contains the name of the calling function (the function that produces this object); 
+#' contains the name of the calling function (the function that produces this object);
 #' can be set manually.
-#' 
-#' @param .uid [`set_RLum`]; [character] (*automatic*): 
+#'
+#' @param .uid [`set_RLum`]; [character] (*automatic*):
 #' sets an unique ID for this object using the internal C++ function `create_UID`.
-#' 
-#' @param .pid [`set_RLum`]; [character] (*with default*): 
+#'
+#' @param .pid [`set_RLum`]; [character] (*with default*):
 #' option to provide a parent id for nesting at will.
-#' 
-#' @param recordType [`set_RLum`]; [character]: 
+#'
+#' @param recordType [`set_RLum`]; [character]:
 #' record type (e.g. "OSL")
-#' 
-#' @param curveType [`set_RLum`]; [character]: 
+#'
+#' @param curveType [`set_RLum`]; [character]:
 #' curve type (e.g. "predefined" or "measured")
-#' 
-#' @param data [`set_RLum`]; [matrix]: 
+#'
+#' @param data [`set_RLum`]; [matrix]:
 #' raw curve data. If data is of type `RLum.Data.Image` this can be used to
 #' re-construct the object.
-#' 
-#' @param info [`set_RLum`]; [list]: 
+#'
+#' @param info [`set_RLum`]; [list]:
 #' info elements
 #'
 #' @return
@@ -291,10 +293,10 @@ setMethod(
 #'  optional to directly access the info elements. If no info element name is
 #'  provided, the raw image data (RasterBrick) will be returned.
 #'
-#' @param object [`get_RLum`], [`names_RLum`] (**required**):  
+#' @param object [`get_RLum`], [`names_RLum`] (**required**):
 #' an object of class [RLum.Data.Image-class]
 #'
-#' @param info.object [`get_RLum`]; [character]: 
+#' @param info.object [`get_RLum`]; [character]:
 #' name of the info object to returned
 #'
 #' @return

@@ -52,6 +52,8 @@ NULL
 #' ##show only the first object, but by keeping the object
 #' get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 #'
+#' @keywords internal
+#'
 #' @md
 #' @export
 setClass("RLum.Analysis",

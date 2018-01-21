@@ -221,6 +221,7 @@
         \item The internal documentation now uses 'markdown'.
         \item Internal function `.unlist_RLum()` allows to get rid of nested lists.
         \item Required R version increased to 3.4.0 (patchlevel 0).
+        \item Cleanup help index and hide internal functions and methods.
 
 
     }

@@ -17,6 +17,8 @@ NULL
 #'
 #' @slot .RESERVED Object of class "list" containing list of undocumented raw values for internal use only.
 #'
+#' @keywords internal
+#'
 #' @note
 #'
 #' **Internal METADATA - object structure**

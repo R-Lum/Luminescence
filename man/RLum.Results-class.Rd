@@ -161,4 +161,5 @@ Kreutzer, S. (2018). RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S
 }
 
 \keyword{classes}
+\keyword{internal}
 \keyword{methods}

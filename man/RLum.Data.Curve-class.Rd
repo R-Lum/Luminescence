@@ -189,3 +189,4 @@ Kreutzer, S. (2018). RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreut
 }
 
 \keyword{classes}
+\keyword{internal}

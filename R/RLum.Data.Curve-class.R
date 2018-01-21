@@ -170,6 +170,8 @@ setAs("RLum.Data.Curve", "matrix",
 #' @describeIn RLum.Data.Curve
 #' Show structure of `RLum.Data.Curve` object
 #'
+#' @keywords internal
+#'
 #' @md
 #' @export
 setMethod("show",
