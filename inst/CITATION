@@ -1,9 +1,9 @@
 citHeader("To cite the package 'Luminescence' in publications use:")
 
-	 citation(auto = meta)
+	 citation(auto = TRUE)
 
 	 bibentry(bibtype = "Article",
-			    title = "A practical guide to the R package Luminescence",
+			  title = "A practical guide to the R package Luminescence",
 				author = "Michael Dietze, Sebastian Kreutzer, Margret C. Fuchs, Christoph Burow, Manfred Fischer, Christoph Schmidt",
 				year = "2013",
 				journal = "Ancient TL",
@@ -20,7 +20,8 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 
 	  bibentry(bibtype = "Article",
 			  	title = "Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'",
-				author = "Margret C. Fuchs, Sebastian Kreutzer, Christoph Burow, Michael Dietze, Manfred Fischer, Christoph Schmidt, Markus Fuchs",
+				author = "Margret C. Fuchs, Sebastian Kreutzer, Christoph Burow, Michael Dietze, Manfred Fischer,
+				Christoph Schmidt, Markus Fuchs",
 				year = "2015",
 				journal = "Quaternary International",
 				volume = "362",
@@ -28,7 +29,7 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				doi = "10.1016/j.quaint.2014.06.034")
 
 		bibentry(bibtype = "Article",
-		      title = "A new R function for the Internal External Uncertainty (IEU) model",
+		    title = "A new R function for the Internal External Uncertainty (IEU) model",
 		    author = "Rachel K Smedley",
         journal = "Ancient TL",
         year = "2015",
@@ -46,8 +47,10 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				doi = "10.1016/j.quageo.2015.09.003")
 
 		bibentry(bibtype = "Article",
-			  	title = "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'",
-				author = "Norbert Mercier and Sebastian Kreutzer and Claire Christophe and Guillaume Guerin and Pierre Guibert and Christelle Lahaye and Philippe Lanos and Anne Philippe and Chantal Tribolo",
+			  	title = "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package
+			  	'Luminescence'",
+				author = "Norbert Mercier and Sebastian Kreutzer and Claire Christophe and Guillaume
+				Guerin and Pierre Guibert and Christelle Lahaye and Philippe Lanos and Anne Philippe and Chantal Tribolo",
 				year = "2016",
 				journal = "Ancient TL",
 				volume = "34",
