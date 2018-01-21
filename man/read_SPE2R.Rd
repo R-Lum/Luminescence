@@ -71,7 +71,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.2 (2017-11-24 09:48:40)
+ 0.1.2 (2018-01-21 17:22:38)
 }
 
 \examples{

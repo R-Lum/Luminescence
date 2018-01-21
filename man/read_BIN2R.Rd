@@ -104,7 +104,7 @@ version number depends on the used Sequence Editor.
 \strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.}
 }
 \section{Function version}{
- 0.15.7 (2017-09-02 23:29:24)
+ 0.15.7 (2018-01-21 17:22:38)
 }
 
 \examples{

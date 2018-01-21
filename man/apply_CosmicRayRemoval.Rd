@@ -83,7 +83,7 @@ Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
 \section{Function version}{
- 0.2.1 (2017-09-02 23:27:02)
+ 0.2.1 (2018-01-21 17:22:38)
 }
 
 \examples{

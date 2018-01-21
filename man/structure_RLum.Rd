@@ -27,7 +27,7 @@ be selected. Allowed arguments can be found in the documentations of the
 corresponding \linkS4class{RLum} class.
 }
 \section{Function version}{
- 0.2.0 (2017-09-02 23:27:02)
+ 0.2.0 (2018-01-21 17:22:38)
 }
 
 \examples{

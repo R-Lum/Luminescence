@@ -199,7 +199,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.2 (2017-09-02 23:27:02)
+ 0.3.2 (2018-01-21 17:22:38)
 }
 
 \examples{

@@ -75,7 +75,7 @@ function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1 (2017-09-02 23:27:02)
+ 0.1 (2018-01-21 17:22:38)
 }
 
 \examples{

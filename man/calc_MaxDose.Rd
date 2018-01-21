@@ -74,7 +74,7 @@ When all calculations are done the results are then converted as follows
 Please see \link{calc_MinDose}.
 }
 \section{Function version}{
- 0.3.1 (2017-09-02 23:27:02)
+ 0.3.1 (2018-01-21 17:22:38)
 }
 
 \examples{

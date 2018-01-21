@@ -40,7 +40,7 @@ Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLu
 (with curve data) are supported!
 }
 \section{Function version}{
- 0.1.0 (2017-09-02 23:27:02)
+ 0.1.0 (2018-01-21 17:22:38)
 }
 
 \examples{

@@ -100,7 +100,7 @@ the values are removed and no further interpolation is attempted.
 In every case a warning message is shown.
 }
 \section{Function version}{
- 0.2.2 (2017-09-02 23:27:02)
+ 0.2.2 (2018-01-21 17:22:38)
 }
 
 \examples{
