@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -163,7 +172,7 @@ Lab Dose Rate: </td>
 #&gt; 5 0.898     0.0449              54172.8
 #&gt; 6 0.974     0.0487                378.0</div><div class='input'>
 <span class='co'>## Determine g-value and rho' for the IR50 signal</span>
-<span class='no'>IR50_fading.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>IR50_fading</span>)</div><div class='img'><img src='ExampleData.Fading-3.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+<span class='no'>IR50_fading.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>IR50_fading</span>)</div><div class='img'><img src='ExampleData.Fading-13.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt; [analyse_FadingMeasurement()]
 #&gt; 
 #&gt;  n.MC:	100
@@ -188,7 +197,7 @@ Lab Dose Rate: </td>
 #&gt;   T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER
 #&gt; x           18339400088           18339400088
 #&gt;                                  UID
-#&gt; x 2018-01-21-08:47.0.968133382033557</div><div class='input'><span class='no'>rhop</span></div><div class='output co'>#&gt;         MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975
+#&gt; x 2018-01-21-09:35.0.968133382033557</div><div class='input'><span class='no'>rhop</span></div><div class='output co'>#&gt;         MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975
 #&gt; 1 3.9609e-06 6.451524e-07 2.764462e-06 3.285899e-06 4.634499e-06 5.007318e-06</div><div class='input'>
 <span class='co'>## Get LxTx values of the IR50 DE measurement</span>
 <span class='no'>IR50_De.LxTx</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.Fading</span>$<span class='no'>equivalentDose.data</span>$<span class='no'>IR50</span>
@@ -196,7 +205,7 @@ Lab Dose Rate: </td>
 <span class='co'>## Calculate the De of the IR50 signal</span>
 <span class='no'>IR50_De</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></span>(<span class='no'>IR50_De.LxTx</span>,
                                 <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"interpolation"</span>,
-                                <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47</div><div class='img'><img src='ExampleData.Fading-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                                <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47</div><div class='img'><img src='ExampleData.Fading-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## Extract the calculated De and its error</span>
 <span class='no'>IR50_De.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_De</span>)
 <span class='no'>De</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>IR50_De.res</span>$<span class='no'>De</span>, <span class='no'>IR50_De.res</span>$<span class='no'>De.Error</span>)

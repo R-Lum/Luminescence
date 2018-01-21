@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -149,7 +158,7 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.0.3 (2017-09-02 23:27:02)</p>
+    <p>0.0.3 (2018-01-21 17:22:38)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -167,7 +176,7 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 
 <span class='co'># (2) merge and plot all RLum.Analysis objects</span>
 <span class='no'>merged</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='merge_RLum.html'>merge_RLum</a></span>(<span class='no'>ExampleData.portableOSL</span>)
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>merged</span>, <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_portableOSL-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>merged</span></div><div class='output co'>#&gt; 
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>merged</span>, <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_portableOSL-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>merged</span></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Analysis-class]
 #&gt; 	 originator: merge_RLum.Analysis()
 #&gt; 	 protocol: portable OSL
@@ -185,7 +194,7 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 #&gt; 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER
 #&gt; 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</div><div class='input'>
 <span class='co'># (3) analyse and plot</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_portableOSL</span>(<span class='no'>merged</span>, <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_portableOSL-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;           BSL    BSL_error       IRSL   IRSL_error BSL_depletion IRSL_depletion
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_portableOSL</span>(<span class='no'>merged</span>, <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_portableOSL-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;           BSL    BSL_error       IRSL   IRSL_error BSL_depletion IRSL_depletion
 #&gt; 1  0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537      0.9158216
 #&gt; 2  1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300      0.9087895
 #&gt; 3  0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200      1.0233685

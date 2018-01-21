@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -293,7 +302,7 @@ output this value is denoted by <em>"Age @2D0 (ka):"</em>.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-06 12:57:15)</p>
+    <p>0.3.1 (2018-01-21 17:22:38)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
@@ -331,13 +340,13 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 <span class='co'># Analyse fading measurement and get an estimate of rho'.</span>
 <span class='co'># Note that the RLum.Results object can be directly used for further processing.</span>
 <span class='co'># The number of MC runs is reduced for this example</span>
-<span class='no'>rhop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>fading_data</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='calc_Kars2008-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>rhop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>fading_data</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='calc_Kars2008-43.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## (3) Apply the Kars et al. (2008) model to the data</span>
 <span class='no'>kars</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_Kars2008</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>,
                       <span class='kw'>rhop</span> <span class='kw'>=</span> <span class='no'>rhop</span>,
                       <span class='kw'>ddot</span> <span class='kw'>=</span> <span class='no'>ddot</span>,
                       <span class='kw'>readerDdot</span> <span class='kw'>=</span> <span class='no'>readerDdot</span>,
-                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='calc_Kars2008-9.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-10.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-11.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='calc_Kars2008-44.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-45.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-46.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt; [calc_Kars2008()]
 #&gt; 
 #&gt;  -------------------------------
@@ -373,7 +382,7 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
                       <span class='kw'>rhop</span> <span class='kw'>=</span> <span class='no'>rhop</span>,
                       <span class='kw'>ddot</span> <span class='kw'>=</span> <span class='no'>ddot</span>,
                       <span class='kw'>readerDdot</span> <span class='kw'>=</span> <span class='no'>readerDdot</span>,
-                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='calc_Kars2008-12.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-13.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-14.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='calc_Kars2008-47.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-48.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-49.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt; [calc_Kars2008()]
 #&gt; 
 #&gt;  -------------------------------

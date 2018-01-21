@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -484,7 +493,7 @@ findings by Buylaert et al. (2012).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.5 (2017-12-14 15:41:40)</p>
+    <p>0.7.5 (2018-01-21 17:22:38)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
@@ -538,12 +547,12 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
 <span class='fu'>data</span>(<span class='no'>ExampleData.RLum.Analysis</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
 <span class='co'>##(1) perform analysis using the method 'FIT'</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>)</div><div class='img'><img src='analyse_IRSAR.RF-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>)</div><div class='img'><img src='analyse_IRSAR.RF-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##show De results and test paramter results</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #&gt; 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #&gt;   DATE SEQUENCE_NAME                                UID
-#&gt; 1   NA            NA 2018-01-21-08:46.0.285665350267664</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
+#&gt; 1   NA            NA 2018-01-21-09:34.0.285665350267664</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #&gt; 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
 #&gt; 2       NA intersection_ratio        NA 5.541736e-03     OK            NA
 #&gt; 3       NA    residuals_slope        NA           NA     OK            NA
@@ -553,18 +562,18 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
 #&gt; 7       NA               beta        NA 5.418719e-01     OK            NA
 #&gt; 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #&gt;                                  UID
-#&gt; 1 2018-01-21-08:46.0.285665350267664
-#&gt; 2 2018-01-21-08:46.0.285665350267664
-#&gt; 3 2018-01-21-08:46.0.285665350267664
-#&gt; 4 2018-01-21-08:46.0.285665350267664
-#&gt; 5 2018-01-21-08:46.0.285665350267664
-#&gt; 6 2018-01-21-08:46.0.285665350267664
-#&gt; 7 2018-01-21-08:46.0.285665350267664
-#&gt; 8 2018-01-21-08:46.0.285665350267664</div><div class='input'>
+#&gt; 1 2018-01-21-09:34.0.285665350267664
+#&gt; 2 2018-01-21-09:34.0.285665350267664
+#&gt; 3 2018-01-21-09:34.0.285665350267664
+#&gt; 4 2018-01-21-09:34.0.285665350267664
+#&gt; 5 2018-01-21-09:34.0.285665350267664
+#&gt; 6 2018-01-21-09:34.0.285665350267664
+#&gt; 7 2018-01-21-09:34.0.285665350267664
+#&gt; 8 2018-01-21-09:34.0.285665350267664</div><div class='input'>
 <span class='co'>##(2) perform analysis using the method 'SLIDE'</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt; 	 Run Monte Carlo loops for error estimation
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; <span class='warning'>Warning: [analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!</span></div><div class='img'><img src='analyse_IRSAR.RF-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; <span class='warning'>Warning: [analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!</span></div><div class='img'><img src='analyse_IRSAR.RF-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'>##(3) perform analysis using the method 'SLIDE' and method control option</span>
 <span class='co'>## 'trace</span>

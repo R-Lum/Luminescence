@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -221,7 +230,7 @@ consider using the functions <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL<
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.17 (2017-09-02 23:27:02)</p>
+    <p>0.2.17 (2018-01-21 17:22:38)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
@@ -251,21 +260,12 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
                               <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
                               <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>900</span>:<span class='fl'>1000</span>),
                               <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>1</span>),
-                              <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='Analyse_SAR.OSLdata-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt; [Analyse_SAR.OSLdata()] &gt;&gt; Figure for position 1 produced.</div><div class='input'>
+                              <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 <span class='co'>##combine results relevant for further analysis</span>
 <span class='no'>output.SAR</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Dose</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>Dose</span>,
                          <span class='kw'>LxTx</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx</span>,
-                         <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)
-<span class='no'>output.SAR</span></div><div class='output co'>#&gt;   Dose       LxTx  LxTx.Error
-#&gt; 1    0 4.31385656 0.049585512
-#&gt; 2  450 1.54110507 0.020078494
-#&gt; 3 1050 3.03229838 0.035808499
-#&gt; 4 2000 4.59447529 0.050759620
-#&gt; 5 2550 5.31012713 0.054631294
-#&gt; 6  450 1.61167200 0.019431239
-#&gt; 7    0 0.01668642 0.001735488</div><div class='input'>
-</div></pre>
+                         <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)</div><div class='output co'>#&gt; <span class='error'>Error in data.frame(Dose = output$LnLxTnTx[[1]]$Dose, LxTx = output$LnLxTnTx[[1]]$LxTx,     LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error): object 'output' not found</span></div><div class='input'><span class='no'>output.SAR</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'output.SAR' not found</span></div><div class='input'>
+</div><div class='img'><img src='Analyse_SAR.OSLdata-7.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

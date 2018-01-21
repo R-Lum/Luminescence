@@ -11,12 +11,10 @@ NEWS\.html
 packrat
 tests/testdata
 ^\test\*
-
 # Exclude test suite files
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
-
 # Exclude GitHub stuff
 LICENSE$
 README\.md
@@ -26,10 +24,10 @@ R/README\.md
 NEWS_cache
 NEWS_files
 docs
-
+_pkgdown.yml
 # Exclude RLum related stuff
 ^RLum.*$
-
 # Exclude vignettes cache and files
 ^vignettes/.*cache$
 ^vignettes/.*files$
+^_pkgdown\.yml$

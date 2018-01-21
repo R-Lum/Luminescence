@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -156,7 +165,7 @@ Units: </td>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) plot values as histogram</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
-<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [s]"</span>)</div><div class='img'><img src='ExampleData.DeValues-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [s]"</span>)</div><div class='img'><img src='ExampleData.DeValues-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##(2) plot values as histogram (with second to gray conversion)</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
@@ -164,7 +173,7 @@ Units: </td>
                          <span class='kw'>dose.rate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.0438</span>, <span class='fl'>0.0019</span>))
 
 
-<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>De.values</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [Gy]"</span>)</div><div class='img'><img src='ExampleData.DeValues-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>De.values</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [Gy]"</span>)</div><div class='img'><img src='ExampleData.DeValues-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -1,0 +1,22 @@
+navbar:
+  title: "Luminescence"
+  left:
+    - icon: fa-home
+      text: "Home"
+      href: index.html
+    - icon: fa-play
+      text: "Articles"
+      href: articles/HowTo_analyse_Al2O3.html
+    - text: "References"
+      href: reference/index.html
+  right:
+    - icon: fa-newspaper-o
+      text: "News"
+      href: news/NEWS_Version0.7.0.html
+    - icon: fa-github
+      text: "GitHub"
+      href: https://github.com/R-Lum/Luminescence
+
+template:
+  params:
+   bootswatch: cosmo

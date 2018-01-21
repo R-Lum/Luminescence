@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -402,7 +411,7 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.10 (2017-09-02 23:27:02)</p>
+    <p>0.1.10 (2018-01-21 17:22:38)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
@@ -430,13 +439,13 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>CA1</span>
 
 <span class='co'>## plot the example data straightforward</span>
-<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_AbanicoPlot-29.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_AbanicoPlot-169.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with linear z-scale</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-30.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-170.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with output of the plot parameters</span>
 <span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                          <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-31.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>str</span>(<span class='no'>plot1</span>)</div><div class='output co'>#&gt; List of 10
+                          <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-171.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>str</span>(<span class='no'>plot1</span>)</div><div class='output co'>#&gt; List of 10
 #&gt;  $ xlim         : num [1:2] 0 16.1
 #&gt;  $ ylim         : num [1:2] -36.8 15.9
 #&gt;  $ zlim         : num [1:2] 17.4 132.9
@@ -491,7 +500,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 #&gt;   ..$ family   : chr ""
 #&gt;   ..$ fg       : chr "black"
 #&gt;   ..$ fig      : num [1:4] 0 1 0 1
-#&gt;   ..$ fin      : num [1:2] 8.32 11.26
+#&gt;   ..$ fin      : num [1:2] 8.32 4.85
 #&gt;   ..$ font     : int 1
 #&gt;   ..$ font.axis: int 1
 #&gt;   ..$ font.lab : int 1
@@ -518,8 +527,8 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 #&gt;   ..$ omd      : num [1:4] 0 1 0 1
 #&gt;   ..$ omi      : num [1:4] 0 0 0 0
 #&gt;   ..$ pch      : int 1
-#&gt;   ..$ pin      : num [1:2] 6.02 9.66
-#&gt;   ..$ plt      : num [1:4] 0.1081 0.8318 0.0799 0.9378
+#&gt;   ..$ pin      : num [1:2] 6.02 3.25
+#&gt;   ..$ plt      : num [1:4] 0.108 0.832 0.185 0.856
 #&gt;   ..$ ps       : int 12
 #&gt;   ..$ pty      : chr "m"
 #&gt;   ..$ smo      : num 1
@@ -537,39 +546,39 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 #&gt;   ..$ ylbias   : num 0.2</div><div class='input'><span class='no'>plot1</span>$<span class='no'>zlim</span></div><div class='output co'>#&gt; [1]  17.41711 132.85700</div><div class='input'>
 <span class='co'>## now with adjusted z-scale limits</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_AbanicoPlot-32.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_AbanicoPlot-172.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with adjusted x-scale limits</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_AbanicoPlot-33.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_AbanicoPlot-173.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with rug to indicate individual values in KDE part</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-34.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-174.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a smaller bandwidth for the KDE plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>bw</span> <span class='kw'>=</span> <span class='fl'>0.04</span>)</div><div class='img'><img src='plot_AbanicoPlot-35.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>bw</span> <span class='kw'>=</span> <span class='fl'>0.04</span>)</div><div class='img'><img src='plot_AbanicoPlot-175.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a histogram instead of the KDE plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                 <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-36.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-176.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a KDE plot and histogram with manual number of bins</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                 <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='img'><img src='plot_AbanicoPlot-37.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='img'><img src='plot_AbanicoPlot-177.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a KDE plot and a dot plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-38.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-178.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with user-defined plot ratio</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='plot_AbanicoPlot-39.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>## now with user-defined central value</span>
+                 <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='plot_AbanicoPlot-179.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>## now with user-defined central value</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='fl'>70</span>)</div><div class='img'><img src='plot_AbanicoPlot-40.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='fl'>70</span>)</div><div class='img'><img src='plot_AbanicoPlot-180.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with median as central value</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>)</div><div class='img'><img src='plot_AbanicoPlot-41.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>)</div><div class='img'><img src='plot_AbanicoPlot-181.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with the 17-83 percentile range as definition of scatter</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
-                 <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"p17"</span>)</div><div class='img'><img src='plot_AbanicoPlot-42.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"p17"</span>)</div><div class='img'><img src='plot_AbanicoPlot-182.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with user-defined green line for minimum age model</span>
 <span class='no'>CAM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='calc_CentralDose.html'>calc_CentralDose</a></span>(<span class='no'>ExampleData.DeValues</span>,
                         <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; 
@@ -592,46 +601,46 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>line</span> <span class='kw'>=</span> <span class='no'>CAM</span>,
                  <span class='kw'>line.col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>,
-                 <span class='kw'>line.label</span> <span class='kw'>=</span> <span class='st'>"CAM"</span>)</div><div class='img'><img src='plot_AbanicoPlot-43.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>line.label</span> <span class='kw'>=</span> <span class='st'>"CAM"</span>)</div><div class='img'><img src='plot_AbanicoPlot-183.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now create plot with legend, colour, different points and smaller scale</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"Sample 1"</span>,
                  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"tomato4"</span>,
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='st'>"peachpuff"</span>,
                  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='st'>"R"</span>,
-                 <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='img'><img src='plot_AbanicoPlot-44.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='img'><img src='plot_AbanicoPlot-184.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now without 2-sigma bar, polygon, grid lines and central value line</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                 <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='plot_AbanicoPlot-45.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='plot_AbanicoPlot-185.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with direct display of De errors, without 2-sigma bar</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>,
                  <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                 <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-46.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-186.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with user-defined axes labels</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Data error (%)"</span>,
                           <span class='st'>"Data precision"</span>),
                  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Scatter"</span>,
-                 <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='img'><img src='plot_AbanicoPlot-47.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='img'><img src='plot_AbanicoPlot-187.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with minimum, maximum and median value indicated</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-48.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-188.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a brief statistical summary as subheader</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_AbanicoPlot-49.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_AbanicoPlot-189.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with another statistical summary</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span>),
-                 <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_AbanicoPlot-50.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_AbanicoPlot-190.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now a plot with two 2-sigma bars for one data set</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>100</span>))</div><div class='img'><img src='plot_AbanicoPlot-51.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>100</span>))</div><div class='img'><img src='plot_AbanicoPlot-191.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now the data set is split into sub-groups, one is manipulated</span>
 <span class='no'>data.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>1</span>:<span class='fl'>30</span>,]
 <span class='no'>data.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>31</span>:<span class='fl'>62</span>,] * <span class='fl'>1.3</span>
@@ -640,7 +649,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
 
 <span class='co'>## now the two data sets are plotted in one plot</span>
-<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_AbanicoPlot-52.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_AbanicoPlot-192.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with some graphical modification</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
@@ -649,10 +658,10 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
                  <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue1"</span>, <span class='st'>"orange1"</span>),
                  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>6</span>),
                  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>50</span>),
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-53.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-193.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## create Abanico plot with predefined layout definition</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='img'><img src='plot_AbanicoPlot-54.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='img'><img src='plot_AbanicoPlot-194.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with predefined layout definition and further modifications</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
@@ -660,7 +669,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
                  <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span>),
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fu'>adjustcolor</span>(<span class='fu'>c</span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>),
                                        <span class='kw'>alpha.f</span> <span class='kw'>=</span> <span class='fl'>0.5</span>),
-                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>))</div><div class='img'><img src='plot_AbanicoPlot-55.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>))</div><div class='img'><img src='plot_AbanicoPlot-195.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## for further information on layout definitions see documentation</span>
 <span class='co'>## of function get_Layout()</span>
 
@@ -682,7 +691,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='co'>## add points outside 2-sigma range</span>
 <span class='fu'>points</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[!<span class='no'>in_2sigma</span>],
        <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>std.estimate.plot</span>[!<span class='no'>in_2sigma</span>],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='plot_AbanicoPlot-56.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='plot_AbanicoPlot-196.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

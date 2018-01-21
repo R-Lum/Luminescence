@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -53,29 +53,38 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../articles/HowTo_analyse_Al2O3.html">
+    <span class="fa fa-play"></span>
      
-    <span class="caret"></span>
+    Articles
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/HowTo_analyse_Al2O3.html">How to Analyse Al2O3:C Measurements</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="../news/NEWS_Version0.7.0.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -218,7 +227,7 @@ commands.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.11 (2017-09-02 23:27:02)</p>
+    <p>0.1.11 (2018-01-21 17:22:38)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
@@ -243,17 +252,17 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 
 <span class='co'>## plot values</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
-<span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='img'><img src='plot_DRTResults-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='img'><img src='plot_DRTResults-61.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## plot values with legend</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"Test data set"</span>)</div><div class='img'><img src='plot_DRTResults-12.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"Test data set"</span>)</div><div class='img'><img src='plot_DRTResults-62.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## create and plot two subsets with randomised values</span>
 <span class='no'>x.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,]
 <span class='no'>x.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,] * <span class='fu'>c</span>(<span class='fu'>runif</span>(<span class='fl'>5</span>, <span class='fl'>0.9</span>, <span class='fl'>1.1</span>), <span class='fl'>1</span>)
 
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
-                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>)</div><div class='img'><img src='plot_DRTResults-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>)</div><div class='img'><img src='plot_DRTResults-63.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## some more user-defined plot parameters</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
@@ -261,33 +270,33 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"orange"</span>, <span class='st'>"blue"</span>),
                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>8</span>),
                 <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.85</span>, <span class='fl'>1.15</span>),
-                <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Sample aliquot"</span>)</div><div class='img'><img src='plot_DRTResults-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Sample aliquot"</span>)</div><div class='img'><img src='plot_DRTResults-64.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## plot the data with user-defined statistical measures as legend</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean.weighted"</span>, <span class='st'>"sd"</span>))</div><div class='img'><img src='plot_DRTResults-15.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean.weighted"</span>, <span class='st'>"sd"</span>))</div><div class='img'><img src='plot_DRTResults-65.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## plot the data with user-defined statistical measures as sub-header</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean.weighted"</span>, <span class='st'>"sd"</span>),
-                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>)</div><div class='img'><img src='plot_DRTResults-16.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>)</div><div class='img'><img src='plot_DRTResults-66.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## plot the data grouped by preheat temperatures</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='img'><img src='plot_DRTResults-17.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>## read example data set and misapply them for this plot type</span>
+                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='img'><img src='plot_DRTResults-67.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>## read example data set and misapply them for this plot type</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
 <span class='co'>## plot values</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
-                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='img'><img src='plot_DRTResults-18.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>## plot two data sets grouped by preheat temperatures</span>
+                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='img'><img src='plot_DRTResults-68.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>## plot two data sets grouped by preheat temperatures</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='img'><img src='plot_DRTResults-19.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='img'><img src='plot_DRTResults-69.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## plot the data grouped by preheat temperatures as boxplots</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
                 <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>),
-                <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_DRTResults-20.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_DRTResults-70.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
