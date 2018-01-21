@@ -1,7 +1,7 @@
 ---
-title: "How to Analyse Al$_{2}$O$_{3}$:C Measurements"
+title: "How to Analyse Al2O3:C Measurements"
 author: "Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montagine, France"
-date: "Last modified: `r Sys.Date()`"
+date: "Last modified: `r Sys.Date()` ('Luminescence' version: `r packageVersion('Luminescence')`)"
 output: 
   rmarkdown::html_vignette:
     fig_caption: yes
