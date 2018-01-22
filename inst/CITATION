@@ -1,6 +1,13 @@
-citHeader("To cite the package 'Luminescence' in publications use:")
+citHeader("To cite the R package 'Luminescence' please use the first two entries, and apply the rest if applicable:")
+citation(auto = meta)
 
-	 citation(auto = TRUE)
+	 bibentry(bibtype = "Article",
+			  title = "Introducing an R package for luminescence dating analysis",
+				author = "Sebastian Kreutzer, Christoph Schmidt, Margret C. Fuchs, Michael Dietze, Manfred Fischer, Markus Fuchs",
+				year = "2012",
+				journal = "Ancient TL",
+				volume = "30",
+				pages = "1-8")
 
 	 bibentry(bibtype = "Article",
 			  title = "A practical guide to the R package Luminescence",
@@ -11,15 +18,7 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				pages = "11-18")
 
 	  bibentry(bibtype = "Article",
-			    title = "Introducing an R package for luminescence dating analysis",
-				author = "Sebastian Kreutzer, Christoph Schmidt, Margret C. Fuchs, Michael Dietze, Manfred Fischer, Markus Fuchs",
-				year = "2012",
-				journal = "Ancient TL",
-				volume = "30",
-				pages = "1-8")
-
-	  bibentry(bibtype = "Article",
-			  	title = "Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'",
+			  title = "Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'",
 				author = "Margret C. Fuchs, Sebastian Kreutzer, Christoph Burow, Michael Dietze, Manfred Fischer,
 				Christoph Schmidt, Markus Fuchs",
 				year = "2015",
@@ -38,7 +37,7 @@ citHeader("To cite the package 'Luminescence' in publications use:")
         pages = "16-21")
 
 		bibentry(bibtype = "Article",
-			  	title = "The abanico plot: visualising chronometric data with individual standard errors",
+			  title = "The abanico plot: visualising chronometric data with individual standard errors",
 				author = "Michael Dietze, Sebastian Kreutzer, Christoph Burow, Margret C. Fuchs, Manfred Fischer, Christoph Schmidt",
 				year = "2016",
 				journal = "Quaternary Geochronology",
@@ -47,8 +46,7 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				doi = "10.1016/j.quageo.2015.09.003")
 
 		bibentry(bibtype = "Article",
-			  	title = "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package
-			  	'Luminescence'",
+			  title = "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'",
 				author = "Norbert Mercier and Sebastian Kreutzer and Claire Christophe and Guillaume
 				Guerin and Pierre Guibert and Christelle Lahaye and Philippe Lanos and Anne Philippe and Chantal Tribolo",
 				year = "2016",
