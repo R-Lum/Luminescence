@@ -5,8 +5,8 @@ test_that("check class and length of output", {
 
   set.seed(1)
   data(ExampleData.RLum.Analysis, envir = environment())
-  results_fit <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = FALSE, method = "FIT")
-  results_slide <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = FALSE, method = "SLIDE", n.MC = NULL)
+  results_fit <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "FIT")
+  results_slide <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "SLIDE", n.MC = NULL)
   results_slide_alt <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
