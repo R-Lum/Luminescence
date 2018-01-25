@@ -53,3 +53,14 @@ citation(auto = meta)
 				journal = "Ancient TL",
 				volume = "34",
 				pages = "14-21")
+
+		bibentry(bibtype = "Article",
+			  title = "Software in the context of luminescence dating: status, concepts and suggestions exemplified by the R package 'Luminescence'",
+				author = "Sebastian Kreutzer and Christoph Burow and Michael Dietze and Margret C. Fuchs and Manfred Fischer and Christoph Schmidt",
+				year = "2017",
+				journal = "Ancient TL",
+				volume = "35",
+				number = "2",
+				pages = "1-11")
+
+

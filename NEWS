@@ -1,16 +1,19 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.8.0 ( ,2017):
+Changes in version 0.8.0 (Feburary 9th,2018):
 
   New functions:
 
-         • ‘analyse_Al2O3_ITC()’: Function to analyse data determined
+         • ‘analyse_Al2O3C_ITC()’: Function to analyse data determined
            to correct irradiation times as suggested by Kreutzer et
-           al., 2017
+           al., 2018
 
-         • ‘analyse_Al2O3_CrossTalk()’: Function to analyse data to
+         • ‘analyse_Al2O3C_CrossTalk()’: Function to analyse data to
            analyse cross talk measurments as shown in Kreutzer et al.,
-           2017
+           2018
+
+         • ‘analyse_Al2O3C_Measurement()’: Function to analyse Al2O3:C
+           data as shown by Kreutzer et al., 2018
 
          • ‘convert_Activity2Concentration()’: converts nuclide
            activity data (Bq/kg) to concentrations (ppm or %) and vice
