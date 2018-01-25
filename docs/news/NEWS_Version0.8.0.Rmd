@@ -1,0 +1,39 @@
+---
+title: "R Luminescence version > 0.8.0 </br> - Solid Mouse -"
+author: "R Luminescence Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Dear **R** Luminescence users!
+
+Now we have 2018 and we lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). As usual, we are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, were focussed on our efforts on stability and reliability. Below we rendered some highlights for you. For a full list of all changes, please check the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+## What's new?
+
+### New analysis functions
+
+#### Tackle environmental dose rates 
+
+* analyse_Al2O3C_ITC()
+* analyse_Al2O3C_CrossTalk()
+* analyse_Al2O3C_Measurement()
+
+
+#### Sureface exposure dating 
+
+* `fit SurfaceExposure()` @tzerk
+
+#### Another age model?
+
+* `calc_WodaFuchs2008()` @coffeemuggler 
+
+#### Helper functions 
+
+* `convert_Activity2Concentration()`
+* `convert_Activity2Concentration()`
+
