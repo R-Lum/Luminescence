@@ -19,48 +19,47 @@
 #' **Allowed source types and related values**
 #'
 #' \tabular{rllll}{
-#'  **#** \tab **Source type** \tab **T.1/2** \tab **Reference** \cr 
-#'  `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr 
-#'  `[2]`\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr 
+#'  **#** \tab **Source type** \tab **T.1/2** \tab **Reference** \cr
+#'  `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
+#'  `[2]`\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory }
 #'
-#' @param measurement.date [character] or [Date] (**required**): 
-#' date of measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
-#' The argument can be provided as vector.
+#' @param measurement.date [character] or [Date] (with default): Date of measurement in "YYYY-MM-DD".
+#' If no value is provided, the date will be set to today. The argument can be provided as vector.
 #'
-#' @param calib.date [character] or [Date] (**required**): 
+#' @param calib.date [character] or [Date] (**required**):
 #' date of source calibration in "YYYY-MM-DD"
 #'
-#' @param calib.dose.rate [numeric] (**required**): 
+#' @param calib.dose.rate [numeric] (**required**):
 #' dose rate at date of calibration in Gy/s or Gy/min
 #'
-#' @param calib.error [numeric] (**required**): 
+#' @param calib.error [numeric] (**required**):
 #' error of dose rate at date of calibration Gy/s or Gy/min
 #'
-#' @param source.type [character] (*with default*): 
-#' specify irrdiation source (`Sr-90` or `Co-60` or `Am-214`), 
+#' @param source.type [character] (*with default*):
+#' specify irrdiation source (`Sr-90` or `Co-60` or `Am-214`),
 #' see details for further information
 #'
-#' @param dose.rate.unit [character] (*with default*): 
+#' @param dose.rate.unit [character] (*with default*):
 #' specify dose rate unit for input (`Gy/min` or `Gy/s`), the output is given in
 #' Gy/s as valid for the function [Second2Gray]
 #'
-#' @param predict [integer] (*with default*): 
-#' option allowing to predicit the dose rate of the source over time in days 
-#' set by the provided value. Starting date is the value set with 
+#' @param predict [integer] (*with default*):
+#' option allowing to predicit the dose rate of the source over time in days
+#' set by the provided value. Starting date is the value set with
 #' `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)` calculates
 #' the source dose rate for the next 100 days.
 #'
-#' @return 
+#' @return
 #' Returns an S4 object of type [RLum.Results-class].
 #' Slot `data` contains a [list] with the following structure:
-#' 
+#'
 #' ```
 #' $ dose.rate (data.frame)
-#' .. $ dose.rate 
-#' .. $ dose.rate.error 
+#' .. $ dose.rate
+#' .. $ dose.rate.error
 #' .. $ date (corresponding measurement date)
-#' $ parameters (list) 
+#' $ parameters (list)
 #' .. $ source.type
 #' .. $ halflife
 #' .. $ dose.rate.unit
@@ -70,7 +69,7 @@
 #' The output should be accessed using the function [get_RLum].\cr
 #' A plot method of the output is provided via [plot_RLum]
 #'
-#' @note 
+#' @note
 #' Please be careful when using the option `predict`, especially when a multiple set
 #' for `measurement.date` and `calib.date` is provided. For the source dose rate prediction
 #' the function takes the last value `measurement.date` and predicts from that the the source
@@ -80,16 +79,16 @@
 #' it is not recommended to use this option when multiple calibration dates (`calib.date`)
 #' are provided.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
-#' @author 
-#' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr 
+#' @author
+#' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [Second2Gray], [get_RLum], [plot_RLum]
 #'
-#' @references 
+#' @references
 #' NNDC, Brookhaven National Laboratory [http://www.nndc.bnl.gov/]()
 #'
 #' @keywords manip
@@ -133,7 +132,7 @@
 #' @md
 #' @export
 calc_SourceDoseRate <- function(
-  measurement.date,
+  measurement.date = Sys.Date(),
   calib.date,
   calib.dose.rate,
   calib.error,
@@ -143,19 +142,9 @@ calc_SourceDoseRate <- function(
 ){
 
 
-  # -- transform input so far necessary
-  ## measurement.data
-    if (missing(measurement.date)) {
-      measurement.date <- Sys.Date()
-
-      warning("Argument 'measurement.date', automatically set to today.")
-
-    }else{
-      if (is(measurement.date, "character")) {
+  if (is(measurement.date, "character")) {
         measurement.date <- as.Date(measurement.date)
       }
-
-    }
 
   ##calibration date
   if(is(calib.date, "character")) {
@@ -181,11 +170,9 @@ calc_SourceDoseRate <- function(
     "Am-241" = 432.6,
     "Co-60" = 5.274)
 
-  if(is.null(halflife.years)){
+  if(is.null(halflife.years))
+    stop("[calc_SourceDoseRate()] Source type unknown or currently not supported!", call. = FALSE)
 
-    stop("[calc_SourceDoseRate()] Source type unknown or currently not supported!")
-
-  }
 
 
   halflife.days  <- halflife.years * 365

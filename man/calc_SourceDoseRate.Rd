@@ -4,13 +4,13 @@
 \alias{calc_SourceDoseRate}
 \title{Calculation of the source dose rate via the date of measurement}
 \usage{
-calc_SourceDoseRate(measurement.date, calib.date, calib.dose.rate, calib.error,
-  source.type = "Sr-90", dose.rate.unit = "Gy/s", predict = NULL)
+calc_SourceDoseRate(measurement.date = Sys.Date(), calib.date,
+  calib.dose.rate, calib.error, source.type = "Sr-90",
+  dose.rate.unit = "Gy/s", predict = NULL)
 }
 \arguments{
-\item{measurement.date}{\link{character} or \link{Date} (\strong{required}):
-date of measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
-The argument can be provided as vector.}
+\item{measurement.date}{\link{character} or \link{Date} (with default): Date of measurement in "YYYY-MM-DD".
+If no value is provided, the date will be set to today. The argument can be provided as vector.}
 
 \item{calib.date}{\link{character} or \link{Date} (\strong{required}):
 date of source calibration in "YYYY-MM-DD"}
@@ -38,10 +38,10 @@ the source dose rate for the next 100 days.}
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
 Slot \code{data} contains a \link{list} with the following structure:\preformatted{$ dose.rate (data.frame)
-.. $ dose.rate 
-.. $ dose.rate.error 
+.. $ dose.rate
+.. $ dose.rate.error
 .. $ date (corresponding measurement date)
-$ parameters (list) 
+$ parameters (list)
 .. $ source.type
 .. $ halflife
 .. $ dose.rate.unit
@@ -88,7 +88,7 @@ it is not recommended to use this option when multiple calibration dates (\code{
 are provided.
 }
 \section{Function version}{
- 0.3.0 (2018-01-21 17:22:38)
+ 0.3.1 (2018-01-25 16:46:06)
 }
 
 \examples{
@@ -130,7 +130,7 @@ xtable::xtable(get_RLum(dose.rate))
 } 
 
 \section{How to cite}{
-Fuchs, M.C., Kreutzer, S. (2018). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., Kreutzer, S. (2018). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
