@@ -6,6 +6,51 @@ temp <- calc_IEU(ExampleData.DeValues$CA1,
                  b = 1.9,
                  interval = 1, verbose = FALSE, plot = FALSE)
 
+test_that("Test general behaviour", {
+
+  data(ExampleData.DeValues, envir = environment())
+
+  ##standard
+  expect_silent(calc_IEU(
+    ExampleData.DeValues$CA1,
+    a = 0.2,
+    b = 1.9,
+    interval = 1,
+    verbose = FALSE, plot =FALSE
+  ))
+
+  ##enable plot
+  expect_message(calc_IEU(
+    ExampleData.DeValues$CA1,
+    a = 0.2,
+    b = 1.9,
+    interval = 1,
+    trace = TRUE,
+    verbose = TRUE, plot = TRUE
+  ))
+
+  ##cause stop
+  expect_error(calc_IEU(
+    "ExampleData.DeValues$CA1",
+    a = 0.2,
+    b = 1.9,
+    interval = 1,
+    verbose = FALSE, plot = FALSE
+  ))
+
+  ##provide RLum.Results
+  ##cause stop
+  expect_silent(calc_IEU(
+    set_RLum(class = "RLum.Results", data = list(test = ExampleData.DeValues$CA1)),
+    a = 0.2,
+    b = 1.9,
+    interval = 1,
+    verbose = FALSE, plot = FALSE
+  ))
+
+
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
