@@ -16,14 +16,14 @@ plotting of equivalent dose distributions.
 \strong{Package:} \tab Luminescence \cr
 \strong{Type:} \tab Package \cr
 \strong{Version:} \tab 0.8.0 \cr
-\strong{Date:} \tab 2017-XX-XX \cr
+\strong{Date:} \tab 2018-02-09 \cr
 \strong{License:} \tab GPL-3 \cr
 }
 }
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
 Schmidt, C., 2013. A practical guide to the R package Luminescence.
-Ancient TL, 31, 11-18.
+Ancient TL, 31 (1), 11-18.
 
 Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
 visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 1-7.
@@ -36,10 +36,14 @@ International, 362,8-13. http://dx.doi.org/10.1016/j.quaint.2014.06.034
 
 Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
-30, 1-8.
+30 (1), 1-8.
+
+Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
+Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
+implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14–21.
 
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
-Ancient TL 33, 16-21.
+Ancient TL, 33 (1), 16-21.
 }
 \author{
 \strong{Full list of authors and contributors} (alphabetic order)
