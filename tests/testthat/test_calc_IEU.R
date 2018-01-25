@@ -35,7 +35,7 @@ test_that("Test general behaviour", {
     a = 0.2,
     b = 1.9,
     interval = 1,
-    verbose = FALSE, plot = FALSE
+    plot = FALSE
   ))
 
   ##provide RLum.Results
