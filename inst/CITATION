@@ -7,6 +7,7 @@ citation(auto = meta)
 				year = "2012",
 				journal = "Ancient TL",
 				volume = "30",
+				number = "1",
 				pages = "1-8")
 
 	 bibentry(bibtype = "Article",
@@ -15,6 +16,7 @@ citation(auto = meta)
 				year = "2013",
 				journal = "Ancient TL",
 				volume = "31",
+				number = "1",
 				pages = "11-18")
 
 	  bibentry(bibtype = "Article",
@@ -52,6 +54,7 @@ citation(auto = meta)
 				year = "2016",
 				journal = "Ancient TL",
 				volume = "34",
+				number = "2",
 				pages = "14-21")
 
 		bibentry(bibtype = "Article",
