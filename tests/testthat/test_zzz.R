@@ -18,4 +18,13 @@ test_that("Test zzz functions ... they should still work", {
   expect_warning(tune_Data(data.frame(runif(n = 10, 8,12),runif(n = 10, 0.1,0.3) ), decrease.error = TRUE))
   expect_warning(tune_Data(data.frame(runif(n = 10, 8,12),runif(n = 10, 0.1,0.3) ), increase.data = TRUE))
 
+  ##sTeve
+  ## read example data set
+  data(ExampleData.DeValues, envir = environment())
+  ExampleData.DeValues <-
+    Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+
+  ## create plot straightforward
+  expect_silent(plot_KDE(data = ExampleData.DeValues, fun = TRUE))
+
 })
