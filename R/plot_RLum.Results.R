@@ -319,8 +319,10 @@ plot_RLum.Results<- function(
       
       # cutoff negative y values
       neg<- which(y<0)
-      y<- y[-neg]
-      x<- x[-neg]
+      if (length(neg) != 0) {
+        y<- y[-neg]
+        x<- x[-neg]
+      }
       
       # add bootstrap likelihood polygon to plot
       polygon(x, y, col = "grey80", border = NA)
@@ -331,6 +333,7 @@ plot_RLum.Results<- function(
       mean<- object@data$summary$de
       sd<- object@data$summary$de_err
       
+      browser()
       x<- seq(mean-5*sd, mean+5*sd, 0.001)
       y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
       # normalise y-values
