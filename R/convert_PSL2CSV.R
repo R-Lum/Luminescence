@@ -6,14 +6,14 @@
 #' If nothing is set for the argument `path` ([write_RLum2CSV]) the input folder will
 #' become the output folder.
 #'
-#' @param file [character] (**required**): 
+#' @param file [character] (**required**):
 #' name of the PSL-file to be converted to CSV-files
 #'
-#' @param ... further arguments that will be passed to the function 
+#' @param ... further arguments that will be passed to the function
 #' [read_PSL2R] and [write_RLum2CSV]
 #'
-#' @return 
-#' The function returns either a CSV-file (or many of them) or for the option 
+#' @return
+#' The function returns either a CSV-file (or many of them) or for the option
 #' `export = FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #' @section Function version: 0.1.0
@@ -35,7 +35,7 @@
 #' convert_PSL2CSV(file)
 #'
 #' }
-#' 
+#'
 #' @md
 #' @export
 convert_PSL2CSV <- function(
@@ -48,7 +48,7 @@ convert_PSL2CSV <- function(
 
   ##file is missing?
   if(missing(file)){
-    stop("[convert_PSL2R()] file is missing!", call. = FALSE)
+    stop("[convert_PSL2CSV()] 'file' is missing!", call. = FALSE)
 
   }
 
