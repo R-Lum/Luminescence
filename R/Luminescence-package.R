@@ -1089,6 +1089,11 @@ NULL
 #' **Type:** Test data for exponential fits \cr
 #' **Reference:** Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 #'
+#' *>>XYSG_file.xysg*
+#'
+#' **Type:** XSYG-file stump \cr
+#' **Info: ** XSYG-file with some basic curves to test functions \cr
+#' **Reference:** no reference available
 #'
 #'
 #' @keywords datasets
