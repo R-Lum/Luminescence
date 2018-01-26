@@ -24,6 +24,9 @@ test_that("test the import of various BIN-file versions", {
     expect_is(
       read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V6.binx",
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
+    ##V6 - show method
+    expect_output(read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V6.binx",
+                 txtProgressBar = FALSE))
 
     ##V7
     expect_is(
