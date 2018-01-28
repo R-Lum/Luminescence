@@ -171,7 +171,10 @@ Changes in version 0.8.0 (Feburary 9th,2018):
              • give the XSYG-file import a 50% performance boost,
 
              • set option `XML_PARSE_HUGE` to allow parsing of larger
-               nodes within the XSYG-file.
+               nodes within the XSYG-file,
+
+             • the metadata entries ‘curveType’ and ‘parentID’ appeared
+               duplicated, fixed.
 
          • ‘read_SPE2R()’
 

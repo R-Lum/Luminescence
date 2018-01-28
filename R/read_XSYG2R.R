@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.5
+#' @section Function version: 0.6.6
 #'
 #'
 #' @author
@@ -466,7 +466,6 @@ read_XSYG2R <- function(
 
         }
 
-
         ##loop 3rd level
         lapply(1:XML::xmlSize(temp[[x]][[i]]), function(j){
 
@@ -481,22 +480,16 @@ read_XSYG2R <- function(
           temp.sequence.object.detector <- as.character(
             XML::xmlAttrs(temp[[x]][[i]][[j]])["detector"])
 
-
           ##get stimulator
           temp.sequence.object.stimulator <- as.character(
             XML::xmlAttrs(temp[[x]][[i]][[j]])["stimulator"])
 
-
-          ##get parentID
-          temp.sequence.object.parentID <- as.numeric(
-            XML::xmlAttrs(temp[[x]][[i]][[j]])["parentID"])
-
           ##get additional information
           temp.sequence.object.info <- as.list(XML::xmlAttrs(temp.sequence.object.curveValue))
 
+
           ##add stimulator and detector and so on
           temp.sequence.object.info <- c(temp.sequence.object.info,
-                                         parentID = temp.sequence.object.parentID,
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
 
@@ -706,7 +699,14 @@ read_XSYG2R <- function(
           }##endif recalculate.TL.curves == TRUE
 
 
-          ##Set RLum.Data objects
+    # Cleanup info objects ------------------------------------------------------------------------
+    if("curveType" %in% names(temp.sequence.object.info))
+      temp.sequence.object.info[["curveType"]] <- NULL
+
+
+
+
+    # Set RLum.Data-objects -----------------------------------------------------------------------
           if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
 
             if(is(temp.sequence.object.curveValue, "matrix") == FALSE){
