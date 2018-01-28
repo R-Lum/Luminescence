@@ -55,6 +55,10 @@ Changes in version 0.8.0 (Feburary 9th,2018):
          • The coercion from ‘list’ to ‘RLum.Results’ using ‘as()’ did
            not work; fixed.
 
+         • Method ‘get_RLum’ for ‘RLum.Analysis’ returned a confusing
+           error if what was provided via 'subset' was not a logical
+           expression; fixed.
+
   Bugfixes and changes:
 
          • ‘analyse_IRSAR.RF()’

@@ -57,6 +57,7 @@
         \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
         \item Method for \code{get_RLum} with signature \code{NULL} added. Now it returns \code{NULL}.
         \item The coercion from \code{list} to \code{RLum.Results} using \code{as()} did not work; fixed.
+        \item Method \code{get_RLum} for \code{RLum.Analysis} returned a confusing error if what was provided via 'subset' was not a logical expression; fixed.
 
 
     }

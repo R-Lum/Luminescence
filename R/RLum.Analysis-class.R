@@ -25,7 +25,7 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.12
+#' @section Class version: 0.4.13
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -375,9 +375,13 @@ setMethod("get_RLum",
 
             if (!is.null(substitute(subset))) {
 
+              ##check for a logical expression, to avoid problems afterwards
+              if(class(eval(substitute(subset))) != "logical")
+                stop("[get_RLum] The argument 'subset' does not contain a logical expression!", call. = FALSE)
+
               # To account for different lengths and elements in the @info slot we first
-              # check all unique elements
-              info_el <- unique(unlist(sapply(object@records, function(el) names(el@info))))
+              # check all unique elements (in all records)
+              info_el <- unique(unlist(lapply(object@records, function(el) names(el@info))))
 
               envir <- as.data.frame(do.call(rbind,
                                              lapply(object@records, function(el) {
@@ -387,9 +391,10 @@ setMethod("get_RLum",
                                                if (any(!info_el %in% names(val))) {
                                                  val_new <- setNames(rep(NA, length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
                                                  val <- c(val, val_new)
+
                                                }
 
-                                               # order the named char vector by its names so we dont mix up the columns
+                                               # order the named char vector by its names so we don't mix up the columns
                                                val <- val[order(names(val))]
                                                return(val)
                                                })
@@ -423,7 +428,6 @@ setMethod("get_RLum",
             else if(!is.null(info.object)) {
 
               if(info.object %in% names(object@info)){
-
                 unlist(object@info[info.object])
 
               }else{
