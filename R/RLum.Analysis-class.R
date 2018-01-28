@@ -25,7 +25,7 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.11
+#' @section Class version: 0.4.12
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -313,45 +313,45 @@ setMethod(
 #' The selection of a specific RLum.type object superimposes the default selection.
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 #'
-#' @param object [`get_RLum`], [`names_RLum`], [`length_RLum`], [`structure_RLum`] (**required**):
+#' @param object [`get_RLum`]: [`names_RLum`], [`length_RLum`], [`structure_RLum`] (**required**):
 #' an object of class [RLum.Analysis-class]
 #'
-#' @param record.id [`get_RLum`]; [numeric] or [logical] (*optional*):
+#' @param record.id [`get_RLum`]: [numeric] or [logical] (*optional*):
 #' IDs of specific records. If of type `logical` the entire id range is assumed
 #' and `TRUE` and `FALSE` indicates the selection.
 #'
-#' @param recordType [`get_RLum`]; [character] (*optional*):
+#' @param recordType [`get_RLum`]: [character] (*optional*):
 #' record type (e.g., "OSL"). Can be also a vector, for multiple matching,
 #' e.g., `recordType = c("OSL", "IRSL")`
 #'
-#' @param curveType [`get_RLum`]; [character] (*optional*):
+#' @param curveType [`get_RLum`]: [character] (*optional*):
 #' curve type (e.g. "predefined" or "measured")
 #'
-#' @param RLum.type [`get_RLum`]; [character] (*optional*):
+#' @param RLum.type [`get_RLum`]: [character] (*optional*):
 #' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
 #'
-#' @param get.index [`get_RLum`]; [logical] (*optional*):
+#' @param get.index [`get_RLum`]: [logical] (*optional*):
 #' return a numeric vector with the index of each element in the RLum.Analysis object.
 #'
-#' @param recursive [`get_RLum`]; [logical] (*with default*):
+#' @param recursive [`get_RLum`]: [logical] (*with default*):
 #' if `TRUE` (the default) and the result of the 'get_RLum' request is a single
 #' object this object will be unlisted, means only the object itself and no
 #' list containing exactly one object is returned. Mostly this makes things
-#' easier, however, if this method is used within a loop this might undesired.
+#' easier, however, if this method is used within a loop this might be undesired.
 #'
-#' @param drop [`get_RLum`]; [logical] (*with default*):
+#' @param drop [`get_RLum`]: [logical] (*with default*):
 #' coerce to the next possible layer (which are `RLum.Data`-objects),
 #' `drop = FALSE` keeps the original `RLum.Analysis`
 #'
-#' @param info.object [`get_RLum`]; [character] (*optional*):
+#' @param info.object [`get_RLum`]: [character] (*optional*):
 #' name of the wanted info element
 #'
-#' @param subset [expression] (*optional*):
+#' @param subset [`get_RLum`]: [expression] (*optional*):
 #' logical expression indicating elements or rows to keep: missing values are
 #' taken as false. This argument takes precedence over all other arguments,
 #' meaning they are not considered when subsetting the object.
 #'
-#' @param env [environment] (*with default*):
+#' @param env [`get_RLum`]: [environment] (*with default*):
 #' An environment passed to [eval] as the enclosure. This argument is only
 #' relevant when subsetting the object and should not be used manually.
 #'
@@ -402,7 +402,7 @@ setMethod("get_RLum",
                 enclos = env
               ),
               error = function(e) {
-                stop("\n\n [get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "), call. = FALSE)
+                stop("[get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "), call. = FALSE)
               })
 
               if (all(is.na(sel)))
@@ -677,11 +677,8 @@ setMethod("structure_RLum",
           definition = function(object, fullExtent = FALSE) {
 
             ##check if the object containing other elements than allowed
-            if(length(grep(FALSE, sapply(object@records, is, class="RLum.Data.Curve")))!=0){
-
-              stop("[structure_RLum()]  Only 'RLum.Data.Curve' objects are allowed!" )
-
-            }
+            if(!all(vapply(object@records, FUN = class, character(1)) == "RLum.Data.Curve"))
+              stop("[structure_RLum()]  Only 'RLum.Data.Curve' objects are allowed!", call. = FALSE)
 
             ##get length object
             temp.object.length <- length(object@records)
@@ -689,35 +686,30 @@ setMethod("structure_RLum",
             ##ID
             temp.id <- 1:temp.object.length
 
-            ##OBJECT TYPE
-            temp.recordType <- c(NA)
-            length(temp.recordType) <- temp.object.length
-            temp.recordType <- sapply(1:temp.object.length,
-                                      function(x){object@records[[x]]@recordType})
+            ##recordType
+            temp.recordType <-
+              vapply(object@records, function(x) {
+                x@recordType
+              }, character(1))
 
             ##PROTOCOL STEP
             temp.protocol.step <- c(NA)
             length(temp.protocol.step) <- temp.object.length
 
             ##n.channels
-            temp.n.channels <- sapply(1:temp.object.length,
-                                      function(x){length(object@records[[x]]@data[,1])})
+            temp.n.channels <- vapply(object@records, function(x){length(x@data[,1])}, numeric(1))
 
             ##X.MIN
-            temp.x.min <- sapply(1:temp.object.length,
-                                 function(x){min(object@records[[x]]@data[,1])})
+            temp.x.min <- vapply(object@records, function(x){min(x@data[,1])}, numeric(1))
 
             ##X.MAX
-            temp.x.max <- sapply(1:temp.object.length,
-                                 function(x){max(object@records[[x]]@data[,1])})
+            temp.x.max <- vapply(object@records, function(x){max(x@data[,1])}, numeric(1))
 
             ##y.MIN
-            temp.y.min <- sapply(1:temp.object.length,
-                                 function(x){min(object@records[[x]]@data[,2])})
+            temp.y.min <- vapply(object@records, function(x){min(x@data[,2])}, numeric(1))
 
             ##X.MAX
-            temp.y.max <- sapply(1:temp.object.length,
-                                 function(x){max(object@records[[x]]@data[,2])})
+            temp.y.max <- vapply(object@records, function(x){max(x@data[,2])}, numeric(1))
 
             ##.uid
             temp.uid <- unlist(lapply(object@records, function(x){x@.uid}))

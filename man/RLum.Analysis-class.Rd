@@ -31,7 +31,7 @@
 \S4method{smooth_RLum}{RLum.Analysis}(object, ...)
 }
 \arguments{
-\item{object}{\code{\link{get_RLum}}, \code{\link{names_RLum}}, \code{\link{length_RLum}}, \code{\link{structure_RLum}} (\strong{required}):
+\item{object}{\code{\link{get_RLum}}: \code{\link{names_RLum}}, \code{\link{length_RLum}}, \code{\link{structure_RLum}} (\strong{required}):
 an object of class \linkS4class{RLum.Analysis}}
 
 \item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}):
@@ -60,42 +60,42 @@ a list containing additional info data for the object
 
 Returns an \linkS4class{RLum.Analysis} object.}
 
-\item{record.id}{\code{\link{get_RLum}}; \link{numeric} or \link{logical} (\emph{optional}):
+\item{record.id}{\code{\link{get_RLum}}: \link{numeric} or \link{logical} (\emph{optional}):
 IDs of specific records. If of type \code{logical} the entire id range is assumed
 and \code{TRUE} and \code{FALSE} indicates the selection.}
 
-\item{recordType}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+\item{recordType}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
 record type (e.g., "OSL"). Can be also a vector, for multiple matching,
 e.g., \code{recordType = c("OSL", "IRSL")}}
 
-\item{curveType}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+\item{curveType}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
 curve type (e.g. "predefined" or "measured")}
 
-\item{RLum.type}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+\item{RLum.type}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
 RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
 
-\item{get.index}{\code{\link{get_RLum}}; \link{logical} (\emph{optional}):
+\item{get.index}{\code{\link{get_RLum}}: \link{logical} (\emph{optional}):
 return a numeric vector with the index of each element in the RLum.Analysis object.}
 
-\item{drop}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
+\item{drop}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
 coerce to the next possible layer (which are \code{RLum.Data}-objects),
 \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
 
-\item{recursive}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
+\item{recursive}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
 if \code{TRUE} (the default) and the result of the 'get_RLum' request is a single
 object this object will be unlisted, means only the object itself and no
 list containing exactly one object is returned. Mostly this makes things
-easier, however, if this method is used within a loop this might undesired.}
+easier, however, if this method is used within a loop this might be undesired.}
 
-\item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+\item{info.object}{\code{\link{get_RLum}}: \link{character} (\emph{optional}):
 name of the wanted info element}
 
-\item{subset}{\link{expression} (\emph{optional}):
+\item{subset}{\code{\link{get_RLum}}: \link{expression} (\emph{optional}):
 logical expression indicating elements or rows to keep: missing values are
 taken as false. This argument takes precedence over all other arguments,
 meaning they are not considered when subsetting the object.}
 
-\item{env}{\link{environment} (\emph{with default}):
+\item{env}{\code{\link{get_RLum}}: \link{environment} (\emph{with default}):
 An environment passed to \link{eval} as the enclosure. This argument is only
 relevant when subsetting the object and should not be used manually.}
 
@@ -183,7 +183,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 }
 
 \section{Class version}{
- 0.4.11
+ 0.4.12
 }
 
 \examples{
