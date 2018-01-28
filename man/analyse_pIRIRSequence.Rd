@@ -92,7 +92,7 @@ with the following options:
 \code{pdf(file = "...", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.3 (2018-01-21 17:22:38)
+ 0.2.4 (2018-01-28 19:41:36)
 }
 
 \examples{
@@ -154,7 +154,7 @@ pdf(file = "...", height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -9,6 +9,15 @@
 #' one run. With this, its functionality is strictly limited by the
 #' functionality of the function [analyse_SAR.CWOSL].
 #'
+#' **Defining the sequence structure **
+#'
+#' The argument `sequence.structure` expects a shortened pattern of your sequence structure and was
+#' mainly introduced to ease the use of the function. For example: If your measurement data contains
+#' the following curves: `TL`, `IRSL`, `IRSL`, `TL`, `IRSL`, `IRSL`, the sequence pattern in `sequence.structure`
+#' becomes `c('TL', 'IRSL', 'IRSL')`. The second part of your sequence for one cycle should be
+#' similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
+#' have to be removed before using the function.
+#'
 #' **If the input is a `list`**
 #'
 #' If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
@@ -79,7 +88,7 @@
 #'
 #' `pdf(file = "...", height = 15, width = 15)`
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.2.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -271,12 +280,13 @@ analyse_pIRIRSequence <- function(
     temp.collect.invalid.terms <- paste(sequence.structure[
       (!grepl("TL",sequence.structure)) &
       (!grepl("IR",sequence.structure)) &
+      (!grepl("OSL",sequence.structure)) &
       (!grepl("EXCLUDE",sequence.structure))],
       collapse = ", ")
 
     if(temp.collect.invalid.terms != ""){
       stop("[analyse_pIRIRSequence()] ",
-        temp.collect.invalid.terms, " not allowed in sequence.strucutre!")
+        temp.collect.invalid.terms, " not allowed in 'sequence.structure'!")
     }
 
 
@@ -305,11 +315,11 @@ analyse_pIRIRSequence <- function(
   ##get sequence structure
   temp.sequence.structure  <- structure_RLum(object)
 
-  ##remove data types that fit not to allow values
+  ##remove data types that fit not to the allowed values
   temp.sequence.rm.id <- temp.sequence.structure[
-    (!grepl("TL",temp.sequence.structure[, "recordType"])) &
-    (!grepl("OSL", temp.sequence.structure[, "recordType"])) &
-    (!grepl("IRSL", temp.sequence.structure[, "recordType"]))
+    (!grepl("TL",temp.sequence.structure[["recordType"]])) &
+    (!grepl("OSL", temp.sequence.structure[["recordType"]])) &
+    (!grepl("IRSL", temp.sequence.structure[["recordType"]]))
     ,"id"]
 
   if(length(temp.sequence.rm.id)>0){
@@ -326,13 +336,20 @@ analyse_pIRIRSequence <- function(
   temp.sequence.rm.warning <- paste(
     "Record types are unrecognised and have been removed:", temp.sequence.rm.warning)
 
-  warning(temp.sequence.rm.warning)
+  warning(temp.sequence.rm.warning, call. = FALSE)
   }
 
   ##(2) Apply user sequence structure
 
   ##get sequence structure
   temp.sequence.structure  <- structure_RLum(object)
+
+    ##try to account for a very common mistake
+    if(!any(grepl(temp.sequence.structure[["recordType"]], pattern = "TL", fixed = TRUE))){
+      warning("[analyse_pIRIRSequence()] Your sequence does not contain 'TL' curves, trying to adapt 'sequence.structure' for your ...",
+              call. = FALSE, immediate. = TRUE)
+      sequence.structure <- sequence.structure[!grepl(sequence.structure, pattern = "TL", fixed = TRUE)]
+    }
 
   ##set values to structure data.frame
   ##but check first
