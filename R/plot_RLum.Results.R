@@ -327,46 +327,58 @@ plot_RLum.Results<- function(
       # add bootstrap likelihood polygon to plot
       polygon(x, y, col = "grey80", border = NA)
       
+      if (all(x > max(xlim)) || all(x < min(xlim))) 
+        warning("Bootstrap estimates out of x-axis range.", call. = FALSE)
+      
+      
       ### ----- PLOT MAM SINGLE ESTIMATE
       
       # symmetric errors, might not be appropriate
       mean<- object@data$summary$de
       sd<- object@data$summary$de_err
       
-      browser()
-      x<- seq(mean-5*sd, mean+5*sd, 0.001)
-      y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
-      # normalise y-values
-      y<- y/max(y)
       
-      points(x, y,
-             type="l",
-             col="red")
-      
-      ## asymmetric errors
-      x<- unlist(object@data$profile@profile$gamma$par.vals[,1])
-      y<- abs(unlist(object@data$profile@profile$gamma$z))
-      
-      if(object@data$args$log == TRUE) {
-        x<- exp(x)
+      if (any(is.na(c(mean, sd)))) {
+        
+        warning("Unable to plot the MAM single estimate (NA value).", call. = FALSE)
+        
+      } else {
+        
+        x<- seq(mean-5*sd, mean+5*sd, 0.001)
+        y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
+        # normalise y-values
+        y<- y/max(y)
+        
+        points(x, y,
+               type="l",
+               col="red")
+        
+        ## asymmetric errors
+        x<- unlist(object@data$profile@profile$gamma$par.vals[,1])
+        y<- abs(unlist(object@data$profile@profile$gamma$z))
+        
+        if(object@data$args$log == TRUE) {
+          x<- exp(x)
+        }
+        
+        # now invert the data by shifting
+        y<- -y
+        y<- y-min(y)
+        y<- y/max(y)
+        
+        # fit a smoothing spline
+        l<- spline(x = x, y = y, method = "n", n = 1000)
+        
+        # make the endpoints zero
+        l$y[1]<- l$y[length(l$y)]<- 0
+        
+        # add profile log likelihood curve to plot
+        lines(l, col="blue", lwd=1)
+        
+        # add vertical lines of the mean values
+        #points(x = 80, y = 100,type = "l")
+        
       }
-      
-      # now invert the data by shifting
-      y<- -y
-      y<- y-min(y)
-      y<- y/max(y)
-      
-      # fit a smoothing spline
-      l<- spline(x = x, y = y, method = "n", n = 1000)
-      
-      # make the endpoints zero
-      l$y[1]<- l$y[length(l$y)]<- 0
-      
-      # add profile log likelihood curve to plot
-      lines(l, col="blue", lwd=1)
-      
-      # add vertical lines of the mean values
-      #points(x = 80, y = 100,type = "l")
       
       #### ------ PLOT DE
       par(new = TRUE)
