@@ -79,6 +79,15 @@ this function has been written as extended wrapper function for the function
 one run. With this, its functionality is strictly limited by the
 functionality of the function \link{analyse_SAR.CWOSL}.
 
+**Defining the sequence structure **
+
+The argument \code{sequence.structure} expects a shortened pattern of your sequence structure and was
+mainly introduced to ease the use of the function. For example: If your measurement data contains
+the following curves: \code{TL}, \code{IRSL}, \code{IRSL}, \code{TL}, \code{IRSL}, \code{IRSL}, the sequence pattern in \code{sequence.structure}
+becomes \code{c('TL', 'IRSL', 'IRSL')}. The second part of your sequence for one cycle should be
+similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
+have to be removed before using the function.
+
 \strong{If the input is a \code{list}}
 
 If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
@@ -92,7 +101,7 @@ with the following options:
 \code{pdf(file = "...", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.4 (2018-01-28 19:41:36)
+ 0.2.4 (2018-01-28 19:53:33)
 }
 
 \examples{

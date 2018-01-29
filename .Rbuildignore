@@ -30,4 +30,6 @@ _pkgdown.yml
 # Exclude vignettes cache and files
 ^vignettes/.*cache$
 ^vignettes/.*files$
+^vignettes/*.xsyg$
+^vignettes/*.bib$
 ^_pkgdown\.yml$

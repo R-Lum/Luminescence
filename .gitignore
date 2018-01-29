@@ -26,6 +26,7 @@ src-x64/
 cran-comments.html
 vignettes/*_cache/
 vignettes/*_files/
+vignettes/*.xsyg
 docs/NEWS.html
 docs/NEWS*_cache/
 docs/NEWS*_cache/
