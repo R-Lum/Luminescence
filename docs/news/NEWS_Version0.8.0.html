@@ -12,12 +12,50 @@
 
 <meta name="author" content="R Luminescence Team" />
 
-<meta name="date" content="2018-01-25" />
+<meta name="date" content="2018-01-29" />
 
 <title>R Luminescence version &gt; 0.8.0  - Solid Mouse -</title>
 
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 
 
@@ -32,12 +70,12 @@
 
 <h1 class="title toc-ignore">R Luminescence version &gt; 0.8.0 </br> - Solid Mouse -</h1>
 <h4 class="author"><em>R Luminescence Team</em></h4>
-<h4 class="date"><em>2018-01-25</em></h4>
+<h4 class="date"><em>2018-01-29</em></h4>
 
 
 
 <p>Dear <strong>R</strong> Luminescence users!</p>
-<p>Now we have 2018 and we lifting our <strong>R</strong> package up to version 0.8.0 <a href="https://CRAN.R-project.org/package=Luminescence">CRAN</a>. As usual, we are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, were focussed on our efforts on stability and reliability. Below we rendered some highlights for you. For a full list of all changes, please check the CRAN webpage <a href="https://cran.r-project.org/web/packages/Luminescence/news.html">here</a>.</p>
+<p>Now we have 2018 and we lifting our <strong>R</strong> package up to version 0.8.0 <a href="https://CRAN.R-project.org/package=Luminescence">CRAN</a>. As usual, we are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, were focussed on our efforts on stability and reliability. Below we rendered some highlights for you. For a full list of all changes, in particular the bug fixes, please check the CRAN webpage <a href="https://cran.r-project.org/web/packages/Luminescence/news.html">here</a>.</p>
 <div id="whats-new" class="section level2">
 <h2>What’s new?</h2>
 <div id="new-analysis-functions" class="section level3">
@@ -64,10 +102,32 @@
 </div>
 <div id="helper-functions" class="section level4">
 <h4>Helper functions</h4>
+<p>We included two helper functions in this release:</p>
 <ul>
 <li><code>convert_Activity2Concentration()</code></li>
-<li><code>convert_Activity2Concentration()</code></li>
 </ul>
+<p>Gamma-spectrometry measurement results are often provided in Bg/kg instead of the <code>ppm</code>, which is usual reported in the context of luminescence dating. This function helps to quickly transform the numbers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##construct data.frame
+data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+ <span class="dt">NUCLIDES =</span> <span class="kw">c</span>(<span class="st">&quot;U-238&quot;</span>, <span class="st">&quot;Th-232&quot;</span>, <span class="st">&quot;K-40&quot;</span>),
+ <span class="dt">VALUE =</span> <span class="kw">c</span>(<span class="dv">40</span>,<span class="dv">80</span>,<span class="dv">100</span>),
+ <span class="dt">VALUE_ERROR =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">10</span>),
+ <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+
+##perform analysis
+<span class="kw">convert_Activity2Concentration</span>(data)</code></pre></div>
+<pre><code>##   NUCLIDE ACTIVIY (Bq/kg) ACTIVIY ERROR (Bq/kg) CONC. (ppm/%)
+## 1   U-238              40                     4     3.2388664
+## 2  Th-232              80                     8    19.7190042
+## 3    K-40             100                    10     0.3236246
+##   CONC. ERROR (ppm/%)
+## 1          0.32388664
+## 2          1.97190042
+## 3          0.03236246</code></pre>
+<ul>
+<li><code>convert_RLum2Risoe.BINfileData()</code></li>
+</ul>
+<p>To date the package supports the import of various measurement formats and treat them similar internally.</p>
 </div>
 </div>
 </div>
