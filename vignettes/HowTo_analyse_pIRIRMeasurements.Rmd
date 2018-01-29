@@ -156,7 +156,7 @@ results <- analyse_pIRIRSequence(
   dose.points = c(0, 340, 680, 1020, 1360, 0, 340))
 ```
 
-```{r, fig.height=14, fig.width=14, out.height="400px", out.height="400px", fig.align="center"}
+```{r, fig.height=14, fig.width=14, out.height="400px", out.height="400px", fig.align="center", dpi=50}
 results <- analyse_pIRIRSequence(
   object = temp_sel[[1]],
   signal.integral.min = 1,
@@ -218,7 +218,7 @@ entries. But still, each row is unique and in sum contains unique information.
 
 To plot the `pIRIR225` $D_{e}$ values the following call can be used: 
 
-```{r, fig.align="center", fig.width=4, fig.height=4}
+```{r, fig.align="center", fig.width=4, fig.height=4, dpi=50}
 plot_KDE(
   data = subset(results$data, Signal == "pIRIR225")[, c("De", "De.Error")],
   xlab = expression(paste(D[e], " [s]")), 
@@ -235,7 +235,7 @@ plot is an Abanico plot @Dietze:2015dp.
 *Please note that for this last example the arguments `plot` and `verbose` have been set to 
 `FALSE` for most of the functions.*
 
-```{r, eval = TRUE, warning=FALSE, fig.align="center", fig.width=5, fig.height=5}
+```{r, eval = TRUE, warning=FALSE, fig.align="center", fig.width=5, fig.height=5, dpi=50}
 results <- read_XSYG2R("pIRIR_measurementData.xsyg", fastForward = TRUE, verbose = FALSE) %>%
   get_RLum(recordType = "UVVIS", drop = FALSE) %>%
   get_RLum(.,record.id = -seq(7,length(.[[1]]), by = 7), drop = FALSE) %>%

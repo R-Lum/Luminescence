@@ -68,7 +68,7 @@ be directly passed to the function `analyse_Al2O3C_ITC()`.
 
 \newline{}
 
-```{r Fig1, fig.cap="Dose response curve used to correct the irradiation time for the movement duration of the sample carrier.", out.width=".8\\linewidth", fig.align="center"}
+```{r Fig1, fig.cap="Dose response curve used to correct the irradiation time for the movement duration of the sample carrier.", out.width=".8\\linewidth", fig.align="center", dpi=75}
 results_ITC <- analyse_Al2O3C_ITC(object = data_ITC)
 ```
 
@@ -100,7 +100,7 @@ function. Graphical results are shown in Fig.$~$\ref{fig:Fig2}. The numerical ou
 an `RLum.Results` object which can be kept for a later usage, i.e. for an automatic correction during 
 the dose estimation.
 
-```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (XXXX).", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h", out.height="400px", out.width="500px"}
+```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (XXXX).", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h", out.height="400px", out.width="500px", dpi=75}
 results_CT <- analyse_Al2O3C_CrossTalk(
   object = data_CT,
   irradiation_time_correction = results_ITC)
@@ -131,14 +131,14 @@ of the irradiation time correction analysis and the cross-talk measurements are 
 objects. The function automatically corrects for both effects. If this is not wanted the arguments 
 can be set to `NULL` (the default)
 
-```{r, eval = FALSE, echo = TRUE, fig.height = 4, fig.width=8, fig.align="center"}
+```{r, eval = FALSE, echo = TRUE, fig.height = 4, fig.width=8, fig.align="center", dpi=75}
 results_EnvD <- analyse_Al2O3C_Measurement(
   object = data_EnvD, 
   irradiation_time_correction = results_ITC, 
   cross_talk_correction = results_CT)
 ```
 
-```{r, echo = FALSE, fig.height = 4, fig.width=8, fig.align="center", fig.cap="Representive curve plots for one chip. Shown are OSL and TL curves."}
+```{r, echo = FALSE, fig.height = 4, fig.width=8, fig.align="center", fig.cap="Representive curve plots for one chip. Shown are OSL and TL curves.", dpi=75}
 analyse_Al2O3C_Measurement(
   object = data_EnvD[[2]], 
   irradiation_time_correction = results_ITC, 

@@ -219,6 +219,14 @@
 }
 
   \subsection{Internals}{
+    \itemize{
+      \item Add new vignette 'Analyse Al2O3:C Measurements'
+      \item Add new vignette 'Analyse post-IR IRSL Measurements'
+
+    }
+  }
+
+  \subsection{Internals}{
 
       \itemize{
         \item Start supporting RStudio add-ins for more advanced users.
