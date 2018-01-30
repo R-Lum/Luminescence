@@ -58,6 +58,7 @@
         \item Method for \code{get_RLum} with signature \code{NULL} added. Now it returns \code{NULL}.
         \item The coercion from \code{list} to \code{RLum.Results} using \code{as()} did not work; fixed.
         \item Method \code{get_RLum} for \code{RLum.Analysis} returned a confusing error if what was provided via 'subset' was not a logical expression; fixed.
+        \item \code{structure_RLum()} and \code{names_RLum()} each got a method to deal with a list of \code{RLum} objects.
 
 
     }

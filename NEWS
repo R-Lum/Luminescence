@@ -59,6 +59,9 @@ Changes in version 0.8.0 (Feburary 9th,2018):
            error if what was provided via 'subset' was not a logical
            expression; fixed.
 
+         • ‘structure_RLum()’ and ‘names_RLum()’ each got a method to
+           deal with a list of ‘RLum’ objects.
+
   Bugfixes and changes:
 
          • ‘analyse_IRSAR.RF()’

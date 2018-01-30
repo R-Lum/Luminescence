@@ -3,24 +3,24 @@
 #' Function calls object-specific get functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' [RLum-class] objects.\cr 
-#' Depending on the input object, the corresponding structure function will 
-#' be selected. Allowed arguments can be found in the documentations of the 
+#' [RLum-class] objects.\cr
+#' Depending on the input object, the corresponding structure function will
+#' be selected. Allowed arguments can be found in the documentations of the
 #' corresponding [RLum-class] class.
 #'
-#' @param object [RLum-class] (**required**): 
+#' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
 #'
 #' @param ... further arguments that one might want to pass to the specific
 #' structure method
 #'
-#' @return 
-#' Returns a `data.frame` with structure of the object.
+#' @return
+#' Returns a [data.frame] with structure of the object.
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
 #' [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
@@ -40,3 +40,25 @@
 setGeneric("structure_RLum", function(object, ...) {
   standardGeneric("structure_RLum")
 })
+
+# Method for structure_RLum method for RLum objects in a list for a list of objects  -------------
+#' @describeIn structure_RLum
+#' Returns a list of [RLum-class] objects that had been passed to [structure_RLum]
+#'
+#'
+#' @md
+#' @export
+setMethod("structure_RLum",
+          signature = "list",
+          function(object, ...) {
+            ##apply method in the objects and return the same
+            lapply(object, function(x) {
+              if (inherits(x, "RLum")) {
+                return(structure_RLum(x, ...))
+              } else{
+                return(x)
+              }
+
+            })
+
+          })

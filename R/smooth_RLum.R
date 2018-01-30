@@ -3,27 +3,27 @@
 #' Function calls the object-specific smooth functions for provided RLum S4-class objects.
 #'
 #' The function provides a generalised access point for specific
-#' [RLum-class] objects.\cr 
-#' Depending on the input object, the corresponding function will be selected. 
-#' Allowed arguments can be found in the documentations of the corresponding 
-#' [RLum-class] class. The smoothing is based on an internal function 
+#' [RLum-class] objects.\cr
+#' Depending on the input object, the corresponding function will be selected.
+#' Allowed arguments can be found in the documentations of the corresponding
+#' [RLum-class] class. The smoothing is based on an internal function
 #' called `.smoothing`.
 #'
-#' @param object [RLum-class] (**required**): 
+#' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
 #'
 #' @param ... further arguments passed to the specifc class method
 #'
-#' @return 
+#' @return
 #' An object of the same type as the input object is provided
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @note 
-#' Currenlty only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis` 
+#' @note
+#' Currenlty only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`
 #' (with curve data) are supported!
 #'
 #' @seealso [RLum.Data.Curve-class], [RLum.Analysis-class]
@@ -65,7 +65,7 @@ setMethod("smooth_RLum",
 signature = "list",
 function(object, ...){
 
-  ##apply method in the objects and return the sampe
+  ##apply method in the objects and return the same
   lapply(object, function(x){
     if(inherits(x, "RLum")){
       return(smooth_RLum(x,...))
