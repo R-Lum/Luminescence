@@ -44,7 +44,13 @@ convert_RLum2Risoe.BINfileData <- function(
       })
 
     ##merge objects
-    return(merge_Risoe.BINfileData(object_list))
+    if(length(object_list) == 1){
+      return(object_list[[1]])
+
+    }else{
+      return(merge_Risoe.BINfileData(object_list))
+
+    }
 
   }
 

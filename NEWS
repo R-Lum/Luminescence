@@ -199,6 +199,12 @@ Changes in version 0.8.0 (Feburary 9th,2018):
 
   Internals:
 
+         • Add new vignette 'Analyse Al2O3:C Measurements'
+
+         • Add new vignette 'Analyse post-IR IRSL Measurements'
+
+  Internals:
+
          • Start supporting RStudio add-ins for more advanced users.
 
          • Add fitting test data set by Berger & Huntley (1989) as
