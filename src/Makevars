@@ -1,0 +1,9 @@
+# MAKEFILE R package 'Luminescence'
+
+##reduce shared lib size, if possible, information taken from
+##http://dirk.eddelbuettel.com/blog/2017/08/14/#009_compact_shared_libraries
+##slightly modified ...
+strippedLib: $(SHLIB)
+		if test -e "/usr/bin/strip"; then /usr/bin/strip -S $(SHLIB); fi
+
+.phony: strippedLib

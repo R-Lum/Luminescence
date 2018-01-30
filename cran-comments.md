@@ -21,9 +21,12 @@ accented character.
 
 Changed as requested.
 
-###  Dependence on R version ‘3.3.2’ not with patchlevel 0 
+## Addressed CRAN notes, warnings, errors
 
-Corrected and required version set to 3.4.0.
+* "Dependence on R version ‘3.3.2’ not with patchlevel 0": Corrected and required version set to 3.4.0.
+* "Check: installed package size" (r-devel-linux-x86 & 64-fedora-gcc): Using the sugesstion by Dirk Eddebuettel 
+to reduce the shared library size (http://dirk.eddelbuettel.com/blog/2017/08/14/#009_compact_shared_libraries). 
+However, the folder R is larger than 1.3 Mb because it contains a lot of R code and manual entries. 
 
 ## Test environments
 * local macOS Sierra 10.12.6, R-devel
@@ -37,4 +40,7 @@ Corrected and required version set to 3.4.0.
   * MacOSX, 10.11-xcode7.3, R 3.4.0
 
 ## R CMD check results
+
+
+
 
