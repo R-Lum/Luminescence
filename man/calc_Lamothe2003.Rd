@@ -54,9 +54,41 @@ by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fi
 curve using the function \link{plot_GrowthCurve}.
 }
 \section{Function version}{
- 0.1.0 (2018-01-31 18:46:48)
+ 0.1.0 (2018-01-31 19:04:11)
 }
- 
+
+\examples{
+
+##load data
+##ExampleData.BINfileData contains two BINfileData objects
+##CWOSL.SAR.Data and TL.SAR.Data
+data(ExampleData.BINfileData, envir = environment())
+
+##transform the values from the first position in a RLum.Analysis object
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+
+##perform SAR analysis and set rejection criteria
+results <- analyse_SAR.CWOSL(
+object = object,
+signal.integral.min = 1,
+signal.integral.max = 2,
+background.integral.min = 900,
+background.integral.max = 1000,
+verbose = FALSE,
+plot = FALSE,
+onlyLxTxTable = TRUE
+)
+
+##run fading correction
+resutls_corr <- calc_Lamothe2003(
+  object = results,
+  dose_rate.envir =  c(1.676 , 0.180),
+  dose_rate.source = c(0.184, 0.003),
+  g_value =  c(2.36, 0.6),
+  plot = TRUE,
+  fit.method = "EXP")
+
+}
 
 \section{How to cite}{
 Kreutzer, S., Mercier, N. (2018). calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
@@ -66,6 +98,9 @@ Kreutzer, S., Mercier, N. (2018). calc_Lamothe2003(): Apply fading correction af
 Lamothe, M., Auclair, M., Hamzaoui, C., Huot, S., 2003.
 Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Measurements 37,
 493-498.
+}
+\seealso{
+\link{plot_GrowthCurve}, \link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France), Norbert Mercier,

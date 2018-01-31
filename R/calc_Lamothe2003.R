@@ -57,7 +57,9 @@
 #'
 #' @keywords datagen
 #'
-#' @example
+#' @seealso [plot_GrowthCurve], [calc_FadingCorr], [analyse_SAR.CWOSL], [analyse_pIRIRSequence]
+#'
+#' @examples
 #'
 #'##load data
 #'##ExampleData.BINfileData contains two BINfileData objects
