@@ -21,15 +21,15 @@
 #'
 #' **sig0**
 #'
-#' This argument allows to add an extra component of error to the final Lx/Tx 
-#' error value. The input will be treated as factor that is multiplied with 
+#' This argument allows to add an extra component of error to the final Lx/Tx
+#' error value. The input will be treated as factor that is multiplied with
 #' the already calculated LxTx and the result is add up by:
 #'
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
 #'
 #' **background.count.distribution**
-#' 
+#'
 #' This argument allows selecting the distribution assumption that is used for
 #' the error calculation. According to Galbraith (2002, 2014) the background
 #' counts may be overdispersed (i.e. do not follow a poisson distribution,
@@ -37,9 +37,9 @@
 #' normal case) it has to be accounted for the overdispersion by estimating
 #' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
 #' standard error is calculated as:
-#' 
+#'
 #' - `poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k} 
+#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k}
 #' - `non-poisson`
 #' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
 #'
@@ -49,72 +49,72 @@
 #' Please check whether this is valid for your data set and  if necessary
 #' consider to provide an own sigmab value using the corresponding argument `sigmab`.
 #'
-#' @param Lx.data [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' @param Lx.data [RLum.Data.Curve-class] or [data.frame] (**required**):
 #' requires a CW-OSL shine down curve (x = time, y = counts)
 #'
-#' @param Tx.data [RLum.Data.Curve-class] or [data.frame] (*optional*): 
+#' @param Tx.data [RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the Tx.data will be treated as `NA` and no Lx/Tx ratio
 #' is calculated.
 #'
-#' @param signal.integral [vector] (**required**): 
+#' @param signal.integral [vector] (**required**):
 #' vector with the limits for the signal integral.
 #'
-#' @param signal.integral.Tx [vector] (*optional*): 
+#' @param signal.integral.Tx [vector] (*optional*):
 #' vector with the limits for the signal integral for the Tx curve. If nothing is provided the
 #' value from `signal.integral` is used.
 #'
-#' @param background.integral [vector] (**required**): 
+#' @param background.integral [vector] (**required**):
 #' vector with the bounds for the background integral.
 #'
-#' @param background.integral.Tx [vector] (*optional*): 
-#' vector with the limits for the background integral for the Tx curve. 
+#' @param background.integral.Tx [vector] (*optional*):
+#' vector with the limits for the background integral for the Tx curve.
 #' If nothing is provided the value from `background.integral` is used.
 #'
-#' @param background.count.distribution [character] (*with default*): 
-#' sets the count distribution assumed for the error calculation. 
+#' @param background.count.distribution [character] (*with default*):
+#' sets the count distribution assumed for the error calculation.
 #' Possible arguments `poisson` or `non-poisson`. See details for further information
 #'
-#' @param use_previousBG [logical] (*with default*): 
-#' If set to `TRUE` the background of the Lx-signal is substracted also 
+#' @param use_previousBG [logical] (*with default*):
+#' If set to `TRUE` the background of the Lx-signal is substracted also
 #' from the Tx-signal. Please note that in this case separat
 #' signal integral limits for the Tx signal are not allowed and will be reset.
 #'
-#' @param sigmab [numeric] (*optional*): 
-#' option to set a manual value for the overdispersion (for LnTx and TnTx), 
-#' used for the Lx/Tx error calculation. The value should be provided as 
-#' absolute squared count values, e.g. `sigmab = c(300,300)`. 
+#' @param sigmab [numeric] (*optional*):
+#' option to set a manual value for the overdispersion (for LnTx and TnTx),
+#' used for the Lx/Tx error calculation. The value should be provided as
+#' absolute squared count values, e.g. `sigmab = c(300,300)`.
 #' **Note:** If only one value is provided this value is taken for both (LnTx and TnTx) signals.
 #'
-#' @param sig0 [numeric] (*with default*): 
-#' allow adding an extra component of error to the final Lx/Tx error value 
+#' @param sig0 [numeric] (*with default*):
+#' allow adding an extra component of error to the final Lx/Tx error value
 #' (e.g., instrumental errror, see details).
 #'
-#' @param digits [integer] (*with default*): 
-#' round numbers to the specified digits. 
+#' @param digits [integer] (*with default*):
+#' round numbers to the specified digits.
 #' If digits is set to `NULL` nothing is rounded.
 #'
-#' @return 
+#' @return
 #' Returns an S4 object of type [RLum.Results-class].
 #'
 #' Slot `data` contains a [list] with the following structure:
 #'
 #' **@data**
 #' ```
-#' $LxTx.table (data.frame) 
-#' .. $ LnLx 
-#' .. $ LnLx.BG 
-#' .. $ TnTx 
-#' .. $ TnTx.BG 
-#' .. $ Net_LnLx 
+#' $LxTx.table (data.frame)
+#' .. $ LnLx
+#' .. $ LnLx.BG
+#' .. $ TnTx
+#' .. $ TnTx.BG
+#' .. $ Net_LnLx
 #' .. $ Net_LnLx.Error
 #' .. $ Net_TnTx.Error
 #' .. $ LxTx
-#' .. $ LxTx.Error 
-#' $ calc.parameters (list) 
+#' .. $ LxTx.Error
+#' $ calc.parameters (list)
 #' .. $ sigmab.LnTx
 #' .. $ sigmab.TnTx
-#' .. $ k 
+#' .. $ k
 #' ```
 #'
 #' **@info**
@@ -122,7 +122,7 @@
 #' $ call (original function call)
 #' ```
 #'
-#' @note 
+#' @note
 #' The results of this function have been cross-checked with the Analyst
 #' (vers. 3.24b). Access to the results object via [get_RLum].
 #'
@@ -132,7 +132,7 @@
 #'
 #' @section Function version: 0.7.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Data.Curve-class], [Analyse_SAR.OSLdata], [plot_GrowthCurve],
@@ -270,12 +270,10 @@ calc_OSLLxTxRatio <- function(
     if(min(background.integral.Tx)<=max(signal.integral.Tx)){
       stop("[calc_OSLLxTxRatio()] Overlapping of 'signal.integral.Tx' and 'background.integral.Tx' is not permitted!")}
 
-  }
-  else if(!all(c(is.null(signal.integral.Tx),is.null(background.integral.Tx)))){
-    stop("[calc_OSLLxTxRatio()] You have to provide both: signal.integral.Tx and background.integral.Tx!")
+  }else if(!all(c(is.null(signal.integral.Tx),is.null(background.integral.Tx)))){
+    stop("[calc_OSLLxTxRatio()] You have to provide both: signal.integral.Tx and background.integral.Tx!", call. = FALSE)
 
   }else{
-
     signal.integral.Tx <- signal.integral
     background.integral.Tx <- background.integral
 
@@ -290,7 +288,7 @@ calc_OSLLxTxRatio <- function(
       }
 
       if (length(sigmab) > 2) {
-        stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.")
+        stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.", call. = FALSE)
       }
   }
 

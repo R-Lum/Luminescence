@@ -61,20 +61,20 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 
 Slot \code{data} contains a \link{list} with the following structure:
 
-\strong{@data}\preformatted{$LxTx.table (data.frame) 
-.. $ LnLx 
-.. $ LnLx.BG 
-.. $ TnTx 
-.. $ TnTx.BG 
-.. $ Net_LnLx 
+\strong{@data}\preformatted{$LxTx.table (data.frame)
+.. $ LnLx
+.. $ LnLx.BG
+.. $ TnTx
+.. $ TnTx.BG
+.. $ Net_LnLx
 .. $ Net_LnLx.Error
 .. $ Net_TnTx.Error
 .. $ LxTx
-.. $ LxTx.Error 
-$ calc.parameters (list) 
+.. $ LxTx.Error
+$ calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
-.. $ k 
+.. $ k
 }
 
 \strong{@info}\preformatted{$ call (original function call)
@@ -139,7 +139,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.7.0 (2018-01-21 17:22:38)
+ 0.7.0 (2018-01-31 16:46:34)
 }
 
 \examples{
