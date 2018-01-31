@@ -64,6 +64,12 @@ Changes in version 0.8.0 (Feburary 9th,2018):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • The function gained a new argument ‘'onlyLxTxTable'’. If
+               set to ‘TRUE’ only the Lx/Tx table is returned
+               (including regeneration point sorting).
+
          • ‘analyse_IRSAR.RF()’
 
              • Multicore processing now also supports Windows (#47)

@@ -6,7 +6,8 @@
 \usage{
 analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max, rejection.criteria = NULL,
-  dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
+  dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE,
+  onlyLxTxTable = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -62,6 +63,10 @@ If a numerice vector is provided the plots can be selected individually, i.e.
 \code{plot.single = c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
 growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
+
+\item{onlyLxTxTable}{\link{logical} (with default): If \code{TRUE} the dose response curve fitting and plotting
+is skipped. This allows to get hands on the Lx/Tx table for large datasets without the need for
+a curve fitting.}
 
 \item{...}{further arguments that will be passed to the function
 \link{plot_GrowthCurve} or \link{calc_OSLLxTxRatio}
@@ -145,7 +150,7 @@ This function must not be mixed up with the function
 \strong{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.10 (2018-01-21 17:22:38)
+ 0.8.0 (2018-01-31 17:56:43)
 }
 
 \examples{
@@ -184,7 +189,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

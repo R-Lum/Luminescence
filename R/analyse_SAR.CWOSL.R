@@ -109,6 +109,10 @@
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
+#' @param onlyLxTxTable [logical] (with default): If `TRUE` the dose response curve fitting and plotting
+#' is skipped. This allows to get hands on the Lx/Tx table for large datasets without the need for
+#' a curve fitting.
+#'
 #' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
 #' (supported: `background.count.distribution`, `sigmab`, `sig0`).
@@ -135,7 +139,7 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.7.10
+#' @section Function version: 0.8.0
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -209,6 +213,7 @@ analyse_SAR.CWOSL<- function(
   mtext.outer,
   plot = TRUE,
   plot.single = FALSE,
+  onlyLxTxTable = FALSE,
   ...
 ) {
 
@@ -279,6 +284,7 @@ if(is.list(object)){
                       plot = plot,
                       rejection.criteria = rejection.criteria[[x]],
                       plot.single = plot.single,
+                      onlyLxTxTable = onlyLxTxTable,
                       main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
                       ...)
 
@@ -1352,110 +1358,114 @@ if(is.list(object)){
     }
 
     ##Fit and plot growth curve
-    temp.GC <- plot_GrowthCurve(temp.sample,
-                                output.plot = plot,
-                                ...)
+    if(!onlyLxTxTable){
+        temp.GC <- plot_GrowthCurve(temp.sample,
+                                    output.plot = plot,
+                                    ...)
 
 
-    ##grep information on the fit object
-    temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
+        ##grep information on the fit object
+        temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
-    ##grep results
-    temp.GC <- get_RLum(temp.GC)
+        ##grep results
+        temp.GC <- get_RLum(temp.GC)
 
-    # Provide Rejection Criteria for Palaedose error --------------------------
-    palaeodose.error.calculated <- ifelse(is.na(temp.GC[,1]) == FALSE,
-                                          round(temp.GC[,2] / temp.GC[,1], digits = 5),
-                                          NA)
+        # Provide Rejection Criteria for Palaedose error --------------------------
+        palaeodose.error.calculated <- ifelse(is.na(temp.GC[,1]) == FALSE,
+                                              round(temp.GC[,2] / temp.GC[,1], digits = 5),
+                                              NA)
 
-    palaeodose.error.threshold <-
-      rejection.criteria$palaeodose.error / 100
+        palaeodose.error.threshold <-
+          rejection.criteria$palaeodose.error / 100
 
-    if (is.na(palaeodose.error.calculated)) {
-      palaeodose.error.status <- "FAILED"
+        if (is.na(palaeodose.error.calculated)) {
+          palaeodose.error.status <- "FAILED"
 
-    }else{
-      if(!is.na(palaeodose.error.threshold)){
-        palaeodose.error.status <- ifelse(
-          palaeodose.error.calculated <= palaeodose.error.threshold,
-          "OK", "FAILED"
+        }else{
+          if(!is.na(palaeodose.error.threshold)){
+            palaeodose.error.status <- ifelse(
+              palaeodose.error.calculated <= palaeodose.error.threshold,
+              "OK", "FAILED"
+            )
+
+
+          }else{
+            palaeodose.error.status <- "OK"
+
+
+          }
+
+        }
+
+        palaeodose.error.data.frame <- data.frame(
+          Criteria = "Palaeodose error",
+          Value = palaeodose.error.calculated,
+          Threshold = palaeodose.error.threshold,
+          Status =  palaeodose.error.status,
+          stringsAsFactors = FALSE
         )
 
 
+        ##add exceed.max.regpoint
+        if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
+          status.exceed.max.regpoint <-
+            ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
+
+        }else{
+          status.exceed.max.regpoint <- "OK"
+
+        }
+
+        exceed.max.regpoint.data.frame <- data.frame(
+          Criteria = "De > max. dose point",
+          Value = as.numeric(temp.GC[,1]),
+          Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
+              NA
+            }else if(!rejection.criteria$exceed.max.regpoint){
+              Inf
+            }else{
+              as.numeric(max(LnLxTnTx$Dose))
+            },
+          Status =  status.exceed.max.regpoint
+        )
+
+
+        ##add to RejectionCriteria data.frame
+        RejectionCriteria <- rbind(RejectionCriteria,
+                                   palaeodose.error.data.frame,
+                                   exceed.max.regpoint.data.frame)
+
+
+      ##add recjection status
+      if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
+        temp.GC <- data.frame(temp.GC, RC.Status = "FAILED")
+
+
       }else{
-        palaeodose.error.status <- "OK"
+        temp.GC <- data.frame(temp.GC, RC.Status = "OK")
 
 
       }
 
-    }
+     ##end onlyLxTxTable
+     }else{
+       temp.GC <- data.frame(De = NA, De.Error = NA, D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA, De.MC = NA, Fit = NA)
+       temp.GC.fit.Formula <- NULL
+     }
 
-    palaeodose.error.data.frame <- data.frame(
-      Criteria = "Palaeodose error",
-      Value = palaeodose.error.calculated,
-      Threshold = palaeodose.error.threshold,
-      Status =  palaeodose.error.status,
-      stringsAsFactors = FALSE
-    )
-
-
-    ##add exceed.max.regpoint
-    if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
-      status.exceed.max.regpoint <-
-        ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
-
-    }else{
-      status.exceed.max.regpoint <- "OK"
-
-    }
-
-    exceed.max.regpoint.data.frame <- data.frame(
-      Criteria = "De > max. dose point",
-      Value = as.numeric(temp.GC[,1]),
-      Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
-          NA
-        }else if(!rejection.criteria$exceed.max.regpoint){
-          Inf
-        }else{
-          as.numeric(max(LnLxTnTx$Dose))
-        },
-      Status =  status.exceed.max.regpoint
-    )
-
-
-    ##add to RejectionCriteria data.frame
-    RejectionCriteria <- rbind(RejectionCriteria,
-                               palaeodose.error.data.frame,
-                               exceed.max.regpoint.data.frame)
-
-
-    ##add recjection status
-    if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
-      temp.GC <- data.frame(temp.GC, RC.Status = "FAILED")
-
-
-    }else{
-      temp.GC <- data.frame(temp.GC, RC.Status = "OK")
-
-
-    }
-
-
-    ##add information on the integration limits
-    temp.GC.extened <-
-      data.frame(
-        signal.range = paste(min(signal.integral),":",
-                             max(signal.integral)),
-        background.range = paste(min(background.integral),":",
-                                 max(background.integral)),
-        signal.range.Tx = paste(min(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx)),":",
-                                max(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx))),
-        background.range.Tx = paste(min(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx)) ,":",
-                                    max(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx))),
-        stringsAsFactors = FALSE
-      )
-
-
+      ##add information on the integration limits
+      temp.GC.extended <-
+        data.frame(
+          signal.range = paste(min(signal.integral),":",
+                               max(signal.integral)),
+          background.range = paste(min(background.integral),":",
+                                   max(background.integral)),
+          signal.range.Tx = paste(min(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx)),":",
+                                  max(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx))),
+          background.range.Tx = paste(min(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx)) ,":",
+                                      max(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx))),
+          stringsAsFactors = FALSE
+        )
 
     # Set return Values -----------------------------------------------------------
 
@@ -1465,7 +1475,7 @@ if(is.list(object)){
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
-        data = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID), stringsAsFactors = FALSE),
+        data = as.data.frame(c(temp.GC, temp.GC.extended, UID = UID), stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
         Formula = temp.GC.fit.Formula
