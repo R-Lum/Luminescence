@@ -32,6 +32,11 @@
         eq. 12 in Sohbati et al. (2012b) can be fitted, which also considers the
         dose rate.
 
+        \item \code{calc_Lamothe2003()}:
+        Function to support the fading correction suggested by Lamothe et al., 2003. As input the function accepts
+        \code{data.frame} output from the functions \code{analyse_SAR.CWOSL()} and
+        \code{analyse_pIRIRSequence)}.
+
     }
   }
 
@@ -68,6 +73,13 @@
   \subsection{Bugfixes and changes}{
 
   \itemize{
+
+       \item \code{analyse_SAR.CWOSL()}{
+          \itemize{
+             \item The function gained a new argument \code{'onlyLxTxTable'}. If set to \code{TRUE} only
+             the Lx/Tx table is returned (including regeneration point sorting).
+       }
+     }
 
      \item \code{analyse_IRSAR.RF()}{
         \itemize{

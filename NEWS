@@ -33,6 +33,11 @@ Changes in version 0.8.0 (Feburary 9th,2018):
            eq. 12 in Sohbati et al. (2012b) can be fitted, which also
            considers the dose rate.
 
+         • ‘calc_Lamothe2003()’: Function to support the fading
+           correction suggested by Lamothe et al., 2003. As input the
+           function accepts ‘data.frame’ output from the functions
+           ‘analyse_SAR.CWOSL()’ and ‘analyse_pIRIRSequence)’.
+
   New example data:
 
          • ‘ExampleData.SurfaceExposure’: A set of synthetic OSL
