@@ -73,10 +73,10 @@
 #' Only plotting of `RLum.Data.Curve` and `RLum.Data.Spectrum`
 #' objects are currently supported.
 #'
-#' @section Function version: 0.3.9
+#' @section Function version: 0.3.10
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [plot], [plot_RLum], [plot_RLum.Data.Curve]
 #'
@@ -353,7 +353,7 @@ plot_RLum.Analysis <- function(
 
         ##ylim
         if (!is.null(plot.settings$ylim)) {
-          ylim.set <- plot.settings$ylim
+          ylim.set <- plot.settings$ylim[[i]]
           if (plot.settings$ylim[[i]][1] < min(temp[[i]]@data[,2])) {
             ylim.set[1] <- min(temp[[i]]@data[,2])
           }

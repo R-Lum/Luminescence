@@ -160,7 +160,9 @@ Changes in version 0.8.0 (Feburary 9th,2018):
          • ‘plot_RLum.Analysis()’
 
              • The option `col` was not working as expected if `black`
-               was provided; fixed.
+               was provided; fixed,
+
+             • setting ‘ylim’ caused a function break (#65); fixed.
 
          • ‘read_BIN2R()’
 

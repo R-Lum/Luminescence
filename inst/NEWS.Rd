@@ -166,7 +166,8 @@
 
   \item \code{plot_RLum.Analysis()}{
         \itemize{
-         \item The option `col` was not working as expected if `black` was provided; fixed.
+         \item The option `col` was not working as expected if `black` was provided; fixed,
+         \item setting \code{ylim} caused a function break (#65); fixed.
 
     }
   }

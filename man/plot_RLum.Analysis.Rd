@@ -84,7 +84,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.3.9 (2018-01-21 17:22:38)
+ 0.3.10 (2018-02-01 09:23:16)
 }
 
 \examples{
@@ -120,11 +120,11 @@ abline = list(v = c(110))
 \link{plot}, \link{plot_RLum}, \link{plot_RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2018). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
