@@ -88,7 +88,7 @@ resutls_corr <- calc_Lamothe2003(
   plot = TRUE,
   fit.method = "EXP")
 
-}
+} 
 
 \section{How to cite}{
 Kreutzer, S., Mercier, N. (2018). calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
