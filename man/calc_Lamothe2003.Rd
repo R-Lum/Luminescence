@@ -16,9 +16,10 @@ fading correction. Alow are (1) \link{data.frame} with three columns (dose, De, 
 
 \item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}): Irradiation source dose rate in Gy/s}
 
-\item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \%/decade recalculated at the moment
-the De was calculated, i.e. tc is either similar for the g-value measurement and the De measurement or
-needs be recalculated (cf. \link{calc_FadingCorr})}
+\item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \%/decade \emph{recalculated at the moment}
+the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement \strong{and} the De measurement or
+needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
+lead to wrong results}
 
 \item{verbose}{\link{logical} (with default): Enables/disables terminal verbose mode}
 
@@ -54,7 +55,7 @@ by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fi
 curve using the function \link{plot_GrowthCurve}.
 }
 \section{Function version}{
- 0.1.0 (2018-01-31 19:04:11)
+ 0.1.0 (2018-02-01 11:40:56)
 }
 
 \examples{
@@ -80,13 +81,14 @@ onlyLxTxTable = TRUE
 )
 
 ##run fading correction
-resutls_corr <- calc_Lamothe2003(
+results_corr <- calc_Lamothe2003(
   object = results,
   dose_rate.envir =  c(1.676 , 0.180),
   dose_rate.source = c(0.184, 0.003),
   g_value =  c(2.36, 0.6),
   plot = TRUE,
   fit.method = "EXP")
+
 
 } 
 

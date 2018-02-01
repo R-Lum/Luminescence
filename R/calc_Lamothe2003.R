@@ -13,9 +13,10 @@
 #'
 #' @param dose_rate.source [numeric] vector of length 2 (**required**): Irradiation source dose rate in Gy/s
 #'
-#' @param g_value [numeric] vector of length 2 (**required**): g_value in \%/decade recalculated at the moment
-#' the De was calculated, i.e. tc is either similar for the g-value measurement and the De measurement or
-#' needs be recalculated (cf. [calc_FadingCorr])
+#' @param g_value [numeric] vector of length 2 (**required**): g_value in \%/decade *recalculated at the moment*
+#' the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement **and** the De measurement or
+#' needs be to recalculated (cf. [calc_FadingCorr]). Inserting a normalised g-value, e.g., normalised to 2-days , will
+#' lead to wrong results
 #'
 #' @param plot [logical] (with default): Enables/disables plot output
 #'
@@ -82,13 +83,14 @@
 #' )
 #'
 #' ##run fading correction
-#' resutls_corr <- calc_Lamothe2003(
+#' results_corr <- calc_Lamothe2003(
 #'   object = results,
 #'   dose_rate.envir =  c(1.676 , 0.180),
 #'   dose_rate.source = c(0.184, 0.003),
 #'   g_value =  c(2.36, 0.6),
 #'   plot = TRUE,
 #'   fit.method = "EXP")
+#'
 #'
 #'@md
 #'@export
