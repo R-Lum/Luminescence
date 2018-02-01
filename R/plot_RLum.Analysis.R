@@ -69,11 +69,11 @@
 #' @return Returns multiple plots.
 #'
 #' @note
-#' Not all arguments available for [plot] will be passed!
-#' Only plotting of `RLum.Data.Curve` and `RLum.Data.Spectrum`
-#' objects are currently supported.
+#' Not all arguments available for [plot] will be passed and they partly do not behave in the
+#' way you might expect them to work. This function was designed to serve as an overview
+#' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.10
+#' @section Function version: 0.3.11
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
@@ -340,9 +340,11 @@ plot_RLum.Analysis <- function(
         if (!is.null(plot.settings$xlim)) {
           xlim.set <- plot.settings$xlim[[i]]
           if (plot.settings$xlim[[i]][1] < min(temp[[i]]@data[,1])) {
+            warning(paste0("[plot_RLum.Analysis()] min('xlim') < x-value range for curve #",i,"; reset to minimum."), call. = FALSE)
             xlim.set[1] <- min(temp[[i]]@data[,1])
           }
           if (plot.settings$xlim[[i]][2] > max(temp[[i]]@data[,1])) {
+            warning(paste0("[plot_RLum.Analysis()] max('xlim') > x-value range for curve #",i,"; reset to maximum."), call. = FALSE)
             xlim.set[2] <- max(temp[[i]]@data[,1])
           }
 
@@ -355,9 +357,11 @@ plot_RLum.Analysis <- function(
         if (!is.null(plot.settings$ylim)) {
           ylim.set <- plot.settings$ylim[[i]]
           if (plot.settings$ylim[[i]][1] < min(temp[[i]]@data[,2])) {
+            warning(paste0("[plot_RLum.Analysis()] min('ylim') < y-value range for curve #",i,"; reset to minimum."), call. = FALSE)
             ylim.set[1] <- min(temp[[i]]@data[,2])
           }
           if (plot.settings$ylim[[i]][2] > max(temp[[i]]@data[,2])) {
+            warning(paste0("[plot_RLum.Analysis()] max('ylim') > y-value range for curve #",i,"; reset to maximum."), call. = FALSE)
             ylim.set[2] <- max(temp[[i]]@data[,2])
           }
 

@@ -79,12 +79,12 @@ is measured with the PMT or not! However, for a fast look it might be
 helpful.
 }
 \note{
-Not all arguments available for \link{plot} will be passed!
-Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
-objects are currently supported.
+Not all arguments available for \link{plot} will be passed and they partly do not behave in the
+way you might expect them to work. This function was designed to serve as an overview
+plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.10 (2018-02-01 09:23:16)
+ 0.3.11 (2018-02-01 10:49:37)
 }
 
 \examples{
@@ -124,7 +124,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2018). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

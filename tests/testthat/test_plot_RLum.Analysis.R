@@ -24,11 +24,36 @@ test_that("Test the basic plot functionality", {
   expect_silent(plot_RLum.Analysis(
     temp,
     subset = list(recordType = "TL"),
-    combine = TRUE,
+    combine = FALSE,
     norm = TRUE,
     ylim = c(1,100),
     xlim = c(1,100),
     abline = list(v = c(110))
   ))
+
+  ##test arguments
+  ##ylim - warning
+  expect_warning(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "TL"),
+    combine = FALSE,
+    norm = TRUE,
+    ylim = c(1,200),
+    xlim = c(1,100),
+    abline = list(v = c(110))
+  ))
+
+  ##test arguments
+  ##ylim - warning
+  expect_warning(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "TL"),
+    combine = FALSE,
+    norm = TRUE,
+    log = "y"
+  ))
+
+
+
 
 })
