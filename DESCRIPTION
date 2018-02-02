@@ -1,6 +1,6 @@
 Package: Luminescence
 Type: Package
-Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
+Title: Comprehensive Luminescence Dating Data Analysis
 Version: 0.8.0
 Date: 2018-02-09
 Author: Sebastian Kreutzer [aut, trl, cre, dtc],
@@ -48,34 +48,34 @@ Depends:
     R (>= 3.4.0),
     utils,
     magrittr (>= 1.5)
-LinkingTo: Rcpp (>= 0.12.12),
-    RcppArmadillo (>= 0.7.960.1.2)
+LinkingTo: Rcpp (>= 0.12.15),
+    RcppArmadillo (>= 0.8.300.1.0)
 Imports:
-    bbmle (>= 1.0.19),
-    data.table (>= 1.10.0),
+    bbmle (>= 1.0.20),
+    data.table (>= 1.10.4-3),
     httr (>= 1.3.1),
-    matrixStats (>= 0.52.2),
+    matrixStats (>= 0.53.0),
     methods,
     minpack.lm (>= 1.2-1),
-    plotrix (>= 3.6-6),
-    raster (>= 2.5-8),
+    plotrix (>= 3.7),
+    raster (>= 2.6-7),
     readxl (>= 1.0.0),
     shape (>= 1.4.3),
     parallel,
     XML (>= 3.98-1.9),
-    zoo (>= 1.8-0)
+    zoo (>= 1.8-1)
 Suggests:
     RLumShiny (>= 0.2.0),
-    RLumModel (>= 0.2.1),
+    RLumModel (>= 0.2.3),
     plotly (>= 4.7.1),
-    rmarkdown (>= 1.6),
+    rmarkdown (>= 1.8),
     rstudioapi (>= 0.7),
     rjags (>= 4-6),
     coda (>= 0.19-1),
     pander (>= 0.6.1),
-    testthat (>= 1.0.2),
-    devtools (>= 1.13.3),
-    R.rsp (>= 0.41.0)
+    testthat (>= 2.0.0),
+    devtools (>= 1.13.4),
+    R.rsp (>= 0.42.0)
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
