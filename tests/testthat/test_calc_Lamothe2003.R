@@ -30,6 +30,10 @@ test_that("Force function to break", {
                regexp = "Unsupported data type for 'object'")
   expect_error(calc_Lamothe2003(object = set_RLum("RLum.Results"), dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = NULL))
 
+  ##tc
+  expect_error(calc_Lamothe2003(object = set_RLum("RLum.Results"), dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1), tc.g_value = 1000),
+               regexp = "If you set 'tc.g_value' you have to provide a value for 'tc' too!")
+
 
 })
 
@@ -63,6 +67,17 @@ test_that("Test the function itself", {
     dose_rate.envir =  c(1.676 , 0.180),
     dose_rate.source = c(0.184, 0.003),
     g_value =  c(2.36, 0.6),
+    plot = TRUE,
+    fit.method = "EXP"), class = "RLum.Results")
+
+  ##run fading correction
+  expect_is(calc_Lamothe2003(
+    object = results,
+    dose_rate.envir =  c(1.676 , 0.180),
+    dose_rate.source = c(0.184, 0.003),
+    g_value =  c(2.36, 0.6),
+    tc = 1000,
+    tc.g_value = 1200,
     plot = TRUE,
     fit.method = "EXP"), class = "RLum.Results")
 

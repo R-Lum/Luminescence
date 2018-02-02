@@ -18,6 +18,14 @@
 #' needs be to recalculated (cf. [calc_FadingCorr]). Inserting a normalised g-value, e.g., normalised to 2-days , will
 #' lead to wrong results
 #'
+#' @param tc [numeric] (optional): time in seconds between irradiation and the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
+#' If set to `NULL` it is assumed that tc is similar for the equivalent dose estimation and the g-value estimation
+#'
+#' @param tc.g_value [numeric] (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
+#' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here along with the time used for the
+#' De estimation. If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
+#' SAR method and g-values that had been not normalised to 2 days. Note: If this value is not `NULL` the functions expects a [numeric] value for `tc`.
+#'
 #' @param plot [logical] (with default): Enables/disables plot output
 #'
 #' @param verbose [logical] (with default): Enables/disables terminal verbose mode
@@ -46,6 +54,9 @@
 #' The original function call
 #'
 #' @references
+#'
+#' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
+#' and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
 #'
 #' Lamothe, M., Auclair, M., Hamzaoui, C., Huot, S., 2003.
 #' Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Measurements 37,
@@ -99,6 +110,8 @@ calc_Lamothe2003 <- function(
   dose_rate.envir,
   dose_rate.source,
   g_value,
+  tc = NULL,
+  tc.g_value = tc,
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -149,6 +162,10 @@ calc_Lamothe2003 <- function(
     }
   }
 
+  ##tc
+  if(is.null(tc) && !is.null(tc.g_value))
+    stop("[calc_Lamothe2003()] If you set 'tc.g_value' you have to provide a value for 'tc' too!", call. = FALSE)
+
 
   # Input assignment -----------------------------------------------------------------------------
   ## We allow input as data.frame() and RLum.Results objects ... the output from functions listed
@@ -189,6 +206,8 @@ calc_Lamothe2003 <- function(
             dose_rate.envir = dose_rate.envir,
             dose_rate.source = dose_rate.source,
             g_value = g_value,
+            tc = tc,
+            tc.g_value = tc.g_value,
             verbose = verbose,
             plot = plot,
             ...
@@ -209,6 +228,15 @@ calc_Lamothe2003 <- function(
   }
 
   # Apply correction----------------------------------------------------------------------------
+
+  ##recalculate the g-value to the given tc ...
+  ##re-calulation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
+  if(!is.null(tc)){
+    k0 <- g_value / 100 / log(10)
+    k1 <- k0 / (1 - k0 * log(tc[1]/tc.g_value[1]))
+    g_value <-  100 * k1 * log(10)
+
+  }
 
   # transform irradiation times to dose values
   data[[1]] <- data[[1]] * dose_rate.source[1]
@@ -255,10 +283,17 @@ calc_Lamothe2003 <- function(
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
     cat("\n[calc_Lamothe2003()] \n\n")
-    cat(" Fading_C:\t\t", Fading_C, " \u00b1 ", sFading_C,"\n")
-    cat(" Corrected Ln/Tn:\t", data[[2]][1], " \u00b1 ", data[[3]][1],"\n")
-    cat(" Corrected De:\t\t", get_RLum(fit_results)[["De"]], " \u00b1 ", get_RLum(fit_results)[["De.Error"]]," Gy \n")
-    cat(" Corrected Age:\t\t", Age, " \u00b1 ", s_Age," ka \n")
+    cat(" Used g_value:\t\t", round(g_value[1],3)," \u00b1 ",round(g_value[2],3),"%/decade \n")
+    if(!is.null(tc)){
+      cat(" tc for g_value:\t", tc.g_value, " s\n")
+
+    }
+    cat("\n")
+    cat(" Fading_C:\t\t", round(Fading_C,3), " \u00b1 ", round(sFading_C,3),"\n")
+    cat(" Corrected Ln/Tn:\t", round(data[[2]][1],3), " \u00b1 ", round(data[[3]][1],3),"\n")
+    cat(" Corrected De:\t\t", round(get_RLum(fit_results)[["De"]],2), " \u00b1 ", round(get_RLum(fit_results)[["De.Error"]],2)," Gy \n")
+    cat("--------------------------------------------------------\n")
+    cat(" Corrected Age:\t\t", round(Age,2), " \u00b1 ", round(s_Age,2)," ka \n")
     cat("--------------------------------------------------------\n")
 
   }
@@ -269,6 +304,10 @@ calc_Lamothe2003 <- function(
       class = "RLum.Results",
       data = list(
         data = data.frame(
+          g_value = g_value[1],
+          g_value.ERROR = g_value[2],
+          tc = ifelse(is.null(tc), NA, tc),
+          tc.g_value = ifelse(is.null(tc.g_value), NA, tc.g_value),
           FADING_C = Fading_C,
           FADING_C.ERROR = sFading_C,
           LnTn_BEFORE = LnTn_BEFORE,

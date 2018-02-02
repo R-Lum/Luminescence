@@ -5,7 +5,7 @@
 \title{Apply fading correction after Lamothe et al., 2003}
 \usage{
 calc_Lamothe2003(object, dose_rate.envir, dose_rate.source, g_value,
-  verbose = TRUE, plot = TRUE, ...)
+  tc = NULL, tc.g_value = tc, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}): Input data for applying the
@@ -20,6 +20,14 @@ fading correction. Alow are (1) \link{data.frame} with three columns (dose, De, 
 the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement \strong{and} the De measurement or
 needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
 lead to wrong results}
+
+\item{tc}{\link{numeric} (optional): time in seconds between irradiation and the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
+If set to \code{NULL} it is assumed that tc is similar for the equivalent dose estimation and the g-value estimation}
+
+\item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
+If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here along with the time used for the
+De estimation. If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
+SAR method and g-values that had been not normalised to 2 days. Note: If this value is not \code{NULL} the functions expects a \link{numeric} value for \code{tc}.}
 
 \item{verbose}{\link{logical} (with default): Enables/disables terminal verbose mode}
 
@@ -55,7 +63,7 @@ by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fi
 curve using the function \link{plot_GrowthCurve}.
 }
 \section{Function version}{
- 0.1.0 (2018-02-01 11:40:56)
+ 0.1.0 (2018-02-02 18:20:28)
 }
 
 \examples{
@@ -97,6 +105,9 @@ Kreutzer, S., Mercier, N. (2018). calc_Lamothe2003(): Apply fading correction af
 }
 
 \references{
+Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
+and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
+
 Lamothe, M., Auclair, M., Hamzaoui, C., Huot, S., 2003.
 Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Measurements 37,
 493-498.
