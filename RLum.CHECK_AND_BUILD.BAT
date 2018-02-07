@@ -5,7 +5,7 @@
 :: SETTINGS
 :: -----------------------
 @echo off
-set PATHPACKAGE='%~dp0'
+set PATHPACKAGE=%CD%
 echo Working directory: %PATHPACKAGE%
 SETLOCAL EnableDelayedExpansion
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
