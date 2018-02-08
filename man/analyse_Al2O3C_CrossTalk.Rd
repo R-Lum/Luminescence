@@ -71,7 +71,7 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.2 (2018-01-21 17:22:38)
+ 0.1.2 (2018-02-08 13:28:46)
 }
 
 \examples{
@@ -89,7 +89,9 @@ Kreutzer, S. (2018). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analy
 }
 
 \references{
-TODO
+Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
+Geochromometria 45. doi: 10.1515/geochr-2015-0086
 }
 \seealso{
 \link{analyse_Al2O3C_ITC}

@@ -94,7 +94,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2018-01-21 17:22:38)
+ 0.1.1 (2018-02-08 13:28:54)
 }
 
 \examples{
@@ -112,7 +112,9 @@ Kreutzer, S. (2018). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Ana
 }
 
 \references{
-TODO
+Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
+Geochromometria 45. doi: 10.1515/geochr-2015-0086
 }
 \seealso{
 \link{plot_GrowthCurve}

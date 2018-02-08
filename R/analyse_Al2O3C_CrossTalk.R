@@ -67,7 +67,11 @@
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
-#' @references TODO
+#' @references
+#'
+#' Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+#' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
+#' Geochromometria 45. doi: 10.1515/geochr-2015-0086
 #'
 #' @keywords datagen
 #'
