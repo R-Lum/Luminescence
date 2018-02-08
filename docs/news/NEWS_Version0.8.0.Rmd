@@ -11,7 +11,7 @@ vignette: >
 
 Dear **R** Luminescence users!
 
-Now we have 2018, and we are lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). We are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, we had focussed our efforts on stability and reliability. Below we render some highlights for you. For a full list of all changes, in particular, the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+With the beginning of the new year 2018 we are lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). We are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, we focused our efforts on stability and reliability of the code. Below we want to highlight some of the new features. For a full list of changes and particularly the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
 
 ```{r, echo = FALSE, message=FALSE}
 library(Luminescence)
@@ -24,9 +24,9 @@ library(Luminescence)
 #### Tackle environmental dose rates 
 
 Reliably estimating the environmental dose rate is an essential step in every luminescence dating process. The environmental gamma-dose can be either derived from the U, Th and K potassium concentration of the sediment subsamples in the laboratory or
-in situ measurements in the field. Laboratory measurements tend to become unreliable in cases the 
-infinite matrix dose assumption does not hold, e.g., due to sedimentary inhomogeneities. In situ 
-measurements with passive dosimeters, such as  alpha-Al$_{2}O_{3}:C, offer an alternative. 
+by in-situ measurements in the field. Laboratory measurements tend to become unreliable in case the 
+infinite matrix dose assumption does not hold, e.g., due to sedimentary inhomogeneities. In-situ 
+measurements with passive dosimeters, such as $\alpha\mbox{-}Al_{2}O_{3}:C$, offer an alternative. 
 To ease the data processing needed for such analyses we developed three new **R** functions: 
 
 * `analyse_Al2O3C_ITC()`
@@ -36,17 +36,40 @@ To ease the data processing needed for such analyses we developed three new **R*
 Details on the usage of the function and a working example are shipped as package vignette with this 
 release.
 
-#### Sureface exposure dating 
+#### I wanna Rock!
 
-* `fit SurfaceExposure()` @tzerk
+During the last couple of years there has been a rising trend in rock surface-exposure dating applications. Even though
+the potential luminescence dating of rock surfaces was already recognised a couple of decades ago, the recent surge
+in dating applications was likely triggered by the important works of Sohbati et al. (2011, 2012a, 2012b). To accomodate for the
+new demand to analyse data from rock surface-exposure measurements we included the new function `fit_SurfaceExposure`, which allows fitting the models after Sohbati et al. (2012a, b) to the data.
+
+```{r, eval=FALSE}
+## Load example data
+data("ExampleData.SurfaceExposure")
+
+## Example 1 - Single sample
+results <- fit_SurfaceExposure(ExampleData.SurfaceExposure$sample_1, 
+                               mu = 0.9, sigmaphi = 5e-10)
+```
+
+```{r, echo = FALSE, fig.align='center', fig.width=4}
+data("ExampleData.SurfaceExposure")
+results <- fit_SurfaceExposure(ExampleData.SurfaceExposure$sample_1, 
+                               mu = 0.9, sigmaphi = 5e-10, cex = 0.9, legend = FALSE, error_bars = FALSE)
+```
+
+As seen in the example we also included a new (synthetic) example data set (`ExampleData.SurfaceExposure`), which you can use 
+to play around with the function without the need for own data. 
+Note, however, that we regard this function to be still in its **BETA** phase. There has not been much feedback yet, and the integration of the dose rate after Sohbati et al. (2012b) was simplified (fixed dose rate term instead of it being a 
+function of depth). For more information on the function and the data be sure to check out the documentation for `?fit_SurfaceExposure` and `?ExampleData.SurfaceExposure`.
 
 #### Another age model?
 
-The minimum age model by Woda and Fuchs (2008) is one of the very few proposed dose models which had been not yet included in the package. 
-The idea behind based on the approach by Lepper & McKeever (2002) to determine the dose which is representative of the age of the deposit by 
-using the Gaussian equation to fit the data. The approach by Woda and Fuchs (2008) refines this model by 
+The minimum age model by Woda and Fuchs (2008) is one of the very few proposed dose models which had not yet been included in the package. 
+The idea behind this model is based on the approach by Lepper & McKeever (2002) and determines the dose, which is representative of the age of the deposit, by 
+using a Gaussian equation to fit the data. The approach by Woda and Fuchs (2008) refines this model by 
 fixing the centre of the Gaussian equation to reach a more robust fitting. 
-How it works? See below for a running example:
+How does it work? See below for a running example:
 
 ```{r, fig.align='center', fig.width=5}
 ## read example data set
@@ -62,7 +85,7 @@ results <- calc_WodaFuchs2008(
 #### Helper functions 
 
 Sometimes it is the small things that make the difference and ease your life. In this release, 
-we included two helper functions you certainly don't need every day, but you may value them the time you someday. 
+we included two new helper functions you certainly don't need every day, but which you may eventually use and value. 
 
 1. `convert_Activity2Concentration()`
 
@@ -84,12 +107,11 @@ convert_Activity2Concentration(data)
 
 2. `convert_RLum2Risoe.BINfileData()`
 
-To date, the package supports a large variety of measurement formats and treats them similar internally. 
-This approach allows you to mix and merge data from different sources. However, someday in the future, one colleague, who is not using **R**, 
-will ask you for measurement data in the BIN/BINX-file 
-format. However, once data were imported into **R**, there is no back; until today! 
+To date, the package supports a large variety of measurement formats and internally converts them to a common data format. 
+This approach allows you to mix and merge data from different sources. Someday in the future, however, there is this one colleague who is not using **R** and who will ask you for the measurement data in the BIN/BINX-file 
+format. Once data were imported into **R**, however, there was no way back; until today! 
 The new function `convert_RLum2Risoe.BINfileData()` allows you to export your `RLum.Analysis` 
-objects to BIN/BIN-files and to share them with your colleagues. How, it could not be easier: 
+objects to BIN/BINX-files and to share them with your colleagues. How, it could not be easier: 
 
 ```{r, eval = FALSE}
 data(ExampleData.RLum.Analysis, envir = environment())
@@ -99,8 +121,14 @@ convert_RLum2Risoe.BINfileData(IRSAR.RF.Data, file = "your/path/output.BIN")
 
 # References {-}
 
-Lepper, K., McKeever, S.W.S., 2002. An Objective Methodology For Dose Distribution Analysis. Radiation Protection Dosimetry 101, 349-252.
-[doi: 10.1093/oxfordjournals.rpd.a005999](https://doi.org/10.1093/oxfordjournals.rpd.a005999)
+Lepper, K., McKeever, S.W.S., 2002. An Objective Methodology For Dose Distribution Analysis. Radiation Protection Dosimetry 101, 349-252. [doi: 10.1093/oxfordjournals.rpd.a005999](https://doi.org/10.1093/oxfordjournals.rpd.a005999)
 
-Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to obtain equivalent doses in OSL dating and dosimetry. 
+Sohbati, R., Murray, A., Jain, M., Buylaert, J.P. and Thomsen, K., 2011. Investigating the resetting of OSL signals in rock surfaces. Geochronometria 38(3), 249-258. [doi: 10.2478/s13386-011-0029-2](https://doi.org/10.2478/s13386-011-0029-2)
+
+Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a. Optically stimulated luminescence (OSL) as a chronometer for surface exposure dating. Journal of Geophysical Research 117, B09202. 
+[doi: 10.1029/2012JB009383](https://doi.org/10.1029/2012JB009383)
+
+Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of non-terrestial bodies using optically stimulated luminescence: A new method. Icarus 221, 160-166. [doi: 10.1016/j.icarus.2012.07.017](https://doi.org/10.1016/j.icarus.2012.07.017)
+
+Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to obtain equivalent doses in OSL dating and dosimetry.
 Radiation Measurements 43, 26-37.[doi: 10.1016/j.radmeas.2007.12.006](http://dx.doi.org/10.1016/j.radmeas.2007.12.006)
