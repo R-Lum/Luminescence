@@ -819,7 +819,7 @@ setMethod("names_RLum",
 #' @describeIn RLum.Analysis
 #'
 #' Smoothing of `RLum.Data` objects contained in this `RLum.Analysis` object
-#' [zoo::rollmean] or [zoo::rollmedian]. In particular the internal
+#' [zoo::rollmean] or [zoo::rollmedian][zoo::rollmean]. In particular the internal
 #' function `.smoothing` is used.
 #'
 #' @param ... further arguments passed to underlying methods

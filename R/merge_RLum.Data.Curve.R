@@ -35,12 +35,12 @@
 #' `"min"`
 #'
 #' The min values from the count values is chosen using the function
-#' [matrixStats::rowMins].
+#' [matrixStats::rowMins][matrixStats::rowRanges].
 #'
 #' `"max"`
 #'
 #' The max values from the count values is chosen using the function
-#' [matrixStats::rowMins].
+#' [matrixStats::rowMins][matrixStats::rowRanges].
 #'
 #' `"append"`
 #'

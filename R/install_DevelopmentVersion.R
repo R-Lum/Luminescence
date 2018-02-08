@@ -3,7 +3,7 @@
 #' This function is a convenient method for installing the development
 #' version of the R package 'Luminescence' directly from GitHub.
 #' 
-#' This function uses [Luminescence::github_branches] to check
+#' This function uses [Luminescence::github_branches][Luminescence::GitHub-API] to check
 #' which development branches of the R package 'Luminescence' are currently
 #' available on GitHub. The user is then prompted to choose one of the branches
 #' to be installed. It further checks whether the R package 'devtools' is 

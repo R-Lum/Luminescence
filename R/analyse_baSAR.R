@@ -278,7 +278,7 @@
 #' \tabular{lll}{
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$summary` \tab `data.frame` \tab statistical summary, including the central dose \cr
-#'  `$mcmc` \tab `mcmc` \tab object including raw output of [rjags::rjags] \cr
+#'  `$mcmc` \tab `mcmc` \tab [coda::mcmc.list] object including raw output \cr
 #'  `$models` \tab `character` \tab implemented models used in the baSAR-model core \cr
 #'  `$input_object` \tab `data.frame` \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
 #'  `$removed_aliquots` \tab `data.frame` \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed `NULL` is returned

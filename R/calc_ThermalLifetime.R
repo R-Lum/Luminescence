@@ -97,7 +97,7 @@
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [graphics::matplot], [stats::rnorm], [get_RLum]
+#' @seealso [graphics::matplot], [stats::rnorm][stats::Normal], [get_RLum]
 #'
 #' @references
 #'

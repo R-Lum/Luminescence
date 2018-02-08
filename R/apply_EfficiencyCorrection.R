@@ -7,7 +7,7 @@
 #' The efficiency correction is based on a spectral response dataset provided
 #' by the user. Usually the data set for the quantum efficiency is of lower
 #' resolution and values are interpolated for the required spectral resolution using
-#' the function [stats::approx]
+#' the function [stats::approx][stats::approxfun]
 #'
 #' If the energy calibration differes for both data set `NA` values are produces that
 #' will be removed from the matrix.

@@ -293,7 +293,7 @@
 #'
 #' **slot:** **`@info`**
 #'
-#' The original function call ([methods::language-class]-object)
+#' The original function call ([methods::language-class][methods::LanguageClasses]-object)
 #'
 #' The output (`data`) should be accessed using the function [get_RLum]
 #'
@@ -313,7 +313,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
-#' [nls], [minpack.lm::nlsLM], [parallel::mclapply]
+#' [nls], [minpack.lm::nlsLM], [parallel::mclapply][parallel::mcdummies]
 #'
 #'
 #' @references
