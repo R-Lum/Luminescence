@@ -42,6 +42,12 @@ release.
 
 #### Another age model?
 
+The minimum age model by Woda and Fuchs (2008) is one of the very few proposed dose models which had been not yet included in the package. 
+The idea behind based on the approach by Lepper & McKeever (2002) to determine the dose which is representative of the age of the deposit by 
+using the Gaussian equation to fit the data. The approach by Woda and Fuchs (2008) refines this model by 
+fixing the centre of the Gaussian equation to reach a more robust fitting. 
+How it works? See below for a running example:
+
 ```{r, fig.align='center', fig.width=5}
 ## read example data set
 data(ExampleData.DeValues, envir = environment())
@@ -52,7 +58,6 @@ results <- calc_WodaFuchs2008(
    xlab = expression(paste(D[e], " [Gy]"))
  )
 ```
-
 
 #### Helper functions 
 
@@ -92,5 +97,10 @@ convert_RLum2Risoe.BINfileData(IRSAR.RF.Data, file = "your/path/output.BIN")
 ```
 
 
+# References {-}
 
+Lepper, K., McKeever, S.W.S., 2002. An Objective Methodology For Dose Distribution Analysis. Radiation Protection Dosimetry 101, 349-252.
+[doi: 10.1093/oxfordjournals.rpd.a005999](https://doi.org/10.1093/oxfordjournals.rpd.a005999)
 
+Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to obtain equivalent doses in OSL dating and dosimetry. 
+Radiation Measurements 43, 26-37.[doi: 10.1016/j.radmeas.2007.12.006](http://dx.doi.org/10.1016/j.radmeas.2007.12.006)

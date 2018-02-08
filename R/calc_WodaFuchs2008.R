@@ -1,12 +1,12 @@
-#' Obtain the equivalent dose using the approach of Woda and Fuchs 2008
+#' Obtain the equivalent dose using the approach by Woda and Fuchs 2008
 #'
 #' The function generates a histogram-like reorganisation of the data, to
 #' assess counts per bin. The log-transformed counts per bin are used to
-#' calculate the second derivative of the data (i.e., the curcature of the
+#' calculate the second derivative of the data (i.e., the curvature of the
 #' curve) and to find the central value of the bin hosting the distribution
 #' maximum. A normal distribution model is fitted to the counts per bin
 #' data to estimate the dose distribution parameters. The uncertainty of the
-#' model is estimated based on all input equivalent doses smaller that the
+#' model is estimated based on all input equivalent doses smaller that of the
 #' modelled central value.
 #'
 #' @param data [data.frame] or [RLum.Results-class] object (**required**):
