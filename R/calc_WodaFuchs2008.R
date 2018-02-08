@@ -1,25 +1,25 @@
 #' Obtain the equivalent dose using the approach of Woda and Fuchs 2008
 #'
-#' The function generates a histogram-like reorganisation of the data, to 
-#' assess counts per bin. The log-transformed counts per bin are used to 
-#' calculate the second derivative of the data (i.e., the curcature of the 
-#' curve) and to find the central value of the bin hosting the distribution 
-#' maximum. A normal distribution model is fitted to the counts per bin 
-#' data to estimate the dose distribution parameters. The uncertainty of the 
-#' model is estimated based on all input equivalent doses smaller that the 
+#' The function generates a histogram-like reorganisation of the data, to
+#' assess counts per bin. The log-transformed counts per bin are used to
+#' calculate the second derivative of the data (i.e., the curcature of the
+#' curve) and to find the central value of the bin hosting the distribution
+#' maximum. A normal distribution model is fitted to the counts per bin
+#' data to estimate the dose distribution parameters. The uncertainty of the
+#' model is estimated based on all input equivalent doses smaller that the
 #' modelled central value.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
-#' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`). 
-#' For plotting multiple data sets, these must be provided as `list` 
+#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`).
+#' For plotting multiple data sets, these must be provided as `list`
 #' (e.g. `list(dataset1, dataset2)`).
 #'
-#' @param breaks [numeric]: 
-#' Either number or locations of breaks. See `[hist]` for details. 
-#' If missing, the number of breaks will be estimated based on the bin width 
+#' @param breaks [numeric]:
+#' Either number or locations of breaks. See `[hist]` for details.
+#' If missing, the number of breaks will be estimated based on the bin width
 #' (as function of median error).
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enable plot output.
 #'
 #' @param ... Further plot arguments passed to the function.
@@ -31,7 +31,7 @@
 #'
 #' @seealso [calc_FuchsLang2001], [calc_CentralDose]
 #'
-#' @references 
+#' @references
 #' Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 #' obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
 #'
@@ -201,7 +201,7 @@ calc_WodaFuchs2008 <- function(
       ylab = "Frequency",
       xlim = range(data[,1], na.rm = TRUE) + c(-10, 20),
       ylim = NULL,
-      main = expression(paste(D[e]," estimation applying Woda and Fuchs (2008)")),
+      main = expression(paste(D[e]," applying Woda and Fuchs (2008)")),
       sub = NULL
 
     )

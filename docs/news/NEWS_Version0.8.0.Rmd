@@ -33,7 +33,8 @@ To ease the data processing needed for such analyses we developed three new **R*
 * `analyse_Al2O3C_CrossTalk()`
 * `analyse_Al2O3C_Measurement()`
 
-Details on the usage and a working example are shipped as package vignette with this release. 
+Details on the usage of the function and a working example are shipped as package vignette with this 
+release.
 
 #### Sureface exposure dating 
 
@@ -41,15 +42,26 @@ Details on the usage and a working example are shipped as package vignette with 
 
 #### Another age model?
 
-* `calc_WodaFuchs2008()` @coffeemuggler 
+```{r, fig.align='center', fig.width=5}
+## read example data set
+data(ExampleData.DeValues, envir = environment())
+
+## run calculation
+results <- calc_WodaFuchs2008(
+  data = ExampleData.DeValues$CA1,
+   xlab = expression(paste(D[e], " [Gy]"))
+ )
+```
+
 
 #### Helper functions 
 
-We included two helper functions in this release:
+Sometimes it is the small things that make the difference and ease your life. In this release, 
+we included two helper functions you certainly don't need every day, but you may value them the time you someday. 
 
-* `convert_Activity2Concentration()`
+1. `convert_Activity2Concentration()`
 
-Gamma-spectrometry measurement results are often provided in Bg/kg instead of the `ppm`, which is 
+Gamma-spectrometry measurement results are sometimes provided in 'Bq/kg' instead of the 'ppm', which is 
 usual reported in the context of luminescence dating. This function helps to quickly transform 
 the numbers: 
 
@@ -65,8 +77,20 @@ data <- data.frame(
 convert_Activity2Concentration(data)
 ```
 
-* `convert_RLum2Risoe.BINfileData()`
+* 2. `convert_RLum2Risoe.BINfileData()`
 
-To date the package supports the import of various measurement formats and treat them similar internally. 
+To date, the package supports a large variety of measurement formats and treats them similar internally. 
+This approach allows you to mix and merge data from different sources. However, someday in the future, one colleague, who is not using **R**, 
+will ask you for measurement data in the BIN/BINX-file 
+format. However, once data were imported into **R**, there is no back; until today! 
+The new function `convert_RLum2Risoe.BINfileData()` allows you to export your `RLum.Analysis` 
+objects to BIN/BIN-files and to share them with your colleagues. How, it could not be easier: 
+
+```{r, eval = FALSE}
+data(ExampleData.RLum.Analysis, envir = environment())
+convert_RLum2Risoe.BINfileData(IRSAR.RF.Data, file = "your/path/output.BIN")
+```
+
+
 
 
