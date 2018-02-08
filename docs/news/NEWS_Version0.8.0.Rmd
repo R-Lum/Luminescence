@@ -82,7 +82,7 @@ data <- data.frame(
 convert_Activity2Concentration(data)
 ```
 
-* 2. `convert_RLum2Risoe.BINfileData()`
+2. `convert_RLum2Risoe.BINfileData()`
 
 To date, the package supports a large variety of measurement formats and treats them similar internally. 
 This approach allows you to mix and merge data from different sources. However, someday in the future, one colleague, who is not using **R**, 

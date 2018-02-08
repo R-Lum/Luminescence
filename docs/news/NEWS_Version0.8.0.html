@@ -98,7 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="another-age-model" class="section level4">
 <h4>Another age model?</h4>
-<p>The minimum age model by Woda and Fuchs (2008) is one of the very few proposed minimum ages models which had been not yet included in the package. The idea</p>
+<p>The minimum age model by Woda and Fuchs (2008) is one of the very few proposed dose models which had been not yet included in the package. The idea behind based on the approach by Lepper &amp; McKeever (2002) to determine the dose which is representative of the age of the deposit by using the Gaussian equation to fit the data. The approach by Woda and Fuchs (2008) refines this model by fixing the centre of the Gaussian equation to reach a more robust fitting. How it works? See below for a running example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## read example data set
 <span class="kw">data</span>(ExampleData.DeValues, <span class="dt">envir =</span> <span class="kw">environment</span>())
 
@@ -134,11 +134,9 @@ data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 ## 1          0.32388664
 ## 2          1.97190042
 ## 3          0.03236246</code></pre>
-<ul>
-<li><ol start="2" style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li><code>convert_RLum2Risoe.BINfileData()</code></li>
-</ol></li>
-</ul>
+</ol>
 <p>To date, the package supports a large variety of measurement formats and treats them similar internally. This approach allows you to mix and merge data from different sources. However, someday in the future, one colleague, who is not using <strong>R</strong>, will ask you for measurement data in the BIN/BINX-file format. However, once data were imported into <strong>R</strong>, there is no back; until today! The new function <code>convert_RLum2Risoe.BINfileData()</code> allows you to export your <code>RLum.Analysis</code> objects to BIN/BIN-files and to share them with your colleagues. How, it could not be easier:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(ExampleData.RLum.Analysis, <span class="dt">envir =</span> <span class="kw">environment</span>())
 <span class="kw">convert_RLum2Risoe.BINfileData</span>(IRSAR.RF.Data, <span class="dt">file =</span> <span class="st">&quot;your/path/output.BIN&quot;</span>)</code></pre></div>
@@ -147,6 +145,7 @@ data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
+<p>Lepper, K., McKeever, S.W.S., 2002. An Objective Methodology For Dose Distribution Analysis. Radiation Protection Dosimetry 101, 349-252. <a href="https://doi.org/10.1093/oxfordjournals.rpd.a005999">doi: 10.1093/oxfordjournals.rpd.a005999</a></p>
 <p>Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.<a href="http://dx.doi.org/10.1016/j.radmeas.2007.12.006">doi: 10.1016/j.radmeas.2007.12.006</a></p>
 </div>
 
