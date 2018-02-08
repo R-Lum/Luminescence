@@ -11,8 +11,7 @@ vignette: >
 
 Dear **R** Luminescence users!
 
-Now we have 2018 and we lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). As usual, we are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, were focussed on our efforts on stability and reliability. Below we rendered some highlights for you. For a full list of all changes, in particular 
-the bug fixes, please check the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+Now we have 2018, and we are lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). We are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, we had focussed our efforts on stability and reliability. Below we render some highlights for you. For a full list of all changes, in particular, the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
 
 ```{r, echo = FALSE, message=FALSE}
 library(Luminescence)
@@ -24,10 +23,17 @@ library(Luminescence)
 
 #### Tackle environmental dose rates 
 
-* analyse_Al2O3C_ITC()
-* analyse_Al2O3C_CrossTalk()
-* analyse_Al2O3C_Measurement()
+Reliably estimating the environmental dose rate is an essential step in every luminescence dating process. The environmental gamma-dose can be either derived from the U, Th and K potassium concentration of the sediment subsamples in the laboratory or
+in situ measurements in the field. Laboratory measurements tend to become unreliable in cases the 
+infinite matrix dose assumption does not hold, e.g., due to sedimentary inhomogeneities. In situ 
+measurements with passive dosimeters, such as  alpha-Al$_{2}O_{3}:C, offer an alternative. 
+To ease the data processing needed for such analyses we developed three new **R** functions: 
 
+* `analyse_Al2O3C_ITC()`
+* `analyse_Al2O3C_CrossTalk()`
+* `analyse_Al2O3C_Measurement()`
+
+Details on the usage and a working example are shipped as package vignette with this release. 
 
 #### Sureface exposure dating 
 
