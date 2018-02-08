@@ -313,7 +313,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
-#' [nls], [minpack.lm::nlsLM], [parallel::mclapply][parallel::mcdummies]
+#' [nls], [minpack.lm::nlsLM], `parallel::mclapply`
 #'
 #'
 #' @references
