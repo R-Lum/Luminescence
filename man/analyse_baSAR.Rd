@@ -133,7 +133,7 @@ Function returns results numerically and graphically:
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
-\code{$mcmc} \tab \code{mcmc} \tab object including raw output of \link[rjags:rjags]{rjags::rjags} \cr
+\code{$mcmc} \tab \code{mcmc} \tab \link[coda:mcmc.list]{coda::mcmc.list} object including raw output \cr
 \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
 \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
 \code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
@@ -330,7 +330,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.29 (2018-01-21 17:22:38)
+ 0.1.29 (2018-02-08 18:09:55)
 }
 
 \examples{

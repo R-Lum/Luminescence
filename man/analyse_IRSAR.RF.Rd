@@ -143,7 +143,7 @@ vertical sliding range. I can be added as systematic error to the final De error
 
 \strong{slot:} \strong{\code{@info}}
 
-The original function call (\link[methods:language-class]{methods::language}-object)
+The original function call (\link[methods:LanguageClasses]{methods::language-class}-object)
 
 The output (\code{data}) should be accessed using the function \link{get_RLum}
 
@@ -315,7 +315,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.5 (2018-01-21 17:22:38)
+ 0.7.5 (2018-02-08 18:55:30)
 }
 
 \examples{
@@ -396,7 +396,7 @@ Measurements 32, 685-690.
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
-\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}
+\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \code{parallel::mclapply}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)

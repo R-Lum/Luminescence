@@ -129,7 +129,7 @@ value time/temperature of the curve (corresponding to the stimulation length)
 
 \item \code{bin_RLum.Data}: Allows binning of specific objects
 
-\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmedian]{zoo::rollmedian}.
+\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmean]{zoo::rollmedian}.
 In particular the internal function \code{.smoothing} is used.
 }}
 

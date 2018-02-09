@@ -11,7 +11,7 @@ vignette: >
 
 Dear **R** Luminescence users!
 
-With the beginning of the new year 2018 we are lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). We are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, we focused our efforts on stability and reliability of the code. Below we want to highlight some of the new features. For a full list of changes and particularly the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+With the beginning of the new year 2018, we are lifting our **R** package up to version 0.8.0 [CRAN](https://CRAN.R-project.org/package=Luminescence). We are thankful for all the helpful suggestions and comments we received over time. Although this major update comes with some new functions, we focused our efforts on stability and reliability of the code. Below we want to highlight some of the new features. For a full list of changes and particularly the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
 
 ```{r, echo = FALSE, message=FALSE}
 library(Luminescence)
@@ -38,9 +38,9 @@ release.
 
 #### I wanna Rock!
 
-During the last couple of years there has been a rising trend in rock surface-exposure dating applications. Even though
+During the last couple of years, there has been a rising trend in rock surface-exposure dating applications. Even though
 the potential luminescence dating of rock surfaces was already recognised a couple of decades ago, the recent surge
-in dating applications was likely triggered by the important works of Sohbati et al. (2011, 2012a, 2012b). To accomodate for the
+in dating applications was likely triggered by the important works of Sohbati et al. (2011, 2012a, 2012b). To accommodate for the
 new demand to analyse data from rock surface-exposure measurements we included the new function `fit_SurfaceExposure`, which allows fitting the models after Sohbati et al. (2012a, b) to the data.
 
 ```{r, eval=FALSE}
@@ -58,7 +58,7 @@ results <- fit_SurfaceExposure(ExampleData.SurfaceExposure$sample_1,
                                mu = 0.9, sigmaphi = 5e-10, cex = 0.9, legend = FALSE, error_bars = FALSE)
 ```
 
-As seen in the example we also included a new (synthetic) example data set (`ExampleData.SurfaceExposure`), which you can use 
+As seen in the example we also included a new (synthetic) example dataset (`ExampleData.SurfaceExposure`), which you can use 
 to play around with the function without the need for own data. 
 Note, however, that we regard this function to be still in its **BETA** phase. There has not been much feedback yet, and the integration of the dose rate after Sohbati et al. (2012b) was simplified (fixed dose rate term instead of it being a 
 function of depth). For more information on the function and the data be sure to check out the documentation for `?fit_SurfaceExposure` and `?ExampleData.SurfaceExposure`.
@@ -111,7 +111,7 @@ To date, the package supports a large variety of measurement formats and interna
 This approach allows you to mix and merge data from different sources. Someday in the future, however, there is this one colleague who is not using **R** and who will ask you for the measurement data in the BIN/BINX-file 
 format. Once data were imported into **R**, however, there was no way back; until today! 
 The new function `convert_RLum2Risoe.BINfileData()` allows you to export your `RLum.Analysis` 
-objects to BIN/BINX-files and to share them with your colleagues. How, it could not be easier: 
+objects to BIN/BINX-files and to share them with your colleagues. How? It could not be easier: 
 
 ```{r, eval = FALSE}
 data(ExampleData.RLum.Analysis, envir = environment())

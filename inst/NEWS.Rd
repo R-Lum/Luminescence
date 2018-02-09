@@ -10,7 +10,7 @@
          Kreutzer et al., 2018
 
        \item \code{analyse_Al2O3C_CrossTalk()}:
-         Function to analyse data to analyse cross talk measurments as shown in
+         Function to analyse data to analyse crosstalk measurements as shown in
          Kreutzer et al., 2018
 
        \item \code{analyse_Al2O3C_Measurement()}:
@@ -87,7 +87,7 @@
            \item Fixed a bug where manually specifying the number of CPU cores
            via 'method.control = list(cores = x)' was not respected,
            \item mixing of curves (e.g., regenerated first, natural second) led to a crash
-           of the function, even the new structure was correctly specified; fixed (#61),
+           of the function, even the structure was correctly specified; fixed (#61),
            \item the function will not break anymore uncontrolled of both RF curves are of similar
            extension on the x-axis.
      }
@@ -113,7 +113,7 @@
       \item \code{calc_Kars2008()}{
         \itemize{
          \item In some cases the calculated LxTx values of the simulated natural
-         dose response curve were slightly underestimated and its maximum value
+         dose-response curve were slightly underestimated and its maximum value
          differed from the individually calculated nN(ss) value. The approach
          to calculate the natural DRC was changed and now yields a maximum LxTx
          value indistinguishable from nN(ss).
@@ -176,7 +176,7 @@
 
   \item \code{read_BIN2R()}{
         \itemize{
-         \item The function unexpectetly dropped are warning for an unused connection; fixed,
+         \item The function unexpectedly dropped are warning for an unused connection; fixed,
          \item if a file link was provided and the argument \code{pattern} was set and error was shown; fixed.
 
 
@@ -219,8 +219,8 @@
         \itemize{
          \item The BIN-file export to version 04 failed in very rare cases for \code{NA} values
          in the byte position \code{SEQUENCE}; fixed,
-         \item the compatibility mode was extended to limit the maxium number of points for one
-         curve to 9,999 (if the option is chosen). This gives more compatibility with older versions
+         \item the compatibility mode was extended, now limiting the maxmium number of points for one
+         curve to 9,999 (if the option is chosen). This improves the compatibility with older versions
          of the Analyst.
 
 

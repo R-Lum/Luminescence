@@ -9,7 +9,7 @@ Changes in version 0.8.0 (Feburary 9th,2018):
            al., 2018
 
          • ‘analyse_Al2O3C_CrossTalk()’: Function to analyse data to
-           analyse cross talk measurments as shown in Kreutzer et al.,
+           analyse crosstalk measurements as shown in Kreutzer et al.,
            2018
 
          • ‘analyse_Al2O3C_Measurement()’: Function to analyse Al2O3:C
@@ -84,7 +84,7 @@ Changes in version 0.8.0 (Feburary 9th,2018):
                respected,
 
              • mixing of curves (e.g., regenerated first, natural
-               second) led to a crash of the function, even the new
+               second) led to a crash of the function, even the
                structure was correctly specified; fixed (#61),
 
              • the function will not break anymore uncontrolled of both
@@ -109,7 +109,7 @@ Changes in version 0.8.0 (Feburary 9th,2018):
          • ‘calc_Kars2008()’
 
              • In some cases the calculated LxTx values of the
-               simulated natural dose response curve were slightly
+               simulated natural dose-response curve were slightly
                underestimated and its maximum value differed from the
                individually calculated nN(ss) value. The approach to
                calculate the natural DRC was changed and now yields a
@@ -166,7 +166,7 @@ Changes in version 0.8.0 (Feburary 9th,2018):
 
          • ‘read_BIN2R()’
 
-             • The function unexpectetly dropped are warning for an
+             • The function unexpectedly dropped are warning for an
                unused connection; fixed,
 
              • if a file link was provided and the argument ‘pattern’
@@ -208,10 +208,10 @@ Changes in version 0.8.0 (Feburary 9th,2018):
                cases for ‘NA’ values in the byte position ‘SEQUENCE’;
                fixed,
 
-             • the compatibility mode was extended to limit the maxium
-               number of points for one curve to 9,999 (if the option
-               is chosen). This gives more compatibility with older
-               versions of the Analyst.
+             • the compatibility mode was extended, now limiting the
+               maxmium number of points for one curve to 9,999 (if the
+               option is chosen). This improves the compatibility with
+               older versions of the Analyst.
 
   Internals:
 

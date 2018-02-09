@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_WodaFuchs2008.R
 \name{calc_WodaFuchs2008}
 \alias{calc_WodaFuchs2008}
-\title{Obtain the equivalent dose using the approach of Woda and Fuchs 2008}
+\title{Obtain the equivalent dose using the approach by Woda and Fuchs 2008}
 \usage{
 calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
@@ -25,15 +25,15 @@ enable plot output.}
 \description{
 The function generates a histogram-like reorganisation of the data, to
 assess counts per bin. The log-transformed counts per bin are used to
-calculate the second derivative of the data (i.e., the curcature of the
+calculate the second derivative of the data (i.e., the curvature of the
 curve) and to find the central value of the bin hosting the distribution
 maximum. A normal distribution model is fitted to the counts per bin
 data to estimate the dose distribution parameters. The uncertainty of the
-model is estimated based on all input equivalent doses smaller that the
+model is estimated based on all input equivalent doses smaller that of the
 modelled central value.
 }
 \section{Function version}{
- 0.2.0 (2018-01-21 17:22:38)
+ 0.2.0 (2018-02-08 14:24:10)
 }
 
 \examples{
@@ -49,7 +49,7 @@ results <- calc_WodaFuchs2008(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2018). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach of Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2018). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

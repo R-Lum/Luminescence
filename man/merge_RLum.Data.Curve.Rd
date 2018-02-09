@@ -61,12 +61,12 @@ The variance over the count values is calculated using the function
 \code{"min"}
 
 The min values from the count values is chosen using the function
-\link[matrixStats:rowMins]{matrixStats::rowMins}.
+\link[matrixStats:rowRanges]{matrixStats::rowMins}.
 
 \code{"max"}
 
 The max values from the count values is chosen using the function
-\link[matrixStats:rowMins]{matrixStats::rowMins}.
+\link[matrixStats:rowRanges]{matrixStats::rowMins}.
 
 \code{"append"}
 
@@ -99,7 +99,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0 (2018-01-21 17:22:38)
+ 0.2.0 (2018-02-08 18:09:55)
 }
 
 \examples{

@@ -103,7 +103,7 @@ The profiling is currently based on resampling from a normal distribution, this
 distribution assumption might be, however, not valid for given E and s paramters.
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2018-02-08 18:09:55)
 }
 
 \examples{
@@ -149,7 +149,7 @@ Kreutzer, S. (2018). calc_ThermalLifetime(): Calculates the Thermal Lifetime usi
 Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.
 }
 \seealso{
-\link[graphics:matplot]{graphics::matplot}, \link[stats:rnorm]{stats::rnorm}, \link{get_RLum}
+\link[graphics:matplot]{graphics::matplot}, \link[stats:Normal]{stats::rnorm}, \link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

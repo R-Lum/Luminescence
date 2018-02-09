@@ -31,7 +31,8 @@ Irradiation   | beta-irr.   |-          |
 Heating       | cutheat/TL  | -         |
 Stimulation   | OSL         | $T_x$     |
 
-To lower the entry level and make the analysis of post-IR IRSL data more straightforward, some time ago, the function `analyse_pIRIRSequence()` was developed. This function is basically a wrapper around the two functions `analyse_SAR.CWOSL()` and `plot_GrowthCurve()`. 
+To lower the entry level and make the analysis of post-IR IRSL data more straightforward, some time ago, 
+the function `analyse_pIRIRSequence()` was developed. This function is basically a wrapper around the two functions `analyse_SAR.CWOSL()` and `plot_GrowthCurve()`. 
 
 This vignette provides a short tutorial exemplifying the analysis of post-IR IRSL data in **R**. 
 To avoid misunderstandings, please keep in mind that the post-IR IRSL protocol is a simple
