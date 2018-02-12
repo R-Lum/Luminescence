@@ -41,6 +41,8 @@ to reduce the shared library size (http://dirk.eddelbuettel.com/blog/2017/08/14/
     * x86_64_w64-mingw32/64 (64-bit), R 3.4.0 (2017-04-21)
     * i386-w64-mingw32/i386 (32-bit), R 3.4.0 (2017-04-21)
 * on Travis CI
-  * Ubuntu 14.04.5 LTS, R 3.4.0
-  * Ubuntu 14.04.5 LTS, R-devel
-  * macOS Sierra 10.12, Xcode8.3, R 3.4.0
+  * Ubuntu 14.04.5 LTS, oldrel
+  * Ubuntu 14.04.5 LTS, release
+  * Ubuntu 14.04.5 LTS, devel
+  * macOS Sierra 10.12, Xcode8.3, release
+  * macOS Sierra 10.12, Xcode8.3, devel
