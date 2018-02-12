@@ -173,7 +173,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.3.1 (2018-01-21 17:22:38)
+ 0.3.1 (2018-02-12 13:46:28)
 }
 
 \examples{
@@ -202,7 +202,7 @@ kars <- calc_Kars2008(data = data,
                       rhop = rhop,
                       ddot = ddot,
                       readerDdot = readerDdot,
-                      n.MC = 50)
+                      n.MC = 25)
 
 
 # You can also provide LnTn values separately via the 'LnTn' argument.
@@ -218,7 +218,7 @@ kars <- calc_Kars2008(data = LxTx,
                       rhop = rhop,
                       ddot = ddot,
                       readerDdot = readerDdot,
-                      n.MC = 50)
+                      n.MC = 25)
 
 } 
 

@@ -131,7 +131,7 @@
 #' @param ...
 #' Further parameters:
 #' - `verbose` [logical]: Show or hide console output
-#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `100000`). 
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `100000`).
 #' **Note** that it is generally advised to have a large number of Monte Carlo
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
@@ -214,7 +214,7 @@
 #'                       rhop = rhop,
 #'                       ddot = ddot,
 #'                       readerDdot = readerDdot,
-#'                       n.MC = 50)
+#'                       n.MC = 25)
 #'
 #'
 #' # You can also provide LnTn values separately via the 'LnTn' argument.
@@ -230,7 +230,7 @@
 #'                       rhop = rhop,
 #'                       ddot = ddot,
 #'                       readerDdot = readerDdot,
-#'                       n.MC = 50)
+#'                       n.MC = 25)
 #'
 #' @md
 #' @export
@@ -434,7 +434,7 @@ calc_Kars2008 <- function(data,
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
     fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
-    
+
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
     else
@@ -461,7 +461,7 @@ calc_Kars2008 <- function(data,
 
   # calculate D0 dose in seconds
   computedD0 <- (fitcoef[ ,2] * readerDdot) / (ddot / ka)
-  
+
   # Legacy code:
   # This is an older approximation to calculate the natural dose response curve,
   # which sometimes tended to slightly underestimate nN_ss. This is now replaced
@@ -476,19 +476,19 @@ calc_Kars2008 <- function(data,
   natdosetime <- natdosetimeGray
   rprime <- seq(0.01, 5, length.out = 500)
   pr <- 3 * rprime^2 * exp(-rprime^3)
-  K <- Hs * exp(-rhop[1]^-(1/3) * rprime) 
+  K <- Hs * exp(-rhop[1]^-(1/3) * rprime)
   TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
   UFD0 <- mean(fitcoef[ ,2], na.rm = TRUE) * readerDdot
-  
+
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
       TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
     }}
-  
+
   LxTx.sim <- colSums(TermA) / sum(pr)
-  
+
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
-  
+
   # calculate Age
     positive <- which(diff(LxTx.sim) > 0)
 
