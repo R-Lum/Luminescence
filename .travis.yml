@@ -61,6 +61,7 @@ matrix:
       - sudo chown -R travis /usr/local
       - sudo rm '/usr/local/include/c++'
       - sudo rm '/usr/local/bin/gfortran'
+      - brew uninstall gcc
       - brew install gcc
       - brew install jags
       - brew install libssh2
