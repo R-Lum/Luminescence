@@ -45,7 +45,7 @@ Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 3.4.0),
+    R (>= 3.3.0),
     utils,
     magrittr (>= 1.5)
 LinkingTo: Rcpp (>= 0.12.15),

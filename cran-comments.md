@@ -4,7 +4,8 @@ This minor release replaces the version 0.8.0 submitted to
 CRAN recently. We had not been aware of the problems with 
 the package `data.table` on CRAN and we thus now lowered required version. 
 
-We furthermore reduced the size of the example data.
+We furthermore reduced the size of the example data and lowered the required R version to 3.3.0 
+(in contrast to 3.4.0 previously).
 
 ## Addressed CRAN requests 
 
@@ -27,7 +28,7 @@ Changed as requested.
 
 ## Addressed CRAN notes, warnings, errors
 
-* "Dependence on R version ‘3.3.2’ not with patchlevel 0": Corrected and required version set to 3.4.0.
+* "Dependence on R version ‘3.3.2’ not with patchlevel 0": Corrected and required version set to 3.3.0.
 
 * "Check: installed package size" (r-devel-linux-x86 & 64-fedora-gcc): Using the sugesstion by Dirk Eddebuettel 
 to reduce the shared library size (http://dirk.eddelbuettel.com/blog/2017/08/14/#009_compact_shared_libraries). 

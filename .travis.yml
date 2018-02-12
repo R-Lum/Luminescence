@@ -37,11 +37,24 @@ r_packages:
 matrix:
   include:
   - os: linux
-    r: release
+    r: oldrel
     env: CACHE_NAME=JOB1
   - os: linux
-    r: devel
+    r: release
     env: CACHE_NAME=JOB2
+  - os: linux
+    r: devel
+    env: CACHE_NAME=JOB3
+  - os: osx
+    r: oldrel
+    before_install:
+      - sudo chown -R travis /usr/local
+      - sudo rm '/usr/local/include/c++'
+      - sudo rm '/usr/local/bin/gfortran'
+      - brew install gcc
+      - brew install jags
+      - brew install libssh2
+    env: CACHE_NAME=JOB5
   - os: osx
     r: release
     before_install:
@@ -51,7 +64,7 @@ matrix:
       - brew install gcc
       - brew install jags
       - brew install libssh2
-    env: CACHE_NAME=JOB3
+    env: CACHE_NAME=JOB6
 
 ##create notifications
 notifications:
