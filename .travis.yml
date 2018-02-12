@@ -55,17 +55,6 @@ matrix:
       - brew install jags
       - brew install libssh2
     env: CACHE_NAME=JOB4
-  - os: osx
-    r: devel
-    before_install:
-      - sudo chown -R travis /usr/local
-      - sudo rm '/usr/local/include/c++'
-      - sudo rm '/usr/local/bin/gfortran'
-      - brew uninstall gcc
-      - brew install gcc
-      - brew install jags
-      - brew install libssh2
-    env: CACHE_NAME=JOB5
 
 ##create notifications
 notifications:
