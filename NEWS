@@ -1,6 +1,18 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.8.0 (Feburary 9th,2018):
+Changes in version 0.8.1 (Feburary 12th, 2018):
+
+  Internals:
+
+         • Lower required dependent package versions get the package
+           passed on CRAN.
+
+         • Further compress example data ... it was not yet the
+           optimum.
+
+         • Further compress 'vignettes'.
+
+Changes in version 0.8.0 (Feburary 9th, 2018):
 
   New functions:
 

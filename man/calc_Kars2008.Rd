@@ -223,7 +223,7 @@ kars <- calc_Kars2008(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G., Burow, C. (2018). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+King, G., Burow, C. (2018). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -1,6 +1,21 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.8.0 (Feburary 9th,2018)}{
+\section{Changes in version 0.8.1 (Feburary 12th, 2018)}{
+
+  \subsection{Internals}{
+
+    \itemize{
+      \item Lower required dependent package versions get the package passed on CRAN.
+      \item Further compress example data ... it was not yet the optimum.
+      \item Further compress 'vignettes'.
+
+    }
+
+  }
+
+}
+
+\section{Changes in version 0.8.0 (Feburary 9th, 2018)}{
 
   \subsection{New functions}{
     \itemize{
