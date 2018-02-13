@@ -16,7 +16,7 @@
 ####check reverse dependencies
 results <-
   tools::check_packages_in_dir(
-    "~/GitHub/R_Luminescence/RLum.BuildResults/",
+    "~/GitHub/Luminescence/RLum.BuildResults/",
     reverse = list(repos = getOption("repos")["CRAN"],
                    which = "most"),
     clean = TRUE
