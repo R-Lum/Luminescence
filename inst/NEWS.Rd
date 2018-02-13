@@ -2,7 +2,26 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.8.1 (Feburary 12th, 2018)}{
 
-  \subsection{Internals}{
+  \subsection{Bugfixes and changes}{
+
+  \itemize{
+
+       \item \code{calc_MinDose()}{
+          \itemize{
+             \item Previously, the function globally disabled warning messages via
+             'options(warn = -1)' due to the overly verbose output of functions in
+             the 'bbmle' package. Globally disabling warning messages may prevent
+             the display of unexpected warnings, however, and in rmarkdown files
+             it wouldn't work anyway. This behaviour was replaced with explicit
+             calls to 'suppressWarnings()' for particular functions. (#66)
+             \item Fixed a bug where the function tried to calculate the log of
+             infinite (Inf, -Inf) values, which produced 'NaN' warnings.
+          }
+      }
+    }
+  }
+  
+    \subsection{Internals}{
 
     \itemize{
       \item Lower required dependent package versions get the package passed on CRAN.
@@ -12,7 +31,7 @@
     }
 
   }
-
+  
 }
 
 \section{Changes in version 0.8.0 (Feburary 9th, 2018)}{
