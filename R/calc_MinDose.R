@@ -696,7 +696,9 @@ calc_MinDose <- function(
   #### METHOD 1: follow the instructions of Galbraith & Roberts (2012) ####
   # "If the likelihood profile is symmetrical about the parameter, an approximate standard error
   #  can be calculated by dividing the length of this interval by 3.92"
-  conf <- as.data.frame(bbmle::confint(prof, tol.newmin = Inf, quietly = TRUE, level = level))
+  conf <- suppressWarnings(
+    as.data.frame(bbmle::confint(prof, tol.newmin = Inf, quietly = TRUE, level = level))
+  )
   class(conf[,1]) <- class(conf[,2]) <- "numeric"
   
   if (invert) {
