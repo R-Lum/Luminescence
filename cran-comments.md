@@ -9,7 +9,10 @@ We furthermore reduced the size of the example data and lowered the required R v
 
 ## R CMD check --as-cran results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 1 note
+
+* Size of tarball: 5614541 bytes. We tried to reduce the size of example data, vignettes and included 
+libraries to a minimum, the rest is R code and comments.
 
 ## Addressed CRAN requests 
 
