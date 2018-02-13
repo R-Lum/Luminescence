@@ -25,7 +25,7 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.13
+#' @section Class version: 0.4.14
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -397,7 +397,6 @@ setMethod("get_RLum",
               ), stringsAsFactors = FALSE)
               
               ##check for a logical expression, to avoid problems afterwards
-              print(class(eval(substitute(subset), envir = envir, enclos = env)))
               if(class(eval(substitute(subset), envir = envir, enclos = env)) != "logical")
                 stop("[get_RLum] The argument 'subset' does not contain a logical expression!", call. = FALSE)
 
