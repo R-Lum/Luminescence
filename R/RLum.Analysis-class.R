@@ -374,28 +374,28 @@ setMethod("get_RLum",
                    protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL, env = parent.frame(2)) {
 
             if (!is.null(substitute(subset))) {
-              
+
               # To account for different lengths and elements in the @info slot we first
               # check all unique elements (in all records)
               info_el <- unique(unlist(lapply(object@records, function(el) names(el@info))))
-              
+
               envir <- as.data.frame(do.call(rbind,
                                              lapply(object@records, function(el) {
                                                val <- c(curveType = el@curveType, recordType = el@recordType, unlist(el@info))
-                                               
+
                                                # add missing info elements and set NA
                                                if (any(!info_el %in% names(val))) {
                                                  val_new <- setNames(rep(NA, length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
                                                  val <- c(val, val_new)
-                                                 
+
                                                }
-                                               
+
                                                # order the named char vector by its names so we don't mix up the columns
                                                val <- val[order(names(val))]
                                                return(val)
                                              })
               ), stringsAsFactors = FALSE)
-              
+
               ##check for a logical expression, to avoid problems afterwards
               # if(class(eval(substitute(subset), envir = envir, enclos = env)) != "logical")
               #   stop("[get_RLum] The argument 'subset' does not contain a logical expression!", call. = FALSE)
@@ -418,7 +418,7 @@ setMethod("get_RLum",
                 return(object)
               } else {
                 tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) }, names(envir), envir)
-                message("\n [[get_RLum()] Invalid value, please refer to unique options given above.")
+                message("\n [get_RLum()] Invalid value, please refer to unique options given above.")
                 return(NULL)
               }
 
