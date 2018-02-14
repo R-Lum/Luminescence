@@ -99,7 +99,7 @@
 
 \method{subset}{Risoe.BINfileData}(x, subset, records.rm = TRUE, ...)
 
-\method{subset}{RLum.Analysis}(x, subset, ...)
+\method{subset}{RLum.Analysis}(x, subset = NULL, ...)
 
 bin.RLum.Data.Curve(x, ...)
 

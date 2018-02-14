@@ -139,7 +139,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.7.0 (2018-01-31 16:46:34)
+ 0.7.0 (2018-02-14 13:41:37)
 }
 
 \examples{
@@ -161,8 +161,8 @@ Kreutzer, S. (2018). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curve
 }
 
 \references{
-Duller, G., 2007. Analyst.
-\url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
+Duller, G., 2016. Analyst v4.31.9 - User Manual.
+\url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.
