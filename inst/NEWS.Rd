@@ -18,20 +18,29 @@
              infinite (Inf, -Inf) values, which produced 'NaN' warnings.
           }
       }
+
+     \item \code{get_RLum()}{
+          \itemize{
+             \item The argument \code{subset} was broken and not working anymore, similar to the
+             S3-method \code{subset} dispatching to \code{get_RLum} for \code{RLum.Analysis}-objects.
+             Both issues have been fixed.
+
+          }
+      }
     }
   }
-  
+
     \subsection{Internals}{
 
     \itemize{
-      \item Lower required dependent package versions get the package passed on CRAN.
+      \item Lower required dependent package versions to get the package passed on CRAN.
       \item Further compress example data ... it was not yet the optimum.
       \item Further compress 'vignettes'.
 
     }
 
   }
-  
+
 }
 
 \section{Changes in version 0.8.0 (Feburary 9th, 2018)}{

@@ -19,9 +19,16 @@ Changes in version 0.8.1 (Feburary 12th, 2018):
                log of infinite (Inf, -Inf) values, which produced 'NaN'
                warnings.
 
+         • ‘get_RLum()’
+
+             • The argument ‘subset’ was broken and not working
+               anymore, similar to the S3-method ‘subset’ dispatching
+               to ‘get_RLum’ for ‘RLum.Analysis’-objects.  Both issues
+               have been fixed.
+
   Internals:
 
-         • Lower required dependent package versions get the package
+         • Lower required dependent package versions to get the package
            passed on CRAN.
 
          • Further compress example data ... it was not yet the
