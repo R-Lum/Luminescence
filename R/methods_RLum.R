@@ -236,7 +236,7 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 #' @rdname methods_RLum
 #' @method subset RLum.Analysis
 #' @export
-subset.RLum.Analysis <- function(x, subset, ...) {
+subset.RLum.Analysis <- function(x, subset = NULL, ...) {
   do.call(get_RLum, list(object = x, drop = FALSE, subset = substitute(subset), env = parent.frame())) }
 
 
