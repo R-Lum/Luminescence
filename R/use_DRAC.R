@@ -46,7 +46,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author 
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -253,7 +253,6 @@ use_DRAC <- function(
   DRAC.response <- httr::POST(settings$url,
                               body = list("drac_data[name]"  = settings$name,
                                           "drac_data[table]" = DRAC_input))
-  
   ## check for correct response
   if (DRAC.response$status_code != 200) {
     stop(paste0("[use_DRAC()] transmission failed with HTTP status code: ",
@@ -300,9 +299,10 @@ use_DRAC <- function(
                          stringsAsFactors = FALSE)
   
   ## remove first two lines
-  DRAC.content <- read.table(text = as.character(DRAC.content.split[[1]][2]),
-                             sep = ",", skip = 2,
-                             stringsAsFactors = FALSE)
+  DRAC.content <- data.table::fread(as.character(DRAC.content.split[[1]][2]),
+                                    sep = ",", skip = 2,
+                                    stringsAsFactors = FALSE, colClasses = c(V3 = "character"), 
+                                    data.table = FALSE)
   
   ##Get rid of all the value we do not need anymore
   DRAC.content <-  subset(DRAC.content, DRAC.content$V1 %in% DRAC_results.id)
