@@ -73,7 +73,7 @@
 #' ## (2) Method using an R template object
 #'
 #' # Create a template
-#' input <- template_DRAC()
+#' input <- template_DRAC(preset = "DRAC-example_quartz")
 #'
 #' # Fill the template with values
 #' input$`Project ID` <- "DRAC-Example"
