@@ -23,6 +23,8 @@ test_that("Check template creation ", {
   )
   
   ## misc tests
+  expect_true(all(is.na(template_DRAC(notification = FALSE))))
+  expect_true(!all(is.na(template_DRAC(preset = "DRAC-example_polymineral", notification = FALSE))))
   expect_equal(length(template_DRAC(notification = FALSE)), 53)
   expect_equal(length(template_DRAC(nrow = 10, notification = FALSE)[[1]]), 10)
   
