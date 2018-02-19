@@ -21,9 +21,9 @@ test_that("Test DRAC", {
  input$`errExternal Th (ppm)` <- 1.69
  input$`External K (%)` <- 1.2
  input$`errExternal K (%)` <- 0.14
- input$`Calculate external Rb from K conc?` <- "N"
- input$`Calculate internal Rb from K conc?` <- "N"
- input$`Scale gammadoserate at shallow depths?` <- "N"
+ input$`Calculate external Rb from K conc?` <- "Y"
+ input$`Calculate internal Rb from K conc?` <- "Y"
+ input$`Scale gammadoserate at shallow depths?` <- "Y"
  input$`Grain size min (microns)` <- 90
  input$`Grain size max (microns)` <- 125
  input$`Water content ((wet weight - dry weight)/dry weight) %` <- 5
@@ -39,8 +39,10 @@ test_that("Test DRAC", {
  input$`errDe (Gy)` <- 0.2
 
  ##run DRAC
- expect_s4_class(use_DRAC(input), "RLum.Results")
+ expect_s4_class(output <- use_DRAC(input), "RLum.Results")
 
-
+ ## print method for DRAC.highlights
+ expect_output(print(output$DRAC$highlights), regexp = "TO:GP = errAge")
+ 
 })
 
