@@ -6,7 +6,7 @@ test_that("Test DRAC", {
 
  ##use manuel example
  ##create template
- input <- template_DRAC()
+ input <- template_DRAC(preset = "DRAC-example_quartz")
 
  ##test
  expect_s3_class(input, "DRAC.list")
