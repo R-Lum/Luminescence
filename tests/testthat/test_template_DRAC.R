@@ -4,10 +4,31 @@ context("template_DRAC")
 test_that("Check template creation ", {
   skip_on_cran()
 
-  ##test success
+  ## test output class
   expect_is(template_DRAC(), "DRAC.list")
   expect_is(template_DRAC(notification = FALSE), "DRAC.list")
   expect_is(template_DRAC(nrow = 10, notification = FALSE), "DRAC.list")
+
+  ## test presets
+  # expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "quartz_coarse")$`a-value`), VALUE)
+  # expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "quartz_fine")$`a-value`), VALUE)
+  # expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "feldspar_coarse")$`a-value`), VALUE)
+  # expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "polymineral_fine")$`a-value`), VALUE)
+  expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "DRAC-example_quartz")$`De (Gy)`), 20)
+  expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "DRAC-example_feldspar")$`De (Gy)`), 15)
+  expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "DRAC-example_polymineral")$`De (Gy)`), 204.47)
+  
+  expect_true(
+    do.call(all.equal, as.list(template_DRAC(nrow = 2, notification = FALSE, preset = "DRAC-example_quartz")$`De (Gy)`))
+  )
+  
+  ## misc tests
+  expect_equal(length(template_DRAC(notification = FALSE)), 53)
+  expect_equal(length(template_DRAC(nrow = 10, notification = FALSE)[[1]]), 10)
+  
+  ## expect failure
+  expect_error(template_DRAC(nrow = -1, notification = FALSE))
+  expect_error(template_DRAC(nrow = 34, notification = FALSE))
 
 })
 
