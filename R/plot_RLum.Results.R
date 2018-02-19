@@ -931,7 +931,6 @@ plot_RLum.Results<- function(
   ## CASE 5: Aliquot Size
   if(object@originator=="calc_AliquotSize") {
     if(!is.null(object@data$MC$estimates)) {
-      
       extraArgs <- list(...)
       
       main <- if("main" %in% names(extraArgs)) { extraArgs$main } else { "Monte Carlo Simulation"  }
@@ -995,6 +994,8 @@ plot_RLum.Results<- function(
            xaxt="n", yaxt="n", ylab="")
       par(bty="n")
       boxplot(MC.n, horizontal = TRUE, add = TRUE, bty="n")
+    } else {
+      on.exit(NULL)
     }
   }#EndOf::Case 5 - calc_AliqoutSize()
   

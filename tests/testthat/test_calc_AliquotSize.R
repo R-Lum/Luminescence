@@ -8,6 +8,17 @@ temp <- calc_AliquotSize(
   plot = FALSE,
   verbose = FALSE)
 
+test_that("consistency checks", {
+  expect_error(calc_AliquotSize(grain.size = 1:3))
+  expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2))
+  expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1))
+  expect_output(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = 9.8, grains.counted = 30, MC = TRUE), 
+                regexp = "Monte Carlo simulation is only available for estimating the amount of grains on the sample disc.")
+  expect_is(calc_AliquotSize(grain.size = 100, packing.density = "inf", sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+  expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+  expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
