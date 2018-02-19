@@ -29,6 +29,9 @@ test_that("Check template creation ", {
   ## expect failure
   expect_error(template_DRAC(nrow = -1, notification = FALSE))
   expect_error(template_DRAC(nrow = 34, notification = FALSE))
+  expect_error(template_DRAC(preset = "this_one_does_not_exist"))
+  expect_error(template_DRAC(preset = c("this_one_does_not_exist", "this_one_neither")))
+  expect_error(template_DRAC(preset = 999))
 
 })
 
