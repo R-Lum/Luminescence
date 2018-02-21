@@ -4,7 +4,7 @@
 \alias{template_DRAC}
 \title{Create a DRAC input data template (v1.2)}
 \usage{
-template_DRAC(nrow = 1, preset, notification = TRUE)
+template_DRAC(nrow = 1, preset = NULL, notification = TRUE)
 }
 \arguments{
 \item{nrow}{\link{integer} (\emph{with default}):
@@ -54,7 +54,7 @@ print(input[[4]])
 
 
 ## Example: DRAC Quartz example
-# note that you only have to assign new values where they 
+# note that you only have to assign new values where they
 # are different to the default values
 input$`Project ID` <- "DRAC-Example"
 input$`Sample ID` <- "Quartz"
@@ -87,7 +87,12 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
+} 
+
+\section{How to cite}{
+Burow, C., Kreutzer, S. (2018). template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
@@ -96,5 +101,5 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 \link{as.data.frame}, \link{list}
 }
 \author{
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 }
