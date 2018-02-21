@@ -27,6 +27,16 @@
 
           }
       }
+
+     \item \code{template_DRAC()}{
+          \itemize{
+             \item New argument \code{preset} to allow the selection of pre-defined templates
+             for various configurations (e.g., \code{'quartz_coarse'}) for quartz coarse grain
+             data. The templates bring pre-filled values to speed up the workflow, however, they
+             do not free the researcher from cross-checking these values.
+
+          }
+      }
     }
   }
 
