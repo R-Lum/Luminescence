@@ -2,7 +2,7 @@ Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
 Version: 0.8.1
-Date: 2018-02-12
+Date: 2018-02-28
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc],
     Michael Dietze [aut],

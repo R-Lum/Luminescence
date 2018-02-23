@@ -1,8 +1,11 @@
 ## Release summary
 
-This minor release replaces the version 0.8.0 submitted to 
-CRAN recently. We had not been aware of the problems with 
-the package 'data.table' on CRAN and we thus now lowered required package version number for 'data.table'.
+This release replaces the version 0.8.0 submitted to 
+CRAN 2018-02-09, but it got never published for unknown 
+reasons. We never received beyond any response either. 
+
+However, we became aware of the problems with the package 'data.table'
+on CRAN and we thus now lowered required package version number for 'data.table'.
 
 We furthermore reduced the size of the example data and lowered the required R version to 3.3.0 
 (3.4.0 previously).
