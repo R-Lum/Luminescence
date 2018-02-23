@@ -28,6 +28,15 @@
           }
       }
 
+      \item \code{plot_DRTResults()}{
+          \itemize{
+             \item If \code{boxplot = TRUE} and \code{give.dose = NULL} the plot still showed the
+             abline at 1 including the +/- 10 \% error range. Now, the abline is only showed
+             if a numeric value is provided for \code{give.dose}, \code{NULL} plots no abline.
+
+          }
+      }
+
      \item \code{template_DRAC()}{
           \itemize{
              \item New argument \code{preset} to allow the selection of pre-defined templates

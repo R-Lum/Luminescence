@@ -80,13 +80,13 @@
 #' @return A plot is returned.
 #'
 #' @note
-#' Further data and plot arguments can be added by using the appropiate R
+#' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.11
+#' @section Function version: 0.1.12
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]
@@ -664,7 +664,6 @@ plot_DRTResults <- function(
       }
 
     }else{
-
       axis(side = 1, at = 1:length(unique(modes.plot)), labels = unique(modes.plot))
 
     }
@@ -674,18 +673,20 @@ plot_DRTResults <- function(
           line = shift.lines + 2)
 
     ## add additional lines
-    abline(h = 1)
+    if(!is.null(given.dose)){
+      abline(h = 1)
 
-    if(error.range > 0){
-      ## error range lines
-      abline(h = 1 * (1 + error.range / 100), lty = 2)
-      abline(h = 1 * (1 - error.range / 100), lty = 2)
+      if(error.range > 0){
+        ## error range lines
+        abline(h = 1 * (1 + error.range / 100), lty = 2)
+        abline(h = 1 * (1 - error.range / 100), lty = 2)
 
-      ## error range labels
-      text(par()$usr[2], (1 + error.range / 100) + 0.02,
-           paste("+", error.range ," %", sep = ""), pos = 2, cex = 0.8)
-      text(par()$usr[2], (1 - error.range / 100) - 0.02,
-           paste("-", error.range ,"%", sep = ""), pos = 2, cex = 0.8)
+        ## error range labels
+        text(par()$usr[2], (1 + error.range / 100) + 0.02,
+             paste("+", error.range ," %", sep = ""), pos = 2, cex = 0.8)
+        text(par()$usr[2], (1 - error.range / 100) - 0.02,
+             paste("-", error.range ,"%", sep = ""), pos = 2, cex = 0.8)
+      }
     }
 
     ## plot data and error

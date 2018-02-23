@@ -26,6 +26,14 @@ Changes in version 0.8.1 (Feburary 12th, 2018):
                to ‘get_RLum’ for ‘RLum.Analysis’-objects.  Both issues
                have been fixed.
 
+         • ‘plot_DRTResults()’
+
+             • If ‘boxplot = TRUE’ and ‘give.dose = NULL’ the plot
+               still showed the abline at 1 including the +/- 10 %
+               error range. Now, the abline is only showed if a numeric
+               value is provided for ‘give.dose’, ‘NULL’ plots no
+               abline.
+
          • ‘template_DRAC()’
 
              • New argument ‘preset’ to allow the selection of
