@@ -2,13 +2,16 @@
 
 This release replaces the version 0.8.0 submitted to 
 CRAN 2018-02-09, but it got never published for unknown 
-reasons. We never received beyond any response either. 
+reasons. We never received any response beyond the automatic 
+submission confirmation either. 
 
 However, we became aware of the problems with the package 'data.table'
 on CRAN and we thus now lowered required package version number for 'data.table'.
 
 We furthermore reduced the size of the example data and lowered the required R version to 3.3.0 
 (3.4.0 previously).
+
+Thanks for your support!
 
 ## R CMD check --as-cran results
 
@@ -27,7 +30,7 @@ libraries to a minimum, the rest is R code and comments.
 
 The character had already a proper escape character, i.e. {\'e}. The backslash, however, 
 appears to be mistakenly removed in the e-mail by Prof Hornik. Anyway, to avoid further problems, 
-we followed the alternative suggestion and set a package encoding (UTF-8) and provided the 
+we followed his alternative suggestion and set a package encoding (UTF-8) and provided the 
 accented character.
 
 > [Kurt Hornik via e-mail (2017-08-03)] "These have package CITATION files with author fields using BibTeX style
