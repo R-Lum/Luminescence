@@ -38,6 +38,14 @@
 #' \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
 #' This fitting procedure is not robust against wrong start parameters and
 #' should be further improved.
+#' 
+#' `GOK`: tries to fit the general-order kinetics function after 
+#' Guralnik et al. (2015) of the form of
+#' 
+#' \deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
+#'
+#' where **c > 0** is a kinetic order modifier 
+#' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
 #'
 #' **Fit weighting**
 #'
@@ -87,14 +95,15 @@
 #' - `QDR`,
 #' - `EXP`,
 #' - `EXP OR LIN`,
-#' - `EXP+LIN` or
-#' - `EXP+EXP`.
+#' - `EXP+LIN`,
+#' - `EXP+EXP` or
+#' - `GOK`.
 #'
 #' See details.
 #'
 #' @param fit.force_through_origin [logical] (*with default*)
 #' allow to force the fitted function through the origin.
-#' For `method = "EXP+EXP"` the function will go to the origin in either case,
+#' For `method = "EXP+EXP"` and `method = "GOK"` the function will go through the origin in either case,
 #' so this option will have no effect.
 #'
 #' @param fit.weights [logical] (*with default*):
@@ -114,7 +123,7 @@
 #'
 #' @param fit.bounds [logical] (*with default*):
 #' set lower fit bounds for all fitting parameters to 0. Limited for the use
-#' with the fit methods `EXP`, `EXP+LIN` and `EXP OR LIN`.
+#' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN` and `GOK`.
 #' Argument to be inserted for experimental application only!
 #'
 #' @param NumberIterations.MC [integer] (*with default*):
@@ -165,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.10
+#' @section Function version: 1.10.0
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -174,6 +183,10 @@
 #' @references
 #'
 #' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+#' 
+#' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
+#' Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
+#' from feldspar. Radiation Measurements 81, 224-231.
 #'
 #' @seealso [nls], [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM],
 #' [lm], [uniroot]
@@ -472,6 +485,10 @@ plot_GrowthCurve <- function(
   #EXP+EXP
   fit.functionEXPEXP<-function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
   fit.formulaEXPEXP <- y ~ (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
+  
+  #GOK
+  fit.functionGOK <- function(a,b,c,x) { a*(1-(1+(1/b)*x*c)^(-1/c)) }
+  fit.formulaGOK <- y ~ a*(1-(1+(1/b)*x*c)^(-1/c))
 
   ##input data for fitting; exclude repeated RegPoints
   if (fit.includingRepeatedRegPoints == FALSE) {
@@ -1570,9 +1587,154 @@ plot_GrowthCurve <- function(
     if(txtProgressBar) if(exists("pb")){close(pb)}
 
 
-    #===========================================================================
-  } #End if Fit Method
-
+    
+  } 
+  else if (fit.method=="GOK") {
+  #==========================================================================
+  #==========================================================================
+  # GOK -----
+    
+    # FINAL Fit 
+    fit <- try(minpack.lm::nlsLM(
+      formula = fit.formulaGOK,
+      data = data,
+      start = list(a = a, b = b, c = 1),
+      weights = fit.weights,
+      trace = FALSE,
+      algorithm = "LM",
+      lower = if (fit.bounds) {
+        c(0,0,0)
+      }else{
+        c(-Inf,-Inf,-Inf)
+      },
+      upper = c(Inf, Inf, Inf),
+      control = minpack.lm::nls.lm.control(maxiter = 500)
+    ), silent = TRUE)
+    
+    if (inherits(fit, "try-error")){
+      if(verbose) writeLines("[plot_GrowthCurve()] try-error for GOK fit")
+      
+    }else{
+      
+      #get parameters out of it
+      parameters <- (coef(fit))
+      b <- as.vector((parameters["b"]))
+      a <- as.vector((parameters["a"]))
+      c <- as.vector((parameters["c"]))
+      
+      
+      #calculate De
+      if(mode == "interpolation"){
+        De <- suppressWarnings(round(-(b * (( (a - sample[1,2])/a)^c - 1) * ( ((a - sample[1,2])/a)^-c  )) / c, digits=2))
+        
+      }else if (mode == "extrapolation"){
+        De <- suppressWarnings(-(b * (( (a - 0)/a)^c - 1) * ( ((a - 0)/a)^-c  )) / c)
+        
+      }else{
+        De <- NA
+        
+      }
+      
+      #print D01 value
+      D01<-round(b, digits=2)
+      
+      if (verbose) {
+        if (mode != "alternate") {
+          writeLines(paste0(
+            "[plot_GrowthCurve()] Fit: ",
+            fit.method,
+            " (",
+            mode,
+            ")",
+            " | De = ",
+            round(abs(De), digits = 2),
+            " | D01 = ",
+            D01,
+            " | c = ",
+            round(c, digits = 2)
+          ))
+        }
+      }
+      
+      
+      #EXP MC -----
+      ##Monte Carlo Simulation
+      #	--Fit many curves and calculate a new De +/- De_Error
+      #	--take De_Error
+      
+      #set variables
+      var.b<-vector(mode="numeric", length=NumberIterations.MC)
+      var.a<-vector(mode="numeric", length=NumberIterations.MC)
+      var.c<-vector(mode="numeric", length=NumberIterations.MC)
+      
+      #start loop
+      for (i in 1:NumberIterations.MC) {
+        
+        ##set data set
+        data <- data.frame(x = xy$x,y = data.MC[,i])
+        
+        fit.MC <- try(minpack.lm::nlsLM(
+          formula = fit.formulaGOK,
+          data = data,
+          start = list(a = a, b = b, c = 1),
+          weights = fit.weights,
+          trace = FALSE,
+          algorithm = "LM",
+          lower = if (fit.bounds) {
+            c(0,0,0)
+          }else{
+            c(-Inf,-Inf,-Inf)
+          },
+          upper = c(Inf, Inf, Inf),
+          control = minpack.lm::nls.lm.control(maxiter = 500)
+        ), silent = TRUE
+        )
+        
+        # get parameters out of it including error handling
+        if (class(fit.MC)=="try-error") {
+          x.natural[i] <- NA
+          
+        } else {
+          
+          # get parameters out
+          parameters<-coef(fit.MC)
+          var.b[i]<-as.vector((parameters["b"])) #D0
+          var.a[i]<-as.vector((parameters["a"])) #Imax
+          var.c[i]<-as.vector((parameters["c"])) #kinetic order modifier
+          
+          # calculate x.natural for error calculation
+          if(mode == "interpolation"){
+            x.natural[i]<-suppressWarnings(
+              round(
+                -(var.b[i] * (( (var.a[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i],
+                digits=2))
+            
+          }else if(mode == "extrapolation"){
+            x.natural[i]<-suppressWarnings(
+              abs(-(var.b[i] * (( (var.a[i] - 0)/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])
+            )
+            
+          }else{
+            x.natural[i] <- NA
+            
+          }
+          
+        }
+        
+      }#end for loop
+      
+      
+      ##write D01.ERROR
+      D01.ERROR <- sd(var.b, na.rm = TRUE)
+      
+      ##remove values
+      rm(var.b, var.a, var.c)
+      
+    }#endif::try-error fit
+    
+  
+  #===========================================================================
+  }#End if Fit Method 
 
   #Get De values from Monto Carlo simulation
 
@@ -1637,6 +1799,15 @@ plot_GrowthCurve <- function(
                                " + ", format(coef(fit)[3], scientific = TRUE), " * x^2"
       ))
 
+    }
+    
+    if(fit.method == "GOK") {
+      f <- parse(text = paste0(
+        format(coef(fit)[1], scientific = TRUE), " * (1 - (1 + (1/",
+        format(coef(fit)[2], scientific = TRUE), ") * x * ",
+        format(coef(fit)[3], scientific = TRUE), ")^(-1 / ",
+        format(coef(fit)[3], scientific = TRUE), "))"
+        ))
     }
 
   }else{
@@ -1805,13 +1976,14 @@ plot_GrowthCurve <- function(
       else if (fit.method == "EXP") {
         try(curve(fit.functionEXP(a, b, c, x), lwd = 1.5, add = TRUE))
       }
-      else
-        if (fit.method  ==  "EXP+EXP")
-        {
+      else if (fit.method  ==  "EXP+EXP") {
           try(curve(fit.functionEXPEXP(a1, a2, b1, b2, x),
                     lwd  =  1.5,
                     add  =  TRUE))
-        }
+      }
+      else if (fit.method == "GOK") {
+        try(curve(fit.functionGOK(a, b, c, x), lwd = 1.5, add = TRUE))
+      }
 
       ##POINTS	#Plot Reg0 and Repeated Points
 
