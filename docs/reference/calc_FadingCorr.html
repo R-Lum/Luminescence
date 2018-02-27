@@ -19,6 +19,8 @@ g-value and a given tc — calc_FadingCorr • Luminescence</title>
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -26,6 +28,12 @@ g-value and a given tc — calc_FadingCorr • Luminescence</title>
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given
+g-value and a given tc — calc_FadingCorr" />
+
+<meta property="og:description" content="This function solves the equation used for correcting the fading affected age
+including the error for a given g-value according to Huntley &amp; Lamothe (2001)." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -247,7 +255,7 @@ tc value (the one used for estimating the g-value) using the argument <code>tc.g
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -286,7 +294,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 #&gt;  observations: 		100
 #&gt;  ----------------------------------------------
 #&gt;  Age (faded):		0.1 ka ± 0 ka
-#&gt;  Age (corr.):		0.1168 ka ± 0.0044 ka
+#&gt;  Age (corr.):		0.1168 ka ± 0.0037 ka
 #&gt;  ---------------------------------------------- </div><div class='input'>
 <span class='co'>##(2) faded age: 1 ka</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_FadingCorr</span>(
@@ -310,7 +318,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 #&gt;  observations: 		100
 #&gt;  ----------------------------------------------
 #&gt;  Age (faded):		1 ka ± 0 ka
-#&gt;  Age (corr.):		1.2486 ka ± 0.0678 ka
+#&gt;  Age (corr.):		1.2486 ka ± 0.0638 ka
 #&gt;  ---------------------------------------------- </div><div class='input'>
 <span class='co'>##(3) faded age: 10.0 ka</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_FadingCorr</span>(
@@ -334,11 +342,11 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 #&gt;  observations: 		100
 #&gt;  ----------------------------------------------
 #&gt;  Age (faded):		10 ka ± 0 ka
-#&gt;  Age (corr.):		13.402 ka ± 0.8484 ka
+#&gt;  Age (corr.):		13.402 ka ± 0.9322 ka
 #&gt;  ---------------------------------------------- </div><div class='input'>
 <span class='co'>##access the last output</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;      AGE AGE.ERROR AGE_FADED AGE_FADED.ERROR  G_VALUE G_VALUE.ERROR      KAPPA
-#&gt; 1 13.402    0.8484        10               0 5.312393      1.011901 0.02307143
+#&gt; 1 13.402    0.9322        10               0 5.312393      1.011901 0.02307143
 #&gt;   KAPPA.ERROR           TC   TC.G_VALUE n.MC OBSERVATIONS SEED
 #&gt; 1  0.00439463 8.213721e-05 5.475814e-06  100          100   NA</div><div class='input'>
 </div></pre>

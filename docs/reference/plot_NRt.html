@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Visualise natural/regenerated signal ratios — plot_NRt" />
+
+<meta property="og:description" content="This function creates a Natural/Regenerated signal vs. time (NR(t)) plot
+as shown in Steffen et al. 2009" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -165,7 +172,7 @@ the counts of each curve.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2018). plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -195,18 +202,18 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.</p>
 <span class='no'>curves</span> <span class='kw'>&lt;-</span> <span class='no'>allCurves</span>[<span class='no'>pos</span>]
 
 <span class='co'>## plot a standard NR(t) plot</span>
-<span class='fu'>plot_NRt</span>(<span class='no'>curves</span>)</div><div class='img'><img src='plot_NRt-73.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_NRt</span>(<span class='no'>curves</span>)</div><div class='img'><img src='plot_NRt-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## re-plot with rolling mean data smoothing</span>
-<span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='plot_NRt-74.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='plot_NRt-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## re-plot with a logarithmic x-axis</span>
-<span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='plot_NRt-75.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='plot_NRt-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## re-plot with custom axes ranges</span>
 <span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>5</span>,
          <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>5</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.4</span>, <span class='fl'>1.6</span>),
-         <span class='kw'>legend.pos</span> <span class='kw'>=</span> <span class='st'>"bottomleft"</span>)</div><div class='img'><img src='plot_NRt-76.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>legend.pos</span> <span class='kw'>=</span> <span class='st'>"bottomleft"</span>)</div><div class='img'><img src='plot_NRt-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## re-plot with smoothing spline on log scale</span>
 <span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"spline"</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
-         <span class='kw'>legend.pos</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</div><div class='img'><img src='plot_NRt-77.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>legend.pos</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</div><div class='img'><img src='plot_NRt-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## EXAMPLE 2</span>
 
 <span class='co'># you may also use this function to check whether all</span>
@@ -217,7 +224,7 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.</p>
 <span class='fu'>plot_NRt</span>(<span class='no'>curves</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"TnTx(t) Plot"</span>,
          <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>20</span>,
          <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"TD natural / TD regenerated"</span>,
-         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>20</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_NRt-78.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>20</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_NRt-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## EXAMPLE 3</span>
 
 <span class='co'># extract data from all positions</span>
@@ -238,7 +245,7 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.</p>
             <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='st'>"rmean"</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>20</span>,
             <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>10</span>),
             <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>legend.pos</span> <span class='kw'>=</span> <span class='st'>"bottomleft"</span>)
-}</div><div class='img'><img src='plot_NRt-79.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-80.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-81.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-82.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-83.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-84.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+}</div><div class='img'><img src='plot_NRt-7.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-8.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-9.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-10.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-11.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_NRt-12.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># reset graphical parameters</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>))</div></pre>
   </div>

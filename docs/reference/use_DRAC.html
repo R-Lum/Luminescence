@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Use DRAC to calculate dose rate data — use_DRAC" />
+
+<meta property="og:description" content="The function provides an interface from R to DRAC. An R-object or a
+pre-formatted XLS/XLSX file is passed to the DRAC website and the
+results are re-imported into R." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -185,11 +193,11 @@ The output should be accessed using the function get_RLum.
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.2 (2018-01-21 17:22:38)</p>
+    <p>0.1.3 (2018-02-19 16:53:17)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M., Burow, C. (2018). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., Burow, C. (2018). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -211,7 +219,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 <span class='co'>## (2) Method using an R template object</span>
 
 <span class='co'># Create a template</span>
-<span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='template_DRAC.html'>template_DRAC</a></span>()</div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'>	 This function returns a DRAC input template to be used in </span></div><div class='output co'>#&gt; <span class='message'>	 conjunction with the use_DRAC() function.  </span></div><div class='output co'>#&gt; <span class='message'>	 The template was reproduced with great care, but we do not</span></div><div class='output co'>#&gt; <span class='message'>	 take any responsibility and we are not liable for any </span></div><div class='output co'>#&gt; <span class='message'>	 mistakes or unforeseen misbehaviour.</span></div><div class='output co'>#&gt; <span class='message'>	 Note that this template is only compatible with DRAC</span></div><div class='output co'>#&gt; <span class='message'>	 version 1.1. Before using this template make sure that</span></div><div class='output co'>#&gt; <span class='message'>	 this is the correct version, otherwise expect unspecified</span></div><div class='output co'>#&gt; <span class='message'>	 errors.</span></div><div class='output co'>#&gt; <span class='message'>	 Please ensure you cite the use of DRAC in your work,</span></div><div class='output co'>#&gt; <span class='message'>	 published or otherwise. Please cite the website name and</span></div><div class='output co'>#&gt; <span class='message'>	 version (e.g. DRAC v1.1) and the accompanying journal</span></div><div class='output co'>#&gt; <span class='message'>	 article:</span></div><div class='output co'>#&gt; <span class='message'>	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span></div><div class='output co'>#&gt; <span class='message'>	 DRAC: Dose rate and age calculation for trapped charge</span></div><div class='output co'>#&gt; <span class='message'>	 dating. Quaternary Geochronology 28, 54-61. </span></div><div class='output co'>#&gt; <span class='message'>	 Set 'notification = FALSE' to hide this message. </span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
+<span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='template_DRAC.html'>template_DRAC</a></span>(<span class='kw'>preset</span> <span class='kw'>=</span> <span class='st'>"DRAC-example_quartz"</span>)</div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'>	 This function returns a DRAC input template to be used in </span></div><div class='output co'>#&gt; <span class='message'>	 conjunction with the use_DRAC() function.  </span></div><div class='output co'>#&gt; <span class='message'>	 The template was reproduced with great care, but we do not</span></div><div class='output co'>#&gt; <span class='message'>	 take any responsibility and we are not liable for any </span></div><div class='output co'>#&gt; <span class='message'>	 mistakes or unforeseen misbehaviour.</span></div><div class='output co'>#&gt; <span class='message'>	 Note that this template is only compatible with DRAC</span></div><div class='output co'>#&gt; <span class='message'>	 version 1.1. Before using this template make sure that</span></div><div class='output co'>#&gt; <span class='message'>	 this is the correct version, otherwise expect unspecified</span></div><div class='output co'>#&gt; <span class='message'>	 errors.</span></div><div class='output co'>#&gt; <span class='message'>	 Please ensure you cite the use of DRAC in your work,</span></div><div class='output co'>#&gt; <span class='message'>	 published or otherwise. Please cite the website name and</span></div><div class='output co'>#&gt; <span class='message'>	 version (e.g. DRAC v1.1) and the accompanying journal</span></div><div class='output co'>#&gt; <span class='message'>	 article:</span></div><div class='output co'>#&gt; <span class='message'>	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span></div><div class='output co'>#&gt; <span class='message'>	 DRAC: Dose rate and age calculation for trapped charge</span></div><div class='output co'>#&gt; <span class='message'>	 dating. Quaternary Geochronology 28, 54-61. </span></div><div class='output co'>#&gt; <span class='message'>	 Set 'notification = FALSE' to hide this message. </span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
 <span class='co'># Fill the template with values</span>
 <span class='no'>input</span>$<span class='no'>`Project ID`</span> <span class='kw'>&lt;-</span> <span class='st'>"DRAC-Example"</span>
 <span class='no'>input</span>$<span class='no'>`Sample ID`</span> <span class='kw'>&lt;-</span> <span class='st'>"Quartz"</span>

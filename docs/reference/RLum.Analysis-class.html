@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Class <code>"RLum.Analysis"</code> — RLum.Analysis-class" />
+
+<meta property="og:description" content="Object class to represent analysis data for protocol analysis, i.e. all curves,
+spectra etc. from one measurements. Objects from this class are produced,
+by e.g. read_XSYG2R, read_Daybreak2R" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -135,7 +143,7 @@ by e.g. <a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='read_Daybreak2R.htm
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>, <code><a href='names_RLum.html'>names_RLum</a></code>, <code><a href='length_RLum.html'>length_RLum</a></code>, <code><a href='structure_RLum.html'>structure_RLum</a></code> (<strong>required</strong>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: <code><a href='names_RLum.html'>names_RLum</a></code>, <code><a href='length_RLum.html'>length_RLum</a></code>, <code><a href='structure_RLum.html'>structure_RLum</a></code> (<strong>required</strong>):
 an object of class RLum.Analysis</p></td>
     </tr>
     <tr>
@@ -179,60 +187,60 @@ a list containing additional info data for the object
     </tr>
     <tr>
       <th>record.id</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; numeric or logical (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: numeric or logical (<em>optional</em>):
 IDs of specific records. If of type <code>logical</code> the entire id range is assumed
 and <code>TRUE</code> and <code>FALSE</code> indicates the selection.</p></td>
     </tr>
     <tr>
       <th>recordType</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; character (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: character (<em>optional</em>):
 record type (e.g., "OSL"). Can be also a vector, for multiple matching,
 e.g., <code>recordType = c("OSL", "IRSL")</code></p></td>
     </tr>
     <tr>
       <th>curveType</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; character (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: character (<em>optional</em>):
 curve type (e.g. "predefined" or "measured")</p></td>
     </tr>
     <tr>
       <th>RLum.type</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; character (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: character (<em>optional</em>):
 RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".</p></td>
     </tr>
     <tr>
       <th>get.index</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; logical (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: logical (<em>optional</em>):
 return a numeric vector with the index of each element in the RLum.Analysis object.</p></td>
     </tr>
     <tr>
       <th>drop</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; logical (<em>with default</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: logical (<em>with default</em>):
 coerce to the next possible layer (which are <code>RLum.Data</code>-objects),
 <code>drop = FALSE</code> keeps the original <code>RLum.Analysis</code></p></td>
     </tr>
     <tr>
       <th>recursive</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; logical (<em>with default</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: logical (<em>with default</em>):
 if <code>TRUE</code> (the default) and the result of the 'get_RLum' request is a single
 object this object will be unlisted, means only the object itself and no
 list containing exactly one object is returned. Mostly this makes things
-easier, however, if this method is used within a loop this might undesired.</p></td>
+easier, however, if this method is used within a loop this might be undesired.</p></td>
     </tr>
     <tr>
       <th>info.object</th>
-      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>; character (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: character (<em>optional</em>):
 name of the wanted info element</p></td>
     </tr>
     <tr>
       <th>subset</th>
-      <td><p>expression (<em>optional</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: expression (<em>optional</em>):
 logical expression indicating elements or rows to keep: missing values are
 taken as false. This argument takes precedence over all other arguments,
 meaning they are not considered when subsetting the object.</p></td>
     </tr>
     <tr>
       <th>env</th>
-      <td><p>environment (<em>with default</em>):
+      <td><p><code><a href='get_RLum.html'>get_RLum</a></code>: environment (<em>with default</em>):
 An environment passed to eval as the enclosure. This argument is only
 relevant when subsetting the object and should not be used manually.</p></td>
     </tr>
@@ -308,7 +316,7 @@ containing <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>.</p>
     
     <h2 class="hasAnchor" id="class-version"><a class="anchor" href="#class-version"></a>Class version</h2>
 
-    <p>0.4.11</p>
+    <p>0.4.14</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -317,7 +325,7 @@ containing <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

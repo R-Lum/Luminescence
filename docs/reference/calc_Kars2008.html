@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Apply the Kars et al. (2008) model — calc_Kars2008" />
+
+<meta property="og:description" content="A function to calculate the expected sample specific fraction of saturation
+following Kars et al. (2008) and Huntley (2006)." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -302,11 +309,11 @@ output this value is denoted by <em>"Age @2D0 (ka):"</em>.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-21 17:22:38)</p>
+    <p>0.3.1 (2018-02-12 13:46:28)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>King, G., Burow, C. (2018). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>King, G., Burow, C. (2018). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -340,34 +347,13 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 <span class='co'># Analyse fading measurement and get an estimate of rho'.</span>
 <span class='co'># Note that the RLum.Results object can be directly used for further processing.</span>
 <span class='co'># The number of MC runs is reduced for this example</span>
-<span class='no'>rhop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>fading_data</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='calc_Kars2008-43.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>rhop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>fading_data</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 <span class='co'>## (3) Apply the Kars et al. (2008) model to the data</span>
 <span class='no'>kars</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_Kars2008</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>,
                       <span class='kw'>rhop</span> <span class='kw'>=</span> <span class='no'>rhop</span>,
                       <span class='kw'>ddot</span> <span class='kw'>=</span> <span class='no'>ddot</span>,
                       <span class='kw'>readerDdot</span> <span class='kw'>=</span> <span class='no'>readerDdot</span>,
-                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='calc_Kars2008-44.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-45.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-46.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt; [calc_Kars2008()]
-#&gt; 
-#&gt;  -------------------------------
-#&gt;  (n/N) [-]:	 0.15 ± 0.01
-#&gt;  (n/N)_SS [-]:	 0.38 ± 0.03
-#&gt; 
-#&gt;  ---------- Measured -----------
-#&gt;  DE [Gy]:	 130.97 ± 14.99
-#&gt;  D0 [Gy]:	 539.01 ± 18.71
-#&gt;  Age [ka]:	 18.71 ± 2.34
-#&gt; 
-#&gt;  ---------- Un-faded -----------
-#&gt;  D0 [Gy]:	 621.85 ± 12.32
-#&gt; 
-#&gt;  ---------- Simulated ----------
-#&gt;  DE [Gy]:	 306.02 ± 50.08
-#&gt;  D0 [Gy]:	 597.35 ± 66.52
-#&gt;  Age [ka]:	 43.72 ± 7.48
-#&gt;  Age @2D0 [ka]:	 170.67 ± 20.83
-#&gt;  -------------------------------
-#&gt; </div><div class='input'>
+                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>25</span>)</div><div class='output co'>#&gt; <span class='error'>Error in calc_Kars2008(data = data, rhop = rhop, ddot = ddot, readerDdot = readerDdot,     n.MC = 25): object 'rhop' not found</span></div><div class='input'>
 
 <span class='co'># You can also provide LnTn values separately via the 'LnTn' argument.</span>
 <span class='co'># Note, however, that the data frame for 'data' must then NOT contain</span>
@@ -382,28 +368,7 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
                       <span class='kw'>rhop</span> <span class='kw'>=</span> <span class='no'>rhop</span>,
                       <span class='kw'>ddot</span> <span class='kw'>=</span> <span class='no'>ddot</span>,
                       <span class='kw'>readerDdot</span> <span class='kw'>=</span> <span class='no'>readerDdot</span>,
-                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>50</span>)</div><div class='output co'>#&gt; </div><div class='img'><img src='calc_Kars2008-47.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-48.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='calc_Kars2008-49.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt; [calc_Kars2008()]
-#&gt; 
-#&gt;  -------------------------------
-#&gt;  (n/N) [-]:	 0.15 ± 0.02
-#&gt;  (n/N)_SS [-]:	 0.38 ± 0.04
-#&gt; 
-#&gt;  ---------- Measured -----------
-#&gt;  DE [Gy]:	 130.97 ± 22.61
-#&gt;  D0 [Gy]:	 539.01 ± 17.95
-#&gt;  Age [ka]:	 18.71 ± 3.36
-#&gt; 
-#&gt;  ---------- Un-faded -----------
-#&gt;  D0 [Gy]:	 621.85 ± 12.32
-#&gt; 
-#&gt;  ---------- Simulated ----------
-#&gt;  DE [Gy]:	 306.28 ± 74.31
-#&gt;  D0 [Gy]:	 597.23 ± 95.07
-#&gt;  Age [ka]:	 43.75 ± 10.84
-#&gt;  Age @2D0 [ka]:	 170.64 ± 28.47
-#&gt;  -------------------------------
-#&gt; </div><div class='input'>
+                      <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>25</span>)</div><div class='output co'>#&gt; <span class='error'>Error in calc_Kars2008(data = LxTx, LnTn = LnTn, rhop = rhop, ddot = ddot,     readerDdot = readerDdot, n.MC = 25): object 'rhop' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

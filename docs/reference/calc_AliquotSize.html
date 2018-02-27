@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Estimate the amount of grains on an aliquot — calc_AliquotSize" />
+
+<meta property="og:description" content="Estimate the number of grains on an aliquot. Alternatively, the packing
+density of an aliquot is computed." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -223,7 +230,7 @@ boxplot together with a statistical summary.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2018). calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -258,13 +265,13 @@ European Journal of Operational Research 210, 474-481.</p>
 #&gt; 
 #&gt;  --------------- Monte Carlo Estimates -------------------
 #&gt;  number of iterations (n)     : 100
-#&gt;  median                       : 40
-#&gt;  mean                         : 42
-#&gt;  standard deviation (mean)    : 20
-#&gt;  standard error (mean)        : 2
-#&gt;  95% CI from t-test (mean)    : 38 - 46
-#&gt;  standard error from CI (mean): 2
-#&gt;  ---------------------------------------------------------</div><div class='img'><img src='calc_AliquotSize-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;  median                       : 36
+#&gt;  mean                         : 39
+#&gt;  standard deviation (mean)    : 18
+#&gt;  standard error (mean)        : 1.8
+#&gt;  95% CI from t-test (mean)    : 36 - 43
+#&gt;  standard error from CI (mean): 1.8
+#&gt;  ---------------------------------------------------------</div><div class='img'><img src='calc_AliquotSize-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## Calculate the mean packing density of large aliquots</span>
 <span class='fu'>calc_AliquotSize</span>(<span class='kw'>grain.size</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>200</span>), <span class='kw'>sample.diameter</span> <span class='kw'>=</span> <span class='fl'>8</span>,
                  <span class='kw'>grains.counted</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2525</span>,<span class='fl'>2312</span>,<span class='fl'>2880</span>), <span class='kw'>MC.iter</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; 

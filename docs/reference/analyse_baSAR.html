@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,15 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Bayesian models (baSAR) applied on luminescence data — analyse_baSAR" />
+
+<meta property="og:description" content="This function allows the application of Bayesian models on luminescence data, measured
+with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
+it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
+a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+of this approach for the R environment and (II) an extension and a technical refinement of the
+published code." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -293,7 +304,7 @@ enables or disables verbose mode</p></td>
 </tr><tr><td>
 <code>$mcmc</code> </td>
 <td> <code>mcmc</code> </td>
-<td> object including raw output of <a href='http://www.rdocumentation.org/packages/rjags/topics/rjags-package'>rjags::rjags</a> </td>
+<td> <a href='http://www.rdocumentation.org/packages/coda/topics/mcmc.list'>coda::mcmc.list</a> object including raw output </td>
 </tr><tr><td>
 <code>$models</code> </td>
 <td> <code>character</code> </td>
@@ -517,11 +528,11 @@ a <code>list</code> with the same number of elements for the following parameter
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.29 (2018-01-21 17:22:38)</p>
+    <p>0.1.29 (2018-02-08 18:09:55)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Mercier, N., Kreutzer, S. (2018). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.29. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Mercier, N., Kreutzer, S. (2018). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.29. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

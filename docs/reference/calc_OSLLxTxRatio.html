@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Calculate Lx/Tx ratio for CW-OSL curves — calc_OSLLxTxRatio" />
+
+<meta property="og:description" content="Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
+background subtraction." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -187,20 +194,20 @@ If digits is set to <code>NULL</code> nothing is rounded.</p></td>
     <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.</p>
 <p>Slot <code>data</code> contains a list with the following structure:
 
-<strong>@data</strong></p><pre>$LxTx.table (data.frame) 
-.. $ LnLx 
-.. $ LnLx.BG 
-.. $ TnTx 
-.. $ TnTx.BG 
-.. $ Net_LnLx 
+<strong>@data</strong></p><pre>$LxTx.table (data.frame)
+.. $ LnLx
+.. $ LnLx.BG
+.. $ TnTx
+.. $ TnTx.BG
+.. $ Net_LnLx
 .. $ Net_LnLx.Error
 .. $ Net_TnTx.Error
 .. $ LxTx
-.. $ LxTx.Error 
-$ calc.parameters (list) 
+.. $ LxTx.Error
+$ calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
-.. $ k 
+.. $ k
 </pre><p><strong>@info</strong></p><pre>$ call (original function call)
 </pre>
 
@@ -251,16 +258,16 @@ own <code>sigmab</code> value or use <code>background.count.distribution = "pois
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.0 (2018-01-21 17:22:38)</p>
+    <p>0.7.0 (2018-02-14 13:41:37)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Duller, G., 2007. Analyst.
-<a href='http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx'>http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx</a></p>
+    <p>Duller, G., 2016. Analyst v4.31.9 - User Manual.
+<a href='http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da'>http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da</a></p>
 <p>Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.</p>
 <p>Galbraith, R.F., 2014. A further note on the variance of a

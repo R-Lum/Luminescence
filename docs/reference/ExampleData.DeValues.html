@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Example De data sets for the package Luminescence — ExampleData.DeValues" />
+
+<meta property="og:description" content="Equivalent dose (De) values measured for a fine grain quartz sample from a
+loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz
+sample from a fluvial deposit in the rock shelter of Cueva Anton
+(Murcia/Spain)." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -165,7 +174,7 @@ Units: </td>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) plot values as histogram</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
-<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [s]"</span>)</div><div class='img'><img src='ExampleData.DeValues-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [s]"</span>)</div><div class='img'><img src='ExampleData.DeValues-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##(2) plot values as histogram (with second to gray conversion)</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
@@ -173,7 +182,7 @@ Units: </td>
                          <span class='kw'>dose.rate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.0438</span>, <span class='fl'>0.0019</span>))
 
 
-<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>De.values</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [Gy]"</span>)</div><div class='img'><img src='ExampleData.DeValues-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_Histogram.html'>plot_Histogram</a></span>(<span class='no'>De.values</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"De [Gy]"</span>)</div><div class='img'><img src='ExampleData.DeValues-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

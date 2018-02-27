@@ -19,6 +19,8 @@ to a given De distribution — calc_MinDose • Luminescence</title>
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -26,6 +28,12 @@ to a given De distribution — calc_MinDose • Luminescence</title>
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+to a given De distribution — calc_MinDose" />
+
+<meta property="og:description" content="Function to fit the (un-)logged three or four parameter minimum dose model
+(MAM-3/4) to De data." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -294,11 +302,11 @@ forwards all internal warning messages.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4.4 (2018-01-21 17:22:38)</p>
+    <p>0.4.4 (2018-02-13 12:57:49)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2018). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -370,7 +378,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 #&gt; 
 #&gt; ------ De (symmetric error) -----
 #&gt;     De error
-#&gt;  34.32  2.55</div><div class='img'><img src='calc_MinDose-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;  34.32  2.55</div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: gamma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: sigma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: p0</span></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'># (2) Re-run the model, but save results to a variable and turn</span>
 <span class='co'># plotting of the log-likelihood profiles off.</span>

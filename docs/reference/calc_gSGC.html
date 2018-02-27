@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Calculate De value based on the gSGC by Li et al., 2015 — calc_gSGC" />
+
+<meta property="og:description" content="Function returns De value and De value error using the global standardised growth
+curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -180,7 +187,7 @@ Large values for <code>n.MC</code> will significantly increase the computation t
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -198,7 +205,7 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_gSGC</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(
 <span class='kw'>LnTn</span> <span class='kw'>=</span>  <span class='fl'>2.361</span>, <span class='kw'>LnTn.error</span> <span class='kw'>=</span> <span class='fl'>0.087</span>,
 <span class='kw'>Lr1Tr1</span> <span class='kw'>=</span> <span class='fl'>2.744</span>, <span class='kw'>Lr1Tr1.error</span> <span class='kw'>=</span> <span class='fl'>0.091</span>,
-<span class='kw'>Dr1</span> <span class='kw'>=</span> <span class='fl'>34.4</span>))</div><div class='img'><img src='calc_gSGC-7.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+<span class='kw'>Dr1</span> <span class='kw'>=</span> <span class='fl'>34.4</span>))</div><div class='img'><img src='calc_gSGC-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt; [calc_gSGC()]
 #&gt; 	 Corresponding De based on the gSGC
 #&gt; 
@@ -208,10 +215,10 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 #&gt; 	 f(D):		 0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791
 #&gt; 	 n.MC:		 100
 #&gt; 	 ------------------------------ 
-#&gt; 	 De:		28.43 ± 1.6
+#&gt; 	 De:		28.43 ± 2
 #&gt; 	 ------------------------------ </div><div class='input'>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"De"</span>)</div><div class='output co'>#&gt;         DE DE.ERROR       ETA
-#&gt; 1 28.42881 1.596666 0.1325632</div><div class='input'>
+#&gt; 1 28.42881 2.003097 0.1325632</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Function to create a Radial Plot — plot_RadialPlot" />
+
+<meta property="og:description" content="A Galbraith's radial plot is produced on a logarithmic or a linear scale." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -289,7 +295,7 @@ one or more of the following keywords:</p><ul>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2018). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S. (2018). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -324,14 +330,14 @@ recommendations. Quaternary Geochronology, 11, 1-27.</p>
 <span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='fu'>c</span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
 
 <span class='co'>## plot the example data straightforward</span>
-<span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_RadialPlot-79.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_RadialPlot-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with linear z-scale</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                 <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'>
 <span class='co'>## now with output of the plot parameters</span>
 <span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                          <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                         <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_RadialPlot-80.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>plot1</span></div><div class='output co'>#&gt; $data
+                         <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_RadialPlot-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>plot1</span></div><div class='output co'>#&gt; $data
 #&gt; $data[[1]]
 #&gt;        De error      z    se z.central precision std.estimate std.estimate.plot
 #&gt; 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168        4.61813168
@@ -481,46 +487,46 @@ recommendations. Quaternary Geochronology, 11, 1-27.</p>
 <span class='co'>## now with adjusted z-scale limits</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-               <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_RadialPlot-81.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+               <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_RadialPlot-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now the two plots with serious but seasonally changing fun</span>
 <span class='co'>#plot_RadialPlot(data = data.3, fun = TRUE)</span>
 
 <span class='co'>## now with user-defined central value, in log-scale again</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                <span class='kw'>central.value</span> <span class='kw'>=</span> <span class='fl'>150</span>)</div><div class='img'><img src='plot_RadialPlot-82.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>central.value</span> <span class='kw'>=</span> <span class='fl'>150</span>)</div><div class='img'><img src='plot_RadialPlot-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a rug, indicating individual De values at the z-scale</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_RadialPlot-83.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_RadialPlot-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with legend, colour, different points and smaller scale</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                 <span class='kw'>legend.text</span> <span class='kw'>=</span> <span class='st'>"Sample 1"</span>,
                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"tomato4"</span>,
                 <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='st'>"peachpuff"</span>,
                 <span class='kw'>pch</span> <span class='kw'>=</span> <span class='st'>"R"</span>,
-                <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='img'><img src='plot_RadialPlot-84.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='img'><img src='plot_RadialPlot-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now without 2-sigma bar, y-axis, grid lines and central value line</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                 <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
                 <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
                 <span class='kw'>y.ticks</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='plot_RadialPlot-85.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='plot_RadialPlot-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with user-defined axes labels</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                 <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Data error (%)"</span>,
                          <span class='st'>"Data precision"</span>),
                 <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Scatter"</span>,
-                <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='img'><img src='plot_RadialPlot-86.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='img'><img src='plot_RadialPlot-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with minimum, maximum and median value indicated</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                 <span class='kw'>central.value</span> <span class='kw'>=</span> <span class='fl'>150</span>,
-                <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_RadialPlot-87.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_RadialPlot-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with a brief statistical summary</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_RadialPlot-88.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_RadialPlot-10.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with another statistical summary as subheader</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span>),
-                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>)</div><div class='img'><img src='plot_RadialPlot-89.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>)</div><div class='img'><img src='plot_RadialPlot-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now the data set is split into sub-groups, one is manipulated</span>
 <span class='no'>data.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>1</span>:<span class='fl'>15</span>,]
 <span class='no'>data.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>16</span>:<span class='fl'>25</span>,] * <span class='fl'>1.3</span>
@@ -529,7 +535,7 @@ recommendations. Quaternary Geochronology, 11, 1-27.</p>
 <span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
 
 <span class='co'>## now the two data sets are plotted in one plot</span>
-<span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_RadialPlot-90.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_RadialPlot-12.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## now with some graphical modification</span>
 <span class='fu'>plot_RadialPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"darkblue"</span>, <span class='st'>"darkgreen"</span>),
@@ -537,7 +543,7 @@ recommendations. Quaternary Geochronology, 11, 1-27.</p>
                 <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>6</span>),
                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>),
                 <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>,
-                <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Sample 1"</span>, <span class='st'>"Sample 2"</span>))</div><div class='img'><img src='plot_RadialPlot-91.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Sample 1"</span>, <span class='st'>"Sample 2"</span>))</div><div class='img'><img src='plot_RadialPlot-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

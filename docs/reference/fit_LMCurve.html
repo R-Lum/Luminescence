@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Nonlinear Least Squares Fit for LM-OSL curves — fit_LMCurve" />
+
+<meta property="og:description" content="The function determines weighted nonlinear least-squares estimates of the
+component parameters of an LM-OSL curve (Bulur 1996) for a given number of
+components and returns various component parameters. The fitting procedure
+uses the function nls with the port algorithm." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -319,7 +328,7 @@ manual start values is highly recommended.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -382,7 +391,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 <span class='co'>## height = 3000, width = 3000, res = 300)</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.FittingLM</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 <span class='fu'>fit_LMCurve</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>values.curve</span>, <span class='kw'>values.bg</span> <span class='kw'>=</span> <span class='no'>values.curveBG</span>,
-            <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='fit_LMCurve-21.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-22.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+            <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='fit_LMCurve-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt; [fit_LMCurve()]
 #&gt; 
 #&gt; Fitting was done using a 2-component function:
@@ -445,7 +454,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 #&gt; (errors quoted as 1-sigma uncertainties)
 #&gt; ------------------------------------------------------------------------------
 #&gt; 
-#&gt; pseudo-R^2 = 0.9437</div><div class='output co'>#&gt; <span class='error'>Error in .External.graphics(C_layout, num.rows, num.cols, mat, as.integer(num.figures),     col.widths = widths, row.heights = heights, cm.widths, cm.heights,     respect = as.integer(respect), respect.mat): invalid graphics state</span></div><div class='img'><img src='fit_LMCurve-23.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; pseudo-R^2 = 0.9437</div><div class='output co'>#&gt; <span class='error'>Error in .External.graphics(C_layout, num.rows, num.cols, mat, as.integer(num.figures),     col.widths = widths, row.heights = heights, cm.widths, cm.heights,     respect = as.integer(respect), respect.mat): invalid graphics state</span></div><div class='img'><img src='fit_LMCurve-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

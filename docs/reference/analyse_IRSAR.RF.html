@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Analyse IRSAR RF measurements — analyse_IRSAR.RF" />
+
+<meta property="og:description" content="Function to analyse IRSAR RF measurements on K-feldspar samples, performed
+using the protocol according to Erfurt et al. (2003) and beyond." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -332,7 +339,7 @@ vertical sliding range. I can be added as systematic error to the final De error
 <td> <code>numeric</code> </td>
 <td> the range used for the vertical sliding </td>
 </tr></table><p><strong>slot:</strong> <strong><code>@info</code></strong></p>
-<p>The original function call (<a href='http://www.rdocumentation.org/packages/methods/topics/LanguageClasses'>methods::language</a>-object)</p>
+<p>The original function call (methods::language-class-object)</p>
 <p>The output (<code>data</code>) should be accessed using the function <a href='get_RLum.html'>get_RLum</a></p>
 <p>------------------------
 <code>[ PLOT OUTPUT ]</code>
@@ -493,11 +500,11 @@ findings by Buylaert et al. (2012).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.5 (2018-01-21 17:22:38)</p>
+    <p>0.7.5 (2018-02-08 18:55:30)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -538,7 +545,7 @@ Measurements 32, 685-690.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>,
-nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>, <a href='http://www.rdocumentation.org/packages/parallel/topics/mclapply'>parallel::mclapply</a></p>
+nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>, <code><a href='http://www.rdocumentation.org/packages/parallel/topics/mclapply'>parallel::mclapply</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -547,33 +554,13 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
 <span class='fu'>data</span>(<span class='no'>ExampleData.RLum.Analysis</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
 <span class='co'>##(1) perform analysis using the method 'FIT'</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>)</div><div class='img'><img src='analyse_IRSAR.RF-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='img'><img src='analyse_IRSAR.RF-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##show De results and test paramter results</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
-#&gt; 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
-#&gt;   DATE SEQUENCE_NAME                                UID
-#&gt; 1   NA            NA 2018-01-21-09:34.0.285665350267664</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
-#&gt; 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
-#&gt; 2       NA intersection_ratio        NA 5.541736e-03     OK            NA
-#&gt; 3       NA    residuals_slope        NA           NA     OK            NA
-#&gt; 4       NA      curves_bounds   716.000 6.358000e+02     OK            NA
-#&gt; 5       NA      dynamic_ratio        NA 1.524261e+00     OK            NA
-#&gt; 6       NA             lambda        NA 2.182234e-04     OK            NA
-#&gt; 7       NA               beta        NA 5.418719e-01     OK            NA
-#&gt; 8       NA          delta.phi        NA 2.103400e+03     OK            NA
-#&gt;                                  UID
-#&gt; 1 2018-01-21-09:34.0.285665350267664
-#&gt; 2 2018-01-21-09:34.0.285665350267664
-#&gt; 3 2018-01-21-09:34.0.285665350267664
-#&gt; 4 2018-01-21-09:34.0.285665350267664
-#&gt; 5 2018-01-21-09:34.0.285665350267664
-#&gt; 6 2018-01-21-09:34.0.285665350267664
-#&gt; 7 2018-01-21-09:34.0.285665350267664
-#&gt; 8 2018-01-21-09:34.0.285665350267664</div><div class='input'>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results, data.object = "data"): object 'results' not found</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results, data.object = "test_parameters"): object 'results' not found</span></div><div class='input'>
 <span class='co'>##(2) perform analysis using the method 'SLIDE'</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt; 	 Run Monte Carlo loops for error estimation
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; <span class='warning'>Warning: [analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!</span></div><div class='img'><img src='analyse_IRSAR.RF-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; <span class='error'>Error in .External.graphics(C_layout, num.rows, num.cols, mat, as.integer(num.figures),     col.widths = widths, row.heights = heights, cm.widths, cm.heights,     respect = as.integer(respect), respect.mat): invalid graphics state</span></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'>##(3) perform analysis using the method 'SLIDE' and method control option</span>
 <span class='co'>## 'trace</span>

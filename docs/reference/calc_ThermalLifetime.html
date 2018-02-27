@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Calculates the Thermal Lifetime using the Arrhenius equation — calc_ThermalLifetime" />
+
+<meta property="og:description" content="The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and
+T (in deg. C.) parameters. The function can be used in two operational modes:" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -219,11 +226,11 @@ distribution assumption might be, however, not valid for given E and s paramters
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.0 (2018-01-21 17:22:38)</p>
+    <p>0.1.0 (2018-02-08 18:09:55)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -258,7 +265,7 @@ distribution assumption might be, however, not valid for given E and s paramters
         <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Temperature [\u00B0C]"</span>,
         <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trap depth [eV]"</span>,
         <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Thermal Lifetime Contour Plot"</span>
-)</div><div class='input'><span class='fu'>mtext</span>(<span class='kw'>side</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>"(values quoted in Ma)"</span>)</div><div class='img'><img src='calc_ThermalLifetime-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+)</div><div class='input'><span class='fu'>mtext</span>(<span class='kw'>side</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>"(values quoted in Ma)"</span>)</div><div class='img'><img src='calc_ThermalLifetime-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##EXAMPLE 2</span>
 <span class='co'>##profiling of thermal life time for E and s and their standard error</span>
 <span class='no'>E</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>1.600</span>, <span class='fl'>0.003</span>)
@@ -275,12 +282,12 @@ distribution assumption might be, however, not valid for given E and s paramters
 #&gt; 
 #&gt; 	profiling = TRUE
 #&gt; 	--------------------------
-#&gt; 	mean:	 1.026501e+01 Ma
-#&gt; 	sd:	 1.207791e+00 Ma
-#&gt; 	min:	 6.755571e+00 Ma
-#&gt; 	max:	 1.675431e+01 Ma
+#&gt; 	mean:	 1.03034e+01 Ma
+#&gt; 	sd:	 1.21919e+00 Ma
+#&gt; 	min:	 6.898462e+00 Ma
+#&gt; 	max:	 1.472322e+01 Ma
 #&gt; 	--------------------------
-#&gt; 	(1000 lifetimes calculated in total)</div><div class='img'><img src='calc_ThermalLifetime-14.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+#&gt; 	(1000 lifetimes calculated in total)</div><div class='img'><img src='calc_ThermalLifetime-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
 #&gt; 	 originator: calc_ThermalLifetime()
 #&gt; 	 data: 2

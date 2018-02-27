@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Obtain the equivalent dose using the approach of Woda and Fuchs 2008 — calc_WodaFuchs2008 • Luminescence</title>
+<title>Obtain the equivalent dose using the approach by Woda and Fuchs 2008 — calc_WodaFuchs2008 • Luminescence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,17 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Obtain the equivalent dose using the approach by Woda and Fuchs 2008 — calc_WodaFuchs2008" />
+
+<meta property="og:description" content="The function generates a histogram-like reorganisation of the data, to
+assess counts per bin. The log-transformed counts per bin are used to
+calculate the second derivative of the data (i.e., the curvature of the
+curve) and to find the central value of the bin hosting the distribution
+maximum. A normal distribution model is fitted to the counts per bin
+data to estimate the dose distribution parameters. The uncertainty of the
+model is estimated based on all input equivalent doses smaller that of the
+modelled central value." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -96,17 +109,17 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Obtain the equivalent dose using the approach of Woda and Fuchs 2008</h1>
+    <h1>Obtain the equivalent dose using the approach by Woda and Fuchs 2008</h1>
     </div>
 
     
     <p>The function generates a histogram-like reorganisation of the data, to
 assess counts per bin. The log-transformed counts per bin are used to
-calculate the second derivative of the data (i.e., the curcature of the
+calculate the second derivative of the data (i.e., the curvature of the
 curve) and to find the central value of the bin hosting the distribution
 maximum. A normal distribution model is fitted to the counts per bin
 data to estimate the dose distribution parameters. The uncertainty of the
-model is estimated based on all input equivalent doses smaller that the
+model is estimated based on all input equivalent doses smaller that of the
 modelled central value.</p>
     
 
@@ -142,11 +155,11 @@ enable plot output.</p></td>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.0 (2018-01-21 17:22:38)</p>
+    <p>0.2.0 (2018-02-08 14:24:10)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M. (2018). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach of Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M. (2018). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -166,7 +179,7 @@ obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_WodaFuchs2008</span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>CA1</span>,
    <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>expression</span>(<span class='fu'>paste</span>(<span class='no'>D</span>[<span class='no'>e</span>], <span class='st'>" [Gy]"</span>))
- )</div><div class='output co'>#&gt; <span class='warning'>Warning: [calc_WodaFuchs()] More than one maximum. Fit may be invalid!</span></div><div class='img'><img src='calc_WodaFuchs2008-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+ )</div><div class='output co'>#&gt; <span class='warning'>Warning: [calc_WodaFuchs()] More than one maximum. Fit may be invalid!</span></div><div class='img'><img src='calc_WodaFuchs2008-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

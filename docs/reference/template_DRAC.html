@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a DRAC input data template (v1.1) — template_DRAC • Luminescence</title>
+<title>Create a DRAC input data template (v1.2) — template_DRAC • Luminescence</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Create a DRAC input data template (v1.2) — template_DRAC" />
+
+<meta property="og:description" content="This function returns a DRAC input template (v1.2) to be used in conjunction
+with the use_DRAC() function" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -96,15 +103,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a DRAC input data template (v1.1)</h1>
+    <h1>Create a DRAC input data template (v1.2)</h1>
     </div>
 
     
-    <p>This function returns a DRAC input template (v1.1) to be used in conjunction
+    <p>This function returns a DRAC input template (v1.2) to be used in conjunction
 with the use_DRAC() function</p>
     
 
-    <pre class="usage"><span class='fu'>template_DRAC</span>(<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>notification</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>template_DRAC</span>(<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>preset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>notification</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -113,7 +120,29 @@ with the use_DRAC() function</p>
       <th>nrow</th>
       <td><p>integer (<em>with default</em>):
 specifies the number of rows of the template (i.e., the number of data
-sets you want to submit)</p></td>
+sets you want to submit).</p></td>
+    </tr>
+    <tr>
+      <th>preset</th>
+      <td><p>character (<em>optional</em>):
+By default, all values of the template are set to <code>NA</code>, which means that
+the user needs to fill in <strong>all</strong> data first before submitting to DRAC
+using <code><a href='use_DRAC.html'>use_DRAC()</a></code>. To reduce the number of values that need to be
+provided, <code>preset</code> can be used to create a template with at least
+a minimum of reasonable preset values.
+
+<code>preset</code> can be one of the following:</p><ul>
+<li><p><code>quartz_coarse</code></p></li>
+<li><p><code>quartz_fine</code></p></li>
+<li><p><code>feldspar_coarse</code></p></li>
+<li><p><code>polymineral_fine</code></p></li>
+<li><p><code>DRAC-example_quartz</code></p></li>
+<li><p><code>DRAC-example_feldspar</code></p></li>
+<li><p><code>DRAC-example_polymineral</code></p></li>
+</ul>
+
+<p>Note that the last three options can be used to produce a template
+with values directly taken from the official DRAC input .csv file.</p></td>
     </tr>
     <tr>
       <th>notification</th>
@@ -128,7 +157,7 @@ show or hide the notification</p></td>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). template_DRAC(): Create a DRAC input data template (v1.1). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., Kreutzer, S. (2018). template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -143,10 +172,10 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># create a new DRAC input input</span>
-<span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='fu'>template_DRAC</span>()</div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'>	 This function returns a DRAC input template to be used in </span></div><div class='output co'>#&gt; <span class='message'>	 conjunction with the use_DRAC() function.  </span></div><div class='output co'>#&gt; <span class='message'>	 The template was reproduced with great care, but we do not</span></div><div class='output co'>#&gt; <span class='message'>	 take any responsibility and we are not liable for any </span></div><div class='output co'>#&gt; <span class='message'>	 mistakes or unforeseen misbehaviour.</span></div><div class='output co'>#&gt; <span class='message'>	 Note that this template is only compatible with DRAC</span></div><div class='output co'>#&gt; <span class='message'>	 version 1.1. Before using this template make sure that</span></div><div class='output co'>#&gt; <span class='message'>	 this is the correct version, otherwise expect unspecified</span></div><div class='output co'>#&gt; <span class='message'>	 errors.</span></div><div class='output co'>#&gt; <span class='message'>	 Please ensure you cite the use of DRAC in your work,</span></div><div class='output co'>#&gt; <span class='message'>	 published or otherwise. Please cite the website name and</span></div><div class='output co'>#&gt; <span class='message'>	 version (e.g. DRAC v1.1) and the accompanying journal</span></div><div class='output co'>#&gt; <span class='message'>	 article:</span></div><div class='output co'>#&gt; <span class='message'>	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span></div><div class='output co'>#&gt; <span class='message'>	 DRAC: Dose rate and age calculation for trapped charge</span></div><div class='output co'>#&gt; <span class='message'>	 dating. Quaternary Geochronology 28, 54-61. </span></div><div class='output co'>#&gt; <span class='message'>	 Set 'notification = FALSE' to hide this message. </span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
+<span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='fu'>template_DRAC</span>(<span class='kw'>preset</span> <span class='kw'>=</span> <span class='st'>"DRAC-example_quartz"</span>)</div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'>	 This function returns a DRAC input template to be used in </span></div><div class='output co'>#&gt; <span class='message'>	 conjunction with the use_DRAC() function.  </span></div><div class='output co'>#&gt; <span class='message'>	 The template was reproduced with great care, but we do not</span></div><div class='output co'>#&gt; <span class='message'>	 take any responsibility and we are not liable for any </span></div><div class='output co'>#&gt; <span class='message'>	 mistakes or unforeseen misbehaviour.</span></div><div class='output co'>#&gt; <span class='message'>	 Note that this template is only compatible with DRAC</span></div><div class='output co'>#&gt; <span class='message'>	 version 1.1. Before using this template make sure that</span></div><div class='output co'>#&gt; <span class='message'>	 this is the correct version, otherwise expect unspecified</span></div><div class='output co'>#&gt; <span class='message'>	 errors.</span></div><div class='output co'>#&gt; <span class='message'>	 Please ensure you cite the use of DRAC in your work,</span></div><div class='output co'>#&gt; <span class='message'>	 published or otherwise. Please cite the website name and</span></div><div class='output co'>#&gt; <span class='message'>	 version (e.g. DRAC v1.1) and the accompanying journal</span></div><div class='output co'>#&gt; <span class='message'>	 article:</span></div><div class='output co'>#&gt; <span class='message'>	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span></div><div class='output co'>#&gt; <span class='message'>	 DRAC: Dose rate and age calculation for trapped charge</span></div><div class='output co'>#&gt; <span class='message'>	 dating. Quaternary Geochronology 28, 54-61. </span></div><div class='output co'>#&gt; <span class='message'>	 Set 'notification = FALSE' to hide this message. </span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
 <span class='co'># show content of the input</span>
 <span class='fu'>print</span>(<span class='no'>input</span>)</div><div class='output co'>#&gt; TI:1 =&gt; Project ID 
-#&gt;  	 VALUES = RLum 
+#&gt;  	 VALUES = DRAC-example 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = TRUE 
 #&gt;  	 DESCRIPTION =  Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are 
@@ -154,7 +183,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:2 =&gt; Sample ID 
-#&gt;  	 VALUES = 999 
+#&gt;  	 VALUES = Quartz 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = TRUE 
 #&gt;  	 DESCRIPTION =  Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are 
@@ -171,7 +200,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt;  	 OPTIONS =  Q, F, PM 
 #&gt; 
 #&gt; TI:4 =&gt; Conversion factors 
-#&gt;  	 VALUES = Liritzisetal2013 
+#&gt;  	 VALUES = Guerinetal2011 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  The conversion factors required to calculate dose rates from radionuclide conce 
@@ -183,7 +212,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt;  	 OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, X 
 #&gt; 
 #&gt; TI:5 =&gt; External U (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 3.4 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
@@ -192,7 +221,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:6 =&gt; errExternal U (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 0.51 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
@@ -201,7 +230,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:7 =&gt; External Th (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 14.47 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
@@ -210,7 +239,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:8 =&gt; errExternal Th (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 1.69 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
@@ -219,7 +248,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:9 =&gt; External K (%) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 1.2 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
@@ -228,7 +257,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:10 =&gt; errExternal K (%) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 0.14 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
@@ -255,7 +284,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:13 =&gt; Calculate external Rb from K conc? 
-#&gt;  	 VALUES = Y 
+#&gt;  	 VALUES = N 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Option to calculate a Rubidium concentration from Potassium, using the 270:1 ra 
@@ -264,7 +293,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt;  	 OPTIONS =  Y, N 
 #&gt; 
 #&gt; TI:14 =&gt; Internal U (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -273,7 +302,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:15 =&gt; errInternal U (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -282,7 +311,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:16 =&gt; Internal Th (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -291,7 +320,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:17 =&gt; errInternal Th (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -300,7 +329,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:18 =&gt; Internal K (%) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -309,7 +338,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:19 =&gt; errInternal K (%) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -318,7 +347,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:20 =&gt; Rb (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -327,7 +356,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:21 =&gt; errRb (ppm) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
@@ -336,7 +365,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:22 =&gt; Calculate internal Rb from K conc? 
-#&gt;  	 VALUES = Y 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Option to calculate an internal Rubidium concentration from Potassium, using th 
@@ -345,7 +374,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt;  	 OPTIONS =  Y, N, X 
 #&gt; 
 #&gt; TI:23 =&gt; User external alphadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
@@ -355,7 +384,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:24 =&gt; errUser external alphadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
@@ -365,7 +394,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:25 =&gt; User external betadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
@@ -375,7 +404,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:26 =&gt; errUser external betadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
@@ -385,7 +414,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:27 =&gt; User external gamma doserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
@@ -395,7 +424,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:28 =&gt; errUser external gammadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
@@ -405,7 +434,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:29 =&gt; User internal doserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input an internal dose rate (either alpha, beta or the sum of the two 
@@ -415,7 +444,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:30 =&gt; errUser internal doserate (Gy.ka-1) 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = X 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may input an internal dose rate (either alpha, beta or the sum of the two 
@@ -425,7 +454,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:31 =&gt; Scale gammadoserate at shallow depths? 
-#&gt;  	 VALUES = Y 
+#&gt;  	 VALUES = N 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Users may choose to scale gamma dose rates for samples taken within 0.3 m of th 
@@ -435,7 +464,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt;  	 OPTIONS =  Y, N 
 #&gt; 
 #&gt; TI:32 =&gt; Grain size min (microns) 
-#&gt;  	 VALUES = 100 
+#&gt;  	 VALUES = 90 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = TRUE 
 #&gt;  	 DESCRIPTION =  The grain size range analysed. DRAC can be used for the grain size ranges betwe 
@@ -444,7 +473,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:33 =&gt; Grain size max (microns) 
-#&gt;  	 VALUES = 150 
+#&gt;  	 VALUES = 125 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = TRUE 
 #&gt;  	 DESCRIPTION =  The grain size range analysed. DRAC can be used for the grain size ranges betwe 
@@ -517,7 +546,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:41 =&gt; Water content ((wet weight - dry weight)/dry weight) % 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 5 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = TRUE 
 #&gt;  	 DESCRIPTION =  Sediment water content (%) over the burial period. Inputs should be 0 or positi 
@@ -525,7 +554,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:42 =&gt; errWater content % 
-#&gt;  	 VALUES = 0 
+#&gt;  	 VALUES = 2 
 #&gt;  	 ALLOWS 'X' =  FALSE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Sediment water content (%) over the burial period. Inputs should be 0 or positi 
@@ -533,7 +562,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:43 =&gt; Depth (m) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 2.22 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Depth and uncertainty from which sample was extracted beneath the ground surfac 
@@ -541,7 +570,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:44 =&gt; errDepth (m) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 0.05 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Depth and uncertainty from which sample was extracted beneath the ground surfac 
@@ -567,7 +596,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:47 =&gt; Latitude (decimal degrees) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 30 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Latitude and longitude of sample location (in degree decimals). Positive values 
@@ -577,7 +606,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:48 =&gt; Longitude (decimal degrees) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 70 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Latitude and longitude of sample location (in degree decimals). Positive values 
@@ -587,7 +616,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:49 =&gt; Altitude (m) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 150 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Altitude of sample location in metres above sea level. Input should be less tha 
@@ -613,7 +642,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:52 =&gt; De (Gy) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 20 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not requ 
@@ -621,13 +650,13 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; 			 
 #&gt;  
 #&gt; TI:53 =&gt; errDe (Gy) 
-#&gt;  	 VALUES = X 
+#&gt;  	 VALUES = 0.2 
 #&gt;  	 ALLOWS 'X' =  TRUE 
 #&gt;  	 REQUIRED = FALSE 
 #&gt;  	 DESCRIPTION =  Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not requ 
 #&gt; 			ired, and not left blank. 
 #&gt; 			 
-#&gt;  </div><div class='input'><span class='fu'>print</span>(<span class='no'>input</span>$<span class='no'>`Project ID`</span>)</div><div class='output co'>#&gt; [1] "RLum"
+#&gt;  </div><div class='input'><span class='fu'>print</span>(<span class='no'>input</span>$<span class='no'>`Project ID`</span>)</div><div class='output co'>#&gt; [1] "DRAC-example"
 #&gt; attr(,"required")
 #&gt; [1] TRUE
 #&gt; attr(,"allowsX")
@@ -635,7 +664,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; attr(,"key")
 #&gt; [1] "TI:1"
 #&gt; attr(,"description")
-#&gt; [1] "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."</div><div class='input'><span class='fu'>print</span>(<span class='no'>input</span><span class='kw'>[[</span><span class='fl'>4</span>]])</div><div class='output co'>#&gt; [1] Liritzisetal2013
+#&gt; [1] "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."</div><div class='input'><span class='fu'>print</span>(<span class='no'>input</span><span class='kw'>[[</span><span class='fl'>4</span>]])</div><div class='output co'>#&gt; [1] Guerinetal2011
 #&gt; attr(,"required")
 #&gt; [1] FALSE
 #&gt; attr(,"allowsX")
@@ -647,7 +676,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 #&gt; Levels: AdamiecAitken1998 Guerinetal2011 Liritzisetal2013 X</div><div class='input'>
 
 <span class='co'>## Example: DRAC Quartz example</span>
-<span class='co'># note that you only have to assign new values where they </span>
+<span class='co'># note that you only have to assign new values where they</span>
 <span class='co'># are different to the default values</span>
 <span class='no'>input</span>$<span class='no'>`Project ID`</span> <span class='kw'>&lt;-</span> <span class='st'>"DRAC-Example"</span>
 <span class='no'>input</span>$<span class='no'>`Sample ID`</span> <span class='kw'>&lt;-</span> <span class='st'>"Quartz"</span>
@@ -698,7 +727,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 
     <h2>Author</h2>
     
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 
   </div>
 </div>

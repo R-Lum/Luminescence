@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Calculate the Fast Ratio for CW-OSL curves — calc_FastRatio" />
+
+<meta property="og:description" content="Function to calculate the fast ratio of quartz CW-OSL single grain or single
+aliquot curves after Durcan &amp; Duller (2011)." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -220,7 +227,7 @@ and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\).</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>King, G., Durcan, J., Burow, C. (2018). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>King, G., Durcan, J., Burow, C. (2018). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -276,7 +283,7 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
 #&gt;  Counts L2		: 65
 #&gt;  Counts L3		: 37.67
 #&gt;  -------------------------------
-#&gt; </div><div class='img'><img src='calc_FastRatio-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; </div><div class='img'><img src='calc_FastRatio-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># show the summary table</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>res</span>)</div><div class='output co'>#&gt;   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width
 #&gt; 1    405.122      119.7442       29.55756     1000          0.04

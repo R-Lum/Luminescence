@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Analyse SAR CW-OSL measurements. — Analyse_SAR.OSLdata" />
+
+<meta property="og:description" content="The function analyses SAR CW-OSL curve data and provides a summary of the
+measured data for every position. The output of the function is optimised
+for SAR OSL measurements on quartz." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -234,7 +242,7 @@ consider using the functions <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL<
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Fuchs, M.C. (2018). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Fuchs, M.C. (2018). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -264,8 +272,9 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 <span class='co'>##combine results relevant for further analysis</span>
 <span class='no'>output.SAR</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Dose</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>Dose</span>,
                          <span class='kw'>LxTx</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx</span>,
-                         <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)</div><div class='output co'>#&gt; <span class='error'>Error in data.frame(Dose = output$LnLxTnTx[[1]]$Dose, LxTx = output$LnLxTnTx[[1]]$LxTx,     LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error): object 'output' not found</span></div><div class='input'><span class='no'>output.SAR</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'output.SAR' not found</span></div><div class='input'>
-</div><div class='img'><img src='Analyse_SAR.OSLdata-7.png' alt='' width='700' height='432.632880098887' /></div></pre>
+                         <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)
+<span class='no'>output.SAR</span></div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,12 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Example OSL surface exposure dating data — ExampleData.SurfaceExposure" />
+
+<meta property="og:description" content="A set of synthetic OSL surface exposure dating data to demonstrate the
+fit_SurfaceExposure functionality. See examples to reproduce the data
+interactively." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -193,7 +201,7 @@ interactively.</p>
                       <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='img'><img src='ExampleData.SurfaceExposure-25.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='img'><img src='ExampleData.SurfaceExposure-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [fit_SurfaceExposure()] 
 #&gt; 
 #&gt;  Estimated paramater(s):
@@ -235,7 +243,7 @@ interactively.</p>
                       <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='img'><img src='ExampleData.SurfaceExposure-26.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='img'><img src='ExampleData.SurfaceExposure-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [fit_SurfaceExposure()] 
 #&gt; 
 #&gt;  Estimated paramater(s):
@@ -289,7 +297,7 @@ interactively.</p>
 #&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = 0.901)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-27.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-3.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
 #&gt; 	 originator: fit_SurfaceExposure()
 #&gt; 	 data: 5
@@ -338,7 +346,7 @@ interactively.</p>
 #&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = 0.899)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-28.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-4.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
 #&gt; 	 originator: fit_SurfaceExposure()
 #&gt; 	 data: 5

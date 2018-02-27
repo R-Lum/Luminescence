@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Analyse post-IR IRSL measurement sequences — analyse_pIRIRSequence" />
+
+<meta property="og:description" content="The function performs an analysis of post-IR IRSL sequences including curve
+fitting on RLum.Analysis objects." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -210,7 +217,14 @@ returned containing the following elements:</p><table><tr><td>
 this function has been written as extended wrapper function for the function
 <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>, facilitating an entire sequence analysis in
 one run. With this, its functionality is strictly limited by the
-functionality of the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>.
+functionality of the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>.</p>
+<p>**Defining the sequence structure **</p>
+<p>The argument <code>sequence.structure</code> expects a shortened pattern of your sequence structure and was
+mainly introduced to ease the use of the function. For example: If your measurement data contains
+the following curves: <code>TL</code>, <code>IRSL</code>, <code>IRSL</code>, <code>TL</code>, <code>IRSL</code>, <code>IRSL</code>, the sequence pattern in <code>sequence.structure</code>
+becomes <code>c('TL', 'IRSL', 'IRSL')</code>. The second part of your sequence for one cycle should be
+similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
+have to be removed before using the function.
     <strong>If the input is a <code>list</code></strong></p>
 <p>If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
 for different sets of parameters for every single input element.
@@ -224,11 +238,11 @@ with the following options:
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.3 (2018-01-21 17:22:38)</p>
+    <p>0.2.4 (2018-01-28 19:53:33)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -284,7 +298,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
      <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>,
      <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"TL"</span>, <span class='st'>"pseudoIRSL1"</span>, <span class='st'>"pseudoIRSL2"</span>),
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Pseudo pIRIR data set based on quartz OSL"</span>,
-     <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_pIRIRSequence-103.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-104.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-105.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-106.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-107.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_pIRIRSequence-108.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-109.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-110.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-111.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-112.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-113.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_pIRIRSequence-114.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-115.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-116.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-117.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-118.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-119.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+     <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_pIRIRSequence-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-2.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-3.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-4.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-5.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_pIRIRSequence-6.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-7.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-8.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-9.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-10.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-11.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_pIRIRSequence-12.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-13.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-14.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-15.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-16.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='analyse_pIRIRSequence-17.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Alternative for PDF output, uncomment and complete for usage

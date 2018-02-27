@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Collection of layout definitions — get_Layout" />
+
+<meta property="og:description" content="This helper function returns a list with layout definitions for homogeneous
+plotting." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -137,7 +144,7 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M. (2018). get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M. (2018). get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -409,10 +416,10 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
 
 <span class='co'>## create Abanico plot with modofied layout definition</span>
 <span class='fu'><a href='plot_AbanicoPlot.html'>plot_AbanicoPlot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='no'>layout.default</span>)</div><div class='img'><img src='get_Layout-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='no'>layout.default</span>)</div><div class='img'><img src='get_Layout-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## create Abanico plot with predefined layout "journal"</span>
 <span class='fu'><a href='plot_AbanicoPlot.html'>plot_AbanicoPlot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='img'><img src='get_Layout-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): plot region too large</span></div><div class='img'><img src='get_Layout-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

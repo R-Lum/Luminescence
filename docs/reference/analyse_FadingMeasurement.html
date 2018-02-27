@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Analyse fading measurements and returns the fading rate per decade (g-value) — analyse_FadingMeasurement" />
+
+<meta property="og:description" content="The function analysis fading measurements and returns a fading rate including an error estimation.
+The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
+Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
+Kars et al. 2008." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -250,7 +259,7 @@ analyse_FadingMeasurement and provide the already normalised values for <code>ob
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Burow, C. (2018). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Burow, C. (2018). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -281,42 +290,13 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 <span class='no'>fading_data</span>,
 <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
 <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='analyse_FadingMeasurement-7.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt; [analyse_FadingMeasurement()]
-#&gt; 
-#&gt;  n.MC:	10
-#&gt;  tc:	3.78e+02 s
-#&gt; ---------------------------------------------------
-#&gt; T_0.5 interpolated:	NA
-#&gt; T_0.5 predicted:	4e+11
-#&gt; g-value:		5.18 ± 0.77 (%/decade)
-#&gt; g-value (norm. 2 days):	6.01 ± 0.79 (%/decade)
-#&gt; ---------------------------------------------------
-#&gt; rho':			3.81e-06 ± 7.74e-07
-#&gt; log10(rho'):		-5.42 ± 0.09
-#&gt; ---------------------------------------------------</div><div class='input'>
+<span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 <span class='co'>##(3) this can be further used in the function</span>
 <span class='co'>## to correct the age according to Huntley &amp; Lamothe, 2001</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span>(
 <span class='kw'>age.faded</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>2</span>),
 <span class='kw'>g_value</span> <span class='kw'>=</span> <span class='no'>g_value</span>,
-<span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; [calc_FadingCorr()]
-#&gt; 
-#&gt;  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)
-#&gt; 
-#&gt;  .. used g-value:	5.182 ± 0.771 %/decade
-#&gt;  .. used tc:		1.198e-08 ka
-#&gt;  .. used kappa:		0.0225 ± 0.0033
-#&gt;  ----------------------------------------------
-#&gt;  seed: 			NA
-#&gt;  n.MC: 			10
-#&gt;  observations: 		10
-#&gt;  ----------------------------------------------
-#&gt;  Age (faded):		100 ka ± 2 ka
-#&gt;  Age (corr.):		203.0811 ka ± 33.41 ka
-#&gt;  ---------------------------------------------- </div><div class='input'>
+<span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in calc_FadingCorr(age.faded = c(100, 2), g_value = g_value, n.MC = 10): object 'g_value' not found</span></div><div class='input'>
 
 </div></pre>
   </div>

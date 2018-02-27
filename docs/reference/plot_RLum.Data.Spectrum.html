@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Plot function for an RLum.Data.Spectrum S4 class object — plot_RLum.Data.Spectrum" />
+
+<meta property="og:description" content="The function provides a standardised plot output for spectrum data of an
+RLum.Data.Spectrum S4 class object" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -264,7 +271,7 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -287,21 +294,21 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-19.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##(2) plot spectrum (3D)</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
                         <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"persp"</span>,
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-20.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##(3) plot multiple lines (2D) - multiple.lines (with ylim)</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
                         <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"multiple.lines"</span>,
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-21.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
  <span class='co'>##(4) interactive plot using the package plotly ("surface")</span>
  <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,

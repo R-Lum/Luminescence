@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Merge function for RLum.Data.Curve S4 class objects — merge_RLum.Data.Curve" />
+
+<meta property="og:description" content="Function allows merging of RLum.Data.Curve objects in different ways" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -185,7 +191,7 @@ original data.
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.0 (2018-01-21 17:22:38)</p>
+    <p>0.2.0 (2018-02-08 18:09:55)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -193,7 +199,7 @@ original data.
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -208,9 +214,9 @@ original data.
 <span class='no'>TL.curve.3</span> <span class='kw'>&lt;-</span> <span class='no'>TL.curves</span><span class='kw'>[[</span><span class='fl'>3</span>]]
 
 <span class='co'>##plot single curves</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.1</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-19.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.3</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-20.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.1</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.3</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>##subtract the 1st curve from the 2nd and plot</span>
-<span class='no'>TL.curve.merged</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_RLum.Data.Curve</span>(<span class='fu'>list</span>(<span class='no'>TL.curve.3</span>, <span class='no'>TL.curve.1</span>), <span class='kw'>merge.method</span> <span class='kw'>=</span> <span class='st'>"/"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 8 'inf' values have been replaced by 0 in the matrix.</span></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.merged</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-21.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>TL.curve.merged</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_RLum.Data.Curve</span>(<span class='fu'>list</span>(<span class='no'>TL.curve.3</span>, <span class='no'>TL.curve.1</span>), <span class='kw'>merge.method</span> <span class='kw'>=</span> <span class='st'>"/"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 8 'inf' values have been replaced by 0 in the matrix.</span></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.merged</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

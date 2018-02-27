@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,11 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Plot function for an RLum.Results S4 class object — plot_RLum.Results" />
+
+<meta property="og:description" content="The function provides a standardised plot output for data of an RLum.Results
+S4 class object" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -143,7 +150,7 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.1 (2018-01-21 17:22:38)</p>
+    <p>0.2.1 (2018-02-19 17:43:40)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -151,7 +158,7 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., Kreutzer, S. (2018). plot_RLum.Results(): Plot function for an RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., Kreutzer, S. (2018). plot_RLum.Results(): Plot function for an RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -184,7 +191,7 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
 #&gt;     De error
 #&gt;  45.64  3.84</div><div class='input'>
 <span class='co'>##plot</span>
-<span class='fu'>plot_RLum.Results</span>(<span class='no'>mam</span>)</div><div class='img'><img src='plot_RLum.Results-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RLum.Results</span>(<span class='no'>mam</span>)</div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: gamma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: sigma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: p0</span></div><div class='input'>
 <span class='co'># estimate the number of grains on an aliquot</span>
 <span class='no'>grains</span><span class='kw'>&lt;-</span> <span class='fu'><a href='calc_AliquotSize.html'>calc_AliquotSize</a></span>(<span class='kw'>grain.size</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>150</span>), <span class='kw'>sample.diameter</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>MC.iter</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; 
 #&gt;  [calc_AliquotSize]
@@ -197,17 +204,17 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
 #&gt; 
 #&gt;  --------------- Monte Carlo Estimates -------------------
 #&gt;  number of iterations (n)     : 100
-#&gt;  median                       : 39
-#&gt;  mean                         : 43
-#&gt;  standard deviation (mean)    : 21
-#&gt;  standard error (mean)        : 2.1
-#&gt;  95% CI from t-test (mean)    : 38 - 47
-#&gt;  standard error from CI (mean): 2.2
+#&gt;  median                       : 37
+#&gt;  mean                         : 40
+#&gt;  standard deviation (mean)    : 19
+#&gt;  standard error (mean)        : 1.9
+#&gt;  95% CI from t-test (mean)    : 36 - 44
+#&gt;  standard error from CI (mean): 1.9
 #&gt;  ---------------------------------------------------------</div><div class='input'>
 <span class='co'>##plot</span>
-<span class='fu'>plot_RLum.Results</span>(<span class='no'>grains</span>)</div><div class='img'><img src='plot_RLum.Results-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_RLum.Results</span>(<span class='no'>grains</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 
-</div></pre>
+</div><div class='img'><img src='plot_RLum.Results-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Calculation of the source dose rate via the date of measurement — calc_SourceDoseRate" />
+
+<meta property="og:description" content="Calculating the dose rate of the irradiation source via the date of
+measurement based on: source calibration date, source dose rate, dose rate
+error. The function returns a data.frame that provides the input argument
+dose_rate for the function Second2Gray." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -106,17 +115,17 @@ error. The function returns a data.frame that provides the input argument
 dose_rate for the function <a href='Second2Gray.html'>Second2Gray</a>.</p>
     
 
-    <pre class="usage"><span class='fu'>calc_SourceDoseRate</span>(<span class='no'>measurement.date</span>, <span class='no'>calib.date</span>, <span class='no'>calib.dose.rate</span>, <span class='no'>calib.error</span>,
-  <span class='kw'>source.type</span> <span class='kw'>=</span> <span class='st'>"Sr-90"</span>, <span class='kw'>dose.rate.unit</span> <span class='kw'>=</span> <span class='st'>"Gy/s"</span>, <span class='kw'>predict</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_SourceDoseRate</span>(<span class='kw'>measurement.date</span> <span class='kw'>=</span> <span class='fu'>Sys.Date</span>(), <span class='no'>calib.date</span>,
+  <span class='no'>calib.dose.rate</span>, <span class='no'>calib.error</span>, <span class='kw'>source.type</span> <span class='kw'>=</span> <span class='st'>"Sr-90"</span>,
+  <span class='kw'>dose.rate.unit</span> <span class='kw'>=</span> <span class='st'>"Gy/s"</span>, <span class='kw'>predict</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>measurement.date</th>
-      <td><p>character or Date (<strong>required</strong>):
-date of measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
-The argument can be provided as vector.</p></td>
+      <td><p>character or Date (with default): Date of measurement in "YYYY-MM-DD".
+If no value is provided, the date will be set to today. The argument can be provided as vector.</p></td>
     </tr>
     <tr>
       <th>calib.date</th>
@@ -159,10 +168,10 @@ the source dose rate for the next 100 days.</p></td>
 
     <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.
 Slot <code>data</code> contains a list with the following structure:</p><pre>$ dose.rate (data.frame)
-.. $ dose.rate 
-.. $ dose.rate.error 
+.. $ dose.rate
+.. $ dose.rate.error
 .. $ date (corresponding measurement date)
-$ parameters (list) 
+$ parameters (list)
 .. $ source.type
 .. $ halflife
 .. $ dose.rate.unit
@@ -217,11 +226,11 @@ are provided.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.0 (2018-01-21 17:22:38)</p>
+    <p>0.3.1 (2018-01-25 16:46:06)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Fuchs, M.C., Kreutzer, S. (2018). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Fuchs, M.C., Kreutzer, S. (2018). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -283,7 +292,7 @@ are provided.</p>
                                   <span class='kw'>calib.dose.rate</span> <span class='kw'>=</span> <span class='fl'>0.0438</span>,
                                   <span class='kw'>calib.error</span> <span class='kw'>=</span> <span class='fl'>0.0019</span>,
                                   <span class='kw'>predict</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>dose.rate</span>)</div><div class='img'><img src='calc_SourceDoseRate-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>dose.rate</span>)</div><div class='img'><img src='calc_SourceDoseRate-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 
 ##(4) export output to a LaTeX table (example using the package 'xtable')
 </div><span class='co'># NOT RUN {</span>
