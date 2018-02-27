@@ -5,7 +5,7 @@
 \title{Apply the Kars et al. (2008) model}
 \usage{
 calc_Kars2008(data, LnTn = NULL, rhop, ddot, readerDdot, normalise = TRUE,
-  summary = TRUE, plot = TRUE, ...)
+  fit.method = c("EXP", "GOK")[1], summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -70,6 +70,14 @@ Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
 \item{normalise}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) all measured and computed LxTx values are
 normalised by the pre-exponential factor A (see details).}
+
+\item{fit.method}{\link{character} (\emph{with default}):
+Fit function of the dose response curve. Can either be \code{EXP} (the default)
+or \code{GOK}. Note that \code{EXP} (single saturating exponential) is the original
+function the model after Huntley (2006) and Kars et al. (2008) was
+designed to use. The use of a general-order kinetics function (\code{GOK})
+is an experimental adaption of the model and should only be used
+with great care.}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user
@@ -173,7 +181,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.3.1 (2018-02-12 13:46:28)
+ 0.3.1
 }
 
 \examples{
@@ -220,12 +228,7 @@ kars <- calc_Kars2008(data = LxTx,
                       readerDdot = readerDdot,
                       n.MC = 25)
 
-} 
-
-\section{How to cite}{
-King, G., Burow, C. (2018). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -244,5 +247,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina King, University of Cologne (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

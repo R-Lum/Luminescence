@@ -115,6 +115,14 @@
 #' Dose rate of the irradiation source of the OSL reader and its error,
 #' given as a numeric vector of length two.
 #' Expected unit: Gy/s. Example: `readerDdot = c(0.08, 0.01)`.
+#' 
+#' @param fit.method [character] (*with default*):
+#' Fit function of the dose response curve. Can either be `EXP` (the default)
+#' or `GOK`. Note that `EXP` (single saturating exponential) is the original
+#' function the model after Huntley (2006) and Kars et al. (2008) was
+#' designed to use. The use of a general-order kinetics function (`GOK`)
+#' is an experimental adaption of the model and should only be used
+#' with great care.
 #'
 #' @param normalise [logical] (*with default*):
 #' If `TRUE` (the default) all measured and computed LxTx values are
@@ -240,12 +248,18 @@ calc_Kars2008 <- function(data,
                           ddot,
                           readerDdot,
                           normalise = TRUE,
+                          fit.method = c("EXP", "GOK")[1],
                           summary = TRUE,
                           plot = TRUE,
                           ...) {
 
   ## Validate Input ------------------------------------------------------------
 
+  ## Check fit method
+  if (!fit.method %in% c("EXP", "GOK"))
+    stop("[calc_Kars2008] Invalid fit option ('", fit.method, "'). Only 'EXP' and 'GOK' allowed for argument 'fit.method'.",
+         call. = FALSE)
+  
   ## Check 'data'
   # must be a data frame
   if (is.data.frame(data)) {
@@ -397,7 +411,7 @@ calc_Kars2008 <- function(data,
 
   GC.settings <- list(sample = data.tmp,
                       mode = "interpolation",
-                      fit.method = "EXP",
+                      fit.method = fit.method,
                       output.plot = plot,
                       main = "Measured dose response curve",
                       xlab = "Dose (Gy)",
@@ -432,9 +446,14 @@ calc_Kars2008 <- function(data,
 
   #
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
-    fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
-                                     start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
-
+    if (fit.method == "EXP") {
+      fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
+                                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
+    } else if (fit.method == "GOK") {
+      fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
+                                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot, c = 1)))
+    }
+    
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
     else
@@ -475,18 +494,25 @@ calc_Kars2008 <- function(data,
   natdosetimeGray <- seq(0, max(data[ ,1]) * 2, length.out = settings$n.MC)
   natdosetime <- natdosetimeGray
   rprime <- seq(0.01, 5, length.out = 500)
-  pr <- 3 * rprime^2 * exp(-rprime^3)
+  pr <- 3 * rprime^2 * exp(-rprime^3) # Huntley 2006, eq. 3
   K <- Hs * exp(-rhop[1]^-(1/3) * rprime)
   TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
   UFD0 <- mean(fitcoef[ ,2], na.rm = TRUE) * readerDdot
+  if (fit.method == "GOK")
+    c_gok <- coef(fit_measured)[["c"]]
 
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
-      TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
+      if (fit.method == "EXP") {
+        TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
+      } else if (fit.method == "GOK") {
+        # TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
+        TermA[k,j] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) * (1-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
+      }
     }}
 
   LxTx.sim <- colSums(TermA) / sum(pr)
-
+  
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
 
   # calculate Age
@@ -500,7 +526,7 @@ calc_Kars2008 <- function(data,
 
     GC.settings <- list(sample = data.unfaded,
                         mode = "interpolation",
-                        fit.method = "EXP",
+                        fit.method = fit.method,
                         output.plot = plot,
                         verbose = FALSE,
                         main = "Simulated dose response curve",
@@ -576,8 +602,13 @@ calc_Kars2008 <- function(data,
   LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
-  fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
-                                   start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
+  if (fit.method == "EXP") {
+    fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
+                                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
+  } else if (fit.method == "GOK") {
+    fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
+                                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot, c = coef(fit_measured)[["c"]]))
+  }
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
 
