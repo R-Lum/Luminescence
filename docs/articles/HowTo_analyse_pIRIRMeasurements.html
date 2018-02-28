@@ -79,7 +79,7 @@
       <h1>How to analyse post-IR IRSL measurements?</h1>
                         <h4 class="author">Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montagine, France</h4>
             
-            <h4 class="date">Last modified: 2018-02-27 (‘Luminescence’ version: 0.8.1)</h4>
+            <h4 class="date">Last modified: 2018-02-28 (‘Luminescence’ version: 0.8.1)</h4>
           </div>
 
     
@@ -286,38 +286,38 @@ temp &lt;-<span class="st">  </span><span class="kw"><a href="../reference/read_
 <p>The <span class="math inline">\(D_{e}\)</span> values (here in seconds) can be seen by calling the <code>$data</code> element from the object <code>results</code>, which is a <code>data.frame</code> (and here limited to three columns):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results<span class="op">$</span>data[,<span class="kw">c</span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>, <span class="st">"RC.Status"</span>, <span class="st">"Signal"</span>)]</code></pre></div>
 <pre><code>##         De De.Error RC.Status   Signal
-## 1   803.54    36.71        OK     IR50
-## 2  1099.86    28.45        OK pIRIR225
-## 3   632.80    28.03        OK     IR50
-## 4   873.77    27.35        OK pIRIR225
-## 5  1166.26    27.28        OK     IR50
-## 6  1058.84    19.27        OK pIRIR225
-## 7   741.30    30.02    FAILED     IR50
-## 8  1049.17    29.91        OK pIRIR225
-## 9   873.96    59.83        OK     IR50
-## 10 1236.34    53.79        OK pIRIR225
-## 11  827.68    40.85        OK     IR50
-## 12 1095.24    30.98        OK pIRIR225
-## 13  714.12    19.83        OK     IR50
-## 14  807.30    15.93        OK pIRIR225</code></pre>
+## 1   803.54    37.72        OK     IR50
+## 2  1099.86    30.19        OK pIRIR225
+## 3   632.80    27.55        OK     IR50
+## 4   873.77    27.16        OK pIRIR225
+## 5  1166.26    26.51        OK     IR50
+## 6  1058.84    19.76        OK pIRIR225
+## 7   741.30    29.69    FAILED     IR50
+## 8  1049.17    34.10        OK pIRIR225
+## 9   873.96    56.95        OK     IR50
+## 10 1236.34    58.12        OK pIRIR225
+## 11  827.68    42.19        OK     IR50
+## 12 1095.24    25.18        OK pIRIR225
+## 13  714.12    24.18        OK     IR50
+## 14  807.30    16.00        OK pIRIR225</code></pre>
 <p>The column <code>RC.Status</code> informs you about a failed rejection criterium, which one is not revealed, but the column provides a possibilty for further subsetting. For a quick data processing this is, together with the plot output, usually enough information. However, to see all rejection criteria type <code>results$rejection.criteria</code>. To see all information type <code>results$data</code> without further information.</p>
 <p>If you want to combine the two tables for a more virtous data processing, you can merge both tables by calling:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">merge</span>(results<span class="op">$</span>data, results<span class="op">$</span>rejection.criteria, <span class="dt">by =</span> <span class="st">"UID"</span>)
 <span class="kw">head</span>(df)</code></pre></div>
-<pre><code>##                                  UID     De De.Error     D01 D01.ERROR D02
-## 1 2018-02-27-04:00.0.159657986834645 714.12    19.83 1413.25  125.1018  NA
-## 2 2018-02-27-04:00.0.159657986834645 714.12    19.83 1413.25  125.1018  NA
-## 3 2018-02-27-04:00.0.159657986834645 714.12    19.83 1413.25  125.1018  NA
-## 4 2018-02-27-04:00.0.159657986834645 714.12    19.83 1413.25  125.1018  NA
-## 5 2018-02-27-04:00.0.159657986834645 714.12    19.83 1413.25  125.1018  NA
-## 6 2018-02-27-04:00.0.168830917449668 827.68    40.85 1018.14  102.8608  NA
-##   D02.ERROR  De.MC Fit RC.Status signal.range background.range
-## 1        NA 716.64 EXP        OK       1 : 10        800 : 999
-## 2        NA 716.64 EXP        OK       1 : 10        800 : 999
-## 3        NA 716.64 EXP        OK       1 : 10        800 : 999
-## 4        NA 716.64 EXP        OK       1 : 10        800 : 999
-## 5        NA 716.64 EXP        OK       1 : 10        800 : 999
-## 6        NA 835.45 EXP        OK       1 : 10        800 : 999
+<pre><code>##                                  UID      De De.Error     D01 D01.ERROR
+## 1  2018-02-28-09:36.0.25127269490622  803.54    37.72 1081.35  101.6277
+## 2  2018-02-28-09:36.0.25127269490622  803.54    37.72 1081.35  101.6277
+## 3  2018-02-28-09:36.0.25127269490622  803.54    37.72 1081.35  101.6277
+## 4  2018-02-28-09:36.0.25127269490622  803.54    37.72 1081.35  101.6277
+## 5  2018-02-28-09:36.0.25127269490622  803.54    37.72 1081.35  101.6277
+## 6 2018-02-28-09:37.0.105947823729366 1166.26    26.51 2185.14  237.9508
+##   D02 D02.ERROR   De.MC Fit RC.Status signal.range background.range
+## 1  NA        NA  805.92 EXP        OK       1 : 10        800 : 999
+## 2  NA        NA  805.92 EXP        OK       1 : 10        800 : 999
+## 3  NA        NA  805.92 EXP        OK       1 : 10        800 : 999
+## 4  NA        NA  805.92 EXP        OK       1 : 10        800 : 999
+## 5  NA        NA  805.92 EXP        OK       1 : 10        800 : 999
+## 6  NA        NA 1169.03 EXP        OK       1 : 10        800 : 999
 ##   signal.range.Tx background.range.Tx Signal.x                Criteria
 ## 1         NA : NA             NA : NA     IR50 Recycling ratio (R5/R1)
 ## 2         NA : NA             NA : NA     IR50     Recuperation rate 1
@@ -326,12 +326,12 @@ temp &lt;-<span class="st">  </span><span class="kw"><a href="../reference/read_
 ## 5         NA : NA             NA : NA     IR50    De &gt; max. dose point
 ## 6         NA : NA             NA : NA     IR50 Recycling ratio (R5/R1)
 ##          Value Threshold Status Signal.y
-## 1   0.97780000       0.1     OK     IR50
-## 2   0.00150000       0.1     OK     IR50
-## 3   0.02036485       0.1     OK     IR50
-## 4   0.02777000       0.1     OK     IR50
-## 5 714.12000000    1360.0     OK     IR50
-## 6   1.00590000       0.1     OK     IR50</code></pre>
+## 1   0.90990000       0.1     OK     IR50
+## 2   0.00070000       0.1     OK     IR50
+## 3   0.02654519       0.1     OK     IR50
+## 4   0.04694000       0.1     OK     IR50
+## 5 803.54000000    1360.0     OK     IR50
+## 6   0.99040000       0.1     OK     IR50</code></pre>
 <p>The result may appear confusing in a first instance, since, e.g. the column <code>De</code> appears to contain duplicated entries. But still, each row is unique and in sum contains unique information.</p>
 </div>
 <div id="plot-results" class="section level1">

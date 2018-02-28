@@ -284,16 +284,16 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
 <span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
 
 <span class='co'>## create plot with two subsets straightforward</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_KDE-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 <span class='co'>## create plot with two subsets and summary legend at user coordinates</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
          <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>),
          <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>110</span>, <span class='fl'>0.07</span>),
-         <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"blue"</span>, <span class='st'>"orange"</span>))</div><div class='img'><img src='plot_KDE-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"blue"</span>, <span class='st'>"orange"</span>))</div><div class='img'><img src='plot_KDE-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>## example of how to use the numerical output of the function</span>
 <span class='co'>## return plot output to draw a thicker KDE line</span>
 <span class='no'>KDE_out</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-<span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

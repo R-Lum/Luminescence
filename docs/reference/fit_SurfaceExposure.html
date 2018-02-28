@@ -319,19 +319,7 @@ Icarus 221, 160-166.</p>
 #&gt; 3   0.2  0.09560277 0.12385804
 #&gt; 4   0.3 -0.05973453 0.05593426
 #&gt; 5   0.4 -0.02775111 0.19830218
-#&gt; 6   0.5  0.04852239 0.06168570</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>sample_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='img'><img src='fit_SurfaceExposure-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9890 ± 369
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;        age age_error sigmaphi sigmaphi_error  mu mu_error
-#&gt; 1 9892.724  369.0066    5e-10             NA 0.9       NA</div><div class='input'>
+#&gt; 6   0.5  0.04852239 0.06168570</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>sample_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
 
 <span class='co'>## Example 2 - Single sample and considering dose rate</span>
 <span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10, </span>
@@ -344,19 +332,7 @@ Icarus 221, 160-166.</p>
 #&gt; 4   0.3 -0.05457253 0.05593426
 #&gt; 5   0.4 -0.02210573 0.19830218
 #&gt; 6   0.5  0.05469614 0.06168570</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>sample_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>,
-                               <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='img'><img src='fit_SurfaceExposure-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9800 ± 675
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;        age age_error sigmaphi sigmaphi_error  mu mu_error
-#&gt; 1 9803.492  674.8362    5e-10             NA 0.9       NA</div><div class='input'>
+                               <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
 
 <span class='co'>## Example 3 - Multiple samples (global fit) to better constrain 'mu'</span>
 <span class='co'># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span>
@@ -374,25 +350,7 @@ Icarus 221, 160-166.</p>
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
 #&gt;   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_1</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
-                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.901 ± 0.00161
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = 0.901)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='fit_SurfaceExposure-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;     age age_error sigmaphi sigmaphi_error        mu    mu_error
-#&gt; 1 1e+03        NA    5e-10             NA 0.9009518 0.001612271
-#&gt; 2 1e+04        NA    5e-10             NA 0.9009518 0.001612271
-#&gt; 3 1e+05        NA    5e-10             NA 0.9009518 0.001612271
-#&gt; 4 1e+06        NA    5e-10             NA 0.9009518 0.001612271</div><div class='input'>
+                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
 
 <span class='co'>## Example 4 - Multiple samples (global fit) and considering dose rate</span>
 <span class='co'># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span>
@@ -414,26 +372,7 @@ Icarus 221, 160-166.</p>
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
 #&gt;   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_2</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
-                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.899 ± 0.00232
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	100, 1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = 0.899)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='fit_SurfaceExposure-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;     age age_error sigmaphi sigmaphi_error       mu    mu_error
-#&gt; 1 1e+02        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 2 1e+03        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 3 1e+04        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 4 1e+05        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 5 1e+06        NA    5e-10             NA 0.898662 0.002323752</div><div class='input'>
+                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

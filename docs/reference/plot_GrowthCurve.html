@@ -352,25 +352,16 @@ lm, uniroot</p>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) plot growth curve for a dummy data.set and show De value</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.LxTxData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
-<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt;        De De.Error     D01 D01.ERROR D02 D02.ERROR  De.MC Fit
-#&gt; 1 1737.88    59.37 1766.07  83.04768  NA        NA 1735.1 EXP</div><div class='input'>
+<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("character"), new("nonstandardGenericFunction", .Data = function (object,     ...) {    standardGeneric("get_RLum")}, generic = structure("get_RLum", package = "Luminescence"),     package = "Luminescence", group = list(), valueClass = character(0),     signature = "object", default = NULL, skeleton = (function (object,         ...)     stop("invalid call in method dispatch to 'get_RLum' (no default method)",         domain = NA))(object, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘get_RLum’ for signature ‘"character"’</span></div><div class='input'>
 <span class='co'>##(1a) to access the fitting value try</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"Fit"</span>)</div><div class='output co'>#&gt; Nonlinear regression model
-#&gt;   model: y ~ a * (1 - exp(-(x + c)/b))
-#&gt;    data: data
-#&gt;        a        b        c 
-#&gt;    6.806 1766.074    5.051 
-#&gt;  weighted residual sum-of-squares: 0.0004268
-#&gt; 
-#&gt; Number of iterations to convergence: 4 
-#&gt; Achieved convergence tolerance: 1.49e-08</div><div class='input'>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"Fit"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("character"), new("nonstandardGenericFunction", .Data = function (object,     ...) {    standardGeneric("get_RLum")}, generic = structure("get_RLum", package = "Luminescence"),     package = "Luminescence", group = list(), valueClass = character(0),     signature = "object", default = NULL, skeleton = (function (object,         ...)     stop("invalid call in method dispatch to 'get_RLum' (no default method)",         domain = NA))(object, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘get_RLum’ for signature ‘"character"’</span></div><div class='input'>
 <span class='co'>##(2) plot the growth curve only - uncomment to use</span>
 <span class='co'>##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span>
-<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='input'><span class='co'>##dev.off()</span>
+<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'><span class='co'>##dev.off()</span>
 
 <span class='co'>##(3) plot growth curve with pdf output - uncomment to use, single output</span>
 <span class='co'>##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span>
-<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>, <span class='kw'>output.plotExtended.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-1.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_GrowthCurve-2.png' alt='' width='700' height='432.632880098887' /></div><div class='img'><img src='plot_GrowthCurve-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'>##dev.off()</span>
+<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>, <span class='kw'>output.plotExtended.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='input'><span class='co'>##dev.off()</span>
 
 <span class='co'>##(4) plot resulting function for given intervall x</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>1</span>,<span class='fl'>10000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>100</span>)
@@ -378,29 +369,13 @@ lm, uniroot</p>
  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>,
  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>eval</span>(<span class='no'>temp</span>$<span class='no'>Formula</span>),
  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"l"</span>
-)</div><div class='img'><img src='plot_GrowthCurve-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='error'>Error in temp$Formula: $ operator is invalid for atomic vectors</span></div><div class='input'>
 <span class='co'>##(5) plot using the 'extrapolation' mode</span>
 <span class='no'>LxTxData</span>[<span class='fl'>1</span>,<span class='fl'>2</span>:<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0.5</span>, <span class='fl'>0.001</span>)
-<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"extrapolation"</span>))</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: plot_GrowthCurve()
-#&gt; 	 data: 4
-#&gt;  	 .. $De : data.frame
-#&gt; 	 .. $De.MC : numeric
-#&gt; 	 .. $Fit : nls
-#&gt; 	 .. $Formula : expression
-#&gt; 	 additional info elements:  1</div><div class='input'>
+<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"extrapolation"</span>))</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06</div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
 <span class='co'>##(6) plot using the 'alternate' mode</span>
 <span class='no'>LxTxData</span>[<span class='fl'>1</span>,<span class='fl'>2</span>:<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0.5</span>, <span class='fl'>0.001</span>)
-<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"alternate"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: plot_GrowthCurve()
-#&gt; 	 data: 4
-#&gt;  	 .. $De : data.frame
-#&gt; 	 .. $De.MC : logical
-#&gt; 	 .. $Fit : nls
-#&gt; 	 .. $Formula : expression
-#&gt; 	 additional info elements:  1</div><div class='input'>
+<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"alternate"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
 <span class='co'>##(7) import and fit test data set by Berger &amp; Huntley 1989</span>
 <span class='no'>QNL84_2_unbleached</span> <span class='kw'>&lt;-</span>
 <span class='fu'>read.table</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/QNL84_2_unbleached.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"Luminescence"</span>))
@@ -409,13 +384,10 @@ lm, uniroot</p>
  <span class='no'>QNL84_2_unbleached</span>,
  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"extrapolation"</span>,
  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
- <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_GrowthCurve()] 'fit.weights' set to NA since the error column is invalid or 0.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='input'>
+ <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_GrowthCurve()] 'fit.weights' set to NA since the error column is invalid or 0.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
 <span class='co'>#calculate confidence interval for the parameters</span>
 <span class='co'>#as alternative error estimation</span>
-<span class='fu'>confint</span>(<span class='no'>results</span>$<span class='no'>Fit</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.68</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;           16%         84%
-#&gt; a 140543.3024 146731.8471
-#&gt; b    374.0861    425.5679
-#&gt; c    116.3499    133.3474</div><div class='input'>
+<span class='fu'>confint</span>(<span class='no'>results</span>$<span class='no'>Fit</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.68</span>)</div><div class='output co'>#&gt; <span class='error'>Error in confint(results$Fit, level = 0.68): object 'results' not found</span></div><div class='input'>
 
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>QNL84_2_bleached</span> <span class='kw'>&lt;-</span>

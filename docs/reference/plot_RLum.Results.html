@@ -191,7 +191,7 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
 #&gt;     De error
 #&gt;  45.64  3.84</div><div class='input'>
 <span class='co'>##plot</span>
-<span class='fu'>plot_RLum.Results</span>(<span class='no'>mam</span>)</div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: gamma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: sigma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: p0</span></div><div class='input'>
+<span class='fu'>plot_RLum.Results</span>(<span class='no'>mam</span>)</div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: gamma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: sigma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: p0</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
 <span class='co'># estimate the number of grains on an aliquot</span>
 <span class='no'>grains</span><span class='kw'>&lt;-</span> <span class='fu'><a href='calc_AliquotSize.html'>calc_AliquotSize</a></span>(<span class='kw'>grain.size</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>150</span>), <span class='kw'>sample.diameter</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>MC.iter</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; 
 #&gt;  [calc_AliquotSize]
@@ -204,15 +204,15 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
 #&gt; 
 #&gt;  --------------- Monte Carlo Estimates -------------------
 #&gt;  number of iterations (n)     : 100
-#&gt;  median                       : 37
-#&gt;  mean                         : 40
+#&gt;  median                       : 42
+#&gt;  mean                         : 44
 #&gt;  standard deviation (mean)    : 19
 #&gt;  standard error (mean)        : 1.9
-#&gt;  95% CI from t-test (mean)    : 36 - 44
-#&gt;  standard error from CI (mean): 1.9
+#&gt;  95% CI from t-test (mean)    : 40 - 48
+#&gt;  standard error from CI (mean): 2
 #&gt;  ---------------------------------------------------------</div><div class='input'>
 <span class='co'>##plot</span>
-<span class='fu'>plot_RLum.Results</span>(<span class='no'>grains</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>plot_RLum.Results</span>(<span class='no'>grains</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
 
 </div><div class='img'><img src='plot_RLum.Results-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>

@@ -201,27 +201,7 @@ interactively.</p>
                       <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='img'><img src='ExampleData.SurfaceExposure-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9890 ± 369
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0</div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 
 
 
@@ -243,27 +223,7 @@ interactively.</p>
                       <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='img'><img src='ExampleData.SurfaceExposure-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9800 ± 675
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0</div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 
 
 <span class='co'>## ExampleData.SurfaceExposure$set_1</span>
@@ -283,30 +243,7 @@ interactively.</p>
 
 
 <span class='co'>## VALIDATE set_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_3</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.901 ± 0.00161
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = 0.901)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-3.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0</div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_3</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 
 
 <span class='co'>## ExampleData.SurfaceExposure$set_2</span>
@@ -332,30 +269,7 @@ interactively.</p>
 
 
 <span class='co'>## VALIDATE set_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_4</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1.0</span>)</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.899 ± 0.00232
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	100, 1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = 0.899)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-4.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0</div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_4</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1.0</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>ExampleData.SurfaceExposure</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
   <span class='kw'>sample_1</span> <span class='kw'>=</span> <span class='no'>synth_1</span>,

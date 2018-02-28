@@ -299,7 +299,7 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
 <span class='co'>##grep OSL curves and plot the first curve</span>
 <span class='no'>OSLcurve</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>OSL.SARMeasurement</span>$<span class='no'>Sequence.Object</span>,
 <span class='kw'>recordType</span><span class='kw'>=</span><span class='st'>"OSL"</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>OSLcurve</span>)</div><div class='img'><img src='ExampleData.XSYG-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>OSLcurve</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 <span class='co'>## =========================================</span>
 <span class='co'>##(2) TL.Spectrum</span>
 <span class='no'>TL.Spectrum</span></div><div class='output co'>#&gt; 
@@ -318,7 +318,7 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='ExampleData.XSYG-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
 ##plot 3d spectrum (uncomment for usage)
 # plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",
 # xlim = c(310,750), ylim = c(0,300), bin.rows=10,
