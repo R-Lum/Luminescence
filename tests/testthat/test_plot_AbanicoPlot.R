@@ -1,6 +1,5 @@
 context("plot_AbanicoPlot()")
 
-
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
 
@@ -161,6 +160,16 @@ test_that("Test examples from the example page", {
   expect_is(plot_AbanicoPlot(data = ExampleData.DeValues,
                          pch = NA,
                          output = TRUE), "list")
+
+
+})
+
+test_that("Cause full function stop", {
+  testthat::skip_on_cran()
+
+  ##wrong input data
+  expect_error(plot_AbanicoPlot(data = "Michael"),
+               regexp = "Input data format is neither 'data.frame' nor 'RLum.Results'")
 
 
 })
