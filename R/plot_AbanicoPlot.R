@@ -488,19 +488,6 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  ## Check input data
-  for(i in 1:length(data)) {
-    if(is(data[[i]], "RLum.Results") == FALSE &
-       is(data[[i]], "data.frame") == FALSE) {
-      stop(paste("[plot_AbanicoPlot()] Input data format is neither",
-                 "'data.frame' nor 'RLum.Results'"))
-    } else {
-      if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]])[,c(1:2)]
-      }
-    }
-  }
-
   ## optionally, remove NA-values
   if(na.rm == TRUE) {
     for(i in 1:length(data)) {
