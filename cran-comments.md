@@ -1,15 +1,14 @@
 ## Release summary
 
-This release replaces the version 0.8.0 submitted to 
-CRAN 2018-02-09, but it got never published for unknown 
-reasons. We never received any response beyond the automatic 
-submission confirmation either. 
+This release fixes the following issue raised via cranmail:
 
-However, we became aware of the problems with the package 'data.table'
-on CRAN and we thus now lowered required package version number for 'data.table'.
+> Found the following (possibly) invalid URLs:
+>   URL: http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measur> ement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx
+>     From: man/calc_OSLLxTxRatio.Rd
+>     Status: 404
+>     Message: Not Found
 
-We furthermore reduced the size of the example data and lowered the required R version to 3.3.0 
-(3.4.0 previously).
+> Can you pls fix?
 
 Thanks for your support!
 
