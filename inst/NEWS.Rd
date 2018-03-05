@@ -36,6 +36,14 @@
 
           }
       }
+      
+      \item \code{plot_GrowthCurve()}{
+          \itemize{
+             \item Now allows fitting of the general-order kinetics function after Guralnik
+             et al. (2015). Use \code{"GOK"} as input for argument \code{fit.method}.
+
+          }
+      }
 
      \item \code{template_DRAC()}{
           \itemize{

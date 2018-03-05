@@ -34,6 +34,12 @@ Changes in version 0.8.1 (March 9th, 2018):
                value is provided for ‘give.dose’, ‘NULL’ plots no
                abline.
 
+         • ‘plot_GrowthCurve()’
+
+             • Now allows fitting of the general-order kinetics
+               function after Guralnik et al. (2015). Use ‘"GOK"’ as
+               input for argument ‘fit.method’.
+
          • ‘template_DRAC()’
 
              • New argument ‘preset’ to allow the selection of
