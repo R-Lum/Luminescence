@@ -40,15 +40,16 @@ function used for fitting. Possible options are:
 \item \code{QDR},
 \item \code{EXP},
 \item \code{EXP OR LIN},
-\item \code{EXP+LIN} or
-\item \code{EXP+EXP}.
+\item \code{EXP+LIN},
+\item \code{EXP+EXP} or
+\item \code{GOK}.
 }
 
 See details.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default})
 allow to force the fitted function through the origin.
-For \code{method = "EXP+EXP"} the function will go to the origin in either case,
+For \code{method = "EXP+EXP"} and \code{method = "GOK"} the function will go through the origin in either case,
 so this option will have no effect.}
 
 \item{fit.weights}{\link{logical} (\emph{with default}):
@@ -68,7 +69,7 @@ has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
-with the fit methods \code{EXP}, \code{EXP+LIN} and \code{EXP OR LIN}.
+with the fit methods \code{EXP}, \code{EXP+LIN}, \code{EXP OR LIN} and \code{GOK}.
 Argument to be inserted for experimental application only!}
 
 \item{NumberIterations.MC}{\link{integer} (\emph{with default}):
@@ -162,6 +163,14 @@ function has no physical meaning. Therefore, no D0 value is returned.
 This fitting procedure is not robust against wrong start parameters and
 should be further improved.
 
+\code{GOK}: tries to fit the general-order kinetics function after
+Guralnik et al. (2015) of the form of
+
+\deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
+
+where \strong{c > 0} is a kinetic order modifier
+(not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
+
 \strong{Fit weighting}
 
 If the option \code{fit.weights = TRUE} is chosen, weights are calculated using
@@ -187,7 +196,7 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.9.10 (2018-01-21 17:22:38)
+ 1.10.0
 }
 
 \examples{
@@ -271,14 +280,13 @@ print(
  verbose = FALSE)$Fit)
  }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M. (2018). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
+
+Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
+Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
+from feldspar. Radiation Measurements 81, 224-231.
 }
 \seealso{
 \link{nls}, \linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM},
@@ -287,4 +295,4 @@ Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
