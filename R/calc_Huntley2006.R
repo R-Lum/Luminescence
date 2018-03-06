@@ -423,7 +423,7 @@ calc_Huntley2006 <- function(data,
   GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
 
   if (inherits(GC.measured, "try-error"))
-    stop("\n[calc_Huntley2006()] Unable to fit growth curve to data", call. = FALSE)
+    stop("\n[calc_Huntley2006()] Unable to fit growth curve to measured data", call. = FALSE)
 
   # extract results and calculate age
   GC.results <- get_RLum(GC.measured)
@@ -518,6 +518,7 @@ calc_Huntley2006 <- function(data,
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   
+  browser()
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
 
   # calculate Age
