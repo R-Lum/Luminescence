@@ -448,10 +448,16 @@ calc_Huntley2006 <- function(data,
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
     if (fit.method == "EXP") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
-                                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
+                                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot), 
+                                       lower = c(0, 0),
+                                       control = list(maxiter = settings$maxiter)))
     } else if (fit.method == "GOK") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
-                                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot, c = 1)))
+                                       start = list(a = coef(fit_measured)[["a"]], 
+                                                    D0 = D0.measured / readerDdot, 
+                                                    c = coef(fit_measured)[["c"]]), 
+                                       lower = c(0, 0, 0),
+                                       control = list(maxiter = settings$maxiter)))
     }
     
     if (!inherits(fit_sim, "try-error"))
@@ -499,7 +505,7 @@ calc_Huntley2006 <- function(data,
   TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
   UFD0 <- mean(fitcoef[ ,2], na.rm = TRUE) * readerDdot
   if (fit.method == "GOK")
-    c_gok <- coef(fit_measured)[["c"]]
+    c_gok <- mean(fitcoef[ ,3], na.rm = TRUE)
 
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
@@ -603,10 +609,16 @@ calc_Huntley2006 <- function(data,
   dosetimeGray <- dosetime * readerDdot
   if (fit.method == "EXP") {
     fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
-                                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
+                                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot),
+                                     lower = c(0, 0),
+                                     control = list(maxiter = settings$maxiter))
   } else if (fit.method == "GOK") {
     fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
-                                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot, c = coef(fit_measured)[["c"]]))
+                                     start = list(a = coef(fit_simulated)[["a"]], 
+                                                  D0 = coef(fit_simulated)[["b"]] / readerDdot, 
+                                                  c = coef(fit_simulated)[["c"]]), 
+                                     lower = c(0, 0, 0), 
+                                     control = list(maxiter = settings$maxiter))
   }
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
