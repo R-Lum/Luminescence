@@ -412,6 +412,7 @@ calc_Huntley2006 <- function(data,
   GC.settings <- list(sample = data.tmp,
                       mode = "interpolation",
                       fit.method = fit.method,
+                      fit.bounds = TRUE,
                       output.plot = plot,
                       main = "Measured dose response curve",
                       xlab = "Dose (Gy)",
@@ -449,14 +450,13 @@ calc_Huntley2006 <- function(data,
     if (fit.method == "EXP") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                                        start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot), 
-                                       # lower = c(0, 0),
                                        control = list(maxiter = settings$maxiter)))
     } else if (fit.method == "GOK") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
                                        start = list(a = coef(fit_measured)[["a"]], 
                                                     D0 = D0.measured / readerDdot, 
                                                     c = coef(fit_measured)[["c"]]), 
-                                       # lower = c(0, 0, 0),
+                                       lower = c(0, 0, -0.001),
                                        control = list(maxiter = settings$maxiter)))
     }
     
@@ -532,6 +532,7 @@ calc_Huntley2006 <- function(data,
     GC.settings <- list(sample = data.unfaded,
                         mode = "interpolation",
                         fit.method = fit.method,
+                        fit.bounds = TRUE,
                         output.plot = plot,
                         verbose = FALSE,
                         main = "Simulated dose response curve",
@@ -610,14 +611,13 @@ calc_Huntley2006 <- function(data,
   if (fit.method == "EXP") {
     fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
                                      start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot),
-                                     # lower = c(0, 0),
                                      control = list(maxiter = settings$maxiter))
   } else if (fit.method == "GOK") {
     fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
-                                     start = list(a = coef(fit_simulated)[["a"]], 
-                                                  D0 = coef(fit_simulated)[["b"]] / readerDdot, 
-                                                  c = coef(fit_simulated)[["c"]]), 
-                                     # lower = c(0, 0, 0),
+                                     start = list(a = coef(fit_simulated)[["a"]],
+                                                  D0 = coef(fit_simulated)[["b"]] / readerDdot,
+                                                  c = coef(fit_simulated)[["c"]]),
+                                     lower = c(0, 0, -0.001),
                                      control = list(maxiter = settings$maxiter))
   }
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
@@ -875,6 +875,11 @@ calc_Huntley2006 <- function(data,
     cat("\n D0 [Gy]:\t",
         round(results@data$results$Meas_D0, 2), "\u00b1",
         round(results@data$results$Meas_D0.error, 2))
+    if (fit.method == "GOK") {
+      cat("\n c [-]:\t\t",
+          round(summary(fit_measured)$coefficients["c", "Estimate"], 2), "\u00b1",
+          round(summary(fit_measured)$coefficients["c", "Std. Error"], 2))
+    }
     cat("\n Age [ka]:\t",
         round(results@data$results$Meas_Age, 2), "\u00b1",
         round(results@data$results$Meas_Age.error, 2))
@@ -882,6 +887,11 @@ calc_Huntley2006 <- function(data,
     cat("\n D0 [Gy]:\t",
         round(results@data$results$Unfaded_D0, 2), "\u00b1",
         round(results@data$results$Unfaded_D0.error, 2))
+    if (fit.method == "GOK") {
+      cat("\n c [-]:\t\t",
+          round(summary(fit_unfaded)$coefficients["c", "Estimate"], 2), "\u00b1",
+          round(summary(fit_unfaded)$coefficients["c", "Std. Error"], 2))
+    }
     cat("\n\n ---------- Simulated ----------")
     cat("\n DE [Gy]:\t",
         round(results@data$results$Sim_De, 2), "\u00b1",
@@ -889,6 +899,11 @@ calc_Huntley2006 <- function(data,
     cat("\n D0 [Gy]:\t",
         round(results@data$results$Sim_D0, 2), "\u00b1",
         round(results@data$results$Sim_D0.error, 2))
+    if (fit.method == "GOK") {
+      cat("\n c [-]:\t\t",
+          round(summary(fit_simulated)$coefficients["c", "Estimate"], 2), "\u00b1",
+          round(summary(fit_simulated)$coefficients["c", "Std. Error"], 2))
+    }
     cat("\n Age [ka]:\t",
         round(results@data$results$Sim_Age, 2), "\u00b1",
         round(results@data$results$Sim_Age.error, 2))
