@@ -1603,9 +1603,9 @@ plot_GrowthCurve <- function(
       trace = FALSE,
       algorithm = "LM",
       lower = if (fit.bounds) {
-        c(0,0,0)
+        c(0, 0, -0.001)
       }else{
-        c(-Inf,-Inf,-Inf)
+        c(-Inf, -Inf, -Inf)
       },
       upper = c(Inf, Inf, Inf),
       control = minpack.lm::nls.lm.control(maxiter = 500)
@@ -1681,9 +1681,9 @@ plot_GrowthCurve <- function(
           trace = FALSE,
           algorithm = "LM",
           lower = if (fit.bounds) {
-            c(0,0,0)
+            c(0, 0, -0.001)
           }else{
-            c(-Inf,-Inf,-Inf)
+            c(-Inf, -Inf, -Inf)
           },
           upper = c(Inf, Inf, Inf),
           control = minpack.lm::nls.lm.control(maxiter = 500)
