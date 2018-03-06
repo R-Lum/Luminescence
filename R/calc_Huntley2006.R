@@ -1,7 +1,7 @@
 #' Apply the Huntley (2006) model
 #'
 #' A function to calculate the expected sample specific fraction of saturation
-#' following Kars et al. (2008) and Huntley (2006).
+#' following Huntley (2006) and Kars et al. (2008).
 #'
 #' This function applies the approach described in Kars et al. (2008),
 #' developed from the model of Huntley (2006) to calculate the expected sample
@@ -491,7 +491,7 @@ calc_Huntley2006 <- function(data,
 
   # compute natural dose response curve
   ddots <- ddot / ka
-  natdosetimeGray <- seq(0, max(data[ ,1]) * 2, length.out = settings$n.MC)
+  natdosetimeGray <- c(0, exp(seq(1, log(max(data[ ,1]) * 2), length.out = 999)))
   natdosetime <- natdosetimeGray
   rprime <- seq(0.01, 5, length.out = 500)
   pr <- 3 * rprime^2 * exp(-rprime^3) # Huntley 2006, eq. 3
@@ -506,7 +506,6 @@ calc_Huntley2006 <- function(data,
       if (fit.method == "EXP") {
         TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
       } else if (fit.method == "GOK") {
-        # TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
         TermA[k,j] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) * (1-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
       }
     }}
