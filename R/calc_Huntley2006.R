@@ -449,14 +449,14 @@ calc_Huntley2006 <- function(data,
     if (fit.method == "EXP") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                                        start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot), 
-                                       lower = c(0, 0),
+                                       # lower = c(0, 0),
                                        control = list(maxiter = settings$maxiter)))
     } else if (fit.method == "GOK") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
                                        start = list(a = coef(fit_measured)[["a"]], 
                                                     D0 = D0.measured / readerDdot, 
                                                     c = coef(fit_measured)[["c"]]), 
-                                       lower = c(0, 0, 0),
+                                       # lower = c(0, 0, 0),
                                        control = list(maxiter = settings$maxiter)))
     }
     
@@ -518,7 +518,6 @@ calc_Huntley2006 <- function(data,
 
   LxTx.sim <- colSums(TermA) / sum(pr)
   
-  browser()
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
 
   # calculate Age
@@ -611,14 +610,14 @@ calc_Huntley2006 <- function(data,
   if (fit.method == "EXP") {
     fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
                                      start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot),
-                                     lower = c(0, 0),
+                                     # lower = c(0, 0),
                                      control = list(maxiter = settings$maxiter))
   } else if (fit.method == "GOK") {
     fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
                                      start = list(a = coef(fit_simulated)[["a"]], 
                                                   D0 = coef(fit_simulated)[["b"]] / readerDdot, 
                                                   c = coef(fit_simulated)[["c"]]), 
-                                     lower = c(0, 0, 0), 
+                                     # lower = c(0, 0, 0),
                                      control = list(maxiter = settings$maxiter))
   }
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
