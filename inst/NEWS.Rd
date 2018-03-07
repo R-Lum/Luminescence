@@ -2,11 +2,38 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.8.1 (March 9th, 2018)}{
 
+
+  \subsection{New functions}{
+
+  \itemize{
+  \item \code{calc_Huntley2006()}{
+    \itemize{
+      \item A function to calculate the expected sample specific fraction of saturation 
+      based on the model of Huntley (2006) using the approach as implemented in 
+      Kars et al. (2008) or Guralnik et al. (2015). This function supersedes the formerly
+      released function 'calc_Kars2008()'. The new function is identical to 'calc_Kars2008()'
+      when 'fit.method = "EXP"' (the default) is used, but also allows fitting
+      a general-order kinetic function after Guralnik et al. (2015) ('fit.method = "GOK"').
+     }
+    }
+
+   }
+  }
+
   \subsection{Bugfixes and changes}{
 
   \itemize{
 
-       \item \code{calc_MinDose()}{
+       \item \code{calc_Kars2008()}{
+          \itemize{
+             \item This function is now deprecated and will eventually be removed
+             in an upcoming version of the 'Luminescence' package. Older scripts using
+             this function will still work, but it is highly recommended to use the
+             newly introduced function 'calc_Huntley2006()'.
+          }
+      }
+      
+      \item \code{calc_MinDose()}{
           \itemize{
              \item Previously, the function globally disabled warning messages via
              'options(warn = -1)' due to the overly verbose output of functions in
