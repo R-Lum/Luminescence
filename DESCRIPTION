@@ -133,6 +133,7 @@ Collate:
     'calc_FiniteMixture.R'
     'calc_FuchsLang2001.R'
     'calc_HomogeneityTest.R'
+    'calc_Huntley2006.R'
     'calc_IEU.R'
     'calc_Kars2008.R'
     'calc_Lamothe2003.R'

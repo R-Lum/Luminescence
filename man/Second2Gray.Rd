@@ -64,7 +64,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.6.0 (2018-01-21 17:22:38)
+ 0.6.0 (2017-09-13 10:50:39)
 }
 
 \examples{

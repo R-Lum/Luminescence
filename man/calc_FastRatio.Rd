@@ -83,7 +83,7 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.1 (2018-01-21 17:22:38)
+ 0.1.1 (2018-03-07 16:51:21)
 }
 
 \examples{
@@ -121,7 +121,7 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.
 \linkS4class{RLum.Results}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Georgina King, University of Cologne (Germany) \cr
+Georgina King, University of Bern (Switzerland) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team}

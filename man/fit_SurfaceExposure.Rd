@@ -147,7 +147,7 @@ may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} an
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2017-10-23 13:55:26)
 }
 
 \examples{

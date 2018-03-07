@@ -52,7 +52,7 @@ a specific PSL file please report to \href{mailto:christoph.burow@uni-koeln.de}{
 function can be updated.
 }
 \section{Function version}{
- 0.0.1 (2018-01-21 17:22:38)
+ 0.0.1 (2017-09-13 11:05:24)
 }
 
 \examples{
