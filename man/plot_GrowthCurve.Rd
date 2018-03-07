@@ -196,7 +196,7 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.10.0
+ 1.10.0 (2018-03-07 17:07:59)
 }
 
 \examples{
@@ -280,7 +280,12 @@ print(
  verbose = FALSE)$Fit)
  }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M. (2018). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 
@@ -295,4 +300,4 @@ from feldspar. Radiation Measurements 81, 224-231.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-}
+\cr R Luminescence Package Team}
