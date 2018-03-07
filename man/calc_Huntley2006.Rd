@@ -5,8 +5,8 @@
 \title{Apply the Huntley (2006) model}
 \usage{
 calc_Huntley2006(data, LnTn = NULL, rhop, ddot, readerDdot,
-  normalise = TRUE, fit.method = c("EXP", "GOK")[1], summary = TRUE,
-  plot = TRUE, ...)
+  normalise = TRUE, fit.method = c("EXP", "GOK")[1],
+  lower.bounds = c(-Inf, -Inf, -Inf), summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -77,8 +77,18 @@ Fit function of the dose response curve. Can either be \code{EXP} (the default)
 or \code{GOK}. Note that \code{EXP} (single saturating exponential) is the original
 function the model after Huntley (2006) and Kars et al. (2008) was
 designed to use. The use of a general-order kinetics function (\code{GOK})
-is an experimental adaption of the model and should only be used
+is an experimental adaption of the model and should be used
 with great care.}
+
+\item{lower.bounds}{\link{numeric} (\emph{with default}):
+Only applicable for \code{fit.method = 'GOK'}. A vector of length 3 that
+contains the lower bound values for fitting the general-order kinetics
+function using \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the default values
+(c(\code{-Inf, -Inf, -Inf})) are appropriate for finding a best fit, but
+sometimes it may be useful to restrict the lower bounds to e.g.
+c(\code{0, 0, 0}). The values of the vector are for parameters
+\code{a}, \code{D0} and \code{c} in that particular order (see details in
+\link[Luminescence:plot_GrowthCurve]{Luminescence::plot_GrowthCurve}).}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user
@@ -125,18 +135,23 @@ Slot: \strong{@info}\cr
 }
 \description{
 A function to calculate the expected sample specific fraction of saturation
-following Kars et al. (2008) and Huntley (2006).
+based on the model of Huntley (2006) using the approach as implemented
+in Kars et al. (2008) or Guralnik et al. (2015).
 }
 \details{
-This function applies the approach described in Kars et al. (2008),
-developed from the model of Huntley (2006) to calculate the expected sample
+This function applies the approach described in Kars et al. (2008) or Guralnik et al. (2015),
+which are both developed from the model of Huntley (2006) to calculate the expected sample
 specific fraction of saturation of a feldspar and also to calculate fading
 corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination
 centres, is a crucial parameter of this model and must be determined
 separately from a fading measurement. The function \link{analyse_FadingMeasurement}
 can be used to calculate the sample specific \eqn{\rho}' value.
 
-Firstly the unfaded D0 value is determined through applying equation 5 of
+\strong{Kars et al. (2008) - Single saturating exponential}
+
+To apply the approach after Kars et al. (2008) use \code{fit.method = "EXP"}.
+
+Firstly, the unfaded D0 value is determined through applying equation 5 of
 Kars et al. (2008) to the measured LxTx data as a function of irradiation
 time, and fitting the data with a single saturating exponential of the form:
 
@@ -158,10 +173,28 @@ response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equati
 be interpolated onto this curve to determine the fading corrected
 De value, from which the fading corrected age is calculated.
 
+\strong{Guralnik et al. (2015) - General-order kinetics}
+
+To apply the approach after Guralnik et al. (2015) use \code{fit.method = "GOK"}.
+
+The approach of Guralnik et al. (2015) is very similar to that of
+Kars et al. (2008), but instead of using a single saturating exponential
+the model fits a general-order kinetics function of the form:
+
+\deqn{LxTx(t*) = A x \phi(t*) x (1-(1+(1/D0) x t* x c)^(-1/c))}
+
+where \code{A}, \eqn{\phi}, \code{t*} and \code{D0} are the same as above and \code{c} is a
+dimensionless kinetic order modifier (cf. equation 10 in
+Guralnik et al., 2015).
+
+\strong{Level of saturation}
+
 The \code{calc_Huntley2006} function also calculates the level of saturation (n/N)
 and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 the sample under investigation using the sample specific \eqn{\rho}',
 unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al. (2008).
+
+\strong{Uncertainties}
 
 Uncertainties are reported at 1 sigma and are assumed to be normally
 distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
@@ -182,7 +215,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.3.1 (2018-03-05 17:11:50)
+ 0.4.0
 }
 
 \examples{
@@ -229,15 +262,14 @@ kars <- calc_Huntley2006(data = LxTx,
                       readerDdot = readerDdot,
                       n.MC = 25)
 
-} 
-
-\section{How to cite}{
-King, G., Burow, C. (2018). calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
+
+Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
+Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
+from feldspar. Radiation Measurements 81, 224-231.
 
 Huntley, D.J., 2006. An explanation of the power-law decay of luminescence.
 Journal of Physics: Condensed Matter 18, 1359-1365. doi:10.1088/0953-8984/18/4/020
@@ -251,7 +283,7 @@ Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An att
 for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 }
 \author{
-Georgina King, University of Cologne (Germany)\cr
+Georgina King, University of Bern (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
