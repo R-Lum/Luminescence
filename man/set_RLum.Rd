@@ -43,7 +43,7 @@ in the documentations of the corresponding \linkS4class{RLum} class:
 }
 }
 \section{Function version}{
- 0.3.0 (2018-01-21 17:22:38)
+ 0.3.0 (2017-09-13 10:50:40)
 }
 
 \examples{

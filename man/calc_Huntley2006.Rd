@@ -215,7 +215,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.4.0
+ 0.4.0 (2018-03-07 16:40:33)
 }
 
 \examples{
@@ -262,7 +262,12 @@ kars <- calc_Huntley2006(data = LxTx,
                       readerDdot = readerDdot,
                       n.MC = 25)
 
+} 
+
+\section{How to cite}{
+King, G., Burow, C. (2018). calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -285,5 +290,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina King, University of Bern (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

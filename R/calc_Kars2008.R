@@ -27,7 +27,7 @@
 #' @section Function version: 0.4.0
 #'
 #' @author
-#' Georgina King, University of Cologne (Germany)\cr
+#' Georgina King, University of Bern (Switzerland) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @note **This function is deprecated and will eventually be removed from the package.**

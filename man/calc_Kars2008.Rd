@@ -40,7 +40,7 @@ can be used to calculate the sample specific \eqn{\rho}' value.
 \strong{(use \code{fit.method = "EXP"} to apply the model after Kars et al., 2008).}
 }
 \section{Function version}{
- 0.4.0 (2018-03-06 09:50:18)
+ 0.4.0 (2018-03-07 16:51:00)
 }
 
 \examples{
@@ -95,7 +95,7 @@ Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An att
 for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 }
 \author{
-Georgina King, University of Cologne (Germany)\cr
+Georgina King, University of Bern (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team}
 \keyword{datagen}
