@@ -48,10 +48,11 @@ test_that("check values from analyse_FadingMeasurement()", {
 
 test_that("check values from calc_Kars2008()", {
   testthat::skip_on_cran()
-  ##expect_is(round(sum(kars$results),0), 2794)
+  expect_equal(round(huntley$results$Sim_Age, 1), 41.3)
+  expect_equal(round(huntley$results$Sim_Age_2D0, 0), 164)
   expect_equal(round(sum(huntley$data),0), 191530)
   expect_equal(round(sum(huntley$Ln),4), 0.1585)
-  expect_equal(round(sum(residuals(huntley$fits$simulated)),4),  0)
+  expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.3)
   expect_equal(round(sum(residuals(huntley$fits$measured)),4),  0.1894)
   expect_equal(round(sum(residuals(huntley$fits$unfaded)),4),  1.6293)
   
