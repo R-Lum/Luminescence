@@ -22,7 +22,7 @@ each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
 \code{..$IR225}: Equivalent dose measurement data of the IR225 signal.\cr
 }}
 \source{
-These data were kindly provided by Georgina King. Detailed information
+These data were kindly provided by Georgina E. King. Detailed information
 on the sample UNIL/NB123 can be found in the reference given below. The raw
 data can be found in the accompanying supplementary information.
 }

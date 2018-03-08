@@ -379,7 +379,7 @@ analyse_FadingMeasurement <- function(
   ##calculate g-values from matrix
   g_value.MC <- abs(fit_matrix[2, ]) * 1 / fit_matrix[1, ] * 100
 
-  ##calculate rho prime (Kars et al. 2008; proposed by Georgina King)
+  ##calculate rho prime (Kars et al. 2008; proposed by Georgina E. King)
 
   ##s value after Huntley (2006) J. Phys. D.
   Hs <- 3e15

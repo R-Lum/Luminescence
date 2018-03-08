@@ -73,7 +73,7 @@
 #' @section Function version: 0.1.1
 #'
 #' @author 
-#' Georgina King, University of Bern (Switzerland) \cr
+#' Georgina E. King, University of Bern (Switzerland) \cr
 #' Julie A. Durcan, University of Oxford (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'

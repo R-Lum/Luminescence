@@ -57,7 +57,7 @@ Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
 Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
 Johannes Friedrich \tab \emph{University of Bayreuth, Germany} \cr
 Guillaume Guérin \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
-Georgina King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
+Georgina E. King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
 Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr

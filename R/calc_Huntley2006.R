@@ -205,7 +205,7 @@
 #' @section Function version: 0.4.0
 #'
 #' @author
-#' Georgina King, University of Bern (Switzerland) \cr
+#' Georgina E. King, University of Bern (Switzerland) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @note **This function has BETA status and should not be used for publication work!**

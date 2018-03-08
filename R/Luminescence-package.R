@@ -30,7 +30,7 @@
 #' Margret C. Fuchs \tab *Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany* \cr
 #' Johannes Friedrich \tab *University of Bayreuth, Germany* \cr
 #' Guillaume Guérin \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
-#' Georgina King \tab *Institute of Geological Sciences, University of Bern, Switzerland* \cr
+#' Georgina E. King \tab *Institute of Geological Sciences, University of Bern, Switzerland* \cr
 #' Sebastian Kreutzer \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Norbert Mercier \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
@@ -779,7 +779,7 @@ NULL
 #'
 #' @source
 #'
-#' These data were kindly provided by Georgina King. Detailed information
+#' These data were kindly provided by Georgina E. King. Detailed information
 #' on the sample UNIL/NB123 can be found in the reference given below. The raw
 #' data can be found in the accompanying supplementary information.
 #'

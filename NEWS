@@ -4,7 +4,7 @@ Changes in version 0.8.1 (March 9th, 2018):
 
   New functions:
 
-         • ‘calc_Huntley2006()’
+         • 'calc_Huntley2006()'
 
              • A function to calculate the expected sample specific
                fraction of saturation based on the model of Huntley
@@ -19,7 +19,7 @@ Changes in version 0.8.1 (March 9th, 2018):
 
   Bugfixes and changes:
 
-         • ‘calc_Kars2008()’
+         • 'calc_Kars2008()'
 
              • This function is now deprecated and will eventually be
                removed in an upcoming version of the 'Luminescence'
@@ -27,7 +27,7 @@ Changes in version 0.8.1 (March 9th, 2018):
                work, but it is highly recommended to use the newly
                introduced function 'calc_Huntley2006()'.
 
-         • ‘calc_MinDose()’
+         • 'calc_MinDose()'
 
              • Previously, the function globally disabled warning
                messages via 'options(warn = -1)' due to the overly
@@ -42,32 +42,32 @@ Changes in version 0.8.1 (March 9th, 2018):
                log of infinite (Inf, -Inf) values, which produced 'NaN'
                warnings.
 
-         • ‘get_RLum()’
+         • 'get_RLum()'
 
-             • The argument ‘subset’ was broken and not working
-               anymore, similar to the S3-method ‘subset’ dispatching
-               to ‘get_RLum’ for ‘RLum.Analysis’-objects.  Both issues
+             • The argument 'subset' was broken and not working
+               anymore, similar to the S3-method 'subset' dispatching
+               to 'get_RLum' for 'RLum.Analysis'-objects.  Both issues
                have been fixed.
 
-         • ‘plot_DRTResults()’
+         • 'plot_DRTResults()'
 
-             • If ‘boxplot = TRUE’ and ‘give.dose = NULL’ the plot
+             • If 'boxplot = TRUE' and 'give.dose = NULL' the plot
                still showed the abline at 1 including the +/- 10 %
                error range. Now, the abline is only showed if a numeric
-               value is provided for ‘give.dose’, ‘NULL’ plots no
+               value is provided for 'give.dose', 'NULL' plots no
                abline.
 
-         • ‘plot_GrowthCurve()’
+         • 'plot_GrowthCurve()'
 
              • Now allows fitting of the general-order kinetics
-               function after Guralnik et al. (2015). Use ‘"GOK"’ as
-               input for argument ‘fit.method’.
+               function after Guralnik et al. (2015). Use '"GOK"' as
+               input for argument 'fit.method'.
 
-         • ‘template_DRAC()’
+         • 'template_DRAC()'
 
-             • New argument ‘preset’ to allow the selection of
+             • New argument 'preset' to allow the selection of
                pre-defined templates for various configurations (e.g.,
-               ‘'quartz_coarse'’) for quartz coarse grain data. The
+               ''quartz_coarse'') for quartz coarse grain data. The
                templates bring pre-filled values to speed up the
                workflow, however, they do not free the researcher from
                cross-checking these values.
@@ -86,78 +86,78 @@ Changes in version 0.8.0 (Feburary 9th, 2018):
 
   New functions:
 
-         • ‘analyse_Al2O3C_ITC()’: Function to analyse data determined
+         • 'analyse_Al2O3C_ITC()': Function to analyse data determined
            to correct irradiation times as suggested by Kreutzer et
            al., 2018
 
-         • ‘analyse_Al2O3C_CrossTalk()’: Function to analyse data to
+         • 'analyse_Al2O3C_CrossTalk()': Function to analyse data to
            analyse crosstalk measurements as shown in Kreutzer et al.,
            2018
 
-         • ‘analyse_Al2O3C_Measurement()’: Function to analyse Al2O3:C
+         • 'analyse_Al2O3C_Measurement()': Function to analyse Al2O3:C
            data as shown by Kreutzer et al., 2018
 
-         • ‘convert_Activity2Concentration()’: converts nuclide
+         • 'convert_Activity2Concentration()': converts nuclide
            activity data (Bq/kg) to concentrations (ppm or %) and vice
            versa
 
-         • ‘convert_RLum2Risoe.BINfileData()’: Function to convert
-           ‘RLum.Analysis’ and ‘RLum.Data.Curve’ objects to
-           ‘Risoe.BINfileData’, which can be exported to BIN/BINX-files
-           using the function ‘write_R2BIN()’.
+         • 'convert_RLum2Risoe.BINfileData()': Function to convert
+           'RLum.Analysis' and 'RLum.Data.Curve' objects to
+           'Risoe.BINfileData', which can be exported to BIN/BINX-files
+           using the function 'write_R2BIN()'.
 
-         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
+         • 'calc_WodaFuchs2008()': Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
 
-         • ‘fit_SurfaceExposure()’: Function to fit eq. 1 in Sohbati et
+         • 'fit_SurfaceExposure()': Function to fit eq. 1 in Sohbati et
            al. (2012a) to OSL surface exposure data and derive
            estimates of its parameters (i.a., the age). Alternatively,
            eq. 12 in Sohbati et al. (2012b) can be fitted, which also
            considers the dose rate.
 
-         • ‘calc_Lamothe2003()’: Function to support the fading
+         • 'calc_Lamothe2003()': Function to support the fading
            correction suggested by Lamothe et al., 2003. As input the
-           function accepts ‘data.frame’ output from the functions
-           ‘analyse_SAR.CWOSL()’ and ‘analyse_pIRIRSequence)’.
+           function accepts 'data.frame' output from the functions
+           'analyse_SAR.CWOSL()' and 'analyse_pIRIRSequence)'.
 
   New example data:
 
-         • ‘ExampleData.SurfaceExposure’: A set of synthetic OSL
+         • 'ExampleData.SurfaceExposure': A set of synthetic OSL
            surface exposure dating data to demonstrate the
            fit_SurfaceExposure() functionality. See
            ?ExampleData.SurfaceExposure for details.
 
-         • ‘ExampleData.Al2O3C’: Al2O3:C chips measurement data to
+         • 'ExampleData.Al2O3C': Al2O3:C chips measurement data to
            supplement the newly implemented functions to analyse
            Al2O3:C data.
 
   S4-classes and methods:
 
-         • The ‘RLum.Analysis’ show method failed for
-           ‘RLum.Data.Spectrum’ objects; fixed.
+         • The 'RLum.Analysis' show method failed for
+           'RLum.Data.Spectrum' objects; fixed.
 
-         • Method for ‘get_RLum’ with signature ‘NULL’ added. Now it
-           returns ‘NULL’.
+         • Method for 'get_RLum' with signature 'NULL' added. Now it
+           returns 'NULL'.
 
-         • The coercion from ‘list’ to ‘RLum.Results’ using ‘as()’ did
+         • The coercion from 'list' to 'RLum.Results' using 'as()' did
            not work; fixed.
 
-         • Method ‘get_RLum’ for ‘RLum.Analysis’ returned a confusing
+         • Method 'get_RLum' for 'RLum.Analysis' returned a confusing
            error if what was provided via 'subset' was not a logical
            expression; fixed.
 
-         • ‘structure_RLum()’ and ‘names_RLum()’ each got a method to
-           deal with a list of ‘RLum’ objects.
+         • 'structure_RLum()' and 'names_RLum()' each got a method to
+           deal with a list of 'RLum' objects.
 
   Bugfixes and changes:
 
-         • ‘analyse_SAR.CWOSL()’
+         • 'analyse_SAR.CWOSL()'
 
-             • The function gained a new argument ‘'onlyLxTxTable'’. If
-               set to ‘TRUE’ only the Lx/Tx table is returned
+             • The function gained a new argument ''onlyLxTxTable''. If
+               set to 'TRUE' only the Lx/Tx table is returned
                (including regeneration point sorting).
 
-         • ‘analyse_IRSAR.RF()’
+         • 'analyse_IRSAR.RF()'
 
              • Multicore processing now also supports Windows (#47)
 
@@ -172,23 +172,23 @@ Changes in version 0.8.0 (Feburary 9th, 2018):
              • the function will not break anymore uncontrolled of both
                RF curves are of similar extension on the x-axis.
 
-         • ‘analyse_pIRIRSequence()’
+         • 'analyse_pIRIRSequence()'
 
              • If the number of records did not match the sequence
                structure the function crashed with a confusing error
-               message. Now it shows an error and returns ‘NULL’,
+               message. Now it shows an error and returns 'NULL',
 
-             • make the argument ‘main’ more powerful if the input is a
+             • make the argument 'main' more powerful if the input is a
                list,
 
              • add missing items to the manual.
 
-         • ‘calc_HomogeneityTest()’
+         • 'calc_HomogeneityTest()'
 
-             • The calculation was wrong for the option ‘log = TRUE’
+             • The calculation was wrong for the option 'log = TRUE'
                (the default); fixed (#63).
 
-         • ‘calc_Kars2008()’
+         • 'calc_Kars2008()'
 
              • In some cases the calculated LxTx values of the
                simulated natural dose-response curve were slightly
@@ -203,9 +203,9 @@ Changes in version 0.8.0 (Feburary 9th, 2018):
              • The number of digits for the numeric output in the plot
                was slightly adjusted.
 
-         • ‘plot_FilterCombinations()’
+         • 'plot_FilterCombinations()'
 
-             • Add interactive mode (‘interactive = TRUE’),
+             • Add interactive mode ('interactive = TRUE'),
 
              • correct wrong visualisation of transmission windows for
                long or short pass filters,
@@ -213,15 +213,15 @@ Changes in version 0.8.0 (Feburary 9th, 2018):
              • fix legend error if only one filter was provided (due to
                a recent matrix behaviour change).
 
-         • ‘plot_GrowthCurve()’
+         • 'plot_GrowthCurve()'
 
-             • The function now turns ‘Inf’ into ‘NA’,
+             • The function now turns 'Inf' into 'NA',
 
-             • the argument ‘na.rm’ is defunct and should not be used
+             • the argument 'na.rm' is defunct and should not be used
                anymore,
 
              • minor code modifications to handle special cases such as
-               input values with a ‘data.frame’ with no error column,
+               input values with a 'data.frame' with no error column,
 
              • extent examples by for test data set by Berger & Huntley
                (1989),
@@ -229,39 +229,39 @@ Changes in version 0.8.0 (Feburary 9th, 2018):
              • remove one more confusion warning if the fit did not
                work.
 
-         • ‘plot_Historgram()’
+         • 'plot_Historgram()'
 
-             • The forwarded argument ‘breaks’ was not treated
+             • The forwarded argument 'breaks' was not treated
                correctly (#54); fixed.
 
-         • ‘plot_RLum()’
+         • 'plot_RLum()'
 
              • The function now supports plotting even of highly nested
                lists of `RLum-objects`.
 
-         • ‘plot_RLum.Analysis()’
+         • 'plot_RLum.Analysis()'
 
              • The option `col` was not working as expected if `black`
                was provided; fixed,
 
-             • setting ‘ylim’ caused a function break (#65); fixed.
+             • setting 'ylim' caused a function break (#65); fixed.
 
-         • ‘read_BIN2R()’
+         • 'read_BIN2R()'
 
              • The function unexpectedly dropped are warning for an
                unused connection; fixed,
 
-             • if a file link was provided and the argument ‘pattern’
+             • if a file link was provided and the argument 'pattern'
                was set and error was shown; fixed.
 
-         • ‘read_Daybreak2R()’
+         • 'read_Daybreak2R()'
 
              • The functions did not work anymore on ASCII files;
                fixed!
 
-         • ‘read_XSYG2R()’
+         • 'read_XSYG2R()'
 
-             • Argument ‘verbose’ added for more consistency with other
+             • Argument 'verbose' added for more consistency with other
                functions,
 
              • the functions now supports the import form files via the
@@ -275,19 +275,19 @@ Changes in version 0.8.0 (Feburary 9th, 2018):
              • set option `XML_PARSE_HUGE` to allow parsing of larger
                nodes within the XSYG-file,
 
-             • the metadata entries ‘curveType’ and ‘parentID’ appeared
+             • the metadata entries 'curveType' and 'parentID' appeared
                duplicated, fixed.
 
-         • ‘read_SPE2R()’
+         • 'read_SPE2R()'
 
              • Add support for internet connections,
 
              • fix unclear file extension recognition.
 
-         • ‘write_R2BIN()’
+         • 'write_R2BIN()'
 
              • The BIN-file export to version 04 failed in very rare
-               cases for ‘NA’ values in the byte position ‘SEQUENCE’;
+               cases for 'NA' values in the byte position 'SEQUENCE';
                fixed,
 
              • the compatibility mode was extended, now limiting the
