@@ -83,7 +83,7 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.1 (2018-03-08 10:29:31)
+ 0.1.1 (2018-03-09 09:04:33)
 }
 
 \examples{

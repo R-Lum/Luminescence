@@ -36,7 +36,7 @@ Empty list elements (\code{NULL}) are automatically removed from the input \code
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1.2 (2017-09-13 10:50:40)
+ 0.1.2 (2018-01-21 17:22:38)
 }
 
 \examples{

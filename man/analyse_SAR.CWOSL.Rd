@@ -150,7 +150,7 @@ This function must not be mixed up with the function
 \strong{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.8.0 (2018-02-02 12:20:48)
+ 0.8.0 (2018-01-31 17:56:43)
 }
 
 \examples{

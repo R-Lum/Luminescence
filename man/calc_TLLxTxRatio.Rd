@@ -60,7 +60,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.2 (2017-09-13 10:50:39)
+ 0.3.2 (2018-01-21 17:22:38)
 }
 
 \examples{

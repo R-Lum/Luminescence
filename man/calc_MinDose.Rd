@@ -180,7 +180,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.4 (2018-03-01 19:05:21)
+ 0.4.4 (2018-02-13 12:57:49)
 }
 
 \examples{

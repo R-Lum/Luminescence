@@ -36,7 +36,7 @@ corresponding \linkS4class{RLum} class.
 }}
 
 \section{Function version}{
- 0.2.0 (2018-01-31 11:04:13)
+ 0.2.0 (2018-01-30 16:22:52)
 }
 
 \examples{

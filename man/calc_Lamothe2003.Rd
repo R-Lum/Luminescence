@@ -63,7 +63,7 @@ by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fi
 curve using the function \link{plot_GrowthCurve}.
 }
 \section{Function version}{
- 0.1.0 (2018-02-07 11:16:59)
+ 0.1.0 (2018-02-02 18:20:28)
 }
 
 \examples{

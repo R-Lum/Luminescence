@@ -24,7 +24,7 @@ to CSV-files. If nothing is set for the argument \code{path} (\link{write_RLum2C
 the input folder will become the output folder.
 }
 \section{Function version}{
- 0.1.0 (2017-09-13 10:50:39)
+ 0.1.0 (2018-01-21 17:22:38)
 }
 
 \examples{

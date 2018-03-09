@@ -215,7 +215,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.4.0 (2018-03-08 10:29:31)
+ 0.4.0 (2018-03-09 13:48:48)
 }
 
 \examples{
@@ -247,6 +247,7 @@ kars <- calc_Huntley2006(data = data,
                          n.MC = 25)
 
 
+\dontrun{
 # You can also provide LnTn values separately via the 'LnTn' argument.
 # Note, however, that the data frame for 'data' must then NOT contain
 # a LnTn value. See argument descriptions!
@@ -261,7 +262,7 @@ kars <- calc_Huntley2006(data = LxTx,
                       ddot = ddot,
                       readerDdot = readerDdot,
                       n.MC = 25)
-
+}
 } 
 
 \section{How to cite}{

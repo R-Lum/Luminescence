@@ -107,7 +107,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using serveral hundreds of channels.
 }
 \section{Function version}{
- 0.1.1 (2017-09-13 10:50:40)
+ 0.1.1 (2018-01-21 17:22:38)
 }
 
 \examples{

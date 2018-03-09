@@ -1,4 +1,4 @@
- #' Bayesian models (baSAR) applied on luminescence data
+#' Bayesian models (baSAR) applied on luminescence data
 #'
 #' This function allows the application of Bayesian models on luminescence data, measured
 #' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
