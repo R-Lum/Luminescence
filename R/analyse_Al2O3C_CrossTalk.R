@@ -69,7 +69,7 @@
 #'
 #' @references
 #'
-#' Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
 #' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 #' Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 #'

@@ -103,7 +103,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.1.8 (2018-02-24 10:47:17)
+ 0.1.8 (2018-03-09 14:49:30)
 }
 
 \examples{
@@ -121,7 +121,7 @@ Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Mea
 }
 
 \references{
-Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }

@@ -1,5 +1,19 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.8.2 (March 10th, 2018)}{
+
+ \subsection{Bugfixes and changes}{
+  \itemize{
+    \item Dummy
+
+
+  }
+
+ }
+
+}
+
+
 \section{Changes in version 0.8.1 (March 9th, 2018)}{
 
 
@@ -8,8 +22,8 @@
   \itemize{
   \item \code{calc_Huntley2006()}{
     \itemize{
-      \item A function to calculate the expected sample specific fraction of saturation 
-      based on the model of Huntley (2006) using the approach as implemented in 
+      \item A function to calculate the expected sample specific fraction of saturation
+      based on the model of Huntley (2006) using the approach as implemented in
       Kars et al. (2008) or Guralnik et al. (2015). This function supersedes the formerly
       released function 'calc_Kars2008()'. The new function is identical to 'calc_Kars2008()'
       when 'fit.method = "EXP"' (the default) is used, but also allows fitting
@@ -32,7 +46,7 @@
              newly introduced function 'calc_Huntley2006()'.
           }
       }
-      
+
       \item \code{calc_MinDose()}{
           \itemize{
              \item Previously, the function globally disabled warning messages via
@@ -63,7 +77,7 @@
 
           }
       }
-      
+
       \item \code{plot_GrowthCurve()}{
           \itemize{
              \item Now allows fitting of the general-order kinetics function after Guralnik
