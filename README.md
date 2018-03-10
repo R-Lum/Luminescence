@@ -18,11 +18,11 @@ The R package 'Luminescence' by the R-Luminescence Group provides a collection o
 [![Github Stars](https://img.shields.io/github/stars/R-Lum/Luminescence.svg?style=social&label=Github)](https://github.com/R-Lum/Luminescence)
 
 ### Platform tests status 
-[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
-[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.9.0)
+[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.9.0)](https://travis-ci.org/R-Lum/Luminescence)
 
 ### Unit test status
-[![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.9.0)
 
 ## Social media and other resources 
 Follow us on [![](http://i.imgur.com/wWzX9uB.png)](http://www.twitter.com/RLuminescence)
