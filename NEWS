@@ -1,5 +1,11 @@
 NEWS for the R Package Luminescence
 
+Changes in version 0.8.3 (March 11th, 2018):
+
+  Bugfixes and changes:
+
+         • Dummy
+
 Changes in version 0.8.2 (March 10th, 2018):
 
   Internals:
