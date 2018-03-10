@@ -2,22 +2,17 @@
 
 This release fixes the following issue raised via cranmail:
 
-> Found the following (possibly) invalid URLs:
->   URL: http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measur> ement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx
->     From: man/calc_OSLLxTxRatio.Rd
->     Status: 404
->     Message: Not Found
+>Thanks, we see:
+>Size of tarball: 5625896 bytes
+> Not more than 5 MB for a CRAN package, your last version had 1.7 MB. WHy is so much more needed now?
 
-> Can you pls fix?
+We apologise for this additional submission round. Indeed there was an unrecognised file hidden in the vignette folder, which was not wanted and erroneously not excluded from the tarball build due to a mistake in the .Rbuildignore file. Thanks for pointing this issue out.
 
 Thanks for your support!
 
 ## R CMD check --as-cran results
 
-0 errors | 0 warnings | 1 note
-
-* Size of tarball: 5614541 bytes. We tried to reduce the size of example data, vignettes and included 
-libraries to a minimum, the rest is R code and comments.
+0 errors | 0 warnings | 0 note
 
 ## Addressed CRAN requests 
 

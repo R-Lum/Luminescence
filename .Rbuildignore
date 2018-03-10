@@ -15,6 +15,7 @@ tests/testdata
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
+
 # Exclude GitHub stuff
 LICENSE$
 README\.md
@@ -25,11 +26,13 @@ NEWS_cache
 NEWS_files
 docs
 _pkgdown.yml
+
 # Exclude RLum related stuff
 ^RLum.*$
+
 # Exclude vignettes cache and files
 ^vignettes/.*cache$
 ^vignettes/.*files$
-^vignettes/*.xsyg$
-^vignettes/*.bib$
+^vignettes/.*\.xsyg$
+^vignettes/.*\.bib$
 ^_pkgdown\.yml$

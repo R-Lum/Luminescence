@@ -2,9 +2,10 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.8.2 (March 10th, 2018):
 
-  Bugfixes and changes:
+  Internals:
 
-         • Dummy
+         • Package size significantly reduced by excluding the
+           XSYG-file used for buildung the vignette.
 
 Changes in version 0.8.1 (March 9th, 2018):
 

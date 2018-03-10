@@ -2,10 +2,10 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.8.2 (March 10th, 2018)}{
 
- \subsection{Bugfixes and changes}{
+ \subsection{Internals}{
   \itemize{
-    \item Dummy
-
+    \item Package size significantly reduced by excluding the XSYG-file used for buildung
+    the vignette.
 
   }
 
