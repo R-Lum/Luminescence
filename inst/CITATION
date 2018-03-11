@@ -68,7 +68,7 @@ citation(auto = meta)
 
 		bibentry(bibtype = "Article",
 			  title = "Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips",
-				author = "Sebastian Kreutzer and Loic Martin and Guillaume Guerin and Chantal Tribolo and Norbert Mercier",
+				author = "Sebastian Kreutzer and Loic Martin and Guillaume Guerin and Chantal Tribolo and Pierre Selva and Norbert Mercier",
 				year = "2018",
 				journal = "Geochronometria",
 				volume = "45",
