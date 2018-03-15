@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.1
+#' @section Function version: 1.10.2
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -790,12 +790,13 @@ plot_GrowthCurve <- function(
         silent = TRUE
         ))
 
+
         if(class(fit.initial)!="try-error"){
           #get parameters out of it
           parameters<-(coef(fit.initial))
-          b.start[i]<-as.vector((parameters["b"]))
-          a.start[i]<-as.vector((parameters["a"]))
-          c.start[i]<-as.vector((parameters["c"]))
+          b.start[i] <- as.vector((parameters["b"]))
+          a.start[i] <- as.vector((parameters["a"]))
+          c.start[i] <- as.vector((parameters["c"]))
         }
       }
 
@@ -803,6 +804,10 @@ plot_GrowthCurve <- function(
       a <- median(na.exclude(a.start))
       b <- median(na.exclude(b.start))
       c <- median(na.exclude(c.start))
+
+      ##exception for b: if b is 1 it is likely to b wrong and should be reset
+      if(b == 1)
+        b <- mean(b.MC)
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
