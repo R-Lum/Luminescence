@@ -38,13 +38,13 @@
 #' \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
 #' This fitting procedure is not robust against wrong start parameters and
 #' should be further improved.
-#' 
-#' `GOK`: tries to fit the general-order kinetics function after 
+#'
+#' `GOK`: tries to fit the general-order kinetics function after
 #' Guralnik et al. (2015) of the form of
-#' 
+#'
 #' \deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
 #'
-#' where **c > 0** is a kinetic order modifier 
+#' where **c > 0** is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
 #'
 #' **Fit weighting**
@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.0
+#' @section Function version: 1.10.1
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -183,7 +183,7 @@
 #' @references
 #'
 #' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
-#' 
+#'
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 #' Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 #' from feldspar. Radiation Measurements 81, 224-231.
@@ -388,8 +388,8 @@ plot_GrowthCurve <- function(
 
   #1.1 Produce dataframe from input values, two options for different modes
   if(mode == "interpolation"){
-    xy<-data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
-    y.Error<-sample[2:(fit.NumberRegPoints+1),3]
+    xy <- data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
+    y.Error <- sample[2:(fit.NumberRegPoints+1),3]
 
   }else if (mode == "extrapolation" || mode == "alternate") {
     xy <- data.frame(
@@ -485,7 +485,7 @@ plot_GrowthCurve <- function(
   #EXP+EXP
   fit.functionEXPEXP<-function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
   fit.formulaEXPEXP <- y ~ (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
-  
+
   #GOK
   fit.functionGOK <- function(a,b,c,x) { a*(1-(1+(1/b)*x*c)^(-1/c)) }
   fit.formulaGOK <- y ~ a*(1-(1+(1/b)*x*c)^(-1/c))
@@ -496,6 +496,7 @@ plot_GrowthCurve <- function(
       data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
     fit.weights <- fit.weights[!duplicated(xy[[1]])]
     data.MC <- data.MC[!duplicated(xy[[1]]),]
+    y.Error <- y.Error[!duplicated(xy[[1]])]
     xy <- xy[!duplicated(xy[[1]]),]
 
   }else{
@@ -1587,14 +1588,14 @@ plot_GrowthCurve <- function(
     if(txtProgressBar) if(exists("pb")){close(pb)}
 
 
-    
-  } 
+
+  }
   else if (fit.method=="GOK") {
   #==========================================================================
   #==========================================================================
   # GOK -----
-    
-    # FINAL Fit 
+
+    # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
       formula = fit.formulaGOK,
       data = data,
@@ -1610,34 +1611,34 @@ plot_GrowthCurve <- function(
       upper = c(Inf, Inf, Inf),
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = TRUE)
-    
+
     if (inherits(fit, "try-error")){
       if(verbose) writeLines("[plot_GrowthCurve()] try-error for GOK fit")
-      
+
     }else{
-      
+
       #get parameters out of it
       parameters <- (coef(fit))
       b <- as.vector((parameters["b"]))
       a <- as.vector((parameters["a"]))
       c <- as.vector((parameters["c"]))
-      
-      
+
+
       #calculate De
       if(mode == "interpolation"){
         De <- suppressWarnings(round(-(b * (( (a - sample[1,2])/a)^c - 1) * ( ((a - sample[1,2])/a)^-c  )) / c, digits=2))
-        
+
       }else if (mode == "extrapolation"){
         De <- suppressWarnings(-(b * (( (a - 0)/a)^c - 1) * ( ((a - 0)/a)^-c  )) / c)
-        
+
       }else{
         De <- NA
-        
+
       }
-      
+
       #print D01 value
       D01<-round(b, digits=2)
-      
+
       if (verbose) {
         if (mode != "alternate") {
           writeLines(paste0(
@@ -1655,24 +1656,24 @@ plot_GrowthCurve <- function(
           ))
         }
       }
-      
-      
+
+
       #EXP MC -----
       ##Monte Carlo Simulation
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
-      
+
       #set variables
       var.b<-vector(mode="numeric", length=NumberIterations.MC)
       var.a<-vector(mode="numeric", length=NumberIterations.MC)
       var.c<-vector(mode="numeric", length=NumberIterations.MC)
-      
+
       #start loop
       for (i in 1:NumberIterations.MC) {
-        
+
         ##set data set
         data <- data.frame(x = xy$x,y = data.MC[,i])
-        
+
         fit.MC <- try(minpack.lm::nlsLM(
           formula = fit.formulaGOK,
           data = data,
@@ -1689,52 +1690,52 @@ plot_GrowthCurve <- function(
           control = minpack.lm::nls.lm.control(maxiter = 500)
         ), silent = TRUE
         )
-        
+
         # get parameters out of it including error handling
         if (class(fit.MC)=="try-error") {
           x.natural[i] <- NA
-          
+
         } else {
-          
+
           # get parameters out
           parameters<-coef(fit.MC)
           var.b[i]<-as.vector((parameters["b"])) #D0
           var.a[i]<-as.vector((parameters["a"])) #Imax
           var.c[i]<-as.vector((parameters["c"])) #kinetic order modifier
-          
+
           # calculate x.natural for error calculation
           if(mode == "interpolation"){
             x.natural[i]<-suppressWarnings(
               round(
                 -(var.b[i] * (( (var.a[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i],
                 digits=2))
-            
+
           }else if(mode == "extrapolation"){
             x.natural[i]<-suppressWarnings(
               abs(-(var.b[i] * (( (var.a[i] - 0)/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])
             )
-            
+
           }else{
             x.natural[i] <- NA
-            
+
           }
-          
+
         }
-        
+
       }#end for loop
-      
-      
+
+
       ##write D01.ERROR
       D01.ERROR <- sd(var.b, na.rm = TRUE)
-      
+
       ##remove values
       rm(var.b, var.a, var.c)
-      
+
     }#endif::try-error fit
-    
-  
+
+
   #===========================================================================
-  }#End if Fit Method 
+  }#End if Fit Method
 
   #Get De values from Monto Carlo simulation
 
@@ -1800,7 +1801,7 @@ plot_GrowthCurve <- function(
       ))
 
     }
-    
+
     if(fit.method == "GOK") {
       f <- parse(text = paste0(
         format(coef(fit)[1], scientific = TRUE), " * (1 - (1 + (1/",
@@ -2006,7 +2007,7 @@ plot_GrowthCurve <- function(
       points(xy[which(xy == 0), 1], xy[which(xy == 0), 2], pch = 1, cex = 1.5 *
                cex.global)
 
-      ##ARROWS	#y-error Bars
+      ##ARROWS	#y-error Bar
       segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
       ##LINES	#Insert Ln/Tn
