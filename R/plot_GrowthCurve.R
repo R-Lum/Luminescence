@@ -370,8 +370,8 @@ plot_GrowthCurve <- function(
 
   ##zero values in the data.frame are not allowed for the y-column
   if(length(sample[sample[,2]==0,2])>0){
-    sample[sample[, 2] == 0, 2] <- 0.0001
-    warning(paste("[plot_GrowthCurve()]", length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by 0.0001."))
+    warning(paste("[plot_GrowthCurve()]", length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by ", .Machine$double.eps), call. = FALSE)
+    sample[sample[, 2] == 0, 2] <- .Machine$double.eps
   }
 
   ##1. INPUT
