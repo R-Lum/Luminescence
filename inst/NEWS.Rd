@@ -15,7 +15,7 @@
 
   \itemize{
 
-       \item Dummy
+       \item
 
        }
      }
