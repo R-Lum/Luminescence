@@ -4,7 +4,15 @@
 
  \subsection{Bugfixes and changes}{
   \itemize{
-    \item Dummy
+    \item \code{plot_GrowthCurve()}
+    \itemize{
+      \item If number of regeneration points was reduced for plotting and fitting, an unwanted
+      warning message appeared due to a coding error,
+      \item if the D0 values is precisely 0.0000, the fit probably went wrong, in such cases now another
+      attempt is made,
+      \item if a value for Lx/Tx is 0 now the value is set to \code{.Machine$double.eps}, instead of 0.001.
+
+    }
   }
 
  }
