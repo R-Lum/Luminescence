@@ -123,7 +123,8 @@ plot_DRCSummary <- function(
        },numeric(1))))
     },
     main = "DRC Summary",
-    lty = 1,
+    lty = rep(1,length(sel_curves)),
+    lwd = 1,
     pch = rep(20,length(sel_curves)),
     col = rep(rgb(0,0,0,0.5), length(sel_curves))
   )
@@ -175,7 +176,13 @@ plot_DRCSummary <- function(
 
     ##plot lines
     x <- seq(min(plot_settings$xlim),max(plot_settings$xlim), length.out = n)
-    lines(x = x, y = eval(DRC[[i]]), col = plot_settings$col[[i]])
+    lines(
+      x = x,
+      y = eval(DRC[[i]]),
+      col = plot_settings$col[[i]],
+      lwd = plot_settings$lwd,
+      lty = plot_settings$lty[[i]]
+    )
 
   }
 
