@@ -5,7 +5,9 @@
   \subsection{New functions}{
     \itemize{
 
-         \item Dummy
+        \item \code{plot_DRCSummary()} Summarise all dose-response curves from your SAR OSL
+         analysis in one single plot.
+
     }
   }
 

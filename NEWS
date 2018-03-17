@@ -4,7 +4,8 @@ Changes in version 0.9.0 (, 2018):
 
   New functions:
 
-         • Dummy
+         • ‘plot_DRCSummary()’ Summarise all dose-response curves from
+           your SAR OSL analysis in one single plot.
 
   Bugfixes and changes:
 
