@@ -139,7 +139,7 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.8.1
+#' @section Function version: 0.8.2
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -767,7 +767,6 @@ if(is.list(object)){
     LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
 
     # Calculate Recycling Ratio -----------------------------------------------
-
     ##Calculate Recycling Ratio
     if (length(LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,"Repeated"]) > 0) {
       ##identify repeated doses
@@ -812,8 +811,6 @@ if(is.list(object)){
 
 
     # Calculate Recuperation Rate ---------------------------------------------
-
-
     ##Recuperation Rate (capable to handle multiple type of recuperation values)
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
       Recuperation <-
@@ -837,7 +834,6 @@ if(is.list(object)){
 
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
-
     temp.criteria <- c(
       if(!is.null(colnames(RecyclingRatio))){
        colnames(RecyclingRatio)}else{NA},
@@ -1365,10 +1361,32 @@ if(is.list(object)){
 
         ##if null
         if(is.null(temp.GC)){
-          temp.GC <- data.frame(De = NA, De.Error = NA, D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA, De.MC = NA, Fit = NA,
-                                RC.Status = NA)
+          temp.GC <- data.frame(
+            De = NA,
+            De.Error = NA,
+            D01 = NA,
+            D01.ERROR = NA,
+            D02 = NA,
+            D02.ERROR = NA,
+            De.MC = NA,
+            Fit = NA,
+            RC.Status = NA
+          )
           temp.GC.fit.Formula <- NA
 
+          ##create empty plots if needed, otherwise subsequent functions may crash
+          if(plot){
+            if("output.plotExtended" %in% list(...) && list(...)$output.plotExtended == FALSE){
+              shape::emptyplot()
+
+            }else{
+              shape::emptyplot()
+              shape::emptyplot()
+              shape::emptyplot()
+
+            }
+
+          }
 
         }else{
 
@@ -1480,6 +1498,7 @@ if(is.list(object)){
           stringsAsFactors = FALSE
         )
 
+
     # Set return Values -----------------------------------------------------------
 
     ##generate unique identifier
@@ -1505,7 +1524,6 @@ if(is.list(object)){
       }else{
         par(mfrow = c(1,1))
       }
-
 
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(temp.results.final,
