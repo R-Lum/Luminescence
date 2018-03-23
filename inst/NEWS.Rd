@@ -6,7 +6,16 @@
   \itemize{
       \item \code{analyse_SAR.CWOSL()}
     \itemize{
-      \item The function crashed if the \code{plot_GrowthCurve()} returned \code{NULL}; fixed.
+      \item The function crashed if the \code{plot_GrowthCurve()} returned \code{NULL}; fixed,
+      \item If the dose-response curve was not fitted, but \code{plot} was set to \code{TRUE} no
+      plot was returned (even no empty plot); fixed.
+
+
+    }
+
+       \item \code{analyse_pIRIRSequence()}
+    \itemize{
+      \item Fixed unwanted functions crashes for very odd datasets (e.g., \code{Inf} values).
 
     }
 
@@ -17,7 +26,8 @@
       warning message appeared due to a coding error,
       \item if the D0 values is precisely 0.0000, the fit probably went wrong, in such cases now another
       attempt is made,
-      \item if a value for Lx/Tx is 0 now the value is set to \code{.Machine$double.eps}, instead of 0.001.
+      \item if a value for Lx/Tx is 0 now the value is set to \code{.Machine$double.eps}, instead of 0.001,
+      \item the formula output for \code{EXP+EXP} was not correct, fixed.
 
     }
 

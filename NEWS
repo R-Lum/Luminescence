@@ -7,7 +7,16 @@ Changes in version 0.8.3 (March 11th, 2018):
          • ‘analyse_SAR.CWOSL()’
 
              • The function crashed if the ‘plot_GrowthCurve()’
-               returned ‘NULL’; fixed.
+               returned ‘NULL’; fixed,
+
+             • If the dose-response curve was not fitted, but ‘plot’
+               was set to ‘TRUE’ no plot was returned (even no empty
+               plot); fixed.
+
+         • ‘analyse_pIRIRSequence()’
+
+             • Fixed unwanted functions crashes for very odd datasets
+               (e.g., ‘Inf’ values).
 
          • ‘plot_GrowthCurve()’
 
@@ -19,7 +28,9 @@ Changes in version 0.8.3 (March 11th, 2018):
                went wrong, in such cases now another attempt is made,
 
              • if a value for Lx/Tx is 0 now the value is set to
-               ‘.Machine$double.eps’, instead of 0.001.
+               ‘.Machine$double.eps’, instead of 0.001,
+
+             • the formula output for ‘EXP+EXP’ was not correct, fixed.
 
          • ‘src_create_RLumDataCurve_matrix()’
 
