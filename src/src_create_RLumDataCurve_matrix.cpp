@@ -2,7 +2,7 @@
 // Title:   src_create_RLumDataCurve_matrix()
 // Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 // Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
-// Version: 0.1.0 [2016-06-28]
+// Version: 0.1.1 [2018-03-22]
 // Purpose: Function to create the RLum.Data.Curve() matrix ... faster than in R itself
 //  - Mainly used by the function Risoe.BINfileData2RLum.Data.Curve()
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -62,6 +62,13 @@ NumericMatrix create_RLumDataCurve_matrix(
     //fill x column for the case we have a TL curve
     if(LTYPE == "TL" && VERSION >= 4){
 
+      //write a fallback for nonconform  BIN/BINX-files, otherwise the
+      //the TL curves are wrong withouth having a reason.
+      if(TOLON == 0 & TOLOFF == 0 && TOLDELAY == 0){
+        Rcout << "[src_create_RLumDataCurve_matrix()] BIN/BINX-file nonconform. TL curve may be wrong!\n";
+        TOLOFF = NPOINTS;
+      }
+
       //the heating curve consists of three vectors that needed to
       //be combined
       //
@@ -117,4 +124,3 @@ NumericMatrix create_RLumDataCurve_matrix(
   }
 
 }
-
