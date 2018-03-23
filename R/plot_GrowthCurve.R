@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.3
+#' @section Function version: 1.10.4
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -1479,7 +1479,7 @@ plot_GrowthCurve <- function(
         ##remove object
         rm(temp.De)
       }else if (mode == "extrapolation"){
-        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!")
+        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!", call. = FALSE)
 
       } else{
         De <- NA
@@ -1776,8 +1776,8 @@ plot_GrowthCurve <- function(
 
     if(fit.method == "EXP+EXP") {
       f <- parse(text = paste0(format(coef(fit)[1], scientific = TRUE), " * (1 - exp( -x / ",
-                               format(coef(fit)[3], scientific = TRUE), ")) + ",
-                               format(coef(fit)[2], scientific = TRUE), " * (1 - exp( -x / ",
+                               format(coef(fit)[2], scientific = TRUE), ")) + ",
+                               format(coef(fit)[3], scientific = TRUE), " * (1 - exp( -x / ",
                                format(coef(fit)[4], scientific = TRUE), "))"))
     }
 
