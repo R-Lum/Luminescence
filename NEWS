@@ -4,6 +4,11 @@ Changes in version 0.8.3 (March 11th, 2018):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • The function crashed if the ‘plot_GrowthCurve()’
+               returned ‘NULL’; fixed.
+
          • ‘plot_GrowthCurve()’
 
              • If number of regeneration points was reduced for
@@ -15,6 +20,18 @@ Changes in version 0.8.3 (March 11th, 2018):
 
              • if a value for Lx/Tx is 0 now the value is set to
                ‘.Machine$double.eps’, instead of 0.001.
+
+         • ‘src_create_RLumDataCurve_matrix()’
+
+             • Until today, you probably did not know that this
+               function exists at all. This function is written in C++,
+               working in the back and helping to create
+               ‘RLum.Data.Curve’-objects out of BIN/BINX-files.
+               Recently we became aware of nonconform BIN/BINX-files,
+               circulating in the wild. For such files the TL curves
+               were not created correctly, more important, the user did
+               not know why. Now the function throws out a message, at
+               least.
 
 Changes in version 0.8.2 (March 10th, 2018):
 

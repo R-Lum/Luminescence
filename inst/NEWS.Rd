@@ -4,6 +4,13 @@
 
  \subsection{Bugfixes and changes}{
   \itemize{
+      \item \code{analyse_SAR.CWOSL()}
+    \itemize{
+      \item The function crashed if the \code{plot_GrowthCurve()} returned \code{NULL}; fixed.
+
+    }
+
+
     \item \code{plot_GrowthCurve()}
     \itemize{
       \item If number of regeneration points was reduced for plotting and fitting, an unwanted
@@ -11,6 +18,16 @@
       \item if the D0 values is precisely 0.0000, the fit probably went wrong, in such cases now another
       attempt is made,
       \item if a value for Lx/Tx is 0 now the value is set to \code{.Machine$double.eps}, instead of 0.001.
+
+    }
+
+    \item \code{src_create_RLumDataCurve_matrix()}
+    \itemize{
+
+      \item Until today, you probably did not know that this function exists at all. This function
+      is written in C++, working in the back and helping to create \code{RLum.Data.Curve}-objects out of BIN/BINX-files.
+      Recently we became aware of nonconform BIN/BINX-files, circulating in the wild. For such files the TL curves
+      were not created correctly, more important, the user did not know why. Now the function throws out a message, at least.
 
     }
   }
