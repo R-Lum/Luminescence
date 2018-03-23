@@ -24,4 +24,20 @@ test_that("Test internals", {
   ##.unlist_RLum()
   expect_length(Luminescence:::.unlist_RLum(list(a = list(b = list(c = list(d = 1, e = 2))))), 2)
 
+  ##RLum.Data.Curve() ... test src_create_RLumDataCurve_matrix()
+  expect_output(
+    Luminescence:::src_create_RLumDataCurve_matrix(
+      DATA = 1:100,
+      VERSION = 4,
+      NPOINTS = 100,
+      LTYPE = "TL",
+      LOW = 0,
+      HIGH = 500,
+      AN_TEMP = 0,
+      TOLDELAY = 0,
+      TOLON = 0,
+      TOLOFF = 0
+    )
+  )
+
 })
