@@ -540,18 +540,15 @@ analyse_pIRIRSequence <- function(
 
     ## call single plots
     if(i == 1){
-
       temp.plot.single  <- c(1,2,3,4,6)
 
     }else if(i == n.loops){
-
       temp.plot.single  <- c(2,4,5,6)
 
-  }else{
+   }else{
+      temp.plot.single  <- c(2,4,6)
 
-     temp.plot.single  <- c(2,4,6)
-
-  }
+   }
 
     ##start analysis
     temp.results <- analyse_SAR.CWOSL(
@@ -567,7 +564,6 @@ analyse_pIRIRSequence <- function(
       cex.global = cex,
       ...
     ) ##TODO should be replaced be useful explicit arguments
-
 
       ##check whether NULL was return
       if (is.null(temp.results)) {
@@ -629,32 +625,40 @@ analyse_pIRIRSequence <- function(
 
 if(plot){
 
+  ##extract LnLnxTnTx.table
+  LnLxTnTx.table <- get_RLum(temp.results.final, "LnLxTnTx.table")
+
+    ##remove Inf
+    if(any(is.infinite(LnLxTnTx.table[["LxTx"]])))
+      LnLxTnTx.table[["LxTx"]][is.infinite(LnLxTnTx.table[["LxTx"]])] <- NA
+
+    if(any(is.infinite(LnLxTnTx.table[["LxTx.Error"]])))
+      LnLxTnTx.table[["LxTx.Error"]][is.infinite(LnLxTnTx.table[["LxTx.Error"]])] <- NA
+
+
   ##plot growth curves
   plot(NA, NA,
        xlim = range(get_RLum(temp.results.final, "LnLxTnTx.table")$Dose),
        ylim = c(
-         if(min(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)-
-            max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error) < 0){
-           min(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)-
-             max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error)
+         if(min(LnLxTnTx.table$LxTx, na.rm = TRUE) -
+            max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE) < 0){
+            min(LnLxTnTx.table$LxTx, na.rm = TRUE)-
+            max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE)
          }else{0},
-         max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)+
-         max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error)),
+           max(LnLxTnTx.table$LxTx, na.rm = TRUE)+
+           max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE)),
        xlab = "Dose [s]",
        ylab = expression(L[x]/T[x]),
        main = "Summarised Dose Response Curves")
 
 
     ##set x for expression evaluation
-    x <- seq(0,
-             max(get_RLum(temp.results.final, "LnLxTnTx.table")$Dose)*1.05,
-             length = 100)
+    x <- seq(0,max(LnLxTnTx.table$Dose)*1.05,length = 100)
 
     for(j in 1:length(pIRIR.curve.names)){
 
      ##dose points
-     temp.curve.points <- get_RLum(
-       temp.results.final,"LnLxTnTx.table")[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
+     temp.curve.points <-  LnLxTnTx.table[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
 
      temp.curve.points <- temp.curve.points[
        temp.curve.points[,"Signal"] == pIRIR.curve.names[j],
@@ -690,6 +694,7 @@ if(plot){
 
     rm(x)
 
+
     ##plot legend
     legend("bottomright", legend = pIRIR.curve.names,
            lty = 1, col = c(1:length(pIRIR.curve.names)),
@@ -699,8 +704,7 @@ if(plot){
 
     ##plot Tn/Tx curves
     ##select signal
-    temp.curve.TnTx <-
-      get_RLum(temp.results.final, "LnLxTnTx.table")[, c("TnTx", "Signal")]
+    temp.curve.TnTx <- LnLxTnTx.table[, c("TnTx", "Signal")]
 
     temp.curve.TnTx.matrix <- matrix(NA,
                                     nrow = nrow(temp.curve.TnTx)/
@@ -719,7 +723,7 @@ if(plot){
     }
 
     plot(NA, NA,
-       xlim = c(0,nrow(get_RLum(temp.results.final, "LnLxTnTx.table"))/
+       xlim = c(0,nrow(LnLxTnTx.table)/
                      n.loops),
        ylim = range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
