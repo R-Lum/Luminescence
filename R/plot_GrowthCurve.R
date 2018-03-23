@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.2
+#' @section Function version: 1.10.3
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -806,7 +806,7 @@ plot_GrowthCurve <- function(
       c <- median(na.exclude(c.start))
 
       ##exception for b: if b is 1 it is likely to b wrong and should be reset
-      if(b == 1)
+      if(!is.na(b) && b == 1)
         b <- mean(b.MC)
 
       #FINAL Fit curve on given values
