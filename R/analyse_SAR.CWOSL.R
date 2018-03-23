@@ -139,7 +139,7 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.8.0
+#' @section Function version: 0.8.1
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -1363,89 +1363,102 @@ if(is.list(object)){
                                     output.plot = plot,
                                     ...)
 
+        ##if null
+        if(is.null(temp.GC)){
+          temp.GC <- data.frame(De = NA, De.Error = NA, D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA, De.MC = NA, Fit = NA,
+                                RC.Status = NA)
+          temp.GC.fit.Formula <- NA
 
-        ##grep information on the fit object
-        temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
-
-        ##grep results
-        temp.GC <- get_RLum(temp.GC)
-
-        # Provide Rejection Criteria for Palaedose error --------------------------
-        palaeodose.error.calculated <- ifelse(is.na(temp.GC[,1]) == FALSE,
-                                              round(temp.GC[,2] / temp.GC[,1], digits = 5),
-                                              NA)
-
-        palaeodose.error.threshold <-
-          rejection.criteria$palaeodose.error / 100
-
-        if (is.na(palaeodose.error.calculated)) {
-          palaeodose.error.status <- "FAILED"
 
         }else{
-          if(!is.na(palaeodose.error.threshold)){
-            palaeodose.error.status <- ifelse(
-              palaeodose.error.calculated <= palaeodose.error.threshold,
-              "OK", "FAILED"
-            )
 
+          ##grep information on the fit object
+          temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
+
+          ##grep results
+          temp.GC <- get_RLum(temp.GC)
+
+          # Provide Rejection Criteria for Palaedose error --------------------------
+          if(is.na(temp.GC[,1])){
+            palaeodose.error.calculated <- NA
 
           }else{
-            palaeodose.error.status <- "OK"
-
+            palaeodose.error.calculated <- round(temp.GC[,2] / temp.GC[,1], digits = 5)
 
           }
 
-        }
+          palaeodose.error.threshold <-
+            rejection.criteria$palaeodose.error / 100
 
-        palaeodose.error.data.frame <- data.frame(
-          Criteria = "Palaeodose error",
-          Value = palaeodose.error.calculated,
-          Threshold = palaeodose.error.threshold,
-          Status =  palaeodose.error.status,
-          stringsAsFactors = FALSE
-        )
+          if (is.na(palaeodose.error.calculated)) {
+            palaeodose.error.status <- "FAILED"
+
+          }else{
+            if(!is.na(palaeodose.error.threshold)){
+              palaeodose.error.status <- ifelse(
+                palaeodose.error.calculated <= palaeodose.error.threshold,
+                "OK", "FAILED"
+              )
 
 
-        ##add exceed.max.regpoint
-        if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
-          status.exceed.max.regpoint <-
-            ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
+            }else{
+              palaeodose.error.status <- "OK"
+
+
+            }
+
+          }
+
+          palaeodose.error.data.frame <- data.frame(
+            Criteria = "Palaeodose error",
+            Value = palaeodose.error.calculated,
+            Threshold = palaeodose.error.threshold,
+            Status =  palaeodose.error.status,
+            stringsAsFactors = FALSE
+          )
+
+
+          ##add exceed.max.regpoint
+          if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
+            status.exceed.max.regpoint <-
+              ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
+
+          }else{
+            status.exceed.max.regpoint <- "OK"
+
+          }
+
+          exceed.max.regpoint.data.frame <- data.frame(
+            Criteria = "De > max. dose point",
+            Value = as.numeric(temp.GC[,1]),
+            Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
+                NA
+              }else if(!rejection.criteria$exceed.max.regpoint){
+                Inf
+              }else{
+                as.numeric(max(LnLxTnTx$Dose))
+              },
+            Status =  status.exceed.max.regpoint
+          )
+
+
+          ##add to RejectionCriteria data.frame
+          RejectionCriteria <- rbind(RejectionCriteria,
+                                     palaeodose.error.data.frame,
+                                     exceed.max.regpoint.data.frame)
+
+
+        ##add recjection status
+        if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
+          temp.GC <- data.frame(temp.GC, RC.Status = "FAILED")
+
 
         }else{
-          status.exceed.max.regpoint <- "OK"
+          temp.GC <- data.frame(temp.GC, RC.Status = "OK")
+
 
         }
-
-        exceed.max.regpoint.data.frame <- data.frame(
-          Criteria = "De > max. dose point",
-          Value = as.numeric(temp.GC[,1]),
-          Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
-              NA
-            }else if(!rejection.criteria$exceed.max.regpoint){
-              Inf
-            }else{
-              as.numeric(max(LnLxTnTx$Dose))
-            },
-          Status =  status.exceed.max.regpoint
-        )
-
-
-        ##add to RejectionCriteria data.frame
-        RejectionCriteria <- rbind(RejectionCriteria,
-                                   palaeodose.error.data.frame,
-                                   exceed.max.regpoint.data.frame)
-
-
-      ##add recjection status
-      if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
-        temp.GC <- data.frame(temp.GC, RC.Status = "FAILED")
-
-
-      }else{
-        temp.GC <- data.frame(temp.GC, RC.Status = "OK")
-
-
-      }
+       }#endif for is.null
 
      ##end onlyLxTxTable
      }else{
@@ -1482,7 +1495,6 @@ if(is.list(object)){
       ),
       info = list(call = sys.call())
     )
-
 
     # Plot graphical interpretation of rejection criteria -----------------------------------------
 
