@@ -9,7 +9,7 @@ init:
 
 install:
   - ps: Bootstrap
-  - ps: (new-object net.webclient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe', 'C:\projects\JAGS-4.3.0.exe')
+  - ps: Start-FileDownload 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe' -FileName 'C:\projects\JAGS-4.3.0.exe' -Timeout 300000
   - cmd: C:\projects\JAGS-4.3.0.exe /S
 
 # Adapt as necessary starting from here
