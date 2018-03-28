@@ -1003,7 +1003,7 @@ analyse_baSAR <- function(
     ##      .. S4
 
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
-    if(class(object) == "RLum.Analysis" || unique(sapply(object, class)) == "RLum.Analysis"){
+    if(class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))){
      if(verbose)
        cat("[analyse_baSAR()] RLum.Analysis-object detected .. ")
 
