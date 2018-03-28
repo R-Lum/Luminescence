@@ -8,7 +8,7 @@
 #'@param object [RLum.Analysis-class] or [RLum.Data.Curve-class] (**required**): input object to
 #'be converted
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.1.1
 #'
 #'@author  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -259,7 +259,7 @@ convert_RLum2Risoe.BINfileData <- function(
     ##(a) create LTYPE from names of objects
     LTYPE <- vapply(names(object), function(s){
       if(grepl(pattern = " (", x = s, fixed = TRUE)){
-        strsplit(names(object), split = " (", fixed = TRUE)[[1]][1]
+        strsplit(s, split = " (", fixed = TRUE)[[1]][1]
 
       }else{
         s
@@ -267,7 +267,6 @@ convert_RLum2Risoe.BINfileData <- function(
 
 
     }, FUN.VALUE = character(1))
-
 
     ##(b) replace characters
     ##(b.1) irradiation
