@@ -17,7 +17,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Julie Durcan [ctb] (<https://orcid.org/0000-0001-8724-8022>),
     Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
     Anne Philippe [ctb],
-    Guillaume Guerin [ctb],
+    Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr", comment = c(ORCID = "0000-0002-0734-2199")),
@@ -34,7 +34,7 @@ Authors@R: c(
     person("Julie", "Durcan", role = c("ctb"), comment = c(ORCID = "0000-0001-8724-8022")),
     person("Georgina E.", "King", role = c("ctb", "dtc"), comment = c(ORCID = "0000-0003-1059-8192")),
     person("Anne", "Philippe", role = c("ctb")),
-    person("Guillaume", "Guerin", role = c("ctb")),
+    person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
