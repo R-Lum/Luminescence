@@ -159,7 +159,7 @@
 #' }
 #'
 #'
-#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [character] or [list] (**required**):
+#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [RLum.Analysis-class] [character] or [list] (**required**):
 #' input object used for the Bayesian analysis. If a `character` is provided the function
 #' assumes a file connection and tries to import a BIN-file using the provided path. If a `list` is
 #' provided the list can only contain either `Risoe.BINfileData` objects or `character`s
@@ -205,6 +205,11 @@
 #' If nothing is provided the value from `background.integral` is used.
 #' Ignored if `object` is an [RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
+#'
+#' @param irradiation_times [numeric] (*optional*): if set this vector replaces all irradiation
+#' times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
+#' Plesae note that if this argument is used, for every(!) single curve
+#' in the dataset an irradiation time needs to be set.
 #'
 #' @param sigmab [numeric] (*with default*):
 #' option to set a manual value for the overdispersion (for LnTx and TnTx),
@@ -308,7 +313,7 @@
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.29
+#' @section Function version: 0.1.30
 #'
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -409,6 +414,7 @@ analyse_baSAR <- function(
   signal.integral.Tx = NULL,
   background.integral,
   background.integral.Tx = NULL,
+  irradiation_times = NULL,
   sigmab = 0,
   sig0 = 0.025,
   distribution = "cauchy",
@@ -865,7 +871,7 @@ analyse_baSAR <- function(
      }
 
      ##set variables
-     ##Why is.null() ... it prevents that the function crashed is nothing is provided ...
+     ##Why is.null() ... it prevents that in case of a function crash is nothing is provided ...
 
      ##set changeable function arguments
 
@@ -980,9 +986,10 @@ analyse_baSAR <- function(
   }else{
 
     if(verbose){
-      cat("\n[analyse_baSAR()] ---- PREPROCESSING ----")
+      cat("\n[analyse_baSAR()] ---- PRE-PROCESSING ----\n")
 
     }
+
 
     ##Supported input types are:
     ##  (1) BIN-file
@@ -991,6 +998,69 @@ analyse_baSAR <- function(
     ##  (2) RisoeBINfileData object
     ##      .. list
     ##      .. S4
+    ##  (3) RLum.Analyis objects
+    ##      .. list
+    ##      .. S4
+
+    ##In case an RLum.Analysis object is provided we try an ugly conversion only
+    if(class(object) == "RLum.Analysis" || unique(sapply(object, class)) == "RLum.Analysis"){
+     if(verbose)
+       cat("[analyse_baSAR()] RLum.Analysis-object detected .. ")
+
+      ##set number of objects
+      if(class(object) == "list"){
+        n_objects <- length(object)
+
+      }else{
+        n_objects <- 1
+
+      }
+
+      ##extract wanted curves
+      if(verbose)
+        cat("\n\t\t  .. extract 'OSL (UVVIS)' and 'irradiation (NA)'")
+      object <- get_RLum(object, recordType = c("OSL (UVVIS)", "irradiation (NA)"), drop = FALSE)
+
+      ##extract irradiation times
+      if(is.null(irradiation_times)){
+        if(verbose)
+          cat("\n\t\t  .. extract irradiation times")
+        irradiation_times <- extract_IrradiationTimes(object[[1]])$irr.times$IRR_TIME
+
+      }
+
+      ##run conversion
+      if(verbose)
+        cat("\n\t\t  .. run conversion")
+      object <- try(convert_RLum2Risoe.BINfileData(object), silent = TRUE)
+
+      ##create fallback
+       if(class(object) == "try-error"){
+         stop("[analyse_baSAR()] Object conversion failed. Return NULL!", call. = FALSE)
+         return(NULL)
+       }
+
+      ##assign irradiation times
+      if(is.null(irradiation_times)){
+        if(verbose)
+          cat("\n\t\t  .. set irradiation times")
+        object@METADATA[["IRR_TIME"]] <- rep(irradiation_times,n_objects)
+      }
+
+      ##remove none-OSL curves
+      if(verbose)
+        cat("\n\t\t  .. remove non-OSL curves")
+      rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
+      object@METADATA <- object@METADATA[-rm_id,]
+      object@DATA[rm_id] <- NULL
+
+      ##reset index
+      object@METADATA[["ID"]] <- 1:length(object@METADATA[["ID"]])
+
+      ##delete objects
+      rm(rm_id)
+
+    }
 
     if (is(object, "Risoe.BINfileData")) {
       fileBIN.list <- list(object)
@@ -1438,12 +1508,11 @@ analyse_baSAR <- function(
 
   if(verbose){
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
-    cat("\n[analyse_baSAR()] Hang on, this may take a long time ... \n")
+    cat("\n[analyse_baSAR()] Hang on, this may take a while ... \n")
   }
 
 
   for (k in 1:length(fileBIN.list)) {
-
     n_index.vector <- vector("numeric")
 
     measured_discs.vector <- vector("numeric")
@@ -1460,12 +1529,20 @@ analyse_baSAR <- function(
 
     measured_discs.vector <-  fileBIN.list[[k]]@METADATA[["POSITION"]][1:length_BIN] # measured discs vector
     measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]][1:length_BIN]    # measured grains vector
-    irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+
+    if(is.null(irradiation_times)){
+      irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+
+    }else{
+      irrad_time.vector <- rep(irradiation_times,n_objects)
+
+    }
+
 
     ##if all irradiation times are 0 we should stop here
     if (length(unique(irrad_time.vector)) == 1) {
       try(stop(
-        "[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped an NULL returned!",
+        "[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped and NULL returned!",
         call. = FALSE
       ))
       return(NULL)
@@ -1520,7 +1597,7 @@ analyse_baSAR <- function(
           ##if the test passed, compile index list
           index_liste <- n_index.vector[disc_logic & grain_logic]
 
-      if (Mono_grain == FALSE)  { grain_selected <-1}
+      if (Mono_grain == FALSE)  {grain_selected <-1}
 
           for (kn in 1: length(index_liste)) {
 
