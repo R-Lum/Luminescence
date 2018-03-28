@@ -38,12 +38,21 @@ matrix:
   include:
   - os: linux
     r: oldrel
+    before_install:
+      - sudo apt-get -qq update
+      - sudo apt-get install -y ghostscript
     env: CACHE_NAME=JOB1
   - os: linux
     r: release
+    before_install:
+      - sudo apt-get -qq update
+      - sudo apt-get install -y ghostscript
     env: CACHE_NAME=JOB2
   - os: linux
     r: devel
+    before_install:
+      - sudo apt-get -qq update
+      - sudo apt-get install -y ghostscript
     env: CACHE_NAME=JOB3
   - os: osx
     r: release
