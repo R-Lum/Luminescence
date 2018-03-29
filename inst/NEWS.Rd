@@ -13,9 +13,17 @@
 
     }
 
-       \item \code{analyse_pIRIRSequence()}
+    \item \code{analyse_pIRIRSequence()}
     \itemize{
       \item Fixed unwanted functions crashes for very odd datasets (e.g., \code{Inf} values).
+
+    }
+
+
+     \item \code{convert_RLum2Risoe.BINfileData()}
+    \itemize{
+      \item The record type was not correclty extracted, fixed,
+      \item the conversion now keeps the original position numbers instead of assigning new.
 
     }
 

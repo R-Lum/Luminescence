@@ -18,6 +18,13 @@ Changes in version 0.8.3 (March 11th, 2018):
              • Fixed unwanted functions crashes for very odd datasets
                (e.g., ‘Inf’ values).
 
+         • ‘convert_RLum2Risoe.BINfileData()’
+
+             • The record type was not correclty extracted, fixed,
+
+             • the conversion now keeps the original position numbers
+               instead of assigning new.
+
          • ‘plot_GrowthCurve()’
 
              • If number of regeneration points was reduced for
