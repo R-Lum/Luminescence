@@ -313,7 +313,7 @@
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.30
+#' @section Function version: 0.1.31
 #'
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -668,7 +668,7 @@ analyse_baSAR <- function(
       if(verbose){
         cat("\n[analyse_baSAR()] ---- baSAR-model ---- \n")
         cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-        cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
+        cat("[analyse_baSAR()] Bayesian analysis in progress ...\n")
         message(paste(".. >> bounds set to: lower_centralD =", lower_centralD, "| upper_centralD =", upper_centralD))
       }
 
@@ -1281,7 +1281,6 @@ analyse_baSAR <- function(
   }
 
 
-
   # Read EXCEL sheet ----------------------------------------------------------------------------
   if(is.null(XLS_file)){
 
@@ -1837,7 +1836,7 @@ analyse_baSAR <- function(
         }
 
         previous.Nb_aliquots <-
-            length(Limited_cycles) # Total count of aliquots
+            length(na.exclude(Limited_cycles)) # Total count of aliquots
 
 
       count <- count + 1
@@ -1860,7 +1859,6 @@ analyse_baSAR <- function(
 
   }
   rm(calc_OSLLxTxRatio_warning)
-
 
   Nb_aliquots <- previous.Nb_aliquots
 
@@ -1972,7 +1970,6 @@ analyse_baSAR <- function(
 
     removed_aliquots <- t(OUTPUT_results_reduced[,!selection])
     OUTPUT_results_reduced <- t(OUTPUT_results_reduced[,selection])
-
 
     ##finally, check for difference in the number of dose points ... they should be the same
     if(length(unique(OUTPUT_results_reduced[,"CYCLES_NB"])) > 1){
