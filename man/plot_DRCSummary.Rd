@@ -34,7 +34,7 @@ dose points in Gy. If you need more options than provided with this function, pl
 a look into the source code to create and modify an own R script.
 }
 \section{Function version}{
- 0.1.0 (2018-03-29 15:53:34)
+ 0.1.0 (2018-03-30 10:47:14)
 }
 
 \examples{
