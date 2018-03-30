@@ -17,7 +17,12 @@
 
   \itemize{
 
-       \item
+       \item \code{analyse_baSAR()}
+        \itemize{
+          \item Add support for \code{RLum.Analysis}-objects as input,
+          \item correct odd message informing about removed aliquots that had been never removed.
+
+        }
 
        }
      }
