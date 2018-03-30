@@ -16,7 +16,7 @@
 #' 49)
 #'
 #' However, there might be cases where an additional addend (summand) is needed
-#' before the next position starts. Example: 
+#' before the next position starts. Example:
 #'
 #' - Position number set (A): `1,3,5,7`
 #' - Position number set (B): `1,3,5,7`
@@ -26,24 +26,24 @@
 #' `position.number.append.gap = 1` it will become:
 #' `1,3,5,7,9,11,13,15,17`.
 #'
-#' @param input.objects [character] with [Risoe.BINfileData-class] objects (**required**): 
-#' Character vector with path and files names 
-#' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or 
-#' [Risoe.BINfileData-class] objects (e.g. `input.objects = c(object1, object2)`). 
+#' @param input.objects [character] with [Risoe.BINfileData-class] objects (**required**):
+#' Character vector with path and files names
+#' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or
+#' [Risoe.BINfileData-class] objects (e.g. `input.objects = c(object1, object2)`).
 #' Alternatively a `list` is supported.
 #'
 #'
-#' @param output.file [character] (*optional*): 
+#' @param output.file [character] (*optional*):
 #' File output path and name. If no value is given, a [Risoe.BINfileData-class] is
 #' returned instead of a file.
 #'
 #'
-#' @param keep.position.number [logical] (*with default*): 
-#' Allows keeping the original position numbers of the input objects. 
+#' @param keep.position.number [logical] (*with default*):
+#' Allows keeping the original position numbers of the input objects.
 #' Otherwise the position numbers are recalculated.
 #'
 #'
-#' @param position.number.append.gap [integer] (*with default*): 
+#' @param position.number.append.gap [integer] (*with default*):
 #' Set the position number gap between merged BIN-file sets, if the option
 #' `keep.position.number = FALSE` is used. See details for further
 #' information.
@@ -52,21 +52,21 @@
 #' @return Returns a `file` or a [Risoe.BINfileData-class] object.
 #'
 #'
-#' @note 
+#' @note
 #' The validity of the output objects is not further checked.
 #'
 #'
 #' @section Function version: 0.2.7
 #'
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]
 #'
 #'
-#' @references 
+#' @references
 #' Duller, G., 2007. Analyst.
 #'
 #'
@@ -146,7 +146,6 @@ merge_Risoe.BINfileData <- function(
     temp <- lapply(input.objects, read_BIN2R)
 
   }else{
-
     temp <- input.objects
 
   }
@@ -154,12 +153,11 @@ merge_Risoe.BINfileData <- function(
   # Get POSITION values -------------------------------------------------------
 
   ##grep maximum position value from the first file
-  temp.position.max <- max(temp[[1]]@METADATA[, "POSITION"])
+  temp.position.max <- max(temp[[1]]@METADATA[["POSITION"]])
 
   ##grep all position values except from the first file
   temp.position.values <- unlist(sapply(2:length(temp), function(x){
-
-    temp <- temp[[x]]@METADATA[, "POSITION"] +
+    temp <- temp[[x]]@METADATA[["POSITION"]] +
       temp.position.max +
       position.number.append.gap
 
@@ -169,12 +167,11 @@ merge_Risoe.BINfileData <- function(
   }))
 
 
-  temp.position.values <- c(temp[[1]]@METADATA[, "POSITION"], temp.position.values)
+  temp.position.values <- c(temp[[1]]@METADATA[["POSITION"]], temp.position.values)
 
 
   # Get overall record length -----------------------------------------------
   temp.record.length <- sum(sapply(1:length(temp), function(x){
-
     length(temp[[x]]@METADATA[,"ID"])
 
   }))
@@ -225,7 +222,6 @@ merge_Risoe.BINfileData <- function(
 
   ##SET POSITION VALUES
   if(keep.position.number == FALSE){
-
     temp.new.METADATA$POSITION <- temp.position.values
 
   }
