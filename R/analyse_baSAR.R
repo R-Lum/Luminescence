@@ -1836,7 +1836,7 @@ analyse_baSAR <- function(
         }
 
         previous.Nb_aliquots <-
-            length(na.exclude(Limited_cycles)) # Total count of aliquots
+            length(Limited_cycles) # Total count of aliquots
 
 
       count <- count + 1
