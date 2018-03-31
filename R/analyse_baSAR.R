@@ -253,6 +253,10 @@
 #' @param digits [integer] (*with default*):
 #' round output to the number of given digits
 #'
+#' @param distribution_plot [character] (*with default*): sets the final distribution plot that
+#' shows equivalent doses obtained using the frequentist approach and sets in the central dose
+#' as comparison obtained using baSAR. Allowed input is `'abanico'` or `'kde'`. If set to `NULL` nothing is plotted.
+#'
 #' @param plot [logical] (*with default*):
 #' enables or disables plot output
 #'
@@ -306,14 +310,15 @@
 #'  - (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
 #'  provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
 #'  is limited to 1000 (random choice) for performance reasons,
-#'  - (E) the final plot is the De distribution as calculated using the conventional approach
-#'  and the central dose with the HPDs marked within.
+#'  - (E) the final plot is the De distribution as calculated using the conventional (frequentist) approach
+#'  and the central dose with the HPDs marked within. This figure is only provided for a comparison,
+#'  no further statistical conclusion should be drawn from it.
 #'
 #'
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.31
+#' @section Function version: 0.1.32
 #'
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -425,6 +430,7 @@ analyse_baSAR <- function(
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
   digits = 3L,
+  distribution_plot = "kde",
   plot = TRUE,
   plot_reduced = TRUE,
   plot.single = FALSE,
@@ -1836,7 +1842,7 @@ analyse_baSAR <- function(
         }
 
         previous.Nb_aliquots <-
-            length(Limited_cycles) # Total count of aliquots
+            length(stats::na.exclude(Limited_cycles)) # Total count of aliquots
 
 
       count <- count + 1
@@ -2489,45 +2495,50 @@ analyse_baSAR <- function(
       rm(plot_matrix)
 
       ##03 Abanico Plot
-      plot_check <- plot_AbanicoPlot(
-        data = input_object[, c("DE", "DE.SD")],
-        zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
-        log.z = if (distribution != "log_normal") {
-          FALSE
-        } else{
-          TRUE
-        },
-        z.0 = results[[1]]$CENTRAL,
-        y.axis = FALSE,
-        polygon.col = FALSE,
-        line = results[[1]][,c(
-          "CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
-        line.col = c(col[3], col[3], col[2], col[2]),
-        line.lty = c(3,3,2,2),
-        output = TRUE,
-        mtext = paste0(
-          nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
-          "/",
-          nrow(input_object),
-          " plotted (removed are NA values)"
+      if(distribution_plot == "abanico"){
+        plot_check <- plot_AbanicoPlot(
+          data = input_object[, c("DE", "DE.SD")],
+          zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
+          log.z = if (distribution != "log_normal") {
+            FALSE
+          } else{
+            TRUE
+          },
+          z.0 = results[[1]]$CENTRAL,
+          y.axis = FALSE,
+          polygon.col = FALSE,
+          line = results[[1]][,c(
+            "CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
+          line.col = c(col[3], col[3], col[2], col[2]),
+          line.lty = c(3,3,2,2),
+          output = TRUE,
+          mtext = paste0(
+            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
+            "/",
+            nrow(input_object),
+            " plotted (removed are NA values)"
+          )
         )
-      )
 
-      if (!is.null(plot_check)) {
-        legend(
-          "topleft",
-          legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
-          lty = c(2, 3, 2),
-          col = c("black", col[3], col[2]),
-          bty = "n",
-          cex = par()$cex * 0.8
-        )
+        if (!is.null(plot_check)) {
+          legend(
+            "topleft",
+            legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
+            lty = c(2, 3, 2),
+            col = c("black", col[3], col[2]),
+            bty = "n",
+            cex = par()$cex * 0.8
+          )
+
+        }
+      }else{
+        plot_check <- NULL
 
       }
 
       ##In case the Abanico plot will not work because of negative values
       ##provide a KDE
-      if(is.null(plot_check)){
+      if(is.null(plot_check) && distribution_plot == "kde"){
         plot_check <- try(suppressWarnings(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
           xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
@@ -2571,6 +2582,7 @@ analyse_baSAR <- function(
         }
 
       }
+
   }
 
   # Return --------------------------------------------------------------------------------------

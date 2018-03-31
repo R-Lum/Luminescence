@@ -11,8 +11,8 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   distribution = "cauchy", baSAR_model = NULL, n.MCMC = 1e+05,
   fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  digits = 3L, plot = TRUE, plot_reduced = TRUE, plot.single = FALSE,
-  verbose = TRUE, ...)
+  digits = 3L, distribution_plot = "kde", plot = TRUE,
+  plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \linkS4class{RLum.Analysis} \link{character} or \link{list} (\strong{required}):
@@ -109,6 +109,10 @@ See details for further information}
 \item{digits}{\link{integer} (\emph{with default}):
 round output to the number of given digits}
 
+\item{distribution_plot}{\link{character} (\emph{with default}): sets the final distribution plot that
+shows equivalent doses obtained using the frequentist approach and sets in the central dose
+as comparison obtained using baSAR. Allowed input is \code{'abanico'} or \code{'kde'}. If set to \code{NULL} nothing is plotted.}
+
 \item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output}
 
@@ -162,8 +166,9 @@ HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should
 \item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
 provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
 is limited to 1000 (random choice) for performance reasons,
-\item (E) the final plot is the De distribution as calculated using the conventional approach
-and the central dose with the HPDs marked within.
+\item (E) the final plot is the De distribution as calculated using the conventional (frequentist) approach
+and the central dose with the HPDs marked within. This figure is only provided for a comparison,
+no further statistical conclusion should be drawn from it.
 }
 
 \strong{Please note: If distribution was set to \code{log_normal} the central dose is given as geometric mean!}
@@ -336,7 +341,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.31 (2018-03-30 19:18:30)
+ 0.1.32 (2018-03-31 10:33:39)
 }
 
 \examples{
@@ -387,7 +392,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S. (2018). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S. (2018). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.32. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

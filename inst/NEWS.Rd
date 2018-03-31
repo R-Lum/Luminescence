@@ -20,7 +20,9 @@
        \item \code{analyse_baSAR()}
         \itemize{
           \item Add support for \code{RLum.Analysis}-objects as input,
-          \item correct odd message informing about removed aliquots that had been never removed.
+          \item correct odd message informing about removed aliquots that had been never removed,
+          \item add new argument \code{distribution_plot} to allow a manual selection of the frequentist
+          distribution plot output.
 
         }
 
