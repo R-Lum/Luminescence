@@ -139,7 +139,7 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.8.2
+#' @section Function version: 0.8.3
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -1720,9 +1720,18 @@ if(is.list(object)){
     if (plot == TRUE && 8 %in% plot.single.sel) {
       ##graphical represenation of IR-curve
       temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
-
       if(length(temp.IRSL) != 0){
-        plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
+         if(length(temp.IRSL) == 1){
+           plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
+
+         }else{
+           plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
+           warning(
+             "[analyse_SAR.CWOSL()] Multiple IRSL curves detected (IRSL test), show only the last one.",
+             immediate. = TRUE,
+             call. = FALSE
+           )
+         }
 
       }else{
         plot(1, type="n", axes=F, xlab="", ylab="")
