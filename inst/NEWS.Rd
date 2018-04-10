@@ -7,8 +7,12 @@
       \item \code{analyse_SAR.CWOSL()}
     \itemize{
       \item The function crashed if the \code{plot_GrowthCurve()} returned \code{NULL}; fixed,
-      \item If the dose-response curve was not fitted, but \code{plot} was set to \code{TRUE} no
-      plot was returned (even no empty plot); fixed.
+      \item ff the dose-response curve was not fitted, but \code{plot} was set to \code{TRUE} no
+      plot was returned (even no empty plot); fixed,
+      \item if all curves were IRSL curves, the function crashed while trying to plot the IRSL curve
+      for the IRSL test. Now only the last IRSL curve is plotted. This does not make really sense
+      since probably the user did not measure quartz, however, this solution fixes the problem and
+      does not break other users code.
 
 
     }

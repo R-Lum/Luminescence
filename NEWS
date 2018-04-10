@@ -9,9 +9,16 @@ Changes in version 0.8.3 (March 11th, 2018):
              • The function crashed if the ‘plot_GrowthCurve()’
                returned ‘NULL’; fixed,
 
-             • If the dose-response curve was not fitted, but ‘plot’
+             • ff the dose-response curve was not fitted, but ‘plot’
                was set to ‘TRUE’ no plot was returned (even no empty
-               plot); fixed.
+               plot); fixed,
+
+             • if all curves were IRSL curves, the function crashed
+               while trying to plot the IRSL curve for the IRSL test.
+               Now only the last IRSL curve is plotted. This does not
+               make really sense since probably the user did not
+               measure quartz, however, this solution fixes the problem
+               and does not break other users code.
 
          • ‘analyse_pIRIRSequence()’
 

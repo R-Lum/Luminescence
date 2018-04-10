@@ -1721,16 +1721,19 @@ if(is.list(object)){
       ##graphical represenation of IR-curve
       temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
       if(length(temp.IRSL) != 0){
-         if(length(temp.IRSL) == 1){
+         if(class(temp.IRSL) == "RLum.Data.Curve"){
            plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
-         }else{
+         }else if(call(temp.IRSL) == "list"){
            plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
            warning(
              "[analyse_SAR.CWOSL()] Multiple IRSL curves detected (IRSL test), show only the last one.",
              immediate. = TRUE,
              call. = FALSE
            )
+         }else{
+           shape::emptyplot()
+
          }
 
       }else{
