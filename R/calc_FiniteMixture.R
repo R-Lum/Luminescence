@@ -359,10 +359,13 @@ calc_FiniteMixture <- function(
     vmat<- solve(invvmat, tol=.Machine$double.xmin)
     rek<- sqrt(sum(vmat[1:(k-1),1:(k-1)]))
 
-
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
     re<- sqrt(diag(vmat))[-c(1:(k-1))]
+    
+    if (any(is.nan(re)))
+      re[is.nan(re)] <- NA
+    
     sed<- dose*re
     estd<- rbind(dose,re,sed)
 
@@ -539,7 +542,7 @@ calc_FiniteMixture <- function(
 
       # print component matrix
       cat(paste("\n\n----------- k components -----------\n"))
-      print(comp.n, na.print="")
+      print(comp.n, na.print="<NA>")
 
       # print BIC scores and LLIK estimates
       cat(paste("\n----------- statistical criteria -----------\n"))
