@@ -134,12 +134,12 @@ plot_DRCSummary <- function(
     ylab = expression(L[x]/T[x]),
     xlim = c(0,max(vapply(LxTx, function(x){max(x[["Dose"]])}, numeric(1)))),
     ylim = if(show_dose_points){
-      c(0,max(vapply(LxTx, function(x){max(x[["LxTx"]] + x[["LxTx.Error"]])}, numeric(1))))
+      c(0,max(vapply(LxTx, function(x){max(x[["LxTx"]] + x[["LxTx.Error"]])}, numeric(1)), na.rm = TRUE))
     }else{
       c(0,max(vapply(1:length(LxTx), function(y){
-        x <- max(LxTx[[y]][["Dose"]])
+        x <- max(LxTx[[y]][["Dose"]], na.rm = TRUE)
         eval(DRC[[y]])
-       },numeric(1))))
+       },numeric(1)), na.rm = TRUE))
     },
     main = "DRC Summary",
     lty = rep(1,length(sel_curves)),
@@ -195,6 +195,14 @@ plot_DRCSummary <- function(
 
     ##plot lines
     x <- seq(min(plot_settings$xlim),max(plot_settings$xlim), length.out = n)
+    y <- eval(DRC[[i]])
+    
+    if (is.na(y) || is.nan(y)) {
+      warning("[plot_DRCSummary()] Dose response curve ", i, " is NA/NaN and was removed before plotting.", 
+              call. = FALSE)
+      next
+    }
+    
     lines(
       x = x,
       y = eval(DRC[[i]]),
