@@ -23,9 +23,28 @@
 #'
 #'@param ... Further arguments and graphical parameters to be passed.
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.1.1
 #'
-#'@author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @return An [RLum.Results-class] object is returned:
+#'
+#' Slot: **@data**\cr
+#'
+#' \tabular{lll}{
+#' **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
+#' `results` \tab [data.frame] \tab with dose and LxTx values \cr
+#' `data` \tab [RLum.Results-class] \tab original input data \cr
+#' }
+#'
+#' Slot: **@info**\cr
+#'
+#' \tabular{lll}{
+#' **OBJECT** \tab **TYPE** \tab **COMMENT** \cr
+#' `call` \tab `call` \tab the original function call \cr
+#' `args` \tab `list` \tab arguments of the original function call \cr
+#' }
+#'
+#'@author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
+#' Christoph Burow, University of Cologne
 #'
 #'@seealso [RLum.Results-class], [analyse_SAR.CWOSL]
 #'
@@ -70,7 +89,7 @@ plot_DRCSummary <- function(
 # Extract data from object --------------------------------------------------------------------
 
   ##get data from RLum.Results object
-  if(object@originator == "analyse_SAR.CWOSL"){
+  if(object@originator %in% c("analyse_SAR.CWOSL", "analyse_pIRIRSequence")){
     ##set limit
     if(is.null(sel_curves)){
       sel_curves <- 1:length(object@data$Formula)
@@ -185,5 +204,21 @@ plot_DRCSummary <- function(
     )
 
   }
-
+  
+  ## Results -------------------------------------------------------------------
+  results <- set_RLum(
+    class = "RLum.Results",
+    data = list(
+      results = data.frame(
+        dose = x,
+        sapply(DRC, function(d, n) { eval(d) }, n)
+        ),
+      data = object
+    ),
+    info = list(call = sys.call(),
+                args = as.list(sys.call())[-1])
+  )
+  
+  ## Return value --------------------------------------------------------------
+  return(results)
 }

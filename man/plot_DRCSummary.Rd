@@ -22,6 +22,25 @@ down the plotting process and are usually not needed}
 
 \item{...}{Further arguments and graphical parameters to be passed.}
 }
+\value{
+An \linkS4class{RLum.Results} object is returned:
+
+Slot: \strong{@data}\cr
+
+\tabular{lll}{
+\strong{OBJECT} \tab \strong{TYPE} \tab \strong{COMMENT}\cr
+\code{results} \tab \link{data.frame} \tab with dose and LxTx values \cr
+\code{data} \tab \linkS4class{RLum.Results} \tab original input data \cr
+}
+
+Slot: \strong{@info}\cr
+
+\tabular{lll}{
+\strong{OBJECT} \tab \strong{TYPE} \tab \strong{COMMENT} \cr
+\code{call} \tab \code{call} \tab the original function call \cr
+\code{args} \tab \code{list} \tab arguments of the original function call \cr
+}
+}
 \description{
 While analysing OSL SAR or pIRIR data the view on the data is limited usually to one
 dose-response curve (DRC) at the time for one aliquot. This function overcomes this limitation
@@ -34,7 +53,7 @@ dose points in Gy. If you need more options than provided with this function, pl
 a look into the source code to create and modify an own R script.
 }
 \section{Function version}{
- 0.1.0 (2018-03-30 10:47:14)
+ 0.1.1
 }
 
 \examples{
@@ -62,10 +81,6 @@ plot_DRCSummary(results)
 \linkS4class{RLum.Results}, \link{analyse_SAR.CWOSL}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2018). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
+Christoph Burow, University of Cologne
 }
-
