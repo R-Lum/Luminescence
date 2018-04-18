@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.8.3 (March 11th, 2018)}{
+\section{Changes in version 0.8.3 (April 20th, 2018)}{
 
  \subsection{Bugfixes and changes}{
   \itemize{
@@ -24,7 +24,7 @@
     }
 
 
-     \item \code{convert_RLum2Risoe.BINfileData()}
+   \item \code{convert_RLum2Risoe.BINfileData()}
     \itemize{
       \item The record type was not correclty extracted, fixed,
       \item the conversion now keeps the original position numbers instead of assigning new.
@@ -47,8 +47,8 @@
     \itemize{
 
       \item Until today, you probably did not know that this function exists at all. This function
-      is written in C++, working in the back and helping to create \code{RLum.Data.Curve}-objects out of BIN/BINX-files.
-      Recently we became aware of nonconform BIN/BINX-files, circulating in the wild. For such files the TL curves
+      is written in C++, working in the back and helps to create \code{RLum.Data.Curve}-objects out of BIN/BINX-files.
+      Recently we became aware of non-conform BIN/BINX-files, circulating in the wild. For such files the TL curves
       were not created correctly, more important, the user did not know why. Now the function throws out a message, at least.
 
     }
