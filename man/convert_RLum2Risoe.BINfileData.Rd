@@ -27,7 +27,7 @@ The conversion can be never perfect. The \code{RLum} objects may contain informa
 not part of the \linkS4class{Risoe.BINfileData} definition.
 }
 \section{Function version}{
- 0.1.3 (2018-03-30 20:21:40)
+ 0.1.3 (2018-04-19 11:53:28)
 }
 
 \examples{
