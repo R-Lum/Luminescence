@@ -2,7 +2,6 @@
 
 This is a bugfix release and intends to replace version 0.8.2 on CRAN.
 
-
 ## Other notes or warnings
 
 * *winbuilder* (oldrel and stable) returned the note "Possibly mis-spelled words in DESCRIPTION: deconvolution (42:38)". The 

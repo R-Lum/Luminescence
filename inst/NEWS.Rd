@@ -1,5 +1,19 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.8.4 (April 20th, 2018)}{
+
+ \subsection{Bugfixes and changes}{
+  \itemize{
+
+    \item Dummy
+
+  }
+
+ }
+
+}
+
+
 \section{Changes in version 0.8.3 (April 20th, 2018)}{
 
  \subsection{Bugfixes and changes}{
