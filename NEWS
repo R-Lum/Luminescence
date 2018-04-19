@@ -20,6 +20,11 @@ Changes in version 0.8.3 (April 20th, 2018):
                measure quartz, however, this solution fixes the problem
                and does not break other users code.
 
+         • ‘analyse_FiniteMixture()’
+
+             • For wrong user input and not well understood
+               assumptions, the function crashed uncontrolled; fixed.
+
          • ‘analyse_pIRIRSequence()’
 
              • Fixed unwanted functions crashes for very odd datasets

@@ -17,6 +17,12 @@
 
     }
 
+    \item \code{analyse_FiniteMixture()}
+    \itemize{
+      \item For wrong user input and not well understood assumptions, the function crashed uncontrolled; fixed.
+
+    }
+
     \item \code{analyse_pIRIRSequence()}
     \itemize{
       \item Fixed unwanted functions crashes for very odd datasets (e.g., \code{Inf} values).
