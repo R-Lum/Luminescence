@@ -609,11 +609,14 @@ calc_FiniteMixture <- function(
       components=if(length(n.components)==1){comp.re}else{comp.n},
       single.comp=single.comp))
 
+  if (anyNA(unlist(summary)) && verbose)
+    warning("\n[calc_FiniteMixture] The model produced NA values. Either the input data are inapplicable for the model",
+            " or the the model parameters need to be adjusted (e.g. 'sigmab')", call. = FALSE)
+  
   ##=========##
   ## PLOTTING
-  if(plot==TRUE) {
+  if(plot && !anyNA(unlist(summary)))
     try(do.call(plot_RLum.Results, c(list(newRLumResults.calc_FiniteMixture), as.list(sys.call())[-c(1,2)])))
-  }#endif::plot
 
   # Return values
   invisible(newRLumResults.calc_FiniteMixture)
