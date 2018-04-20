@@ -5,7 +5,7 @@
  \subsection{Bugfixes and changes}{
   \itemize{
 
-    \item Dummy
+    \item The previous package versions did not pass the CRAN tests on the Solaris platform; fixed.
 
   }
 
