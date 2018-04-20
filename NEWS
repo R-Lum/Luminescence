@@ -4,7 +4,8 @@ Changes in version 0.8.4 (April 20th, 2018):
 
   Bugfixes and changes:
 
-         • Dummy
+         • The previous package versions did not pass the CRAN tests on
+           the Solaris platform; fixed.
 
 Changes in version 0.8.3 (April 20th, 2018):
 

@@ -91,7 +91,7 @@
 #'
 #' @section Function version: 0.1.8
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'

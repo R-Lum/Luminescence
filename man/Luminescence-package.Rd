@@ -38,6 +38,11 @@ Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 30 (1), 1-8.
 
+Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018.
+Environmental Dose Rate Determination Using a Passive Dosimeter:
+Techniques and Workflow for alpha-Al2O3:C Chips. Geochronometria 45, 56-67.
+http://dx.doi.org/10.1515/geochr-2015-0086
+
 Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
 implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14–21.
