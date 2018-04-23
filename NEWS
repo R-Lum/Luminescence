@@ -1,10 +1,12 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.8.5 (April 20th, 2018):
+Changes in version 0.8.5 (April 23th, 2018):
 
   Bugfixes and changes:
 
-         • Dummy
+         • ‘analyse_SAR.CWOSL()’
+
+             • A newly introduced typo caused a function crash; fixed.
 
 Changes in version 0.8.5 (April 20th, 2018):
 

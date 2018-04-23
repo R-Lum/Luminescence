@@ -1,11 +1,16 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.8.5 (April 20th, 2018)}{
+\section{Changes in version 0.8.5 (April 23th, 2018)}{
 
  \subsection{Bugfixes and changes}{
   \itemize{
 
-    \item Dummy
+    \item \code{analyse_SAR.CWOSL()}
+      \itemize{
+        \item A newly introduced typo caused a function crash; fixed.
+
+
+      }
 
   }
 

@@ -1724,7 +1724,7 @@ if(is.list(object)){
          if(class(temp.IRSL) == "RLum.Data.Curve"){
            plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
-         }else if(call(temp.IRSL) == "list"){
+         }else if(class(temp.IRSL) == "list"){
            plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
            warning(
              "[analyse_SAR.CWOSL()] Multiple IRSL curves detected (IRSL test), show only the last one.",
