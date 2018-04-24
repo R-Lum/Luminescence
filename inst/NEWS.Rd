@@ -18,7 +18,7 @@
 
 }
 
-\section{Changes in version 0.8.5 (April 20th, 2018)}{
+\section{Changes in version 0.8.4 (April 20th, 2018)}{
 
  \subsection{Bugfixes and changes}{
   \itemize{
