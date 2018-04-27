@@ -86,7 +86,7 @@ The original function call
 }
 \description{
 The function provides the analysis routines for measurements on a
-FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2018
+FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018
 }
 \details{
 \strong{Working with a travel dosimeter}
@@ -110,7 +110,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.1.9 (2018-04-27 17:20:01)
+ 0.1.9 (2018-04-27 17:25:53)
 }
 
 \examples{
@@ -127,7 +127,7 @@ Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Mea
 }
 
 \references{
-Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
