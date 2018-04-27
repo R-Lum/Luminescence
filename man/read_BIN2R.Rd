@@ -118,7 +118,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2018). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2018). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

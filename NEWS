@@ -1,14 +1,24 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.8.5 (April 23th, 2018):
+Changes in version 0.8.5 (April 26th, 2018):
 
   Bugfixes and changes:
+
+         • ‘analyse_Al2O3C_Measurement()’
+
+             • Add new argument ‘calculate_TL_dose’ which allows to
+               experimentally calculate the apparent dose based on the
+               TL curves. This feature may help in certain cases to
+               cross-check the results obtained with the GSL,
+
+             • the manual was not complete and the reference wrong,
+               fixed.
 
          • ‘analyse_SAR.CWOSL()’
 
              • A newly introduced typo caused a function crash; fixed.
 
-Changes in version 0.8.5 (April 20th, 2018):
+Changes in version 0.8.4 (April 20th, 2018):
 
   Bugfixes and changes:
 

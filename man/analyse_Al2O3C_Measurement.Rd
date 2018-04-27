@@ -6,9 +6,9 @@
 \usage{
 analyse_Al2O3C_Measurement(object, signal_integral = NULL,
   dose_points = c(0, 4), recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
-  irradiation_time_correction = NULL, cross_talk_correction = NULL,
-  travel_dosimeter = NULL, test_parameters = NULL, verbose = TRUE,
-  plot = TRUE, ...)
+  calculate_TL_dose = FALSE, irradiation_time_correction = NULL,
+  cross_talk_correction = NULL, travel_dosimeter = NULL,
+  test_parameters = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -21,10 +21,13 @@ If nothing is provided the full range is used}
 \item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., XXXX}
+made by Kreutzer et al., 2018}
 
 \item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
 function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
+
+\item{calculate_TL_dose}{\link{logical} (\emph{with default}): Enables/Disables experimental dose estimation
+based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obained by another experiements.
@@ -83,11 +86,15 @@ The original function call
 }
 \description{
 The function provides the analysis routines for measurements on a
-FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX
+FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018
 }
 \details{
 \strong{Working with a travel dosimeter}
-##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
+
+The function allows to define particular aliquots as travel dosimeters. For example:
+\code{travel_dosimeter = c(1,3,5)} sets aliquots 1, 3 and 5 as travel dosimeters. These dose values
+of this dosimeters are combined and automatically subtracted from the obtained dose values
+of the other dosimeters.
 
 \strong{Test parameters}
 
@@ -103,11 +110,10 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.1.8 (2018-04-20 09:26:11)
+ 0.1.9 (2018-04-27 17:34:30)
 }
 
 \examples{
-
 ##load data
 data(ExampleData.Al2O3C, envir = environment())
 
@@ -117,11 +123,11 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }

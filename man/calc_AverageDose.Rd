@@ -120,7 +120,7 @@ plot_AbanicoPlot(
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2018). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.4. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2018). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

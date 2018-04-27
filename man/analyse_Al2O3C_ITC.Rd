@@ -20,7 +20,7 @@ If nothing is provided the full range is used. Argument can be provided as \link
 \item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., 2017. Argument can be provided as \link{list}.}
+made by Kreutzer et al., 2018. Argument can be provided as \link{list}.}
 
 \item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
 function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
@@ -69,14 +69,14 @@ The original function call
 }
 \description{
 The function provides a very particular analysis to correct the irradiation
-time while irradiating Al2O3:C pellets in a luminescence reader.
+time while irradiating Al2O3:C chips in a luminescence reader.
 }
 \details{
-Background: Due to their high dose sensitivity Al2O3:C pellets are usually
+Background: Due to their high dose sensitivity Al2O3:C chips are usually
 irradiated for only a very short duration or under the closed beta-source
 within a luminescence reader. However, due to its high dose sensitivity, during
 the movement towards the beta-source, the pellet already receives and non-negligible
-dose.  Based on measurements following a protocol suggested by Kreutzer et al., XXXX,
+dose. Based on measurements following a protocol suggested by Kreutzer et al., 2018,
 a dose response curve is constructed and the intersection (absolute value) with the time axis
 is taken as real irradiation time.
 
@@ -94,7 +94,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2018-03-09 14:49:21)
+ 0.1.1 (2018-04-27 17:34:30)
 }
 
 \examples{
@@ -108,11 +108,11 @@ analyse_Al2O3C_ITC(data_ITC)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
@@ -120,6 +120,6 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 \link{plot_GrowthCurve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{datagen}

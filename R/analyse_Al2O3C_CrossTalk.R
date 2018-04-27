@@ -1,7 +1,7 @@
 #' Al2O3:C Reader Cross Talk Analysis
 #'
 #' The function provides the analysis of cross-talk measurements on a
-#' FI lexsyg SMART reader using Al2O3:C pellets
+#' FI lexsyg SMART reader using Al2O3:C chips
 #'
 #' @param object [RLum.Analysis-class] **(required)**:
 #' measurement input
@@ -13,7 +13,7 @@
 #' @param dose_points [numeric] (*with default*):
 #' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., 2017
+#' made by Kreutzer et al., 2018
 #'
 #' @param recordType [character] (*with default*): input curve selection, which is passed to
 #' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
@@ -63,13 +63,13 @@
 #'
 #' @section Function version: 0.1.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
 #' @references
 #'
-#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 #' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 #' Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 #'

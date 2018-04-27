@@ -19,7 +19,7 @@ If nothing is provided the full range is used}
 \item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., 2017}
+made by Kreutzer et al., 2018}
 
 \item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
 function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
@@ -68,10 +68,10 @@ The original function call
 }
 \description{
 The function provides the analysis of cross-talk measurements on a
-FI lexsyg SMART reader using Al2O3:C pellets
+FI lexsyg SMART reader using Al2O3:C chips
 }
 \section{Function version}{
- 0.1.2 (2018-03-09 14:49:07)
+ 0.1.2 (2018-04-27 17:34:30)
 }
 
 \examples{
@@ -85,11 +85,11 @@ analyse_Al2O3C_CrossTalk(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
@@ -97,6 +97,6 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 \link{analyse_Al2O3C_ITC}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{datagen}
