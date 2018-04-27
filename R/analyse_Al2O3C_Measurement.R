@@ -1,10 +1,14 @@
 #' Al2O3:C Passive Dosimeter Measurement Analysis
 #'
 #' The function provides the analysis routines for measurements on a
-#' FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX
+#' FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018
 #'
 #' **Working with a travel dosimeter**
-#' ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
+#'
+#' The function allows to define particular aliquots as travel dosimeters. For example:
+#' `travel_dosimeter = c(1,3,5)` sets aliquots 1, 3 and 5 as travel dosimeters. These dose values
+#' of this dosimeters are combined and automatically subtracted from the obtained dose values
+#' of the other dosimeters.
 #'
 #' **Test parameters**
 #'
@@ -30,7 +34,7 @@
 #' @param dose_points [numeric] (*with default*):
 #' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., XXXX
+#' made by Kreutzer et al., 2018
 #'
 #' @param recordType [character] (*with default*): input curve selection, which is passed to
 #' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
@@ -38,6 +42,9 @@
 #' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obained by another experiements.
 #' I a `numeric` is provided it has to be of length two: mean, standard error
+#'
+#' @param calculate_TL_dose [logical] (*with default*): Enables/Disables experimental dose estimation
+#' based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.
 #'
 #' @param cross_talk_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obained by another experiements.
@@ -89,22 +96,21 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
 #' @references
 #'
-#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 #' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 #' Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 #'
 #' @keywords datagen
 #'
 #' @examples
-#'
 #' ##load data
 #' data(ExampleData.Al2O3C, envir = environment())
 #'
@@ -118,6 +124,7 @@ analyse_Al2O3C_Measurement <- function(
   signal_integral = NULL,
   dose_points = c(0,4),
   recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
+  calculate_TL_dose = FALSE,
   irradiation_time_correction = NULL,
   cross_talk_correction = NULL,
   travel_dosimeter = NULL,
@@ -397,9 +404,9 @@ analyse_Al2O3C_Measurement <- function(
   }
 
   ##calculate needed values
-  NATURAL <- sum(object[[1]][signal_integral, 2])
-  REGENERATED <- sum(object[[3]][signal_integral, 2])
-  BACKGROUND <- sum(object[[5]][signal_integral, 2])
+  NATURAL <- sum(object@records[[1]]@data[signal_integral, 2])
+  REGENERATED <- sum(object@records[[3]]@data[signal_integral, 2])
+  BACKGROUND <- sum(object@records[[5]]@data[signal_integral, 2])
 
   ##combine into data.frame
   temp_df <- data.frame(
@@ -452,6 +459,24 @@ analyse_Al2O3C_Measurement <- function(
    ##(5) calculate DE
    temp_DE <- (DOSE * INTEGRAL_RATIO)
 
+
+     ##(5.1) calculate TL based DE
+     ##calculate a dose based on TL
+     if(calculate_TL_dose){
+       NATURAL_TL <- sum(object@records[[2]]@data[(which.max(object@records[[2]]@data[,2])-5):(which.max(object@records[[2]]@data[,2])+5),2])
+       REGENERATED_TL <- sum(object@records[[4]]@data[(which.max(object@records[[4]]@data[,2])-5):(which.max(object@records[[4]]@data[,2])+5),2])
+       TL_Ratio <- NATURAL_TL/REGENERATED_TL
+       temp_TL_DE <- DOSE * TL_Ratio
+       TL_DE <- mean(temp_TL_DE)
+       TL_DE.ERROR <- sd(temp_TL_DE)
+
+
+     }else{
+       TL_DE <- NA
+       TL_DE.ERROR <- NA
+
+     }
+
    ##(6) create final data.frame
    data <- data.frame(
      DE = mean(temp_DE),
@@ -462,10 +487,10 @@ analyse_Al2O3C_Measurement <- function(
      CT_CORRECTION = cross_talk_correction[1],
      CT_CORRECTION_Q2.5 = cross_talk_correction[2],
      CT_CORRECTION_Q97.5 = cross_talk_correction[3],
-     row.names = NULL
-
+     `TL_DE (uncorr.)` = TL_DE,
+     `TL_DE.ERROR (uncorr.)` = TL_DE.ERROR,
+      row.names = NULL
    )
-
 
 
   ##calculate test parameters

@@ -1,13 +1,13 @@
 #' Al2O3 Irradiation Time Correction Analysis
 #'
 #' The function provides a very particular analysis to correct the irradiation
-#' time while irradiating Al2O3:C pellets in a luminescence reader.
+#' time while irradiating Al2O3:C chips in a luminescence reader.
 #'
-#' Background: Due to their high dose sensitivity Al2O3:C pellets are usually
+#' Background: Due to their high dose sensitivity Al2O3:C chips are usually
 #' irradiated for only a very short duration or under the closed beta-source
 #' within a luminescence reader. However, due to its high dose sensitivity, during
 #' the movement towards the beta-source, the pellet already receives and non-negligible
-#' dose.  Based on measurements following a protocol suggested by Kreutzer et al., XXXX,
+#' dose. Based on measurements following a protocol suggested by Kreutzer et al., 2018,
 #' a dose response curve is constructed and the intersection (absolute value) with the time axis
 #' is taken as real irradiation time.
 #'
@@ -35,7 +35,7 @@
 #' @param dose_points [numeric] (*with default*):
 #' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., 2017. Argument can be provided as [list].
+#' made by Kreutzer et al., 2018. Argument can be provided as [list].
 #'
 #' @param recordType [character] (*with default*): input curve selection, which is passed to
 #' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
@@ -83,13 +83,13 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @seealso [plot_GrowthCurve]
 #'
 #' @references
 #'
-#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 #' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 #' Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 #'
