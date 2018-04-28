@@ -24,7 +24,7 @@ The following tutorial assumes that all measurements have been performed on a Fr
 of the irradiation cross-talk becomes indispensable and should not be skipped.  
 
 Please further note that this vignette covers only the **R** related part of the data analysis and will 
-not explain the theoretical and physical background. Please see Kreutzer et al. (in press), for details. 
+not explain the theoretical and physical background. Please see Kreutzer et al. (2018), for details. 
 
 # Determine irradiation time correction factors
 
@@ -45,7 +45,7 @@ temp_CAL_info <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", impo
 ```
 
 To determine the irradiation time correction factor the function `analyse_Al2O3C_ITC()` is used. The measurement 
-sequence is based on the suggestions made by Kreutzer et al. (in press). To import the measurement data run the function 
+sequence is based on the suggestions made by Kreutzer et al. (2018). To import the measurement data run the function 
 `read_XSYG2R()`. The curve selection is done automatically by the function using the argument `recordType` (preset). 
 Modify this argument if the selection here does not fit your equipment. 
 
@@ -100,7 +100,7 @@ function. Graphical results are shown in Fig.$~$\ref{fig:Fig2}. The numerical ou
 an `RLum.Results` object which can be kept for a later usage, i.e. for an automatic correction during 
 the dose estimation.
 
-```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (press).", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h", out.height="400px", out.width="500px", dpi=75}
+```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (2018).", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h", out.height="400px", out.width="500px", dpi=75}
 results_CT <- analyse_Al2O3C_CrossTalk(
   object = data_CT,
   irradiation_time_correction = results_ITC)
@@ -116,7 +116,7 @@ The analyses done above are not necessary but recommended to correct for the equ
 ## Data import
 
 The data import follows the examples given below and consists of calling the function `read_XSYG2R()`. 
-An additional curve selection is not necessary, so far the sequence follows the suggestion by Kreutzer et al. (in press)
+An additional curve selection is not necessary, so far the sequence follows the suggestion by Kreutzer et al. (2018)
 
 ```{r,eval = FALSE}
 library(Luminescence)
@@ -221,7 +221,7 @@ results_EnvD_alternative$data_TDcorrected
 
 So far all returned values had the unit s (seconds), however, usually, the energy dose is wanted. 
 To transform the values from the time domain to the dose domain, the function `Second2Gray()` 
-can be used. 
+can be used. Please make sure that you recalculate your calibration values to the measurement date.
 
 # Ease your workflow
 
