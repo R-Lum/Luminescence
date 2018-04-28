@@ -7,7 +7,9 @@
 
      \item \code{analyse_Al2O3C_Measurement()}
       \itemize{
-        \item Add new argument \code{calculate_TL_dose} which allows to experimentally calculate
+        \item The cross-talk value was erroneously substracted the dose point values instead from the final De,
+        the effect is small, but still, it was not correct; fixed,
+        \item add new argument \code{calculate_TL_dose} which allows to experimentally calculate
         the apparent dose based on the TL curves. This feature may help in certain cases to cross-check
         the results obtained with the GSL,
         \item the manual was not complete and the reference wrong, fixed.

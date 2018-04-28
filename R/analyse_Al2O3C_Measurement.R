@@ -10,6 +10,14 @@
 #' of this dosimeters are combined and automatically subtracted from the obtained dose values
 #' of the other dosimeters.
 #'
+#' **Calculate TL dose **
+#'
+#' The argument `calculate_TL_dose` provides the possibility to experimentally calculate a TL-dose,
+#' i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
+#' this value is only a fallback in case something went wrong during the measurement of the optical
+#' stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
+#' but not considered if a travel dosimeter is defined.
+#'
 #' **Test parameters**
 #'
 #' `TL_peak_shift` [numeric] (default: `15`):
@@ -43,7 +51,7 @@
 #' information on the used irradiation time correction obained by another experiements.
 #' I a `numeric` is provided it has to be of length two: mean, standard error
 #'
-#' @param calculate_TL_dose [logical] (*with default*): Enables/Disables experimental dose estimation
+#' @param calculate_TL_dose [logical] (*with default*): Enables/disables experimental dose estimation
 #' based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.
 #'
 #' @param cross_talk_correction [numeric] or [RLum.Results-class] (*optional*):
@@ -85,6 +93,10 @@
 #'  `data_TDcorrected` \tab `data.frame` \tab travel dosimeter corrected results (only if TD was provided)\cr
 #' }
 #'
+#' *Note: If correction the irradiation time and the cross-talk correction method is used, the De
+#' values in the table `data` table are already corrected, i.e. if you want to get an uncorrected value,
+#' you can use the column `CT_CORRECTION` remove the correction*
+#'
 #'**slot:** **`@info`**
 #'
 #' The original function call
@@ -96,7 +108,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.9
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
@@ -365,7 +377,8 @@ analyse_Al2O3C_Measurement <- function(
         cross_talk_correction@originator == "analyse_Al2O3C_CrossTalk") {
 
 
-        ##grep cross talk correction
+        ##grep cross talk correction and calculate values for
+        ##this particular carousel position
         cross_talk_correction <-
           as.numeric(predict(cross_talk_correction$fit,
                   newdata = data.frame(x = POSITION),
@@ -403,10 +416,24 @@ analyse_Al2O3C_Measurement <- function(
 
   }
 
-  ##calculate needed values
+  ##calculate integrated light values
   NATURAL <- sum(object@records[[1]]@data[signal_integral, 2])
   REGENERATED <- sum(object@records[[3]]@data[signal_integral, 2])
   BACKGROUND <- sum(object@records[[5]]@data[signal_integral, 2])
+
+  ##do the same for the TL
+  if(calculate_TL_dose){
+    NATURAL_TL <- sum(
+      object@records[[2]]@data[
+        (which.max(object@records[[2]]@data[,2])-5):(which.max(object@records[[2]]@data[,2])+5),2])
+    REGENERATED_TL <- sum(
+      object@records[[4]]@data[
+        (which.max(object@records[[4]]@data[,2])-5):(which.max(object@records[[4]]@data[,2])+5),2])
+  }else{
+    NATURAL_TL <- NA
+    REGENERATED_TL <- NA
+
+  }
 
   ##combine into data.frame
   temp_df <- data.frame(
@@ -425,6 +452,8 @@ analyse_Al2O3C_Measurement <- function(
       INTEGRAL = c(NATURAL, REGENERATED),
       BACKGROUND = c(BACKGROUND, BACKGROUND),
       NET_INTEGRAL = c(NATURAL - BACKGROUND, REGENERATED - BACKGROUND),
+      NATURAL_TL <- NATURAL_TL,
+      REGENERATED_TL <- REGENERATED_TL,
       row.names = NULL
     )
 
@@ -450,23 +479,21 @@ analyse_Al2O3C_Measurement <- function(
    ##(2) random sampling from cross-irradiation
    CT <- runif(1000, min = cross_talk_correction[2], max = cross_talk_correction[3])
 
-   ##(3) combine the two values
-   DOSE <- DOSE_MC - CT
-
-   ##(4) signal ratio
+   ##(3) signal ratio
    INTEGRAL_RATIO <- temp_df$NET_INTEGRAL[1]/temp_df$NET_INTEGRAL[2]
 
-   ##(5) calculate DE
-   temp_DE <- (DOSE * INTEGRAL_RATIO)
+   ##(4) calculate DE
+   temp_DE <- (DOSE_MC * INTEGRAL_RATIO)
 
+   ##(5) substract cross-talk value from DE
+   temp_DE  <- temp_DE  - CT
 
      ##(5.1) calculate TL based DE
      ##calculate a dose based on TL
+     ##Note: we use irradiation time correction and CT correction based on GSL measurements
      if(calculate_TL_dose){
-       NATURAL_TL <- sum(object@records[[2]]@data[(which.max(object@records[[2]]@data[,2])-5):(which.max(object@records[[2]]@data[,2])+5),2])
-       REGENERATED_TL <- sum(object@records[[4]]@data[(which.max(object@records[[4]]@data[,2])-5):(which.max(object@records[[4]]@data[,2])+5),2])
        TL_Ratio <- NATURAL_TL/REGENERATED_TL
-       temp_TL_DE <- DOSE * TL_Ratio
+       temp_TL_DE <- (DOSE_MC * TL_Ratio) - CT
        TL_DE <- mean(temp_TL_DE)
        TL_DE.ERROR <- sd(temp_TL_DE)
 
@@ -487,9 +514,9 @@ analyse_Al2O3C_Measurement <- function(
      CT_CORRECTION = cross_talk_correction[1],
      CT_CORRECTION_Q2.5 = cross_talk_correction[2],
      CT_CORRECTION_Q97.5 = cross_talk_correction[3],
-     `TL_DE (uncorr.)` = TL_DE,
-     `TL_DE.ERROR (uncorr.)` = TL_DE.ERROR,
-      row.names = NULL
+     TL_DE = TL_DE,
+     TL_DE.ERROR = TL_DE.ERROR,
+     row.names = NULL
    )
 
 
