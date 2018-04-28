@@ -216,6 +216,7 @@ analyse_Al2O3C_Measurement <- function(
         irradiation_time_correction = irradiation_time_correction[[x]],
         cross_talk_correction = cross_talk_correction[[x]],
         test_parameters = test_parameters[[x]],
+        calculate_TL_dose = calculate_TL_dose,
         verbose = verbose,
         plot = plot[x],
         ...
@@ -452,8 +453,8 @@ analyse_Al2O3C_Measurement <- function(
       INTEGRAL = c(NATURAL, REGENERATED),
       BACKGROUND = c(BACKGROUND, BACKGROUND),
       NET_INTEGRAL = c(NATURAL - BACKGROUND, REGENERATED - BACKGROUND),
-      NATURAL_TL <- NATURAL_TL,
-      REGENERATED_TL <- REGENERATED_TL,
+      NATURAL_TL = NATURAL_TL,
+      REGENERATED_TL = REGENERATED_TL,
       row.names = NULL
     )
 
