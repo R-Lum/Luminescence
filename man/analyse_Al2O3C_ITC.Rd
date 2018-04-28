@@ -94,7 +94,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2018-04-27 17:24:28)
+ 0.1.1 (2018-04-27 17:34:30)
 }
 
 \examples{

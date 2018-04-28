@@ -71,7 +71,7 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C chips
 }
 \section{Function version}{
- 0.1.2 (2018-04-27 17:24:43)
+ 0.1.2 (2018-04-27 17:34:30)
 }
 
 \examples{
