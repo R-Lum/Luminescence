@@ -107,11 +107,8 @@ inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the L
 of each aliquot by its individual prompt measurement please do so \strong{before} running
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
-\note{
-\strong{This function has BETA status and should not be used for publication work!}
-}
 \section{Function version}{
- 0.1.5 (2018-03-09 09:04:33)
+ 0.1.5 (2018-05-09 20:14:50)
 }
 
 \examples{

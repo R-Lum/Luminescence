@@ -24,58 +24,58 @@
 #' procedure as for the g-value is applied (see above).
 #'
 #' **Multiple aliquots & Lx/Tx normalisation**
-#' 
+#'
 #' Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
 #' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
 #' inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
 #' of each aliquot by its individual prompt measurement please do so **before** running
 #' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
-#' 
-#' @param object [RLum.Analysis-class] (**required**): 
+#'
+#' @param object [RLum.Analysis-class] (**required**):
 #' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
 #' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
-#' 
+#'
 #' If data from multiple aliquots are provided please **see the details below** with regard to
 #' Lx/Tx normalisation.
 #'
-#' @param structure [character] (*with default*): 
-#' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`. 
+#' @param structure [character] (*with default*):
+#' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`.
 #' Other input is ignored
 #'
-#' @param signal.integral [vector] (**required**): 
-#' vector with the limits for the signal integral. 
+#' @param signal.integral [vector] (**required**):
+#' vector with the limits for the signal integral.
 #' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param background.integral [vector] (**required**): 
-#' vector with the bounds for the background integral. 
+#' @param background.integral [vector] (**required**):
+#' vector with the bounds for the background integral.
 #' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param t_star [character] (*with default*): 
-#' method for calculating the time elasped since irradiaton. Options are: 
+#' @param t_star [character] (*with default*):
+#' method for calculating the time elasped since irradiaton. Options are:
 #' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
-#' and `'end'`, which takes the time between irradiation and the measurement step. 
+#' and `'end'`, which takes the time between irradiation and the measurement step.
 #' Default is `'half'`
 #'
-#' @param n.MC [integer] (*with default*): 
+#' @param n.MC [integer] (*with default*):
 #' number for Monte Carlo runs for the error estimation
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enables/disables verbose mode
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enables/disables plot output
 #'
-#' @param plot.single [logical] (*with default*): 
-#' enables/disables single plot mode, i.e. one plot window per plot. 
+#' @param plot.single [logical] (*with default*):
+#' enables/disables single plot mode, i.e. one plot window per plot.
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot.single = c(3,4)` draws only the last two plots
 #'
 #' @param ... (*optional*) further arguments that can be passed to internally used functions (see details)
 #'
-#' @return 
+#' @return
 #' An [RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**
@@ -99,11 +99,10 @@
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @note **This function has BETA status and should not be used for publication work!**
 #'
 #' @keywords datagen
 #'
