@@ -25,6 +25,15 @@
 
       }
 
+   \item \code{bin.RLum.Data.Curve()}
+      \itemize{
+        \item The method was not passing the argument \code{bin_size} properly; fixed.
+
+
+      }
+
+
+
   }
 
  }

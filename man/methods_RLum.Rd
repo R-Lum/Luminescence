@@ -101,7 +101,7 @@
 
 \method{subset}{RLum.Analysis}(x, subset = NULL, ...)
 
-bin.RLum.Data.Curve(x, ...)
+bin.RLum.Data.Curve(x, bin_size = 2, ...)
 
 \method{length}{RLum.Results}(x, ...)
 

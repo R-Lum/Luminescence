@@ -22,6 +22,11 @@ Changes in version 0.8.5 (April 26th, 2018):
 
              • A newly introduced typo caused a function crash; fixed.
 
+         • ‘bin.RLum.Data.Curve()’
+
+             • The method was not passing the argument ‘bin_size’
+               properly; fixed.
+
 Changes in version 0.8.4 (April 20th, 2018):
 
   Bugfixes and changes:
