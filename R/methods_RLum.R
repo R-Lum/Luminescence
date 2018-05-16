@@ -245,7 +245,7 @@ subset.RLum.Analysis <- function(x, subset = NULL, ...) {
 # ##################################################################################################
 #' @rdname methods_RLum
 #' @export
-bin.RLum.Data.Curve <- function(x, ...) bin_RLum.Data(x)
+bin.RLum.Data.Curve <- function(x, bin_size = 2, ...) bin_RLum.Data(x, bin_size = bin_size)
 
 ####################################################################################################
 # methods for generic: length()
