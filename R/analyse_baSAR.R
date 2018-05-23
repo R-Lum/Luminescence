@@ -318,7 +318,7 @@
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.32
+#' @section Function version: 0.1.33
 #'
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1054,11 +1054,12 @@ analyse_baSAR <- function(
       }
 
       ##remove none-OSL curves
-      if(verbose)
+      if(verbose && !all("OSL" %in% object@METADATA[["LTYPE"]])){
         cat("\n\t\t  .. remove non-OSL curves")
-      rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
-      object@METADATA <- object@METADATA[-rm_id,]
-      object@DATA[rm_id] <- NULL
+        rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
+        object@METADATA <- object@METADATA[-rm_id,]
+        object@DATA[rm_id] <- NULL
+      }
 
       ##reset index
       object@METADATA[["ID"]] <- 1:length(object@METADATA[["ID"]])
