@@ -1059,13 +1059,13 @@ analyse_baSAR <- function(
         rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
         object@METADATA <- object@METADATA[-rm_id,]
         object@DATA[rm_id] <- NULL
+
+        ##reset index
+        object@METADATA[["ID"]] <- 1:length(object@METADATA[["ID"]])
+
+        ##delete objects
+        rm(rm_id)
       }
-
-      ##reset index
-      object@METADATA[["ID"]] <- 1:length(object@METADATA[["ID"]])
-
-      ##delete objects
-      rm(rm_id)
 
     }
 
