@@ -159,7 +159,7 @@
 #' }
 #'
 #'
-#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [character] or [list] (**required**):
+#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [RLum.Analysis-class] [character] or [list] (**required**):
 #' input object used for the Bayesian analysis. If a `character` is provided the function
 #' assumes a file connection and tries to import a BIN-file using the provided path. If a `list` is
 #' provided the list can only contain either `Risoe.BINfileData` objects or `character`s
@@ -206,6 +206,11 @@
 #' Ignored if `object` is an [RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
+#' @param irradiation_times [numeric] (*optional*): if set this vector replaces all irradiation
+#' times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
+#' Plesae note that if this argument is used, for every(!) single curve
+#' in the dataset an irradiation time needs to be set.
+#'
 #' @param sigmab [numeric] (*with default*):
 #' option to set a manual value for the overdispersion (for LnTx and TnTx),
 #' used for the Lx/Tx error calculation. The value should be provided as
@@ -247,6 +252,10 @@
 #'
 #' @param digits [integer] (*with default*):
 #' round output to the number of given digits
+#'
+#' @param distribution_plot [character] (*with default*): sets the final distribution plot that
+#' shows equivalent doses obtained using the frequentist approach and sets in the central dose
+#' as comparison obtained using baSAR. Allowed input is `'abanico'` or `'kde'`. If set to `NULL` nothing is plotted.
 #'
 #' @param plot [logical] (*with default*):
 #' enables or disables plot output
@@ -301,14 +310,15 @@
 #'  - (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
 #'  provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
 #'  is limited to 1000 (random choice) for performance reasons,
-#'  - (E) the final plot is the De distribution as calculated using the conventional approach
-#'  and the central dose with the HPDs marked within.
+#'  - (E) the final plot is the De distribution as calculated using the conventional (frequentist) approach
+#'  and the central dose with the HPDs marked within. This figure is only provided for a comparison,
+#'  no further statistical conclusion should be drawn from it.
 #'
 #'
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
 #'
-#' @section Function version: 0.1.29
+#' @section Function version: 0.1.33
 #'
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -409,6 +419,7 @@ analyse_baSAR <- function(
   signal.integral.Tx = NULL,
   background.integral,
   background.integral.Tx = NULL,
+  irradiation_times = NULL,
   sigmab = 0,
   sig0 = 0.025,
   distribution = "cauchy",
@@ -419,6 +430,7 @@ analyse_baSAR <- function(
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
   digits = 3L,
+  distribution_plot = "kde",
   plot = TRUE,
   plot_reduced = TRUE,
   plot.single = FALSE,
@@ -662,7 +674,7 @@ analyse_baSAR <- function(
       if(verbose){
         cat("\n[analyse_baSAR()] ---- baSAR-model ---- \n")
         cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-        cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
+        cat("[analyse_baSAR()] Bayesian analysis in progress ...\n")
         message(paste(".. >> bounds set to: lower_centralD =", lower_centralD, "| upper_centralD =", upper_centralD))
       }
 
@@ -865,7 +877,7 @@ analyse_baSAR <- function(
      }
 
      ##set variables
-     ##Why is.null() ... it prevents that the function crashed is nothing is provided ...
+     ##Why is.null() ... it prevents that in case of a function crash is nothing is provided ...
 
      ##set changeable function arguments
 
@@ -980,9 +992,10 @@ analyse_baSAR <- function(
   }else{
 
     if(verbose){
-      cat("\n[analyse_baSAR()] ---- PREPROCESSING ----")
+      cat("\n[analyse_baSAR()] ---- PRE-PROCESSING ----\n")
 
     }
+
 
     ##Supported input types are:
     ##  (1) BIN-file
@@ -991,6 +1004,70 @@ analyse_baSAR <- function(
     ##  (2) RisoeBINfileData object
     ##      .. list
     ##      .. S4
+    ##  (3) RLum.Analyis objects
+    ##      .. list
+    ##      .. S4
+
+    ##In case an RLum.Analysis object is provided we try an ugly conversion only
+    if(class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))){
+     if(verbose)
+       cat("[analyse_baSAR()] RLum.Analysis-object detected .. ")
+
+      ##set number of objects
+      if(class(object) == "list"){
+        n_objects <- length(object)
+
+      }else{
+        n_objects <- 1
+
+      }
+
+      ##extract wanted curves
+      if(verbose)
+        cat("\n\t\t  .. extract 'OSL (UVVIS)' and 'irradiation (NA)'")
+      object <- get_RLum(object, recordType = c("OSL (UVVIS)", "irradiation (NA)"), drop = FALSE)
+
+      ##extract irradiation times
+      if(is.null(irradiation_times)){
+        if(verbose)
+          cat("\n\t\t  .. extract irradiation times")
+        irradiation_times <- extract_IrradiationTimes(object[[1]])$irr.times$IRR_TIME
+
+      }
+
+      ##run conversion
+      if(verbose)
+        cat("\n\t\t  .. run conversion")
+      object <- try(convert_RLum2Risoe.BINfileData(object), silent = TRUE)
+
+      ##create fallback
+       if(class(object) == "try-error"){
+         stop("[analyse_baSAR()] Object conversion failed. Return NULL!", call. = FALSE)
+         return(NULL)
+       }
+
+      ##assign irradiation times
+      if(is.null(irradiation_times)){
+        if(verbose)
+          cat("\n\t\t  .. set irradiation times")
+        object@METADATA[["IRR_TIME"]] <- rep(irradiation_times,n_objects)
+      }
+
+      ##remove none-OSL curves
+      if(verbose && !all("OSL" %in% object@METADATA[["LTYPE"]])){
+        cat("\n\t\t  .. remove non-OSL curves")
+        rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
+        object@METADATA <- object@METADATA[-rm_id,]
+        object@DATA[rm_id] <- NULL
+
+        ##reset index
+        object@METADATA[["ID"]] <- 1:length(object@METADATA[["ID"]])
+
+        ##delete objects
+        rm(rm_id)
+      }
+
+    }
 
     if (is(object, "Risoe.BINfileData")) {
       fileBIN.list <- list(object)
@@ -1209,7 +1286,6 @@ analyse_baSAR <- function(
         rep(list(background.integral.Tx), length = length(fileBIN.list))
     }
   }
-
 
 
   # Read EXCEL sheet ----------------------------------------------------------------------------
@@ -1438,12 +1514,11 @@ analyse_baSAR <- function(
 
   if(verbose){
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
-    cat("\n[analyse_baSAR()] Hang on, this may take a long time ... \n")
+    cat("\n[analyse_baSAR()] Hang on, this may take a while ... \n")
   }
 
 
   for (k in 1:length(fileBIN.list)) {
-
     n_index.vector <- vector("numeric")
 
     measured_discs.vector <- vector("numeric")
@@ -1460,12 +1535,20 @@ analyse_baSAR <- function(
 
     measured_discs.vector <-  fileBIN.list[[k]]@METADATA[["POSITION"]][1:length_BIN] # measured discs vector
     measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]][1:length_BIN]    # measured grains vector
-    irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+
+    if(is.null(irradiation_times)){
+      irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+
+    }else{
+      irrad_time.vector <- rep(irradiation_times,n_objects)
+
+    }
+
 
     ##if all irradiation times are 0 we should stop here
     if (length(unique(irrad_time.vector)) == 1) {
       try(stop(
-        "[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped an NULL returned!",
+        "[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped and NULL returned!",
         call. = FALSE
       ))
       return(NULL)
@@ -1520,7 +1603,7 @@ analyse_baSAR <- function(
           ##if the test passed, compile index list
           index_liste <- n_index.vector[disc_logic & grain_logic]
 
-      if (Mono_grain == FALSE)  { grain_selected <-1}
+      if (Mono_grain == FALSE)  {grain_selected <-1}
 
           for (kn in 1: length(index_liste)) {
 
@@ -1760,7 +1843,7 @@ analyse_baSAR <- function(
         }
 
         previous.Nb_aliquots <-
-            length(Limited_cycles) # Total count of aliquots
+            length(stats::na.exclude(Limited_cycles)) # Total count of aliquots
 
 
       count <- count + 1
@@ -1783,7 +1866,6 @@ analyse_baSAR <- function(
 
   }
   rm(calc_OSLLxTxRatio_warning)
-
 
   Nb_aliquots <- previous.Nb_aliquots
 
@@ -1895,7 +1977,6 @@ analyse_baSAR <- function(
 
     removed_aliquots <- t(OUTPUT_results_reduced[,!selection])
     OUTPUT_results_reduced <- t(OUTPUT_results_reduced[,selection])
-
 
     ##finally, check for difference in the number of dose points ... they should be the same
     if(length(unique(OUTPUT_results_reduced[,"CYCLES_NB"])) > 1){
@@ -2415,45 +2496,50 @@ analyse_baSAR <- function(
       rm(plot_matrix)
 
       ##03 Abanico Plot
-      plot_check <- plot_AbanicoPlot(
-        data = input_object[, c("DE", "DE.SD")],
-        zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
-        log.z = if (distribution != "log_normal") {
-          FALSE
-        } else{
-          TRUE
-        },
-        z.0 = results[[1]]$CENTRAL,
-        y.axis = FALSE,
-        polygon.col = FALSE,
-        line = results[[1]][,c(
-          "CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
-        line.col = c(col[3], col[3], col[2], col[2]),
-        line.lty = c(3,3,2,2),
-        output = TRUE,
-        mtext = paste0(
-          nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
-          "/",
-          nrow(input_object),
-          " plotted (removed are NA values)"
+      if(distribution_plot == "abanico"){
+        plot_check <- plot_AbanicoPlot(
+          data = input_object[, c("DE", "DE.SD")],
+          zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
+          log.z = if (distribution != "log_normal") {
+            FALSE
+          } else{
+            TRUE
+          },
+          z.0 = results[[1]]$CENTRAL,
+          y.axis = FALSE,
+          polygon.col = FALSE,
+          line = results[[1]][,c(
+            "CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
+          line.col = c(col[3], col[3], col[2], col[2]),
+          line.lty = c(3,3,2,2),
+          output = TRUE,
+          mtext = paste0(
+            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
+            "/",
+            nrow(input_object),
+            " plotted (removed are NA values)"
+          )
         )
-      )
 
-      if (!is.null(plot_check)) {
-        legend(
-          "topleft",
-          legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
-          lty = c(2, 3, 2),
-          col = c("black", col[3], col[2]),
-          bty = "n",
-          cex = par()$cex * 0.8
-        )
+        if (!is.null(plot_check)) {
+          legend(
+            "topleft",
+            legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
+            lty = c(2, 3, 2),
+            col = c("black", col[3], col[2]),
+            bty = "n",
+            cex = par()$cex * 0.8
+          )
+
+        }
+      }else{
+        plot_check <- NULL
 
       }
 
       ##In case the Abanico plot will not work because of negative values
       ##provide a KDE
-      if(is.null(plot_check)){
+      if(is.null(plot_check) && distribution_plot == "kde"){
         plot_check <- try(suppressWarnings(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
           xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
@@ -2497,6 +2583,7 @@ analyse_baSAR <- function(
         }
 
       }
+
   }
 
   # Return --------------------------------------------------------------------------------------

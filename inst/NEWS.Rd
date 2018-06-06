@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.8.5 (April 26th, 2018)}{
+\section{Changes in version 0.8.5 (June 8th, 2018)}{
 
  \subsection{Bugfixes and changes}{
   \itemize{
@@ -16,6 +16,15 @@
 
 
       }
+
+  \item \code{analyse_baSAR()}
+   \itemize{
+          \item Add support for \code{RLum.Analysis}-objects as input,
+          \item correct odd message informing about removed aliquots that had been never removed,
+          \item add new argument \code{distribution_plot} to allow a manual selection of the frequentist
+          distribution plot output.
+
+        }
 
 
     \item \code{analyse_SAR.CWOSL()}

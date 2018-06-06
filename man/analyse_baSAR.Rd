@@ -6,15 +6,16 @@
 \usage{
 analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   source_doserate = NULL, signal.integral, signal.integral.Tx = NULL,
-  background.integral, background.integral.Tx = NULL, sigmab = 0,
-  sig0 = 0.025, distribution = "cauchy", baSAR_model = NULL,
-  n.MCMC = 1e+05, fit.method = "EXP", fit.force_through_origin = TRUE,
+  background.integral, background.integral.Tx = NULL,
+  irradiation_times = NULL, sigmab = 0, sig0 = 0.025,
+  distribution = "cauchy", baSAR_model = NULL, n.MCMC = 1e+05,
+  fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  digits = 3L, plot = TRUE, plot_reduced = TRUE, plot.single = FALSE,
-  verbose = TRUE, ...)
+  digits = 3L, distribution_plot = "kde", plot = TRUE,
+  plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \link{character} or \link{list} (\strong{required}):
+\item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \linkS4class{RLum.Analysis} \link{character} or \link{list} (\strong{required}):
 input object used for the Bayesian analysis. If a \code{character} is provided the function
 assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
@@ -61,6 +62,11 @@ If nothing is provided the value from \code{background.integral} is used.
 Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
+\item{irradiation_times}{\link{numeric} (\emph{optional}): if set this vector replaces all irradiation
+times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
+Plesae note that if this argument is used, for every(!) single curve
+in the dataset an irradiation time needs to be set.}
+
 \item{sigmab}{\link{numeric} (\emph{with default}):
 option to set a manual value for the overdispersion (for LnTx and TnTx),
 used for the Lx/Tx error calculation. The value should be provided as
@@ -102,6 +108,10 @@ See details for further information}
 
 \item{digits}{\link{integer} (\emph{with default}):
 round output to the number of given digits}
+
+\item{distribution_plot}{\link{character} (\emph{with default}): sets the final distribution plot that
+shows equivalent doses obtained using the frequentist approach and sets in the central dose
+as comparison obtained using baSAR. Allowed input is \code{'abanico'} or \code{'kde'}. If set to \code{NULL} nothing is plotted.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output}
@@ -156,8 +166,9 @@ HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should
 \item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
 provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
 is limited to 1000 (random choice) for performance reasons,
-\item (E) the final plot is the De distribution as calculated using the conventional approach
-and the central dose with the HPDs marked within.
+\item (E) the final plot is the De distribution as calculated using the conventional (frequentist) approach
+and the central dose with the HPDs marked within. This figure is only provided for a comparison,
+no further statistical conclusion should be drawn from it.
 }
 
 \strong{Please note: If distribution was set to \code{log_normal} the central dose is given as geometric mean!}
@@ -330,7 +341,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.29 (2018-05-16 19:11:33)
+ 0.1.33 (2018-06-06 14:45:55)
 }
 
 \examples{
@@ -381,7 +392,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S. (2018). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.29. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S. (2018). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

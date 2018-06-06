@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.8.5 (April 26th, 2018):
+Changes in version 0.8.5 (June 8th, 2018):
 
   Bugfixes and changes:
 
@@ -17,6 +17,16 @@ Changes in version 0.8.5 (April 26th, 2018):
 
              • the manual was not complete and the reference wrong,
                fixed.
+
+         • ‘analyse_baSAR()’
+
+             • Add support for ‘RLum.Analysis’-objects as input,
+
+             • correct odd message informing about removed aliquots
+               that had been never removed,
+
+             • add new argument ‘distribution_plot’ to allow a manual
+               selection of the frequentist distribution plot output.
 
          • ‘analyse_SAR.CWOSL()’
 
