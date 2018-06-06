@@ -1,9 +1,6 @@
 ## Release summary
 
-The previous version (0.8.3), submitted yesterday, did not pass the CRAN tests for the Solaris 
-platform due to a test that required the package 'RLumShiny' installed. 
-The package is no longer necessary to pass the test, apart from it we skip this 
-test on CRAN to reduce the needed the resources. 
+Bugfix release, intended to replace version 0.8.4 on CRAN.
 
 ## Other notes or warnings
 
