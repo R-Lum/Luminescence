@@ -53,7 +53,7 @@ dose points in Gy. If you need more options than provided with this function, pl
 a look into the source code to create and modify an own R script.
 }
 \section{Function version}{
- 0.1.1 (2018-05-23 13:02:47)
+ 0.1.1 (2018-06-06 15:15:29)
 }
 
 \examples{
@@ -86,6 +86,6 @@ Christoph Burow, University of Cologne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2018). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2018). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.5. https://CRAN.R-project.org/package=Luminescence
 }
 

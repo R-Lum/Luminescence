@@ -9,13 +9,5 @@ Changes in version 0.9.0 (, 2018):
 
   Bugfixes and changes:
 
-         • ‘analyse_baSAR()’
-
-             • Add support for ‘RLum.Analysis’-objects as input,
-
-             • correct odd message informing about removed aliquots
-               that had been never removed,
-
-             • add new argument ‘distribution_plot’ to allow a manual
-               selection of the frequentist distribution plot output.
+         • Dummy
 
