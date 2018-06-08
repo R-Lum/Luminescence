@@ -35,7 +35,7 @@
 #' Norbert Mercier \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
 #' Christoph Schmidt \tab *University of Bayreuth, Germany* \cr
-#' Rachel K. Smedley \tab *Aberystwyth University, United Kingdom* \cr
+#' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
 #' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
 #' }
 #'
