@@ -25,7 +25,7 @@
 #' Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
 #' thermal contact of the chip.
 #'
-#' `stimulation_power` [numeric] (default: `0.01`):
+#' `stimulation_power` [numeric] (default: `0.05`):
 #'
 #' So far available, information on the delievered optical stimulation are compared. Compared are
 #' the information from the first curves with all others. If the ratio differs more from
@@ -401,7 +401,7 @@ analyse_Al2O3C_Measurement <- function(
   ##set test parameters
   test_parameters.default <- list(
     TL_peak_shift = 15,
-    stimulation_power = 0.01
+    stimulation_power = 0.05
   )
 
   ##modify default values by given input
