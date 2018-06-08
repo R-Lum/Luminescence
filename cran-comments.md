@@ -14,7 +14,7 @@ word is spelled correctly.
 Reverse depends 4: all OK.
 
 ## Test environments
-* local macOS High Sierra 10.13.3, Xcode 9.2, R-devel
+* local macOS High Sierra 10.13.5, Xcode 9.4, R-devel
 * on AppVeyor CI
     * i386-w64-mingw32/i386 (32-bit), R-devel
     * x86_64_w64-mingw32/64 (64-bit), R-devel

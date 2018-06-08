@@ -122,7 +122,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.2.1 (2018-06-07 17:56:56)
+ 0.2.1 (2018-06-07 18:03:44)
 }
 
 \examples{
