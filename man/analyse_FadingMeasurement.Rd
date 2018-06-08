@@ -108,7 +108,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.5 (2018-06-06 15:15:29)
+ 0.1.5 (2018-06-07 18:04:11)
 }
 
 \examples{
