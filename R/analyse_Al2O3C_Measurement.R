@@ -108,7 +108,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
@@ -156,8 +156,7 @@ analyse_Al2O3C_Measurement <- function(
 
     ##expand input arguments
     if(!is.null(signal_integral)){
-      signal_integral <- rep(list(signal_integral, length = length(object)))
-
+      signal_integral <- rep(list(signal_integral), length = length(object))
     }
 
     ##dose points
