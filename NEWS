@@ -4,7 +4,10 @@ Changes in version 0.8.6 (, 2018):
 
   Bugfixes and changes:
 
-         • dummy
+         • ‘analyse_Al2O3C_Measurement()’
+
+             • The argument ‘signal_integral’ was not treated
+               correctly; fixed.
 
 Changes in version 0.8.5 (June 8th, 2018):
 

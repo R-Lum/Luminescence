@@ -5,7 +5,11 @@
  \subsection{Bugfixes and changes}{
   \itemize{
 
-     \item dummy
+    \item \code{analyse_Al2O3C_Measurement()}
+      \itemize{
+        \item The argument \code{signal_integral} was not treated correctly; fixed.
+
+      }
 
   }
  }
