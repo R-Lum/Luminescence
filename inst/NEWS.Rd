@@ -7,9 +7,19 @@
 
     \item \code{analyse_Al2O3C_Measurement()}
       \itemize{
-        \item The argument \code{signal_integral} was not treated correctly; fixed.
+        \item The argument \code{signal_integral} was not treated correctly; fixed,
+        \item Set threshold for wrong stimulation power detection from 0.01 to 0.05, otherwise it
+        fires to oftern in false positive cases.
 
       }
+
+      \item \code{report_RLum()}
+      \itemize{
+        \item Add new argument \code{show_report} to allow file creation only without getting the RStudio viewer
+         involved.
+
+      }
+
 
   }
  }

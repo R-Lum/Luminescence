@@ -5,8 +5,9 @@
 \title{Create a HTML report for (RLum) objects}
 \usage{
 report_RLum(object, file = tempfile(), title = "RLum.Report",
-  compact = TRUE, timestamp = TRUE, launch.browser = FALSE,
-  css.file = NULL, quiet = TRUE, clean = TRUE, ...)
+  compact = TRUE, timestamp = TRUE, show_report = TRUE,
+  launch.browser = FALSE, css.file = NULL, quiet = TRUE, clean = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{(\strong{required}):
@@ -27,6 +28,9 @@ See details.}
 
 \item{timestamp}{\link{logical} (\emph{with default}):
 \code{TRUE} to add a timestamp to the filename (suffix).}
+
+\item{show_report}{\link{logical} (\emph{with default}): If set to \code{TRUE} the function tries to display
+the report output in the local viewer, e.g., within \emph{RStudio} after rendering.}
 
 \item{launch.browser}{\link{logical} (\emph{with default}):
 \code{TRUE} to open the HTML file in the system's default web browser after
@@ -114,7 +118,7 @@ CSS styling can be turned of using \code{css = FALSE}.
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.1 (2018-06-10 16:57:37)
 }
 
 \examples{
@@ -126,14 +130,14 @@ This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 data("ExampleData.DeValues")
 
 # apply the MAM-3 age model and save results
-mam <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2) 
+mam <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2)
 
 # create the HTML report
 report_RLum(object = mam, file = "~/CA1_MAM.Rmd",
             timestamp = FALSE,
             title = "MAM-3 for sample CA1")
 
-# when creating a report the input file is automatically saved to a 
+# when creating a report the input file is automatically saved to a
 # .Rds file (see saveRDS()).
 mam_report <- readRDS("~/CA1_MAM.Rds")
 all.equal(mam, mam_report)
@@ -169,8 +173,8 @@ data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 report_RLum(object = data.curve, file = "~/Data_Curve")
 
 ## Example: Any other object ----
-x <- list(x = 1:10, 
-          y = runif(10, -5, 5), 
+x <- list(x = 1:10,
+          y = runif(10, -5, 5),
           z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
           NA)
 
@@ -184,10 +188,11 @@ report_RLum(object = x, file = "~/arbitray_list")
 \link{browseURL}
 }
 \author{
-Christoph Burow, University of Cologne (Germany) \cr
+Christoph Burow, University of Cologne (Germany),
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2018). report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S. (2018). report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
