@@ -8,7 +8,7 @@ plot_DRCSummary(object, sel_curves = NULL, show_dose_points = FALSE,
   show_natural = FALSE, n = 51L, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} object (\strong{required}): input object created by the function \link{analyse_SAR.CWOSL}}
+\item{object}{\linkS4class{RLum.Results} object (\strong{required}): input object created by the function \link{analyse_SAR.CWOSL}. The input object can be provided as \link{list}.}
 
 \item{sel_curves}{\link{numeric} (optional): id of the curves to be plotting in its occuring order. A sequence can
 be provided for selecting, e.g., only every 2nd curve from the input object}
@@ -53,7 +53,7 @@ dose points in Gy. If you need more options than provided with this function, pl
 a look into the source code to create and modify an own R script.
 }
 \section{Function version}{
- 0.1.1 (2018-06-07 18:04:11)
+ 0.2.0 (2018-06-18 11:45:19)
 }
 
 \examples{
@@ -86,6 +86,6 @@ Christoph Burow, University of Cologne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2018). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2018). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 

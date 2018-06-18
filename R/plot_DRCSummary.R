@@ -9,7 +9,7 @@
 #'dose points in Gy. If you need more options than provided with this function, please have
 #'a look into the source code to create and modify an own R script.
 #'
-#'@param object [RLum.Results-class] object (**required**): input object created by the function [analyse_SAR.CWOSL]
+#'@param object [RLum.Results-class] object (**required**): input object created by the function [analyse_SAR.CWOSL]. The input object can be provided as [list].
 #'
 #'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occuring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
@@ -23,7 +23,7 @@
 #'
 #'@param ... Further arguments and graphical parameters to be passed.
 #'
-#'@section Function version: 0.1.1
+#'@section Function version: 0.2.0
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -42,6 +42,7 @@
 #' `call` \tab `call` \tab the original function call \cr
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
+#'
 #'
 #'@author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne
@@ -80,6 +81,43 @@ plot_DRCSummary <- function(
   ...
 ){
 
+
+# Self-call -----------------------------------------------------------------------------------
+if(class(object) == "list"){
+
+  ##catch ... arguments
+  plot_settings <- list(...)
+
+  ##expand arguments
+  if("main" %in% names(list(...))){
+    main <- as.list(rep(list(...)[["main"]], length(object)))
+
+    ##filter main from the ... argument list otherwise we will have a collusion
+    plot_settings["main" %in% names(plot_settings)] <- NULL
+
+  }else{
+    main <- as.list(rep("DRC", length(object)))
+
+  }
+
+
+  results <- lapply(1:length(object), function(o){
+    plot_DRCSummary(
+      object = object[[o]],
+      sel_curves = sel_curves,
+      show_dose_points = show_dose_points,
+      show_natural = show_natural,
+      n = n,
+      main = main[[o]],
+      ... = plot_settings
+      )
+
+  })
+
+  ##return merged object
+  return(merge_RLum(results))
+
+}
 
 # Check input ---------------------------------------------------------------------------------
   if(class(object) != "RLum.Results")
@@ -196,13 +234,13 @@ plot_DRCSummary <- function(
     ##plot lines
     x <- seq(min(plot_settings$xlim),max(plot_settings$xlim), length.out = n)
     y <- eval(DRC[[i]])
-    
+
     if (is.na(y) || is.nan(y)) {
-      warning("[plot_DRCSummary()] Dose response curve ", i, " is NA/NaN and was removed before plotting.", 
+      warning("[plot_DRCSummary()] Dose response curve ", i, " is NA/NaN and was removed before plotting.",
               call. = FALSE)
       next
     }
-    
+
     lines(
       x = x,
       y = eval(DRC[[i]]),
@@ -212,7 +250,7 @@ plot_DRCSummary <- function(
     )
 
   }
-  
+
   ## Results -------------------------------------------------------------------
   results <- set_RLum(
     class = "RLum.Results",
@@ -226,7 +264,7 @@ plot_DRCSummary <- function(
     info = list(call = sys.call(),
                 args = as.list(sys.call())[-1])
   )
-  
+
   ## Return value --------------------------------------------------------------
   return(results)
 }
