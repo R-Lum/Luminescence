@@ -43,6 +43,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
+#'*Note: If the input object is a [list] a list of [RLum.Results-class] objects is returned.*
 #'
 #'@author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne
@@ -115,7 +116,7 @@ if(class(object) == "list"){
   })
 
   ##return merged object
-  return(merge_RLum(results))
+  return(results)
 
 }
 
