@@ -5,12 +5,13 @@
   \subsection{New functions}{
     \itemize{
 
+       \item \code{fit_OSLLifeTimes()} Fit and deconvolute OSL lifetimes
+
         \item \code{plot_DRCSummary()} Summarise all dose-response curves from your SAR OSL
          analysis in one single plot.
 
     }
   }
-
 
 
   \subsection{Bugfixes and changes}{

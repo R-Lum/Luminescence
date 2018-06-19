@@ -62,7 +62,7 @@ Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, Fran
 Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
 Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
-Rachel K. Smedley \tab \emph{Aberystwyth University, United Kingdom} \cr
+Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
 Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
 }
 

@@ -40,6 +40,8 @@ Slot: \strong{@info}\cr
 \code{call} \tab \code{call} \tab the original function call \cr
 \code{args} \tab \code{list} \tab arguments of the original function call \cr
 }
+
+\emph{Note: If the input object is a \link{list} a list of \linkS4class{RLum.Results} objects is returned.}
 }
 \description{
 While analysing OSL SAR or pIRIR data the view on the data is limited usually to one
@@ -53,7 +55,7 @@ dose points in Gy. If you need more options than provided with this function, pl
 a look into the source code to create and modify an own R script.
 }
 \section{Function version}{
- 0.2.0 (2018-06-18 12:09:16)
+ 0.2.0 (2018-06-18 12:13:14)
 }
 
 \examples{

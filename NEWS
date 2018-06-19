@@ -4,6 +4,8 @@ Changes in version 0.9.0 (, 2018):
 
   New functions:
 
+         • ‘fit_OSLLifeTimes()’ Fit and deconvolute OSL lifetimes
+
          • ‘plot_DRCSummary()’ Summarise all dose-response curves from
            your SAR OSL analysis in one single plot.
 
