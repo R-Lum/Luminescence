@@ -7,7 +7,7 @@
 #'
 #' \tabular{lll}{
 #' **Parameter** \tab **Type** \tab **Descritpion**\cr
-#' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5% a value of 0.95 (the default) should be added, for 1%, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::qf])\cr
+#' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::qf])\cr
 #' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 #' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
 #' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control])
@@ -402,7 +402,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
     ##order matrix by tau ... this is a little bit tricky
     summary_matrix <- summary_matrix[c(o,o + length(A)),]
-    rownames(summary_matrix) <- rownames(summary_matrix)[c(o,o + length(A))]
 
 
   }else{
@@ -578,7 +577,7 @@ if(plot) {
 
 }
 
-# temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
-#   get_RLum(recordType = "UVVIS", drop = FALSE)
-#
-# fit_OSLLifeTimes(temp[[1]])
+temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
+  get_RLum(recordType = "UVVIS", drop = FALSE)
+
+fit_OSLLifeTimes(temp[[1]])
