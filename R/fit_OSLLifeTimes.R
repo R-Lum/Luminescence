@@ -52,6 +52,7 @@
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `matrix` \tab the final fit matrix \cr
 #'  `$start_matrix` \tab `matrix` \tab the start matrix used for the fitting \cr
+#'  `$total_counts` \tab `integer` \tab Photon count sum \cr
 #'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm] \cr
 #' }
 #'
@@ -426,6 +427,11 @@ if(verbose){
 
   }
 
+  cat("\n(3) Further information\n")
+  cat("-------------------------------------------------------------------------\n")
+  cat("Photon count sum: ", sum(df[[2]]),"\n")
+
+
 }
 
 
@@ -567,6 +573,7 @@ if(plot) {
       data = list(
         data = summary_matrix,
         start_matrix = start_matrix,
+        total_counts = sum(df[[2]]),
         fit = fit
       ),
       info = list(
@@ -576,8 +583,3 @@ if(plot) {
   )
 
 }
-
-temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
-  get_RLum(recordType = "UVVIS", drop = FALSE)
-
-fit_OSLLifeTimes(temp[[1]])
