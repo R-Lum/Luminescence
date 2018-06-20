@@ -11,6 +11,9 @@
 #' Input object containing the data to be analysed. All objects can be provided also as list for an automated
 #' processing
 #'
+#' @param tp [numeric] (*with default*): option to account for the stimulation pulse width. For off-time measurements
+#' usually the value is 0. `tp` has the same unit as the measurement data, e.g., µs.
+#'
 #' @param signal_range [numeric] (*optional*): allows to set a channel range, by default all channels are used, e.g.
 #' `signal_range = c(2,100)` considers only channels 2 to 100 and `signal_range = c(2)` considers only channels
 #' from channel 2 onwards.
@@ -81,6 +84,7 @@
 #'@export
 fit_OSLLifeTimes <- function(
   object,
+  tp = 0,
   signal_range = NULL,
   n.components = NULL,
   method_control = list(),
@@ -105,10 +109,14 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   if(!is.null(n.components))
     n.components <- as.list(rep(n.components, length(object)))
 
+  ##tp
+  tp <- as.list(rep(tp, length(object)))
+
   ##run function
   temp_results <- lapply(1:length(object), function(x){
       temp <- try(fit_OSLLifeTimes(
         object = object[[x]],
+        tp = tp[[x]],
         signal_range = signal_range,
         n.components = n.components[[x]],
         method_control = method_control,
@@ -197,14 +205,14 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   )
 
   ##udpate list if the user did something
-  method_control_setting <- modifyList(x = method_control_setting ,val = method_control)
+  method_control_setting <- modifyList(x = method_control_setting, val = method_control)
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(A) SETTINGS
   ##
   ##
   ##(1) >> set fitting function for minpack.lm
-  x <- 0
+  x <- 0 #cheat R check routine
   fit_forumla <- function(n.components, tp){
     A <- paste0("A.",1:n.components)
     tau <- paste0("tau.",1:n.components)
@@ -273,7 +281,8 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     formula_string <- fn_constructor(m)
 
     ##set fn
-    fn <- function(x, tp = 0.1, n = df[[2]], c = df[[1]][2] - df[[1]][1], t = df[[1]], term = formula_string){
+    set_tp <- tp
+    fn <- function(x, tp = set_tp, n = df[[2]], c = df[[1]][2] - df[[1]][1], t = df[[1]], term = formula_string){
       eval(formula_string)
     }
 
@@ -299,7 +308,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     chi_squared[2] <- start$optim$bestval
     if(!is.na(chi_squared[1])){
       F[2] <- (abs(diff(chi_squared))/2) /
-        (chi_squared[2]/(length(df[[2]]) - 2 * m  - 2))
+        (chi_squared[2]/(nrow(df) - 2 * m  - 2))
 
     }
 
@@ -356,8 +365,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   }
 
-  ##set tp
-  tp <-  0.1
 
   fit <- try(minpack.lm::nlsLM(
     formula = fit_forumla(n.components = m, tp = tp),
@@ -409,10 +416,7 @@ if(verbose){
     cat("-------------------------------------------------------------------------\n")
 
   }else{
-    cat("(2) Fitting results (sorted by ascending tau)\n")
-    cat("-------------------------------------------------------------------------\n")
     try(stop("The fitting was not sucessful, consider to try again!", call. = FALSE))
-    cat("-------------------------------------------------------------------------\n")
 
   }
 
@@ -567,7 +571,7 @@ if(plot) {
 
 }
 
-temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
+temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-20_L1_FP_BSL_BT992_proto_test_250mu_2.xsyg", fastForward = TRUE) %>%
   get_RLum(recordType = "UVVIS", drop = FALSE)
 
-fit_OSLLifeTimes(temp[[2]])
+fit_OSLLifeTimes(temp[[1]])
