@@ -91,7 +91,7 @@ fit_OSLLifeTimes <- function(
 
 
 # Self-call -----------------------------------------------------------------------------------
-if(class(object) == "list"){
+if(class(object) == "list" || class(object) == "RLum.Analysis"){
   ##allow RLum.Analysis objects
   if(all(vapply(object, function(x){
     class(x) == "RLum.Analysis"}, logical(1)))){
@@ -149,7 +149,7 @@ if(class(object) == "list"){
     df <- as.data.frame(object[,1:2])
 
   }else{
-    try(stop(paste0("[fit_OSLLifeTime()] Class ",class(object), " not supported as input, NULL returned!"),
+    try(stop(paste0("[fit_OSLLifeTime()] Class '",class(object), "' not supported as input, NULL returned!"),
              call. = FALSE))
     return(NULL)
 
@@ -426,7 +426,7 @@ if(plot) {
     log = "",
     xlim = c(0,max(df[[1]])),
     ylim = c(0,max(df[[2]])),
-    col = get("col", pos = .LuminescenceEnv)[-1],
+    col = get("col", pos = Luminescence:::.LuminescenceEnv)[-1],
     lty = rep(1, (m + 1)),
     legend.pos = "topright",
     legend.text = c("sum", paste0("comp. ", 1:m))
@@ -561,3 +561,8 @@ if(plot) {
   )
 
 }
+
+temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
+  get_RLum(recordType = "UVVIS", drop = FALSE)
+
+fit_OSLLifeTimes(temp[[1]])
