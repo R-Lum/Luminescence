@@ -403,7 +403,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 if(verbose){
 
   if (class(fit) != 'try-error') {
-    cat("(2) Fitting results\n")
+    cat("(2) Fitting results (sorted by ascending tau)\n")
     cat("-------------------------------------------------------------------------\n")
     print(summary_matrix)
     cat("-------------------------------------------------------------------------\n")
@@ -570,4 +570,4 @@ if(plot) {
 temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
   get_RLum(recordType = "UVVIS", drop = FALSE)
 
-fit_OSLLifeTimes(temp[[3]])
+fit_OSLLifeTimes(temp[[2]])
