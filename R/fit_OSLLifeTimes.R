@@ -386,6 +386,11 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     ##summary matrix
     summary_matrix <- summary(fit)$coefficients
 
+    ##order matrix by tau ... this is a little bit tricky
+    summary_matrix <- summary_matrix[c(o,o + length(A)),]
+    rownames(summary_matrix) <- rownames(summary_matrix)[c(o,o + length(A))]
+
+
   }else{
     m <- 1
     A <- NA
@@ -404,9 +409,9 @@ if(verbose){
     cat("-------------------------------------------------------------------------\n")
 
   }else{
-    cat("(2) Fitting results\n")
+    cat("(2) Fitting results (sorted by ascending tau)\n")
     cat("-------------------------------------------------------------------------\n")
-    print("The fitting was not sucessful, consider to try again!")
+    try(stop("The fitting was not sucessful, consider to try again!", call. = FALSE))
     cat("-------------------------------------------------------------------------\n")
 
   }
@@ -565,4 +570,4 @@ if(plot) {
 temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
   get_RLum(recordType = "UVVIS", drop = FALSE)
 
-fit_OSLLifeTimes(temp[[1]])
+fit_OSLLifeTimes(temp[[3]])
