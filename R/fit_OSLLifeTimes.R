@@ -3,9 +3,15 @@
 #' @details
 #' The fitting is optimised to fit the off-time flank of POSL measurements.
 #'
-#' **method_control** options
+#' **`method_control`**
 #'
-#' TODO
+#' \tabular{lll}{
+#' **Parameter** \tab **Type** \tab **Descritpion**\cr
+#' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5% a value of 0.95 (the default) should be added, for 1%, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::qf])\cr
+#' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
+#' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
+#' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control])
+#' }
 #'
 #' @param object [RLum.Data.Curve-class], [data.frame] or [matrix] **(required)**:
 #' Input object containing the data to be analysed. All objects can be provided also as list for an automated
@@ -198,6 +204,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   ##(0) CONTROL +++++++++++++++++++++++++++++++++++++++++++++++++++++
   method_control_setting <- list(
+    p = 0.95,
     seed = NULL,
     DEoptim.trace = FALSE,
     DEoptim.itermax = 1000
@@ -272,7 +279,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   }
 
-  while(F[2] > qf(0.95, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
+  while(F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
     ##set F
     F[1] <- F[2]
 
@@ -315,9 +322,9 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     ##terminal feedback
     if(verbose){
       cat("\n>> + adaption for",m, "comp.", ": ", round(F[2],2), "(calc.) <> ",
-          round(qf(0.95, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2), 2), "(ref.)")
+          round(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2), 2), "(ref.)")
 
-      if(F[2] > qf(0.95, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
+      if(F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
         cat(" >> [add comp.]")
 
       }else{
@@ -571,7 +578,7 @@ if(plot) {
 
 }
 
-temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-20_L1_FP_BSL_BT992_proto_test_250mu_2.xsyg", fastForward = TRUE) %>%
-  get_RLum(recordType = "UVVIS", drop = FALSE)
-
-fit_OSLLifeTimes(temp[[1]])
+# temp <- read_XSYG2R("~/R/Personen/Christoph_Schmidt/20180619/2018-03-17_L1_SP_BSL_FB2A_proto_3.xsyg", fastForward = TRUE) %>%
+#   get_RLum(recordType = "UVVIS", drop = FALSE)
+#
+# fit_OSLLifeTimes(temp[[1]])
