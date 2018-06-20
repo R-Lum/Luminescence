@@ -447,7 +447,7 @@ if(plot) {
     log = "",
     xlim = c(0,max(df[[1]])),
     ylim = c(0,max(df[[2]])),
-    col = get("col", pos = Luminescence:::.LuminescenceEnv)[-1],
+    col = get("col", pos = .LuminescenceEnv)[-1],
     lty = rep(1, (m + 1)),
     legend.pos = "topright",
     legend.text = c("sum", paste0("comp. ", 1:m))

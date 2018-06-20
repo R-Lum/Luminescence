@@ -4,13 +4,16 @@
 \alias{fit_OSLLifeTimes}
 \title{Fitting OSL Lifetime Components}
 \usage{
-fit_OSLLifeTimes(object, signal_range = NULL, n.components = NULL,
+fit_OSLLifeTimes(object, tp = 0, signal_range = NULL, n.components = NULL,
   method_control = list(), plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \link{data.frame} or \link{matrix} \strong{(required)}:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
 processing}
+
+\item{tp}{\link{numeric} (\emph{with default}): option to account for the stimulation pulse width. For off-time measurements
+usually the value is 0. \code{tp} has the same unit as the measurement data, e.g., µs.}
 
 \item{signal_range}{\link{numeric} (\emph{optional}): allows to set a channel range, by default all channels are used, e.g.
 \code{signal_range = c(2,100)} considers only channels 2 to 100 and \code{signal_range = c(2)} considers only channels
@@ -43,6 +46,7 @@ all parameters are supported.}
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$data} \tab \code{matrix} \tab the final fit matrix \cr
 \code{$start_matrix} \tab \code{matrix} \tab the start matrix used for the fitting \cr
+\code{$total_counts} \tab \code{integer} \tab Photon count sum \cr
 \code{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm} \cr
 }
 
@@ -62,12 +66,18 @@ Fitting OSL Lifetime Components
 \details{
 The fitting is optimised to fit the off-time flank of POSL measurements.
 
-\strong{method_control} options
+\strong{\code{method_control}}
 
-TODO
+\tabular{lll}{
+\strong{Parameter} \tab \strong{Type} \tab \strong{Descritpion}\cr
+\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:qf]{stats::qf})\cr
+\code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
+\code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
+\code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control})
+}
 }
 \section{Function version}{
- 0.1.0 (2018-06-19 14:06:03)
+ 0.1.0 (2018-06-20 19:58:03)
 }
 
 \examples{
