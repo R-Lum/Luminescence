@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_OSLLifeTimes.R
 \name{fit_OSLLifeTimes}
 \alias{fit_OSLLifeTimes}
-\title{Fitting OSL Lifetime Components}
+\title{Fitting and Deconvolution of OSL Lifetime Components}
 \usage{
 fit_OSLLifeTimes(object, tp = 0, signal_range = NULL, n.components = NULL,
   method_control = list(), plot = TRUE, verbose = TRUE, ...)
@@ -13,7 +13,8 @@ Input object containing the data to be analysed. All objects can be provided als
 processing}
 
 \item{tp}{\link{numeric} (\emph{with default}): option to account for the stimulation pulse width. For off-time measurements
-usually the value is 0. \code{tp} has the same unit as the measurement data, e.g., µs.}
+the default value is 0. \code{tp} has the same unit as the measurement data, e.g., µs. Please set this parameter
+carefully, if it all, otherwise you may heavily bias your fit results.}
 
 \item{signal_range}{\link{numeric} (\emph{optional}): allows to set a channel range, by default all channels are used, e.g.
 \code{signal_range = c(2,100)} considers only channels 2 to 100 and \code{signal_range = c(2)} considers only channels
@@ -58,13 +59,35 @@ The original function call
 \code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
-A plot showing the original data and the fit so far possible
+A plot showing the original data and the fit so far possible. The lower plot shows the
+residuals of the fit.
 }
 \description{
-Fitting OSL Lifetime Components
+Fitting and Deconvolution of OSL Lifetime Components
 }
 \details{
-The fitting is optimised to fit the off-time flank of POSL measurements.
+The function intends to provide an easy access to pulsed optically stimulated luminescence (POSL) data,
+in order determine signal lifetimes. The fitting is currently optimised to work with the off-time flank of POSL measurements
+only. For the signal deconvolution, a differential evolution optimisation is combined with nonlinear least-square fitting
+following the approach by Bluszcz & Adamiec (2006).
+
+\strong{Component deconvolution algorithm}
+
+The component deconvolution consists of two steps:
+
+(1) Adaption phase
+
+In the adaption phase the function tries to figure out the optimal and statistically justified
+number of signal components following roughly the approach suggestd by Bluszcz & Adamiec (2006). In
+contrast to their work, for the optimisation by differential evolution here the package 'DEoptim' is used.
+
+The function to be optimized has the form:
+
+\deqn{\chi^2 = \sum(w * (n/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+
+\deqn{F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))}
+
+(2) Final fitting
 
 \strong{\code{method_control}}
 
@@ -77,7 +100,7 @@ The fitting is optimised to fit the off-time flank of POSL measurements.
 }
 }
 \section{Function version}{
- 0.1.0 (2018-06-20 19:58:03)
+ 0.1.0 (2018-06-21 12:10:27)
 }
 
 \examples{
@@ -87,7 +110,7 @@ print("nothing here so far")
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C. (2018). fit_OSLLifeTimes(): Fitting OSL Lifetime Components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C. (2018). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
