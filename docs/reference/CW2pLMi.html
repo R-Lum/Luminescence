@@ -22,19 +22,25 @@ modulation conditions — CW2pLMi • Luminescence</title>
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
 modulation conditions — CW2pLMi" />
 
 <meta property="og:description" content="Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
 pseudo linearly modulated (pLM) curve under linear modulation conditions
-using the interpolation procedure described by Bos &amp; Wallinga (2012)." />
+using the interpolation procedure described by Bos &amp;amp; Wallinga (2012)." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012)." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -69,7 +79,7 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012)." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -96,6 +106,7 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012)." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -103,22 +114,26 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012)." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
 modulation conditions</h1>
+    
+    <div class="hidden name"><code>CW2pLMi.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
 pseudo linearly modulated (pLM) curve under linear modulation conditions
 using the interpolation procedure described by Bos &amp; Wallinga (2012).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>CW2pLMi</span>(<span class='no'>values</span>, <span class='no'>P</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -139,23 +154,25 @@ points in the rising tail of the curve.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The function returns the same data type as the input data type with
-the transformed curve values.
+the transformed curve values.</p>
+<p><strong><code>RLum.Data.Curve</code></strong></p>
+<table class='table'>
+<tr><td><code>$CW2pLMi.x.t</code></td><td>: transformed time values</td></tr>
+<tr><td><code>$CW2pLMi.method</code></td><td>: used method for the production of the new data points</td></tr>
+</table>
 
-<strong><code>RLum.Data.Curve</code></strong></p><table><tr><td>
-<code>$CW2pLMi.x.t</code> </td>
-<td>: transformed time values </td>
-</tr></table>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The complete procedure of the transformation is given in Bos &amp; Wallinga
 (2012). The input <code>data.frame</code> consists of two columns: time (t) and
-count values (CW(t))
-    <strong>Nomenclature</strong></p><ul>
+count values (CW(t))</p>
+<p><strong>Nomenclature</strong></p><ul>
 <li><p>P = stimulation time (s)</p></li>
 <li><p>1/P = stimulation rate (1/s)</p></li>
-</ul><p><strong>Internal transformation steps</strong></p>
+</ul>
+    <p><strong>Internal transformation steps</strong></p>
 <p>(1)
 log(CW-OSL) values</p>
 <p>(2)
@@ -176,8 +193,8 @@ fit parameters.</p>
 Transform values using
 $$pLM(t) = t/P*CW(t')$$</p>
 <p>(7)
-Combine values and truncate all values for t' &gt; <code>max(t)</code>
-    <strong>NOTE:</strong>
+Combine values and truncate all values for t' &gt; <code>max(t)</code></p>
+<p><strong>NOTE:</strong>
 The number of values for t' &lt; <code>min(t)</code> depends on the stimulation
 period (P) and therefore on the stimulation rate 1/P. To avoid the
 production of too many artificial data at the raising tail of the determined
@@ -193,17 +210,13 @@ message is returned.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). CW2pLMi(): Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear modulation conditions. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.3.1</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bos, A.J.J. &amp; Wallinga, J., 2012. How to visualize quartz OSL
-signal components. Radiation Measurements, 47, 752-758.
-    <strong>Further Reading</strong></p>
+signal components. Radiation Measurements, 47, 752-758.</p>
+<p><strong>Further Reading</strong></p>
 <p>Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.</p>
@@ -212,8 +225,8 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='CW2pLM.html'>CW2pLM</a>, <a href='CW2pHMi.html'>CW2pHMi</a>, <a href='CW2pPMi.html'>CW2pPMi</a>, <a href='fit_LMCurve.html'>fit_LMCurve</a>,
-<a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p>
+    <div class='dont-index'><p><a href='CW2pLM.html'>CW2pLM</a>, <a href='CW2pHMi.html'>CW2pHMi</a>, <a href='CW2pPMi.html'>CW2pPMi</a>, <a href='fit_LMCurve.html'>fit_LMCurve</a>,
+<a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -226,7 +239,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
 <span class='no'>values.transformed</span> <span class='kw'>&lt;-</span> <span class='fu'>CW2pLMi</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>)
 
 <span class='co'>##plot</span>
-<span class='fu'>plot</span>(<span class='no'>values.transformed</span>$<span class='no'>x</span>, <span class='no'>values.transformed</span>$<span class='no'>y.t</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>values.transformed</span>$<span class='no'>x</span>, <span class='no'>values.transformed</span>$<span class='no'>y.t</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='img'><img src='CW2pLMi-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) - produce Fig. 4 from Bos &amp; Wallinga (2012)</span>
 <span class='co'>##load data</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
@@ -239,15 +252,15 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
      <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"pseudo OSL (cts/0.01 s)"</span>,
      <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"t [s]"</span>,
      <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Fig. 4 - Bos &amp; Wallinga (2012)"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Fig. 4 - Bos &amp; Wallinga (2012)"</span>)</div><div class='input'>
 
 <span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'>CW2pLMi</span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>20</span>)
 <span class='fu'>lines</span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'>length</span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>],<span class='fu'>CW2pLMi</span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>20</span>)[,<span class='fl'>2</span>],
-      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div><div class='input'><span class='fu'>text</span>(<span class='fl'>0.03</span>,<span class='fl'>4500</span>,<span class='st'>"LM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in text.default(0.03, 4500, "LM", col = "red", cex = 0.8): plot.new has not been called yet</span></div><div class='input'>
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='input'><span class='fu'>text</span>(<span class='fl'>0.03</span>,<span class='fl'>4500</span>,<span class='st'>"LM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='input'>
 <span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CW2pHMi.html'>CW2pHMi</a></span>(<span class='no'>values</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'>lines</span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'>length</span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>],<span class='fu'><a href='CW2pHMi.html'>CW2pHMi</a></span>(<span class='no'>values</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>40</span>)[,<span class='fl'>2</span>],
-      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div><div class='input'><span class='fu'>text</span>(<span class='fl'>0.005</span>,<span class='fl'>3000</span>,<span class='st'>"HM"</span>, <span class='kw'>cex</span> <span class='kw'>=</span><span class='fl'>.8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in text.default(0.005, 3000, "HM", cex = 0.8): plot.new has not been called yet</span></div><div class='input'>
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'>text</span>(<span class='fl'>0.005</span>,<span class='fl'>3000</span>,<span class='st'>"HM"</span>, <span class='kw'>cex</span> <span class='kw'>=</span><span class='fl'>.8</span>)</div><div class='input'>
 <span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'>lines</span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'>length</span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>], <span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)[,<span class='fl'>2</span>],
-      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet</span></div><div class='input'><span class='fu'>text</span>(<span class='fl'>0.5</span>,<span class='fl'>6500</span>,<span class='st'>"PM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in text.default(0.5, 6500, "PM", col = "blue", cex = 0.8): plot.new has not been called yet</span></div><div class='input'>
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'>text</span>(<span class='fl'>0.5</span>,<span class='fl'>6500</span>,<span class='st'>"PM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='img'><img src='CW2pLMi-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -263,8 +276,6 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -276,9 +287,9 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 
-Based on comments and suggestions from:
+Based on comments and suggestions from:<br />
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -294,5 +305,8 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

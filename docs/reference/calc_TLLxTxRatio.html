@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code> — calc_TLLxTxRatio" />
 
 <meta property="og:description" content="Calculate Lx/Tx ratio for a given set of TL curves." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,20 +110,24 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code></h1>
+    
+    <div class="hidden name"><code>calc_TLLxTxRatio.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculate Lx/Tx ratio for a given set of TL curves.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_TLLxTxRatio</span>(<span class='no'>Lx.data.signal</span>, <span class='kw'>Lx.data.background</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>Tx.data.signal</span>,
   <span class='kw'>Tx.data.background</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>signal.integral.min</span>, <span class='no'>signal.integral.max</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -167,8 +182,8 @@ Slot <code>data</code> contains a list with the following structure:</p><pre>$ L
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Uncertainty estimation</strong></p>
-<p>The standard errors are calculated using the following generalised equation:
-    $$SE_{signal} &lt;- abs(Signal_{net} * BG_f /BG_{signal}$$</p>
+<p>The standard errors are calculated using the following generalised equation:</p>
+<p>$$SE_{signal} &lt;- abs(Signal_{net} * BG_f /BG_{signal}$$</p>
 <p>where \(BG_f\) is a term estimated by calculating the standard deviation of the sum of
 the \(L_x\) background counts and the sum of the \(T_x\) background counts. However,
 if both signals are similar the error becomes zero.</p>
@@ -180,15 +195,11 @@ background for both curves results in a zero error and is therefore set to <code
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.2 (2018-01-21 17:22:38)</p>
+    <p>0.3.2</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='analyse_SAR.TL.html'>analyse_SAR.TL</a></p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S., Schmidt, C. (2018). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <div class='dont-index'><p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='analyse_SAR.TL.html'>analyse_SAR.TL</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -231,17 +242,15 @@ background for both curves results in a zero error and is therefore set to <code
       <li><a href="#function-version">Function version</a></li>
 
       <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
     
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) 
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) <br />
 Christoph Schmidt, University of Bayreuth (Germany)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -257,5 +266,8 @@ Christoph Schmidt, University of Bayreuth (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

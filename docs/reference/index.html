@@ -21,13 +21,19 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -62,7 +72,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -89,6 +99,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -96,761 +107,775 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.8.1</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_Al2O3C_CrossTalk.html">analyse_Al2O3C_CrossTalk</a></code> </p>
-          </td>
-          <td><p>Al2O3:C Reader Cross Talk Analysis</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC</a></code> </p>
-          </td>
-          <td><p>Al2O3 Irradiation Time Correction Analysis</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement</a></code> </p>
-          </td>
-          <td><p>Al2O3:C Passive Dosimeter Measurement Analysis</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_baSAR.html">analyse_baSAR</a></code> </p>
-          </td>
-          <td><p>Bayesian models (baSAR) applied on luminescence data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_FadingMeasurement.html">analyse_FadingMeasurement</a></code> </p>
-          </td>
-          <td><p>Analyse fading measurements and returns the fading rate per decade (g-value)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_IRSAR.RF.html">analyse_IRSAR.RF</a></code> </p>
-          </td>
-          <td><p>Analyse IRSAR RF measurements</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_pIRIRSequence.html">analyse_pIRIRSequence</a></code> </p>
-          </td>
-          <td><p>Analyse post-IR IRSL measurement sequences</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_portableOSL.html">analyse_portableOSL</a></code> </p>
-          </td>
-          <td><p>Analyse portable CW-OSL measurements</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></code> </p>
-          </td>
-          <td><p>Analyse SAR CW-OSL measurements</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Analyse_SAR.OSLdata.html">Analyse_SAR.OSLdata</a></code> </p>
-          </td>
-          <td><p>Analyse SAR CW-OSL measurements.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="analyse_SAR.TL.html">analyse_SAR.TL</a></code> </p>
-          </td>
-          <td><p>Analyse SAR TL measurements</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="app_RLum.html">app_RLum</a></code> </p>
-          </td>
-          <td><p>Run Luminescence shiny apps (wrapper)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="apply_CosmicRayRemoval.html">apply_CosmicRayRemoval</a></code> </p>
-          </td>
-          <td><p>Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="apply_EfficiencyCorrection.html">apply_EfficiencyCorrection</a></code> </p>
-          </td>
-          <td><p>Function to apply spectral efficiency correction to RLum.Data.Spectrum S4
-class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="as.html">as</a></code> </p>
-          </td>
-          <td><p>as() - RLum-object coercion</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="BaseDataSet.CosmicDoseRate.html">BaseDataSet.CosmicDoseRate</a></code> </p>
-          </td>
-          <td><p>Base data set for cosmic dose rate calculation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bin_RLum.Data.html">bin_RLum.Data</a></code> </p>
-          </td>
-          <td><p>Channel binning - method dispatchter</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_AliquotSize.html">calc_AliquotSize</a></code> </p>
-          </td>
-          <td><p>Estimate the amount of grains on an aliquot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_AverageDose.html">calc_AverageDose</a></code> </p>
-          </td>
-          <td><p>Calculate the Average Dose and the dose rate dispersion</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_CentralDose.html">calc_CentralDose</a></code> </p>
-          </td>
-          <td><p>Apply the central age model (CAM) after Galbraith et al. (1999) to a given
-De distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_CommonDose.html">calc_CommonDose</a></code> </p>
-          </td>
-          <td><p>Apply the (un-)logged common age model after Galbraith et al. (1999) to a
-given De distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_CosmicDoseRate.html">calc_CosmicDoseRate</a></code> </p>
-          </td>
-          <td><p>Calculate the cosmic dose rate</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_FadingCorr.html">calc_FadingCorr</a></code> </p>
-          </td>
-          <td><p>Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given
-g-value and a given tc</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_FastRatio.html">calc_FastRatio</a></code> </p>
-          </td>
-          <td><p>Calculate the Fast Ratio for CW-OSL curves</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_FiniteMixture.html">calc_FiniteMixture</a></code> </p>
-          </td>
-          <td><p>Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
-distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_FuchsLang2001.html">calc_FuchsLang2001</a></code> </p>
-          </td>
-          <td><p>Apply the model after Fuchs &amp; Lang (2001) to a given De distribution.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_gSGC.html">calc_gSGC</a></code> </p>
-          </td>
-          <td><p>Calculate De value based on the gSGC by Li et al., 2015</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_HomogeneityTest.html">calc_HomogeneityTest</a></code> </p>
-          </td>
-          <td><p>Apply a simple homogeneity test after Galbraith (2003)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_IEU.html">calc_IEU</a></code> </p>
-          </td>
-          <td><p>Apply the internal-external-uncertainty (IEU) model after Thomsen et al.
-(2007) to a given De distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_Kars2008.html">calc_Kars2008</a></code> </p>
-          </td>
-          <td><p>Apply the Kars et al. (2008) model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_Lamothe2003.html">calc_Lamothe2003</a></code> </p>
-          </td>
-          <td><p>Apply fading correction after Lamothe et al., 2003</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_MaxDose.html">calc_MaxDose</a></code> </p>
-          </td>
-          <td><p>Apply the maximum age model to a given De distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_MinDose.html">calc_MinDose</a></code> </p>
-          </td>
-          <td><p>Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)
-to a given De distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></code> </p>
-          </td>
-          <td><p>Calculate Lx/Tx ratio for CW-OSL curves</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_SourceDoseRate.html">calc_SourceDoseRate</a></code> </p>
-          </td>
-          <td><p>Calculation of the source dose rate via the date of measurement</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_Statistics.html">calc_Statistics</a></code> </p>
-          </td>
-          <td><p>Function to calculate statistic measures</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_ThermalLifetime.html">calc_ThermalLifetime</a></code> </p>
-          </td>
-          <td><p>Calculates the Thermal Lifetime using the Arrhenius equation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_TLLxTxRatio.html">calc_TLLxTxRatio</a></code> </p>
-          </td>
-          <td><p>Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code></p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_WodaFuchs2008.html">calc_WodaFuchs2008</a></code> </p>
-          </td>
-          <td><p>Obtain the equivalent dose using the approach by Woda and Fuchs 2008</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_Activity2Concentration.html">convert_Activity2Concentration</a></code> </p>
-          </td>
-          <td><p>Convert Nuclide Activities to Concentrations and Vice Versa</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_BIN2CSV.html">convert_BIN2CSV</a></code> </p>
-          </td>
-          <td><p>Export Risoe BIN-file(s) to CSV-files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_Daybreak2CSV.html">convert_Daybreak2CSV</a></code> </p>
-          </td>
-          <td><p>Export measurement data produced by a Daybreak luminescence reader to CSV-files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_PSL2CSV.html">convert_PSL2CSV</a></code> </p>
-          </td>
-          <td><p>Export PSL-file(s) to CSV-files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_RLum2Risoe.BINfileData.html">convert_RLum2Risoe.BINfileData</a></code> </p>
-          </td>
-          <td><p>Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_XSYG2CSV.html">convert_XSYG2CSV</a></code> </p>
-          </td>
-          <td><p>Export XSYG-file(s) to CSV-files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="CW2pHMi.html">CW2pHMi</a></code> </p>
-          </td>
-          <td><p>Transform a CW-OSL curve into a pHM-OSL curve via interpolation under
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="Analyse_SAR.OSLdata.html">Analyse_SAR.OSLdata()</a></code> </p>
+        </td>
+        <td><p>Analyse SAR CW-OSL measurements.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="BaseDataSet.CosmicDoseRate.html">BaseDataSet.CosmicDoseRate</a></code> </p>
+        </td>
+        <td><p>Base data set for cosmic dose rate calculation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="CW2pHMi.html">CW2pHMi()</a></code> </p>
+        </td>
+        <td><p>Transform a CW-OSL curve into a pHM-OSL curve via interpolation under
 hyperbolic modulation conditions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="CW2pLM.html">CW2pLM</a></code> </p>
-          </td>
-          <td><p>Transform a CW-OSL curve into a pLM-OSL curve</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="CW2pLMi.html">CW2pLMi</a></code> </p>
-          </td>
-          <td><p>Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="CW2pLM.html">CW2pLM()</a></code> </p>
+        </td>
+        <td><p>Transform a CW-OSL curve into a pLM-OSL curve</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="CW2pLMi.html">CW2pLMi()</a></code> </p>
+        </td>
+        <td><p>Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
 modulation conditions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="CW2pPMi.html">CW2pPMi</a></code> </p>
-          </td>
-          <td><p>Transform a CW-OSL curve into a pPM-OSL curve via interpolation under
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="CW2pPMi.html">CW2pPMi()</a></code> </p>
+        </td>
+        <td><p>Transform a CW-OSL curve into a pPM-OSL curve via interpolation under
 parabolic modulation conditions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.Al2O3C.html">ExampleData.Al2O3C</a></code> </p>
-          </td>
-          <td><p>Example Al2O3:C Measurement Data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.BINfileData.html">ExampleData.BINfileData</a></code> </p>
-          </td>
-          <td><p>Example data from a SAR OSL and SAR TL measurement for the package
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.Al2O3C.html">ExampleData.Al2O3C</a></code> </p>
+        </td>
+        <td><p>Example Al2O3:C Measurement Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.BINfileData.html">ExampleData.BINfileData</a></code> </p>
+        </td>
+        <td><p>Example data from a SAR OSL and SAR TL measurement for the package
 Luminescence</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.CW_OSL_Curve.html">ExampleData.CW_OSL_Curve</a></code> </p>
-          </td>
-          <td><p>Example CW-OSL curve data for the package Luminescence</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.DeValues.html">ExampleData.DeValues</a></code> </p>
-          </td>
-          <td><p>Example De data sets for the package Luminescence</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.Fading.html">ExampleData.Fading</a></code> </p>
-          </td>
-          <td><p>Example data for feldspar fading measurements</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.FittingLM.html">ExampleData.FittingLM</a></code> </p>
-          </td>
-          <td><p>Example data for fit_LMCurve() in the package Luminescence</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.LxTxData.html">ExampleData.LxTxData</a></code> </p>
-          </td>
-          <td><p>Example Lx/Tx data from CW-OSL SAR measurement</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.LxTxOSLData.html">ExampleData.LxTxOSLData</a></code> </p>
-          </td>
-          <td><p>Example Lx and Tx curve data from an artificial OSL measurement</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.portableOSL.html">ExampleData.portableOSL</a></code> </p>
-          </td>
-          <td><p>Example portable OSL curve data for the package Luminescence</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.RLum.Analysis.html">ExampleData.RLum.Analysis</a></code> </p>
-          </td>
-          <td><p>Example data as <a href='reference/RLum.Analysis-class.html'>RLum.Analysis</a> objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.RLum.Data.Image.html">ExampleData.RLum.Data.Image</a></code> </p>
-          </td>
-          <td><p>Example data as <a href='reference/RLum.Data.Image-class.html'>RLum.Data.Image</a> objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.SurfaceExposure.html">ExampleData.SurfaceExposure</a></code> </p>
-          </td>
-          <td><p>Example OSL surface exposure dating data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ExampleData.XSYG.html">ExampleData.XSYG</a></code> </p>
-          </td>
-          <td><p>Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.CW_OSL_Curve.html">ExampleData.CW_OSL_Curve</a></code> </p>
+        </td>
+        <td><p>Example CW-OSL curve data for the package Luminescence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.DeValues.html">ExampleData.DeValues</a></code> </p>
+        </td>
+        <td><p>Example De data sets for the package Luminescence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.Fading.html">ExampleData.Fading</a></code> </p>
+        </td>
+        <td><p>Example data for feldspar fading measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.FittingLM.html">ExampleData.FittingLM</a></code> </p>
+        </td>
+        <td><p>Example data for fit_LMCurve() in the package Luminescence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.LxTxData.html">ExampleData.LxTxData</a></code> </p>
+        </td>
+        <td><p>Example Lx/Tx data from CW-OSL SAR measurement</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.LxTxOSLData.html">ExampleData.LxTxOSLData</a></code> </p>
+        </td>
+        <td><p>Example Lx and Tx curve data from an artificial OSL measurement</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.RLum.Analysis.html">ExampleData.RLum.Analysis</a></code> </p>
+        </td>
+        <td><p>Example data as RLum.Analysis objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.RLum.Data.Image.html">ExampleData.RLum.Data.Image</a></code> </p>
+        </td>
+        <td><p>Example data as RLum.Data.Image objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.SurfaceExposure.html">ExampleData.SurfaceExposure</a></code> </p>
+        </td>
+        <td><p>Example OSL surface exposure dating data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.XSYG.html">ExampleData.XSYG</a></code> </p>
+        </td>
+        <td><p>Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 reader</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="extdata.html">extdata</a></code> </p>
-          </td>
-          <td><p>Collection of External Data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="extract_IrradiationTimes.html">extract_IrradiationTimes</a></code> </p>
-          </td>
-          <td><p>Extract Irradiation Times from an XSYG-file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fit_CWCurve.html">fit_CWCurve</a></code> </p>
-          </td>
-          <td><p>Nonlinear Least Squares Fit for CW-OSL curves <code>[beta version]</code></p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fit_LMCurve.html">fit_LMCurve</a></code> </p>
-          </td>
-          <td><p>Nonlinear Least Squares Fit for LM-OSL curves</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fit_SurfaceExposure.html">fit_SurfaceExposure</a></code> </p>
-          </td>
-          <td><p>Nonlinear Least Squares Fit for OSL surface exposure data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_Layout.html">get_Layout</a></code> </p>
-          </td>
-          <td><p>Collection of layout definitions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_Quote.html">get_Quote</a></code> </p>
-          </td>
-          <td><p>Function to return essential quotes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_rightAnswer.html">get_rightAnswer</a></code> </p>
-          </td>
-          <td><p>Function to get the right answer</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_Risoe.BINfileData.html">get_Risoe.BINfileData</a></code> </p>
-          </td>
-          <td><p>General accessor function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_RLum.html">get_RLum</a></code> </p>
-          </td>
-          <td><p>General accessor function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="GitHub-API.html">github_commits</a></code> <code><a href="GitHub-API.html">github_branches</a></code> <code><a href="GitHub-API.html">github_issues</a></code> </p>
-          </td>
-          <td><p>GitHub API</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="install_DevelopmentVersion.html">install_DevelopmentVersion</a></code> </p>
-          </td>
-          <td><p>Attempts to install the development version of the 'Luminescence' package</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="length_RLum.html">length_RLum</a></code> </p>
-          </td>
-          <td><p>General accessor function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Luminescence-package.html">Luminescence-package</a></code> </p>
-          </td>
-          <td><p>Comprehensive Luminescence Dating Data Analysis</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="merge_Risoe.BINfileData.html">merge_Risoe.BINfileData</a></code> </p>
-          </td>
-          <td><p>Merge Risoe.BINfileData objects or Risoe BIN-files</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="merge_RLum.html">merge_RLum</a></code> </p>
-          </td>
-          <td><p>General merge function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="model_LuminescenceSignals.html">model_LuminescenceSignals</a></code> </p>
-          </td>
-          <td><p>Model Luminescence Signals (wrapper)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="names_RLum.html">names_RLum</a></code> </p>
-          </td>
-          <td><p>S4-names function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></code> </p>
-          </td>
-          <td><p>Function to create an Abanico Plot.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_DetPlot.html">plot_DetPlot</a></code> </p>
-          </td>
-          <td><p>Create De(t) plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_DRTResults.html">plot_DRTResults</a></code> </p>
-          </td>
-          <td><p>Visualise dose recovery test results</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_FilterCombinations.html">plot_FilterCombinations</a></code> </p>
-          </td>
-          <td><p>Plot filter combinations along with the (optional) net transmission window</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></code> </p>
-          </td>
-          <td><p>Fit and plot a growth curve for luminescence data (Lx/Tx against dose)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_Histogram.html">plot_Histogram</a></code> </p>
-          </td>
-          <td><p>Plot a histogram with separate error plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_KDE.html">plot_KDE</a></code> </p>
-          </td>
-          <td><p>Plot kernel density estimate with statistics</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_NRt.html">plot_NRt</a></code> </p>
-          </td>
-          <td><p>Visualise natural/regenerated signal ratios</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RadialPlot.html">plot_RadialPlot</a></code> </p>
-          </td>
-          <td><p>Function to create a Radial Plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_Risoe.BINfileData.html">plot_Risoe.BINfileData</a></code> </p>
-          </td>
-          <td><p>Plot single luminescence curves from a BIN file object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RLum.Analysis.html">plot_RLum.Analysis</a></code> </p>
-          </td>
-          <td><p>Plot function for an RLum.Analysis S4 class object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RLum.Data.Curve.html">plot_RLum.Data.Curve</a></code> </p>
-          </td>
-          <td><p>Plot function for an RLum.Data.Curve S4 class object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RLum.Data.Image.html">plot_RLum.Data.Image</a></code> </p>
-          </td>
-          <td><p>Plot function for an <code>RLum.Data.Image</code> S4 class object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RLum.Data.Spectrum.html">plot_RLum.Data.Spectrum</a></code> </p>
-          </td>
-          <td><p>Plot function for an RLum.Data.Spectrum S4 class object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RLum.html">plot_RLum</a></code> </p>
-          </td>
-          <td><p>General plot function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_RLum.Results.html">plot_RLum.Results</a></code> </p>
-          </td>
-          <td><p>Plot function for an RLum.Results S4 class object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_ViolinPlot.html">plot_ViolinPlot</a></code> </p>
-          </td>
-          <td><p>Create a violin plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PSL2Risoe.BINfileData.html">PSL2Risoe.BINfileData</a></code> </p>
-          </td>
-          <td><p>Convert portable OSL data to an Risoe.BINfileData object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="read_BIN2R.html">read_BIN2R</a></code> </p>
-          </td>
-          <td><p>Import Risoe BIN-file into R</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="read_Daybreak2R.html">read_Daybreak2R</a></code> </p>
-          </td>
-          <td><p>Import measurement data produced by a Daybreak TL/OSL reader into R</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="read_PSL2R.html">read_PSL2R</a></code> </p>
-          </td>
-          <td><p>Import PSL files to R</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="read_SPE2R.html">read_SPE2R</a></code> </p>
-          </td>
-          <td><p>Import Princeton Intruments (TM) SPE-file into R</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="read_XSYG2R.html">read_XSYG2R</a></code> </p>
-          </td>
-          <td><p>Import XSYG files to R</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="replicate_RLum.html">replicate_RLum</a></code> </p>
-          </td>
-          <td><p>General replication function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="report_RLum.html">report_RLum</a></code> </p>
-          </td>
-          <td><p>Create a HTML report for (RLum) objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></code> </p>
-          </td>
-          <td><p>Convert Risoe.BINfileData object to an RLum.Analysis object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="RLum-class.html">replicate_RLum</a></code> </p>
-          </td>
-          <td><p>Class <code>"RLum"</code></p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Second2Gray.html">Second2Gray</a></code> </p>
-          </td>
-          <td><p>Converting equivalent dose values from seconds (s) to gray (Gy)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="set_Risoe.BINfileData.html">set_Risoe.BINfileData</a></code> </p>
-          </td>
-          <td><p>General accessor function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="set_RLum.html">set_RLum</a></code> </p>
-          </td>
-          <td><p>General set function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="smooth_RLum.html">smooth_RLum</a></code> </p>
-          </td>
-          <td><p>Smoothing of data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sTeve.html">sTeve</a></code> </p>
-          </td>
-          <td><p>sTeve - sophisticated tool for efficient data validation and evaluation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="structure_RLum.html">structure_RLum</a></code> </p>
-          </td>
-          <td><p>General structure function for RLum S4 class objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="template_DRAC.html">template_DRAC</a></code> </p>
-          </td>
-          <td><p>Create a DRAC input data template (v1.2)</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tune_Data.html">tune_Data</a></code> </p>
-          </td>
-          <td><p>Tune data for experimental purpose</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="use_DRAC.html">use_DRAC</a></code> </p>
-          </td>
-          <td><p>Use DRAC to calculate dose rate data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></code> </p>
-          </td>
-          <td><p>Verify single grain data sets and check for invalid grains, i.e.
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ExampleData.portableOSL.html">ExampleData.portableOSL</a></code> </p>
+        </td>
+        <td><p>Example portable OSL curve data for the package Luminescence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="GitHub-API.html">github_commits()</a></code> <code><a href="GitHub-API.html">github_branches()</a></code> <code><a href="GitHub-API.html">github_issues()</a></code> </p>
+        </td>
+        <td><p>GitHub API</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Luminescence-package.html">Luminescence-package</a></code> </p>
+        </td>
+        <td><p>Comprehensive Luminescence Dating Data Analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="PSL2Risoe.BINfileData.html">PSL2Risoe.BINfileData()</a></code> </p>
+        </td>
+        <td><p>Convert portable OSL data to an Risoe.BINfileData object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="RLum-class.html">replicate_RLum(<i>&lt;RLum&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Class <code>"RLum"</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis()</a></code> </p>
+        </td>
+        <td><p>Convert Risoe.BINfileData object to an RLum.Analysis object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Second2Gray.html">Second2Gray()</a></code> </p>
+        </td>
+        <td><p>Converting equivalent dose values from seconds (s) to gray (Gy)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_Al2O3C_CrossTalk.html">analyse_Al2O3C_CrossTalk()</a></code> </p>
+        </td>
+        <td><p>Al2O3:C Reader Cross Talk Analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC()</a></code> </p>
+        </td>
+        <td><p>Al2O3 Irradiation Time Correction Analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement()</a></code> </p>
+        </td>
+        <td><p>Al2O3:C Passive Dosimeter Measurement Analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_FadingMeasurement.html">analyse_FadingMeasurement()</a></code> </p>
+        </td>
+        <td><p>Analyse fading measurements and returns the fading rate per decade (g-value)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_IRSAR.RF.html">analyse_IRSAR.RF()</a></code> </p>
+        </td>
+        <td><p>Analyse IRSAR RF measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL()</a></code> </p>
+        </td>
+        <td><p>Analyse SAR CW-OSL measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_SAR.TL.html">analyse_SAR.TL()</a></code> </p>
+        </td>
+        <td><p>Analyse SAR TL measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_baSAR.html">analyse_baSAR()</a></code> </p>
+        </td>
+        <td><p>Bayesian models (baSAR) applied on luminescence data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_pIRIRSequence.html">analyse_pIRIRSequence()</a></code> </p>
+        </td>
+        <td><p>Analyse post-IR IRSL measurement sequences</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="analyse_portableOSL.html">analyse_portableOSL()</a></code> </p>
+        </td>
+        <td><p>Analyse portable CW-OSL measurements</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="app_RLum.html">app_RLum()</a></code> </p>
+        </td>
+        <td><p>Run Luminescence shiny apps (wrapper)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="apply_CosmicRayRemoval.html">apply_CosmicRayRemoval()</a></code> </p>
+        </td>
+        <td><p>Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="apply_EfficiencyCorrection.html">apply_EfficiencyCorrection()</a></code> </p>
+        </td>
+        <td><p>Function to apply spectral efficiency correction to RLum.Data.Spectrum S4
+class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as.html">as</a></code> </p>
+        </td>
+        <td><p>as() - RLum-object coercion</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bin_RLum.Data.html">bin_RLum.Data()</a></code> </p>
+        </td>
+        <td><p>Channel binning - method dispatchter</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_AliquotSize.html">calc_AliquotSize()</a></code> </p>
+        </td>
+        <td><p>Estimate the amount of grains on an aliquot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_AverageDose.html">calc_AverageDose()</a></code> </p>
+        </td>
+        <td><p>Calculate the Average Dose and the dose rate dispersion</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_CentralDose.html">calc_CentralDose()</a></code> </p>
+        </td>
+        <td><p>Apply the central age model (CAM) after Galbraith et al. (1999) to a given
+De distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_CommonDose.html">calc_CommonDose()</a></code> </p>
+        </td>
+        <td><p>Apply the (un-)logged common age model after Galbraith et al. (1999) to a
+given De distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_CosmicDoseRate.html">calc_CosmicDoseRate()</a></code> </p>
+        </td>
+        <td><p>Calculate the cosmic dose rate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_FadingCorr.html">calc_FadingCorr()</a></code> </p>
+        </td>
+        <td><p>Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given
+g-value and a given tc</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_FastRatio.html">calc_FastRatio()</a></code> </p>
+        </td>
+        <td><p>Calculate the Fast Ratio for CW-OSL curves</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_FiniteMixture.html">calc_FiniteMixture()</a></code> </p>
+        </td>
+        <td><p>Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
+distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_FuchsLang2001.html">calc_FuchsLang2001()</a></code> </p>
+        </td>
+        <td><p>Apply the model after Fuchs &amp; Lang (2001) to a given De distribution.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_HomogeneityTest.html">calc_HomogeneityTest()</a></code> </p>
+        </td>
+        <td><p>Apply a simple homogeneity test after Galbraith (2003)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_Huntley2006.html">calc_Huntley2006()</a></code> </p>
+        </td>
+        <td><p>Apply the Huntley (2006) model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_IEU.html">calc_IEU()</a></code> </p>
+        </td>
+        <td><p>Apply the internal-external-uncertainty (IEU) model after Thomsen et al.
+(2007) to a given De distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_Kars2008.html">calc_Kars2008()</a></code> </p>
+        </td>
+        <td><p>Apply the Kars et al. (2008) model (deprecated)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_Lamothe2003.html">calc_Lamothe2003()</a></code> </p>
+        </td>
+        <td><p>Apply fading correction after Lamothe et al., 2003</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_MaxDose.html">calc_MaxDose()</a></code> </p>
+        </td>
+        <td><p>Apply the maximum age model to a given De distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_MinDose.html">calc_MinDose()</a></code> </p>
+        </td>
+        <td><p>Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+to a given De distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio()</a></code> </p>
+        </td>
+        <td><p>Calculate Lx/Tx ratio for CW-OSL curves</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_SourceDoseRate.html">calc_SourceDoseRate()</a></code> </p>
+        </td>
+        <td><p>Calculation of the source dose rate via the date of measurement</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_Statistics.html">calc_Statistics()</a></code> </p>
+        </td>
+        <td><p>Function to calculate statistic measures</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_TLLxTxRatio.html">calc_TLLxTxRatio()</a></code> </p>
+        </td>
+        <td><p>Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_ThermalLifetime.html">calc_ThermalLifetime()</a></code> </p>
+        </td>
+        <td><p>Calculates the Thermal Lifetime using the Arrhenius equation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_WodaFuchs2008.html">calc_WodaFuchs2008()</a></code> </p>
+        </td>
+        <td><p>Obtain the equivalent dose using the approach by Woda and Fuchs 2008</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calc_gSGC.html">calc_gSGC()</a></code> </p>
+        </td>
+        <td><p>Calculate De value based on the gSGC by Li et al., 2015</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_Activity2Concentration.html">convert_Activity2Concentration()</a></code> </p>
+        </td>
+        <td><p>Convert Nuclide Activities to Concentrations and Vice Versa</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_BIN2CSV.html">convert_BIN2CSV()</a></code> </p>
+        </td>
+        <td><p>Export Risoe BIN-file(s) to CSV-files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_Daybreak2CSV.html">convert_Daybreak2CSV()</a></code> </p>
+        </td>
+        <td><p>Export measurement data produced by a Daybreak luminescence reader to CSV-files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_PSL2CSV.html">convert_PSL2CSV()</a></code> </p>
+        </td>
+        <td><p>Export PSL-file(s) to CSV-files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_RLum2Risoe.BINfileData.html">convert_RLum2Risoe.BINfileData()</a></code> </p>
+        </td>
+        <td><p>Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_XSYG2CSV.html">convert_XSYG2CSV()</a></code> </p>
+        </td>
+        <td><p>Export XSYG-file(s) to CSV-files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="extdata.html">extdata</a></code> </p>
+        </td>
+        <td><p>Collection of External Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="extract_IrradiationTimes.html">extract_IrradiationTimes()</a></code> </p>
+        </td>
+        <td><p>Extract Irradiation Times from an XSYG-file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fit_CWCurve.html">fit_CWCurve()</a></code> </p>
+        </td>
+        <td><p>Nonlinear Least Squares Fit for CW-OSL curves <code>[beta version]</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fit_LMCurve.html">fit_LMCurve()</a></code> </p>
+        </td>
+        <td><p>Nonlinear Least Squares Fit for LM-OSL curves</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fit_OSLLifeTimes.html">fit_OSLLifeTimes()</a></code> </p>
+        </td>
+        <td><p>Fitting and Deconvolution of OSL Lifetime Components</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fit_SurfaceExposure.html">fit_SurfaceExposure()</a></code> </p>
+        </td>
+        <td><p>Nonlinear Least Squares Fit for OSL surface exposure data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_Layout.html">get_Layout()</a></code> </p>
+        </td>
+        <td><p>Collection of layout definitions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_Quote.html">get_Quote()</a></code> </p>
+        </td>
+        <td><p>Function to return essential quotes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_RLum.html">get_RLum()</a></code> </p>
+        </td>
+        <td><p>General accessor function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_Risoe.BINfileData.html">get_Risoe.BINfileData()</a></code> </p>
+        </td>
+        <td><p>General accessor function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_rightAnswer.html">get_rightAnswer()</a></code> </p>
+        </td>
+        <td><p>Function to get the right answer</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="install_DevelopmentVersion.html">install_DevelopmentVersion()</a></code> </p>
+        </td>
+        <td><p>Attempts to install the development version of the 'Luminescence' package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="length_RLum.html">length_RLum()</a></code> </p>
+        </td>
+        <td><p>General accessor function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="merge_RLum.html">merge_RLum()</a></code> </p>
+        </td>
+        <td><p>General merge function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="merge_Risoe.BINfileData.html">merge_Risoe.BINfileData()</a></code> </p>
+        </td>
+        <td><p>Merge Risoe.BINfileData objects or Risoe BIN-files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="model_LuminescenceSignals.html">model_LuminescenceSignals()</a></code> </p>
+        </td>
+        <td><p>Model Luminescence Signals (wrapper)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="names_RLum.html">names_RLum()</a></code> </p>
+        </td>
+        <td><p>S4-names function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_AbanicoPlot.html">plot_AbanicoPlot()</a></code> </p>
+        </td>
+        <td><p>Function to create an Abanico Plot.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_DRCSummary.html">plot_DRCSummary()</a></code> </p>
+        </td>
+        <td><p>Create a Dose-Response Curve Summary Plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_DRTResults.html">plot_DRTResults()</a></code> </p>
+        </td>
+        <td><p>Visualise dose recovery test results</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_DetPlot.html">plot_DetPlot()</a></code> </p>
+        </td>
+        <td><p>Create De(t) plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_FilterCombinations.html">plot_FilterCombinations()</a></code> </p>
+        </td>
+        <td><p>Plot filter combinations along with the (optional) net transmission window</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_GrowthCurve.html">plot_GrowthCurve()</a></code> </p>
+        </td>
+        <td><p>Fit and plot a growth curve for luminescence data (Lx/Tx against dose)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_Histogram.html">plot_Histogram()</a></code> </p>
+        </td>
+        <td><p>Plot a histogram with separate error plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_KDE.html">plot_KDE()</a></code> </p>
+        </td>
+        <td><p>Plot kernel density estimate with statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_NRt.html">plot_NRt()</a></code> </p>
+        </td>
+        <td><p>Visualise natural/regenerated signal ratios</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RLum.Analysis.html">plot_RLum.Analysis()</a></code> </p>
+        </td>
+        <td><p>Plot function for an RLum.Analysis S4 class object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RLum.Data.Curve.html">plot_RLum.Data.Curve()</a></code> </p>
+        </td>
+        <td><p>Plot function for an RLum.Data.Curve S4 class object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RLum.Data.Image.html">plot_RLum.Data.Image()</a></code> </p>
+        </td>
+        <td><p>Plot function for an <code>RLum.Data.Image</code> S4 class object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RLum.Data.Spectrum.html">plot_RLum.Data.Spectrum()</a></code> </p>
+        </td>
+        <td><p>Plot function for an RLum.Data.Spectrum S4 class object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RLum.html">plot_RLum()</a></code> </p>
+        </td>
+        <td><p>General plot function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RLum.Results.html">plot_RLum.Results()</a></code> </p>
+        </td>
+        <td><p>Plot function for an RLum.Results S4 class object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_RadialPlot.html">plot_RadialPlot()</a></code> </p>
+        </td>
+        <td><p>Function to create a Radial Plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_Risoe.BINfileData.html">plot_Risoe.BINfileData()</a></code> </p>
+        </td>
+        <td><p>Plot single luminescence curves from a BIN file object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_ViolinPlot.html">plot_ViolinPlot()</a></code> </p>
+        </td>
+        <td><p>Create a violin plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_BIN2R.html">read_BIN2R()</a></code> </p>
+        </td>
+        <td><p>Import Risoe BIN-file into R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_Daybreak2R.html">read_Daybreak2R()</a></code> </p>
+        </td>
+        <td><p>Import measurement data produced by a Daybreak TL/OSL reader into R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_PSL2R.html">read_PSL2R()</a></code> </p>
+        </td>
+        <td><p>Import PSL files to R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_SPE2R.html">read_SPE2R()</a></code> </p>
+        </td>
+        <td><p>Import Princeton Intruments (TM) SPE-file into R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_XSYG2R.html">read_XSYG2R()</a></code> </p>
+        </td>
+        <td><p>Import XSYG files to R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="replicate_RLum.html">replicate_RLum()</a></code> </p>
+        </td>
+        <td><p>General replication function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="report_RLum.html">report_RLum()</a></code> </p>
+        </td>
+        <td><p>Create a HTML report for (RLum) objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sTeve.html">sTeve()</a></code> </p>
+        </td>
+        <td><p>sTeve - sophisticated tool for efficient data validation and evaluation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="set_RLum.html">set_RLum()</a></code> </p>
+        </td>
+        <td><p>General set function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="set_Risoe.BINfileData.html">set_Risoe.BINfileData()</a></code> </p>
+        </td>
+        <td><p>General accessor function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="smooth_RLum.html">smooth_RLum()</a></code> </p>
+        </td>
+        <td><p>Smoothing of data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="structure_RLum.html">structure_RLum()</a></code> </p>
+        </td>
+        <td><p>General structure function for RLum S4 class objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="template_DRAC.html">template_DRAC()</a></code> </p>
+        </td>
+        <td><p>Create a DRAC input data template (v1.2)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tune_Data.html">tune_Data()</a></code> </p>
+        </td>
+        <td><p>Tune data for experimental purpose</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="use_DRAC.html">use_DRAC()</a></code> </p>
+        </td>
+        <td><p>Use DRAC to calculate dose rate data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="verify_SingleGrainData.html">verify_SingleGrainData()</a></code> </p>
+        </td>
+        <td><p>Verify single grain data sets and check for invalid grains, i.e.
 zero-light level grains</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="write_R2BIN.html">write_R2BIN</a></code> </p>
-          </td>
-          <td><p>Export Risoe.BINfileData into Risoe BIN-file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="write_RLum2CSV.html">write_RLum2CSV</a></code> </p>
-          </td>
-          <td><p>Export RLum-objects to CSV</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_R2BIN.html">write_R2BIN()</a></code> </p>
+        </td>
+        <td><p>Export Risoe.BINfileData into Risoe BIN-file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_RLum2CSV.html">write_RLum2CSV()</a></code> </p>
+        </td>
+        <td><p>Export RLum-objects to CSV</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -873,5 +898,8 @@ zero-light level grains</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Example CW-OSL curve data for the package Luminescence — ExampleData.CW_OSL_Curve" />
 
 <meta property="og:description" content="data.frame containing CW-OSL curve data (time, counts)" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,51 +110,47 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Example CW-OSL curve data for the package Luminescence</h1>
+    
+    <div class="hidden name"><code>ExampleData.CW_OSL_Curve.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>data.frame</code> containing CW-OSL curve data (time, counts)</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Data frame with 1000 observations on the following 2 variables:</p><dl class='dl-horizontal'>
+    <p>Data frame with 1000 observations on the following 2 variables:</p>
+<dl class='dl-horizontal'>
 <dt>list("x")</dt><dd><p>a numeric vector, time</p></dd>
 <dt>list("y")</dt><dd><p>a numeric vector, counts</p></dd>
 </dl>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><strong>ExampleData.CW_OSL_Curve</strong></p><table><tr><td>
-Lab: </td>
-<td> Luminescence Laboratory Bayreuth</td>
-</tr><tr><td>
-Lab-Code: </td>
-<td> BT607</td>
-</tr><tr><td>
-Location: </td>
-<td> Saxony/Germany</td>
-</tr><tr><td>
-Material: </td>
-<td> Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader.</td>
-</tr></table><p><strong>CW_Curve.BosWallinga2012</strong></p><table><tr><td>
-Lab: </td>
-<td> Netherlands Centre for Luminescence Dating (NCL)</td>
-</tr><tr><td>
-Lab-Code: </td>
-<td> NCL-2108077</td>
-</tr><tr><td>
-Location: </td>
-<td> Guadalentin Basin, Spain</td>
-</tr><tr><td>
-Material: </td>
-<td> Coarse grain quartz</td>
-</tr></table>
+    <p><strong>ExampleData.CW_OSL_Curve</strong></p>
+<table class='table'>
+<tr><td>Lab:</td><td>Luminescence Laboratory Bayreuth</td></tr>
+<tr><td>Lab-Code:</td><td>BT607</td></tr>
+<tr><td>Location:</td><td>Saxony/Germany</td></tr>
+<tr><td>Material:</td><td>Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader.</td></tr>
+<tr><td>Reference:</td><td>unpublished data</td></tr>
+</table>
+    <p><strong>CW_Curve.BosWallinga2012</strong></p>
+<table class='table'>
+<tr><td>Lab:</td><td>Netherlands Centre for Luminescence Dating (NCL)</td></tr>
+<tr><td>Lab-Code:</td><td>NCL-2108077</td></tr>
+<tr><td>Location:</td><td>Guadalentin Basin, Spain</td></tr>
+<tr><td>Material:</td><td>Coarse grain quartz</td></tr>
+<tr><td>Reference:</td><td>Bos &amp; Wallinga (2012) and Baartman et al. (2011)</td></tr>
+</table>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -158,7 +165,7 @@ components. Radiation Measurements, 47, 752-758.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
-<span class='fu'>plot</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>)</div><div class='img'><img src='ExampleData.CW_OSL_Curve-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -189,5 +196,8 @@ components. Radiation Measurements, 47, 752-758.</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

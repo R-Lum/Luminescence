@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Convert Nuclide Activities to Concentrations and Vice Versa — convert_Activity2Concentration" />
 
 <meta property="og:description" content="The function performs the conversion of the specific activities into
@@ -35,6 +38,9 @@ harmonise the measurement unit with the required data input unit of
 potential analytical tools for, e.g. dose rate calculation or related
 functions such as use_DRAC." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ functions such as use_DRAC." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -69,7 +79,7 @@ functions such as use_DRAC." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -96,6 +106,7 @@ functions such as use_DRAC." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -103,12 +114,15 @@ functions such as use_DRAC." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert Nuclide Activities to Concentrations and Vice Versa</h1>
+    
+    <div class="hidden name"><code>convert_Activity2Concentration.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function performs the conversion of the specific activities into
 concentrations and vice versa for the nuclides U-238, Th-232 and K-40 to
@@ -116,10 +130,11 @@ harmonise the measurement unit with the required data input unit of
 potential analytical tools for, e.g. dose rate calculation or related
 functions such as <a href='use_DRAC.html'>use_DRAC</a>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>convert_Activity2Concentration</span>(<span class='no'>data</span>, <span class='kw'>input_unit</span> <span class='kw'>=</span> <span class='st'>"Bq/kg"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -148,11 +163,11 @@ enable or disable verbose mode</p></td>
     <p>The conversion from nuclide activity of a sample to nuclide concentration
 is performed using conversion factors that are based on the mass-related
 specific activity of the respective nuclides.
-The factors can be calculated using the equation:
-    $$
+The factors can be calculated using the equation:</p>
+<p>$$
 A = avogadronumber * N.freq / N.mol.mass   *  ln(2) / N.half.life
-$$
-    $$
+$$</p>
+<p>$$
 f = A / 10^6
 $$</p>
 <p>where:</p><ul>
@@ -172,11 +187,7 @@ $$</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.0 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Fuchs, M.C. (2018). convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.1.0</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -216,8 +227,6 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -226,7 +235,7 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
     <h2>Author</h2>
     
 Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -242,5 +251,8 @@ Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

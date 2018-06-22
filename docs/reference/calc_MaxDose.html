@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Apply the maximum age model to a given De distribution — calc_MaxDose" />
 
 <meta property="og:description" content="Function to fit the maximum age model to De data. This is a wrapper function
 that calls calc_MinDose() and applies a similiar approach as described in
 Olley et al. (2006)." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ Olley et al. (2006)." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ Olley et al. (2006)." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ Olley et al. (2006)." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,22 +112,26 @@ Olley et al. (2006)." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply the maximum age model to a given De distribution</h1>
+    
+    <div class="hidden name"><code>calc_MaxDose.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function to fit the maximum age model to De data. This is a wrapper function
 that calls calc_MinDose() and applies a similiar approach as described in
 Olley et al. (2006).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_MaxDose</span>(<span class='no'>data</span>, <span class='no'>sigmab</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>init.values</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -189,16 +204,13 @@ with a relative error specified by sigmab</p></li>
 <li><p>subtract the x-offset</p></li>
 <li><p>multiply the natural logs by -1</p></li>
 <li><p>take the exponent to obtain the maximum dose estimate in Gy</p></li>
-</ol><p><strong>Further documentation</strong></p>
+</ol>
+    <p><strong>Further documentation</strong></p>
 <p>Please see <a href='calc_MinDose.html'>calc_MinDose</a>.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Burow, C. (2018). calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.3.1</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -218,8 +230,8 @@ calculation and display in OSL dating: An overview and some recommendations.
 Quaternary Geochronology 11, 1-27.</p>
 <p>Olley, J.M., Roberts, R.G., Yoshida, H., Bowler, J.M., 2006. Single-grain optical dating of grave-infill
 associated with human burials at Lake Mungo, Australia. Quaternary Science
-Reviews 25, 2469-2474
-    <strong>Further reading</strong></p>
+Reviews 25, 2469-2474</p>
+<p><strong>Further reading</strong></p>
 <p>Arnold, L.J. &amp; Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
 Quaternary Geochronology 4, 204-230.</p>
@@ -235,8 +247,8 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='calc_CentralDose.html'>calc_CentralDose</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
-<a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p>
+    <div class='dont-index'><p><a href='calc_CentralDose.html'>calc_CentralDose</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
+<a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -266,7 +278,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 #&gt; 
 #&gt; ------ De (symmetric error) -----
 #&gt;     De error
-#&gt;  76.58  7.57</div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: gamma</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: sigma</span></div><div class='output co'>#&gt; <span class='warning'>Warning: non-monotonic profile: reverting to linear interpolation.  Consider setting std.err manually</span></div><div class='output co'>#&gt; <span class='message'>Unable to plot the Likelihood profile for: p0</span></div><div class='input'>
+#&gt;  76.58  7.57</div><div class='img'><img src='calc_MaxDose-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -280,8 +292,6 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -291,9 +301,9 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 
     <h2>Author</h2>
     
-Christoph Burow, University of Cologne (Germany) 
+Christoph Burow, University of Cologne (Germany) <br />
 Based on a rewritten S script of Rex Galbraith, 2010
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -309,5 +319,8 @@ Based on a rewritten S script of Rex Galbraith, 2010
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

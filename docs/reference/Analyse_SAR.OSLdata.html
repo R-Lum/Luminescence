@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Analyse SAR CW-OSL measurements. — Analyse_SAR.OSLdata" />
 
 <meta property="og:description" content="The function analyses SAR CW-OSL curve data and provides a summary of the
 measured data for every position. The output of the function is optimised
 for SAR OSL measurements on quartz." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ for SAR OSL measurements on quartz." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ for SAR OSL measurements on quartz." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ for SAR OSL measurements on quartz." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,24 +112,28 @@ for SAR OSL measurements on quartz." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse SAR CW-OSL measurements.</h1>
+    
+    <div class="hidden name"><code>Analyse_SAR.OSLdata.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function analyses SAR CW-OSL curve data and provides a summary of the
 measured data for every position. The output of the function is optimised
 for SAR OSL measurements on quartz.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>Analyse_SAR.OSLdata</span>(<span class='no'>input.data</span>, <span class='no'>signal.integral</span>, <span class='no'>background.integral</span>, <span class='no'>position</span>,
   <span class='no'>run</span>, <span class='no'>set</span>, <span class='no'>dtype</span>, <span class='kw'>keep.SEL</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>info.measurement</span> <span class='kw'>=</span> <span class='st'>"unkown measurement"</span>, <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>output.plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cex.global</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -215,13 +230,13 @@ following elements:</p>
 
     <p>The function works only for standard SAR protocol measurements introduced by
 Murray and Wintle (2000) with CW-OSL curves. For the calculation of the
-Lx/Tx value the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a> is used.
-    <strong>Provided rejection criteria</strong>
-    <code>[recyling ratio]</code>: calculated for every repeated regeneration dose point.
-    <code>[recuperation]</code>: recuperation rate calculated by comparing the Lx/Tx values of the zero
+Lx/Tx value the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a> is used.</p>
+<p><strong>Provided rejection criteria</strong></p>
+<p><code>[recyling ratio]</code>: calculated for every repeated regeneration dose point.</p>
+<p><code>[recuperation]</code>: recuperation rate calculated by comparing the Lx/Tx values of the zero
 regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
-signal). For methodological background see Aitken and Smith (1988)
-    <code>[IRSL/BOSL]</code>: the integrated counts (<code>signal.integral</code>) of an
+signal). For methodological background see Aitken and Smith (1988)</p>
+<p><code>[IRSL/BOSL]</code>: the integrated counts (<code>signal.integral</code>) of an
 IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
 regenerated dose point. <strong>Note:</strong> This is not the IR depletation ratio
@@ -230,19 +245,15 @@ described by Duller (2003).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Rejection criteria are calculated but not considered during the
-analysis to discard values.
-    <strong>The analysis of IRSL data is not directly supported</strong>. You may want to
+analysis to discard values.</p>
+<p><strong>The analysis of IRSL data is not directly supported</strong>. You may want to
 consider using the functions <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> or
-<a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a> instead.
-    <strong>The development of this function will not be continued. We recommend to use the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> or instead.</strong></p>
+<a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a> instead.</p>
+<p><strong>The development of this function will not be continued. We recommend to use the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> or instead.</strong></p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.17 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S., Fuchs, M.C. (2018). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.2.17</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -256,7 +267,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></p>
+    <div class='dont-index'><p><a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -268,12 +279,20 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
                               <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
                               <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>900</span>:<span class='fl'>1000</span>),
                               <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>1</span>),
-                              <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                              <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='Analyse_SAR.OSLdata-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; [Analyse_SAR.OSLdata()] &gt;&gt; Figure for position 1 produced.</div><div class='input'>
 <span class='co'>##combine results relevant for further analysis</span>
 <span class='no'>output.SAR</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Dose</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>Dose</span>,
                          <span class='kw'>LxTx</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx</span>,
                          <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)
-<span class='no'>output.SAR</span></div><div class='output co'>#&gt; data frame with 0 columns and 0 rows</div><div class='input'>
+<span class='no'>output.SAR</span></div><div class='output co'>#&gt;   Dose       LxTx  LxTx.Error
+#&gt; 1    0 4.31385656 0.049585512
+#&gt; 2  450 1.54110507 0.020078494
+#&gt; 3 1050 3.03229838 0.035808499
+#&gt; 4 2000 4.59447529 0.050759620
+#&gt; 5 2550 5.31012713 0.054631294
+#&gt; 6  450 1.61167200 0.019431239
+#&gt; 7    0 0.01668642 0.001735488</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -289,8 +308,6 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -300,9 +317,9 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
     <h2>Author</h2>
     
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
 Margret C. Fuchs, HZDR, Freiberg (Germany)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -318,5 +335,8 @@ Margret C. Fuchs, HZDR, Freiberg (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

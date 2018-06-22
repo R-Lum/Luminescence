@@ -8,8 +8,8 @@
 <title>How to Analyse Al2O3:C Measurements • Luminescence</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="How to Analyse Al2O3:C Measurements">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="How to Analyse Al2O3:C Measurements">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -18,7 +18,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -27,8 +27,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -39,7 +43,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -74,17 +78,20 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>How to Analyse Al2O3:C Measurements</h1>
                         <h4 class="author">Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montagine, France</h4>
             
-            <h4 class="date">Last modified: 2018-02-28 (‘Luminescence’ version: 0.8.1)</h4>
-          </div>
+            <h4 class="date">Last modified: 2018-06-22 (‘Luminescence’ version: 0.9.0)</h4>
+      
+      
+      <div class="hidden name"><code>HowTo_analyse_Al2O3.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <div id="scope" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scope" class="anchor"></a>Scope</h1>
@@ -96,7 +103,7 @@
 </ol>
 <p>Only the last function is usually needed to routinely estimate the (environmental <span class="math inline">\(\gamma\)</span>-) dose the chip had received. However, the first two functions are needed to correct for equipment related issues. If you have already performed the first two analyses or you do not feel the need for them, you can directly start with the Sec. <a href="#Al2O3_Dose_Determination">4</a>.</p>
 <p>The following tutorial assumes that all measurements have been performed on a Freiberg Instruments <em>lexsyg SMART</em> luminescence reader (Richter et al., 2015). Nevertheless, the general procedure should also work for other luminescence readers. However, please keep in mind that for readers without a separate measurement chamber the determination of the irradiation cross-talk becomes indispensable and should not be skipped.</p>
-<p>Please further note that this vignette covers only the <strong>R</strong> related part of the data analysis and will not explain the theoretical and physical background. Please see Kreutzer et al. (in press), for details.</p>
+<p>Please further note that this vignette covers only the <strong>R</strong> related part of the data analysis and will not explain the theoretical and physical background. Please see Kreutzer et al. (2018), for details.</p>
 </div>
 <div id="determine-irradiation-time-correction-factors" class="section level1">
 <h1 class="hasAnchor">
@@ -104,14 +111,14 @@
 <div id="data-import" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-import" class="anchor"></a>Data import</h2>
-<p>To determine the irradiation time correction factor the function <code><a href="../reference/analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC()</a></code> is used. The measurement sequence is based on the suggestions made by Kreutzer et al. (in press). To import the measurement data run the function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code>. The curve selection is done automatically by the function using the argument <code>recordType</code> (preset). Modify this argument if the selection here does not fit your equipment.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Luminescence)
-data_ITC &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"MyIrradiationTimeCorrectionMeasurement.XSYG"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>)
-data_ITC</code></pre></div>
+<p>To determine the irradiation time correction factor the function <code><a href="../reference/analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC()</a></code> is used. The measurement sequence is based on the suggestions made by Kreutzer et al. (2018). To import the measurement data run the function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code>. The curve selection is done automatically by the function using the argument <code>recordType</code> (preset). Modify this argument if the selection here does not fit your equipment.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(Luminescence)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">data_ITC &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"MyIrradiationTimeCorrectionMeasurement.XSYG"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">data_ITC</a></code></pre></div>
 <pre><code>## Loading required package: Luminescence</code></pre>
 <pre><code>## Loading required package: magrittr</code></pre>
-<pre><code>## Welcome to the R package Luminescence version 0.8.1 [Built: 2018-02-28 17:53:09 UTC]
-## Any arbitrary independent OSL device manufacturer: 'Sure it will work, it was me who built it!'</code></pre>
+<pre><code>## Welcome to the R package Luminescence version 0.9.0 [Built: 2018-06-21 10:18:03 UTC]
+## The answer to life, the universe and everything: 'get_rightAnswer()'</code></pre>
 <pre><code>## 
 ##  [RLum.Analysis-class]
 ##   originator: read_XSYG2R()
@@ -130,12 +137,12 @@ data_ITC</code></pre></div>
 <p>The imported data are either a single <code>RLum.Analysis</code> object or a <code>list</code> of such objects, which can be directly passed to the function <code><a href="../reference/analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC()</a></code>.</p>
 <p><em>Please note that if you follow the suggestions by Kreutzer et al. (in press) no further function arguments are necessary.</em></p>
 
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_ITC &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC</a></span>(<span class="dt">object =</span> data_ITC)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">results_ITC &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_ITC.html">analyse_Al2O3C_ITC</a></span>(<span class="dt">object =</span> data_ITC)</a></code></pre></div>
 <pre><code>## 
 ## [analyse_Al2O3C_ITC()]
 ## 
 ##  Used fit:       EXP
-##  Time correction value:  2.59 ± 0.05</code></pre>
+##  Time correction value:  2.59 ± 0.06</code></pre>
 <div class="figure" style="text-align: center">
 <img src="HowTo_analyse_Al2O3_files/figure-html/Fig1-1.png" alt="Dose response curve used to correct the irradiation time for the movement duration of the sample carrier." width=".8\linewidth"><p class="caption">
 Dose response curve used to correct the irradiation time for the movement duration of the sample carrier.
@@ -151,9 +158,9 @@ Dose response curve used to correct the irradiation time for the movement durati
 <h2 class="hasAnchor">
 <a href="#data-import-1" class="anchor"></a>Data import</h2>
 <p>The data import is similar to the data import given above (including the automatic curve selection).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Luminescence)
-data_CT &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"MyCrossTalkIrradiationMeasurement.XSYG"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>)
-data_CT</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(Luminescence)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">data_CT &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"MyCrossTalkIrradiationMeasurement.XSYG"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">data_CT</a></code></pre></div>
 <pre><code>## 
 ##  [RLum.Analysis-class]
 ##   originator: read_XSYG2R()
@@ -171,12 +178,12 @@ data_CT</code></pre></div>
 <h2 class="hasAnchor">
 <a href="#data-analysis" class="anchor"></a>Data analysis</h2>
 <p>For the data analysis the function <code><a href="../reference/analyse_Al2O3C_CrossTalk.html">analyse_Al2O3C_CrossTalk()</a></code> is called. Amongst others, the function has a parameter called <code>irradiation_time_correction</code>. This parameter can be left empty <strong>or</strong> the results from the previous irradiation time correction measurements can be directly passed to the function. Graphical results are shown in Fig.<span class="math inline">\(~\)</span>. The numerical output is again an <code>RLum.Results</code> object which can be kept for a later usage, i.e. for an automatic correction during the dose estimation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_CT &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_CrossTalk.html">analyse_Al2O3C_CrossTalk</a></span>(
-  <span class="dt">object =</span> data_CT,
-  <span class="dt">irradiation_time_correction =</span> results_ITC)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">results_CT &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_CrossTalk.html">analyse_Al2O3C_CrossTalk</a></span>(</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="dt">object =</span> data_CT,</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="dt">irradiation_time_correction =</span> results_ITC)</a></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="HowTo_analyse_Al2O3_files/figure-html/Fig2-1.png" alt="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (press)." width="500px" height="400px"><p class="caption">
-Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (press).
+<img src="HowTo_analyse_Al2O3_files/figure-html/Fig2-1.png" alt="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (2018)." width="500px" height="400px"><p class="caption">
+Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (2018).
 </p>
 </div>
 
@@ -189,20 +196,20 @@ Graphical function output of the crosstalk data analysis. Please note that the p
 <div id="data-import-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-import-2" class="anchor"></a>Data import</h2>
-<p>The data import follows the examples given below and consists of calling the function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code>. An additional curve selection is not necessary, so far the sequence follows the suggestion by Kreutzer et al. (in press)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Luminescence)
-data_EnvD &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"MyEnvironmentalDoseMeasurement.XSYG"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>)
-data_EnvD</code></pre></div>
+<p>The data import follows the examples given below and consists of calling the function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code>. An additional curve selection is not necessary, so far the sequence follows the suggestion by Kreutzer et al. (2018)</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(Luminescence)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">data_EnvD &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"MyEnvironmentalDoseMeasurement.XSYG"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">data_EnvD</a></code></pre></div>
 </div>
 <div id="data-analysis-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-analysis-1" class="anchor"></a>Data analysis</h2>
 <p>For the analysis of the environmental dose the Al<span class="math inline">\(_{2}\)</span>O<span class="math inline">\(_{3}\)</span> chips received, the results from the estimation of the irradiation time correction analysis and the cross-talk measurements are provided as input objects. The function automatically corrects for both effects. If this is not wanted the arguments can be set to <code>NULL</code> (the default)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_EnvD &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement</a></span>(
-  <span class="dt">object =</span> data_EnvD, 
-  <span class="dt">irradiation_time_correction =</span> results_ITC, 
-  <span class="dt">cross_talk_correction =</span> results_CT)</code></pre></div>
-<pre><code>##  [analyse_Al2O3_Measurement()] #2 DE: 26.88 ± 0.34</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">results_EnvD &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement</a></span>(</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="dt">object =</span> data_EnvD, </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">  <span class="dt">irradiation_time_correction =</span> results_ITC, </a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">  <span class="dt">cross_talk_correction =</span> results_CT)</a></code></pre></div>
+<pre><code>##  [analyse_Al2O3_Measurement()] #2 DE: 26.85 ± 0.38</code></pre>
 <div class="figure" style="text-align: center">
 <img src="HowTo_analyse_Al2O3_files/figure-html/unnamed-chunk-8-1.png" alt="Representive curve plots for one chip. Shown are OSL and TL curves." width="600"><p class="caption">
 Representive curve plots for one chip. Shown are OSL and TL curves.
@@ -211,7 +218,7 @@ Representive curve plots for one chip. Shown are OSL and TL curves.
 <pre><code>## Warning: Stimulation power was not stable for ALQ 1! Results are likely to
 ## be wrong!</code></pre>
 <p>For this example six Al<span class="math inline">\(_{2}\)</span>O<span class="math inline">\(_{3}\)</span>:C chips have been measured. The function returns an object of type <code>RLum.Results</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_EnvD</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">results_EnvD</a></code></pre></div>
 <pre><code>## 
 ##  [RLum.Results-class]
 ##   originator: analyse_Al2O3C_Measurement()
@@ -221,7 +228,7 @@ Representive curve plots for one chip. Shown are OSL and TL curves.
 ##   .. $test_parameters : data.frame
 ##   additional info elements:  1</code></pre>
 <p>To access the numerical results the given data objects within the <code>RLum.Results</code> object can be accessed using the <code>$</code> sign:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_EnvD<span class="op">$</span>data</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">results_EnvD<span class="op">$</span>data</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">DE</th>
@@ -232,104 +239,115 @@ Representive curve plots for one chip. Shown are OSL and TL curves.
 <th align="right">CT_CORRECTION</th>
 <th align="right">CT_CORRECTION_Q2.5</th>
 <th align="right">CT_CORRECTION_Q97.5</th>
+<th align="left">TL_DE</th>
+<th align="left">TL_DE.ERROR</th>
 <th align="left">UID</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">-2.641005</td>
-<td align="right">0.0323165</td>
+<td align="right">-2.631979</td>
+<td align="right">0.0378311</td>
 <td align="right">1</td>
 <td align="right">-0.4003952</td>
 <td align="left">NA</td>
-<td align="right">-0.0048099</td>
-<td align="right">-0.0103939</td>
-<td align="right">0.0007741</td>
-<td align="left">2018-02-28-09:36.0.424698837567121</td>
+<td align="right">-0.0048057</td>
+<td align="right">-0.0103889</td>
+<td align="right">0.0007776</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2018-06-22-03:14.0.543901451863348</td>
 </tr>
 <tr class="even">
-<td align="right">26.883825</td>
-<td align="right">0.3313464</td>
+<td align="right">26.875453</td>
+<td align="right">0.3715841</td>
 <td align="right">2</td>
 <td align="right">4.0749423</td>
 <td align="left">NA</td>
-<td align="right">-0.0039113</td>
-<td align="right">-0.0089530</td>
-<td align="right">0.0011304</td>
-<td align="left">2018-02-28-09:36.0.156116578727961</td>
+<td align="right">-0.0039077</td>
+<td align="right">-0.0089487</td>
+<td align="right">0.0011334</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2018-06-22-03:14.0.129324059002101</td>
 </tr>
 <tr class="odd">
-<td align="right">27.713130</td>
-<td align="right">0.3449304</td>
+<td align="right">27.722003</td>
+<td align="right">0.3939711</td>
 <td align="right">3</td>
 <td align="right">4.2050228</td>
 <td align="left">NA</td>
-<td align="right">-0.0029428</td>
-<td align="right">-0.0074902</td>
-<td align="right">0.0016045</td>
-<td align="left">2018-02-28-09:36.0.854474099585786</td>
+<td align="right">-0.0029399</td>
+<td align="right">-0.0074866</td>
+<td align="right">0.0016069</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2018-06-22-03:14.0.823594069341198</td>
 </tr>
 <tr class="even">
-<td align="right">29.717414</td>
-<td align="right">0.3702117</td>
+<td align="right">29.698183</td>
+<td align="right">0.4043760</td>
 <td align="right">4</td>
 <td align="right">4.5070818</td>
 <td align="left">NA</td>
-<td align="right">-0.0019047</td>
-<td align="right">-0.0060086</td>
-<td align="right">0.0021993</td>
-<td align="left">2018-02-28-09:36.0.720022274879739</td>
+<td align="right">-0.0019023</td>
+<td align="right">-0.0060057</td>
+<td align="right">0.0022011</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2018-06-22-03:14.0.994404437718913</td>
 </tr>
 <tr class="odd">
-<td align="right">28.977604</td>
-<td align="right">0.3717010</td>
+<td align="right">28.970543</td>
+<td align="right">0.4073273</td>
 <td align="right">5</td>
 <td align="right">4.3999199</td>
 <td align="left">NA</td>
-<td align="right">-0.0007967</td>
-<td align="right">-0.0045118</td>
-<td align="right">0.0029184</td>
-<td align="left">2018-02-28-09:36.0.283198572695255</td>
+<td align="right">-0.0007949</td>
+<td align="right">-0.0045095</td>
+<td align="right">0.0029197</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2018-06-22-03:14.0.343135215109214</td>
 </tr>
 <tr class="even">
-<td align="right">28.848866</td>
-<td align="right">0.3661756</td>
+<td align="right">28.843693</td>
+<td align="right">0.4062550</td>
 <td align="right">6</td>
 <td align="right">4.3757229</td>
 <td align="left">NA</td>
-<td align="right">0.0003810</td>
-<td align="right">-0.0030033</td>
-<td align="right">0.0037652</td>
-<td align="left">2018-02-28-09:36.0.0253645507618785</td>
+<td align="right">0.0003823</td>
+<td align="right">-0.0030015</td>
+<td align="right">0.0037661</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">2018-06-22-03:14.0.610938467085361</td>
 </tr>
 </tbody>
 </table>
 <p>This table is as <code>data.frame</code> and can be further treated with standard methods in <strong>R</strong>. For example, the table show one extreme value on position (the first row). This value has obviously no meaning and indeed, here the value was biased due to a technical error and should be removed from the data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_table &lt;-<span class="st"> </span>results_EnvD<span class="op">$</span>data[<span class="op">-</span><span class="dv">1</span>,]</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">results_table &lt;-<span class="st"> </span>results_EnvD<span class="op">$</span>data[<span class="op">-</span><span class="dv">1</span>,]</a></code></pre></div>
 <p>In a last step the results can be plotted, e.g., using the Abancio Plot (Dietze et al., 2016).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_AbanicoPlot.html">plot_AbanicoPlot</a></span>(
-  <span class="dt">data =</span> results_table[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], 
-  <span class="dt">zlab =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(D[e], <span class="st">" [s]"</span>)),
-  <span class="dt">main =</span> <span class="st">"Dose Distribution"</span>, 
-  <span class="dt">summary =</span> <span class="kw">c</span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd.abs"</span>, <span class="st">"sd.rel"</span>)
-  )</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="../reference/plot_AbanicoPlot.html">plot_AbanicoPlot</a></span>(</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">  <span class="dt">data =</span> results_table[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">  <span class="dt">zlab =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(D[e], <span class="st">" [s]"</span>)),</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">  <span class="dt">main =</span> <span class="st">"Dose Distribution"</span>, </a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">  <span class="dt">summary =</span> <span class="kw">c</span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd.abs"</span>, <span class="st">"sd.rel"</span>)</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">  )</a></code></pre></div>
 <p><img src="HowTo_analyse_Al2O3_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;"></p>
-</div>
-<div id="further-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-analysis" class="anchor"></a>Further analysis</h2>
+<p>##Further analysis</p>
 <p>To further data processing steps might be of particular interest in the given context:</p>
 <div id="travel-dosimeters" class="section level3">
 <h3 class="hasAnchor">
 <a href="#travel-dosimeters" class="anchor"></a>Travel dosimeter(s)</h3>
 <p>Usually, the data set to analyse contains chips, which were used as travel dosimeters, i.e. this chips were reset in the field at the time the other dosimeters were taken and then transported along with the field dosimeters. The dose of the travel dosimeters is subtracted from the measured dose of the field dosimeters. This can be done manually or automatically using the argument <code>travel_dosimeter</code> in the function <code><a href="../reference/analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement()</a></code>. For the data set given above the analysis can be used as follows, assuming that the travel dosimeters were placed on measurement position 2 and 3:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_EnvD_alternative &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement</a></span>(
-  <span class="dt">object =</span> data_EnvD[<span class="op">-</span><span class="dv">1</span>], 
-  <span class="dt">travel_dosimeter =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),
-  <span class="dt">irradiation_time_correction =</span> results_ITC, 
-  <span class="dt">cross_talk_correction =</span> results_CT, 
-  <span class="dt">verbose =</span> <span class="ot">FALSE</span>, 
-  <span class="dt">plot =</span> <span class="ot">FALSE</span>)
-results_EnvD_alternative</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">results_EnvD_alternative &lt;-<span class="st"> </span><span class="kw"><a href="../reference/analyse_Al2O3C_Measurement.html">analyse_Al2O3C_Measurement</a></span>(</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">  <span class="dt">object =</span> data_EnvD[<span class="op">-</span><span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="dt">travel_dosimeter =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="dt">irradiation_time_correction =</span> results_ITC, </a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">  <span class="dt">cross_talk_correction =</span> results_CT, </a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">  <span class="dt">verbose =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">  <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">results_EnvD_alternative</a></code></pre></div>
 <pre><code>## 
 ##  [RLum.Results-class]
 ##   originator: analyse_Al2O3C_Measurement()
@@ -340,16 +358,16 @@ results_EnvD_alternative</code></pre></div>
 ##   .. $data_TDcorrected : data.frame
 ##   additional info elements:  1</code></pre>
 <p>The original data set remains untouched, but the now the returned object contains a new, additional, object called <code>data_TDcorrected</code> with the corrected values:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results_EnvD_alternative<span class="op">$</span>data_TDcorrected</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">results_EnvD_alternative<span class="op">$</span>data_TDcorrected</a></code></pre></div>
 <pre><code>##         DE  DE_ERROR POSITION
-## 1 2.419397 0.7181509        4
-## 2 1.724780 0.7087831        5
-## 3 1.526889 0.7105613        6</code></pre>
+## 1 2.399514 0.7314989        4
+## 2 1.687550 0.7236781        5
+## 3 1.539445 0.7282298        6</code></pre>
 </div>
 <div id="gray-to-seconds" class="section level3">
 <h3 class="hasAnchor">
 <a href="#gray-to-seconds" class="anchor"></a>Gray to seconds</h3>
-<p>So far all returned values had the unit s (seconds), however, usually, the energy dose is wanted. To transform the values from the time domain to the dose domain, the function <code><a href="../reference/Second2Gray.html">Second2Gray()</a></code> can be used.</p>
+<p>So far all returned values had the unit s (seconds), however, usually, the energy dose is wanted. To transform the values from the time domain to the dose domain, the function <code><a href="../reference/Second2Gray.html">Second2Gray()</a></code> can be used. Please make sure that you recalculate your calibration values to the measurement date.</p>
 </div>
 </div>
 </div>
@@ -357,16 +375,15 @@ results_EnvD_alternative</code></pre></div>
 <h1 class="hasAnchor">
 <a href="#ease-your-workflow" class="anchor"></a>Ease your workflow</h1>
 <p>The analysis steps for the irradiation time correction and the irradiation cross-talk estimation might do not want to be repeated for every analysis. Thus, <strong>R</strong> allows the save results and recall them for the next analysis using the functions <code>save()</code> and <code>load()</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">save</span>(<span class="dt">list =</span> <span class="kw">c</span>(<span class="st">"results_CT"</span>, <span class="st">"results_ITC"</span>), <span class="dt">file =</span> <span class="st">"MyResults.Rdata"</span>)
-<span class="kw">load</span>(<span class="dt">file =</span> <span class="st">"MyResults.Rdata"</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">save</span>(<span class="dt">list =</span> <span class="kw">c</span>(<span class="st">"results_CT"</span>, <span class="st">"results_ITC"</span>), <span class="dt">file =</span> <span class="st">"MyResults.Rdata"</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">load</span>(<span class="dt">file =</span> <span class="st">"MyResults.Rdata"</span>)</a></code></pre></div>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <p>Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot: visualising chronometric data with individual standard errors 31, 12–18. <a href="http://dx.doi.org/10.1016/j.quageo.2015.09.003">doi:10.1016/j.quageo.2015.09.003</a></p>
-<p>Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips. Gechromometrie 45. doi: 10.1515/geochr-2015-0086</p>
+<p>Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips. Gechromometrie 45, 56-67. <a href="http://dx.doi.org/10.1515/geochr-2015-0086">doi: 10.1515/geochr-2015-0086</a></p>
 <p>Richter, D., Richter, A., Dornich, K., 2015. Lexsyg smart — a luminescence detection system for dosimetry, material research and dating application. Geochronometria 42, 202–209. <a href="http://dx.doi.org/10.1515/geochr-2015-0022">doi: 10.1515/geochr-2015-0022</a></p>
-</div>
 </div>
   </div>
 
@@ -392,7 +409,6 @@ results_EnvD_alternative</code></pre></div>
 <a href="#Al2O3_Dose_Determination">Al<span class="math inline">\(_{2}\)</span>O<span class="math inline">\(_{3}\)</span>:C dose determination</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#data-import-2">Data import</a></li>
       <li><a href="#data-analysis-1">Data analysis</a></li>
-      <li><a href="#further-analysis">Further analysis</a></li>
       </ul>
 </li>
       <li><a href="#ease-your-workflow">Ease your workflow</a></li>
@@ -414,6 +430,8 @@ results_EnvD_alternative</code></pre></div>
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculate Lx/Tx ratio for CW-OSL curves — calc_OSLLxTxRatio" />
 
 <meta property="og:description" content="Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
 background subtraction." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ background subtraction." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ background subtraction." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ background subtraction." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,16 +111,20 @@ background subtraction." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate Lx/Tx ratio for CW-OSL curves</h1>
+    
+    <div class="hidden name"><code>calc_OSLLxTxRatio.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
 background subtraction.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_OSLLxTxRatio</span>(<span class='no'>Lx.data</span>, <span class='kw'>Tx.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>signal.integral</span>,
   <span class='kw'>signal.integral.Tx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>background.integral</span>,
@@ -117,7 +132,7 @@ background subtraction.</p>
   <span class='kw'>background.count.distribution</span> <span class='kw'>=</span> <span class='st'>"non-poisson"</span>, <span class='kw'>use_previousBG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>sigmab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sig0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -192,9 +207,8 @@ If digits is set to <code>NULL</code> nothing is rounded.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.</p>
-<p>Slot <code>data</code> contains a list with the following structure:
-
-<strong>@data</strong></p><pre>$LxTx.table (data.frame)
+<p>Slot <code>data</code> contains a list with the following structure:</p>
+<p><strong>@data</strong></p><pre>$LxTx.table (data.frame)
 .. $ LnLx
 .. $ LnLx.BG
 .. $ TnTx
@@ -208,7 +222,9 @@ $ calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
 .. $ k
-</pre><p><strong>@info</strong></p><pre>$ call (original function call)
+</pre>
+
+<p><strong>@info</strong></p><pre>$ call (original function call)
 </pre>
 
     
@@ -218,20 +234,20 @@ $ calc.parameters (list)
 checked by the function; the signal integral limits have to be lower than
 the background integral limits. If a vector is given as input instead
 of a data.frame, an artificial data.frame is produced. The
-error calculation is done according to Galbraith (2002).
-    <strong>Please note:</strong> In cases where the calculation results in <code>NaN</code> values (for
+error calculation is done according to Galbraith (2002).</p>
+<p><strong>Please note:</strong> In cases where the calculation results in <code>NaN</code> values (for
 example due to zero-signal, and therefore a division of 0 by 0), these <code>NaN</code>
-values are replaced by 0.
-    <strong>sigmab</strong></p>
+values are replaced by 0.</p>
+<p><strong>sigmab</strong></p>
 <p>The default value of <code>sigmab</code> is calculated assuming the background is
 constant and <strong>would not</strong> applicable when the background varies as,
-e.g., as observed for the early light substraction method.
-    <strong>sig0</strong></p>
+e.g., as observed for the early light substraction method.</p>
+<p><strong>sig0</strong></p>
 <p>This argument allows to add an extra component of error to the final Lx/Tx
 error value. The input will be treated as factor that is multiplied with
-the already calculated LxTx and the result is add up by:
-    $$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)$$
-    <strong>background.count.distribution</strong></p>
+the already calculated LxTx and the result is add up by:</p>
+<p>$$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)$$</p>
+<p><strong>background.count.distribution</strong></p>
 <p>This argument allows selecting the distribution assumption that is used for
 the error calculation. According to Galbraith (2002, 2014) the background
 counts may be overdispersed (i.e. do not follow a poisson distribution,
@@ -243,7 +259,8 @@ standard error is calculated as:</p><ul>
 $$rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k$$</p></li>
 <li><p><code>non-poisson</code>
 $$rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k$$</p></li>
-</ul><p><strong>Please note</strong> that when using the early background subtraction method in
+</ul>
+    <p><strong>Please note</strong> that when using the early background subtraction method in
 combination with the 'non-poisson' distribution argument, the corresponding Lx/Tx error
 may considerably increase due to a high sigmab value.
 Please check whether this is valid for your data set and  if necessary
@@ -252,22 +269,18 @@ consider to provide an own sigmab value using the corresponding argument <code>s
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The results of this function have been cross-checked with the Analyst
-(vers. 3.24b). Access to the results object via <a href='get_RLum.html'>get_RLum</a>.
-    <strong>Caution:</strong> If you are using early light subtraction (EBG), please either provide your
+(vers. 3.24b). Access to the results object via <a href='get_RLum.html'>get_RLum</a>.</p>
+<p><strong>Caution:</strong> If you are using early light subtraction (EBG), please either provide your
 own <code>sigmab</code> value or use <code>background.count.distribution = "poisson"</code>.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.0 (2018-02-14 13:41:37)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.7.0</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Duller, G., 2016. Analyst v4.31.9 - User Manual.
-<a href='http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da'>http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da</a></p>
+<a href='http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da'>http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da</a><br /></p>
 <p>Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.</p>
 <p>Galbraith, R.F., 2014. A further note on the variance of a
@@ -275,8 +288,8 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='Analyse_SAR.OSLdata.html'>Analyse_SAR.OSLdata</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>,
-<a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a></p>
+    <div class='dont-index'><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='Analyse_SAR.OSLdata.html'>Analyse_SAR.OSLdata</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>,
+<a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -308,8 +321,6 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -320,7 +331,7 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -336,5 +347,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

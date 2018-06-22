@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Plot function for an RLum.Data.Curve S4 class object — plot_RLum.Data.Curve" />
 
 <meta property="og:description" content="The function provides a standardised plot output for curve data of an
 RLum.Data.Curve S4 class object" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ RLum.Data.Curve S4 class object" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ RLum.Data.Curve S4 class object" />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ RLum.Data.Curve S4 class object" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,25 @@ RLum.Data.Curve S4 class object" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot function for an RLum.Data.Curve S4 class object</h1>
+    
+    <div class="hidden name"><code>plot_RLum.Data.Curve.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function provides a standardised plot output for curve data of an
 RLum.Data.Curve S4 class object</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plot_RLum.Data.Curve</span>(<span class='no'>object</span>, <span class='kw'>par.local</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>norm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -160,15 +175,11 @@ according to plot.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.3 (2018-01-21 17:22:38)</p>
+    <p>0.2.3</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>plot, <a href='plot_RLum.html'>plot_RLum</a></p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <div class='dont-index'><p>plot, <a href='plot_RLum.html'>plot_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -182,7 +193,7 @@ according to plot.</p>
 <span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='st'>"RLum.Data.Curve"</span>)
 
 <span class='co'>#plot RLum.Data.Curve object</span>
-<span class='fu'>plot_RLum.Data.Curve</span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>plot_RLum.Data.Curve</span>(<span class='no'>temp</span>)</div><div class='img'><img src='plot_RLum.Data.Curve-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -200,8 +211,6 @@ according to plot.</p>
       <li><a href="#function-version">Function version</a></li>
 
       <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -209,7 +218,7 @@ according to plot.</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -225,5 +234,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

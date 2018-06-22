@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Nonlinear Least Squares Fit for LM-OSL curves — fit_LMCurve" />
 
 <meta property="og:description" content="The function determines weighted nonlinear least-squares estimates of the
@@ -34,6 +37,9 @@ component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
 uses the function nls with the port algorithm." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ uses the function nls with the port algorithm." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ uses the function nls with the port algorithm." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -95,6 +105,7 @@ uses the function nls with the port algorithm." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -102,18 +113,22 @@ uses the function nls with the port algorithm." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Nonlinear Least Squares Fit for LM-OSL curves</h1>
+    
+    <div class="hidden name"><code>fit_LMCurve.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function determines weighted nonlinear least-squares estimates of the
 component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
 uses the function nls with the <code>port</code> algorithm.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>fit_LMCurve</span>(<span class='no'>values</span>, <span class='no'>values.bg</span>, <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>start_values</span>,
   <span class='kw'>input.dataType</span> <span class='kw'>=</span> <span class='st'>"LM"</span>, <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"port"</span>, <span class='kw'>sample_code</span> <span class='kw'>=</span> <span class='st'>""</span>,
@@ -122,7 +137,7 @@ uses the function nls with the <code>port</code> algorithm.</p>
   <span class='kw'>bg.subtraction</span> <span class='kw'>=</span> <span class='st'>"polynomial"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -233,19 +248,15 @@ background subtraction.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Various types of plots are returned. For details see above. Furthermore an
-<code>RLum.Results</code> object is returned with the following structure:
-
-<strong><code>@data:</code></strong>
-
-<code>.. $data</code> : data.frame with fitting results
-<code>.. $fit</code> : nls (nls object)
-<code>.. $component.contribution.matrix</code> : list component distribution matrix
-
-<strong><code>info:</code></strong>
-
-<code>.. $call</code> : call the original function call</p>
+<code>RLum.Results</code> object is returned with the following structure:</p>
+<p><strong><code>@data:</code></strong></p>
+<p><code>.. $data</code> : data.frame with fitting results<br />
+<code>.. $fit</code> : nls (nls object)<br />
+<code>.. $component.contribution.matrix</code> : list component distribution matrix</p>
+<p><strong><code>info:</code></strong></p>
+<p><code>.. $call</code> : call the original function call</p>
 <p>Matrix structure for the distribution matrix:</p>
-<p>Column 1 and 2: time and <code>rev(time)</code> values
+<p>Column 1 and 2: time and <code>rev(time)</code> values<br />
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns <code>cont.</code> provide information on
 the relative component contribution for each time interval including the row
@@ -255,15 +266,15 @@ sum for this values.</p>
 
     <p><strong>Fitting function</strong></p>
 <p>The function for the fitting has the general
-form:
-    $$y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, + exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))$$</p>
+form:</p>
+<p>$$y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, + exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))$$</p>
 <p>where \(1 &lt; i &lt; 8\)</p>
 <p>This function and the equations for the conversion to b (detrapping probability)
 and n0 (proportional to initially trapped charge) have been taken from Kitis
-et al. (2008):
-    $$xm_i=\sqrt{max(t)/b_i}$$
-$$Im_i=exp(-0.5)n0/xm_i$$
-    <strong>Background subtraction</strong></p>
+et al. (2008):</p>
+<p>$$xm_i=\sqrt{max(t)/b_i}$$
+$$Im_i=exp(-0.5)n0/xm_i$$</p>
+<p><strong>Background subtraction</strong></p>
 <p>Three methods for background subtraction
 are provided for a given background signal (<code>values.bg</code>).</p><ul>
 <li><p><code>polynomial</code>: default method. A polynomial function is fitted using glm
@@ -274,11 +285,12 @@ is used for background subtraction:
 $$y = a*x + b$$</p></li>
 <li><p><code>channel</code>: the measured
 background signal is subtracted channelwise from the measured signal.</p></li>
-</ul><p><strong>Start values</strong></p>
+</ul>
+    <p><strong>Start values</strong></p>
 <p>The choice of the initial parameters for the <code>nls</code>-fitting is a crucial
 point and the fitting procedure may mainly fail due to ill chosen start
-parameters. Here, three options are provided:
-    <strong>(a)</strong>
+parameters. Here, three options are provided:</p>
+<p><strong>(a)</strong>
 If no start values (<code>start_values</code>) are provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
@@ -287,31 +299,31 @@ starts with the ultra-fast component and (depending on <code>n.components</code>
 steps through the following values. If no fit could be achieved, an error
 plot (for <code>plot = TRUE</code>) with the pseudo curve (based on the
 pseudo start parameters) is provided. This may give the opportunity to
-identify appropriate start parameters visually.
-    <strong>(b)</strong>
+identify appropriate start parameters visually.</p>
+<p><strong>(b)</strong>
 If start values are provided, the function works like a simple nls
-fitting approach.
-    <strong>(c)</strong>
+fitting approach.</p>
+<p><strong>(c)</strong>
 If no start parameters are provided and
 the option <code>fit.advanced = TRUE</code> is chosen, an advanced start paramter
 estimation is applied using a stochastical attempt. Therefore, the
 recalculated start parameters <strong>(a)</strong> are used to construct a normal
 distribution. The start parameters are then sampled randomly from this
 distribution. A maximum of 100 attempts will be made. <strong>Note:</strong> This
-process may be time consuming.
-    <strong>Goodness of fit</strong></p>
+process may be time consuming.</p>
+<p><strong>Goodness of fit</strong></p>
 <p>The goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
-determination). According to Lave (1970), the value is calculated as:
-    $$pseudoR^2 = 1 - RSS/TSS$$</p>
+determination). According to Lave (1970), the value is calculated as:</p>
+<p>$$pseudoR^2 = 1 - RSS/TSS$$</p>
 <p>where \(RSS = Residual~Sum~of~Squares\)
-and \(TSS = Total~Sum~of~Squares\)
-    <strong>Error of fitted component parameters</strong></p>
+and \(TSS = Total~Sum~of~Squares\)</p>
+<p><strong>Error of fitted component parameters</strong></p>
 <p>The 1-sigma error for the components is calculated using
 the function confint. Due to considerable calculation time, this
 option is deactived by default. In addition, the error for the components
 can be estimated by using internal R functions like summary. See the
-nls help page for more information.
-    <em>For more details on the nonlinear regression in R, see Ritz &amp; Streibig (2008).</em></p>
+nls help page for more information.</p>
+<p><em>For more details on the nonlinear regression in R, see Ritz &amp; Streibig (2008).</em></p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -324,11 +336,7 @@ manual start values is highly recommended.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.2 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.3.2</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -348,7 +356,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='fit_CWCurve.html'>fit_CWCurve</a>, plot, nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>, <a href='get_RLum.html'>get_RLum</a></p>
+    <div class='dont-index'><p><a href='fit_CWCurve.html'>fit_CWCurve</a>, plot, nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -384,14 +392,14 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 #&gt; (errors quoted as 1-sigma uncertainties)
 #&gt; ------------------------------------------------------------------------------
 #&gt; 
-#&gt; pseudo-R^2 = 0.9557</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+#&gt; pseudo-R^2 = 0.9557</div><div class='img'><img src='fit_LMCurve-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) fit LM data with background subtraction and export as JPEG</span>
 <span class='co'>## -alter file path for your preferred system</span>
 <span class='co'>##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,</span>
 <span class='co'>## height = 3000, width = 3000, res = 300)</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.FittingLM</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 <span class='fu'>fit_LMCurve</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>values.curve</span>, <span class='kw'>values.bg</span> <span class='kw'>=</span> <span class='no'>values.curveBG</span>,
-            <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='fit_LMCurve-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-2.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; 
+            <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; [fit_LMCurve()]
 #&gt; 
 #&gt; Fitting was done using a 2-component function:
@@ -416,7 +424,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 #&gt; (errors quoted as 1-sigma uncertainties)
 #&gt; ------------------------------------------------------------------------------
 #&gt; 
-#&gt; pseudo-R^2 = 0.9417</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='co'>##dev.off()</span>
+#&gt; pseudo-R^2 = 0.9417</div><div class='img'><img src='fit_LMCurve-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>##dev.off()</span>
 
 <span class='co'>##(3) fit LM data with manual start parameters</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.FittingLM</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
@@ -454,7 +462,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 #&gt; (errors quoted as 1-sigma uncertainties)
 #&gt; ------------------------------------------------------------------------------
 #&gt; 
-#&gt; pseudo-R^2 = 0.9437</div><div class='output co'>#&gt; <span class='error'>Error in .External.graphics(C_layout, num.rows, num.cols, mat, as.integer(num.figures),     col.widths = widths, row.heights = heights, cm.widths, cm.heights,     respect = as.integer(respect), respect.mat): invalid graphics state</span></div><div class='img'><img src='fit_LMCurve-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; pseudo-R^2 = 0.9437</div><div class='img'><img src='fit_LMCurve-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -470,8 +478,6 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -482,7 +488,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -498,5 +504,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

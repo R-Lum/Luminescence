@@ -22,17 +22,23 @@ given De distribution — calc_CommonDose • Luminescence</title>
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Apply the (un-)logged common age model after Galbraith et al. (1999) to a
 given De distribution — calc_CommonDose" />
 
 <meta property="og:description" content="Function to calculate the common dose of a De distribution." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ given De distribution — calc_CommonDose" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ given De distribution — calc_CommonDose" />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ given De distribution — calc_CommonDose" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,20 +112,24 @@ given De distribution — calc_CommonDose" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply the (un-)logged common age model after Galbraith et al. (1999) to a
 given De distribution</h1>
+    
+    <div class="hidden name"><code>calc_CommonDose.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function to calculate the common dose of a De distribution.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_CommonDose</span>(<span class='no'>data</span>, <span class='no'>sigmab</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -172,11 +187,7 @@ error (Galbraith &amp; Roberts 2012, p. 14).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.1 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Burow, C. (2018). calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.1.1</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -188,8 +199,8 @@ shelter, northern Australia. Part I: experimental design and statistical
 models.  Archaeometry 41, 339-364.</p>
 <p>Galbraith, R.F. &amp; Roberts, R.G., 2012. Statistical aspects of equivalent dose and error calculation and
 display in OSL dating: An overview and some recommendations. Quaternary
-Geochronology 11, 1-27.
-    <strong>Further reading</strong></p>
+Geochronology 11, 1-27.</p>
+<p><strong>Further reading</strong></p>
 <p>Arnold, L.J. &amp; Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
 Quaternary Geochronology 4, 204-230.</p>
@@ -205,8 +216,8 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='calc_CentralDose.html'>calc_CentralDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
-<a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p>
+    <div class='dont-index'><p><a href='calc_CentralDose.html'>calc_CentralDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
+<a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -240,8 +251,6 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -252,7 +261,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
     <h2>Author</h2>
     
 Christoph Burow, University of Cologne (Germany)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -268,5 +277,8 @@ Christoph Burow, University of Cologne (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

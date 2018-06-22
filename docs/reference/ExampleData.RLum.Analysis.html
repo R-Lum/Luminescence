@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Example data as <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects — ExampleData.RLum.Analysis" />
 
 <meta property="og:description" content="Collection of different RLum.Analysis objects for
 protocol analysis." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ protocol analysis." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ protocol analysis." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ protocol analysis." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,16 +111,20 @@ protocol analysis." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Example data as <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects</h1>
+    
+    <div class="hidden name"><code>ExampleData.RLum.Analysis.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Collection of different <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects for
 protocol analysis.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -120,19 +135,14 @@ protocol analysis.</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p><strong>IRSAR.RF.Data</strong></p>
-<p>These data were kindly provided by Tobias Lauer and Matthias Krbetschek.</p><table><tr><td>
-Lab: </td>
-<td> Luminescence Laboratory TU Bergakademie Freiberg</td>
-</tr><tr><td>
-Lab-Code: </td>
-<td> ZEU/SA1</td>
-</tr><tr><td>
-Location: </td>
-<td> Zeuchfeld (Zeuchfeld Sandur; Saxony-Anhalt/Germany)</td>
-</tr><tr><td>
-Material: </td>
-<td> K-feldspar (130-200 \(\mu\)m)</td>
-</tr></table>
+<p>These data were kindly provided by Tobias Lauer and Matthias Krbetschek.</p>
+<table class='table'>
+<tr><td>Lab:</td><td>Luminescence Laboratory TU Bergakademie Freiberg</td></tr>
+<tr><td>Lab-Code:</td><td>ZEU/SA1</td></tr>
+<tr><td>Location:</td><td>Zeuchfeld (Zeuchfeld Sandur; Saxony-Anhalt/Germany)</td></tr>
+<tr><td>Material:</td><td>K-feldspar (130-200 \(\mu\)m)</td></tr>
+<tr><td>Reference:</td><td>Kreutzer et al. (2014)</td></tr>
+</table>
     
     <h2 class="hasAnchor" id="version"><a class="anchor" href="#version"></a>Version</h2>
 
@@ -153,7 +163,7 @@ Geomorphologie 58, 5-26. doi: 10.1127/0372-8854/2012/S-00112</p>
 <span class='fu'>data</span>(<span class='no'>ExampleData.RLum.Analysis</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
 <span class='co'>##plot data</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>IRSAR.RF.Data</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>IRSAR.RF.Data</span>)</div><div class='img'><img src='ExampleData.RLum.Analysis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -186,5 +196,8 @@ Geomorphologie 58, 5-26. doi: 10.1127/0372-8854/2012/S-00112</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

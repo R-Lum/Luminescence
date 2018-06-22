@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Class <code>"Risoe.BINfileData"</code> — Risoe.BINfileData-class" />
 
 <meta property="og:description" content="S4 class object for luminescence data in R. The object is produced as output
 of the function read_BIN2R." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ of the function read_BIN2R." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ of the function read_BIN2R." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ of the function read_BIN2R." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,16 +111,20 @@ of the function read_BIN2R." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class <code>"Risoe.BINfileData"</code></h1>
+    
+    <div class="hidden name"><code>Risoe.BINfileData-class.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>S4 class object for luminescence data in R. The object is produced as output
 of the function <a href='read_BIN2R.html'>read_BIN2R</a>.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for Risoe.BINfileData</span>
 <span class='fu'>show</span>(<span class='no'>object</span>)
@@ -121,7 +136,7 @@ of the function <a href='read_BIN2R.html'>read_BIN2R</a>.</p>
 <span class='co'># S4 method for Risoe.BINfileData</span>
 <span class='fu'><a href='get_Risoe.BINfileData.html'>get_Risoe.BINfileData</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -172,602 +187,136 @@ the object directly, it is just showing a terminal message.</p></li>
     <p><strong>Internal METADATA - object structure</strong></p>
 <p>This structure is compatible with BIN-files version 03-08, however, it does not follow (in its
 sequential arrangment) the manual provided by the manufacturer,
-but an own structure accounting for the different versions.</p><table><tr><td>
-<strong>#</strong> </td>
-<td> <strong>Name</strong> </td>
-<td> <strong>Data Type</strong> </td>
-<td> <strong>V</strong> </td>
-<td> <strong>Description</strong> </td>
-</tr><tr><td>
-<code>[,1]</code> </td>
-<td> ID  </td>
-<td> <code>numeric</code> </td>
-<td> RLum </td>
-<td> Unique record ID (same ID as in slot <code>DATA</code>)</td>
-</tr><tr><td>
-<code>[,2]</code> </td>
-<td> SEL </td>
-<td> <code>logic</code> </td>
-<td> RLum </td>
-<td> Record selection, not part official BIN-format, triggered by TAG</td>
-</tr><tr><td>
-<code>[,3]</code> </td>
-<td> VERSION </td>
-<td> <code>raw</code> </td>
-<td> 03-08 </td>
-<td> BIN-file version number </td>
-</tr><tr><td>
-<code>[,4]</code> </td>
-<td> LENGTH </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Length of this record</td>
-</tr><tr><td>
-<code>[,5]</code> </td>
-<td> PREVIOUS </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Length of previous record</td>
-</tr><tr><td>
-<code>[,6]</code> </td>
-<td> NPOINTS </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Number of data points in the record</td>
-</tr><tr><td>
-<code>[,7]</code> </td>
-<td> RECTYPE </td>
-<td> <code>integer</code> </td>
-<td> 08 </td>
-<td> Record type </td>
-</tr><tr><td>
-<code>[,8]</code> </td>
-<td> RUN </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Run number</td>
-</tr><tr><td>
-<code>[,9]</code> </td>
-<td> SET </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Set number</td>
-</tr><tr><td>
-<code>[,10]</code>  </td>
-<td> POSITION </td>
-<td>  <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Position number</td>
-</tr><tr><td>
-<code>[,11]</code> </td>
-<td> GRAIN </td>
-<td> <code>integer</code> </td>
-<td> 03-04 </td>
-<td> Grain number</td>
-</tr><tr><td>
-<code>[,12]</code> </td>
-<td> GRAINNUMBER </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> Grain number</td>
-</tr><tr><td>
-<code>[,13]</code> </td>
-<td> CURVENO </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> Curve number</td>
-</tr><tr><td>
-<code>[,14]</code> </td>
-<td> XCOORD </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> X position of a single grain</td>
-</tr><tr><td>
-<code>[,15]</code> </td>
-<td> YCOORD </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Y position of a single grain</td>
-</tr><tr><td>
-<code>[,16]</code> </td>
-<td> SAMPLE </td>
-<td> <code>factor</code> </td>
-<td> 03-08 </td>
-<td> Sample name</td>
-</tr><tr><td>
-<code>[,17]</code> </td>
-<td> COMMENT </td>
-<td> <code>factor</code> </td>
-<td> 03-08 </td>
-<td> Comment name</td>
-</tr><tr><td>
-<code>[,18]</code> </td>
-<td> SYSTEMID </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Risoe system id</td>
-</tr><tr><td>
-<code>[,19]</code> </td>
-<td> FNAME </td>
-<td> <code>factor</code> </td>
-<td> 06-08 </td>
-<td> File name (<em>.bin/</em>.binx)</td>
-</tr><tr><td>
-<code>[,20]</code> </td>
-<td> USER </td>
-<td> <code>facotr</code> </td>
-<td> 03-08 </td>
-<td> User name</td>
-</tr><tr><td>
-<code>[,21]</code> </td>
-<td> TIME </td>
-<td> <code>character</code> </td>
-<td> 03-08 </td>
-<td> Data collection time (hh-mm-ss)</td>
-</tr><tr><td>
-<code>[,22]</code> </td>
-<td> DATE </td>
-<td> <code>factor</code> </td>
-<td> 03-08 </td>
-<td> Data collection date (ddmmyy)</td>
-</tr><tr><td>
-<code>[,23]</code> </td>
-<td> DTYPE </td>
-<td> <code>character</code> </td>
-<td> 03-08 </td>
-<td> Data type</td>
-</tr><tr><td>
-<code>[,24]</code> </td>
-<td> BL_TIME </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Bleaching time</td>
-</tr><tr><td>
-<code>[,25]</code> </td>
-<td> BL_UNIT </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Bleaching unit (mJ, J, secs, mins, hrs)</td>
-</tr><tr><td>
-<code>[,26]</code> </td>
-<td> NORM1 </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Normalisation factor (1)</td>
-</tr><tr><td>
-<code>[,27]</code> </td>
-<td> NORM2 </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Normalisation factor (2)</td>
-</tr><tr><td>
-<code>[,28]</code> </td>
-<td> NORM3 </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Normalisation factor (3)</td>
-</tr><tr><td>
-<code>[,29]</code> </td>
-<td> BG </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Background level</td>
-</tr><tr><td>
-<code>[,30]</code> </td>
-<td> SHIFT </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Number of channels to shift data</td>
-</tr><tr><td>
-<code>[,31]</code> </td>
-<td> TAG </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Tag, triggers SEL</td>
-</tr><tr><td>
-<code>[,32]</code> </td>
-<td> LTYPE </td>
-<td> <code>character</code> </td>
-<td> 03-08 </td>
-<td> Luminescence type</td>
-</tr><tr><td>
-<code>[,33]</code> </td>
-<td> LIGHTSOURCE </td>
-<td> <code>character</code> </td>
-<td> 03-08 </td>
-<td> Light source</td>
-</tr><tr><td>
-<code>[,34]</code> </td>
-<td> LPOWER </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Optical stimulation power</td>
-</tr><tr><td>
-<code>[,35]</code> </td>
-<td> LIGHTPOWER </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> Optical stimulation power</td>
-</tr><tr><td>
-<code>[,36]</code> </td>
-<td> LOW </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Low (temperature, time, wavelength)</td>
-</tr><tr><td>
-<code>[,37]</code> </td>
-<td> HIGH </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> High (temperature, time, wavelength)</td>
-</tr><tr><td>
-<code>[,38]</code> </td>
-<td> RATE </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Rate (heating rate, scan rate)</td>
-</tr><tr><td>
-<code>[,39]</code> </td>
-<td> TEMPERATURE </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Sample temperature</td>
-</tr><tr><td>
-<code>[,40]</code> </td>
-<td> MEASTEMP </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> Measured temperature</td>
-</tr><tr><td>
-<code>[,41]</code> </td>
-<td> AN_TEMP </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Annealing temperature</td>
-</tr><tr><td>
-<code>[,42]</code> </td>
-<td> AN_TIME </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Annealing time</td>
-</tr><tr><td>
-<code>[,43]</code> </td>
-<td> TOLDELAY </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> TOL 'delay' channels</td>
-</tr><tr><td>
-<code>[,44]</code> </td>
-<td> TOLON </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> TOL 'on' channels</td>
-</tr><tr><td>
-<code>[,45]</code> </td>
-<td> TOLOFF </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> TOL 'off' channels</td>
-</tr><tr><td>
-<code>[,46]</code> </td>
-<td> IRR_TIME </td>
-<td> <code>numeric</code> </td>
-<td> 03-08 </td>
-<td> Irradiation time</td>
-</tr><tr><td>
-<code>[,47]</code> </td>
-<td> IRR_TYPE </td>
-<td> <code>integer</code> </td>
-<td> 03-08 </td>
-<td> Irradiation type (alpha, beta or gamma)</td>
-</tr><tr><td>
-<code>[,48]</code> </td>
-<td> IRR_UNIT </td>
-<td> <code>integer</code> </td>
-<td> 03-04 </td>
-<td> Irradiation unit (Gy, Rads, secs, mins, hrs)</td>
-</tr><tr><td>
-<code>[,49]</code> </td>
-<td> IRR_DOSERATE </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> Irradiation dose rate (Gy/s)</td>
-</tr><tr><td>
-<code>[,50]</code> </td>
-<td> IRR_DOSERATEERR </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> Irradiation dose rate error (Gy/s)</td>
-</tr><tr><td>
-<code>[,51]</code> </td>
-<td> TIMESINCEIRR </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> Time since irradiation (s)</td>
-</tr><tr><td>
-<code>[,52]</code> </td>
-<td> TIMETICK </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> Time tick for pulsing (s)</td>
-</tr><tr><td>
-<code>[,53]</code> </td>
-<td> ONTIME </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> On-time for pulsing (in time ticks)</td>
-</tr><tr><td>
-<code>[,54]</code> </td>
-<td> OFFTIME </td>
-<td> <code>integer</code> </td>
-<td> 03 </td>
-<td> Off-time for pulsed stimulation (in s) </td>
-</tr><tr><td>
-<code>[,55]</code> </td>
-<td> STIMPERIOD </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> Stimulation period (on+off in time ticks)</td>
-</tr><tr><td>
-<code>[,56]</code> </td>
-<td> GATE_ENABLED </td>
-<td> <code>raw</code> </td>
-<td> 06-08 </td>
-<td> PMT signal gating enabled</td>
-</tr><tr><td>
-<code>[,57]</code> </td>
-<td> ENABLE_FLAGS </td>
-<td> <code>raw</code> </td>
-<td> 06-08 </td>
-<td> PMT signal gating  enabled</td>
-</tr><tr><td>
-<code>[,58]</code> </td>
-<td> GATE_START </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> Start gating (in time ticks)</td>
-</tr><tr><td>
-<code>[,59]</code> </td>
-<td> GATE_STOP </td>
-<td> <code>ingeter</code> </td>
-<td> 06-08 </td>
-<td> Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used</td>
-</tr><tr><td>
-<code>[,60]</code> </td>
-<td> PTENABLED </td>
-<td> <code>raw</code> </td>
-<td> 06-08 </td>
-<td> Photon time enabled</td>
-</tr><tr><td>
-<code>[,61]</code> </td>
-<td> DTENABLED </td>
-<td> <code>raw</code> </td>
-<td> 06-08 </td>
-<td> PMT dead time correction enabled</td>
-</tr><tr><td>
-<code>[,62]</code> </td>
-<td> DEADTIME </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> PMT dead time (s)</td>
-</tr><tr><td>
-<code>[,63]</code> </td>
-<td> MAXLPOWER </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> Stimulation power to 100 percent (mW/cm^2)</td>
-</tr><tr><td>
-<code>[,64]</code> </td>
-<td> XRF_ACQTIME </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> XRF acquisition time (s)</td>
-</tr><tr><td>
-<code>[,65]</code> </td>
-<td> XRF_HV </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> XRF X-ray high voltage (V)</td>
-</tr><tr><td>
-<code>[,66]</code> </td>
-<td> XRF_CURR </td>
-<td> <code>integer</code> </td>
-<td> 06-08 </td>
-<td> XRF X-ray current (uA)</td>
-</tr><tr><td>
-<code>[,67]</code> </td>
-<td> XRF_DEADTIMEF </td>
-<td> <code>numeric</code> </td>
-<td> 06-08 </td>
-<td> XRF dead time fraction</td>
-</tr><tr><td>
-<code>[,68]</code> </td>
-<td> DETECTOR_ID </td>
-<td> <code>raw</code> </td>
-<td> 07-08 </td>
-<td> Detector ID</td>
-</tr><tr><td>
-<code>[,69]</code> </td>
-<td> LOWERFILTER_ID </td>
-<td> <code>integer</code> </td>
-<td> 07-08 </td>
-<td> Lower filter ID in reader</td>
-</tr><tr><td>
-<code>[,70]</code> </td>
-<td> UPPERFILTER_ID </td>
-<td> <code>integer</code> </td>
-<td> 07-08 </td>
-<td> Uper filter ID in reader</td>
-</tr><tr><td>
-<code>[,71]</code> </td>
-<td> ENOISEFACTOR </td>
-<td> <code>numeric</code> </td>
-<td> 07-08 </td>
-<td> Excess noise filter, usage unknown </td>
-</tr><tr><td>
-<code>[,72]</code> </td>
-<td> MARKPOS_X1 </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> Coordinates marker position 1 </td>
-</tr><tr><td>
-<code>[,73]</code> </td>
-<td> MARKPOS_Y1 </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> Coordinates marker position 1 </td>
-</tr><tr><td>
-<code>[,74]</code> </td>
-<td> MARKPOS_X2 </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> Coordinates marker position 2 </td>
-</tr><tr><td>
-<code>[,75]</code> </td>
-<td> MARKPOS_Y2 </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> Coordinates marker position 2 </td>
-</tr><tr><td>
-<code>[,76]</code> </td>
-<td> MARKPOS_X3 </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> Coordinates marker position 3 </td>
-</tr><tr><td>
-<code>[,77]</code> </td>
-<td> MARKPOS_Y3 </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> Coordinates marker position 3 </td>
-</tr><tr><td>
-<code>[,78]</code> </td>
-<td> EXTR_START </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> usage unknown </td>
-</tr><tr><td>
-<code>[,79]</code> </td>
-<td> EXTR_END </td>
-<td> <code>numeric</code> </td>
-<td> 08 </td>
-<td> usage unknown</td>
-</tr></table><p>V = BIN-file version (RLum means that it does not depend on a specific BIN version)</p>
+but an own structure accounting for the different versions.</p>
+<table class='table'>
+<tr><td><strong>#</strong></td><td><strong>Name</strong></td><td><strong>Data Type</strong></td><td><strong>V</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>[,1]</code></td><td>ID</td><td><code>numeric</code></td><td>RLum</td><td>Unique record ID (same ID as in slot <code>DATA</code>)</td></tr>
+<tr><td><code>[,2]</code></td><td>SEL</td><td><code>logic</code></td><td>RLum</td><td>Record selection, not part official BIN-format, triggered by TAG</td></tr>
+<tr><td><code>[,3]</code></td><td>VERSION</td><td><code>raw</code></td><td>03-08</td><td>BIN-file version number</td></tr>
+<tr><td><code>[,4]</code></td><td>LENGTH</td><td><code>integer</code></td><td>03-08</td><td>Length of this record</td></tr>
+<tr><td><code>[,5]</code></td><td>PREVIOUS</td><td><code>integer</code></td><td>03-08</td><td>Length of previous record</td></tr>
+<tr><td><code>[,6]</code></td><td>NPOINTS</td><td><code>integer</code></td><td>03-08</td><td>Number of data points in the record</td></tr>
+<tr><td><code>[,7]</code></td><td>RECTYPE</td><td><code>integer</code></td><td>08</td><td>Record type</td></tr>
+<tr><td><code>[,8]</code></td><td>RUN</td><td><code>integer</code></td><td>03-08</td><td>Run number</td></tr>
+<tr><td><code>[,9]</code></td><td>SET</td><td><code>integer</code></td><td>03-08</td><td>Set number</td></tr>
+<tr><td><code>[,10]</code></td><td>POSITION</td><td><code>integer</code></td><td>03-08</td><td>Position number</td></tr>
+<tr><td><code>[,11]</code></td><td>GRAIN</td><td><code>integer</code></td><td>03-04</td><td>Grain number</td></tr>
+<tr><td><code>[,12]</code></td><td>GRAINNUMBER</td><td><code>integer</code></td><td>06-08</td><td>Grain number</td></tr>
+<tr><td><code>[,13]</code></td><td>CURVENO</td><td><code>integer</code></td><td>06-08</td><td>Curve number</td></tr>
+<tr><td><code>[,14]</code></td><td>XCOORD</td><td><code>integer</code></td><td>03-08</td><td>X position of a single grain</td></tr>
+<tr><td><code>[,15]</code></td><td>YCOORD</td><td><code>integer</code></td><td>03-08</td><td>Y position of a single grain</td></tr>
+<tr><td><code>[,16]</code></td><td>SAMPLE</td><td><code>factor</code></td><td>03-08</td><td>Sample name</td></tr>
+<tr><td><code>[,17]</code></td><td>COMMENT</td><td><code>factor</code></td><td>03-08</td><td>Comment name</td></tr>
+<tr><td><code>[,18]</code></td><td>SYSTEMID</td><td><code>integer</code></td><td>03-08</td><td>Risoe system id</td></tr>
+<tr><td><code>[,19]</code></td><td>FNAME</td><td><code>factor</code></td><td>06-08</td><td>File name (<em>.bin/</em>.binx)</td></tr>
+<tr><td><code>[,20]</code></td><td>USER</td><td><code>facotr</code></td><td>03-08</td><td>User name</td></tr>
+<tr><td><code>[,21]</code></td><td>TIME</td><td><code>character</code></td><td>03-08</td><td>Data collection time (hh-mm-ss)</td></tr>
+<tr><td><code>[,22]</code></td><td>DATE</td><td><code>factor</code></td><td>03-08</td><td>Data collection date (ddmmyy)</td></tr>
+<tr><td><code>[,23]</code></td><td>DTYPE</td><td><code>character</code></td><td>03-08</td><td>Data type</td></tr>
+<tr><td><code>[,24]</code></td><td>BL_TIME</td><td><code>numeric</code></td><td>03-08</td><td>Bleaching time</td></tr>
+<tr><td><code>[,25]</code></td><td>BL_UNIT</td><td><code>integer</code></td><td>03-08</td><td>Bleaching unit (mJ, J, secs, mins, hrs)</td></tr>
+<tr><td><code>[,26]</code></td><td>NORM1</td><td><code>numeric</code></td><td>03-08</td><td>Normalisation factor (1)</td></tr>
+<tr><td><code>[,27]</code></td><td>NORM2</td><td><code>numeric</code></td><td>03-08</td><td>Normalisation factor (2)</td></tr>
+<tr><td><code>[,28]</code></td><td>NORM3</td><td><code>numeric</code></td><td>03-08</td><td>Normalisation factor (3)</td></tr>
+<tr><td><code>[,29]</code></td><td>BG</td><td><code>numeric</code></td><td>03-08</td><td>Background level</td></tr>
+<tr><td><code>[,30]</code></td><td>SHIFT</td><td><code>integer</code></td><td>03-08</td><td>Number of channels to shift data</td></tr>
+<tr><td><code>[,31]</code></td><td>TAG</td><td><code>integer</code></td><td>03-08</td><td>Tag, triggers SEL</td></tr>
+<tr><td><code>[,32]</code></td><td>LTYPE</td><td><code>character</code></td><td>03-08</td><td>Luminescence type</td></tr>
+<tr><td><code>[,33]</code></td><td>LIGHTSOURCE</td><td><code>character</code></td><td>03-08</td><td>Light source</td></tr>
+<tr><td><code>[,34]</code></td><td>LPOWER</td><td><code>numeric</code></td><td>03-08</td><td>Optical stimulation power</td></tr>
+<tr><td><code>[,35]</code></td><td>LIGHTPOWER</td><td><code>numeric</code></td><td>06-08</td><td>Optical stimulation power</td></tr>
+<tr><td><code>[,36]</code></td><td>LOW</td><td><code>numeric</code></td><td>03-08</td><td>Low (temperature, time, wavelength)</td></tr>
+<tr><td><code>[,37]</code></td><td>HIGH</td><td><code>numeric</code></td><td>03-08</td><td>High (temperature, time, wavelength)</td></tr>
+<tr><td><code>[,38]</code></td><td>RATE</td><td><code>numeric</code></td><td>03-08</td><td>Rate (heating rate, scan rate)</td></tr>
+<tr><td><code>[,39]</code></td><td>TEMPERATURE</td><td><code>integer</code></td><td>03-08</td><td>Sample temperature</td></tr>
+<tr><td><code>[,40]</code></td><td>MEASTEMP</td><td><code>integer</code></td><td>06-08</td><td>Measured temperature</td></tr>
+<tr><td><code>[,41]</code></td><td>AN_TEMP</td><td><code>numeric</code></td><td>03-08</td><td>Annealing temperature</td></tr>
+<tr><td><code>[,42]</code></td><td>AN_TIME</td><td><code>numeric</code></td><td>03-08</td><td>Annealing time</td></tr>
+<tr><td><code>[,43]</code></td><td>TOLDELAY</td><td><code>integer</code></td><td>03-08</td><td>TOL 'delay' channels</td></tr>
+<tr><td><code>[,44]</code></td><td>TOLON</td><td><code>integer</code></td><td>03-08</td><td>TOL 'on' channels</td></tr>
+<tr><td><code>[,45]</code></td><td>TOLOFF</td><td><code>integer</code></td><td>03-08</td><td>TOL 'off' channels</td></tr>
+<tr><td><code>[,46]</code></td><td>IRR_TIME</td><td><code>numeric</code></td><td>03-08</td><td>Irradiation time</td></tr>
+<tr><td><code>[,47]</code></td><td>IRR_TYPE</td><td><code>integer</code></td><td>03-08</td><td>Irradiation type (alpha, beta or gamma)</td></tr>
+<tr><td><code>[,48]</code></td><td>IRR_UNIT</td><td><code>integer</code></td><td>03-04</td><td>Irradiation unit (Gy, Rads, secs, mins, hrs)</td></tr>
+<tr><td><code>[,49]</code></td><td>IRR_DOSERATE</td><td><code>numeric</code></td><td>06-08</td><td>Irradiation dose rate (Gy/s)</td></tr>
+<tr><td><code>[,50]</code></td><td>IRR_DOSERATEERR</td><td><code>numeric</code></td><td>06-08</td><td>Irradiation dose rate error (Gy/s)</td></tr>
+<tr><td><code>[,51]</code></td><td>TIMESINCEIRR</td><td><code>integer</code></td><td>06-08</td><td>Time since irradiation (s)</td></tr>
+<tr><td><code>[,52]</code></td><td>TIMETICK</td><td><code>numeric</code></td><td>06-08</td><td>Time tick for pulsing (s)</td></tr>
+<tr><td><code>[,53]</code></td><td>ONTIME</td><td><code>integer</code></td><td>06-08</td><td>On-time for pulsing (in time ticks)</td></tr>
+<tr><td><code>[,54]</code></td><td>OFFTIME</td><td><code>integer</code></td><td>03</td><td>Off-time for pulsed stimulation (in s)</td></tr>
+<tr><td><code>[,55]</code></td><td>STIMPERIOD</td><td><code>integer</code></td><td>06-08</td><td>Stimulation period (on+off in time ticks)</td></tr>
+<tr><td><code>[,56]</code></td><td>GATE_ENABLED</td><td><code>raw</code></td><td>06-08</td><td>PMT signal gating enabled</td></tr>
+<tr><td><code>[,57]</code></td><td>ENABLE_FLAGS</td><td><code>raw</code></td><td>06-08</td><td>PMT signal gating  enabled</td></tr>
+<tr><td><code>[,58]</code></td><td>GATE_START</td><td><code>integer</code></td><td>06-08</td><td>Start gating (in time ticks)</td></tr>
+<tr><td><code>[,59]</code></td><td>GATE_STOP</td><td><code>ingeter</code></td><td>06-08</td><td>Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used</td></tr>
+<tr><td><code>[,60]</code></td><td>PTENABLED</td><td><code>raw</code></td><td>06-08</td><td>Photon time enabled</td></tr>
+<tr><td><code>[,61]</code></td><td>DTENABLED</td><td><code>raw</code></td><td>06-08</td><td>PMT dead time correction enabled</td></tr>
+<tr><td><code>[,62]</code></td><td>DEADTIME</td><td><code>numeric</code></td><td>06-08</td><td>PMT dead time (s)</td></tr>
+<tr><td><code>[,63]</code></td><td>MAXLPOWER</td><td><code>numeric</code></td><td>06-08</td><td>Stimulation power to 100 percent (mW/cm^2)</td></tr>
+<tr><td><code>[,64]</code></td><td>XRF_ACQTIME</td><td><code>numeric</code></td><td>06-08</td><td>XRF acquisition time (s)</td></tr>
+<tr><td><code>[,65]</code></td><td>XRF_HV</td><td><code>numeric</code></td><td>06-08</td><td>XRF X-ray high voltage (V)</td></tr>
+<tr><td><code>[,66]</code></td><td>XRF_CURR</td><td><code>integer</code></td><td>06-08</td><td>XRF X-ray current (uA)</td></tr>
+<tr><td><code>[,67]</code></td><td>XRF_DEADTIMEF</td><td><code>numeric</code></td><td>06-08</td><td>XRF dead time fraction</td></tr>
+<tr><td><code>[,68]</code></td><td>DETECTOR_ID</td><td><code>raw</code></td><td>07-08</td><td>Detector ID</td></tr>
+<tr><td><code>[,69]</code></td><td>LOWERFILTER_ID</td><td><code>integer</code></td><td>07-08</td><td>Lower filter ID in reader</td></tr>
+<tr><td><code>[,70]</code></td><td>UPPERFILTER_ID</td><td><code>integer</code></td><td>07-08</td><td>Uper filter ID in reader</td></tr>
+<tr><td><code>[,71]</code></td><td>ENOISEFACTOR</td><td><code>numeric</code></td><td>07-08</td><td>Excess noise filter, usage unknown</td></tr>
+<tr><td><code>[,72]</code></td><td>MARKPOS_X1</td><td><code>numeric</code></td><td>08</td><td>Coordinates marker position 1</td></tr>
+<tr><td><code>[,73]</code></td><td>MARKPOS_Y1</td><td><code>numeric</code></td><td>08</td><td>Coordinates marker position 1</td></tr>
+<tr><td><code>[,74]</code></td><td>MARKPOS_X2</td><td><code>numeric</code></td><td>08</td><td>Coordinates marker position 2</td></tr>
+<tr><td><code>[,75]</code></td><td>MARKPOS_Y2</td><td><code>numeric</code></td><td>08</td><td>Coordinates marker position 2</td></tr>
+<tr><td><code>[,76]</code></td><td>MARKPOS_X3</td><td><code>numeric</code></td><td>08</td><td>Coordinates marker position 3</td></tr>
+<tr><td><code>[,77]</code></td><td>MARKPOS_Y3</td><td><code>numeric</code></td><td>08</td><td>Coordinates marker position 3</td></tr>
+<tr><td><code>[,78]</code></td><td>EXTR_START</td><td><code>numeric</code></td><td>08</td><td>usage unknown</td></tr>
+<tr><td><code>[,79]</code></td><td>EXTR_END</td><td><code>numeric</code></td><td>08</td><td>usage unknown</td></tr>
+<tr><td><code>[,80]</code></td><td>SEQUENCE</td><td><code>character</code></td><td>03-04</td><td>Sequence name</td></tr>
+</table>
+<p>V = BIN-file version (RLum means that it does not depend on a specific BIN version)</p>
 <p>Note that the <code>Risoe.BINfileData</code> object combines all values from
 different versions from the BIN-file, reserved bits are skipped, however,
 the function <a href='write_R2BIN.html'>write_R2BIN</a> reset arbitrary reserved bits. Invalid
 values for a specific version are set to <code>NA</code>. Furthermore, the
 internal R data types do not necessarily match the required data types for
-the BIN-file data import! Data types are converted during data import.
-    <strong>LTYPE</strong> values</p><table><tr><td>
-<code>[,0]</code> </td>
-<td> TL </td>
-<td>: Thermoluminescence </td>
-</tr><tr><td>
-<code>[,1]</code> </td>
-<td> OSL </td>
-<td>: Optically stimulated luminescence </td>
-</tr><tr><td>
-<code>[,2]</code> </td>
-<td> IRSL </td>
-<td>: Infrared stimulated luminescence </td>
-</tr><tr><td>
-<code>[,3]</code> </td>
-<td> M-IR </td>
-<td>: Infrared monochromator scan</td>
-</tr><tr><td>
-<code>[,4]</code> </td>
-<td> M-VIS </td>
-<td>: Visible monochromator scan</td>
-</tr><tr><td>
-<code>[,5]</code> </td>
-<td> TOL </td>
-<td>: Thermo-optical luminescence </td>
-</tr><tr><td>
-<code>[,6]</code> </td>
-<td> TRPOSL </td>
-<td>: Time Resolved Pulsed OSL</td>
-</tr><tr><td>
-<code>[,7]</code> </td>
-<td> RIR </td>
-<td>: Ramped IRSL</td>
-</tr><tr><td>
-<code>[,8]</code> </td>
-<td> RBR </td>
-<td>: Ramped (Blue) LEDs</td>
-</tr><tr><td>
-<code>[,9]</code> </td>
-<td> USER </td>
-<td>: User defined</td>
-</tr><tr><td>
-<code>[,10]</code> </td>
-<td> POSL </td>
-<td>: Pulsed OSL </td>
-</tr><tr><td>
-<code>[,11]</code> </td>
-<td> SGOSL </td>
-<td>: Single Grain OSL</td>
-</tr><tr><td>
-<code>[,12]</code> </td>
-<td> RL </td>
-<td>: Radio Luminescence </td>
-</tr></table><p><strong>DTYPE</strong> values</p><table><tr><td>
-<code>[,0]</code> </td>
-<td> 0 </td>
-<td> Natural </td>
-</tr><tr><td>
-<code>[,1]</code> </td>
-<td> 1 </td>
-<td> N+dose </td>
-</tr><tr><td>
-<code>[,2]</code> </td>
-<td> 2 </td>
-<td> Bleach </td>
-</tr><tr><td>
-<code>[,3]</code> </td>
-<td> 3 </td>
-<td> Bleach+dose </td>
-</tr><tr><td>
-<code>[,4]</code> </td>
-<td> 4 </td>
-<td> Natural (Bleach) </td>
-</tr><tr><td>
-<code>[,5]</code> </td>
-<td> 5 </td>
-<td> N+dose (Bleach) </td>
-</tr><tr><td>
-<code>[,6]</code> </td>
-<td> 6 </td>
-<td> Dose </td>
-</tr></table><p><strong>LIGHTSOURCE</strong> values</p><table><tr><td>
-<code>[,0]</code> </td>
-<td> 0 </td>
-<td> None </td>
-</tr><tr><td>
-<code>[,1]</code> </td>
-<td> 1 </td>
-<td> Lamp </td>
-</tr><tr><td>
-<code>[,2]</code> </td>
-<td> 2 </td>
-<td> IR diodes/IR Laser </td>
-</tr><tr><td>
-<code>[,3]</code> </td>
-<td> 3 </td>
-<td> Calibration LED </td>
-</tr><tr><td>
-<code>[,4]</code> </td>
-<td> 4 </td>
-<td> Blue Diodes </td>
-</tr><tr><td>
-<code>[,5]</code> </td>
-<td> 5 </td>
-<td> White lite </td>
-</tr><tr><td>
-<code>[,6]</code> </td>
-<td> 6 </td>
-<td> Green laser (single grain) </td>
-</tr></table>
+the BIN-file data import! Data types are converted during data import.<br /></p>
+<p><strong>LTYPE</strong> values</p>
+<table class='table'>
+<tr><td><code>[,0]</code></td><td>TL</td><td>: Thermoluminescence</td></tr>
+<tr><td><code>[,1]</code></td><td>OSL</td><td>: Optically stimulated luminescence</td></tr>
+<tr><td><code>[,2]</code></td><td>IRSL</td><td>: Infrared stimulated luminescence</td></tr>
+<tr><td><code>[,3]</code></td><td>M-IR</td><td>: Infrared monochromator scan</td></tr>
+<tr><td><code>[,4]</code></td><td>M-VIS</td><td>: Visible monochromator scan</td></tr>
+<tr><td><code>[,5]</code></td><td>TOL</td><td>: Thermo-optical luminescence</td></tr>
+<tr><td><code>[,6]</code></td><td>TRPOSL</td><td>: Time Resolved Pulsed OSL</td></tr>
+<tr><td><code>[,7]</code></td><td>RIR</td><td>: Ramped IRSL</td></tr>
+<tr><td><code>[,8]</code></td><td>RBR</td><td>: Ramped (Blue) LEDs</td></tr>
+<tr><td><code>[,9]</code></td><td>USER</td><td>: User defined</td></tr>
+<tr><td><code>[,10]</code></td><td>POSL</td><td>: Pulsed OSL</td></tr>
+<tr><td><code>[,11]</code></td><td>SGOSL</td><td>: Single Grain OSL</td></tr>
+<tr><td><code>[,12]</code></td><td>RL</td><td>: Radio Luminescence</td></tr>
+<tr><td><code>[,13]</code></td><td>XRF</td><td>: X-ray Fluorescence</td></tr>
+</table>
+    <p><strong>DTYPE</strong> values</p>
+<table class='table'>
+<tr><td><code>[,0]</code></td><td>0</td><td>Natural</td></tr>
+<tr><td><code>[,1]</code></td><td>1</td><td>N+dose</td></tr>
+<tr><td><code>[,2]</code></td><td>2</td><td>Bleach</td></tr>
+<tr><td><code>[,3]</code></td><td>3</td><td>Bleach+dose</td></tr>
+<tr><td><code>[,4]</code></td><td>4</td><td>Natural (Bleach)</td></tr>
+<tr><td><code>[,5]</code></td><td>5</td><td>N+dose (Bleach)</td></tr>
+<tr><td><code>[,6]</code></td><td>6</td><td>Dose</td></tr>
+<tr><td><code>[,7]</code></td><td>7</td><td>Background</td></tr>
+</table>
+    <p><strong>LIGHTSOURCE</strong> values</p>
+<table class='table'>
+<tr><td><code>[,0]</code></td><td>0</td><td>None</td></tr>
+<tr><td><code>[,1]</code></td><td>1</td><td>Lamp</td></tr>
+<tr><td><code>[,2]</code></td><td>2</td><td>IR diodes/IR Laser</td></tr>
+<tr><td><code>[,3]</code></td><td>3</td><td>Calibration LED</td></tr>
+<tr><td><code>[,4]</code></td><td>4</td><td>Blue Diodes</td></tr>
+<tr><td><code>[,5]</code></td><td>5</td><td>White lite</td></tr>
+<tr><td><code>[,6]</code></td><td>6</td><td>Green laser (single grain)</td></tr>
+<tr><td><code>[,7]</code></td><td>7</td><td>IR laser (single grain)</td></tr>
+</table>
     <p>(information on the BIN/BINX file format are kindly provided by Risoe, DTU Nutech)</p>
     
     <h2 class="hasAnchor" id="objects-from-the-class"><a class="anchor" href="#objects-from-the-class"></a>Objects from the Class</h2>
@@ -779,20 +328,16 @@ the BIN-file data import! Data types are converted during data import.
 
     <p>0.3.3</p>
     
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.</p>
-<p>The Sequence Editor User Manual - Feburar 2016
-    <a href='http://www.nutech.dtu.dk/'>http://www.nutech.dtu.dk/</a></p>
+<p>The Sequence Editor User Manual - Feburar 2016</p>
+<p><a href='http://www.nutech.dtu.dk/'>http://www.nutech.dtu.dk/</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='plot_Risoe.BINfileData.html'>plot_Risoe.BINfileData</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='write_R2BIN.html'>write_R2BIN</a>,
-<a href='merge_Risoe.BINfileData.html'>merge_Risoe.BINfileData</a>, <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></p>
+    <div class='dont-index'><p><a href='plot_Risoe.BINfileData.html'>plot_Risoe.BINfileData</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='write_R2BIN.html'>write_R2BIN</a>,
+<a href='merge_Risoe.BINfileData.html'>merge_Risoe.BINfileData</a>, <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -820,8 +365,6 @@ the BIN-file data import! Data types are converted during data import.
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -832,7 +375,7 @@ the BIN-file data import! Data types are converted during data import.
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -848,5 +391,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

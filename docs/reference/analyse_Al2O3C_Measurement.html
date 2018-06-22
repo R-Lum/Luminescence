@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Al2O3:C Passive Dosimeter Measurement Analysis — analyse_Al2O3C_Measurement" />
 
 <meta property="og:description" content="The function provides the analysis routines for measurements on a
-FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX" />
+FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX"
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX"
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX"
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,24 +111,28 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX"
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Al2O3:C Passive Dosimeter Measurement Analysis</h1>
+    
+    <div class="hidden name"><code>analyse_Al2O3C_Measurement.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function provides the analysis routines for measurements on a
-FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX</p>
+FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>analyse_Al2O3C_Measurement</span>(<span class='no'>object</span>, <span class='kw'>signal_integral</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>dose_points</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>4</span>), <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"OSL (UVVIS)"</span>, <span class='st'>"TL (UVVIS)"</span>),
-  <span class='kw'>irradiation_time_correction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cross_talk_correction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>travel_dosimeter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>calculate_TL_dose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>irradiation_time_correction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cross_talk_correction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>travel_dosimeter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -136,12 +151,17 @@ If nothing is provided the full range is used</p></td>
       <td><p>numeric (<em>with default</em>):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., XXXX</p></td>
+made by Kreutzer et al., 2018</p></td>
     </tr>
     <tr>
       <th>recordType</th>
       <td><p>character (<em>with default</em>): input curve selection, which is passed to
 function <a href='get_RLum.html'>get_RLum</a>. To deactivate the automatic selection set the argument to <code>NULL</code></p></td>
+    </tr>
+    <tr>
+      <th>calculate_TL_dose</th>
+      <td><p>logical (<em>with default</em>): Enables/disables experimental dose estimation
+based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.</p></td>
     </tr>
     <tr>
       <th>irradiation_time_correction</th>
@@ -187,80 +207,84 @@ a numeric vector can be provided to limit the plot output to certain aliquots</p
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Function returns results numerically and graphically:</p>
-<p>-----------------------------------
-<code>[ NUMERICAL OUTPUT ]</code>
------------------------------------
+<p>-----------------------------------<br />
+<code>[ NUMERICAL OUTPUT ]</code><br />
+-----------------------------------<br /></p>
+<p><strong><code>RLum.Results</code></strong>-object</p>
+<p><strong>slot:</strong> <strong><code>@data</code></strong></p>
+<table class='table'>
+<tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>$data</code></td><td><code>data.frame</code></td><td>the estimated equivalent dose</td></tr>
+<tr><td><code>$data_table</code></td><td><code>data.frame</code></td><td>full dose and signal table</td></tr>
+<tr><td><code>test_parameters</code></td><td><code>data.frame</code></td><td>results with test paramaters</td></tr>
+<tr><td><code>data_TDcorrected</code></td><td><code>data.frame</code></td><td>travel dosimeter corrected results (only if TD was provided)</td></tr>
+<tr><td></td><td><strong>Element</strong></td><td><strong>Type</strong></td></tr>
+</table>
 
-<strong><code>RLum.Results</code></strong>-object
 
-<strong>slot:</strong> <strong><code>@data</code></strong></p><table><tr><td>
-<strong>Element</strong> </td>
-<td> <strong>Type</strong> </td>
-<td> <strong>Description</strong></td>
-</tr><tr><td>
-<code>$data</code> </td>
-<td> <code>data.frame</code> </td>
-<td> the estimated equivalent dose </td>
-</tr><tr><td>
-<code>$data_table</code> </td>
-<td> <code>data.frame</code> </td>
-<td> full dose and signal table </td>
-</tr><tr><td>
-<code>test_parameters</code> </td>
-<td> <code>data.frame</code> </td>
-<td> results with test paramaters </td>
-</tr><tr><td>
-<code>data_TDcorrected</code> </td>
-<td> <code>data.frame</code> </td>
-<td> travel dosimeter corrected results (only if TD was provided)</td>
-</tr></table><p><strong>slot:</strong> <strong><code>@info</code></strong></p>
+<p><em>Note: If correction the irradiation time and the cross-talk correction method is used, the De
+values in the table <code>data</code> table are already corrected, i.e. if you want to get an uncorrected value,
+you can use the column <code>CT_CORRECTION</code> remove the correction</em></p>
+<p><strong>slot:</strong> <strong><code>@info</code></strong></p>
 <p>The original function call</p>
-<p>------------------------
-<code>[ PLOT OUTPUT ]</code>
-------------------------</p><ul>
+<p>------------------------<br />
+<code>[ PLOT OUTPUT ]</code><br />
+------------------------<br /></p><ul>
 <li><p>OSL and TL curves, combined on two plots.</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Working with a travel dosimeter</strong>
-##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
-    <strong>Test parameters</strong>
-    <code>TL_peak_shift</code> numeric (default: <code>15</code>):</p>
+    <p><strong>Working with a travel dosimeter</strong></p>
+<p>The function allows to define particular aliquots as travel dosimeters. For example:
+<code>travel_dosimeter = c(1,3,5)</code> sets aliquots 1, 3 and 5 as travel dosimeters. These dose values
+of this dosimeters are combined and automatically subtracted from the obtained dose values
+of the other dosimeters.</p>
+<p>**Calculate TL dose **</p>
+<p>The argument <code>calculate_TL_dose</code> provides the possibility to experimentally calculate a TL-dose,
+i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
+this value is only a fallback in case something went wrong during the measurement of the optical
+stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
+but not considered if a travel dosimeter is defined.</p>
+<p><strong>Test parameters</strong></p>
+<p><code>TL_peak_shift</code> numeric (default: <code>15</code>):</p>
 <p>Checks whether the TL peak shift is bigger &gt; 15 K, indicating a problem with the
-thermal contact of the chip.
-    <code>stimulation_power</code> numeric (default: <code>0.01</code>):</p>
+thermal contact of the chip.</p>
+<p><code>stimulation_power</code> numeric (default: <code>0.05</code>):</p>
 <p>So far available, information on the delievered optical stimulation are compared. Compared are
 the information from the first curves with all others. If the ratio differs more from
 unity than the defined by the threshold, a warning is returned.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.8 (2018-02-24 10:47:17)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.2.2</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Kreutzer, S., Martin, L., Tribolo, C., Selva, P., Mercier, N., in press. Environmental Dose Rate
+    <p>Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
 Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='analyse_Al2O3C_ITC.html'>analyse_Al2O3C_ITC</a></p>
+    <div class='dont-index'><p><a href='analyse_Al2O3C_ITC.html'>analyse_Al2O3C_ITC</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##load data</span>
+    <pre class="examples"><div class='input'><span class='co'>##load data</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.Al2O3C</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
 <span class='co'>##run analysis</span>
-<span class='fu'>analyse_Al2O3C_Measurement</span>(<span class='no'>data_CrossTalk</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: TL peak shift detected for aliquot position 1! Check curves!</span></div><div class='output co'>#&gt;  [analyse_Al2O3_Measurement()] #1 DE: 0 ± 0</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>analyse_Al2O3C_Measurement</span>(<span class='no'>data_CrossTalk</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: TL peak shift detected for aliquot position 1! Check curves!</span></div><div class='output co'>#&gt;  [analyse_Al2O3_Measurement()] #1 DE: 0 ± 0</div><div class='img'><img src='analyse_Al2O3C_Measurement-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;  ... (#1 | ALQ POS: 1)
+#&gt;  [analyse_Al2O3_Measurement()] #2 DE: 0 ± 0</div><div class='img'><img src='analyse_Al2O3C_Measurement-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;  ... (#2 | ALQ POS: 2)</div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: analyse_Al2O3C_Measurement()
+#&gt; 	 data: 3
+#&gt;  	 .. $data : data.frame
+#&gt; 	 .. $data_table : data.frame
+#&gt; 	 .. $test_parameters : data.frame
+#&gt; 	 additional info elements:  1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -274,8 +298,6 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -285,8 +307,8 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
 
     <h2>Author</h2>
     
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+
   </div>
 </div>
 
@@ -302,5 +324,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

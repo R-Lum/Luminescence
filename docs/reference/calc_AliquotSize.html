@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Estimate the amount of grains on an aliquot — calc_AliquotSize" />
 
 <meta property="og:description" content="Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ density of an aliquot is computed." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ density of an aliquot is computed." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ density of an aliquot is computed." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,25 @@ density of an aliquot is computed." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate the amount of grains on an aliquot</h1>
+    
+    <div class="hidden name"><code>calc_AliquotSize.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_AliquotSize</span>(<span class='no'>grain.size</span>, <span class='no'>sample.diameter</span>, <span class='kw'>packing.density</span> <span class='kw'>=</span> <span class='fl'>0.65</span>,
   <span class='kw'>MC</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>grains.counted</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -131,7 +146,7 @@ diameter (mm) of the targeted area on the sample carrier.</p></td>
     <tr>
       <th>packing.density</th>
       <td><p>numeric (<em>with default</em>):
-empirical value for mean packing density. 
+empirical value for mean packing density. <br />
 If <code>packing.density = "Inf"</code> a hexagonal structure on an infinite plane with
 a packing density of \(0.906\ldots\) is assumed.</p></td>
     </tr>
@@ -180,20 +195,20 @@ The output should be accessed using the function get_RLum.
     <p>This function can be used to either estimate the number of grains on an
 aliquot or to compute the packing density depending on the the arguments
 provided.</p>
-<p>The following function is used to estimate the number of grains <code>n</code>:
-    $$n = (\pi*x^2)/(\pi*y^2)*d$$</p>
+<p>The following function is used to estimate the number of grains <code>n</code>:</p>
+<p>$$n = (\pi*x^2)/(\pi*y^2)*d$$</p>
 <p>where <code>x</code> is the radius of the aliquot size (microns), <code>y</code> is the mean
 radius of the mineral grains (mm) and <code>d</code> is the packing density
-(value between 0 and 1).
-    <strong>Packing density</strong></p>
+(value between 0 and 1).</p>
+<p><strong>Packing density</strong></p>
 <p>The default value for <code>packing.density</code> is 0.65, which is the mean of
 empirical values determined by Heer et al. (2012) and unpublished data from
 the Cologne luminescence laboratory. If <code>packing.density = "Inf"</code> a maximum
 density of  \(\pi/\sqrt12 = 0.9068\ldots\) is used. However, note that
 this value is not appropriate as the standard preparation procedure of
 aliquots resembles a  PECC (<em>"Packing Equal Circles in a Circle"</em>) problem
-where the maximum packing density is asymptotic to about 0.87.
-    <strong>Monte Carlo simulation</strong></p>
+where the maximum packing density is asymptotic to about 0.87.</p>
+<p><strong>Monte Carlo simulation</strong></p>
 <p>The number of grains on an aliquot can be estimated by Monte Carlo simulation
 when setting <code>MC = TRUE</code>. Each of the parameters necessary to calculate
 <code>n</code> (<code>x</code>, <code>y</code>, <code>d</code>) are assumed to be normally distributed with means
@@ -226,11 +241,7 @@ boxplot together with a statistical summary.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.31 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Burow, C. (2018). calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.31</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -238,8 +249,8 @@ boxplot together with a statistical summary.</p>
 sediments: why aliquot size matters in luminescence dating. Boreas 37,
 589-612.</p>
 <p>Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
-are there on a single aliquot?. Ancient TL 30, 9-16.
-    <strong>Further reading</strong></p>
+are there on a single aliquot?. Ancient TL 30, 9-16.</p>
+<p><strong>Further reading</strong></p>
 <p>Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
 Theorem on Circle Packing. <a href='http://arxiv.org/pdf/1009.4322v1.pdf'>http://arxiv.org/pdf/1009.4322v1.pdf</a>,
 2013-09-13.</p>
@@ -265,13 +276,13 @@ European Journal of Operational Research 210, 474-481.</p>
 #&gt; 
 #&gt;  --------------- Monte Carlo Estimates -------------------
 #&gt;  number of iterations (n)     : 100
-#&gt;  median                       : 45
-#&gt;  mean                         : 45
-#&gt;  standard deviation (mean)    : 22
-#&gt;  standard error (mean)        : 2.2
-#&gt;  95% CI from t-test (mean)    : 41 - 49
-#&gt;  standard error from CI (mean): 2.2
-#&gt;  ---------------------------------------------------------</div><div class='img'><img src='calc_AliquotSize-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt;  median                       : 42
+#&gt;  mean                         : 43
+#&gt;  standard deviation (mean)    : 20
+#&gt;  standard error (mean)        : 2
+#&gt;  95% CI from t-test (mean)    : 39 - 47
+#&gt;  standard error from CI (mean): 2
+#&gt;  ---------------------------------------------------------</div><div class='img'><img src='calc_AliquotSize-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Calculate the mean packing density of large aliquots</span>
 <span class='fu'>calc_AliquotSize</span>(<span class='kw'>grain.size</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>,<span class='fl'>200</span>), <span class='kw'>sample.diameter</span> <span class='kw'>=</span> <span class='fl'>8</span>,
                  <span class='kw'>grains.counted</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2525</span>,<span class='fl'>2312</span>,<span class='fl'>2880</span>), <span class='kw'>MC.iter</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; 
@@ -299,8 +310,6 @@ European Journal of Operational Research 210, 474-481.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -309,7 +318,7 @@ European Journal of Operational Research 210, 474-481.</p>
     <h2>Author</h2>
     
 Christoph Burow, University of Cologne (Germany)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -325,5 +334,8 @@ Christoph Burow, University of Cologne (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

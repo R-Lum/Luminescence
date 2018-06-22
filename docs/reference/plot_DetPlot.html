@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Create De(t) plot — plot_DetPlot" />
 
 <meta property="og:description" content="Plots the equivalent dose (De) in dependency of the chosen signal integral
@@ -34,6 +37,9 @@
 to the function plot and the used analysis functions and runs it in a loop.
 Example: legend.pos for legend position, legend for legend text." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ Example: legend.pos for legend position, legend for legend text." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ Example: legend.pos for legend position, legend for legend text." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -95,6 +105,7 @@ Example: legend.pos for legend position, legend for legend text." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -102,18 +113,22 @@ Example: legend.pos for legend position, legend for legend text." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create De(t) plot</h1>
+    
+    <div class="hidden name"><code>plot_DetPlot.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plots the equivalent dose (De) in dependency of the chosen signal integral
 (cf. Bailey et al., 2003). The function is simply passing several arguments
 to the function plot and the used analysis functions and runs it in a loop.
 Example: <code>legend.pos</code> for legend position, <code>legend</code> for legend text.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plot_DetPlot</span>(<span class='no'>object</span>, <span class='no'>signal.integral.min</span>, <span class='no'>signal.integral.max</span>,
   <span class='no'>background.integral.min</span>, <span class='no'>background.integral.max</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"shift"</span>,
@@ -122,7 +137,7 @@ Example: <code>legend.pos</code> for legend position, <code>legend</code> for le
   <span class='kw'>show_ShineDownCurve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>respect_RC.Status</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -208,21 +223,21 @@ See details for further information.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A plot and an <a href='RLum.Results-class.html'>RLum.Results</a> object with the produced De values
+    <p>A plot and an <a href='RLum.Results-class.html'>RLum.Results</a> object with the produced De values</p>
+<p><code>@data</code>:</p>
+<table class='table'>
+<tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td>De.values</td><td><code>data.frame</code></td><td>table with De values</td></tr>
+<tr><td>signal_integral.seq</td><td><code>numeric</code></td><td>integral sequence used for the calculation</td></tr>
+</table>
 
-<code>@data</code>:</p><table><tr><td>
-<strong>Object</strong> </td>
-<td> <strong>Type</strong> </td>
-<td> <strong>Description</strong></td>
-</tr><tr><td>
-De.values </td>
-<td> <code>data.frame</code> </td>
-<td> table with De values </td>
-</tr></table><p><code>@info</code>:</p><table><tr><td>
-<strong>Object</strong> </td>
-<td> <strong>Type</strong> </td>
-<td> <strong>Description</strong></td>
-</tr></table>
+
+<p><code>@info</code>:</p>
+<table class='table'>
+<tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td>call</td><td><code>call</code></td><td>the original function call</td></tr>
+</table>
+
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -245,11 +260,7 @@ calculations using serveral hundreds of channels.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.1 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). plot_DetPlot(): Create De(t) plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.1.1</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -259,7 +270,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>plot, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>, <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a></p>
+    <div class='dont-index'><p>plot, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>, <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -296,8 +307,6 @@ doi:10.1016/S1350-4487(03)00063-5</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -308,7 +317,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -324,5 +333,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

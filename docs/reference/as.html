@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="as() - RLum-object coercion — as" />
 
 <meta property="og:description" content="for [RLum.Analysis-class]
@@ -35,6 +38,9 @@ for [RLum.Data.Image-class]
 for [RLum.Data.Spectrum-class]
 for [RLum.Results-class]" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ for [RLum.Results-class]" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -69,7 +79,7 @@ for [RLum.Results-class]" />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -96,6 +106,7 @@ for [RLum.Results-class]" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -103,12 +114,15 @@ for [RLum.Results-class]" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>as() - RLum-object coercion</h1>
+    
+    <div class="hidden name"><code>as.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>for <code>[RLum.Analysis-class]</code></p>
 <p>for <code>[RLum.Data.Curve-class]</code></p>
@@ -116,9 +130,10 @@ for [RLum.Results-class]" />
 <p>for <code>[RLum.Data.Spectrum-class]</code></p>
 <p>for <code>[RLum.Results-class]</code></p>
     
+    </div>
 
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -135,42 +150,38 @@ class name to be coerced to</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong><a href='RLum.Analysis-class.html'>RLum.Analysis</a></strong></p><table><tr><td>
-<strong>from</strong> </td>
-<td> <strong>to</strong></td>
-</tr><tr><td>
-<code>list</code> </td>
-<td> <code>list</code></td>
-</tr></table>
-    <p>Given that the list consits of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.
-    <strong><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></strong></p><table><tr><td>
-<strong>from</strong> </td>
-<td> <strong>to</strong></td>
-</tr><tr><td>
-<code>list</code> </td>
-<td> <code>list</code> </td>
-</tr><tr><td>
-<code>data.frame</code> </td>
-<td> <code>data.frame</code></td>
-</tr></table><p><strong><a href='RLum.Data.Image-class.html'>RLum.Data.Image</a></strong></p><table><tr><td>
-<strong>from</strong> </td>
-<td> <strong>to</strong></td>
-</tr><tr><td>
-<code>data.frame</code> </td>
-<td> <code>data.frame</code></td>
-</tr></table><p><strong><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a></strong></p><table><tr><td>
-<strong>from</strong> </td>
-<td> <strong>to</strong></td>
-</tr><tr><td>
-<code>data.frame</code> </td>
-<td> <code>data.frame</code></td>
-</tr></table><p><strong><a href='RLum.Results-class.html'>RLum.Results</a></strong></p><table><tr><td>
-<strong>from</strong> </td>
-<td> <strong>to</strong></td>
-</tr><tr><td>
-<code>list</code> </td>
-<td> <code>list</code></td>
-</tr></table>
+    <p><strong><a href='RLum.Analysis-class.html'>RLum.Analysis</a></strong></p>
+<table class='table'>
+<tr><td><strong>from</strong></td><td><strong>to</strong></td></tr>
+<tr><td><code>list</code></td><td><code>list</code></td></tr>
+<tr><td></td><td><strong>from</strong></td></tr>
+</table>
+    <p>Given that the list consits of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.</p>
+<p><strong><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></strong></p>
+<table class='table'>
+<tr><td><strong>from</strong></td><td><strong>to</strong></td></tr>
+<tr><td><code>list</code></td><td><code>list</code></td></tr>
+<tr><td><code>data.frame</code></td><td><code>data.frame</code></td></tr>
+<tr><td><code>matrix</code></td><td><code>matrix</code></td></tr>
+</table>
+    <p><strong><a href='RLum.Data.Image-class.html'>RLum.Data.Image</a></strong></p>
+<table class='table'>
+<tr><td><strong>from</strong></td><td><strong>to</strong></td></tr>
+<tr><td><code>data.frame</code></td><td><code>data.frame</code></td></tr>
+<tr><td><code>matrix</code></td><td><code>matrix</code></td></tr>
+</table>
+    <p><strong><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a></strong></p>
+<table class='table'>
+<tr><td><strong>from</strong></td><td><strong>to</strong></td></tr>
+<tr><td><code>data.frame</code></td><td><code>data.frame</code></td></tr>
+<tr><td><code>matrix</code></td><td><code>matrix</code></td></tr>
+</table>
+    <p><strong><a href='RLum.Results-class.html'>RLum.Results</a></strong></p>
+<table class='table'>
+<tr><td><strong>from</strong></td><td><strong>to</strong></td></tr>
+<tr><td><code>list</code></td><td><code>list</code></td></tr>
+<tr><td></td><td><strong>from</strong></td></tr>
+</table>
     <p>Given that the list consits of <a href='RLum.Results-class.html'>RLum.Results</a> objects.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -180,7 +191,7 @@ R data structures will be always loosely!</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as</a></p>
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/methods/topics/as'>methods::as</a></p></div>
     
 
   </div>
@@ -211,5 +222,8 @@ R data structures will be always loosely!</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Plot kernel density estimate with statistics — plot_KDE" />
 
 <meta property="og:description" content="Plot a kernel density estimate of measurement values in combination with the
@@ -36,6 +39,9 @@ bold line, box delimited by the first and third quartile, whiskers defined
 by the extremes and outliers shown as points) and also the mean and
 standard deviation as pale bold line and pale polygon, respectively." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,8 +64,12 @@ standard deviation as pale bold line and pale polygon, respectively." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,7 +80,7 @@ standard deviation as pale bold line and pale polygon, respectively." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -97,6 +107,7 @@ standard deviation as pale bold line and pale polygon, respectively." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -104,12 +115,15 @@ standard deviation as pale bold line and pale polygon, respectively." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot kernel density estimate with statistics</h1>
+    
+    <div class="hidden name"><code>plot_KDE.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Plot a kernel density estimate of measurement values in combination with the
 actual values and associated error bars in ascending order. If enabled, the
@@ -118,12 +132,13 @@ bold line, box delimited by the first and third quartile, whiskers defined
 by the extremes and outliers shown as points) and also the mean and
 standard deviation as pale bold line and pale polygon, respectively.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plot_KDE</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>values.cumulative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>,
   <span class='kw'>summary.method</span> <span class='kw'>=</span> <span class='st'>"MCM"</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -221,11 +236,12 @@ one or more of the following keywords:</p><ul>
 <li><p><code>"in.2s"</code> (percent of samples in 2-sigma range)</p></li>
 <li><p><code>"kurtosis"</code> (kurtosis)</p></li>
 <li><p><code>"skewness"</code> (skewness)</p></li>
-</ul><p><strong>Note</strong> that the input data for the statistic summary is sent to the function
+</ul>
+    <p><strong>Note</strong> that the input data for the statistic summary is sent to the function
 <code><a href='calc_Statistics.html'>calc_Statistics()</a></code> depending on the log-option for the z-scale. If
 <code>"log.z = TRUE"</code>, the summary is based on the logarithms of the input
-data. If <code>"log.z = FALSE"</code> the linearly scaled data is used.
-    <strong>Note</strong> as well, that <code>"calc_Statistics()"</code> calculates these statistic
+data. If <code>"log.z = FALSE"</code> the linearly scaled data is used.</p>
+<p><strong>Note</strong> as well, that <code>"calc_Statistics()"</code> calculates these statistic
 measures in three different ways: <code>unweighted</code>, <code>weighted</code> and
 <code>MCM-based</code> (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
@@ -238,15 +254,11 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>3.5.5 (2018-01-21 17:22:38)</p>
+    <p>3.5.5</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>density, plot</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Dietze, M., Kreutzer, S. (2018). plot_KDE(): Plot kernel density estimate with statistics. Function version 3.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <div class='dont-index'><p>density, plot</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -257,43 +269,43 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
   <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='fu'>c</span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
 
 <span class='co'>## create plot straightforward</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_KDE-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_KDE-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with logarithmic x-axis</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='img'><img src='plot_KDE-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='img'><img src='plot_KDE-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with user-defined labels and axes limits</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
          <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Dose distribution"</span>,
          <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Dose (s)"</span>,
          <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"KDE estimate"</span>, <span class='st'>"Cumulative dose value"</span>),
          <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>, <span class='fl'>250</span>),
-         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0.08</span>, <span class='fl'>0</span>, <span class='fl'>30</span>))</div><div class='img'><img src='plot_KDE-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0.08</span>, <span class='fl'>0</span>, <span class='fl'>30</span>))</div><div class='img'><img src='plot_KDE-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with boxplot option</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with statistical summary below header</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_KDE-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_KDE-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with statistical summary as legend</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
          <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sd.rel"</span>, <span class='st'>"se.abs"</span>),
-         <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_KDE-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_KDE-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## split data set into sub-groups, one is manipulated, and merge again</span>
 <span class='no'>data.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>1</span>:<span class='fl'>15</span>,]
 <span class='no'>data.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>16</span>:<span class='fl'>25</span>,] * <span class='fl'>1.3</span>
 <span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
 
 <span class='co'>## create plot with two subsets straightforward</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_KDE-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with two subsets and summary legend at user coordinates</span>
 <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
          <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>),
          <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>110</span>, <span class='fl'>0.07</span>),
-         <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"blue"</span>, <span class='st'>"orange"</span>))</div><div class='img'><img src='plot_KDE-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+         <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"blue"</span>, <span class='st'>"orange"</span>))</div><div class='img'><img src='plot_KDE-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## example of how to use the numerical output of the function</span>
 <span class='co'>## return plot output to draw a thicker KDE line</span>
 <span class='no'>KDE_out</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-<span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-9.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -308,17 +320,15 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
       <li><a href="#function-version">Function version</a></li>
 
       <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
     
-Michael Dietze, GFZ Potsdam (Germany)
+Michael Dietze, GFZ Potsdam (Germany)<br />
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -334,5 +344,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -161,7 +161,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.3 (2018-01-21 17:22:38)
+ 0.5.3
 }
 
 \examples{
@@ -219,12 +219,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 }
@@ -234,5 +229,5 @@ Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{aplot}

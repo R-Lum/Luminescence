@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Class <code>"RLum.Data.Curve"</code> — RLum.Data.Curve-class" />
 
 <meta property="og:description" content="Class for representing luminescence curve data." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,15 +110,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class <code>"RLum.Data.Curve"</code></h1>
+    
+    <div class="hidden name"><code>RLum.Data.Curve-class.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Class for representing luminescence curve data.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for RLum.Data.Curve</span>
 <span class='fu'>show</span>(<span class='no'>object</span>)
@@ -133,7 +148,7 @@
 <span class='fu'><a href='smooth_RLum.html'>smooth_RLum</a></span>(<span class='no'>object</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -222,20 +237,19 @@ defines which method should be applied for the smoothing: <code>"mean"</code> or
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><strong><code>set_RLum</code></strong></p>
-<p>Returns an RLum.Data.Curve object.
-
-<strong><code>get_RLum</code></strong></p><ol>
+<p>Returns an RLum.Data.Curve object.</p>
+<p><strong><code>get_RLum</code></strong></p><ol>
 <li><p>A matrix with the curve values or</p></li>
 <li><p>only the info object if <code>info.object</code> was set.</p></li>
-</ol><p><strong><code>length_RLum</code></strong></p>
+</ol>
+
+<p><strong><code>length_RLum</code></strong></p>
 <p>Number of channels in the curve (row number of the matrix)</p>
 <p>**`names_RLum`**</p>
-<p>Names of the info elements (slot `info`)
-
-<strong><code>bin_RLum.Data</code></strong></p>
-<p>Same object as input, after applying the binning.
-
-<strong><code>smooth_RLum</code></strong></p>
+<p>Names of the info elements (slot `info`)</p>
+<p><strong><code>bin_RLum.Data</code></strong></p>
+<p>Same object as input, after applying the binning.</p>
+<p><strong><code>smooth_RLum</code></strong></p>
 <p>Same object as input, after smoothing</p>
     
     <h2 class="hasAnchor" id="methods-by-generic-"><a class="anchor" href="#methods-by-generic-"></a>Methods (by generic)</h2>
@@ -292,11 +306,7 @@ namely: <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.An
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum-class.html'>RLum</a>, <a href='RLum.Data-class.html'>RLum.Data</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='merge_RLum.html'>merge_RLum</a></p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <div class='dont-index'><p><a href='RLum-class.html'>RLum</a>, <a href='RLum.Data-class.html'>RLum.Data</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='merge_RLum.html'>merge_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -343,8 +353,6 @@ namely: <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.An
       <li><a href="#class-version">Class version</a></li>
 
       <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -368,5 +376,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

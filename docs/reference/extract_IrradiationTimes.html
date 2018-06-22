@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Extract Irradiation Times from an XSYG-file — extract_IrradiationTimes" />
 
 <meta property="og:description" content="Extracts irradiation times, dose and times since last irradiation, from a
 Freiberg Instruments XSYG-file. These information can be further used to
 update an existing BINX-file." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ update an existing BINX-file." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ update an existing BINX-file." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ update an existing BINX-file." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,23 +112,27 @@ update an existing BINX-file." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extract Irradiation Times from an XSYG-file</h1>
+    
+    <div class="hidden name"><code>extract_IrradiationTimes.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Extracts irradiation times, dose and times since last irradiation, from a
 Freiberg Instruments XSYG-file. These information can be further used to
 update an existing BINX-file.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>extract_IrradiationTimes</span>(<span class='no'>object</span>, <span class='no'>file.BINX</span>, <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"irradiation (NA)"</span>,
   <span class='st'>"IRSL (UVVIS)"</span>, <span class='st'>"OSL (UVVIS)"</span>, <span class='st'>"TL (UVVIS)"</span>), <span class='kw'>compatibility.mode</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -125,9 +140,8 @@ update an existing BINX-file.</p>
       <td><p>character, <a href='RLum.Analysis-class.html'>RLum.Analysis</a> or list (<strong>required</strong>):
 path and file name of the XSYG file or an <a href='RLum.Analysis-class.html'>RLum.Analysis</a>
 produced by the function <a href='read_XSYG2R.html'>read_XSYG2R</a>;
-alternatively a <code>list</code> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> can be provided.
-
-<strong>Note</strong>: If an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> is used, any input for
+alternatively a <code>list</code> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> can be provided.</p>
+<p><strong>Note</strong>: If an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> is used, any input for
 the arguments <code>file.BINX</code> and <code>recordType</code> will be ignored!</p></td>
     </tr>
     <tr>
@@ -135,9 +149,8 @@ the arguments <code>file.BINX</code> and <code>recordType</code> will be ignored
       <td><p>character (<em>optional</em>):
 path and file name of an existing BINX-file. If a file name is provided the
 file will be updated with the information from the XSYG file in the same
-folder as the original BINX-file.
-
-<strong>Note:</strong> The XSYG and the BINX-file have to be originate from the
+folder as the original BINX-file.</p>
+<p><strong>Note:</strong> The XSYG and the BINX-file have to be originate from the
 same measurement!</p></td>
     </tr>
     <tr>
@@ -148,9 +161,8 @@ object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
 the relevant curves are selected by using the function
 <a href='get_RLum.html'>get_RLum</a>. The argument <code>recordType</code> works as
-described for this function.
-
-<strong>Note:</strong> A wrong selection will causes a function error. Please change this
+described for this function.</p>
+<p><strong>Note:</strong> A wrong selection will causes a function error. Please change this
 argument only if you have reasons to do so.</p></td>
     </tr>
     <tr>
@@ -197,13 +209,13 @@ functions <a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='read_BIN2R.html'>
     <p>The produced output object contains still the irradiation steps to
 keep the output transparent. However, for the BINX-file export this steps
 are removed as the BINX-file format description does not allow irradiations
-as separat sequences steps.
-    <strong>BINX-file 'Time Since Irradiation' value differs from the table output?</strong></p>
+as separat sequences steps.</p>
+<p><strong>BINX-file 'Time Since Irradiation' value differs from the table output?</strong></p>
 <p>The way the value 'Time Since Irradiation' is defined differs. In the BINX-file the
 'Time Since Irradiation' is calculated as the 'Time Since Irradiation' plus the 'Irradiation
 Time'. The table output returns only the real 'Time Since Irradiation', i.e. time between the
-end of the irradiation and the next step.
-    <strong>Negative values for <code>TIMESINCELAS.STEP</code>?</strong></p>
+end of the irradiation and the next step.</p>
+<p><strong>Negative values for <code>TIMESINCELAS.STEP</code>?</strong></p>
 <p>Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
 Example: TL step may comprise three curves:</p><ul>
 <li><p>(a) counts vs. time,</p></li>
@@ -217,11 +229,7 @@ towards a correct time order.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.3.1</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -230,8 +238,8 @@ recent improvements. Ancient TL 33, 35-42.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>,
-<a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='write_R2BIN.html'>write_R2BIN</a></p>
+    <div class='dont-index'><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>,
+<a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='write_R2BIN.html'>write_R2BIN</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -268,8 +276,6 @@ recent improvements. Ancient TL 33, 35-42.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -280,7 +286,7 @@ recent improvements. Ancient TL 33, 35-42.</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -296,5 +302,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -63,7 +63,7 @@ by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fi
 curve using the function \link{plot_GrowthCurve}.
 }
 \section{Function version}{
- 0.1.0 (2018-02-02 18:20:28)
+ 0.1.0
 }
 
 \examples{
@@ -98,12 +98,7 @@ results_corr <- calc_Lamothe2003(
   fit.method = "EXP")
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Mercier, N. (2018). calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
@@ -118,5 +113,5 @@ Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Me
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France), Norbert Mercier,
 IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

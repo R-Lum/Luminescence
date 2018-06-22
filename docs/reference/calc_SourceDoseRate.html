@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculation of the source dose rate via the date of measurement — calc_SourceDoseRate" />
 
 <meta property="og:description" content="Calculating the dose rate of the irradiation source via the date of
@@ -34,6 +37,9 @@ measurement based on: source calibration date, source dose rate, dose rate
 error. The function returns a data.frame that provides the input argument
 dose_rate for the function Second2Gray." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ dose_rate for the function Second2Gray." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ dose_rate for the function Second2Gray." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -95,6 +105,7 @@ dose_rate for the function Second2Gray." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -102,24 +113,28 @@ dose_rate for the function Second2Gray." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculation of the source dose rate via the date of measurement</h1>
+    
+    <div class="hidden name"><code>calc_SourceDoseRate.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculating the dose rate of the irradiation source via the date of
 measurement based on: source calibration date, source dose rate, dose rate
 error. The function returns a data.frame that provides the input argument
 dose_rate for the function <a href='Second2Gray.html'>Second2Gray</a>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_SourceDoseRate</span>(<span class='kw'>measurement.date</span> <span class='kw'>=</span> <span class='fu'>Sys.Date</span>(), <span class='no'>calib.date</span>,
   <span class='no'>calib.dose.rate</span>, <span class='no'>calib.error</span>, <span class='kw'>source.type</span> <span class='kw'>=</span> <span class='st'>"Sr-90"</span>,
   <span class='kw'>dose.rate.unit</span> <span class='kw'>=</span> <span class='st'>"Gy/s"</span>, <span class='kw'>predict</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -178,40 +193,27 @@ $ parameters (list)
 $ call (the original function call)
 </pre>
 
-<p>The output should be accessed using the function <a href='get_RLum.html'>get_RLum</a>.
+<p>The output should be accessed using the function <a href='get_RLum.html'>get_RLum</a>.<br />
 A plot method of the output is provided via <a href='plot_RLum.html'>plot_RLum</a></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Calculation of the source dose rate based on the time elapsed since the last
 calibration of the irradiation source. Decay parameters assume a Sr-90 beta
-source. $$dose.rate = D0 * exp(-log(2) / T.1/2 * t)$$  with: D0 &lt;-
+source. $$dose.rate = D0 * exp(-log(2) / T.1/2 * t)$$ <br /> with: D0 &lt;-
 calibration dose rate T.1/2 &lt;- half-life of the source nuclide (here in
 days) t &lt;- time since source calibration (in days) log(2) / T.1/2 equals the
 decay constant lambda</p>
 <p>Information on the date of measurements may be taken from the data's
 original .BIN file (using e.g., <code>BINfile &lt;- readBIN2R()</code> and the slot
-<code>BINfile@METADATA$DATE</code>)
-    <strong>Allowed source types and related values</strong></p><table><tr><td>
-<strong>#</strong> </td>
-<td> <strong>Source type</strong> </td>
-<td> <strong>T.1/2</strong> </td>
-<td> <strong>Reference</strong> </td>
-<td>
-<code>[1]</code> </td>
-</tr><tr><td> Sr-90 </td>
-<td> 28.90 y </td>
-<td> NNDC, Brookhaven National Laboratory </td>
-<td>
-<code>[2]</code></td>
-<td> Am-214 </td>
-</tr><tr><td> 432.6 y </td>
-<td> NNDC, Brookhaven National Laboratory </td>
-<td>
-<strong>#</strong> </td>
-<td> <strong>Source type</strong> </td>
-<td> <strong>T.1/2</strong> </td>
-</tr></table>
+<code>BINfile@METADATA$DATE</code>)</p>
+<p><strong>Allowed source types and related values</strong></p>
+<table class='table'>
+<tr><td><strong>#</strong></td><td><strong>Source type</strong></td><td><strong>T.1/2</strong></td><td><strong>Reference</strong></td><td><code>[1]</code></td></tr>
+<tr><td>Sr-90</td><td>28.90 y</td><td>NNDC, Brookhaven National Laboratory</td><td><code>[2]</code></td><td>Am-214</td></tr>
+<tr><td>432.6 y</td><td>NNDC, Brookhaven National Laboratory</td><td><code>[3]</code></td><td>Co-60</td><td>5.274 y</td></tr>
+<tr><td>NNDC, Brookhaven National Laboratory</td><td><strong>#</strong></td><td><strong>Source type</strong></td><td><strong>T.1/2</strong></td><td><strong>Reference</strong></td></tr>
+</table>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -226,11 +228,7 @@ are provided.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-25 16:46:06)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Fuchs, M.C., Kreutzer, S. (2018). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.3.1</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -238,7 +236,7 @@ are provided.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='Second2Gray.html'>Second2Gray</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='plot_RLum.html'>plot_RLum</a></p>
+    <div class='dont-index'><p><a href='Second2Gray.html'>Second2Gray</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='plot_RLum.html'>plot_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -292,7 +290,7 @@ are provided.</p>
                                   <span class='kw'>calib.dose.rate</span> <span class='kw'>=</span> <span class='fl'>0.0438</span>,
                                   <span class='kw'>calib.error</span> <span class='kw'>=</span> <span class='fl'>0.0019</span>,
                                   <span class='kw'>predict</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>dose.rate</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>dose.rate</span>)</div><div class='img'><img src='calc_SourceDoseRate-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 ##(4) export output to a LaTeX table (example using the package 'xtable')
 </div><span class='co'># NOT RUN {</span>
@@ -314,8 +312,6 @@ are provided.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -325,9 +321,9 @@ are provided.</p>
 
     <h2>Author</h2>
     
-Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) 
+Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) <br />
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -343,5 +339,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Analyse SAR TL measurements — analyse_SAR.TL" />
 
 <meta property="og:description" content="The function performs a SAR TL analysis on a
 RLum.Analysis object including growth curve fitting." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ RLum.Analysis object including growth curve fitting." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ RLum.Analysis object including growth curve fitting." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ RLum.Analysis object including growth curve fitting." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,16 +111,20 @@ RLum.Analysis object including growth curve fitting." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse SAR TL measurements</h1>
+    
+    <div class="hidden name"><code>analyse_SAR.TL.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function performs a SAR TL analysis on a
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object including growth curve fitting.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>analyse_SAR.TL</span>(<span class='no'>object</span>, <span class='no'>object.background</span>, <span class='no'>signal.integral.min</span>,
   <span class='no'>signal.integral.max</span>, <span class='kw'>integral_input</span> <span class='kw'>=</span> <span class='st'>"channel"</span>,
@@ -117,7 +132,7 @@ RLum.Analysis object including growth curve fitting." />
   <span class='kw'>rejection.criteria</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>recycling.ratio</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>recuperation.rate</span> <span class='kw'>=</span> <span class='fl'>10</span>),
   <span class='no'>dose.points</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -196,10 +211,10 @@ note: the output should be accessed using the function get_RLum
     <p>This function performs a SAR TL analysis on a set of curves. The SAR
 procedure in general is given by Murray and Wintle (2000). For the
 calculation of the Lx/Tx value the function <a href='calc_TLLxTxRatio.html'>calc_TLLxTxRatio</a> is
-used.
-    <strong>Provided rejection criteria</strong>
-    <code>[recyling.ratio]</code>: calculated for every repeated regeneration dose point.
-    <code>[recuperation.rate]</code>: recuperation rate calculated by
+used.</p>
+<p><strong>Provided rejection criteria</strong></p>
+<p><code>[recyling.ratio]</code>: calculated for every repeated regeneration dose point.</p>
+<p><code>[recuperation.rate]</code>: recuperation rate calculated by
 comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 value (the Lx/Tx ratio of the natural signal).  For methodological
 background see Aitken and Smith (1988)</p>
@@ -212,11 +227,7 @@ from the input object without further warning.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.0 (2018-01-21 17:22:38)</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Kreutzer, S. (2018). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>0.2.0</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -228,8 +239,8 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='calc_TLLxTxRatio.html'>calc_TLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
-<a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a></p>
+    <div class='dont-index'><p><a href='calc_TLLxTxRatio.html'>calc_TLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
+<a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -246,7 +257,14 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
                <span class='kw'>signal.integral.max</span> <span class='kw'>=</span> <span class='fl'>220</span>,
                <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"y"</span>,
                <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP OR LIN"</span>,
-               <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SIGNAL"</span>, <span class='st'>"BACKGROUND"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: row names were found from a short variable and have been discarded</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+               <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SIGNAL"</span>, <span class='st'>"BACKGROUND"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: row names were found from a short variable and have been discarded</span></div><div class='img'><img src='analyse_SAR.TL-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP OR LIN (interpolation) | De = 415.65 | D01 = 11075068.87</div><div class='img'><img src='analyse_SAR.TL-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: analyse_SAR.TL()
+#&gt; 	 data: 3
+#&gt;  	 .. $data : data.frame
+#&gt; 	 .. $LnLxTnTx.table : data.frame
+#&gt; 	 .. $rejection.criteria : data.frame
+#&gt; 	 additional info elements:  1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -262,8 +280,6 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -274,7 +290,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -290,5 +306,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

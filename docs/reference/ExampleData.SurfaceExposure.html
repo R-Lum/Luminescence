@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Example OSL surface exposure dating data — ExampleData.SurfaceExposure" />
 
 <meta property="og:description" content="A set of synthetic OSL surface exposure dating data to demonstrate the
 fit_SurfaceExposure functionality. See examples to reproduce the data
 interactively." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ interactively." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ interactively." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ interactively." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,37 +112,34 @@ interactively." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Example OSL surface exposure dating data</h1>
+    
+    <div class="hidden name"><code>ExampleData.SurfaceExposure.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A set of synthetic OSL surface exposure dating data to demonstrate the
 <a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a> functionality. See examples to reproduce the data
 interactively.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A list with 4 elements:</p><table><tr><td>
-<strong>Element</strong> </td>
-<td> <strong>Content</strong> </td>
-</tr><tr><td>
-<code>$sample_1</code> </td>
-<td> A data.frame with 3 columns (depth, intensity, error) </td>
-</tr><tr><td>
-<code>$sample_2</code> </td>
-<td> A data.frame with 3 columns (depth, intensity, error) </td>
-</tr><tr><td>
-<code>$set_1</code> </td>
-<td> A list of 4 data.frames, each representing a sample with different ages </td>
-</tr><tr><td>
-<code>$set_2</code> </td>
-<td> A list of 5 data.frames, each representing a sample with different ages </td>
-</tr></table>
+    <p>A list with 4 elements:</p>
+<table class='table'>
+<tr><td><strong>Element</strong></td><td><strong>Content</strong></td></tr>
+<tr><td><code>$sample_1</code></td><td>A data.frame with 3 columns (depth, intensity, error)</td></tr>
+<tr><td><code>$sample_2</code></td><td>A data.frame with 3 columns (depth, intensity, error)</td></tr>
+<tr><td><code>$set_1</code></td><td>A list of 4 data.frames, each representing a sample with different ages</td></tr>
+<tr><td><code>$set_2</code></td><td>A list of 5 data.frames, each representing a sample with different ages</td></tr>
+<tr><td></td><td><strong>Element</strong></td></tr>
+</table>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
@@ -139,47 +147,30 @@ interactively.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong><code>$sample_1</code></strong></p><table><tr><td>
-<strong>mu</strong> </td>
-<td> <strong>sigmaphi</strong> </td>
-<td> <strong>age</strong> </td>
-</tr><tr><td>
-0.9 </td>
-<td> 5e-10 </td>
-<td> 10000 </td>
-</tr></table><p><strong><code>$sample_2</code></strong></p><table><tr><td>
-<strong>mu</strong> </td>
-<td> <strong>sigmaphi</strong> </td>
-<td> <strong>age</strong> </td>
-<td> <strong>Dose rate</strong> </td>
-<td> <strong>D0</strong> </td>
-</tr><tr><td>
-0.9 </td>
-<td> 5e-10 </td>
-<td> 10000 </td>
-<td> 2.5 </td>
-<td> 40 </td>
-</tr></table><p><strong><code>$set_1</code></strong></p><table><tr><td>
-<strong>mu</strong> </td>
-<td> <strong>sigmaphi</strong> </td>
-<td> <strong>ages</strong> </td>
-</tr><tr><td>
-0.9 </td>
-<td> 5e-10 </td>
-<td> 1e3, 1e4, 1e5, 1e6 </td>
-</tr></table><p><strong><code>$set_2</code></strong></p><table><tr><td>
-<strong>mu</strong> </td>
-<td> <strong>sigmaphi</strong> </td>
-<td> <strong>ages</strong> </td>
-<td> <strong>Dose rate</strong> </td>
-<td> <strong>D0</strong> </td>
-</tr><tr><td>
-0.9 </td>
-<td> 5e-10 </td>
-<td> 1e2, 1e3, 1e4, 1e5, 1e6 </td>
-<td> 1.0 </td>
-<td> 40 </td>
-</tr></table>
+    <p><strong><code>$sample_1</code></strong></p>
+<table class='table'>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>age</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>10000</td></tr>
+<tr><td></td><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td></tr>
+</table>
+    <p><strong><code>$sample_2</code></strong></p>
+<table class='table'>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>age</strong></td><td><strong>Dose rate</strong></td><td><strong>D0</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>10000</td><td>2.5</td><td>40</td></tr>
+<tr><td></td><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>age</strong></td><td><strong>Dose rate</strong></td></tr>
+</table>
+    <p><strong><code>$set_1</code></strong></p>
+<table class='table'>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>ages</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>1e3, 1e4, 1e5, 1e6</td></tr>
+<tr><td></td><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td></tr>
+</table>
+    <p><strong><code>$set_2</code></strong></p>
+<table class='table'>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>ages</strong></td><td><strong>Dose rate</strong></td><td><strong>D0</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>1e2, 1e3, 1e4, 1e5, 1e6</td><td>1.0</td><td>40</td></tr>
+<tr><td></td><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>ages</strong></td><td><strong>Dose rate</strong></td></tr>
+</table>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -201,7 +192,27 @@ interactively.</p>
                       <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='img'><img src='ExampleData.SurfaceExposure-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  age (a):	9890 ± 369
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  sigmaphi:	5e-10
+#&gt;  mu:		0.9
+#&gt; </div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: fit_SurfaceExposure()
+#&gt; 	 data: 5
+#&gt;  	 .. $summary : data.frame
+#&gt; 	 .. $data : data.frame
+#&gt; 	 .. $fit : nls
+#&gt; 	 .. $args : list
+#&gt; 	 .. $call : call
+#&gt; 	 additional info elements:  0</div><div class='input'>
 
 
 
@@ -223,7 +234,27 @@ interactively.</p>
                       <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='img'><img src='ExampleData.SurfaceExposure-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  age (a):	9800 ± 675
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  sigmaphi:	5e-10
+#&gt;  mu:		0.9
+#&gt; </div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: fit_SurfaceExposure()
+#&gt; 	 data: 5
+#&gt;  	 .. $summary : data.frame
+#&gt; 	 .. $data : data.frame
+#&gt; 	 .. $fit : nls
+#&gt; 	 .. $args : list
+#&gt; 	 .. $call : call
+#&gt; 	 additional info elements:  0</div><div class='input'>
 
 
 <span class='co'>## ExampleData.SurfaceExposure$set_1</span>
@@ -243,7 +274,30 @@ interactively.</p>
 
 
 <span class='co'>## VALIDATE set_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_3</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_3</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Shared estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  mu:		0.901 ± 0.00161
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  age (a):	1000, 10000, 1e+05, 1e+06
+#&gt;  sigmaphi:	5e-10
+#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = 0.901)</span>
+#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: fit_SurfaceExposure()
+#&gt; 	 data: 5
+#&gt;  	 .. $summary : data.frame
+#&gt; 	 .. $data : data.frame
+#&gt; 	 .. $fit : nls
+#&gt; 	 .. $args : list
+#&gt; 	 .. $call : call
+#&gt; 	 additional info elements:  0</div><div class='input'>
 
 
 <span class='co'>## ExampleData.SurfaceExposure$set_2</span>
@@ -269,7 +323,30 @@ interactively.</p>
 
 
 <span class='co'>## VALIDATE set_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_4</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1.0</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_4</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1.0</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Shared estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  mu:		0.899 ± 0.00232
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  age (a):	100, 1000, 10000, 1e+05, 1e+06
+#&gt;  sigmaphi:	5e-10
+#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = 0.899)</span>
+#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: fit_SurfaceExposure()
+#&gt; 	 data: 5
+#&gt;  	 .. $summary : data.frame
+#&gt; 	 .. $data : data.frame
+#&gt; 	 .. $fit : nls
+#&gt; 	 .. $args : list
+#&gt; 	 .. $call : call
+#&gt; 	 additional info elements:  0</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>ExampleData.SurfaceExposure</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
   <span class='kw'>sample_1</span> <span class='kw'>=</span> <span class='no'>synth_1</span>,
@@ -310,5 +387,8 @@ interactively.</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

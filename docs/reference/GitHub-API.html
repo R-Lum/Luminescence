@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="GitHub API — GitHub-API" />
 
 <meta property="og:description" content="R Interface to the GitHub API v3." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,15 +110,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>GitHub API</h1>
+    
+    <div class="hidden name"><code>GitHub-API.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>R Interface to the GitHub API v3.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>github_commits</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"r-lum"</span>, <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"luminescence"</span>, <span class='kw'>branch</span> <span class='kw'>=</span> <span class='st'>"master"</span>,
   <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>)
@@ -116,7 +131,7 @@
 
 <span class='fu'>github_issues</span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"r-lum"</span>, <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"luminescence"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -148,53 +163,39 @@ print the output to the console (defaults to <code>TRUE</code>).</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>github_commits</code>: data.frame with columns:</p><table><tr><td>
-<code>[ ,1]</code> </td>
-<td> SHA </td>
-</tr><tr><td>
-<code>[ ,2]</code> </td>
-<td> AUTHOR </td>
-</tr><tr><td>
-<code>[ ,3]</code> </td>
-<td> DATE </td>
-</tr><tr><td>
-<code>[ ,4]</code> </td>
-<td> MESSAGE </td>
-</tr></table><p><code>github_branches</code>: data.frame with columns:</p><table><tr><td>
-<code>[ ,1]</code> </td>
-<td> BRANCH </td>
-</tr><tr><td>
-<code>[ ,2]</code> </td>
-<td> SHA </td>
-</tr><tr><td>
-<code>[ ,3]</code> </td>
-<td> INSTALL </td>
-</tr></table><p><code>github_commits</code>: Nested list with <code>n</code> elements.
-Each commit element is a list with elements:</p><table><tr><td>
-<code>[[1]]</code> </td>
-<td> NUMBER </td>
-</tr><tr><td>
-<code>[[2]]</code> </td>
-<td> TITLE </td>
-</tr><tr><td>
-<code>[[3]]</code> </td>
-<td> BODY </td>
-</tr><tr><td>
-<code>[[4]]</code> </td>
-<td> CREATED </td>
-</tr><tr><td>
-<code>[[5]]</code> </td>
-<td> UPDATED </td>
-</tr><tr><td>
-<code>[[6]]</code> </td>
-<td> CREATOR </td>
-</tr><tr><td>
-<code>[[7]]</code> </td>
-<td> URL </td>
-</tr><tr><td>
-<code>[[8]]</code> </td>
-<td> STATUS </td>
-</tr></table>
+    <p><code>github_commits</code>: data.frame with columns:</p>
+<table class='table'>
+<tr><td><code>[ ,1]</code></td><td>SHA</td></tr>
+<tr><td><code>[ ,2]</code></td><td>AUTHOR</td></tr>
+<tr><td><code>[ ,3]</code></td><td>DATE</td></tr>
+<tr><td><code>[ ,4]</code></td><td>MESSAGE</td></tr>
+<tr><td></td><td><code>[ ,1]</code></td></tr>
+</table>
+
+
+<p><code>github_branches</code>: data.frame with columns:</p>
+<table class='table'>
+<tr><td><code>[ ,1]</code></td><td>BRANCH</td></tr>
+<tr><td><code>[ ,2]</code></td><td>SHA</td></tr>
+<tr><td><code>[ ,3]</code></td><td>INSTALL</td></tr>
+<tr><td></td><td><code>[ ,1]</code></td></tr>
+</table>
+
+
+<p><code>github_commits</code>: Nested list with <code>n</code> elements.
+Each commit element is a list with elements:</p>
+<table class='table'>
+<tr><td><code>[[1]]</code></td><td>NUMBER</td></tr>
+<tr><td><code>[[2]]</code></td><td>TITLE</td></tr>
+<tr><td><code>[[3]]</code></td><td>BODY</td></tr>
+<tr><td><code>[[4]]</code></td><td>CREATED</td></tr>
+<tr><td><code>[[5]]</code></td><td>UPDATED</td></tr>
+<tr><td><code>[[6]]</code></td><td>CREATOR</td></tr>
+<tr><td><code>[[7]]</code></td><td>URL</td></tr>
+<tr><td><code>[[8]]</code></td><td>STATUS</td></tr>
+<tr><td></td><td><code>[[1]]</code></td></tr>
+</table>
+
 
 <p>[[1]: R:[1
 [[2]: R:[2
@@ -207,20 +208,16 @@ Each commit element is a list with elements:</p><table><tr><td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions can be used to query a specific repository hosted on GitHub.
-    <code>github_commits</code> lists the most recent <code>n</code> commits of a specific branch of a repository.
-    <code>github_branches</code> can be used to list all current branches of a
+    <p>These functions can be used to query a specific repository hosted on GitHub. <br /></p>
+<p><code>github_commits</code> lists the most recent <code>n</code> commits of a specific branch of a repository.</p>
+<p><code>github_branches</code> can be used to list all current branches of a
 repository and returns the corresponding SHA hash as well as an installation
-command to install the branch in R via the 'devtools' package.
-    <code>github_issues</code> lists all open issues for a repository in valid YAML.</p>
+command to install the branch in R via the 'devtools' package.</p>
+<p><code>github_issues</code> lists all open issues for a repository in valid YAML.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.1.0</p>
-    
-    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
-
-    <p>Burow, C. (2018). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -247,8 +244,6 @@ command to install the branch in R via the 'devtools' package.
 
       <li><a href="#function-version">Function version</a></li>
 
-      <li><a href="#how-to-cite">How to cite</a></li>
-
       <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -257,7 +252,7 @@ command to install the branch in R via the 'devtools' package.
     <h2>Author</h2>
     
 Christoph Burow, University of Cologne (Germany)
- R Luminescence Package Team
+
   </div>
 </div>
 
@@ -273,5 +268,8 @@ Christoph Burow, University of Cologne (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
