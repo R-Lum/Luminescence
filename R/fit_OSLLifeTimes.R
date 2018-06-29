@@ -84,6 +84,30 @@
 #' The original function call
 #'
 #' ------------------------\cr
+#' `[ TERMINAL OUTPUT ]`\cr
+#' ------------------------\cr
+#'
+#' Terminal output is only shown of the argument `verbose = TRUE`.
+#'
+#' *(1) Start parameter and component adapation*\cr
+#' Trave of the parameter adaption process
+#'
+#' *(2) Fitting results (sorted by ascending tau)*\cr
+#' The fitting results sorted by ascending tau value. Please note
+#' that if you access the `nls` fitting object, the values are not sorted.
+#'
+#' *(3) Further information*\cr
+#' - The photon count sum
+#' - Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
+#' the residuals should be not correlated at all. Rough measures are: \cr
+#' D = 0: the residuls are systematically correlated \cr
+#' D = 2: the residuals are randomly distributed \cr
+#' D = 4: the residuals are systematically anticorrlated\cr
+#'
+#' You should be suspicious if D differs largely from 2.
+#'
+#'
+#' ------------------------\cr
 #' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
@@ -101,7 +125,12 @@
 #' Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
 #' Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016\cr
 #'
+#' Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
+#' Biometrika 37, 409-21. doi:10.2307/2332391
+#'
 #' **Further reading**
+#'
+#' Hughes, I., Hase, T., 2010. Measurements and Their Uncertainties. Oxford University Press.
 #'
 #' Storn, R., Price, K., 1997. Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
 #' Journal of Global Optimization 11, 341–359.
@@ -130,7 +159,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   if(all(vapply(object, function(x){
     class(x) == "RLum.Analysis"}, logical(1)))){
     object <- lapply(object, function(x){x@records})
-    object <- .unlist_RLum(object)
+    object <- Luminescence:::.unlist_RLum(object)
 
   }
 
@@ -430,12 +459,19 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     ##order matrix by tau ... this is a little bit tricky
     summary_matrix <- summary_matrix[c(o,o + length(A)),]
 
+    ##calculate Durbin-Watson statistic
+    residuals <- residuals(fit)
+    D <- round(sum((R - c(0,R[-length(R)]))^2) / sum(R^2),2)
+    rm(residuals)
+
+
 
   }else{
     m <- 1
     A <- NA
     tau <- NA
     summary_matrix <- NA
+    D <- NA
 
   }
 
@@ -456,6 +492,10 @@ if(verbose){
   cat("\n(3) Further information\n")
   cat("-------------------------------------------------------------------------\n")
   cat("Photon count sum: ", sum(df[[2]]),"\n")
+  cat("Durbin-Watson residual statistic: ", D,"")
+  string <- c("[",rep(" ",(D * 10)/4),"<>",rep(" ",10 - (D * 10)/4),"]\n")
+  cat(paste(string, collapse = ""))
+  rm(string)
 
 
 }
@@ -473,7 +513,7 @@ if(plot) {
     log = "",
     xlim = c(0,max(df[[1]])),
     ylim = c(0,max(df[[2]])),
-    col = get("col", pos = .LuminescenceEnv)[-1],
+    col = get("col", pos = Luminescence:::.LuminescenceEnv)[-1],
     lty = rep(1, (m + 1)),
     legend.pos = "topright",
     legend.text = c("sum", paste0("comp. ", 1:m))
@@ -609,3 +649,4 @@ if(plot) {
   )
 
 }
+
