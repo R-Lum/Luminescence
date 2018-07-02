@@ -24,7 +24,7 @@ to CSV-files. If nothing is set for the argument \code{path} (\link{write_RLum2C
 the input folder will become the output folder.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -49,5 +49,10 @@ convert_XSYG2CSV(file)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2018). convert_XSYG2CSV(): Export XSYG-file(s) to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{IO}

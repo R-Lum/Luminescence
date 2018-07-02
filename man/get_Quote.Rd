@@ -20,7 +20,7 @@ growing library. If called without any parameters, a random quote is
 returned.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.2 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -31,4 +31,9 @@ get_Quote()
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Dietze, M. (2018). get_Quote(): Function to return essential quotes. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+

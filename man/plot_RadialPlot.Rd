@@ -145,7 +145,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.4
+ 0.5.4 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -239,7 +239,12 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 
+} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S. (2018). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
 Differing Standard Errors. Technometrics, 30 (3), 271-281.
@@ -273,4 +278,4 @@ recommendations. Quaternary Geochronology, 11, 1-27.
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Based on a rewritten S script of Rex Galbraith, 2010
-}
+\cr R Luminescence Package Team}

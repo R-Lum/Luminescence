@@ -56,6 +56,31 @@ all parameters are supported.}
 The original function call
 
 ------------------------\cr
+\code{[ TERMINAL OUTPUT ]}\cr
+------------------------\cr
+
+Terminal output is only shown of the argument \code{verbose = TRUE}.
+
+\emph{(1) Start parameter and component adapation}\cr
+Trave of the parameter adaption process
+
+\emph{(2) Fitting results (sorted by ascending tau)}\cr
+The fitting results sorted by ascending tau value. Please note
+that if you access the \code{nls} fitting object, the values are not sorted.
+
+\emph{(3) Further information}\cr
+\itemize{
+\item The photon count sum
+\item Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
+the residuals should be not correlated at all. Rough measures are: \cr
+D = 0: the residuls are systematically correlated \cr
+D = 2: the residuals are randomly distributed \cr
+D = 4: the residuals are systematically anticorrlated\cr
+}
+
+You should be suspicious if D differs largely from 2.
+
+------------------------\cr
 \code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
@@ -83,7 +108,10 @@ contrast to their work, for the optimisation by differential evolution here the 
 
 The function to be optimized has the form:
 
-\deqn{\chi^2 = \sum(w * (n/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+\deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+
+with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list(weights = FALSE)}) or
+\eqn{w = c^2/n_i}.
 
 \deqn{F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))}
 
@@ -96,23 +124,34 @@ The function to be optimized has the form:
 \code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:qf]{stats::qf})\cr
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
-\code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control})
+\code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
+\code{weights} \tab \link{logical} \tab enables/disables the weighting for the start paramter estimation (see equations above)
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2018-07-02 18:24:40)
 }
 
 \examples{
 
 print("nothing here so far")
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Schmidt, C. (2018). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
 Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016\cr
 
+Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
+Biometrika 37, 409-21. doi:10.2307/2332391
+
 \strong{Further reading}
+
+Hughes, I., Hase, T., 2010. Measurements and Their Uncertainties. Oxford University Press.
 
 Storn, R., Price, K., 1997. Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
 Journal of Global Optimization 11, 341–359.
@@ -123,4 +162,4 @@ Journal of Global Optimization 11, 341–359.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 Christoph Schmidt, University of Bayreuth (Germany)
-}
+\cr R Luminescence Package Team}

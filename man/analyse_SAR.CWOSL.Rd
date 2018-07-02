@@ -150,7 +150,7 @@ This function must not be mixed up with the function
 \strong{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.8.3
+ 0.8.3 (2018-06-29 14:25:19)
 }
 
 \examples{
@@ -186,7 +186,12 @@ get_RLum(results)
 ##show LnTnLxTx table
 get_RLum(results, data.object = "LnLxTnTx.table")
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2018). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.
@@ -209,6 +214,6 @@ doi:10.1016/j.radmeas.2008.06.002
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{plot}

@@ -84,7 +84,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.11
+ 0.3.11 (2018-02-01 10:49:37)
 }
 
 \examples{
@@ -121,5 +121,10 @@ abline = list(v = c(110))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2018). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{aplot}

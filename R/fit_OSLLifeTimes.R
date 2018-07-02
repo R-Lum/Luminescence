@@ -18,7 +18,10 @@
 #'
 #' The function to be optimized has the form:
 #'
-#' \deqn{\chi^2 = \sum(w * (n/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+#' \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+#'
+#' with \eqn{w = 1} for unweighted regression analysis (`method_control = list(weights = FALSE)`) or
+#' \eqn{w = c^2/n_i}.
 #'
 #' \deqn{F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))}
 #'
@@ -31,7 +34,8 @@
 #' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::qf])\cr
 #' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 #' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
-#' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control])
+#' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control]) \cr
+#' `weights` \tab [logical] \tab enables/disables the weighting for the start paramter estimation (see equations above)
 #' }
 #'
 #' @param object [RLum.Data.Curve-class], [data.frame] or [matrix] **(required)**:
@@ -159,7 +163,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   if(all(vapply(object, function(x){
     class(x) == "RLum.Analysis"}, logical(1)))){
     object <- lapply(object, function(x){x@records})
-    object <- Luminescence:::.unlist_RLum(object)
+    object <- .unlist_RLum(object)
 
   }
 
@@ -260,7 +264,8 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     p = 0.95,
     seed = NULL,
     DEoptim.trace = FALSE,
-    DEoptim.itermax = 1000
+    DEoptim.itermax = 1000,
+    weights = TRUE
 
   )
 
@@ -296,7 +301,14 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     term <- paste(term, collapse = " + ")
 
     ##set weight (should be given as character)
-    w <- "1"
+    if(method_control_setting$weights){
+      w <- "c^2/n"
+
+    }else{
+      w <- "1"
+
+    }
+
 
     ##combine
     term <- paste0("sum(",w," * ((n/c) - (",term,"))^2)")
@@ -345,8 +357,17 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
     ##set fn
     set_tp <- tp
-    fn <- function(x, tp = set_tp, n = df[[2]], c = df[[1]][2] - df[[1]][1], t = df[[1]], term = formula_string){
-      eval(formula_string)
+    set_c <- df[[1]][2] - df[[1]][1]
+    set_t <- df[[1]]
+    set_n <- df[[2]]
+
+    ##set function
+    ##Personal reminder:
+    ##Why this function is not written in C++ ... because it adds basically nothing
+    ##to in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot changed
+    ##directly in the code
+    fn <- function(x, tp = set_tp, n = set_n, c = set_c, t = set_t, term = formula_string){
+       eval(formula_string)
     }
 
     ##set start parameters
@@ -356,15 +377,15 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     ##run differential evolution
     start <- DEoptim::DEoptim(
       fn = fn,
-      lower = c(rep(0, 2 * m)),
+      lower = rep(0, 2 * m),
       upper = rep(c(10 * sum(df[[2]]), 10000), m),
       control = DEoptim::DEoptim.control(
-        trace = method_control_setting$DEoptim.trace,
-        itermax = method_control_setting$DEoptim.itermax,
-        c = .5,
-        strategy = 2,
-        parallelType = 0
-      )
+         trace = method_control_setting$DEoptim.trace,
+         itermax = method_control_setting$DEoptim.itermax,
+         c = .5,
+         strategy = 2,
+         parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
+       )
     )
 
     ##set chi^2 value and calculate F for the 2nd run
@@ -456,13 +477,16 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     ##summary matrix
     summary_matrix <- summary(fit)$coefficients
 
-    ##order matrix by tau ... this is a little bit tricky
+    ##order matrix by tau, but keep the rownames
+    temp_rownames <- rownames(summary_matrix)
     summary_matrix <- summary_matrix[c(o,o + length(A)),]
+    rownames(summary_matrix) <- temp_rownames
+    rm(temp_rownames)
 
     ##calculate Durbin-Watson statistic
-    residuals <- residuals(fit)
+    R <- residuals(fit)
     D <- round(sum((R - c(0,R[-length(R)]))^2) / sum(R^2),2)
-    rm(residuals)
+    rm(R)
 
 
 
@@ -493,10 +517,15 @@ if(verbose){
   cat("-------------------------------------------------------------------------\n")
   cat("Photon count sum: ", sum(df[[2]]),"\n")
   cat("Durbin-Watson residual statistic: ", D,"")
-  string <- c("[",rep(" ",(D * 10)/4),"<>",rep(" ",10 - (D * 10)/4),"]\n")
-  cat(paste(string, collapse = ""))
-  rm(string)
 
+  if(!is.na(D)){
+    string <- c("[",rep(" ",(D * 10)/4),"<>",rep(" ",10 - (D * 10)/4),"]\n")
+
+  }else{
+    string <- NA
+
+  }
+  cat(paste(string, collapse = ""))
 
 }
 
@@ -513,7 +542,7 @@ if(plot) {
     log = "",
     xlim = c(0,max(df[[1]])),
     ylim = c(0,max(df[[2]])),
-    col = get("col", pos = Luminescence:::.LuminescenceEnv)[-1],
+    col = get("col", pos = .LuminescenceEnv)[-1],
     lty = rep(1, (m + 1)),
     legend.pos = "topright",
     legend.text = c("sum", paste0("comp. ", 1:m))
@@ -649,4 +678,3 @@ if(plot) {
   )
 
 }
-
