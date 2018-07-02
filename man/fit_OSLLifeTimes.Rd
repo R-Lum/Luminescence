@@ -125,11 +125,11 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
-\code{weights} \tab \link{logical} \tab enables/disables the weighting for the start paramter estimation (see equations above)
+\code{weights} \tab \link{logical} \tab enables/disables the weighting for the start paramter estimation and fitting (see equations above)
 }
 }
 \section{Function version}{
- 0.1.0 (2018-07-02 18:24:40)
+ 0.1.0 (2018-07-02 18:46:47)
 }
 
 \examples{

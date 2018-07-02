@@ -21,7 +21,7 @@
 #' \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
 #'
 #' with \eqn{w = 1} for unweighted regression analysis (`method_control = list(weights = FALSE)`) or
-#' \eqn{w = c^2/n_i}.
+#' \eqn{w = c^2/n_i} for weighted regression analysis. The default values is `TRUE`.
 #'
 #' \deqn{F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))}
 #'
@@ -35,7 +35,8 @@
 #' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 #' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
 #' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control]) \cr
-#' `weights` \tab [logical] \tab enables/disables the weighting for the start paramter estimation (see equations above)
+#' `weights` \tab [logical] \tab enables/disables the weighting for the start parameter estimation and fitting (see equations above).
+#' The default values is `TRUE`
 #' }
 #'
 #' @param object [RLum.Data.Curve-class], [data.frame] or [matrix] **(required)**:
@@ -457,6 +458,11 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     upper = c(rep(sum(df[[2]]), length(A)), rep(Inf,length(tau))),
     lower = c(rep(0,2*length(A))),
     na.action = "na.exclude",
+    weights = if(method_control_setting$weights){
+      set_c^2/df[,2]
+    }else{
+     rep(1,nrow(df))
+    },
     trace = FALSE,
     control = minpack.lm::nls.lm.control(maxiter = 500)
   ), silent = TRUE)
