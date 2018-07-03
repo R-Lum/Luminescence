@@ -10,7 +10,7 @@ fit_OSLLifeTimes(object, tp = 0, signal_range = NULL, n.components = NULL,
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \link{data.frame} or \link{matrix} \strong{(required)}:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
-processing}
+processing. Please note: \code{NA} values are automatically removed and the dataset should comprise at least 5 data points.}
 
 \item{tp}{\link{numeric} (\emph{with default}): option to account for the stimulation pulse width. For off-time measurements
 the default value is 0. \code{tp} has the same unit as the measurement data, e.g., µs. Please set this parameter
@@ -111,7 +111,7 @@ The function to be optimized has the form:
 \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
 
 with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list(weights = FALSE)}) or
-\eqn{w = c^2/n_i}.
+\eqn{w = c^2/n_i} for weighted regression analysis. The default values is \code{TRUE}.
 
 \deqn{F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))}
 
@@ -125,11 +125,12 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
-\code{weights} \tab \link{logical} \tab enables/disables the weighting for the start paramter estimation and fitting (see equations above)
+\code{weights} \tab \link{logical} \tab enables/disables the weighting for the start parameter estimation and fitting (see equations above).
+The default values is \code{TRUE}
 }
 }
 \section{Function version}{
- 0.1.0 (2018-07-02 18:46:47)
+ 0.1.0 (2018-07-03 20:39:35)
 }
 
 \examples{

@@ -41,7 +41,7 @@
 #'
 #' @param object [RLum.Data.Curve-class], [data.frame] or [matrix] **(required)**:
 #' Input object containing the data to be analysed. All objects can be provided also as list for an automated
-#' processing
+#' processing. Please note: `NA` values are automatically removed and the dataset should comprise at least 5 data points.
 #'
 #' @param tp [numeric] (*with default*): option to account for the stimulation pulse width. For off-time measurements
 #' the default value is 0. `tp` has the same unit as the measurement data, e.g., µs. Please set this parameter
@@ -209,7 +209,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 # Input integrity tests ------------------------------------------------------------------
   if(class(object) == "RLum.Data.Curve"){
    if(!grepl(pattern = "POSL", x = object@recordType, fixed = TRUE))
-     stop(paste0("[fit_OSLLifeTime()] recordType ",object@recordType, "not supported for input object!"),
+     stop(paste0("[fit_OSLLifeTime()] recordType ",object@recordType, " not supported for input object!"),
           call. = FALSE)
 
     df <- as.data.frame(object@data)
@@ -227,8 +227,22 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   }
 
+  ##remove NA values, whatever this is for
+  if(any(is.na(df))){
+    df <- na.exclude(df)
+    warning("[fit_OSLLifeTimes()] NA values detected and removed from dataset.",call. = TRUE)
+
+  }
+
   ##rename columns for data.frame
   colnames(df) <- c("x","y")
+
+  ##make sure that we have a minimum of data points available
+  if(nrow(df) < 5){
+    try(stop("[fit_OSLLifeTimes()] Your input dataset has less than 5 data points. NULL returned!", call. = FALSE))
+    return(NULL)
+
+  }
 
   ##signal_range
   if(!is.null(signal_range)){
@@ -338,134 +352,151 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   if(!is.null(method_control_setting$seed))
     set.seed(method_control_setting$seed)
 
+
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(B) RUN DIFFERENTIAL EVOLUTION TO DETERMINE NUMBER OF COMPONENTS
-  ##
+  ##prevent collateral demage, so we want a data.frame that has at least 10 rows
   if(verbose){
-    cat("\n[fit_OSLLifeTime()]\n")
-    cat("\n(1) Start parameter and component adapation")
-    cat("\n---------------------(start adaption)------------------------------------")
-
-  }
-
-  while(F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
-    ##set F
-    F[1] <- F[2]
-
-    ##construct formula outside of the loop; needs to be done here, otherwise the performance
-    ##goes down
-    formula_string <- fn_constructor(m)
-
-    ##set fn
-    set_tp <- tp
-    set_c <- df[[1]][2] - df[[1]][1]
-    set_t <- df[[1]]
-    set_n <- df[[2]]
-
-    ##set function
-    ##Personal reminder:
-    ##Why this function is not written in C++ ... because it adds basically nothing
-    ##to in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot changed
-    ##directly in the code
-    fn <- function(x, tp = set_tp, n = set_n, c = set_c, t = set_t, term = formula_string){
-       eval(formula_string)
-    }
-
-    ##set start parameters
-    if(!is.null(start))
-      start_parameters <- start$optim$bestmem
-
-    ##run differential evolution
-    start <- DEoptim::DEoptim(
-      fn = fn,
-      lower = rep(0, 2 * m),
-      upper = rep(c(10 * sum(df[[2]]), 10000), m),
-      control = DEoptim::DEoptim.control(
-         trace = method_control_setting$DEoptim.trace,
-         itermax = method_control_setting$DEoptim.itermax,
-         c = .5,
-         strategy = 2,
-         parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
-       )
-    )
-
-    ##set chi^2 value and calculate F for the 2nd run
-    chi_squared[2] <- start$optim$bestval
-    if(!is.na(chi_squared[1])){
-      F[2] <- (abs(diff(chi_squared))/2) /
-        (chi_squared[2]/(nrow(df) - 2 * m  - 2))
+      cat("\n[fit_OSLLifeTime()]\n")
+      cat("\n(1) Start parameter and component adapation")
+      cat("\n---------------------(start adaption)------------------------------------")
 
     }
 
-    ##terminal feedback
-    if(verbose){
-      cat("\n>> + adaption for",m, "comp.", ": ", round(F[2],2), "(calc.) <> ",
-          round(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2), 2), "(ref.)")
+    while(!is.na(suppressWarnings(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2))) && (
+          F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2])){
 
-      if(F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
-        cat(" >> [add comp.]")
+      ##set F
+      F[1] <- F[2]
+
+      ##construct formula outside of the loop; needs to be done here, otherwise the performance
+      ##goes down
+      formula_string <- fn_constructor(m)
+
+      ##set fn
+      set_tp <- tp
+      set_c <- df[[1]][2] - df[[1]][1]
+      set_t <- df[[1]]
+      set_n <- df[[2]]
+
+      ##set function
+      ##Personal reminder:
+      ##Why this function is not written in C++ ... because it adds basically nothing
+      ##to in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot changed
+      ##directly in the code
+      fn <- function(x, tp = set_tp, n = set_n, c = set_c, t = set_t, term = formula_string){
+         eval(formula_string)
+      }
+
+      ##set start parameters
+      if(!is.null(start))
+        start_parameters <- start$optim$bestmem
+
+      ##run differential evolution
+      start <- DEoptim::DEoptim(
+        fn = fn,
+        lower = rep(0, 2 * m),
+        upper = rep(c(10 * sum(df[[2]]), 10000), m),
+        control = DEoptim::DEoptim.control(
+           trace = method_control_setting$DEoptim.trace,
+           itermax = method_control_setting$DEoptim.itermax,
+           c = .5,
+           strategy = 2,
+           parallelType = 0 #Does it make sense to use parallel processing here: no, it does not scale well
+         )
+      )
+
+      ##set chi^2 value and calculate F for the 2nd run
+      chi_squared[2] <- start$optim$bestval
+      if(!is.na(chi_squared[1])){
+        F[2] <- (abs(diff(chi_squared))/2) /
+          (chi_squared[2]/(nrow(df) - 2 * m  - 2))
+
+      }
+
+      ##terminal feedback
+      if(verbose){
+        cat("\n>> + adaption for",m, "comp.", ": ", round(F[2],2), "(calc.) <> ",
+            round(qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2), 2), "(ref.)")
+
+        if(F[2] > qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2) & F[1] >= F[2]){
+          cat(" >> [add comp.]")
+
+        }else{
+          cat(" >> [stop]\n")
+          cat("---------------------(end adaption)--------------------------------------\n\n")
+
+        }
+
+      }
+
+      ##break here if n.components was set others than NULL, in such case we force the number
+      if(!is.null(n.components)){
+        cat(" >> [forced stop]\n")
+        cat("---------------------(end adaption)--------------------------------------\n\n")
+        start_parameters <- start$optim$bestmem
+        break()
+
+      }
+
+      ##update objects
+      chi_squared[1] <- chi_squared[2]
+      m <- m + 1
+
+    }
+
+    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ##(C) RUN LM-FITTING
+    ##
+    ##reduce m by 2, why 2?
+    ##  - the last component violated the F statistic, so was obviously not the best call
+    ##  - the loop adds everytime another component
+    if(is.null(n.components)){
+      ##this covers the extrem case that the process stops after the first run
+      if(m == 2){
+        m <- 1
+        start_parameters <- start$optim$bestmem
 
       }else{
-        cat(" >> [stop]\n")
-        cat("---------------------(end adaption)--------------------------------------\n\n")
+        m <- m - 2
 
       }
 
     }
 
-    ##break here if n.components was set others than NULL, in such case we force the number
-    if(!is.null(n.components)){
-      cat(" >> [forced stop]\n")
-      cat("---------------------(end adaption)--------------------------------------\n\n")
-      start_parameters <- start$optim$bestmem
-      break()
+    A <- start_parameters[seq(1,length(start_parameters), by = 2)]
+    tau <- start_parameters[seq(2,length(start_parameters), by = 2)]
+    names(A) <- paste0("A.", 1:(m))
+    names(tau) <- paste0("tau.", 1:(m))
+
+    ##add terminal feedback
+    if(verbose){
+      cat("\n>> Applied component matrix\n")
+      start_matrix <- matrix(data = c(A,tau), ncol = 2)
+      colnames(start_matrix) <- c("A", "tau")
+      rownames(start_matrix) <- paste0("Comp.", 1:(m))
+      print(start_matrix)
+      cat("\n\n")
 
     }
 
-    ##update objects
-    chi_squared[1] <- chi_squared[2]
-    m <- m + 1
 
-  }
+    fit <- try(minpack.lm::nlsLM(
+      formula = fit_forumla(n.components = m, tp = tp),
+      data = df,
+      start = c(A, tau),
+      upper = c(rep(sum(df[[2]]), length(A)), rep(Inf,length(tau))),
+      lower = c(rep(0,2*length(A))),
+      na.action = "na.exclude",
+      weights = if(method_control_setting$weights){
+        set_c^2/df[,2]
+      }else{
+       rep(1,nrow(df))
+      },
+      trace = FALSE,
+      control = minpack.lm::nls.lm.control(maxiter = 500)
+    ), silent = TRUE)
 
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  ##(C) RUN LM-FITTING
-  ##
-  if(is.null(n.components))
-    m <- m - 2
-
-  A <- start_parameters[seq(1,length(start_parameters), by = 2)]
-  tau <- start_parameters[seq(2,length(start_parameters), by = 2)]
-  names(A) <- paste0("A.", 1:(m))
-  names(tau) <- paste0("tau.", 1:(m))
-
-  ##add terminal feedback
-  if(verbose){
-    cat(">> Applied component matrix\n")
-    start_matrix <- matrix(data = c(A,tau), ncol = 2)
-    colnames(start_matrix) <- c("A", "tau")
-    rownames(start_matrix) <- paste0("Comp.", 1:(m))
-    print(start_matrix)
-    cat("\n\n")
-
-  }
-
-
-  fit <- try(minpack.lm::nlsLM(
-    formula = fit_forumla(n.components = m, tp = tp),
-    data = df,
-    start = c(A, tau),
-    upper = c(rep(sum(df[[2]]), length(A)), rep(Inf,length(tau))),
-    lower = c(rep(0,2*length(A))),
-    na.action = "na.exclude",
-    weights = if(method_control_setting$weights){
-      set_c^2/df[,2]
-    }else{
-     rep(1,nrow(df))
-    },
-    trace = FALSE,
-    control = minpack.lm::nls.lm.control(maxiter = 500)
-  ), silent = TRUE)
 
 
 # Post-processing -----------------------------------------------------------------------------
@@ -684,3 +715,4 @@ if(plot) {
   )
 
 }
+
