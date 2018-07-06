@@ -227,7 +227,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   }
 
-  ##remove NA values, whatever this is for
+  ##remove NA values, whatever it is worth for
   if(any(is.na(df))){
     df <- na.exclude(df)
     warning("[fit_OSLLifeTimes()] NA values detected and removed from dataset.",call. = TRUE)
@@ -375,7 +375,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
       ##set fn
       set_tp <- tp
-      set_c <- df[[1]][2] - df[[1]][1]
+      set_c <- diff(c(0,df[[1]]))
       set_t <- df[[1]]
       set_n <- df[[2]]
 
