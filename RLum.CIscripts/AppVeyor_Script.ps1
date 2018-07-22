@@ -14,13 +14,13 @@ Function InstallJAGS {
 
 if ((Test-Path "C:\projects\JAGS-4.3.0.exe")) {
     Progress "JAGS found in cache, running JAGS installer ..."
-    Start-Process -FilePath C:\projects\JAGS-4.3.0.exe
+    Start-Process -FilePath C:\projects\JAGS-4.3.0.exe -NoNewWindow -Wait
 
   } Else {
     Progress "JAGS not available, attempting download ..."
     Start-FileDownload 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe' -FileName 'C:\projects\JAGS-4.3.0.exe'
     Progress "Running JAGS installer ... "
-    Start-Process -FilePath C:\projects\JAGS-4.3.0.exe
+    Start-Process -FilePath C:\projects\JAGS-4.3.0.exe -NoNewWindow -Wait
   }
 
 }
