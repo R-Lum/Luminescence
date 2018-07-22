@@ -6,11 +6,15 @@ init:
         $ErrorActionPreference = "Stop"
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
+        Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/dev_0.9.0/RLum.CIscripts/AppVeyor_Script.ps1 -OutFile "..\AppVeyor_Script.ps1"
+        Import-Module '..\AppVeyor_Script.ps1'
 
 install:
+  - ps: InstallJAGS
   - ps: Bootstrap
-  - ps: Start-FileDownload 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe' -FileName 'C:\projects\JAGS-4.3.0.exe' -Timeout 300000
-  - cmd: C:\projects\JAGS-4.3.0.exe /S
+
+cache:
+  - C:\projects\JAGS-4.3.0.exe
 
 # Adapt as necessary starting from here
 environment:
@@ -24,7 +28,7 @@ environment:
   - R_VERSION: devel
     R_ARCH: x64
     GCC_PATH: mingw_64
-    
+
   - R_VERSION: release
     R_ARCH: x64
 
