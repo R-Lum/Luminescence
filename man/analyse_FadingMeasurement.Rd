@@ -111,7 +111,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.5 (2018-06-10 16:56:37)
+ 0.1.5 (2018-07-22 19:09:10)
 }
 
 \examples{
