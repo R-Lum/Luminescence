@@ -103,4 +103,4 @@ any later version.
 * [RLumDocker](https://github.com/R-Lum/RLumDocker)
 
 ## R package dependencies
-![](RLum.Images/Package_DependencyGraph.png)
+![](RLum.Images/Package_DependencyGraph.png) 
