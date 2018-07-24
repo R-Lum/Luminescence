@@ -5,11 +5,12 @@
 #'by plotting all DRC from an [RLum.Results-class] object created by the function [analyse_SAR.CWOSL]
 #'in one single plot.
 #'
-#'If you want plot your DRC on an energy scale (dose in Gy), you should run the SAR analysis with the
-#'dose points in Gy. If you need more options than provided with this function, please have
-#'a look into the source code to create and modify an own R script.
+#'If you want plot your DRC on an energy scale (dose in Gy), you can either use the option `source_dose_rate` provided
+#'below or your can SAR analysis with the dose points in Gy (better axis scaling).
 #'
 #'@param object [RLum.Results-class] object (**required**): input object created by the function [analyse_SAR.CWOSL]. The input object can be provided as [list].
+#'
+#'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.
 #'
 #'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occuring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
@@ -23,7 +24,7 @@
 #'
 #'@param ... Further arguments and graphical parameters to be passed.
 #'
-#'@section Function version: 0.2.0
+#'@section Function version: 0.2.1
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -75,6 +76,7 @@
 #'@export
 plot_DRCSummary <- function(
   object,
+  source_dose_rate = NULL,
   sel_curves = NULL,
   show_dose_points = FALSE,
   show_natural = FALSE,
@@ -169,7 +171,7 @@ if(class(object) == "list"){
 
   ##set default
   plot_settings <- list(
-    xlab = "Dose [s]",
+    xlab = if(is.null(source_dose_rate)){"Dose [s]"}else{"Dose [Gy]"},
     ylab = expression(L[x]/T[x]),
     xlim = c(0,max(vapply(LxTx, function(x){max(x[["Dose"]])}, numeric(1)))),
     ylim = if(show_dose_points){
@@ -198,8 +200,19 @@ if(class(object) == "list"){
     ylab = plot_settings$ylab,
     xlim = plot_settings$xlim,
     ylim = plot_settings$ylim,
-    main = plot_settings$main
+    main = plot_settings$main,
+    xaxt = "n"
   )
+
+  #exchange xaxis if source dose rate is set
+  if(!is.null(source_dose_rate)){
+    axis(side = 1, at = axTicks(side = 1), labels = round(axTicks(side = 1) * source_dose_rate[1],0))
+
+  }else{
+    axis(side = 1)
+
+  }
+
 
   for(i in 1:length(sel_curves)){
     ##plot natural
