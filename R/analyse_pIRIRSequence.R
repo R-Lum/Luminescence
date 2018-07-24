@@ -345,8 +345,8 @@ analyse_pIRIRSequence <- function(
   temp.sequence.structure  <- structure_RLum(object)
 
     ##try to account for a very common mistake
-    if(!any(grepl(temp.sequence.structure[["recordType"]], pattern = "TL", fixed = TRUE))){
-      warning("[analyse_pIRIRSequence()] Your sequence does not contain 'TL' curves, trying to adapt 'sequence.structure' for your ...",
+    if(any(grepl(sequence.structure, pattern = "TL", fixed = TRUE)) && !any(grepl(temp.sequence.structure[["recordType"]], pattern = "TL", fixed = TRUE))){
+      warning("[analyse_pIRIRSequence()] Your sequence does not contain 'TL' curves, trying to adapt 'sequence.structure' for you ...",
               call. = FALSE, immediate. = TRUE)
       sequence.structure <- sequence.structure[!grepl(sequence.structure, pattern = "TL", fixed = TRUE)]
     }
