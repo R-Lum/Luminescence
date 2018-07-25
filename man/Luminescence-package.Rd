@@ -6,12 +6,17 @@
 \alias{Luminescence}
 \title{Comprehensive Luminescence Dating Data Analysis}
 \description{
+\if{html}{
+\figure{RL_Logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
+\emph{R Luminescence Developer Team}
+}
+}
+\details{
 A collection of various R functions for the purpose of Luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
-}
-\details{
+
 \tabular{ll}{
 \strong{Package:} \tab Luminescence \cr
 \strong{Type:} \tab Package \cr
