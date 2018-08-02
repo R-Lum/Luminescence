@@ -6,7 +6,8 @@
 \usage{
 calc_Huntley2006(data, LnTn = NULL, rhop, ddot, readerDdot,
   normalise = TRUE, fit.method = c("EXP", "GOK")[1],
-  lower.bounds = c(-Inf, -Inf, -Inf), summary = TRUE, plot = TRUE, ...)
+  lower.bounds = c(-Inf, -Inf, -Inf), summary = TRUE, plot = TRUE,
+  ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):

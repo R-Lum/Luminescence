@@ -12,8 +12,8 @@
 \S4method{show}{RLum.Data.Spectrum}(object)
 
 \S4method{set_RLum}{RLum.Data.Spectrum}(class, originator, .uid, .pid,
-  recordType = "Spectrum", curveType = NA_character_, data = matrix(),
-  info = list())
+  recordType = "Spectrum", curveType = NA_character_,
+  data = matrix(), info = list())
 
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
 

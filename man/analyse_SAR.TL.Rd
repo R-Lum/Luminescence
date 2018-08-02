@@ -7,8 +7,8 @@
 analyse_SAR.TL(object, object.background, signal.integral.min,
   signal.integral.max, integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
-  rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
-  dose.points, log = "", ...)
+  rejection.criteria = list(recycling.ratio = 10, recuperation.rate =
+  10), dose.points, log = "", ...)
 }
 \arguments{
 \item{object}{\href{**required**}{RLum.Analysis-class}:

@@ -4,8 +4,8 @@
 \alias{analyse_Al2O3C_ITC}
 \title{Al2O3 Irradiation Time Correction Analysis}
 \usage{
-analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
-  12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
+analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2,
+  4, 8, 12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
   verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{

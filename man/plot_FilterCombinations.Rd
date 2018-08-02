@@ -5,7 +5,8 @@
 \title{Plot filter combinations along with the (optional) net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
-  show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)
+  show_net_transmission = TRUE, interactive = FALSE, plot = TRUE,
+  ...)
 }
 \arguments{
 \item{filters}{\link{list} (\strong{required}):

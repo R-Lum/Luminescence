@@ -4,9 +4,9 @@
 \alias{extract_IrradiationTimes}
 \title{Extract Irradiation Times from an XSYG-file}
 \usage{
-extract_IrradiationTimes(object, file.BINX, recordType = c("irradiation (NA)",
-  "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"), compatibility.mode = TRUE,
-  txtProgressBar = TRUE)
+extract_IrradiationTimes(object, file.BINX,
+  recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)",
+  "TL (UVVIS)"), compatibility.mode = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{object}{\link{character}, \linkS4class{RLum.Analysis} or \link{list} (\strong{required}):

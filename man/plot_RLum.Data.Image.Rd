@@ -4,8 +4,8 @@
 \alias{plot_RLum.Data.Image}
 \title{Plot function for an \code{RLum.Data.Image} S4 class object}
 \usage{
-plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
-  ...)
+plot_RLum.Data.Image(object, par.local = TRUE,
+  plot.type = "plot.raster", ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4

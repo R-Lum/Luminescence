@@ -7,8 +7,8 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", use_previousBG = FALSE,
-  sigmab = NULL, sig0 = 0, digits = NULL)
+  background.count.distribution = "non-poisson",
+  use_previousBG = FALSE, sigmab = NULL, sig0 = 0, digits = NULL)
 }
 \arguments{
 \item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):

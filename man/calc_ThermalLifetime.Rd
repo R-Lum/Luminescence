@@ -4,8 +4,9 @@
 \alias{calc_ThermalLifetime}
 \title{Calculates the Thermal Lifetime using the Arrhenius equation}
 \usage{
-calc_ThermalLifetime(E, s, T = 20, output_unit = "Ma", profiling = FALSE,
-  profiling_config = NULL, verbose = TRUE, plot = TRUE, ...)
+calc_ThermalLifetime(E, s, T = 20, output_unit = "Ma",
+  profiling = FALSE, profiling_config = NULL, verbose = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{E}{\link{numeric} (\strong{required}):

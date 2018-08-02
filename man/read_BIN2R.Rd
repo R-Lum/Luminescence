@@ -6,9 +6,9 @@
 \usage{
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   n.records = NULL, zero_data.rm = TRUE, duplicated.rm = FALSE,
-  fastForward = FALSE, show.record.number = FALSE, txtProgressBar = TRUE,
-  forced.VersionNumber = NULL, ignore.RECTYPE = FALSE, pattern = NULL,
-  verbose = TRUE, ...)
+  fastForward = FALSE, show.record.number = FALSE,
+  txtProgressBar = TRUE, forced.VersionNumber = NULL,
+  ignore.RECTYPE = FALSE, pattern = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the

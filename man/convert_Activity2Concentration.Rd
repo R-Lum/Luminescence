@@ -4,7 +4,8 @@
 \alias{convert_Activity2Concentration}
 \title{Convert Nuclide Activities to Concentrations and Vice Versa}
 \usage{
-convert_Activity2Concentration(data, input_unit = "Bq/kg", verbose = TRUE)
+convert_Activity2Concentration(data, input_unit = "Bq/kg",
+  verbose = TRUE)
 }
 \arguments{
 \item{data}{\link{data.frame} \strong{(required)}:

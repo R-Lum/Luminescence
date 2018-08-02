@@ -13,6 +13,19 @@
 
       }
 
+    \item \code{analyse_pIRIRMeasurement()}
+      \itemize{
+        \item If measurements did not contain TL curves, the function showed a confusing warnings message; fixed.
+
+    }
+
+      \item \code{plot_KDE()}
+      \itemize{
+        \item The function could not handle \code{Inf} values (#71) as reported by Dirk Mittelstraß; fixed.
+
+    }
+
+
       \item \code{report_RLum()}
       \itemize{
         \item Add new argument \code{show_report} to allow file creation only without getting the RStudio viewer

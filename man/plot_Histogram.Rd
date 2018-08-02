@@ -4,8 +4,8 @@
 \alias{plot_Histogram}
 \title{Plot a histogram with separate error plot}
 \usage{
-plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
-  summary, summary.pos, colour, interactive = FALSE, ...)
+plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug,
+  normal_curve, summary, summary.pos, colour, interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):

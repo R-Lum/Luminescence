@@ -5,9 +5,9 @@
 \title{Analyse SAR CW-OSL measurements}
 \usage{
 analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, rejection.criteria = NULL,
-  dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE,
-  onlyLxTxTable = FALSE, ...)
+  background.integral.min, background.integral.max,
+  rejection.criteria = NULL, dose.points = NULL, mtext.outer,
+  plot = TRUE, plot.single = FALSE, onlyLxTxTable = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -150,7 +150,7 @@ This function must not be mixed up with the function
 \strong{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.8.3 (2018-07-22 19:09:10)
+ 0.8.3 (2018-08-02 12:36:42)
 }
 
 \examples{

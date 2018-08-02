@@ -4,9 +4,9 @@
 \alias{apply_CosmicRayRemoval}
 \title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object}
 \usage{
-apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
-  method.Pych.threshold_factor = 3, MARGIN = 2, verbose = FALSE,
-  plot = FALSE, ...)
+apply_CosmicRayRemoval(object, method = "smooth",
+  method.Pych.smoothing = 2, method.Pych.threshold_factor = 3,
+  MARGIN = 2, verbose = FALSE, plot = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}):

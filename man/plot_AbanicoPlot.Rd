@@ -4,13 +4,14 @@
 \alias{plot_AbanicoPlot}
 \title{Function to create an Abanico Plot.}
 \usage{
-plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
-  dispersion = "qr", plot.ratio = 0.75, rotate = FALSE, mtext, summary,
-  summary.pos, summary.method = "MCM", legend, legend.pos, stats,
-  rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE,
-  boxplot = FALSE, y.axis = TRUE, error.bars = FALSE, bar, bar.col,
-  polygon.col, line, line.col, line.lty, line.label, grid.col, frame = 1,
-  bw = "SJ", output = TRUE, interactive = FALSE, ...)
+plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE,
+  z.0 = "mean.weighted", dispersion = "qr", plot.ratio = 0.75,
+  rotate = FALSE, mtext, summary, summary.pos, summary.method = "MCM",
+  legend, legend.pos, stats, rug = FALSE, kde = TRUE, hist = FALSE,
+  dots = FALSE, boxplot = FALSE, y.axis = TRUE, error.bars = FALSE,
+  bar, bar.col, polygon.col, line, line.col, line.lty, line.label,
+  grid.col, frame = 1, bw = "SJ", output = TRUE,
+  interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):

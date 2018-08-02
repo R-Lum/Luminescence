@@ -8,8 +8,8 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max, method = "shift",
   signal_integral.seq = NULL, analyse_function = "analyse_SAR.CWOSL",
   analyse_function.control = list(), n.channels = NULL,
-  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE, verbose = TRUE,
-  ...)
+  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):

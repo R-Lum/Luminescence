@@ -13,6 +13,16 @@ Changes in version 0.8.6 (, 2018):
                0.01 to 0.05, otherwise it fires to oftern in false
                positive cases.
 
+         • ‘analyse_pIRIRMeasurement()’
+
+             • If measurements did not contain TL curves, the function
+               showed a confusing warnings message; fixed.
+
+         • ‘plot_KDE()’
+
+             • The function could not handle ‘Inf’ values (#71) as
+               reported by Dirk Mittelstraß; fixed.
+
          • ‘report_RLum()’
 
              • Add new argument ‘show_report’ to allow file creation

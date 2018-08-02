@@ -7,8 +7,8 @@ distribution}
 \usage{
 calc_FiniteMixture(data, sigmab, n.components, grain.probability = FALSE,
   dose.scale, pdf.weight = TRUE, pdf.sigma = "sigmab",
-  pdf.colors = "gray", pdf.scale, plot.proportions = TRUE, plot = TRUE,
-  ...)
+  pdf.colors = "gray", pdf.scale, plot.proportions = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):

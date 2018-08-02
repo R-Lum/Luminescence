@@ -4,7 +4,8 @@
 \alias{use_DRAC}
 \title{Use DRAC to calculate dose rate data}
 \usage{
-use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
+use_DRAC(file, name, print_references = TRUE, citation_style = "text",
+  ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):

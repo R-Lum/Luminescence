@@ -4,8 +4,8 @@
 \alias{calc_Statistics}
 \title{Function to calculate statistic measures}
 \usage{
-calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = NULL,
-  na.rm = TRUE)
+calc_Statistics(data, weight.calc = "square", digits = NULL,
+  n.MCM = NULL, na.rm = TRUE)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):

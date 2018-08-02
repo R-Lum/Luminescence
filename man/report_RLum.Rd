@@ -6,8 +6,8 @@
 \usage{
 report_RLum(object, file = tempfile(), title = "RLum.Report",
   compact = TRUE, timestamp = TRUE, show_report = TRUE,
-  launch.browser = FALSE, css.file = NULL, quiet = TRUE, clean = TRUE,
-  ...)
+  launch.browser = FALSE, css.file = NULL, quiet = TRUE,
+  clean = TRUE, ...)
 }
 \arguments{
 \item{object}{(\strong{required}):

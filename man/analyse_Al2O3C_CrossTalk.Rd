@@ -4,9 +4,10 @@
 \alias{analyse_Al2O3C_CrossTalk}
 \title{Al2O3:C Reader Cross Talk Analysis}
 \usage{
-analyse_Al2O3C_CrossTalk(object, signal_integral = NULL, dose_points = c(0,
-  4), recordType = c("OSL (UVVIS)"), irradiation_time_correction = NULL,
-  method_control = NULL, plot = TRUE, ...)
+analyse_Al2O3C_CrossTalk(object, signal_integral = NULL,
+  dose_points = c(0, 4), recordType = c("OSL (UVVIS)"),
+  irradiation_time_correction = NULL, method_control = NULL,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:

@@ -4,8 +4,8 @@
 \alias{Analyse_SAR.OSLdata}
 \title{Analyse SAR CW-OSL measurements.}
 \usage{
-Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
-  run, set, dtype, keep.SEL = FALSE,
+Analyse_SAR.OSLdata(input.data, signal.integral, background.integral,
+  position, run, set, dtype, keep.SEL = FALSE,
   info.measurement = "unkown measurement", output.plot = FALSE,
   output.plot.single = FALSE, cex.global = 1, ...)
 }
