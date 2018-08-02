@@ -4,9 +4,9 @@
 \alias{analyse_FadingMeasurement}
 \title{Analyse fading measurements and returns the fading rate per decade (g-value)}
 \usage{
-analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
-  background.integral, t_star = "half", n.MC = 100, verbose = TRUE,
-  plot = TRUE, plot.single = FALSE, ...)
+analyse_FadingMeasurement(object, structure = c("Lx", "Tx"),
+  signal.integral, background.integral, t_star = "half", n.MC = 100,
+  verbose = TRUE, plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -108,7 +108,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.5 (2018-07-23 15:28:38)
+ 0.1.5 (2018-08-02 14:11:03)
 }
 
 \examples{
@@ -137,7 +137,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2018). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2018). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

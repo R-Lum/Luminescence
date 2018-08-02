@@ -7,8 +7,8 @@
 analyse_SAR.TL(object, object.background, signal.integral.min,
   signal.integral.max, integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
-  rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
-  dose.points, log = "", ...)
+  rejection.criteria = list(recycling.ratio = 10, recuperation.rate =
+  10), dose.points, log = "", ...)
 }
 \arguments{
 \item{object}{\href{**required**}{RLum.Analysis-class}:
@@ -107,7 +107,7 @@ analyse_SAR.TL(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

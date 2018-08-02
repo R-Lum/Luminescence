@@ -4,13 +4,14 @@
 \alias{plot_AbanicoPlot}
 \title{Function to create an Abanico Plot.}
 \usage{
-plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
-  dispersion = "qr", plot.ratio = 0.75, rotate = FALSE, mtext, summary,
-  summary.pos, summary.method = "MCM", legend, legend.pos, stats,
-  rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE,
-  boxplot = FALSE, y.axis = TRUE, error.bars = FALSE, bar, bar.col,
-  polygon.col, line, line.col, line.lty, line.label, grid.col, frame = 1,
-  bw = "SJ", output = TRUE, interactive = FALSE, ...)
+plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE,
+  z.0 = "mean.weighted", dispersion = "qr", plot.ratio = 0.75,
+  rotate = FALSE, mtext, summary, summary.pos, summary.method = "MCM",
+  legend, legend.pos, stats, rug = FALSE, kde = TRUE, hist = FALSE,
+  dots = FALSE, boxplot = FALSE, y.axis = TRUE, error.bars = FALSE,
+  bar, bar.col, polygon.col, line, line.col, line.lty, line.label,
+  grid.col, frame = 1, bw = "SJ", output = TRUE,
+  interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
@@ -440,7 +441,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2018). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2018). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

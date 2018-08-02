@@ -4,9 +4,10 @@
 \alias{analyse_Al2O3C_CrossTalk}
 \title{Al2O3:C Reader Cross Talk Analysis}
 \usage{
-analyse_Al2O3C_CrossTalk(object, signal_integral = NULL, dose_points = c(0,
-  4), recordType = c("OSL (UVVIS)"), irradiation_time_correction = NULL,
-  method_control = NULL, plot = TRUE, ...)
+analyse_Al2O3C_CrossTalk(object, signal_integral = NULL,
+  dose_points = c(0, 4), recordType = c("OSL (UVVIS)"),
+  irradiation_time_correction = NULL, method_control = NULL,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -85,7 +86,7 @@ analyse_Al2O3C_CrossTalk(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

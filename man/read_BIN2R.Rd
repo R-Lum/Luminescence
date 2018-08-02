@@ -6,9 +6,9 @@
 \usage{
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   n.records = NULL, zero_data.rm = TRUE, duplicated.rm = FALSE,
-  fastForward = FALSE, show.record.number = FALSE, txtProgressBar = TRUE,
-  forced.VersionNumber = NULL, ignore.RECTYPE = FALSE, pattern = NULL,
-  verbose = TRUE, ...)
+  fastForward = FALSE, show.record.number = FALSE,
+  txtProgressBar = TRUE, forced.VersionNumber = NULL,
+  ignore.RECTYPE = FALSE, pattern = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the
@@ -118,7 +118,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2018). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2018). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

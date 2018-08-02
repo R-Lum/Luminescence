@@ -5,8 +5,8 @@
 \title{Nonlinear Least Squares Fit for OSL surface exposure data}
 \usage{
 fit_SurfaceExposure(data, sigmaphi = NULL, mu = NULL, age = NULL,
-  Ddot = NULL, D0 = NULL, weights = FALSE, plot = TRUE, legend = TRUE,
-  error_bars = TRUE, coord_flip = FALSE, ...)
+  Ddot = NULL, D0 = NULL, weights = FALSE, plot = TRUE,
+  legend = TRUE, error_bars = TRUE, coord_flip = FALSE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} or \link{list} (\strong{required}):
@@ -194,7 +194,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Burow, C. (2018). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2018). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

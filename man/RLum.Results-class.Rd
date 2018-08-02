@@ -15,8 +15,8 @@
 \S4method{set_RLum}{RLum.Results}(class, originator, .uid, .pid,
   data = list(), info = list())
 
-\S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL,
-  drop = TRUE)
+\S4method{get_RLum}{RLum.Results}(object, data.object,
+  info.object = NULL, drop = TRUE)
 
 \S4method{length_RLum}{RLum.Results}(object)
 
@@ -157,7 +157,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

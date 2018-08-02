@@ -4,8 +4,8 @@
 \alias{Analyse_SAR.OSLdata}
 \title{Analyse SAR CW-OSL measurements.}
 \usage{
-Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
-  run, set, dtype, keep.SEL = FALSE,
+Analyse_SAR.OSLdata(input.data, signal.integral, background.integral,
+  position, run, set, dtype, keep.SEL = FALSE,
   info.measurement = "unkown measurement", output.plot = FALSE,
   output.plot.single = FALSE, cex.global = 1, ...)
 }
@@ -129,7 +129,7 @@ output.SAR
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2018). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2018). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

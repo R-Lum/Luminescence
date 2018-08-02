@@ -4,10 +4,10 @@
 \alias{plot_RLum.Data.Spectrum}
 \title{Plot function for an RLum.Data.Spectrum S4 class object}
 \usage{
-plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
-  optical.wavelength.colours = TRUE, bg.channels, bin.rows = 1,
-  bin.cols = 1, rug = TRUE, limit_counts = NULL, xaxis.energy = FALSE,
-  legend.text, ...)
+plot_RLum.Data.Spectrum(object, par.local = TRUE,
+  plot.type = "contour", optical.wavelength.colours = TRUE,
+  bg.channels, bin.rows = 1, bin.cols = 1, rug = TRUE,
+  limit_counts = NULL, xaxis.energy = FALSE, legend.text, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
@@ -222,7 +222,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

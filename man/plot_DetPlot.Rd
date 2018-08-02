@@ -8,8 +8,8 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max, method = "shift",
   signal_integral.seq = NULL, analyse_function = "analyse_SAR.CWOSL",
   analyse_function.control = list(), n.channels = NULL,
-  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE, verbose = TRUE,
-  ...)
+  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -133,7 +133,7 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). plot_DetPlot(): Create De(t) plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). plot_DetPlot(): Create De(t) plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -7,8 +7,8 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", use_previousBG = FALSE,
-  sigmab = NULL, sig0 = 0, digits = NULL)
+  background.count.distribution = "non-poisson",
+  use_previousBG = FALSE, sigmab = NULL, sig0 = 0, digits = NULL)
 }
 \arguments{
 \item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -157,7 +157,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

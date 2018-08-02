@@ -4,10 +4,11 @@
 \alias{analyse_IRSAR.RF}
 \title{Analyse IRSAR RF measurements}
 \usage{
-analyse_IRSAR.RF(object, sequence_structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
-  method.control = NULL, test_parameters = NULL, n.MC = 10,
-  txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
+analyse_IRSAR.RF(object, sequence_structure = c("NATURAL",
+  "REGENERATED"), RF_nat.lim = NULL, RF_reg.lim = NULL,
+  method = "FIT", method.control = NULL, test_parameters = NULL,
+  n.MC = 10, txtProgressBar = TRUE, plot = TRUE,
+  plot_reduced = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \linkS4class{RLum.Analysis}-objects (\strong{required}):
@@ -346,7 +347,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

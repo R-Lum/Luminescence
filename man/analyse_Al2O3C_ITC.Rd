@@ -4,8 +4,8 @@
 \alias{analyse_Al2O3C_ITC}
 \title{Al2O3 Irradiation Time Correction Analysis}
 \usage{
-analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
-  12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
+analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2,
+  4, 8, 12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
   verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
@@ -108,7 +108,7 @@ analyse_Al2O3C_ITC(data_ITC)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

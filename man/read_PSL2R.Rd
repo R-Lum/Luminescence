@@ -4,8 +4,8 @@
 \alias{read_PSL2R}
 \title{Import PSL files to R}
 \usage{
-read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE,
-  merge = FALSE, ...)
+read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE,
+  smooth = FALSE, merge = FALSE, ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
@@ -73,7 +73,7 @@ Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2018). read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2018). read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

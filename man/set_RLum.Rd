@@ -4,7 +4,8 @@
 \alias{set_RLum}
 \title{General set function for RLum S4 class objects}
 \usage{
-set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
+set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_,
+  ...)
 }
 \arguments{
 \item{class}{\linkS4class{RLum} (\strong{required}):
@@ -75,7 +76,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2018). set_RLum(): General set function for RLum S4 class objects. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). set_RLum(): General set function for RLum S4 class objects. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}
