@@ -94,7 +94,7 @@
 #' The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.5.5
+#' @section Function version: 3.5.6
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -177,44 +177,36 @@ plot_KDE <- function(
 
   ## account for depreciated arguments
   if("centrality" %in% names(list(...))) {
-
     boxplot <- TRUE
-
     warning(paste("[plot_KDE()] Argument 'centrality' no longer supported. ",
                   "Replaced by 'boxplot = TRUE'."))
   }
 
   if("dispersion" %in% names(list(...))) {
-
     boxplot <- TRUE
-
     warning(paste("[plot_KDE()] Argument 'dispersion' no longer supported. ",
                   "Replaced by 'boxplot = TRUE'."))
   }
 
   if("polygon.col" %in% names(list(...))) {
-
     boxplot <- TRUE
-
     warning(paste("[plot_KDE()] Argument 'polygon.col' no longer supported. ",
                   "Replaced by 'boxplot = TRUE'."))
   }
 
   if("weights" %in% names(list(...))) {
-
     warning(paste("[plot_KDE()] Argument 'weights' no longer supported. ",
                   "Weights are omitted."))
   }
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {
-
     data <- list(data)
+
   }
 
   ## check/adjust input data structure
   for(i in 1:length(data)) {
-
     if(is(data[[i]], "RLum.Results") == FALSE &
          is(data[[i]], "data.frame") == FALSE &
          is.numeric(data[[i]]) == FALSE) {
@@ -230,7 +222,28 @@ plot_KDE <- function(
         data[[i]] <- cbind(data[[i]], rep(NA, length(data[[i]])))
       }
     }
+
+    ##check for Inf values and remove them if need
+    if(any(is.infinite(unlist(data[[i]])))){
+      Inf_id <- which(is.infinite(unlist(data[[i]]))[1:nrow(data[[i]])/ncol(data[[i]])])
+      warning(paste("[plot_KDE()] Inf values removed in row(s):", paste(Inf_id, collapse = ", "), "in data.frame", i), call. = FALSE)
+      data[[i]] <- data[[i]][-Inf_id,]
+      rm(Inf_id)
+
+      ##check if empty
+      if(nrow(data[[i]]) == 0){
+        data[i] <- NULL
+
+      }
+
+    }
+
   }
+
+  ##check if list is empty
+  if(length(data) == 0)
+    stop("[plot_KDE()] Your input is empty, intentionally or maybe after Inf removal? Nothing plotted!", call. = FALSE)
+
 
   ## check/set function parameters
   if(missing(summary) == TRUE) {
