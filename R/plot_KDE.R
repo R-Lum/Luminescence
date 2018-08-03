@@ -94,7 +94,7 @@
 #' The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.5.6
+#' @section Function version: 3.5.7
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -211,16 +211,23 @@ plot_KDE <- function(
          is(data[[i]], "data.frame") == FALSE &
          is.numeric(data[[i]]) == FALSE) {
       stop(paste("[plot_KDE()] Input data format is neither",
-                 "'data.frame', 'RLum.Results' nor 'numeric'"))
+                 "'data.frame', 'RLum.Results' nor 'numeric'"), call. = FALSE)
     } else {
 
+      ##extract RLum.Results
       if(is(data[[i]], "RLum.Results") == TRUE) {
         data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
       }
 
+      ##make sure we only take the first two columns
+      data[[i]] <- data[[i]][,1:2]
+
+
+      ##account for very short datasets
       if(length(data[[i]]) < 2) {
         data[[i]] <- cbind(data[[i]], rep(NA, length(data[[i]])))
       }
+
     }
 
     ##check for Inf values and remove them if need
@@ -308,7 +315,7 @@ plot_KDE <- function(
 
   ## loop through all data sets
   for(i in 1:length(data)) {
-    statistics <- calc_Statistics(data[[i]])[[summary.method]]
+    statistics <- calc_Statistics(data[[i]], na.rm = na.rm)[[summary.method]]
 
     De.stats[i,1] <- statistics$n
     De.stats[i,2] <- statistics$mean
