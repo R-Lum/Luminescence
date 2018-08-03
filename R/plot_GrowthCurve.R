@@ -174,10 +174,10 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.4
+#' @section Function version: 1.10.5
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @references
@@ -533,9 +533,16 @@ plot_GrowthCurve <- function(
 
   ##b - get start parameters from a linear fit of the log(y) data
   ##    (suppress the warning in case one parameter is negative)
+  fit.lm <- try(lm(suppressWarnings(log(data$y))~data$x))
 
-  fit.lm <- lm(suppressWarnings(log(data$y))~data$x)
-  b <- as.numeric(1/fit.lm$coefficients[2])
+  if(class(fit.lm) == "try-error"){
+    b <- 1
+
+  }else{
+    b <- as.numeric(1/fit.lm$coefficients[2])
+
+  }
+
 
   ##c - get start parameters from a linear fit - offset on x-axis
   fit.lm<-lm(data$y~data$x)
@@ -555,7 +562,7 @@ plot_GrowthCurve <- function(
 
   ##draw 50 start values from a normal distribution a start values
   if (fit.method != "LIN") {
-    a.MC <- rnorm(50, mean = a, sd = a / 100)
+    a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
 
     if (!is.na(b)) {
       b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
@@ -565,8 +572,8 @@ plot_GrowthCurve <- function(
 
     }
 
-    c.MC <- rnorm(50, mean = c, sd = c / 100)
-    g.MC <- rnorm(50, mean = g, sd = g / 1)
+    c.MC <- suppressWarnings(rnorm(50, mean = c, sd = c / 100))
+    g.MC <- suppressWarnings(rnorm(50, mean = g, sd = g / 1))
 
     ##set start vector (to avoid errors witin the loop)
     a.start <- NA
