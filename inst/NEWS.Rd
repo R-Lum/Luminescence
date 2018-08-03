@@ -13,6 +13,13 @@
 
       }
 
+    \item \code{analyse_SAR.CWOSL())}
+      \itemize{
+        \item The function crashed for only noise like data yielding negative Lx/Tx values (reported by Dirk Mittelstraß);
+        fixed.
+
+    }
+
     \item \code{analyse_pIRIRMeasurement()}
       \itemize{
         \item If measurements did not contain TL curves, the function showed a confusing warnings message; fixed.
@@ -22,6 +29,22 @@
       \item \code{plot_KDE()}
       \itemize{
         \item The function could not handle \code{Inf} values (#71) as reported by Dirk Mittelstraß; fixed.
+        \item The function could not handle \code{data.frames} with more than 2 columns and \code{NA} values
+        in the unused columns (reported by Dirk Mittelstraß). Now the function takes only the first two columns.
+
+    }
+
+    \item \code{plot_GrowthCurve()}
+      \itemize{
+        \item The function crashed due to problems with the start parameter estimation for negative Lx/Tx values
+        (reported by Dirk Mittelstaß); fixed.
+
+    }
+
+
+      \item \code{plot_RadialPlot()}
+      \itemize{
+        \item The function now uses only the first two columns from a \code{data.frame}, regardless its size.
 
     }
 
