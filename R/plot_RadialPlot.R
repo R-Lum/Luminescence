@@ -5,8 +5,8 @@
 #' Details and the theoretical background of the radial plot are given in the
 #' cited literature. This function is based on an S script of Rex Galbraith. To
 #' reduce the manual adjustments, the function has been rewritten. Thanks to
-#' Rex Galbraith for useful comments on this function. \cr 
-#' Plotting can be disabled by adding the argument `plot = "FALSE"`, e.g. 
+#' Rex Galbraith for useful comments on this function. \cr
+#' Plotting can be disabled by adding the argument `plot = "FALSE"`, e.g.
 #' to return only numeric plot output.
 #'
 #' Earlier versions of the Radial Plot in this package had the 2-sigma-bar
@@ -20,121 +20,121 @@
 #'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
-#' one or more of the following keywords: 
+#' one or more of the following keywords:
 #' - `"n"` (number of samples),
-#' - `"mean"` (mean De value), 
+#' - `"mean"` (mean De value),
 #' - `"mean.weighted"` (error-weighted mean),
-#' - `"median"` (median of the De values), 
-#' - `"sdrel"` (relative standard deviation in percent), 
-#' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent), 
+#' - `"median"` (median of the De values),
+#' - `"sdrel"` (relative standard deviation in percent),
+#' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent),
 #' - `"sdabs"` (absolute standard deviation),
 #' - `"sdabs.weighted"` (error-weighted absolute standard deviation),
-#' - `"serel"` (relative standard error), 
-#' - `"serel.weighted"` (error-weighted relative standard error), 
-#' - `"seabs"` (absolute standard error), 
+#' - `"serel"` (relative standard error),
+#' - `"serel.weighted"` (error-weighted relative standard error),
+#' - `"seabs"` (absolute standard error),
 #' - `"seabs.weighted"` (error-weighted absolute standard error),
 #' - `"in.2s"` (percent of samples in 2-sigma range),
-#' - `"kurtosis"` (kurtosis) and 
+#' - `"kurtosis"` (kurtosis) and
 #' - `"skewness"` (skewness).
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
-#' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`). 
-#' To plot several data sets in one plot, the data sets must be provided as 
+#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`).
+#' To plot several data sets in one plot, the data sets must be provided as
 #' `list`, e.g. `list(data.1, data.2)`.
-#' 
-#' @param na.rm [logical] (*with default*): 
+#'
+#' @param na.rm [logical] (*with default*):
 #' excludes `NA` values from the data set prior to any further operations.
-#' 
-#' @param log.z [logical] (*with default*): 
+#'
+#' @param log.z [logical] (*with default*):
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
-#' 
-#' @param central.value [numeric]: 
-#' User-defined central value, primarily used for horizontal centering 
+#'
+#' @param central.value [numeric]:
+#' User-defined central value, primarily used for horizontal centering
 #' of the z-axis.
-#' 
-#' @param centrality [character] or [numeric] (*with default*): 
-#' measure of centrality, used for automatically centering the plot and drawing 
-#' the central line. Can either be one out of 
-#' - `"mean"`, 
-#' - `"median"`, 
-#' - `"mean.weighted"` and 
+#'
+#' @param centrality [character] or [numeric] (*with default*):
+#' measure of centrality, used for automatically centering the plot and drawing
+#' the central line. Can either be one out of
+#' - `"mean"`,
+#' - `"median"`,
+#' - `"mean.weighted"` and
 #' - `"median.weighted"` or a
 #' - numeric value used for the standardisation.
-#' 
-#' @param mtext [character]: 
+#'
+#' @param mtext [character]:
 #' additional text below the plot title.
-#' 
-#' @param summary [character] (*optional*): 
-#' add statistic measures of centrality and dispersion to the plot. 
+#'
+#' @param summary [character] (*optional*):
+#' add statistic measures of centrality and dispersion to the plot.
 #' Can be one or more of several keywords. See details for available keywords.
-#' 
-#' @param summary.pos [numeric] or [character] (*with default*): 
+#'
+#' @param summary.pos [numeric] or [character] (*with default*):
 #' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option is only possible if `mtext` is not used.
-#' 
-#' @param legend [character] vector (*optional*): 
+#'
+#' @param legend [character] vector (*optional*):
 #' legend content to be added to the plot.
-#' 
+#'
 #' @param legend.pos [numeric] or [character] (with
 #' default): optional position coordinates or keyword (e.g. `"topright"`)
 #' for the legend to be plotted.
-#' 
+#'
 #' @param stats [character]: additional labels of statistically
 #' important values in the plot. One or more out of the following:
-#' - `"min"`, 
+#' - `"min"`,
 #' - `"max"`,
 #' - `"median"`.
-#' 
-#' @param rug [logical]: 
+#'
+#' @param rug [logical]:
 #' Option to add a rug to the z-scale, to indicate the location of individual values
-#' 
-#' @param plot.ratio [numeric]: 
-#' User-defined plot area ratio (i.e. curvature of the z-axis). If omitted, 
-#' the default value (`4.5/5.5`) is used and modified automatically to optimise 
-#' the z-axis curvature. The parameter should be decreased when data points 
+#'
+#' @param plot.ratio [numeric]:
+#' User-defined plot area ratio (i.e. curvature of the z-axis). If omitted,
+#' the default value (`4.5/5.5`) is used and modified automatically to optimise
+#' the z-axis curvature. The parameter should be decreased when data points
 #' are plotted outside the z-axis or when the z-axis gets too elliptic.
-#' 
-#' @param bar.col [character] or [numeric] (*with default*): 
+#'
+#' @param bar.col [character] or [numeric] (*with default*):
 #' colour of the bar showing the 2-sigma range around the central
 #' value. To disable the bar, use `"none"`. Default is `"grey"`.
-#' 
-#' @param y.ticks [logical]: 
+#'
+#' @param y.ticks [logical]:
 #' Option to hide y-axis labels. Useful for data with small scatter.
-#' 
-#' @param grid.col [character] or [numeric] (*with default*): 
-#' colour of the grid lines (originating at `[0,0]` and stretching to 
+#'
+#' @param grid.col [character] or [numeric] (*with default*):
+#' colour of the grid lines (originating at `[0,0]` and stretching to
 #' the z-scale). To disable grid lines, use `"none"`. Default is `"grey"`.
-#' 
-#' @param line [numeric]: 
+#'
+#' @param line [numeric]:
 #' numeric values of the additional lines to be added.
-#' 
-#' @param line.col [character] or [numeric]: 
+#'
+#' @param line.col [character] or [numeric]:
 #' colour of the additional lines.
-#' 
-#' @param line.label [character]: 
+#'
+#' @param line.label [character]:
 #' labels for the additional lines.
-#' 
-#' @param output [logical]: 
-#' Optional output of numerical plot parameters. These can be useful to 
+#'
+#' @param output [logical]:
+#' Optional output of numerical plot parameters. These can be useful to
 #' reproduce similar plots. Default is `FALSE`.
-#' 
+#'
 #' @param ... Further plot arguments to pass. `xlab` must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
-#' 
+#'
 #' @return Returns a plot object.
-#' 
-#' @section Function version: 0.5.4
-#' 
-#' @author 
-#' Michael Dietze, GFZ Potsdam (Germany)\cr 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#'
+#' @section Function version: 0.5.5
+#'
+#' @author
+#' Michael Dietze, GFZ Potsdam (Germany)\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
-#' 
+#'
 #' @seealso [plot], [plot_KDE], [plot_Histogram]
-#' 
-#' @references 
+#'
+#' @references
 #' Galbraith, R.F., 1988. Graphical Display of Estimates Having
 #' Differing Standard Errors. Technometrics, 30 (3), 271-281.
 #'
@@ -159,7 +159,7 @@
 #' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
 #' dose and error calculation and display in OSL dating: An overview and some
 #' recommendations. Quaternary Geochronology, 11, 1-27.
-#' 
+#'
 #' @examples
 #'
 #' ## load example data
@@ -284,11 +284,14 @@ plot_RadialPlot <- function(
     if(is(data[[i]], "RLum.Results") == FALSE &
          is(data[[i]], "data.frame") == FALSE) {
       stop(paste("[plot_RadialPlot] Error: Input data format is neither",
-                 "'data.frame' nor 'RLum.Results'"))
+                 "'data.frame' nor 'RLum.Results'"), call. = FALSE)
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
         data[[i]] <- get_RLum(data[[i]], "data")
       }
+
+      ##use only the first two columns
+      data[[i]] <- data[[i]][,1:2]
     }
   }
 
