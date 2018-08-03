@@ -139,7 +139,7 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.8.3
+#' @section Function version: 0.8.4
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -1704,15 +1704,18 @@ if(is.list(object)){
         x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45
       )
 
-
-      for (i in 1:nrow(temp.rc.palaedose.error)) {
-        points(
-          temp.rc.palaedose.error[i, "Value"],
-          y = 5,
-          pch = i,
-          col = i,
-          cex = 1.3 * cex
-        )
+      if(nrow(temp.rc.palaedose.error) != 0){
+        for (i in 1:nrow(temp.rc.palaedose.error)) {
+          if(!is.na(temp.rc.palaedose.error[i, "Value"])){
+            points(
+              temp.rc.palaedose.error[i, "Value"],
+              y = 5,
+              pch = i,
+              col = i,
+              cex = 1.3 * cex
+            )
+          }
+        }
       }
     }
 
