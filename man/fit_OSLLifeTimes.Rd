@@ -131,7 +131,7 @@ The default values is \code{TRUE}
 }
 }
 \section{Function version}{
- 0.1.0 (2018-08-02 14:11:03)
+ 0.1.0 (2018-08-03 11:01:07)
 }
 
 \examples{
