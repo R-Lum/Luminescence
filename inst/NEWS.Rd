@@ -16,7 +16,9 @@
     \item \code{analyse_SAR.CWOSL())}
       \itemize{
         \item The function crashed for only noise like data yielding negative Lx/Tx values (reported by Dirk Mittelstraß);
-        fixed.
+        fixed,
+        \item In the output \code{data.frame} containg the De values, the column 'RC.Status' was of type \code{factor}, but should have
+        been of type \code{character}; fixed.
 
     }
 

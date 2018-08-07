@@ -17,7 +17,11 @@ Changes in version 0.8.6 (, 2018):
 
              • The function crashed for only noise like data yielding
                negative Lx/Tx values (reported by Dirk Mittelstraß);
-               fixed.
+               fixed,
+
+             • In the output ‘data.frame’ containg the De values, the
+               column 'RC.Status' was of type ‘factor’, but should have
+               been of type ‘character’; fixed.
 
          • ‘analyse_pIRIRMeasurement()’
 
