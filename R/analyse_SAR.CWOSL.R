@@ -139,7 +139,7 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.8.4
+#' @section Function version: 0.8.5
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -1370,7 +1370,8 @@ if(is.list(object)){
             D02.ERROR = NA,
             De.MC = NA,
             Fit = NA,
-            RC.Status = NA
+            RC.Status = NA,
+            stringsAsFactors = FALSE
           )
           temp.GC.fit.Formula <- NA
 
@@ -1468,11 +1469,11 @@ if(is.list(object)){
 
         ##add recjection status
         if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
-          temp.GC <- data.frame(temp.GC, RC.Status = "FAILED")
+          temp.GC <- data.frame(temp.GC, RC.Status = "FAILED", stringsAsFactors = FALSE)
 
 
         }else{
-          temp.GC <- data.frame(temp.GC, RC.Status = "OK")
+          temp.GC <- data.frame(temp.GC, RC.Status = "OK", stringsAsFactors = FALSE)
 
 
         }
