@@ -172,7 +172,7 @@ scale_GammaDose <- function(
   if (!is.data.frame(data))
     stop("'data' must be a data frame.", call. = FALSE)
   if (ncol(data) != 12)
-    stop("'data' must have 12 colums (currently ", ncol(data), ").", call. = FALSE)
+    stop("'data' must have 12 columns (currently ", ncol(data), ").", call. = FALSE)
   
   # make sure that it has the correct column names
   colnames_expected <- c("id","thickness","sample_offset","K","K_se","Th","Th_se","U","U_se",
