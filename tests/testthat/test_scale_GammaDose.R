@@ -64,7 +64,7 @@ test_that("check values from output example", {
 test_that("console & plot", {
   expect_output({
    scale_GammaDose(d, plot = TRUE, verbose = TRUE) 
-   scale_GammaDose(d, plot = TRUE, plot_single = TRUE, verbose = TRUE) 
+   scale_GammaDose(d, plot = TRUE, plot_single = FALSE, verbose = TRUE) 
   })
 })
 
