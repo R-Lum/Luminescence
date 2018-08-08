@@ -1,4 +1,6 @@
 BaseDataSet.CosmicDoseRate
+BaseDataSet.ConversionFactors
+BaseDataSet.FractionalGammaDose
 ExampleData.DeValues
 ExampleData.Fading
 ExampleData.FittingLM

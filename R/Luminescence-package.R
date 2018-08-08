@@ -41,7 +41,9 @@
 #' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
 #' Christoph Schmidt \tab *University of Bayreuth, Germany* \cr
 #' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
-#' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
+#' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France* \cr
+#' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
+#' Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies*
 #' }
 #'
 #' **Supervisor of the initial version in 2012**
@@ -111,6 +113,9 @@
 #'
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL, 33 (1), 16-21.
+#' 
+#' King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination 
+#' using feldspar: evaluating fading-correction model performance. Radiation Measurements.
 #'
 #' @keywords package
 #'
@@ -128,6 +133,118 @@
 #' @md
 NULL
 
+#' Base data set of dose-rate conversion factors
+#'
+#' Collection of published dose-rate conversion factors to convert concentrations
+#' of radioactive isotopes to dose rate values.
+#'
+#' @format
+#'
+#' A [`list`] with three elements with dose-rate conversion factors
+#' sorted by article and radiation type (alpha, beta, gamma):
+#' 
+#' \tabular{ll}{
+#'
+#' `AdamiecAitken1998`: \tab
+#' Conversion factors from Tables 5 and 6 \cr
+#'
+#' `Guerinetal2011`: \tab
+#' Conversion factors from Tables 1, 2 and 3 \cr
+#'
+#' `Liritzisetal2013`: \tab
+#' Conversion factors from Tables 1, 2 and 3 \cr
+#' }
+#'
+#'
+#' @section Version: 0.1
+#'
+#' @references
+#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion 
+#' factors: update. Ancient TL, 29, 5-8.
+#' 
+#' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update. 
+#' Ancient TL 16, 37-46.
+#' 
+#' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013. 
+#' A re-evaluation of radiation dose-rate conversion factors. Mediterranean 
+#' Archaeology and Archaeometry 13, 1-15.
+#'
+#' @source
+#' All gamma conversion factors were carefully read from the tables given in the
+#' references above.
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("BaseDataSet.ConversionFactors")
+#'
+#' @name BaseDataSet.ConversionFactors
+#' @md
+NULL
+
+#' Base data set of fractional gamma-dose values
+#'
+#' Collection of (un-)published fractional gamma dose-rate values to scale the
+#' gamma-dose rate considering layer-to-layer variations in soil radioactivity.
+#'
+#' @format
+#'
+#' A [`list`] with fractional gamma dose-rate values
+#' sorted by article:
+#' 
+#' \tabular{ll}{
+#'
+#' `Aitken1985`: \tab
+#' Fractional gamma-dose values from table H.1
+#' }
+#'
+#'
+#' @section Version: 0.1
+#'
+#' @references
+#' Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
+#'
+#' @source
+#' Fractional gamma dose values were carefully read from the tables given in the
+#' references above.
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("BaseDataSet.FractionalGammaDose")
+#'
+#' @name BaseDataSet.FractionalGammaDose
+#' @md
+NULL
+
+#' Example data for scale_GammaDose()
+#'
+#' An example data set for the function `scale_GammaDose()` containing layer 
+#' specific information to scale the gamma dose rate considering variations in
+#' soil radioactivity.
+#'
+#' @format
+#'
+#' A [`data.frame`]. Please see `?scale_GammaDose()` for a detailed description
+#' of its structure.
+#' 
+#'
+#' @section Version: 0.1
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("ExampleData.ScaleGammaDose")
+#'
+#' @name ExampleData.ScaleGammaDose
+#' @md
+NULL
 
 #' Base data set for cosmic dose rate calculation
 #'
