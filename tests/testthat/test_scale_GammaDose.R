@@ -60,6 +60,15 @@ test_that("check values from output example", {
   expect_equal(signif(results$summary$dose_rate_total_err, 4), 0.2113)
 })
 
+## CONSOLE & PLOT OUTPUT
+test_that("console & plot", {
+  expect_output({
+   scale_GammaDose(d, plot = TRUE, verbose = TRUE) 
+   scale_GammaDose(d, plot = TRUE, plot_single = TRUE, verbose = TRUE) 
+  })
+})
+
+
 ## WARNINGS & FAILURES
 test_that("check input data", {
   testthat::skip_on_cran()
