@@ -15,8 +15,8 @@
 \S4method{show}{RLum.Data.Curve}(object)
 
 \S4method{set_RLum}{RLum.Data.Curve}(class, originator, .uid, .pid,
-  recordType = NA_character_, curveType = NA_character_,
-  data = matrix(0, ncol = 2), info = list())
+  recordType = NA_character_, curveType = NA_character_, data = matrix(0,
+  ncol = 2), info = list())
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
 

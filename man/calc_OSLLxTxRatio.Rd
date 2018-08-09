@@ -7,8 +7,8 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson",
-  use_previousBG = FALSE, sigmab = NULL, sig0 = 0, digits = NULL)
+  background.count.distribution = "non-poisson", use_previousBG = FALSE,
+  sigmab = NULL, sig0 = 0, digits = NULL)
 }
 \arguments{
 \item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -139,7 +139,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.7.0 (2018-02-14 13:41:37)
+ 0.7.0 (2018-02-16 17:18:43)
 }
 
 \examples{

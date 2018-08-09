@@ -4,8 +4,7 @@
 \alias{convert_Activity2Concentration}
 \title{Convert Nuclide Activities to Concentrations and Vice Versa}
 \usage{
-convert_Activity2Concentration(data, input_unit = "Bq/kg",
-  verbose = TRUE)
+convert_Activity2Concentration(data, input_unit = "Bq/kg", verbose = TRUE)
 }
 \arguments{
 \item{data}{\link{data.frame} \strong{(required)}:
@@ -61,7 +60,7 @@ example for U238:
 }
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2017-09-13 10:50:39)
 }
 
 \examples{

@@ -6,8 +6,7 @@
 \usage{
 calc_Huntley2006(data, LnTn = NULL, rhop, ddot, readerDdot,
   normalise = TRUE, fit.method = c("EXP", "GOK")[1],
-  lower.bounds = c(-Inf, -Inf, -Inf), summary = TRUE, plot = TRUE,
-  ...)
+  lower.bounds = c(-Inf, -Inf, -Inf), summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -216,7 +215,7 @@ output this value is denoted by \emph{"Age @2D0 (ka):"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.4.0 (2018-03-09 13:48:48)
+ 0.4.0 (2018-03-28 12:00:23)
 }
 
 \examples{

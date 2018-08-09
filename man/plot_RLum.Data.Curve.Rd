@@ -39,7 +39,7 @@ according to \link{plot}.
 Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
- 0.2.3 (2018-01-21 17:22:38)
+ 0.2.3 (2017-09-13 10:50:40)
 }
 
 \examples{

@@ -56,7 +56,7 @@ be found in the appendix of Galbraith & Laslett (1993, 468-470) and
 Galbraith & Roberts (2012, 15)
 }
 \section{Function version}{
- 1.3.2 (2018-01-21 17:22:38)
+ 1.3.2 (2017-11-14 11:12:16)
 }
 
 \examples{

@@ -96,7 +96,7 @@ An exhaustive explanation on the methodology
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2018-08-08 16:40:24)
 }
 
 \examples{
@@ -115,7 +115,12 @@ results <- scale_GammaDose(data = x,
 get_RLum(results)
 
 
+} 
+
+\section{How to cite}{
+Riedesel, S., Autzen, M., Burow, C. (2018). scale_GammaDose(): A short title. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 factors: update. Ancient TL, 29, 5-8.
@@ -137,5 +142,5 @@ Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark) \cr
 Christoph Burow, University of Cologne (Germany) \cr
 Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

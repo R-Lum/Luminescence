@@ -4,9 +4,9 @@
 \alias{plot_Risoe.BINfileData}
 \title{Plot single luminescence curves from a BIN file object}
 \usage{
-plot_Risoe.BINfileData(BINfileData, position, run, set,
-  sorter = "POSITION", ltype = c("IRSL", "OSL", "TL", "RIR", "RBR",
-  "RL"), curve.transformation, dose_rate, temp.lab, cex.global = 1, ...)
+plot_Risoe.BINfileData(BINfileData, position, run, set, sorter = "POSITION",
+  ltype = c("IRSL", "OSL", "TL", "RIR", "RBR", "RL"), curve.transformation,
+  dose_rate, temp.lab, cex.global = 1, ...)
 }
 \arguments{
 \item{BINfileData}{\linkS4class{Risoe.BINfileData} (\strong{required}):
@@ -83,7 +83,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1 (2018-01-21 17:22:38)
+ 0.4.1 (2017-09-13 10:50:40)
 }
 
 \examples{

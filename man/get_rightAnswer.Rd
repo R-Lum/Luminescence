@@ -16,7 +16,7 @@ Returns the right answer
 This function returns just the right answer
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2017-09-13 10:50:40)
 }
 
 \examples{

@@ -145,7 +145,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.5 (2018-08-03 10:46:47)
+ 0.5.5 (2018-08-08 16:20:00)
 }
 
 \examples{

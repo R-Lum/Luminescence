@@ -30,6 +30,8 @@ Return is the same as input objects as provided in the list.
 }
 \description{
 Function calls object-specific get functions for RLum S4 class objects.
+
+Method to handle NULL if the user calls get_RLum
 }
 \details{
 The function provides a generalised access point for specific
@@ -46,7 +48,7 @@ Allowed arguments can be found in the documentations of the corresponding
 }}
 
 \section{Function version}{
- 0.3.2 (2018-01-21 17:22:38)
+ 0.3.2 (2017-11-20 13:44:56)
 }
 
 \examples{

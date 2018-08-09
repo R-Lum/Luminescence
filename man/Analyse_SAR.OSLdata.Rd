@@ -4,8 +4,8 @@
 \alias{Analyse_SAR.OSLdata}
 \title{Analyse SAR CW-OSL measurements.}
 \usage{
-Analyse_SAR.OSLdata(input.data, signal.integral, background.integral,
-  position, run, set, dtype, keep.SEL = FALSE,
+Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
+  run, set, dtype, keep.SEL = FALSE,
   info.measurement = "unkown measurement", output.plot = FALSE,
   output.plot.single = FALSE, cex.global = 1, ...)
 }
@@ -106,7 +106,7 @@ consider using the functions \link{analyse_SAR.CWOSL} or
 \strong{The development of this function will not be continued. We recommend to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.17 (2018-01-21 17:22:38)
+ 0.2.17 (2017-09-13 10:50:39)
 }
 
 \examples{

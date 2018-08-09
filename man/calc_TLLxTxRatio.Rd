@@ -4,9 +4,8 @@
 \alias{calc_TLLxTxRatio}
 \title{Calculate the Lx/Tx ratio for a given set of TL curves \code{[beta version]}}
 \usage{
-calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL,
-  Tx.data.signal, Tx.data.background = NULL, signal.integral.min,
-  signal.integral.max)
+calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL, Tx.data.signal,
+  Tx.data.background = NULL, signal.integral.min, signal.integral.max)
 }
 \arguments{
 \item{Lx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -61,7 +60,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.2 (2018-01-21 17:22:38)
+ 0.3.2 (2017-09-13 10:50:39)
 }
 
 \examples{

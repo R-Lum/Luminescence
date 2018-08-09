@@ -4,8 +4,7 @@
 \alias{read_Daybreak2R}
 \title{Import measurement data produced by a Daybreak TL/OSL reader into R}
 \usage{
-read_Daybreak2R(file, raw = FALSE, verbose = TRUE,
-  txtProgressBar = TRUE)
+read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}):
@@ -38,7 +37,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
- 0.3.1 (2018-01-21 17:22:38)
+ 0.3.1 (2017-09-13 10:50:40)
 }
 
 \examples{

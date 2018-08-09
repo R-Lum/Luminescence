@@ -5,8 +5,7 @@
 \title{Plot filter combinations along with the (optional) net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
-  show_net_transmission = TRUE, interactive = FALSE, plot = TRUE,
-  ...)
+  show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)
 }
 \arguments{
 \item{filters}{\link{list} (\strong{required}):
@@ -124,7 +123,7 @@ can be fully customised by disabling the standard legend and use the function \l
 instead.
 }
 \section{Function version}{
- 0.3.1 (2018-01-21 17:22:38)
+ 0.3.1 (2017-12-01 16:12:09)
 }
 
 \examples{

@@ -4,8 +4,7 @@
 \alias{set_RLum}
 \title{General set function for RLum S4 class objects}
 \usage{
-set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_,
-  ...)
+set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
 }
 \arguments{
 \item{class}{\linkS4class{RLum} (\strong{required}):
@@ -44,7 +43,7 @@ in the documentations of the corresponding \linkS4class{RLum} class:
 }
 }
 \section{Function version}{
- 0.3.0 (2018-01-21 17:22:38)
+ 0.3.0 (2017-09-13 10:50:40)
 }
 
 \examples{

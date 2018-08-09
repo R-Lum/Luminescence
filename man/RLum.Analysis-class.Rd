@@ -19,9 +19,8 @@
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
   recordType = NULL, curveType = NULL, RLum.type = NULL,
-  protocol = "UNKNOWN", get.index = NULL, drop = TRUE,
-  recursive = TRUE, info.object = NULL, subset = NULL,
-  env = parent.frame(2))
+  protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
+  info.object = NULL, subset = NULL, env = parent.frame(2))
 
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 

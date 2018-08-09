@@ -4,9 +4,8 @@
 \alias{fit_OSLLifeTimes}
 \title{Fitting and Deconvolution of OSL Lifetime Components}
 \usage{
-fit_OSLLifeTimes(object, tp = 0, signal_range = NULL,
-  n.components = NULL, method_control = list(), plot = TRUE,
-  verbose = TRUE, ...)
+fit_OSLLifeTimes(object, tp = 0, signal_range = NULL, n.components = NULL,
+  method_control = list(), plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \link{data.frame} or \link{matrix} \strong{(required)}:
@@ -131,7 +130,7 @@ The default values is \code{TRUE}
 }
 }
 \section{Function version}{
- 0.1.0 (2018-08-03 11:01:07)
+ 0.1.0 (2018-07-19 13:29:47)
 }
 
 \examples{

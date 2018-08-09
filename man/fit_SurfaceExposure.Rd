@@ -5,8 +5,8 @@
 \title{Nonlinear Least Squares Fit for OSL surface exposure data}
 \usage{
 fit_SurfaceExposure(data, sigmaphi = NULL, mu = NULL, age = NULL,
-  Ddot = NULL, D0 = NULL, weights = FALSE, plot = TRUE,
-  legend = TRUE, error_bars = TRUE, coord_flip = FALSE, ...)
+  Ddot = NULL, D0 = NULL, weights = FALSE, plot = TRUE, legend = TRUE,
+  error_bars = TRUE, coord_flip = FALSE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} or \link{list} (\strong{required}):
@@ -147,7 +147,7 @@ may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} an
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2017-10-23 13:55:26)
 }
 
 \examples{

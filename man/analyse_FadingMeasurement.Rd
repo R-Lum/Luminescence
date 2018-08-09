@@ -4,9 +4,9 @@
 \alias{analyse_FadingMeasurement}
 \title{Analyse fading measurements and returns the fading rate per decade (g-value)}
 \usage{
-analyse_FadingMeasurement(object, structure = c("Lx", "Tx"),
-  signal.integral, background.integral, t_star = "half", n.MC = 100,
-  verbose = TRUE, plot = TRUE, plot.single = FALSE, ...)
+analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
+  background.integral, t_star = "half", n.MC = 100, verbose = TRUE,
+  plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -108,7 +108,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.5 (2018-08-03 11:01:07)
+ 0.1.5 (2018-06-18 19:27:29)
 }
 
 \examples{

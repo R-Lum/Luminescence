@@ -7,8 +7,8 @@ distribution}
 \usage{
 calc_FiniteMixture(data, sigmab, n.components, grain.probability = FALSE,
   dose.scale, pdf.weight = TRUE, pdf.sigma = "sigmab",
-  pdf.colors = "gray", pdf.scale, plot.proportions = TRUE,
-  plot = TRUE, ...)
+  pdf.colors = "gray", pdf.scale, plot.proportions = TRUE, plot = TRUE,
+  ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -118,7 +118,7 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2018-04-19 13:18:48)
+ 0.4 (2018-06-18 19:27:20)
 }
 
 \examples{

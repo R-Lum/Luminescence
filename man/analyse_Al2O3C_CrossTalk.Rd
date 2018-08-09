@@ -4,10 +4,9 @@
 \alias{analyse_Al2O3C_CrossTalk}
 \title{Al2O3:C Reader Cross Talk Analysis}
 \usage{
-analyse_Al2O3C_CrossTalk(object, signal_integral = NULL,
-  dose_points = c(0, 4), recordType = c("OSL (UVVIS)"),
-  irradiation_time_correction = NULL, method_control = NULL,
-  plot = TRUE, ...)
+analyse_Al2O3C_CrossTalk(object, signal_integral = NULL, dose_points = c(0,
+  4), recordType = c("OSL (UVVIS)"), irradiation_time_correction = NULL,
+  method_control = NULL, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -72,7 +71,7 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C chips
 }
 \section{Function version}{
- 0.1.2 (2018-04-27 17:34:30)
+ 0.1.2 (2018-06-18 19:27:20)
 }
 
 \examples{

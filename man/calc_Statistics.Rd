@@ -4,8 +4,8 @@
 \alias{calc_Statistics}
 \title{Function to calculate statistic measures}
 \usage{
-calc_Statistics(data, weight.calc = "square", digits = NULL,
-  n.MCM = NULL, na.rm = TRUE)
+calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = NULL,
+  na.rm = TRUE)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
@@ -47,7 +47,7 @@ values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 \link{plot_AbanicoPlot} for details.
 }
 \section{Function version}{
- 0.1.7 (2018-01-21 17:22:38)
+ 0.1.7 (2017-09-13 10:50:39)
 }
 
 \examples{

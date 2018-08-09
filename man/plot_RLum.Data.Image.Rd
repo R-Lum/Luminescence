@@ -4,8 +4,8 @@
 \alias{plot_RLum.Data.Image}
 \title{Plot function for an \code{RLum.Data.Image} S4 class object}
 \usage{
-plot_RLum.Data.Image(object, par.local = TRUE,
-  plot.type = "plot.raster", ...)
+plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
+  ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
@@ -75,7 +75,7 @@ function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1 (2018-01-21 17:22:38)
+ 0.1 (2017-09-13 10:50:40)
 }
 
 \examples{

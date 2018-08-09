@@ -7,8 +7,8 @@
 \alias{github_issues}
 \title{GitHub API}
 \usage{
-github_commits(user = "r-lum", repo = "luminescence",
-  branch = "master", n = 5)
+github_commits(user = "r-lum", repo = "luminescence", branch = "master",
+  n = 5)
 
 github_branches(user = "r-lum", repo = "luminescence")
 
@@ -61,6 +61,15 @@ Each commit element is a list with elements:
 \code{[[7]]} \tab URL \cr
 \code{[[8]]} \tab STATUS \cr
 }
+
+[[1]: R:[1
+[[2]: R:[2
+[[3]: R:[3
+[[4]: R:[4
+[[5]: R:[5
+[[6]: R:[6
+[[7]: R:[7
+[[8]: R:[8
 }
 \description{
 R Interface to the GitHub API v3.

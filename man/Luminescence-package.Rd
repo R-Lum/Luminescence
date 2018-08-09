@@ -49,6 +49,9 @@ implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14–21.
 
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL, 33 (1), 16-21.
+
+King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination
+using feldspar: evaluating fading-correction model performance. Radiation Measurements.
 }
 \author{
 \strong{Full list of authors and contributors} (alphabetic order)
@@ -68,7 +71,9 @@ Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France}
 Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
 Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
 Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
-Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
+Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France} \cr
+Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
+Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies}
 }
 
 \strong{Supervisor of the initial version in 2012}

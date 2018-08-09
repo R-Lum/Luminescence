@@ -104,7 +104,7 @@ that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 strongly recommended to use the argument \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.0 (2018-01-21 17:22:38)
+ 0.2.0 (2017-09-13 10:50:40)
 }
 
 \examples{
