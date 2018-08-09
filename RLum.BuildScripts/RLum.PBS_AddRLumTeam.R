@@ -7,7 +7,7 @@
 
 # Reading file ------------------------------------------------------------
 
-file.list.man <- list.files("man/")
+file.list.man <- list.files("man/", recursive = TRUE, include.dirs = FALSE)
 file.list.R <- list.files("R/")
 
 # Adding additional information ---------------------------------------------------------------
