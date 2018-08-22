@@ -36,7 +36,10 @@
 #' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
 #' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control]) \cr
 #' `weights` \tab [logical] \tab enables/disables the weighting for the start parameter estimation and fitting (see equations above).
-#' The default values is `TRUE`
+#' The default values is `TRUE` \cr
+#' `nlsLM.trace` \tab [logical] \tab enables/disables trace mode for the nls fitting ([minpack.lm::nlsLM]), can be used to identify convergence problems, default is `FALSE` \cr
+#' `nlsLM.upper` \tab [logical] \tab enables/disables upper parameter boundary, default is `TRUE` \cr
+#' `nlsLM.lower` \tab [logical] \tab enables/disables lower parameter boundary, default is `TRUE`
 #' }
 #'
 #' @param object [RLum.Data.Curve-class], [data.frame] or [matrix] **(required)**:
@@ -119,7 +122,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 #' Christoph Schmidt, University of Bayreuth (Germany)
@@ -280,7 +283,10 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     seed = NULL,
     DEoptim.trace = FALSE,
     DEoptim.itermax = 1000,
-    weights = TRUE
+    weights = TRUE,
+    nlsLM.trace = FALSE,
+    nlsLM.upper = TRUE,
+    nlsLM.lower = TRUE
 
   )
 
@@ -323,7 +329,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
       w <- "1"
 
     }
-
 
     ##combine
     term <- paste0("sum(",w," * ((n/c) - (",term,"))^2)")
@@ -382,7 +387,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
       ##set function
       ##Personal reminder:
       ##Why this function is not written in C++ ... because it adds basically nothing
-      ##to in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot changed
+      ##in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot changed
       ##directly in the code
       fn <- function(x, tp = set_tp, n = set_n, c = set_c, t = set_t, term = formula_string){
          eval(formula_string)
@@ -480,22 +485,30 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
     }
 
-
+    ##run fitting using the Levenberg-Marquardt algorithm
     fit <- try(minpack.lm::nlsLM(
       formula = fit_forumla(n.components = m, tp = tp),
       data = df,
       start = c(A, tau),
-      upper = c(rep(sum(df[[2]]), length(A)), rep(Inf,length(tau))),
-      lower = c(rep(0,2*length(A))),
+      upper = if(method_control_setting$nlsLM.upper){
+        c(rep(sum(df[[2]]), length(A)), rep(Inf,length(tau)))
+       }else{
+         NULL
+       },
+      lower = if(method_control_setting$nlsLM.lower){
+        c(rep(0,2*length(A)))
+       }else{
+         NULL
+       },
       na.action = "na.exclude",
       weights = if(method_control_setting$weights){
         set_c^2/df[,2]
       }else{
-       rep(1,nrow(df))
+        rep(1,nrow(df))
       },
-      trace = FALSE,
+      trace = method_control_setting$nlsLM.trace,
       control = minpack.lm::nls.lm.control(maxiter = 500)
-    ), silent = TRUE)
+    ), silent = FALSE)
 
 
 
@@ -514,6 +527,11 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     ##summary matrix
     summary_matrix <- summary(fit)$coefficients
 
+    ##return warning if one parameter is negative, this can happen if the user let the boundaries
+    ##free float
+    if(any(summary_matrix[,1]<0))
+      warning("[fit_OSLLifeTimes()] At least one parameter is negative. Please carefully check your results!", call. = FALSE)
+
     ##order matrix by tau, but keep the rownames
     temp_rownames <- rownames(summary_matrix)
     summary_matrix <- summary_matrix[c(o,o + length(A)),]
@@ -524,7 +542,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     R <- residuals(fit)
     D <- round(sum((R - c(0,R[-length(R)]))^2) / sum(R^2),2)
     rm(R)
-
 
 
   }else{
@@ -546,7 +563,7 @@ if(verbose){
     cat("-------------------------------------------------------------------------\n")
 
   }else{
-    try(stop("The fitting was not sucessful, consider to try again!", call. = FALSE))
+    try(stop("[fit_OSLLifeTimes()] The fitting was not sucessful, consider to try again!", call. = FALSE))
 
   }
 
@@ -563,6 +580,7 @@ if(verbose){
 
   }
   cat(paste(string, collapse = ""))
+  cat("\n")
 
 }
 
@@ -577,8 +595,8 @@ if(plot) {
     xlab = "Time [a.u.]",
     ylab = "POSL [a.u.]",
     log = "",
-    xlim = c(0,max(df[[1]])),
-    ylim = c(0,max(df[[2]])),
+    xlim = c(0,max(df_raw[[1]])),
+    ylim = c(0,max(df_raw[[2]])),
     col = get("col", pos = .LuminescenceEnv)[-1],
     lty = rep(1, (m + 1)),
     legend.pos = "topright",
@@ -617,17 +635,22 @@ if(plot) {
 
     screen(1)
     par(mar = c(0, 4, 3, 4))
-    plot(df,
+    plot(NA,NA,
          xaxt = "n",
          xlab = "",
-         ylab =  plot_settings$ylab,
-         col = rgb(0,0,0,0.8),
+         ylab = plot_settings$ylab,
          ylim = plot_settings$ylim,
          xlim = plot_settings$xlim,
          log = plot_settings$log,
          main = plot_settings$main
          )
 
+    ##add used points
+    points(df, col = rgb(0,0,0,0.8))
+
+    ##add not used points df_raw (this solution avoids overplotting)
+    if(nrow(df) != nrow(df_raw))
+      points(df_raw[!df_raw[[1]]%in%df[[1]],], col = "grey")
 
     ##+ add some curve
     lines(
@@ -715,4 +738,3 @@ if(plot) {
   )
 
 }
-
