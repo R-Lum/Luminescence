@@ -4,8 +4,8 @@
 \alias{analyse_Al2O3C_ITC}
 \title{Al2O3 Irradiation Time Correction Analysis}
 \usage{
-analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
-  12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
+analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2,
+  4, 8, 12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
   verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
@@ -94,7 +94,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2018-06-18 19:27:20)
+ 0.1.1 (2018-04-27 17:34:30)
 }
 
 \examples{

@@ -4,8 +4,9 @@
 \alias{calc_ThermalLifetime}
 \title{Calculates the Thermal Lifetime using the Arrhenius equation}
 \usage{
-calc_ThermalLifetime(E, s, T = 20, output_unit = "Ma", profiling = FALSE,
-  profiling_config = NULL, verbose = TRUE, plot = TRUE, ...)
+calc_ThermalLifetime(E, s, T = 20, output_unit = "Ma",
+  profiling = FALSE, profiling_config = NULL, verbose = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{E}{\link{numeric} (\strong{required}):
@@ -103,7 +104,7 @@ The profiling is currently based on resampling from a normal distribution, this
 distribution assumption might be, however, not valid for given E and s paramters.
 }
 \section{Function version}{
- 0.1.0 (2018-02-07 18:05:15)
+ 0.1.0 (2018-02-08 18:09:55)
 }
 
 \examples{

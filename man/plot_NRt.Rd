@@ -4,8 +4,8 @@
 \alias{plot_NRt}
 \title{Visualise natural/regenerated signal ratios}
 \usage{
-plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
-  legend = TRUE, legend.pos = "topright", ...)
+plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"),
+  k = 3, legend = TRUE, legend.pos = "topright", ...)
 }
 \arguments{
 \item{data}{\link{list}, \link{data.frame}, \link{matrix} or \linkS4class{RLum.Analysis} (\strong{required}):

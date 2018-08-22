@@ -4,10 +4,10 @@
 \alias{plot_RLum.Data.Spectrum}
 \title{Plot function for an RLum.Data.Spectrum S4 class object}
 \usage{
-plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
-  optical.wavelength.colours = TRUE, bg.channels, bin.rows = 1,
-  bin.cols = 1, rug = TRUE, limit_counts = NULL, xaxis.energy = FALSE,
-  legend.text, ...)
+plot_RLum.Data.Spectrum(object, par.local = TRUE,
+  plot.type = "contour", optical.wavelength.colours = TRUE,
+  bg.channels, bin.rows = 1, bin.cols = 1, rug = TRUE,
+  limit_counts = NULL, xaxis.energy = FALSE, legend.text, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
@@ -161,7 +161,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.3 (2017-09-13 10:50:40)
+ 0.5.3 (2018-01-21 17:22:38)
 }
 
 \examples{

@@ -4,8 +4,8 @@
 \alias{calc_FuchsLang2001}
 \title{Apply the model after Fuchs & Lang (2001) to a given De distribution.}
 \usage{
-calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1, plot = TRUE,
-  ...)
+calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -61,7 +61,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1 (2017-09-13 10:50:39)
+ 0.4.1 (2018-01-21 17:22:38)
 }
 
 \examples{

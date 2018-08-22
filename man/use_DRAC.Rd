@@ -4,7 +4,8 @@
 \alias{use_DRAC}
 \title{Use DRAC to calculate dose rate data}
 \usage{
-use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
+use_DRAC(file, name, print_references = TRUE, citation_style = "text",
+  ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
@@ -56,7 +57,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.3 (2018-02-19 14:07:14)
+ 0.1.3 (2018-02-19 16:53:17)
 }
 
 \examples{

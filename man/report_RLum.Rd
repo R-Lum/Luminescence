@@ -6,8 +6,8 @@
 \usage{
 report_RLum(object, file = tempfile(), title = "RLum.Report",
   compact = TRUE, timestamp = TRUE, show_report = TRUE,
-  launch.browser = FALSE, css.file = NULL, quiet = TRUE, clean = TRUE,
-  ...)
+  launch.browser = FALSE, css.file = NULL, quiet = TRUE,
+  clean = TRUE, ...)
 }
 \arguments{
 \item{object}{(\strong{required}):
@@ -118,7 +118,7 @@ CSS styling can be turned of using \code{css = FALSE}.
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 }
 \section{Function version}{
- 0.1.1 (2018-06-18 19:27:20)
+ 0.1.1 (2018-06-10 16:57:37)
 }
 
 \examples{

@@ -4,8 +4,8 @@
 \alias{read_PSL2R}
 \title{Import PSL files to R}
 \usage{
-read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE,
-  merge = FALSE, ...)
+read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE,
+  smooth = FALSE, merge = FALSE, ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
@@ -52,7 +52,7 @@ a specific PSL file please report to \href{mailto:christoph.burow@uni-koeln.de}{
 function can be updated.
 }
 \section{Function version}{
- 0.0.1 (2017-09-13 11:05:24)
+ 0.0.1 (2018-01-21 17:22:38)
 }
 
 \examples{

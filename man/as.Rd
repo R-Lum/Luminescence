@@ -4,10 +4,6 @@
 %   R/RLum.Data.Spectrum-class.R, R/RLum.Results-class.R
 \name{as}
 \alias{as}
-\alias{as}
-\alias{as}
-\alias{as}
-\alias{as}
 \title{as() - RLum-object coercion}
 \arguments{
 \item{from}{\linkS4class{RLum}, \link{list}, \link{data.frame}, \link{matrix} (\strong{required}):

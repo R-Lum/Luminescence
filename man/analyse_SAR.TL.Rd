@@ -7,8 +7,8 @@
 analyse_SAR.TL(object, object.background, signal.integral.min,
   signal.integral.max, integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
-  rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
-  dose.points, log = "", ...)
+  rejection.criteria = list(recycling.ratio = 10, recuperation.rate =
+  10), dose.points, log = "", ...)
 }
 \arguments{
 \item{object}{\href{**required**}{RLum.Analysis-class}:
@@ -85,7 +85,7 @@ None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
- 0.2.0 (2017-09-13 10:50:39)
+ 0.2.0 (2018-01-21 17:22:38)
 }
 
 \examples{

@@ -6,8 +6,8 @@
 \usage{
 scale_GammaDose(data, conversion_factors = c("Guerinetal2011",
   "AdamiecAitken1998", "Liritzisetal2013")[1],
-  fractional_gamma_dose = c("Aitken1985")[1], verbose = TRUE, plot = TRUE,
-  plot_single = TRUE, ...)
+  fractional_gamma_dose = c("Aitken1985")[1], verbose = TRUE,
+  plot = TRUE, plot_single = TRUE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -96,7 +96,7 @@ An exhaustive explanation on the methodology
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2018-08-08 16:40:24)
+ 0.1.0 (2018-08-22 19:00:29)
 }
 
 \examples{

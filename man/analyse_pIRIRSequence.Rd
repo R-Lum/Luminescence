@@ -101,7 +101,7 @@ with the following options:
 \code{pdf(file = "...", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.4 (2018-07-30 09:58:29)
+ 0.2.4 (2018-08-02 12:37:05)
 }
 
 \examples{

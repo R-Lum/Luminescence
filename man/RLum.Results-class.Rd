@@ -15,8 +15,8 @@
 \S4method{set_RLum}{RLum.Results}(class, originator, .uid, .pid,
   data = list(), info = list())
 
-\S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL,
-  drop = TRUE)
+\S4method{get_RLum}{RLum.Results}(object, data.object,
+  info.object = NULL, drop = TRUE)
 
 \S4method{length_RLum}{RLum.Results}(object)
 

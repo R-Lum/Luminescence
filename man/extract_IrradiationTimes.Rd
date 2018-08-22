@@ -4,9 +4,9 @@
 \alias{extract_IrradiationTimes}
 \title{Extract Irradiation Times from an XSYG-file}
 \usage{
-extract_IrradiationTimes(object, file.BINX, recordType = c("irradiation (NA)",
-  "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"), compatibility.mode = TRUE,
-  txtProgressBar = TRUE)
+extract_IrradiationTimes(object, file.BINX,
+  recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)",
+  "TL (UVVIS)"), compatibility.mode = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{object}{\link{character}, \linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
@@ -104,7 +104,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.3.1 (2017-09-13 10:50:39)
+ 0.3.1 (2018-01-21 17:22:38)
 }
 
 \examples{

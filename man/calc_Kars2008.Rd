@@ -40,7 +40,7 @@ can be used to calculate the sample specific \eqn{\rho}' value.
 \strong{(use \code{fit.method = "EXP"} to apply the model after Kars et al., 2008).}
 }
 \section{Function version}{
- 0.4.0 (2018-03-08 10:29:31)
+ 0.4.0 (2018-03-09 09:04:33)
 }
 
 \examples{

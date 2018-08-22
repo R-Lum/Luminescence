@@ -136,7 +136,7 @@ be done using the functions provided with the package \link{xml}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.6 (2018-01-29 14:07:21)
+ 0.6.6 (2018-01-28 18:45:31)
 }
 
 \examples{

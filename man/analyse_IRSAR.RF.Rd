@@ -4,10 +4,11 @@
 \alias{analyse_IRSAR.RF}
 \title{Analyse IRSAR RF measurements}
 \usage{
-analyse_IRSAR.RF(object, sequence_structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
-  method.control = NULL, test_parameters = NULL, n.MC = 10,
-  txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
+analyse_IRSAR.RF(object, sequence_structure = c("NATURAL",
+  "REGENERATED"), RF_nat.lim = NULL, RF_reg.lim = NULL,
+  method = "FIT", method.control = NULL, test_parameters = NULL,
+  n.MC = 10, txtProgressBar = TRUE, plot = TRUE,
+  plot_reduced = FALSE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \linkS4class{RLum.Analysis}-objects (\strong{required}):
@@ -315,7 +316,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.5 (2018-02-08 18:30:08)
+ 0.7.5 (2018-02-08 18:55:30)
 }
 
 \examples{

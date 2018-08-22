@@ -8,8 +8,8 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max, method = "shift",
   signal_integral.seq = NULL, analyse_function = "analyse_SAR.CWOSL",
   analyse_function.control = list(), n.channels = NULL,
-  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE, verbose = TRUE,
-  ...)
+  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -107,7 +107,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using serveral hundreds of channels.
 }
 \section{Function version}{
- 0.1.1 (2017-09-13 10:50:40)
+ 0.1.1 (2018-01-21 17:22:38)
 }
 
 \examples{

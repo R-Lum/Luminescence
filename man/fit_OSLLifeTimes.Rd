@@ -4,8 +4,9 @@
 \alias{fit_OSLLifeTimes}
 \title{Fitting and Deconvolution of OSL Lifetime Components}
 \usage{
-fit_OSLLifeTimes(object, tp = 0, signal_range = NULL, n.components = NULL,
-  method_control = list(), plot = TRUE, verbose = TRUE, ...)
+fit_OSLLifeTimes(object, tp = 0, signal_range = NULL,
+  n.components = NULL, method_control = list(), plot = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \link{data.frame} or \link{matrix} \strong{(required)}:
@@ -126,11 +127,14 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{weights} \tab \link{logical} \tab enables/disables the weighting for the start parameter estimation and fitting (see equations above).
-The default values is \code{TRUE}
+The default values is \code{TRUE} \cr
+\code{nlsLM.trace} \tab \link{logical} \tab enables/disables trace mode for the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}), can be used to identify convergence problems, default is \code{FALSE} \cr
+\code{nlsLM.upper} \tab \link{logical} \tab enables/disables upper parameter boundary, default is \code{TRUE} \cr
+\code{nlsLM.lower} \tab \link{logical} \tab enables/disables lower parameter boundary, default is \code{TRUE}
 }
 }
 \section{Function version}{
- 0.1.0 (2018-07-19 13:29:47)
+ 0.1.1 (2018-08-22 18:56:05)
 }
 
 \examples{
@@ -140,7 +144,7 @@ print("nothing here so far")
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C. (2018). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C. (2018). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
