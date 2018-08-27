@@ -1,8 +1,8 @@
 #' Create De(t) plot
 #'
-#' Plots the equivalent dose (De) in dependency of the chosen signal integral 
-#' (cf. Bailey et al., 2003). The function is simply passing several arguments 
-#' to the function [plot] and the used analysis functions and runs it in a loop. 
+#' Plots the equivalent dose (De) in dependency of the chosen signal integral
+#' (cf. Bailey et al., 2003). The function is simply passing several arguments
+#' to the function [plot] and the used analysis functions and runs it in a loop.
 #' Example: `legend.pos` for legend position, `legend` for legend text.
 #'
 #' **method**
@@ -15,13 +15,13 @@
 #' Note that in both cases the integral limits are overlap. The finally applied limits are part
 #' of the function output.
 #'
-#' @param object [RLum.Analysis-class] (**required**): 
+#' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis
 #'
-#' @param signal.integral.min [integer] (**required**): 
+#' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral.
 #'
-#' @param signal.integral.max [integer] (**required**): 
+#' @param signal.integral.max [integer] (**required**):
 #' upper bound of the signal integral.
 #'
 #' @param background.integral.min [integer] (**required**):
@@ -30,46 +30,46 @@
 #' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral.
 #'
-#' @param method [character] (*with default*): 
+#' @param method [character] (*with default*):
 #' method applied for constructing the De(t) plot.
 #' - `shift` (*the default*): the chosen signal integral is shifted the shine down curve,
 #' - `expansion`: the chosen signal integral is expanded each time by its length
 #'
-#' @param signal_integral.seq [numeric] (*optional*): 
+#' @param signal_integral.seq [numeric] (*optional*):
 #' argument to provide an own signal integral sequence for constructing the De(t) plot
 #'
-#' @param analyse_function [character] (*with default*): 
-#' name of the analyse function to be called. Supported functions are: 
+#' @param analyse_function [character] (*with default*):
+#' name of the analyse function to be called. Supported functions are:
 #' `'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`
 #'
-#' @param analyse_function.control [list] (*optional*): 
-#' arguments to be passed to the supported analyse functions 
+#' @param analyse_function.control [list] (*optional*):
+#' arguments to be passed to the supported analyse functions
 #' (`'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`)
 #'
-#' @param n.channels [integer] (*optional*): 
-#' number of channels used for the De(t) plot. If nothing is provided all 
+#' @param n.channels [integer] (*optional*):
+#' number of channels used for the De(t) plot. If nothing is provided all
 #' De-values are calculated and plotted until the start of the background
 #' integral.
 #'
-#' @param show_ShineDownCurve [logical] (*with default*): 
+#' @param show_ShineDownCurve [logical] (*with default*):
 #' enables or disables shine down curve in the plot output
 #'
 #' @param respect_RC.Status [logical] (*with default*):
-#'  remove De-values with 'FAILED' RC.Status from the plot 
+#'  remove De-values with 'FAILED' RC.Status from the plot
 #'  (cf. [analyse_SAR.CWOSL] and [analyse_pIRIRSequence])
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enables or disables terminal feedback
 #'
-#' @param ... further arguments and graphical parameters passed to 
+#' @param ... further arguments and graphical parameters passed to
 #' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
 #' See details for further information.
 #'
-#' @return 
+#' @return
 #' A plot and an [RLum.Results-class] object with the produced De values
 #'
 #' `@data`:
-#' 
+#'
 #' \tabular{lll}{
 #' **Object** \tab **Type** \tab **Description**\cr
 #' De.values \tab `data.frame` \tab table with De values \cr
@@ -84,17 +84,17 @@
 #' }
 #'
 #'
-#' @note 
+#' @note
 #' The entire analysis is based on the used analysis functions, namely
 #' [analyse_SAR.CWOSL] and [analyse_pIRIRSequence]. However, the integrity
-#' checks of this function are not that thoughtful as in these functions itself. 
-#' It means, that every sequence should be checked carefully before running long 
+#' checks of this function are not that thoughtful as in these functions itself.
+#' It means, that every sequence should be checked carefully before running long
 #' calculations using serveral hundreds of channels.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @references
 #' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
@@ -153,7 +153,6 @@ plot_DetPlot <- function(
 
   ##set n.channels
   if(is.null(n.channels)){
-
     n.channels <- ceiling(
       (background.integral.min - 1 - signal.integral.max) / (signal.integral.max - signal.integral.min)
     )
@@ -175,10 +174,18 @@ plot_DetPlot <- function(
 
   ##set integral sequence
   if (is.null(signal_integral.seq)) {
-    signal_integral.seq <-
-      seq(signal.integral.min,
-          background.integral.min - 1,
-          by = signal.integral.max - signal.integral.min)
+    if(signal.integral.min == signal.integral.max){
+      signal_integral.seq <- signal.integral.min:(background.integral.min - 1)
+
+
+    }else{
+      signal_integral.seq <-
+        seq(signal.integral.min,
+            background.integral.min - 1,
+            by = signal.integral.max - signal.integral.min)
+
+    }
+
   }
 
 
@@ -227,7 +234,7 @@ plot_DetPlot <- function(
 
   }
   else{
-   stop("[plot_DetPlot()] 'analyse_function' unknown!")
+   stop("[plot_DetPlot()] 'analyse_function' unknown!", call. = FALSE)
 
   }
 
