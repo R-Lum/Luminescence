@@ -107,7 +107,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using serveral hundreds of channels.
 }
 \section{Function version}{
- 0.1.1 (2018-01-21 17:22:38)
+ 0.1.2 (2018-08-27 10:58:24)
 }
 
 \examples{
@@ -133,7 +133,7 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). plot_DetPlot(): Create De(t) plot. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.6. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2018). plot_DetPlot(): Create De(t) plot. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -145,5 +145,5 @@ doi:10.1016/S1350-4487(03)00063-5
 \link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}

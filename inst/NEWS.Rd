@@ -28,6 +28,13 @@
 
     }
 
+    \item \code{plot_DetPlot()}
+
+      \itemize{
+        \item Function does not break anymore if \code{signal.integral.min == signal.integral.max} (reported by Andrea Junge).
+
+    }
+
       \item \code{plot_KDE()}
       \itemize{
         \item The function could not handle \code{Inf} values (#71) as reported by Dirk Mittelstraß; fixed.
