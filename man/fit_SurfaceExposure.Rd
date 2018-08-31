@@ -147,7 +147,7 @@ may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} an
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0
 }
 
 \examples{
@@ -191,12 +191,7 @@ results <- fit_SurfaceExposure(set_2, age = c(1e2, 1e3, 1e4, 1e5, 1e6),
                                sigmaphi = 5e-10, Ddot = 1, D0 = 40)
 get_RLum(results)
 
-} 
-
-\section{How to cite}{
-Burow, C. (2018). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
@@ -211,5 +206,5 @@ Icarus 221, 160-166.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

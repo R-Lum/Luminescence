@@ -1,6 +1,6 @@
 pandoc: 2.2.1
-pkgdown: 1.1.0.9000
-pkgdown_sha: f317e4942d4cbadb377caed2ae0484b08d0f8d03
+pkgdown: 1.1.0
+pkgdown_sha: ~
 articles:
   HowTo_analyse_Al2O3: HowTo_analyse_Al2O3.html
   HowTo_analyse_pIRIRMeasurements: HowTo_analyse_pIRIRMeasurements.html

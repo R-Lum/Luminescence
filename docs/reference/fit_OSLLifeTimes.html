@@ -124,8 +124,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>fit_OSLLifeTimes</span>(<span class='no'>object</span>, <span class='kw'>tp</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>signal_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method_control</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>fit_OSLLifeTimes</span>(<span class='no'>object</span>, <span class='kw'>tp</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>signal_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method_control</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,7 +135,7 @@
       <th>object</th>
       <td><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, data.frame or matrix <strong>(required)</strong>:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
-processing</p></td>
+processing. Please note: <code>NA</code> values are automatically removed and the dataset should comprise at least 5 data points.</p></td>
     </tr>
     <tr>
       <th>tp</th>
@@ -194,6 +195,25 @@ all parameters are supported.</p></td>
 <p><strong>slot:</strong> <strong><code>@info</code></strong></p>
 <p>The original function call</p>
 <p>------------------------<br />
+<code>[ TERMINAL OUTPUT ]</code><br />
+------------------------<br /></p>
+<p>Terminal output is only shown of the argument <code>verbose = TRUE</code>.</p>
+<p><em>(1) Start parameter and component adapation</em><br />
+Trave of the parameter adaption process</p>
+<p><em>(2) Fitting results (sorted by ascending tau)</em><br />
+The fitting results sorted by ascending tau value. Please note
+that if you access the <code>nls</code> fitting object, the values are not sorted.</p>
+<p><em>(3) Further information</em><br /></p><ul>
+<li><p>The photon count sum</p></li>
+<li><p>Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
+the residuals should be not correlated at all. Rough measures are: <br />
+D = 0: the residuls are systematically correlated <br />
+D = 2: the residuals are randomly distributed <br />
+D = 4: the residuals are systematically anticorrlated<br /></p></li>
+</ul>
+
+<p>You should be suspicious if D differs largely from 2.</p>
+<p>------------------------<br />
 <code>[ PLOT OUTPUT ]</code><br />
 ------------------------<br /></p>
 <p>A plot showing the original data and the fit so far possible. The lower plot shows the
@@ -212,7 +232,9 @@ following the approach by Bluszcz &amp; Adamiec (2006).</p>
 number of signal components following roughly the approach suggestd by Bluszcz &amp; Adamiec (2006). In
 contrast to their work, for the optimisation by differential evolution here the package 'DEoptim' is used.</p>
 <p>The function to be optimized has the form:</p>
-<p>$$\chi^2 = \sum(w * (n/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)$$</p>
+<p>$$\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)$$</p>
+<p>with \(w = 1\) for unweighted regression analysis (<code>method_control = list(weights = FALSE)</code>) or
+\(w = c^2/n_i\) for weighted regression analysis. The default values is <code>TRUE</code>.</p>
 <p>$$F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))$$</p>
 <p>(2) Final fitting</p>
 <p><strong><code>method_control</code></strong></p>
@@ -222,17 +244,29 @@ contrast to their work, for the optimisation by differential evolution here the 
 <tr><td><code>seed</code></td><td>numeric</td><td>set the seed for the random number generator, provide a value here to get reproducible results</td></tr>
 <tr><td><code>DEoptim.trace</code></td><td>logical</td><td>enables/disables the tracing of the differential evolution (cf. <a href='http://www.rdocumentation.org/packages/DEoptim/topics/DEoptim.control'>DEoptim::DEoptim.control</a>)</td></tr>
 <tr><td><code>DEoptim.itermax</code></td><td>logical</td><td>controls the number of the allowed generations (cf. <a href='http://www.rdocumentation.org/packages/DEoptim/topics/DEoptim.control'>DEoptim::DEoptim.control</a>)</td></tr>
+<tr><td><code>weights</code></td><td>logical</td><td>enables/disables the weighting for the start parameter estimation and fitting (see equations above).
+The default values is <code>TRUE</code></td></tr>
+<tr><td><code>nlsLM.trace</code></td><td>logical</td><td>enables/disables trace mode for the nls fitting (<a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>), can be used to identify convergence problems, default is <code>FALSE</code></td></tr>
+<tr><td><code>nlsLM.upper</code></td><td>logical</td><td>enables/disables upper parameter boundary, default is <code>TRUE</code></td></tr>
+<tr><td><code>nlsLM.lower</code></td><td>logical</td><td>enables/disables lower parameter boundary, default is <code>TRUE</code></td></tr>
 </table>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.0</p>
+    <p>0.1.1 (2018-08-27 11:09:19)</p>
+    
+    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
+
+    <p>Kreutzer, S., Schmidt, C. (2018). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
 Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016<br /></p>
+<p>Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
+Biometrika 37, 409-21. doi:10.2307/2332391</p>
 <p><strong>Further reading</strong></p>
+<p>Hughes, I., Hase, T., 2010. Measurements and Their Uncertainties. Oxford University Press.</p>
 <p>Storn, R., Price, K., 1997. Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
 Journal of Global Optimization 11, 341–359.</p>
     
@@ -257,6 +291,8 @@ Journal of Global Optimization 11, 341–359.</p>
 
       <li><a href="#function-version">Function version</a></li>
 
+      <li><a href="#how-to-cite">How to cite</a></li>
+
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -268,7 +304,7 @@ Journal of Global Optimization 11, 341–359.</p>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 Christoph Schmidt, University of Bayreuth (Germany)
-
+<br /> R Luminescence Package Team
   </div>
 </div>
 

@@ -126,10 +126,11 @@ using the protocol according to Erfurt et al. (2003) and beyond.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_IRSAR.RF</span>(<span class='no'>object</span>, <span class='kw'>sequence_structure</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"NATURAL"</span>, <span class='st'>"REGENERATED"</span>),
-  <span class='kw'>RF_nat.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>RF_reg.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"FIT"</span>,
-  <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot_reduced</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>analyse_IRSAR.RF</span>(<span class='no'>object</span>, <span class='kw'>sequence_structure</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"NATURAL"</span>,
+  <span class='st'>"REGENERATED"</span>), <span class='kw'>RF_nat.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>RF_reg.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"FIT"</span>, <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>plot_reduced</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -417,7 +418,11 @@ findings by Buylaert et al. (2012).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.5</p>
+    <p>0.7.5 (2018-02-08 18:55:30)</p>
+    
+    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
+
+    <p>Kreutzer, S. (2018). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -472,7 +477,7 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #&gt; 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #&gt;   DATE SEQUENCE_NAME                                UID
-#&gt; 1   NA            NA 2018-06-22-03:13.0.144010121235624</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
+#&gt; 1   NA            NA 2018-08-31-06:37.0.144010121235624</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #&gt; 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
 #&gt; 2       NA intersection_ratio        NA 5.541736e-03     OK            NA
 #&gt; 3       NA    residuals_slope        NA           NA     OK            NA
@@ -482,14 +487,14 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
 #&gt; 7       NA               beta        NA 5.418719e-01     OK            NA
 #&gt; 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #&gt;                                  UID
-#&gt; 1 2018-06-22-03:13.0.144010121235624
-#&gt; 2 2018-06-22-03:13.0.144010121235624
-#&gt; 3 2018-06-22-03:13.0.144010121235624
-#&gt; 4 2018-06-22-03:13.0.144010121235624
-#&gt; 5 2018-06-22-03:13.0.144010121235624
-#&gt; 6 2018-06-22-03:13.0.144010121235624
-#&gt; 7 2018-06-22-03:13.0.144010121235624
-#&gt; 8 2018-06-22-03:13.0.144010121235624</div><div class='input'>
+#&gt; 1 2018-08-31-06:37.0.144010121235624
+#&gt; 2 2018-08-31-06:37.0.144010121235624
+#&gt; 3 2018-08-31-06:37.0.144010121235624
+#&gt; 4 2018-08-31-06:37.0.144010121235624
+#&gt; 5 2018-08-31-06:37.0.144010121235624
+#&gt; 6 2018-08-31-06:37.0.144010121235624
+#&gt; 7 2018-08-31-06:37.0.144010121235624
+#&gt; 8 2018-08-31-06:37.0.144010121235624</div><div class='input'>
 <span class='co'>##(2) perform analysis using the method 'SLIDE'</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt; 	 Run Monte Carlo loops for error estimation
@@ -518,6 +523,8 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
 
       <li><a href="#function-version">Function version</a></li>
 
+      <li><a href="#how-to-cite">How to cite</a></li>
+
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -528,7 +535,7 @@ nls, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>mi
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-
+<br /> R Luminescence Package Team
   </div>
 </div>
 

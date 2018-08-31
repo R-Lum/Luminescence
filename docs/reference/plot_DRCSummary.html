@@ -130,8 +130,8 @@ in one single plot.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_DRCSummary</span>(<span class='no'>object</span>, <span class='kw'>sel_curves</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show_dose_points</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show_natural</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>51L</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_DRCSummary</span>(<span class='no'>object</span>, <span class='kw'>source_dose_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sel_curves</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>show_dose_points</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show_natural</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>51L</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,6 +139,10 @@ in one single plot.</p>
     <tr>
       <th>object</th>
       <td><p><a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>): input object created by the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>. The input object can be provided as list.</p></td>
+    </tr>
+    <tr>
+      <th>source_dose_rate</th>
+      <td><p>numeric (<em>optional</em>): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.</p></td>
     </tr>
     <tr>
       <th>sel_curves</th>
@@ -189,17 +193,20 @@ down the plotting process and are usually not needed</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If you want plot your DRC on an energy scale (dose in Gy), you should run the SAR analysis with the
-dose points in Gy. If you need more options than provided with this function, please have
-a look into the source code to create and modify an own R script.</p>
+    <p>If you want plot your DRC on an energy scale (dose in Gy), you can either use the option <code>source_dose_rate</code> provided
+below or your can SAR analysis with the dose points in Gy (better axis scaling).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.0</p>
+    <p>0.2.1 (2018-08-27 11:09:19)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a></p></div>
+    
+    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
+
+    <p>Kreutzer, S., Burow, C. (2018). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -240,6 +247,8 @@ a look into the source code to create and modify an own R script.</p>
       <li><a href="#function-version">Function version</a></li>
 
       <li><a href="#see-also">See also</a></li>
+
+      <li><a href="#how-to-cite">How to cite</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -248,7 +257,7 @@ a look into the source code to create and modify an own R script.</p>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) <br />
 Christoph Burow, University of Cologne
-
+<br /> R Luminescence Package Team
   </div>
 </div>
 

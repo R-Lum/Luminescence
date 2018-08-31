@@ -128,13 +128,14 @@ kernel density estimate, histogram and/or dot plot of the dose values.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_AbanicoPlot</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"mean.weighted"</span>,
-  <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"qr"</span>, <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>rotate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>mtext</span>, <span class='no'>summary</span>,
-  <span class='no'>summary.pos</span>, <span class='kw'>summary.method</span> <span class='kw'>=</span> <span class='st'>"MCM"</span>, <span class='no'>legend</span>, <span class='no'>legend.pos</span>, <span class='no'>stats</span>,
-  <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>bar</span>, <span class='no'>bar.col</span>,
-  <span class='no'>polygon.col</span>, <span class='no'>line</span>, <span class='no'>line.col</span>, <span class='no'>line.lty</span>, <span class='no'>line.label</span>, <span class='no'>grid.col</span>, <span class='kw'>frame</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"SJ"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_AbanicoPlot</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"mean.weighted"</span>, <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"qr"</span>, <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>rotate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>mtext</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>, <span class='kw'>summary.method</span> <span class='kw'>=</span> <span class='st'>"MCM"</span>,
+  <span class='no'>legend</span>, <span class='no'>legend.pos</span>, <span class='no'>stats</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>bar</span>, <span class='no'>bar.col</span>, <span class='no'>polygon.col</span>, <span class='no'>line</span>, <span class='no'>line.col</span>, <span class='no'>line.lty</span>, <span class='no'>line.label</span>,
+  <span class='no'>grid.col</span>, <span class='kw'>frame</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"SJ"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -435,7 +436,11 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.10</p>
+    <p>0.1.10 (2018-02-28 22:48:58)</p>
+    
+    <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
+
+    <p>Dietze, M., Kreutzer, S. (2018). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -725,6 +730,8 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 
       <li><a href="#function-version">Function version</a></li>
 
+      <li><a href="#how-to-cite">How to cite</a></li>
+
       <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -737,7 +744,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 Michael Dietze, GFZ Potsdam (Germany)<br />
 Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
 Inspired by a plot introduced by Galbraith &amp; Green (1990)
-
+<br /> R Luminescence Package Team
   </div>
 </div>
 

@@ -83,7 +83,7 @@
       <h1>How to analyse post-IR IRSL measurements?</h1>
                         <h4 class="author">Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montagine, France</h4>
             
-            <h4 class="date">Last modified: 2018-06-22 (‘Luminescence’ version: 0.9.0)</h4>
+            <h4 class="date">Last modified: 2018-08-31 (‘Luminescence’ version: 0.9.0)</h4>
       
       
       <div class="hidden name"><code>HowTo_analyse_pIRIRMeasurements.Rmd</code></div>
@@ -293,38 +293,38 @@
 <p>The <span class="math inline">\(D_{e}\)</span> values (here in seconds) can be seen by calling the <code>$data</code> element from the object <code>results</code>, which is a <code>data.frame</code> (and here limited to three columns):</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">results<span class="op">$</span>data[,<span class="kw">c</span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>, <span class="st">"RC.Status"</span>, <span class="st">"Signal"</span>)]</a></code></pre></div>
 <pre><code>##         De De.Error RC.Status   Signal
-## 1   803.54    45.15        OK     IR50
-## 2  1099.86    30.50        OK pIRIR225
-## 3   632.80    28.19        OK     IR50
-## 4   873.77    27.82        OK pIRIR225
-## 5  1166.26    32.76        OK     IR50
-## 6  1058.84    17.67        OK pIRIR225
-## 7   741.30    28.18    FAILED     IR50
-## 8  1049.17    31.59        OK pIRIR225
-## 9   873.96    63.13        OK     IR50
-## 10 1236.34    54.46        OK pIRIR225
-## 11  827.68    37.46        OK     IR50
-## 12 1095.24    31.62        OK pIRIR225
-## 13  714.12    25.23        OK     IR50
-## 14  807.30    17.19        OK pIRIR225</code></pre>
+## 1   803.54    38.45        OK     IR50
+## 2  1099.86    32.90        OK pIRIR225
+## 3   632.80    29.00        OK     IR50
+## 4   873.77    28.83        OK pIRIR225
+## 5  1166.26    33.55        OK     IR50
+## 6  1058.84    16.62        OK pIRIR225
+## 7   741.30    31.08    FAILED     IR50
+## 8  1049.17    28.93        OK pIRIR225
+## 9   873.96    58.81        OK     IR50
+## 10 1236.34    60.40        OK pIRIR225
+## 11  827.68    40.52        OK     IR50
+## 12 1095.24    34.03        OK pIRIR225
+## 13  714.12    23.04        OK     IR50
+## 14  807.30    17.36        OK pIRIR225</code></pre>
 <p>The column <code>RC.Status</code> informs you about a failed rejection criterium, which one is not revealed, but the column provides a possibilty for further subsetting. For a quick data processing this is, together with the plot output, usually enough information. However, to see all rejection criteria type <code>results$rejection.criteria</code>. To see all information type <code>results$data</code> without further information.</p>
 <p>If you want to combine the two tables for a more virtous data processing, you can merge both tables by calling:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">merge</span>(results<span class="op">$</span>data, results<span class="op">$</span>rejection.criteria, <span class="dt">by =</span> <span class="st">"UID"</span>)</a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">head</span>(df)</a></code></pre></div>
-<pre><code>##                                     UID      De De.Error     D01 D01.ERROR
-## 1 2018-06-22-03:15.0.000391353154554963 1099.86    30.50 1256.27  85.50102
-## 2 2018-06-22-03:15.0.000391353154554963 1099.86    30.50 1256.27  85.50102
-## 3 2018-06-22-03:15.0.000391353154554963 1099.86    30.50 1256.27  85.50102
-## 4 2018-06-22-03:15.0.000391353154554963 1099.86    30.50 1256.27  85.50102
-## 5 2018-06-22-03:15.0.000391353154554963 1099.86    30.50 1256.27  85.50102
-## 6    2018-06-22-03:15.0.147520745638758 1058.84    17.67 1191.58  53.09562
+<pre><code>##                                    UID      De De.Error     D01 D01.ERROR
+## 1 2018-08-31-06:38.0.00687090866267681 1099.86    32.90 1256.27  87.85760
+## 2 2018-08-31-06:38.0.00687090866267681 1099.86    32.90 1256.27  87.85760
+## 3 2018-08-31-06:38.0.00687090866267681 1099.86    32.90 1256.27  87.85760
+## 4 2018-08-31-06:38.0.00687090866267681 1099.86    32.90 1256.27  87.85760
+## 5 2018-08-31-06:38.0.00687090866267681 1099.86    32.90 1256.27  87.85760
+## 6   2018-08-31-06:38.0.121125940233469 1049.17    28.93 1066.85  61.02392
 ##   D02 D02.ERROR   De.MC Fit RC.Status signal.range background.range
-## 1  NA        NA 1101.40 EXP        OK       1 : 10        800 : 999
-## 2  NA        NA 1101.40 EXP        OK       1 : 10        800 : 999
-## 3  NA        NA 1101.40 EXP        OK       1 : 10        800 : 999
-## 4  NA        NA 1101.40 EXP        OK       1 : 10        800 : 999
-## 5  NA        NA 1101.40 EXP        OK       1 : 10        800 : 999
-## 6  NA        NA 1062.32 EXP        OK       1 : 10        800 : 999
+## 1  NA        NA 1100.65 EXP        OK       1 : 10        800 : 999
+## 2  NA        NA 1100.65 EXP        OK       1 : 10        800 : 999
+## 3  NA        NA 1100.65 EXP        OK       1 : 10        800 : 999
+## 4  NA        NA 1100.65 EXP        OK       1 : 10        800 : 999
+## 5  NA        NA 1100.65 EXP        OK       1 : 10        800 : 999
+## 6  NA        NA 1051.27 EXP        OK       1 : 10        800 : 999
 ##   signal.range.Tx background.range.Tx Signal.x                Criteria
 ## 1         NA : NA             NA : NA pIRIR225 Recycling ratio (R5/R1)
 ## 2         NA : NA             NA : NA pIRIR225     Recuperation rate 1
@@ -336,9 +336,9 @@
 ## 1 1.055200e+00       0.1     OK pIRIR225
 ## 2 3.500000e-03       0.1     OK pIRIR225
 ## 3 1.286316e-02       0.1     OK pIRIR225
-## 4 2.773000e-02       0.1     OK pIRIR225
+## 4 2.991000e-02       0.1     OK pIRIR225
 ## 5 1.099860e+03    1360.0     OK pIRIR225
-## 6 1.045100e+00       0.1     OK pIRIR225</code></pre>
+## 6 1.046300e+00       0.1     OK pIRIR225</code></pre>
 <p>The result may appear confusing in a first instance, since, e.g. the column <code>De</code> appears to contain duplicated entries. But still, each row is unique and in sum contains unique information.</p>
 </div>
 <div id="plot-results" class="section level1">
