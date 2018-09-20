@@ -122,7 +122,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.2.2
+ 0.2.3 (2018-09-20 19:45:20)
 }
 
 \examples{
@@ -132,7 +132,12 @@ data(ExampleData.Al2O3C, envir = environment())
 ##run analysis
 analyse_Al2O3C_Measurement(data_CrossTalk)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
@@ -143,5 +148,5 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

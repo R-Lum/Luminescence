@@ -108,7 +108,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.2.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
@@ -265,7 +265,11 @@ analyse_Al2O3C_Measurement <- function(
 
       }else{
         temp.correction <- results$data[results$data$POSITION%in%travel_dosimeter,c(1,2)]
-        correction <- c(stats::weighted.mean(temp.correction[,1],temp.correction[,2]), sd(temp.correction[,1]))
+        correction <- c(
+          stats::weighted.mean(
+            x = temp.correction[[1]],
+            w = if(all(temp.correction[[2]]==0)){rep(1, length(temp.correction[[2]]))} else {temp.correction[[2]]}),
+          sd(temp.correction[,1]))
         rm(temp.correction)
 
       }
