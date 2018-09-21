@@ -73,8 +73,7 @@
 #' @param plot [logical] (*with default*): enable/disable plot output, if `object` is of type [list],
 #' a [numeric] vector can be provided to limit the plot output to certain aliquots
 #'
-#' @param ... further arguments that can be passed to the plot output
-#'
+#' @param ... further arguments that can be passed to the plot output, supported are `norm`, `main`, `mtext`
 #' @return Function returns results numerically and graphically:
 #'
 #' -----------------------------------\cr
@@ -108,7 +107,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.2.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
@@ -652,6 +651,7 @@ analyse_Al2O3C_Measurement <- function(
       ##settings
       plot_settings <- list(
         main = "Sample Carousel Crosstalk",
+        norm = TRUE,
         mtext = ""
       )
 
@@ -670,7 +670,8 @@ analyse_Al2O3C_Measurement <- function(
        xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
        legend.text = list(list("#1 NAT", "#3 REG", "#5 BG"), list("#2 NAT", "#4 REG")),
        legend.pos = list("topright", "topleft"),
-       main = list(paste("ALQ POS:", POSITION, "| OSL"), paste("ALQ POS:", POSITION, "| TL"))
+       main = list(paste("ALQ POS:", POSITION, "| OSL"), paste("ALQ POS:", POSITION, "| TL")),
+       norm = plot_settings$norm
      )
 
 

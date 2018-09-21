@@ -52,7 +52,7 @@ enable/disable verbose mode}
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output, if \code{object} is of type \link{list},
 a \link{numeric} vector can be provided to limit the plot output to certain aliquots}
 
-\item{...}{further arguments that can be passed to the plot output}
+\item{...}{further arguments that can be passed to the plot output, supported are \code{norm}, \code{main}, \code{mtext}}
 }
 \value{
 Function returns results numerically and graphically:
@@ -122,7 +122,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.2.3 (2018-09-20 19:45:20)
+ 0.2.3 (2018-09-21 14:23:59)
 }
 
 \examples{
