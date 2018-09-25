@@ -13,9 +13,9 @@ RLum.Debug/
 RLum.Experiment/
 packrat/
 Luminescence.Rcheck/
-RLum.BuildResults/*.tar.gz
+#RLum.BuildResults/*.tar.gz
 RLum.BuildResults/*.zip
-RLum.BuildResults/*.tgz
+#RLum.BuildResults/*.tgz
 RLum.BuildResults/rdepends_*
 packrat/lib*/
 packrat/src/

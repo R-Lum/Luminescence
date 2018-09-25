@@ -74,6 +74,7 @@
 #' a [numeric] vector can be provided to limit the plot output to certain aliquots
 #'
 #' @param ... further arguments that can be passed to the plot output, supported are `norm`, `main`, `mtext`
+#'
 #' @return Function returns results numerically and graphically:
 #'
 #' -----------------------------------\cr

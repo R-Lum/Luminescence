@@ -85,7 +85,7 @@ None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -104,7 +104,12 @@ analyse_SAR.TL(object,
                fit.method = "EXP OR LIN",
                sequence.structure = c("SIGNAL", "BACKGROUND"))
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2018). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching.  Quaternary Science Reviews 7, 387-393.
@@ -119,6 +124,6 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{plot}

@@ -55,7 +55,7 @@ calculated using the un-logged estimates of De and their absolute standard
 error (Galbraith & Roberts 2012, p. 14).
 }
 \section{Function version}{
- 0.1.1
+ 0.1.1 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -66,7 +66,12 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the common dose model
 calc_CommonDose(ExampleData.DeValues$CA1)
 
+} 
+
+\section{How to cite}{
+Burow, C. (2018). calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
@@ -105,4 +110,4 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
