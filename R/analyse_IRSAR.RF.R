@@ -465,7 +465,6 @@ analyse_IRSAR.RF<- function(
 
     ##run analysis
     temp <- lapply(1:length(object), function(x){
-
       analyse_IRSAR.RF(
         object = object[[x]],
         sequence_structure = sequence_structure[[x]],
@@ -1056,7 +1055,7 @@ analyse_IRSAR.RF<- function(
         vslide_range.list[[10]] <- c(0, length(vslide_range))
 
         ##TODO ... this is not really optimal, but ok for the moment, better would be
-        ##the algorithm finds sufficiently the global minium.
+        ##the algorithm finds sufficiently the global minimum.
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
         temp_minium_list <- lapply(1:10, function(x){

@@ -9,7 +9,7 @@
 #' **Package:** \tab Luminescence \cr
 #' **Type:** \tab Package \cr
 #' **Version:** \tab 0.8.6 \cr
-#' **Date:** \tab 2018-06-08 \cr
+#' **Date:** \tab 2018-10-05 \cr
 #' **License:** \tab GPL-3 \cr
 #' }
 #'

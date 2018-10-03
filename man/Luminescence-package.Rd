@@ -16,7 +16,7 @@ plotting of equivalent dose distributions.
 \strong{Package:} \tab Luminescence \cr
 \strong{Type:} \tab Package \cr
 \strong{Version:} \tab 0.8.6 \cr
-\strong{Date:} \tab 2018-06-08 \cr
+\strong{Date:} \tab 2018-10-05 \cr
 \strong{License:} \tab GPL-3 \cr
 }
 }

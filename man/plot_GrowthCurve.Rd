@@ -173,7 +173,7 @@ where \strong{c > 0} is a kinetic order modifier
 
 \strong{Fit weighting}
 
-If the option \code{fit.weights = TRUE} is chosen, weights are calculated using
+If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
 provided signal errors (Lx/Tx error):
 \deqn{fit.weights = 1/error/(sum(1/error))}
 
