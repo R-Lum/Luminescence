@@ -1,5 +1,11 @@
 NEWS for the R Package Luminescence
 
+Changes in version 0.8.7 (October 5th, 2018):
+
+        • This version is a placeholder for GitHub only and will not be
+          updated unless we encounter critical errors due to unexpected
+          changes on CRAN.
+
 Changes in version 0.8.6 (October 5th, 2018):
 
   Bugfixes and changes:

@@ -1,5 +1,18 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.8.7 (October 5th, 2018)}{
+
+\itemize{
+
+  \item This version is a placeholder for GitHub only and will not
+  be updated unless we encounter critical errors due to unexpected
+  changes on CRAN.
+
+}
+
+}
+
+
 \section{Changes in version 0.8.6 (October 5th, 2018)}{
 
  \subsection{Bugfixes and changes}{
