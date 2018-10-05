@@ -84,7 +84,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.11 (2018-08-30 14:34:43)
+ 0.3.11 (2018-10-05 12:33:05)
 }
 
 \examples{

@@ -134,7 +134,7 @@ The default values is \code{TRUE} \cr
 }
 }
 \section{Function version}{
- 0.1.1 (2018-08-27 11:09:19)
+ 0.1.1 (2018-10-05 12:33:05)
 }
 
 \examples{

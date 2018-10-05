@@ -10,9 +10,9 @@
 #'
 #' @return Returns a character with quote and respective (false) author.
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany)
+#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @examples
 #'
@@ -43,9 +43,9 @@ get_Quote <- function(
     c("An arctic sediment outcrop", "Marmor, Stein und Eisen bricht..."),
     c("A common luminescence reader customer", "If anything can go wrong, it will."),
     c("A blue LED to a trapped electron", "Resistance is futile."),
-    c("A trapped electron to a yellow LED", "Well, that's all?"),
+    c("A trapped electron to a yellow LED", "Well, that's all you've got?"),
     c("A weathering rock", "Who wants to live forever?"),
-    c("A new pIRIR derivative", "20000 miles below the sea."),
+    c("A new pIRIR derivative", "20,000 miles below the sea."),
     c("Robert Oppenheimer", "I want this thing to work by just pressing one button."),
     c("An arbitrary member of the CRAN team", "No shirt, no shoes, no service!"),
     c("Rubber mallet to steel cylinder", "Let's rock and roll."),
@@ -66,7 +66,8 @@ get_Quote <- function(
     c("An arbitrary unexperienced RLum-user", "Little by little, the bird builds its nest."),
     c("The answer to life, the universe and everything", "get_rightAnswer()"),
     c("Der Tatortreiniger", "Dreck ist nur Materie am falschen Ort."),
-    c("Die Ex vom Tatortreiniger", "Das Ziel ist im Weg.")
+    c("Die Ex vom Tatortreiniger", "Das Ziel ist im Weg."),
+    c("Bright grain to dim grains", "I'm so shiny!")
 
     )
 
@@ -79,7 +80,6 @@ get_Quote <- function(
 
   ## check for correct ID and generate qoute
   if(length(ID) < 1 | ID > nrow(quotes)) {
-
     quote.out <- "Sorry, but this was an impossible task!"
 
   } else {

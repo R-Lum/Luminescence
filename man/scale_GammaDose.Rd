@@ -96,7 +96,7 @@ An exhaustive explanation on the methodology
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2018-08-27 11:09:19)
+ 0.1.0 (2018-10-05 12:33:05)
 }
 
 \examples{

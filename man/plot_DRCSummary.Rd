@@ -56,7 +56,7 @@ If you want plot your DRC on an energy scale (dose in Gy), you can either use th
 below or your can SAR analysis with the dose points in Gy (better axis scaling).
 }
 \section{Function version}{
- 0.2.1 (2018-08-27 11:09:19)
+ 0.2.1 (2018-10-05 12:33:05)
 }
 
 \examples{
