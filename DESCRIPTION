@@ -162,6 +162,7 @@ Collate:
     'fit_LMCurve.R'
     'fit_OSLLifeTimes.R'
     'fit_SurfaceExposure.R'
+    'fit_ThermalQuenching.R'
     'get_Layout.R'
     'get_Quote.R'
     'get_rightAnswer.R'

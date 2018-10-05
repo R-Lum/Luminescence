@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.9.0 (, 2018):
+Changes in version 0.9.0 (, 2019):
 
   New functions:
 
@@ -14,6 +14,9 @@ Changes in version 0.9.0 (, 2018):
          • ‘scale_GammaDose()’ Scale the gamma dose rate considering
            layer-to-layer variations in soil radioactivity. Contributed
            by S. Riedesel and M. Autzen.
+
+         • ‘fit_ThermalQuenching()’ Provide an easy option to fit
+           thermal quenching data and determine the activation energy.
 
   Bugfixes and changes:
 
