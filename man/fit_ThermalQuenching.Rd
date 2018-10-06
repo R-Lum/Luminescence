@@ -18,7 +18,8 @@ detalis}
 \item{method_control}{\link{list} (optianl): further options to fine tune the fitting, see details for
 further information}
 
-\item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation}
+\item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation. If \code{n.MC} is
+\code{NULL} or \code{<=1}, the error estimation is skipped}
 
 \item{verbose}{\link{logical} (\emph{with default}): enables/disables terminal output}
 
@@ -33,8 +34,46 @@ further information}
 \description{
 Applying a nls-fitting to thermal quenching data
 }
+\details{
+\strong{Used equation}\cr
+
+The equation used for the fitting is
+
+\deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
+
+\emph{W} is the energy depth in eV and \emph{C} is dimensionless constant. \emph{A} and \emph{c} are used to
+adjust the curve for the given signal. \emph{k} is the Blotzmann in eV/K and \emph{x} is the absolute
+temperature in K.
+
+\strong{Error estimation}\cr
+
+The error estimation is done be varying the input parameters using the given uncertanties in
+a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
+
+\strong{start_param} \cr
+
+The function allows the injection of own start parameters via the argument \code{start_param}. The
+parameters needs to be provided as names list. The names are the parameters to be optimised.
+Examples: \code{start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)}
+
+\strong{method_control} \cr
+
+The following arguments can be provided via \code{method_control}. Please note that arguments provided
+via \code{method_control} are not further tested, i.e., if the function crashs your input was probably
+wrong.
+
+\tabular{lll}{
+\strong{ARGUMENT} \tab \strong{TYPE} \tab \strong{DESCRIPTION}\cr
+\code{upper} \tab named \link{vector} \tab sets upper fitting boundaries, if provided boundaries for all arguments
+are requried, e.g., \code{c(A = 0, C = 0, W = 0, c = 0)} \cr
+\code{lower} \tab names \link{vector} \tab sets lower fitting boundaries (see \code{upper} for details) \cr
+\code{trace}   \tab \link{logical} \tab enables/disables progression trace for \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}\cr
+\code{weights} \tab \link{numeric} \tab option to provide own weights for the fitting, the length of this
+vector needs to be equal to the number for rows of the input data.frame.
+}
+}
 \section{Function version}{
- 0.1.0 (2018-10-05 19:52:50)
+ 0.1.0 (2018-10-06 11:03:37)
 }
 
 \examples{

@@ -2,7 +2,45 @@
 #'
 #' @description Applying a nls-fitting to thermal quenching data
 #'
-#' @detail ##TODO
+#' @details
+#'
+#' **Used equation**\cr
+#'
+#' The equation used for the fitting is
+#'
+#' \deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
+#'
+#' *W* is the energy depth in eV and *C* is dimensionless constant. *A* and *c* are used to
+#' adjust the curve for the given signal. *k* is the Blotzmann in eV/K and *x* is the absolute
+#' temperature in K.
+#'
+#' **Error estimation**\cr
+#'
+#' The error estimation is done be varying the input parameters using the given uncertanties in
+#' a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
+#'
+#' **start_param** \cr
+#'
+#' The function allows the injection of own start parameters via the argument `start_param`. The
+#' parameters needs to be provided as names list. The names are the parameters to be optimised.
+#' Examples: `start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)`
+#'
+#'
+#' **method_control** \cr
+#'
+#' The following arguments can be provided via `method_control`. Please note that arguments provided
+#' via `method_control` are not further tested, i.e., if the function crashs your input was probably
+#' wrong.
+#'
+#' \tabular{lll}{
+#' **ARGUMENT** \tab **TYPE** \tab **DESCRIPTION**\cr
+#' `upper` \tab named [vector] \tab sets upper fitting boundaries, if provided boundaries for all arguments
+#' are requried, e.g., `c(A = 0, C = 0, W = 0, c = 0)` \cr
+#' `lower` \tab names [vector] \tab sets lower fitting boundaries (see `upper` for details) \cr
+#' `trace`   \tab [logical] \tab enables/disables progression trace for [minpack.lm::nlsLM]\cr
+#'  `weights` \tab [numeric] \tab option to provide own weights for the fitting, the length of this
+#'  vector needs to be equal to the number for rows of the input data.frame.
+#' }
 #'
 #' @param data [data.frame] (**required**): input data with three columns, the first column contains
 #' temperature values in deg. C, colmns 2 and 3 the dependent values with its error
@@ -13,7 +51,8 @@
 #' @param method_control [list] (optianl): further options to fine tune the fitting, see details for
 #' further information
 #'
-#' @param n.MC [numeric] (*with default*): number of Monte Carlo runs for the error estimation
+#' @param n.MC [numeric] (*with default*): number of Monte Carlo runs for the error estimation. If `n.MC` is
+#' `NULL` or `<=1`, the error estimation is skipped
 #'
 #' @param verbose [logical] (*with default*): enables/disables terminal output
 #'
@@ -106,18 +145,10 @@ fit_ThermalQuenching <- function(
   ##we here add a constant, otherwise the fit will not really work
   k <- 8.6173303e-05
   f <- y ~ (A / (1 + C * (exp(-W / (k * x))))) + c
-  #f_plot <- strsplit(deparse(f),split = " ~ ", fixed = TRUE)[[1]][2]
 
   ##set translate values in data.frame to absolute temperature
   data_raw <- data
   data[[1]] <- data[[1]] + 273.15
-
-  ##set constants and starting parameters
-  # c <- 0
-  # A <- max(data[[2]])
-  # W <- 0.5 #energy depth
-  # C <- max(data[[1]] * 10e+5)
-
 
   ##start parameter
   start_param <- modifyList(x = list(
@@ -249,7 +280,7 @@ if(verbose){
       col_points = "black",
       col_fit = "red",
       lwd = 1.3,
-      mtext = paste0("n.MC = ", n.MC)
+      mtext = if(n.MC == 1) "" else paste0("n.MC = ", n.MC)
     )
 
     ##overwrite settings
@@ -272,7 +303,7 @@ if(verbose){
     axis(side = 1, at = at + 273.15, labels = at)
 
     ##reset n.MC
-    if(!is.null(n.MC)){
+    if(!is.null(n.MC) || n.MC == 1){
       ##add MC curves
       for(i in 1:n.MC){
         A <- fit_coef_MC_full[1,i]
