@@ -1,6 +1,6 @@
 #' @title Fitting Thermal Quenching Data
 #'
-#' @description Applying a nls-fitting to thermal quenching data
+#' @description Applying a nls-fitting to thermal quenching data.
 #'
 #' @details
 #'
@@ -59,9 +59,44 @@
 #' @param plot [logical] (*with default*): enables/disables plot output
 #'
 #' @param ... further arguments that can be passed to control the plotting, support are `main`, `pch`,
-#' `col_fit`, `col_points`, `lty`, `lwd`, `xlab`, `ylab`, `xlim`, `ylim`
+#' `col_fit`, `col_points`, `lty`, `lwd`, `xlab`, `ylab`, `xlim`, `ylim`, `xaxt`
 #'
-#' @return ##TODO
+#' @return
+#'
+#' The function returns numerical output and an (*optional*) plot.
+#'
+#' -----------------------------------\cr
+#' `[ NUMERICAL OUTPUT ]`\cr
+#' -----------------------------------\cr
+#'
+#' **`RLum.Results`**-object
+#'
+#' **slot:** **`@data`**
+#'
+#' `[.. $data : data.frame]`\cr
+#'
+#'  A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.
+#'
+#' `[.. $fit : nls object]` \cr
+#'
+#'  The nls [stats::nls] object returned by the function [minpack.lm::nlsLM]. This object
+#'  can be further passed to other functions supporting an nls object (cf. details section
+#'  in [stats::nls])
+#'
+#' **slot:** **`@info`**
+#'
+#' `[.. $call : call]`\cr
+#'
+#' The original function call.
+#'
+#' -----------------------------------\cr
+#' `[ GAPHICAL OUTPUT ]`\cr
+#' -----------------------------------\cr
+#'
+#' Plotted are temperature against the signal and their uncertainties.
+#' The fit is shown as dashed-line (can be modified). Please note that for the fitting the absolute
+#' temperature values are used but are re-calculated to deg. C for the plot.
+#'
 #'
 #' @section Function version: 0.1.0
 #'
@@ -231,7 +266,7 @@ fit_ThermalQuenching <- function(
 
   }
 
-  ##remove NULL
+  ##remove NULL (the fit was not sucessfull)
   fit_MC <- fit_MC[!sapply(X = fit_MC, is.null)]
   n.MC <- length(fit_MC)
 
@@ -273,6 +308,7 @@ if(verbose){
       ylim = c(min(data[[2]]) - data[[3]][which.min(data[[2]])],
                max(data[[2]]) + data[[3]][which.max(data[[2]])]),
       pch = 1,
+      xaxt = "n",
       xlab = "Temperature [\u00b0C]",
       ylab = "Dependent [a.u.]",
       main = "Thermal quenching",
@@ -292,18 +328,21 @@ if(verbose){
       y = NA,
       xlim = plot_settings$xlim,
       ylim = plot_settings$ylim,
-      xaxt = 'n',
+      xaxt = plot_settings$xaxt,
       xlab = plot_settings$xlab,
       ylab = plot_settings$ylab,
       main = plot_settings$main
     )
 
     ##add axis with correct temperature
-    at <- pretty(round(axTicks(side = 1) - 273.15))
-    axis(side = 1, at = at + 273.15, labels = at)
+    if(!is.null(plot_settings$xaxt) && plot_settings$xaxt == "n"){
+      at <- pretty(round(axTicks(side = 1) - 273.15))
+      axis(side = 1, at = at + 273.15, labels = at)
+
+    }
 
     ##reset n.MC
-    if(!is.null(n.MC) || n.MC == 1){
+    if(!is.null(n.MC) && n.MC > 1){
       ##add MC curves
       for(i in 1:n.MC){
         A <- fit_coef_MC_full[1,i]

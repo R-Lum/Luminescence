@@ -26,13 +26,45 @@ further information}
 \item{plot}{\link{logical} (\emph{with default}): enables/disables plot output}
 
 \item{...}{further arguments that can be passed to control the plotting, support are \code{main}, \code{pch},
-\code{col_fit}, \code{col_points}, \code{lty}, \code{lwd}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}}
+\code{col_fit}, \code{col_points}, \code{lty}, \code{lwd}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{xaxt}}
 }
 \value{
-##TODO
+The function returns numerical output and an (\emph{optional}) plot.
+
+-----------------------------------\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
+-----------------------------------\cr
+
+\strong{\code{RLum.Results}}-object
+
+\strong{slot:} \strong{\code{@data}}
+
+\code{[.. $data : data.frame]}\cr
+
+A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.
+
+\code{[.. $fit : nls object]} \cr
+
+The nls \link[stats:nls]{stats::nls} object returned by the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. This object
+can be further passed to other functions supporting an nls object (cf. details section
+in \link[stats:nls]{stats::nls})
+
+\strong{slot:} \strong{\code{@info}}
+
+\code{[.. $call : call]}\cr
+
+The original function call.
+
+-----------------------------------\cr
+\code{[ GAPHICAL OUTPUT ]}\cr
+-----------------------------------\cr
+
+Plotted are temperature against the signal and their uncertainties.
+The fit is shown as dashed-line (can be modified). Please note that for the fitting the absolute
+temperature values are used but are re-calculated to deg. C for the plot.
 }
 \description{
-Applying a nls-fitting to thermal quenching data
+Applying a nls-fitting to thermal quenching data.
 }
 \details{
 \strong{Used equation}\cr
@@ -73,7 +105,7 @@ vector needs to be equal to the number for rows of the input data.frame.
 }
 }
 \section{Function version}{
- 0.1.0 (2018-10-06 11:03:37)
+ 0.1.0 (2018-10-07 15:55:45)
 }
 
 \examples{
