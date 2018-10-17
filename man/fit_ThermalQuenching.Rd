@@ -101,12 +101,12 @@ are requried, e.g., \code{c(A = 0, C = 0, W = 0, c = 0)} \cr
 \code{lower} \tab names \link{vector} \tab sets lower fitting boundaries (see \code{upper} for details) \cr
 \code{trace}   \tab \link{logical} \tab enables/disables progression trace for \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}\cr
 \code{weights} \tab \link{numeric} \tab option to provide own weights for the fitting, the length of this
-vector needs to be equal to the number for rows of the input data.frame. If set to \code{NULL} no weights
-are applied.
+vector needs to be equal to the number for rows of the input \code{data.frame}. If set to \code{NULL} no weights
+are applied. The weights are defined by the thrid column of the input \code{data.frame}.
 }
 }
 \section{Function version}{
- 0.1.0 (2018-10-17 17:35:32)
+ 0.1.0 (2018-10-17 17:48:32)
 }
 
 \examples{
