@@ -39,7 +39,8 @@
 #' `lower` \tab names [vector] \tab sets lower fitting boundaries (see `upper` for details) \cr
 #' `trace`   \tab [logical] \tab enables/disables progression trace for [minpack.lm::nlsLM]\cr
 #'  `weights` \tab [numeric] \tab option to provide own weights for the fitting, the length of this
-#'  vector needs to be equal to the number for rows of the input data.frame.
+#'  vector needs to be equal to the number for rows of the input data.frame. If set to `NULL` no weights
+#'  are applied.
 #' }
 #'
 #' @param data [data.frame] (**required**): input data with three columns, the first column contains
@@ -209,7 +210,10 @@ fit_ThermalQuenching <- function(
   fit <- try(minpack.lm::nlsLM(
     formula = f,
     data = data.frame(x = data[[1]], y = data[[2]]),
-    weights = method_control$weights,
+    weights = if(is.null(method_control$weights)){
+      rep(1, length(data[[2]]))
+      } else {
+        method_control$weights},
     control = list(
       maxiter = 500,
       maxfev = 1000,
