@@ -24,7 +24,14 @@
 
   \itemize{
 
-       \item Dummy
+       \item \code{analyse_FadingMeasurements()}
+
+         \itemize{
+
+           \item Enable support for data imported from a BIN/BINX-file.
+
+
+        }
 
        }
      }
