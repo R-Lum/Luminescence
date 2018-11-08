@@ -37,6 +37,8 @@
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
+#' **Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
+#' only IRSL curves representing Lx (and Tx)**
 #'
 #' If data from multiple aliquots are provided please **see the details below** with regard to
 #' Lx/Tx normalisation.
@@ -97,10 +99,10 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #'
@@ -250,9 +252,22 @@ analyse_FadingMeasurement <- function(
 
       ##support read_BIN2R()
     }else if (length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
-              unique(unlist(lapply(object, slot, name = "originator"))) == "read_BIN2R"){
-      try(stop("[analyse_FadingMeasurement()] Analysing data imported from a BIN-file is currently not supported!", call. = FALSE))
-      return(NULL)
+              unique(unlist(lapply(object, slot, name = "originator"))) %in% c("read_BIN2R","Risoe.BINfileData2RLum.Analysis")){
+
+      ##assign object, unlist and drop it
+      object_clean <- unlist(get_RLum(object))
+
+      ##set TIMESINCEIRR vector
+      TIMESINCEIRR <- vapply(object_clean, function(o){
+        o@info$TIMESINCEIRR
+
+      }, numeric(1))
+
+      ##set irradiation times
+      irradiation_times <- vapply(object_clean, function(o){
+        o@info$IRR_TIME
+
+      }, numeric(1))
 
       ##not support
     }else{
