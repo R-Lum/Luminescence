@@ -18,6 +18,9 @@ Changes in version 0.9.0 (, 2019):
          • ‘fit_ThermalQuenching()’ Provide an easy option to fit
            thermal quenching data and determine the activation energy.
 
+         • ‘read_RF2R()’ Add support for importing spatially resolved
+           RF measurement results.
+
   Bugfixes and changes:
 
          • ‘analyse_FadingMeasurements()’

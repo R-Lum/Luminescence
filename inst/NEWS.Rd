@@ -16,6 +16,8 @@
 
        \item \code{fit_ThermalQuenching()} Provide an easy option to fit thermal quenching data and
        determine the activation energy.
+
+       \item \code{read_RF2R()} Add support for importing spatially resolved RF measurement results.
     }
   }
 

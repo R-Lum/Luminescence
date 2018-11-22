@@ -199,6 +199,7 @@ Collate:
     'read_BIN2R.R'
     'read_Daybreak2R.R'
     'read_PSL2R.R'
+    'read_RF2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'
@@ -211,4 +212,4 @@ Collate:
     'write_R2BIN.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
