@@ -57,7 +57,7 @@ matrix:
   - os: osx
     r: release
     before_install:
-      - sudo rm '/usr/local/include/c++'
+      #- sudo rm '/usr/local/include/c++'
       - sudo rm '/usr/local/bin/gfortran'
       - brew install gcc
       - brew install jags
