@@ -1,22 +1,27 @@
-#' @title Import RF files to R
+#' @title Import RF-files to R
 #'
-#' @description TODO
+#' @description Import files produced by the IR-RF 'ImageJ' macro (#TODO ADD REFERENCE) into R and create a list of [RLum.Analysis-class]
+#' objects
 #'
-#' @details TODO
+#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files (#TODO ADD REFERENCE).
+#' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
+#' The output of the function can be passed to the function [analyse_IRSAR.RF]
 #'
-#' @param file [character] (**required**): path and file name of the RF file
+#' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
+#' names can be provided.
 #'
-#' @return
-#' Returns an S4 [RLum.Analysis-class] object containing
+#' @return Returns an S4 [RLum.Analysis-class] object containing
 #' [RLum.Data.Curve-class] objects for each curve.
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class]
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [analyse_IRSAR.RF]
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 #'
 #' @section Function version: 0.0.1
 #'
 #' @keywords IO
+#'
+#' @references #TODO ADD REFERENCE
 #'
 #' @examples
 #'
@@ -28,89 +33,152 @@
 #' @export
 read_RF2R <- function(file) {
 
-  ##TODO: Add integrity tests
+# Self-call -----------------------------------------------------------------------------------
 
-  # Integrity check -----------------------------------------------------------------------------
+  if(class(file) == "list"){
+    results_list <- lapply(file, function(f){
+      temp <- try(read_RF2R(file = f), silent = TRUE)
+
+      ##check whether it worked
+      if(class(temp) == "try-error"){
+        warning("[read_RF2R()] Import for file ", f, " failed. NULL returned!", call. = FALSE)
+        return(NULL)
+      }else{
+        return(temp)
+      }
+
+    })
+
+    return(unlist(results_list, recursive = FALSE))
+
+  }
+
+
+# Integrity check -----------------------------------------------------------------------------
+
+  ##check input
+  if(class(file) != "character")
+    stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)
+
+  ##check whether file is available
+  if(!file.exists(file))
+    stop("[read_RF2R()] File '", file, "' does not exist!", call. = FALSE)
 
   ##read first line to ensure the format
   if(!grepl(pattern = "macro_version=17-10-2018", x = readLines(file, n = 1), fixed = TRUE))
     stop("[read_RF2R()] File format not supported!", call. = FALSE)
 
-  # Import --------------------------------------------------------------------------------------
+# Import --------------------------------------------------------------------------------------
 
   ##import the entire file
   temp <- readLines(file, warn = FALSE)
 
-  ##TODO: Extract header
+# Extract information -------------------------------------------------------------------------
 
-    ##extract boundaries framed by tags +++++++++++++++++++
-    ##statistics
+    ##extract header (here as function; that might be useful in future)
+    .extract_header <- function(x){
+      x <- gsub(pattern = "<", replacement = "", fixed = TRUE, x = x)
+      x <- gsub(pattern = ">", replacement = "", fixed = TRUE, x = x)
+      header <- strsplit(x = x, split = " ", fixed = TRUE)[[1]]
+      header <- unlist(strsplit(x = header, split = "=", fixed = TRUE))
+
+      header_names <- header[seq(1, length(header), by = 2)]
+      header <-  as.list(header[seq(2, length(header), by = 2)])
+      names(header) <- header_names
+      return(header)
+    }
+
+    header <- try(.extract_header(temp[1]), silent = TRUE)
+
+    ##test the header
+    if(class(header) == 'try-error'){
+      try(stop("[read_RF2R()] Header extraction failed, try to continue without ... ", call. = FALSE))
+      header <- NA
+    }
+
+
+    ##extract tag boundaries framed by tags +++++++++++++++++++
+    ##the 2nd line corrects the inner boandaries
+    ##(1) statistics
     id_statistics <- grep(pattern = "Statistics>", x = temp, fixed = TRUE)
+    id_statistics <- c(id_statistics[1] + 1, id_statistics[2] - 1)
 
-    ##RF_nat
+    ##(2) Natural (henceforth: RF_nat)
     id_RF_nat <- grep(pattern = "Natural>", x = temp, fixed = TRUE)
+    id_RF_nat <- c(id_RF_nat[1] + 1, id_RF_nat[2] - 1)
 
-    ##RF_reg
+    ##(3) Bleached (henceforth: RF_reg)
     id_RF_reg <- grep(pattern = "Bleached>", x = temp, fixed = TRUE)
+    id_RF_reg <- c(id_RF_reg[1] + 1, id_RF_reg[2] - 1)
 
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ##Extract matrices
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ##Statistics
-    statistics_header <- strsplit(x = temp[id_statistics[1]+1], split = "\t", fixed = TRUE)[[1]][-1]
+    ##extract content within the tags +++++++++++++++++++
+    ##(1) statistics
+    ##
+    ####header
+      statistics_header <- strsplit(x = temp[id_statistics[1]], split = "\t", fixed = TRUE)[[1]][-1]
 
-    ##data
-    m_statistics <- as.data.frame(lapply((id_statistics[1]+2):(id_statistics[2]-1), function(x){
-        strsplit(x = temp[x], split = "\t", fixed = TRUE)[[1]]
+      ##data
+      m_statistics <- as.data.frame(lapply((id_statistics[1]+1):(id_statistics[2]), function(x){
+          strsplit(x = temp[x], split = "\t", fixed = TRUE)[[1]]
 
-    }), stringsAsFactors = FALSE)
+      }), stringsAsFactors = FALSE)
 
-    ##extract colnames
-    colnames(m_statistics) <- unlist(strsplit(x = as.character(m_statistics[1,]), split = ":", fixed = TRUE))
+      ##extract colnames
+      colnames(m_statistics) <-
+        unlist(strsplit(
+          x = as.character(m_statistics[1, ]),
+          split = ":",
+          fixed = TRUE
+        ))
 
-    ##remove first
-    df_statistics <- cbind(ROI = statistics_header, m_statistics[-1,], stringsAsFactors = FALSE)
+      ##remove first
+      df_statistics <-
+        cbind(ROI = statistics_header, m_statistics[-1, ], stringsAsFactors = FALSE)
 
-    ##RF_nat
-    ##header
-    RF_nat_header <- strsplit(x = temp[id_RF_nat[1]+1], split = "\t", fixed = TRUE)[[1]]
 
-    ##data
-    m_RF_nat <- matrix(
-      data = as.numeric(strsplit(
-        x = paste(temp[(id_RF_nat[1] + 2):(id_RF_nat[2] - 1)], collapse = "\t"),
-        split = "\t",
-        fixed = TRUE
-      )[[1]]),
-      ncol = length(RF_nat_header),
-      byrow = TRUE
-    )
+    ##(2) RF_nat
+    ##
+    ####header
+      RF_nat_header <-
+        strsplit(x = temp[id_RF_nat[1]], split = "\t", fixed = TRUE)[[1]]
 
-    ##set colnames
-    colnames(m_RF_nat) <- RF_nat_header
+      ##data
+      m_RF_nat <- matrix(
+        data = as.numeric(strsplit(
+          x = paste(temp[(id_RF_nat[1] + 1):(id_RF_nat[2])], collapse = "\t"),
+          split = "\t",
+          fixed = TRUE
+        )[[1]]),
+        ncol = length(RF_nat_header),
+        byrow = TRUE
+      )
 
-    ##RF_reg
-    ##header
-    RF_reg_header <- strsplit(x = temp[id_RF_reg[1]+1], split = "\t", fixed = TRUE)[[1]]
+      ##set colnames
+      colnames(m_RF_nat) <- RF_nat_header
 
-    ##data
-    m_RF_reg <- matrix(
-      data = as.numeric(strsplit(
-        x = paste(temp[(id_RF_reg[1] + 2):(id_RF_reg[2] - 1)], collapse = "\t"),
-        split = "\t",
-        fixed = TRUE
-      )[[1]]),
-      ncol = length(RF_reg_header),
-      byrow = TRUE
-    )
+    ##(3) RF_reg
+    ##
+    ####header
+      RF_reg_header <-
+        strsplit(x = temp[id_RF_reg[1]], split = "\t", fixed = TRUE)[[1]]
 
-    ##set colnames
-    colnames(m_RF_reg) <- RF_reg_header
+      ##data
+      m_RF_reg <- matrix(
+        data = as.numeric(strsplit(
+          x = paste(temp[(id_RF_reg[1] + 1):(id_RF_reg[2])], collapse = "\t"),
+          split = "\t",
+          fixed = TRUE
+        )[[1]]),
+        ncol = length(RF_reg_header),
+        byrow = TRUE
+      )
 
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ##Create RLum.Analysis objects
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    temp <- lapply(1:ncol(df_statistics), function(a){
+      ##set colnames
+      colnames(m_RF_reg) <- RF_reg_header
+
+
+# Create RLum.Analysis objects ----------------------------------------------------------------
+    object_list <- lapply(1:nrow(df_statistics), function(a){
 
       ##set records
       records <- lapply(1:2, function(o) {
@@ -138,15 +206,15 @@ read_RF2R <- function(file) {
       set_RLum(class = "RLum.Analysis",
                originator = "read_RF2R",
                records = records,
-               info = as.list(df_statistics[1,]))
-
-
-
+               info = c(
+                 as.list(df_statistics[1,]),
+                 header
+                 ))
 
     })
 
 
-  # Return --------------------------------------------------------------------------------------
-  return(temp)
+# Return --------------------------------------------------------------------------------------
+return(object_list)
 
 }

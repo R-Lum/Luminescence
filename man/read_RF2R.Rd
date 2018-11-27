@@ -2,25 +2,29 @@
 % Please edit documentation in R/read_RF2R.R
 \name{read_RF2R}
 \alias{read_RF2R}
-\title{Import RF files to R}
+\title{Import RF-files to R}
 \usage{
 read_RF2R(file)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): path and file name of the RF file}
+\item{file}{\link{character} (\strong{required}): path and file name of the RF file. Alternatively a list of file
+names can be provided.}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Analysis} object containing
 \linkS4class{RLum.Data.Curve} objects for each curve.
 }
 \description{
-TODO
+Import files produced by the IR-RF 'ImageJ' macro (#TODO ADD REFERENCE) into R and create a list of \linkS4class{RLum.Analysis}
+objects
 }
 \details{
-TODO
+The results of spatially resolved IR-RF data are summarised in so-called RF-files (#TODO ADD REFERENCE).
+This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
+The output of the function can be passed to the function \link{analyse_IRSAR.RF}
 }
 \section{Function version}{
- 0.0.1 (2018-11-22 19:16:08)
+ 0.0.1 (2018-11-27 17:00:40)
 }
 
 \examples{
@@ -29,16 +33,19 @@ TODO
 file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 temp <- read_RF2R(file)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2018). read_RF2R(): Import RF-files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+}
+
+\references{
+#TODO ADD REFERENCE
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{analyse_IRSAR.RF}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2018). read_RF2R(): Import RF files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}
 \keyword{IO}
