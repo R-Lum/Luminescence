@@ -8,7 +8,7 @@ test_that("Test functionality", {
 
   ##crash function
   expect_error(read_RF2R("file"), regexp = "File 'file' does not exist!")
-  expect_error(read_RF2R("file"), regexp = "'file' needs to be of type character!")
+  expect_error(read_RF2R(2), regexp = "'file' needs to be of type character!")
 
   ##simple import
   expect_type(read_RF2R(file), type = "list")
