@@ -73,10 +73,19 @@
 #'
 #' @examples
 #'
-#' ##uncomment for usage
+#' \dontrun{
 #'
-#' ##data(ExampleData.BINfileData, envir = environment())
-#' ##write_R2BIN(CWOSL.SAR.Data, file="[your path]/output.bin")
+#' ##load exampled dataset
+#' data(ExampleData.BINfileData, envir = environment())
+#'
+#' ##create temporary filepath
+#' ##(for usage replace by own path)
+#' temp_file <- temp_file <- tempfile(pattern = "output", fileext = ".bin")
+#'
+#' ##export to temporary file path
+#' write_R2BIN(CWOSL.SAR.Data, file = temp_file)
+#'
+#' }
 #'
 #' @md
 #' @export

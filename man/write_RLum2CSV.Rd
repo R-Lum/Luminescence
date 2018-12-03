@@ -48,23 +48,24 @@ If the input is a \link{list} of objects all explicit function arguments can be 
 as \link{list}.
 }
 \section{Function version}{
- 0.1.1 (2018-01-21 17:22:38)
+ 0.1.1 (2018-12-03 12:54:35)
 }
 
 \examples{
 
-##transform values to a list
+##transform values to a list (and do not write)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
 write_RLum2CSV(object, export = FALSE)
 
 \dontrun{
 
-##export data to CSV-files in the working directory;
-##BE CAREFUL, this example creates many files on your file system
-data(ExampleData.BINfileData, envir = environment())
-object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
-write_RLum2CSV(object, export = FALSE)
+##create temporary filepath
+##(for usage replace by own path)
+temp_file <- tempfile(pattern = "output", fileext = ".csv")
+
+##write CSV-file to working directory
+write_RLum2CSV(temp_file)
 
 }
 
