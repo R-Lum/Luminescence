@@ -70,18 +70,21 @@ ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.4.4 (2018-12-03 12:42:10)
+ 0.4.4 (2018-12-03 12:55:15)
 }
 
 \examples{
 
 \dontrun{
 
+##load exampled dataset
+data(ExampleData.BINfileData, envir = environment())
+
 ##create temporary filepath
 ##(for usage replace by own path)
 temp_file <- temp_file <- tempfile(pattern = "output", fileext = ".bin")
 
-data(ExampleData.BINfileData, envir = environment())
+##export to temporary file path
 write_R2BIN(CWOSL.SAR.Data, file = temp_file)
 
 }

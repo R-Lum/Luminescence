@@ -18,7 +18,7 @@ tests/testdata
 
 # Exclude GitHub stuff
 LICENSE$
-README\.md
+^README\.Rmd$
 ^cran-comments\.md$
 revdep
 R/README\.md
@@ -35,4 +35,5 @@ _pkgdown.yml
 ^vignettes/.*\.xsyg$
 ^vignettes/.*\.bib$
 ^_pkgdown\.yml$
+^\man\figures\README-.*\.png$
 ^docs$
