@@ -35,6 +35,14 @@
 
         }
 
+        \item \code{read_BIN2R()}{
+          \item In the autofile recognition (only a path instead of a file is provided),
+          sometimes the found BIN/BINX-files were imported twice. The corresponding code was simplified
+          to avoid such errors in future.
+
+
+       }
+
        }
      }
 
