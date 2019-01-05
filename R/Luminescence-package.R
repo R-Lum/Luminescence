@@ -10,13 +10,6 @@
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.
 #'
-#' \tabular{ll}{
-#' **Package:** \tab Luminescence \cr
-#' **Type:** \tab Package \cr
-#' **Version:** \tab 0.9.0 \cr
-#' **Date:** \tab 2018-XX-XX \cr
-#' **License:** \tab GPL-3 \cr
-#' }
 #'
 #' @name Luminescence-package
 #'
@@ -33,17 +26,17 @@
 #' Julie Durcan \tab *University of Oxford, United Kingdom* \cr
 #' Manfred Fischer\tab *University of Bayreuth, Germany* \cr
 #' Margret C. Fuchs \tab *Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany* \cr
+#'  Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies* \cr
 #' Johannes Friedrich \tab *University of Bayreuth, Germany* \cr
 #' Guillaume Guérin \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Georgina E. King \tab *Institute of Geological Sciences, University of Bern, Switzerland* \cr
 #' Sebastian Kreutzer \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Norbert Mercier \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
-#' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
+#' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
 #' Christoph Schmidt \tab *University of Bayreuth, Germany* \cr
 #' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
-#' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France* \cr
-#' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
-#' Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies*
+#' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
+#' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
 #' }
 #'
 #' **Supervisor of the initial version in 2012**
@@ -113,8 +106,8 @@
 #'
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL, 33 (1), 16-21.
-#' 
-#' King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination 
+#'
+#' King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination
 #' using feldspar: evaluating fading-correction model performance. Radiation Measurements.
 #'
 #' @keywords package
@@ -142,7 +135,7 @@ NULL
 #'
 #' A [`list`] with three elements with dose-rate conversion factors
 #' sorted by article and radiation type (alpha, beta, gamma):
-#' 
+#'
 #' \tabular{ll}{
 #'
 #' `AdamiecAitken1998`: \tab
@@ -159,14 +152,14 @@ NULL
 #' @section Version: 0.1
 #'
 #' @references
-#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion 
+#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 #' factors: update. Ancient TL, 29, 5-8.
-#' 
-#' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update. 
+#'
+#' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 #' Ancient TL 16, 37-46.
-#' 
-#' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013. 
-#' A re-evaluation of radiation dose-rate conversion factors. Mediterranean 
+#'
+#' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
+#' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 #' Archaeology and Archaeometry 13, 1-15.
 #'
 #' @source
@@ -193,7 +186,7 @@ NULL
 #'
 #' A [`list`] with fractional gamma dose-rate values
 #' sorted by article:
-#' 
+#'
 #' \tabular{ll}{
 #'
 #' `Aitken1985`: \tab
@@ -223,7 +216,7 @@ NULL
 
 #' Example data for scale_GammaDose()
 #'
-#' An example data set for the function `scale_GammaDose()` containing layer 
+#' An example data set for the function `scale_GammaDose()` containing layer
 #' specific information to scale the gamma dose rate considering variations in
 #' soil radioactivity.
 #'
@@ -231,7 +224,7 @@ NULL
 #'
 #' A [`data.frame`]. Please see `?scale_GammaDose()` for a detailed description
 #' of its structure.
-#' 
+#'
 #'
 #' @section Version: 0.1
 #'

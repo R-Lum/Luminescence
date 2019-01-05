@@ -118,7 +118,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C. (2018). scale_GammaDose(): A short title. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C. (2019). scale_GammaDose(): A short title. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.8. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

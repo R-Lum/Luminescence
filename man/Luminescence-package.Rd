@@ -16,14 +16,6 @@ A collection of various R functions for the purpose of Luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
-
-\tabular{ll}{
-\strong{Package:} \tab Luminescence \cr
-\strong{Type:} \tab Package \cr
-\strong{Version:} \tab 0.9.0 \cr
-\strong{Date:} \tab 2018-XX-XX \cr
-\strong{License:} \tab GPL-3 \cr
-}
 }
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -63,17 +55,17 @@ Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
 Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
 Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
 Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
+Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies} \cr
 Johannes Friedrich \tab \emph{University of Bayreuth, Germany} \cr
 Guillaume Guérin \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Georgina E. King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
 Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
-Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
+Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
 Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
 Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
-Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France} \cr
-Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
-Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies}
+Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
+Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
 }
 
 \strong{Supervisor of the initial version in 2012}
