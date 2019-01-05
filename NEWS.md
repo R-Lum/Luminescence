@@ -18,7 +18,7 @@
     Riedesel and M. Autzen.
   - `fit_ThermalQuenching()` Provide an easy option to fit thermal
     quenching data and determine the activation energy.
-  - read\_RF2R()\` Add support for importing spatially resolved RF
+  - `read_RF2R()` Add support for importing spatially resolved RF
     measurement results.
 
 ### Bugfixes and changes
@@ -33,3 +33,13 @@
     provided), sometimes the found BIN/BINX-files were imported twice.
     The corresponding code was simplified to avoid such errors in
     future.
+
+### Internals
+
+  - Package news are now provided as markdown document (NEWS.md) which
+    is supported by CRAN
+  - The package version numbering scheme has been modified to simplify
+    the distinction between different developer versions. While relevant
+    numbers for CRAN remain X.X.X, which reads ‘stable.major.minor’
+    version, a 4th number indicates the running package build number,
+    e.g., 0.9.0.7.
