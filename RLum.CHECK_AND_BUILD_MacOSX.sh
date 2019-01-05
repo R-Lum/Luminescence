@@ -81,6 +81,13 @@ echo ""
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_roxygen2.R /dev/null
   check_status
 
+# set date and version number
+# =================================================================================================
+  echo -ne "-> Update date and version number ... \t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_VersionNumber.R /dev/null
+  check_status
+
+
 # Set entry points
 # =================================================================================================
   echo -ne "-> Set entry points ... \t\t\t"
