@@ -3,7 +3,7 @@
 # =================================================================================================
 # RLum.CHECK_AND_BUILD shell script
 # author: R Luminescence Team
-# date: 2017-05-28
+# date: 2019-01-05
 #
 # Customized R check and build routine for the R package 'Luminescence'
 # =================================================================================================
@@ -98,10 +98,9 @@ echo ""
 # NEWS
 # =================================================================================================
 
-  echo -ne "-> Build ASCII NEWS ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_NEWS.R /dev/null
+  echo -ne "-> Knit NEWS ... \t\t\t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_knit_NEWS.R /dev/null
   check_status
-
 #
 # PARSE RD files and add RLum.Team
 # =================================================================================================
@@ -137,8 +136,9 @@ echo ""
 echo "[CHECK PACKAGE]"
 echo ""
 
-  eval R CMD check --timings --as-cran ${PATHPACKAGE}/Luminescence*.tar.gz
-  #eval R CMD check --timings ${PATHPACKAGE}/Luminescence*.tar.gz
+  VERSION=$(cat DESCRIPTION | grep Version: | awk '/Version/ {print substr($0, 10)}')
+  eval R CMD check --timings --as-cran ${PATHPACKAGE}/Luminescence_${VERSION}.tar.gz
+  #eval R CMD check --timings ${PATHPACKAGE}/Luminescence_${VERSION}.tar.gz
 
   echo -ne 'Example timing warnings...:\n\n'
   eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Timings.R /dev/null

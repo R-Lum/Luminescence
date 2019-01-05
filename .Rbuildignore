@@ -1,5 +1,5 @@
 # Exclude R stuff
-NEWS\.rmd
+NEWS\.Rmd
 NEWS\.html
 ^cran-comments.*$
 ^\.Rprofile$
