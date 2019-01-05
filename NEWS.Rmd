@@ -27,7 +27,7 @@ analysis in one single plot.
 * `scale_GammaDose()` Scale the gamma dose rate considering layer-to-layer variations
 in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
 * `fit_ThermalQuenching()` Provide an easy option to fit thermal quenching data and      determine the activation energy.
-* read_RF2R()` Add support for importing spatially resolved RF measurement results.
+* `read_RF2R()` Add support for importing spatially resolved RF measurement results.
 
 ### Bugfixes and changes
 
