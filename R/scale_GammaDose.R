@@ -1,8 +1,82 @@
-#' A short title
+#' Calculate the gamma dose deposited within a sample taking layer-to-layer 
+#' variations in radioactivity into account (according to Aitken, 1985)
 #' 
-#' Two or three sentence description
+#' This function calculates the gamma dose deposited in a luminescence sample 
+#' taking into account layer-to-layer variations in sediment radioactivity . 
+#' The function scales user inputs of Uranium, Thorium and Potassium based on 
+#' input parameters for sediment density, water content and given layer 
+#' thicknesses and distances to the sample.
 #' 
-#' An exhaustive explanation on the methodology
+#' **User Input**
+#' 
+#' To calculate the gamma dose which is deposited in a sample, the user needs 
+#' to provide information on those samples influencing the luminescence sample.
+#' As a rule of thumb, all sediment layers within at least 30 cm radius from 
+#' the luminescence sample taken should be taken into account when calculating 
+#' the gamma dose rate. However, the actual range of gamma radiation might be 
+#' different, depending on the emitting radioelement, the water content and the
+#' sediment density of each layer (Aitken, 1985). Therefore the user is 
+#' advised to provide as much detail as possible and physically sensible.
+#' 
+#' The function requires a [data.frame] that is to be structured 
+#' in columns and rows, with samples listed in rows. The first column contains 
+#' information on the layer/sample ID, the second on the thickness (in cm) of 
+#' each layer, whilst column 3 should contain `NA` for all layers that are not 
+#' sampled for OSL/TL. For the layer the OSL/TL sample was taken from a numerical 
+#' value must be provided, which is the distance (in cm) measured from **bottom**
+#' of the layer of interest. If the whole layer was sampled insert `0`. If the
+#' sample was taken from *within* the layer, insert a numerical value `>0`, 
+#' which describes the distance from the middle of the sample to the bottom of 
+#' the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations 
+#' and their standard errors for 
+#' Potassium (in %), Thorium (in ppm) and Uranium (in ppm). Columns 10 and 11 
+#' give information on the water content and its uncertainty (standard error) 
+#' in %. The layer density (in g/cm3) should be given in column 12. No cell 
+#' should be left blank. Please ensure to keep the column titles as given in 
+#' the example dataset (`data('ExampleData.ScaleGammaDose')`, see examples). 
+#'
+#' The user can decide which dose rate 
+#' conversion factors should be used to calculate the gamma dose rates. 
+#' The options are:
+#' - `"Cresswelletal2019"` (Cresswell et al., in press; the default) 
+#' - `"Liritzisetal2013"` (Liritzis et al., 2013) 
+#' - `"Guerinetal2011"` (Guerin et al., 2011)
+#' - `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
+#'
+#' 
+#' **Calculations**
+#' 
+#' After converting the radionuclide concentrations into dose rates, the 
+#' function will scale the dose rates based on the thickness of the layers, 
+#' the distances to the sample, the water content and the density of the sediment. 
+#' The calculations are based on Aitken (1985, Appendix H). As an example 
+#' (equivalent to Aitken, 1985), assuming three layers of sediment, where **L** is 
+#' inert and positioned in between the infinite thick and equally active 
+#' layers **A** and **B**, the dose in **L** and **B** due to **A** is given by
+#' 
+#' \deqn{ {1-f(x)}D_A }
+#' 
+#' Where `x` is the distance into the inert medium, so `f(x)` is the weighted 
+#' average fractional dose at `x` and `D_A` denotes that the dose is delivered by **A**. 
+#' `f(x)` is derived from table H1 (Aitken, 1985), when setting `z = x`.
+#' Consequently, the dose in **A** and **L** due to **B** is given by
+#' 
+#' \deqn{ {1 - f(t-x)}D_B }
+#' 
+#' Here `t` is the thickness of **L** and the other parameters are denoted as above, 
+#' just for the dose being delivered by B. `f(t-x)` is derived from table H1 
+#' (Aitken, 1985), when setting `z` equal to `t-x`. Following this, the dose in **L** 
+#' delivered by **A** and **B** is given by
+#' 
+#' \deqn{ {2 - f(x) - f(t-x)}D_{AB} }
+#' 
+#' Since **A** and **B** are equally active `D_{AB} = D_A = D_B`.
+#' 
+#' The function uses the value of the fractional dose rate at the layer 
+#' boundary to start the calculation for the next layer. This way, the function
+#' is able to scale the gamma dose rate accurately for distant layers when the 
+#' density and water content is not constant for the entire section.
+#' 
 #'
 #' @param data [data.frame] (**required**):
 #' A table containing all relevant information for each individual layer. The
@@ -23,13 +97,17 @@
 #' - `water_content_se` ([numeric]):  error on the water content
 #' - `density` ([numeric]): bulk density of each layer in g/cm^-3
 #' 
-#' @param conversion_factors [logical] (*optional*):
+#' @param conversion_factors [character] (*optional*):
+#' The conversion factors used to calculate the dose rate from sediument 
+#' nuclide contents. Valid options are:
 #' 
-#' - `"Guerinetal2011"` (default)
-#' - `"AdamiecAitken1998"`
+#' - `"Cresswelletal2019"` (default)
 #' - `"Liritzisetal2013"`
+#' - `"Guerinetal2011"`
+#' - `"AdamiecAitken1998"`
 #' 
-#' @param fractional_gamma_dose [logical] (*optional*):
+#' @param fractional_gamma_dose [character] (*optional*):
+#' Factors to scale gamma dose rate values. Valid options are:
 #' 
 #' - `"Aitken1985"` (default): Table H1 in the appendix
 #' 
@@ -46,8 +124,21 @@
 #'
 #' @return
 #' 
-#' Function returns results numerically and graphically:
-#'
+#' After performing the calculations the user is provided with different outputs.
+#' 1. The total gamma dose rate received by the sample (+/- uncertainties) as a 
+#' print in the console.
+#' 2. A plot showing the sediment sequence, the user input sample information 
+#' and the contribution to total gamma dose rate.
+#' 3. RLum Results. If the user wishes to save these results, writing a script 
+#' to run the function and to save the results would look like this:
+#' 
+#' ```
+#' mydata <- read.table("c:/path/to/input/file.txt")
+#' results <- scale_GammaDose(mydata)
+#' table <- get_RLum(results)
+#' write.csv(table, "c:/path/to/results.csv")
+#' ```
+#' 
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
@@ -73,11 +164,18 @@
 #' ------------------------\cr
 #' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
-#'
-#' A barplot visualising the contribution of each layer to the total dose rate
+#' 
+#' Three plots are produced:
+#' 
+#' - A visualisation of the provided sediment layer structure to quickly
+#' assess whether the data was provided and interpreted correctly.
+#' - A scatter plot of the nuclide contents per layer (K, Th, U) as well as the
+#' water content. This may help to correlate the dose rate contribution of 
+#' specific layers to the layer of interest.
+#' - A barplot visualising the contribution of each layer to the total dose rate
 #' received by the sample in the target layer.
 #' 
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #' 
 #' @keywords datagen
 #' 
@@ -93,17 +191,27 @@
 #' @seealso [ExampleData.ScaleGammaDose], [approx], [barplot]
 #'
 #' @references 
-#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion 
-#' factors: update. Ancient TL, 29, 5-8.
+#' 
+#' Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 #' 
 #' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update. 
 #' Ancient TL 16, 37-46.
+#' 
+#' Cresswell, A. J., Carter, J., Sanderson, D. C. W., in press. Dose rate 
+#' conversion parameters: Assessment of nuclear data. Radiation Measurements.
+#' 
+#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion 
+#' factors: update. Ancient TL, 29, 5-8.
 #' 
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013. 
 #' A re-evaluation of radiation dose-rate conversion factors. Mediterranean 
 #' Archaeology and Archaeometry 13, 1-15.
 #' 
-#' Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
+#' 
+#' @section Acknowledgements:
+#' 
+#' We thank Dr Ian Bailiff for the provision of an excel spreadsheet, which has 
+#' been very helpful when writing this function.
 #' 
 #' @examples
 #' 
@@ -113,19 +221,18 @@
 #' 
 #' # Scale gamma dose rate
 #' results <- scale_GammaDose(data = x,
-#'                            conversion_factors = "Liritzisetal2013",
+#'                            conversion_factors = "Cresswelletal2019",
 #'                            fractional_gamma_dose = "Aitken1985",
 #'                            verbose = TRUE,
 #'                            plot = TRUE)
 #' 
 #' get_RLum(results)
 #' 
-#' 
 #' @md
 #' @export
 scale_GammaDose <- function(
   data,
-  conversion_factors = c("Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
+  conversion_factors = c("Cresswelletal2019", "Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
   plot = TRUE,
@@ -232,12 +339,11 @@ scale_GammaDose <- function(
   dose_rate$sum <- dose_rate$K + dose_rate$Th + dose_rate$U
   dose_rate$sum_re <- sqrt(dose_rate$K_re^2 + dose_rate$Th_re^2 + dose_rate$U_re^2)
   dose_rate$K_frac <- dose_rate$K / dose_rate$sum
-  dose_rate$K_frac_re <- sqrt(dose_rate$K_re^2 + dose_rate$K_frac^2 )           
+  dose_rate$K_frac_re <- sqrt(dose_rate$K_re^2 + dose_rate$sum_re^2 )           
   dose_rate$Th_frac <- dose_rate$Th / dose_rate$sum
-  dose_rate$Th_frac_re <- sqrt(dose_rate$Th_re^2 + dose_rate$Th_frac^2 )          
+  dose_rate$Th_frac_re <- sqrt(dose_rate$Th_re^2 + dose_rate$sum_re^2 )          
   dose_rate$U_frac <- dose_rate$U / dose_rate$sum
-  dose_rate$U_frac_re <- sqrt(dose_rate$U_re^2 + dose_rate$U_frac^2 )           
-  
+  dose_rate$U_frac_re <- sqrt(dose_rate$U_re^2 + dose_rate$sum_re^2 )           
   
   ## weighted fractional dose
   z_scale <- do.call(cbind, Map(function(d, wc) {
@@ -252,30 +358,92 @@ scale_GammaDose <- function(
   }, dose_rate$K_frac, dose_rate$Th_frac, dose_rate$U_frac, 
   dose_rate$K_frac_re, dose_rate$Th_frac_re, dose_rate$U_frac_re))
   
-  ## calculate distances
+  ## TODO: LEGACY CODE 
   target <- which(!is.na(data$sample_offset))
-  distance <- data.frame(upper = c(rev(cumsum(data$thickness[target:1])[-1]) - data$sample_offset[target], 
+  distance <- data.frame(upper = c(rev(cumsum(data$thickness[target:1])[-1]) - data$sample_offset[target],
                                    abs(data$sample_offset[target]),
                                    cumsum(data$thickness[(target+1):nrow(data)]) + data$sample_offset[target]))
   distance$lower <- abs(distance$upper - data$thickness)
   
   ## Calculate infitite dose rate and dose received by the sample
-  Inf_frac <- as.data.frame(do.call(rbind, Map(function(z, d, n) {
+  ## MAP: iterate over LAYERS
+  Inf_frac <- as.data.frame(do.call(rbind, Map(function(z, n) {
+    
     interpol <- Map(function(x) {
       approx(z, x, n = 1000, method = "linear")
     }, frac_dose[, c("K", "Th", "U")])
     
-    C1 = which.min(abs(interpol$K$x - d[1]))
-    C2 = which.min(abs(interpol$K$x - d[2]))
+    x1 = data$thickness[n]
+    x2 = 0
+    C1 = which.min(abs(interpol$K$x - x1))
+    C2 = which.min(abs(interpol$K$x - x2))
     
+    ## MAP: iterate over NUCLIDE
     do.call(cbind, Map(function(x) {
-      if (n == target)
-        abs(x$y[C1] + x$y[C2]) - 1
-      else
-        abs(x$y[C1] - x$y[C2])
-    }, interpol))
     
-  }, as.data.frame(z_scale), as.data.frame(t(distance)), 1:nrow(data))))
+      y1 = interpol[[x]]$y[C1]
+      y2 = interpol[[x]]$y[C2]
+      
+      ### ----
+      if (n != target) {
+        
+        if (n < target) {
+          k <-  n + 1
+          seq <- k:target
+        } else if (n > target) {
+          k <- n - 1
+          seq <- target:k
+        }
+        
+        for (j in seq) {
+          fit <- approx(z_scale[ ,j], frac_dose[ , x], n = 1000, method = "linear")
+          x1_temp <- which.min(abs(fit$y - y1))
+          x2_temp <- which.min(abs(fit$y - y2))
+          
+          if (j != target) {
+            x1 <- fit$x[x1_temp] + data$thickness[j]
+            x2 <- fit$x[x2_temp] + data$thickness[j]
+          } 
+          if (j == target) {
+            
+            if (n < target) {
+              x1 <- fit$x[x1_temp] + data$thickness[target] - data$sample_offset[target]
+              x2 <- fit$x[x2_temp] + data$thickness[target] - data$sample_offset[target]
+            }
+            
+            if (n > target) {
+              x1 <- fit$x[x1_temp] + data$sample_offset[target]
+              x2 <- fit$x[x2_temp] + data$sample_offset[target]
+            }
+          
+            
+          }
+          
+          C1_temp <- which.min(abs(fit$x - x1))
+          C2_temp <- which.min(abs(fit$x - x2))
+          
+          y1 <- fit$y[C1_temp]
+          y2 <- fit$y[C2_temp]
+        }
+        r <- y1 - y2
+      }
+      
+      ### ----
+      if (n == target) {
+        x1 <- data$sample_offset[target]
+        x2 <- abs(data$thickness[target] - data$sample_offset[target])
+        
+        C1_temp <- which.min(abs(interpol[[x]]$x - x1))
+        C2_temp <- which.min(abs(interpol[[x]]$x - x2))
+        
+        r <- interpol[[x]]$y[C1_temp] + interpol[[x]]$y[C2_temp] - 1
+      }
+      
+      return(r)
+    }, c("K", "Th", "U")))
+    
+  }, as.data.frame(z_scale), 1:nrow(data))))
+  
   
   ## Generate output object
   op <- setNames(vector(mode = "list", length = 17), 
