@@ -18,8 +18,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  expect_equal(signif(results$summary$dose_rate_total, 4), 0.9271)
-  expect_equal(signif(results$summary$dose_rate_total_err, 4), 0.2147)
+  expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9242")
+  expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2131")
 })
 
 ## Conversion factors: Guerinetal2011
@@ -37,8 +37,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  expect_equal(signif(results$summary$dose_rate_total, 4), 0.9243)
-  expect_equal(signif(results$summary$dose_rate_total_err, 4), 0.2141)
+  expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9214")
+  expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2124")
 })
 
 ## Conversion factors: Guerinetal2011
@@ -56,8 +56,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  expect_equal(signif(results$summary$dose_rate_total, 4), 0.9151)
-  expect_equal(signif(results$summary$dose_rate_total_err, 4), 0.2113)
+  expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9123")
+  expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2097")
 })
 
 ## CONSOLE & PLOT OUTPUT
