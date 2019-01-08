@@ -110,7 +110,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.6 (2018-11-08 13:57:33)
+ 0.1.6 (2019-01-03 10:41:41)
 }
 
 \examples{
@@ -139,7 +139,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

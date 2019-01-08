@@ -51,7 +51,7 @@ This function uses the equations of Thomsen et al. (2007). The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1.1 (2018-01-25 16:29:58)
+ 0.1.1 (2018-01-26 16:38:39)
 }
 
 \examples{
@@ -65,7 +65,7 @@ ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 } 
 
 \section{How to cite}{
-Smedley, R.K. (2019). calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Smedley, R.K. (2019). calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

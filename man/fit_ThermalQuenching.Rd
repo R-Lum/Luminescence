@@ -106,7 +106,7 @@ are applied. The weights are defined by the thrid column of the input \code{data
 }
 }
 \section{Function version}{
- 0.1.0 (2018-10-17 17:48:32)
+ 0.1.0 (2018-10-25 12:11:25)
 }
 
 \examples{
@@ -125,7 +125,7 @@ fit_ThermalQuenching(
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -106,7 +106,7 @@ consider using the functions \link{analyse_SAR.CWOSL} or
 \strong{The development of this function will not be continued. We recommend to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.17 (2018-01-21 17:22:38)
+ 0.2.17 (2017-09-13 10:50:39)
 }
 
 \examples{
@@ -129,7 +129,7 @@ output.SAR
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2019). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2019). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

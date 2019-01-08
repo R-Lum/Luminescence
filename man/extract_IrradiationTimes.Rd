@@ -104,7 +104,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.3.1 (2018-01-21 17:22:38)
+ 0.3.1 (2017-09-13 10:50:39)
 }
 
 \examples{
@@ -129,7 +129,7 @@ towards a correct time order.
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

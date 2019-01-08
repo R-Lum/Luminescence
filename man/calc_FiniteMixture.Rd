@@ -118,7 +118,7 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2018-04-19 13:18:48)
+ 0.4 (2018-06-18 19:27:20)
 }
 
 \examples{
@@ -151,7 +151,7 @@ get_RLum(object = FMM, data.object = "components")
 } 
 
 \section{How to cite}{
-Burow, C. (2019). calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2019). calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

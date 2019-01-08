@@ -57,7 +57,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.3 (2018-02-19 16:53:17)
+ 0.1.3 (2018-02-19 14:07:14)
 }
 
 \examples{
@@ -113,7 +113,7 @@ output <- use_DRAC(input)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C. (2019). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Burow, C. (2019). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

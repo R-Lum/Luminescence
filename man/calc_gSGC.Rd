@@ -59,7 +59,7 @@ Solving of the equation is realised using \link{uniroot}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.1 (2018-01-21 17:22:38)
+ 0.1.1 (2017-09-13 10:50:39)
 }
 
 \examples{
@@ -74,7 +74,7 @@ get_RLum(results, data.object = "De")
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
