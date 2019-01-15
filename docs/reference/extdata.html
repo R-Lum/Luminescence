@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Collection of External Data — extdata" />
 
 <meta property="og:description" content="Description and listing of data provided in the folder data/extdata" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,15 +110,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Collection of External Data</h1>
+    
+    <div class="hidden name"><code>extdata.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Description and listing of data provided in the folder <code>data/extdata</code></p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -115,39 +130,39 @@
     <p>The <strong>R</strong> package <code>Luminescence</code> includes a number of raw data files, which are mostly used in
 the example sections of appropriate functions. They are also used internally for testing corresponding
 functions using the <code>testthat</code> package (see files in <code>tests/testthat/</code>) to ensure their operational
-reliability.
-    <strong>Accessibility</strong></p>
+reliability.</p>
+<p><strong>Accessibility</strong></p>
 <p>If the <strong>R</strong> package <code>Luminescence</code> is installed correctly the preferred way to access and use these
-data from within <strong>R</strong> is as follows:
-    <code>system.file("extdata/&lt;FILENAME&gt;", package = "Luminescence")</code>
-    <strong>Individual file descriptions</strong>
-    <em>&gt;&gt;Daybreak_TestFile.DAT/.txt&lt;&lt;</em>
-    <strong>Type:</strong> raw measurement data 
-<strong>Device:</strong> Daybreak OSL/TL reader
-<strong>Measurement date:</strong> unknown
-<strong>Location:</strong> unknown
-<strong>Provided by:</strong> unknown
-<strong>Related R function(s):</strong> <code><a href='read_Daybreak2R.html'>read_Daybreak2R()</a></code>
-<strong>Reference:</strong> unknown
-    <em>&gt;&gt;DorNie_0016.psl&lt;&lt;</em>
-    <strong>Type:</strong> raw measurement data 
-<strong>Device:</strong> SUERC portable OSL reader 
-<strong>Measurement date:</strong> 19/05/2016 
-<strong>Location:</strong> Dormagen-Nievenheim, Germany 
-<strong>Provided by:</strong> Christoph Burow (University of Cologne) 
-<strong>Related R function(s):</strong> <code><a href='read_PSL2R.html'>read_PSL2R()</a></code> 
-<strong>Reference:</strong> unpublished 
-<strong>Additional information:</strong> Sample measured at an archaeological site near 
-Dormagen-Nievenheim (Germany) during a practical course on Luminesence dating in 2016.
-    <em>&gt;&gt;QNL84_2_bleached.txt</em>, <em>QNL84_2_unbleached.txt&lt;&lt;</em>
-    <strong>Type:</strong> Test data for exponential fits 
-<strong>Reference:</strong> Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
-    <em>&gt;&gt;STRB87_1_bleached.txt</em>, <em>STRB87_1_unbleached.txt&lt;&lt;</em>
-    <strong>Type:</strong> Test data for exponential fits 
-<strong>Reference:</strong> Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
-    <em>&gt;&gt;XYSG_file.xysg</em>
-    <strong>Type:</strong> XSYG-file stump 
-**Info: ** XSYG-file with some basic curves to test functions 
+data from within <strong>R</strong> is as follows:</p>
+<p><code>system.file("extdata/&lt;FILENAME&gt;", package = "Luminescence")</code></p>
+<p><strong>Individual file descriptions</strong></p>
+<p><em>&gt;&gt;Daybreak_TestFile.DAT/.txt&lt;&lt;</em></p>
+<p><strong>Type:</strong> raw measurement data <br />
+<strong>Device:</strong> Daybreak OSL/TL reader<br />
+<strong>Measurement date:</strong> unknown<br />
+<strong>Location:</strong> unknown<br />
+<strong>Provided by:</strong> unknown<br />
+<strong>Related R function(s):</strong> <code><a href='read_Daybreak2R.html'>read_Daybreak2R()</a></code><br />
+<strong>Reference:</strong> unknown</p>
+<p><em>&gt;&gt;DorNie_0016.psl&lt;&lt;</em></p>
+<p><strong>Type:</strong> raw measurement data <br />
+<strong>Device:</strong> SUERC portable OSL reader <br />
+<strong>Measurement date:</strong> 19/05/2016 <br />
+<strong>Location:</strong> Dormagen-Nievenheim, Germany <br />
+<strong>Provided by:</strong> Christoph Burow (University of Cologne) <br />
+<strong>Related R function(s):</strong> <code><a href='read_PSL2R.html'>read_PSL2R()</a></code> <br />
+<strong>Reference:</strong> unpublished <br />
+<strong>Additional information:</strong> Sample measured at an archaeological site near <br />
+Dormagen-Nievenheim (Germany) during a practical course on Luminesence dating in 2016. <br /></p>
+<p><em>&gt;&gt;QNL84_2_bleached.txt</em>, <em>QNL84_2_unbleached.txt&lt;&lt;</em></p>
+<p><strong>Type:</strong> Test data for exponential fits <br />
+<strong>Reference:</strong> Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. <br /></p>
+<p><em>&gt;&gt;STRB87_1_bleached.txt</em>, <em>STRB87_1_unbleached.txt&lt;&lt;</em></p>
+<p><strong>Type:</strong> Test data for exponential fits <br />
+<strong>Reference:</strong> Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.</p>
+<p><em>&gt;&gt;XYSG_file.xysg</em></p>
+<p><strong>Type:</strong> XSYG-file stump <br />
+**Info: ** XSYG-file with some basic curves to test functions <br />
 <strong>Reference:</strong> no reference available</p>
     
 
@@ -174,5 +189,8 @@ Dormagen-Nievenheim (Germany) during a practical course on Luminesence dating in
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

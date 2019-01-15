@@ -8,7 +8,10 @@
 #'@param object [RLum.Analysis-class] or [RLum.Data.Curve-class] (**required**): input object to
 #'be converted
 #'
-#'@section Function version: 0.1.2
+#'@param keep.position.number [logical] (with default): keeps the original position number or re-calculate
+#'the numbers to avoid doubling
+#'
+#'@section Function version: 0.1.3
 #'
 #'@author  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -30,7 +33,8 @@
 #'@md
 #'@export
 convert_RLum2Risoe.BINfileData <- function(
-  object
+  object,
+  keep.position.number = FALSE
 
 ){
 
@@ -48,7 +52,7 @@ convert_RLum2Risoe.BINfileData <- function(
       return(object_list[[1]])
 
     }else{
-      return(merge_Risoe.BINfileData(object_list, keep.position.number = TRUE))
+      return(merge_Risoe.BINfileData(object_list, keep.position.number = keep.position.number))
 
     }
 

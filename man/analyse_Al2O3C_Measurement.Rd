@@ -52,7 +52,7 @@ enable/disable verbose mode}
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output, if \code{object} is of type \link{list},
 a \link{numeric} vector can be provided to limit the plot output to certain aliquots}
 
-\item{...}{further arguments that can be passed to the plot output}
+\item{...}{further arguments that can be passed to the plot output, supported are \code{norm}, \code{main}, \code{mtext}}
 }
 \value{
 Function returns results numerically and graphically:
@@ -122,7 +122,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.2.2 (2018-10-03 19:36:42)
+ 0.2.4 (2018-10-25 12:11:25)
 }
 
 \examples{
@@ -135,7 +135,7 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

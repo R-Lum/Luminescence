@@ -54,7 +54,7 @@ author.list <- do.call(rbind, lapply(authors, function(str) {
 ## -------------------------------------------------------------------------- ##
 
 ##add citation section
-file.list.man <- list.files("man/")
+file.list.man <- list.files("man/", recursive = TRUE, include.dirs = FALSE)
 
 # build package citation
 pkg.authors <- character()

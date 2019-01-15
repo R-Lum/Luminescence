@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
-Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.8.7
-Date: 2018-10-05
+Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
+Version: 0.9.0.11
+Date: 2019-01-08
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -10,7 +10,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Christoph Schmidt [aut] (<https://orcid.org/0000-0002-2309-3209>),
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut] (<https://orcid.org/0000-0002-0805-9547>),
-    Norbert Mercier [ctb],
+    Norbert Mercier [ctb] (<https://orcid.org/0000-0002-6375-9108>),
     Rachel K. Smedley [ctb] (<https://orcid.org/0000-0001-7773-5193>),
     Claire Christophe [ctb],
     Antoine Zink [ctb],
@@ -18,6 +18,8 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
     Anne Philippe [ctb],
     Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
+    Svenja Riedesel [ctb] (<https://orcid.org/0000-0003-2936-8776>),
+    Martin Autzen [ctb],
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr", comment = c(ORCID = "0000-0002-0734-2199")),
@@ -27,7 +29,7 @@ Authors@R: c(
     person("Christoph", "Schmidt", role = c("aut"), comment = c(ORCID = "0000-0002-2309-3209")),
     person("Manfred", "Fischer", role = c("aut", "trl")),
     person("Johannes", "Friedrich", role = c("aut"), comment = c(ORCID = "0000-0002-0805-9547")),
-    person("Norbert", "Mercier", role = c("ctb")),
+    person("Norbert", "Mercier", role = c("ctb"), comment = c(ORCID = "0000-0002-6375-9108")),
     person("Rachel K.", "Smedley", role = c("ctb"), comment = c(ORCID = "0000-0001-7773-5193")),
     person("Claire", "Christophe", role = c("ctb")),
     person("Antoine", "Zink", rol = c("ctb")),
@@ -35,6 +37,8 @@ Authors@R: c(
     person("Georgina E.", "King", role = c("ctb", "dtc"), comment = c(ORCID = "0000-0003-1059-8192")),
     person("Anne", "Philippe", role = c("ctb")),
     person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
+    person("Svenja", "Riedesel", role = c("ctb"), comment = c(ORCID = "0000-0003-2936-8776")),
+    person("Martin", "Autzen", role = c("ctb")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
@@ -53,6 +57,7 @@ LinkingTo: Rcpp (>= 0.12.15),
 Imports:
     bbmle (>= 1.0.20),
     data.table (>= 1.10.0),
+    DEoptim (>= 2.2-4),
     httr (>= 1.3.0),
     matrixStats (>= 0.53.0),
     methods,
@@ -155,7 +160,9 @@ Collate:
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
+    'fit_OSLLifeTimes.R'
     'fit_SurfaceExposure.R'
+    'fit_ThermalQuenching.R'
     'get_Layout.R'
     'get_Quote.R'
     'get_rightAnswer.R'
@@ -172,6 +179,7 @@ Collate:
     'methods_RLum.R'
     'model_LuminescenceSignals.R'
     'plot_AbanicoPlot.R'
+    'plot_DRCSummary.R'
     'plot_DRTResults.R'
     'plot_DetPlot.R'
     'plot_FilterCombinations.R'
@@ -191,9 +199,11 @@ Collate:
     'read_BIN2R.R'
     'read_Daybreak2R.R'
     'read_PSL2R.R'
+    'read_RF2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'
+    'scale_GammaDose.R'
     'template_DRAC.R'
     'tune_Data.R'
     'use_DRAC.R'
@@ -202,4 +212,4 @@ Collate:
     'write_R2BIN.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

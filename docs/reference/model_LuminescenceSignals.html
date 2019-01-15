@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Model Luminescence Signals (wrapper) — model_LuminescenceSignals" />
 
 <meta property="og:description" content="Wrapper for the function RLumModel::model_LuminescenceSignals from the package
 RLumModel::RLumModel-package. For the further details and examples please
 see the manual of this package." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ see the manual of this package." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ see the manual of this package." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ see the manual of this package." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,24 +112,28 @@ see the manual of this package." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Model Luminescence Signals (wrapper)</h1>
+    
+    <div class="hidden name"><code>model_LuminescenceSignals.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Wrapper for the function <a href='http://www.rdocumentation.org/packages/RLumModel/topics/model_LuminescenceSignals'>RLumModel::model_LuminescenceSignals</a> from the package
 <a href='http://www.rdocumentation.org/packages/RLumModel/topics/RLumModel-package'>RLumModel::RLumModel-package</a>. For the further details and examples please
 see the manual of this package.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>model_LuminescenceSignals</span>(<span class='no'>model</span>, <span class='no'>sequence</span>, <span class='kw'>lab.dose_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>simulate_sample_history</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>show_structure</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>own_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>own_state_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>own_start_temperature</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -202,7 +217,7 @@ a simulation. This parameter takes effect only when 'model = "customized"' is ch
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Friedrich, J., Kreutzer, S. (2018). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Friedrich, J., Kreutzer, S. (2018). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
 
   </div>
@@ -218,9 +233,9 @@ a simulation. This parameter takes effect only when 'model = "customized"' is ch
 
     <h2>Author</h2>
     
-Johannes Friedrich, University of Bayreuth (Germany) 
+Johannes Friedrich, University of Bayreuth (Germany) <br />
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -236,5 +251,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

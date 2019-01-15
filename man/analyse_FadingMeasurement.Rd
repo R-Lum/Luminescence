@@ -15,6 +15,8 @@ objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
 and where each triplet has the before mentioned column structure.
+\strong{Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
+only IRSL curves representing Lx (and Tx)}
 
 If data from multiple aliquots are provided please \strong{see the details below} with regard to
 Lx/Tx normalisation.}
@@ -107,11 +109,8 @@ inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the L
 of each aliquot by its individual prompt measurement please do so \strong{before} running
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
-\note{
-\strong{This function has BETA status and should not be used for publication work!}
-}
 \section{Function version}{
- 0.1.5 (2018-10-03 19:36:42)
+ 0.1.6 (2019-01-03 10:41:41)
 }
 
 \examples{
@@ -140,7 +139,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2018). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -159,7 +158,7 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 \link{extract_IrradiationTimes}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Universite Bordeaux Montaigne (France) \cr
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team}
 \keyword{datagen}

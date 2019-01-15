@@ -27,7 +27,7 @@ The error can be reduced and sample size increased for specific purpose.
 You should not use this function to improve your poor data set!
 }
 \section{Function version}{
- 0.5.0 (2018-01-21 17:22:38)
+ 0.5.0 (2017-09-13 10:50:40)
 }
 
 \examples{
@@ -54,7 +54,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M. (2018). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2019). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}

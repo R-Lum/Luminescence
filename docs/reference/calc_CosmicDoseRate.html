@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculate the cosmic dose rate — calc_CosmicDoseRate" />
 
 <meta property="og:description" content="This function calculates the cosmic dose rate taking into account the soft-
@@ -34,6 +37,9 @@ and hard-component of the cosmic ray flux and allows corrections for
 geomagnetic latitude, altitude above sea-level and geomagnetic field
 changes." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ changes." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ changes." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -95,6 +105,7 @@ changes." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -102,36 +113,40 @@ changes." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate the cosmic dose rate</h1>
+    
+    <div class="hidden name"><code>calc_CosmicDoseRate.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function calculates the cosmic dose rate taking into account the soft-
 and hard-component of the cosmic ray flux and allows corrections for
 geomagnetic latitude, altitude above sea-level and geomagnetic field
 changes.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_CosmicDoseRate</span>(<span class='no'>depth</span>, <span class='no'>density</span>, <span class='no'>latitude</span>, <span class='no'>longitude</span>, <span class='no'>altitude</span>,
   <span class='kw'>corr.fieldChanges</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>est.age</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>half.depth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>depth</th>
       <td><p>numeric (<strong>required</strong>):
-depth of overburden (m). For more than one absorber use 
+depth of overburden (m). For more than one absorber use <br />
 <code>c(depth_1, depth_2, ..., depth_n)</code></p></td>
     </tr>
     <tr>
       <th>density</th>
       <td><p>numeric (<strong>required</strong>):
-average overburden density (g/cm^3). For more than one absorber use 
+average overburden density (g/cm^3). For more than one absorber use <br />
 <code>c(density_1, density_2, ..., density_n)</code></p></td>
     </tr>
     <tr>
@@ -193,41 +208,41 @@ The output should be accessed using the function get_RLum
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function calculates the total cosmic dose rate considering both the
-soft- and hard-component of the cosmic ray flux.
-    <strong>Internal calculation steps</strong></p>
+soft- and hard-component of the cosmic ray flux.</p>
+<p><strong>Internal calculation steps</strong></p>
 <p>(1)
-Calculate total depth of all absorber in hg/cm^2 (1 hg/cm^2 = 100 g/cm^2)
-    $$absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*density_n$$</p>
+Calculate total depth of all absorber in hg/cm^2 (1 hg/cm^2 = 100 g/cm^2)</p>
+<p>$$absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*density_n$$</p>
 <p>(2)
-If <code>half.depth = TRUE</code>
-    $$absorber = absorber/2$$</p>
+If <code>half.depth = TRUE</code></p>
+<p>$$absorber = absorber/2$$</p>
 <p>(3)
 Calculate cosmic dose rate at sea-level and 55 deg. latitude</p>
 <p>a) If absorber is &gt; 167 g/cm^2 (only hard-component; Allkofer et al.  1975):
 apply equation given by Prescott &amp; Hutton (1994) (c.f. Barbouti &amp; Rastin
-1983)
-    $$D0 = C/(((absorber+d)^\alpha+a)*(absober+H))*exp(-B*absorber)$$</p>
+1983)</p>
+<p>$$D0 = C/(((absorber+d)^\alpha+a)*(absober+H))*exp(-B*absorber)$$</p>
 <p>b) If absorber is &lt; 167 g/cm^2 (soft- and hard-component): derive D0 from
 Fig. 1 in Prescott &amp; Hutton (1988).</p>
 <p>(4)
 Calculate geomagnetic latitude (Prescott &amp; Stephan 1982, Prescott &amp;
-Hutton 1994)
-    $$\lambda = arcsin(0.203*cos(latitude)*cos(longitude-291)+0.979*
+Hutton 1994)</p>
+<p>$$\lambda = arcsin(0.203*cos(latitude)*cos(longitude-291)+0.979*
 sin(latitude))$$</p>
 <p>(5)
 Apply correction for geomagnetic latitude and altitude above sea-level.
 Values for F, J and H were read from Fig. 3 shown in Prescott &amp; Stephan
 (1982) and fitted with 3-degree polynomials for lambda &lt; 35 degree and a
-linear fit for lambda &gt; 35 degree.
-    $$Dc = D0*(F+J*exp((altitude/1000)/H))$$</p>
+linear fit for lambda &gt; 35 degree.</p>
+<p>$$Dc = D0*(F+J*exp((altitude/1000)/H))$$</p>
 <p>(6)
 Optional: Apply correction for geomagnetic field changes in the last
 0-80 ka (Prescott &amp; Hutton 1994). Correction and altitude factors are given
 in Table 1 and Fig. 1 in Prescott &amp; Hutton (1994). Values for altitude
 factor were fitted with a 2-degree polynomial. The altitude factor is
-operated on the decimal part of the correction factor.
-    $$Dc' = Dc*correctionFactor$$
-    <strong>Usage of <code>depth</code> and <code>density</code></strong></p>
+operated on the decimal part of the correction factor.</p>
+<p>$$Dc' = Dc*correctionFactor$$</p>
+<p><strong>Usage of <code>depth</code> and <code>density</code></strong></p>
 <p>(1) If only one value for depth and density is provided, the cosmic dose
 rate is calculated for exactly one sample and one absorber as overburden
 (i.e. <code>depth*density</code>).</p>
@@ -255,8 +270,8 @@ of Prescott &amp; Hutton (1994) underestimates the total cosmic dose rate, as it
 neglects the influence of the soft-component of the cosmic ray flux. For
 samples at zero depth and at sea-level the underestimation can be as large
 as ~0.1 Gy/ka. In a previous article, Prescott &amp; Hutton (1988) give another
-approximation of Barbouti &amp; Rastins equation in the form of
-    $$D = 0.21*exp(-0.070*absorber+0.0005*absorber^2)$$</p>
+approximation of Barbouti &amp; Rastins equation in the form of</p>
+<p>$$D = 0.21*exp(-0.070*absorber+0.0005*absorber^2)$$</p>
 <p>which is valid for depths between 150-5000 g/cm^2. For shallower depths (&lt;
 150 g/cm^2) they provided a graph (Fig. 1) from which the dose rate can be
 read.</p>
@@ -276,7 +291,7 @@ function at the time of writing.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2018). calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -301,7 +316,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='BaseDataSet.CosmicDoseRate.html'>BaseDataSet.CosmicDoseRate</a></p>
+    <div class='dont-index'><p><a href='BaseDataSet.CosmicDoseRate.html'>BaseDataSet.CosmicDoseRate</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -472,7 +487,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
     <h2>Author</h2>
     
 Christoph Burow, University of Cologne (Germany)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -488,5 +503,8 @@ Christoph Burow, University of Cologne (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

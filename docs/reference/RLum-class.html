@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Class <code>"RLum"</code> — RLum-class" />
 
 <meta property="og:description" content="Abstract class for data in the package Luminescence
 Sublasses are:" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ Sublasses are:" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ Sublasses are:" />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ Sublasses are:" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,25 @@ Sublasses are:" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class <code>"RLum"</code></h1>
+    
+    <div class="hidden name"><code>RLum-class.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Abstract class for data in the package Luminescence
 Sublasses are:</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for RLum</span>
 <span class='fu'><a href='replicate_RLum.html'>replicate_RLum</a></span>(<span class='no'>object</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -131,13 +146,13 @@ number for times each element is repeated element</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>RLum-class</strong>
-|
-|----<a href='RLum.Data-class.html'>RLum.Data</a>
-|----|-- <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>
-|----|-- <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>
-|----|-- <a href='RLum.Data.Image-class.html'>RLum.Data.Image</a>
-|----<a href='RLum.Analysis-class.html'>RLum.Analysis</a>
+    <p><strong>RLum-class</strong><br />
+|<br />
+|----<a href='RLum.Data-class.html'>RLum.Data</a><br />
+|----|-- <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a><br />
+|----|-- <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a><br />
+|----|-- <a href='RLum.Data.Image-class.html'>RLum.Data.Image</a><br />
+|----<a href='RLum.Analysis-class.html'>RLum.Analysis</a><br />
 |----<a href='RLum.Results-class.html'>RLum.Results</a></p>
     
     <h2 class="hasAnchor" id="methods-by-generic-"><a class="anchor" href="#methods-by-generic-"></a>Methods (by generic)</h2>
@@ -175,12 +190,12 @@ at will. The parent id can be the uid of another object.</p></dd>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum.Data-class.html'>RLum.Data</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='RLum.Data.Image-class.html'>RLum.Data.Image</a>,
-<a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='methods_RLum.html'>methods_RLum</a></p>
+    <div class='dont-index'><p><a href='RLum.Data-class.html'>RLum.Data</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='RLum.Data.Image-class.html'>RLum.Data.Image</a>,
+<a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='methods_RLum.html'>methods_RLum</a></p></div>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). RLum-class(): Class 'RLum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). RLum-class(): Class 'RLum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -244,5 +259,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

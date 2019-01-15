@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Merge function for RLum.Data.Curve S4 class objects — merge_RLum.Data.Curve" />
 
 <meta property="og:description" content="Function allows merging of RLum.Data.Curve objects in different ways" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,19 +110,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Merge function for RLum.Data.Curve S4 class objects</h1>
+    
+    <div class="hidden name"><code>merge_RLum.Data.Curve.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function allows merging of RLum.Data.Curve objects in different ways</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>merge_RLum.Data.Curve</span>(<span class='no'>object</span>, <span class='kw'>merge.method</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='no'>method.info</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -144,37 +159,37 @@ If nothing is provided all elements are combined.</p></td>
 
     <p>This function simply allowing to merge <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>
 objects without touching the objects itself. Merging is always applied on
-the 2nd colum of the data matrix of the object.
-    <strong>Supported merge operations are <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></strong>
-    <code>"sum"</code></p>
-<p>All count values will be summed up using the function rowSums.
-    <code>"mean"</code></p>
+the 2nd colum of the data matrix of the object.</p>
+<p><strong>Supported merge operations are <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></strong></p>
+<p><code>"sum"</code></p>
+<p>All count values will be summed up using the function rowSums.</p>
+<p><code>"mean"</code></p>
 <p>The mean over the count values is calculated using the function
-rowMeans.
-    <code>"median"</code></p>
+rowMeans.</p>
+<p><code>"median"</code></p>
 <p>The median over the count values is calculated using the function
-<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowMedians'>matrixStats::rowMedians</a>.
-    <code>"sd"</code></p>
+<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowMedians'>matrixStats::rowMedians</a>.</p>
+<p><code>"sd"</code></p>
 <p>The standard deviation over the count values is calculated using the function
-<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowSds'>matrixStats::rowSds</a>.
-    <code>"var"</code></p>
+<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowSds'>matrixStats::rowSds</a>.</p>
+<p><code>"var"</code></p>
 <p>The variance over the count values is calculated using the function
-<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowVars'>matrixStats::rowVars</a>.
-    <code>"min"</code></p>
+<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowVars'>matrixStats::rowVars</a>.</p>
+<p><code>"min"</code></p>
 <p>The min values from the count values is chosen using the function
-<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowRanges'>matrixStats::rowMins</a>.
-    <code>"max"</code></p>
+<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowRanges'>matrixStats::rowMins</a>.</p>
+<p><code>"max"</code></p>
 <p>The max values from the count values is chosen using the function
-<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowRanges'>matrixStats::rowMins</a>.
-    <code>"append"</code></p>
+<a href='http://www.rdocumentation.org/packages/matrixStats/topics/rowRanges'>matrixStats::rowMins</a>.</p>
+<p><code>"append"</code></p>
 <p>Appends count values of all curves to one combined data curve. The channel width
 is automatically re-calculated, but requires a constant channel width of the
-original data.
-    <code>"-"</code></p>
-<p>The row sums of the last objects are subtracted from the first object.
-    <code>"*"</code></p>
-<p>The row sums of the last objects are mutliplied with the first object.
-    <code>"/"</code></p>
+original data.</p>
+<p><code>"-"</code></p>
+<p>The row sums of the last objects are subtracted from the first object.</p>
+<p><code>"*"</code></p>
+<p>The row sums of the last objects are mutliplied with the first object.</p>
+<p><code>"/"</code></p>
 <p>Values of the first object are divided by row sums of the last objects.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -195,11 +210,11 @@ original data.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='merge_RLum.html'>merge_RLum</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p>
+    <div class='dont-index'><p><a href='merge_RLum.html'>merge_RLum</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p></div>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -214,9 +229,9 @@ original data.
 <span class='no'>TL.curve.3</span> <span class='kw'>&lt;-</span> <span class='no'>TL.curves</span><span class='kw'>[[</span><span class='fl'>3</span>]]
 
 <span class='co'>##plot single curves</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.1</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.3</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##subtract the 1st curve from the 2nd and plot</span>
-<span class='no'>TL.curve.merged</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_RLum.Data.Curve</span>(<span class='fu'>list</span>(<span class='no'>TL.curve.3</span>, <span class='no'>TL.curve.1</span>), <span class='kw'>merge.method</span> <span class='kw'>=</span> <span class='st'>"/"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 8 'inf' values have been replaced by 0 in the matrix.</span></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.merged</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='no'>TL.curve.merged</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_RLum.Data.Curve</span>(<span class='fu'>list</span>(<span class='no'>TL.curve.3</span>, <span class='no'>TL.curve.1</span>), <span class='kw'>merge.method</span> <span class='kw'>=</span> <span class='st'>"/"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 8 'inf' values have been replaced by 0 in the matrix.</span></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>TL.curve.merged</span>)</div><div class='img'><img src='merge_RLum.Data.Curve-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -244,7 +259,7 @@ original data.
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -260,5 +275,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

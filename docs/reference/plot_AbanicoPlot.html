@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Function to create an Abanico Plot. — plot_AbanicoPlot" />
 
 <meta property="og:description" content="A plot is produced which allows comprehensive presentation of data precision
 and its dispersion around a central value as well as illustration of a
 kernel density estimate, histogram and/or dot plot of the dose values." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,27 +112,32 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to create an Abanico Plot.</h1>
+    
+    <div class="hidden name"><code>plot_AbanicoPlot.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A plot is produced which allows comprehensive presentation of data precision
 and its dispersion around a central value as well as illustration of a
 kernel density estimate, histogram and/or dot plot of the dose values.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>plot_AbanicoPlot</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"mean.weighted"</span>,
-  <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"qr"</span>, <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>rotate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>mtext</span>, <span class='no'>summary</span>,
-  <span class='no'>summary.pos</span>, <span class='kw'>summary.method</span> <span class='kw'>=</span> <span class='st'>"MCM"</span>, <span class='no'>legend</span>, <span class='no'>legend.pos</span>, <span class='no'>stats</span>,
-  <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>bar</span>, <span class='no'>bar.col</span>,
-  <span class='no'>polygon.col</span>, <span class='no'>line</span>, <span class='no'>line.col</span>, <span class='no'>line.lty</span>, <span class='no'>line.label</span>, <span class='no'>grid.col</span>, <span class='kw'>frame</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"SJ"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_AbanicoPlot</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"mean.weighted"</span>, <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"qr"</span>, <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>rotate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>mtext</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>, <span class='kw'>summary.method</span> <span class='kw'>=</span> <span class='st'>"MCM"</span>,
+  <span class='no'>legend</span>, <span class='no'>legend.pos</span>, <span class='no'>stats</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>bar</span>, <span class='no'>bar.col</span>, <span class='no'>polygon.col</span>, <span class='no'>line</span>, <span class='no'>line.col</span>, <span class='no'>line.lty</span>, <span class='no'>line.label</span>,
+  <span class='no'>grid.col</span>, <span class='kw'>frame</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"SJ"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -396,11 +412,12 @@ one or more of the following keywords:</p><ul>
 <li><p><code>"in.2s"</code> (percent of samples in 2-sigma range)</p></li>
 <li><p><code>"kurtosis"</code> (kurtosis)</p></li>
 <li><p><code>"skewness"</code> (skewness)</p></li>
-</ul><p><strong>Note</strong> that the input data for the statistic summary is sent to the function
+</ul>
+    <p><strong>Note</strong> that the input data for the statistic summary is sent to the function
 <code><a href='calc_Statistics.html'>calc_Statistics()</a></code> depending on the log-option for the z-scale. If
 <code>"log.z = TRUE"</code>, the summary is based on the logarithms of the input
-data. If <code>"log.z = FALSE"</code> the linearly scaled data is used.
-    <strong>Note</strong> as well, that <code>"calc_Statistics()"</code> calculates these statistic
+data. If <code>"log.z = FALSE"</code> the linearly scaled data is used.</p>
+<p><strong>Note</strong> as well, that <code>"calc_Statistics()"</code> calculates these statistic
 measures in three different ways: <code>unweighted</code>, <code>weighted</code> and
 <code>MCM-based</code> (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
@@ -419,11 +436,11 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.10 (2018-01-21 17:22:38)</p>
+    <p>0.1.10 (2018-02-28 22:48:58)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2018). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S. (2018). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -437,7 +454,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='plot_RadialPlot.html'>plot_RadialPlot</a>, <a href='plot_KDE.html'>plot_KDE</a>, <a href='plot_Histogram.html'>plot_Histogram</a></p>
+    <div class='dont-index'><p><a href='plot_RadialPlot.html'>plot_RadialPlot</a>, <a href='plot_KDE.html'>plot_KDE</a>, <a href='plot_Histogram.html'>plot_Histogram</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -447,48 +464,146 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>CA1</span>
 
 <span class='co'>## plot the example data straightforward</span>
-<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_AbanicoPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with linear z-scale</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with output of the plot parameters</span>
 <span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                          <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'><span class='fu'>str</span>(<span class='no'>plot1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in str(plot1): object 'plot1' not found</span></div><div class='input'><span class='no'>plot1</span>$<span class='no'>zlim</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'plot1' not found</span></div><div class='input'>
+                          <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>str</span>(<span class='no'>plot1</span>)</div><div class='output co'>#&gt; List of 10
+#&gt;  $ xlim         : num [1:2] 0 16.1
+#&gt;  $ ylim         : num [1:2] -36.8 15.9
+#&gt;  $ zlim         : num [1:2] 17.4 132.9
+#&gt;  $ polar.box    : num [1:4] 0 16.1 -20.5 12.2
+#&gt;  $ cartesian.box: num [1:4] 16.6 20.4 -20.5 12.2
+#&gt;  $ plot.ratio   : num 0.788
+#&gt;  $ data         :List of 1
+#&gt;   ..$ :'data.frame':	62 obs. of  10 variables:
+#&gt;   .. ..$ De               : num [1:62] 19.7 26.2 31.5 31.9 36.2 ...
+#&gt;   .. ..$ error            : num [1:62] 2.14 2.04 2.34 2.34 2.95 3.15 8.22 3.23 4.43 4.43 ...
+#&gt;   .. ..$ z                : num [1:62] 2.98 3.27 3.45 3.46 3.59 ...
+#&gt;   .. ..$ se               : num [1:62] 0.1086 0.0779 0.0743 0.0732 0.0816 ...
+#&gt;   .. ..$ z.central        : num [1:62] 4.13 4.13 4.13 4.13 4.13 ...
+#&gt;   .. ..$ precision        : num [1:62] 9.21 12.84 13.45 13.65 12.26 ...
+#&gt;   .. ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
+#&gt;   .. ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
+#&gt;   .. ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...
+#&gt;   .. ..$ data.in.2s       : logi [1:62] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;  $ data.global  :'data.frame':	62 obs. of  10 variables:
+#&gt;   ..$ De               : num [1:62] 19.7 26.2 31.5 31.9 36.2 ...
+#&gt;   ..$ error            : num [1:62] 2.14 2.04 2.34 2.34 2.95 3.15 8.22 3.23 4.43 4.43 ...
+#&gt;   ..$ z                : num [1:62] 2.98 3.27 3.45 3.46 3.59 ...
+#&gt;   ..$ se               : num [1:62] 0.1086 0.0779 0.0743 0.0732 0.0816 ...
+#&gt;   ..$ z.central        : num [1:62] 4.13 4.13 4.13 4.13 4.13 ...
+#&gt;   ..$ precision        : num [1:62] 9.21 12.84 13.45 13.65 12.26 ...
+#&gt;   ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
+#&gt;   ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
+#&gt;   ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...
+#&gt;   ..$ data set         : num [1:62] 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ KDE          :List of 1
+#&gt;   ..$ : num [1:514, 1:2] 2.86 2.86 2.86 2.87 2.87 ...
+#&gt;  $ par          :List of 66
+#&gt;   ..$ xlog     : logi FALSE
+#&gt;   ..$ ylog     : logi FALSE
+#&gt;   ..$ adj      : num 0.5
+#&gt;   ..$ ann      : logi TRUE
+#&gt;   ..$ ask      : logi FALSE
+#&gt;   ..$ bg       : chr "transparent"
+#&gt;   ..$ bty      : chr "o"
+#&gt;   ..$ cex      : num 1
+#&gt;   ..$ cex.axis : num 1
+#&gt;   ..$ cex.lab  : num 1
+#&gt;   ..$ cex.main : num 1.2
+#&gt;   ..$ cex.sub  : num 1
+#&gt;   ..$ col      : chr "black"
+#&gt;   ..$ col.axis : chr "black"
+#&gt;   ..$ col.lab  : chr "black"
+#&gt;   ..$ col.main : chr "black"
+#&gt;   ..$ col.sub  : chr "black"
+#&gt;   ..$ crt      : num 0
+#&gt;   ..$ err      : int 0
+#&gt;   ..$ family   : chr ""
+#&gt;   ..$ fg       : chr "black"
+#&gt;   ..$ fig      : num [1:4] 0 1 0 1
+#&gt;   ..$ fin      : num [1:2] 7 7
+#&gt;   ..$ font     : int 1
+#&gt;   ..$ font.axis: int 1
+#&gt;   ..$ font.lab : int 1
+#&gt;   ..$ font.main: int 2
+#&gt;   ..$ font.sub : int 1
+#&gt;   ..$ lab      : int [1:3] 5 5 7
+#&gt;   ..$ las      : int 0
+#&gt;   ..$ lend     : chr "round"
+#&gt;   ..$ lheight  : num 1
+#&gt;   ..$ ljoin    : chr "round"
+#&gt;   ..$ lmitre   : num 10
+#&gt;   ..$ lty      : chr "solid"
+#&gt;   ..$ lwd      : num 1
+#&gt;   ..$ mai      : num [1:4] 0.9 0.9 0.7 1.4
+#&gt;   ..$ mar      : num [1:4] 4.5 4.5 3.5 7
+#&gt;   ..$ mex      : num 1
+#&gt;   ..$ mfcol    : int [1:2] 1 1
+#&gt;   ..$ mfg      : int [1:4] 1 1 1 1
+#&gt;   ..$ mfrow    : int [1:2] 1 1
+#&gt;   ..$ mgp      : num [1:3] 3 1 0
+#&gt;   ..$ mkh      : num 0.001
+#&gt;   ..$ new      : logi FALSE
+#&gt;   ..$ oma      : num [1:4] 0 0 0 0
+#&gt;   ..$ omd      : num [1:4] 0 1 0 1
+#&gt;   ..$ omi      : num [1:4] 0 0 0 0
+#&gt;   ..$ pch      : int 1
+#&gt;   ..$ pin      : num [1:2] 4.7 5.4
+#&gt;   ..$ plt      : num [1:4] 0.129 0.8 0.129 0.9
+#&gt;   ..$ ps       : int 12
+#&gt;   ..$ pty      : chr "m"
+#&gt;   ..$ smo      : num 1
+#&gt;   ..$ srt      : num 0
+#&gt;   ..$ tck      : num NA
+#&gt;   ..$ tcl      : num -0.5
+#&gt;   ..$ usr      : num [1:4] 0 20.4 -36.8 15.9
+#&gt;   ..$ xaxp     : num [1:3] 0 20 4
+#&gt;   ..$ xaxs     : chr "r"
+#&gt;   ..$ xaxt     : chr "s"
+#&gt;   ..$ xpd      : logi TRUE
+#&gt;   ..$ yaxp     : num [1:3] -30 10 4
+#&gt;   ..$ yaxs     : chr "r"
+#&gt;   ..$ yaxt     : chr "s"
+#&gt;   ..$ ylbias   : num 0.2</div><div class='input'><span class='no'>plot1</span>$<span class='no'>zlim</span></div><div class='output co'>#&gt; [1]  17.41711 132.85700</div><div class='input'>
 <span class='co'>## now with adjusted z-scale limits</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>200</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_AbanicoPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with adjusted x-scale limits</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>20</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_AbanicoPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with rug to indicate individual values in KDE part</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with a smaller bandwidth for the KDE plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>bw</span> <span class='kw'>=</span> <span class='fl'>0.04</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>bw</span> <span class='kw'>=</span> <span class='fl'>0.04</span>)</div><div class='img'><img src='plot_AbanicoPlot-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with a histogram instead of the KDE plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                 <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>kde</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with a KDE plot and histogram with manual number of bins</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>hist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                 <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='img'><img src='plot_AbanicoPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with a KDE plot and a dot plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>dots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with user-defined plot ratio</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'><span class='co'>## now with user-defined central value</span>
+                 <span class='kw'>plot.ratio</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='plot_AbanicoPlot-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## now with user-defined central value</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='fl'>70</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='fl'>70</span>)</div><div class='img'><img src='plot_AbanicoPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with median as central value</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>)</div><div class='img'><img src='plot_AbanicoPlot-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with the 17-83 percentile range as definition of scatter</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
-                 <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"p17"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='st'>"p17"</span>)</div><div class='img'><img src='plot_AbanicoPlot-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with user-defined green line for minimum age model</span>
 <span class='no'>CAM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='calc_CentralDose.html'>calc_CentralDose</a></span>(<span class='no'>ExampleData.DeValues</span>,
                         <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; 
@@ -511,46 +626,46 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>line</span> <span class='kw'>=</span> <span class='no'>CAM</span>,
                  <span class='kw'>line.col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>,
-                 <span class='kw'>line.label</span> <span class='kw'>=</span> <span class='st'>"CAM"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>line.label</span> <span class='kw'>=</span> <span class='st'>"CAM"</span>)</div><div class='img'><img src='plot_AbanicoPlot-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now create plot with legend, colour, different points and smaller scale</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"Sample 1"</span>,
                  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"tomato4"</span>,
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='st'>"peachpuff"</span>,
                  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='st'>"R"</span>,
-                 <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='img'><img src='plot_AbanicoPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now without 2-sigma bar, polygon, grid lines and central value line</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                 <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='plot_AbanicoPlot-17.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with direct display of De errors, without 2-sigma bar</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>,
                  <span class='kw'>y.axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                 <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-18.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with user-defined axes labels</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Data error (%)"</span>,
                           <span class='st'>"Data precision"</span>),
                  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Scatter"</span>,
-                 <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='img'><img src='plot_AbanicoPlot-19.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with minimum, maximum and median value indicated</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-20.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with a brief statistical summary as subheader</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_AbanicoPlot-21.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with another statistical summary</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span>),
-                 <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_AbanicoPlot-22.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now a plot with two 2-sigma bars for one data set</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>100</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>100</span>))</div><div class='img'><img src='plot_AbanicoPlot-23.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now the data set is split into sub-groups, one is manipulated</span>
 <span class='no'>data.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>1</span>:<span class='fl'>30</span>,]
 <span class='no'>data.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>31</span>:<span class='fl'>62</span>,] * <span class='fl'>1.3</span>
@@ -559,7 +674,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
 
 <span class='co'>## now the two data sets are plotted in one plot</span>
-<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+<span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_AbanicoPlot-24.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with some graphical modification</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
@@ -568,10 +683,10 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
                  <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue1"</span>, <span class='st'>"orange1"</span>),
                  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>6</span>),
                  <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>50</span>),
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-25.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create Abanico plot with predefined layout definition</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='img'><img src='plot_AbanicoPlot-26.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with predefined layout definition and further modifications</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
@@ -579,7 +694,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
                  <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span>),
                  <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fu'>adjustcolor</span>(<span class='fu'>c</span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>),
                                        <span class='kw'>alpha.f</span> <span class='kw'>=</span> <span class='fl'>0.5</span>),
-                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>))</div><div class='img'><img src='plot_AbanicoPlot-27.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## for further information on layout definitions see documentation</span>
 <span class='co'>## of function get_Layout()</span>
 
@@ -587,19 +702,21 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='co'>## create empty plot with numeric output</span>
 <span class='no'>AP</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-                       <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.old.full): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                       <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'>## identify data in 2 sigma range</span>
-<span class='no'>in_2sigma</span> <span class='kw'>&lt;-</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>data.in.2s</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'AP' not found</span></div><div class='input'>
+<span class='no'>in_2sigma</span> <span class='kw'>&lt;-</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>data.in.2s</span>
+
 <span class='co'>## restore function-internal plot parameters</span>
-<span class='fu'>par</span>(<span class='no'>AP</span>$<span class='no'>par</span>)</div><div class='output co'>#&gt; <span class='error'>Error in par(AP$par): object 'AP' not found</span></div><div class='input'>
+<span class='fu'>par</span>(<span class='no'>AP</span>$<span class='no'>par</span>)
+
 <span class='co'>## add points inside 2-sigma range</span>
 <span class='fu'>points</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[<span class='no'>in_2sigma</span>],
        <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>std.estimate.plot</span>[<span class='no'>in_2sigma</span>],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>)</div><div class='output co'>#&gt; <span class='error'>Error in points(x = AP$data[[1]]$precision[in_2sigma], y = AP$data[[1]]$std.estimate.plot[in_2sigma],     pch = 16): object 'AP' not found</span></div><div class='input'>
+       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>)</div><div class='input'>
 <span class='co'>## add points outside 2-sigma range</span>
 <span class='fu'>points</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[!<span class='no'>in_2sigma</span>],
        <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>std.estimate.plot</span>[!<span class='no'>in_2sigma</span>],
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in points(x = AP$data[[1]]$precision[!in_2sigma], y = AP$data[[1]]$std.estimate.plot[!in_2sigma],     pch = 1): object 'AP' not found</span></div><div class='input'>
+       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='plot_AbanicoPlot-28.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -624,10 +741,10 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 
     <h2>Author</h2>
     
-Michael Dietze, GFZ Potsdam (Germany)
-Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Michael Dietze, GFZ Potsdam (Germany)<br />
+Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
 Inspired by a plot introduced by Galbraith &amp; Green (1990)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -643,5 +760,8 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

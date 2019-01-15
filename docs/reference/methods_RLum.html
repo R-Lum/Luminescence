@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="methods_RLum — methods_RLum" />
 
 <meta property="og:description" content="Methods for S3-generics implemented for the package 'Luminescence'.
@@ -35,6 +38,9 @@ is given before the first dot, after the dot the name of the object that is
 supported by this method is given, e.g. plot.RLum.Data.Curve can be called
 by plot(object, ...), where object is the RLum.Data.Curve object." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -69,7 +79,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -96,6 +106,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -103,12 +114,15 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>methods_RLum</h1>
+    
+    <div class="hidden name"><code>methods_RLum.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Methods for S3-generics implemented for the package 'Luminescence'.
 This document summarises all implemented S3-generics. The name of the function
@@ -116,6 +130,7 @@ is given before the first dot, after the dot the name of the object that is
 supported by this method is given, e.g. <code>plot.RLum.Data.Curve</code> can be called
 by <code>plot(object, ...)</code>, where <code>object</code> is the <code>RLum.Data.Curve</code> object.</p>
     
+    </div>
 
     <pre class="usage"># S3 method for list
 plot(x, y, ...)
@@ -168,7 +183,7 @@ subset(x, subset, records.rm = TRUE, ...)
 # S3 method for RLum.Analysis
 subset(x, subset = NULL, ...)
 
-bin.RLum.Data.Curve(x, ...)
+bin.RLum.Data.Curve(x, bin_size = 2, ...)
 
 # S3 method for RLum.Results
 length(x, ...)
@@ -300,7 +315,7 @@ $(x, i)
 # S3 method for RLum.Results
 $(x, i)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -479,5 +494,8 @@ surrogates for existing functions in the package.</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

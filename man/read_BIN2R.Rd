@@ -104,7 +104,7 @@ version number depends on the used Sequence Editor.
 \strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.}
 }
 \section{Function version}{
- 0.15.7 (2018-01-21 17:22:38)
+ 0.15.8 (2019-01-03 10:41:41)
 }
 
 \examples{
@@ -118,7 +118,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2018). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2019). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

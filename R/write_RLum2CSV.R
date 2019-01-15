@@ -2,12 +2,12 @@
 #'
 #' This function exports [RLum-class]-objects to CSV-files using the R function
 #' [utils::write.table]. All [RLum-class]-objects are supported, but the
-#' export is lossy, i.e. the pure numerical values are exported only. Information 
+#' export is lossy, i.e. the pure numerical values are exported only. Information
 #' that cannot be coerced to a [data.frame] or a [matrix] are discarded as well as
 #' metadata.
 #'
-#' However, in combination with the implemented import functions, nearly every 
-#' supported import data format can be exported to CSV-files, this gives a great 
+#' However, in combination with the implemented import functions, nearly every
+#' supported import data format can be exported to CSV-files, this gives a great
 #' deal of freedom in terms of compatibility with other tools.
 #'
 #' **Input is a list of objects**
@@ -15,34 +15,34 @@
 #' If the input is a [list] of objects all explicit function arguments can be provided
 #' as [list].
 #'
-#' @param object [RLum-class] or a [list] of `RLum` objects (**required**): 
+#' @param object [RLum-class] or a [list] of `RLum` objects (**required**):
 #' objects to be written
 #'
-#' @param path [character] (*optional*): 
+#' @param path [character] (*optional*):
 #' character string naming folder for the output to be written. If nothing
-#' is provided `path` will be set to the working directory. 
+#' is provided `path` will be set to the working directory.
 #' **Note:** this argument is ignored if the the argument `export` is set to `FALSE`.
 #'
-#' @param prefix [character] (*with default*): 
+#' @param prefix [character] (*with default*):
 #' optional prefix to name the files. This prefix is valid for all written files
 #'
-#' @param export [logical] (*with default*): 
-#' enable or disable the file export. If set to `FALSE` nothing is written to 
+#' @param export [logical] (*with default*):
+#' enable or disable the file export. If set to `FALSE` nothing is written to
 #' the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'
-#' @param ... further arguments that will be passed to the function 
+#' @param ... further arguments that will be passed to the function
 #' [utils::write.table]. All arguments except the argument `file` are supported
 #'
 #'
-#' @return 
-#' The function returns either a CSV-file (or many of them) or for the 
+#' @return
+#' The function returns either a CSV-file (or many of them) or for the
 #' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
@@ -52,18 +52,19 @@
 #'
 #' @examples
 #'
-#' ##transform values to a list
+#' ##transform values to a list (and do not write)
 #' data(ExampleData.BINfileData, envir = environment())
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
 #' write_RLum2CSV(object, export = FALSE)
 #'
 #' \dontrun{
 #'
-#' ##export data to CSV-files in the working directory;
-#' ##BE CAREFUL, this example creates many files on your file system
-#' data(ExampleData.BINfileData, envir = environment())
-#' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
-#' write_RLum2CSV(object, export = FALSE)
+#' ##create temporary filepath
+#' ##(for usage replace by own path)
+#' temp_file <- tempfile(pattern = "output", fileext = ".csv")
+#'
+#' ##write CSV-file to working directory
+#' write_RLum2CSV(temp_file)
 #'
 #' }
 #'

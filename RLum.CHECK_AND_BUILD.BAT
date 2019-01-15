@@ -57,10 +57,16 @@ R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_EntryPointR
 call :check
 
 
+:: SET DATE AND VERSION NUMBER
+:: -----------------------
+echo -^> Update date and version number ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_VersionNumber.R" NULL
+call :check
+
 :: NEWS
 :: -----------------------
-echo -^> Build ASCII NEWS ...
-R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_NEWS.R" NULL
+echo -^> Knit NEWS ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_knit_NEWS.R" NULL
 call :check
 
 :: ADD RLum.Team TO AUTHORS
@@ -91,7 +97,7 @@ echo [CHECK PACKAGE]
 echo.
 R CMD check --timings "%PATHPACKAGE:'=%\Luminescence*.tar.gz"
 
-echo Example timing warnings ...
+echo -^> Example timing warnings ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Timings.R" NULL
 type %PATHPACKAGE%\RLum.BuildResults\*.WARNING
 

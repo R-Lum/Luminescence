@@ -6,19 +6,16 @@
 \alias{Luminescence}
 \title{Comprehensive Luminescence Dating Data Analysis}
 \description{
+\if{html}{
+\figure{RL_Logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
+\emph{R Luminescence Developer Team}
+}
+}
+\details{
 A collection of various R functions for the purpose of Luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
-}
-\details{
-\tabular{ll}{
-\strong{Package:} \tab Luminescence \cr
-\strong{Type:} \tab Package \cr
-\strong{Version:} \tab 0.8.7 \cr
-\strong{Date:} \tab 2018-10-05 \cr
-\strong{License:} \tab GPL-3 \cr
-}
 }
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -38,17 +35,15 @@ Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 30 (1), 1-8.
 
-Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018.
-Environmental Dose Rate Determination Using a Passive Dosimeter:
-Techniques and Workflow for alpha-Al2O3:C Chips. Geochronometria 45, 56-67.
-http://dx.doi.org/10.1515/geochr-2015-0086
-
 Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
 implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14–21.
 
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL, 33 (1), 16-21.
+
+King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination
+using feldspar: evaluating fading-correction model performance. Radiation Measurements.
 }
 \author{
 \strong{Full list of authors and contributors} (alphabetic order)
@@ -60,14 +55,16 @@ Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
 Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
 Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
 Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
+Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies} \cr
 Johannes Friedrich \tab \emph{University of Bayreuth, Germany} \cr
 Guillaume Guérin \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Georgina E. King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
 Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
-Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
+Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
 Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
 Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
+Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
 Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
 }
 

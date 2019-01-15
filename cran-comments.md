@@ -1,6 +1,8 @@
 ## Release summary
 
-Bugfix release, intended to replace version 0.8.5 on CRAN.
+## R CMD check --as-cran results
+
+0 errors | 0 warnings | 0 note
 
 ## Other notes or warnings
 
@@ -14,12 +16,12 @@ word is spelled correctly.
 Reverse depends 4: all OK.
 
 ## Test environments
-* local macOS High Sierra 10.14.0, Xcode 10.0, R-devel
+* local macOS High Sierra 10.13.3, Xcode 9.2, R-devel
 * on AppVeyor CI
     * i386-w64-mingw32/i386 (32-bit), R-devel
     * x86_64_w64-mingw32/64 (64-bit), R-devel
-    * x86_64_w64-mingw32/64 (64-bit), R-release
-    * i386-w64-mingw32/i386 (32-bit), R-stable
+    * x86_64_w64-mingw32/64 (64-bit), R 3.4.0 (2017-04-21)
+    * i386-w64-mingw32/i386 (32-bit), R 3.4.0 (2017-04-21)
 * on Travis CI
     * Ubuntu 14.04.5 LTS, oldrel
     * Ubuntu 14.04.5 LTS, release

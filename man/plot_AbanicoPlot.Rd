@@ -256,7 +256,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.10 (2018-02-28 22:48:58)
+ 0.1.10 (2018-03-07 17:04:14)
 }
 
 \examples{
@@ -441,7 +441,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2018). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2019). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

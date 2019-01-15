@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculate De value based on the gSGC by Li et al., 2015 — calc_gSGC" />
 
 <meta property="og:description" content="Function returns De value and De value error using the global standardised growth
 curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,25 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate De value based on the gSGC by Li et al., 2015</h1>
+    
+    <div class="hidden name"><code>calc_gSGC.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function returns De value and De value error using the global standardised growth
 curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_gSGC</span>(<span class='no'>data</span>, <span class='kw'>gSGC.type</span> <span class='kw'>=</span> <span class='st'>"0-250"</span>, <span class='no'>gSGC.parameters</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -135,7 +150,7 @@ presented function parameters for two dose ranges: <code>"0-450"</code> and <cod
       <td><p>list (<em>optional</em>):
 option to provide own function parameters used for fitting as named list.
 Nomenclature follows Li et al., 2015, i.e. <code>list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)</code>,
-range requires a vector for the range the function is considered as valid, e.g. <code>range = c(0,250)</code>
+range requires a vector for the range the function is considered as valid, e.g. <code>range = c(0,250)</code><br />
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 <code>gSGC.type</code> will be without effect</p></td>
     </tr>
@@ -162,17 +177,15 @@ enable or disable graphical feedback as plot</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.
-
-<strong><code>@data</code></strong>
-<code>$ De.value</code> (data.frame) 
-<code>.. $ De</code>  
-<code>.. $ De.error</code> 
-<code>.. $ Eta</code> 
-<code>$ De.MC</code> (list) contains the matricies from the error estimation.
-<code>$ uniroot</code> (list) contains the uniroot outputs of the De estimations
-
-<strong><code>@info</code></strong>
+    <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.</p>
+<p><strong><code>@data</code></strong><br />
+<code>$ De.value</code> (data.frame) <br />
+<code>.. $ De</code>  <br />
+<code>.. $ De.error</code> <br />
+<code>.. $ Eta</code> <br />
+<code>$ De.MC</code> (list) contains the matricies from the error estimation.<br />
+<code>$ uniroot</code> (list) contains the uniroot outputs of the De estimations<br /></p>
+<p><strong><code>@info</code></strong><br />
 `$ call`` (call) the original function call</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -187,7 +200,7 @@ Large values for <code>n.MC</code> will significantly increase the computation t
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -197,7 +210,7 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>, uniroot</p>
+    <div class='dont-index'><p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>, uniroot</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -205,8 +218,20 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_gSGC</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(
 <span class='kw'>LnTn</span> <span class='kw'>=</span>  <span class='fl'>2.361</span>, <span class='kw'>LnTn.error</span> <span class='kw'>=</span> <span class='fl'>0.087</span>,
 <span class='kw'>Lr1Tr1</span> <span class='kw'>=</span> <span class='fl'>2.744</span>, <span class='kw'>Lr1Tr1.error</span> <span class='kw'>=</span> <span class='fl'>0.091</span>,
-<span class='kw'>Dr1</span> <span class='kw'>=</span> <span class='fl'>34.4</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"De"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results, data.object = "De"): object 'results' not found</span></div><div class='input'>
+<span class='kw'>Dr1</span> <span class='kw'>=</span> <span class='fl'>34.4</span>))</div><div class='img'><img src='calc_gSGC-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; [calc_gSGC()]
+#&gt; 	 Corresponding De based on the gSGC
+#&gt; 
+#&gt; 	 Ln/Tn:		 2.361 ± 0.087
+#&gt; 	 Lr1/Tr1:	 2.744 ± 0.091
+#&gt; 	 Dr1:		 34.4
+#&gt; 	 f(D):		 0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791
+#&gt; 	 n.MC:		 100
+#&gt; 	 ------------------------------ 
+#&gt; 	 De:		28.43 ± 1.8
+#&gt; 	 ------------------------------ </div><div class='input'>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"De"</span>)</div><div class='output co'>#&gt;         DE DE.ERROR       ETA
+#&gt; 1 28.42881 1.796056 0.1325632</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -232,7 +257,7 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -248,5 +273,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

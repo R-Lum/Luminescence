@@ -39,7 +39,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.1 (2018-01-21 17:22:38)
+ 0.4.1 (2017-09-13 10:50:39)
 }
 
 \examples{
@@ -66,7 +66,7 @@ plot(values.transformed)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

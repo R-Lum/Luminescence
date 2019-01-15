@@ -40,7 +40,7 @@ can be used to calculate the sample specific \eqn{\rho}' value.
 \strong{(use \code{fit.method = "EXP"} to apply the model after Kars et al., 2008).}
 }
 \section{Function version}{
- 0.4.0 (2018-03-09 09:04:33)
+ 0.4.0 (2018-03-08 10:29:31)
 }
 
 \examples{
@@ -76,7 +76,7 @@ kars <- suppressWarnings(
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C. (2018). calc_Kars2008(): Apply the Kars et al. (2008) model (deprecated). Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C. (2019). calc_Kars2008(): Apply the Kars et al. (2008) model (deprecated). Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

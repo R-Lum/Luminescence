@@ -71,7 +71,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.2 (2018-01-21 17:22:38)
+ 0.1.2 (2017-11-23 14:53:43)
 }
 
 \examples{
@@ -102,7 +102,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2018). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

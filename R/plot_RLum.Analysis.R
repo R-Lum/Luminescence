@@ -464,10 +464,10 @@ plot_RLum.Analysis <- function(
     ##(2) NORMAL (combine == TRUE)
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##(1) check RLum objects in the set
-    object.list <- get_RLum(object)
+    object.list <- object@records
 
-    sapply(1:length(object.list), function(x){
-      if(is(object.list[[x]])[1] != "RLum.Data.Curve"){
+    sapply(object.list, function(o){
+      if(class(o)[1] != "RLum.Data.Curve"){
         stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.",
              call. = FALSE)
 

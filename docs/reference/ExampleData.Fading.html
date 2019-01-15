@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Example data for feldspar fading measurements — ExampleData.Fading" />
 
 <meta property="og:description" content="Example data set for fading measurements of the IR50, IR100, IR150 and
@@ -34,6 +37,9 @@ IR225 feldspar signals of sample UNIL/NB123. It further contains regular equival
 measurement data of the same sample, which can be used to apply a
 fading correction to." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ fading correction to." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ fading correction to." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -95,6 +105,7 @@ fading correction to." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -102,24 +113,29 @@ fading correction to." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Example data for feldspar fading measurements</h1>
+    
+    <div class="hidden name"><code>ExampleData.Fading.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Example data set for fading measurements of the IR50, IR100, IR150 and
 IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose
 measurement data of the same sample, which can be used to apply a
 fading correction to.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>A list with two elements, each containing a further list of
-data.frames containing the data on the fading and equivalent dose measurements:</p><dl class='dl-horizontal'>
+data.frames containing the data on the fading and equivalent dose measurements:</p>
+<dl class='dl-horizontal'>
 $fading.data: A named list of data.frames,
 each having three named columns (LxTx, LxTx.error, timeSinceIrradiation).
 ..$IR50: Fading data of the IR50 signal.
@@ -136,7 +152,7 @@ each having three named columns (dose, LxTx, LxTx.error).
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>These data were kindly provided by Georgina King. Detailed information
+    <p>These data were kindly provided by Georgina E. King. Detailed information
 on the sample UNIL/NB123 can be found in the reference given below. The raw
 data can be found in the accompanying supplementary information.</p>
     
@@ -144,26 +160,17 @@ data can be found in the accompanying supplementary information.</p>
 
     <p>King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87.
-doi:10.1016/j.quageo.2016.01.004
-    <strong>Details</strong></p><table><tr><td>
-Lab: </td>
-<td> University of Lausanne </td>
-</tr><tr><td>
-Lab-Code: </td>
-<td> UNIL/NB123 </td>
-</tr><tr><td>
-Location: </td>
-<td> Namche Barwa (eastern Himalaya)</td>
-</tr><tr><td>
-Material: </td>
-<td> Coarse grained (180-212 microns) potassium feldspar </td>
-</tr><tr><td>
-Units: </td>
-<td> Values are given in seconds </td>
-</tr><tr><td>
-Lab Dose Rate: </td>
-<td> Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s </td>
-</tr></table>
+doi:10.1016/j.quageo.2016.01.004</p>
+<p><strong>Details</strong></p>
+<table class='table'>
+<tr><td>Lab:</td><td>University of Lausanne</td></tr>
+<tr><td>Lab-Code:</td><td>UNIL/NB123</td></tr>
+<tr><td>Location:</td><td>Namche Barwa (eastern Himalaya)</td></tr>
+<tr><td>Material:</td><td>Coarse grained (180-212 microns) potassium feldspar</td></tr>
+<tr><td>Units:</td><td>Values are given in seconds</td></tr>
+<tr><td>Lab Dose Rate:</td><td>Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s</td></tr>
+<tr><td>Environmental Dose Rate:</td><td>7.00 +/- 0.92 Gy/ka (includes internal dose rate)</td></tr>
+</table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -181,21 +188,63 @@ Lab Dose Rate: </td>
 #&gt; 5 0.898     0.0449              54172.8
 #&gt; 6 0.974     0.0487                378.0</div><div class='input'>
 <span class='co'>## Determine g-value and rho' for the IR50 signal</span>
-<span class='no'>IR50_fading.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>IR50_fading</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='no'>IR50_fading.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span>(<span class='no'>IR50_fading</span>)</div><div class='img'><img src='ExampleData.Fading-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; [analyse_FadingMeasurement()]
+#&gt; 
+#&gt;  n.MC:	100
+#&gt;  tc:	3.78e+02 s
+#&gt; ---------------------------------------------------
+#&gt; T_0.5 interpolated:	NA
+#&gt; T_0.5 predicted:	4e+11
+#&gt; g-value:		5.18 ± 0.84 (%/decade)
+#&gt; g-value (norm. 2 days):	6.01 ± 0.86 (%/decade)
+#&gt; ---------------------------------------------------
+#&gt; rho':			3.92e-06 ± 5.53e-07
+#&gt; log10(rho'):		-5.41 ± 0.06
+#&gt; ---------------------------------------------------</div><div class='input'>
 <span class='co'>## Show g-value and rho' results</span>
-<span class='no'>gval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_fading.res</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(IR50_fading.res): object 'IR50_fading.res' not found</span></div><div class='input'><span class='no'>rhop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_fading.res</span>, <span class='st'>"rho_prime"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(IR50_fading.res, "rho_prime"): object 'IR50_fading.res' not found</span></div><div class='input'>
-<span class='no'>gval</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'gval' not found</span></div><div class='input'><span class='no'>rhop</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'rhop' not found</span></div><div class='input'>
+<span class='no'>gval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_fading.res</span>)
+<span class='no'>rhop</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_fading.res</span>, <span class='st'>"rho_prime"</span>)
+
+<span class='no'>gval</span></div><div class='output co'>#&gt;        FIT     MEAN        SD  Q_0.025   Q_0.16   Q_0.84  Q_0.975  TC
+#&gt; x 5.182106 5.233444 0.8372966 3.687753 4.405572 6.094602 6.879693 378
+#&gt;   G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED T_0.5_PREDICTED
+#&gt; x      6.010655           0.8563702                 NA    395648134315
+#&gt;   T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER
+#&gt; x           18339400088           18339400088
+#&gt;                                  UID
+#&gt; x 2018-08-31-06:36.0.772521511185914</div><div class='input'><span class='no'>rhop</span></div><div class='output co'>#&gt;           MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975
+#&gt; 1 3.921821e-06 5.528297e-07 3.031493e-06 3.377133e-06 4.454633e-06 4.952239e-06</div><div class='input'>
 <span class='co'>## Get LxTx values of the IR50 DE measurement</span>
 <span class='no'>IR50_De.LxTx</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.Fading</span>$<span class='no'>equivalentDose.data</span>$<span class='no'>IR50</span>
 
 <span class='co'>## Calculate the De of the IR50 signal</span>
 <span class='no'>IR50_De</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></span>(<span class='no'>IR50_De.LxTx</span>,
                                 <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"interpolation"</span>,
-                                <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47</div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+                                <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47</div><div class='img'><img src='ExampleData.Fading-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Extract the calculated De and its error</span>
-<span class='no'>IR50_De.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_De</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(IR50_De): object 'IR50_De' not found</span></div><div class='input'><span class='no'>De</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>IR50_De.res</span>$<span class='no'>De</span>, <span class='no'>IR50_De.res</span>$<span class='no'>De.Error</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'IR50_De.res' not found</span></div><div class='input'>
+<span class='no'>IR50_De.res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>IR50_De</span>)
+<span class='no'>De</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>IR50_De.res</span>$<span class='no'>De</span>, <span class='no'>IR50_De.res</span>$<span class='no'>De.Error</span>)
+
 <span class='co'>## Apply fading correction (age conversion greatly simplified)</span>
-<span class='no'>IR50_Age</span> <span class='kw'>&lt;-</span> <span class='no'>De</span> / <span class='fl'>7.00</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'De' not found</span></div><div class='input'><span class='no'>IR50_Age.corr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span>(<span class='no'>IR50_Age</span>, <span class='kw'>g_value</span> <span class='kw'>=</span> <span class='no'>IR50_fading.res</span>)</div><div class='output co'>#&gt; <span class='error'>Error in calc_FadingCorr(IR50_Age, g_value = IR50_fading.res): object 'IR50_fading.res' not found</span></div><div class='input'>
+<span class='no'>IR50_Age</span> <span class='kw'>&lt;-</span> <span class='no'>De</span> / <span class='fl'>7.00</span>
+<span class='no'>IR50_Age.corr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span>(<span class='no'>IR50_Age</span>, <span class='kw'>g_value</span> <span class='kw'>=</span> <span class='no'>IR50_fading.res</span>)</div><div class='output co'>#&gt; 
+#&gt; 
+#&gt; [calc_FadingCorr()]
+#&gt; 
+#&gt;  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)
+#&gt; 
+#&gt;  .. used g-value:	5.182 ± 0.837 %/decade
+#&gt;  .. used tc:		1.198e-08 ka
+#&gt;  .. used kappa:		0.0225 ± 0.0036
+#&gt;  ----------------------------------------------
+#&gt;  seed: 			NA
+#&gt;  n.MC: 			10000
+#&gt;  observations: 		10000
+#&gt;  ----------------------------------------------
+#&gt;  Age (faded):		139.6257 ka ± 15.51 ka
+#&gt;  Age (corr.):		288.1621 ka ± 74.7128 ka
+#&gt;  ---------------------------------------------- </div><div class='input'>
 
 </div></pre>
   </div>
@@ -227,5 +276,8 @@ Lab Dose Rate: </td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

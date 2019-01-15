@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Import XSYG files to R — read_XSYG2R" />
 
 <meta property="og:description" content="Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,7 +75,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -92,6 +102,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,21 +110,25 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Import XSYG files to R</h1>
+    
+    <div class="hidden name"><code>read_XSYG2R.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>read_XSYG2R</span>(<span class='no'>file</span>, <span class='kw'>recalculate.TL.curves</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fastForward</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>import</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>".xsyg"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -167,7 +182,9 @@ enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar dur
 <p>A list consisting of two elements is shown:</p><ul>
 <li><p>data.frame with information on file.</p></li>
 <li><p>data.frame with information on the sequences stored in the XSYG file.</p></li>
-</ul><p><strong>Using the option <code>import = TRUE</code> (default)</strong></p>
+</ul>
+
+<p><strong>Using the option <code>import = TRUE</code> (default)</strong></p>
 <p>A list is provided, the list elements
 contain:</p>
 <dt>Sequence.Header</dt><dd><p>data.frame with information on the
@@ -179,8 +196,8 @@ containing the curves.</p></dd>
 
     <p><strong>How does the import function work?</strong></p>
 <p>The function uses the xml package to parse the file structure. Each
-sequence is subsequently translated into an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object.
-    <strong>General structure XSYG format</strong></p><pre>&lt;?xml?&gt;
+sequence is subsequently translated into an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object.</p>
+<p><strong>General structure XSYG format</strong></p><pre>&lt;?xml?&gt;
 &lt;Sample&gt;
   &lt;Sequence&gt;
     &lt;Record&gt;
@@ -193,8 +210,8 @@ sequence is subsequently translated into an <a href='RLum.Analysis-class.html'>R
     <p>So far, each
 XSYG file can only contain one <code>&lt;Sample&gt;&lt;/Sample&gt;</code>, but multiple
 sequences.</p>
-<p>Each record may comprise several curves.
-    <strong>TL curve recalculation</strong></p>
+<p>Each record may comprise several curves.</p>
+<p><strong>TL curve recalculation</strong></p>
 <p>On the FI lexsyg device TL curves are recorded as time against count values.
 Temperature values are monitored on the heating plate and stored in a
 separate curve (time vs. temperature). If the option
@@ -215,13 +232,13 @@ time values from the PMT measurement.</p>
 heating element measurement.</p>
 <p>CASE (3): <code>nrow(matrix(PMT))</code> == <code>nrow(matrix(HE))</code></p>
 <p>A new matrix is produced using temperature values from the heating element
-and count values from the PMT.
-    <strong>Note:</strong>
+and count values from the PMT.</p>
+<p><strong>Note:</strong>
 Please note that due to the recalculation of the temperature
 values based on values delivered by the heating element, it may happen that
 mutiple count values exists for each temperature value and temperature
-values may also decrease during heating, not only increase.
-    <strong>Advanced file import</strong></p>
+values may also decrease during heating, not only increase.</p>
+<p><strong>Advanced file import</strong></p>
 <p>To allow for a more efficient usage of the function, instead of single path
 to a file just a directory can be passed as input. In this particular case
 the function tries to extract all XSYG-files found in the directory and import
@@ -233,8 +250,8 @@ is supported as this may lead to endless loops.</p>
 
     <p>This function is a beta version as the XSYG file format is not yet
 fully specified. Thus, further file operations (merge, export, write) should
-be done using the functions provided with the package xml.
-    <strong>So far, no image data import is provided!</strong> 
+be done using the functions provided with the package xml.</p>
+<p><strong>So far, no image data import is provided!</strong> <br />
 Corresponding values in the XSXG file are skipped.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
@@ -243,18 +260,18 @@ Corresponding values in the XSXG file are skipped.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). read_XSYG2R(): Import XSYG files to R. Function version 0.6.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). read_XSYG2R(): Import XSYG files to R. Function version 0.6.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
-XSYG file format. Unpublished Technical Note. Freiberg, Germany
-    <strong>Further reading</strong></p>
+XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
+<p><strong>Further reading</strong></p>
 <p>XML: <a href='http://en.wikipedia.org/wiki/XML'>http://en.wikipedia.org/wiki/XML</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>xml, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, approx</p>
+    <div class='dont-index'><p>xml, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, approx</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -358,6 +375,54 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 #&gt; 74   74          TL (NA) predefined            NA          5 0.000 268.000
 #&gt; 75   75          TL (NA)   measured            NA       1750 0.000 174.900
 #&gt; 76   76      OSL (UVVIS)   measured            NA        500 0.100  50.000
+#&gt; 77   77         OSL (NA) predefined            NA          5 0.000 216.000
+#&gt; 78   78         OSL (NA)   measured            NA       1160 0.000 115.900
+#&gt; 79   79         OSL (NA) predefined            NA          2 0.000  50.000
+#&gt; 80   80         OSL (NA)   measured            NA        152 0.481  75.981
+#&gt; 81   81 irradiation (NA) predefined            NA          2 0.000  15.000
+#&gt; 82   82       TL (UVVIS)   measured            NA        680 0.100  68.000
+#&gt; 83   83          TL (NA) predefined            NA          4 0.000 198.000
+#&gt; 84   84          TL (NA)   measured            NA        990 0.000  98.900
+#&gt; 85   85      OSL (UVVIS)   measured            NA        500 0.100  50.000
+#&gt; 86   86         OSL (NA) predefined            NA          5 0.000 216.000
+#&gt; 87   87         OSL (NA)   measured            NA       1130 0.000 112.900
+#&gt; 88   88         OSL (NA) predefined            NA          2 0.000  50.000
+#&gt; 89   89         OSL (NA)   measured            NA        147 0.012  73.012
+#&gt; 90   90       TL (UVVIS)   measured            NA       1180 0.100 118.000
+#&gt; 91   91          TL (NA) predefined            NA          5 0.000 268.000
+#&gt; 92   92          TL (NA)   measured            NA       1740 0.000 173.900
+#&gt; 93   93      OSL (UVVIS)   measured            NA        500 0.100  50.000
+#&gt; 94   94         OSL (NA) predefined            NA          5 0.000 216.000
+#&gt; 95   95         OSL (NA)   measured            NA       1140 0.000 113.900
+#&gt; 96   96         OSL (NA) predefined            NA          2 0.000  50.000
+#&gt; 97   97         OSL (NA)   measured            NA        149 0.012  74.012
+#&gt; 98   98 irradiation (NA) predefined            NA          2 0.000  15.000
+#&gt; 99   99       TL (UVVIS)   measured            NA        680 0.100  68.000
+#&gt; 100 100          TL (NA) predefined            NA          4 0.000 198.000
+#&gt; 101 101          TL (NA)   measured            NA        990 0.000  98.900
+#&gt; 102 102      OSL (UVVIS)   measured            NA        500 0.100  50.000
+#&gt; 103 103         OSL (NA) predefined            NA          5 0.000 216.000
+#&gt; 104 104         OSL (NA)   measured            NA       1150 0.000 114.900
+#&gt; 105 105         OSL (NA) predefined            NA          2 0.000  50.000
+#&gt; 106 106         OSL (NA)   measured            NA        151 0.012  75.012
+#&gt; 107 107 irradiation (NA) predefined            NA          2 0.000  60.000
+#&gt; 108 108       TL (UVVIS)   measured            NA       1180 0.100 118.000
+#&gt; 109 109          TL (NA) predefined            NA          5 0.000 268.000
+#&gt; 110 110          TL (NA)   measured            NA       1740 0.000 173.900
+#&gt; 111 111      OSL (UVVIS)   measured            NA        500 0.100  50.000
+#&gt; 112 112         OSL (NA) predefined            NA          5 0.000 216.000
+#&gt; 113 113         OSL (NA)   measured            NA       1150 0.000 114.900
+#&gt; 114 114         OSL (NA) predefined            NA          2 0.000  50.000
+#&gt; 115 115         OSL (NA)   measured            NA        151 0.020  75.020
+#&gt; 116 116 irradiation (NA) predefined            NA          2 0.000  15.000
+#&gt; 117 117       TL (UVVIS)   measured            NA        680 0.100  68.000
+#&gt; 118 118          TL (NA) predefined            NA          4 0.000 198.000
+#&gt; 119 119          TL (NA)   measured            NA        980 0.000  97.900
+#&gt; 120 120      OSL (UVVIS)   measured            NA        500 0.100  50.000
+#&gt; 121 121         OSL (NA) predefined            NA          5 0.000 216.000
+#&gt; 122 122         OSL (NA)   measured            NA       1140 0.000 113.900
+#&gt; 123 123         OSL (NA) predefined            NA          2 0.000  50.000
+#&gt; 124 124         OSL (NA)   measured            NA        149 0.012  74.012
 #&gt;     y.min  y.max    originator                                 .uid
 #&gt; 1       0   82.0 read_XSYG2R()   2016-01-30-10:54.0.226260372670367
 #&gt; 2      25  260.0 read_XSYG2R()    2016-01-30-10:54.0.77414278825745
@@ -435,6 +500,54 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 #&gt; 74     25  260.0 read_XSYG2R()   2016-01-30-10:54.0.395675572101027
 #&gt; 75     25  261.0 read_XSYG2R()   2016-01-30-10:54.0.832506845006719
 #&gt; 76      0 3505.0 read_XSYG2R()   2016-01-30-10:54.0.673705363180488
+#&gt; 77     25  125.0 read_XSYG2R()   2016-01-30-10:54.0.836654497077689
+#&gt; 78     43  127.0 read_XSYG2R()   2016-01-30-10:54.0.655996734043583
+#&gt; 79     40   40.0 read_XSYG2R()   2016-01-30-10:54.0.762605228461325
+#&gt; 80      0   40.2 read_XSYG2R()   2016-01-30-10:54.0.723475385224447
+#&gt; 81      1    1.0 read_XSYG2R()   2016-01-30-10:54.0.953630778472871
+#&gt; 82     15 1414.0 read_XSYG2R()   2016-01-30-10:54.0.372155147604644
+#&gt; 83     25  160.0 read_XSYG2R()   2016-01-30-10:54.0.212284204317257
+#&gt; 84     34  161.0 read_XSYG2R()    2016-01-30-10:54.0.78430981375277
+#&gt; 85      0  388.0 read_XSYG2R()   2016-01-30-10:54.0.858382838079706
+#&gt; 86     25  125.0 read_XSYG2R()  2016-01-30-10:54.0.0998988668434322
+#&gt; 87     42  128.0 read_XSYG2R()   2016-01-30-10:54.0.619967711856589
+#&gt; 88     40   40.0 read_XSYG2R()   2016-01-30-10:54.0.079608827130869
+#&gt; 89      0   40.2 read_XSYG2R()   2016-01-30-10:54.0.850248564733192
+#&gt; 90      0   40.0 read_XSYG2R()   2016-01-30-10:54.0.123581775929779
+#&gt; 91     25  260.0 read_XSYG2R()  2016-01-30-10:54.0.0850816639140248
+#&gt; 92     38  261.0 read_XSYG2R()   2016-01-30-10:54.0.185026297112927
+#&gt; 93      0   27.0 read_XSYG2R()   2016-01-30-10:54.0.738029998959973
+#&gt; 94     25  125.0 read_XSYG2R()   2016-01-30-10:54.0.906962538138032
+#&gt; 95     43  127.0 read_XSYG2R()   2016-01-30-10:54.0.196863719262183
+#&gt; 96     40   40.0 read_XSYG2R()   2016-01-30-10:54.0.223747788928449
+#&gt; 97      0   40.2 read_XSYG2R()   2016-01-30-10:54.0.452920723007992
+#&gt; 98      1    1.0 read_XSYG2R()   2016-01-30-10:54.0.588007028913125
+#&gt; 99     17 1505.0 read_XSYG2R()   2016-01-30-10:54.0.202315265778452
+#&gt; 100    25  160.0 read_XSYG2R()   2016-01-30-10:54.0.568469027988613
+#&gt; 101    34  160.0 read_XSYG2R()   2016-01-30-10:54.0.770061913877726
+#&gt; 102     2  371.0 read_XSYG2R()   2016-01-30-10:54.0.194079604931176
+#&gt; 103    25  125.0 read_XSYG2R()   2016-01-30-10:54.0.159584373235703
+#&gt; 104    42  127.0 read_XSYG2R()   2016-01-30-10:54.0.883203205419704
+#&gt; 105    40   40.0 read_XSYG2R()   2016-01-30-10:54.0.194686755770817
+#&gt; 106     0   40.1 read_XSYG2R()    2016-01-30-10:54.0.57188334944658
+#&gt; 107     1    1.0 read_XSYG2R()   2016-01-30-10:54.0.310936602763832
+#&gt; 108    12 4354.0 read_XSYG2R() 2016-01-30-10:54.0.00642073270864785
+#&gt; 109    25  260.0 read_XSYG2R()   2016-01-30-10:54.0.673262577038258
+#&gt; 110    32  262.0 read_XSYG2R()   2016-01-30-10:54.0.945887796580791
+#&gt; 111     0 1150.0 read_XSYG2R()   2016-01-30-10:54.0.931073016719893
+#&gt; 112    25  125.0 read_XSYG2R()   2016-01-30-10:54.0.524589899694547
+#&gt; 113    43  127.0 read_XSYG2R()   2016-01-30-10:54.0.901807451387867
+#&gt; 114    40   40.0 read_XSYG2R()   2016-01-30-10:54.0.473460933892056
+#&gt; 115     0   40.1 read_XSYG2R()  2016-01-30-10:54.0.0573154254816473
+#&gt; 116     1    1.0 read_XSYG2R()   2016-01-30-10:54.0.314163006609306
+#&gt; 117    10 1540.0 read_XSYG2R()   2016-01-30-10:54.0.891242811921984
+#&gt; 118    25  160.0 read_XSYG2R()   2016-01-30-10:54.0.495065419003367
+#&gt; 119    33  160.0 read_XSYG2R()  2016-01-30-10:54.0.0757919212337583
+#&gt; 120     0  372.0 read_XSYG2R()   2016-01-30-10:54.0.193264133529738
+#&gt; 121    25  125.0 read_XSYG2R()   2016-01-30-10:54.0.787167773349211
+#&gt; 122    43  126.0 read_XSYG2R()   2016-01-30-10:54.0.778637015959248
+#&gt; 123    40   40.0 read_XSYG2R()   2016-01-30-10:54.0.902725383639336
+#&gt; 124     0   40.2 read_XSYG2R()   2016-01-30-10:54.0.911328677553684
 #&gt;                                   .pid
 #&gt; 1   2016-01-30-10:56.0.474548307945952
 #&gt; 2   2016-01-30-10:56.0.474548307945952
@@ -512,6 +625,54 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 #&gt; 74  2016-01-30-10:56.0.474548307945952
 #&gt; 75  2016-01-30-10:56.0.474548307945952
 #&gt; 76  2016-01-30-10:56.0.474548307945952
+#&gt; 77  2016-01-30-10:56.0.474548307945952
+#&gt; 78  2016-01-30-10:56.0.474548307945952
+#&gt; 79  2016-01-30-10:56.0.474548307945952
+#&gt; 80  2016-01-30-10:56.0.474548307945952
+#&gt; 81  2016-01-30-10:56.0.474548307945952
+#&gt; 82  2016-01-30-10:56.0.474548307945952
+#&gt; 83  2016-01-30-10:56.0.474548307945952
+#&gt; 84  2016-01-30-10:56.0.474548307945952
+#&gt; 85  2016-01-30-10:56.0.474548307945952
+#&gt; 86  2016-01-30-10:56.0.474548307945952
+#&gt; 87  2016-01-30-10:56.0.474548307945952
+#&gt; 88  2016-01-30-10:56.0.474548307945952
+#&gt; 89  2016-01-30-10:56.0.474548307945952
+#&gt; 90  2016-01-30-10:56.0.474548307945952
+#&gt; 91  2016-01-30-10:56.0.474548307945952
+#&gt; 92  2016-01-30-10:56.0.474548307945952
+#&gt; 93  2016-01-30-10:56.0.474548307945952
+#&gt; 94  2016-01-30-10:56.0.474548307945952
+#&gt; 95  2016-01-30-10:56.0.474548307945952
+#&gt; 96  2016-01-30-10:56.0.474548307945952
+#&gt; 97  2016-01-30-10:56.0.474548307945952
+#&gt; 98  2016-01-30-10:56.0.474548307945952
+#&gt; 99  2016-01-30-10:56.0.474548307945952
+#&gt; 100 2016-01-30-10:56.0.474548307945952
+#&gt; 101 2016-01-30-10:56.0.474548307945952
+#&gt; 102 2016-01-30-10:56.0.474548307945952
+#&gt; 103 2016-01-30-10:56.0.474548307945952
+#&gt; 104 2016-01-30-10:56.0.474548307945952
+#&gt; 105 2016-01-30-10:56.0.474548307945952
+#&gt; 106 2016-01-30-10:56.0.474548307945952
+#&gt; 107 2016-01-30-10:56.0.474548307945952
+#&gt; 108 2016-01-30-10:56.0.474548307945952
+#&gt; 109 2016-01-30-10:56.0.474548307945952
+#&gt; 110 2016-01-30-10:56.0.474548307945952
+#&gt; 111 2016-01-30-10:56.0.474548307945952
+#&gt; 112 2016-01-30-10:56.0.474548307945952
+#&gt; 113 2016-01-30-10:56.0.474548307945952
+#&gt; 114 2016-01-30-10:56.0.474548307945952
+#&gt; 115 2016-01-30-10:56.0.474548307945952
+#&gt; 116 2016-01-30-10:56.0.474548307945952
+#&gt; 117 2016-01-30-10:56.0.474548307945952
+#&gt; 118 2016-01-30-10:56.0.474548307945952
+#&gt; 119 2016-01-30-10:56.0.474548307945952
+#&gt; 120 2016-01-30-10:56.0.474548307945952
+#&gt; 121 2016-01-30-10:56.0.474548307945952
+#&gt; 122 2016-01-30-10:56.0.474548307945952
+#&gt; 123 2016-01-30-10:56.0.474548307945952
+#&gt; 124 2016-01-30-10:56.0.474548307945952
 #&gt;                                                                                     info
 #&gt; 1   state parentID startDate curveType detector curveDescripter offset interval duration
 #&gt; 2                   state parentID startDate curveType stimulator curveDescripter offset
@@ -589,7 +750,54 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 #&gt; 74                  state parentID startDate curveType stimulator curveDescripter offset
 #&gt; 75                         state parentID startDate curveType stimulator curveDescripter
 #&gt; 76  state parentID startDate curveType detector curveDescripter offset interval duration
-#&gt;  [ reached getOption("max.print") -- omitted 48 rows ]</div><div class='input'>
+#&gt; 77                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 78                         state parentID startDate curveType stimulator curveDescripter
+#&gt; 79                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 80                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 81                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 82  state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 83                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 84                         state parentID startDate curveType stimulator curveDescripter
+#&gt; 85  state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 86                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 87                         state parentID startDate curveType stimulator curveDescripter
+#&gt; 88                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 89                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 90  state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 91                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 92                         state parentID startDate curveType stimulator curveDescripter
+#&gt; 93  state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 94                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 95                         state parentID startDate curveType stimulator curveDescripter
+#&gt; 96                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 97                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 98                  state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 99  state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 100                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 101                        state parentID startDate curveType stimulator curveDescripter
+#&gt; 102 state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 103                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 104                        state parentID startDate curveType stimulator curveDescripter
+#&gt; 105                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 106                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 107                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 108 state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 109                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 110                        state parentID startDate curveType stimulator curveDescripter
+#&gt; 111 state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 112                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 113                        state parentID startDate curveType stimulator curveDescripter
+#&gt; 114                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 115                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 116                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 117 state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 118                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 119                        state parentID startDate curveType stimulator curveDescripter
+#&gt; 120 state parentID startDate curveType detector curveDescripter offset interval duration
+#&gt; 121                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 122                        state parentID startDate curveType stimulator curveDescripter
+#&gt; 123                 state parentID startDate curveType stimulator curveDescripter offset
+#&gt; 124                 state parentID startDate curveType stimulator curveDescripter offset</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -617,7 +825,7 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -633,5 +841,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

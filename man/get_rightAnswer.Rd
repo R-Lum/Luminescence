@@ -16,7 +16,7 @@ Returns the right answer
 This function returns just the right answer
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2017-09-13 10:50:40)
 }
 
 \examples{
@@ -30,6 +30,6 @@ inspired by R.G.
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-NA, NA, ,  (2018). get_rightAnswer(): Function to get the right answer. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+NA, NA, ,  (2019). get_rightAnswer(): Function to get the right answer. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 

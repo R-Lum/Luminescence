@@ -1,17 +1,15 @@
 #' Comprehensive Luminescence Dating Data Analysis
 #'
+#' \if{html}{
+#' \figure{RL_Logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
+#' \emph{R Luminescence Developer Team}
+#' }
+#'
 #' A collection of various R functions for the purpose of Luminescence dating
 #' data analysis. This includes, amongst others, data import, export,
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.
 #'
-#' \tabular{ll}{
-#' **Package:** \tab Luminescence \cr
-#' **Type:** \tab Package \cr
-#' **Version:** \tab 0.8.7 \cr
-#' **Date:** \tab 2018-10-05 \cr
-#' **License:** \tab GPL-3 \cr
-#' }
 #'
 #' @name Luminescence-package
 #'
@@ -28,14 +26,16 @@
 #' Julie Durcan \tab *University of Oxford, United Kingdom* \cr
 #' Manfred Fischer\tab *University of Bayreuth, Germany* \cr
 #' Margret C. Fuchs \tab *Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany* \cr
+#'  Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies* \cr
 #' Johannes Friedrich \tab *University of Bayreuth, Germany* \cr
 #' Guillaume Guérin \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Georgina E. King \tab *Institute of Geological Sciences, University of Bern, Switzerland* \cr
 #' Sebastian Kreutzer \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
 #' Norbert Mercier \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
-#' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
+#' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
 #' Christoph Schmidt \tab *University of Bayreuth, Germany* \cr
 #' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
+#' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
 #' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
 #' }
 #'
@@ -100,11 +100,6 @@
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30 (1), 1-8.
 #'
-#' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018.
-#' Environmental Dose Rate Determination Using a Passive Dosimeter:
-#' Techniques and Workflow for alpha-Al2O3:C Chips. Geochronometria 45, 56-67.
-#' http://dx.doi.org/10.1515/geochr-2015-0086
-#'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 #' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
 #' implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14–21.
@@ -112,14 +107,17 @@
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL, 33 (1), 16-21.
 #'
+#' King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination
+#' using feldspar: evaluating fading-correction model performance. Radiation Measurements.
+#'
 #' @keywords package
 #'
 #' @import utils methods data.table magrittr
 #'
 #' @importFrom raster nlayers raster contour plot plotRGB brick
-#' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid
+#' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid close.screen screen split.screen
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors xy.coords dev.off
-#' @importFrom stats formula approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames coef confint predict update residuals
+#' @importFrom stats formula approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames coef confint predict update residuals fitted qf
 #' @importFrom parallel parLapply makeCluster stopCluster
 #' @importFrom httr GET accept_json status_code content
 #'
@@ -128,6 +126,118 @@
 #' @md
 NULL
 
+#' Base data set of dose-rate conversion factors
+#'
+#' Collection of published dose-rate conversion factors to convert concentrations
+#' of radioactive isotopes to dose rate values.
+#'
+#' @format
+#'
+#' A [`list`] with three elements with dose-rate conversion factors
+#' sorted by article and radiation type (alpha, beta, gamma):
+#'
+#' \tabular{ll}{
+#'
+#' `AdamiecAitken1998`: \tab
+#' Conversion factors from Tables 5 and 6 \cr
+#'
+#' `Guerinetal2011`: \tab
+#' Conversion factors from Tables 1, 2 and 3 \cr
+#'
+#' `Liritzisetal2013`: \tab
+#' Conversion factors from Tables 1, 2 and 3 \cr
+#' }
+#'
+#'
+#' @section Version: 0.1
+#'
+#' @references
+#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+#' factors: update. Ancient TL, 29, 5-8.
+#'
+#' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
+#' Ancient TL 16, 37-46.
+#'
+#' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
+#' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
+#' Archaeology and Archaeometry 13, 1-15.
+#'
+#' @source
+#' All gamma conversion factors were carefully read from the tables given in the
+#' references above.
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("BaseDataSet.ConversionFactors")
+#'
+#' @name BaseDataSet.ConversionFactors
+#' @md
+NULL
+
+#' Base data set of fractional gamma-dose values
+#'
+#' Collection of (un-)published fractional gamma dose-rate values to scale the
+#' gamma-dose rate considering layer-to-layer variations in soil radioactivity.
+#'
+#' @format
+#'
+#' A [`list`] with fractional gamma dose-rate values
+#' sorted by article:
+#'
+#' \tabular{ll}{
+#'
+#' `Aitken1985`: \tab
+#' Fractional gamma-dose values from table H.1
+#' }
+#'
+#'
+#' @section Version: 0.1
+#'
+#' @references
+#' Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
+#'
+#' @source
+#' Fractional gamma dose values were carefully read from the tables given in the
+#' references above.
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("BaseDataSet.FractionalGammaDose")
+#'
+#' @name BaseDataSet.FractionalGammaDose
+#' @md
+NULL
+
+#' Example data for scale_GammaDose()
+#'
+#' An example data set for the function `scale_GammaDose()` containing layer
+#' specific information to scale the gamma dose rate considering variations in
+#' soil radioactivity.
+#'
+#' @format
+#'
+#' A [`data.frame`]. Please see `?scale_GammaDose()` for a detailed description
+#' of its structure.
+#'
+#'
+#' @section Version: 0.1
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("ExampleData.ScaleGammaDose")
+#'
+#' @name ExampleData.ScaleGammaDose
+#' @md
+NULL
 
 #' Base data set for cosmic dose rate calculation
 #'

@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Import Princeton Intruments (TM) SPE-file into R — read_SPE2R" />
 
 <meta property="og:description" content="Function imports Princeton Instruments (TM) SPE-files into R environment and
 provides RLum objects as output." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ provides RLum objects as output." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ provides RLum objects as output." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ provides RLum objects as output." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,25 @@ provides RLum objects as output." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Import Princeton Intruments (TM) SPE-file into R</h1>
+    
+    <div class="hidden name"><code>read_SPE2R.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function imports Princeton Instruments (TM) SPE-files into R environment and
 provides <code>RLum</code> objects as output.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>read_SPE2R</span>(<span class='no'>file</span>, <span class='kw'>output.object</span> <span class='kw'>=</span> <span class='st'>"RLum.Data.Image"</span>, <span class='no'>frame.range</span>,
   <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -151,21 +166,17 @@ enables or disables txtProgressBar.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Depending on the chosen option the functions returns three different
-type of objects:
-
-<code>output.object</code>
-
-<code>RLum.Data.Spectrum</code></p>
+type of objects:</p>
+<p><code>output.object</code></p>
+<p><code>RLum.Data.Spectrum</code></p>
 <p>An object of type <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> is returned.  Row
-sums are used to integrate all counts over one channel.
-
-<code>RLum.Data.Image</code></p>
+sums are used to integrate all counts over one channel.</p>
+<p><code>RLum.Data.Image</code></p>
 <p>An object of type <a href='RLum.Data.Image-class.html'>RLum.Data.Image</a> is returned.  Due to
 performace reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
-<code>frame.frange</code>.
-
-<code>matrix</code></p>
+<code>frame.frange</code>.</p>
+<p><code>matrix</code></p>
 <p>Returns a matrix of the form: Rows = Channels, columns = Frames. For the
 transformation the function <a href='get_RLum.html'>get_RLum</a> is used,
 meaning that the same results can be obtained by using the function
@@ -181,8 +192,8 @@ references).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><strong>The function does not test whether the input data are spectra or pictures for spatial resolved analysis!</strong></p>
-<p>The function has been successfully tested for SPE format versions 2.x.
-    <em>Currently not all information provided by the SPE format are supported.</em></p>
+<p>The function has been successfully tested for SPE format versions 2.x.</p>
+<p><em>Currently not all information provided by the SPE format are supported.</em></p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
@@ -190,7 +201,7 @@ references).</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -201,7 +212,7 @@ Format Specification, Version 1.A (for document URL please use an internet searc
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>readBin, <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='http://www.rdocumentation.org/packages/raster/topics/raster'>raster::raster</a></p>
+    <div class='dont-index'><p>readBin, <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='http://www.rdocumentation.org/packages/raster/topics/raster'>raster::raster</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -256,7 +267,7 @@ Format Specification, Version 1.A (for document URL please use an internet searc
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -272,5 +283,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

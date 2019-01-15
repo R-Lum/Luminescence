@@ -90,7 +90,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
-#' @section Function version: 0.15.7
+#' @section Function version: 0.15.8
 #'
 #'
 #' @author
@@ -152,21 +152,16 @@ read_BIN2R <- function(
             "[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n"
           )
         }
-        file <-
-          as.list(c(
-            dir(
-              file, recursive = FALSE, pattern = ".bin", full.names = TRUE,
-            ),
-            dir(
-              file, recursive = FALSE, pattern = ".binx", full.names = TRUE
-            ),
-            dir(
-              file, recursive = FALSE, pattern = ".BIN", full.names = TRUE
-            ),
-            dir(
-              file, recursive = FALSE, pattern = ".BINX", full.names = TRUE
-            )
-          ))
+
+        ##get files
+        file <- as.list(list.files(
+          path = file,
+          recursive = FALSE,
+          pattern = "\\.bin*",
+          full.names = TRUE,
+          ignore.case = TRUE
+        ))
+
 
       }
 

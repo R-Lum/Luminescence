@@ -22,12 +22,15 @@ distribution — calc_FiniteMixture • Luminescence</title>
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
 distribution — calc_FiniteMixture" />
 
@@ -36,6 +39,9 @@ known standard errors. Parameters (doses and mixing proportions) are
 estimated by maximum likelihood assuming that the log dose estimates are
 from a mixture of normal distributions." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,8 +64,12 @@ from a mixture of normal distributions." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,7 +80,7 @@ from a mixture of normal distributions." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -97,6 +107,7 @@ from a mixture of normal distributions." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -104,26 +115,30 @@ from a mixture of normal distributions." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
 distribution</h1>
+    
+    <div class="hidden name"><code>calc_FiniteMixture.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function fits a k-component mixture to a De distribution with differing
 known standard errors. Parameters (doses and mixing proportions) are
 estimated by maximum likelihood assuming that the log dose estimates are
 from a mixture of normal distributions.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_FiniteMixture</span>(<span class='no'>data</span>, <span class='no'>sigmab</span>, <span class='no'>n.components</span>, <span class='kw'>grain.probability</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>dose.scale</span>, <span class='kw'>pdf.weight</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pdf.sigma</span> <span class='kw'>=</span> <span class='st'>"sigmab"</span>,
-  <span class='kw'>pdf.colors</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='no'>pdf.scale</span>, <span class='kw'>plot.proportions</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)</pre>
+  <span class='kw'>pdf.colors</span> <span class='kw'>=</span> <span class='st'>"gray"</span>, <span class='no'>pdf.scale</span>, <span class='kw'>plot.proportions</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -231,7 +246,8 @@ The output should be accessed using the function get_RLum
 <li><p>covariance matrix not positive definite</p></li>
 <li><p>covariance matrix produces NaNs</p></li>
 <li><p>convergence problems</p></li>
-</ul><p><strong>Plot</strong></p>
+</ul>
+    <p><strong>Plot</strong></p>
 <p>If a vector (<code>c(k.min:k.max)</code>) is provided
 for <code>n.components</code> a plot is generated showing the the k components
 equivalent doses as normal distributions. By default <code>pdf.weight</code> is
@@ -240,22 +256,22 @@ always 1. If <code>TRUE</code>, the probability density functions are weighted b
 the components proportion for each iteration of k components, so the sum of
 areas of each component equals 1. While the density values are on the same
 scale when no weights are used, the y-axis are individually scaled if the
-probability density are weighted by the components proportion.
+probability density are weighted by the components proportion.<br />
 The standard deviation (sigma) of the normal distributions is by default
 determined by a common <code>sigmab</code> (see <code>pdf.sigma</code>). For
 <code>pdf.sigma = "se"</code> the standard error of each component is taken
-instead.
+instead.<br />
 The stacked barplot shows the proportion of each component (in
 per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4 (2018-01-21 17:22:38)</p>
+    <p>0.4 (2018-04-19 13:18:48)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2018). calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -272,8 +288,8 @@ and some recommendations. Quaternary Geochronology 11, 1-27.</p>
 Distinguishing dose populations in sediment mixtures: a test of single-grain
 optical dating procedures using mixtures of laboratory-dosed quartz.
 Radiation Measurements 32, 459-465.</p>
-<p>Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman &amp; Hall/CRC, Boca Raton.
-    <strong>Further reading</strong></p>
+<p>Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman &amp; Hall/CRC, Boca Raton.</p>
+<p><strong>Further reading</strong></p>
 <p>Arnold, L.J. &amp; Roberts, R.G., 2009. Stochastic
 modelling of multi-grain equivalent dose (De) distributions: Implications
 for OSL dating of sediment mixtures. Quaternary Geochronology 4,
@@ -289,8 +305,8 @@ reproducible distribution?. Ancient TL 26, 3-10.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='calc_CentralDose.html'>calc_CentralDose</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>,
-<a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p>
+    <div class='dont-index'><p><a href='calc_CentralDose.html'>calc_CentralDose</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>,
+<a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -431,12 +447,12 @@ reproducible distribution?. Ancient TL 26, 3-10.</p>
 #&gt; c2_dose 72.03 56.65 56.65
 #&gt; c2_se    2.41 13.05 33.17
 #&gt; c2_prop  0.89  0.25  0.07
-#&gt; c3_dose       77.49 56.65
-#&gt; c3_se          6.37 21.31
-#&gt; c3_prop        0.66  0.18
-#&gt; c4_dose             77.49
-#&gt; c4_se                7.68
-#&gt; c4_prop              0.66
+#&gt; c3_dose  &lt;NA&gt; 77.49 56.65
+#&gt; c3_se    &lt;NA&gt;  6.37 21.31
+#&gt; c3_prop  &lt;NA&gt;  0.66  0.18
+#&gt; c4_dose  &lt;NA&gt;  &lt;NA&gt; 77.49
+#&gt; c4_se    &lt;NA&gt;  &lt;NA&gt;  7.68
+#&gt; c4_prop  &lt;NA&gt;  &lt;NA&gt;  0.66
 #&gt; 
 #&gt; ----------- statistical criteria -----------
 #&gt;            2       3       4
@@ -445,7 +461,7 @@ reproducible distribution?. Ancient TL 26, 3-10.</p>
 #&gt; 
 #&gt;  Lowest BIC score for k = 2
 #&gt;  No significant increase in maximum log likelihood estimates. 
-#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='input'>
+#&gt; </div><div class='input'>
 <span class='co'>## show structure of the results</span>
 <span class='no'>FMM</span></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
@@ -477,7 +493,7 @@ reproducible distribution?. Ancient TL 26, 3-10.</p>
 #&gt; c4_dose    NA    NA 77.49
 #&gt; c4_se      NA    NA  7.68
 #&gt; c4_prop    NA    NA  0.66</div><div class='input'>
-</div></pre>
+</div><div class='img'><img src='calc_FiniteMixture-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -501,9 +517,9 @@ reproducible distribution?. Ancient TL 26, 3-10.</p>
 
     <h2>Author</h2>
     
-Christoph Burow, University of Cologne (Germany) 
+Christoph Burow, University of Cologne (Germany) <br />
 Based on a rewritten S script of Rex Galbraith, 2006.
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -519,5 +535,8 @@ Based on a rewritten S script of Rex Galbraith, 2006.
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

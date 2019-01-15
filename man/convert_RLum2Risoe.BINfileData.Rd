@@ -4,11 +4,14 @@
 \alias{convert_RLum2Risoe.BINfileData}
 \title{Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects}
 \usage{
-convert_RLum2Risoe.BINfileData(object)
+convert_RLum2Risoe.BINfileData(object, keep.position.number = FALSE)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \linkS4class{RLum.Data.Curve} (\strong{required}): input object to
 be converted}
+
+\item{keep.position.number}{\link{logical} (with default): keeps the original position number or re-calculate
+the numbers to avoid doubling}
 }
 \value{
 The function returns a \linkS4class{Risoe.BINfileData} object.
@@ -24,7 +27,7 @@ The conversion can be never perfect. The \code{RLum} objects may contain informa
 not part of the \linkS4class{Risoe.BINfileData} definition.
 }
 \section{Function version}{
- 0.1.2 (2018-10-03 19:36:42)
+ 0.1.3 (2018-09-24 11:46:12)
 }
 
 \examples{
@@ -42,7 +45,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2018). convert_RLum2Risoe.BINfileData(): Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.7. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). convert_RLum2Risoe.BINfileData(): Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

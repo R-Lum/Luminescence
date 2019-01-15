@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Visualise dose recovery test results — plot_DRTResults" />
 
 <meta property="og:description" content="The function provides a standardised plot output for dose recovery test
 measurements." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ measurements." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ measurements." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ measurements." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,22 +111,26 @@ measurements." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Visualise dose recovery test results</h1>
+    
+    <div class="hidden name"><code>plot_DRTResults.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function provides a standardised plot output for dose recovery test
 measurements.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plot_DRTResults</span>(<span class='no'>values</span>, <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>error.range</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>preheat</span>,
   <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>mtext</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>, <span class='no'>legend</span>, <span class='no'>legend.pos</span>,
   <span class='kw'>par.local</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -224,7 +239,7 @@ determine the dose of a specific sample. Here, the natural signal is erased
 and a known laboratory dose administered which is treated as unknown. Then
 the De measurement is carried out and the degree of congruence between
 administered and recovered dose is a measure of the protocol's accuracy for
-this sample.
+this sample.<br />
 In the plot the normalised De is shown on the y-axis, i.e. obtained De/Given Dose.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -238,7 +253,7 @@ commands.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M. (2018). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M. (2018). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -249,7 +264,7 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>plot</p>
+    <div class='dont-index'><p>plot</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -259,17 +274,17 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 
 <span class='co'>## plot values</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
-<span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='img'><img src='plot_DRTResults-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot values with legend</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"Test data set"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"Test data set"</span>)</div><div class='img'><img src='plot_DRTResults-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create and plot two subsets with randomised values</span>
 <span class='no'>x.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,]
 <span class='no'>x.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,] * <span class='fu'>c</span>(<span class='fu'>runif</span>(<span class='fl'>5</span>, <span class='fl'>0.9</span>, <span class='fl'>1.1</span>), <span class='fl'>1</span>)
 
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
-                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>)</div><div class='img'><img src='plot_DRTResults-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## some more user-defined plot parameters</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
@@ -277,33 +292,33 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"orange"</span>, <span class='st'>"blue"</span>),
                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>8</span>),
                 <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.85</span>, <span class='fl'>1.15</span>),
-                <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Sample aliquot"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Sample aliquot"</span>)</div><div class='img'><img src='plot_DRTResults-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot the data with user-defined statistical measures as legend</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean.weighted"</span>, <span class='st'>"sd"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean.weighted"</span>, <span class='st'>"sd"</span>))</div><div class='img'><img src='plot_DRTResults-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot the data with user-defined statistical measures as sub-header</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"n"</span>, <span class='st'>"mean.weighted"</span>, <span class='st'>"sd"</span>),
-                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"sub"</span>)</div><div class='img'><img src='plot_DRTResults-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot the data grouped by preheat temperatures</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='co'>## read example data set and misapply them for this plot type</span>
+                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='img'><img src='plot_DRTResults-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## read example data set and misapply them for this plot type</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 
 <span class='co'>## plot values</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
-                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='co'>## plot two data sets grouped by preheat temperatures</span>
+                <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>, <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data"</span>)</div><div class='img'><img src='plot_DRTResults-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## plot two data sets grouped by preheat temperatures</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>x.1</span>, <span class='no'>x.2</span>),
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
-                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>))</div><div class='img'><img src='plot_DRTResults-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot the data grouped by preheat temperatures as boxplots</span>
 <span class='fu'>plot_DRTResults</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>[<span class='fl'>7</span>:<span class='fl'>11</span>,],
                 <span class='kw'>given.dose</span> <span class='kw'>=</span> <span class='fl'>2800</span>,
                 <span class='kw'>preheat</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>240</span>, <span class='fl'>240</span>),
-                <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_DRTResults-10.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -330,9 +345,9 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 
     <h2>Author</h2>
     
-Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)<br />
 Michael Dietze, GFZ Potsdam (Germany)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -348,5 +363,8 @@ Michael Dietze, GFZ Potsdam (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

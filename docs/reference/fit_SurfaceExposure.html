@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Nonlinear Least Squares Fit for OSL surface exposure data — fit_SurfaceExposure" />
 
 <meta property="og:description" content="This function determines the (weighted) least-squares estimates of the
 parameters of either eq. 1 in Sohbati et al. (2012a) or eq. 12 in
 Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,23 +112,27 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Nonlinear Least Squares Fit for OSL surface exposure data</h1>
+    
+    <div class="hidden name"><code>fit_SurfaceExposure.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function determines the (weighted) least-squares estimates of the
 parameters of either eq. 1 in <em>Sohbati et al. (2012a)</em> or eq. 12 in
 <em>Sohbati et al. (2012b)</em> for a given OSL surface exposure data set (<strong>BETA</strong>).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>fit_SurfaceExposure</span>(<span class='no'>data</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>error_bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>coord_flip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>error_bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>coord_flip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -213,41 +228,27 @@ Custom parameters include:</p><ul>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Function returns results numerically and graphically:</p>
-<p>-----------------------------------
-<code>[ NUMERICAL OUTPUT ]</code>
------------------------------------
+<p>-----------------------------------<br />
+<code>[ NUMERICAL OUTPUT ]</code><br />
+-----------------------------------<br /></p>
+<p><strong><code>RLum.Results</code></strong>-object</p>
+<p><strong>slot:</strong> <strong><code>@data</code></strong></p>
+<table class='table'>
+<tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>$summary</code></td><td><code>data.frame</code></td><td>summary of the fitting results</td></tr>
+<tr><td><code>$data</code></td><td><code>data.frame</code></td><td>the original input data</td></tr>
+<tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fitting object produced by <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a></td></tr>
+<tr><td><code>$args</code></td><td><code>character</code></td><td>arguments of the call</td></tr>
+<tr><td><code>$call</code></td><td><code>call</code></td><td>the original function call</td></tr>
+<tr><td></td><td><strong>Element</strong></td><td><strong>Type</strong></td></tr>
+</table>
 
-<strong><code>RLum.Results</code></strong>-object
 
-<strong>slot:</strong> <strong><code>@data</code></strong></p><table><tr><td>
-<strong>Element</strong> </td>
-<td> <strong>Type</strong> </td>
-<td> <strong>Description</strong></td>
-</tr><tr><td>
-<code>$summary</code> </td>
-<td> <code>data.frame</code> </td>
-<td> summary of the fitting results </td>
-</tr><tr><td>
-<code>$data</code> </td>
-<td> <code>data.frame</code> </td>
-<td> the original input data </td>
-</tr><tr><td>
-<code>$fit</code> </td>
-<td> <code>nls</code> </td>
-<td> the fitting object produced by <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a> </td>
-</tr><tr><td>
-<code>$args</code> </td>
-<td> <code>character</code> </td>
-<td> arguments of the call </td>
-</tr><tr><td>
-<code>$call</code> </td>
-<td> <code>call</code> </td>
-<td> the original function call </td>
-</tr></table><p><strong>slot:</strong> <strong><code>@info</code></strong></p>
+<p><strong>slot:</strong> <strong><code>@info</code></strong></p>
 <p>Currently unused.</p>
-<p>------------------------
-<code>[ PLOT OUTPUT ]</code>
-------------------------</p>
+<p>------------------------<br />
+<code>[ PLOT OUTPUT ]</code><br />
+------------------------<br /></p>
 <p>A scatter plot of the provided depth-intensity OSL surface exposure data
 with the fitted model.</p>
     
@@ -259,19 +260,19 @@ as weights during fitting using <a href='http://www.rdocumentation.org/packages/
 take effect individual errors must be provided in the third column of the
 <code>data.frame</code> for <code>data</code>. Weighted fitting is <strong>not</strong> supported if <code>data</code>
 is a list of multiple <code>data.frame</code>s, i.e., it is not available for global
-fitting.
-    <strong>Dose rate</strong></p>
+fitting.</p>
+<p><strong>Dose rate</strong></p>
 <p>If any of the arguments <code>Ddot</code> or <code>D0</code> is at its default value (<code>NULL</code>),
 this function will fit eq. 1 in Sohbati et al. (2012a) to the data. If
 the effect of dose rate (i.e., signal saturation) needs to be considered,
 numeric values for the dose rate (<code>Ddot</code>) (in Gy/ka) and the characteristic
 saturation dose (<code>D0</code>) (in Gy) must be provided. The function will then fit
-eq. 12 in Sohbati et al. (2012b) to the data.
-    <strong>NOTE</strong>: Currently, this function does <strong>not</strong> consider the variability
+eq. 12 in Sohbati et al. (2012b) to the data.</p>
+<p><strong>NOTE</strong>: Currently, this function does <strong>not</strong> consider the variability
 of the dose rate with sample depth (<code>x</code>)! In the original equation the dose
 rate <code>D</code> is an arbitrary function of <code>x</code> (term <code>D(x)</code>), but here <code>D</code> is assumed
-constant.
-    <strong>Global fitting</strong></p>
+constant.</p>
+<p><strong>Global fitting</strong></p>
 <p>If <code>data</code> is list of multiple <code>data.frame</code>s, each representing a separate
 sample, the function automatically performs a global fit to the data. This
 may be useful to better constrain the parameters <code>sigmaphi</code> or <code>mu</code> and
@@ -289,7 +290,7 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2018). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2018). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -302,7 +303,7 @@ Icarus 221, 160-166.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='ExampleData.SurfaceExposure.html'>ExampleData.SurfaceExposure</a>, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a></p>
+    <div class='dont-index'><p><a href='ExampleData.SurfaceExposure.html'>ExampleData.SurfaceExposure</a>, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -319,7 +320,19 @@ Icarus 221, 160-166.</p>
 #&gt; 3   0.2  0.09560277 0.12385804
 #&gt; 4   0.3 -0.05973453 0.05593426
 #&gt; 5   0.4 -0.02775111 0.19830218
-#&gt; 6   0.5  0.04852239 0.06168570</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>sample_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
+#&gt; 6   0.5  0.04852239 0.06168570</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>sample_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='img'><img src='fit_SurfaceExposure-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  age (a):	9890 ± 369
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  sigmaphi:	5e-10
+#&gt;  mu:		0.9
+#&gt; </div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;        age age_error sigmaphi sigmaphi_error  mu mu_error
+#&gt; 1 9892.724  369.0066    5e-10             NA 0.9       NA</div><div class='input'>
 
 <span class='co'>## Example 2 - Single sample and considering dose rate</span>
 <span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10, </span>
@@ -332,7 +345,19 @@ Icarus 221, 160-166.</p>
 #&gt; 4   0.3 -0.05457253 0.05593426
 #&gt; 5   0.4 -0.02210573 0.19830218
 #&gt; 6   0.5  0.05469614 0.06168570</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>sample_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>,
-                               <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
+                               <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='img'><img src='fit_SurfaceExposure-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  age (a):	9800 ± 675
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  sigmaphi:	5e-10
+#&gt;  mu:		0.9
+#&gt; </div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;        age age_error sigmaphi sigmaphi_error  mu mu_error
+#&gt; 1 9803.492  674.8362    5e-10             NA 0.9       NA</div><div class='input'>
 
 <span class='co'>## Example 3 - Multiple samples (global fit) to better constrain 'mu'</span>
 <span class='co'># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span>
@@ -350,7 +375,25 @@ Icarus 221, 160-166.</p>
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
 #&gt;   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_1</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
-                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
+                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Shared estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  mu:		0.901 ± 0.00161
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  age (a):	1000, 10000, 1e+05, 1e+06
+#&gt;  sigmaphi:	5e-10
+#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = 0.901)</span>
+#&gt; <span class='message'></span></div><div class='img'><img src='fit_SurfaceExposure-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;     age age_error sigmaphi sigmaphi_error        mu    mu_error
+#&gt; 1 1e+03        NA    5e-10             NA 0.9009518 0.001612271
+#&gt; 2 1e+04        NA    5e-10             NA 0.9009518 0.001612271
+#&gt; 3 1e+05        NA    5e-10             NA 0.9009518 0.001612271
+#&gt; 4 1e+06        NA    5e-10             NA 0.9009518 0.001612271</div><div class='input'>
 
 <span class='co'>## Example 4 - Multiple samples (global fit) and considering dose rate</span>
 <span class='co'># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span>
@@ -372,7 +415,26 @@ Icarus 221, 160-166.</p>
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
 #&gt;   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_2</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
-                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
+                               <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; 
+#&gt;  [fit_SurfaceExposure()] 
+#&gt; 
+#&gt;  Shared estimated paramater(s):
+#&gt;  -----------------------
+#&gt;  mu:		0.899 ± 0.00232
+#&gt; 
+#&gt;  Fixed parameters(s):
+#&gt;  --------------------
+#&gt;  age (a):	100, 1000, 10000, 1e+05, 1e+06
+#&gt;  sigmaphi:	5e-10
+#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = 0.899)</span>
+#&gt; <span class='message'></span></div><div class='img'><img src='fit_SurfaceExposure-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;     age age_error sigmaphi sigmaphi_error       mu    mu_error
+#&gt; 1 1e+02        NA    5e-10             NA 0.898662 0.002323752
+#&gt; 2 1e+03        NA    5e-10             NA 0.898662 0.002323752
+#&gt; 3 1e+04        NA    5e-10             NA 0.898662 0.002323752
+#&gt; 4 1e+05        NA    5e-10             NA 0.898662 0.002323752
+#&gt; 5 1e+06        NA    5e-10             NA 0.898662 0.002323752</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -400,7 +462,7 @@ Icarus 221, 160-166.</p>
     <h2>Author</h2>
     
 Christoph Burow, University of Cologne (Germany)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -416,5 +478,8 @@ Christoph Burow, University of Cologne (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

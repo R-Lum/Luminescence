@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Plot a histogram with separate error plot — plot_Histogram" />
 
 <meta property="og:description" content="Function plots a predefined histogram with an accompanying error plot as
 suggested by Rex Galbraith at the UK LED in Oxford 2010." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,25 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot a histogram with separate error plot</h1>
+    
+    <div class="hidden name"><code>plot_Histogram.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function plots a predefined histogram with an accompanying error plot as
 suggested by Rex Galbraith at the UK LED in Oxford 2010.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>plot_Histogram</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>mtext</span>, <span class='no'>cex.global</span>, <span class='no'>se</span>, <span class='no'>rug</span>, <span class='no'>normal_curve</span>,
-  <span class='no'>summary</span>, <span class='no'>summary.pos</span>, <span class='no'>colour</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_Histogram</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>mtext</span>, <span class='no'>cex.global</span>, <span class='no'>se</span>, <span class='no'>rug</span>,
+  <span class='no'>normal_curve</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>, <span class='no'>colour</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -226,11 +241,11 @@ one or more of the following keywords:</p><ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>hist, plot</p>
+    <div class='dont-index'><p>hist, plot</p></div>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2018). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S. (2018). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -241,7 +256,7 @@ one or more of the following keywords:</p><ul>
   <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>dose.rate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
 
 <span class='co'>## plot histogram the easiest way</span>
-<span class='fu'>plot_Histogram</span>(<span class='no'>ExampleData.DeValues</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+<span class='fu'>plot_Histogram</span>(<span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_Histogram-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot histogram with some more modifications</span>
 <span class='fu'>plot_Histogram</span>(<span class='no'>ExampleData.DeValues</span>,
                <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -256,7 +271,7 @@ one or more of the following keywords:</p><ul>
                <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>expression</span>(<span class='fu'>paste</span>(<span class='no'>D</span>[<span class='no'>e</span>], <span class='st'>" distribution"</span>)),
                         <span class='st'>"Standard error"</span>),
                <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>, <span class='fl'>250</span>),
-               <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>5</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_Histogram-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+               <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>5</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_Histogram-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -280,9 +295,9 @@ one or more of the following keywords:</p><ul>
 
     <h2>Author</h2>
     
-Michael Dietze, GFZ Potsdam (Germany)
+Michael Dietze, GFZ Potsdam (Germany)<br />
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -298,5 +313,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

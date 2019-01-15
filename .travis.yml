@@ -38,21 +38,31 @@ matrix:
   include:
   - os: linux
     r: oldrel
+    before_install:
+      - sudo apt-get -qq update
+      - sudo apt-get install -y ghostscript
     env: CACHE_NAME=JOB1
   - os: linux
     r: release
+    before_install:
+      - sudo apt-get -qq update
+      - sudo apt-get install -y ghostscript
     env: CACHE_NAME=JOB2
   - os: linux
     r: devel
+    before_install:
+      - sudo apt-get -qq update
+      - sudo apt-get install -y ghostscript
     env: CACHE_NAME=JOB3
   - os: osx
     r: release
     before_install:
+      #- sudo rm '/usr/local/include/c++'
       - sudo rm '/usr/local/bin/gfortran'
       - brew install gcc
       - brew install jags
       - brew install libssh2
-      - brew install libgit2   
+      - brew install libgit2 
     env: CACHE_NAME=JOB4
 
 ##create notifications

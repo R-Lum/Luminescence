@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculate the Fast Ratio for CW-OSL curves — calc_FastRatio" />
 
 <meta property="og:description" content="Function to calculate the fast ratio of quartz CW-OSL single grain or single
-aliquot curves after Durcan &amp; Duller (2011)." />
+aliquot curves after Durcan &amp;amp; Duller (2011)." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ aliquot curves after Durcan &amp; Duller (2011)." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ aliquot curves after Durcan &amp; Duller (2011)." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ aliquot curves after Durcan &amp; Duller (2011)." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,23 +111,27 @@ aliquot curves after Durcan &amp; Duller (2011)." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate the Fast Ratio for CW-OSL curves</h1>
+    
+    <div class="hidden name"><code>calc_FastRatio.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Function to calculate the fast ratio of quartz CW-OSL single grain or single
 aliquot curves after Durcan &amp; Duller (2011).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>calc_FastRatio</span>(<span class='no'>object</span>, <span class='kw'>stimulation.power</span> <span class='kw'>=</span> <span class='fl'>30.6</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='fl'>470</span>,
   <span class='kw'>sigmaF</span> <span class='kw'>=</span> <span class='fl'>2.6e-17</span>, <span class='kw'>sigmaM</span> <span class='kw'>=</span> <span class='fl'>4.28e-18</span>, <span class='kw'>Ch_L1</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>Ch_L2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>Ch_L3</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>dead.channels</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>fitCW.sigma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fitCW.curve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -223,11 +238,11 @@ and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.1 (2018-01-21 17:22:38)</p>
+    <p>0.1.1 (2018-03-09 09:04:33)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>King, G., Durcan, J., Burow, C. (2018). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>King, G.E., Durcan, J., Burow, C. (2018). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -236,15 +251,15 @@ the dominance of the fast component in the initial OSL signal from quartz.
 Radiation Measurements 46, 1065-1072.</p>
 <p>Madsen, A.T., Duller, G.A.T., Donnelly, J.P., Roberts, H.M. &amp; Wintle, A.G., 2009.
 A chronology of hurricane landfalls at Little Sippewissett Marsh, Massachusetts, USA,
-using optical dating. Geomorphology 109, 36-45.
-    <strong>Further reading</strong></p>
+using optical dating. Geomorphology 109, 36-45.</p>
+<p><strong>Further reading</strong></p>
 <p>Steffen, D., Preusser, F. &amp; Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='fit_CWCurve.html'>fit_CWCurve</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
-<a href='RLum.Results-class.html'>RLum.Results</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p>
+    <div class='dont-index'><p><a href='fit_CWCurve.html'>fit_CWCurve</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
+<a href='RLum.Results-class.html'>RLum.Results</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -283,7 +298,7 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
 #&gt;  Counts L2		: 65
 #&gt;  Counts L3		: 37.67
 #&gt;  -------------------------------
-#&gt; </div><div class='input'>
+#&gt; </div><div class='img'><img src='calc_FastRatio-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># show the summary table</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>res</span>)</div><div class='output co'>#&gt;   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width
 #&gt; 1    405.122      119.7442       29.55756     1000          0.04
@@ -317,10 +332,10 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
 
     <h2>Author</h2>
     
-Georgina King, University of Cologne (Germany) 
-Julie A. Durcan, University of Oxford (United Kingdom) 
+Georgina E. King, University of Bern (Switzerland) <br />
+Julie A. Durcan, University of Oxford (United Kingdom) <br />
 Christoph Burow, University of Cologne (Germany)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -336,5 +351,8 @@ Christoph Burow, University of Cologne (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

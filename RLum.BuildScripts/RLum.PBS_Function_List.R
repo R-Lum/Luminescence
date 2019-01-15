@@ -24,6 +24,7 @@ rm(list = ls())
 # Reading file ------------------------------------------------------------
 
 file.list.man <- list.files("man/")
+file.list.man <- file.list.man[!(file.list.man == "figures")]
 
 ##get version number
 temp <- readLines("DESCRIPTION")
@@ -47,7 +48,7 @@ for(i in 1:length(file.list.man)) {
 
     tag.author <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\author")]]), collapse= " "))
     tag.author <- trimws(sub("<br />", "", tag.author))
-    
+
   }else{
 
     tag.author <- NA
@@ -88,16 +89,16 @@ for(i in 1:length(file.list.man)) {
                                                 collapse= " ")))
 
   }
-  
+
   ##VERSION
   if(length(grep("How to cite", unlist(Rd)))>0){
-    
+
     tag.citation <- unlist(Rd)[grep("How to cite", unlist(Rd))+2]
-    
+
   } else {
-    
+
     tag.citation <- NA
-    
+
   }
 
 
@@ -210,6 +211,6 @@ for (i in 1:ncol(output)) {
 }
 pander::panderOptions("table.split.table", Inf)
 pander::panderOptions("table.style", "rmarkdown")
-pander::set.alignment("left")  
+pander::set.alignment("left")
 markdown.table <- capture.output(pander::pander(output))
 write(markdown.table, file = paste0("R/README.md"))

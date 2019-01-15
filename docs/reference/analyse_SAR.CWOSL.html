@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Analyse SAR CW-OSL measurements — analyse_SAR.CWOSL" />
 
 <meta property="og:description" content="The function performs a SAR CW-OSL analysis on an
 RLum.Analysis object including growth curve fitting." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ RLum.Analysis object including growth curve fitting." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ RLum.Analysis object including growth curve fitting." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ RLum.Analysis object including growth curve fitting." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,23 +111,27 @@ RLum.Analysis object including growth curve fitting." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse SAR CW-OSL measurements</h1>
+    
+    <div class="hidden name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function performs a SAR CW-OSL analysis on an
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object including growth curve fitting.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>analyse_SAR.CWOSL</span>(<span class='no'>object</span>, <span class='no'>signal.integral.min</span>, <span class='no'>signal.integral.max</span>,
-  <span class='no'>background.integral.min</span>, <span class='no'>background.integral.max</span>, <span class='kw'>rejection.criteria</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dose.points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>mtext.outer</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>onlyLxTxTable</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='no'>background.integral.min</span>, <span class='no'>background.integral.max</span>,
+  <span class='kw'>rejection.criteria</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dose.points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>mtext.outer</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>onlyLxTxTable</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -227,8 +242,8 @@ introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 calculation of the Lx/Tx value the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a> is
 used. For <strong>changing the way the Lx/Tx error is calculated</strong> use the argument
 <code>background.count.distribution</code> and <code>sigmab</code>, which will be passed to the function
-<a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>.
-    <strong>Argument <code>object</code> is of type <code>list</code></strong></p>
+<a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>.</p>
+<p><strong>Argument <code>object</code> is of type <code>list</code></strong></p>
 <p>If the argument <code>object</code> is of type list containing <strong>only</strong>
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects, the function re-calls itself as often as elements
 are in the list. This is usefull if an entire measurement wanted to be analysed without
@@ -239,8 +254,8 @@ be of similar length as the <code>list</code> provided with the argument <code>o
 otherwise the function will create an own list of the requested lenght.
 Function output will be just one single <a href='RLum.Results-class.html'>RLum.Results</a> object.</p>
 <p>Please be careful when using this option. It may allow a fast an efficient data analysis, but
-the function may also break with an unclear error message, due to wrong input data.
-    <strong>Working with IRSL data</strong></p>
+the function may also break with an unclear error message, due to wrong input data.</p>
+<p><strong>Working with IRSL data</strong></p>
 <p>The function was originally designed to work just for 'OSL' curves,
 following the principles of the SAR protocol. An IRSL measurement protocol
 may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al.,
@@ -251,32 +266,32 @@ have to be pre-selected by the user to fit the standards of the SAR
 protocol, i.e., Lx,Tx,Lx,Tx and so on.</p>
 <p>Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
 Only one curve type can be analysed at the same time: The pIRIR50 curves or
-the pIRIR225 curves.
-    <strong>Supported rejection criteria</strong>
-    <code>[recycling.ratio]</code>: calculated for every repeated regeneration dose point.
-    <code>[recuperation.rate]</code>: recuperation rate calculated by comparing the
+the pIRIR225 curves.</p>
+<p><strong>Supported rejection criteria</strong></p>
+<p><code>[recycling.ratio]</code>: calculated for every repeated regeneration dose point.</p>
+<p><code>[recuperation.rate]</code>: recuperation rate calculated by comparing the
 Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 ratio of the natural signal). For methodological background see Aitken and
-Smith (1988).
-    <code>[testdose.error]</code>: set the allowed error for the testdose, which per
-default should not exceed 10%. The testdose error is calculated as Tx_net.error/Tx_net.
-    <code>[palaeodose.error]</code>: set the allowed error for the De value, which per
+Smith (1988).</p>
+<p><code>[testdose.error]</code>: set the allowed error for the testdose, which per
+default should not exceed 10%. The testdose error is calculated as Tx_net.error/Tx_net.</p>
+<p><code>[palaeodose.error]</code>: set the allowed error for the De value, which per
 default should not exceed 10%.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function must not be mixed up with the function
 <a href='Analyse_SAR.OSLdata.html'>Analyse_SAR.OSLdata</a>, which works with
-<a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects.
-    <strong>The function currently does only support 'OSL' or 'IRSL' data!</strong></p>
+<a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects.</p>
+<p><strong>The function currently does only support 'OSL' or 'IRSL' data!</strong></p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.8.0 (2018-01-31 17:56:43)</p>
+    <p>0.8.5 (2018-08-27 11:09:19)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -294,8 +309,8 @@ doi:10.1016/j.radmeas.2008.06.002</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
-<a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a></p>
+    <div class='dont-index'><p><a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
+<a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -323,11 +338,39 @@ doi:10.1016/j.radmeas.2008.06.002</p>
   <span class='kw'>testdose.error</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>palaeodose.error</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>exceed.max.regpoint</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+)</div><div class='img'><img src='analyse_SAR.CWOSL-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_SAR.CWOSL-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_SAR.CWOSL-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##show De results</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results): object 'results' not found</span></div><div class='input'>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;        De De.Error     D01 D01.ERROR D02 D02.ERROR   De.MC Fit RC.Status
+#&gt; 1 1668.25     41.2 1982.76  103.3783  NA        NA 1674.36 EXP        OK
+#&gt;   signal.range background.range signal.range.Tx background.range.Tx
+#&gt; 1        1 : 2       900 : 1000         NA : NA             NA : NA
+#&gt;                                  UID
+#&gt; 1 2018-08-31-06:37.0.507679320638999</div><div class='input'>
 <span class='co'>##show LnTnLxTx table</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"LnLxTnTx.table"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in get_RLum(results, data.object = "LnLxTnTx.table"): object 'results' not found</span></div><div class='input'>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"LnLxTnTx.table"</span>)</div><div class='output co'>#&gt;      Name Repeated Dose  LnLx   LnLx.BG TnTx   TnTx.BG    Net_LnLx
+#&gt; 1 Natural    FALSE    0 20391  60.15842 4771  73.50495 20330.84158
+#&gt; 2      R1    FALSE  450  7591  65.70297 4977  81.56436  7525.29703
+#&gt; 3      R2    FALSE 1050 15150  96.17822 4960 101.92079 15053.82178
+#&gt; 4      R3    FALSE 2000 23700 118.49505 5064 121.06931 23581.50495
+#&gt; 5      R4    FALSE 2550 31094 155.92079 5715 145.84158 30938.07921
+#&gt; 6      R5     TRUE  450  9376 122.37624 5860 127.60396  9253.62376
+#&gt; 7      R0    FALSE    0   192  94.39604 6107 117.64356    97.60396
+#&gt;   Net_LnLx.Error Net_TnTx Net_TnTx.Error       LxTx  LxTx.Error
+#&gt; 1      143.03415 4697.495       69.24882 4.32801767 0.070695494
+#&gt; 2       87.39498 4895.436       71.06916 1.53720681 0.028578369
+#&gt; 3      123.18402 4858.079       71.66840 3.09871888 0.052275097
+#&gt; 4      154.46828 4942.931       72.07168 4.77075371 0.076258410
+#&gt; 5      176.39564 5569.158       75.88226 5.55525214 0.082052531
+#&gt; 6       97.54912 5732.396       77.37976 1.61426805 0.027647946
+#&gt; 7       14.86509 5989.356       78.87190 0.01629624 0.002491179
+#&gt;                                  UID
+#&gt; 1 2018-08-31-06:37.0.507679320638999
+#&gt; 2 2018-08-31-06:37.0.507679320638999
+#&gt; 3 2018-08-31-06:37.0.507679320638999
+#&gt; 4 2018-08-31-06:37.0.507679320638999
+#&gt; 5 2018-08-31-06:37.0.507679320638999
+#&gt; 6 2018-08-31-06:37.0.507679320638999
+#&gt; 7 2018-08-31-06:37.0.507679320638999</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -355,7 +398,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -371,5 +414,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

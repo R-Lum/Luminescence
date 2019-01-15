@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Fit and plot a growth curve for luminescence data (Lx/Tx against dose) — plot_GrowthCurve" />
 
 <meta property="og:description" content="A dose response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
 extraxpolation to calculate the equivalent dose." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ extraxpolation to calculate the equivalent dose." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +77,7 @@ extraxpolation to calculate the equivalent dose." />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -94,6 +104,7 @@ extraxpolation to calculate the equivalent dose." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -101,17 +112,21 @@ extraxpolation to calculate the equivalent dose." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fit and plot a growth curve for luminescence data (Lx/Tx against dose)</h1>
+    
+    <div class="hidden name"><code>plot_GrowthCurve.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A dose response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
 extraxpolation to calculate the equivalent dose.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plot_GrowthCurve</span>(<span class='no'>sample</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"interpolation"</span>,
   <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>, <span class='kw'>fit.force_through_origin</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -121,7 +136,7 @@ extraxpolation to calculate the equivalent dose.</p>
   <span class='kw'>output.plotExtended</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output.plotExtended.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>cex.global</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -157,8 +172,9 @@ function used for fitting. Possible options are:</p><ul>
 <li><p><code>QDR</code>,</p></li>
 <li><p><code>EXP</code>,</p></li>
 <li><p><code>EXP OR LIN</code>,</p></li>
-<li><p><code>EXP+LIN</code> or</p></li>
-<li><p><code>EXP+EXP</code>.</p></li>
+<li><p><code>EXP+LIN</code>,</p></li>
+<li><p><code>EXP+EXP</code> or</p></li>
+<li><p><code>GOK</code>.</p></li>
 </ul>
 
 <p>See details.</p></td>
@@ -167,7 +183,7 @@ function used for fitting. Possible options are:</p><ul>
       <th>fit.force_through_origin</th>
       <td><p>logical (<em>with default</em>)
 allow to force the fitted function through the origin.
-For <code>method = "EXP+EXP"</code> the function will go to the origin in either case,
+For <code>method = "EXP+EXP"</code> and <code>method = "GOK"</code> the function will go through the origin in either case,
 so this option will have no effect.</p></td>
     </tr>
     <tr>
@@ -197,7 +213,7 @@ has to be inserted.</p></td>
       <th>fit.bounds</th>
       <td><p>logical (<em>with default</em>):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
-with the fit methods <code>EXP</code>, <code>EXP+LIN</code> and <code>EXP OR LIN</code>.
+with the fit methods <code>EXP</code>, <code>EXP+LIN</code>, <code>EXP OR LIN</code> and <code>GOK</code>.
 Argument to be inserted for experimental application only!</p></td>
     </tr>
     <tr>
@@ -256,32 +272,18 @@ Standard arguments will only be passed to the growth curve plot. Supported:
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Along with a plot (so far wanted) an <code>RLum.Results</code> object is returned containing,
-the slot <code>data</code> contains the following elements:</p><table><tr><td>
-<strong>DATA.OBJECT</strong> </td>
-<td> <strong>TYPE</strong> </td>
-<td> <strong>DESCRIPTION</strong> </td>
-</tr><tr><td>
-<code>..$De</code> : </td>
-<td>  <code>data.frame</code> </td>
-<td> Table with De values </td>
-</tr><tr><td>
-<code>..$De.MC</code> : </td>
-<td> <code>numeric</code> </td>
-<td> Table with De values from MC runs </td>
-</tr><tr><td>
-<code>..$Fit</code> : </td>
-<td> nls or lm </td>
-<td> object from the fitting for <code>EXP</code>, <code>EXP+LIN</code> and <code>EXP+EXP</code>.
-In case of a resulting  linear fit when using <code>LIN</code>, <code>QDR</code> or <code>EXP OR LIN</code> </td>
-</tr><tr><td>
-<code>..$Formula</code> : </td>
-<td> expression </td>
-<td> Fitting formula as R expression </td>
-</tr><tr><td>
-<code>..$call</code> : </td>
-<td> <code>call</code> </td>
-<td> The original function call</td>
-</tr></table>
+the slot <code>data</code> contains the following elements:</p>
+<table class='table'>
+<tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr>
+<tr><td><code>..$De</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr>
+<tr><td><code>..$De.MC</code> :</td><td><code>numeric</code></td><td>Table with De values from MC runs</td></tr>
+<tr><td><code>..$Fit</code> :</td><td>nls or lm</td><td>object from the fitting for <code>EXP</code>, <code>EXP+LIN</code> and <code>EXP+EXP</code>.
+In case of a resulting  linear fit when using <code>LIN</code>, <code>QDR</code> or <code>EXP OR LIN</code></td></tr>
+<tr><td><code>..$Formula</code> :</td><td>expression</td><td>Fitting formula as R expression</td></tr>
+<tr><td><code>..$call</code> :</td><td><code>call</code></td><td>The original function call</td></tr>
+<tr><td></td><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td></tr>
+</table>
+
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -291,31 +293,36 @@ In case of a resulting  linear fit when using <code>LIN</code>, <code>QDR</code>
 the <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a> function with the <code>LM</code> (Levenberg-Marquardt algorithm)
 algorithm is used. Note: For historical reasons for the Monte Carlo
 simulations partly the function nls using the <code>port</code> algorithm.</p>
-<p>The solution is found by transforming the function or using uniroot.
-    <code>LIN</code>: fits a linear function to the data using
-lm: $$y = m*x+n$$
-    <code>QDR</code>: fits a linear function to the data using
-lm: $$y = a + b * x + c * x^2$$
-    <code>EXP</code>: try to fit a function of the form
+<p>The solution is found by transforming the function or using uniroot.</p>
+<p><code>LIN</code>: fits a linear function to the data using
+lm: $$y = m*x+n$$</p>
+<p><code>QDR</code>: fits a linear function to the data using
+lm: $$y = a + b * x + c * x^2$$</p>
+<p><code>EXP</code>: try to fit a function of the form
 $$y = a*(1-exp(-(x+c)/b))$$
-Parameters b and c are approximated by a linear fit using lm. Note: b = D0
-    <code>EXP OR LIN</code>: works for some cases where an <code>EXP</code> fit fails.
-If the <code>EXP</code> fit fails, a <code>LIN</code> fit is done instead.
-    <code>EXP+LIN</code>: tries to fit an exponential plus linear function of the
+Parameters b and c are approximated by a linear fit using lm. Note: b = D0</p>
+<p><code>EXP OR LIN</code>: works for some cases where an <code>EXP</code> fit fails.
+If the <code>EXP</code> fit fails, a <code>LIN</code> fit is done instead.</p>
+<p><code>EXP+LIN</code>: tries to fit an exponential plus linear function of the
 form:
 $$y = a*(1-exp(-(x+c)/b)+(g*x))$$
-The De is calculated by iteration.
-    <strong>Note:</strong> In the context of luminescence dating, this
-function has no physical meaning. Therefore, no D0 value is returned.
-    <code>EXP+EXP</code>: tries to fit a double exponential function of the form
+The De is calculated by iteration.</p>
+<p><strong>Note:</strong> In the context of luminescence dating, this
+function has no physical meaning. Therefore, no D0 value is returned.</p>
+<p><code>EXP+EXP</code>: tries to fit a double exponential function of the form
 $$y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))$$
 This fitting procedure is not robust against wrong start parameters and
-should be further improved.
-    <strong>Fit weighting</strong></p>
+should be further improved.</p>
+<p><code>GOK</code>: tries to fit the general-order kinetics function after
+Guralnik et al. (2015) of the form of</p>
+<p>$$y = a*(1-(1+(1/b)*x*c)^(-1/c))$$</p>
+<p>where <strong>c &gt; 0</strong> is a kinetic order modifier
+(not to be confused with <strong>c</strong> in <code>EXP</code> or <code>EXP+LIN</code>!).</p>
+<p><strong>Fit weighting</strong></p>
 <p>If the option <code>fit.weights = TRUE</code> is chosen, weights are calculated using
 provided signal errors (Lx/Tx error):
-$$fit.weights = 1/error/(sum(1/error))$$
-    <strong>Error estimation using Monte Carlo simulation</strong></p>
+$$fit.weights = 1/error/(sum(1/error))$$</p>
+<p><strong>Error estimation using Monte Carlo simulation</strong></p>
 <p>Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
 constructed by randomly drawing curve data from samled from normal
 distributions. The normal distribution is defined by the input values (mean
@@ -324,44 +331,56 @@ dataset resulting in a new distribution of single De values. The sd
 of this distribution is becomes then the error of the De. With increasing
 iterations, the error value becomes more stable.
 <strong>Note:</strong> It may take some calculation time with increasing MC runs,
-especially for the composed functions (<code>EXP+LIN</code> and <code>EXP+EXP</code>).
-Each error estimation is done with the function of the chosen fitting method.
-    <strong>Subtitle information</strong></p>
+especially for the composed functions (<code>EXP+LIN</code> and <code>EXP+EXP</code>).<br />
+Each error estimation is done with the function of the chosen fitting method.</p>
+<p><strong>Subtitle information</strong></p>
 <p>To avoid plotting the subtitle information, provide an empty user mtext
 <code>mtext = ""</code>. To plot any other subtitle text, use <code>mtext</code>.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>1.9.10 (2018-01-21 17:22:38)</p>
+    <p>1.10.5 (2018-08-03 10:46:48)</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M. (2018). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M. (2018). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.</p>
+<p>Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
+Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
+from feldspar. Radiation Measurements 81, 224-231.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>nls, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>,
-lm, uniroot</p>
+    <div class='dont-index'><p>nls, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='http://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>,
+lm, uniroot</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) plot growth curve for a dummy data.set and show De value</span>
 <span class='fu'>data</span>(<span class='no'>ExampleData.LxTxData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
-<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("character"), new("nonstandardGenericFunction", .Data = function (object,     ...) {    standardGeneric("get_RLum")}, generic = structure("get_RLum", package = "Luminescence"),     package = "Luminescence", group = list(), valueClass = character(0),     signature = "object", default = NULL, skeleton = (function (object,         ...)     stop("invalid call in method dispatch to 'get_RLum' (no default method)",         domain = NA))(object, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘get_RLum’ for signature ‘"character"’</span></div><div class='input'>
+<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt;        De De.Error     D01 D01.ERROR D02 D02.ERROR   De.MC Fit
+#&gt; 1 1737.88    62.87 1766.07  83.08205  NA        NA 1734.73 EXP</div><div class='input'>
 <span class='co'>##(1a) to access the fitting value try</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"Fit"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list("character"), new("nonstandardGenericFunction", .Data = function (object,     ...) {    standardGeneric("get_RLum")}, generic = structure("get_RLum", package = "Luminescence"),     package = "Luminescence", group = list(), valueClass = character(0),     signature = "object", default = NULL, skeleton = (function (object,         ...)     stop("invalid call in method dispatch to 'get_RLum' (no default method)",         domain = NA))(object, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘get_RLum’ for signature ‘"character"’</span></div><div class='input'>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"Fit"</span>)</div><div class='output co'>#&gt; Nonlinear regression model
+#&gt;   model: y ~ a * (1 - exp(-(x + c)/b))
+#&gt;    data: data
+#&gt;        a        b        c 
+#&gt;    6.806 1766.074    5.051 
+#&gt;  weighted residual sum-of-squares: 0.0004268
+#&gt; 
+#&gt; Number of iterations to convergence: 4 
+#&gt; Achieved convergence tolerance: 1.49e-08</div><div class='input'>
 <span class='co'>##(2) plot the growth curve only - uncomment to use</span>
 <span class='co'>##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span>
-<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'><span class='co'>##dev.off()</span>
+<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>##dev.off()</span>
 
 <span class='co'>##(3) plot growth curve with pdf output - uncomment to use, single output</span>
 <span class='co'>##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span>
-<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>, <span class='kw'>output.plotExtended.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='input'><span class='co'>##dev.off()</span>
+<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>, <span class='kw'>output.plotExtended.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='plot_GrowthCurve-4.png' alt='' width='700' height='433' /></div><div class='img'><img src='plot_GrowthCurve-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>##dev.off()</span>
 
 <span class='co'>##(4) plot resulting function for given intervall x</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>1</span>,<span class='fl'>10000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>100</span>)
@@ -369,13 +388,29 @@ lm, uniroot</p>
  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>,
  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>eval</span>(<span class='no'>temp</span>$<span class='no'>Formula</span>),
  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"l"</span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in temp$Formula: $ operator is invalid for atomic vectors</span></div><div class='input'>
+)</div><div class='img'><img src='plot_GrowthCurve-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(5) plot using the 'extrapolation' mode</span>
 <span class='no'>LxTxData</span>[<span class='fl'>1</span>,<span class='fl'>2</span>:<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0.5</span>, <span class='fl'>0.001</span>)
-<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"extrapolation"</span>))</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06</div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"extrapolation"</span>))</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06</div><div class='img'><img src='plot_GrowthCurve-7.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: plot_GrowthCurve()
+#&gt; 	 data: 4
+#&gt;  	 .. $De : data.frame
+#&gt; 	 .. $De.MC : numeric
+#&gt; 	 .. $Fit : nls
+#&gt; 	 .. $Formula : expression
+#&gt; 	 additional info elements:  1</div><div class='input'>
 <span class='co'>##(6) plot using the 'alternate' mode</span>
 <span class='no'>LxTxData</span>[<span class='fl'>1</span>,<span class='fl'>2</span>:<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0.5</span>, <span class='fl'>0.001</span>)
-<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"alternate"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+<span class='fu'>print</span>(<span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>,<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"alternate"</span>))</div><div class='img'><img src='plot_GrowthCurve-8.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: plot_GrowthCurve()
+#&gt; 	 data: 4
+#&gt;  	 .. $De : data.frame
+#&gt; 	 .. $De.MC : logical
+#&gt; 	 .. $Fit : nls
+#&gt; 	 .. $Formula : expression
+#&gt; 	 additional info elements:  1</div><div class='input'>
 <span class='co'>##(7) import and fit test data set by Berger &amp; Huntley 1989</span>
 <span class='no'>QNL84_2_unbleached</span> <span class='kw'>&lt;-</span>
 <span class='fu'>read.table</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata/QNL84_2_unbleached.txt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"Luminescence"</span>))
@@ -384,10 +419,13 @@ lm, uniroot</p>
  <span class='no'>QNL84_2_unbleached</span>,
  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"extrapolation"</span>,
  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
- <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_GrowthCurve()] 'fit.weights' set to NA since the error column is invalid or 0.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: calling par(new=TRUE) with no plot</span></div><div class='output co'>#&gt; <span class='error'>Error in par(par.default.complex): invalid value specified for graphical parameter "pin"</span></div><div class='input'>
+ <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_GrowthCurve()] 'fit.weights' set to NA since the error column is invalid or 0.</span></div><div class='img'><img src='plot_GrowthCurve-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#calculate confidence interval for the parameters</span>
 <span class='co'>#as alternative error estimation</span>
-<span class='fu'>confint</span>(<span class='no'>results</span>$<span class='no'>Fit</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.68</span>)</div><div class='output co'>#&gt; <span class='error'>Error in confint(results$Fit, level = 0.68): object 'results' not found</span></div><div class='input'>
+<span class='fu'>confint</span>(<span class='no'>results</span>$<span class='no'>Fit</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.68</span>)</div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;           16%         84%
+#&gt; a 140543.3024 146731.8471
+#&gt; b    374.0861    425.5679
+#&gt; c    116.3499    133.3474</div><div class='input'>
 
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>QNL84_2_bleached</span> <span class='kw'>&lt;-</span>
@@ -443,9 +481,9 @@ lm, uniroot</p>
 
     <h2>Author</h2>
     
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)<br />
 Michael Dietze, GFZ Potsdam (Germany)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -461,5 +499,8 @@ Michael Dietze, GFZ Potsdam (Germany)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

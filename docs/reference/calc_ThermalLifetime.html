@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Calculates the Thermal Lifetime using the Arrhenius equation — calc_ThermalLifetime" />
 
 <meta property="og:description" content="The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and
 T (in deg. C.) parameters. The function can be used in two operational modes:" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,21 +111,26 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculates the Thermal Lifetime using the Arrhenius equation</h1>
+    
+    <div class="hidden name"><code>calc_ThermalLifetime.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and
 T (in deg. C.) parameters. The function can be used in two operational modes:</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>calc_ThermalLifetime</span>(<span class='no'>E</span>, <span class='no'>s</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>output_unit</span> <span class='kw'>=</span> <span class='st'>"Ma"</span>, <span class='kw'>profiling</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>profiling_config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_ThermalLifetime</span>(<span class='no'>E</span>, <span class='no'>s</span>, <span class='kw'>T</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>output_unit</span> <span class='kw'>=</span> <span class='st'>"Ma"</span>,
+  <span class='kw'>profiling</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>profiling_config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -181,21 +197,21 @@ Standard plot parameters are supported (plot.default)</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='RLum.Results-class.html'>RLum.Results</a> object is returned a along with a plot (for
-<code>profiling = TRUE</code>). The output object contain the following slots:
+<code>profiling = TRUE</code>). The output object contain the following slots:</p>
+<p><strong><code>@data</code></strong></p>
+<table class='table'>
+<tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>lifetimes</code></td><td>array or numeric</td><td>calculated lifetimes</td></tr>
+<tr><td><code>profiling_matrix</code></td><td>matrix</td><td>profiling matrix used for the MC runs</td></tr>
+</table>
 
-<strong><code>@data</code></strong></p><table><tr><td>
-<strong>Object</strong> </td>
-<td> <strong>Type</strong> </td>
-<td> <strong>Description</strong> </td>
-</tr><tr><td>
-<code>lifetimes</code> </td>
-<td> array or numeric </td>
-<td> calculated lifetimes </td>
-</tr></table><p><strong><code>@info</code></strong></p><table><tr><td>
-<strong>Object</strong> </td>
-<td> <strong>Type</strong> </td>
-<td> <strong>Description</strong> </td>
-</tr></table>
+
+<p><strong><code>@info</code></strong></p>
+<table class='table'>
+<tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>call</code></td><td><code>call</code></td><td>the original function call</td></tr>
+</table>
+
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -204,15 +220,15 @@ Standard plot parameters are supported (plot.default)</p></td>
 <p>An arbitrary set of input parameters (E, s, T) can be provided and the
 function calculates the thermal lifetimes using the Arrhenius equation for
 all possible combinations of these input parameters. An array with 3-dimensions
-is returned that can be used for further analyses or graphical output (see example 1)
-    <strong>Mode 2 <code>(profiling = TRUE)</code></strong></p>
+is returned that can be used for further analyses or graphical output (see example 1)</p>
+<p><strong>Mode 2 <code>(profiling = TRUE)</code></strong></p>
 <p>This mode tries to profile the variation of the thermal lifetime for a chosen
 temperature by accounting for the provided E and s parameters and their corresponding
 standard errors, e.g., <code>E = c(1.600, 0.001)</code>
 The calculation based on a Monte Carlo simulation, where values are sampled from a normal
-distribution (for E and s).
-    <strong>Used equation (Arrhenius equation)</strong>
-    $$\tau = 1/s exp(E/kT)$$
+distribution (for E and s).</p>
+<p><strong>Used equation (Arrhenius equation)</strong></p>
+<p>$$\tau = 1/s exp(E/kT)$$
 where:
 \(\tau\) in s as the mean time an electron spends in the trap for a given \(T\),
 \(E\) trap depth in eV,
@@ -230,7 +246,7 @@ distribution assumption might be, however, not valid for given E and s paramters
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -238,7 +254,7 @@ distribution assumption might be, however, not valid for given E and s paramters
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/graphics/topics/matplot'>graphics::matplot</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>stats::rnorm</a>, <a href='get_RLum.html'>get_RLum</a></p>
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/graphics/topics/matplot'>graphics::matplot</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>stats::rnorm</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -265,7 +281,7 @@ distribution assumption might be, however, not valid for given E and s paramters
         <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Temperature [\u00B0C]"</span>,
         <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trap depth [eV]"</span>,
         <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Thermal Lifetime Contour Plot"</span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'><span class='fu'>mtext</span>(<span class='kw'>side</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>"(values quoted in Ma)"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in mtext(side = 3, "(values quoted in Ma)"): plot.new has not been called yet</span></div><div class='input'>
+)</div><div class='input'><span class='fu'>mtext</span>(<span class='kw'>side</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='st'>"(values quoted in Ma)"</span>)</div><div class='img'><img src='calc_ThermalLifetime-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##EXAMPLE 2</span>
 <span class='co'>##profiling of thermal life time for E and s and their standard error</span>
 <span class='no'>E</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>1.600</span>, <span class='fl'>0.003</span>)
@@ -282,12 +298,18 @@ distribution assumption might be, however, not valid for given E and s paramters
 #&gt; 
 #&gt; 	profiling = TRUE
 #&gt; 	--------------------------
-#&gt; 	mean:	 1.027569e+01 Ma
-#&gt; 	sd:	 1.189041e+00 Ma
-#&gt; 	min:	 6.928481e+00 Ma
-#&gt; 	max:	 1.421585e+01 Ma
+#&gt; 	mean:	 1.031006e+01 Ma
+#&gt; 	sd:	 1.257277e+00 Ma
+#&gt; 	min:	 6.96412e+00 Ma
+#&gt; 	max:	 1.444883e+01 Ma
 #&gt; 	--------------------------
-#&gt; 	(1000 lifetimes calculated in total)</div><div class='output co'>#&gt; <span class='error'>Error in plot.xy(xy, type, ...): invalid graphics state</span></div><div class='input'>
+#&gt; 	(1000 lifetimes calculated in total)</div><div class='img'><img src='calc_ThermalLifetime-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt;  [RLum.Results-class]
+#&gt; 	 originator: calc_ThermalLifetime()
+#&gt; 	 data: 2
+#&gt;  	 .. $lifetimes : numeric
+#&gt; 	 .. $profiling_matrix : matrix
+#&gt; 	 additional info elements:  1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -315,7 +337,7 @@ distribution assumption might be, however, not valid for given E and s paramters
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -331,5 +353,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

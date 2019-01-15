@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Plot function for an RLum.Data.Spectrum S4 class object — plot_RLum.Data.Spectrum" />
 
 <meta property="og:description" content="The function provides a standardised plot output for spectrum data of an
 RLum.Data.Spectrum S4 class object" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ RLum.Data.Spectrum S4 class object" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">Luminescence</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">Luminescence</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +76,7 @@ RLum.Data.Spectrum S4 class object" />
   </a>
 </li>
 <li>
-  <a href="../articles/HowTo_analyse_Al2O3.html">
+  <a href="../articles/index.html">
     <span class="fa fa-play"></span>
      
     Articles
@@ -93,6 +103,7 @@ RLum.Data.Spectrum S4 class object" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,30 +111,34 @@ RLum.Data.Spectrum S4 class object" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot function for an RLum.Data.Spectrum S4 class object</h1>
+    
+    <div class="hidden name"><code>plot_RLum.Data.Spectrum.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The function provides a standardised plot output for spectrum data of an
 RLum.Data.Spectrum S4 class object</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>object</span>, <span class='kw'>par.local</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"contour"</span>,
-  <span class='kw'>optical.wavelength.colours</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>bg.channels</span>, <span class='kw'>bin.rows</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>limit_counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xaxis.energy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>legend.text</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>object</span>, <span class='kw'>par.local</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"contour"</span>, <span class='kw'>optical.wavelength.colours</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>bg.channels</span>, <span class='kw'>bin.rows</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>limit_counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xaxis.energy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>legend.text</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
       <td><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> or matrix (<strong>required</strong>):
 S4 object of class <code>RLum.Data.Spectrum</code> or a <code>matrix</code> containing count
-values of the spectrum.
+values of the spectrum.<br />
 Please note that in case of a matrix rownames and colnames are set
 automatically if not provided.</p></td>
     </tr>
@@ -138,7 +153,7 @@ If <code>par.local = FALSE</code> global parameters are inherited.</p></td>
       <td><p>character (<em>with default</em>): plot type, for
 3D-plot use <code>persp</code>, or <code>interactive</code>, for a 2D-plot <code>contour</code>,
 <code>single</code> or <code>multiple.lines</code> (along the time or temperature axis)
-or <code>transect</code> (along the wavelength axis)</p></td>
+or <code>transect</code> (along the wavelength axis) <br /></p></td>
     </tr>
     <tr>
       <th>optical.wavelength.colours</th>
@@ -150,9 +165,8 @@ limited: <code>c(350,750)</code>. Own colours can be set with the argument <code
       <th>bg.channels</th>
       <td><p>vector (<em>optional</em>):
 defines channel for background subtraction If a vector is provided the mean
-of the channels is used for subtraction.
-
-<strong>Note:</strong> Background subtraction is applied prior to channel binning</p></td>
+of the channels is used for subtraction.</p>
+<p><strong>Note:</strong> Background subtraction is applied prior to channel binning</p></td>
     </tr>
     <tr>
       <th>bin.rows</th>
@@ -182,9 +196,8 @@ especially in case of TL-spectra.</p></td>
     <tr>
       <th>xaxis.energy</th>
       <td><p>logical (<em>with default</em>):
-enables or disables energy instead of wavelength axis.
-
-<strong>Note:</strong> This option means not only simnply redrawing the axis,
+enables or disables energy instead of wavelength axis.</p>
+<p><strong>Note:</strong> This option means not only simnply redrawing the axis,
 instead the spectrum in terms of intensity is recalculated, s. details.</p></td>
     </tr>
     <tr>
@@ -206,58 +219,61 @@ to the <code>plot</code> function.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Matrix structure</strong>  (cf. <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>)</p><ul>
+    <p><strong>Matrix structure</strong> <br /> (cf. <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>)</p><ul>
 <li><p><code>rows</code> (x-values): wavelengths/channels (xlim, xlab)</p></li>
 <li><p><code>columns</code> (y-values): time/temperature (ylim, ylab)</p></li>
 <li><p><code>cells</code> (z-values): count values (zlim, zlab)</p></li>
-</ul><p><em>Note: This nomenclature is valid for all plot types of this function!</em>
-    <strong>Nomenclature for value limiting</strong></p><ul>
+</ul>
+    <p><em>Note: This nomenclature is valid for all plot types of this function!</em></p>
+<p><strong>Nomenclature for value limiting</strong></p><ul>
 <li><p><code>xlim</code>: Limits values along the wavelength axis</p></li>
 <li><p><code>ylim</code>: Limits values along the time/temperature axis</p></li>
 <li><p><code>zlim</code>: Limits values along the count value axis</p></li>
-</ul><p><strong>Energy axis re-calculation</strong></p>
+</ul>
+    <p><strong>Energy axis re-calculation</strong></p>
 <p>If the argument <code>xaxis.energy = TRUE</code> is chosen, instead intensity vs.
 wavelength the spectrum is plotted as intensiyt vs. energy. Therefore the
 entire spectrum is re-recaluated (e.g., Appendix 4 in Blasse and Grabmeier,
 1994):</p>
 <p>The intensity of the spectrum (z-values) is re-calcualted using the
-following equation:
-    $$\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)$$</p>
+following equation:</p>
+<p>$$\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)$$</p>
 <p>with
 \(\phi_{E}\) the intensity per interval of energy \(E\) (eV),
 \(\phi_{\lambda}\) the intensity per interval of wavelength \(\lambda\)
 (nm) and
 \(h\) (eV/s) the Planck constant and \(c\) (m/s) the velocity of light.</p>
-<p>For transforming the wavelength axis (x-values) the equation
-    $$E = hc/\lambda$$</p>
-<p>is used. For further details please see the cited the literature.
-    <strong>Details on the plot functions</strong></p>
+<p>For transforming the wavelength axis (x-values) the equation</p>
+<p>$$E = hc/\lambda$$</p>
+<p>is used. For further details please see the cited the literature.</p>
+<p><strong>Details on the plot functions</strong></p>
 <p>Spectrum is visualised as 3D or 2D plot. Both plot types are based on
-internal R plot functions.
-    <strong><code>plot.type = "persp"</code></strong></p>
+internal R plot functions.</p>
+<p><strong><code>plot.type = "persp"</code></strong></p>
 <p>Arguments that will be passed to persp:</p><ul>
 <li><p><code>shade</code>: default is <code>0.4</code></p></li>
 <li><p><code>phi</code>: default is <code>15</code></p></li>
 <li><p><code>theta</code>: default is <code>-30</code></p></li>
 <li><p><code>expand</code>: default is <code>1</code></p></li>
 <li><p><code>ticktype</code>: default is <code>detailed</code>, <code>r</code>: default is <code>10</code></p></li>
-</ul><p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
+</ul>
+    <p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
 to set the background transparent and reduce the thickness of the lines use:
-<code>par(bg = NA, lwd = 0.7)</code> previous the function call.
-    <strong><code>plot.type = "single"</code></strong></p>
+<code>par(bg = NA, lwd = 0.7)</code> previous the function call.</p>
+<p><strong><code>plot.type = "single"</code></strong></p>
 <p>Per frame a single curve is returned. Frames are time or temperature
-steps.
-    <strong><code>plot.type = "multiple.lines"</code></strong></p>
-<p>All frames plotted in one frame.
-    <strong><code>plot.type = "transect"</code></strong></p>
+steps.</p>
+<p><strong><code>plot.type = "multiple.lines"</code></strong></p>
+<p>All frames plotted in one frame.</p>
+<p><strong><code>plot.type = "transect"</code></strong></p>
 <p>Depending on the selected wavelength/channel range a transect over the
 time/temperature (y-axis) will be plotted along the wavelength/channels
 (x-axis). If the range contains more than one channel, values (z-values) are
 summed up. To select a transect use the <code>xlim</code> argument, e.g.
 <code>xlim = c(300,310)</code> plot along the summed up count values of channel
-300 to 310.
-    <strong>Further arguments that will be passed (depending on the plot type)</strong>
-    <code>xlab</code>, <code>ylab</code>, <code>zlab</code>, <code>xlim</code>, <code>ylim</code>,
+300 to 310.</p>
+<p><strong>Further arguments that will be passed (depending on the plot type)</strong></p>
+<p><code>xlab</code>, <code>ylab</code>, <code>zlab</code>, <code>xlim</code>, <code>ylim</code>,
 <code>zlim</code>, <code>main</code>, <code>mtext</code>, <code>pch</code>, <code>type</code> ("single", "multiple.lines", "interactive"),
 <code>col</code>, <code>border</code>, <code>box</code> <code>lwd</code>, <code>bty</code>, <code>showscale</code> ("interactive")</p>
     
@@ -271,7 +287,7 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.1. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2018). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2018). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -279,8 +295,8 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, plot, <a href='plot_RLum.html'>plot_RLum</a>, persp,
-<a href='http://www.rdocumentation.org/packages/plotly/topics/plot_ly'>plotly::plot_ly</a>, contour</p>
+    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, plot, <a href='plot_RLum.html'>plot_RLum</a>, persp,
+<a href='http://www.rdocumentation.org/packages/plotly/topics/plot_ly'>plotly::plot_ly</a>, contour</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -294,21 +310,21 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) plot spectrum (3D)</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
                         <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"persp"</span>,
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(3) plot multiple lines (2D) - multiple.lines (with ylim)</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
                         <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"multiple.lines"</span>,
                         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
                         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='output co'>#&gt; <span class='error'>Error in plot.new(): figure margins too large</span></div><div class='input'>
+                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Last wavelength channel has been removed due to binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
  <span class='co'>##(4) interactive plot using the package plotly ("surface")</span>
  <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
@@ -361,7 +377,7 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     <h2>Author</h2>
     
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
- R Luminescence Package Team
+<br /> R Luminescence Package Team
   </div>
 </div>
 
@@ -377,5 +393,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
