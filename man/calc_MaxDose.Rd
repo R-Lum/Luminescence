@@ -74,7 +74,7 @@ When all calculations are done the results are then converted as follows
 Please see \link{calc_MinDose}.
 }
 \section{Function version}{
- 0.3.1 (2018-03-01 16:07:09)
+ 0.3.1 (2018-01-21 11:22:38)
 }
 
 \examples{
@@ -88,7 +88,7 @@ calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 } 
 
 \section{How to cite}{
-Burow, C. (2019). calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2019). calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.12. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

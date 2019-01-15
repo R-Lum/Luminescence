@@ -29,7 +29,7 @@ Allowed arguments can be found in the documentations of the corresponding
 Currenlty only \code{RLum.Data} objects of class \linkS4class{RLum.Data.Curve} are supported!
 }
 \section{Function version}{
- 0.1.0 (2017-09-13 10:50:39)
+ 0.1.0 (2018-01-21 11:22:38)
 }
 
 \examples{
@@ -60,7 +60,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.12. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

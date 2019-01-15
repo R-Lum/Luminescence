@@ -147,7 +147,7 @@ may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} an
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2017-10-23 13:55:26)
+ 0.1.0 (2018-01-21 11:22:38)
 }
 
 \examples{
@@ -194,7 +194,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Burow, C. (2019). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.11. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2019). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.12. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
