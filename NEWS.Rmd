@@ -37,6 +37,9 @@ in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
 #### `read_BIN2R()`
 * In the autofile recognition (only a path instead of a file is provided), sometimes the found BIN/BINX-files were imported twice. The corresponding code was simplified to avoid such errors in future.
 
+### `read_XSYG2R()`
+* The function failed for R-devel importing spectrometer data (`approx(..., ties = -2)`); fixed.
+
 ### Internals
 
 * Package news are now provided as markdown document (NEWS.md) which is supported

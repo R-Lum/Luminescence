@@ -125,11 +125,11 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.6
+#' @section Function version: 0.6.7
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]
@@ -657,7 +657,7 @@ read_XSYG2R <- function(
                     y = temp.sequence.object.curveValue.heating.element[,2],
                     xout = temp.sequence.object.curveValue.spectrum.time,
                     rule = 2,
-                    ties = -2)
+                    ties = mean)
 
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element.i$y
