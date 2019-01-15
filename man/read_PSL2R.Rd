@@ -48,7 +48,7 @@ regular expression to find and extract all relevant information. See \strong{not
 \note{
 Because this function relies heavily on regular expressions to parse
 PSL files it is currently only in beta status. If the routine fails to import
-a specific PSL file please report to \href{mailto:christoph.burow@uni-koeln.de}{christoph.burow@uni-koeln.de} so the
+a specific PSL file please report to \href{mailto:christoph.burow@gmx.net}{christoph.burow@gmx.net} so the
 function can be updated.
 }
 \section{Function version}{

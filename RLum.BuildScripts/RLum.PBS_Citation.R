@@ -1,7 +1,7 @@
 ### ===============================================================================================
 ### R package Luminescence BUILDSCRIPTS
 ### Citation
-### christoph.burow@uni-koeln.de and sebastian.kreutzer@u-bordeaux-montaigne.fr
+### christoph.burow@gmx.net and sebastian.kreutzer@u-bordeaux-montaigne.fr
 ### Initial: 2016-09-26
 ### Update: 2017-05-30
 ### ===============================================================================================
