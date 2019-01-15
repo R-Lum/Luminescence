@@ -23,6 +23,11 @@
 
 ### Bugfixes and changes
 
+#### `apply_EfficiencyCorrection()`
+
+  - The function prodced a warning (“collapsing to unique ‘x’ values”)
+    on R-devel; fixed.
+
 #### `analyse_FadingMeasurements()`
 
   - Enable support for data imported from a BIN/BINX-file.
@@ -33,6 +38,11 @@
     provided), sometimes the found BIN/BINX-files were imported twice.
     The corresponding code was simplified to avoid such errors in
     future.
+
+#### `read_XSYG2R()`
+
+  - The function failed for R-devel importing spectrometer data
+    (`approx(..., ties = -2)`); fixed.
 
 ### Internals
 

@@ -12,24 +12,24 @@
 #' If the energy calibration differes for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object [RLum.Data.Spectrum-class] (**required**): 
+#' @param object [RLum.Data.Spectrum-class] (**required**):
 #' S4 object of class `RLum.Data.Spectrum`
 #'
-#' @param spectral.efficiency [data.frame] (**required**): 
+#' @param spectral.efficiency [data.frame] (**required**):
 #' Data set containing wavelengths (x-column) and relative spectral response values
 #' (y-column) in percentage
 #'
 #' @return Returns same object as input ([RLum.Data.Spectrum-class])
 #'
-#' @note 
+#' @note
 #' Please note that the spectral efficiency data from the camera alone may not
 #' sufficiently correct for spectral efficiency of the entire optical system
 #' (e.g., spectrometer, camera ...).
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)\cr
 #' Johannes Friedrich, University of Bayreuth (Germany)
 #'
 #' @seealso [RLum.Data.Spectrum-class]
@@ -79,7 +79,8 @@ apply_EfficiencyCorrection <- function(
   temp.efficiency.interpolated  <- approx(
     x = temp.efficiency[,1],
     y = temp.efficiency[,2],
-    xout = temp.efficiency.x)
+    xout = temp.efficiency.x,
+    ties = mean)
 
 
   ##correct for quantum efficiency
