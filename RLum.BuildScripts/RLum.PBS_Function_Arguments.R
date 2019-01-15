@@ -1,8 +1,8 @@
 ### ===============================================================================================
 ### R package Luminescence BUILDSCRIPTS
 ### Function_Arguments
-### christoph.burow@uni-koeln.de
-### 2017-01-10
+### christoph.burow@gmx.net
+### 2019-01-15
 ### Note: Previous versions were written by Michael Dietze and Sebastian Kreutzer.
 ### This version programmatically fetches all functions and arguments and does
 ### not rely on parsing the .Rd files with regular expressions.

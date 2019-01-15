@@ -1,7 +1,7 @@
 #  ------------------------------------------------------------------------
-# Author: Christoph Burow <christoph.burow@uni-koeln.de>
+# Author: Christoph Burow <christoph.burow@gmx.net>
 # Affiliation: University of Cologne
-# Date: 10/01/2017
+# Date: 15/01/2019
 # API version: v3
 # Reference: https://developer.github.com/v3/
 #  ------------------------------------------------------------------------

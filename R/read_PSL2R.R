@@ -44,7 +44,7 @@
 #' @note 
 #' Because this function relies heavily on regular expressions to parse 
 #' PSL files it is currently only in beta status. If the routine fails to import
-#' a specific PSL file please report to <christoph.burow@@uni-koeln.de> so the
+#' a specific PSL file please report to <christoph.burow@@gmx.net> so the
 #' function can be updated.
 #'
 #' @keywords IO
