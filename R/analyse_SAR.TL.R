@@ -7,79 +7,79 @@
 #' procedure in general is given by Murray and Wintle (2000). For the
 #' calculation of the Lx/Tx value the function [calc_TLLxTxRatio] is
 #' used.
-#' 
+#'
 #' **Provided rejection criteria**
-#' 
+#'
 #' `[recyling.ratio]`: calculated for every repeated regeneration dose point.
-#' 
+#'
 #' `[recuperation.rate]`: recuperation rate calculated by
 #' comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 #' value (the Lx/Tx ratio of the natural signal).  For methodological
 #' background see Aitken and Smith (1988)
 #'
-#' @param object [RLum.Analysis-class](**required**): 
+#' @param object [RLum.Analysis-class](**required**):
 #' input object containing data for analysis
 #'
 #' @param object.background currently not used
 #'
-#' @param signal.integral.min [integer] (**required**): 
-#' requires the channel number for the lower signal integral bound 
+#' @param signal.integral.min [integer] (**required**):
+#' requires the channel number for the lower signal integral bound
 #' (e.g. `signal.integral.min = 100`)
 #'
-#' @param signal.integral.max [integer] (**required**): 
-#' requires the channel number for the upper signal integral bound 
+#' @param signal.integral.max [integer] (**required**):
+#' requires the channel number for the upper signal integral bound
 #' (e.g. `signal.integral.max = 200`)
 #'
-#' @param integral_input [character] (*with default*): 
-#' defines the input for the the arguments `signal.integral.min` and 
-#' `signal.integral.max`. These limits can be either provided `'channel'` 
-#' number (the default) or `'temperature'`. If `'temperature'` is chosen the 
+#' @param integral_input [character] (*with default*):
+#' defines the input for the the arguments `signal.integral.min` and
+#' `signal.integral.max`. These limits can be either provided `'channel'`
+#' number (the default) or `'temperature'`. If `'temperature'` is chosen the
 #' best matching channel is selected.
 #'
 #' @param sequence.structure [vector] [character] (*with default*):
-#' specifies the general sequence structure. Three steps are allowed 
+#' specifies the general sequence structure. Three steps are allowed
 #' (`"PREHEAT"`, `"SIGNAL"`, `"BACKGROUND"`), in addition a
 #' parameter `"EXCLUDE"`. This allows excluding TL curves which are not
 #' relevant for the protocol analysis.  (**Note:** None TL are removed by default)
 #'
-#' @param rejection.criteria [list] (*with default*): 
+#' @param rejection.criteria [list] (*with default*):
 #' list containing rejection criteria in percentage for the calculation.
 #'
-#' @param dose.points [numeric] (*optional*): 
+#' @param dose.points [numeric] (*optional*):
 #' option set dose points manually
 #'
-#' @param log [character] (*with default*): 
-#' a character string which contains "x" if the x axis is to be logarithmic, 
+#' @param log [character] (*with default*):
+#' a character string which contains "x" if the x axis is to be logarithmic,
 #' "y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 #' [plot.default]).
 #'
 #' @param ... further arguments that will be passed to the function [plot_GrowthCurve]
 #'
-#' @return 
+#' @return
 #' A plot (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
-#' 
-#' \item{De.values}{[data.frame] containing De-values and further parameters} 
+#'
+#' \item{De.values}{[data.frame] containing De-values and further parameters}
 #' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points.}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
-#' 
+#'
 #' **note:** the output should be accessed using the function [get_RLum]
 #'
-#' @note 
+#' @note
 #' **THIS IS A BETA VERSION**
-#' 
+#'
 #' None TL curves will be removed
 #' from the input object without further warning.
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
 #'
-#' @references 
+#' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching.  Quaternary Science Reviews 7, 387-393.
 #'
@@ -132,20 +132,20 @@ analyse_SAR.TL <- function(
 
   ##MISSING INPUT
   if(missing("object")==TRUE){
-    stop("[analyse_SAR.TL] No value set for 'object'!")
+    stop("[analyse_SAR.TL()] No value set for 'object'!", call. = FALSE)
   }
 
   if(missing("signal.integral.min") == TRUE){
-    stop("[analyse_SAR.TL] No value set for 'signal.integral.min'!")
+    stop("[analyse_SAR.TL()] No value set for 'signal.integral.min'!", call. = FALSE)
   }
 
   if(missing("signal.integral.max") == TRUE){
-    stop("[analyse_SAR.TL] No value set for 'signal.integral.max'!")
+    stop("[analyse_SAR.TL()] No value set for 'signal.integral.max'!", call. = FALSE)
   }
 
   ##INPUT OBJECTS
   if(is(object, "RLum.Analysis") == FALSE){
-    stop("[analyse_SAR.TL] Input object is not of type 'RLum.Analyis'!")
+    stop("[analyse_SAR.TL()] Input object is not of type 'RLum.Analyis'!", call. = FALSE)
   }
 
 
@@ -459,7 +459,6 @@ analyse_SAR.TL <- function(
 
 
   # Plotting Plateau Test LnLx -------------------------------------------------
-
   if(length(TL.background.ID) != 0){
     NTL.net.LnLx <-
       data.frame(object@records[[TL.signal.ID[1]]]@data[, 1],
@@ -514,7 +513,6 @@ analyse_SAR.TL <- function(
 
 
     # Plotting Plateau Test TnTx -------------------------------------------------
-
     ##get NTL signal
     NTL.net.TnTx <-
       data.frame(object@records[[TL.signal.ID[2]]]@data[, 1],
@@ -573,8 +571,6 @@ analyse_SAR.TL <- function(
 
 
     # Plotting Legend ----------------------------------------
-
-
     plot(
       c(1:(length(TL.signal.ID) / 2)),
       rep(8, length(TL.signal.ID) / 2),
@@ -605,10 +601,11 @@ analyse_SAR.TL <- function(
   }
 
   # Plotting  GC  ----------------------------------------
-  temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
-                            LxTx=LnLxTnTx$LxTx,
-                            LxTx.Error=LnLxTnTx$LxTx.Error,
-                            TnTx=LnLxTnTx$TnTx
+  temp.sample <- data.frame(
+    Dose = LnLxTnTx$Dose,
+    LxTx = LnLxTnTx$LxTx,
+    LxTx.Error = LnLxTnTx$LxTx.Error,
+    TnTx = LnLxTnTx$TnTx
   )
 
   ##run curve fitting
@@ -627,7 +624,6 @@ analyse_SAR.TL <- function(
   }
 
 
-
   ##add recjection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
     temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
@@ -638,7 +634,6 @@ analyse_SAR.TL <- function(
   }
 
   # Return Values -----------------------------------------------------------
-
   newRLumResults.analyse_SAR.TL <- set_RLum(
     class = "RLum.Results",
     data = list(
