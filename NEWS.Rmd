@@ -34,6 +34,15 @@ in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
 #### `apply_EfficiencyCorrection()`
 * The function prodced a warning ("collapsing to unique 'x' values") on R-devel; fixed.
 
+#### `analyse_SAR.TL()`
+* The plot legend was not correct, if no dose points had been provided; fixed
+* The function returned a confusion warning; fixed.
+* If background signals are provided, now the background subtracted 
+signal is shown automatically instead of the uncorrected curves (suggestion by Tilmann Wolpert)
+* The function now supports a list of `RLum.Analysis` objects as input
+* The plot settings were sufficiently reset; fixed. 
+* Code polish
+
 #### `analyse_FadingMeasurements()`
 * Enable support for data imported from a BIN/BINX-file.
 

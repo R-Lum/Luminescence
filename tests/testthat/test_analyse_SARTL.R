@@ -4,7 +4,6 @@ context("analyse_SAR.TL")
 test_that("Test examples", {
   skip_on_cran()
 
-
   ##load data
   data(ExampleData.BINfileData, envir = environment())
 
@@ -12,13 +11,16 @@ test_that("Test examples", {
   object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 
   ##perform analysis
-  ##TODO ... there is a warning
-  expect_is(analyse_SAR.TL(object,
-                 signal.integral.min = 210,
-                 signal.integral.max = 220,
-                 log = "y",
-                 fit.method = "EXP OR LIN",
-                 sequence.structure = c("SIGNAL", "BACKGROUND")), "RLum.Results")
+  expect_is(
+    analyse_SAR.TL(
+      object,
+      signal.integral.min = 210,
+      signal.integral.max = 220,
+      fit.method = "EXP OR LIN",
+      sequence.structure = c("SIGNAL", "BACKGROUND")
+    ),
+    "RLum.Results"
+  )
 
 })
 

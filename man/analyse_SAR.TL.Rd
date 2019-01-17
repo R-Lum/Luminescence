@@ -11,7 +11,7 @@ analyse_SAR.TL(object, object.background, signal.integral.min,
   10), dose.points, log = "", ...)
 }
 \arguments{
-\item{object}{\href{**required**}{RLum.Analysis-class}:
+\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of such objects (\strong{required}) :
 input object containing data for analysis}
 
 \item{object.background}{currently not used}
@@ -85,7 +85,7 @@ None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
- 0.2.0 (2018-01-21 11:22:38)
+ 0.3.0 (2019-01-17 10:56:52)
 }
 
 \examples{
@@ -97,17 +97,17 @@ data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 
 ##perform analysis
-analyse_SAR.TL(object,
-               signal.integral.min = 210,
-               signal.integral.max = 220,
-               log = "y",
-               fit.method = "EXP OR LIN",
-               sequence.structure = c("SIGNAL", "BACKGROUND"))
+analyse_SAR.TL(
+ object = object,
+ signal.integral.min = 210,
+ signal.integral.max = 220,
+ fit.method = "EXP OR LIN",
+ sequence.structure = c("SIGNAL", "BACKGROUND"))
 
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.14. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.17. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -123,7 +123,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{plot}
