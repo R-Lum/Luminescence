@@ -17,7 +17,7 @@
 #' value (the Lx/Tx ratio of the natural signal).  For methodological
 #' background see Aitken and Smith (1988)
 #'
-#' @param object [RLum.Analysis-class](**required**):
+#' @param object [RLum.Analysis-class] or a [list] of such objects (**required**) :
 #' input object containing data for analysis
 #'
 #' @param object.background currently not used
@@ -133,7 +133,7 @@ analyse_SAR.TL <- function(
         object = o,
         object.background = object.background,
         signal.integral.min = signal.integral.min,
-        signal.integral.ma = signal.integral.max,
+        signal.integral.max = signal.integral.max,
         integral_input = integral_input,
         sequence.structure =  sequence.structure,
         rejection.criteria = rejection.criteria,
