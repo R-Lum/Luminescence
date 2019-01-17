@@ -71,10 +71,10 @@
 #' None TL curves will be removed
 #' from the input object without further warning.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
@@ -98,12 +98,12 @@
 #' object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 #'
 #' ##perform analysis
-#' analyse_SAR.TL(object,
-#'                signal.integral.min = 210,
-#'                signal.integral.max = 220,
-#'                log = "y",
-#'                fit.method = "EXP OR LIN",
-#'                sequence.structure = c("SIGNAL", "BACKGROUND"))
+#' analyse_SAR.TL(
+#'  objecy = object,
+#'  signal.integral.min = 210,
+#'  signal.integral.max = 220,
+#'  fit.method = "EXP OR LIN",
+#'  sequence.structure = c("SIGNAL", "BACKGROUND"))
 #'
 #' @md
 #' @export
@@ -119,6 +119,7 @@ analyse_SAR.TL <- function(
   log = "",
   ...
 ){
+
 
   # CONFIG  -----------------------------------------------------------------
 
@@ -169,7 +170,6 @@ analyse_SAR.TL <- function(
   temp.sequence.structure <- temp.sequence.structure[which(
     temp.sequence.structure[,"protocol.step"]!="EXCLUDE"),]
 
-
   ##check integrity; signal and bg range should be equal
   if(length(
     unique(
@@ -214,7 +214,6 @@ analyse_SAR.TL <- function(
 
   ##calculate LxTx values using external function
   for(i in seq(1,length(TL.signal.ID),by=2)){
-
     temp.LnLxTnTx <- get_RLum(
       calc_TLLxTxRatio(
         Lx.data.signal = get_RLum(object, record.id = TL.signal.ID[i]),
@@ -257,7 +256,7 @@ analyse_SAR.TL <- function(
     }
   }
 
-  ##set dose.points manual if argument was set
+  ##set dose.points manually if argument was set
   if(!missing(dose.points)){
     temp.Dose <- dose.points
     LnLxTnTx$Dose <- dose.points
@@ -265,14 +264,13 @@ analyse_SAR.TL <- function(
   }
 
   # Set regeneration points -------------------------------------------------
-
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseID <- c(0:(length(temp.Dose)-1))
-  temp.DoseName <- paste("R",temp.DoseID,sep="")
-  temp.DoseName <- cbind(Name=temp.DoseName,Dose=temp.Dose)
+  temp.DoseID <- c(0:(length(LnLxTnTx[["Dose"]]) - 1))
+  temp.DoseName <- paste0("R", temp.DoseID)
+  temp.DoseName <- cbind(Name = temp.DoseName, Dose = LnLxTnTx[["Dose"]])
 
   ##set natural
-  temp.DoseName[temp.DoseName[,"Name"]=="R0","Name"]<-"Natural"
+  temp.DoseName[temp.DoseName[, "Name"] == "R0", "Name"] <- "Natural"
 
   ##set R0
   temp.DoseName[temp.DoseName[,"Name"]!="Natural" & temp.DoseName[,"Dose"]==0,"Name"]<-"R0"
@@ -287,13 +285,12 @@ analyse_SAR.TL <- function(
   temp.DoseName[temp.DoseName[,"Dose"]==0,"Repeated"]<-FALSE
 
   ##combine in the data frame
-  temp.LnLxTnTx<-data.frame(Name=temp.DoseName[,"Name"],
-                            Repeated=as.logical(temp.DoseName[,"Repeated"]))
+  temp.LnLxTnTx <- data.frame(Name = temp.DoseName[, "Name"],
+                              Repeated = as.logical(temp.DoseName[, "Repeated"]))
 
 
   LnLxTnTx<-cbind(temp.LnLxTnTx,LnLxTnTx)
   LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
-
 
   # Calculate Recycling Ratio -----------------------------------------------
 
@@ -373,18 +370,19 @@ analyse_SAR.TL <- function(
   par.default <- par(no.readonly = TRUE)
   on.exit(par(par.default))
 
-  ##colours and double for plotting
+  ##grep colours
   col <- get("col", pos = .LuminescenceEnv)
 
-  col.doubled <- rep(col, each=2)
+  ##set layout matrix
+  layout(matrix(c(
+    1, 1, 2, 2,
+    1, 1, 2, 2,
+    3, 3, 4, 4,
+    3, 3, 4, 4,
+    5, 5, 5, 5
+  ), 5, 4, byrow = TRUE))
 
-  layout(matrix(c(1,1,2,2,
-                  1,1,2,2,
-                  3,3,4,4,
-                  3,3,4,4,
-                  5,5,5,5),5,4,byrow=TRUE))
-
-  par(oma=c(0,0,0,0), mar=c(4,4,3,3))
+  par(oma = c(0, 0, 0, 0), mar = c(4, 4, 3, 3))
 
   ## 1 -> TL Lx
   ## 2 -> TL Tx
@@ -404,59 +402,82 @@ analyse_SAR.TL <- function(
   }
 
 
-  # # Plotting TL Lx Curves ----------------------------------------------------
+  # # Plotting TL LnLx Curves ----------------------------------------------------
+  ##matrix with LnLx curves
+  LnLx_matrix <- vapply(seq(1, length(TL.signal.ID), by = 2), function(x){
+    if(length(TL.background.ID) != 0){
+      object@records[[TL.signal.ID[x]]]@data[,2] -
+        object@records[[TL.background.ID[x]]]@data[,2]
+    }else{
+      object@records[[TL.signal.ID[x]]]@data[,2]
+    }
+  }, numeric(nrow(object@records[[TL.signal.ID[1]]]@data)))
+
+  ##add time axis
+  LnLx_matrix <- cbind(object@records[[TL.signal.ID[1]]]@data[,1], LnLx_matrix)
+
+  ##matrix with TnTx curves
+  TnTx_matrix <- vapply(seq(2, length(TL.signal.ID), by = 2), function(x){
+    if(length(TL.background.ID) != 0){
+      object@records[[TL.signal.ID[x]]]@data[,2] -
+        object@records[[TL.background.ID[x]]]@data[,2]
+    }else{
+      object@records[[TL.signal.ID[x]]]@data[,2]
+    }
+  }, numeric(nrow(object@records[[TL.signal.ID[1]]]@data)))
+
+  ##add time axis
+  TnTx_matrix <- cbind(object@records[[TL.signal.ID[1]]]@data[,1], TnTx_matrix)
+
+  ##catch log-scale problem
+  if(log != ""){
+    if(min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0){
+      warning("[analyse_SAR.TL()] log-scale needs positive values; log-scale disabled!", call. = FALSE)
+    log <- ""
+    }
+
+  }
 
   #open plot area LnLx
   plot(NA,NA,
-       xlab="Temp. [\u00B0C]",
-       ylab=paste("TL [a.u.]",sep=""),
-       xlim=c(0.1,
-              max(temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","x.max"])),
-       ylim=c(
-         min(temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","y.min"]),
-         max(temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","y.max"])),
-
-       main=expression(paste(L[n],",",L[x]," curves",sep="")),
-       log=log)
-
+       xlab = "Temp. [\u00B0C]",
+       ylab = paste0("TL [a.u.]"),
+       xlim = range(LnLx_matrix[, 1]),
+       ylim = range(LnLx_matrix[, -1]),
+       main = expression(paste(L[n], ",", L[x], " curves", sep = "")),
+       log = log
+  )
 
   ##plot curves
-  sapply(seq(1,length(TL.signal.ID),by=2), function(x){
-    lines(object@records[[TL.signal.ID[x]]]@data,col=col.doubled[x])
-
-  })
+  for (i in 2:ncol(LnLx_matrix)) {
+    lines(x = LnLx_matrix[, 1], y = LnLx_matrix[, i],
+          col = col[i - 1])
+  }
 
   ##mark integration limits
-  abline(v=min(signal.integral.temperature), lty=2, col="gray")
-  abline(v=max(signal.integral.temperature), lty=2, col="gray")
-
-
-  # Plotting TnTx Curves ----------------------------------------------------
+  abline(v = range(signal.integral.temperature), lty = 2, col = "gray")
 
   #open plot area TnTx
   plot(NA,NA,
-       xlab="Temp. [\u00B0C]",
-       ylab=paste("TL [a.u.]",sep=""),
-       xlim=c(0.1,
-              max(temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","x.max"])),
-       ylim=c(
-         min(temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","y.min"]),
-         max(temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","y.max"])),
-
-       main=expression(paste(T[n],",",T[x]," curves",sep="")),
-       log=log)
-
+    xlab = "Temp. [\u00B0C]",
+    ylab = paste0("TL [a.u.]"),
+    xlim = range(TnTx_matrix[, 1]),
+    ylim = range(TnTx_matrix[, -1]),
+    main = expression(paste(T[n], ",", T[x], " curves", sep = "")),
+    log = log
+  )
 
   ##plot curves
-  sapply(seq(2,length(TL.signal.ID),by=2), function(x){
-    lines(object@records[[TL.signal.ID[x]]]@data,col=col.doubled[x])
-
-  })
+  for (i in 2:ncol(TnTx_matrix)) {
+    lines(x = TnTx_matrix[, 1], y = TnTx_matrix[, i],
+          col = col[i - 1])
+  }
 
   ##mark integration limits
-  abline(v=min(signal.integral.temperature), lty=2, col="gray")
-  abline(v=max(signal.integral.temperature), lty=2, col="gray")
+  abline(v = range(signal.integral.temperature), lty = 2, col = "gray")
 
+  ##clean
+  rm(LnLx_matrix, TnTx_matrix)
 
   # Plotting Plateau Test LnLx -------------------------------------------------
   if(length(TL.background.ID) != 0){
@@ -514,21 +535,25 @@ analyse_SAR.TL <- function(
 
     # Plotting Plateau Test TnTx -------------------------------------------------
     ##get NTL signal
-    NTL.net.TnTx <-
-      data.frame(object@records[[TL.signal.ID[2]]]@data[, 1],
+    NTL.net.TnTx <- matrix(
+      data = c(object@records[[TL.signal.ID[2]]]@data[, 1],
                  object@records[[TL.signal.ID[2]]]@data[, 2] -
-                   object@records[[TL.background.ID[2]]]@data[, 2])
+                   object@records[[TL.background.ID[2]]]@data[, 2]),
+      ncol = 2)
 
     ##get signal from the first regeneration point
-    Reg1.net.TnTx <-
-      data.frame(object@records[[TL.signal.ID[4]]]@data[, 1],
+    Reg1.net.TnTx <- matrix(
+      data = c(object@records[[TL.signal.ID[4]]]@data[, 1],
                  object@records[[TL.signal.ID[4]]]@data[, 2] -
-                   object@records[[TL.background.ID[4]]]@data[, 2])
+                   object@records[[TL.background.ID[4]]]@data[, 2]),
+      ncol = 2)
 
 
     ##combine values
-    TL.Plateau.TnTx <-
-      data.frame(NTL.net.TnTx[, 1], Reg1.net.TnTx[, 2] / NTL.net.TnTx[, 2])
+    TL.Plateau.TnTx <- matrix(
+      data = c(NTL.net.TnTx[, 1],
+               Reg1.net.TnTx[, 2] / NTL.net.TnTx[, 2]),
+      ncol = 2)
 
     ##Plot Plateau Test
     plot(
@@ -550,7 +575,6 @@ analyse_SAR.TL <- function(
     lines(NTL.net.TnTx, col = col[1])
     lines(Reg1.net.TnTx, col = col[2])
 
-
     ##plot
     par(new = TRUE)
     plot(
@@ -566,9 +590,6 @@ analyse_SAR.TL <- function(
       col = "darkgreen"
     )
     axis(4)
-
-
-
 
     # Plotting Legend ----------------------------------------
     plot(
@@ -607,6 +628,9 @@ analyse_SAR.TL <- function(
     LxTx.Error = LnLxTnTx$LxTx.Error,
     TnTx = LnLxTnTx$TnTx
   )
+
+  ##set NA values to 0
+  temp.sample[is.na(temp.sample$LxTx.Error),"LxTx.Error"] <- 0
 
   ##run curve fitting
   temp.GC <- try(plot_GrowthCurve(
@@ -647,3 +671,4 @@ analyse_SAR.TL <- function(
   return(newRLumResults.analyse_SAR.TL)
 
 }
+
