@@ -99,7 +99,7 @@
 #'
 #' ##perform analysis
 #' analyse_SAR.TL(
-#'  objecy = object,
+#'  object = object,
 #'  signal.integral.min = 210,
 #'  signal.integral.max = 220,
 #'  fit.method = "EXP OR LIN",
@@ -120,6 +120,36 @@ analyse_SAR.TL <- function(
   ...
 ){
 
+
+  # Self-call -----------------------------------------------------------------------------------
+  if(class(object) == "list"){
+   if(!all(sapply(object, class) == "RLum.Analysis"))
+     stop("[analyse_SAR.TL()] All elements in the input list need to be of class 'RLum.Analysis'!",
+          call. = FALSE)
+
+    ##run sequence
+    results <- lapply(object, function(o){
+      analyse_SAR.TL(
+        object = o,
+        object.background = object.background,
+        signal.integral.min = signal.integral.min,
+        signal.integral.ma = signal.integral.max,
+        integral_input = integral_input,
+        sequence.structure =  sequence.structure,
+        rejection.criteria = rejection.criteria,
+        dose.points = dose.points,
+        log = log,
+        ...
+      )
+    })
+
+    ##combine results
+    results <- merge_RLum(results)
+
+    ##return
+    return(results)
+
+  }
 
   # CONFIG  -----------------------------------------------------------------
 
