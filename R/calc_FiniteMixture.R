@@ -8,17 +8,17 @@
 #'
 #' This model uses the maximum likelihood and Bayesian Information Criterion
 #' (BIC) approaches.
-#' 
-#' Indications of overfitting are: 
-#' 
-#' - increasing BIC 
-#' - repeated dose estimates 
-#' - covariance matrix not positive definite 
+#'
+#' Indications of overfitting are:
+#'
+#' - increasing BIC
+#' - repeated dose estimates
+#' - covariance matrix not positive definite
 #' - covariance matrix produces NaNs
 #' - convergence problems
-#' 
+#'
 #' **Plot**
-#' 
+#'
 #' If a vector (`c(k.min:k.max)`) is provided
 #' for `n.components` a plot is generated showing the the k components
 #' equivalent doses as normal distributions. By default `pdf.weight` is
@@ -27,74 +27,74 @@
 #' the components proportion for each iteration of k components, so the sum of
 #' areas of each component equals 1. While the density values are on the same
 #' scale when no weights are used, the y-axis are individually scaled if the
-#' probability density are weighted by the components proportion.\cr 
+#' probability density are weighted by the components proportion.\cr
 #' The standard deviation (sigma) of the normal distributions is by default
 #' determined by a common `sigmab` (see `pdf.sigma`). For
 #' `pdf.sigma = "se"` the standard error of each component is taken
-#' instead.\cr 
+#' instead.\cr
 #' The stacked barplot shows the proportion of each component (in
 #' per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 #' and maximum log-likelihood estimates for each iteration of k.
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' @param data [RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
-#' 
-#' @param sigmab [numeric] (**required**): 
+#'
+#' @param sigmab [numeric] (**required**):
 #' spread in De values given as a fraction (e.g. 0.2). This value represents the expected
-#' overdispersion in the data should the sample be well-bleached 
+#' overdispersion in the data should the sample be well-bleached
 #' (Cunningham & Wallinga 2012, p. 100).
-#' 
-#' @param n.components [numeric] (**required**): 
+#'
+#' @param n.components [numeric] (**required**):
 #' number of components to be fitted. If a vector is provided (e.g. `c(2:8)`) the
 #' finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
 #' statistical evaluation of the model performance (BIC score and maximum
 #' log-likelihood) is provided.
-#' 
-#' @param grain.probability [logical] (*with default*): 
+#'
+#' @param grain.probability [logical] (*with default*):
 #' prints the estimated probabilities of which component each grain is in
-#' 
-#' @param dose.scale [numeric]: 
-#' manually set the scaling of the y-axis of the first plot with a vector 
+#'
+#' @param dose.scale [numeric]:
+#' manually set the scaling of the y-axis of the first plot with a vector
 #' in the form of `c(min, max)`
-#' 
-#' @param pdf.weight [logical] (*with default*): 
+#'
+#' @param pdf.weight [logical] (*with default*):
 #' weight the probability density functions by the components proportion (applies only
 #' when a vector is provided for `n.components`)
-#' 
-#' @param pdf.sigma [character] (*with default*): 
+#'
+#' @param pdf.sigma [character] (*with default*):
 #' if `"sigmab"` the components normal distributions are plotted with a common standard
 #' deviation (i.e. `sigmab`) as assumed by the FFM. Alternatively,
 #' `"se"` takes the standard error of each component for the sigma
 #' parameter of the normal distribution
-#' 
-#' @param pdf.colors [character] (*with default*): 
-#' color coding of the components in the the plot. 
+#'
+#' @param pdf.colors [character] (*with default*):
+#' color coding of the components in the the plot.
 #' Possible options are `"gray"`, `"colors"` and `"none"`
-#' 
+#'
 #' @param pdf.scale [numeric]:
 #' manually set the max density value for proper scaling of the x-axis of the first plot
-#' 
-#' @param plot.proportions [logical] (*with default*): 
+#'
+#' @param plot.proportions [logical] (*with default*):
 #' plot barplot showing the proportions of components
-#' 
-#' @param plot [logical] (*with default*): 
+#'
+#' @param plot [logical] (*with default*):
 #' plot output
-#' 
+#'
 #' @param ... further arguments to pass. See details for their usage.
-#' 
-#' @return 
+#'
+#' @return
 #' Returns a plot (*optional*) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
 #' \item{.$summary}{[data.frame] summary of all relevant model results.}
-#' \item{.$data}{[data.frame] original input data} 
-#' \item{.$args}{[list] used arguments} 
-#' \item{.$call}{[call] the function call} 
-#' \item{.$mle}{ covariance matrices of the log likelhoods} 
+#' \item{.$data}{[data.frame] original input data}
+#' \item{.$args}{[list] used arguments}
+#' \item{.$call}{[call] the function call}
+#' \item{.$mle}{ covariance matrices of the log likelhoods}
 #' \item{.$BIC}{ BIC score}
-#' \item{.$llik}{ maximum log likelihood} 
-#' \item{.$grain.probability}{ probabilities of a grain belonging to a component} 
+#' \item{.$llik}{ maximum log likelihood}
+#' \item{.$grain.probability}{ probabilities of a grain belonging to a component}
 #' \item{.$components}{[matrix] estimates of the de, de error and proportion for each component}
 #' \item{.$single.comp}{[data.frame] single componente FFM estimate}
 #'
@@ -103,55 +103,55 @@
 #' results for each iteration of the model.
 #'
 #' The output should be accessed using the function [get_RLum]
-#' 
+#'
 #' @section Function version: 0.4
-#' 
-#' @author 
+#'
+#' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2006.
-#' 
+#'
 #' @seealso [calc_CentralDose], [calc_CommonDose],
 #' [calc_FuchsLang2001], [calc_MinDose]
-#' 
-#' @references 
+#'
+#' @references
 #' Galbraith, R.F. & Green, P.F., 1990. Estimating the component
 #' ages in a finite mixture. Nuclear Tracks and Radiation Measurements 17,
-#' 197-206. 
-#' 
+#' 197-206.
+#'
 #' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models
 #' for mixed fission track ages. Nuclear Tracks Radiation Measurements 4,
 #' 459-470.
-#' 
+#'
 #' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of
 #' equivalent dose and error calculation and display in OSL dating: An overview
 #' and some recommendations. Quaternary Geochronology 11, 1-27.
-#' 
+#'
 #' Roberts, R.G., Galbraith, R.F., Yoshida, H., Laslett, G.M. & Olley, J.M., 2000.
 #' Distinguishing dose populations in sediment mixtures: a test of single-grain
 #' optical dating procedures using mixtures of laboratory-dosed quartz.
 #' Radiation Measurements 32, 459-465.
-#' 
+#'
 #' Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman & Hall/CRC, Boca Raton.
-#' 
+#'
 #' **Further reading**
-#' 
+#'
 #' Arnold, L.J. & Roberts, R.G., 2009. Stochastic
 #' modelling of multi-grain equivalent dose (De) distributions: Implications
 #' for OSL dating of sediment mixtures. Quaternary Geochronology 4,
 #' 204-230.
-#' 
+#'
 #' Cunningham, A.C. & Wallinga, J., 2012. Realizing the
 #' potential of fluvial archives using robust OSL chronologies. Quaternary
 #' Geochronology 12, 98-106.
-#' 
+#'
 #' Rodnight, H., Duller, G.A.T., Wintle, A.G. &
 #' Tooth, S., 2006. Assessing the reproducibility and accuracy of optical
 #' dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.
-#' 
+#'
 #' Rodnight, H. 2008. How many equivalent dose values are needed to obtain a
 #' reproducible distribution?. Ancient TL 26, 3-10.
-#' 
-#' 
+#'
+#'
 #' @examples
 #'
 #' ## load example data
@@ -362,10 +362,10 @@ calc_FiniteMixture <- function(
     # calculate DE, relative standard error, standard error
     dose<- exp(mu)
     re<- sqrt(diag(vmat))[-c(1:(k-1))]
-    
+
     if (any(is.nan(re)))
       re[is.nan(re)] <- NA
-    
+
     sed<- dose*re
     estd<- rbind(dose,re,sed)
 
@@ -553,7 +553,7 @@ calc_FiniteMixture <- function(
       cat(paste("\n Lowest BIC score for k =", BIC.lowest))
 
       # first significant increase in LLIK estimates
-      if(any(LLIK.significant)!=TRUE) {
+      if(!any(LLIK.significant, na.rm = TRUE)) {
         cat(paste("\n No significant increase in maximum log",
                   "likelihood estimates. \n"))
       } else {
@@ -612,7 +612,7 @@ calc_FiniteMixture <- function(
   if (anyNA(unlist(summary)) && verbose)
     warning("\n[calc_FiniteMixture] The model produced NA values. Either the input data are inapplicable for the model",
             " or the the model parameters need to be adjusted (e.g. 'sigmab')", call. = FALSE)
-  
+
   ##=========##
   ## PLOTTING
   if(plot && !anyNA(unlist(summary)))
