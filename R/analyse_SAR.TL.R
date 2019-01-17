@@ -652,6 +652,10 @@ analyse_SAR.TL <- function(
   }
 
   # Plotting  GC  ----------------------------------------
+  #reset par
+  par(par.default)
+
+  ##create data.frame
   temp.sample <- data.frame(
     Dose = LnLxTnTx$Dose,
     LxTx = LnLxTnTx$LxTx,
