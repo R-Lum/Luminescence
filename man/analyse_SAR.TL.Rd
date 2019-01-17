@@ -85,7 +85,7 @@ None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
- 0.3.0 (2019-01-17 10:56:52)
+ 0.3.0 (2019-01-17 11:08:16)
 }
 
 \examples{
@@ -107,7 +107,7 @@ analyse_SAR.TL(
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.18. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

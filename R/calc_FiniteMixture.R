@@ -104,7 +104,7 @@
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @section Function version: 0.4
+#' @section Function version: 0.4.1
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr

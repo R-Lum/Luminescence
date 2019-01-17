@@ -37,6 +37,7 @@
     signal is shown automatically instead of the uncorrected curves
     (suggestion by Tilmann Wolpert)
   - The function now supports a list of `RLum.Analysis` objects as input
+  - The plot settings were sufficiently reset; fixed.
   - Code polish
 
 #### `analyse_FadingMeasurements()`
