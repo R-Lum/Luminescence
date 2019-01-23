@@ -129,7 +129,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.0
+#' @section Function version: 0.6.1
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -251,7 +251,8 @@ plot_RLum.Data.Spectrum <- function(
 
 
     }else{
-      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'", call. = FALSE)
+      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'.",
+           call. = FALSE)
 
     }
 
@@ -495,6 +496,9 @@ plot_RLum.Data.Spectrum <- function(
 
 
   # Channel binning ---------------------------------------------------------
+  ##rewrite arguments; makes things easier
+  bin.cols <- bin.cols[1]
+  bin.rows <- bin.rows[1]
 
   ##fatal checks
   if(bin.cols < 1 | bin.rows < 1){
