@@ -78,19 +78,30 @@
 #' use optical wavelength colour palette. Note: For this, the spectrum range is
 #' limited: `c(350,750)`. Own colours can be set with the argument `col`.
 #'
+#' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*): Spectrum
+#' used for the background subtraction. By definition, the background spectrum should have been
+#' measured with the same setting as the signal spectrum. If a spectrum is provided, the
+#' argument `bg.channels` works only on the provided background spectrum.
+#'
 #' @param bg.channels [vector] (*optional*):
 #' defines channel for background subtraction If a vector is provided the mean
-#' of the channels is used for subtraction.
+#' of the channels is used for subtraction. If a spectrum is provided via `bg.spectrum`, this
+#' argument only works on the `bg.spectrum`.
 #'
 #' **Note:** Background subtraction is applied prior to channel binning
 #'
-#' @param bin.rows [integer] (with defaul):
+#' @param bin.rows [integer] (*with default*):
 #' allow summing-up wavelength channels (horizontal binning),
-#' e.g. `bin.rows = 2` two channels are summed up
+#' e.g. `bin.rows = 2` two channels are summed up.
+#' Binning is applied after the background subtraction.
 #'
 #' @param bin.cols [integer] (*with default*):
 #' allow summing-up channel counts (vertical binning) for plotting,
-#' e.g. `bin.cols = 2` two channels are summed up
+#' e.g. `bin.cols = 2` two channels are summed up.
+#' Binning is applied after the background subtraction.
+#'
+#' @param norm [character] (*optional*): Normalise data to the maximum (`norm = "max"`) or
+#' minimum (`norm = "min"`) count values. The normalisation is applied after the binning.
 #'
 #' @param rug [logical] (*with default*):
 #' enables or disables colour rug. Currently only implemented for plot
@@ -118,7 +129,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.5.7
+#' @section Function version: 0.6.0
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -142,20 +153,32 @@
 #'                         bin.cols = 1)
 #'
 #' ##(2) plot spectrum (3D)
-#' plot_RLum.Data.Spectrum(TL.Spectrum,
-#'                         plot.type="persp",
-#'                         xlim = c(310,750),
-#'                         ylim = c(0,100),
-#'                         bin.rows=10,
-#'                         bin.cols = 1)
+#' plot_RLum.Data.Spectrum(
+#'   TL.Spectrum,
+#'   plot.type="persp",
+#'   xlim = c(310,750),
+#'   ylim = c(0,100),
+#'   bin.rows=10,
+#'   bin.cols = 1)
 #'
-#' ##(3) plot multiple lines (2D) - multiple.lines (with ylim)
-#' plot_RLum.Data.Spectrum(TL.Spectrum,
-#'                         plot.type="multiple.lines",
-#'                         xlim = c(310,750),
-#'                         ylim = c(0,100),
-#'                         bin.rows=10,
-#'                         bin.cols = 1)
+#'##(3) plot spectrum on energy axis
+#'##please note the background subtraction
+#'plot_RLum.Data.Spectrum(TL.Spectrum,
+#' plot.type="persp",
+#' ylim = c(0,200),
+#' bin.rows=10,
+#' bg.channels = 10,
+#' bin.cols = 1,
+#' xaxis.energy = TRUE)
+#'
+#' ##(4) plot multiple lines (2D) - multiple.lines (with ylim)
+#' plot_RLum.Data.Spectrum(
+#'  TL.Spectrum,
+#'  plot.type="multiple.lines",
+#'  xlim = c(310,750),
+#'  ylim = c(0,100),
+#'  bin.rows=10,
+#'  bin.cols = 1)
 #'
 #' \dontrun{
 #'  ##(4) interactive plot using the package plotly ("surface")
@@ -190,9 +213,11 @@ plot_RLum.Data.Spectrum <- function(
   par.local = TRUE,
   plot.type = "contour",
   optical.wavelength.colours = TRUE,
+  bg.spectrum = NULL,
   bg.channels = NULL,
   bin.rows = 1,
   bin.cols = 1,
+  norm = NULL,
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
@@ -254,7 +279,7 @@ plot_RLum.Data.Spectrum <- function(
   # Do energy axis conversion -------------------------------------------------------------------
   if (xaxis.energy){
     ##conversion
-    object <- convert_Wavelength2Energy(object)
+    object <- convert_Wavelength2Energy(object, digits = 5)
 
     ##modify row order (otherwise subsequent functions, like persp, have a problem)
     object@data[] <- object@data[order(as.numeric(rownames(object@data))),]
@@ -352,6 +377,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
   # prepare values for plot ---------------------------------------------------
+  ##copy data
   temp.xyz <- object@data
 
   ##check for NULL column names
@@ -385,13 +411,58 @@ plot_RLum.Data.Spectrum <- function(
   y <- as.numeric(colnames(temp.xyz))
 
 
+  # Background spectrum -------------------------------------------------------------------------
+  if(!is.null(bg.spectrum)){
+    if(class(bg.spectrum) == "RLum.Data.Spectrum" || class(bg.spectrum) == "matrix"){
+      ##case RLum
+      if(class(bg.spectrum) == "RLum.Data.Spectrum") bg.xyz <- bg.spectrum@data
+
+      ##case matrix
+      if(class(bg.spectrum) == "matrix") bg.xyz <- bg.spectrum
+
+      ##take care of channel settings, otherwise set bg.channels
+      if(is.null(bg.channels))
+        bg.channels <- c(1:ncol(bg.xyz))
+
+      ##set rownames
+      if(is.null(rownames(bg.xyz)))
+        rownames(bg.xyz) <- 1:nrow(bg.xyz)
+
+      ##convert to energy scale if needed
+      if(xaxis.energy){
+
+        #conversion
+        bg.xyz <- convert_Wavelength2Energy(cbind(as.numeric(rownames(bg.xyz)), bg.xyz), digits = 5)
+        rownames(bg.xyz) <- bg.xyz[,1]
+        bg.xyz <- bg.xyz[,-1, drop = FALSE]
+
+        ##modify row order (otherwise subsequent functions, like persp, have a problem)
+        bg.xyz <- bg.xyz[order(as.numeric(rownames(bg.xyz))),,drop = FALSE]
+        rownames(bg.xyz) <- sort(as.numeric(rownames(bg.xyz)))
+
+      }
+
+      ##reduce for xlim
+      bg.xyz <- bg.xyz[as.numeric(rownames(bg.xyz)) >= xlim[1] &
+                             as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
+
+    }else{
+      stop("[plot_RLum.Data.Spectrum()] Input for 'bg.spectrum' not supported, please check manual!", call. = FALSE)
+
+    }
+
+  }
+
   # Background subtraction ---------------------------------------------------
   if(!is.null(bg.channels)){
-    if(max(bg.channels) > ncol(temp.xyz) || bg.channels <= 0){
+    ##set background object if not available
+    if(is.null(bg.spectrum)) bg.xyz <- temp.xyz
+
+    if(max(bg.channels) > ncol(bg.xyz) || bg.channels <= 0){
       ##correct the mess
       bg.channels <- sort(unique(bg.channels))
       bg.channels[bg.channels <= 0] <- 1
-      bg.channels[bg.channels >= ncol(temp.xyz)] <- ncol(temp.xyz)
+      bg.channels[bg.channels >= ncol(bg.xyz)] <- ncol(bg.xyz)
 
       warning(
         paste0(
@@ -403,17 +474,22 @@ plot_RLum.Data.Spectrum <- function(
     }
 
     if(length(bg.channels) > 1){
-      temp.bg.signal <- rowMeans(temp.xyz[,bg.channels])
-      temp.xyz <- temp.xyz[,1:ncol(temp.xyz)] - temp.bg.signal
+      temp.bg.signal <- rowMeans(bg.xyz[,bg.channels])
+      temp.xyz <- temp.xyz - temp.bg.signal
 
     }else{
-      temp.xyz <- temp.xyz[,1:ncol(temp.xyz)] - temp.xyz[,bg.channels]
-      temp.xyz <- ifelse(temp.xyz < 0, mean(temp.xyz[,bg.channels]), temp.xyz)
+      temp.xyz <- temp.xyz - bg.xyz[,bg.channels]
 
     }
 
     ##set values < 0 to 0
-    temp.xyz <- ifelse(temp.xyz < 0, mean(temp.xyz[,bg.channels[1]]), temp.xyz)
+    temp.xyz[temp.xyz < 0] <- 0
+
+    ##check worst case
+    if(sum(temp.xyz) == 0){
+      message("[plot_RLum.Data.Spectrum()] After background subtraction all counts < 0. Nothing plotted, NULL returned!")
+      return(NULL)
+    }
 
   }
 
@@ -516,13 +592,24 @@ plot_RLum.Data.Spectrum <- function(
 
   }
 
+
+  # Normalise if wanted -------------------------------------------------------------------------
+  if(!is.null(norm)){
+    if(norm == "min")
+      temp.xyz <- temp.xyz/min(temp.xyz)
+
+    if(norm == "max")
+      temp.xyz <- temp.xyz/max(temp.xyz)
+
+  }
+
+
   ##check for zlim
   zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
   {range(temp.xyz)}
 
 
   # set color values --------------------------------------------------------
-
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
 
     if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
@@ -652,6 +739,7 @@ plot_RLum.Data.Spectrum <- function(
     col <- extraArgs$col
 
   }
+
 
 
   # Do log scaling if needed -------------------------------------------------
@@ -921,7 +1009,6 @@ plot_RLum.Data.Spectrum <- function(
 
 
   }else{
-
     stop("[plot_RLum.Data.Spectrum()] Unknown plot type.", call. = FALSE)
 
   }
