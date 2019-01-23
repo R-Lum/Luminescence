@@ -25,12 +25,13 @@ test_that("test convert functions", {
   expect_error(convert_Wavelength2Energy("test"), regexp = "Class 'character' not supported as input!")
 
   ##test all three allowed input objects
-  expect_is(convert_Wavelength2Energy(m), class = "matrix")
-  expect_is(convert_Wavelength2Energy(df), class = "data.frame")
+  expect_is(convert_Wavelength2Energy(data), class = "matrix")
+  expect_is(convert_Wavelength2Energy(as.data.frame(data)), class = "data.frame")
+  object <- set_RLum(class = "RLum.Data.Spectrum", data = data[,1,drop = FALSE])
   expect_is(convert_Wavelength2Energy(object), class = "RLum.Data.Spectrum")
 
   ##test the list option
-  expect_is(convert_Wavelength2Energy(list(df, m, object)), class = "list")
+  expect_is(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), class = "list")
 
   ##Code below just a cross check if wanted
   ##matrix
