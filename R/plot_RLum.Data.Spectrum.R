@@ -6,8 +6,8 @@
 #' **Matrix structure** \cr (cf. [RLum.Data.Spectrum-class])
 #'
 #' - `rows` (x-values): wavelengths/channels (xlim, xlab)
-#' - `columns` (y-values): time/temperature (ylim, ylab) 
-#' - `cells` (z-values): count values (zlim, zlab) 
+#' - `columns` (y-values): time/temperature (ylim, ylab)
+#' - `cells` (z-values): count values (zlim, zlab)
 #'
 #' *Note: This nomenclature is valid for all plot types of this function!*
 #'
@@ -29,11 +29,11 @@
 #'
 #' \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
 #'
-#' with 
-#' \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV), 
+#' with
+#' \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV),
 #' \eqn{\phi_{\lambda}} the intensity per interval of wavelength \eqn{\lambda}
-#' (nm) and 
-#' \eqn{h} (eV/s) the Planck constant and \eqn{c} (m/s) the velocity of light.
+#' (nm) and
+#' \eqn{h} (eV * s) the Planck constant and \eqn{c} (nm/s) the velocity of light.
 #'
 #' For transforming the wavelength axis (x-values) the equation
 #'
@@ -49,11 +49,11 @@
 #'**`plot.type = "persp"`**
 #'
 #' Arguments that will be passed to [persp]:
-#'  
-#' - `shade`: default is `0.4` 
+#'
+#' - `shade`: default is `0.4`
 #' - `phi`: default is `15`
-#' - `theta`: default is `-30` 
-#' - `expand`: default is `1` 
+#' - `theta`: default is `-30`
+#' - `expand`: default is `1`
 #' - `ticktype`: default is `detailed`, `r`: default is `10`
 #'
 #' **Note:** Further parameters can be adjusted via `par`. For example
@@ -81,16 +81,16 @@
 #' **Further arguments that will be passed (depending on the plot type)**
 #'
 #' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
-#' `zlim`, `main`, `mtext`, `pch`, `type` ("single", "multiple.lines", "interactive"), 
+#' `zlim`, `main`, `mtext`, `pch`, `type` ("single", "multiple.lines", "interactive"),
 #' `col`, `border`, `box` `lwd`, `bty`, `showscale` ("interactive")
 #'
-#' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**): 
-#' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count 
+#' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
+#' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count
 #' values of the spectrum.\cr
-#' Please note that in case of a matrix rownames and colnames are set 
+#' Please note that in case of a matrix rownames and colnames are set
 #' automatically if not provided.
 #'
-#' @param par.local [logical] (*with default*): 
+#' @param par.local [logical] (*with default*):
 #' use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If `par.local = FALSE` global parameters are inherited.
 #' @param plot.type [character] (*with default*): plot type, for
@@ -98,41 +98,41 @@
 #' `single` or `multiple.lines` (along the time or temperature axis)
 #' or `transect` (along the wavelength axis) \cr
 #'
-#' @param optical.wavelength.colours [logical] (*with default*): 
+#' @param optical.wavelength.colours [logical] (*with default*):
 #' use optical wavelength colour palette. Note: For this, the spectrum range is
 #' limited: `c(350,750)`. Own colours can be set with the argument `col`.
 #'
-#' @param bg.channels [vector] (*optional*): 
-#' defines channel for background subtraction If a vector is provided the mean 
-#' of the channels is used for subtraction. 
-#' 
+#' @param bg.channels [vector] (*optional*):
+#' defines channel for background subtraction If a vector is provided the mean
+#' of the channels is used for subtraction.
+#'
 #' **Note:** Background subtraction is applied prior to channel binning
 #'
-#' @param bin.rows [integer] (with defaul): 
-#' allow summing-up wavelength channels (horizontal binning), 
+#' @param bin.rows [integer] (with defaul):
+#' allow summing-up wavelength channels (horizontal binning),
 #' e.g. `bin.rows = 2` two channels are summed up
 #'
-#' @param bin.cols [integer] (*with default*): 
-#' allow summing-up channel counts (vertical binning) for plotting, 
+#' @param bin.cols [integer] (*with default*):
+#' allow summing-up channel counts (vertical binning) for plotting,
 #' e.g. `bin.cols = 2` two channels are summed up
 #'
-#' @param rug [logical] (*with default*): 
-#' enables or disables colour rug. Currently only implemented for plot 
+#' @param rug [logical] (*with default*):
+#' enables or disables colour rug. Currently only implemented for plot
 #' type `multiple.lines` and `single`
 #'
-#' @param limit_counts [numeric] (*optional*): 
-#' value to limit all count values to this value, i.e. all count values above 
+#' @param limit_counts [numeric] (*optional*):
+#' value to limit all count values to this value, i.e. all count values above
 #' this threshold will be replaced by this threshold. This is helpful
 #' especially in case of TL-spectra.
 #'
-#' @param xaxis.energy [logical] (*with default*): 
-#' enables or disables energy instead of wavelength axis. 
-#' 
-#' **Note:** This option means not only simnply redrawing the axis, 
+#' @param xaxis.energy [logical] (*with default*):
+#' enables or disables energy instead of wavelength axis.
+#'
+#' **Note:** This option means not only simnply redrawing the axis,
 #' instead the spectrum in terms of intensity is recalculated, s. details.
 #'
-#' @param legend.text [character] (*with default*): 
-#' possiblity to provide own legend text. This argument is only considered for 
+#' @param legend.text [character] (*with default*):
+#' possiblity to provide own legend text. This argument is only considered for
 #' plot types providing a legend, e.g. `plot.type="transect"`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
@@ -144,13 +144,13 @@
 #'
 #' @section Function version: 0.5.3
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [plot], [plot_RLum], [persp], 
+#' @seealso [RLum.Data.Spectrum-class], [plot], [plot_RLum], [persp],
 #' [plotly::plot_ly], [contour]
 #'
-#' @references 
+#' @references
 #' Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 #'
 #' @keywords aplot
