@@ -1,15 +1,16 @@
 #'@title Emission Spectra Conversion from Wavelength to Energy Scales
 #'
-#'@description The function provides a convienent and fast way to convert a wavelength
-#'to an energy scale. The function works on [RLum.Data.Spectrum-class], [data.frame] and [matrix] and
-#'a [list] of such objects. The function was written to smooth the workflow while using emission
-#'spectra data. This is in particular useful if you want to further treat your data and apply, e.g.,
-#'a signal deconvolution.
+#'@description The function provides a convenient and fast way to convert emission spectra wavelength
+#'to energy scales. The function works on [RLum.Data.Spectrum-class], [data.frame] and [matrix] and
+#'a [list] of such objects. The function was written to smooth the workflow while analysing
+#'emission spectra data. This is in particular useful if you want to further treat your data
+#'and apply, e.g., a signal deconvolution.
 #'
 #'@details
 #'
-#' The intensity of the spectrum is re-calcualted using the
-#' following approach (cf. Appendix 4 in Blasse and Grabmeier, 1994):
+#' The intensity of the spectrum is re-calcualted using the following approach to recalulate
+#' wavelength and corresponding intensity values
+#' (e.g., Appendix 4 in Blasse and Grabmeier, 1994; Mooney and Kambhampati, 2013):
 #'
 #' \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
 #'
@@ -29,7 +30,8 @@
 #'
 #' @return The same object class as provided as input is returned.
 #'
-#' @note This conversion works solely for emission spectra.
+#' @note This conversion works solely for emission spectra. In case of absorption spectra only
+#' the x-axsis has to be converted.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -47,6 +49,19 @@
 #' Mooney, J., Kambhampati, P., 2013. Get the Basics Right: Jacobian Conversion of Wavelength and
 #' Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318.
 #' \doi{10.1021/jz401508t}
+#'
+#' Mooney, J., Kambhampati, P., 2013. Correction to “Get the Basics Right: Jacobian Conversion of
+#' Wavelength and Energy Scales for Quantitative Analysis of Emission Spectra.” J. Phys. Chem. Lett. 4,
+#' 3316–3318. \doi{10.1021/jz401508t}
+#'
+#' **Further reading**
+#'
+#' Angulo, G., Grampp, G., Rosspeintner, A., 2006. Recalling the appropriate representation of
+#' electronic spectra. Spectrochimica Acta Part A: Molecular and Biomolecular Spectroscopy 65,
+#' 727–731. \doi{10.1016/j.saa.2006.01.007}
+#'
+#' Wang, Y., Townsend, P.D., 2013. Potential problems in collection and data processing of
+#' luminescence signals. Journal of Luminescence 142, 202–211. \doi{10.1016/j.jlumin.2013.03.052}
 #'
 #' @examples
 #'
@@ -66,6 +81,17 @@
 #' par(mfrow = c(1,2))
 #' p(m)
 #' p(convert_Wavelength2Energy(m))
+#'
+#' ##another test showing the
+#' effect of the conversion
+#' xy <- density(
+#'  c(rnorm(n = 100, mean = 500, sd = 20),
+#'  rnorm(n = 100, mean = 800, sd = 20)))
+#' xy <- data.frame(xy$x, xy$y)
+#' par(mfrow = c(1,2))
+#' plot(xy, type = "l", xlim = c(300,800))
+#' plot(convert_Wavelength2Energy(xy), xy$y,
+#' type = "l", xlim = c(1.549,4.1))
 #'
 #'@md
 #'@export
@@ -88,7 +114,7 @@ convert_Wavelength2Energy <- function(
       c <- 299792458e+09 #nm/s
 
       ##convert count values
-      m <- m * as.numeric(rownames(m))^2 / (h * c)
+      m[] <- m * as.numeric(rownames(m))^2 / (h * c)
 
       ##modify rownames
       rownames(m) <- round((h * c) / as.numeric(rownames(m)),2)
