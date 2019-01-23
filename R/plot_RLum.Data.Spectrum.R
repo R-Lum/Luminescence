@@ -445,7 +445,7 @@ plot_RLum.Data.Spectrum <- function(
       temp.xyz <- temp.xyz[-nrow(temp.xyz),]
       x <- x[-length(x)]
 
-      warning("Last wavelength channel has been removed due to binning.")
+      warning("[plot_RLum.Data.Spectrum()] Last wavelength channel has been removed due to row binning.", call. = FALSE)
 
     }
 
@@ -466,7 +466,8 @@ plot_RLum.Data.Spectrum <- function(
     if(bin.cols > n.cols){
 
       bin.cols <- n.cols
-      warning("bin.cols > the number of columns. Value reduced to number of cols.")
+      warning("[plot_RLum.Data.Spectrum()] bin.cols > the number of columns. Value reduced to number of cols.",
+              call. = FALSE)
 
     }
 
@@ -493,7 +494,7 @@ plot_RLum.Data.Spectrum <- function(
       temp.xyz <- temp.xyz[,-ncol(temp.xyz)]
       y <- y[-length(y)]
 
-      warning("Last count channel has been removed due to column binning.")
+      warning("[plot_RLum.Data.Spectrum()] Last count channel has been removed due to column binning.", call. = FALSE)
 
     }
 
@@ -672,7 +673,7 @@ plot_RLum.Data.Spectrum <- function(
   ##do not let old code break down ...
   if(plot.type == "persp3d"){
     plot.type <- "interactive"
-    warning("[plot_RLum.Data.Spectrum()] 'plot.type' has been automatically reset to interactive!")
+    warning("[plot_RLum.Data.Spectrum()] 'plot.type' has been automatically reset to interactive!", call. = FALSE)
 
   }
 
