@@ -36,7 +36,7 @@ temp <- read_RF2R(file)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). read_RF2R(): Import RF-files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.22. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). read_RF2R(): Import RF-files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.27. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -4,26 +4,29 @@
 \alias{convert_Wavelength2Energy}
 \title{Emission Spectra Conversion from Wavelength to Energy Scales}
 \usage{
-convert_Wavelength2Energy(object)
+convert_Wavelength2Energy(object, digits = 3L)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}): input object to be converted.
 If the input is not an \linkS4class{RLum.Data.Spectrum}, the first column is always treated as the wavelength
 column. The function supports a list of allowed input objects.}
+
+\item{digits}{\link{integer} (\emph{with default}): set the number of digits on the returned energy axis}
 }
 \value{
 The same object class as provided as input is returned.
 }
 \description{
-The function provides a convienent and fast way to convert a wavelength
-to an energy scale. The function works on \linkS4class{RLum.Data.Spectrum}, \link{data.frame} and \link{matrix} and
-a \link{list} of such objects. The function was written to smooth the workflow while using emission
-spectra data. This is in particular useful if you want to further treat your data and apply, e.g.,
-a signal deconvolution.
+The function provides a convenient and fast way to convert emission spectra wavelength
+to energy scales. The function works on \linkS4class{RLum.Data.Spectrum}, \link{data.frame} and \link{matrix} and
+a \link{list} of such objects. The function was written to smooth the workflow while analysing
+emission spectra data. This is in particular useful if you want to further treat your data
+and apply, e.g., a signal deconvolution.
 }
 \details{
-The intensity of the spectrum is re-calcualted using the
-following approach (cf. Appendix 4 in Blasse and Grabmeier, 1994):
+The intensity of the spectrum is re-calcualted using the following approach to recalulate
+wavelength and corresponding intensity values
+(e.g., Appendix 4 in Blasse and Grabmeier, 1994; Mooney and Kambhampati, 2013):
 
 \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
 
@@ -38,14 +41,16 @@ For transforming the wavelength axis (x-values) the equation as follow is used
 \deqn{E = hc/\lambda}
 }
 \note{
-This conversion works solely for emission spectra.
+This conversion works solely for emission spectra. In case of absorption spectra only
+the x-axsis has to be converted.
 }
 \section{Function version}{
- 0.1.0 (2019-01-22 20:47:59)
+ 0.1.0 (2019-01-23 12:58:24)
 }
 
 \examples{
 
+##(1) literatur example
 ##create artifical dataset according to Mooney et al. (2013)
 m <- matrix(
   data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
@@ -63,10 +68,21 @@ par(mfrow = c(1,2))
 p(m)
 p(convert_Wavelength2Energy(m))
 
-}
+##(2) another test showing the
+## effect of the conversion
+xy <- density(
+ c(rnorm(n = 100, mean = 500, sd = 20),
+ rnorm(n = 100, mean = 800, sd = 20)))
+xy <- data.frame(xy$x, xy$y)
+par(mfrow = c(1,2))
+plot(xy, type = "l", xlim = c(300,800))
+plot(convert_Wavelength2Energy(xy), xy$y,
+type = "l", xlim = c(1.549,4.1))
+
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.22. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.27. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -75,6 +91,19 @@ Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 Mooney, J., Kambhampati, P., 2013. Get the Basics Right: Jacobian Conversion of Wavelength and
 Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318.
 \doi{10.1021/jz401508t}
+
+Mooney, J., Kambhampati, P., 2013. Correction to “Get the Basics Right: Jacobian Conversion of
+Wavelength and Energy Scales for Quantitative Analysis of Emission Spectra.” J. Phys. Chem. Lett. 4,
+3316–3318. \doi{10.1021/jz401508t}
+
+\strong{Further reading}
+
+Angulo, G., Grampp, G., Rosspeintner, A., 2006. Recalling the appropriate representation of
+electronic spectra. Spectrochimica Acta Part A: Molecular and Biomolecular Spectroscopy 65,
+727–731. \doi{10.1016/j.saa.2006.01.007}
+
+Wang, Y., Townsend, P.D., 2013. Potential problems in collection and data processing of
+luminescence signals. Journal of Luminescence 142, 202–211. \doi{10.1016/j.jlumin.2013.03.052}
 }
 \seealso{
 \linkS4class{RLum.Data.Spectrum}, \link{plot_RLum}
