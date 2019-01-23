@@ -52,8 +52,8 @@ value to limit all count values to this value, i.e. all count values above
 this threshold will be replaced by this threshold. This is helpful
 especially in case of TL-spectra.}
 
-\item{xaxis.energy}{\link{logical} (\emph{with default}):
-enables or disables energy instead of wavelength axis.
+\item{xaxis.energy}{\link{logical} (\emph{with default}): enables or disables energy instead of
+wavelength axis. For the conversion the function \link{convert_Wavelength2Energy} is used.
 
 \strong{Note:} This option means not only simnply redrawing the axis,
 instead the spectrum in terms of intensity is recalculated, s. details.}
@@ -88,30 +88,6 @@ RLum.Data.Spectrum S4 class object
 \item \code{ylim}: Limits values along the time/temperature axis
 \item \code{zlim}: Limits values along the count value axis
 }
-
-\strong{Energy axis re-calculation}
-
-If the argument \code{xaxis.energy = TRUE} is chosen, instead intensity vs.
-wavelength the spectrum is plotted as intensiyt vs. energy. Therefore the
-entire spectrum is re-recaluated (e.g., Appendix 4 in Blasse and Grabmeier,
-1994):
-
-The intensity of the spectrum (z-values) is re-calcualted using the
-following equation:
-
-\deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
-
-with
-\eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV),
-\eqn{\phi_{\lambda}} the intensity per interval of wavelength \eqn{\lambda}
-(nm) and
-\eqn{h} (eV/s) the Planck constant and \eqn{c} (m/s) the velocity of light.
-
-For transforming the wavelength axis (x-values) the equation
-
-\deqn{E = hc/\lambda}
-
-is used. For further details please see the cited the literature.
 
 \strong{Details on the plot functions}
 
@@ -161,7 +137,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.3 (2018-01-21 11:22:38)
+ 0.5.5 (2019-01-22 20:24:57)
 }
 
 \examples{
@@ -219,20 +195,17 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.18. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{plot}, \link{plot_RLum}, \link{persp},
+\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link{persp},
 \link[plotly:plot_ly]{plotly::plot_ly}, \link{contour}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.21. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{aplot}
