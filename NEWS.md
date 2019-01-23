@@ -64,6 +64,10 @@
     corrected and internally, the function now calls consistently the
     new function `convert_Wavelength2Enegy()`. The corresponding code
     and documentation have been removed.  
+  - The function gained a new argument `norm` for normalising the data
+    to the hightest or the lowest count value.
+  - The function gained a new argument `bg.spectrum` allow to pass a
+    background spectrum that can be used for the subtraction
   - The function returned a warning if a single matrix was used but
     `plot.type` was already set to `single`; fixed.
   - Wrong settings in `bg.channels` crashed the function. Now it

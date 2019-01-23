@@ -92,7 +92,7 @@ write_R2BIN(CWOSL.SAR.Data, file = temp_file)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -6,8 +6,9 @@
 \usage{
 plot_RLum.Data.Spectrum(object, par.local = TRUE,
   plot.type = "contour", optical.wavelength.colours = TRUE,
-  bg.channels = NULL, bin.rows = 1, bin.cols = 1, rug = TRUE,
-  limit_counts = NULL, xaxis.energy = FALSE, legend.text, ...)
+  bg.spectrum = NULL, bg.channels = NULL, bin.rows = 1,
+  bin.cols = 1, norm = NULL, rug = TRUE, limit_counts = NULL,
+  xaxis.energy = FALSE, legend.text, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
@@ -29,19 +30,30 @@ or \code{transect} (along the wavelength axis) \cr}
 use optical wavelength colour palette. Note: For this, the spectrum range is
 limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}.}
 
+\item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}): Spectrum
+used for the background subtraction. By definition, the background spectrum should have been
+measured with the same setting as the signal spectrum. If a spectrum is provided, the
+argument \code{bg.channels} works only on the provided background spectrum.}
+
 \item{bg.channels}{\link{vector} (\emph{optional}):
 defines channel for background subtraction If a vector is provided the mean
-of the channels is used for subtraction.
+of the channels is used for subtraction. If a spectrum is provided via \code{bg.spectrum}, this
+argument only works on the \code{bg.spectrum}.
 
 \strong{Note:} Background subtraction is applied prior to channel binning}
 
-\item{bin.rows}{\link{integer} (with defaul):
+\item{bin.rows}{\link{integer} (\emph{with default}):
 allow summing-up wavelength channels (horizontal binning),
-e.g. \code{bin.rows = 2} two channels are summed up}
+e.g. \code{bin.rows = 2} two channels are summed up.
+Binning is applied after the background subtraction.}
 
 \item{bin.cols}{\link{integer} (\emph{with default}):
 allow summing-up channel counts (vertical binning) for plotting,
-e.g. \code{bin.cols = 2} two channels are summed up}
+e.g. \code{bin.cols = 2} two channels are summed up.
+Binning is applied after the background subtraction.}
+
+\item{norm}{\link{character} (\emph{optional}): Normalise data to the maximum (\code{norm = "max"}) or
+minimum (\code{norm = "min"}) count values. The normalisation is applied after the binning.}
 
 \item{rug}{\link{logical} (\emph{with default}):
 enables or disables colour rug. Currently only implemented for plot
@@ -137,7 +149,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.7 (2019-01-23 13:15:32)
+ 0.6.0 (2019-01-23 16:08:17)
 }
 
 \examples{
@@ -154,20 +166,32 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
                         bin.cols = 1)
 
 ##(2) plot spectrum (3D)
-plot_RLum.Data.Spectrum(TL.Spectrum,
-                        plot.type="persp",
-                        xlim = c(310,750),
-                        ylim = c(0,100),
-                        bin.rows=10,
-                        bin.cols = 1)
+plot_RLum.Data.Spectrum(
+  TL.Spectrum,
+  plot.type="persp",
+  xlim = c(310,750),
+  ylim = c(0,100),
+  bin.rows=10,
+  bin.cols = 1)
 
-##(3) plot multiple lines (2D) - multiple.lines (with ylim)
+##(3) plot spectrum on energy axis
+##please note the background subtraction
 plot_RLum.Data.Spectrum(TL.Spectrum,
-                        plot.type="multiple.lines",
-                        xlim = c(310,750),
-                        ylim = c(0,100),
-                        bin.rows=10,
-                        bin.cols = 1)
+plot.type="persp",
+ylim = c(0,200),
+bin.rows=10,
+bg.channels = 10,
+bin.cols = 1,
+xaxis.energy = TRUE)
+
+##(4) plot multiple lines (2D) - multiple.lines (with ylim)
+plot_RLum.Data.Spectrum(
+ TL.Spectrum,
+ plot.type="multiple.lines",
+ xlim = c(310,750),
+ ylim = c(0,100),
+ bin.rows=10,
+ bin.cols = 1)
 
 \dontrun{
  ##(4) interactive plot using the package plotly ("surface")
@@ -205,7 +229,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
