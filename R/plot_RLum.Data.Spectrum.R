@@ -118,7 +118,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.5.6
+#' @section Function version: 0.5.7
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -252,8 +252,15 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   # Do energy axis conversion -------------------------------------------------------------------
-  if (xaxis.energy)
+  if (xaxis.energy){
+    ##conversion
     object <- convert_Wavelength2Energy(object)
+
+    ##modify row order (otherwise subsequent functions, like persp, have a problem)
+    object@data[] <- object@data[order(as.numeric(rownames(object@data))),]
+    rownames(object@data) <- sort(as.numeric(rownames(object@data)))
+
+  }
 
 
   ##deal with addition arguments
@@ -345,7 +352,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
   # prepare values for plot ---------------------------------------------------
-  temp.xyz <- get_RLum(object)
+  temp.xyz <- object@data
 
   ##check for NULL column names
   if(is.null(colnames(temp.xyz))){
@@ -681,7 +688,6 @@ plot_RLum.Data.Spectrum <- function(
     ## ==========================================================================#
     ##perspective plot
     ## ==========================================================================#
-
     persp(x, y, temp.xyz,
           shade = shade,
           phi = phi,
