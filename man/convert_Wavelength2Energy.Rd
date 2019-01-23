@@ -41,12 +41,32 @@ For transforming the wavelength axis (x-values) the equation as follow is used
 This conversion works solely for emission spectra.
 }
 \section{Function version}{
- 0.1.0 (2019-01-22 20:23:23)
+ 0.1.0 (2019-01-22 20:47:59)
 }
- 
+
+\examples{
+
+##create artifical dataset according to Mooney et al. (2013)
+m <- matrix(
+  data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
+
+##set plot function
+p <- function(m) {
+ plot(x = m[, 1], y = m[, 2])
+ polygon(x = c(m[, 1], rev(m[, 1])), y = c(m[, 2], rep(0, nrow(m))))
+ for (i in 1:nrow(m)) {
+  lines(x = rep(m[i, 1], 2), y = c(0, m[i, 2]))
+ }
+}
+##plot curves
+par(mfrow = c(1,2))
+p(m)
+p(convert_Wavelength2Energy(m))
+
+}
 
 \section{How to cite}{
-Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

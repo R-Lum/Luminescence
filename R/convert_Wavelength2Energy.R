@@ -48,7 +48,7 @@
 #' Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318.
 #' \doi{10.1021/jz401508t}
 #'
-#' @example
+#' @examples
 #'
 #' ##create artifical dataset according to Mooney et al. (2013)
 #' m <- matrix(
