@@ -118,7 +118,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.5.5
+#' @section Function version: 0.5.6
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -190,7 +190,7 @@ plot_RLum.Data.Spectrum <- function(
   par.local = TRUE,
   plot.type = "contour",
   optical.wavelength.colours = TRUE,
-  bg.channels,
+  bg.channels = NULL,
   bin.rows = 1,
   bin.cols = 1,
   rug = TRUE,
@@ -379,16 +379,27 @@ plot_RLum.Data.Spectrum <- function(
 
 
   # Background subtraction ---------------------------------------------------
+  if(!is.null(bg.channels)){
+    if(max(bg.channels) > ncol(temp.xyz) || bg.channels <= 0){
+      ##correct the mess
+      bg.channels <- sort(unique(bg.channels))
+      bg.channels[bg.channels <= 0] <- 1
+      bg.channels[bg.channels >= ncol(temp.xyz)] <- ncol(temp.xyz)
 
-  if(missing(bg.channels) == FALSE){
+      warning(
+        paste0(
+          "[plot_RLum.Data.Spectrum()] 'bg.channels' out of range, corrected to: ",
+          min(bg.channels),
+          ":",
+          max(bg.channels)
+        ), call. = FALSE)
+    }
 
     if(length(bg.channels) > 1){
-
       temp.bg.signal <- rowMeans(temp.xyz[,bg.channels])
       temp.xyz <- temp.xyz[,1:ncol(temp.xyz)] - temp.bg.signal
 
     }else{
-
       temp.xyz <- temp.xyz[,1:ncol(temp.xyz)] - temp.xyz[,bg.channels]
       temp.xyz <- ifelse(temp.xyz < 0, mean(temp.xyz[,bg.channels]), temp.xyz)
 
