@@ -65,6 +65,7 @@
 #'
 #' @examples
 #'
+#' ##(1) literatur example
 #' ##create artifical dataset according to Mooney et al. (2013)
 #' m <- matrix(
 #'   data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
@@ -82,8 +83,8 @@
 #' p(m)
 #' p(convert_Wavelength2Energy(m))
 #'
-#' ##another test showing the
-#' effect of the conversion
+#' ##(2) another test showing the
+#' ## effect of the conversion
 #' xy <- density(
 #'  c(rnorm(n = 100, mean = 500, sd = 20),
 #'  rnorm(n = 100, mean = 800, sd = 20)))
