@@ -28,6 +28,8 @@
 #' If the input is not an [RLum.Data.Spectrum-class], the first column is always treated as the wavelength
 #' column. The function supports a list of allowed input objects.
 #'
+#' @param digits [integer] (*with default*): set the number of digits on the returned energy axis
+#'
 #' @return The same object class as provided as input is returned.
 #'
 #' @note This conversion works solely for emission spectra. In case of absorption spectra only
@@ -97,7 +99,9 @@
 #'@md
 #'@export
 convert_Wavelength2Energy <- function(
-  object){
+  object,
+  digits = 3L
+  ){
 
 
   # Self-call -----------------------------------------------------------------------------------
@@ -118,7 +122,7 @@ convert_Wavelength2Energy <- function(
       m[] <- m * as.numeric(rownames(m))^2 / (h * c)
 
       ##modify rownames
-      rownames(m) <- round((h * c) / as.numeric(rownames(m)),2)
+      rownames(m) <- round((h * c) / as.numeric(rownames(m)),digits)
 
       ##return results
       return(m)
