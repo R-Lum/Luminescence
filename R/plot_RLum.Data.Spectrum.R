@@ -142,10 +142,10 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.5.3
+#' @section Function version: 0.5.4
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [plot], [plot_RLum], [persp],
 #' [plotly::plot_ly], [contour]
@@ -694,9 +694,9 @@ plot_RLum.Data.Spectrum <- function(
   if(par.local == TRUE){par(mfrow=c(1,1), cex = cex)}
 
   ##rest plot type for 1 column matrix
-  if(ncol(temp.xyz) == 1){
-    plot.type = "single"
-    warning("[plot_RLum.Data.Spectrum()] Single column matrix: plot.type has been automatically reset to 'single'")
+  if(ncol(temp.xyz) == 1 && plot.type != "single"){
+    plot.type <- "single"
+    warning("[plot_RLum.Data.Spectrum()] Single column matrix: plot.type has been automatically reset to 'single'", call. = FALSE)
   }
 
   ##do not let old code break down ...
