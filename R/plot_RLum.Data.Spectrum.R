@@ -17,30 +17,6 @@
 #' - `ylim`: Limits values along the time/temperature axis
 #' - `zlim`: Limits values along the count value axis
 #'
-#' **Energy axis re-calculation**
-#'
-#' If the argument `xaxis.energy = TRUE` is chosen, instead intensity vs.
-#' wavelength the spectrum is plotted as intensiyt vs. energy. Therefore the
-#' entire spectrum is re-recaluated (e.g., Appendix 4 in Blasse and Grabmeier,
-#' 1994):
-#'
-#' The intensity of the spectrum (z-values) is re-calcualted using the
-#' following equation:
-#'
-#' \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
-#'
-#' with
-#' \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV),
-#' \eqn{\phi_{\lambda}} the intensity per interval of wavelength \eqn{\lambda}
-#' (nm) and
-#' \eqn{h} (eV * s) the Planck constant and \eqn{c} (nm/s) the velocity of light.
-#'
-#' For transforming the wavelength axis (x-values) the equation
-#'
-#' \deqn{E = hc/\lambda}
-#'
-#' is used. For further details please see the cited the literature.
-#'
 #' **Details on the plot functions**
 #'
 #' Spectrum is visualised as 3D or 2D plot. Both plot types are based on
@@ -125,8 +101,8 @@
 #' this threshold will be replaced by this threshold. This is helpful
 #' especially in case of TL-spectra.
 #'
-#' @param xaxis.energy [logical] (*with default*):
-#' enables or disables energy instead of wavelength axis.
+#' @param xaxis.energy [logical] (*with default*): enables or disables energy instead of
+#' wavelength axis. For the conversion the function [convert_Wavelength2Energy] is used.
 #'
 #' **Note:** This option means not only simnply redrawing the axis,
 #' instead the spectrum in terms of intensity is recalculated, s. details.
@@ -142,16 +118,13 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [plot], [plot_RLum], [persp],
+#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [persp],
 #' [plotly::plot_ly], [contour]
-#'
-#' @references
-#' Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 #'
 #' @keywords aplot
 #'
@@ -253,7 +226,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
     }else{
-      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'")
+      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'", call. = FALSE)
 
     }
 
@@ -279,22 +252,8 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   # Do energy axis conversion -------------------------------------------------------------------
-  if (xaxis.energy) {
-    temp.object.data <- sapply(1:ncol(object@data), function(x) {
-      object@data[,x] * x ^ 2 / (4.13566733e-015 * 299792458e+09)
-    })
-
-    ##preserve column and rownames
-    colnames(temp.object.data) <- colnames(object@data)
-    rownames(temp.object.data) <-
-      4.13566733e-015 * 299792458e+09 / as.numeric(rownames(object@data))
-
-    ##write back to original data
-    object@data <-
-      temp.object.data[order(as.numeric(rownames(temp.object.data))),]
-
-  }
-
+  if (xaxis.energy)
+    object <- convert_Wavelength2Energy(object)
 
 
   ##deal with addition arguments
@@ -945,7 +904,7 @@ plot_RLum.Data.Spectrum <- function(
 
   }else{
 
-    stop("[plot_RLum.Data.Spectrum()] Unknown plot type.")
+    stop("[plot_RLum.Data.Spectrum()] Unknown plot type.", call. = FALSE)
 
   }
 

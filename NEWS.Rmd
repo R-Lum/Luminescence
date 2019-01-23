@@ -54,8 +54,9 @@ signal is shown automatically instead of the uncorrected curves (suggestion by T
 * The function failed for R-devel importing spectrometer data (`approx(..., ties = -2)`); fixed.
 
 #### `plot_RLum.Data.Spectrum()`
+* The wavelength to energy scale conversion was not correct. Internally, the function now calls consistently the
+new function `convert_Wavelength2Enegy()`. The corresponding code and documentation have been removed.  
 * The function returned a warning if a single matrix was used but `plot.type` was already set to `single`; fixed.
-* Polish documentation
 
 ### Internals
 
