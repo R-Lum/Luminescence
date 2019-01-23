@@ -52,7 +52,9 @@ signal is shown automatically instead of the uncorrected curves (suggestion by T
 #### `read_XSYG2R()`
 * The function failed for R-devel importing spectrometer data (`approx(..., ties = -2)`); fixed.
 
-
+#### `plot_RLum.Data.Spectrum()`
+* The function returned a warning if a single matrix was used but `plot.type` was already set to `single`; fixed.
+* Polish documentation
 
 ### Internals
 
