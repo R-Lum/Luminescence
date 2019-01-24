@@ -91,13 +91,8 @@
 #'
 #'##(1.3) plot curves
 #' par(mfrow = c(1,2))
-#' p(m,
-#'  xlab = "Wavelength [nm]",
-#'  ylab = "Emission [a.u.]")
-#' p(convert_Wavelength2Energy(m),
-#'   xlab = "Energy [eV]",
-#'   ylab = "Emission [a.u.]")
-#' )
+#' p(m)
+#' p(convert_Wavelength2Energy(m))
 #'
 #'##=====================##
 #'##(2) Another example using density curves
