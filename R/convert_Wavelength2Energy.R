@@ -30,6 +30,10 @@
 #'
 #' @param digits [integer] (*with default*): set the number of digits on the returned energy axis
 #'
+#' @param order [logical] (*with default*): enables/disables sorting of the values in ascending energy
+#' order. After the conversion the longest wavelength has the lowest energy value and the shortest
+#' wavelength the highest. While this is correct, some R functions expect increasing x-values.
+#'
 #' @return The same object class as provided as input is returned.
 #'
 #' @note This conversion works solely for emission spectra. In case of absorption spectra only
@@ -67,40 +71,66 @@
 #'
 #' @examples
 #'
-#' ##(1) literatur example
-#' ##create artifical dataset according to Mooney et al. (2013)
+#' ##=====================##
+#' ##(1) Literature example after Mooney et al. (2013)
+#' ##(1.1) create matrix
 #' m <- matrix(
 #'   data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
 #'
-#'##set plot function
+#'##(1.2) set plot function to reproduce the
+#'##literature figure
 #'p <- function(m) {
 #'  plot(x = m[, 1], y = m[, 2])
-#'  polygon(x = c(m[, 1], rev(m[, 1])), y = c(m[, 2], rep(0, nrow(m))))
+#'  polygon(
+#'  x = c(m[, 1], rev(m[, 1])),
+#'  y = c(m[, 2], rep(0, nrow(m))))
 #'  for (i in 1:nrow(m)) {
 #'   lines(x = rep(m[i, 1], 2), y = c(0, m[i, 2]))
 #'  }
 #'}
-#' ##plot curves
-#' par(mfrow = c(1,2))
-#' p(m)
-#' p(convert_Wavelength2Energy(m))
 #'
-#' ##(2) another test showing the
-#' ## effect of the conversion
+#'##(1.3) plot curves
+#' par(mfrow = c(1,2))
+#' p(m,
+#'  xlab = "Wavelength [nm]",
+#'  ylab = "Emission [a.u.]")
+#' p(convert_Wavelength2Energy(m),
+#'   xlab = "Energy [eV]",
+#'   ylab = "Emission [a.u.]")
+#' )
+#'
+#'##=====================##
+#'##(2) Another example using density curves
+#' ##create dataset
 #' xy <- density(
 #'  c(rnorm(n = 100, mean = 500, sd = 20),
 #'  rnorm(n = 100, mean = 800, sd = 20)))
 #' xy <- data.frame(xy$x, xy$y)
+#'
+#' ##plot
 #' par(mfrow = c(1,2))
-#' plot(xy, type = "l", xlim = c(300,800))
-#' plot(convert_Wavelength2Energy(xy), xy$y,
-#' type = "l", xlim = c(1.549,4.1))
+#' plot(
+#'  xy,
+#'  type = "l",
+#'  xlim = c(150, 1000),
+#'  xlab = "Wavelength [nm]",
+#'  ylab = "Luminescence [a.u.]"
+#' )
+#'plot(
+#'  convert_Wavelength2Energy(xy),
+#'  xy$y,
+#'  type = "l",
+#'  xlim = c(1.23, 8.3),
+#'  xlab = "Energy [eV]",
+#'  ylab = "Luminescence [a.u.]"
+#' )
 #'
 #'@md
 #'@export
 convert_Wavelength2Energy <- function(
   object,
-  digits = 3L
+  digits = 3L,
+  order = FALSE
   ){
 
 
@@ -133,6 +163,15 @@ convert_Wavelength2Energy <- function(
   # Treat input data ----------------------------------------------------------------------------
   if(class(object) == "RLum.Data.Spectrum"){
     object@data <- .conv_intensity(object@data)
+
+    #sort values if needed
+    if(order){
+      object@data <-  object@data[order(as.numeric(rownames(object@data))),]
+      rownames(object@data) <- sort(as.numeric(rownames(object@data)))
+
+    }
+
+    ##return new object
     return(object)
 
   }else if(class(object) == "matrix" || class(object) == "data.frame"){
@@ -145,10 +184,12 @@ convert_Wavelength2Energy <- function(
     temp <- .conv_intensity(temp)
 
     ##construct new full matrix
-
     temp <- cbind(as.numeric(rownames(temp)), temp)
     rownames(temp) <- rownames(object)
     colnames(temp) <- colnames(object)
+
+    ##order on request (remember, here it is the first column)
+    if(order) temp <- temp[order(temp[,1]),]
 
     ##return
     if(class(object) == "data.frame")
