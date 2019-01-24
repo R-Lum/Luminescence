@@ -4,7 +4,7 @@
 \alias{convert_Wavelength2Energy}
 \title{Emission Spectra Conversion from Wavelength to Energy Scales}
 \usage{
-convert_Wavelength2Energy(object, digits = 3L)
+convert_Wavelength2Energy(object, digits = 3L, order = FALSE)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}): input object to be converted.
@@ -12,6 +12,10 @@ If the input is not an \linkS4class{RLum.Data.Spectrum}, the first column is alw
 column. The function supports a list of allowed input objects.}
 
 \item{digits}{\link{integer} (\emph{with default}): set the number of digits on the returned energy axis}
+
+\item{order}{\link{logical} (\emph{with default}): enables/disables sorting of the values in ascending energy
+order. After the conversion the longest wavelength has the lowest energy value and the shortest
+wavelength the highest. While this is correct, some R functions expect increasing x-values.}
 }
 \value{
 The same object class as provided as input is returned.
@@ -45,44 +49,64 @@ This conversion works solely for emission spectra. In case of absorption spectra
 the x-axsis has to be converted.
 }
 \section{Function version}{
- 0.1.0 (2019-01-23 12:58:24)
+ 0.1.0 (2019-01-24 11:01:06)
 }
 
 \examples{
 
-##(1) literatur example
-##create artifical dataset according to Mooney et al. (2013)
+##=====================##
+##(1) Literature example after Mooney et al. (2013)
+##(1.1) create matrix
 m <- matrix(
   data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
 
-##set plot function
+##(1.2) set plot function to reproduce the
+##literature figure
 p <- function(m) {
  plot(x = m[, 1], y = m[, 2])
- polygon(x = c(m[, 1], rev(m[, 1])), y = c(m[, 2], rep(0, nrow(m))))
+ polygon(
+ x = c(m[, 1], rev(m[, 1])),
+ y = c(m[, 2], rep(0, nrow(m))))
  for (i in 1:nrow(m)) {
   lines(x = rep(m[i, 1], 2), y = c(0, m[i, 2]))
  }
 }
-##plot curves
+
+##(1.3) plot curves
 par(mfrow = c(1,2))
 p(m)
 p(convert_Wavelength2Energy(m))
 
-##(2) another test showing the
-## effect of the conversion
+##=====================##
+##(2) Another example using density curves
+##create dataset
 xy <- density(
  c(rnorm(n = 100, mean = 500, sd = 20),
  rnorm(n = 100, mean = 800, sd = 20)))
 xy <- data.frame(xy$x, xy$y)
+
+##plot
 par(mfrow = c(1,2))
-plot(xy, type = "l", xlim = c(300,800))
-plot(convert_Wavelength2Energy(xy), xy$y,
-type = "l", xlim = c(1.549,4.1))
+plot(
+ xy,
+ type = "l",
+ xlim = c(150, 1000),
+ xlab = "Wavelength [nm]",
+ ylab = "Luminescence [a.u.]"
+)
+plot(
+ convert_Wavelength2Energy(xy),
+ xy$y,
+ type = "l",
+ xlim = c(1.23, 8.3),
+ xlab = "Energy [eV]",
+ ylab = "Luminescence [a.u.]"
+)
 
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.30. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
