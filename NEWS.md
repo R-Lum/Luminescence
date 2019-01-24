@@ -11,6 +11,7 @@
 
   - `convert_Wavelength2Energy()` Smooth and quick emission spectra
     conversion from wavelength to energy scales
+  - `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
   - `fit_OSLLifeTimes()` Fit and deconvolution of OSL lifetimes using
     off-time measurements, i.e. after the stimulation was switched off.
   - `plot_DRCSummary()` Summarise all dose-response curves from your SAR
