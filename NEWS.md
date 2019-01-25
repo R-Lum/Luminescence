@@ -28,7 +28,7 @@
 
 #### `apply_EfficiencyCorrection()`
 
-  - The function prodced a warning (“collapsing to unique ‘x’ values”)
+  - The function produced a warning (“collapsing to unique ‘x’ values”)
     on R-devel; fixed.
 
 #### `analyse_SAR.TL()`
@@ -49,7 +49,7 @@
 
 #### `read_BIN2R()`
 
-  - In the autofile recognition (only a path instead of a file is
+  - In the auto-file recognition (only a path instead of a file is
     provided), sometimes the found BIN/BINX-files were imported twice.
     The corresponding code was simplified to avoid such errors in
     future.
@@ -66,7 +66,7 @@
     new function `convert_Wavelength2Enegy()` (the corresponding code
     and documentation have been updated or removed).  
   - The function gained a new argument `norm` for normalising the data
-    to the hightest or the lowest count value.
+    to the highest or the lowest count value.
   - The function gained a new argument `bg.spectrum` allow to pass a
     background spectrum that can be used for the subtraction
   - The function returned a warning if a single matrix was used but
