@@ -7,6 +7,7 @@
 \alias{set_RLum,RLum.Data.Spectrum-method}
 \alias{get_RLum,RLum.Data.Spectrum-method}
 \alias{names_RLum,RLum.Data.Spectrum-method}
+\alias{bin_RLum.Data,RLum.Data.Spectrum-method}
 \title{Class \code{"RLum.Data.Spectrum"}}
 \usage{
 \S4method{show}{RLum.Data.Spectrum}(object)
@@ -18,6 +19,9 @@
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
 
 \S4method{names_RLum}{RLum.Data.Spectrum}(object)
+
+\S4method{bin_RLum.Data}{RLum.Data.Spectrum}(object, bin_size.col = 1,
+  bin_size.row = 1)
 }
 \arguments{
 \item{object}{\code{\link{get_RLum}}, \code{\link{names_RLum}} (\strong{required}):
@@ -51,6 +55,16 @@ info elements}
 
 \item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
 the name of the info object to be called}
+
+\item{bin_size.col}{\link{integer} (\emph{with default}):
+set number of channels used for each bin, e.g. \code{bin_size.col = 2} means that
+two channels are binned. Note: The function does not check the input, very large values
+mean a full column binning (a single sum)}
+
+\item{bin_size.row}{\link{integer} (\emph{with default}):
+set number of channels used for each bin, e.g. \code{bin_size.row = 2} means that
+two channels are binned. Note: The function does not check the input, very large values
+mean a full row binning (a single sum)}
 }
 \value{
 \strong{\code{[set_RLum]}}
@@ -66,6 +80,10 @@ An object from the class \code{RLum.Data.Spectrum}
 \strong{\code{names_RLum}}
 
 The names of the info objects
+
+\strong{\code{bin_RLum.Data}}
+
+Same object as input, after applying the binning.
 }
 \description{
 Class for representing luminescence spectra data (TL/OSL/RF).
@@ -82,6 +100,9 @@ is optional to directly access the info elements. If no info element name
 is provided, the raw curve data (matrix) will be returned
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
+
+\item \code{bin_RLum.Data}: Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
+for wavalength/energy values the mean is calculated.
 }}
 
 \section{Slots}{
@@ -108,7 +129,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Data.Spectrum",
 }
 
 \section{Class version}{
- 0.4.0
+ 0.5.0
 }
 
 \examples{
@@ -132,11 +153,11 @@ plot_RLum(TL.Spectrum)
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Universite Bordeaux Montaigne (France)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.34. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.37. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

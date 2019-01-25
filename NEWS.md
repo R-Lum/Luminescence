@@ -77,6 +77,10 @@
     ’xaxis.energy = TRUE\`.
   - Warnings are formatted more nicely.
 
+### Changes in S4-objects and methods
+
+  - `RLum.Data.Spectrum-class` got a support for `bin_RLum.Data()`
+
 ### Internals
 
   - Package news are now provided as markdown document (NEWS.md) which
@@ -86,3 +90,6 @@
     numbers for CRAN remain X.X.X, which reads ‘stable.major.minor’
     version, a 4th number indicates the running package build number,
     e.g., 0.9.0.7.
+  - New internal function `Luminescence:::.matrix_binning()` to get the
+    matrix (and curve) binning consistent; so far used only by the the
+    `bin_RLum.Data()` method for `RLum.Data.Spectrum-class`
