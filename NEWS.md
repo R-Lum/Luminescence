@@ -78,6 +78,7 @@
     than the code used before
   - The function now longer crashes for `plot.type = 'persp'` if
     ’xaxis.energy = TRUE\`.
+  - The colour picking option was not always working; fixed.
   - Warnings are formatted more nicely.
 
 ### Changes in S4-objects and methods

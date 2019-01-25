@@ -28,7 +28,9 @@ or \code{transect} (along the wavelength axis) \cr}
 
 \item{optical.wavelength.colours}{\link{logical} (\emph{with default}):
 use optical wavelength colour palette. Note: For this, the spectrum range is
-limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}.}
+limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}. If you provide already
+binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
+using the bin number.}
 
 \item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}): Spectrum
 used for the background subtraction. By definition, the background spectrum should have been
@@ -149,7 +151,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.1 (2019-01-25 13:41:15)
+ 0.6.2 (2019-01-25 15:22:08)
 }
 
 \examples{
@@ -229,7 +231,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.50. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.51. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

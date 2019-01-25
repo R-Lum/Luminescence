@@ -65,6 +65,7 @@ code and documentation have been updated or removed).
 * Channel binning now consistently calls the internal function `Luminescence:::.matrix_binning()`, which is more
 efficient cleaner than the code used before
 * The function now longer crashes for `plot.type = 'persp'` if 'xaxis.energy = TRUE`. 
+* The colour picking option was not always working; fixed.
 * Warnings are formatted more nicely.
 
 
