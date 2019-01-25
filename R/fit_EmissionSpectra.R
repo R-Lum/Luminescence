@@ -114,7 +114,11 @@ fit_EmissionSpectra <- function(
 
     ##try to find start parameters
     ##identify peaks
-    id_peaks <- .peaks(m[, 2], sample(30:150, 1))
+    id_peaks <- .peaks(m[, 2], sample(25:150, 1))
+
+      ##prevent break
+      if(length(id_peaks) == 0) next()
+
     mu <- m[id_peaks,1]
     sigma <- rep(1,length(mu))
     C <- rep(max(df[[2]])/2, length(mu))
@@ -130,7 +134,10 @@ fit_EmissionSpectra <- function(
       start = c(sigma, mu, C),
       trace = FALSE,
       lower = rep(0, 3 * length(mu)),
-      upper = c(rep(1000, length(mu)), rep(max(df[[1]]), length(mu)), rep(max(df[[2]]), length(mu))),
+      upper = c(
+        rep(1000, length(mu)),
+        rep(max(df[[1]]), length(mu)),
+        rep(max(df[[2]]), length(mu))),
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = TRUE)
 
@@ -181,7 +188,7 @@ fit_EmissionSpectra <- function(
     colnames(m_coef) <- c("mu", "SE(mu)", "sigma", "SE(sigma)", "C", "SE(C)")
 
     ##order by sigma
-    m_coef <- m_coef[order(m_coef[,1]),]
+    m_coef <- m_coef[order(m_coef[,1]),, drop = FALSE]
 
     ##extract single values, we need this later
     mu <- m_coef[,"mu"]
@@ -233,6 +240,8 @@ fit_EmissionSpectra <- function(
       pch = 20,
       xlab = plot_settings$xlab,
       ylab = plot_settings$ylab,
+      xlim = plot_settings$xlim,
+      ylim = plot_settings$ylim,
       main = plot_settings$main,
       col = rgb(0, 0, 0, .6)
     )
