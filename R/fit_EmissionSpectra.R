@@ -74,10 +74,11 @@ fit_EmissionSpectra <- function(
   ##creat peak find function ... this helps to get good start parameters
   ##https://grokbase.com/t/r/r-help/05bqza71c4/r-finding-peaks-in-a-simple-dataset-with-r
   ##author: Petr Pikal in 2004 with modifications by Sebastian Kreutzer
-  .peaks <- function(x, span) {
+  .peaks <- function(x, span, size = nrow(m)) {
     z <- stats::embed(x, span)
     s <- span %/% 2
-    v <- max.col(z, ties.method = "first") == 1 + s
+    ##this is just a rough, scaling for the channel number; hopefully it works
+    v <- max.col(z, ties.method = "first") == ceiling(10^(3 - log10(nrow(m)))) + s
     result <- c(rep(FALSE, s), v)
     result <- result[1:(length(result) - s)]
     which(result)
@@ -110,17 +111,20 @@ fit_EmissionSpectra <- function(
   }
 
   ##run iterations
-  while(success_counter < 50 && run < 1000){
+  while(success_counter < 100 && run < 1000){
 
     ##try to find start parameters
     ##identify peaks
-    id_peaks <- .peaks(m[, 2], sample(25:150, 1))
-
+    id_peaks <- .peaks(m[,2], sample(25:(nrow(m) - 1), 1))
       ##prevent break
-      if(length(id_peaks) == 0) next()
+      if(length(id_peaks) == 0){
+        if (verbose) cat("\r>> Searching components ... [-]")
+        run <- run + 1
+        next()
+      }
 
     mu <- m[id_peaks,1]
-    sigma <- rep(1,length(mu))
+    sigma <- rep(sample(0.01:10,1),length(mu))
     C <- rep(max(df[[2]])/2, length(mu))
 
     names(mu) <- paste0("mu.", 1:length(mu))
@@ -144,14 +148,24 @@ fit_EmissionSpectra <- function(
     if (class(fit_try) != "try-error") {
       success_counter <- success_counter + 1
       fit[[success_counter]] <- fit_try
-      if (verbose) cat("+")
+      if (verbose) cat("\r>> Searching components ... [/]")
     } else{
-      if (verbose) cat("-")
+      if (verbose) cat("\r>> Searching components ... [\\]")
 
     }
 
     ##update run counter
     run <- run + 1
+
+  }
+
+  ##break heare
+  if(length(fit) == 0){
+    if (verbose) cat("\r>> Searching components ... [FAILED]")
+    return(NULL)
+
+  }else{
+    if (verbose) cat("\r>> Searching components ... [DONE]")
 
   }
 
@@ -202,16 +216,19 @@ fit_EmissionSpectra <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose && !is.na(m_coef)){
-    cat("\n\nFitting results \n")
-    cat("--------------------------------------------------------------------\n")
+    cat("\n\n>> Fitting results \n")
+    cat("-------------------------------------------------------------------------\n")
     print(m_coef)
-    cat("--------------------------------------------------------------------")
-    cat("\n (SE: standard error | SSR: ",min(best_fit),")")
+    cat("-------------------------------------------------------------------------")
+    cat("\n ( SE: standard error | SSR: ",min(best_fit),")")
 
   }
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
+
+    ##get colour values
+    col <- get("col", pos = .LuminescenceEnv)[-1]
 
     ##plot settings
     plot_settings <- modifyList(x = list(
@@ -259,14 +276,14 @@ fit_EmissionSpectra <- function(
     )
 
     ##plot sum curve
-    lines(x = df[[1]], y = predict(fit), col = "red", lwd = 1.5)
+    lines(x = df[[1]], y = predict(fit), col = col[1], lwd = 1.5)
 
     ##add components
     for(i in 1:length(mu)){
       curve(
          (C[i] * 1 / (sigma[i] * sqrt(2 * pi)) * exp(-0.5 * ((x - mu[i])/sigma[i])^2)),
          add = TRUE,
-         col = i + 2
+         col = col[i + 1]
        )
 
     }
@@ -276,7 +293,7 @@ fit_EmissionSpectra <- function(
       "topright",
       legend = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " keV")),
       lwd = 1,
-      col = 2:(length(mu) + 2),
+      col = col[1:(length(mu) + 2)],
       bty = "n"
     )
 
@@ -322,5 +339,4 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
-
 
