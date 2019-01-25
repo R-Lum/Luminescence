@@ -500,93 +500,48 @@ plot_RLum.Data.Spectrum <- function(
   bin.cols <- bin.cols[1]
   bin.rows <- bin.rows[1]
 
-  ##fatal checks
-  if(bin.cols < 1 | bin.rows < 1){
+  ##fatal check (not needed anymore, but never change running code)
+  if(bin.cols < 1 | bin.rows < 1)
     stop("[plot_RLum.Data.Spectrum()] 'bin.cols' and 'bin.rows' have to be > 1!", call. = FALSE)
 
-  }
-
   if(bin.rows > 1){
+    temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.rows, bin_col = FALSE, names = "mean")
+    x <- as.numeric(rownames(temp.xyz))
 
-    ##calculate n.rows
-    n.rows <- nrow(temp.xyz)
+    ##remove last channel (this is the channel that included less data)
+    if(length(x)%%bin.rows != 0){
+      ##return warning
+      warning(
+        paste0("[plot_RLum.Data.Spectrum()] ",length(x)%%bin.rows,
+               " channel(s) removed due to row (wavelength) binning."),
+        call. = FALSE)
 
-    ##modulo operation for the number of groups
-    bin.group.rest <- n.rows%%bin.rows
-
-    ##define groups for binning
-    bin.group <- rep(1:(n.rows/bin.rows), 1, each = bin.rows)
-
-    ##add last group
-    bin.group <- c(bin.group, rep(n.rows/bin.rows + 1, 1, each = bin.group.rest))
-
-    ##sum up rows
-    temp.xyz <- rowsum(temp.xyz, bin.group)
-
-    ##correct labelling
-    x <- x[seq(1, n.rows, bin.rows)]
-
-    ## to avoid odd plots remove last group if bin.rows is not a multiple
-    ## of the row number
-    if(bin.group.rest != 0){
-      temp.xyz <- temp.xyz[-nrow(temp.xyz),]
+      ##do it
+      temp.xyz <- temp.xyz[-length(x),]
       x <- x[-length(x)]
 
-      warning("[plot_RLum.Data.Spectrum()] Last wavelength channel has been removed due to row binning.", call. = FALSE)
-
     }
-
-    ##replace rownames
-    rownames(temp.xyz) <- as.character(x)
-
-    rm(bin.group.rest)
 
   }
 
-
   if(bin.cols > 1){
+    temp.xyz <- .matrix_binning(temp.xyz, bin_size = bin.cols, bin_col = TRUE, names = "groups")
+    y <- as.numeric(colnames(temp.xyz))
 
-    ##calculate n.cols
-    n.cols <- ncol(temp.xyz)
+    ##remove last channel (this is the channel that included less data)
+    if(length(y)%%bin.cols != 0){
 
-    ##check for validity
-    if(bin.cols > n.cols){
+      ##return warning
+      warning(
+        paste0("[plot_RLum.Data.Spectrum()] ",length(y)%%bin.cols,
+               " channel(s) removed due to column (frame) binning."),
+        call. = FALSE)
 
-      bin.cols <- n.cols
-      warning("[plot_RLum.Data.Spectrum()] bin.cols > the number of columns. Value reduced to number of cols.",
-              call. = FALSE)
-
-    }
-
-    ##modulo operation for the number of groups
-    bin.group.rest <- n.cols%%bin.cols
-
-    ##define groups for binning
-    bin.group <- rep(1:(n.cols/bin.cols), 1, each = bin.cols)
-
-    ##add last group
-    bin.group <- c(bin.group, rep(n.cols/bin.cols + 1, 1, each = bin.group.rest))
-
-    ##sum up cols
-    temp.xyz <- rowsum(t(temp.xyz), bin.group)
-    temp.xyz <- t(temp.xyz)
-
-    ##correct labeling
-    y <- y[seq(1, n.cols, bin.cols)]
-
-    ## to avoid odd plots remove last group if bin.cols is not a multiple
-    ## of the col number
-    if(bin.group.rest != 0){
-
-      temp.xyz <- temp.xyz[,-ncol(temp.xyz)]
+      ##do it
+      temp.xyz <- temp.xyz[,-length(y)]
       y <- y[-length(y)]
 
-      warning("[plot_RLum.Data.Spectrum()] Last count channel has been removed due to column binning.", call. = FALSE)
-
     }
-
-    ##replace colnames
-    colnames(temp.xyz) <- as.character(y)
 
   }
 
@@ -743,7 +698,6 @@ plot_RLum.Data.Spectrum <- function(
     col <- extraArgs$col
 
   }
-
 
 
   # Do log scaling if needed -------------------------------------------------

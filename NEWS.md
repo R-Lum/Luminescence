@@ -63,8 +63,8 @@
 
   - The wavelength to energy scale conversion was not correct. This was
     corrected and internally, the function now calls consistently the
-    new function `convert_Wavelength2Enegy()`. The corresponding code
-    and documentation have been removed.  
+    new function `convert_Wavelength2Enegy()` (the corresponding code
+    and documentation have been updated or removed).  
   - The function gained a new argument `norm` for normalising the data
     to the hightest or the lowest count value.
   - The function gained a new argument `bg.spectrum` allow to pass a
@@ -73,6 +73,9 @@
     `plot.type` was already set to `single`; fixed.
   - Wrong settings in `bg.channels` crashed the function. Now it
     auto-corrects the wrong values.
+  - Channel binning now consistently calls the internal function
+    `Luminescence:::.matrix_binning()`, which is more efficient cleaner
+    than the code used before
   - The function now longer crashes for `plot.type = 'persp'` if
     ’xaxis.energy = TRUE\`.
   - Warnings are formatted more nicely.
@@ -93,3 +96,4 @@
   - New internal function `Luminescence:::.matrix_binning()` to get the
     matrix (and curve) binning consistent; so far used only by the the
     `bin_RLum.Data()` method for `RLum.Data.Spectrum-class`
+  - Vignette S4-class object structure updated
