@@ -419,12 +419,12 @@ setMethod(f = "bin_RLum.Data",
             if(bin_size.row > bin_size.col){
               ##row binning first
               m <- .matrix_binning(object@data, bin_size = bin_size.row, bin_col = FALSE, names = "mean")
-              m <- .matrix_binning(object@data, bin_size = bin_size.col, bin_col = TRUE, names = "groups")
+              m <- .matrix_binning(m, bin_size = bin_size.col, bin_col = TRUE, names = "groups")
 
             }else{
               ##column binning first
               m <- .matrix_binning(object@data, bin_size = bin_size.col, bin_col = TRUE, names = "groups")
-              m <- .matrix_binning(object@data, bin_size = bin_size.row, bin_col = FALSE, names = "mean")
+              m <- .matrix_binning(m, bin_size = bin_size.row, bin_col = FALSE, names = "mean")
 
             }
 
