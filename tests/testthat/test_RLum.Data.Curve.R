@@ -18,7 +18,7 @@ test_that("check class", {
   expect_type(names(object), "character")
 
   ##test bin
-  expect_warning(bin_RLum.Data(object, bin_size = -2), "Argument 'bin_size' invald, nothing was done!")
+  expect_warning(bin_RLum.Data(object, bin_size = -2), "Argument 'bin_size' invalid, nothing was done!")
 
   ##check conversions
   expect_s4_class(as(object = list(1:10), Class = "RLum.Data.Curve"), "RLum.Data.Curve")
