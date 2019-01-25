@@ -76,7 +76,9 @@
 #'
 #' @param optical.wavelength.colours [logical] (*with default*):
 #' use optical wavelength colour palette. Note: For this, the spectrum range is
-#' limited: `c(350,750)`. Own colours can be set with the argument `col`.
+#' limited: `c(350,750)`. Own colours can be set with the argument `col`. If you provide already
+#' binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
+#' using the bin number.
 #'
 #' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*): Spectrum
 #' used for the background subtraction. By definition, the background spectrum should have been
@@ -129,7 +131,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.1
+#' @section Function version: 0.6.2
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -411,7 +413,6 @@ plot_RLum.Data.Spectrum <- function(
   ## time/temp
   y <- as.numeric(colnames(temp.xyz))
 
-
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
     if(class(bg.spectrum) == "RLum.Data.Spectrum" || class(bg.spectrum) == "matrix"){
@@ -573,7 +574,7 @@ plot_RLum.Data.Spectrum <- function(
 
     if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
 
-      ##make different colour palette for energy valuesw
+      ##make different colour palette for energy values
       if (xaxis.energy) {
         col.violet <- c(2.76, ifelse(max(xlim) <= 4.13, max(xlim), 4.13))
         col.blue <- c(2.52, 2.76)
@@ -600,6 +601,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
       }else{
+        ##wavelength colours for wavelength axis
         col.violet <- c(ifelse(min(xlim) <= 300, min(xlim), 300),450)
         col.blue <- c(450,495)
         col.green <- c(495,570)
@@ -608,7 +610,6 @@ plot_RLum.Data.Spectrum <- function(
         col.red <- c(620,790)
         col.infrared <-
           c(790, ifelse(max(xlim) >= 800, max(xlim), 800))
-
 
         #set colour palette
         col <- unlist(sapply(1:length(x), function(i){
@@ -626,14 +627,11 @@ plot_RLum.Data.Spectrum <- function(
 
       }
 
-
-
       ##find unique colours
       col.unique <- unique(col)
 
       ##if only one colour value, then skip gradient calculation as it causes
-      ## an error
-
+      ##an error
       if(length(col.unique) > 1){
 
         ##set colour function for replacement
@@ -641,24 +639,20 @@ plot_RLum.Data.Spectrum <- function(
 
         ##get index for colour values to be cut from the current palette
         col.unique.index <-
-          sapply(1:length(col.unique), function(i) {
-            max(which(col == col.unique[i]))
+          vapply(col.unique, function(i) {
+            max(which(col == i))
 
-          })
-
+          }, numeric(1))
 
         ##remove last index (no colour gradient needed), for energy axis use the first value
         col.unique.index <- col.unique.index[-length(col.unique.index)]
 
-
         ##set borders for colour gradient recalculation
-        col.unique.index.min <- col.unique.index - (50)/bin.rows
-        col.unique.index.max <- col.unique.index + (50)/bin.rows
+        col.unique.index.min <- col.unique.index - (50/bin.rows)
+        col.unique.index.max <- col.unique.index + (50/bin.rows)
 
         ##set negative values to the lowest index
         col.unique.index.min[col.unique.index.min<=0] <- 1
-
-
 
         ##build up new index sequence (might be better)
         col.gradient.index <- as.vector(unlist((
@@ -743,14 +737,13 @@ plot_RLum.Data.Spectrum <- function(
           zlab = zlab,
           zlim = zlim,
           scale = TRUE,
-          col = col[1:(length(col)-1)], ##needed due to recycling of the colours
+          col = col[1:(length(x)-1)], ##needed due to recycling of the colours
           main = main,
           expand = expand,
           border = border,
           box = box,
           r = r,
           ticktype = ticktype)
-
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
