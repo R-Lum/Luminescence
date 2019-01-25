@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R bin_RLum.Data.R
 NULL
 
 #' Class `"RLum.Data.Spectrum"`
@@ -30,10 +30,10 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Spectrum", ...)`.
 #'
-#' @section Class version: 0.4.0
+#' @section Class version: 0.5.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
 #'
@@ -373,3 +373,66 @@ setMethod("names_RLum",
             names(object@info)
 
           })
+
+####################################################################################################
+###bin_RLum.Data()
+####################################################################################################
+#' @describeIn RLum.Data.Spectrum
+#' Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
+#' for wavalength/energy values the mean is calculated.
+#'
+#' @param bin_size.col [integer] (*with default*):
+#' set number of channels used for each bin, e.g. `bin_size.col = 2` means that
+#' two channels are binned. Note: The function does not check the input, very large values
+#' mean a full column binning (a single sum)
+#'
+#' @param bin_size.row [integer] (*with default*):
+#' set number of channels used for each bin, e.g. `bin_size.row = 2` means that
+#' two channels are binned. Note: The function does not check the input, very large values
+#' mean a full row binning (a single sum)
+#'
+#' @return
+#'
+#' **`bin_RLum.Data`**
+#'
+#' Same object as input, after applying the binning.
+#'
+#' @md
+#' @export
+setMethod(f = "bin_RLum.Data",
+          signature = "RLum.Data.Spectrum",
+          function(object, bin_size.col = 1, bin_size.row = 1) {
+
+            ##get matrix
+            m <- object@data
+
+            ##perform binning
+            ##we want to be efficient, so we start
+            ##with the larger object
+            if(bin_size.row > bin_size.col){
+              ##row binning first
+              m <- .matrix_binning(m, bin_size = bin_size.row)
+              m <- t(.matrix_binning(t(m), bin_size = bin_size.col))
+
+            }else{
+              ##column binning first
+              m <- t(.matrix_binning(t(m), bin_size = bin_size.col))
+              m <- .matrix_binning(m, bin_size = bin_size.row)
+
+            }
+
+            ##correct rownames (they must be wrong, since the are summed up by the
+            ##internal function)
+            groups <- rep(1:nrow(object@data), each = bin_size.row)[1:nrow(object@data)]
+            row_names <- as.numeric(rownames(object@data))
+
+            ##reset rownames
+            rownames(m) <- tapply(X = row_names, INDEX = groups, FUN = mean)
+
+            ##write back to object
+            object@data <- m
+
+            ##return object
+            return(object)
+          })
+
