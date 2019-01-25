@@ -137,8 +137,8 @@ echo "[CHECK PACKAGE]"
 echo ""
 
   VERSION=$(cat DESCRIPTION | grep Version: | awk '/Version/ {print substr($0, 10)}')
-  eval R CMD check --timings --as-cran ${PATHPACKAGE}/Luminescence_${VERSION}.tar.gz
-  #eval R CMD check --timings ${PATHPACKAGE}/Luminescence_${VERSION}.tar.gz
+  #eval R CMD check --timings --as-cran ${PATHPACKAGE}/Luminescence_${VERSION}.tar.gz
+  eval R CMD check --timings ${PATHPACKAGE}/Luminescence_${VERSION}.tar.gz
 
   echo -ne 'Example timing warnings...:\n\n'
   eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Timings.R /dev/null

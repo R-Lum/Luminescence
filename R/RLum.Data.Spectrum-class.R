@@ -30,10 +30,10 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Spectrum", ...)`.
 #'
-#' @section Class version: 0.5.0
+#' @section Class version: 0.5.1
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
 #'
@@ -303,7 +303,7 @@ setMethod(
 #'
 #' @return
 #'
-#' **`get_RLum`**
+#' **`[get_RLum]`**
 #'
 #' 1. A [matrix] with the spectrum values or
 #' 2. only the info object if `info.object` was set.
@@ -361,7 +361,7 @@ setMethod("get_RLum",
 #'
 #' @return
 #'
-#' **`names_RLum`**
+#' **`[names_RLum]`**
 #'
 #' The names of the info objects
 #'
@@ -393,7 +393,7 @@ setMethod("names_RLum",
 #'
 #' @return
 #'
-#' **`bin_RLum.Data`**
+#' **`[bin_RLum.Data]`**
 #'
 #' Same object as input, after applying the binning.
 #'
@@ -403,31 +403,30 @@ setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Spectrum",
           function(object, bin_size.col = 1, bin_size.row = 1) {
 
-            ##get matrix
-            m <- object@data
+            ##makee sure that we have no input problems
+            if(class(bin_size.col) != "numeric" || class(bin_size.row) != "numeric"){
+              stop("[bin_RLum.Data()] 'bin_size.row' and 'bin_size.col' must be of class 'numeric'!",
+                   call. = FALSE)
+            }
+
+            ##make sure that we do not get in trouble with negative values
+            bin_size.col <- abs(bin_size.col)
+            bin_size.row <- abs(bin_size.row)
 
             ##perform binning
             ##we want to be efficient, so we start
             ##with the larger object
             if(bin_size.row > bin_size.col){
               ##row binning first
-              m <- .matrix_binning(m, bin_size = bin_size.row)
-              m <- t(.matrix_binning(t(m), bin_size = bin_size.col))
+              m <- .matrix_binning(object@data, bin_size = bin_size.row, bin_col = FALSE, names = "mean")
+              m <- .matrix_binning(object@data, bin_size = bin_size.col, bin_col = TRUE, names = "groups")
 
             }else{
               ##column binning first
-              m <- t(.matrix_binning(t(m), bin_size = bin_size.col))
-              m <- .matrix_binning(m, bin_size = bin_size.row)
+              m <- .matrix_binning(object@data, bin_size = bin_size.col, bin_col = TRUE, names = "groups")
+              m <- .matrix_binning(object@data, bin_size = bin_size.row, bin_col = FALSE, names = "mean")
 
             }
-
-            ##correct rownames (they must be wrong, since the are summed up by the
-            ##internal function)
-            groups <- rep(1:nrow(object@data), each = bin_size.row)[1:nrow(object@data)]
-            row_names <- as.numeric(rownames(object@data))
-
-            ##reset rownames
-            rownames(m) <- tapply(X = row_names, INDEX = groups, FUN = mean)
 
             ##write back to object
             object@data <- m
