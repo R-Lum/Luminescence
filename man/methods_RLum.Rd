@@ -20,6 +20,7 @@
 \alias{subset.Risoe.BINfileData}
 \alias{subset.RLum.Analysis}
 \alias{bin.RLum.Data.Curve}
+\alias{bin.RLum.Data.Spectrum}
 \alias{length.RLum.Results}
 \alias{length.RLum.Analysis}
 \alias{length.RLum.Data.Curve}
@@ -102,6 +103,8 @@
 \method{subset}{RLum.Analysis}(x, subset = NULL, ...)
 
 bin.RLum.Data.Curve(x, bin_size = 2, ...)
+
+bin.RLum.Data.Spectrum(x, bin_size.row = 1, bin_size.col = 1, ...)
 
 \method{length}{RLum.Results}(x, ...)
 
