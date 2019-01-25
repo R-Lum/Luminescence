@@ -482,7 +482,7 @@ setMethod(f = "bin_RLum.Data",
               return(set_RLum(class = "RLum.Data.Curve",
                               data = object))
             } else{
-              warning("Argument 'bin_size' invald, nothing was done!")
+              warning("Argument 'bin_size' invalid, nothing was done!")
 
               ##just return the object
               return(object)
