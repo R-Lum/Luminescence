@@ -363,16 +363,27 @@ fancy_scientific <- function(l) {
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
 #
-#' This function allows efficient row binning of matricies and vectors and rownames
-#' averaging (you may say, presevering). Please note that the binning
-#' is realised on the row only, however, you can transpose the matrix for column
-#' binning.
+#' This function allows efficient binning of matricies including
+#' row and column name handling. Internally, the function uses [rowsum],
+#' means the binning is always applied on the rows. For column binning the function
+#' internally transposes the matrix first
 #'
 #' @param m [matrix] (**required**): the matrix uses the base function [rowsum]
 #'
 #' @param bin_size [integer] (*with default*): bin size
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @param bin_col [logical] (*with default*): applies the binning on the columns instead of the
+#' rows. If you want to perform binning on rows and columns, you have to call this function twice.
+#'
+#' @param names [character] (*with default*): the handling of the row and column names. The default
+#' `NULL` removes the column and row names. Other allowed input is: `'groups'` this uses the group
+#' name, e.g., the last time value of a group, `'mean'` this calculates the mean value of a group,
+#' `'sum'` to sum-up groups and you can provide any other value which will then be recycled throughout.
+#' For example: `c('row1', 'row2')`.
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#'
+#' @section Function version: 0.1.1
 #'
 #' @note Row and column names are transformed to numeric and also summed up; this is not a bug
 #' but a feature!
@@ -380,35 +391,71 @@ fancy_scientific <- function(l) {
 #' @return [matrix]
 #'
 #' @examples
-#'  m <- matrix(data = 1, ncol = 10, nrow = 20)
+#'  m <- matrix(data = c(rep(1:20,each = 20)), ncol = 10, nrow = 20)
 #'  rownames(m) <- 1:nrow(m)
 #'  colnames(m) <- 1:ncol(m)
 #'
-#'  .matrix_binning(m, bin_size = 4)
+#' .matrix_binning(m, bin_size = 4)
 #'
 #' @md
 #' @noRd
-.matrix_binning <- function(m, bin_size = 1){
+.matrix_binning <- function(
+  m,
+  bin_size = 1,
+  bin_col = FALSE,
+  names = NULL) {
 
+
+  # The only check ------------------------------------------------------------------------------
+  if(class(m) != "matrix")
+    stop("[.matrix_binning()] Input is not of class 'matrix'!", call. = FALSE)
+
+  # transpose in column mode --------------------------------------------------------------------
+  if(bin_col) m <- t(m)
+
+  # Binning calculation -------------------------------------------------------------------------
   ##set groups
   ##with the correction in the 2nd line we
   ##get rid potential problems
   groups <- rep(1:nrow(m), each = bin_size)[1:nrow(m)]
 
-  ##row binning
+  ##row binning (thats all)
   temp_m <- rowsum(m, group = groups)
 
-  ##get rownames correct (it is the end of each bin)
-  row_names <- rownames(m)[which(diff(groups) != 0)]
+  # Correct names -------------------------------------------------------------------------------
+  if(!is.null(names[1])){
+    if(names[1] == "groups"){
+      ##get rownames correct (it is the end of each bin)
+      row_names <- rownames(m)[which(diff(groups) != 0)]
 
-    ##correct last value
-    if(length(row_names) < nrow(m))
-      row_names <- c(row_names,rownames(m)[nrow(m)])
+      ##correct last value
+      if(length(row_names) < nrow(m))
+        row_names <- c(row_names,rownames(m)[nrow(m)])
 
-  ##correct
-  rownames(temp_m) <- row_names
+    }else if(names[1] == "mean"){
+      groups <- rep(1:nrow(m), each = bin_size)[1:nrow(m)]
+      row_names <- as.numeric(rownames(m))
+      row_names <- tapply(X = row_names, INDEX = groups, FUN = mean)
 
-  ##return
+    }else if(names[1] == "sum"){
+      row_names <- rowsum(as.numeric(rownames(m)), group = groups)
+
+    }else{
+      row_names <- names
+
+    }
+
+    ##reset rownames and make sure it fits the length
+    rownames(temp_m) <- rep(row_names, length.out = nrow(temp_m))
+
+  }else{
+    rownames(temp_m) <- NULL
+
+  }
+
+  # re-transpose in column mode -----------------------------------------------------------------
+  if(bin_col) temp_m <- t(temp_m)
+
+  # Return --------------------------------------------------------------------------------------
   return(temp_m)
-
 }
