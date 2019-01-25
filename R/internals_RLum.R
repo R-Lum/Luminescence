@@ -359,3 +359,56 @@ fancy_scientific <- function(l) {
 }
 
 
+#++++++++++++++++++++++++++++++
+#+ .matrix_binning            +
+#++++++++++++++++++++++++++++++
+#
+#' This function allows efficient row binning of matricies and vectors and rownames
+#' averaging (you may say, presevering). Please note that the binning
+#' is realised on the row only, however, you can transpose the matrix for column
+#' binning.
+#'
+#' @param m [matrix] (**required**): the matrix uses the base function [rowsum]
+#'
+#' @param bin_size [integer] (*with default*): bin size
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#'
+#' @note Row and column names are transformed to numeric and also summed up; this is not a bug
+#' but a feature!
+#'
+#' @return [matrix]
+#'
+#' @examples
+#'  m <- matrix(data = 1, ncol = 10, nrow = 20)
+#'  rownames(m) <- 1:nrow(m)
+#'  colnames(m) <- 1:ncol(m)
+#'
+#'  .matrix_binning(m, bin_size = 4)
+#'
+#' @md
+#' @noRd
+.matrix_binning <- function(m, bin_size = 1){
+
+  ##set groups
+  ##with the correction in the 2nd line we
+  ##get rid potential problems
+  groups <- rep(1:nrow(m), each = bin_size)[1:nrow(m)]
+
+  ##row binning
+  temp_m <- rowsum(m, group = groups)
+
+  ##get rownames correct (it is the end of each bin)
+  row_names <- rownames(m)[which(diff(groups) != 0)]
+
+    ##correct last value
+    if(length(row_names) < nrow(m))
+      row_names <- c(row_names,rownames(m)[nrow(m)])
+
+  ##correct
+  rownames(temp_m) <- row_names
+
+  ##return
+  return(temp_m)
+
+}
