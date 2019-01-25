@@ -3,26 +3,26 @@
 #' Function calls the object-specific bin functions for RLum.Data S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' [RLum.Data-class] objects. \cr 
-#' Depending on the input object, the corresponding function will be selected. 
-#' Allowed arguments can be found in the documentations of the corresponding 
+#' [RLum.Data-class] objects. \cr
+#' Depending on the input object, the corresponding function will be selected.
+#' Allowed arguments can be found in the documentations of the corresponding
 #' [RLum.Data-class] class.
 #'
-#' @param object [RLum.Data-class] (**required**): 
+#' @param object [RLum.Data-class] (**required**):
 #' S4 object of class `RLum.Data`
 #'
 #' @param ... further arguments passed to the specifc class method
 #'
 #' @return An object of the same type as the input object is provided
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5050, CNRS - Université Bordeaux Montaigne
 #' (France)
 #'
-#' @note Currenlty only `RLum.Data` objects of class [RLum.Data.Curve-class] are supported!
+#' @note Currently only `RLum.Data` objects of class [RLum.Data.Curve-class] and [RLum.Data.Spectrum-class] are supported!
 #'
-#' @seealso [RLum.Data.Curve-class]
+#' @seealso [RLum.Data.Curve-class], [RLum.Data.Spectrum-class]
 #'
 #' @examples
 #'
