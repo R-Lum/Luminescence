@@ -39,7 +39,7 @@
 #' @note This conversion works solely for emission spectra. In case of absorption spectra only
 #' the x-axsis has to be converted.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -157,6 +157,16 @@ convert_Wavelength2Energy <- function(
 
   # Treat input data ----------------------------------------------------------------------------
   if(class(object) == "RLum.Data.Spectrum"){
+    ##check whether the object might have this scale already
+    ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
+    if(any("curveDescripter" %in% names(object@info))){
+     if(any(grepl(pattern = "energy", x = tolower(object@info$curveDescripter), fixed = TRUE)))
+       message("[convert_Wavelength2Energy()] Your object has already an energy scale, nothing done!")
+       return(object)
+
+    }
+
+    ##convert data
     object@data <- .conv_intensity(object@data)
 
     #sort values if needed
@@ -164,6 +174,13 @@ convert_Wavelength2Energy <- function(
       object@data <-  object@data[order(as.numeric(rownames(object@data))),]
       rownames(object@data) <- sort(as.numeric(rownames(object@data)))
 
+    }
+
+    ##correct $curveDescripter (we do not attach the table, otherwise the object gets too big)
+    if(any("curveDescripter" %in% names(object@info))){
+     temp_descripter <- strsplit(object@info$curveDescripter, ";", TRUE)[[1]]
+     temp_descripter[grepl(x = temp_descripter,pattern = "wavelength", fixed = TRUE)] <- "energy [eV]"
+      object@info$curveDescripter <- paste(temp_descripter, collapse = ";")
     }
 
     ##return new object
