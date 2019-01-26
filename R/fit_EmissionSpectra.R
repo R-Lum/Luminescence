@@ -1,6 +1,7 @@
-#'@title Emission Spectra Deconvoluation
+#'@title Luminescence Emission Spectra Deconvolution
 #'
-#'@description Luminescence spectra signal deconvolution on [RLum.Data.Spectrum-class] objects
+#'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
+#'on an energy scale.
 #'
 #'@details ##TODO add details
 #'
@@ -10,6 +11,10 @@
 #'object. Please note that an energy spectrum is expected
 #'
 #'@param frame [numeric] (*optional*): defines the frame to be analysed
+#'
+#'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
+#'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
+#'`'energy'`. If nothing (`NULL`) is defined, the function tries to understand the input automatically.
 #'
 #'@param method_settings [list] (*optional*): options to control the fit method, see details
 #'
@@ -58,6 +63,7 @@
 fit_EmissionSpectra <- function(
   object,
   frame = NULL,
+  input_scale = NULL,
   method_settings = list(),
   verbose = TRUE,
   plot = TRUE,
@@ -119,7 +125,6 @@ fit_EmissionSpectra <- function(
   if(class(object) == "matrix" && ncol(object) > 2){
     rownames(object) <- NULL
 
-
     ##set frame
     if(is.null(frame)){
       frame <- 1:(ncol(object) -1)
@@ -145,7 +150,6 @@ fit_EmissionSpectra <- function(
   ##we have two types of lists,
   # Self-call -----------------------------------------------------------------------------------
   if(class(object) == "list"){
-
     ##get argument list
     args_list <- list(...)
 
@@ -163,8 +167,8 @@ fit_EmissionSpectra <- function(
     results <- lapply(1:length(object), function(o){
       fit_EmissionSpectra(
         object = object[[o]],
-        frame = names(object)[o],
         method_settings = method_settings,
+        frame = mtext[[o]],
         mtext = mtext[[o]],
         ... = args_list
 
@@ -178,11 +182,35 @@ fit_EmissionSpectra <- function(
   }
 
 
+  # Start main core -----------------------------------------------------------------------------
   ##backstop, from here we allow only a matrix
   if(class(object) != "matrix")
     stop("[fit_EmissionSpectra()] Input not supported, please read the manual!",call. = FALSE)
 
+  ##extract matrix for everything below
   m <- object[,1:2]
+
+  ##output
+  if(verbose){
+    cat("\n[fit_EmissionSpectra()]\n\n")
+    cat("\n>> Treating dataset >>",frame,"<<\n")
+
+  }
+  ##chech the scale
+  if(is.null(input_scale)){
+    ##values above 30 are unlikely, means its likely that we have a wavelength scale
+    if(max(m[,1]) > 30){
+      if(verbose) cat(">> Wavelength scale detected ...\n")
+      m <- convert_Wavelength2Energy(m, order = TRUE)
+      if(verbose) cat(">> Wavelength to energy scale conversion ... \t[OK]\n")
+
+    }
+
+  }else if(input_scale == "wavelength"){
+    m <- convert_Wavelength2Energy(m, order = TRUE)
+    if(verbose) cat(">> Wavelength to energy scale conversion ... \t[OK]\n")
+
+  }
 
   # set data.frame ------------------------------------------------------------------------------
   df <- data.frame(x = m[,1], y = m[,2])
@@ -232,8 +260,6 @@ fit_EmissionSpectra <- function(
   C <- NA
   sigma <- NA
 
-  ##output
-  if(verbose) cat("\n[fit_EmissionSpectra()]\n\n")
 
   ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
   ##run iterations
@@ -245,7 +271,7 @@ fit_EmissionSpectra <- function(
 
       ##make sure that we do not end up in an endless loop
       if(length(id_peaks) == 0){
-        if (verbose) cat("\r>> Searching components in frame", frame, "... [-]")
+        if (verbose) cat("\r>> Searching components ... \t\t\t[-]")
         run <- run + 1
         next()
       }
@@ -278,9 +304,9 @@ fit_EmissionSpectra <- function(
     if (class(fit_try) != "try-error") {
       success_counter <- success_counter + 1
       fit[[success_counter]] <- fit_try
-      if (verbose) cat("\r>> Searching components in frame", frame, "... [/]")
+      if (verbose) cat("\r>> Searching components ... \t\t\t[/]")
     } else{
-      if (verbose) cat("\r>> Searching components in frame", frame, "... [\\]")
+      if (verbose) cat("\r>> Searching components ... \t\t\t[\\]")
 
     }
 
@@ -292,10 +318,10 @@ fit_EmissionSpectra <- function(
 
   ## handle the output
   if(length(fit) == 0){
-    if (verbose) cat("\r>> Searching components in frame", frame, "... [FAILED]")
+    if (verbose) cat("\r>> Searching components ... \t\t\t[FAILED]")
 
   }else{
-    if (verbose) cat("\r>> Searching components in frame", frame, "... [DONE]")
+    if (verbose) cat("\r>> Searching components ... \t\t\t[OK]")
 
   }
 
@@ -343,7 +369,7 @@ fit_EmissionSpectra <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose && !is.na(m_coef)){
-    cat(paste0("\n>> Fitting results (",length(mu), " component model):\n"))
+    cat(paste0("\n\n>> Fitting results (",length(mu), " component model):\n"))
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
     cat("-------------------------------------------------------------------------")
