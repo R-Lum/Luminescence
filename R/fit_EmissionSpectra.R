@@ -6,8 +6,12 @@
 #'
 #'##TODO add tests
 #'
-#'@param object [RLum.Data.Spectrum-class], [data.frame], [matrix] (**required**): input
+#'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
 #'object. Please note that an energy spectrum is expected
+#'
+#'@param frame [numeric] (*optional*): defines the frame to be analysed
+#'
+#'@param method_settings [list] (*optional*): options to control the fit method, see details
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
@@ -53,31 +57,144 @@
 #'@export
 fit_EmissionSpectra <- function(
   object,
+  frame = NULL,
+  method_settings = list(),
   verbose = TRUE,
   plot = TRUE,
   ...
 ){
 
 
-  # Extract matrix ------------------------------------------------------------------------------
-  ##TODO if an RLum.Data.Spectrum object is used, we should iterate, but definition over all
-  ##frames
+  ## This function works only on a list of matricies, so what ever we do here, we have to
+  ## create a list of data treat, frame controls the number of frames analysed
 
-  ##From this point on, we assume that the first column of the matrix holds the energy information
-  ##TODO support data.frame
-  m <- object
+  ##input RLum.Data.Spectrum
+  if(class(object) == "RLum.Data.Spectrum")
+    object <- list(object)
 
-  ##create data.frame that will be needed below
+  ##stop, mixed input is not allowed
+  if(class(object) == "list" && length(unique(sapply(object, class))) != 1)
+    stop("[fit_EmissionSpectra()] List elements of different class detected!", call. = FALSE)
+
+
+  ##deal with RLum.Data.Spectrum lists
+  if(class(object) == "list" && all(sapply(object, class) == "RLum.Data.Spectrum")){
+    temp <- lapply(object, function(o){
+      ##get x-axis
+      x <- as.numeric(rownames(o@data))
+      rownames(o@data) <- NULL
+
+      ##set frame
+      if(is.null(frame)){
+        frame <- 1:ncol(o@data)
+
+      }else{
+        if(max(frame) > ncol(o@data)|| min(frame) < 1){
+          stop(
+            paste0(
+              "[fit_EmissionSpectra()] 'frame' invalid.Allowed range min: 1 and max:",ncol(o@data)),
+            call. = FALSE)
+
+        }
+
+      }
+
+      ##get frame
+      temp_frame <- lapply(frame, function(f) cbind(x, o@data[,f]))
+      names(temp_frame) <- paste0("Frame: ", frame)
+      return(temp_frame)
+
+    })
+
+    ##set object name
+    names(temp) <- paste0("ALQ: ", 1:length(temp))
+
+    ##unlist, now we have what we want
+    object <- unlist(temp, use.names = TRUE, recursive = FALSE)
+    rm(temp)
+
+  }
+
+  ##handle a single matrix that may have different columns
+  if(class(object) == "matrix" && ncol(object) > 2){
+    rownames(object) <- NULL
+
+
+    ##set frame
+    if(is.null(frame)){
+      frame <- 1:(ncol(object) -1)
+
+    }else{
+      if(max(frame) > (ncol(object)-1) || min(frame) < 1){
+        stop(
+          paste0(
+            "[fit_EmissionSpectra()] 'frame' invalid. Allowed range min: 1 and max: ", ncol(object)-1),"!",
+          call. = FALSE)
+
+      }
+
+    }
+
+    temp <- lapply(frame +1 , function(x) cbind(object[,1],object[,x]))
+    names(temp) <- paste0("Frame: ",frame)
+    object <- temp
+    rm(temp)
+  }
+
+  ##now treat different lists, the aim is to have a list of 2-column matricies
+  ##we have two types of lists,
+  # Self-call -----------------------------------------------------------------------------------
+  if(class(object) == "list"){
+
+    ##get argument list
+    args_list <- list(...)
+
+    ##recycle arguments
+    if(!"mtext" %in% names(args_list)){
+      mtext <- names(object)
+
+    }else{
+      mtext <- as.list(rep(args_list$mtext, length(object)))
+      args_list$mtext <- NULL
+
+    }
+
+    ##run over the list
+    results <- lapply(1:length(object), function(o){
+      fit_EmissionSpectra(
+        object = object[[o]],
+        frame = names(object)[o],
+        method_settings = method_settings,
+        mtext = mtext[[o]],
+        ... = args_list
+
+      )
+
+    })
+
+    ##merge output and return
+    return(merge_RLum(results))
+
+  }
+
+
+  ##backstop, from here we allow only a matrix
+  if(class(object) != "matrix")
+    stop("[fit_EmissionSpectra()] Input not supported, please read the manual!",call. = FALSE)
+
+  m <- object[,1:2]
+
+  # set data.frame ------------------------------------------------------------------------------
   df <- data.frame(x = m[,1], y = m[,2])
 
   # Settings ------------------------------------------------------------------------------------
-  ##creat peak find function ... this helps to get good start parameters
+  ##create peak finding function ... this helps to get good start parameters
   ##https://grokbase.com/t/r/r-help/05bqza71c4/r-finding-peaks-in-a-simple-dataset-with-r
-  ##author: Petr Pikal in 2004 with modifications by Sebastian Kreutzer
+  ##author: Petr Pikal in 2004; with modifications by Sebastian Kreutzer
   .peaks <- function(x, span, size = nrow(m)) {
     z <- stats::embed(x, span)
     s <- span %/% 2
-    ##this is just a rough, scaling for the channel number; hopefully it works
+    ##the part `ceiling(...)` scales the entire algorithm
     v <- max.col(z, ties.method = "first") == ceiling(10^(3 - log10(nrow(m)))) + s
     result <- c(rep(FALSE, s), v)
     result <- result[1:(length(result) - s)]
@@ -98,31 +215,43 @@ fit_EmissionSpectra <- function(
   }
 
   # Fitting -------------------------------------------------------------------------------------
-  ##set parameters
+
+  #set method parameters
+  method_settings <- modifyList(x = list(
+    max.runs = 1000,
+    trace = FALSE
+
+  ), val = method_settings)
+
+
+  ##initialse objects
   success_counter <- 0
   run <- 0
   fit <- list()
+  mu <- NA
+  C <- NA
+  sigma <- NA
 
   ##output
-  if(verbose){
-    cat("\n[fit_EmissionSpectra()]\n")
-    cat("\nSearching components ... ")
+  if(verbose) cat("\n[fit_EmissionSpectra()]\n\n")
 
-  }
-
+  ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
   ##run iterations
-  while(success_counter < 100 && run < 1000){
+  while(success_counter < 100 && run < method_settings$max.runs){
 
     ##try to find start parameters
     ##identify peaks
     id_peaks <- .peaks(m[,2], sample(25:(nrow(m) - 1), 1))
-      ##prevent break
+
+      ##make sure that we do not end up in an endless loop
       if(length(id_peaks) == 0){
-        if (verbose) cat("\r>> Searching components ... [-]")
+        if (verbose) cat("\r>> Searching components in frame", frame, "... [-]")
         run <- run + 1
         next()
       }
 
+    ##set start parameters for fitting
+    ##TODO: maybe we allow manual start parameters, but better would be a semi-automated solution
     mu <- m[id_peaks,1]
     sigma <- rep(sample(0.01:10,1),length(mu))
     C <- rep(max(df[[2]])/2, length(mu))
@@ -136,7 +265,7 @@ fit_EmissionSpectra <- function(
       formula = fit_forumla(n.components = length(mu)),
       data = df,
       start = c(sigma, mu, C),
-      trace = FALSE,
+      trace = method_settings$trace,
       lower = rep(0, 3 * length(mu)),
       upper = c(
         rep(1000, length(mu)),
@@ -145,12 +274,13 @@ fit_EmissionSpectra <- function(
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = TRUE)
 
+    ##handle output
     if (class(fit_try) != "try-error") {
       success_counter <- success_counter + 1
       fit[[success_counter]] <- fit_try
-      if (verbose) cat("\r>> Searching components ... [/]")
+      if (verbose) cat("\r>> Searching components in frame", frame, "... [/]")
     } else{
-      if (verbose) cat("\r>> Searching components ... [\\]")
+      if (verbose) cat("\r>> Searching components in frame", frame, "... [\\]")
 
     }
 
@@ -158,27 +288,24 @@ fit_EmissionSpectra <- function(
     run <- run + 1
 
   }
+  ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
 
-  ##break heare
+  ## handle the output
   if(length(fit) == 0){
-    if (verbose) cat("\r>> Searching components ... [FAILED]")
-    return(NULL)
+    if (verbose) cat("\r>> Searching components in frame", frame, "... [FAILED]")
 
   }else{
-    if (verbose) cat("\r>> Searching components ... [DONE]")
+    if (verbose) cat("\r>> Searching components in frame", frame, "... [DONE]")
 
   }
 
   ##Extract best fit values
-  ##TODO ... should be improved, not very good
+  ##TODO ... should be improved, its works, but maybe there are better solutions
   if (length(fit) != 0) {
     ##obtain the fit with the best fit
-    best_fit <- vapply(fit, function(x) {
-      sum(residuals(x) ^ 2)
-
-    }, numeric(1))
-
+    best_fit <- vapply(fit, function(x) sum(residuals(x) ^ 2), numeric(1))
     fit <- fit[[which.min(best_fit)]]
+
   }else{
     fit <- NA
 
@@ -186,7 +313,7 @@ fit_EmissionSpectra <- function(
 
   # Extract values ------------------------------------------------------------------------------
   ##extract components
-  if(class(fit) == "nls"){
+  if(!is.na(fit) && class(fit) == "nls"){
     ##extract values we need only
     m_coef <- summary(fit)$coefficients
     m_coef <- matrix(
@@ -216,11 +343,12 @@ fit_EmissionSpectra <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose && !is.na(m_coef)){
-    cat("\n\n>> Fitting results \n")
+    cat(paste0("\n>> Fitting results (",length(mu), " component model):\n"))
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
     cat("-------------------------------------------------------------------------")
-    cat("\n ( SE: standard error | SSR: ",min(best_fit),")")
+    cat(paste0("\nSE: standard error | SSR: ",min(best_fit)))
+    cat("\n(use output in $fit for a more detailed analysis)\n\n")
 
   }
 
@@ -234,20 +362,26 @@ fit_EmissionSpectra <- function(
     plot_settings <- modifyList(x = list(
       xlab = "Energy [eV]",
       ylab = "Luminescence [a.u.]",
-      main = "",
+      main = "Emission Spectrum Deconvolution",
       xlim = range(df[[1]]),
-      ylim = range(df[[2]])
+      ylim = range(df[[2]]),
+      log = "",
+      mtext = "",
+      legend = TRUE,
+      legend.pos = "topright",
+      legend.text = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " keV"))
 
     ), val = list(...))
 
-    if(class(fit) != "try-error"){
+
+    if(!is.na(fit) && class(fit) != "try-error"){
     ##make sure that the screen closes if something is wrong
     on.exit(close.screen(all.screens = TRUE))
 
     ##set split screen settings
     split.screen(rbind(
       c(0.1,1,0.32, 0.98),
-      c(0.1,1,0.1, 0.32)))
+      c(0.1,1,0.1, 0.315)))
 
     ##SCREEN 1 ========================
     screen(1)
@@ -260,23 +394,16 @@ fit_EmissionSpectra <- function(
       xlim = plot_settings$xlim,
       ylim = plot_settings$ylim,
       main = plot_settings$main,
-      col = rgb(0, 0, 0, .6)
-    )
-
-    ##add wavelength axis
-    h <- 4.135667662e-15 #eV * s
-    c <- 299792458e+09 #nm/s
-    axis(
-      side = 3,
-      labels = paste(round((h * c) / axTicks(side = 3), 0), "nm"),
-      at = axTicks(side = 3),
-      cex.axis = .8,
-      line = -.9,
-      tick = FALSE
+      col = rgb(0, 0, 0, .6),
+      xaxt = "n",
+      log = plot_settings$log
     )
 
     ##plot sum curve
     lines(x = df[[1]], y = predict(fit), col = col[1], lwd = 1.5)
+
+    ##add mtext
+    mtext(side = 3, text = plot_settings$mtext)
 
     ##add components
     for(i in 1:length(mu)){
@@ -289,13 +416,15 @@ fit_EmissionSpectra <- function(
     }
 
     ##add legend
-    legend(
-      "topright",
-      legend = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " keV")),
-      lwd = 1,
-      col = col[1:(length(mu) + 2)],
-      bty = "n"
-    )
+    if(plot_settings$legend){
+      legend(
+        plot_settings$legend.pos,
+        legend = plot_settings$legend.text,
+        lwd = 1,
+        col = col[1:(length(mu) + 2)],
+        bty = "n"
+      )
+    }
 
     ##SCREEN 2 ========================
     screen(2)
@@ -309,11 +438,32 @@ fit_EmissionSpectra <- function(
       yaxt = "n",
       xlim = plot_settings$xlim,
       ylab = "\u03B5",
-      col = rgb(0,0,0,.6)
+      col = rgb(0,0,0,.6),
+      log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
+    )
+
+    ##add wavelength axis
+    h <- 4.135667662e-15 #eV * s
+    c <- 299792458e+09 #nm/s
+    axis(
+      side = 1,
+      labels = paste("(",round((h * c) / axTicks(side = 3), 0), "nm)"),
+      at = axTicks(side = 3),
+      cex.axis = .7,
+      line = .8,
+      tick = FALSE
     )
 
   }else{
-    plot(df)
+
+    ##provide control plot
+    plot(df, main = "fit_EmissionSpectra() - control plot")
+
+    ##abline
+    abline(v = mu, lty = 2)
+
+    ##add information
+    mtext(side = 3, text = "(dashed lines indicate identified peaks)")
 
     ##add components
     for(i in 1:length(mu)){
@@ -336,7 +486,7 @@ fit_EmissionSpectra <- function(
     info = list(call = sys.call())
   )
 
+  ##return
   return(results)
 
 }
-
