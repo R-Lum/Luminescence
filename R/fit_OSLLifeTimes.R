@@ -30,7 +30,7 @@
 #' **`method_control`**
 #'
 #' \tabular{lll}{
-#' **Parameter** \tab **Type** \tab **Descritpion**\cr
+#' **Parameter** \tab **Type** \tab **Description**\cr
 #' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::qf])\cr
 #' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 #' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr

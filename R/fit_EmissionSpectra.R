@@ -1,11 +1,57 @@
 #'@title Luminescence Emission Spectra Deconvolution
 #'
 #'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
-#'on an energy scale.
+#'on an **energy scale**. The function is optimised for emission spectra typially obtained in the context
+#'of TL, OSL and RF measurements detected between 200 and 1000 nm.
 #'
-#'@details ##TODO add details
+#'@details
 #'
-#'##TODO add tests
+#'**Used equation**
+#'
+#'The emission spectra (on an energy scale) can be best described as the sum of multiple
+#'Gaussian components:
+#'
+#'\deqn{
+#'
+#' y = \Sigma  C_i * 1/(\sigma_i * \sqrt(2 * \pi)) * exp(1/2 * ((x - \mu_i)/\sigma_i))^2)
+#'
+#'}
+#'
+#'with the parameters \eqn{\sigma} (peak width) and \eqn{\mu} (peak centre) and \eqn{C}
+#'(scaling factor).
+#'
+#'
+#'**Start parameter estimation and fitting algorithm**
+#'
+#'The spectrum deconvolution consits of the following steps:
+#'
+#'1. Peak finding \cr
+#'2. Start parameter estimation \cr
+#'3. Fitting via [minpack.lm::nls.lm]\cr
+#'
+#'The peak finding is realised by an approach (re-)suggested by Petr Pikal via the R-help
+#'mailing list (https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html) in November 2005.
+#'This goes back to even earlier discussion in 2001 based on Prof Brian Ripley's idea.
+#'It smartly uses the functions [stats::embed] and [max.col] to identify peaks positions.
+#'For the use in this context, the algorithm has been further modified to scale on the
+#'input data resolution (cv source code).\cr
+#'
+#'The start parameter estimation uses random sampling from a range of meaningful parameters
+#'and repeats the fitting until 100 sucessful fits have been produced or the set `max.runs` value
+#'is exceeded.
+#'
+#'Currently the best fit is the one with the lowest number for squared residuals.
+#'
+#'
+#'**Supported `method_control` settings**
+#'
+#'\tabular{llll}{
+#' **Parameter** \tab **Type** \tab **Default** \tab **Descritpion**\cr
+#' `max.runs` \tab [integer] \tab `1000` \tab maximum allowed search iterations, if exceed
+#' the searching stops \cr
+#' `trace` \tab [logical] \tab `FALSE` \tab enables/disables the tracing of the minimisation routine
+#'
+#'}
 #'
 #'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
 #'object. Please note that an energy spectrum is expected
@@ -14,18 +60,55 @@
 #'
 #'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
 #'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
-#'`'energy'`. If nothing (`NULL`) is defined, the function tries to understand the input automatically.
+#'`'energy'`. If nothing (`NULL`) is defined, the function tries to understand the input
+#'automatically.
 #'
-#'@param method_settings [list] (*optional*): options to control the fit method, see details
+#'@param method_control [list] (*optional*): options to control the fit method, see details
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
 #'@param plot [logical] (*with default*): enable/disable plot output
 #'
-#'@param ... further arguments to be passed to control the plot output (e.g., `main`, `xlab`, `ylab`)
+#'@param ... further arguments to be passed to control the plot output
+#'(supported: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `log`, `mtext`, `legend` (`TRUE` or `FALSE`),
+#'`legend.text`, `legend.pos`)
+#'
+#'@return
+#' -----------------------------------\cr
+#' `[ NUMERICAL OUTPUT ]`\cr
+#' -----------------------------------\cr
+#'
+#' **`RLum.Results`**-object
+#'
+#' **slot:** **`@data`**
+#'
+#' \tabular{lll}{
+#'  **Element** \tab **Type** \tab **Description**\cr
+#'  `$data` \tab `matrix` \tab the final fit matrix \cr
+#'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm]
+#' }
 #'
 #'
-#'@return Returns an [RLum.Results-class] object ##TODO
+#'**slot:** **`@info`**
+#'
+#' The original function call
+#'
+#' ------------------------\cr
+#' `[ TERMINAL OUTPUT ]`   \cr
+#' ------------------------\cr
+#'
+#' The terminal output provides brief information on the
+#' deconvolution process and the obtained results.
+#' Terminal output is only shown of the argument `verbose = TRUE`.
+#'
+#' ------------------------\cr
+#' `[ PLOT OUTPUT ]`      \cr
+#' ------------------------\cr
+#'
+#' The function returns a plot showing the raw signal with the
+#' detected components. If the fitting failed, a basic plot is returned
+#' showing the raw data and indicating the peaks detected for the start
+#' parameter estimation.
 #'
 #'@note Beta version, not uet recommended for productive usage
 #'
@@ -33,7 +116,8 @@
 #'
 #'@author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
-#'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum], [convert_Wavelength2Energy]
+#'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
+#'[convert_Wavelength2Energy], [minpack.lm::nls.lm]
 #'
 #'@keywords datagen
 #'
@@ -42,19 +126,21 @@
 #'@examples
 #'
 #'##deconvolution of a TL spectrum
-#'##TODO should be modified ... the bg substraction is odd, also the object conversion
+#'##TODO should be modified ...
+#'the bg substraction is odd, also the object conversion
 #'\dontrun{
 #'
 #' ##load example data
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ##subtract background
-#' m <- TL.Spectrum@data
-#' m <- m - m[, 15]
-#' m <- cbind(as.numeric(rownames(m)), m[,5])
-#' m <- convert_Wavelength2Energy(m, order = TRUE)
-#' m[m[,2] < 0 ,2] <- 0
-#' results <- fit_EmissionSpectra(m, main = "TL spectrum")
+#' TL.Spectrum@data <- TL.Spectrum@data[] - TL.Spectrum@data[,15]
+#'
+#' ##replace 0 values
+#' TL.Spectrum@data[TL.Spectrum@data < 0] <- 0
+#' results <- fit_EmissionSpectra(
+#'  object = TL.Spectrum,
+#'  frame = 5, main = "TL spectrum")
 #'
 #'}
 #'
@@ -64,12 +150,17 @@ fit_EmissionSpectra <- function(
   object,
   frame = NULL,
   input_scale = NULL,
-  method_settings = list(),
+  method_control = list(),
   verbose = TRUE,
   plot = TRUE,
   ...
 ){
 
+
+  ##TODO: handle negative values >> we do not allow a fit, but we should allow a replacement
+  ##TODO: Allow semi-automated start parameter estimation
+  ##TODO: Allo the peak to vary, to get better results
+  ##TODO: Find a way to get a significant number of compoents
 
   ## This function works only on a list of matricies, so what ever we do here, we have to
   ## create a list of data treat, frame controls the number of frames analysed
@@ -167,7 +258,7 @@ fit_EmissionSpectra <- function(
     results <- lapply(1:length(object), function(o){
       fit_EmissionSpectra(
         object = object[[o]],
-        method_settings = method_settings,
+        method_control = method_control,
         frame = mtext[[o]],
         mtext = mtext[[o]],
         ... = args_list
@@ -218,6 +309,7 @@ fit_EmissionSpectra <- function(
   # Settings ------------------------------------------------------------------------------------
   ##create peak finding function ... this helps to get good start parameters
   ##https://grokbase.com/t/r/r-help/05bqza71c4/r-finding-peaks-in-a-simple-dataset-with-r
+  ##https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html
   ##author: Petr Pikal in 2004; with modifications by Sebastian Kreutzer
   .peaks <- function(x, span, size = nrow(m)) {
     z <- stats::embed(x, span)
@@ -245,11 +337,11 @@ fit_EmissionSpectra <- function(
   # Fitting -------------------------------------------------------------------------------------
 
   #set method parameters
-  method_settings <- modifyList(x = list(
+  method_control <- modifyList(x = list(
     max.runs = 1000,
     trace = FALSE
 
-  ), val = method_settings)
+  ), val = method_control)
 
 
   ##initialse objects
@@ -263,7 +355,7 @@ fit_EmissionSpectra <- function(
 
   ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
   ##run iterations
-  while(success_counter < 100 && run < method_settings$max.runs){
+  while(success_counter < 100 && run < method_control$max.runs){
 
     ##try to find start parameters
     ##identify peaks
@@ -291,7 +383,7 @@ fit_EmissionSpectra <- function(
       formula = fit_forumla(n.components = length(mu)),
       data = df,
       start = c(sigma, mu, C),
-      trace = method_settings$trace,
+      trace = method_control$trace,
       lower = rep(0, 3 * length(mu)),
       upper = c(
         rep(1000, length(mu)),
