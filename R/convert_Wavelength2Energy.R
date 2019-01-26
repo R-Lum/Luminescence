@@ -157,14 +157,16 @@ convert_Wavelength2Energy <- function(
 
   # Treat input data ----------------------------------------------------------------------------
   if(class(object) == "RLum.Data.Spectrum"){
-    ##check whether the object might have this scale already
+     ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){
-     if(any(grepl(pattern = "energy", x = tolower(object@info$curveDescripter), fixed = TRUE)))
-       message("[convert_Wavelength2Energy()] Your object has already an energy scale, nothing done!")
-       return(object)
+     if(any(grepl(pattern = "energy", x = tolower(object@info$curveDescripter), fixed = TRUE))){
+         message("[convert_Wavelength2Energy()] Your object has already an energy scale, nothing done!")
+         return(object)
+     }
 
     }
+
 
     ##convert data
     object@data <- .conv_intensity(object@data)
