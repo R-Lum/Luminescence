@@ -33,6 +33,10 @@ test_that("test convert functions", {
   ##test the list option
   expect_is(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), class = "list")
 
+  ##test special treatment of RLum.Data.Spectrum objects
+  object@info[["curveDescripter"]] <- "energy"
+  expect_message(convert_Wavelength2Energy(object), regexp = "Your object has already an energy scale, nothing done!")
+
   ##Code below just a cross check if wanted
   ##matrix
   # m <- cbind(as.numeric(rownames(data)), data)
