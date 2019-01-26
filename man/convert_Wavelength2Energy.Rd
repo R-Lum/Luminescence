@@ -49,7 +49,7 @@ This conversion works solely for emission spectra. In case of absorption spectra
 the x-axsis has to be converted.
 }
 \section{Function version}{
- 0.1.0 (2019-01-24 11:01:06)
+ 0.1.1 (2019-01-26 09:39:46)
 }
 
 \examples{
@@ -106,7 +106,7 @@ plot(
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.54. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.62. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

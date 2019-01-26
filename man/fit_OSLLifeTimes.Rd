@@ -121,7 +121,7 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 \strong{\code{method_control}}
 
 \tabular{lll}{
-\strong{Parameter} \tab \strong{Type} \tab \strong{Descritpion}\cr
+\strong{Parameter} \tab \strong{Type} \tab \strong{Description}\cr
 \code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:qf]{stats::qf})\cr
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
@@ -134,7 +134,7 @@ The default values is \code{TRUE} \cr
 }
 }
 \section{Function version}{
- 0.1.1 (2019-01-14 19:11:37)
+ 0.1.1 (2019-01-26 10:41:01)
 }
 
 \examples{
@@ -144,7 +144,7 @@ print("nothing here so far")
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.54. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.62. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

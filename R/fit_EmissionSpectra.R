@@ -1,8 +1,8 @@
 #'@title Luminescence Emission Spectra Deconvolution
 #'
 #'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
-#'on an **energy scale**. The function is optimised for emission spectra typially obtained in the context
-#'of TL, OSL and RF measurements detected between 200 and 1000 nm.
+#'on an **energy scale**. The function is optimised for emission spectra typially
+#'obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
 #'
 #'@details
 #'
@@ -11,10 +11,8 @@
 #'The emission spectra (on an energy scale) can be best described as the sum of multiple
 #'Gaussian components:
 #'
-#'\deqn{
-#'
-#' y = \Sigma  C_i * 1/(\sigma_i * \sqrt(2 * \pi)) * exp(1/2 * ((x - \mu_i)/\sigma_i))^2)
-#'
+#''\deqn{
+#'y = \Sigma  Ci * 1/(\sigma_{i} * \sqrt(2 * \pi)) * exp(1/2 * ((x - \mu_{i})/\sigma_{i}))^2)
 #'}
 #'
 #'with the parameters \eqn{\sigma} (peak width) and \eqn{\mu} (peak centre) and \eqn{C}
@@ -58,10 +56,16 @@
 #'
 #'@param frame [numeric] (*optional*): defines the frame to be analysed
 #'
+#'@param start_parameters (*optional*): allows to provide own start parameters for a
+#'semi-automated precedure. ##TODO
+#'
 #'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
 #'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
 #'`'energy'`. If nothing (`NULL`) is defined, the function tries to understand the input
 #'automatically.
+#'
+#'@param sub_negative [numeric] (*with default*): substitute negative values in the input object
+#'by the number provided here (default: `0`). Can be set to `NULL`, i.e. negative values are kept.
 #'
 #'@param method_control [list] (*optional*): options to control the fit method, see details
 #'
@@ -125,22 +129,21 @@
 #'
 #'@examples
 #'
-#'##deconvolution of a TL spectrum
-#'##TODO should be modified ...
-#'the bg substraction is odd, also the object conversion
-#'\dontrun{
+#' ##deconvolution of a TL spectrum
+#' ##TODO should be modified ...
+#' \dontrun{
 #'
 #' ##load example data
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ##subtract background
-#' TL.Spectrum@data <- TL.Spectrum@data[] - TL.Spectrum@data[,15]
+#' TL.Spectrum@@data <- TL.Spectrum@@data[] - TL.Spectrum@@data[,15]
 #'
 #' ##replace 0 values
-#' TL.Spectrum@data[TL.Spectrum@data < 0] <- 0
 #' results <- fit_EmissionSpectra(
 #'  object = TL.Spectrum,
-#'  frame = 5, main = "TL spectrum")
+#'  frame = 5, main = "TL spectrum"
+#' )
 #'
 #'}
 #'
@@ -149,6 +152,8 @@
 fit_EmissionSpectra <- function(
   object,
   frame = NULL,
+  start_parameters = NULL,
+  sub_negative = 0,
   input_scale = NULL,
   method_control = list(),
   verbose = TRUE,
@@ -156,10 +161,7 @@ fit_EmissionSpectra <- function(
   ...
 ){
 
-
-  ##TODO: handle negative values >> we do not allow a fit, but we should allow a replacement
   ##TODO: Allow semi-automated start parameter estimation
-  ##TODO: Allo the peak to vary, to get better results
   ##TODO: Find a way to get a significant number of compoents
 
   ## This function works only on a list of matricies, so what ever we do here, we have to
@@ -258,6 +260,7 @@ fit_EmissionSpectra <- function(
     results <- lapply(1:length(object), function(o){
       fit_EmissionSpectra(
         object = object[[o]],
+        sub_negative = sub_negative,
         method_control = method_control,
         frame = mtext[[o]],
         mtext = mtext[[o]],
@@ -280,6 +283,10 @@ fit_EmissionSpectra <- function(
 
   ##extract matrix for everything below
   m <- object[,1:2]
+
+  ##replace all negative values
+  if(!is.null(sub_negative))
+    m[m[,2] < 0,2] <- sub_negative
 
   ##output
   if(verbose){
