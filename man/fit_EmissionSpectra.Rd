@@ -4,11 +4,16 @@
 \alias{fit_EmissionSpectra}
 \title{Emission Spectra Deconvoluation}
 \usage{
-fit_EmissionSpectra(object, verbose = TRUE, plot = TRUE, ...)
+fit_EmissionSpectra(object, frame = NULL, method_settings = list(),
+  verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}): input
+\item{object}{\linkS4class{RLum.Data.Spectrum}, \link{matrix} (\strong{required}): input
 object. Please note that an energy spectrum is expected}
+
+\item{frame}{\link{numeric} (\emph{optional}): defines the frame to be analysed}
+
+\item{method_settings}{\link{list} (\emph{optional}): options to control the fit method, see details}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable verbose mode}
 
@@ -31,7 +36,7 @@ Luminescence spectra signal deconvolution on \linkS4class{RLum.Data.Spectrum} ob
 Beta version, not uet recommended for productive usage
 }
 \section{Function version}{
- 0.1.0 (2019-01-25 14:15:02)
+ 0.1.0 (2019-01-25 22:13:19)
 }
 
 \examples{
@@ -56,7 +61,7 @@ results <- fit_EmissionSpectra(m, main = "TL spectrum")
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). fit_EmissionSpectra(): Emission Spectra Deconvoluation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.51. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). fit_EmissionSpectra(): Emission Spectra Deconvoluation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.54. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
