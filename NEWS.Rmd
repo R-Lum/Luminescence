@@ -70,7 +70,11 @@ efficient cleaner than the code used before
 
 
 ### Changes in S4-objects and methods
-* `RLum.Data.Spectrum-class` got a support for `bin_RLum.Data()`
+#### `RLum.Analysis-class`
+* The show-method crashed under very rare circumstances if inconsistent objects had been combined; fixed.
+
+#### `RLum.Data.Spectrum-class` 
+* Support added for `bin_RLum.Data()`
 
 ### Internals
 
