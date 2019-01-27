@@ -1,16 +1,17 @@
 #' Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object
 #'
-#' The function provides several methods for cosmic ray removal and spectrum
-#' smoothing for an RLum.Data.Spectrum S4 class object
+#' The function provides several methods for cosmic-ray removal and spectrum
+#' smoothing [RLum.Data.Spectrum-class] objects and such objects embedded in [list] or
+#' [RLum.Analysis-class] objects.
 #'
 #' **`method = "Pych"`**
 #'
 #' This method applies the cosmic-ray removal algorithm described by Pych
-#' (2003). Some aspects that are different to the publication: 
-#' 
-#' - For interpolation between neighbouring values the median and not the mean is used. 
+#' (2003). Some aspects that are different to the publication:
+#'
+#' - For interpolation between neighbouring values the median and not the mean is used.
 #' - The number of breaks to construct the histogram is set to: `length(number.of.input.values)/2`
-#' 
+#'
 #' For further details see references below.
 #'
 #'**`method = "smooth"`**
@@ -22,7 +23,7 @@
 #' **`method = "smooth.spline"`**
 #'
 #' Method uses the function [smooth.spline] to remove cosmic rays.
-#' 
+#'
 #' Arguments that can be passed are: `spar`
 #'
 #' **How to combine methods?**
@@ -30,53 +31,55 @@
 #' Different methods can be combined by applying the method repeatedly to the
 #' dataset (see example).
 #'
-#' @param object [RLum.Data.Spectrum-class] (**required**): 
-#' S4 object of class `RLum.Data.Spectrum`
+#' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**): input
+#' object to be treated. This can be also provided as [list]. If an [RLum.Analysis-class] object
+#' is provided, only the [RLum.Data.Spectrum-class] objects are treated. Please note: this mixing of
+#' objects do not work for a list of [RLum.Data-class] objects.
 #'
-#' @param method [character] (*with default*): 
-#' Defines method that is applied for cosmic ray removal. Allowed methods are 
+#' @param method [character] (*with default*):
+#' Defines method that is applied for cosmic ray removal. Allowed methods are
 #' `smooth`, the default, ([smooth]), `smooth.spline` ([smooth.spline])
 #' and `Pych`. See details for further information.
 #'
-#' @param method.Pych.smoothing [integer] (*with default*): 
-#' Smoothing parameter for cosmic ray removal according to Pych (2003). 
-#' The value defines how many neighboring values in each frame are used for smoothing 
+#' @param method.Pych.smoothing [integer] (*with default*):
+#' Smoothing parameter for cosmic ray removal according to Pych (2003).
+#' The value defines how many neighboring values in each frame are used for smoothing
 #' (e.g., `2` means that the two previous and two following values are used).
 #'
-#' @param method.Pych.threshold_factor [numeric] (*with default*): 
-#' Threshold for zero-bins in the histogram. Small values mean that more peaks 
+#' @param method.Pych.threshold_factor [numeric] (*with default*):
+#' Threshold for zero-bins in the histogram. Small values mean that more peaks
 #' are removed, but signal might be also affected by this removal.
 #'
-#' @param MARGIN [integer] (*with default*): 
-#' on which part the function cosmic ray removal should be applied on: 
-#' 
-#' - 1 = along the time axis (line by line), 
-#' - 2 = along the wavelength axis (column by column). 
-#' 
+#' @param MARGIN [integer] (*with default*):
+#' on which part the function cosmic ray removal should be applied on:
+#'
+#' - 1 = along the time axis (line by line),
+#' - 2 = along the wavelength axis (column by column).
+#'
 #' **Note:** This argument currently only affects the methods `smooth` and `smooth.spline`
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' Option to suppress terminal output.,
 #'
-#' @param plot [logical] (*with default*): 
-#' If `TRUE` the histograms used for the cosmic-ray removal are returned as plot 
+#' @param plot [logical] (*with default*):
+#' If `TRUE` the histograms used for the cosmic-ray removal are returned as plot
 #' including the used threshold. Note: A separat plot is returned for each frame!
 #' Currently only for `method = "Pych"` a graphical output is provided.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the [smooth] function.
 #'
-#' @return Returns same object as input ([RLum.Data.Spectrum-class])
+#' @return Returns same object as input.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.3.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [smooth], [smooth.spline], 
+#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [smooth], [smooth.spline],
 #' [apply_CosmicRayRemoval]
 #'
-#' @references 
+#' @references
 #' Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 #' Single Images. Astrophysics 116, 148-153.
 #' [http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail]()
@@ -104,12 +107,80 @@ apply_CosmicRayRemoval <- function(
   ...
 ){
 
+  # Self-call ----------------------------------------------------------------------------------
+  ##Black magic: The function recalls itself until all RLum.Data.Spectrum objects have been treated
+  ##If you want to test the basics of the function please only use a single RLum.Data.Spectrum-object
+  ##if it comes in as an RLum.Analysis object ... make a list out of it
+  if(class(object) == "RLum.Analysis"){
+    object <- list(object)
+    class_original <- "RLum.Analysis"
+
+  }else{
+    class_original <- NULL
+
+  }
+
+  ##handle the list and recall
+  if(class(object) == "list"){
+    results_list <- lapply(object, function(o){
+
+      ##preset objects
+      record_id.spectra <- NULL
+
+      ##RLum.Analysis
+      if(class(o) == "RLum.Analysis"){
+         ##get id of RLum.Data.Spectrum objects in this object
+         record_id.spectra <- which(
+           vapply(o@records, function(x) class(x) == "RLum.Data.Spectrum", logical(1)))
+
+         ##rewrite o
+         temp_o <- o@records[record_id.spectra]
+
+      }else{
+        temp_o <- o
+
+      }
+
+      ##call function
+      results <- apply_CosmicRayRemoval(
+        object = temp_o,
+        method = method,
+        method.Pych.smoothing = method.Pych.smoothing,
+        method.Pych.threshold_factor = method.Pych.threshold_factor,
+        MARGIN = MARGIN,
+        verbose = verbose,
+        plot = plot,
+        ... = list(...)
+        )
+
+      ##combine in RLum.Analysis object if needed
+      if(!is.null(record_id.spectra)){
+        o@records[record_id.spectra] <- results
+        return(o)
+
+      }else{
+        return(results)
+
+      }
+
+    })
+
+    ##final return, make sure that we return what we had as input
+    if(!is.null(class_original)){
+      return(results_list[[1]])
+
+    }else{
+      return(results_list)
+
+    }
+
+  }
+
   # Integrity check -----------------------------------------------------------
 
   ##check if object is of class RLum.Data.Spectrum
   if(class(object) != "RLum.Data.Spectrum"){
-
-    stop("[apply_CosmicRayRemoval()] Input object is not of type RLum.Data.Spectrum")
+    stop(paste0("[apply_CosmicRayRemoval()] An object of class '",class(object)[1], "' is not supported as input; please read the manual!"), call. = FALSE)
 
   }
 
