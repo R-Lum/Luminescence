@@ -9,8 +9,10 @@ apply_CosmicRayRemoval(object, method = "smooth",
   MARGIN = 2, verbose = FALSE, plot = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}):
-S4 object of class \code{RLum.Data.Spectrum}}
+\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}): input
+object to be treated. This can be also provided as \link{list}. If an \linkS4class{RLum.Analysis} object
+is provided, only the \linkS4class{RLum.Data.Spectrum} objects are treated. Please note: this mixing of
+objects do not work for a list of \linkS4class{RLum.Data} objects.}
 
 \item{method}{\link{character} (\emph{with default}):
 Defines method that is applied for cosmic ray removal. Allowed methods are
@@ -47,11 +49,12 @@ Currently only for \code{method = "Pych"} a graphical output is provided.}
 to the \link{smooth} function.}
 }
 \value{
-Returns same object as input (\linkS4class{RLum.Data.Spectrum})
+Returns same object as input.
 }
 \description{
-The function provides several methods for cosmic ray removal and spectrum
-smoothing for an RLum.Data.Spectrum S4 class object
+The function provides several methods for cosmic-ray removal and spectrum
+smoothing \linkS4class{RLum.Data.Spectrum} objects and such objects embedded in \link{list} or
+\linkS4class{RLum.Analysis} objects.
 }
 \details{
 \strong{\code{method = "Pych"}}
@@ -83,7 +86,7 @@ Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
 \section{Function version}{
- 0.2.1 (2018-01-21 11:22:38)
+ 0.3.0 (2019-01-27 12:52:53)
 }
 
 \examples{
@@ -97,7 +100,7 @@ dataset (see example).
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2019). apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.62. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.64. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -106,11 +109,11 @@ Single Images. Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{smooth}, \link{smooth.spline},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link{smooth}, \link{smooth.spline},
 \link{apply_CosmicRayRemoval}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team}
 \keyword{manip}
