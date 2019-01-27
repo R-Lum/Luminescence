@@ -26,6 +26,12 @@
 
 ### Bugfixes and changes
 
+#### `apply_CosmicRayRemoval()`
+
+  - Thanks to black magic, this function now runs also over a list of
+    `RLum.Data.Spectrum` objects and and `RLum.Analysis` objects (also
+    nested in a list)
+
 #### `apply_EfficiencyCorrection()`
 
   - The function produced a warning (“collapsing to unique ‘x’ values”)
