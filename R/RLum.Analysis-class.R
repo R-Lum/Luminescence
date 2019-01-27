@@ -70,7 +70,7 @@ setClass("RLum.Analysis",
 
 
 ####################################################################################################
-###as()
+# as() -----------------------------------------------------------------------------------------
 ####################################################################################################
 ##LIST
 ##COERCE RLum.Analyse >> list AND list >> RLum.Analysis
@@ -221,7 +221,7 @@ setMethod("show",
 
 
 ####################################################################################################
-###set_RLum()
+# set_RLum() ----------------------------------------------------------------------------------
 ####################################################################################################
 #' @describeIn RLum.Analysis
 #' Construction method for [RLum.Analysis-class] objects.
@@ -257,21 +257,20 @@ setMethod("show",
 setMethod(
   "set_RLum",
   signature = "RLum.Analysis",
-  definition = function(class,
-                        originator,
-                        .uid,
-                        .pid,
-                        protocol = NA_character_,
-                        records = list(),
-                        info = list()) {
-
+  definition = function(
+    class,
+    originator,
+    .uid,
+    .pid,
+    protocol = NA_character_,
+    records = list(),
+    info = list()) {
 
     ##produce empty class object
     newRLumAnalysis <- new(Class = "RLum.Analysis")
 
     ##allow self set to reset an RLum.Analysis object
-    if(is(records, "RLum.Analysis")){
-
+    if(class(records) == "RLum.Analysis"){
       #fill slots (this is much faster than the old code!)
       newRLumAnalysis@protocol <- if(missing(protocol)){records@protocol}else{protocol}
       newRLumAnalysis@originator <- originator
@@ -282,7 +281,6 @@ setMethod(
 
 
     }else{
-
       #fill slots (this is much faster than the old code!)
       newRLumAnalysis@protocol <- protocol
       newRLumAnalysis@originator <- originator
