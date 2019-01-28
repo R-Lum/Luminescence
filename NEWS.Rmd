@@ -58,6 +58,10 @@ signal is shown automatically instead of the uncorrected curves (suggestion by T
 #### `read_XSYG2R()`
 * The function failed for R-devel importing spectrometer data (`approx(..., ties = -2)`); fixed.
 
+#### `plot_GrowthCurve()`
+* The function crashed with `Error in data.MC[, i] : incorrect number of dimensions` under very particular 
+circumstances (reported by Alice Versendaal). This was due to unwanted internal object conversion; fixed.
+
 #### `plot_RLum.Data.Spectrum()`
 * The wavelength to energy scale conversion was not correct. This was corrected and internally, 
 the function now calls consistently the new function `convert_Wavelength2Enegy()` (the corresponding 

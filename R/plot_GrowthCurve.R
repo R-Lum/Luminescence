@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.5
+#' @section Function version: 1.10.6
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
@@ -308,7 +308,7 @@ plot_GrowthCurve <- function(
 
   ##2. check if sample contains a least three rows
   if(length(sample[[1]])<3 & fit.method != "LIN"){
-    stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
+    stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!", call. = FALSE)
   }
 
   ##2.1 check column numbers; we assume that in this particular case no error value
@@ -495,14 +495,13 @@ plot_GrowthCurve <- function(
     data <-
       data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
     fit.weights <- fit.weights[!duplicated(xy[[1]])]
-    data.MC <- data.MC[!duplicated(xy[[1]]),]
+    data.MC <- data.MC[!duplicated(xy[[1]]),,drop = FALSE]
     y.Error <- y.Error[!duplicated(xy[[1]])]
-    xy <- xy[!duplicated(xy[[1]]),]
+    xy <- xy[!duplicated(xy[[1]]),,drop = FALSE]
 
   }else{
     data <- data.frame(xy)
   }
-
 
   ## for unknown reasons with only two points the nls() function is trapped in
   ## an endless mode, therefore the minimum length for data is 3
@@ -672,7 +671,6 @@ plot_GrowthCurve <- function(
       pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
     }
 
-
     #start loop for Monte Carlo Error estimation
     fit.MC <- sapply(1:NumberIterations.MC, function(i){
 
@@ -764,7 +762,7 @@ plot_GrowthCurve <- function(
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
     if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
-      try(stop("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!", call. = FALSE))
+      try(stop("[plot_GrowthCurve()] Fit could not be applied for this data set. NULL returned!", call. = FALSE))
       return(NULL)
 
     }
@@ -1027,8 +1025,7 @@ plot_GrowthCurve <- function(
       #start loop for Monte Carlo Error estimation
       #LIN MC ---------
       for (i in 1:NumberIterations.MC) {
-
-        data <- data.frame(x=xy$x, y=data.MC[,i])
+        data <- data.frame(x = xy$x, y = data.MC[, i])
 
         if(fit.force_through_origin){
 
