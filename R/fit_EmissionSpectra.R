@@ -320,7 +320,7 @@ fit_EmissionSpectra <- function(
   ##author: Petr Pikal in 2004; with modifications by Sebastian Kreutzer
   .peaks <- function(x, span, size = nrow(m)) {
     z <- stats::embed(x, span)
-    s <- span %/% 2
+    s <- span %/% sample(1:4, size = 1)
     ##the part `ceiling(...)` scales the entire algorithm
     v <- max.col(z, ties.method = "first") == ceiling(10^(3 - log10(nrow(m)))) + s
     result <- c(rep(FALSE, s), v)
@@ -615,3 +615,4 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
+
