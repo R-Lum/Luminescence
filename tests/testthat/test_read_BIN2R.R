@@ -20,10 +20,16 @@ test_that("test the import of various BIN-file versions", {
       read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V4.bin",
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
 
+    ##V5
+    expect_is(
+      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V5.binx",
+                 txtProgressBar = FALSE), class = "Risoe.BINfileData")
+
     ##V6
     expect_is(
       read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V6.binx",
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
+
     ##V6 - show method
     expect_output(read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V6.binx",
                  txtProgressBar = FALSE))

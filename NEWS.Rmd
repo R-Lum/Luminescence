@@ -53,6 +53,7 @@ signal is shown automatically instead of the uncorrected curves (suggestion by T
 * Enable support for data imported from a BIN/BINX-file.
 
 #### `read_BIN2R()`
+* Add support for missing BINX-file version 5 (pointed out by Harrison Gray)
 * In the auto-file recognition (only a path instead of a file is provided), sometimes the found BIN/BINX-files were imported twice. The corresponding code was simplified to avoid such errors in future.
 
 #### `read_XSYG2R()`
