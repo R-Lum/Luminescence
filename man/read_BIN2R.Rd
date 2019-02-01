@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_BIN2R.R
 \name{read_BIN2R}
 \alias{read_BIN2R}
-\title{Import Risoe BIN-file into R}
+\title{Import Risø BIN/BINX-files into R}
 \usage{
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   n.records = NULL, zero_data.rm = TRUE, duplicated.rm = FALSE,
@@ -94,17 +94,17 @@ reader into R.
 The binary data file is parsed byte by byte following the data structure
 published in the Appendices of the Analyst manual p. 42.
 
-For the general BIN-file structure, the reader is referred to the
+For the general BIN/BINX-file structure, the reader is referred to the
 Risoe website: \url{http://www.nutech.dtu.dk/}
 }
 \note{
-The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
+The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
 
 \strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.}
 }
 \section{Function version}{
- 0.15.8 (2019-01-14 19:11:37)
+ 0.16.0 (2019-02-01 09:49:14)
 }
 
 \examples{
@@ -118,7 +118,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2019). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.67. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2019). read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.69. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -131,7 +131,8 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
-Margret C. Fuchs, HZDR Freiberg, (Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
+Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
+based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 \cr R Luminescence Package Team}
 \keyword{IO}
