@@ -398,6 +398,13 @@ calc_Huntley2006 <- function(data,
            " 'analyse_FadingMeasurement()' is allowed as input for 'rhop'.",
            call. = FALSE)
   }
+  
+  # check if 'rhop' is actually a positive value
+  if (any(is.na(rhop)) || !rhop[1] > 0 || any(is.infinite(rhop))) {
+    stop("\n[calc_Huntley2006] 'rhop' must be a positive number. Provided value",
+         " was: ", signif(rhop[1], 3), " \u2213 " , signif(rhop[2], 3),
+         call. = FALSE)
+  }
 
   ## Check ddot & readerDdot
   # check if numeric
