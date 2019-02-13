@@ -99,10 +99,10 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Universite Bordeaux Montaigne (France) \cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #'
@@ -449,7 +449,7 @@ analyse_FadingMeasurement <- function(
 
   ##calculate final g_value
   ##the 2nd term corrects for the (potential) offset from one
-  g_value_fit <- abs(fit$coefficient[2]) * 1 / fit$coefficient[1] * 100
+  g_value_fit <- -fit$coefficient[2] * 1 / fit$coefficient[1] * 100
 
   ##construct output data.frame
   g_value <- data.frame(
@@ -826,7 +826,7 @@ analyse_FadingMeasurement <- function(
                " (%/decade)"))
     cat("\n---------------------------------------------------")
     cat(paste0("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3), " \u00b1 ", format(rhoPrime$SD, digits = 3)))
-    cat(paste0("\nlog10(rho'):\t\t", round(log10(rhoPrime$MEAN), 2), " \u00b1 ", round(rhoPrime$SD /  (rhoPrime$MEAN * log(10, base = exp(1))), 2)))
+    cat(paste0("\nlog10(rho'):\t\t", suppressWarnings(round(log10(rhoPrime$MEAN), 2)), " \u00b1 ", round(rhoPrime$SD /  (rhoPrime$MEAN * log(10, base = exp(1))), 2)))
     cat("\n---------------------------------------------------")
 
   }

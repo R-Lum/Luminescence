@@ -50,7 +50,11 @@ signal is shown automatically instead of the uncorrected curves (suggestion by T
 * Code polish
 
 #### `analyse_FadingMeasurements()`
-* Enable support for data imported from a BIN/BINX-file.
+* Enable support for data imported from a BIN/BINX-file
+* If the g-value is negative, now it also returns a negative g-value; before always the absolute
+values was taken, which was not meaningful
+* IF rho was negative, the log10 value could not be calculated, this caused an unwanted warning; 
+now suppressed.
 
 #### `read_BIN2R()`
 * Add support for missing BINX-file version 5 (pointed out by Harrison Gray)
