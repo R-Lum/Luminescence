@@ -54,7 +54,8 @@ signal is shown automatically instead of the uncorrected curves (suggestion by T
 * If the g-value is negative, now it also returns a negative g-value; before always the absolute
 values was taken, which was not meaningful
 * If rho was negative, the log10 value could not be calculated, this caused an unwanted warning; 
-now suppressed.
+now suppressed
+* It showed a warning on R-devel due to changes in `stats::approx()`; fixed.
 
 #### `calc_Huntley2006()`
 * The function now checks if rho' (`rhop`) is a sensible non-zero positive value and,

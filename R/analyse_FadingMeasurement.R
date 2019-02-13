@@ -99,7 +99,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.1.8
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
@@ -391,7 +391,7 @@ analyse_FadingMeasurement <- function(
 
 
   ##calculate g-values from matrix
-  g_value.MC <- abs(fit_matrix[2, ]) * 1 / fit_matrix[1, ] * 100
+  g_value.MC <- -fit_matrix[2, ] * 1 / fit_matrix[1, ] * 100
 
   ##calculate rho prime (Kars et al. 2008; proposed by Georgina E. King)
 
@@ -472,6 +472,7 @@ analyse_FadingMeasurement <- function(
   # Approximation -------------------------------------------------------------------------------
   T_0.5.interpolated <- approx(x = LxTx_table[["LxTx_NORM"]],
                                y = LxTx_table[["TIMESINCEIRR_NORM"]],
+                               ties = mean,
                                xout = 0.5)
 
   T_0.5.predict <- stats::predict.lm(fit_predict,newdata = data.frame(x = 0.5), interval = "predict")
