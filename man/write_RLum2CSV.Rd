@@ -4,7 +4,8 @@
 \alias{write_RLum2CSV}
 \title{Export RLum-objects to CSV}
 \usage{
-write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE, ...)
+write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE,
+  compact = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\strong{required}):
@@ -22,6 +23,12 @@ optional prefix to name the files. This prefix is valid for all written files}
 enable or disable the file export. If set to \code{FALSE} nothing is written to
 the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
 is returned instead}
+
+\item{compact}{\link{logical} (\emph{with default}): if \code{TRUE} (the default) the output will be more
+simple but less comprehensive, means not all elements in the objects will be fully broken down.
+This is in particular useful for writing \code{RLum.Results} objects to CSV-files, such objects
+can be rather complex and not all information are needed in a CSV-file or can be meaningful translated
+to it.}
 
 \item{...}{further arguments that will be passed to the function
 \link[utils:write.table]{utils::write.table}. All arguments except the argument \code{file} are supported}
@@ -48,7 +55,7 @@ If the input is a \link{list} of objects all explicit function arguments can be 
 as \link{list}.
 }
 \section{Function version}{
- 0.1.1 (2019-01-28 17:38:30)
+ 0.2.0 (2019-02-13 13:55:51)
 }
 
 \examples{
@@ -75,11 +82,11 @@ write_RLum2CSV(temp_file)
 \link[utils:write.table]{utils::write.table}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.71. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.72. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

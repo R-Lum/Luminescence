@@ -56,7 +56,9 @@
     before always the absolute values was taken, which was not
     meaningful
   - If rho was negative, the log10 value could not be calculated, this
-    caused an unwanted warning; now suppressed.
+    caused an unwanted warning; now suppressed
+  - It showed a warning on R-devel due to changes in `stats::approx()`;
+    fixed.
 
 #### `calc_Huntley2006()`
 
@@ -106,6 +108,14 @@
     ’xaxis.energy = TRUE\`.
   - The colour picking option was not always working; fixed.
   - Warnings are formatted more nicely.
+
+#### `write_RLum2CSV()`
+
+  - The function gained a new argument `compact` which is set `TRUE` be
+    default, and keeps the element output as simple as possible, which
+    is in particular helpful for `RLum.Results` objects
+  - The function now behaves more friendly to `RLum.Results` objects,
+    before the output was hard to understand.
 
 ### Changes in S4-objects and methods
 

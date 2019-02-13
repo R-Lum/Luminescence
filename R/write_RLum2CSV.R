@@ -31,6 +31,12 @@
 #' the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'
+#' @param compact [logical] (*with default*): if `TRUE` (the default) the output will be more
+#' simple but less comprehensive, means not all elements in the objects will be fully broken down.
+#' This is in particular useful for writing `RLum.Results` objects to CSV-files, such objects
+#' can be rather complex and not all information are needed in a CSV-file or can be meaningful translated
+#' to it.
+#'
 #' @param ... further arguments that will be passed to the function
 #' [utils::write.table]. All arguments except the argument `file` are supported
 #'
@@ -40,10 +46,10 @@
 #' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.2.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
 #' [utils::write.table]
@@ -75,6 +81,7 @@ write_RLum2CSV <- function(
   path = NULL,
   prefix = "",
   export = TRUE,
+  compact = TRUE,
   ...
 
 ){
@@ -173,16 +180,40 @@ write_RLum2CSV <- function(
 
     }else if(is(object, "RLum.Results")){
 
-      ##we just try the typical R way and hope the best
-      object_list <- unlist(object@data, recursive = FALSE)
+      ##unlist what ever comes, but do not break structures like matrices, numerics and
+      names <- names(object@data)
+
+      ##get elements
+      object_list <- lapply(object@data, function(e){
+        ##only run something on the list of it is worth it and pack it in the list
+        if(class(e) == "matrix" || class(e) == "numeric" || class(e) == "data.frame")
+          return(list(e))
+
+        ##unlist the rest until the end
+        if(!compact)
+          return(unlist(e))
+
+        ##now we return whatever we have
+        return(e)
+
+      })
+
+      ##now unlist again one level
+      object_list <- unlist(object_list, recursive = FALSE)
 
       ##sort out objects we do not like and we cannot procede ...
-      object_list <- object_list[vapply(object_list, function(x) {
-        is.data.frame(x) |
-          is.matrix(x) |
-          is.numeric(x)
-      }, vector(mode = "logical", length = 1))]
+      object_list_rm <- vapply(object_list, function(x) {
+         class(x) == "matrix" || class(x) == "numeric" || class(x) == "data.frame"
 
+      }, vector(mode = "logical", length = 1))
+
+      ##remove unwanted objects
+      object_list <- object_list[object_list_rm]
+
+
+      ##set warning
+      if(any(!object_list_rm))
+        warning(paste0("[write_RLum2CSV()] ", length(which(!object_list_rm)), " elements could not be converted to a CSV-structure!"), call. = FALSE)
 
       ##adjust the names
       names(object_list) <- paste0(1:length(object_list),"_",names(object_list))
