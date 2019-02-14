@@ -165,7 +165,7 @@ analyse_FadingMeasurement <- function(
   if (is(object, "list")) {
     if (!unique(sapply(object, class)) == "RLum.Analysis") {
       stop(
-        "[analyse_FadingMeasurement()] 'object' expects an 'RLum.Analysis' object or a 'list' of such objects!"
+        "[analyse_FadingMeasurement()] 'object' expects an 'RLum.Analysis' object or a 'list' of such objects!", call. = FALSE
       )
 
     }
@@ -194,7 +194,7 @@ analyse_FadingMeasurement <- function(
 
   }else{
     stop(
-      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!"
+      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!", call. = FALSE
     )
 
   }
@@ -239,7 +239,7 @@ analyse_FadingMeasurement <- function(
           t_star <- t1
 
         }else{
-          stop("[analyse_FadingMeasurement()] Invalid value for t_star.")
+          stop("[analyse_FadingMeasurement()] Invalid value for t_star.", call. = FALSE)
 
         }
 
@@ -262,6 +262,14 @@ analyse_FadingMeasurement <- function(
         o@info$TIMESINCEIRR
 
       }, numeric(1))
+
+      ##check whether we have negative irradiation times, sort out such values
+      if(any(TIMESINCEIRR < 0)){
+        object_clean[TIMESINCEIRR < 0] <- NULL
+        warning(paste0("[analyse_FadingMeasurement()] ",length(which(TIMESINCEIRR < 0))), " records with negative 'time since irradiation' values removed from the dataset!", call. = FALSE)
+        TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
+
+      }
 
       ##set irradiation times
       irradiation_times <- vapply(object_clean, function(o){
