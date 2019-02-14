@@ -65,6 +65,8 @@
   - The function now checks if rho’ (`rhop`) is a sensible non-zero
     positive value and, if otherwise, stops with a more meaningful error
     message. (Issue \#74)
+  - Now the function is a little bit less talkative if extrem dataset
+    are provided as input
 
 #### `read_BIN2R()`
 
