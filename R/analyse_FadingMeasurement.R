@@ -99,7 +99,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
@@ -423,10 +423,10 @@ analyse_FadingMeasurement <- function(
   rhoPrime <- data.frame(
     MEAN = mean(fit_vector_rhop),
     SD = sd(fit_vector_rhop),
-    Q_0.025 = quantile(x = fit_vector_rhop, probs = 0.025),
-    Q_0.16 = quantile(x = fit_vector_rhop, probs = 0.16),
-    Q_0.84 = quantile(x = fit_vector_rhop, probs = 0.84),
-    Q_0.975 = quantile(x = fit_vector_rhop, probs = 0.975),
+    Q_0.025 = quantile(x = fit_vector_rhop, probs = 0.025, na.rm = TRUE),
+    Q_0.16 = quantile(x = fit_vector_rhop, probs = 0.16, na.rm = TRUE),
+    Q_0.84 = quantile(x = fit_vector_rhop, probs = 0.84, na.rm = TRUE),
+    Q_0.975 = quantile(x = fit_vector_rhop, probs = 0.975, na.rm = TRUE),
     row.names = NULL
   )
 
@@ -456,10 +456,10 @@ analyse_FadingMeasurement <- function(
     FIT =  g_value_fit,
     MEAN = mean(g_value.MC),
     SD = sd(g_value.MC),
-    Q_0.025 = quantile(x = g_value.MC, probs = 0.025),
-    Q_0.16 = quantile(x = g_value.MC, probs = 0.16),
-    Q_0.84 = quantile(x = g_value.MC, probs = 0.84),
-    Q_0.975 = quantile(x = g_value.MC, probs = 0.975)
+    Q_0.025 = quantile(x = g_value.MC, probs = 0.025, na.rm = TRUE),
+    Q_0.16 = quantile(x = g_value.MC, probs = 0.16, na.rm = TRUE),
+    Q_0.84 = quantile(x = g_value.MC, probs = 0.84, na.rm = TRUE),
+    Q_0.975 = quantile(x = g_value.MC, probs = 0.975, na.rm = TRUE)
   )
 
   ##normalise the g-value to 2-days using the equation provided by Sebastien Huot via e-mail
@@ -710,7 +710,7 @@ analyse_FadingMeasurement <- function(
         } else{
           c(0.1, 1.1)
         },
-        xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]]),
+        xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
         main = "Signal Fading"
       )
 
@@ -790,23 +790,31 @@ analyse_FadingMeasurement <- function(
 
     if (is(plot.single, "logical") ||
         (is(plot.single, "numeric") & 4 %in% plot.single)) {
-      plot(density(g_value.MC),
-           main = "Density: g-values (%/decade)")
-      rug(x = g_value.MC)
-      abline(v = c(g_value[["Q_0.16"]], g_value[["Q_0.84"]]),
-             lty = 2,
-             col = "darkgreen")
-      abline(v = c(g_value[["Q_0.025"]], g_value[["Q_0.975"]]),
-             lty = 2,
-             col = "red")
-      legend(
-        "topleft",
-        legend = c("HPD - 68 %", "HPD - 95 %"),
-        lty = 2,
-        col = c("darkgreen", "red"),
-        bty = "n"
-      )
 
+      if(all(is.na(g_value.MC))){
+        shape::emptyplot()
+        text(x = .5, y = .5, labels = "All NA values!")
+
+      }else{
+        plot(density(g_value.MC),
+             main = "Density: g-values (%/decade)")
+        rug(x = g_value.MC)
+        abline(v = c(g_value[["Q_0.16"]], g_value[["Q_0.84"]]),
+               lty = 2,
+               col = "darkgreen")
+        abline(v = c(g_value[["Q_0.025"]], g_value[["Q_0.975"]]),
+               lty = 2,
+               col = "red")
+        legend(
+          "topleft",
+          legend = c("HPD - 68 %", "HPD - 95 %"),
+          lty = 2,
+          col = c("darkgreen", "red"),
+          bty = "n"
+        )
+
+
+      }
 
     }
 
