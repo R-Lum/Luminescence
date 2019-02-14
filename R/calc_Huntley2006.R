@@ -202,7 +202,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author
 #' Georgina E. King, University of Bern (Switzerland) \cr
@@ -398,7 +398,7 @@ calc_Huntley2006 <- function(data,
            " 'analyse_FadingMeasurement()' is allowed as input for 'rhop'.",
            call. = FALSE)
   }
-  
+
   # check if 'rhop' is actually a positive value
   if (any(is.na(rhop)) || !rhop[1] > 0 || any(is.infinite(rhop))) {
     stop("\n[calc_Huntley2006] 'rhop' must be a positive number. Provided value",
@@ -501,14 +501,14 @@ calc_Huntley2006 <- function(data,
     if (fit.method == "EXP") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                                        start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot),
-                                       control = list(maxiter = settings$maxiter)))
+                                       control = list(maxiter = settings$maxiter)), silent = TRUE)
     } else if (fit.method == "GOK") {
       fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
                                        start = list(a = coef(fit_measured)[["a"]],
                                                     D0 = D0.measured / readerDdot,
                                                     c = coef(fit_measured)[["c"]]),
                                        lower = lower.bounds,
-                                       control = list(maxiter = settings$maxiter)))
+                                       control = list(maxiter = settings$maxiter)), silent = TRUE)
     }
 
     if (!inherits(fit_sim, "try-error"))
@@ -596,6 +596,7 @@ calc_Huntley2006 <- function(data,
     GC.simulated <- try(do.call(plot_GrowthCurve, GC.settings))
   )
 
+
   if (!inherits(GC.simulated, "try-error")) {
     GC.simulated.results <- get_RLum(GC.simulated)
     fit_simulated <- get_RLum(GC.simulated, "Fit")
@@ -645,8 +646,8 @@ calc_Huntley2006 <- function(data,
 
   }, rhop_MC, ddot_MC, UFD0_MC, SIMPLIFY = TRUE)
 
-  nN_SS <- exp(mean(log(nN_SS_MC), na.rm = TRUE))
-  nN_SS.error <- nN_SS * abs(sd(log(nN_SS_MC), na.rm = TRUE) / mean(log(nN_SS_MC), na.rm = TRUE))
+  nN_SS <- suppressWarnings(exp(mean(log(nN_SS_MC), na.rm = TRUE)))
+  nN_SS.error <- suppressWarnings(nN_SS * abs(sd(log(nN_SS_MC), na.rm = TRUE) / mean(log(nN_SS_MC), na.rm = TRUE)))
 
   ## legacy code for debugging purposes
   ## nN_SS is often lognormally distributed, so we now take the mean and sd
