@@ -41,7 +41,9 @@
 #' only IRSL curves representing Lx (and Tx)**
 #'
 #' If data from multiple aliquots are provided please **see the details below** with regard to
-#' Lx/Tx normalisation.
+#' Lx/Tx normalisation. **The function assumes that all your measurements are related to
+#' one (comparable) sample. If you to treat independent samples, you have use this function
+#' in a loop.**
 #'
 #' @param structure [character] (*with default*):
 #' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`.
@@ -99,7 +101,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.10
+#' @section Function version: 0.1.11
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
@@ -374,6 +376,16 @@ analyse_FadingMeasurement <- function(
   ##normalise data to prompt measurement
   tc <- min(TIMESINCEIRR)[1]
 
+  ##remove NA values in LxTx table
+  if(any(is.infinite(LxTx_table[["LxTx"]]))){
+    rm_id <- which(is.infinite(LxTx_table[["LxTx"]]))
+    LxTx_table <- LxTx_table[-rm_id,]
+    TIMESINCEIRR <- TIMESINCEIRR[-rm_id]
+    rm(rm_id)
+
+  }
+
+
   ##normalise
   if(length(structure) == 2 | is.null(object)){
     LxTx_NORM <-
@@ -411,24 +423,30 @@ analyse_FadingMeasurement <- function(
   ##we need to fit the data to get the g_value
 
   ##sample for monte carlo runs
-  MC_matrix <- cbind(LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+  MC_matrix <- suppressWarnings(cbind(LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                      matrix(rnorm(
                        n = n.MC * nrow(LxTx_table),
                        mean = LxTx_table[["LxTx_NORM"]],
                        sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
                      ),
-                     ncol = n.MC))
+                     ncol = n.MC)))
 
   ##apply the fit
   fit_matrix <- vapply(X = 2:(n.MC+1), FUN = function(x){
     ##fit
-    stats::lm(y~x, data = data.frame(
+    fit <- try(stats::lm(y~x, data = data.frame(
       x = MC_matrix[,1],
-      y = MC_matrix[,x]))$coefficients
+      y = MC_matrix[,x]))$coefficients, silent = TRUE)
 
+    if(class(fit) == "try-error"){
+      return(c(NA_real_, NA_real_))
+
+    }else{
+      return(fit)
+
+    }
 
   }, FUN.VALUE = vector("numeric", length = 2))
-
 
   ##calculate g-values from matrix
   g_value.MC <- -fit_matrix[2, ] * 1 / fit_matrix[1, ] * 100
@@ -439,14 +457,15 @@ analyse_FadingMeasurement <- function(
   Hs <- 3e15
 
   ##sample for monte carlo runs
-  MC_matrix_rhop <-  matrix(rnorm(
+  MC_matrix_rhop <-  suppressWarnings(matrix(rnorm(
     n = n.MC * nrow(LxTx_table),
     mean = LxTx_table[["LxTx_NORM"]],
     sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
-  ), ncol = n.MC)
+  ), ncol = n.MC))
+
 
   ## calculate rho prime for all MC samples
-  fit_vector_rhop <- apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
+  fit_vector_rhop <- suppressWarnings(apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
     tryCatch({
       coef(minpack.lm::nlsLM(x ~ c * exp(-rhop * (log(1.8 * Hs * LxTx_table$TIMESINCEIRR))^3),
                              start = list(c = x[1], rhop = 10^-5.5)))[["rhop"]]
@@ -454,7 +473,7 @@ analyse_FadingMeasurement <- function(
     error = function(e) {
       return(NA)
     })
-  })
+  }))
 
   ## discard all NA values produced in MC runs
   fit_vector_rhop <- fit_vector_rhop[!is.na(fit_vector_rhop)]
@@ -470,26 +489,32 @@ analyse_FadingMeasurement <- function(
     row.names = NULL
   )
 
-  ##for plotting
+
   fit <-
-    stats::lm(y ~ x,
+    try(stats::lm(y ~ x,
               data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                y = LxTx_table[["LxTx_NORM"]]))
+                                y = LxTx_table[["LxTx_NORM"]])), silent = TRUE)
 
 
-  fit_power <- stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,
+  fit_power <- try(stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,
                          data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                           y = LxTx_table[["LxTx_NORM"]]))
+                                           y = LxTx_table[["LxTx_NORM"]])), silent = TRUE)
 
 
   ##for predicting
   fit_predict <-
-    stats::lm(y ~ x, data = data.frame(y = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                       x = LxTx_table[["LxTx_NORM"]]))
+    try(stats::lm(y ~ x, data = data.frame(y = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+                                       x = LxTx_table[["LxTx_NORM"]])), silent = TRUE)
 
   ##calculate final g_value
   ##the 2nd term corrects for the (potential) offset from one
-  g_value_fit <- -fit$coefficient[2] * 1 / fit$coefficient[1] * 100
+  if(class(fit) == "try-error"){
+    g_value_fit <- NA
+
+  }else{
+    g_value_fit <- -fit$coefficient[2] * 1 / fit$coefficient[1] * 100
+
+  }
 
   ##construct output data.frame
   g_value <- data.frame(
@@ -510,12 +535,21 @@ analyse_FadingMeasurement <- function(
   names(g_value_2days) <- c("G_VALUE_2DAYS", "G_VALUE_2DAYS.ERROR")
 
   # Approximation -------------------------------------------------------------------------------
-  T_0.5.interpolated <- approx(x = LxTx_table[["LxTx_NORM"]],
+  T_0.5.interpolated <- try(approx(x = LxTx_table[["LxTx_NORM"]],
                                y = LxTx_table[["TIMESINCEIRR_NORM"]],
                                ties = mean,
-                               xout = 0.5)
+                               xout = 0.5), silent = TRUE)
 
-  T_0.5.predict <- stats::predict.lm(fit_predict,newdata = data.frame(x = 0.5), interval = "predict")
+  if(class(T_0.5.interpolated) =='try-error'){
+    T_0.5.predict <- NULL
+    T_0.5.interpolated <- NULL
+
+  }else{
+    T_0.5.predict <- stats::predict.lm(fit_predict,newdata = data.frame(x = 0.5),
+                                       interval = "predict")
+
+  }
+
 
   T_0.5 <- data.frame(
     T_0.5_INTERPOLATED = T_0.5.interpolated$y,
@@ -738,95 +772,103 @@ analyse_FadingMeasurement <- function(
     ##(2) Fading plot
     if (is(plot.single, "logical") ||
         (is(plot.single, "numeric") & 3 %in% plot.single)) {
-      plot(
-        NA,
-        NA,
-        ylab = "Normalised intensity [a.u.]",
-        xaxt = "n",
-        xlab = "Time since irradition [s]",
-        sub = expression(paste("[", log[10](t / t[c]), "]")),
-        ylim = if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
-          c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
-        } else{
-          c(0.1, 1.1)
-        },
-        xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
-        main = "Signal Fading"
-      )
 
-      ##add axis
-      axis(side = 1,
-           at = axTicks(side = 1),
-           labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
-                                            digits = 0,
-                                            decimal.mark = "",
-                                            scientific = TRUE
-           )))
+      if(all(is.na(LxTx_table[["LxTx_NORM"]]))){
+          shape::emptyplot()
+          text(x = .5, y = .5, labels = "All NA values!")
 
-      mtext(
-        side = 3,
-        paste0(
-          "g-value: ",
-          round(g_value$FIT, digits = 2),
-          " \u00b1 ",
-          round(g_value$SD, digits = 2),
-          " (%/decade) | tc = ",
-          format(tc, digits = 4, scientific = TRUE)
-        ),
-        cex = par()$cex * 0.9
-      )
+      }else{
 
-      ##add curves
-      x <- NA
-      for (i in 1:n.MC) {
-        curve(fit_matrix[2, i] * x + fit_matrix[1, i],
-              col = rgb(0, 0.2, 0.4, 0.2),
-              add = TRUE)
+        plot(
+          NA,
+          NA,
+          ylab = "Normalised intensity [a.u.]",
+          xaxt = "n",
+          xlab = "Time since irradition [s]",
+          sub = expression(paste("[", log[10](t / t[c]), "]")),
+          ylim = if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
+            c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
+          } else{
+            c(0.1, 1.1)
+          },
+          xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
+          main = "Signal Fading"
+        )
 
-      }
+        ##add axis
+        axis(side = 1,
+             at = axTicks(side = 1),
+             labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
+                                              digits = 0,
+                                              decimal.mark = "",
+                                              scientific = TRUE
+             )))
 
-      ##add master curve in red
-      curve(
-        fit$coefficient[2] * x + fit$coefficient[1],
-        col = "red",
-        add = TRUE,
-        lwd = 1.5
-      )
+        mtext(
+          side = 3,
+          paste0(
+            "g-value: ",
+            round(g_value$FIT, digits = 2),
+            " \u00b1 ",
+            round(g_value$SD, digits = 2),
+            " (%/decade) | tc = ",
+            format(tc, digits = 4, scientific = TRUE)
+          ),
+          cex = par()$cex * 0.9
+        )
 
-      ##add power law curve
-      curve(
-        x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x * fit_power$coefficient[4] + fit_power$coefficient[1],
-        add = TRUE,
-        col = "blue",
-        lty = 2
-      )
+        ##add curves
+        x <- NA
+        for (i in 1:n.MC) {
+          curve(fit_matrix[2, i] * x + fit_matrix[1, i],
+                col = rgb(0, 0.2, 0.4, 0.2),
+                add = TRUE)
 
-      ##addpoints
-      points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-             y = LxTx_table[["LxTx_NORM"]],
-             pch = 21,
-             bg = "grey")
+        }
 
-      ##error bars
-      segments(
-        x0 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-        x1 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-        y0 = LxTx_table[["LxTx_NORM"]] + LxTx_table[["LxTx_NORM.ERROR"]],
-        y1 = LxTx_table[["LxTx_NORM"]] - LxTx_table[["LxTx_NORM.ERROR"]],
-        col = "grey"
+        ##add master curve in red
+        curve(
+          fit$coefficient[2] * x + fit$coefficient[1],
+          col = "red",
+          add = TRUE,
+          lwd = 1.5
+        )
 
-      )
+        ##add power law curve
+        curve(
+          x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x * fit_power$coefficient[4] + fit_power$coefficient[1],
+          add = TRUE,
+          col = "blue",
+          lty = 2
+        )
 
-      ##add legend
-      legend(
-        "bottom",
-        legend = c("fit", "fit MC", "trend"),
-        col = c("red", "grey", "blue"),
-        lty = c(1, 1, 2),
-        bty = "n",
-        horiz = TRUE
-      )
-    }
+        ##addpoints
+        points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+               y = LxTx_table[["LxTx_NORM"]],
+               pch = 21,
+               bg = "grey")
+
+        ##error bars
+        segments(
+          x0 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+          x1 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+          y0 = LxTx_table[["LxTx_NORM"]] + LxTx_table[["LxTx_NORM.ERROR"]],
+          y1 = LxTx_table[["LxTx_NORM"]] - LxTx_table[["LxTx_NORM.ERROR"]],
+          col = "grey"
+
+        )
+
+        ##add legend
+        legend(
+          "bottom",
+          legend = c("fit", "fit MC", "trend"),
+          col = c("red", "grey", "blue"),
+          lty = c(1, 1, 2),
+          bty = "n",
+          horiz = TRUE
+        )
+      }#end if a
+    }#
 
     if (is(plot.single, "logical") ||
         (is(plot.single, "numeric") & 4 %in% plot.single)) {
@@ -881,17 +923,37 @@ analyse_FadingMeasurement <- function(
   }
 
   # Return --------------------------------------------------------------------------------------
+
+  ##set data.frame
+  if(all(is.na(g_value))){
+    fading_results <- data.frame(
+      g_value = NA,
+      TC = NA,
+      G_VALUE_2DAYS = NA,
+      G_VALUE_2DAYS.ERROR = NA,
+      T_0.5 = NA,
+      UID = uid,
+      stringsAsFactors = FALSE
+    )
+
+  }else{
+    fading_results <- data.frame(
+      g_value,
+      TC = tc,
+      G_VALUE_2DAYS = g_value_2days[1],
+      G_VALUE_2DAYS.ERROR = g_value_2days[2],
+      T_0.5,
+      UID = uid,
+      stringsAsFactors = FALSE
+    )
+
+  }
+
+  ##return
   return(set_RLum(
     class = "RLum.Results",
     data = list(
-      fading_results = cbind(
-        g_value,
-        TC = tc,
-        G_VALUE_2DAYS = g_value_2days[1],
-        G_VALUE_2DAYS.ERROR = g_value_2days[2],
-        T_0.5,
-        UID = uid
-      ),
+      fading_results = fading_results,
       fit = fit,
       rho_prime = rhoPrime,
       LxTx_table = LxTx_table,
