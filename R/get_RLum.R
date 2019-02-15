@@ -19,10 +19,10 @@
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
 #'  [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
@@ -50,13 +50,29 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 #' @describeIn get_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [get_RLum]
 #'
+#' @param class [character] (*optional*): allows to define the class that gets selected if
+#' applied to a list, e.g., if a list consists of different type of RLum-class objects, this
+#' arguments allows to make selection. If nothing is provided, all RLum-objects are treated.
+#'
 #' @param null.rm [logical] (*with default*): option to get rid of empty and NULL objects
 #'
 #' @md
 #' @export
 setMethod("get_RLum",
           signature = "list",
-          function(object, null.rm = FALSE, ...){
+          function(object, class = NULL, null.rm = FALSE, ...){
+
+            ##take care of the class argument
+            if(!is.null(class)){
+              sel <- class[1] == vapply(object, function(x) class(x), character(1))
+              if(any(sel))
+                object <- object[sel]
+
+              rm(sel)
+            }
+
+
+            ##make remove all non-RLum objects
             selection <- lapply(1:length(object), function(x){
 
               ##get rid of all objects that are not of type RLum, this is better than leaving that

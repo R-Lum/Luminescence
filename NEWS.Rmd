@@ -100,6 +100,10 @@ the element output as simple as possible, which is in particular helpful for `RL
 to understand.
 
 ### Changes in S4-objects and methods
+#### `get_RLum`
+* The method working on `list` elements got a new argument `class` remove unwanted `RLum` objects
+in from list of `RLum` objects
+
 #### `RLum.Analysis-class`
 * The show-method crashed under very rare circumstances if inconsistent objects had been combined; fixed.
 
