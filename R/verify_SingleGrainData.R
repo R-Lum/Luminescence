@@ -381,7 +381,7 @@ verify_SingleGrainData <- function(
 
     ##return value
     ##select output on the chosen input
-    if(cleanup && !is.na(selection_id)){
+    if(cleanup && !any(is.na(selection_id))){
 
       ##print message
       if(verbose){
@@ -420,8 +420,9 @@ verify_SingleGrainData <- function(
       return_object <- object
 
     }else{
-      if(is.na(selection_id)){
-        warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!")
+      if(any(is.na(selection_id))){
+        warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!",
+                call. = FALSE)
 
       }
 
