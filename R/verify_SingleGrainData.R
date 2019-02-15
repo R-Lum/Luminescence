@@ -1,14 +1,14 @@
-#' Verify single grain data sets and check for invalid grains, i.e. 
+#' Verify single grain data sets and check for invalid grains, i.e.
 #' zero-light level grains
 #'
-#' This function tries to identify automatically zero-light level curves (grains) 
+#' This function tries to identify automatically zero-light level curves (grains)
 #' from single grain data measurements.
 #'
 #' **How does the method work?**
 #'
-#' The function compares the expected values (\eqn{E(X)}) and the variance 
-#' (\eqn{Var(X)}) of the count values for each curve. Assuming that the 
-#' background roughly follows a poisson distribution the absolute difference 
+#' The function compares the expected values (\eqn{E(X)}) and the variance
+#' (\eqn{Var(X)}) of the count values for each curve. Assuming that the
+#' background roughly follows a poisson distribution the absolute difference
 #' of both values should be zero or at least around zero as
 #'
 #' \deqn{E(x) = Var(x) = \lambda}
@@ -17,41 +17,41 @@
 #'
 #' \deqn{abs(E(x) - Var(x)) >= \Theta}
 #'
-#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above the 
+#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above the
 #' threshold indicating curves comprising a signal.
 #'
-#' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the 
-#' ratio was chosen as both terms can become 0 which would result in 0 or `Inf`, 
+#' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the
+#' ratio was chosen as both terms can become 0 which would result in 0 or `Inf`,
 #' if the ratio is calculated.
 #'
-#' @param object [Risoe.BINfileData-class] or [RLum.Analysis-class] (**required**): 
+#' @param object [Risoe.BINfileData-class] or [RLum.Analysis-class] (**required**):
 #' input object. The function also accepts a list with objects of allowed type.
 #'
-#' @param threshold [numeric] (*with default*): 
-#' numeric threshold value for the allowed difference between the `mean` and 
+#' @param threshold [numeric] (*with default*):
+#' numeric threshold value for the allowed difference between the `mean` and
 #' the `var` of the count values (see details)
 #'
-#' @param cleanup [logical] (*with default*): 
-#' if set to `TRUE` curves indentified as zero light level curves are 
+#' @param cleanup [logical] (*with default*):
+#' if set to `TRUE` curves indentified as zero light level curves are
 #' automatically removed. Ouput is an object as same type as the input, i.e.
 #' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
 #' @param cleanup_level [character] (*with default*):
-#' selects the level for the cleanup of the input data sets. 
+#' selects the level for the cleanup of the input data sets.
 #' Two options are allowed: `"curve"` or `"aliquot"`:
-#' 
-#' - If  `"curve"` is selected every single curve marked as `invalid` is removed. 
-#' - If `"aliquot"` is selected, curves of one aliquot (grain or disc) can be 
-#' marked as invalid, but will not be removed. An aliquot will be only removed 
+#'
+#' - If  `"curve"` is selected every single curve marked as `invalid` is removed.
+#' - If `"aliquot"` is selected, curves of one aliquot (grain or disc) can be
+#' marked as invalid, but will not be removed. An aliquot will be only removed
 #' if all curves of this aliquot are marked as invalid.
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enables or disables the terminal feedback
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enables or disables the graphical feedback
 #'
-#' @return 
+#' @return
 #' The function returns
 #'
 #' -----------------------------------\cr
@@ -61,7 +61,7 @@
 #' **`RLum.Results`**-object
 #'
 #' **slot:****`@data`**
-#' 
+#'
 #' \tabular{lll}{
 #' **Element** \tab **Type** \tab **Description**\cr
 #'  `$unique_pairs` \tab `data.frame` \tab the unique position and grain pairs \cr
@@ -75,31 +75,31 @@
 #'
 #' **Output variation**
 #'
-#' For `cleanup = TRUE` the same object as the input is returned, but cleaned up 
-#' (invalid curves were removed). This means: Either an [Risoe.BINfileData-class] 
-#' or an [RLum.Analysis-class] object is returned in such cases. 
-#' An [Risoe.BINfileData-class] object can be exported to a BIN-file by 
+#' For `cleanup = TRUE` the same object as the input is returned, but cleaned up
+#' (invalid curves were removed). This means: Either an [Risoe.BINfileData-class]
+#' or an [RLum.Analysis-class] object is returned in such cases.
+#' An [Risoe.BINfileData-class] object can be exported to a BIN-file by
 #' using the function [write_R2BIN].
 #'
-#' @note 
+#' @note
 #' This function can work with [Risoe.BINfileData-class] objects or
-#' [RLum.Analysis-class] objects (or a list of it). However, the function is 
-#' highly optimised for [Risoe.BINfileData-class] objects as it make sense to 
-#' remove identify invalid grains before the conversion to an 
+#' [RLum.Analysis-class] objects (or a list of it). However, the function is
+#' highly optimised for [Risoe.BINfileData-class] objects as it make sense to
+#' remove identify invalid grains before the conversion to an
 #' [RLum.Analysis-class] object.
 #'
-#' The function checking for invalid curves works rather robust and it is likely 
-#' that Reg0 curves within a SAR cycle are removed as well. Therefore it is 
+#' The function checking for invalid curves works rather robust and it is likely
+#' that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 #' strongly recommended to use the argument `cleanup = TRUE` carefully.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [write_R2BIN], 
+#' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [write_R2BIN],
 #' [read_BIN2R]
 #'
 #' @keywords manip datagen
@@ -368,11 +368,16 @@ verify_SingleGrainData <- function(
 
         }
 
+        ##make sure that we do not break subsequent code
+        if(length(selection_id) == 0) selection_id <- NA
+
+
       } else{
         ##reduce data to TRUE selection
         selection_id <- which(selection[["VALID"]])
 
       }
+
 
     ##return value
     ##select output on the chosen input

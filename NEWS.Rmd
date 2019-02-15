@@ -89,6 +89,9 @@ efficient cleaner than the code used before
 * The colour picking option was not always working; fixed.
 * Warnings are formatted more nicely.
 
+#### `verify_SingeGrainData()`
+* The function crashed for crazy datasets; fixed. 
+
 #### `write_RLum2CSV()`
 * The function gained a new argument `compact` which is set `TRUE` be default, and keeps 
 the element output as simple as possible, which is in particular helpful for `RLum.Results` objects
