@@ -163,9 +163,19 @@ analyse_FadingMeasurement <- function(
 
   # Integrity Tests -----------------------------------------------------------------------------
   if (is(object, "list")) {
-    if (!unique(sapply(object, class)) == "RLum.Analysis") {
+    if (any(sapply(object, class) != "RLum.Analysis")) {
+      ##warning
+      warning(paste("[analyse_FadingMeasurement()]",
+                    length(which(sapply(object, class) != "RLum.Analysis")), "non-supported records removed!"), call. = FALSE)
+
+      ##remove unwanted stuff
+      object[sapply(object, class) != "RLum.Analysis"] <- NULL
+
+      ##check whether this is empty now
+      if(length(object) == 0)
       stop(
-        "[analyse_FadingMeasurement()] 'object' expects an 'RLum.Analysis' object or a 'list' of such objects!", call. = FALSE
+        "[analyse_FadingMeasurement()] 'object' expects an 'RLum.Analysis' object or a
+        'list' of such objects!", call. = FALSE
       )
 
     }
@@ -263,6 +273,7 @@ analyse_FadingMeasurement <- function(
 
       }, numeric(1))
 
+
       ##check whether we have negative irradiation times, sort out such values
       if(any(TIMESINCEIRR < 0)){
         #count affected records
@@ -271,7 +282,7 @@ analyse_FadingMeasurement <- function(
         ##now we have a problem and we first have to make sure that we understand
         ##the data structure and remove also the corresponding values
         if(all(structure == c("Lx", "Tx"))){
-          rm_id <- matrix(TIMESINCEIRR, ncol = 2)
+          rm_id <- matrix(TIMESINCEIRR, ncol = 2, byrow = TRUE)
           rm_id[apply(rm_id < 0, MARGIN = 1, any),] <- NA
           rm_id <- which(is.na(as.numeric(t(rm_id))))
           object_clean[rm_id] <- NULL
