@@ -90,7 +90,8 @@ efficient cleaner than the code used before
 * Warnings are formatted more nicely.
 
 #### `verify_SingeGrainData()`
-* The function crashed for crazy datasets; fixed. 
+* The function crashed for crazy datasets; fixed
+* Cleaning-up `RLum.Analysis-class` objects did not worked; fixed
 
 #### `write_RLum2CSV()`
 * The function gained a new argument `compact` which is set `TRUE` be default, and keeps 

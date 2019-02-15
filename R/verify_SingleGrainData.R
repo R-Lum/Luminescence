@@ -385,8 +385,9 @@ verify_SingleGrainData <- function(
 
       ##print message
       if(verbose){
-        selection_id <- paste(selection_id, collapse = ", ")
-        cat(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
+        selection_id_text <- paste(selection_id, collapse = ", ")
+        cat(paste0("\n[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
+                   selection_id_text))
 
       }
 
