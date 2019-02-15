@@ -99,7 +99,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.9
+#' @section Function version: 0.1.10
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
@@ -265,9 +265,32 @@ analyse_FadingMeasurement <- function(
 
       ##check whether we have negative irradiation times, sort out such values
       if(any(TIMESINCEIRR < 0)){
-        object_clean[TIMESINCEIRR < 0] <- NULL
-        warning(paste0("[analyse_FadingMeasurement()] ",length(which(TIMESINCEIRR < 0))), " records with negative 'time since irradiation' values removed from the dataset!", call. = FALSE)
-        TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
+        #count affected records
+        rm_records <- length(which(TIMESINCEIRR < 0))
+
+        ##now we have a problem and we first have to make sure that we understand
+        ##the data structure and remove also the corresponding values
+        if(all(structure == c("Lx", "Tx"))){
+          rm_id <- matrix(TIMESINCEIRR, ncol = 2)
+          rm_id[apply(rm_id < 0, MARGIN = 1, any),] <- NA
+          rm_id <- which(is.na(as.numeric(t(rm_id))))
+          object_clean[rm_id] <- NULL
+          TIMESINCEIRR <- TIMESINCEIRR[-rm_id]
+          rm_records <- length(rm_id)
+          rm(rm_id)
+
+        }else{
+          object_clean[TIMESINCEIRR < 0] <- NULL
+          TIMESINCEIRR <- TIMESINCEIRR[!TIMESINCEIRR < 0]
+
+        }
+
+        ##return warning
+        warning(
+          paste0("[analyse_FadingMeasurement()] ",
+                 rm_records, " records 'time since irradiation' value removed from the dataset!"),
+                call. = FALSE)
+        rm(rm_records)
 
       }
 
@@ -381,14 +404,12 @@ analyse_FadingMeasurement <- function(
                      matrix(rnorm(
                        n = n.MC * nrow(LxTx_table),
                        mean = LxTx_table[["LxTx_NORM"]],
-                       sd = LxTx_table[["LxTx_NORM.ERROR"]]
+                       sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
                      ),
                      ncol = n.MC))
 
-
   ##apply the fit
   fit_matrix <- vapply(X = 2:(n.MC+1), FUN = function(x){
-
     ##fit
     stats::lm(y~x, data = data.frame(
       x = MC_matrix[,1],
@@ -410,7 +431,7 @@ analyse_FadingMeasurement <- function(
   MC_matrix_rhop <-  matrix(rnorm(
     n = n.MC * nrow(LxTx_table),
     mean = LxTx_table[["LxTx_NORM"]],
-    sd = LxTx_table[["LxTx_NORM.ERROR"]]
+    sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
   ), ncol = n.MC)
 
   ## calculate rho prime for all MC samples
