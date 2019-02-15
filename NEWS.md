@@ -130,6 +130,11 @@
 
 ### Changes in S4-objects and methods
 
+#### `get_RLum`
+
+  - The method working on `list` elements got a new argument `class`
+    remove unwanted `RLum` objects in from list of `RLum` objects
+
 #### `RLum.Analysis-class`
 
   - The show-method crashed under very rare circumstances if

@@ -9,7 +9,7 @@
 \usage{
 get_RLum(object, ...)
 
-\S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
+\S4method{get_RLum}{list}(object, class = NULL, null.rm = FALSE, ...)
 
 \S4method{get_RLum}{`NULL`}(object, ...)
 }
@@ -22,6 +22,10 @@ of type \linkS4class{RLum}}
 furter details on the supported arguments please see the class
 documentation: \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum},
 \linkS4class{RLum.Data.Image}, \linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}}
+
+\item{class}{\link{character} (\emph{optional}): allows to define the class that gets selected if
+applied to a list, e.g., if a list consists of different type of RLum-class objects, this
+arguments allows to make selection. If nothing is provided, all RLum-objects are treated.}
 
 \item{null.rm}{\link{logical} (\emph{with default}): option to get rid of empty and NULL objects}
 }
@@ -46,7 +50,7 @@ Allowed arguments can be found in the documentations of the corresponding
 }}
 
 \section{Function version}{
- 0.3.2 (2018-01-21 11:22:38)
+ 0.3.3 (2019-02-15 10:35:06)
 }
 
 \examples{
@@ -68,11 +72,11 @@ temp.get <- get_RLum(object = temp1)
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.75. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.76. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

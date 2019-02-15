@@ -34,4 +34,8 @@ test_that("check get_RLum on a list and NULL", {
 
   expect_is(get_RLum(NULL), "NULL")
 
+  ##check class argument
+  a <- list(set_RLum("RLum.Results"), set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))))
+  expect_is(get_RLum(a, class = "test", drop = FALSE), class = "list")
+  expect_is(get_RLum(a, class = "RLum.Results", drop = FALSE), class = "list")
 })
