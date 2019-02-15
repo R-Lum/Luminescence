@@ -104,7 +104,7 @@ that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 strongly recommended to use the argument \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.0 (2018-01-21 11:22:38)
+ 0.2.1 (2019-02-14 20:31:16)
 }
 
 \examples{
@@ -142,11 +142,11 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 \link{read_BIN2R}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.74. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.75. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

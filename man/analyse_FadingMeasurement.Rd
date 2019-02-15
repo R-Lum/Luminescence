@@ -19,7 +19,9 @@ and where each triplet has the before mentioned column structure.
 only IRSL curves representing Lx (and Tx)}
 
 If data from multiple aliquots are provided please \strong{see the details below} with regard to
-Lx/Tx normalisation.}
+Lx/Tx normalisation. \strong{The function assumes that all your measurements are related to
+one (comparable) sample. If you to treat independent samples, you have use this function
+in a loop.}}
 
 \item{structure}{\link{character} (\emph{with default}):
 sets the structure of the measurement data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}.
@@ -110,7 +112,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.9 (2019-02-14 18:45:11)
+ 0.1.11 (2019-02-15 00:08:13)
 }
 
 \examples{
@@ -139,7 +141,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.74. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.75. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
