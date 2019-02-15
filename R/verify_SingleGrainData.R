@@ -332,7 +332,8 @@ verify_SingleGrainData <- function(
 
       } else{
 
-        stop("[verify_SingleGrainData()] I don't know what to do object 'originator' not supported!")
+        stop("[verify_SingleGrainData()] I don't know what to do object 'originator' not supported!",
+             call. = FALSE)
       }
 
 
