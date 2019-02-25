@@ -494,7 +494,7 @@ fit_EmissionSpectra <- function(
       mtext = "",
       legend = TRUE,
       legend.pos = "topright",
-      legend.text = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " keV"))
+      legend.text = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " eV"))
 
     ), val = list(...))
 
