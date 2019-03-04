@@ -74,3 +74,12 @@ citation(auto = meta)
 				volume = "45",
 				pages = "56-67",
 				doi = "10.1515/geochr-2015-0086")
+
+		bibentry(bibtype = "Article",
+			  title = "Age determination using feldspar: Evaluating fading-correction model performance",
+				author = "Georgina E.King and Christoph Burow and Helen M.Roberts and Nicholas J.G.Pearce",
+				year = "2018",
+				journal = "Radiation Measurements",
+				volume = "119",
+				pages = "58-73",
+				doi = "10.1016/j.radmeas.2018.07.013")
