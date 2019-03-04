@@ -1880,7 +1880,7 @@ analyse_IRSAR.RF<- function(
       ##(0) density plot
       if (method.control.settings$show_density) {
         ##showing the density makes only sense when we see at least 10 data points
-        if (!is.na(De.MC) && length(unique(De.MC)) >= 15) {
+        if (!any(is.na(De.MC)) && length(unique(De.MC)) >= 15) {
 
           ##calculate density De.MC
           density.De.MC <- density(De.MC)
