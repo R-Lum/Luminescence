@@ -24,12 +24,12 @@ Ancient TL, 31 (1), 11-18.
 
 Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
 visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 1-7.
-http://dx.doi.org/10.1016/j.quageo.2015.09.003
+https://doi.org/10.1016/j.quageo.2015.09.003
 
 Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,
 Fuchs, M., 2015. Data processing in luminescence dating analysis: An
 exemplary workflow using the R package 'Luminescence'. Quaternary
-International, 362,8-13. http://dx.doi.org/10.1016/j.quaint.2014.06.034
+International, 362,8-13. https://doi.org/10.1016/j.quaint.2014.06.034
 
 Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
@@ -42,8 +42,9 @@ implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14-21.
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL, 33 (1), 16-21.
 
-King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., in press. Age determination
-using feldspar: evaluating fading-correction model performance. Radiation Measurements.
+King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., 2018. Age determination
+using feldspar: evaluating fading-correction model performance. Radiation Measurements 119, 58-73.
+https://doi.org/10.1016/j.radmeas.2018.07.013
 }
 \author{
 \strong{Full list of authors and contributors} (alphabetic order)
