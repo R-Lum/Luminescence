@@ -102,7 +102,7 @@
 #'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 #' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
-#' implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14–21.
+#' implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14-21.
 #'
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL, 33 (1), 16-21.

@@ -145,7 +145,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.5 (2018-08-03 04:46:47)
+ 0.5.5 (2018-08-03 10:46:47)
 }
 
 \examples{
@@ -242,7 +242,7 @@ plot_RadialPlot(data = data.3,
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2019). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.76. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2019). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.81. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
