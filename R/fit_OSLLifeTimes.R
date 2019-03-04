@@ -122,7 +122,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 #' Christoph Schmidt, University of Bayreuth (Germany)
@@ -204,7 +204,11 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   ##combine results and return
   results <- merge_RLum(temp_results)
-  results@originator <- "fit_OSLLifeTimes"
+
+  if(!is.null(results))
+    results@originator <- "fit_OSLLifeTimes"
+
+  ##return
   return(results)
 
 }
@@ -247,6 +251,9 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   }
 
+  ##save original data for later
+  df_raw <- df
+
   ##signal_range
   if(!is.null(signal_range)){
     if(class(signal_range) != "numeric")
@@ -270,10 +277,10 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     }
 
     ##set range
-    df_raw <- df
     df <- df[signal_range[1]:signal_range[2],]
 
   }
+
 
 # Fitting -------------------------------------------------------------------------------------
 
