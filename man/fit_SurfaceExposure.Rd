@@ -147,7 +147,7 @@ may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} an
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.0 (2018-01-21 17:22:38)
+ 0.1.0 (2019-03-04 17:37:29)
 }
 
 \examples{
@@ -164,11 +164,11 @@ get_RLum(results)
 
 
 ## Example 2 - Single sample and considering dose rate
-# Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10, 
+# Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,
 # dose rate = 2.5 Gy/ka, D0 = 40 Gy
 sample_2 <- ExampleData.SurfaceExposure$sample_2
 head(sample_2)
-results <- fit_SurfaceExposure(sample_2, mu = 0.9, sigmaphi = 5e-10, 
+results <- fit_SurfaceExposure(sample_2, mu = 0.9, sigmaphi = 5e-10,
                                Ddot = 2.5, D0 = 40)
 get_RLum(results)
 
@@ -177,7 +177,7 @@ get_RLum(results)
 # Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10
 set_1 <- ExampleData.SurfaceExposure$set_1
 str(set_1, max.level = 2)
-results <- fit_SurfaceExposure(set_1, age = c(1e3, 1e4, 1e5, 1e6), 
+results <- fit_SurfaceExposure(set_1, age = c(1e3, 1e4, 1e5, 1e6),
                                sigmaphi = 5e-10)
 get_RLum(results)
 
@@ -187,14 +187,14 @@ get_RLum(results)
 # dose rate = 1.0 Ga/ka, D0 = 40 Gy
 set_2 <- ExampleData.SurfaceExposure$set_2
 str(set_2, max.level = 2)
-results <- fit_SurfaceExposure(set_2, age = c(1e2, 1e3, 1e4, 1e5, 1e6), 
+results <- fit_SurfaceExposure(set_2, age = c(1e2, 1e3, 1e4, 1e5, 1e6),
                                sigmaphi = 5e-10, Ddot = 1, D0 = 40)
 get_RLum(results)
 
 } 
 
 \section{How to cite}{
-Burow, C. (2019). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.83. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2019). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.79. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
