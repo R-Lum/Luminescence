@@ -66,7 +66,7 @@ test_that("check values from output example", {
  testthat::skip_on_cran()
 
  ##there was a substantial change in R-devel cause different results
- if(as.numeric(R.version$minor) < 6){
+ if(as.numeric(R.version$minor) >= 6){
    expect_equivalent(round(temp_EXP$De[[1]], digits = 2), 1737.88)
     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17440.55)
 
