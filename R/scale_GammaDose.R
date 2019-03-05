@@ -43,6 +43,13 @@
 #' - `"Guerinetal2011"` (Guerin et al., 2011)
 #' - `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
 #'
+#'
+#' **Water content**
+#' 
+#' The water content provided by the user should be calculated according to:
+#' 
+#' \deqn{ ( Wet weight [g] - Dry weight [g] ) / Dry weight [g] * 100 }
+#' 
 #' 
 #' **Calculations**
 #' 
@@ -77,7 +84,6 @@
 #' is able to scale the gamma dose rate accurately for distant layers when the 
 #' density and water content is not constant for the entire section.
 #' 
-#'
 #' @param data [data.frame] (**required**):
 #' A table containing all relevant information for each individual layer. The
 #' table must have the following named columns:
