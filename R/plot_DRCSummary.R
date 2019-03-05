@@ -249,7 +249,7 @@ if(class(object) == "list"){
     x <- seq(min(plot_settings$xlim),max(plot_settings$xlim), length.out = n)
     y <- eval(DRC[[i]])
 
-    if (is.na(y) || is.nan(y)) {
+    if (any(is.na(y)) || any(is.nan(y))) {
       warning("[plot_DRCSummary()] Dose response curve ", i, " is NA/NaN and was removed before plotting.",
               call. = FALSE)
       next
