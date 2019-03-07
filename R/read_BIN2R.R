@@ -90,7 +90,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
-#' @section Function version: 0.16.0
+#' @section Function version: 0.16.1
 #'
 #'
 #' @author
@@ -814,19 +814,23 @@ read_BIN2R <- function(
       }
 
       ##TIME
-      TIME_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+      TIME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
 
       ##time size corrections for wrong time formats; set n to 6 for all values
-      ##accoording the handbook of Geoff Duller, 2007
+      ##accoording the handbook by Geoff Duller, 2007
       if(length(TIME_SIZE)>0){
         temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+
+        ##correct the mess by others
+        if(nchar(temp.TIME) == 5)
+          temp.TIME <- paste(c("0", temp.TIME), collapse = "")
+
       }else{
         TIME_SIZE <- 0
 
       }
 
       if(6-TIME_SIZE>0){
-
         STEPPING<-readBin(con, what="raw", (6-TIME_SIZE),
                           size=1, endian="little")
       }

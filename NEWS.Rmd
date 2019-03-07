@@ -70,7 +70,9 @@ if otherwise, stops with a more meaningful error message. (Issue \#74)
 
 #### `read_BIN2R()`
 * Add support for missing BINX-file version 5 (pointed out by Harrison Gray)
-* In the auto-file recognition (only a path instead of a file is provided), sometimes the found BIN/BINX-files were imported twice. The corresponding code was simplified to avoid such errors in future.
+* In the auto-file recognition (only a path instead of a file is provided), sometimes the found BIN/BINX-files were imported twice. The corresponding code was simplified to avoid such errors in future
+* Sometimes the time stamp is invalid since it is missing a leading `0`. For BINX-files >= version 8 such timestamps
+now get corrected during the import
 
 #### `read_XSYG2R()`
 * The function failed for R-devel importing spectrometer data (`approx(..., ties = -2)`); fixed.
