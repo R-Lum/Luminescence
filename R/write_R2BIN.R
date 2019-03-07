@@ -54,7 +54,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the once
 #' directly produced by the Risoe readers!
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.5.1
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -412,11 +412,16 @@ write_R2BIN <- function(
     })}
 
   ##TIME
-  object@METADATA[,"TIME"] <- sapply(1:length(object@METADATA[,"TIME"]),function(x){
+  object@METADATA[,"TIME"] <- vapply(1:length(object@METADATA[["TIME"]]),function(x){
+    if(is.na(object@METADATA[["TIME"]][x])){
+      "000000"
 
-    as.character(gsub(":","",object@METADATA[x,"TIME"]))
+    }else{
+      as.character(gsub(":","",object@METADATA[["TIME"]][x]))
 
-  })
+    }
+
+  }, character(1))
 
   ##TAG and SEL
   ##in TAG information on the SEL are storred, here the values are copied to TAG

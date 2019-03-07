@@ -18,6 +18,10 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 ## Changes in version `r version_number` (`r Sys.Date()`)
 
+### Important R related changes
+
+* The behaviour of the base R function `sample()` was changed / corrected (see R news itself). This function is used heavily within functions in 'Luminescence' 
+
 ### New functions
 
 * `convert_Wavelength2Energy()` Smooth and quick emission spectra conversion from wavelength to energy scales
@@ -99,6 +103,11 @@ the element output as simple as possible, which is in particular helpful for `RL
 * The function now behaves more friendly to `RLum.Results` objects, before the output was hard
 to understand.
 
+#### `write_RLum2BIN()`
+* The export failed if the time stamp was invalid (`NA`); now `NA` values are consistently 
+replaced by `000000` (other values are not possible, otherwise the re-import of such file would fail)
+(reported by Alice Versendaal via email, 2019-03-06)
+
 ### Changes in S4-objects and methods
 #### `get_RLum`
 * The method working on `list` elements got a new argument `class` remove unwanted `RLum` objects
@@ -121,5 +130,7 @@ indicates the running package build number, e.g., 0.9.0.7.
 * New internal function `Luminescence:::.matrix_binning()` to get the matrix (and curve) binning 
 consistent; so far used only by the the `bin_RLum.Data()` method for `RLum.Data.Spectrum-class`
 * Vignette S4-class object structure updated
+* Internal changes to address changes in R-devel checking logical argumnets with length 
+more than one (e.g., `if(is.na(x))` returned an error if `x` was not a vector of length 1)
 
 
