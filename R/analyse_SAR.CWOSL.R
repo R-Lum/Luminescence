@@ -139,10 +139,10 @@
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
-#' @section Function version: 0.8.5
+#' @section Function version: 0.8.6
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
@@ -220,7 +220,7 @@ analyse_SAR.CWOSL<- function(
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
 
-  ##make live easy
+  ##make life easy
   if(missing("signal.integral.min")){
     signal.integral.min <- 1
     warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
@@ -232,10 +232,10 @@ if(is.list(object)){
   }
 
   ##now we have to extend everything to allow list of arguments ... this is just consequent
-  signal.integral.min <- rep(list(signal.integral.min), length = length(object))
-  signal.integral.max <- rep(list(signal.integral.max), length = length(object))
-  background.integral.min <- rep(list(background.integral.min), length = length(object))
-  background.integral.max <- rep(list(background.integral.max), length = length(object))
+  signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
+  signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
+  background.integral.min <- rep(as.list(background.integral.min), length = length(object))
+  background.integral.max <- rep(as.list(background.integral.max), length = length(object))
 
 
   ##it is a little bit more complex, as we have a list in a list
@@ -271,9 +271,22 @@ if(is.list(object)){
 
   }
 
+  ##handle main
+  if("main"%in% names(list(...))){
+    if(class(list(...)$main) == "list"){
+      main <- rep(list(...)$main,length = length(object))
+
+    }else{
+      main <- rep(as.list(list(...)$main),length = length(object))
+    }
+
+  }else{
+    main <- as.list(paste0("ALQ #",1:length(object)))
+
+  }
+
    ##run analysis
    temp <- lapply(1:length(object), function(x){
-
     analyse_SAR.CWOSL(object[[x]],
                       signal.integral.min = signal.integral.min[[x]],
                       signal.integral.max = signal.integral.max[[x]],
@@ -285,7 +298,7 @@ if(is.list(object)){
                       rejection.criteria = rejection.criteria[[x]],
                       plot.single = plot.single,
                       onlyLxTxTable = onlyLxTxTable,
-                      main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+                      main = main[[x]],
                       ...)
 
   })

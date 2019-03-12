@@ -44,6 +44,12 @@ and `RLum.Analysis` objects (also nested in a list)
 #### `apply_EfficiencyCorrection()`
 * The function produced a warning ("collapsing to unique 'x' values") on R-devel; fixed.
 
+#### `analyse_SAR.CWOSL()` 
+* If the function was used in a self-call mode (object of type `list`), the arguments contrary 
+to what is written in the manual, the arguments such as `signal.integra.min` had not been expanded
+properly; no one complained, however, corrected. 
+* The argument `main` no also supports the input `list` in the self-call mode.
+
 #### `analyse_SAR.TL()`
 * The plot legend was not correct, if no dose points had been provided; fixed
 * The function returned a confusion warning; fixed.
