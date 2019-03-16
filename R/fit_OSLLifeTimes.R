@@ -703,7 +703,6 @@ if(plot) {
       xlab = plot_settings$xlab,
       type = "b",
       pch = 20,
-      yaxt = "n",
       xlim = plot_settings$xlim,
       log = if(plot_settings$log == "x"){"x"}else{""},
       ylab = "\u03B5"
