@@ -140,5 +140,7 @@ consistent; so far used only by the the `bin_RLum.Data()` method for `RLum.Data.
 * Vignette S4-class object structure updated
 * Internal changes to address changes in R-devel checking logical argumnets with length 
 more than one (e.g., `if(is.na(x))` returned an error if `x` was not a vector of length 1)
+* `src/Makevars` file removed to prevent unconditional stripping in response to a recent CRAN request; in return
+the installation size of the packagee increased in size on some platforms.
 
 

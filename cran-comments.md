@@ -1,5 +1,14 @@
 ## Release summary
 
+This is a major release with new features and bug fixes. 
+
+## Addressed CRAN issues
+
+* We removed the unconditional stripping in response to the email by 
+Brian Ripley from 2019-04-10 (subject: CRAN packages stripping unconditionally).
+
+This necessarily encreased the library size on unix platforms.
+
 ## R CMD check --as-cran results
 
 0 errors | 0 warnings | 0 note
