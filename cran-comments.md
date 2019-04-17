@@ -9,6 +9,19 @@ Brian Ripley from 2019-04-10 (subject: CRAN packages stripping unconditionally).
 
 This necessarily encreased the library size on unix platforms.
 
+## CRAN messages
+
+>Version: 0.8.6 
+>Check: installed package size 
+>Result: NOTE 
+>     installed size is 5.4Mb
+>     sub-directories of 1Mb or more:
+>     R 1.4Mb
+>     libs 1.6Mb 
+
+We are aware of it, however, this is the package size and there is nothing we can 
+do about it.
+
 ## R CMD check --as-cran results
 
 0 errors | 0 warnings | 0 note
@@ -25,7 +38,7 @@ word is spelled correctly.
 Reverse depends 4: all OK.
 
 ## Test environments
-* local macOS High Sierra 10.13.3, Xcode 9.2, R-devel
+* local macOS High Sierra 10.14.4, Xcode 10.2, R-devel
 * on AppVeyor CI
     * i386-w64-mingw32/i386 (32-bit), R-devel
     * x86_64_w64-mingw32/64 (64-bit), R-devel

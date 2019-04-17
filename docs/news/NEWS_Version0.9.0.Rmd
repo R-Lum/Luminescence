@@ -1,0 +1,109 @@
+---
+title: "R Luminescence version - 0.9.0 </br> - Energetic Bird -"
+author: "R Luminescence Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Dear **R** Luminescence users!
+
+As the years passing by, the 'Luminescence' package gets bigger every year, and we are falling more and more behind our schedules for the next major release. Nevertheless, today, we are happy to announce another major release [0.9.0](https://CRAN.R-project.org/package=Luminescence) before we are finally moving to 1.0.0 in 2020. 
+Unfortunately, due to last minute CRAN correction requests after we had merged the development branches, 
+we cannot ship all the new functions that we have had prepared for you over the last year. They will come later the year with further updates.
+
+We are thankful for all the helpful suggestions and comments we received over time, and we are welcoming 
+two new members in our development team: Svenja Riedesel (Aberystwyth University, UK) and Martin
+Autzen (Technical University of Denmark, DK) who contributed their first function. 
+
+As usual, below we are featuring some changes and new functions. 
+For a full list of changes and notably the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+```{r, echo = FALSE, message=FALSE}
+library(Luminescence)
+```
+
+## What's new?
+
+### New analysis functions
+
+#### `convert_Wavelength2Energy()` 
+
+Since a few years ‘Luminescence’ includes functions to treat and display 3D emission spectra, e.g., plot_RLum.Data.Spectrum(). 
+Such spectra are usually recorded on a wavelength scale but need to be transposed to energy scales, e.g., 
+to deconvolute individual peaks by fitting. For emission spectra it needs more than just replacing 
+the wavelength axis, but also the signal values need to be recalculated to maintain the area under the sum spectrum (example after Mooney et al., 2013).
+
+```{r, echo=FALSE, fig.align="center", fig.width=6}
+##(1) Literature example after Mooney et al. (2013)
+##(1.1) create matrix
+m <- matrix(
+  data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
+
+##(1.2) set plot function to reproduce the
+##literature figure
+p <- function(m) {
+ plot(x = m[, 1], y = m[, 2])
+ polygon(
+ x = c(m[, 1], rev(m[, 1])),
+ y = c(m[, 2], rep(0, nrow(m))))
+ for (i in 1:nrow(m)) {
+  lines(x = rep(m[i, 1], 2), y = c(0, m[i, 2]))
+ }
+}
+
+##(1.3) plot curves
+par(mfrow = c(1,2))
+p(m)
+p(convert_Wavelength2Energy(m))
+```
+
+A simplified form of such conversion was already included in `plot_RLum.Data.Spectrum()`, but the values could not be extracted. To quicken and unify the workflow among the package 'Luminescence' now `convert_Wavelength2Energy()` takes over and is also used internally by `plot_RLum.Data.Spectrum()`. Output values are similar to the allowed input values ( `RLum.Data.Spectrum()`, `data.frame` and `matrix`). Example: 
+
+```{r, echo = FALSE, fig.align="center"}
+#=====================##
+##(2) Another example using density curves
+##create dataset
+xy <- density(
+ c(rnorm(n = 100, mean = 500, sd = 20),
+ rnorm(n = 100, mean = 800, sd = 20)))
+xy <- data.frame(xy$x, xy$y)
+```
+
+```{r, fig.align="center"}
+plot(
+ convert_Wavelength2Energy(xy),
+ xy$y,
+ type = "l",
+ xlim = c(1.23, 8.3),
+ xlab = "Energy [eV]",
+ ylab = "Luminescence [a.u.]"
+)
+```
+
+
+
+#### `fit_OSLLifeTimes()` 
+
+Fit and deconvolution of OSL lifetimes using off-time measurements,
+i.e. after the stimulation was switched off.
+
+#### `plot_DRCSummary()` 
+
+
+* `scale_GammaDose()` 
+
+Scale the gamma dose rate considering layer-to-layer variations
+in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
+
+* `fit_ThermalQuenching()` 
+
+Provide an easy option to fit thermal quenching data and determine the activation energy.
+
+
+# References {-}
+
+Mooney, J., Kambhampati, P., 2013. Get the Basics Right: Jacobian Conversion of Wavelength and Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318. doi: [10.1021/jz401508t](https://doi.org/10.1021/jz401508t)
