@@ -46,7 +46,7 @@ and `RLum.Analysis` objects (also nested in a list)
 
 #### `analyse_SAR.CWOSL()` 
 * If the function was used in a self-call mode (object of type `list`), the arguments contrary 
-to what is written in the manual, the arguments such as `signal.integra.min` had not been expanded
+to what is written in the manual, the arguments such as `signal.integral.min` had not been expanded
 properly; no one complained, however, corrected. 
 * The argument `main` no also supports the input `list` in the self-call mode.
 
@@ -72,7 +72,7 @@ now suppressed
 #### `calc_Huntley2006()`
 * The function now checks if rho' (`rhop`) is a sensible non-zero positive value and,
 if otherwise, stops with a more meaningful error message. (Issue \#74)
-* Now the function is a little bit less talkative if extrem dataset are provided as input
+* Now the function is a little bit less talkative if extreme dataset are provided as input
 
 #### `read_BIN2R()`
 * Add support for missing BINX-file version 5 (pointed out by Harrison Gray)
@@ -138,9 +138,9 @@ indicates the running package build number, e.g., 0.9.0.7.
 * New internal function `Luminescence:::.matrix_binning()` to get the matrix (and curve) binning 
 consistent; so far used only by the the `bin_RLum.Data()` method for `RLum.Data.Spectrum-class`
 * Vignette S4-class object structure updated
-* Internal changes to address changes in R-devel checking logical argumnets with length 
+* Internal changes to address changes in R-devel checking logical arguments with length 
 more than one (e.g., `if(is.na(x))` returned an error if `x` was not a vector of length 1)
 * `src/Makevars` file removed to prevent unconditional stripping in response to a recent CRAN request; in return
-the installation size of the packagee increased in size on some platforms.
+the installation size of the package increased in size on some platforms.
 
 
