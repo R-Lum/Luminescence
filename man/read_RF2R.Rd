@@ -24,7 +24,7 @@ This functions provides an easy import to process the data seamlessly with the R
 The output of the function can be passed to the function \link{analyse_IRSAR.RF}
 }
 \section{Function version}{
- 0.0.1 (2019-01-15 01:11:37)
+ 0.0.1
 }
 
 \examples{
@@ -33,12 +33,7 @@ The output of the function can be passed to the function \link{analyse_IRSAR.RF}
 file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 temp <- read_RF2R(file)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). read_RF2R(): Import RF-files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.90. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 #TODO ADD REFERENCE
 }
@@ -47,5 +42,5 @@ Kreutzer, S. (2019). read_RF2R(): Import RF-files to R. Function version 0.0.1. 
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{IO}
