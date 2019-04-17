@@ -28,9 +28,9 @@ library(Luminescence)
 
 ## What's new?
 
-### New analysis functions
+### New functions
 
-#### `convert_Wavelength2Energy()` 
+#### Wavelength energy conversion: `convert_Wavelength2Energy()` 
 
 Since a few years ‘Luminescence’ includes functions to treat and display 3D emission spectra, e.g., plot_RLum.Data.Spectrum(). 
 Such spectra are usually recorded on a wavelength scale but need to be transposed to energy scales, e.g., 
@@ -94,10 +94,26 @@ i.e. after the stimulation was switched off.
 #### `plot_DRCSummary()` 
 
 
-* `scale_GammaDose()` 
+#### Scaling $\gamma$-dose rates: `scale_GammaDose()` 
 
-Scale the gamma dose rate considering layer-to-layer variations
-in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
+```{r, echo=FALSE}
+# Load example data
+data("ExampleData.ScaleGammaDose", envir = environment())
+```
+
+Scale the $\gamma$-dose rate considering layer-to-layer variations in soil radioactivity. Contributed by S. Riedesel and M. Autzen. The range of $\gamma$-radiation requires corrections to be made for the dose received by a sample, when situated within a complex sediment sequence. If no portable $\gamma$-ray specrometry was performed, individual dosimetry samples should be taken within the influencing distance for $\gamma$-radiation. The function allows the user to input element concentrations for U, Th and K for all samples taken from layers that may impact the $\gamma$-dose received by the luminescence sample. The function calculates the $\gamma$-dose rate received by the samples using the superposition approach according to Aitken (1985). The user will also be provided with details on the contribution of each sediment layer to the overall dose rate and a figure showing details of the sediment sequence, element concentrations of the samples and dose rate contributions. 
+
+```{r, fig.align="center", fig.width = 6, fig.height=6}
+results <- scale_GammaDose(
+  data = ExampleData.ScaleGammaDose,
+  conversion_factors = "Cresswelletal2019",
+  fractional_gamma_dose = "Aitken1985",
+  verbose = FALSE,
+  plot = TRUE
+)
+
+```
+
 
 * `fit_ThermalQuenching()` 
 
@@ -105,5 +121,7 @@ Provide an easy option to fit thermal quenching data and determine the activatio
 
 
 # References {-}
+
+Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, Oxford.
 
 Mooney, J., Kambhampati, P., 2013. Get the Basics Right: Jacobian Conversion of Wavelength and Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318. doi: [10.1021/jz401508t](https://doi.org/10.1021/jz401508t)
