@@ -91,7 +91,38 @@ plot(
 Fit and deconvolution of OSL lifetimes using off-time measurements,
 i.e. after the stimulation was switched off.
 
-#### `plot_DRCSummary()` 
+#### The big picture: `plot_DRCSummary()` 
+
+You have been always wondering how the dose response curves would like if combined in a single plot? 
+Now we have a solution: `plot_DRCSummary()` works directly on the output of the function `analyse_SAR.CWOSL()` and extracts the equations with the fitting paramaters for you can displays 
+everything in a single plot. Of course, it works also on a `list` of objects created by 
+`analyse_SAR.CWOSL()`.
+
+```{r, echo=FALSE}
+#load data example data
+data(ExampleData.BINfileData, envir = environment())
+
+#transform the values from the first position in a RLum.Analysis object
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+
+results <- analyse_SAR.CWOSL(
+  object = object,
+  signal.integral.min = 1,
+  signal.integral.max = 2,
+   background.integral.min = 900,
+   background.integral.max = 1000,
+   plot = FALSE, 
+   verbose = FALSE
+ )
+```
+
+```{r, fig.align="center", message=FALSE, fig.width=4, fig.height=3.5,results=FALSE}
+plot_DRCSummary(
+  object = results,
+  show_natural = TRUE,
+  show_dose_points = TRUE
+)
+```
 
 
 #### Scaling $\gamma$-dose rates: `scale_GammaDose()` 
@@ -103,7 +134,7 @@ data("ExampleData.ScaleGammaDose", envir = environment())
 
 Scale the $\gamma$-dose rate considering layer-to-layer variations in soil radioactivity. Contributed by S. Riedesel and M. Autzen. The range of $\gamma$-radiation requires corrections to be made for the dose received by a sample, when situated within a complex sediment sequence. If no portable $\gamma$-ray specrometry was performed, individual dosimetry samples should be taken within the influencing distance for $\gamma$-radiation. The function allows the user to input element concentrations for U, Th and K for all samples taken from layers that may impact the $\gamma$-dose received by the luminescence sample. The function calculates the $\gamma$-dose rate received by the samples using the superposition approach according to Aitken (1985). The user will also be provided with details on the contribution of each sediment layer to the overall dose rate and a figure showing details of the sediment sequence, element concentrations of the samples and dose rate contributions. 
 
-```{r, fig.align="center", fig.width = 6, fig.height=6}
+```{r, fig.align="center", fig.width = 8, fig.height=6}
 results <- scale_GammaDose(
   data = ExampleData.ScaleGammaDose,
   conversion_factors = "Cresswelletal2019",
