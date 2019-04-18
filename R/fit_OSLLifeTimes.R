@@ -140,12 +140,25 @@
 #'
 #' Hughes, I., Hase, T., 2010. Measurements and Their Uncertainties. Oxford University Press.
 #'
-#' Storn, R., Price, K., 1997. Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
+#' Storn, R., Price, K., 1997. Differential Evolution –
+#' A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
 #' Journal of Global Optimization 11, 341–359.
 #'
 #'@examples
 #'
-#'print("nothing here so far")
+#'##load example data
+#'data(ExampleData.TR_OSL, envir = environment())
+#'
+#'##fit lifetimes (short run)
+#'fit_OSLLifeTimes(
+#'  object = ExampleData.TR_OSL,
+#'  n.components = 1)
+#'
+#'##long example
+#'\dontrun{
+#'fit_OSLLifeTimes(
+#' object = ExampleData.TR_OSL)
+#' }
 #'
 #'@md
 #'@export
