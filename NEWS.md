@@ -7,6 +7,9 @@
 
 ## Changes in version 0.9.0 (2019-04-18)
 
+Please note: the 0.9.X releases will be the last versions supporting
+**R** \< 3.5.0.
+
 ### Important R related changes
 
   - The behaviour of the base R function `sample()` was changed /
