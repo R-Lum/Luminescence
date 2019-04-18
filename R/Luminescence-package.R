@@ -1153,6 +1153,36 @@ NULL
 #' @md
 NULL
 
+#' Example TR-OSL data
+#'
+#' Single TR-OSL curve obtained by Schmidt et al., under review.
+#'
+#' @format One [RLum.Data.Curve-class] dataset imported using the function [read_XSYG2R]
+#'
+#' \describe{
+#' `ExampleData.TR_OSL`: A single [RLum.Data.Curve-class] object with the TR-OSL data
+#'
+#' }
+#'
+#'
+#' @seealso [fit_OSLLifeTimes]
+#'
+#' @references Schmidt, C., Simmank, O., Kreutzer, S., under review.
+#' Time-Resolved Optically Stimulated Luminescence of Quartz in the Nanosecond Time Domain. Journal
+#' of Luminescence, 1-90
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ##(1) curves
+#' data(ExampleData.TR_OSL, envir = environment())
+#' plot_RLum(ExampleData.TR_OSL)
+#'
+#' @name ExampleData.TR_OSL
+#' @md
+NULL
+
 #' Collection of External Data
 #'
 #' @description Description and listing of data provided in the folder `data/extdata`
