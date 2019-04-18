@@ -168,6 +168,11 @@
 
   - Support added for `bin_RLum.Data()`
 
+### New example datasets
+
+  - `ExampleData.TR_OSL` provides a single fast-pulsing OSL curve that
+    can be used to test the function `fit_OSLLifeTimes()`.
+
 ### Internals
 
   - Package news are now provided as markdown document (NEWS.md) which

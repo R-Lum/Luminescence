@@ -134,17 +134,29 @@ The default values is \code{TRUE} \cr
 }
 }
 \section{Function version}{
- 0.1.2 (2019-03-16 11:25:02)
+ 0.1.2 (2019-04-18 19:37:25)
 }
 
 \examples{
 
-print("nothing here so far")
+##load example data
+data(ExampleData.TR_OSL, envir = environment())
+
+##fit lifetimes (short run)
+fit_OSLLifeTimes(
+ object = ExampleData.TR_OSL,
+ n.components = 1)
+
+##long example
+\dontrun{
+fit_OSLLifeTimes(
+object = ExampleData.TR_OSL)
+}
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.91. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.94. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -158,7 +170,8 @@ Biometrika 37, 409-21. doi:10.2307/2332391
 
 Hughes, I., Hase, T., 2010. Measurements and Their Uncertainties. Oxford University Press.
 
-Storn, R., Price, K., 1997. Differential Evolution – A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
+Storn, R., Price, K., 1997. Differential Evolution –
+A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
 Journal of Global Optimization 11, 341–359.
 }
 \seealso{
