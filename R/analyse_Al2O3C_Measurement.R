@@ -35,8 +35,8 @@
 #' @param object [RLum.Analysis-class] **(required)**:
 #' measurement input
 #'
-#' @param signal_integral [numeric] (*optional*):
-#' signal integral, used for the signal and the background.
+#' @param signal_integral [numeric] (*optional*): signal integral, used for the signal
+#' and the background. Example: `c(1:10)` for the first 10 channels.
 #' If nothing is provided the full range is used
 #'
 #' @param dose_points [numeric] (*with default*):
@@ -110,7 +110,7 @@
 #'
 #' @section Function version: 0.2.4
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
