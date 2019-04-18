@@ -61,7 +61,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1
+ 0.4.1 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -71,7 +71,12 @@ data(ExampleData.DeValues, envir = environment())
 ## calculate De according to Fuchs & Lang (2001)
 temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Burow, C. (2019). calc_FuchsLang2001(): Apply the model after Fuchs & Lang (2001) to a given De distribution.. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.91. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 quartz using single-aliqout protocols on sediments from NE Peloponnese,
@@ -88,5 +93,5 @@ Quaternary Science Reviews 22, 1161-1167.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \keyword{dplot}

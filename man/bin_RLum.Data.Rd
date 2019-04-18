@@ -29,7 +29,7 @@ Allowed arguments can be found in the documentations of the corresponding
 Currently only \code{RLum.Data} objects of class \linkS4class{RLum.Data.Curve} and \linkS4class{RLum.Data.Spectrum} are supported!
 }
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2019-01-24 22:59:09)
 }
 
 \examples{
@@ -57,5 +57,10 @@ plot_RLum(bin_RLum.Data(curve, bin_size = 4))
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5050, CNRS - Université Bordeaux Montaigne
 (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.91. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{utilities}

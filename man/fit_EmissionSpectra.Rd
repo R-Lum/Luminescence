@@ -125,7 +125,7 @@ the searching stops \cr
 Beta version, not uet recommended for productive usage
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2019-02-25 19:18:38)
 }
 
 \examples{
@@ -148,7 +148,12 @@ results <- fit_EmissionSpectra(
 
 }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.91. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 ##TODO
 }
@@ -158,5 +163,5 @@ results <- fit_EmissionSpectra(
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}
