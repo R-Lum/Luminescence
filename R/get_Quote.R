@@ -62,7 +62,7 @@ get_Quote <- function(
     c("A motivated R-Team member", "We are doing this not just for statistical reasons, there is real science behind it!"),
     c("An enthusiastic cabaret artist", "Political elections are like brushing teeth: if you don't do it, things become brown."),
     c("An unbiased reviewer", "The data is too poor to be published in QG, try a higher ranked journal."),
-    c("R Team member, asked about statistical details", "No idea, I'm just here for visualisation."),
+    c("R Team member, asked about statistical details", "No idea, I'm just here for the visualisation."),
     c("An arbitrary unexperienced RLum-user", "Little by little, the bird builds its nest."),
     c("The answer to life, the universe and everything", "get_rightAnswer()"),
     c("Der Tatortreiniger", "Dreck ist nur Materie am falschen Ort."),
@@ -70,8 +70,11 @@ get_Quote <- function(
     c("Bright grain to dim grains", "I'm so shiny!"),
     c("Fast component to slow component", "Life is short!"),
     c("Fast component to slow component", "What are you waiting for?"),
-    c("Violet photon to deep trap electron", "Today I'm kicking you out of your comfort zone"),
-    c("Deep trap electron to infrared photon", "Don't bother me, I need to rest")
+    c("Violet photon to deep trap electron", "Today I'm kicking you out of your comfort zone!"),
+    c("Deep trap electron to infrared photon", "Don't bother me, I need to rest."),
+    c("A single grain", "I feel so lonley."),
+    c("Luminescence data to Bayesian process", "Don't you ever touch me again."),
+    c("Quartz grain to heating plate", "Go ahead, I need a phase change.")
     )
 
   ## Check input data
