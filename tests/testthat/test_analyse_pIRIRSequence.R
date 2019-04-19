@@ -46,7 +46,16 @@ test_that("check class and length of output", {
 
 test_that("check output", {
    testthat::skip_on_cran()
-   expect_equal(round(sum(results$data[1:2, 1:4]), 2),7582.62)
+
+   ##fix for different R versions
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+     expect_equal(round(sum(results$data[1:2, 1:4]), 2),7582.62)
+
+   }else{
+     expect_equal(round(sum(results$data[1:2, 1:4]), 2),7584.15)
+
+   }
+
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)
 
 })
