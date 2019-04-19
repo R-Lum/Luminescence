@@ -20,7 +20,6 @@ Please note: the 0.9.X releases will be the last versions supporting
 
   - `convert_Wavelength2Energy()` Smooth and quick emission spectra
     conversion from wavelength to energy scales
-  - `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
   - `fit_OSLLifeTimes()` Fit and deconvolution of OSL lifetimes using
     off-time measurements, i.e. after the stimulation was switched off.
   - `plot_DRCSummary()` Summarise all dose-response curves from your SAR
@@ -30,8 +29,6 @@ Please note: the 0.9.X releases will be the last versions supporting
     Riedesel and M. Autzen.
   - `fit_ThermalQuenching()` Provide an easy option to fit thermal
     quenching data and determine the activation energy.
-  - `read_RF2R()` Add support for importing spatially resolved RF
-    measurement results.
 
 ### Bugfixes and changes
 
@@ -159,7 +156,7 @@ Please note: the 0.9.X releases will be the last versions supporting
 
 #### `get_RLum`
 
-  - The method working on `list` elements got a new argument `class`
+  - The method working on `list` elements got a new argument `class` to
     remove unwanted `RLum` objects in from list of `RLum` objects
 
 #### `RLum.Analysis-class`
