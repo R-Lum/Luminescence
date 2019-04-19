@@ -13,7 +13,7 @@ test_that("consistency checks", {
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2))
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1))
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8, MC = TRUE))
-  expect_output(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = 9.8, grains.counted = 30, MC = TRUE), 
+  expect_output(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = 9.8, grains.counted = 30, MC = TRUE),
                 regexp = "Monte Carlo simulation is only available for estimating the amount of grains on the sample disc.")
   expect_is(calc_AliquotSize(grain.size = 100, packing.density = "inf", sample.diameter = 9.8, MC = FALSE), "RLum.Results")
   expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
@@ -45,7 +45,15 @@ test_that("check MC run", {
   expect_equal(round(temp$MC$statistics$n), 100)
   expect_equal(round(temp$MC$statistics$mean), 43)
   expect_equal(round(temp$MC$statistics$median), 39)
-  expect_equal(round(temp$MC$statistics$sd.abs), 20)
+
+  ##fix for different R versions
+  if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+    expect_equal(round(temp$MC$statistics$sd.abs), 20)
+
+  }else{
+    expect_equal(round(temp$MC$statistics$sd.abs), 19)
+
+  }
   expect_equal(round(temp$MC$statistics$sd.rel), 45)
   expect_equal(round(temp$MC$statistics$se.abs), 2)
   expect_equal(round(temp$MC$statistics$se.rel), 5)
