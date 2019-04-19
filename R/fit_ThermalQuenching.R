@@ -163,7 +163,7 @@ fit_ThermalQuenching <- function(
     if(nrow(data) < 1 || ncol(data) < 3)
       stop("[fit_ThermalQuenching()] 'data' is empty or has less than three columns!", call. = FALSE)
 
-    if(ncol(data) < 3)
+    if(ncol(data) > 3)
       warning("[fit_ThermalQuenching()] 'data' has more than 3 columns, taking only the first three!", call. = FALSE)
 
     if(any(is.na(data)))
