@@ -50,7 +50,7 @@ test_that("check values from calc_Huntley2008()", {
   testthat::skip_on_cran()
 
   ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(huntley$results$Sim_Age, 1), 41.3)
     expect_equal(round(huntley$results$Sim_Age_2D0, 0), 164)
     expect_equal(round(sum(huntley$Ln),4), 0.1585)

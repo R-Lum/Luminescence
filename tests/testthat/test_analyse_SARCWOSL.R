@@ -39,7 +39,7 @@ test_that("check De values", {
   testthat::skip_on_cran()
 
   ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
    expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1717.47)
 
   }else{

@@ -47,7 +47,7 @@ test_that("check MC run", {
   expect_equal(round(temp$MC$statistics$median), 39)
 
   ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(temp$MC$statistics$sd.abs), 20)
 
   }else{

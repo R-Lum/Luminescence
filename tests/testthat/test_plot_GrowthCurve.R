@@ -68,7 +68,7 @@ test_that("check values from output example", {
    expect_equivalent(round(temp_EXP$De[[1]], digits = 2), 1737.88)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17440.55)
 
    }else{
@@ -79,7 +79,7 @@ test_that("check values from output example", {
    expect_equivalent(round(temp_LIN$De[[1]], digits = 2), 1811.33)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
    expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 2),18238.02)
 
    }else{
@@ -90,7 +90,7 @@ test_that("check values from output example", {
    expect_equivalent(round(temp_EXPLIN$De[[1]], digits = 2), 1791.53)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),17474.29)
 
    }else{
@@ -101,7 +101,7 @@ test_that("check values from output example", {
    expect_equivalent(round(temp_EXPEXP$De[[1]], digits = 2), 1787.15)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
 
    }else{
@@ -112,7 +112,7 @@ test_that("check values from output example", {
    expect_equivalent(round(temp_QDR$De[[1]], digits = 2), 1666.2)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 14936.76)
 
    }else{
