@@ -66,19 +66,59 @@ test_that("check values from output example", {
  testthat::skip_on_cran()
 
    expect_equivalent(round(temp_EXP$De[[1]], digits = 2), 1737.88)
-   expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17440.55)
+
+   ##fix for different R versions
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17440.55)
+
+   }else{
+     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17562.34)
+
+   }
 
    expect_equivalent(round(temp_LIN$De[[1]], digits = 2), 1811.33)
+
+   ##fix for different R versions
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
    expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 2),18238.02)
 
+   }else{
+     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 2),18398.36)
+
+   }
+
    expect_equivalent(round(temp_EXPLIN$De[[1]], digits = 2), 1791.53)
-   expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),17474.29)
+
+   ##fix for different R versions
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+    expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),17474.29)
+
+   }else{
+     expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),18045.34)
+
+   }
 
    expect_equivalent(round(temp_EXPEXP$De[[1]], digits = 2), 1787.15)
-   expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
+
+   ##fix for different R versions
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+    expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
+
+   }else{
+     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303)
+
+   }
 
    expect_equivalent(round(temp_QDR$De[[1]], digits = 2), 1666.2)
-   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 14936.76)
+
+   ##fix for different R versions
+   if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 14936.76)
+
+   }else{
+     expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 16476.02)
+
+   }
 
 
 })
@@ -93,6 +133,7 @@ test_that("check extrapolation", {
 
   expect_equivalent(round(LIN$De$De,0), 165)
   expect_equivalent(round(EXP$De$De,0),  110)
+
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
 
