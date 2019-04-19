@@ -268,7 +268,7 @@ fit_ThermalQuenching <- function(
     })
 
   }else{
-    try(stop("[fit_ThermalQuenching()] Fitting failed, NULL returned!", call. = FALSE), silent = TRUE)
+    try(stop("[fit_ThermalQuenching()] Fitting failed, NULL returned!", call. = FALSE), silent = FALSE)
     return(NULL)
 
 
