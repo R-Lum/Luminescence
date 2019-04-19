@@ -1,17 +1,14 @@
 ---
 title: "R Luminescence version - 0.9.0 </br> - Energetic Bird -"
-author: "R Luminescence Team"
+author: "R Luminescence Developer Team"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: rmarkdown::html_document
 ---
 
 Dear **R** Luminescence users!
 
 As the years passing by, the 'Luminescence' package gets bigger every year, and we are falling more and more behind our schedules for next major releases. Nevertheless, today, we are happy to announce another major release [0.9.0](https://CRAN.R-project.org/package=Luminescence) before we are finally moving to 1.0.0 in 2020. 
+*Please note that the 0.9.X package release series will be last supporting **R** versions < 3.5.0.* 
 
 Unfortunately, due to last minute CRAN correction requests after we had merged the development branches, 
 we cannot ship all the new functions that we have had prepared for you over the last year. They will come later the year with further updates.
@@ -23,24 +20,29 @@ Autzen (Technical University of Denmark, DK) who contributed their first functio
 As usual, below we are featuring some changes and new functions. 
 For a full list of changes and notably the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
 
-*Please note that the 0.9.X package release series will be last supporting **R** versions < 3.5.0.* 
+
+Have fun and do not forget to report bugs via https://github.com/R-Lum/Luminescence/issues.
+<br><br>
+Your R 'Luminescence' Developer Team
+
+*(Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt,  Manfred Fischer, 
+Johannes Friedrich, Norbert Mercier, Rachel K. Smedley, Claire Christophe , Antoine Zink, Julie Durcan,  
+Georgina E. King, Anne Philippe, Guillaume Guerin, Svenja Riedesel, Martin Autzen)*
 
 ```{r, echo = FALSE, message=FALSE}
 library(Luminescence)
 ```
 
-## What's new?
+## New functions
 
-### New functions
-
-#### Wavelength energy conversion: `convert_Wavelength2Energy()` 
+### Give me energy: `convert_Wavelength2Energy()` 
 
 Since a few years ‘Luminescence’ includes functions to treat and display 3D emission spectra, e.g., plot_RLum.Data.Spectrum(). 
 Such spectra are usually recorded on a wavelength scale but need to be transposed to energy scales, e.g., 
 to deconvolute individual peaks by fitting. For emission spectra it needs more than just replacing 
 the wavelength axis, but also the signal values need to be recalculated to maintain the area under the sum spectrum (example after Mooney et al., 2013).
 
-```{r, echo=FALSE, fig.align="center", fig.width=6}
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
 ##(1) Literature example after Mooney et al. (2013)
 ##(1.1) create matrix
 m <- matrix(
@@ -88,7 +90,7 @@ plot(
 ```
 
 
-#### Life is short: `fit_OSLLifeTimes()` 
+### Life is short: `fit_OSLLifeTimes()` 
 
 New equipment brings new data, brings new challenges. Back in late 2017, we got our first nanosecond pulsing unit shipping to Bordeaux. The project aimed at investigating very short luminescence signal lifetimes in quartz in minerals. To analyse the data and deconvolve the bulk signal, a series of photons arriving after an OSL pulse, Sebastian and Christoph S. created a new function using ideas
 proposed by Bluszcz and Adamiec (2006) to identify a statistically justified number of lifetimes components. 
@@ -101,13 +103,13 @@ fitting.
 data(ExampleData.TR_OSL, envir = environment())
 ```
 
-```{r, cache=TRUE, fig.align="center", fig.width=6, fig.height=5}
+```{r, cache=TRUE, fig.align="center", fig.width=6, fig.height=5, results=FALSE}
 fit_OSLLifeTimes(
 object = ExampleData.TR_OSL, 
-log = "x")
+verbose = FALSE)
 ```
 
-#### The big picture: `plot_DRCSummary()` 
+### Show it all: `plot_DRCSummary()` 
 
 You have always been wondering how the dose-response curves would look like if combined in a single plot? 
 Now we have a solution: `plot_DRCSummary()` works directly on the output of the function `analyse_SAR.CWOSL()` and extracts the equations with the fitting parameters for you, and it displays everything in a single plot. Of course, it also works on a `list` of objects created by `analyse_SAR.CWOSL()`.
@@ -139,7 +141,7 @@ plot_DRCSummary(
 ```
 
 
-#### Scaling $\gamma$-dose rates: `scale_GammaDose()` 
+### Nothing is as it seems: `scale_GammaDose()` 
 
 ```{r, echo=FALSE}
 # Load example data
@@ -159,10 +161,10 @@ results <- scale_GammaDose(
 
 ```
 
-
-* `fit_ThermalQuenching()` 
+### `fit_ThermalQuenching()` 
 
 Provide an easy option to fit thermal quenching data and determine the activation energy.
+TODO
 
 
 # References {-}
