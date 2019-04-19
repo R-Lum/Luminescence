@@ -37,6 +37,11 @@ test_that("standard check", {
     data = data,
     n.MC = NULL), class = "RLum.Results")
 
+  ##simple run with fitting error
+  expect_null(fit_ThermalQuenching(
+    data = data.frame(T = 1:10, V = 1:10, V_X = 1:10),
+    n.MC = NULL))
+
   # ##switch off weights
   expect_s4_class(fit_ThermalQuenching(
     data = data,
@@ -48,12 +53,11 @@ test_that("standard check", {
     data = data_list,
     n.MC = NULL), class = "RLum.Results")
 
-
   ##simple run without plot etc
   expect_s4_class(fit_ThermalQuenching(
     data = data,
     verbose = FALSE,
-    plot = FALSE,
+    plot = TRUE,
     n.MC = 10), class = "RLum.Results")
 
 
