@@ -457,8 +457,11 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
       ##break here if n.components was set others than NULL, in such case we force the number
       if(!is.null(n.components)){
-        cat(" >> [forced stop]\n")
-        cat("---------------------(end adaption)--------------------------------------\n\n")
+        if(verbose){
+         cat(" >> [forced stop]\n")
+         cat("---------------------(end adaption)--------------------------------------\n\n")
+        }
+
         start_parameters <- start$optim$bestmem
         break()
 
