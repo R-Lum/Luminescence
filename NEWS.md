@@ -7,14 +7,20 @@
 
 ## Changes in version 0.9.0 (2019-04-19)
 
-Please note: the 0.9.X releases will be the last versions supporting
-**R** \< 3.5.0.
+‘Luminescence’ 0.9.X releases will be the last versions supporting **R**
+\< 3.5.0.
 
-### Important R related changes
+### Important R related changes (R \>= 3.6.0)
 
-  - The behaviour of the base R function `sample()` was changed /
-    corrected (see R news itself). This function is used heavily within
-    functions in ‘Luminescence’
+The behaviour of the base R function `sample()` was changed / corrected
+(see news on <https://r-project.org> for details). This function is used
+heavily within functions by ‘Luminescence’ (e.g., `plot_GrowthCurve()`).
+That being said, it means that old data re-analysed by ‘Luminescence’
+using R versions \>= 3.6.0 will not give the same results. Differences
+are small, however, they may significant. If you want to reproduce your
+data, we recommend to use one of our [Docker
+images](https://github.com/R-Lum/RLumDocker) which include the R version
+from the package release date.
 
 ### New functions
 

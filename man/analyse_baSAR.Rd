@@ -341,7 +341,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.33
+ 0.1.33 (2018-06-06 14:45:55)
 }
 
 \examples{
@@ -389,7 +389,12 @@ list(
 
 }
 
+} 
+
+\section{How to cite}{
+Mercier, N., Kreutzer, S. (2019). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.106. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
@@ -418,5 +423,5 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/proje
 Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 The underlying Bayesian model based on a contribution by Combes et al., 2015.
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}
