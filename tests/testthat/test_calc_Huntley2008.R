@@ -18,7 +18,7 @@ huntley <- calc_Huntley2006(
   ddot = ddot,
   readerDdot = readerDdot,
   n.MC = 50,
-  plot = FALSE, 
+  plot = FALSE,
   verbose = FALSE
 )
 
@@ -46,20 +46,32 @@ test_that("check values from analyse_FadingMeasurement()", {
 
 })
 
-test_that("check values from calc_Kars2008()", {
+test_that("check values from calc_Huntley2008()", {
   testthat::skip_on_cran()
-  expect_equal(round(huntley$results$Sim_Age, 1), 41.3)
-  expect_equal(round(huntley$results$Sim_Age_2D0, 0), 164)
+
+  ##fix for different R versions
+  if(R.version$major == "3" && as.numeric(R.version$minor) < 3.6){
+    expect_equal(round(huntley$results$Sim_Age, 1), 41.3)
+    expect_equal(round(huntley$results$Sim_Age_2D0, 0), 164)
+    expect_equal(round(sum(huntley$Ln),4), 0.1585)
+
+  }else{
+    expect_equal(round(huntley$results$Sim_Age, 1), 42.3)
+    expect_equal(round(huntley$results$Sim_Age_2D0, 0), 163)
+    expect_equal(round(sum(huntley$Ln),4), 0.1621)
+
+  }
+
+
   expect_equal(round(sum(huntley$data),0), 191530)
-  expect_equal(round(sum(huntley$Ln),4), 0.1585)
   expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.3)
   expect_equal(round(sum(residuals(huntley$fits$measured)),4),  0.1894)
   expect_equal(round(sum(residuals(huntley$fits$unfaded)),4),  1.6293)
-  
+
 ## COMPARE calc_Kars2008 (deprecated) vs. re-named calc_Huntley2006
 test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
   testthat::skip_on_cran()
-  
+
   expect_identical({
     set.seed(1)
     calc_Huntley2006(
@@ -83,7 +95,7 @@ test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
       plot = FALSE, verbose = FALSE)$results
     )
   })#EndOf::expect_identical
-  
+
   expect_identical({
     set.seed(1)
     calc_Huntley2006(
@@ -107,7 +119,7 @@ test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
         plot = FALSE, verbose = FALSE)$results
     )
   })#EndOf::expect_identical
-  
+
 })
 
 })
