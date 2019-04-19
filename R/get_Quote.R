@@ -68,8 +68,10 @@ get_Quote <- function(
     c("Der Tatortreiniger", "Dreck ist nur Materie am falschen Ort."),
     c("Die Ex vom Tatortreiniger", "Das Ziel ist im Weg."),
     c("Bright grain to dim grains", "I'm so shiny!"),
-    c("Fast component to slow component", "Life is short!")
-
+    c("Fast component to slow component", "Life is short!"),
+    c("Fast component to slow component", "What are you waiting for?"),
+    c("Violet photon to deep trap electron", "Today I'm kicking you out of your comfort zone"),
+    c("Deep trap electron to infrared photon", "Don't bother me, I need to rest")
     )
 
   ## Check input data
