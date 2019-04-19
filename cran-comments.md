@@ -28,15 +28,19 @@ do about.
 
 ## Other notes or warnings
 
+* *winbuilder* 
 
-* *winbuilder* (oldrel and stable) returned the note "Possibly mis-spelled words in DESCRIPTION: deconvolution (42:38)". The 
-word is spelled correctly. 
+* old: `Possibly mis-spelled words in DESCRIPTION:` The word is spelled correctly
+* relase: `checking installed package size ... NOTE`: See comments above
+* devel: no notes, warnings or errors
 
-* *winbuilder* (devel) returned a note on the package size. There is nothing we can do anymore for the moment. 
+R-old and R-release also complained about invalid URLs, however, we double 
+checked thous URLs and found them accessible. 
 
 ## Reverse dependency checks
 
 Reverse depends 4: all OK.
+(the note in 'RLumShiny' is not related to 'Luminescence')
 
 ## Test environments
 * local macOS High Sierra 10.14.4, Xcode 10.2.1, R-release
