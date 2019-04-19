@@ -43,7 +43,7 @@ test_that("check De values", {
    expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1717.47)
 
   }else{
-    expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1717.17)
+    expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1716.28)
 
   }
 
@@ -59,7 +59,14 @@ test_that("check LxTx table", {
 
 test_that("check rejection criteria", {
   testthat::skip_on_cran()
-  expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 3),  1669.348)
+  ##fix for different R versions
+  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
+    expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 3),  1669.348)
+
+  }else{
+   expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 3),  1669.347)
+
+  }
 
 })
 
