@@ -10,7 +10,8 @@
 
 }}
 \description{
-Single TR-OSL curve obtained by Schmidt et al., under review.
+Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
+(origin: Trebgast Valley, Germay, quartz, 90-200 µm, unpublished data).
 }
 \examples{
 

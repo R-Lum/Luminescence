@@ -21,19 +21,19 @@
 #'
 #' \tabular{ll}{
 #' Christoph Burow \tab *University of Cologne, Germany** \cr
-#' Claire Christophe \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
+#' Claire Christophe \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Michael Dietze \tab *GFZ Helmholtz Centre Potsdam, Germany* \cr
 #' Julie Durcan \tab *University of Oxford, United Kingdom* \cr
 #' Manfred Fischer\tab *University of Bayreuth, Germany* \cr
 #' Margret C. Fuchs \tab *Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany* \cr
-#'  Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies* \cr
-#' Johannes Friedrich \tab *University of Bayreuth, Germany* \cr
-#' Guillaume Guérin \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
-#' Georgina E. King \tab *Institute of Geological Sciences, University of Bern, Switzerland* \cr
-#' Sebastian Kreutzer \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
-#' Norbert Mercier \tab *IRAMAT-CRP2A, Université Bordeaux Montaigne, France* \cr
+#' Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies* \cr
+#' Johannes Friedrich \tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
+#' Guillaume Guérin \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
+#' Georgina E. King \tab *University of Lausanne, Switzerland* \cr
+#' Sebastian Kreutzer \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
+#' Norbert Mercier \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
-#' Christoph Schmidt \tab *University of Bayreuth, Germany* \cr
+#' Christoph Schmidt \tab *Chair of Geomorophology, University of Bayreuth, Germany* \cr
 #' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
 #' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
 #' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
@@ -68,19 +68,22 @@
 #' - [https://cran.r-project.org/package=RLumShiny]()
 #' - [http://shiny.r-luminescence.org]()
 #' - [https://cran.r-project.org/package=RLumModel]()
-#' - [http://model.r-luminescence.org]()
 #'
 #' **Package maintainer**
 #'
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France,\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS- Université Bordeaux Montaigne, France,\cr
 #' \email{sebastian.kreutzer@@u-bordeaux-montaigne.fr}
 #'
-#' **Acknowledgement**
+#' **Funding**
 #'
 #' Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
+#'
+#'
+#' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
+#' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -1157,7 +1160,8 @@ NULL
 
 #' Example TR-OSL data
 #'
-#' Single TR-OSL curve obtained by Schmidt et al., under review.
+#' Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
+#' (origin: Trebgast Valley, Germay, quartz, 90-200 µm, unpublished data).
 #'
 #' @format One [RLum.Data.Curve-class] dataset imported using the function [read_XSYG2R]
 #'

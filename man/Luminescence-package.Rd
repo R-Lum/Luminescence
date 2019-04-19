@@ -51,19 +51,19 @@ https://doi.org/10.1016/j.radmeas.2018.07.013
 
 \tabular{ll}{
 Christoph Burow \tab \emph{University of Cologne, Germany}* \cr
-Claire Christophe \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
+Claire Christophe \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
 Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
 Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
 Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
 Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies} \cr
-Johannes Friedrich \tab \emph{University of Bayreuth, Germany} \cr
-Guillaume Guérin \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
-Georgina E. King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
-Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
-Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
+Johannes Friedrich \tab \emph{Chair of Geomorphology, University of Bayreuth, Germany} \cr
+Guillaume Guérin \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
+Georgina E. King \tab \emph{University of Lausanne, Switzerland} \cr
+Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
+Norbert Mercier \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
-Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
+Christoph Schmidt \tab \emph{Chair of Geomorophology, University of Bayreuth, Germany} \cr
 Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
 Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
 Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
@@ -101,19 +101,21 @@ visit our project website (link below).
 \item \url{https://cran.r-project.org/package=RLumShiny}
 \item \url{http://shiny.r-luminescence.org}
 \item \url{https://cran.r-project.org/package=RLumModel}
-\item \url{http://model.r-luminescence.org}
 }
 
 \strong{Package maintainer}
 
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France,\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS- Université Bordeaux Montaigne, France,\cr
 \email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
 
-\strong{Acknowledgement}
+\strong{Funding}
 
 Cooperation and personal exchange between the developers is gratefully
 funded by the DFG (SCHM 3051/3-1) in the framework of the program
 "Scientific Networks". Project title: "RLum.Network: Ein
 Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
+
+Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
+by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
 }
 \keyword{package}
