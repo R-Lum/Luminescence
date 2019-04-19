@@ -11,7 +11,8 @@ vignette: >
 
 Dear **R** Luminescence users!
 
-As the years passing by, the 'Luminescence' package gets bigger every year, and we are falling more and more behind our schedules for the next major release. Nevertheless, today, we are happy to announce another major release [0.9.0](https://CRAN.R-project.org/package=Luminescence) before we are finally moving to 1.0.0 in 2020. 
+As the years passing by, the 'Luminescence' package gets bigger every year, and we are falling more and more behind our schedules for next major releases. Nevertheless, today, we are happy to announce another major release [0.9.0](https://CRAN.R-project.org/package=Luminescence) before we are finally moving to 1.0.0 in 2020. 
+
 Unfortunately, due to last minute CRAN correction requests after we had merged the development branches, 
 we cannot ship all the new functions that we have had prepared for you over the last year. They will come later the year with further updates.
 
@@ -21,6 +22,8 @@ Autzen (Technical University of Denmark, DK) who contributed their first functio
 
 As usual, below we are featuring some changes and new functions. 
 For a full list of changes and notably the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+*Please note that the 0.9.X package release series will be last supporting **R** versions < 3.5.0.* 
 
 ```{r, echo = FALSE, message=FALSE}
 library(Luminescence)
@@ -85,18 +88,29 @@ plot(
 ```
 
 
+#### Life is short: `fit_OSLLifeTimes()` 
 
-#### `fit_OSLLifeTimes()` 
+New equipment brings new data, brings new challenges. Back in late 2017, we got our first nanosecond pulsing unit shipping to Bordeaux. The project aimed at investigating very short luminescence signal lifetimes in quartz in minerals. To analyse the data and deconvolve the bulk signal, a series of photons arriving after an OSL pulse, Sebastian and Christoph S. created a new function using ideas
+proposed by Bluszcz and Adamiec (2006) to identify a statistically justified number of lifetimes components. 
 
-Fit and deconvolution of OSL lifetimes using off-time measurements,
-i.e. after the stimulation was switched off.
+The function works on `RLum.Data.Curve`, `data.frame` or `matrix` objects and runs a differential evolution algorithm to identify meaningful start parameters later piped into a nonlinear least square
+fitting. 
+
+```{r, echo=FALSE}
+##load example data
+data(ExampleData.TR_OSL, envir = environment())
+```
+
+```{r, cache=TRUE, fig.align="center", fig.width=6, fig.height=5}
+fit_OSLLifeTimes(
+object = ExampleData.TR_OSL, 
+log = "x")
+```
 
 #### The big picture: `plot_DRCSummary()` 
 
-You have been always wondering how the dose response curves would like if combined in a single plot? 
-Now we have a solution: `plot_DRCSummary()` works directly on the output of the function `analyse_SAR.CWOSL()` and extracts the equations with the fitting paramaters for you can displays 
-everything in a single plot. Of course, it works also on a `list` of objects created by 
-`analyse_SAR.CWOSL()`.
+You have always been wondering how the dose-response curves would look like if combined in a single plot? 
+Now we have a solution: `plot_DRCSummary()` works directly on the output of the function `analyse_SAR.CWOSL()` and extracts the equations with the fitting parameters for you, and it displays everything in a single plot. Of course, it also works on a `list` of objects created by `analyse_SAR.CWOSL()`.
 
 ```{r, echo=FALSE}
 #load data example data
@@ -132,7 +146,7 @@ plot_DRCSummary(
 data("ExampleData.ScaleGammaDose", envir = environment())
 ```
 
-Scale the $\gamma$-dose rate considering layer-to-layer variations in soil radioactivity. Contributed by S. Riedesel and M. Autzen. The range of $\gamma$-radiation requires corrections to be made for the dose received by a sample, when situated within a complex sediment sequence. If no portable $\gamma$-ray specrometry was performed, individual dosimetry samples should be taken within the influencing distance for $\gamma$-radiation. The function allows the user to input element concentrations for U, Th and K for all samples taken from layers that may impact the $\gamma$-dose received by the luminescence sample. The function calculates the $\gamma$-dose rate received by the samples using the superposition approach according to Aitken (1985). The user will also be provided with details on the contribution of each sediment layer to the overall dose rate and a figure showing details of the sediment sequence, element concentrations of the samples and dose rate contributions. 
+Scale the $\gamma$-dose rate considering layer-to-layer variations in soil radioactivity. The first contribution by S. Riedesel and M. Autzen. The range of $\gamma$-radiation requires corrections to be made for the dose received by a sample when situated within a complex sediment sequence. If no portable $\gamma$-ray spectrometry was performed, individual dosimetry samples should be taken within the influencing distance for $\gamma$-radiation. The function allows the user to input element concentrations for U, Th and K for all samples taken from layers that may impact the $\gamma$-dose received by the luminescence sample. The function calculates the $\gamma$-dose rate received by the samples using the superposition approach according to Aitken (1985). The user will also be provided with details on the contribution of each sediment layer to the overall dose rate and a figure showing details of the sediment sequence, element concentrations of the samples and dose rate contributions. 
 
 ```{r, fig.align="center", fig.width = 8, fig.height=6}
 results <- scale_GammaDose(
@@ -154,5 +168,7 @@ Provide an easy option to fit thermal quenching data and determine the activatio
 # References {-}
 
 Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, Oxford.
+
+Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves. Radiation Measurements 41, 886–891. doi: [10.1016/j.radmeas.2006.05.016](https://doi.org/10.1016/j.radmeas.2006.05.016)
 
 Mooney, J., Kambhampati, P., 2013. Get the Basics Right: Jacobian Conversion of Wavelength and Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318. doi: [10.1021/jz401508t](https://doi.org/10.1021/jz401508t)
