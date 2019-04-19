@@ -10,9 +10,9 @@
 #'
 #' @return Returns a character with quote and respective (false) author.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @examples
 #'
@@ -67,7 +67,8 @@ get_Quote <- function(
     c("The answer to life, the universe and everything", "get_rightAnswer()"),
     c("Der Tatortreiniger", "Dreck ist nur Materie am falschen Ort."),
     c("Die Ex vom Tatortreiniger", "Das Ziel ist im Weg."),
-    c("Bright grain to dim grains", "I'm so shiny!")
+    c("Bright grain to dim grains", "I'm so shiny!"),
+    c("Fast component to slow component", "Life is short!")
 
     )
 
