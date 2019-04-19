@@ -211,12 +211,7 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{classes}
 \keyword{internal}
 \keyword{methods}

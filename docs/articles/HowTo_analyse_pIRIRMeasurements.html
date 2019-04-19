@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.104</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="../news/NEWS_Version0.7.0.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -82,9 +82,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>How to analyse post-IR IRSL measurements?</h1>
-                        <h4 class="author">Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montagine, France</h4>
+                        <h4 class="author">Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montagine, France</h4>
             
-            <h4 class="date">Last modified: 2019-04-19 (‘Luminescence’ version: 0.9.0.104)</h4>
+            <h4 class="date">Last modified: 2019-04-19 (‘Luminescence’ version: 0.9.0.105)</h4>
       
       
       <div class="hidden name"><code>HowTo_analyse_pIRIRMeasurements.Rmd</code></div>
@@ -294,52 +294,52 @@
 <p>The <span class="math inline">\(D_{e}\)</span> values (here in seconds) can be seen by calling the <code>$data</code> element from the object <code>results</code>, which is a <code>data.frame</code> (and here limited to three columns):</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">results<span class="op">$</span>data[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>, <span class="st">"RC.Status"</span>, <span class="st">"Signal"</span>)]</a></code></pre></div>
 <pre><code>##         De De.Error RC.Status   Signal
-## 1   803.54    39.48        OK     IR50
-## 2  1099.86    30.99        OK pIRIR225
-## 3   632.80    30.09        OK     IR50
-## 4   873.77    26.72        OK pIRIR225
-## 5  1166.26    28.11        OK     IR50
-## 6  1058.84    19.49        OK pIRIR225
-## 7   741.30    26.18    FAILED     IR50
-## 8  1049.17    27.35        OK pIRIR225
-## 9   873.96    66.73        OK     IR50
-## 10 1236.34    59.39        OK pIRIR225
-## 11  827.68    43.63        OK     IR50
-## 12 1095.24    31.48        OK pIRIR225
-## 13  714.12    26.18        OK     IR50
-## 14  807.30    15.19        OK pIRIR225</code></pre>
+## 1   803.54    39.69        OK     IR50
+## 2  1099.86    31.15        OK pIRIR225
+## 3   632.80    32.02        OK     IR50
+## 4   873.77    27.40        OK pIRIR225
+## 5  1166.26    35.50        OK     IR50
+## 6  1058.84    19.04        OK pIRIR225
+## 7   741.30    31.53    FAILED     IR50
+## 8  1049.17    26.61        OK pIRIR225
+## 9   873.96    58.35        OK     IR50
+## 10 1236.34    49.51        OK pIRIR225
+## 11  827.68    40.23        OK     IR50
+## 12 1095.24    31.69        OK pIRIR225
+## 13  714.12    24.66        OK     IR50
+## 14  807.30    15.95        OK pIRIR225</code></pre>
 <p>The column <code>RC.Status</code> informs you about a failed rejection criterium, which one is not revealed, but the column provides a possibilty for further subsetting. For a quick data processing this is, together with the plot output, usually enough information. However, to see all rejection criteria type <code>results$rejection.criteria</code>. To see all information type <code>results$data</code> without further information.</p>
 <p>If you want to combine the two tables for a more virtous data processing, you can merge both tables by calling:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/merge">merge</a></span>(results<span class="op">$</span>data, results<span class="op">$</span>rejection.criteria, <span class="dt">by =</span> <span class="st">"UID"</span>)</a>
 <a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(df)</a></code></pre></div>
-<pre><code>##                                  UID      De De.Error     D01 D01.ERROR
-## 1 2019-04-19-06:04.0.260817901464179 1058.84    19.49 1191.58  49.20193
-## 2 2019-04-19-06:04.0.260817901464179 1058.84    19.49 1191.58  49.20193
-## 3 2019-04-19-06:04.0.260817901464179 1058.84    19.49 1191.58  49.20193
-## 4 2019-04-19-06:04.0.260817901464179 1058.84    19.49 1191.58  49.20193
-## 5 2019-04-19-06:04.0.260817901464179 1058.84    19.49 1191.58  49.20193
-## 6 2019-04-19-06:04.0.299531240947545 1099.86    30.99 1256.27  84.13818
+<pre><code>##                                   UID      De De.Error     D01 D01.ERROR
+## 1 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
+## 2 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
+## 3 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
+## 4 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
+## 5 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
+## 6  2019-04-19-06:30.0.185891745379195 1049.17    26.61 1066.85  60.26565
 ##   D02 D02.ERROR   De.MC Fit RC.Status signal.range background.range
-## 1  NA        NA 1059.72 EXP        OK       1 : 10        800 : 999
-## 2  NA        NA 1059.72 EXP        OK       1 : 10        800 : 999
-## 3  NA        NA 1059.72 EXP        OK       1 : 10        800 : 999
-## 4  NA        NA 1059.72 EXP        OK       1 : 10        800 : 999
-## 5  NA        NA 1059.72 EXP        OK       1 : 10        800 : 999
-## 6  NA        NA 1106.06 EXP        OK       1 : 10        800 : 999
+## 1  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
+## 2  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
+## 3  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
+## 4  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
+## 5  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
+## 6  NA        NA 1046.59 EXP        OK       1 : 10        800 : 999
 ##   signal.range.Tx background.range.Tx Signal.x                Criteria
-## 1         NA : NA             NA : NA pIRIR225 Recycling ratio (R5/R1)
-## 2         NA : NA             NA : NA pIRIR225     Recuperation rate 1
-## 3         NA : NA             NA : NA pIRIR225          Testdose error
-## 4         NA : NA             NA : NA pIRIR225        Palaeodose error
-## 5         NA : NA             NA : NA pIRIR225    De &gt; max. dose point
+## 1         NA : NA             NA : NA     IR50 Recycling ratio (R5/R1)
+## 2         NA : NA             NA : NA     IR50     Recuperation rate 1
+## 3         NA : NA             NA : NA     IR50          Testdose error
+## 4         NA : NA             NA : NA     IR50        Palaeodose error
+## 5         NA : NA             NA : NA     IR50    De &gt; max. dose point
 ## 6         NA : NA             NA : NA pIRIR225 Recycling ratio (R5/R1)
 ##          Value Threshold Status Signal.y
-## 1 1.045100e+00       0.1     OK pIRIR225
-## 2 6.100000e-03       0.1     OK pIRIR225
-## 3 8.671441e-03       0.1     OK pIRIR225
-## 4 1.841000e-02       0.1     OK pIRIR225
-## 5 1.058840e+03    1360.0     OK pIRIR225
-## 6 1.055200e+00       0.1     OK pIRIR225</code></pre>
+## 1   1.13660000       0.1 FAILED     IR50
+## 2   0.00440000       0.1     OK     IR50
+## 3   0.02203738       0.1     OK     IR50
+## 4   0.04253000       0.1     OK     IR50
+## 5 741.30000000    1360.0     OK     IR50
+## 6   1.04630000       0.1     OK pIRIR225</code></pre>
 <p>The result may appear confusing in a first instance, since, e.g. the column <code>De</code> appears to contain duplicated entries. But still, each row is unique and in sum contains unique information.</p>
 </div>
 <div id="plot-results" class="section level1">
