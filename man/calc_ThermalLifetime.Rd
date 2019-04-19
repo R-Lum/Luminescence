@@ -104,7 +104,7 @@ The profiling is currently based on resampling from a normal distribution, this
 distribution assumption might be, however, not valid for given E and s paramters.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2018-02-08 18:09:55)
 }
 
 \examples{
@@ -140,7 +140,12 @@ calc_ThermalLifetime(
   output_unit = "Ma"
 )
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.
 }
@@ -149,5 +154,5 @@ Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Sci
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

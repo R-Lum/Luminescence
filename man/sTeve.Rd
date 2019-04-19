@@ -42,5 +42,10 @@ This function should not be taken too seriously.
 }
 \author{
 R Luminescence Team, 2012-2046
+} 
+
+\section{How to cite}{
+NA, NA, ,  (2019). sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{manip}

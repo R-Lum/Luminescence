@@ -99,7 +99,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2018-02-08 18:09:55)
 }
 
 \examples{
@@ -127,6 +127,11 @@ plot_RLum(TL.curve.merged)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{internal}
 \keyword{utilities}

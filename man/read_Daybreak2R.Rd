@@ -38,7 +38,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.1 (2018-01-21 17:22:38)
 }
 
 \examples{
@@ -57,5 +57,10 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Anotine Zink, C2RMF, Palais du Louvre, Paris (France)
 
 The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S., Zink, A. (2019). read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{IO}

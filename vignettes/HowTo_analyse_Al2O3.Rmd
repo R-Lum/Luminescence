@@ -1,6 +1,6 @@
 ---
 title: "How to Analyse Al2O3:C Measurements"
-author: "Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montagine, France"
+author: "Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montagine, France"
 date: "Last modified: `r Sys.Date()` ('Luminescence' version: `r packageVersion('Luminescence')`)"
 output: 
   rmarkdown::html_vignette:
