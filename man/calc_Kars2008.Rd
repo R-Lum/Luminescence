@@ -40,7 +40,7 @@ can be used to calculate the sample specific \eqn{\rho}' value.
 \strong{(use \code{fit.method = "EXP"} to apply the model after Kars et al., 2008).}
 }
 \section{Function version}{
- 0.4.0 (2018-03-09 09:04:33)
+ 0.4.0
 }
 
 \examples{
@@ -73,12 +73,7 @@ kars <- suppressWarnings(
                 n.MC = 25)
 )
 
-} 
-
-\section{How to cite}{
-King, G.E., Burow, C. (2019). calc_Kars2008(): Apply the Kars et al. (2008) model (deprecated). Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.103. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -97,5 +92,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina E. King, University of Bern (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

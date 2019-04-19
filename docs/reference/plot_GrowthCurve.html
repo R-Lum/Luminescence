@@ -65,7 +65,7 @@ extraxpolation to calculate the equivalent dose." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.91</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.104</span>
       </span>
     </div>
 
@@ -357,7 +357,7 @@ Each error estimation is done with the function of the chosen fitting method.</p
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M. (2019). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.90. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M. (2019). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.103. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -376,8 +376,8 @@ from feldspar. Radiation Measurements 81, 224-231.</p>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) plot growth curve for a dummy data.set and show De value</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.LxTxData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
-<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt;        De De.Error     D01 D01.ERROR D02 D02.ERROR  De.MC Fit
-#&gt; 1 1737.88     54.9 1766.07   91.8812  NA        NA 1736.7 EXP</div><div class='input'>
+<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span>(<span class='no'>LxTxData</span>)</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>)</div><div class='output co'>#&gt;        De De.Error     D01 D01.ERROR D02 D02.ERROR   De.MC Fit
+#&gt; 1 1737.88    59.89 1766.07  98.79673  NA        NA 1742.76 EXP</div><div class='input'>
 <span class='co'>##(1a) to access the fitting value try</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"Fit"</span>)</div><div class='output co'>#&gt; Nonlinear regression model
 #&gt;   model: y ~ a * (1 - exp(-(x + c)/b))

@@ -72,7 +72,7 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C chips
 }
 \section{Function version}{
- 0.1.2 (2018-04-27 17:34:30)
+ 0.1.2
 }
 
 \examples{
@@ -83,12 +83,7 @@ data(ExampleData.Al2O3C, envir = environment())
 ##run analysis
 analyse_Al2O3C_CrossTalk(data_CrossTalk)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.103. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
@@ -99,5 +94,5 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

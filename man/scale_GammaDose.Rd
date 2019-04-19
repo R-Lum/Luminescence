@@ -200,7 +200,7 @@ density and water content is not constant for the entire section.
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.1 (2019-03-05 11:51:39)
+ 0.1.1
 }
 
 \section{Acknowledgements}{
@@ -225,12 +225,7 @@ results <- scale_GammaDose(data = x,
 
 get_RLum(results)
 
-} 
-
-\section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C. (2019). scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.103. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 
@@ -255,5 +250,5 @@ Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark) \cr
 Christoph Burow, University of Cologne (Germany) \cr
 Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
