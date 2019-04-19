@@ -122,7 +122,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 #' Christoph Schmidt, University of Bayreuth (Germany)
@@ -494,12 +494,14 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
     names(A) <- paste0("A.", 1:(m))
     names(tau) <- paste0("tau.", 1:(m))
 
+    ##create start_matrix
+    start_matrix <- matrix(data = c(A,tau), ncol = 2)
+    colnames(start_matrix) <- c("A", "tau")
+    rownames(start_matrix) <- paste0("Comp.", 1:(m))
+
     ##add terminal feedback
     if(verbose){
       cat("\n>> Applied component matrix\n")
-      start_matrix <- matrix(data = c(A,tau), ncol = 2)
-      colnames(start_matrix) <- c("A", "tau")
-      rownames(start_matrix) <- paste0("Comp.", 1:(m))
       print(start_matrix)
       cat("\n\n")
 
