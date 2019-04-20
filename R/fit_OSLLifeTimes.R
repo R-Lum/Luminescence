@@ -42,7 +42,7 @@
 #' `nlsLM.lower` \tab [logical] \tab enables/disables lower parameter boundary, default is `TRUE`
 #' }
 #'
-#' @param object [RLum.Data.Curve-class], [data.frame] or [matrix] **(required)**:
+#' @param object [RLum.Data.Curve-class], [RLum.Analysis-class], [data.frame] or [matrix] **(required)**:
 #' Input object containing the data to be analysed. All objects can be provided also as list for an automated
 #' processing. Please note: `NA` values are automatically removed and the dataset should comprise at least 5 data points.
 #'
