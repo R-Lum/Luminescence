@@ -76,7 +76,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M. (2019). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.106. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2019). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.107. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
