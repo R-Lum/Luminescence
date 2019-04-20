@@ -17,7 +17,7 @@ test_that("consistency checks", {
                 regexp = "Monte Carlo simulation is only available for estimating the amount of grains on the sample disc.")
   expect_is(calc_AliquotSize(grain.size = 100, packing.density = "inf", sample.diameter = 9.8, MC = FALSE), "RLum.Results")
   expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
-  expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+  expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 10, MC = FALSE), "RLum.Results")
 })
 
 test_that("check class and length of output", {
