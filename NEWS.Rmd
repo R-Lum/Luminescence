@@ -18,6 +18,17 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 ## Changes in version `r version_number` (`r Sys.Date()`)
 
+### New functions 
+
+* `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
+* `read_RF2R()` Add support for importing spatially resolved RF measurement results.
+
+### Bugfixes and changes
+
+* Dummy
+
+## Changes in version 0.9.0.110 (2019-04-21)
+
 'Luminescence' 0.9.X releases will be the last versions supporting **R** < 3.5.0.
 
 ### Important R related changes (R >= 3.6.0)
