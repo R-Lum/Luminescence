@@ -18,14 +18,36 @@ for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1)
 echo.
 echo [PREPARE FOR PACKAGE CHECK]
 echo.
-:: 
+::
 
 echo -^> Clean RLum.BuildResults folder ...
 find %PATHPACKAGE%\RLum.BuildResults\ -type f -delete
 call :check
 
-echo -^> Remove old ^*. ...
+echo -^> Remove .DS_Store ...
+find %PATHPACKAGE% -name .DS_Store -delete
+call :check
+
+echo -^> Remove .Rhistory ...
+find %PATHPACKAGE%\src -name .Rhistory -delete
+call :check
+
+echo -^> Remove .RData ...
+find %PATHPACKAGE%\src -name .RData -delete
+call :check
+
+echo -^> Remove RcppExports.cpp ...
 find %PATHPACKAGE%\src -name RcppExports.cpp -delete
+call :check
+
+echo -^> Remove RcppExports.R ...
+find %PATHPACKAGE%\R -name RcppExports.R -delete
+call :check
+
+:: NEWS
+:: -----------------------
+echo -^> Knit NEWS.md and README.md ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_knit_NEWS.R" NULL
 call :check
 
 :: Rcpp
@@ -61,12 +83,6 @@ call :check
 :: -----------------------
 echo -^> Update date and version number ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_VersionNumber.R" NULL
-call :check
-
-:: NEWS
-:: -----------------------
-echo -^> Knit NEWS ...
-R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_knit_NEWS.R" NULL
 call :check
 
 :: ADD RLum.Team TO AUTHORS
