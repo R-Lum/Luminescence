@@ -15,7 +15,15 @@
 
 ### Bugfixes and changes
 
-  - Dummy
+### Internals
+
+  - The ‘DESCRIPTION’ file contained the string “\[upcoming\]”. This was
+    a left-over from the development version and is now removed.
+  - Version numbering is now again more R canonical consisting only of
+    three numbers (‘stable.major.minor’). Development versions are only
+    indicated by `.9000` in the version number. Numbers after `9000`
+    (e.g., `9000-1`) indicate build numbers. Both is used for GitHub
+    build versions only.
 
 ## Changes in version 0.9.0.110 (2019-04-21)
 

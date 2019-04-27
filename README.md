@@ -34,8 +34,6 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 | ----: | ---: | ---: | ---: | -: |
 |     0 |    0 |    0 |    5 |  6 |
 
-2019-04-27
-
 ## Social media and other resources
 
 Follow us on
