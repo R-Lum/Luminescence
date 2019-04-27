@@ -3,7 +3,7 @@
 # =================================================================================================
 # RLum.CHECK_AND_BUILD shell script
 # author: R Luminescence Team
-# date: 2019-01-05
+# laste update: 2019-04-27
 #
 # Customized R check and build routine for the R package 'Luminescence'
 # =================================================================================================
@@ -18,9 +18,9 @@ PATHPACKAGE=$(dirname $0)
 #
 check_status(){
   if [ $? == 0 ]; then
-    echo "[OK]"
+    echo '✅ '
   else
-    echo "[FAILED]"
+    echo "❌"
   fi
 }
 #
@@ -55,6 +55,13 @@ echo ""
 
   echo -ne "-> Remove .RcppExports.R ... \t\t\t"
   find ${PATHPACKAGE}/R -name "RcppExports.R" -depth -exec rm {} \;
+  check_status
+
+#
+# NEWS
+# =================================================================================================
+  echo -ne "-> Knit NEWS.md and README.md ... \t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_knit_NEWS.R /dev/null
   check_status
 
 # Rcpp
@@ -94,13 +101,7 @@ echo ""
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_EntryPointRegistration.R /dev/null
   check_status
 
-#
-# NEWS
-# =================================================================================================
 
-  echo -ne "-> Knit NEWS ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_knit_NEWS.R /dev/null
-  check_status
 #
 # PARSE RD files and add RLum.Team
 # =================================================================================================
