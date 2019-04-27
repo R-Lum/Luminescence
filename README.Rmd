@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
 library(Luminescence)
 ```
 
-
 # Luminesence <img width=120px src="man/figures/RL_Logo.svg" align="right" />
 
 The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
@@ -32,9 +31,20 @@ The R package 'Luminescence' by the R-Luminescence Group provides a collection o
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.9.0)](https://travis-ci.org/R-Lum/Luminescence)
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.9.0)
 
+### CRAN check status
+
+```{r, echo=FALSE, message=FALSE}
+if(!require("foghorn"))
+  install.packages("foghorn")
+
+knitr::kable(foghorn::cran_results(pkg = "Luminescence")[,2:6])
+```
+
 ## Social media and other resources 
 Follow us on [![](http://i.imgur.com/wWzX9uB.png)](https://www.twitter.com/RLuminescence) or visit 
 our [R-Luminescence homepage](http://www.r-luminescence.org).
+
+
 
 ## Installation
 
@@ -68,13 +78,13 @@ Install any development versions using our *RStudio* add-in
 
 To install the stable version from CRAN, simply run the following from an R console:
 
-```r
+```{r, eval=FALSE}
 install.packages("Luminescence")
 ```
 
 To install the latest development builds directly from GitHub, run
 
-```r
+```{r, eval=FALSE}
 if(!require("devtools"))
   install.packages("devtools")
 devtools::install_github("R-Lum/Luminescence@master")
@@ -116,3 +126,7 @@ any later version.
 
 ## R package dependencies
 ![](man/figures/README-Package_DependencyGraph.png)
+
+```{r Outro, echo=FALSE}
+detach("package:Luminescence")
+```

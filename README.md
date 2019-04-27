@@ -27,6 +27,12 @@ Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.9.0)](https://
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.9.0)
 
+### CRAN check status
+
+| error | fail | warn | note | ok |
+| ----: | ---: | ---: | ---: | -: |
+|     0 |    0 |    0 |    5 |  6 |
+
 ## Social media and other resources
 
 Follow us on
