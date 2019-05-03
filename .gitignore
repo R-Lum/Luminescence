@@ -9,21 +9,19 @@
 .Rprofile
 
 # Package related local stuff
-RLum.Debug/
-RLum.Experiment/
 packrat/
-Luminescence.Rcheck/
-#RLum.BuildResults/*.tar.gz
-RLum.BuildResults/*.zip
-#RLum.BuildResults/*.tgz
-RLum.BuildResults/rdepends_*
 packrat/lib*/
 packrat/src/
+
 src/*.o
 src/*.dll
 src-i386/
 src-x64/
+
 cran-comments.html
+NEWS.html
+README.html
+
 vignettes/*_cache/
 vignettes/*_files/
 vignettes/*.xsyg
