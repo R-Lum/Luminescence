@@ -6,7 +6,7 @@ init:
         $ErrorActionPreference = "Stop"
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
-        Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/master/RLum.CIscripts/AppVeyor_Script.ps1 -OutFile "..\AppVeyor_Script.ps1"
+        Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/master/Luminescence.CIscripts/AppVeyor_Script.ps1 -OutFile "..\AppVeyor_Script.ps1"
         Import-Module '..\AppVeyor_Script.ps1'
 
 install:
