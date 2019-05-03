@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ update an existing BINX-file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -131,7 +132,7 @@ update an existing BINX-file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>extract_IrradiationTimes</span>(<span class='no'>object</span>, <span class='no'>file.BINX</span>,
-  <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"irradiation (NA)"</span>, <span class='st'>"IRSL (UVVIS)"</span>, <span class='st'>"OSL (UVVIS)"</span>,
+  <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"irradiation (NA)"</span>, <span class='st'>"IRSL (UVVIS)"</span>, <span class='st'>"OSL (UVVIS)"</span>,
   <span class='st'>"TL (UVVIS)"</span>), <span class='kw'>compatibility.mode</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -139,7 +140,7 @@ update an existing BINX-file.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a> or <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> (<strong>required</strong>):
 path and file name of the XSYG file or an <a href='RLum.Analysis-class.html'>RLum.Analysis</a>
 produced by the function <a href='read_XSYG2R.html'>read_XSYG2R</a>;
 alternatively a <code>list</code> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> can be provided.</p>
@@ -148,7 +149,7 @@ the arguments <code>file.BINX</code> and <code>recordType</code> will be ignored
     </tr>
     <tr>
       <th>file.BINX</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 path and file name of an existing BINX-file. If a file name is provided the
 file will be updated with the information from the XSYG file in the same
 folder as the original BINX-file.</p>
@@ -157,7 +158,7 @@ same measurement!</p></td>
     </tr>
     <tr>
       <th>recordType</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 select relevant curves types from the XSYG file or <a href='RLum.Analysis-class.html'>RLum.Analysis</a>
 object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
@@ -169,13 +170,13 @@ argument only if you have reasons to do so.</p></td>
     </tr>
     <tr>
       <th>compatibility.mode</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 this option is parsed only if a BIN/BINX file is produced and it will reset all position
 values to a max. value of 48, cf.<a href='write_R2BIN.html'>write_R2BIN</a></p></td>
     </tr>
     <tr>
       <th>txtProgressBar</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables <code>TRUE</code> or disables <code>FALSE</code> the progression bars during import and export</p></td>
     </tr>
     </table>
@@ -231,11 +232,11 @@ towards a correct time order.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-21 17:22:38)</p>
+    <p>0.3.1</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -292,8 +293,7 @@ recent improvements. Ancient TL 33, 35-42.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -303,7 +303,7 @@ recent improvements. Ancient TL 33, 35-42.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

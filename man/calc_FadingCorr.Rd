@@ -162,12 +162,7 @@ results <- calc_FadingCorr(
 ##access the last output
 get_RLum(results)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
 in K-feldspars and the measurement and correction for it in optical dating.

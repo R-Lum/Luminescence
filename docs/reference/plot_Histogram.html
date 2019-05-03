@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -136,49 +137,49 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> or <a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>):
 for <code>data.frame</code>: two columns: De (<code>data[,1]</code>) and De error (<code>data[,2]</code>)</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 excludes <code>NA</code> values from the data set prior to any further operations.</p></td>
     </tr>
     <tr>
       <th>mtext</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
-further sample information (<a href='https://www.rdocumentation.org/packages/graphics/topics/mtext'>mtext</a>).</p></td>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
+further sample information (<a href='https://rdrr.io/r/graphics/mtext.html'>mtext</a>).</p></td>
     </tr>
     <tr>
       <th>cex.global</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 global scaling factor.</p></td>
     </tr>
     <tr>
       <th>se</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 plots standard error points over the histogram, default is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>rug</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 adds rugs to the histogram, default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>normal_curve</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 adds a normal curve to the histogram. Mean and sd are calculated from the
 input data. More see details section.</p></td>
     </tr>
     <tr>
       <th>summary</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.</p></td>
     </tr>
     <tr>
       <th>summary.pos</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> or <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> or <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 optional position coordinates or keyword (e.g. <code>"topright"</code>)
 for the statistical summary. Alternatively, the keyword <code>"sub"</code> may be
 specified to place the summary below the plot header. However, this latter
@@ -187,21 +188,21 @@ specification, y-coordinate refers to the right y-axis.</p></td>
     </tr>
     <tr>
       <th>colour</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> or <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> or <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 optional vector of length 4 which specifies the colours of the following
 plot items in exactly this order: histogram bars, rug lines, normal
 distribution curve and standard error points
-(e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("grey", "black", "red", "grey")</a></code>).</p></td>
+(e.g., <code><a href='https://rdrr.io/r/base/c.html'>c("grey", "black", "red", "grey")</a></code>).</p></td>
     </tr>
     <tr>
       <th>interactive</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 create an interactive histogram plot (requires the 'plotly' package)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments and graphical parameters passed to <a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a> or
-<a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a>. If y-axis labels are provided, these must be specified as a vector
+      <td><p>further arguments and graphical parameters passed to <a href='https://rdrr.io/r/graphics/plot.html'>plot</a> or
+<a href='https://rdrr.io/r/graphics/hist.html'>hist</a>. If y-axis labels are provided, these must be specified as a vector
 of length 2 since the plot features two axes
 (e.g. <code>ylab = c("axis label 1", "axis label 2")</code>). Y-axes limits
 (<code>ylim</code>) must be provided as vector of length four, with the first two
@@ -239,23 +240,23 @@ one or more of the following keywords:</p><ul>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4.4 (2018-01-21 17:22:38)</p>
+    <p>0.4.4</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a>, <a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/hist.html'>hist</a>, <a href='https://rdrr.io/r/graphics/plot.html'>plot</a></p></div>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2019). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S. (2019). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 <span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>dose.rate</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
+  <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>dose.rate</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
 
 <span class='co'>## plot histogram the easiest way</span>
 <span class='fu'>plot_Histogram</span>(<span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_Histogram-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -265,15 +266,15 @@ one or more of the following keywords:</p><ul>
                <span class='kw'>normal_curve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
                <span class='kw'>cex.global</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
                <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-               <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"grey"</span>, <span class='st'>"black"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span>),
-               <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sdrel"</span>),
+               <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"grey"</span>, <span class='st'>"black"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span>),
+               <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sdrel"</span>),
                <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>,
                <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Histogram of De-values"</span>,
                <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data set"</span>,
-               <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expression'>expression</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='no'>D</span>[<span class='no'>e</span>], <span class='st'>" distribution"</span>)),
+               <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>D</span>[<span class='no'>e</span>], <span class='st'>" distribution"</span>)),
                         <span class='st'>"Standard error"</span>),
-               <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>250</span>),
-               <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>5</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_Histogram-2.png' alt='' width='700' height='433' /></div><div class='input'>
+               <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>250</span>),
+               <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>5</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_Histogram-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -297,8 +298,7 @@ one or more of the following keywords:</p><ul>
 
     <h2>Author</h2>
     <p>Michael Dietze, GFZ Potsdam (Germany)<br />
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -308,7 +308,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

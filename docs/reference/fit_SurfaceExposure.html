@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -139,7 +140,7 @@ parameters of either eq. 1 in <em>Sohbati et al. (2012a)</em> or eq. 12 in
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> or <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> (<strong>required</strong>):
 Measured OSL surface exposure data with the following structure:</p><pre>                               (optional)
      | depth (a.u.)| intensity | error |
      |     [ ,1]   |    [ ,2]  | [ ,3] |
@@ -151,78 +152,78 @@ Measured OSL surface exposure data with the following structure:</p><pre>       
 
 </pre>
 
-<p>Alternatively, a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <code>data.frames</code> can be provided, where each
+<p>Alternatively, a <a href='https://rdrr.io/r/base/list.html'>list</a> of <code>data.frames</code> can be provided, where each
 <code>data.frame</code> has the same structure as shown above, with the exception that
-they must <strong>not</strong> include the optional error column. Providing a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> as
+they must <strong>not</strong> include the optional error column. Providing a <a href='https://rdrr.io/r/base/list.html'>list</a> as
 input automatically activates the global fitting procedure (see details).</p></td>
     </tr>
     <tr>
       <th>sigmaphi</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 A numeric value for sigmaphi, i.e. the charge detrapping rate.
 Example: <code>sigmaphi = 5e-10</code></p></td>
     </tr>
     <tr>
       <th>mu</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 A numeric value for mu, i.e. the light attenuation coefficient.
 Example: <code>mu = 0.9</code></p></td>
     </tr>
     <tr>
       <th>age</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
-The age (a) of the sample, if known. If <code>data</code> is a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <em>x</em> samples,
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
+The age (a) of the sample, if known. If <code>data</code> is a <a href='https://rdrr.io/r/base/list.html'>list</a> of <em>x</em> samples,
 then <code>age</code> must be a numeric vector of length <em>x</em>.
 Example: <code>age = 10000</code>, or <code>age = c(1e4, 1e5, 1e6)</code>.</p></td>
     </tr>
     <tr>
       <th>Ddot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 A numeric value for the environmental dose rate (Gy/ka). For this argument
 to be considered a value for <code>D0</code> must also be provided; otherwise it will be
 ignored.</p></td>
     </tr>
     <tr>
       <th>D0</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 A numeric value for the characteristic saturation dose (Gy). For this argument
 to be considered a value for <code>Ddot</code> must also be provided; otherwise it will be
 ignored.</p></td>
     </tr>
     <tr>
       <th>weights</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 If <code>TRUE</code> the fit will be weighted by the inverse square of the error.
-Requires <code>data</code> to be a <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> with three columns.</p></td>
+Requires <code>data</code> to be a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with three columns.</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 Show or hide the plot.</p></td>
     </tr>
     <tr>
       <th>legend</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 Show or hide the equation inside the plot.</p></td>
     </tr>
     <tr>
       <th>error_bars</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 Show or hide error bars (only applies if errors were provided).</p></td>
     </tr>
     <tr>
       <th>coord_flip</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 Flip the coordinate system.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further parameters passed to <a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>.
+      <td><p>Further parameters passed to <a href='https://rdrr.io/r/graphics/plot.html'>plot</a>.
 Custom parameters include:</p><ul>
-<li><p><code>verbose</code> (<a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>): show or hide console output</p></li>
+<li><p><code>verbose</code> (<a href='https://rdrr.io/r/base/logical.html'>logical</a>): show or hide console output</p></li>
 <li><p><code>line_col</code>: Color of the fitted line</p></li>
-<li><p><code>line_lty</code>: Type of the fitted line (see <code>lty</code> in <code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>?par</a></code>)</p></li>
-<li><p><code>line_lwd</code>: Line width of the fitted line (see <code>lwd</code> in <code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>?par</a></code>)</p></li>
+<li><p><code>line_lty</code>: Type of the fitted line (see <code>lty</code> in <code><a href='https://rdrr.io/r/graphics/par.html'>?par</a></code>)</p></li>
+<li><p><code>line_lwd</code>: Line width of the fitted line (see <code>lwd</code> in <code><a href='https://rdrr.io/r/graphics/par.html'>?par</a></code>)</p></li>
 </ul></td>
     </tr>
     </table>
@@ -236,22 +237,12 @@ Custom parameters include:</p><ul>
 <p><strong><code>RLum.Results</code></strong>-object</p>
 <p><strong>slot:</strong> <strong><code>@data</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>Element</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td><code>$summary</code></td><td></td></tr>
-<tr><td></td><td><code>data.frame</code></td><td></td></tr>
-<tr><td>summary of the fitting results</td><td></td><td><code>$data</code></td></tr>
-<tr><td></td><td></td><td><code>data.frame</code></td></tr>
-<tr><td></td><td>the original input data</td><td></td></tr>
-<tr><td><code>$fit</code></td><td></td><td></td></tr>
-<tr><td><code>nls</code></td><td></td><td>the fitting object produced by</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a></td><td></td><td></td></tr>
-<tr><td><code>$args</code></td><td></td><td></td></tr>
-<tr><td><code>character</code></td><td></td><td>arguments of the call</td></tr>
-<tr><td></td><td><code>$call</code></td><td></td></tr>
-<tr><td></td><td><code>call</code></td><td></td></tr>
-<tr><td>the original function call</td><td></td><td></td></tr>
+<tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>$summary</code></td><td><code>data.frame</code></td><td>summary of the fitting results</td></tr>
+<tr><td><code>$data</code></td><td><code>data.frame</code></td><td>the original input data</td></tr>
+<tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fitting object produced by <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a></td></tr>
+<tr><td><code>$args</code></td><td><code>character</code></td><td>arguments of the call</td></tr>
+<tr><td><code>$call</code></td><td><code>call</code></td><td>the original function call</td></tr>
 </table>
 
 
@@ -267,7 +258,7 @@ with the fitted model.</p>
 
     <p><strong>Weighted fitting</strong></p>
 <p>If <code>weights = TRUE</code> the function will use the inverse square of the error (\(1/\sigma^2\))
-as weights during fitting using <a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>. Naturally, for this to
+as weights during fitting using <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a>. Naturally, for this to
 take effect individual errors must be provided in the third column of the
 <code>data.frame</code> for <code>data</code>. Weighted fitting is <strong>not</strong> supported if <code>data</code>
 is a list of multiple <code>data.frame</code>s, i.e., it is not available for global
@@ -281,10 +272,10 @@ saturation dose (<code>D0</code>) (in Gy) must be provided. The function will th
 eq. 12 in Sohbati et al. (2012b) to the data.</p>
 <p><strong>NOTE</strong>: Currently, this function does <strong>not</strong> consider the variability
 of the dose rate with sample depth (<code>x</code>)! In the original equation the dose
-rate <code>D</code> is an arbitrary function of <code>x</code> (term <code><a href='https://www.rdocumentation.org/packages/stats/topics/deriv'>D(x)</a></code>), but here <code>D</code> is assumed
+rate <code>D</code> is an arbitrary function of <code>x</code> (term <code><a href='https://rdrr.io/r/stats/deriv.html'>D(x)</a></code>), but here <code>D</code> is assumed
 constant.</p>
 <p><strong>Global fitting</strong></p>
-<p>If <code>data</code> is <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of multiple <code>data.frame</code>s, each representing a separate
+<p>If <code>data</code> is <a href='https://rdrr.io/r/base/list.html'>list</a> of multiple <code>data.frame</code>s, each representing a separate
 sample, the function automatically performs a global fit to the data. This
 may be useful to better constrain the parameters <code>sigmaphi</code> or <code>mu</code> and
 <strong>requires</strong> that known ages for each sample is provided
@@ -297,11 +288,11 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.0 (2019-03-04 17:37:29)</p>
+    <p>0.1.0</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2019). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2019). fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -314,18 +305,18 @@ Icarus 221, 160-166.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='ExampleData.SurfaceExposure.html'>ExampleData.SurfaceExposure</a>, <a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a></p></div>
+    <div class='dont-index'><p><a href='ExampleData.SurfaceExposure.html'>ExampleData.SurfaceExposure</a>, <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Load example data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"ExampleData.SurfaceExposure"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ExampleData.SurfaceExposure"</span>)
 
 <span class='co'>## Example 1 - Single sample</span>
 <span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10</span>
 <span class='no'>sample_1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.SurfaceExposure</span>$<span class='no'>sample_1</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>sample_1</span>)</div><div class='output co'>#&gt;   depth   intensity      error
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>sample_1</span>)</div><div class='output co'>#&gt;   depth   intensity      error
 #&gt; 1   0.0  0.05487370 0.08018774
 #&gt; 2   0.1 -0.06055516 0.17745452
 #&gt; 3   0.2  0.09560277 0.12385804
@@ -349,7 +340,7 @@ Icarus 221, 160-166.</p>
 <span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,</span>
 <span class='co'># dose rate = 2.5 Gy/ka, D0 = 40 Gy</span>
 <span class='no'>sample_2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.SurfaceExposure</span>$<span class='no'>sample_2</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>sample_2</span>)</div><div class='output co'>#&gt;   depth   intensity      error
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>sample_2</span>)</div><div class='output co'>#&gt;   depth   intensity      error
 #&gt; 1   0.0  0.05881908 0.08018774
 #&gt; 2   0.1 -0.05623983 0.17745452
 #&gt; 3   0.2  0.10032258 0.12385804
@@ -373,7 +364,7 @@ Icarus 221, 160-166.</p>
 <span class='co'>## Example 3 - Multiple samples (global fit) to better constrain 'mu'</span>
 <span class='co'># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span>
 <span class='no'>set_1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.SurfaceExposure</span>$<span class='no'>set_1</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>set_1</span>, <span class='kw'>max.level</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; List of 4
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>set_1</span>, <span class='kw'>max.level</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; List of 4
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
 #&gt;   ..$ intensity: num [1:76] 0.0274 -0.0303 0.0478 -0.0298 -0.0134 ...
@@ -385,7 +376,7 @@ Icarus 221, 160-166.</p>
 #&gt;   ..$ intensity: num [1:76] -0.0284 0.00732 -0.04984 0.02182 -0.02349 ...
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_1</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
+#&gt;   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_1</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
                                <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; 
 #&gt;  [fit_SurfaceExposure()] 
 #&gt; 
@@ -410,7 +401,7 @@ Icarus 221, 160-166.</p>
 <span class='co'># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span>
 <span class='co'># dose rate = 1.0 Ga/ka, D0 = 40 Gy</span>
 <span class='no'>set_2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.SurfaceExposure</span>$<span class='no'>set_2</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>set_2</span>, <span class='kw'>max.level</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; List of 5
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>set_2</span>, <span class='kw'>max.level</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; List of 5
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
 #&gt;   ..$ intensity: num [1:76] 0.235 0.238 0.381 0.369 0.451 ...
@@ -425,7 +416,7 @@ Icarus 221, 160-166.</p>
 #&gt;   ..$ intensity: num [1:76] -0.0106 -0.0171 0.0381 -0.0287 -0.0422 ...
 #&gt;  $ :'data.frame':	76 obs. of  2 variables:
 #&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_2</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
+#&gt;   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</div><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span>(<span class='no'>set_2</span>, <span class='kw'>age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>),
                                <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='fl'>5e-10</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; 
 #&gt;  [fit_SurfaceExposure()] 
 #&gt; 
@@ -471,8 +462,7 @@ Icarus 221, 160-166.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Christoph Burow, University of Cologne (Germany)
-<br /> R Luminescence Package Team</p>
+    <p>Christoph Burow, University of Cologne (Germany)</p>
   </div>
 </div>
 
@@ -482,7 +472,7 @@ Icarus 221, 160-166.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

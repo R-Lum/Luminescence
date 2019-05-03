@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ calculation" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -132,19 +133,15 @@ calculation</p>
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <table class='table'>
-<tr><td></td><td></td></tr>
-<tr><td><code>values.cosmic.Softcomp</code></td><td>:</td></tr>
-<tr><td></td><td>data frame containing cosmic dose rates</td></tr>
-<tr><td>for shallow depths (&lt; 167 g cm^-2) obtained using the "AGE" program by</td><td>Rainer Gruen (cf. Gruen 2009). These data essentially reproduce the graph</td></tr>
-<tr><td>shown in Fig. 1 of Prescott &amp; Hutton (1988).</td><td></td></tr>
-<tr><td></td><td><code>values.factor.Altitude</code></td></tr>
-<tr><td>:</td><td></td></tr>
-<tr><td>data frame containing altitude factors</td><td>for adjusting geomagnetic field-change factors. Values were read from Fig. 1</td></tr>
-<tr><td>in Prescott &amp; Hutton (1994).</td><td></td></tr>
-<tr><td></td><td><code>values.par.FJH</code></td></tr>
-<tr><td>:</td><td></td></tr>
-<tr><td>data frame containing values for parameters F, J</td><td>and H (read from Fig. 2 in Prescott &amp; Hutton 1994) used in the expression</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>values.cosmic.Softcomp</code>:</td><td>data frame containing cosmic dose rates
+for shallow depths (&lt; 167 g cm^-2) obtained using the "AGE" program by
+Rainer Gruen (cf. Gruen 2009). These data essentially reproduce the graph
+shown in Fig. 1 of Prescott &amp; Hutton (1988).</td></tr>
+<tr><td><code>values.factor.Altitude</code>:</td><td>data frame containing altitude factors
+for adjusting geomagnetic field-change factors. Values were read from Fig. 1
+in Prescott &amp; Hutton (1994).</td></tr>
+<tr><td><code>values.par.FJH</code>:</td><td>data frame containing values for parameters F, J
+and H (read from Fig. 2 in Prescott &amp; Hutton 1994) used in the expression</td></tr>
 </table>
     <p>$$Dc = D0*(F+J*exp((altitude/1000)/H))$$</p>
     
@@ -155,11 +152,9 @@ sources and used for fitting procedures. The derived expressions are used in
 the function <code>calc_CosmicDoseRate</code>.</p>
 <p><strong>values.cosmic.Softcomp</strong></p>
 <table class='table'>
-<tr><td></td><td>Program:</td></tr>
-<tr><td>"AGE"</td><td></td></tr>
+<tr><td>Program:</td><td>"AGE"</td></tr>
 <tr><td>Reference:</td><td>Gruen (2009)</td></tr>
-<tr><td></td><td>Fit:</td></tr>
-<tr><td>Polynomials in the form of</td><td></td></tr>
+<tr><td>Fit:</td><td>Polynomials in the form of</td></tr>
 </table>
     <p>For depths between 40-167 g cm^-2:</p>
 <p>$$y = 2*10^-6*x^2-0.0008*x+0.2535$$</p>
@@ -167,21 +162,17 @@ the function <code>calc_CosmicDoseRate</code>.</p>
 <p>$$y = -6*10^-8*x^3+2*10^-5*x^2-0.0025*x+0.2969$$</p>
 <p><strong>values.factor.Altitude</strong></p>
 <table class='table'>
-<tr><td></td><td>Reference:</td></tr>
-<tr><td>Prescott &amp; Hutton (1994)</td><td></td></tr>
+<tr><td>Reference:</td><td>Prescott &amp; Hutton (1994)</td></tr>
 <tr><td>Page:</td><td>499</td></tr>
-<tr><td></td><td>Figure:</td></tr>
-<tr><td>1</td><td></td></tr>
+<tr><td>Figure:</td><td>1</td></tr>
 <tr><td>Fit:</td><td>2-degree polynomial in the form of</td></tr>
 </table>
     <p>$$y = -0.026*x^2 + 0.6628*x + 1.0435$$</p>
 <p><strong>values.par.FJH</strong></p>
 <table class='table'>
-<tr><td></td><td>Reference:</td></tr>
-<tr><td>Prescott &amp; Hutton (1994)</td><td></td></tr>
+<tr><td>Reference:</td><td>Prescott &amp; Hutton (1994)</td></tr>
 <tr><td>Page:</td><td>500</td></tr>
-<tr><td></td><td>Figure:</td></tr>
-<tr><td>2</td><td></td></tr>
+<tr><td>Figure:</td><td>2</td></tr>
 <tr><td>Fits:</td><td>3-degree polynomials and linear fits</td></tr>
 </table>
     <p>F (non-linear part, \(\lambda\) &lt; 36.5 deg.):</p>
@@ -215,7 +206,7 @@ Radiation Measurements, 23, pp. 497-500.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>BaseDataSet.CosmicDoseRate</span>)</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>BaseDataSet.CosmicDoseRate</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -241,7 +232,7 @@ Radiation Measurements, 23, pp. 497-500.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

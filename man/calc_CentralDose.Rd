@@ -67,12 +67,7 @@ data(ExampleData.DeValues, envir = environment())
 ##apply the central dose model
 calc_CentralDose(ExampleData.DeValues$CA1)
 
-} 
-
-\section{How to cite}{
-Burow, C. (2019). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.

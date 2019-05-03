@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -127,7 +128,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>fit_OSLLifeTimes</span>(<span class='no'>object</span>, <span class='kw'>tp</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>signal_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method_control</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method_control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -135,44 +136,44 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> or <a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a> <strong>(required)</strong>:
+      <td><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='https://rdrr.io/r/base/matrix.html'>matrix</a> <strong>(required)</strong>:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
 processing. Please note: <code>NA</code> values are automatically removed and the dataset should comprise at least 5 data points.</p></td>
     </tr>
     <tr>
       <th>tp</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>): option to account for the stimulation pulse width. For off-time measurements
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>): option to account for the stimulation pulse width. For off-time measurements
 the default value is 0. <code>tp</code> has the same unit as the measurement data, e.g., µs. Please set this parameter
 carefully, if it all, otherwise you may heavily bias your fit results.</p></td>
     </tr>
     <tr>
       <th>signal_range</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>): allows to set a channel range, by default all channels are used, e.g.
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>): allows to set a channel range, by default all channels are used, e.g.
 <code>signal_range = c(2,100)</code> considers only channels 2 to 100 and <code>signal_range = c(2)</code> considers only channels
 from channel 2 onwards.</p></td>
     </tr>
     <tr>
       <th>n.components</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>): Fix the number of components. If set the algorithm will try
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>): Fix the number of components. If set the algorithm will try
 to fit the number of predefined components. If nothing is set, the algorithm will try to find the best number
 of components.</p></td>
     </tr>
     <tr>
       <th>method_control</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>optonal</em>): Named to allow a more fine control of the fitting process. See details
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optonal</em>): Named to allow a more fine control of the fitting process. See details
 for allowed options.</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>): Enable/disable plot output</p></td>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): Enable/disable plot output</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>): Enable/disable terminal feedback</p></td>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): Enable/disable terminal feedback</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>parameters passed to <a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a> to control the plot output. Please note that not
+      <td><p>parameters passed to <a href='https://rdrr.io/r/graphics/plot.default.html'>plot.default</a> to control the plot output. Please note that not
 all parameters are supported.</p></td>
     </tr>
     </table>
@@ -185,20 +186,11 @@ all parameters are supported.</p></td>
 <p><strong><code>RLum.Results</code></strong>-object</p>
 <p><strong>slot:</strong> <strong><code>@data</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>Element</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td><code>$data</code></td><td></td></tr>
-<tr><td></td><td><code>matrix</code></td><td></td></tr>
-<tr><td>the final fit matrix</td><td></td><td><code>$start_matrix</code></td></tr>
-<tr><td></td><td></td><td><code>matrix</code></td></tr>
-<tr><td></td><td>the start matrix used for the fitting</td><td></td></tr>
-<tr><td><code>$total_counts</code></td><td></td><td></td></tr>
-<tr><td><code>integer</code></td><td></td><td>Photon count sum</td></tr>
-<tr><td></td><td><code>$fit</code></td><td></td></tr>
-<tr><td></td><td><code>nls</code></td><td></td></tr>
-<tr><td>the fit object returned by</td><td><a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nls.lm'>minpack.lm::nls.lm</a></td><td></td></tr>
-<tr><td></td><td></td><td><strong>Element</strong></td></tr>
+<tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>$data</code></td><td><code>matrix</code></td><td>the final fit matrix</td></tr>
+<tr><td><code>$start_matrix</code></td><td><code>matrix</code></td><td>the start matrix used for the fitting</td></tr>
+<tr><td><code>$total_counts</code></td><td><code>integer</code></td><td>Photon count sum</td></tr>
+<tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fit object returned by <a href='https://rdrr.io/pkg/minpack.lm/man/nls.lm.html'>minpack.lm::nls.lm</a></td></tr>
 </table>
 
 
@@ -249,43 +241,25 @@ contrast to their work, for the optimisation by differential evolution here the 
 <p>(2) Final fitting</p>
 <p><strong><code>method_control</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>Parameter</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td><code>p</code></td><td></td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></td><td></td></tr>
-<tr><td>controls the probability for the F statistic reference values. For a significance level of 5% a value of 0.95 (the default) should be added, for 1%, a value of 0.99 is sufficient: 1 &gt; p &gt; 0 (cf.</td><td><a href='https://www.rdocumentation.org/packages/stats/topics/Fdist'>stats::qf</a></td><td>)</td></tr>
-<tr><td></td><td><code>seed</code></td><td></td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></td><td></td></tr>
-<tr><td>set the seed for the random number generator, provide a value here to get reproducible results</td><td></td><td><code>DEoptim.trace</code></td></tr>
-<tr><td></td><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td></tr>
-<tr><td></td><td>enables/disables the tracing of the differential evolution (cf.</td><td><a href='https://www.rdocumentation.org/packages/DEoptim/topics/DEoptim.control'>DEoptim::DEoptim.control</a></td></tr>
-<tr><td>)</td><td></td><td><code>DEoptim.itermax</code></td></tr>
-<tr><td></td><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td></tr>
-<tr><td></td><td>controls the number of the allowed generations (cf.</td><td><a href='https://www.rdocumentation.org/packages/DEoptim/topics/DEoptim.control'>DEoptim::DEoptim.control</a></td></tr>
-<tr><td>)</td><td></td><td><code>weights</code></td></tr>
-<tr><td></td><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td></tr>
-<tr><td></td><td>enables/disables the weighting for the start parameter estimation and fitting (see equations above).</td><td>The default values is</td></tr>
-<tr><td><code>TRUE</code></td><td></td><td></td></tr>
-<tr><td><code>nlsLM.trace</code></td><td></td><td></td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td><td></td><td>enables/disables trace mode for the nls fitting (</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a></td><td>), can be used to identify convergence problems, default is</td><td><code>FALSE</code></td></tr>
-<tr><td></td><td></td><td><code>nlsLM.upper</code></td></tr>
-<tr><td></td><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td></tr>
-<tr><td></td><td>enables/disables upper parameter boundary, default is</td><td><code>TRUE</code></td></tr>
-<tr><td></td><td></td><td><code>nlsLM.lower</code></td></tr>
-<tr><td></td><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td></tr>
-<tr><td></td><td>enables/disables lower parameter boundary, default is</td><td><code>TRUE</code></td></tr>
-<tr><td></td><td></td><td><strong>Parameter</strong></td></tr>
+<tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>p</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>controls the probability for the F statistic reference values. For a significance level of 5% a value of 0.95 (the default) should be added, for 1%, a value of 0.99 is sufficient: 1 &gt; p &gt; 0 (cf. <a href='https://rdrr.io/r/stats/Fdist.html'>stats::qf</a>)</td></tr>
+<tr><td><code>seed</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>set the seed for the random number generator, provide a value here to get reproducible results</td></tr>
+<tr><td><code>DEoptim.trace</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables the tracing of the differential evolution (cf. <a href='https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html'>DEoptim::DEoptim.control</a>)</td></tr>
+<tr><td><code>DEoptim.itermax</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>controls the number of the allowed generations (cf. <a href='https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html'>DEoptim::DEoptim.control</a>)</td></tr>
+<tr><td><code>weights</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables the weighting for the start parameter estimation and fitting (see equations above).
+The default values is <code>TRUE</code></td></tr>
+<tr><td><code>nlsLM.trace</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables trace mode for the nls fitting (<a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a>), can be used to identify convergence problems, default is <code>FALSE</code></td></tr>
+<tr><td><code>nlsLM.upper</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables upper parameter boundary, default is <code>TRUE</code></td></tr>
+<tr><td><code>nlsLM.lower</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables lower parameter boundary, default is <code>TRUE</code></td></tr>
 </table>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.3 (2019-04-19 16:17:29)</p>
+    <p>0.1.3</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -301,13 +275,13 @@ Journal of Global Optimization 11, 341–359.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nls.lm'>minpack.lm::nls.lm</a>, <a href='https://www.rdocumentation.org/packages/DEoptim/topics/DEoptim'>DEoptim::DEoptim</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/pkg/minpack.lm/man/nls.lm.html'>minpack.lm::nls.lm</a>, <a href='https://rdrr.io/pkg/DEoptim/man/DEoptim.html'>DEoptim::DEoptim</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.TR_OSL</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.TR_OSL</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##fit lifetimes (short run)</span>
 <span class='fu'>fit_OSLLifeTimes</span>(
@@ -375,8 +349,7 @@ Journal of Global Optimization 11, 341–359.</p>
 
     <h2>Author</h2>
     <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
-Christoph Schmidt, University of Bayreuth (Germany)
-<br /> R Luminescence Package Team</p>
+Christoph Schmidt, University of Bayreuth (Germany)</p>
   </div>
 </div>
 
@@ -386,7 +359,7 @@ Christoph Schmidt, University of Bayreuth (Germany)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -144,31 +145,31 @@ kernel density estimate, histogram and/or dot plot of the dose values.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> or <a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>):
 for <code>data.frame</code> two columns: De (<code>data[,1]</code>) and De error (<code>data[,2]</code>).
 To plot several data sets in one plot the data sets must be provided as
-<code>list</code>, e.g. <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list(data.1, data.2)</a></code>.</p></td>
+<code>list</code>, e.g. <code><a href='https://rdrr.io/r/base/list.html'>list(data.1, data.2)</a></code>.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 exclude NA values from the data set prior to any further operations.</p></td>
     </tr>
     <tr>
       <th>log.z</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 Option to display the z-axis in logarithmic scale. Default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>z.0</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> or <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>:
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a>:
 User-defined central value, used for centering of data. One out of <code>"mean"</code>,
 <code>"mean.weighted"</code> and <code>"median"</code> or a numeric value (not its logarithm).
 Default is <code>"mean.weighted"</code>.</p></td>
     </tr>
     <tr>
       <th>dispersion</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 measure of dispersion, used for drawing the scatter polygon. One out of</p><ul>
 <li><p><code>"qr"</code> (quartile range),</p></li>
 <li><p><code>"pnn"</code> (symmetric percentile range with nn the lower percentile, e.g.</p></li>
@@ -183,30 +184,30 @@ center the polygon.</p></td>
     </tr>
     <tr>
       <th>plot.ratio</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>:
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a>:
 Relative space, given to the radial versus the cartesian plot part,
 default is <code>0.75</code>.</p></td>
     </tr>
     <tr>
       <th>rotate</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to turn the plot by 90 degrees.</p></td>
     </tr>
     <tr>
       <th>mtext</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>:
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a>:
 additional text below the plot title.</p></td>
     </tr>
     <tr>
       <th>summary</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.
 Results differ depending on the log-option for the z-scale (see details).</p></td>
     </tr>
     <tr>
       <th>summary.pos</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> or <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> or <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 optional position coordinates or keyword (e.g. <code>"topright"</code>) for the
 statistical summary. Alternatively, the keyword <code>"sub"</code> may be
 specified to place the summary below the plot header. However, this latter
@@ -214,7 +215,7 @@ option in only possible if <code>mtext</code> is not used.</p></td>
     </tr>
     <tr>
       <th>summary.method</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 keyword indicating the method used to calculate the statistic summary.
 One out of</p><ul>
 <li><p><code>"unweighted"</code>,</p></li>
@@ -226,18 +227,18 @@ One out of</p><ul>
     </tr>
     <tr>
       <th>legend</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> vector (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> vector (<em>optional</em>):
 legend content to be added to the plot.</p></td>
     </tr>
     <tr>
       <th>legend.pos</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> or <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> or <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 optional position coordinates or keyword (e.g. <code>"topright"</code>)
 for the legend to be plotted.</p></td>
     </tr>
     <tr>
       <th>stats</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>:
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a>:
 additional labels of statistically important values in the plot.
 One or more out of the following:</p><ul>
 <li><p><code>"min"</code>,</p></li>
@@ -247,90 +248,90 @@ One or more out of the following:</p><ul>
     </tr>
     <tr>
       <th>rug</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to add a rug to the KDE part, to indicate the location of individual values.</p></td>
     </tr>
     <tr>
       <th>kde</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to add a KDE plot to the dispersion part, default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>hist</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to add a histogram to the dispersion part. Only meaningful when not
 more than one data set is plotted.</p></td>
     </tr>
     <tr>
       <th>dots</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to add a dot plot to the dispersion part. If number of dots exceeds
 space in the dispersion part, a square indicates this.</p></td>
     </tr>
     <tr>
       <th>boxplot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to add a boxplot to the dispersion part, default is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>y.axis</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to hide y-axis labels. Useful for data with small scatter.</p></td>
     </tr>
     <tr>
       <th>error.bars</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Option to show De-errors as error bars on De-points. Useful in combination
 with <code>y.axis = FALSE, bar.col = "none"</code>.</p></td>
     </tr>
     <tr>
       <th>bar</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
 centered at the defined values. By default a bar is drawn according to <code>"z.0"</code>.
 To omit the bar set <code>"bar = FALSE"</code>.</p></td>
     </tr>
     <tr>
       <th>bar.col</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> or <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 colour of the dispersion bar. Default is <code>"grey60"</code>.</p></td>
     </tr>
     <tr>
       <th>polygon.col</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> or <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 colour of the polygon showing the data scatter. Sometimes this
 polygon may be omitted for clarity. To disable it use <code>FALSE</code> or
 <code>polygon = FALSE</code>. Default is <code>"grey80"</code>.</p></td>
     </tr>
     <tr>
       <th>line</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>:
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a>:
 numeric values of the additional lines to be added.</p></td>
     </tr>
     <tr>
       <th>line.col</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> or <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>:
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a>:
 colour of the additional lines.</p></td>
     </tr>
     <tr>
       <th>line.lty</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a>:
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a>:
 line type of additional lines</p></td>
     </tr>
     <tr>
       <th>line.label</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>:
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a>:
 labels for the additional lines.</p></td>
     </tr>
     <tr>
       <th>grid.col</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> or <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 colour of the grid lines (originating at <code>[0,0]</code> and strechting to
 the z-scale). To disable grid lines use <code>FALSE</code>. Default is <code>"grey"</code>.</p></td>
     </tr>
     <tr>
       <th>frame</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 option to modify the plot frame type. Can be one out of</p><ul>
 <li><p><code>0</code> (no frame),</p></li>
 <li><p><code>1</code> (frame originates at 0,0 and runs along min/max isochrons),</p></li>
@@ -342,18 +343,18 @@ option to modify the plot frame type. Can be one out of</p><ul>
     </tr>
     <tr>
       <th>bw</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 bin-width for KDE, choose a numeric value for manual setting.</p></td>
     </tr>
     <tr>
       <th>output</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>:
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
 Optional output of numerical plot parameters. These can be useful to
 reproduce similar plots. Default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>interactive</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 create an interactive abanico plot (requires the 'plotly' package)</p></td>
     </tr>
     <tr>
@@ -438,11 +439,11 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.10 (2018-02-28 22:48:58)</p>
+    <p>0.1.10</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2019). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S. (2019). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -462,7 +463,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## load example data and recalculate to Gray</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 <span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>$<span class='no'>CA1</span>
 
 <span class='co'>## plot the example data straightforward</span>
@@ -472,7 +473,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
                  <span class='kw'>log.z</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_AbanicoPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with output of the plot parameters</span>
 <span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                          <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>plot1</span>)</div><div class='output co'>#&gt; List of 10
+                          <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>plot1</span>)</div><div class='output co'>#&gt; List of 10
 #&gt;  $ xlim         : num [1:2] 0 16.1
 #&gt;  $ ylim         : num [1:2] -36.8 15.9
 #&gt;  $ zlim         : num [1:2] 17.4 132.9
@@ -573,10 +574,10 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 #&gt;   ..$ ylbias   : num 0.2</div><div class='input'><span class='no'>plot1</span>$<span class='no'>zlim</span></div><div class='output co'>#&gt; [1]  17.41711 132.85700</div><div class='input'>
 <span class='co'>## now with adjusted z-scale limits</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_AbanicoPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>200</span>))</div><div class='img'><img src='plot_AbanicoPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with adjusted x-scale limits</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_AbanicoPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_AbanicoPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with rug to indicate individual values in KDE part</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -651,41 +652,41 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
                  <span class='kw'>error.bars</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_AbanicoPlot-18.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with user-defined axes labels</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Data error (%)"</span>,
+                 <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Data error (%)"</span>,
                           <span class='st'>"Data precision"</span>),
                  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Scatter"</span>,
                  <span class='kw'>zlab</span> <span class='kw'>=</span> <span class='st'>"Equivalent dose [Gy]"</span>)</div><div class='img'><img src='plot_AbanicoPlot-19.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with minimum, maximum and median value indicated</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-20.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-20.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with a brief statistical summary as subheader</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_AbanicoPlot-21.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_AbanicoPlot-21.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with another statistical summary</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span>),
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span>),
                  <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_AbanicoPlot-22.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now a plot with two 2-sigma bars for one data set</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-                 <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>100</span>))</div><div class='img'><img src='plot_AbanicoPlot-23.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>bar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>100</span>))</div><div class='img'><img src='plot_AbanicoPlot-23.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now the data set is split into sub-groups, one is manipulated</span>
 <span class='no'>data.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>1</span>:<span class='fl'>30</span>,]
 <span class='no'>data.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>31</span>:<span class='fl'>62</span>,] * <span class='fl'>1.3</span>
 
 <span class='co'>## now a common dataset is created from the two subgroups</span>
-<span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
+<span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
 
 <span class='co'>## now the two data sets are plotted in one plot</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_AbanicoPlot-24.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## now with some graphical modification</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
-                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span>),
-                 <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>),
-                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"steelblue1"</span>, <span class='st'>"orange1"</span>),
-                 <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>),
-                 <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>50</span>),
-                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-25.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span>),
+                 <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>),
+                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"steelblue1"</span>, <span class='st'>"orange1"</span>),
+                 <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>6</span>),
+                 <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>50</span>),
+                 <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span>))</div><div class='img'><img src='plot_AbanicoPlot-25.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create Abanico plot with predefined layout definition</span>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
                  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>)</div><div class='img'><img src='plot_AbanicoPlot-26.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -693,10 +694,10 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='fu'>plot_AbanicoPlot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
                  <span class='kw'>z.0</span> <span class='kw'>=</span> <span class='st'>"median"</span>,
                  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"journal"</span>,
-                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span>),
-                 <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/adjustcolor'>adjustcolor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>),
+                 <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span>),
+                 <span class='kw'>bar.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/adjustcolor.html'>adjustcolor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>),
                                        <span class='kw'>alpha.f</span> <span class='kw'>=</span> <span class='fl'>0.5</span>),
-                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>))</div><div class='img'><img src='plot_AbanicoPlot-27.png' alt='' width='700' height='433' /></div><div class='input'>
+                 <span class='kw'>polygon.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span>))</div><div class='img'><img src='plot_AbanicoPlot-27.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## for further information on layout definitions see documentation</span>
 <span class='co'>## of function get_Layout()</span>
 
@@ -709,14 +710,14 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
 <span class='no'>in_2sigma</span> <span class='kw'>&lt;-</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>data.in.2s</span>
 
 <span class='co'>## restore function-internal plot parameters</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='no'>AP</span>$<span class='no'>par</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>AP</span>$<span class='no'>par</span>)
 
 <span class='co'>## add points inside 2-sigma range</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/points'>points</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[<span class='no'>in_2sigma</span>],
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[<span class='no'>in_2sigma</span>],
        <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>std.estimate.plot</span>[<span class='no'>in_2sigma</span>],
        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>)</div><div class='input'>
 <span class='co'>## add points outside 2-sigma range</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/points'>points</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[!<span class='no'>in_2sigma</span>],
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>precision</span>[!<span class='no'>in_2sigma</span>],
        <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>AP</span>$<span class='no'>data</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>std.estimate.plot</span>[!<span class='no'>in_2sigma</span>],
        <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='plot_AbanicoPlot-28.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
@@ -744,8 +745,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     <h2>Author</h2>
     <p>Michael Dietze, GFZ Potsdam (Germany)<br />
 Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
-Inspired by a plot introduced by Galbraith &amp; Green (1990)
-<br /> R Luminescence Package Team</p>
+Inspired by a plot introduced by Galbraith &amp; Green (1990)</p>
   </div>
 </div>
 
@@ -755,7 +755,7 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -138,79 +139,61 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>user</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 GitHub user name (defaults to 'r-lum').</p></td>
     </tr>
     <tr>
       <th>repo</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 name of a GitHub repository (defaults to 'luminescence').</p></td>
     </tr>
     <tr>
       <th>branch</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 branch of a GitHub repository (defaults to 'master').</p></td>
     </tr>
     <tr>
       <th>n</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
 number of commits returned (defaults to 5).</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 print the output to the console (defaults to <code>TRUE</code>).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>github_commits</code>: <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> with columns:</p>
+    <p><code>github_commits</code>: <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with columns:</p>
 <table class='table'>
-<tr><td></td><td><code>[ ,1]</code></td></tr>
-<tr><td></td><td>SHA</td></tr>
-<tr><td></td><td><code>[ ,2]</code></td></tr>
-<tr><td></td><td>AUTHOR</td></tr>
-<tr><td></td><td><code>[ ,3]</code></td></tr>
-<tr><td></td><td>DATE</td></tr>
-<tr><td></td><td><code>[ ,4]</code></td></tr>
-<tr><td></td><td>MESSAGE</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>[ ,1]</code></td><td>SHA</td></tr>
+<tr><td><code>[ ,2]</code></td><td>AUTHOR</td></tr>
+<tr><td><code>[ ,3]</code></td><td>DATE</td></tr>
+<tr><td><code>[ ,4]</code></td><td>MESSAGE</td></tr>
 </table>
 
 
-<p><code>github_branches</code>: <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> with columns:</p>
+<p><code>github_branches</code>: <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with columns:</p>
 <table class='table'>
-<tr><td></td><td><code>[ ,1]</code></td></tr>
-<tr><td></td><td>BRANCH</td></tr>
-<tr><td></td><td><code>[ ,2]</code></td></tr>
-<tr><td></td><td>SHA</td></tr>
-<tr><td></td><td><code>[ ,3]</code></td></tr>
-<tr><td></td><td>INSTALL</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>[ ,1]</code></td><td>BRANCH</td></tr>
+<tr><td><code>[ ,2]</code></td><td>SHA</td></tr>
+<tr><td><code>[ ,3]</code></td><td>INSTALL</td></tr>
 </table>
 
 
-<p><code>github_commits</code>: Nested <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> with <code>n</code> elements.
+<p><code>github_commits</code>: Nested <a href='https://rdrr.io/r/base/list.html'>list</a> with <code>n</code> elements.
 Each commit element is a list with elements:</p>
 <table class='table'>
-<tr><td></td><td><code>[[1]]</code></td></tr>
-<tr><td></td><td>NUMBER</td></tr>
-<tr><td></td><td><code>[[2]]</code></td></tr>
-<tr><td></td><td>TITLE</td></tr>
-<tr><td></td><td><code>[[3]]</code></td></tr>
-<tr><td></td><td>BODY</td></tr>
-<tr><td></td><td><code>[[4]]</code></td></tr>
-<tr><td></td><td>CREATED</td></tr>
-<tr><td></td><td><code>[[5]]</code></td></tr>
-<tr><td></td><td>UPDATED</td></tr>
-<tr><td></td><td><code>[[6]]</code></td></tr>
-<tr><td></td><td>CREATOR</td></tr>
-<tr><td></td><td><code>[[7]]</code></td></tr>
-<tr><td></td><td>URL</td></tr>
-<tr><td></td><td><code>[[8]]</code></td></tr>
-<tr><td></td><td>STATUS</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>[[1]]</code></td><td>NUMBER</td></tr>
+<tr><td><code>[[2]]</code></td><td>TITLE</td></tr>
+<tr><td><code>[[3]]</code></td><td>BODY</td></tr>
+<tr><td><code>[[4]]</code></td><td>CREATED</td></tr>
+<tr><td><code>[[5]]</code></td><td>UPDATED</td></tr>
+<tr><td><code>[[6]]</code></td><td>CREATOR</td></tr>
+<tr><td><code>[[7]]</code></td><td>URL</td></tr>
+<tr><td><code>[[8]]</code></td><td>STATUS</td></tr>
 </table>
 
 
@@ -230,7 +213,7 @@ command to install the branch in R via the 'devtools' package.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2019). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2019). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -265,8 +248,7 @@ command to install the branch in R via the 'devtools' package.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Christoph Burow, University of Cologne (Germany)
-<br /> R Luminescence Package Team</p>
+    <p>Christoph Burow, University of Cologne (Germany)</p>
   </div>
 </div>
 
@@ -276,7 +258,7 @@ command to install the branch in R via the 'devtools' package.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

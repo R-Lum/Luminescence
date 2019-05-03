@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ RLum.Analysis S4 class object" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -141,47 +142,47 @@ S4 object of class <code>RLum.Analysis</code></p></td>
     </tr>
     <tr>
       <th>subset</th>
-      <td><p>named <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>optional</em>):
-subsets elements for plotting. The arguments in the named <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> will be
+      <td><p>named <a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
+subsets elements for plotting. The arguments in the named <a href='https://rdrr.io/r/base/list.html'>list</a> will be
 directly passed to the function <a href='get_RLum.html'>get_RLum</a>
 (e.g., <code>subset = list(curveType = "measured")</code>)</p></td>
     </tr>
     <tr>
       <th>nrows</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>optional</em>):
 sets number of rows for plot output, if nothing is set the function
 tries to find a value.</p></td>
     </tr>
     <tr>
       <th>ncols</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>optional</em>):
 sets number of columns for plot output, if nothing is set the function
 tries to find a value.</p></td>
     </tr>
     <tr>
       <th>abline</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
 allows to add ablines to the plot. Argument are provided
-in a list and will be forwared to the function <a href='https://www.rdocumentation.org/packages/graphics/topics/abline'>abline</a>,
-e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list(v = c(10, 100))</a></code> adds two vertical lines add 10 and 100 to all
+in a list and will be forwared to the function <a href='https://rdrr.io/r/graphics/abline.html'>abline</a>,
+e.g., <code><a href='https://rdrr.io/r/base/list.html'>list(v = c(10, 100))</a></code> adds two vertical lines add 10 and 100 to all
 plots. In contrast <code>list(v = c(10), v = c(100)</code> adds a vertical at 10 to
 the first and a vertical line at 100 to the 2nd plot.</p></td>
     </tr>
     <tr>
       <th>combine</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 allows to combine all <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> objects in one single plot.</p></td>
     </tr>
     <tr>
       <th>curve.transformation</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: <code>CW2pLM</code>, <code>CW2pLMi</code>,
 <code>CW2pHMi</code> and <code>CW2pPMi</code>. See details.</p></td>
     </tr>
     <tr>
       <th>plot.single</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 global par settings are considered, normally this should end in one plot per page</p></td>
     </tr>
     <tr>
@@ -204,7 +205,7 @@ of all plot settings.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function produces a multiple plot output. A file output is recommended
-(e.g., <a href='https://www.rdocumentation.org/packages/grDevices/topics/pdf'>pdf</a>).</p>
+(e.g., <a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a>).</p>
 <p><strong>curve.transformation</strong></p>
 <p>This argument allows transforming continuous wave (CW) curves to pseudo
 (linear) modulated curves. For the transformation, the functions of the
@@ -218,27 +219,27 @@ helpful.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Not all arguments available for <a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a> will be passed and they partly do not behave in the
+    <p>Not all arguments available for <a href='https://rdrr.io/r/graphics/plot.html'>plot</a> will be passed and they partly do not behave in the
 way you might expect them to work. This function was designed to serve as an overview
 plot, if you want to have more control, extract the objects and plot them individually.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.11 (2019-01-15 01:11:37)</p>
+    <p>0.3.11</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='plot_RLum.Data.Curve.html'>plot_RLum.Data.Curve</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='plot_RLum.Data.Curve.html'>plot_RLum.Data.Curve</a></p></div>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##convert values for position 1</span>
 <span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span>(<span class='no'>CWOSL.SAR.Data</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>1</span>)
@@ -246,20 +247,20 @@ plot, if you want to have more control, extract the objects and plot them indivi
 <span class='co'>##(1) plot (combine) TL curves in one plot</span>
 <span class='fu'>plot_RLum.Analysis</span>(
 <span class='no'>temp</span>,
-<span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"TL"</span>),
+<span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"TL"</span>),
 <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
 <span class='kw'>norm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>abline</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>v</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>110</span>))
+<span class='kw'>abline</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>v</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>110</span>))
 )</div><div class='img'><img src='plot_RLum.Analysis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) same as example (1) but using</span>
 <span class='co'>## the argument smooth = TRUE</span>
 <span class='fu'>plot_RLum.Analysis</span>(
 <span class='no'>temp</span>,
-<span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"TL"</span>),
+<span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"TL"</span>),
 <span class='kw'>combine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
 <span class='kw'>norm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
 <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>abline</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>v</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>110</span>))
+<span class='kw'>abline</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>v</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>110</span>))
 )</div><div class='img'><img src='plot_RLum.Analysis-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
@@ -284,8 +285,7 @@ plot, if you want to have more control, extract the objects and plot them indivi
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -295,7 +295,7 @@ plot, if you want to have more control, extract the objects and plot them indivi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

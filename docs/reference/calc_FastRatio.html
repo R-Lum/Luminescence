@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ aliquot curves after Durcan &amp;amp; Duller (2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -130,7 +131,7 @@ aliquot curves after Durcan &amp; Duller (2011).</p>
 
     <pre class="usage"><span class='fu'>calc_FastRatio</span>(<span class='no'>object</span>, <span class='kw'>stimulation.power</span> <span class='kw'>=</span> <span class='fl'>30.6</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='fl'>470</span>,
   <span class='kw'>sigmaF</span> <span class='kw'>=</span> <span class='fl'>2.6e-17</span>, <span class='kw'>sigmaM</span> <span class='kw'>=</span> <span class='fl'>4.28e-18</span>, <span class='kw'>Ch_L1</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>Ch_L2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Ch_L3</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>dead.channels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>Ch_L3</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>dead.channels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
   <span class='kw'>fitCW.sigma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fitCW.curve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -138,84 +139,84 @@ aliquot curves after Durcan &amp; Duller (2011).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> or <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> (<strong>required</strong>):
+      <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> or <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<strong>required</strong>):
 x, y data of measured values (time and counts).</p></td>
     </tr>
     <tr>
       <th>stimulation.power</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 Stimulation power in mW/cm^2</p></td>
     </tr>
     <tr>
       <th>wavelength</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 Stimulation wavelength in nm</p></td>
     </tr>
     <tr>
       <th>sigmaF</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 Photoionisation cross-section (cm^2) of the fast component.
 Default value after Durcan &amp; Duller (2011).</p></td>
     </tr>
     <tr>
       <th>sigmaM</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 Photoionisation cross-section (cm^2) of the medium component.
 Default value after Durcan &amp; Duller (2011).</p></td>
     </tr>
     <tr>
       <th>Ch_L1</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 An integer specifying the channel for L1.</p></td>
     </tr>
     <tr>
       <th>Ch_L2</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 An integer specifying the channel for L2.</p></td>
     </tr>
     <tr>
       <th>Ch_L3</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 A vector of length 2 with integer values specifying the start and end channels for L3
-(e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(40, 50)</a></code>).</p></td>
+(e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(40, 50)</a></code>).</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 % of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).</p></td>
     </tr>
     <tr>
       <th>x2</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 % of signal remaining from the medium component.
 Used to define the location of L3 (end).</p></td>
     </tr>
     <tr>
       <th>dead.channels</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
-Vector of length 2 in the form of <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(x, y)</a></code>.
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
+Vector of length 2 in the form of <code><a href='https://rdrr.io/r/base/c.html'>c(x, y)</a></code>.
 Channels that do not contain OSL data, i.e. at the start or end of measurement.</p></td>
     </tr>
     <tr>
       <th>fitCW.sigma</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 fit CW-OSL curve using <a href='fit_CWCurve.html'>fit_CWCurve</a> to calculate <code>sigmaF</code> and <code>sigmaM</code> (<strong>experimental</strong>).</p></td>
     </tr>
     <tr>
       <th>fitCW.curve</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 fit CW-OSL curve using <a href='fit_CWCurve.html'>fit_CWCurve</a> and derive the counts of L2 and L3
 from the fitted OSL curve (<strong>experimental</strong>).</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 plot output (<code>TRUE</code>/<code>FALSE</code>)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>available options: <code>verbose</code> (<a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a>).
+      <td><p>available options: <code>verbose</code> (<a href='https://rdrr.io/r/base/logical.html'>logical</a>).
 Further arguments passed to <a href='fit_CWCurve.html'>fit_CWCurve</a>.</p></td>
     </tr>
     </table>
@@ -223,11 +224,11 @@ Further arguments passed to <a href='fit_CWCurve.html'>fit_CWCurve</a>.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a plot (<em>optional</em>) and an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.
-The slot <code>data</code> contains a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> with the following elements:</p>
-<dt>summary</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> summary of all relevant results</p></dd>
+The slot <code>data</code> contains a <a href='https://rdrr.io/r/base/list.html'>list</a> with the following elements:</p>
+<dt>summary</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> summary of all relevant results</p></dd>
 <dt>data</dt><dd><p>the original input data</p></dd>
 <dt>fit</dt><dd><p><a href='RLum.Results-class.html'>RLum.Results</a> object if either <code>fitCW.sigma</code> or <code>fitCW.curve</code> is <code>TRUE</code></p></dd>
-<dt>args</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of used arguments</p></dd>
+<dt>args</dt><dd><p><a href='https://rdrr.io/r/base/list.html'>list</a> of used arguments</p></dd>
 <dt>call</dt><dd><p><code>[call]</code> the function call</p></dd>
 
     
@@ -240,11 +241,11 @@ and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.1 (2018-03-09 09:04:33)</p>
+    <p>0.1.1</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>King, G.E., Durcan, J., Burow, C. (2019). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>King, G.E., Durcan, J., Burow, C. (2019). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -266,7 +267,7 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load example CW-OSL curve</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"ExampleData.CW_OSL_Curve"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ExampleData.CW_OSL_Curve"</span>)
 
 <span class='co'># calculate the fast ratio w/o further adjustments</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_FastRatio</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>)</div><div class='output co'>#&gt; 
@@ -335,8 +336,7 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
     <h2>Author</h2>
     <p>Georgina E. King, University of Bern (Switzerland) <br />
 Julie A. Durcan, University of Oxford (United Kingdom) <br />
-Christoph Burow, University of Cologne (Germany)
-<br /> R Luminescence Package Team</p>
+Christoph Burow, University of Cologne (Germany)</p>
   </div>
 </div>
 
@@ -346,7 +346,7 @@ Christoph Burow, University of Cologne (Germany)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

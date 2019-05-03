@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -134,7 +135,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input.objects</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> with <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> with <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects (<strong>required</strong>):
 Character vector with path and files names
 (e.g. <code>input.objects = c("path/file1.bin", "path/file2.bin")</code> or
 <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects (e.g. <code>input.objects = c(object1, object2)</code>).
@@ -142,19 +143,19 @@ Alternatively a <code>list</code> is supported.</p></td>
     </tr>
     <tr>
       <th>output.file</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 File output path and name. If no value is given, a <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> is
 returned instead of a file.</p></td>
     </tr>
     <tr>
       <th>keep.position.number</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 Allows keeping the original position numbers of the input objects.
 Otherwise the position numbers are recalculated.</p></td>
     </tr>
     <tr>
       <th>position.number.append.gap</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
 Set the position number gap between merged BIN-file sets, if the option
 <code>keep.position.number = FALSE</code> is used. See details for further
 information.</p></td>
@@ -193,11 +194,11 @@ before the next position starts. Example:</p><ul>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.7 (2019-01-15 01:11:37)</p>
+    <p>0.2.7</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -211,12 +212,12 @@ before the next position starts. Example:</p><ul>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##merge two objects</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='no'>object1</span> <span class='kw'>&lt;-</span> <span class='no'>CWOSL.SAR.Data</span>
 <span class='no'>object2</span> <span class='kw'>&lt;-</span> <span class='no'>CWOSL.SAR.Data</span>
 
-<span class='no'>object.new</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_Risoe.BINfileData</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>object1</span>, <span class='no'>object2</span>))</div></pre>
+<span class='no'>object.new</span> <span class='kw'>&lt;-</span> <span class='fu'>merge_Risoe.BINfileData</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>object1</span>, <span class='no'>object2</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -241,8 +242,7 @@ before the next position starts. Example:</p><ul>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -252,7 +252,7 @@ before the next position starts. Example:</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

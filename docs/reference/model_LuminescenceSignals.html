@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ see the manual of this package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -124,8 +125,8 @@ see the manual of this package." />
 
     <div class="ref-description">
     
-    <p>Wrapper for the function <a href='https://www.rdocumentation.org/packages/RLumModel/topics/model_LuminescenceSignals'>RLumModel::model_LuminescenceSignals</a> from the package
-<a href='https://www.rdocumentation.org/packages/RLumModel/topics/RLumModel-package'>RLumModel::RLumModel-package</a>. For the further details and examples please
+    <p>Wrapper for the function <a href='https://rdrr.io/pkg/RLumModel/man/model_LuminescenceSignals.html'>RLumModel::model_LuminescenceSignals</a> from the package
+<a href='https://rdrr.io/pkg/RLumModel/man/RLumModel-package.html'>RLumModel::RLumModel-package</a>. For the further details and examples please
 see the manual of this package.</p>
     
     </div>
@@ -140,41 +141,41 @@ see the manual of this package.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></code> (<b>required</b>): set model to be used. Available models are:
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character</a></code> (<b>required</b>): set model to be used. Available models are:
 "Bailey2001", "Bailey2002", "Bailey2004", "Pagonis2007", "Pagonis2008", "Friedrich2017", "Friedrich2018" and for own models "customized" (or "customised").
 Note: When model = "customized" is set, the argument 'own_parameters' has to be set.</p></td>
     </tr>
     <tr>
       <th>sequence</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></code> (<b>required</b>): set sequence to model as <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></code> or as *.seq file from the
+      <td><p><code><a href='https://rdrr.io/r/base/list.html'>list</a></code> (<b>required</b>): set sequence to model as <code><a href='https://rdrr.io/r/base/list.html'>list</a></code> or as *.seq file from the
 Riso sequence editor. To simulate SAR measurements there is an extra option to set the sequence list (cf. details).</p></td>
     </tr>
     <tr>
       <th>lab.dose_rate</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></code> (with default): laboratory dose rate in XXX
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> (with default): laboratory dose rate in XXX
 Gy/s for calculating seconds into Gray in the *.seq file.</p></td>
     </tr>
     <tr>
       <th>simulate_sample_history</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> (with default): FALSE (with default): simulation begins at laboratory conditions, 
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> (with default): FALSE (with default): simulation begins at laboratory conditions, 
 TRUE: simulations begins at crystallization (all levels 0) process</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> (with default): Enables or disables plot output</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> (with default): Enables or disables plot output</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> (with default): Verbose mode on/off</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> (with default): Verbose mode on/off</p></td>
     </tr>
     <tr>
       <th>show_structure</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></code> (with default): Shows the structure of the result.
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical</a></code> (with default): Shows the structure of the result.
 Recommended to show record.id to analyse concentrations.</p></td>
     </tr>
     <tr>
       <th>own_parameters</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></code> (with default): This argument allows the user to submit own parameter sets. The <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></code>
+      <td><p><code><a href='https://rdrr.io/r/base/list.html'>list</a></code> (with default): This argument allows the user to submit own parameter sets. The <code><a href='https://rdrr.io/r/base/list.html'>list</a></code>
 has to contain the following items:</p><ul>
 <li><p>N: Concentration of electron- and hole traps [cm^(-3)]</p></li>
 <li><p>E: Electron/Hole trap depth [eV</p></li>
@@ -197,29 +198,29 @@ and example 3.</p></td>
     </tr>
     <tr>
       <th>own_state_parameters</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></code> (with default): Some publications (e.g. Pagonis 2009)
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> (with default): Some publications (e.g. Pagonis 2009)
 offer state parameters. With this argument the user can submit this state parameters. For further details
 see vignette ""RLumModel - Using own parameter sets" and example 3.</p></td>
     </tr>
     <tr>
       <th>own_start_temperature</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></code> (with default): Parameter to control the start temperature (in deg. C) of
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> (with default): Parameter to control the start temperature (in deg. C) of
 a simulation. This parameter takes effect only when 'model = "customized"' is choosen.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>further arguments and graphical parameters passed to
-<code><a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a></code>. See details for further information.</p></td>
+<code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot.default</a></code>. See details for further information.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.3 (2018-01-21 17:22:38)</p>
+    <p>0.1.3</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Friedrich, J., Kreutzer, S. (2019). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Friedrich, J., Kreutzer, S. (2019). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
 
   </div>
@@ -235,8 +236,7 @@ a simulation. This parameter takes effect only when 'model = "customized"' is ch
 
     <h2>Author</h2>
     <p>Johannes Friedrich, University of Bayreuth (Germany) <br />
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
-<br /> R Luminescence Package Team</p>
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)</p>
   </div>
 </div>
 
@@ -246,7 +246,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

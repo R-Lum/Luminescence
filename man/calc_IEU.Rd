@@ -62,12 +62,7 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the IEU model
 ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 
-} 
-
-\section{How to cite}{
-Smedley, R.K. (2019). calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL 33, 16-21.

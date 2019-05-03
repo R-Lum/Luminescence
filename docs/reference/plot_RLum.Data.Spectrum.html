@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ RLum.Data.Spectrum S4 class object" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -139,7 +140,7 @@ RLum.Data.Spectrum S4 class object</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> or <a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a> (<strong>required</strong>):
+      <td><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> or <a href='https://rdrr.io/r/base/matrix.html'>matrix</a> (<strong>required</strong>):
 S4 object of class <code>RLum.Data.Spectrum</code> or a <code>matrix</code> containing count
 values of the spectrum.<br />
 Please note that in case of a matrix rownames and colnames are set
@@ -147,35 +148,35 @@ automatically if not provided.</p></td>
     </tr>
     <tr>
       <th>par.local</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
 If <code>par.local = FALSE</code> global parameters are inherited.</p></td>
     </tr>
     <tr>
       <th>plot.type</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>): plot type, for
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>): plot type, for
 3D-plot use <code>persp</code>, or <code>interactive</code>, for a 2D-plot <code>contour</code>,
 <code>single</code> or <code>multiple.lines</code> (along the time or temperature axis)
 or <code>transect</code> (along the wavelength axis) <br /></p></td>
     </tr>
     <tr>
       <th>optical.wavelength.colours</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 use optical wavelength colour palette. Note: For this, the spectrum range is
-limited: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(350,750)</a></code>. Own colours can be set with the argument <code>col</code>. If you provide already
+limited: <code><a href='https://rdrr.io/r/base/c.html'>c(350,750)</a></code>. Own colours can be set with the argument <code>col</code>. If you provide already
 binned spectra, the colour assignment is likely to be wrong, since the colour gradients are calculated
 using the bin number.</p></td>
     </tr>
     <tr>
       <th>bg.spectrum</th>
-      <td><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> or <a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a> (<em>optional</em>): Spectrum
+      <td><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> or <a href='https://rdrr.io/r/base/matrix.html'>matrix</a> (<em>optional</em>): Spectrum
 used for the background subtraction. By definition, the background spectrum should have been
 measured with the same setting as the signal spectrum. If a spectrum is provided, the
 argument <code>bg.channels</code> works only on the provided background spectrum.</p></td>
     </tr>
     <tr>
       <th>bg.channels</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 defines channel for background subtraction If a vector is provided the mean
 of the channels is used for subtraction. If a spectrum is provided via <code>bg.spectrum</code>, this
 argument only works on the <code>bg.spectrum</code>.</p>
@@ -183,46 +184,46 @@ argument only works on the <code>bg.spectrum</code>.</p>
     </tr>
     <tr>
       <th>bin.rows</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
 allow summing-up wavelength channels (horizontal binning),
 e.g. <code>bin.rows = 2</code> two channels are summed up.
 Binning is applied after the background subtraction.</p></td>
     </tr>
     <tr>
       <th>bin.cols</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
 allow summing-up channel counts (vertical binning) for plotting,
 e.g. <code>bin.cols = 2</code> two channels are summed up.
 Binning is applied after the background subtraction.</p></td>
     </tr>
     <tr>
       <th>norm</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>): Normalise data to the maximum (<code>norm = "max"</code>) or
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>): Normalise data to the maximum (<code>norm = "max"</code>) or
 minimum (<code>norm = "min"</code>) count values. The normalisation is applied after the binning.</p></td>
     </tr>
     <tr>
       <th>rug</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables or disables colour rug. Currently only implemented for plot
 type <code>multiple.lines</code> and <code>single</code></p></td>
     </tr>
     <tr>
       <th>limit_counts</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 value to limit all count values to this value, i.e. all count values above
 this threshold will be replaced by this threshold. This is helpful
 especially in case of TL-spectra.</p></td>
     </tr>
     <tr>
       <th>xaxis.energy</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>): enables or disables energy instead of
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): enables or disables energy instead of
 wavelength axis. For the conversion the function <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a> is used.</p>
 <p><strong>Note:</strong> This option means not only simnply redrawing the axis,
 instead the spectrum in terms of intensity is recalculated, s. details.</p></td>
     </tr>
     <tr>
       <th>legend.text</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 possiblity to provide own legend text. This argument is only considered for
 plot types providing a legend, e.g. <code>plot.type="transect"</code></p></td>
     </tr>
@@ -254,7 +255,7 @@ to the <code>plot</code> function.</p></td>
 <p>Spectrum is visualised as 3D or 2D plot. Both plot types are based on
 internal R plot functions.</p>
 <p><strong><code>plot.type = "persp"</code></strong></p>
-<p>Arguments that will be passed to <a href='https://www.rdocumentation.org/packages/graphics/topics/persp'>persp</a>:</p><ul>
+<p>Arguments that will be passed to <a href='https://rdrr.io/r/graphics/persp.html'>persp</a>:</p><ul>
 <li><p><code>shade</code>: default is <code>0.4</code></p></li>
 <li><p><code>phi</code>: default is <code>15</code></p></li>
 <li><p><code>theta</code>: default is <code>-30</code></p></li>
@@ -263,7 +264,7 @@ internal R plot functions.</p>
 </ul>
     <p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
 to set the background transparent and reduce the thickness of the lines use:
-<code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par(bg = NA, lwd = 0.7)</a></code> previous the function call.</p>
+<code><a href='https://rdrr.io/r/graphics/par.html'>par(bg = NA, lwd = 0.7)</a></code> previous the function call.</p>
 <p><strong><code>plot.type = "single"</code></strong></p>
 <p>Per frame a single curve is returned. Frames are time or temperature
 steps.</p>
@@ -287,43 +288,43 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.6.2 (2019-01-28 23:38:34)</p>
+    <p>0.6.2</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://www.rdocumentation.org/packages/graphics/topics/persp'>persp</a>,
-<a href='https://www.rdocumentation.org/packages/plotly/topics/plot_ly'>plotly::plot_ly</a>, <a href='https://www.rdocumentation.org/packages/graphics/topics/contour'>contour</a></p></div>
+    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>persp</a>,
+<a href='https://rdrr.io/pkg/plotly/man/plot_ly.html'>plotly::plot_ly</a>, <a href='https://rdrr.io/r/graphics/contour.html'>contour</a></p></div>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.XSYG</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.XSYG</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##(1)plot simple spectrum (2D) - contour</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
                         <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"contour"</span>,
-                        <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
-                        <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
+                        <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
+                        <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
                         <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
                         <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) plot spectrum (3D)</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(
   <span class='no'>TL.Spectrum</span>,
   <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"persp"</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
   <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
   <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(3) plot spectrum on energy axis</span>
 <span class='co'>##please note the background subtraction</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
 <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"persp"</span>,
-<span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>200</span>),
+<span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>200</span>),
 <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
 <span class='kw'>bg.channels</span> <span class='kw'>=</span> <span class='fl'>10</span>,
 <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -332,33 +333,33 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
 <span class='fu'>plot_RLum.Data.Spectrum</span>(
  <span class='no'>TL.Spectrum</span>,
  <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"multiple.lines"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
- <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
+ <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
+ <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
  <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
  <span class='co'>##(4) interactive plot using the package plotly ("surface")</span>
  <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
+ <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
  <span class='co'>##(5) interactive plot using the package plotly ("contour")</span>
  <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
+ <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>,
  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"contour"</span>,
  <span class='kw'>showscale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
  <span class='co'>##(6) interactive plot using the package plotly ("heatmap")</span>
  <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
+ <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>,
  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"heatmap"</span>,
  <span class='kw'>showscale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
  <span class='co'>##(7) alternative using the package fields</span>
- <span class='kw pkg'>fields</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/fields/topics/image.plot'>image.plot</a></span>(<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>TL.Spectrum</span>))
- <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/contour'>contour</a></span>(<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>TL.Spectrum</span>), <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+ <span class='kw pkg'>fields</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></span>(<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>TL.Spectrum</span>))
+ <span class='fu'><a href='https://rdrr.io/r/graphics/contour.html'>contour</a></span>(<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>TL.Spectrum</span>), <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># }</span><div class='input'>
 </div></pre>
@@ -384,8 +385,7 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -395,7 +395,7 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

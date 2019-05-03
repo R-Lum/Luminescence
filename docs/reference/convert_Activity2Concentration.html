@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -67,7 +68,7 @@ functions such as use_DRAC." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -142,7 +143,7 @@ functions such as <a href='use_DRAC.html'>use_DRAC</a>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> <strong>(required)</strong>:
+      <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> <strong>(required)</strong>:
 provide dose rate data (activity or concentration) in three columns.
 The first column indicates the nuclides, the 2nd column measured value and
 in the 3rd column its error value. Allowed nuclide data are
@@ -150,13 +151,13 @@ in the 3rd column its error value. Allowed nuclide data are
     </tr>
     <tr>
       <th>input_unit</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 specify unit of input data given in the dose rate data frame, choose between
 'Bq/kg' and 'ppm/%' the default is 'Bq/kg'</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enable or disable verbose mode</p></td>
     </tr>
     </table>
@@ -190,11 +191,11 @@ $$</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.0 (2018-01-21 17:22:38)</p>
+    <p>0.1.0</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Fuchs, M.C. (2019). convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Fuchs, M.C. (2019). convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -208,10 +209,10 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##construct data.frame</span>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
- <span class='kw'>NUCLIDES</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"U-238"</span>, <span class='st'>"Th-232"</span>, <span class='st'>"K-40"</span>),
- <span class='kw'>VALUE</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>40</span>,<span class='fl'>80</span>,<span class='fl'>100</span>),
- <span class='kw'>VALUE_ERROR</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>10</span>),
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+ <span class='kw'>NUCLIDES</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"U-238"</span>, <span class='st'>"Th-232"</span>, <span class='st'>"K-40"</span>),
+ <span class='kw'>VALUE</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>,<span class='fl'>80</span>,<span class='fl'>100</span>),
+ <span class='kw'>VALUE_ERROR</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>10</span>),
  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'>##perform analysis</span>
@@ -242,8 +243,7 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
     </ul>
 
     <h2>Author</h2>
-    <p>Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
-<br /> R Luminescence Package Team</p>
+    <p>Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)</p>
   </div>
 </div>
 
@@ -253,7 +253,7 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

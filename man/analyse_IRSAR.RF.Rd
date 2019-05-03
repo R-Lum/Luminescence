@@ -344,12 +344,7 @@ results <- analyse_IRSAR.RF(
 
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.

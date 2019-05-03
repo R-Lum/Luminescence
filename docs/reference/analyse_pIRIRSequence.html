@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ fitting on RLum.Analysis objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -130,7 +131,7 @@ fitting on <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.</p>
 
     <pre class="usage"><span class='fu'>analyse_pIRIRSequence</span>(<span class='no'>object</span>, <span class='no'>signal.integral.min</span>, <span class='no'>signal.integral.max</span>,
   <span class='no'>background.integral.min</span>, <span class='no'>background.integral.max</span>, <span class='kw'>dose.points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"TL"</span>, <span class='st'>"IR50"</span>, <span class='st'>"pIRIR225"</span>), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"TL"</span>, <span class='st'>"IR50"</span>, <span class='st'>"pIRIR225"</span>), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -138,43 +139,43 @@ fitting on <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> or <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects (<strong>required</strong>):
+      <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects (<strong>required</strong>):
 input object containing data for analysis.
-If a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> is provided the functions tries to iteratre over the list.</p></td>
+If a <a href='https://rdrr.io/r/base/list.html'>list</a> is provided the functions tries to iteratre over the list.</p></td>
     </tr>
     <tr>
       <th>signal.integral.min</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 lower bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.</p></td>
     </tr>
     <tr>
       <th>signal.integral.max</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 upper bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.</p></td>
     </tr>
     <tr>
       <th>background.integral.min</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 lower bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.</p></td>
     </tr>
     <tr>
       <th>background.integral.max</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 upper bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.</p></td>
     </tr>
     <tr>
       <th>dose.points</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 a numeric vector containing the dose points values. Using this argument overwrites dose point
 values in the signal curves.</p></td>
     </tr>
     <tr>
       <th>sequence.structure</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 specifies the general sequence structure. Allowed values are <code>"TL"</code> and
 any <code>"IR"</code> combination (e.g., <code>"IR50"</code>,<code>"pIRIR225"</code>).
 Additionally a parameter <code>"EXCLUDE"</code> is allowed to exclude curves from
@@ -183,12 +184,12 @@ preheat as none TL, remove the TL step.)</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables or disables plot output.</p></td>
     </tr>
     <tr>
       <th>plot.single</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in single plot
 windows. Requires <code>plot = TRUE</code>.</p></td>
     </tr>
@@ -197,7 +198,7 @@ windows. Requires <code>plot = TRUE</code>.</p></td>
       <td><p>further arguments that will be passed to the function
 <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> and <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>. Furthermore, the arguments <code>main</code> (headers), <code>log</code> (IRSL curves), <code>cex</code> (control
 the size) and <code>mtext.outer</code> (additional text on the plot area) can be passed to influence the plotting. If the input
-is list, <code>main</code> can be passed as <a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> or <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>.</p></td>
+is list, <code>main</code> can be passed as <a href='https://rdrr.io/r/base/vector.html'>vector</a> or <a href='https://rdrr.io/r/base/list.html'>list</a>.</p></td>
     </tr>
     </table>
     
@@ -206,21 +207,12 @@ is list, <code>main</code> can be passed as <a href='https://www.rdocumentation.
     <p>Plots (<em>optional</em>) and an <a href='RLum.Results-class.html'>RLum.Results</a> object is
 returned containing the following elements:</p>
 <table class='table'>
-<tr><td></td><td><strong>DATA.OBJECT</strong></td><td></td></tr>
-<tr><td></td><td><strong>TYPE</strong></td><td></td></tr>
-<tr><td></td><td><strong>DESCRIPTION</strong></td><td></td></tr>
-<tr><td></td><td><code>..$data</code></td><td>:</td></tr>
-<tr><td></td><td><code>data.frame</code></td><td></td></tr>
-<tr><td>Table with De values</td><td></td><td><code>..$LnLxTnTx.table</code></td></tr>
-<tr><td>:</td><td></td><td><code>data.frame</code></td></tr>
-<tr><td></td><td>with the LnLxTnTx values</td><td></td></tr>
-<tr><td><code>..$rejection.criteria</code></td><td>:</td><td></td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></td><td></td><td>rejection criteria</td></tr>
-<tr><td></td><td><code>..$Formula</code></td><td>:</td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></td><td></td></tr>
-<tr><td>Function used for fitting of the dose response curve</td><td></td><td><code>..$call</code></td></tr>
-<tr><td>:</td><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/call'>call</a></td></tr>
-<tr><td></td><td>the original function call</td><td></td></tr>
+<tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr>
+<tr><td><code>..$data</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr>
+<tr><td><code>..$LnLxTnTx.table</code> :</td><td><code>data.frame</code></td><td>with the LnLxTnTx values</td></tr>
+<tr><td><code>..$rejection.criteria</code> :</td><td><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></td><td>rejection criteria</td></tr>
+<tr><td><code>..$Formula</code> :</td><td><a href='https://rdrr.io/r/base/list.html'>list</a></td><td>Function used for fitting of the dose response curve</td></tr>
+<tr><td><code>..$call</code> :</td><td><a href='https://rdrr.io/r/base/call.html'>call</a></td><td>the original function call</td></tr>
 </table>
 
 
@@ -237,7 +229,7 @@ functionality of the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL
 <p>The argument <code>sequence.structure</code> expects a shortened pattern of your sequence structure and was
 mainly introduced to ease the use of the function. For example: If your measurement data contains
 the following curves: <code>TL</code>, <code>IRSL</code>, <code>IRSL</code>, <code>TL</code>, <code>IRSL</code>, <code>IRSL</code>, the sequence pattern in <code>sequence.structure</code>
-becomes <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c('TL', 'IRSL', 'IRSL')</a></code>. The second part of your sequence for one cycle should be
+becomes <code><a href='https://rdrr.io/r/base/c.html'>c('TL', 'IRSL', 'IRSL')</a></code>. The second part of your sequence for one cycle should be
 similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
 have to be removed before using the function.</p>
 <p><strong>If the input is a <code>list</code></strong></p>
@@ -249,15 +241,15 @@ For further information see <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</
 
     <p>Best graphical output can be achieved by using the function <code>pdf</code>
 with the following options:</p>
-<p><code><a href='https://www.rdocumentation.org/packages/grDevices/topics/pdf'>pdf(file = "...", height = 15, width = 15)</a></code></p>
+<p><code><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf(file = "...", height = 15, width = 15)</a></code></p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.4 (2018-08-02 12:37:05)</p>
+    <p>0.2.4</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -282,20 +274,20 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class='co'>###</span>
 <span class='co'>##(1) Compile example data set based on existing example data (SAR quartz measurement)</span>
 <span class='co'>##(a) Load example data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##(b) Transform the values from the first position in a RLum.Analysis object</span>
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span>(<span class='no'>CWOSL.SAR.Data</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>1</span>)
 
 <span class='co'>##(c) Grep curves and exclude the last two (one TL and one IRSL)</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>object</span>, <span class='kw'>record.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>29</span>,-<span class='fl'>30</span>))
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>object</span>, <span class='kw'>record.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>29</span>,-<span class='fl'>30</span>))
 
 <span class='co'>##(d) Define new sequence structure and set new RLum.Analysis object</span>
-<span class='no'>sequence.structure</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>)
-<span class='no'>sequence.structure</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/vector'>as.vector</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>sapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>,<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>object</span>)-<span class='fl'>1</span>,<span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>4</span>),
+<span class='no'>sequence.structure</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>)
+<span class='no'>sequence.structure</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>object</span>)-<span class='fl'>1</span>,<span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>4</span>),
                                        <span class='kw'>function</span>(<span class='no'>x</span>){<span class='no'>sequence.structure</span> + <span class='no'>x</span>}))
 
-<span class='no'>object</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>sapply</a></span>(<span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>sequence.structure</span>), <span class='kw'>function</span>(<span class='no'>x</span>){
+<span class='no'>object</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>sequence.structure</span>), <span class='kw'>function</span>(<span class='no'>x</span>){
 
   <span class='no'>object</span><span class='kw'>[[</span><span class='no'>sequence.structure</span>[<span class='no'>x</span>]]]
 
@@ -311,14 +303,14 @@ doi:10.1016/j.radmeas.2008.06.002</p>
      <span class='kw'>background.integral.min</span> <span class='kw'>=</span> <span class='fl'>900</span>,
      <span class='kw'>background.integral.max</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
      <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>,
-     <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"TL"</span>, <span class='st'>"pseudoIRSL1"</span>, <span class='st'>"pseudoIRSL2"</span>),
+     <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"TL"</span>, <span class='st'>"pseudoIRSL1"</span>, <span class='st'>"pseudoIRSL2"</span>),
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Pseudo pIRIR data set based on quartz OSL"</span>,
      <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='analyse_pIRIRSequence-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-4.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_pIRIRSequence-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-7.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-8.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-9.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-10.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-11.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</div><div class='img'><img src='analyse_pIRIRSequence-12.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-13.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-14.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-15.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-16.png' alt='' width='700' height='433' /></div><div class='img'><img src='analyse_pIRIRSequence-17.png' alt='' width='700' height='433' /></div><div class='input'>
 
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Alternative for PDF output, uncomment and complete for usage
 </div><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/pdf'>pdf</a></span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"..."</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>15</span>)
+<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"..."</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>15</span>)
   <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_pIRIRSequence</span>(<span class='no'>object</span>,
          <span class='kw'>signal.integral.min</span> <span class='kw'>=</span> <span class='fl'>1</span>,
          <span class='kw'>signal.integral.max</span> <span class='kw'>=</span> <span class='fl'>2</span>,
@@ -327,7 +319,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
          <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>,
          <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Pseudo pIRIR data set based on quartz OSL"</span>)
 
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/dev'>dev.off</a></span>()
+  <span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span>()
 <span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
@@ -355,8 +347,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 
     <h2>Author</h2>
     <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-<br /> R Luminescence Package Team</p>
+(France)</p>
   </div>
 </div>
 
@@ -366,7 +357,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

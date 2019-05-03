@@ -138,12 +138,7 @@ g_value = g_value,
 n.MC = 10)
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0

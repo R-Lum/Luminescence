@@ -17,7 +17,8 @@ modulation conditions — CW2pLMi • Luminescence</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -67,7 +68,7 @@ using the interpolation procedure described by Bos &amp;amp; Wallinga (2012)." /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -140,13 +141,13 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>values</th>
-      <td><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> or <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> (<strong>required</strong>):
+      <td><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> or <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<strong>required</strong>):
 <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> or <code>data.frame</code> with measured curve data of type
 stimulation time (t) (<code>values[,1]</code>) and measured counts (cts) (<code>values[,2]</code>)</p></td>
     </tr>
     <tr>
       <th>P</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 stimulation time in seconds. If no value is given the optimal value is
 estimated automatically (see details). Greater values of P produce more
 points in the rising tail of the curve.</p></td>
@@ -159,10 +160,8 @@ points in the rising tail of the curve.</p></td>
 the transformed curve values.</p>
 <p><strong><code>RLum.Data.Curve</code></strong></p>
 <table class='table'>
-<tr><td></td><td><code>$CW2pLMi.x.t</code></td></tr>
-<tr><td></td><td>: transformed time values</td></tr>
-<tr><td></td><td><code>$CW2pLMi.method</code></td></tr>
-<tr><td></td><td>: used method for the production of the new data points</td></tr>
+<tr><td><code>$CW2pLMi.x.t</code></td><td>: transformed time values</td></tr>
+<tr><td><code>$CW2pLMi.method</code></td><td>: used method for the production of the new data points</td></tr>
 </table>
 
 
@@ -184,22 +183,22 @@ Calculate t' which is the transformed time:
 $$t' = 1/2*1/P*t^2$$</p>
 <p>(3)
 Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
-for the transformed time (t'). Values beyond <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min(t)</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(t)</a></code>
+for the transformed time (t'). Values beyond <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code> and <code><a href='https://rdrr.io/r/base/Extremes.html'>max(t)</a></code>
 produce <code>NA</code> values.</p>
 <p>(4)
-Select all values for t' &lt; <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min(t)</a></code>, i.e. values beyond the time resolution
+Select all values for t' &lt; <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code>, i.e. values beyond the time resolution
 of t. Select the first two values of the transformed data set which contain
-no <code>NA</code> values and use these values for a linear fit using <a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a>.</p>
+no <code>NA</code> values and use these values for a linear fit using <a href='https://rdrr.io/r/stats/lm.html'>lm</a>.</p>
 <p>(5)
-Extrapolate values for t' &lt; <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min(t)</a></code> based on the previously obtained
+Extrapolate values for t' &lt; <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code> based on the previously obtained
 fit parameters.</p>
 <p>(6)
 Transform values using
 $$pLM(t) = t/P*CW(t')$$</p>
 <p>(7)
-Combine values and truncate all values for t' &gt; <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(t)</a></code></p>
+Combine values and truncate all values for t' &gt; <code><a href='https://rdrr.io/r/base/Extremes.html'>max(t)</a></code></p>
 <p><strong>NOTE:</strong>
-The number of values for t' &lt; <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min(t)</a></code> depends on the stimulation
+The number of values for t' &lt; <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code> depends on the stimulation
 period (P) and therefore on the stimulation rate 1/P. To avoid the
 production of too many artificial data at the raising tail of the determined
 pLM curves it is recommended to use the automatic estimation routine for
@@ -214,11 +213,11 @@ message is returned.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.1 (2018-01-21 17:22:38)</p>
+    <p>0.3.1</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). CW2pLMi(): Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear modulation conditions. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). CW2pLMi(): Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear modulation conditions. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -241,34 +240,34 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1)</span>
 <span class='co'>##load CW-OSL curve data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##transform values</span>
 <span class='no'>values.transformed</span> <span class='kw'>&lt;-</span> <span class='fu'>CW2pLMi</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>)
 
 <span class='co'>##plot</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>values.transformed</span>$<span class='no'>x</span>, <span class='no'>values.transformed</span>$<span class='no'>y.t</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='img'><img src='CW2pLMi-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>values.transformed</span>$<span class='no'>x</span>, <span class='no'>values.transformed</span>$<span class='no'>y.t</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='img'><img src='CW2pLMi-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) - produce Fig. 4 from Bos &amp; Wallinga (2012)</span>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.CW_OSL_Curve</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 <span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='no'>CW_Curve.BosWallinga2012</span>
 
 <span class='co'>##open plot area</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>,
-     <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.001</span>,<span class='fl'>10</span>),
-     <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>8000</span>),
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>,
+     <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.001</span>,<span class='fl'>10</span>),
+     <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>8000</span>),
      <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"pseudo OSL (cts/0.01 s)"</span>,
      <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"t [s]"</span>,
      <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Fig. 4 - Bos &amp; Wallinga (2012)"</span>)</div><div class='input'>
 
 <span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'>CW2pLMi</span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>20</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>],<span class='fu'>CW2pLMi</span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>20</span>)[,<span class='fl'>2</span>],
-      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/text'>text</a></span>(<span class='fl'>0.03</span>,<span class='fl'>4500</span>,<span class='st'>"LM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='input'>
-<span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CW2pHMi.html'>CW2pHMi</a></span>(<span class='no'>values</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>],<span class='fu'><a href='CW2pHMi.html'>CW2pHMi</a></span>(<span class='no'>values</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>40</span>)[,<span class='fl'>2</span>],
-      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/text'>text</a></span>(<span class='fl'>0.005</span>,<span class='fl'>3000</span>,<span class='st'>"HM"</span>, <span class='kw'>cex</span> <span class='kw'>=</span><span class='fl'>.8</span>)</div><div class='input'>
-<span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>], <span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)[,<span class='fl'>2</span>],
-      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/text'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>6500</span>,<span class='st'>"PM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='img'><img src='CW2pLMi-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>],<span class='fu'>CW2pLMi</span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>20</span>)[,<span class='fl'>2</span>],
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.03</span>,<span class='fl'>4500</span>,<span class='st'>"LM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='input'>
+<span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CW2pHMi.html'>CW2pHMi</a></span>(<span class='no'>values</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>40</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>],<span class='fu'><a href='CW2pHMi.html'>CW2pHMi</a></span>(<span class='no'>values</span>, <span class='kw'>delta</span> <span class='kw'>=</span> <span class='fl'>40</span>)[,<span class='fl'>2</span>],
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.005</span>,<span class='fl'>3000</span>,<span class='st'>"HM"</span>, <span class='kw'>cex</span> <span class='kw'>=</span><span class='fl'>.8</span>)</div><div class='input'>
+<span class='no'>values.t</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='no'>values</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>values.t</span>[,<span class='fl'>1</span>]),<span class='fl'>1</span>], <span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span>(<span class='no'>values</span>, <span class='kw'>P</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>)[,<span class='fl'>2</span>],
+      <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.3</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>6500</span>,<span class='st'>"PM"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>.8</span>)</div><div class='img'><img src='CW2pLMi-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -296,8 +295,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
     <h2>Author</h2>
     <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne</p>
 <p>Based on comments and suggestions from:<br />
-Adrie J.J. Bos, Delft University of Technology, The Netherlands
-<br /> R Luminescence Package Team</p>
+Adrie J.J. Bos, Delft University of Technology, The Netherlands</p>
   </div>
 </div>
 
@@ -307,7 +305,7 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

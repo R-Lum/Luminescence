@@ -110,12 +110,7 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C. (2019). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012

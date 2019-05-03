@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ object to an RLum.Analysis object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -142,7 +143,7 @@ object to an RLum.Analysis object.</p>
     </tr>
     <tr>
       <th>pos</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>): position number of the <code>Risoe.BINfileData</code>
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>): position number of the <code>Risoe.BINfileData</code>
 object for which the curves are stored in the <code>RLum.Analysis</code> object.
 If <code>length(position)&gt;1</code> a list of <code>RLum.Analysis</code> objects is returned.
 If nothing is provided every position will be converted.
@@ -150,7 +151,7 @@ If the position is not valid <code>NA</code> is returned.</p></td>
     </tr>
     <tr>
       <th>grain</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a>, <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a>, <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 grain number from the measurement to limit the converted data set
 (e.g., <code>grain = c(1:48)</code>). Please be aware that this option may lead to
 unwanted effects, as the output is strictly limited to the choosen grain
@@ -158,45 +159,45 @@ number for all position numbers</p></td>
     </tr>
     <tr>
       <th>run</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a>, <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a>, <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 run number from the measurement to limit the converted data set
 (e.g., <code>run = c(1:48)</code>).</p></td>
     </tr>
     <tr>
       <th>set</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a>, <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a>, <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 set number from the measurement to limit the converted data set
 (e.g., <code>set = c(1:48)</code>).</p></td>
     </tr>
     <tr>
       <th>ltype</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a>, <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a>, <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 curve type to limit the converted data. Commonly allowed values are:
 <code>IRSL</code>, <code>OSL</code>, <code>TL</code>, <code>RIR</code>, <code>RBR</code> and <code>USER</code>
 (see also <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>)</p></td>
     </tr>
     <tr>
       <th>dtype</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a>, <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a>, <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 data type to limit the converted data. Commonly allowed values are
 listed in <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a></p></td>
     </tr>
     <tr>
       <th>protocol</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 sets protocol type for analysis object. Value may be used by subsequent
 analysis functions.</p></td>
     </tr>
     <tr>
       <th>keep.empty</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 If <code>TRUE</code> (default) an <code>RLum.Analysis</code> object is returned even if it does
 not contain any records. Set to <code>FALSE</code> to discard all empty objects.</p></td>
     </tr>
     <tr>
       <th>txtProgressBar</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
-enables or disables <a href='https://www.rdocumentation.org/packages/utils/topics/txtProgressBar'>txtProgressBar</a>.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
+enables or disables <a href='https://rdrr.io/r/utils/txtProgressBar.html'>txtProgressBar</a>.</p></td>
     </tr>
     </table>
     
@@ -218,7 +219,7 @@ object is set to 'unknown' if not stated otherwise.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4.2 (2018-01-21 17:22:38)</p>
+    <p>0.4.2</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -226,13 +227,13 @@ object is set to 'unknown' if not stated otherwise.</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##convert values for position 1</span>
 <span class='fu'>Risoe.BINfileData2RLum.Analysis</span>(<span class='no'>CWOSL.SAR.Data</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div></pre>
@@ -258,8 +259,7 @@ object is set to 'unknown' if not stated otherwise.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -269,7 +269,7 @@ object is set to 'unknown' if not stated otherwise.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

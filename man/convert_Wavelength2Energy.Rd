@@ -103,12 +103,7 @@ plot(
  ylab = "Luminescence [a.u.]"
 )
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 

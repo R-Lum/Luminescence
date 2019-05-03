@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to analyse post-IR IRSL measurements? • Luminescence</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="How to analyse post-IR IRSL measurements?">
 <meta property="og:description" content="">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -84,7 +85,7 @@
       <h1>How to analyse post-IR IRSL measurements?</h1>
                         <h4 class="author">Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montagine, France</h4>
             
-            <h4 class="date">Last modified: 2019-04-19 (‘Luminescence’ version: 0.9.0.105)</h4>
+            <h4 class="date">Last modified: 2019-05-03 (‘Luminescence’ version: 0.9.1.9000.11)</h4>
       
       
       <div class="hidden name"><code>HowTo_analyse_pIRIRMeasurements.Rmd</code></div>
@@ -203,7 +204,7 @@
 <h2 class="hasAnchor">
 <a href="#data-import" class="anchor"></a>Data import</h2>
 <p>To start with, the package ‘Luminescence’ itself has to be loaded. In a next step, measurement data are imported using the function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code>. If your input format is a BIN/BINX-file, replace the function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code> by <code><a href="../reference/read_BIN2R.html">read_BIN2R()</a></code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(Luminescence)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(Luminescence)</a>
 <a class="sourceLine" id="cb1-2" title="2">temp &lt;-<span class="st">  </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"pIRIR_measurementData.xsyg"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>, <span class="dt">txtProgressBar =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>To se the dataset in the <strong>R</strong> terminal, just call the object <code>temp</code></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">temp</a></code></pre></div>
@@ -245,7 +246,7 @@
 ## ... &lt;remaining records truncated manually&gt;</code></pre>
 <p>The function <code><a href="../reference/get_RLum.html">get_RLum()</a></code> is very powerful and supports sophisticated subsetting of a <code>RLum.Analysis</code> objects. Further useful arguments are <code>curveType</code> and <code>record.id</code>. The latter one allows a subsetting by record id (e.g., <code>record.id = 2</code> to select <code>#2</code>) and supports also negative subsetting (e.g., to remove only <code>#2</code>, type <code>record.id = -2</code>). To understand the meaning of the argument <code>drop = FALSE</code>, please call the function <code><a href="../reference/get_RLum.html">get_RLum()</a></code> another time with <code>drop = TRUE</code> and see the difference in the <strong>R</strong> terminal. For all supported arguments see the manual of the function by typing <code><a href="../reference/get_RLum.html">?get_RLum</a></code> in the <strong>R</strong> terminal.</p>
 <p>In our example, however, the dataset does not yet follow the SAR structure. The sequence comprises a hotbleach at the end of each cycles (record <code>#7</code> in the terminal output example above). This curves are not wanted a have to be removed. This can be done using again the function <code><a href="../reference/get_RLum.html">get_RLum()</a></code> with the argument <code>record.id</code>. Please note that by executing the following example the object <code>temp_sel</code> will be replaced.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">temp_sel &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_RLum.html">get_RLum</a></span>(temp_sel, <span class="dt">record.id =</span> <span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">7</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(temp_sel[[<span class="dv">1</span>]]), <span class="dt">by =</span> <span class="dv">7</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">temp_sel &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_RLum.html">get_RLum</a></span>(temp_sel, <span class="dt">record.id =</span> <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">7</span>,<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(temp_sel[[<span class="dv">1</span>]]), <span class="dt">by =</span> <span class="dv">7</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">temp_sel</a></code></pre></div>
 <pre><code>## [[1]]
 ## 
@@ -258,10 +259,10 @@
 ##   .. .. : #1 TL (UVVIS) | #2 IRSL (UVVIS) | #3 IRSL (UVVIS) | #4 TL (UVVIS) | #5 IRSL (UVVIS) | #6 IRSL (UVVIS) | #7 TL (UVVIS)
 ##   .. .. : #8 IRSL (UVVIS) | #9 IRSL (UVVIS) | #10 TL (UVVIS) | #11 IRSL (UVVIS) | #12 IRSL (UVVIS) | #13 TL (UVVIS) | #14 IRSL (UVVIS)
 ## ... &lt;remaining records truncated manually&gt;</code></pre>
-<p>Using a negative subsetting, all hotbleach curves have been removed using the call <code>-seq(7,length(temp_sel[[1]]), by = 7)</code>. Important is to understand that the function <code><a href="https://www.rdocumentation.org/packages/base/topics/length">length()</a></code> was called for the first list element of <code>temp_sel</code>, which contains the recorded curves for the first aliquot only. To see the differences type:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(temp_sel)</a></code></pre></div>
+<p>Using a negative subsetting, all hotbleach curves have been removed using the call <code>-seq(7,length(temp_sel[[1]]), by = 7)</code>. Important is to understand that the function <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> was called for the first list element of <code>temp_sel</code>, which contains the recorded curves for the first aliquot only. To see the differences type:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(temp_sel)</a></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(temp_sel[[<span class="dv">1</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(temp_sel[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>## [1] 42</code></pre>
 <p>In other words, our measurement record has data from 7 aliquots and each aliquot consits of (at least) 42 records. We here further assume that the number of records is similar for each aliquot.</p>
 </div>
@@ -276,7 +277,7 @@
 <a class="sourceLine" id="cb14-4" title="4">  <span class="dt">signal.integral.max =</span> <span class="dv">10</span>,</a>
 <a class="sourceLine" id="cb14-5" title="5">  <span class="dt">background.integral.min =</span> <span class="dv">800</span>, </a>
 <a class="sourceLine" id="cb14-6" title="6">  <span class="dt">background.integral.max =</span> <span class="dv">999</span>,</a>
-<a class="sourceLine" id="cb14-7" title="7">  <span class="dt">dose.points =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">340</span>, <span class="dv">680</span>, <span class="dv">1020</span>, <span class="dv">1360</span>, <span class="dv">0</span>, <span class="dv">340</span>),</a>
+<a class="sourceLine" id="cb14-7" title="7">  <span class="dt">dose.points =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">340</span>, <span class="dv">680</span>, <span class="dv">1020</span>, <span class="dv">1360</span>, <span class="dv">0</span>, <span class="dv">340</span>),</a>
 <a class="sourceLine" id="cb14-8" title="8">  <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="HowTo_analyse_pIRIRMeasurements_files/figure-html/unnamed-chunk-12-1.png" width="700" height="400px" style="display: block; margin: auto;"></p>
 <p>The function expects the setting of some arguments, for details and meaning, please see <code><a href="../reference/analyse_pIRIRSequence.html">?analyse_pIRIRSequence</a></code>. If the imported measurement data do not carry information on the <code>dose.points</code>, as it is the case in our example, these values have to be provided manually. Please note that the information needed for <code>dose.points</code> is something which was defined while writing the measurement sequence (your irradiation times).</p>
@@ -292,54 +293,54 @@
 ##   .. $Formula : list
 ##   additional info elements:  14</code></pre>
 <p>The <span class="math inline">\(D_{e}\)</span> values (here in seconds) can be seen by calling the <code>$data</code> element from the object <code>results</code>, which is a <code>data.frame</code> (and here limited to three columns):</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">results<span class="op">$</span>data[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>, <span class="st">"RC.Status"</span>, <span class="st">"Signal"</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">results<span class="op">$</span>data[,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>, <span class="st">"RC.Status"</span>, <span class="st">"Signal"</span>)]</a></code></pre></div>
 <pre><code>##         De De.Error RC.Status   Signal
-## 1   803.54    39.69        OK     IR50
-## 2  1099.86    31.15        OK pIRIR225
-## 3   632.80    32.02        OK     IR50
-## 4   873.77    27.40        OK pIRIR225
-## 5  1166.26    35.50        OK     IR50
-## 6  1058.84    19.04        OK pIRIR225
-## 7   741.30    31.53    FAILED     IR50
-## 8  1049.17    26.61        OK pIRIR225
-## 9   873.96    58.35        OK     IR50
-## 10 1236.34    49.51        OK pIRIR225
-## 11  827.68    40.23        OK     IR50
-## 12 1095.24    31.69        OK pIRIR225
-## 13  714.12    24.66        OK     IR50
-## 14  807.30    15.95        OK pIRIR225</code></pre>
+## 1   803.54    39.61        OK     IR50
+## 2  1099.86    29.48        OK pIRIR225
+## 3   632.80    29.11        OK     IR50
+## 4   873.77    26.87        OK pIRIR225
+## 5  1166.26    31.64        OK     IR50
+## 6  1058.84    19.38        OK pIRIR225
+## 7   741.30    31.15    FAILED     IR50
+## 8  1049.17    24.01        OK pIRIR225
+## 9   873.96    59.36        OK     IR50
+## 10 1236.34    55.16        OK pIRIR225
+## 11  827.68    42.09        OK     IR50
+## 12 1095.24    34.96        OK pIRIR225
+## 13  714.12    23.56        OK     IR50
+## 14  807.30    17.00        OK pIRIR225</code></pre>
 <p>The column <code>RC.Status</code> informs you about a failed rejection criterium, which one is not revealed, but the column provides a possibilty for further subsetting. For a quick data processing this is, together with the plot output, usually enough information. However, to see all rejection criteria type <code>results$rejection.criteria</code>. To see all information type <code>results$data</code> without further information.</p>
 <p>If you want to combine the two tables for a more virtous data processing, you can merge both tables by calling:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/merge">merge</a></span>(results<span class="op">$</span>data, results<span class="op">$</span>rejection.criteria, <span class="dt">by =</span> <span class="st">"UID"</span>)</a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">df &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/merge.html">merge</a></span>(results<span class="op">$</span>data, results<span class="op">$</span>rejection.criteria, <span class="dt">by =</span> <span class="st">"UID"</span>)</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(df)</a></code></pre></div>
 <pre><code>##                                   UID      De De.Error     D01 D01.ERROR
-## 1 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
-## 2 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
-## 3 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
-## 4 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
-## 5 2019-04-19-06:30.0.0254559775348753  741.30    31.53 1030.72  87.86940
-## 6  2019-04-19-06:30.0.185891745379195 1049.17    26.61 1066.85  60.26565
+## 1 2019-05-03-07:12.0.0301973617170006 1166.26    31.64 2185.14  231.2947
+## 2 2019-05-03-07:12.0.0301973617170006 1166.26    31.64 2185.14  231.2947
+## 3 2019-05-03-07:12.0.0301973617170006 1166.26    31.64 2185.14  231.2947
+## 4 2019-05-03-07:12.0.0301973617170006 1166.26    31.64 2185.14  231.2947
+## 5 2019-05-03-07:12.0.0301973617170006 1166.26    31.64 2185.14  231.2947
+## 6  2019-05-03-07:12.0.464417472016066  632.80    29.11 1160.62  131.4292
 ##   D02 D02.ERROR   De.MC Fit RC.Status signal.range background.range
-## 1  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
-## 2  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
-## 3  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
-## 4  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
-## 5  NA        NA  741.47 EXP    FAILED       1 : 10        800 : 999
-## 6  NA        NA 1046.59 EXP        OK       1 : 10        800 : 999
+## 1  NA        NA 1169.35 EXP        OK       1 : 10        800 : 999
+## 2  NA        NA 1169.35 EXP        OK       1 : 10        800 : 999
+## 3  NA        NA 1169.35 EXP        OK       1 : 10        800 : 999
+## 4  NA        NA 1169.35 EXP        OK       1 : 10        800 : 999
+## 5  NA        NA 1169.35 EXP        OK       1 : 10        800 : 999
+## 6  NA        NA  631.12 EXP        OK       1 : 10        800 : 999
 ##   signal.range.Tx background.range.Tx Signal.x                Criteria
 ## 1         NA : NA             NA : NA     IR50 Recycling ratio (R5/R1)
 ## 2         NA : NA             NA : NA     IR50     Recuperation rate 1
 ## 3         NA : NA             NA : NA     IR50          Testdose error
 ## 4         NA : NA             NA : NA     IR50        Palaeodose error
 ## 5         NA : NA             NA : NA     IR50    De &gt; max. dose point
-## 6         NA : NA             NA : NA pIRIR225 Recycling ratio (R5/R1)
+## 6         NA : NA             NA : NA     IR50 Recycling ratio (R5/R1)
 ##          Value Threshold Status Signal.y
-## 1   1.13660000       0.1 FAILED     IR50
-## 2   0.00440000       0.1     OK     IR50
-## 3   0.02203738       0.1     OK     IR50
-## 4   0.04253000       0.1     OK     IR50
-## 5 741.30000000    1360.0     OK     IR50
-## 6   1.04630000       0.1     OK pIRIR225</code></pre>
+## 1 9.904000e-01       0.1     OK     IR50
+## 2 1.000000e-03       0.1     OK     IR50
+## 3 1.533869e-02       0.1     OK     IR50
+## 4 2.713000e-02       0.1     OK     IR50
+## 5 1.166260e+03    1360.0     OK     IR50
+## 6 1.041100e+00       0.1     OK     IR50</code></pre>
 <p>The result may appear confusing in a first instance, since, e.g. the column <code>De</code> appears to contain duplicated entries. But still, each row is unique and in sum contains unique information.</p>
 </div>
 <div id="plot-results" class="section level1">
@@ -347,9 +348,9 @@
 <a href="#plot-results" class="anchor"></a>Plot results</h1>
 <p>To plot the <code>pIRIR225</code> <span class="math inline">\(D_{e}\)</span> values the following call can be used:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/plot_KDE.html">plot_KDE</a></span>(</a>
-<a class="sourceLine" id="cb21-2" title="2">  <span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/subset">subset</a></span>(results<span class="op">$</span>data, Signal <span class="op">==</span><span class="st"> "pIRIR225"</span>)[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>)],</a>
-<a class="sourceLine" id="cb21-3" title="3">  <span class="dt">xlab =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/expression">expression</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(D[e], <span class="st">" [s]"</span>)), </a>
-<a class="sourceLine" id="cb21-4" title="4">  <span class="dt">summary =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd.abs"</span>)</a>
+<a class="sourceLine" id="cb21-2" title="2">  <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(results<span class="op">$</span>data, Signal <span class="op">==</span><span class="st"> "pIRIR225"</span>)[, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>)],</a>
+<a class="sourceLine" id="cb21-3" title="3">  <span class="dt">xlab =</span> <span class="kw"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(D[e], <span class="st">" [s]"</span>)), </a>
+<a class="sourceLine" id="cb21-4" title="4">  <span class="dt">summary =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd.abs"</span>)</a>
 <a class="sourceLine" id="cb21-5" title="5">  )</a></code></pre></div>
 <p><img src="HowTo_analyse_pIRIRMeasurements_files/figure-html/unnamed-chunk-17-1.png" width="200" style="display: block; margin: auto;"></p>
 </div>
@@ -360,21 +361,21 @@
 <p><em>Please note that for this last example the arguments <code>plot</code> and <code>verbose</code> have been set to <code>FALSE</code> for most of the functions.</em></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_XSYG2R.html">read_XSYG2R</a></span>(<span class="st">"pIRIR_measurementData.xsyg"</span>, <span class="dt">fastForward =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb22-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/get_RLum.html">get_RLum</a></span>(<span class="dt">recordType =</span> <span class="st">"UVVIS"</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/get_RLum.html">get_RLum</a></span>(.,<span class="dt">record.id =</span> <span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">7</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(.[[<span class="dv">1</span>]]), <span class="dt">by =</span> <span class="dv">7</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/get_RLum.html">get_RLum</a></span>(.,<span class="dt">record.id =</span> <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">7</span>,<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(.[[<span class="dv">1</span>]]), <span class="dt">by =</span> <span class="dv">7</span>), <span class="dt">drop =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb22-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/analyse_pIRIRSequence.html">analyse_pIRIRSequence</a></span>(</a>
 <a class="sourceLine" id="cb22-5" title="5">    <span class="dt">signal.integral.min =</span> <span class="dv">1</span>,</a>
 <a class="sourceLine" id="cb22-6" title="6">    <span class="dt">signal.integral.max =</span> <span class="dv">10</span>,</a>
 <a class="sourceLine" id="cb22-7" title="7">    <span class="dt">background.integral.min =</span> <span class="dv">800</span>, </a>
 <a class="sourceLine" id="cb22-8" title="8">    <span class="dt">background.integral.max =</span> <span class="dv">999</span>,</a>
-<a class="sourceLine" id="cb22-9" title="9">    <span class="dt">dose.points =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">340</span>, <span class="dv">680</span>, <span class="dv">1020</span>, <span class="dv">1360</span>, <span class="dv">0</span>, <span class="dv">340</span>), </a>
+<a class="sourceLine" id="cb22-9" title="9">    <span class="dt">dose.points =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">340</span>, <span class="dv">680</span>, <span class="dv">1020</span>, <span class="dv">1360</span>, <span class="dv">0</span>, <span class="dv">340</span>), </a>
 <a class="sourceLine" id="cb22-10" title="10">    <span class="dt">verbose =</span> <span class="ot">FALSE</span>, </a>
 <a class="sourceLine" id="cb22-11" title="11">    <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb22-12" title="12"><span class="st">  </span><span class="kw"><a href="../reference/get_RLum.html">get_RLum</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb22-13" title="13"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/subset">subset</a></span>(.,<span class="dt">subset =</span> Signal <span class="op">==</span><span class="st"> "pIRIR225"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb22-13" title="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(.,<span class="dt">subset =</span> Signal <span class="op">==</span><span class="st"> "pIRIR225"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb22-14" title="14"><span class="st">  </span><span class="kw"><a href="../reference/plot_AbanicoPlot.html">plot_AbanicoPlot</a></span>(</a>
-<a class="sourceLine" id="cb22-15" title="15">  <span class="dt">data =</span> .[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>)],</a>
-<a class="sourceLine" id="cb22-16" title="16">  <span class="dt">zlab =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/expression">expression</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(D[e], <span class="st">" [s]"</span>)), </a>
-<a class="sourceLine" id="cb22-17" title="17">  <span class="dt">summary =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd.abs"</span>)</a>
+<a class="sourceLine" id="cb22-15" title="15">  <span class="dt">data =</span> .[, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"De"</span>, <span class="st">"De.Error"</span>)],</a>
+<a class="sourceLine" id="cb22-16" title="16">  <span class="dt">zlab =</span> <span class="kw"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(D[e], <span class="st">" [s]"</span>)), </a>
+<a class="sourceLine" id="cb22-17" title="17">  <span class="dt">summary =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd.abs"</span>)</a>
 <a class="sourceLine" id="cb22-18" title="18">  )</a></code></pre></div>
 <p><img src="HowTo_analyse_pIRIRMeasurements_files/figure-html/unnamed-chunk-18-1.png" width="250" style="display: block; margin: auto;"></p>
 <p>#References {-}</p>
@@ -422,7 +423,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
 </div>

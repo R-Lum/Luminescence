@@ -153,12 +153,7 @@ fit_OSLLifeTimes(
 object = ExampleData.TR_OSL)
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
 Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016\cr

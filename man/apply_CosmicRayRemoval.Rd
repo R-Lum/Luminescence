@@ -97,12 +97,7 @@ dataset (see example).
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "Pych")
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "smooth")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 Single Images. Astrophysics 116, 148-153.

@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ RLum.Analysis object including growth curve fitting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -139,42 +140,42 @@ RLum.Analysis object including growth curve fitting." />
     <tr>
       <th>object</th>
       <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> (<strong>required</strong>):
-input object containing data for analysis, alternatively a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of
+input object containing data for analysis, alternatively a <a href='https://rdrr.io/r/base/list.html'>list</a> of
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects can be provided.</p></td>
     </tr>
     <tr>
       <th>signal.integral.min</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
-lower bound of the signal integral. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a>s, if <code>object</code> is
-of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>. If the input is vector (e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(1,2)</a></code>) the 2nd value will be interpreted
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
+lower bound of the signal integral. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='https://rdrr.io/r/base/integer.html'>integer</a>s, if <code>object</code> is
+of type <a href='https://rdrr.io/r/base/list.html'>list</a>. If the input is vector (e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(1,2)</a></code>) the 2nd value will be interpreted
 as the minimum signal integral for the Tx curve.</p></td>
     </tr>
     <tr>
       <th>signal.integral.max</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
-upper bound of the signal integral. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a>s, if <code>object</code> is
-of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>. If the input is vector (e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(1,2)</a></code>) the 2nd value will be interpreted
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
+upper bound of the signal integral. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='https://rdrr.io/r/base/integer.html'>integer</a>s, if <code>object</code> is
+of type <a href='https://rdrr.io/r/base/list.html'>list</a>. If the input is vector (e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(1,2)</a></code>) the 2nd value will be interpreted
 as the maximum signal integral for the Tx curve.</p></td>
     </tr>
     <tr>
       <th>background.integral.min</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
-lower bound of the background integral. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a>s, if <code>object</code> is
-of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>. If the input is vector (e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(1,2)</a></code>) the 2nd value will be interpreted
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
+lower bound of the background integral. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='https://rdrr.io/r/base/integer.html'>integer</a>s, if <code>object</code> is
+of type <a href='https://rdrr.io/r/base/list.html'>list</a>. If the input is vector (e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(1,2)</a></code>) the 2nd value will be interpreted
 as the minimum background integral for the Tx curve.</p></td>
     </tr>
     <tr>
       <th>background.integral.max</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
-upper bound of the background integral. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a>s, if <code>object</code> is
-of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>. If the input is vector (e.g., <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(1,2)</a></code>) the 2nd value will be interpreted
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
+upper bound of the background integral. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='https://rdrr.io/r/base/integer.html'>integer</a>s, if <code>object</code> is
+of type <a href='https://rdrr.io/r/base/list.html'>list</a>. If the input is vector (e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(1,2)</a></code>) the 2nd value will be interpreted
 as the maximum background integral for the Tx curve.</p></td>
     </tr>
     <tr>
       <th>rejection.criteria</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>with default</em>):
-provide a named list and set rejection criteria in <strong>percentage</strong> for further calculation. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> in
-a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>, if <code>object</code> is of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></p>
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>with default</em>):
+provide a named list and set rejection criteria in <strong>percentage</strong> for further calculation. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> in
+a <a href='https://rdrr.io/r/base/list.html'>list</a>, if <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a></p>
 <p>Allowed arguments are <code>recycling.ratio</code>, <code>recuperation.rate</code>,
 <code>palaeodose.error</code>, <code>testdose.error</code> and <code>exceed.max.regpoint = TRUE/FALSE</code>.
 Example: <code>rejection.criteria = list(recycling.ratio = 10)</code>.
@@ -184,25 +185,25 @@ the RC.Status becomes always <code>'OK'</code></p></td>
     </tr>
     <tr>
       <th>dose.points</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 a numeric vector containg the dose points values Using this argument
-overwrites dose point values in the signal curves. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of
-<a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> vectors, if <code>object</code> is of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></p></td>
+overwrites dose point values in the signal curves. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of
+<a href='https://rdrr.io/r/base/numeric.html'>numeric</a> vectors, if <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a></p></td>
     </tr>
     <tr>
       <th>mtext.outer</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
-option to provide an outer margin mtext. Can be a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a>s,
-if <code>object</code> is of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></p></td>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
+option to provide an outer margin mtext. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='https://rdrr.io/r/base/character.html'>character</a>s,
+if <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a></p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables or disables plot output.</p></td>
     </tr>
     <tr>
       <th>plot.single</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>) or <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>) or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in single plot windows.
 If a numerice vector is provided the plots can be selected individually, i.e.
 <code>plot.single = c(1,2,3,4)</code> will plot the TL and Lx, Tx curves but not the legend (5) or the
@@ -211,7 +212,7 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
     </tr>
     <tr>
       <th>onlyLxTxTable</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (with default): If <code>TRUE</code> the dose response curve fitting and plotting
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (with default): If <code>TRUE</code> the dose response curve fitting and plotting
 is skipped. This allows to get hands on the Lx/Tx table for large datasets without the need for
 a curve fitting.</p></td>
     </tr>
@@ -229,10 +230,10 @@ method you should provide your own <code>sigmab</code> value!</p></td>
 
     <p>A plot (<em>optional</em>) and an <a href='RLum.Results-class.html'>RLum.Results</a> object is
 returned containing the following elements:</p>
-<dt>data</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> containing De-values, De-error and further parameters</p></dd>
-<dt>LnLxTnTx.values</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> of all calculated Lx/Tx values including signal, background counts and the dose points</p></dd>
-<dt>rejection.criteria</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
-<dt>Formula</dt><dd><p><a href='https://www.rdocumentation.org/packages/stats/topics/formula'>formula</a> formula that have been used for the growth curve fitting</p></dd>
+<dt>data</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> containing De-values, De-error and further parameters</p></dd>
+<dt>LnLxTnTx.values</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> of all calculated Lx/Tx values including signal, background counts and the dose points</p></dd>
+<dt>rejection.criteria</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
+<dt>Formula</dt><dd><p><a href='https://rdrr.io/r/stats/formula.html'>formula</a> formula that have been used for the growth curve fitting</p></dd>
 
 The output should be accessed using the function get_RLum.
 
@@ -246,12 +247,12 @@ used. For <strong>changing the way the Lx/Tx error is calculated</strong> use th
 <code>background.count.distribution</code> and <code>sigmab</code>, which will be passed to the function
 <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>.</p>
 <p><strong>Argument <code>object</code> is of type <code>list</code></strong></p>
-<p>If the argument <code>object</code> is of type <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> containing <strong>only</strong>
+<p>If the argument <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a> containing <strong>only</strong>
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects, the function re-calls itself as often as elements
 are in the list. This is usefull if an entire measurement wanted to be analysed without
 writing separate for-loops. To gain in full control of the parameters (e.g., <code>dose.points</code>) for
 every aliquot (corresponding to one <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object in the list), in
-this case the arguments can be provided as <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>. This <code>list</code> should
+this case the arguments can be provided as <a href='https://rdrr.io/r/base/list.html'>list</a>. This <code>list</code> should
 be of similar length as the <code>list</code> provided with the argument <code>object</code>,
 otherwise the function will create an own list of the requested lenght.
 Function output will be just one single <a href='RLum.Results-class.html'>RLum.Results</a> object.</p>
@@ -289,11 +290,11 @@ default should not exceed 10%.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.8.6 (2019-03-12 10:36:07)</p>
+    <p>0.8.6</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -320,7 +321,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class='co'>##load data</span>
 <span class='co'>##ExampleData.BINfileData contains two BINfileData objects</span>
 <span class='co'>##CWOSL.SAR.Data and TL.SAR.Data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##transform the values from the first position in a RLum.Analysis object</span>
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span>(<span class='no'>CWOSL.SAR.Data</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>1</span>)
@@ -334,7 +335,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class='kw'>background.integral.max</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
 <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
 <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>,
-<span class='kw'>rejection.criteria</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+<span class='kw'>rejection.criteria</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   <span class='kw'>recycling.ratio</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>recuperation.rate</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>testdose.error</span> <span class='kw'>=</span> <span class='fl'>10</span>,
@@ -347,7 +348,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 #&gt;   signal.range background.range signal.range.Tx background.range.Tx
 #&gt; 1        1 : 2       900 : 1000         NA : NA             NA : NA
 #&gt;                                  UID
-#&gt; 1 2019-04-19-06:29.0.878804486710578</div><div class='input'>
+#&gt; 1 2019-05-03-07:11.0.878804486710578</div><div class='input'>
 <span class='co'>##show LnTnLxTx table</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"LnLxTnTx.table"</span>)</div><div class='output co'>#&gt;      Name Repeated Dose  LnLx   LnLx.BG TnTx   TnTx.BG    Net_LnLx
 #&gt; 1 Natural    FALSE    0 20391  60.15842 4771  73.50495 20330.84158
@@ -366,13 +367,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 #&gt; 6       97.54912 5732.396       77.37976 1.61426805 0.027647946
 #&gt; 7       14.86509 5989.356       78.87190 0.01629624 0.002491179
 #&gt;                                  UID
-#&gt; 1 2019-04-19-06:29.0.878804486710578
-#&gt; 2 2019-04-19-06:29.0.878804486710578
-#&gt; 3 2019-04-19-06:29.0.878804486710578
-#&gt; 4 2019-04-19-06:29.0.878804486710578
-#&gt; 5 2019-04-19-06:29.0.878804486710578
-#&gt; 6 2019-04-19-06:29.0.878804486710578
-#&gt; 7 2019-04-19-06:29.0.878804486710578</div><div class='input'>
+#&gt; 1 2019-05-03-07:11.0.878804486710578
+#&gt; 2 2019-05-03-07:11.0.878804486710578
+#&gt; 3 2019-05-03-07:11.0.878804486710578
+#&gt; 4 2019-05-03-07:11.0.878804486710578
+#&gt; 5 2019-05-03-07:11.0.878804486710578
+#&gt; 6 2019-05-03-07:11.0.878804486710578
+#&gt; 7 2019-05-03-07:11.0.878804486710578</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -398,8 +399,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -409,7 +409,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

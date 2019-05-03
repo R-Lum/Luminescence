@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ RLum.Analysis objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -125,7 +126,7 @@ RLum.Analysis objects." />
     <div class="ref-description">
     
     <p>The function provides several methods for cosmic-ray removal and spectrum
-smoothing <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> objects and such objects embedded in <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> or
+smoothing <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> objects and such objects embedded in <a href='https://rdrr.io/r/base/list.html'>list</a> or
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.</p>
     
     </div>
@@ -140,33 +141,33 @@ smoothing <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> objects
     <tr>
       <th>object</th>
       <td><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> or <a href='RLum.Analysis-class.html'>RLum.Analysis</a> (<strong>required</strong>): input
-object to be treated. This can be also provided as <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a>. If an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object
+object to be treated. This can be also provided as <a href='https://rdrr.io/r/base/list.html'>list</a>. If an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object
 is provided, only the <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> objects are treated. Please note: this mixing of
 objects do not work for a list of <code>RLum.Data</code> objects.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 Defines method that is applied for cosmic ray removal. Allowed methods are
-<code>smooth</code>, the default, (<a href='https://www.rdocumentation.org/packages/stats/topics/smooth'>smooth</a>), <code>smooth.spline</code> (<a href='https://www.rdocumentation.org/packages/stats/topics/smooth.spline'>smooth.spline</a>)
+<code>smooth</code>, the default, (<a href='https://rdrr.io/r/stats/smooth.html'>smooth</a>), <code>smooth.spline</code> (<a href='https://rdrr.io/r/stats/smooth.spline.html'>smooth.spline</a>)
 and <code>Pych</code>. See details for further information.</p></td>
     </tr>
     <tr>
       <th>method.Pych.smoothing</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
 Smoothing parameter for cosmic ray removal according to Pych (2003).
 The value defines how many neighboring values in each frame are used for smoothing
 (e.g., <code>2</code> means that the two previous and two following values are used).</p></td>
     </tr>
     <tr>
       <th>method.Pych.threshold_factor</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 Threshold for zero-bins in the histogram. Small values mean that more peaks
 are removed, but signal might be also affected by this removal.</p></td>
     </tr>
     <tr>
       <th>MARGIN</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
 on which part the function cosmic ray removal should be applied on:</p><ul>
 <li><p>1 = along the time axis (line by line),</p></li>
 <li><p>2 = along the wavelength axis (column by column).</p></li>
@@ -176,12 +177,12 @@ on which part the function cosmic ray removal should be applied on:</p><ul>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 Option to suppress terminal output.,</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 If <code>TRUE</code> the histograms used for the cosmic-ray removal are returned as plot
 including the used threshold. Note: A separat plot is returned for each frame!
 Currently only for <code>method = "Pych"</code> a graphical output is provided.</p></td>
@@ -189,7 +190,7 @@ Currently only for <code>method = "Pych"</code> a graphical output is provided.<
     <tr>
       <th>...</th>
       <td><p>further arguments and graphical parameters that will be passed
-to the <a href='https://www.rdocumentation.org/packages/stats/topics/smooth'>smooth</a> function.</p></td>
+to the <a href='https://rdrr.io/r/stats/smooth.html'>smooth</a> function.</p></td>
     </tr>
     </table>
     
@@ -207,10 +208,10 @@ to the <a href='https://www.rdocumentation.org/packages/stats/topics/smooth'>smo
 </ul>
     <p>For further details see references below.</p>
 <p><strong><code>method = "smooth"</code></strong></p>
-<p>Method uses the function <a href='https://www.rdocumentation.org/packages/stats/topics/smooth'>smooth</a> to remove cosmic rays.</p>
+<p>Method uses the function <a href='https://rdrr.io/r/stats/smooth.html'>smooth</a> to remove cosmic rays.</p>
 <p>Arguments that can be passed are: <code>kind</code>, <code>twiceit</code></p>
 <p><strong><code>method = "smooth.spline"</code></strong></p>
-<p>Method uses the function <a href='https://www.rdocumentation.org/packages/stats/topics/smooth.spline'>smooth.spline</a> to remove cosmic rays.</p>
+<p>Method uses the function <a href='https://rdrr.io/r/stats/smooth.spline.html'>smooth.spline</a> to remove cosmic rays.</p>
 <p>Arguments that can be passed are: <code>spar</code></p>
 <p><strong>How to combine methods?</strong></p>
 <p>Different methods can be combined by applying the method repeatedly to the
@@ -218,11 +219,11 @@ dataset (see example).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.0 (2019-01-27 19:30:38)</p>
+    <p>0.3.0</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -232,7 +233,7 @@ Single Images. Astrophysics 116, 148-153.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='https://www.rdocumentation.org/packages/stats/topics/smooth'>smooth</a>, <a href='https://www.rdocumentation.org/packages/stats/topics/smooth.spline'>smooth.spline</a>,
+    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='https://rdrr.io/r/stats/smooth.html'>smooth</a>, <a href='https://rdrr.io/r/stats/smooth.spline.html'>smooth.spline</a>,
 apply_CosmicRayRemoval</p></div>
     
 
@@ -268,8 +269,7 @@ apply_CosmicRayRemoval</p></div>
 
     <h2>Author</h2>
     <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne
-(France)
-<br /> R Luminescence Package Team</p>
+(France)</p>
   </div>
 </div>
 
@@ -279,7 +279,7 @@ apply_CosmicRayRemoval</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

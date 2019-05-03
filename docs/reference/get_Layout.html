@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ plotting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -135,7 +136,7 @@ plotting.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>layout</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> or <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> object (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> object (<strong>required</strong>):
 name of the layout definition to be returned. If name is provided the
 respective definition is returned. One of the following
 supported layout definitions is possible: <code>"default"</code>,
@@ -157,21 +158,21 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1 (2018-01-21 17:22:38)</p>
+    <p>0.1</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M. (2019). get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M. (2019). get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## read example data set</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>## show structure of the default layout definition</span>
 <span class='no'>layout.default</span> <span class='kw'>&lt;-</span> <span class='fu'>get_Layout</span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>layout.default</span>)</div><div class='output co'>#&gt; List of 2
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>layout.default</span>)</div><div class='output co'>#&gt; List of 2
 #&gt;  $ abanico:List of 5
 #&gt;   ..$ font.type:List of 14
 #&gt;   .. ..$ main   : chr ""
@@ -456,8 +457,7 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Michael Dietze, GFZ Potsdam (Germany)
-<br /> R Luminescence Package Team</p>
+    <p>Michael Dietze, GFZ Potsdam (Germany)</p>
   </div>
 </div>
 
@@ -467,7 +467,7 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

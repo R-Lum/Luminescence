@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ for SAR OSL measurements on quartz." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -145,36 +146,36 @@ input data from a Risoe BIN file, produced by the function <a href='read_BIN2R.h
     </tr>
     <tr>
       <th>signal.integral</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
 channels used for the signal integral, e.g. <code>signal.integral=c(1:2)</code></p></td>
     </tr>
     <tr>
       <th>background.integral</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
 channels used for the background integral, e.g. <code>background.integral=c(85:100)</code></p></td>
     </tr>
     <tr>
       <th>position</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 reader positions that want to be analysed (e.g. <code>position=c(1:48)</code>.
 Empty positions are automatically omitted. If no value is given all
 positions are analysed by default.</p></td>
     </tr>
     <tr>
       <th>run</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 range of runs used for the analysis. If no value is given the range of the
 runs in the sequence is deduced from the <code>Risoe.BINfileData</code> object.</p></td>
     </tr>
     <tr>
       <th>set</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 range of sets used for the analysis. If no value is given the range of the
 sets in the sequence is deduced from the <code>Risoe.BINfileData</code> object.</p></td>
     </tr>
     <tr>
       <th>dtype</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 allows to further limit the curves by their data type (<code>DTYPE</code>),
 e.g., <code>dtype = c("Natural", "Dose")</code> limits the curves to this two data types.
 By default all values are allowed.
@@ -182,31 +183,31 @@ See <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> for allowed dat
     </tr>
     <tr>
       <th>keep.SEL</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (default):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (default):
 option allowing to use the <code>SEL</code> element of the <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> manually.
 <strong>NOTE:</strong> In this case any limitation provided by <code>run</code>, <code>set</code> and <code>dtype</code>
 are ignored!</p></td>
     </tr>
     <tr>
       <th>info.measurement</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 option to provide information about the measurement on the plot
 output (e.g. name of the BIN or BINX file).</p></td>
     </tr>
     <tr>
       <th>output.plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 plot output (<code>TRUE/FALSE</code>)</p></td>
     </tr>
     <tr>
       <th>output.plot.single</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in
 single plot windows. Requires <code>output.plot = TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>cex.global</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 global scaling factor.</p></td>
     </tr>
     <tr>
@@ -220,11 +221,11 @@ Supported" <code>mtext</code>, <code>log</code></p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A plot (<em>optional</em>) and <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> is returned containing the
+    <p>A plot (<em>optional</em>) and <a href='https://rdrr.io/r/base/list.html'>list</a> is returned containing the
 following elements:</p>
-<dt>LnLxTnTx</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> of all calculated Lx/Tx values including signal, background counts and the dose points.</p></dd>
-<dt>RejectionCriteria</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
-<dt>SARParameters</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> of additional measurement parameters obtained from the BIN file, e.g. preheat or read temperature
+<dt>LnLxTnTx</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> of all calculated Lx/Tx values including signal, background counts and the dose points.</p></dd>
+<dt>RejectionCriteria</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
+<dt>SARParameters</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> of additional measurement parameters obtained from the BIN file, e.g. preheat or read temperature
 (not valid for all types of measurements).</p></dd>
 
     
@@ -255,11 +256,11 @@ consider using the functions <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL<
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.17 (2018-01-21 17:22:38)</p>
+    <p>0.2.17</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Fuchs, M.C. (2019). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Fuchs, M.C. (2019). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -278,17 +279,17 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##analyse data</span>
 <span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>Analyse_SAR.OSLdata</span>(<span class='kw'>input.data</span> <span class='kw'>=</span> <span class='no'>CWOSL.SAR.Data</span>,
-                              <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
-                              <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>900</span>:<span class='fl'>1000</span>),
-                              <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>1</span>),
+                              <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
+                              <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>900</span>:<span class='fl'>1000</span>),
+                              <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>1</span>),
                               <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='Analyse_SAR.OSLdata-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; [Analyse_SAR.OSLdata()] &gt;&gt; Figure for position 1 produced.</div><div class='input'>
 <span class='co'>##combine results relevant for further analysis</span>
-<span class='no'>output.SAR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>Dose</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>Dose</span>,
+<span class='no'>output.SAR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>Dose</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>Dose</span>,
                          <span class='kw'>LxTx</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx</span>,
                          <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)
 <span class='no'>output.SAR</span></div><div class='output co'>#&gt;   Dose       LxTx  LxTx.Error
@@ -325,8 +326,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
     <h2>Author</h2>
     <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
-Margret C. Fuchs, HZDR, Freiberg (Germany)
-<br /> R Luminescence Package Team</p>
+Margret C. Fuchs, HZDR, Freiberg (Germany)</p>
   </div>
 </div>
 
@@ -336,7 +336,7 @@ Margret C. Fuchs, HZDR, Freiberg (Germany)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

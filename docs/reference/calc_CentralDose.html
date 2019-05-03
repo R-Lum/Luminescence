@@ -17,7 +17,8 @@ De distribution — calc_CentralDose • Luminescence</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -67,7 +68,7 @@ for sigma." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -140,12 +141,12 @@ for sigma.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><a href='RLum.Results-class.html'>RLum.Results</a> or <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> (<strong>required</strong>):
-for <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a>: two columns with De <code>(data[,1])</code> and De error <code>(data[,2])</code></p></td>
+      <td><p><a href='RLum.Results-class.html'>RLum.Results</a> or <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<strong>required</strong>):
+for <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>: two columns with De <code>(data[,1])</code> and De error <code>(data[,2])</code></p></td>
     </tr>
     <tr>
       <th>sigmab</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham &amp; Walling 2012, p. 100).
@@ -155,12 +156,12 @@ sigmab must be provided in the same absolute units of the De values (seconds or 
     </tr>
     <tr>
       <th>log</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 fit the (un-)logged central age model to De data</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 plot output</p></td>
     </tr>
     <tr>
@@ -173,11 +174,11 @@ plot output</p></td>
 
     <p>Returns a plot (<em>optional</em>) and terminal output. In addition an
 <a href='RLum.Results-class.html'>RLum.Results</a> object is returned containing the following elements:</p>
-<dt>.$summary</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> summary of all relevant model results.</p></dd>
-<dt>.$data</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> original input data</p></dd>
-<dt>.$args</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> used arguments</p></dd>
-<dt>.$call</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/call'>call</a> the function call</p></dd>
-<dt>.$profile</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> the log likelihood profile for sigma</p></dd>
+<dt>.$summary</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> summary of all relevant model results.</p></dd>
+<dt>.$data</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> original input data</p></dd>
+<dt>.$args</dt><dd><p><a href='https://rdrr.io/r/base/list.html'>list</a> used arguments</p></dd>
+<dt>.$call</dt><dd><p><a href='https://rdrr.io/r/base/call.html'>call</a> the function call</p></dd>
+<dt>.$profile</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> the log likelihood profile for sigma</p></dd>
 
 The output should be accessed using the function get_RLum
 
@@ -196,11 +197,11 @@ Galbraith &amp; Roberts (2012, 15)</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>1.3.2 (2018-01-21 17:22:38)</p>
+    <p>1.3.2</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2019). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C. (2019). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -229,14 +230,14 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
+    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
 <a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##apply the central dose model</span>
 <span class='fu'>calc_CentralDose</span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>CA1</span>)</div><div class='output co'>#&gt; 
@@ -280,8 +281,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 
     <h2>Author</h2>
     <p>Christoph Burow, University of Cologne (Germany) <br />
-Based on a rewritten S script of Rex Galbraith, 2010
-<br /> R Luminescence Package Team</p>
+Based on a rewritten S script of Rex Galbraith, 2010</p>
   </div>
 </div>
 
@@ -291,7 +291,7 @@ Based on a rewritten S script of Rex Galbraith, 2010
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

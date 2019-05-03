@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -66,7 +67,7 @@ Example: legend.pos for legend position, legend for legend text." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -127,7 +128,7 @@ Example: legend.pos for legend position, legend for legend text." />
     
     <p>Plots the equivalent dose (De) in dependency of the chosen signal integral
 (cf. Bailey et al., 2003). The function is simply passing several arguments
-to the function <a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a> and the used analysis functions and runs it in a loop.
+to the function <a href='https://rdrr.io/r/graphics/plot.html'>plot</a> and the used analysis functions and runs it in a loop.
 Example: <code>legend.pos</code> for legend position, <code>legend</code> for legend text.</p>
     
     </div>
@@ -135,7 +136,7 @@ Example: <code>legend.pos</code> for legend position, <code>legend</code> for le
     <pre class="usage"><span class='fu'>plot_DetPlot</span>(<span class='no'>object</span>, <span class='no'>signal.integral.min</span>, <span class='no'>signal.integral.max</span>,
   <span class='no'>background.integral.min</span>, <span class='no'>background.integral.max</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"shift"</span>,
   <span class='kw'>signal_integral.seq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>analyse_function</span> <span class='kw'>=</span> <span class='st'>"analyse_SAR.CWOSL"</span>,
-  <span class='kw'>analyse_function.control</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>n.channels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>analyse_function.control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>n.channels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>show_ShineDownCurve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>respect_RC.Status</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
@@ -149,27 +150,27 @@ input object containing data for analysis</p></td>
     </tr>
     <tr>
       <th>signal.integral.min</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 lower bound of the signal integral.</p></td>
     </tr>
     <tr>
       <th>signal.integral.max</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 upper bound of the signal integral.</p></td>
     </tr>
     <tr>
       <th>background.integral.min</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 lower bound of the background integral.</p></td>
     </tr>
     <tr>
       <th>background.integral.max</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<strong>required</strong>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<strong>required</strong>):
 upper bound of the background integral.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 method applied for constructing the De(t) plot.</p><ul>
 <li><p><code>shift</code> (<em>the default</em>): the chosen signal integral is shifted the shine down curve,</p></li>
 <li><p><code>expansion</code>: the chosen signal integral is expanded each time by its length</p></li>
@@ -177,48 +178,48 @@ method applied for constructing the De(t) plot.</p><ul>
     </tr>
     <tr>
       <th>signal_integral.seq</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 argument to provide an own signal integral sequence for constructing the De(t) plot</p></td>
     </tr>
     <tr>
       <th>analyse_function</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 name of the analyse function to be called. Supported functions are:
 <code>'analyse_SAR.CWOSL'</code>, <code>'analyse_pIRIRSequence'</code></p></td>
     </tr>
     <tr>
       <th>analyse_function.control</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
 arguments to be passed to the supported analyse functions
 (<code>'analyse_SAR.CWOSL'</code>, <code>'analyse_pIRIRSequence'</code>)</p></td>
     </tr>
     <tr>
       <th>n.channels</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>optional</em>):
 number of channels used for the De(t) plot. If nothing is provided all
 De-values are calculated and plotted until the start of the background
 integral.</p></td>
     </tr>
     <tr>
       <th>show_ShineDownCurve</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables or disables shine down curve in the plot output</p></td>
     </tr>
     <tr>
       <th>respect_RC.Status</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 remove De-values with 'FAILED' RC.Status from the plot
 (cf. <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> and <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a>)</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables or disables terminal feedback</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>further arguments and graphical parameters passed to
-<a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a>, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> and <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a>.
+<a href='https://rdrr.io/r/graphics/plot.default.html'>plot.default</a>, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> and <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a>.
 See details for further information.</p></td>
     </tr>
     </table>
@@ -228,23 +229,16 @@ See details for further information.</p></td>
     <p>A plot and an <a href='RLum.Results-class.html'>RLum.Results</a> object with the produced De values</p>
 <p><code>@data</code>:</p>
 <table class='table'>
-<tr><td></td><td><strong>Object</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td>De.values</td><td></td></tr>
-<tr><td><code>data.frame</code></td><td></td><td>table with De values</td></tr>
-<tr><td></td><td>signal_integral.seq</td><td></td></tr>
-<tr><td><code>numeric</code></td><td></td><td>integral sequence used for the calculation</td></tr>
+<tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td>De.values</td><td><code>data.frame</code></td><td>table with De values</td></tr>
+<tr><td>signal_integral.seq</td><td><code>numeric</code></td><td>integral sequence used for the calculation</td></tr>
 </table>
 
 
 <p><code>@info</code>:</p>
 <table class='table'>
-<tr><td></td><td><strong>Object</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td>call</td><td></td></tr>
-<tr><td><code>call</code></td><td></td><td>the original function call</td></tr>
+<tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td>call</td><td><code>call</code></td><td>the original function call</td></tr>
 </table>
 
 
@@ -253,9 +247,9 @@ See details for further information.</p></td>
 
     <p><strong>method</strong></p>
 <p>The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
-extended them accounting for changes in the counting statistics. Example: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(1:3, 3:5, 5:7)</a></code>.
+extended them accounting for changes in the counting statistics. Example: <code><a href='https://rdrr.io/r/base/c.html'>c(1:3, 3:5, 5:7)</a></code>.
 However, here also another method is provided allowing to expand the signal integral by
-consectutively expaning the integral by its chosen length. Example: <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(1:3, 1:5, 1:7)</a></code></p>
+consectutively expaning the integral by its chosen length. Example: <code><a href='https://rdrr.io/r/base/c.html'>c(1:3, 1:5, 1:7)</a></code></p>
 <p>Note that in both cases the integral limits are overlap. The finally applied limits are part
 of the function output.</p>
     
@@ -269,11 +263,11 @@ calculations using serveral hundreds of channels.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.2 (2018-08-27 10:58:24)</p>
+    <p>0.1.2</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). plot_DetPlot(): Create De(t) plot. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). plot_DetPlot(): Create De(t) plot. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -283,7 +277,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>, <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>, <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -292,7 +286,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
 <span class='co'>##load data</span>
 <span class='co'>##ExampleData.BINfileData contains two BINfileData objects</span>
 <span class='co'>##CWOSL.SAR.Data and TL.SAR.Data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##transform the values from the first position in a RLum.Analysis object</span>
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span>(<span class='no'>CWOSL.SAR.Data</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>1</span>)
@@ -330,8 +324,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -341,7 +334,7 @@ doi:10.1016/S1350-4487(03)00063-5</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

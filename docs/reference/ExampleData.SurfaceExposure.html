@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -65,7 +66,7 @@ interactively." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -133,26 +134,13 @@ interactively.</p>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> with 4 elements:</p>
+    <p>A <a href='https://rdrr.io/r/base/list.html'>list</a> with 4 elements:</p>
 <table class='table'>
-<tr><td></td><td><strong>Element</strong></td></tr>
-<tr><td></td><td></td></tr>
-<tr><td><strong>Content</strong></td><td></td></tr>
-<tr><td></td><td><code>$sample_1</code></td></tr>
-<tr><td></td><td>A</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></td><td>with 3 columns (depth, intensity, error)</td></tr>
-<tr><td></td><td><code>$sample_2</code></td></tr>
-<tr><td></td><td>A</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></td><td>with 3 columns (depth, intensity, error)</td></tr>
-<tr><td></td><td><code>$set_1</code></td></tr>
-<tr><td></td><td>A</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></td><td>of 4</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></td><td>s, each representing a sample with different ages</td></tr>
-<tr><td></td><td><code>$set_2</code></td></tr>
-<tr><td></td><td>A</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></td><td>of 5</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></td><td>s, each representing a sample with different ages</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><strong>Element</strong></td><td><strong>Content</strong></td></tr>
+<tr><td><code>$sample_1</code></td><td>A <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with 3 columns (depth, intensity, error)</td></tr>
+<tr><td><code>$sample_2</code></td><td>A <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with 3 columns (depth, intensity, error)</td></tr>
+<tr><td><code>$set_1</code></td><td>A <a href='https://rdrr.io/r/base/list.html'>list</a> of 4 <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>s, each representing a sample with different ages</td></tr>
+<tr><td><code>$set_2</code></td><td>A <a href='https://rdrr.io/r/base/list.html'>list</a> of 5 <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>s, each representing a sample with different ages</td></tr>
 </table>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
@@ -163,35 +151,23 @@ interactively.</p>
 
     <p><strong><code>$sample_1</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>mu</strong></td><td></td></tr>
-<tr><td></td><td><strong>sigmaphi</strong></td><td></td></tr>
-<tr><td></td><td><strong>age</strong></td><td></td></tr>
-<tr><td></td><td>0.9</td><td>5e-10</td></tr>
-<tr><td>10000</td><td></td><td></td></tr>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>age</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>10000</td></tr>
 </table>
     <p><strong><code>$sample_2</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>mu</strong></td><td></td><td></td><td><strong>sigmaphi</strong></td></tr>
-<tr><td></td><td></td><td><strong>age</strong></td><td></td><td></td></tr>
-<tr><td><strong>Dose rate</strong></td><td></td><td></td><td><strong>D0</strong></td><td></td></tr>
-<tr><td></td><td>0.9</td><td>5e-10</td><td>10000</td><td>2.5</td></tr>
-<tr><td>40</td><td></td><td></td><td><strong>mu</strong></td><td></td></tr>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>age</strong></td><td><strong>Dose rate</strong></td><td><strong>D0</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>10000</td><td>2.5</td><td>40</td></tr>
 </table>
     <p><strong><code>$set_1</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>mu</strong></td><td></td></tr>
-<tr><td></td><td><strong>sigmaphi</strong></td><td></td></tr>
-<tr><td></td><td><strong>ages</strong></td><td></td></tr>
-<tr><td></td><td>0.9</td><td>5e-10</td></tr>
-<tr><td>1e3, 1e4, 1e5, 1e6</td><td></td><td></td></tr>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>ages</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>1e3, 1e4, 1e5, 1e6</td></tr>
 </table>
     <p><strong><code>$set_2</code></strong></p>
 <table class='table'>
-<tr><td></td><td><strong>mu</strong></td><td></td><td></td><td><strong>sigmaphi</strong></td></tr>
-<tr><td></td><td></td><td><strong>ages</strong></td><td></td><td></td></tr>
-<tr><td><strong>Dose rate</strong></td><td></td><td></td><td><strong>D0</strong></td><td></td></tr>
-<tr><td></td><td>0.9</td><td>5e-10</td><td>1e2, 1e3, 1e4, 1e5, 1e6</td><td>1.0</td></tr>
-<tr><td>40</td><td></td><td></td><td><strong>mu</strong></td><td></td></tr>
+<tr><td><strong>mu</strong></td><td><strong>sigmaphi</strong></td><td><strong>ages</strong></td><td><strong>Dose rate</strong></td><td><strong>D0</strong></td></tr>
+<tr><td>0.9</td><td>5e-10</td><td>1e2, 1e3, 1e4, 1e5, 1e6</td><td>1.0</td><td>40</td></tr>
 </table>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -205,13 +181,13 @@ interactively.</p>
 <span class='no'>sigmaphi</span> <span class='kw'>&lt;-</span> <span class='fl'>5e-10</span>
 <span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fl'>10000</span>
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span>)
-<span class='no'>fun</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>sigmaphi</span> * <span class='no'>age</span> * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>))
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span>)
+<span class='no'>fun</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>sigmaphi</span> * <span class='no'>age</span> * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>))
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>666</span>)
-<span class='no'>synth_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
-                      <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/jitter'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>),
-                      <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>666</span>)
+<span class='no'>synth_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
+                      <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>),
+                      <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_1</span>
 <span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_1</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='img'><img src='ExampleData.SurfaceExposure-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
@@ -242,18 +218,18 @@ interactively.</p>
 <span class='no'>sigmaphi</span> <span class='kw'>&lt;-</span> <span class='fl'>5e-10</span>
 <span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fl'>10000</span>
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span>)
 <span class='no'>Ddot</span> <span class='kw'>&lt;-</span> <span class='fl'>2.5</span>   / <span class='fl'>1000</span> / <span class='fl'>365.25</span> / <span class='fl'>24</span> / <span class='fl'>60</span> / <span class='fl'>60</span> <span class='co'># 2.5 Gy/ka in Seconds</span>
 <span class='no'>D0</span> <span class='kw'>&lt;-</span> <span class='fl'>40</span>
-<span class='no'>fun</span> <span class='kw'>&lt;-</span> (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) *
-          <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-(<span class='no'>age</span> * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span>) *
-                (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)) + <span class='no'>Ddot</span>/<span class='no'>D0</span>) /
-  (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)
+<span class='no'>fun</span> <span class='kw'>&lt;-</span> (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) *
+          <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-(<span class='no'>age</span> * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span>) *
+                (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)) + <span class='no'>Ddot</span>/<span class='no'>D0</span>) /
+  (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>666</span>)
-<span class='no'>synth_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
-                      <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/jitter'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>),
-                      <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>666</span>)
+<span class='no'>synth_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
+                      <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>),
+                      <span class='kw'>error</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>), <span class='fl'>0.01</span>, <span class='fl'>0.2</span>))
 
 <span class='co'>## VALIDATE sample_2</span>
 <span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span>(<span class='no'>synth_2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>, <span class='kw'>sigmaphi</span> <span class='kw'>=</span> <span class='no'>sigmaphi</span>, <span class='kw'>Ddot</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>D0</span> <span class='kw'>=</span> <span class='no'>D0</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='output co'>#&gt; <span class='warning'>Warning: font width unknown for character 0x9</span></div><div class='img'><img src='ExampleData.SurfaceExposure-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
@@ -282,16 +258,16 @@ interactively.</p>
 <span class='co'>## ExampleData.SurfaceExposure$set_1</span>
 <span class='no'>sigmaphi</span> <span class='kw'>&lt;-</span> <span class='fl'>5e-10</span>
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span>)
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>666</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span>)
+<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>666</span>)
 
-<span class='no'>synth_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a></span>(<span class='st'>"list"</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>age</span>))
+<span class='no'>synth_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span>(<span class='st'>"list"</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>age</span>))
 
-<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>age</span>)) {
-  <span class='no'>fun</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>sigmaphi</span> * <span class='no'>age</span>[<span class='no'>i</span>] * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>))
-  <span class='no'>synth_3</span><span class='kw'>[[</span><span class='no'>i</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
-                             <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/jitter'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span>))
+<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>age</span>)) {
+  <span class='no'>fun</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>sigmaphi</span> * <span class='no'>age</span>[<span class='no'>i</span>] * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>))
+  <span class='no'>synth_3</span><span class='kw'>[[</span><span class='no'>i</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
+                             <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span>))
 }
 
 
@@ -325,22 +301,22 @@ interactively.</p>
 <span class='co'>## ExampleData.SurfaceExposure$set_2</span>
 <span class='no'>sigmaphi</span> <span class='kw'>&lt;-</span> <span class='fl'>5e-10</span>
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span>)
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span>)
+<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span>)
 <span class='no'>Ddot</span> <span class='kw'>&lt;-</span> <span class='fl'>1.0</span> / <span class='fl'>1000</span> / <span class='fl'>365.25</span> / <span class='fl'>24</span> / <span class='fl'>60</span> / <span class='fl'>60</span> <span class='co'># 2.0 Gy/ka in Seconds</span>
 <span class='no'>D0</span> <span class='kw'>&lt;-</span> <span class='fl'>40</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>666</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>666</span>)
 
-<span class='no'>synth_4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a></span>(<span class='st'>"list"</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>age</span>))
+<span class='no'>synth_4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span>(<span class='st'>"list"</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>age</span>))
 
-<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>age</span>)) {
-  <span class='no'>fun</span> <span class='kw'>&lt;-</span> (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) *
-            <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-(<span class='no'>age</span>[<span class='no'>i</span>] * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span>) *
-                  (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)) + <span class='no'>Ddot</span>/<span class='no'>D0</span>) /
-    (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)
+<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>age</span>)) {
+  <span class='no'>fun</span> <span class='kw'>&lt;-</span> (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) *
+            <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-(<span class='no'>age</span>[<span class='no'>i</span>] * <span class='fl'>365.25</span>*<span class='fl'>24</span>*<span class='fl'>3600</span>) *
+                  (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)) + <span class='no'>Ddot</span>/<span class='no'>D0</span>) /
+    (<span class='no'>sigmaphi</span> * <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(-<span class='no'>mu</span> * <span class='no'>x</span>) + <span class='no'>Ddot</span>/<span class='no'>D0</span>)
 
-  <span class='no'>synth_4</span><span class='kw'>[[</span><span class='no'>i</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
-                             <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/jitter'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span>))
+  <span class='no'>synth_4</span><span class='kw'>[[</span><span class='no'>i</span>]] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='no'>x</span>,
+                             <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span>(<span class='no'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span>))
 }
 
 
@@ -370,7 +346,7 @@ interactively.</p>
 #&gt; 	 .. $call : call
 #&gt; 	 additional info elements:  0</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='no'>ExampleData.SurfaceExposure</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+<span class='no'>ExampleData.SurfaceExposure</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   <span class='kw'>sample_1</span> <span class='kw'>=</span> <span class='no'>synth_1</span>,
   <span class='kw'>sample_2</span> <span class='kw'>=</span> <span class='no'>synth_2</span>,
   <span class='kw'>set_1</span> <span class='kw'>=</span> <span class='no'>synth_3</span>,
@@ -403,7 +379,7 @@ interactively.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

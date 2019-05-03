@@ -211,12 +211,7 @@ the BIN-file data import! Data types are converted during data import.\cr
 
 showClass("Risoe.BINfileData")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2019). Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
 

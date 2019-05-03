@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ read_BIN2R function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -129,7 +130,7 @@ read_BIN2R function." />
     </div>
 
     <pre class="usage"><span class='fu'>plot_Risoe.BINfileData</span>(<span class='no'>BINfileData</span>, <span class='no'>position</span>, <span class='no'>run</span>, <span class='no'>set</span>,
-  <span class='kw'>sorter</span> <span class='kw'>=</span> <span class='st'>"POSITION"</span>, <span class='kw'>ltype</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"IRSL"</span>, <span class='st'>"OSL"</span>, <span class='st'>"TL"</span>, <span class='st'>"RIR"</span>, <span class='st'>"RBR"</span>,
+  <span class='kw'>sorter</span> <span class='kw'>=</span> <span class='st'>"POSITION"</span>, <span class='kw'>ltype</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"IRSL"</span>, <span class='st'>"OSL"</span>, <span class='st'>"TL"</span>, <span class='st'>"RIR"</span>, <span class='st'>"RBR"</span>,
   <span class='st'>"RL"</span>), <span class='no'>curve.transformation</span>, <span class='no'>dose_rate</span>, <span class='no'>temp.lab</span>, <span class='kw'>cex.global</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -142,31 +143,31 @@ requires an S4 object returned by the <a href='read_BIN2R.html'>read_BIN2R</a> f
     </tr>
     <tr>
       <th>position</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 option to limit the plotted curves by position
 (e.g. <code>position = 1</code>, <code>position = c(1,3,5)</code>).</p></td>
     </tr>
     <tr>
       <th>run</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 option to limit the plotted curves by run
 (e.g., <code>run = 1</code>, <code>run = c(1,3,5)</code>).</p></td>
     </tr>
     <tr>
       <th>set</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
 option to limit the plotted curves by set
 (e.g., <code>set = 1</code>, <code>set = c(1,3,5)</code>).</p></td>
     </tr>
     <tr>
       <th>sorter</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 the plot output can be ordered by "POSITION","SET" or "RUN".
 POSITION, SET and RUN are options defined in the Risoe Sequence Editor.</p></td>
     </tr>
     <tr>
       <th>ltype</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 option to limit the plotted curves by the type of luminescence stimulation.
 Allowed values: <code>"IRSL"</code>, <code>"OSL"</code>,<code>"TL"</code>, <code>"RIR"</code>, <code>"RBR"</code>
 (corresponds to LM-OSL), <code>"RL"</code>.  All type of curves are plotted by
@@ -174,25 +175,25 @@ default.</p></td>
     </tr>
     <tr>
       <th>curve.transformation</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: <code>CW2pLM</code>, <code>CW2pLMi</code>, <code>CW2pHMi</code> and
 <code>CW2pPMi</code>. See details.</p></td>
     </tr>
     <tr>
       <th>dose_rate</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 dose rate of the irradition source at the measurement date.
 If set, the given irradiation dose will be shown in Gy.  See details.</p></td>
     </tr>
     <tr>
       <th>temp.lab</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 option to allow for different temperature units. If no value is set deg. C is chosen.</p></td>
     </tr>
     <tr>
       <th>cex.global</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 global scaling factor.</p></td>
     </tr>
     <tr>
@@ -228,11 +229,11 @@ output version 3 and 4.</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4.1 (2018-01-21 17:22:38)</p>
+    <p>0.4.1</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M. (2019). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M. (2019). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -247,7 +248,7 @@ output version 3 and 4.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##plot all curves from the first position to the desktop</span>
 <span class='co'>#pdf(file = "~/Desktop/CurveOutput.pdf", paper = "a4", height = 11, onefile = TRUE)</span>
@@ -285,8 +286,7 @@ output version 3 and 4.</p>
 
     <h2>Author</h2>
     <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
-Michael Dietze, GFZ Potsdam (Germany)
-<br /> R Luminescence Package Team</p>
+Michael Dietze, GFZ Potsdam (Germany)</p>
   </div>
 </div>
 
@@ -296,7 +296,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -133,12 +134,12 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><a href='RLum.Results-class.html'>RLum.Results</a> or <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> (<strong>required</strong>):
-for <a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a>: two columns with De <code>(data[,1])</code> and De error <code>(values[,2])</code></p></td>
+      <td><p><a href='RLum.Results-class.html'>RLum.Results</a> or <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<strong>required</strong>):
+for <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>: two columns with De <code>(data[,1])</code> and De error <code>(values[,2])</code></p></td>
     </tr>
     <tr>
       <th>log</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 perform the homogeneity test with (un-)logged data</p></td>
     </tr>
     <tr>
@@ -152,10 +153,10 @@ perform the homogeneity test with (un-)logged data</p></td>
     <p>Returns a terminal output. In addition an
 <a href='RLum.Results-class.html'>RLum.Results</a>-object is returned containing the
 following elements:</p>
-<dt>summary</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> summary of all relevant model results.</p></dd>
-<dt>data</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a> original input data</p></dd>
-<dt>args</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> used arguments</p></dd>
-<dt>call</dt><dd><p><a href='https://www.rdocumentation.org/packages/base/topics/call'>call</a> the function call</p></dd>
+<dt>summary</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> summary of all relevant model results.</p></dd>
+<dt>data</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> original input data</p></dd>
+<dt>args</dt><dd><p><a href='https://rdrr.io/r/base/list.html'>list</a> used arguments</p></dd>
+<dt>call</dt><dd><p><a href='https://rdrr.io/r/base/call.html'>call</a> the function call</p></dd>
 
 The output should be accessed using the function get_RLum
 
@@ -166,11 +167,11 @@ The output should be accessed using the function get_RLum
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.0 (2018-01-21 17:22:38)</p>
+    <p>0.3.0</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., Kreutzer, S. (2019). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., Kreutzer, S. (2019). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -179,13 +180,13 @@ of dose obtained using OSL. Ancient TL 21, 75-77.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://www.rdocumentation.org/packages/stats/topics/Chisquare'>pchisq</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/r/stats/Chisquare.html'>pchisq</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## load example data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>## apply the homogeneity test</span>
 <span class='fu'>calc_HomogeneityTest</span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>)</div><div class='output co'>#&gt; 
@@ -209,9 +210,9 @@ of dose obtained using OSL. Ancient TL 21, 75-77.</p>
 #&gt; 	 additional info elements:  1</div><div class='input'>
 <span class='co'>## using the data presented by Galbraith (2003)</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span>
- <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30.1</span>, <span class='fl'>53.8</span>, <span class='fl'>54.3</span>, <span class='fl'>29.0</span>, <span class='fl'>47.6</span>, <span class='fl'>44.2</span>, <span class='fl'>43.1</span>),
-   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4.8</span>, <span class='fl'>7.1</span>, <span class='fl'>6.8</span>, <span class='fl'>4.3</span>, <span class='fl'>5.2</span>, <span class='fl'>5.9</span>, <span class='fl'>3.0</span>))
+ <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30.1</span>, <span class='fl'>53.8</span>, <span class='fl'>54.3</span>, <span class='fl'>29.0</span>, <span class='fl'>47.6</span>, <span class='fl'>44.2</span>, <span class='fl'>43.1</span>),
+   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4.8</span>, <span class='fl'>7.1</span>, <span class='fl'>6.8</span>, <span class='fl'>4.3</span>, <span class='fl'>5.2</span>, <span class='fl'>5.9</span>, <span class='fl'>3.0</span>))
 
 <span class='fu'>calc_HomogeneityTest</span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; 
 #&gt;  [calc_HomogeneityTest()]
@@ -257,8 +258,7 @@ of dose obtained using OSL. Ancient TL 21, 75-77.</p>
 
     <h2>Author</h2>
     <p>Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+IRAMAT-CRP2A, Université Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -268,7 +268,7 @@ IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

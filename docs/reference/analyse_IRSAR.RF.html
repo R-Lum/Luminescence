@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -64,7 +65,7 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.105</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
       </span>
     </div>
 
@@ -128,7 +129,7 @@ using the protocol according to Erfurt et al. (2003) and beyond.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_IRSAR.RF</span>(<span class='no'>object</span>, <span class='kw'>sequence_structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"NATURAL"</span>,
+    <pre class="usage"><span class='fu'>analyse_IRSAR.RF</span>(<span class='no'>object</span>, <span class='kw'>sequence_structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NATURAL"</span>,
   <span class='st'>"REGENERATED"</span>), <span class='kw'>RF_nat.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>RF_reg.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"FIT"</span>, <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -139,7 +140,7 @@ using the protocol according to Erfurt et al. (2003) and beyond.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> or a <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a>-objects (<strong>required</strong>):
+      <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> or a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a>-objects (<strong>required</strong>):
 input object containing data for protocol analysis. The function expects to
 find at least two curves in the <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object: (1) RF_nat, (2) RF_reg.
 If a <code>list</code> is provided as input all other parameters can be provided as
@@ -147,34 +148,34 @@ If a <code>list</code> is provided as input all other parameters can be provided
     </tr>
     <tr>
       <th>sequence_structure</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> <a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 specifies the general sequence structure. Allowed steps are <code>NATURAL</code>, <code>REGENERATED</code>.
 In addition any other character is allowed in the sequence structure;
 such curves will be ignored during the analysis.</p></td>
     </tr>
     <tr>
       <th>RF_nat.lim</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>with default</em>):
 set minimum and maximum channel range for natural signal fitting and sliding.
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.</p></td>
     </tr>
     <tr>
       <th>RF_reg.lim</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/vector'>vector</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>with default</em>):
 set minimum and maximum channel range for regenerated signal fitting and sliding.
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 setting method applied for the data analysis.
 Possible options are <code>"FIT"</code> or <code>"SLIDE"</code>.</p></td>
     </tr>
     <tr>
       <th>method.control</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
 parameters to control the method, that can be passed to the chosen method.
 These are for (1) <code>method = "FIT"</code>: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for
 (2) <code>method = "SLIDE"</code>: 'correct_onset', 'show_density',  'show_fit', 'trace'.
@@ -182,35 +183,35 @@ See details.</p></td>
     </tr>
     <tr>
       <th>test_parameters</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>with default</em>):
 set test parameters. Supported parameters are: <code>curves_ratio</code>, <code>residuals_slope</code> (only for
 <code>method = "SLIDE"</code>), <code>curves_bounds</code>, <code>dynamic_ratio</code>,
-<code>lambda</code>, <code>beta</code> and <code>delta.phi</code>. All input: <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a>
+<code>lambda</code>, <code>beta</code> and <code>delta.phi</code>. All input: <a href='https://rdrr.io/r/base/numeric.html'>numeric</a>
 values, <code>NA</code> and <code>NULL</code> (s. Details)</p>
 <p>(see Details for further information)</p></td>
     </tr>
     <tr>
       <th>n.MC</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 set number of Monte Carlo runs for start parameter estimation (<code>method = "FIT"</code>) or
 error estimation (<code>method = "SLIDE"</code>). This value can be set to <code>NULL</code> to skip the
 MC runs. Note: Large values will significantly increase the computation time</p></td>
     </tr>
     <tr>
       <th>txtProgressBar</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar during MC runs</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>with default</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 plot output (<code>TRUE</code> or <code>FALSE</code>)</p></td>
     </tr>
     <tr>
       <th>plot_reduced</th>
-      <td><p><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a> (<em>optional</em>):
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>optional</em>):
 provides a reduced plot output if enabled to allow common R plot combinations,
-e.g., <code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par(mfrow(...))</a></code>. If <code>TRUE</code> no residual plot
+e.g., <code><a href='https://rdrr.io/r/graphics/par.html'>par(mfrow(...))</a></code>. If <code>TRUE</code> no residual plot
 is returned; it has no effect if <code>plot = FALSE</code></p></td>
     </tr>
     <tr>
@@ -219,7 +220,7 @@ is returned; it has no effect if <code>plot = FALSE</code></p></td>
 Currently supported arguments are <code>main</code>, <code>xlab</code>, <code>ylab</code>,
 <code>xlim</code>, <code>ylim</code>, <code>log</code>, <code>legend</code> (<code>TRUE/FALSE</code>),
 <code>legend.pos</code>, <code>legend.text</code> (passes argument to x,y in
-<a href='https://www.rdocumentation.org/packages/graphics/topics/legend'>graphics::legend</a>), <code>xaxt</code></p></td>
+<a href='https://rdrr.io/r/graphics/legend.html'>graphics::legend</a>), <code>xaxt</code></p></td>
     </tr>
     </table>
     
@@ -233,38 +234,18 @@ Currently supported arguments are <code>main</code>, <code>xlab</code>, <code>yl
 <p><strong>slot:</strong> <strong><code>@data</code></strong></p>
 <p><code>[.. $data : data.frame]</code></p>
 <table class='table'>
-<tr><td></td><td><strong>Column</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td><code>DE</code></td><td></td></tr>
-<tr><td></td><td><code>numeric</code></td><td></td></tr>
-<tr><td>the obtained equivalent dose</td><td></td><td><code>DE.ERROR</code></td></tr>
-<tr><td></td><td></td><td><code>numeric</code></td></tr>
-<tr><td></td><td>(only</td><td><code>method = "SLIDE"</code></td></tr>
-<tr><td>) standard deviation obtained from MC runs</td><td></td><td><code>DE.LOWER</code></td></tr>
-<tr><td></td><td></td><td><code>numeric</code></td></tr>
-<tr><td></td><td>2.5% quantile for De values obtained by MC runs</td><td></td></tr>
-<tr><td><code>DE.UPPER</code></td><td></td><td></td></tr>
-<tr><td><code>numeric</code></td><td></td><td>97.5% quantile for De values obtained by MC runs</td></tr>
-<tr><td></td><td><code>DE.STATUS</code></td><td></td></tr>
-<tr><td></td><td><code>character</code></td><td></td></tr>
-<tr><td>test parameter status</td><td></td><td><code>RF_NAT.LIM</code></td></tr>
-<tr><td></td><td></td><td><code>charcter</code></td></tr>
-<tr><td></td><td>used RF_nat curve limits</td><td></td></tr>
-<tr><td><code>RF_REG.LIM</code></td><td></td><td></td></tr>
-<tr><td><code>character</code></td><td></td><td>used RF_reg curve limits</td></tr>
-<tr><td></td><td><code>POSITION</code></td><td></td></tr>
-<tr><td></td><td><code>integer</code></td><td></td></tr>
-<tr><td>(</td><td><em>optional</em></td><td>) position of the curves</td></tr>
-<tr><td></td><td><code>DATE</code></td><td></td></tr>
-<tr><td></td><td><code>character</code></td><td></td></tr>
-<tr><td>(</td><td><em>optional</em></td><td>) measurement date</td></tr>
-<tr><td></td><td><code>SEQUENCE_NAME</code></td><td></td></tr>
-<tr><td></td><td><code>character</code></td><td></td></tr>
-<tr><td>(</td><td><em>optional</em></td><td>) sequence name</td></tr>
-<tr><td></td><td><code>UID</code></td><td></td></tr>
-<tr><td></td><td><code>character</code></td><td></td></tr>
-<tr><td>unique data set ID</td><td></td><td><strong>Column</strong></td></tr>
+<tr><td><strong>Column</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>DE</code></td><td><code>numeric</code></td><td>the obtained equivalent dose</td></tr>
+<tr><td><code>DE.ERROR</code></td><td><code>numeric</code></td><td>(only <code>method = "SLIDE"</code>) standard deviation obtained from MC runs</td></tr>
+<tr><td><code>DE.LOWER</code></td><td><code>numeric</code></td><td>2.5% quantile for De values obtained by MC runs</td></tr>
+<tr><td><code>DE.UPPER</code></td><td><code>numeric</code></td><td>97.5% quantile for De values obtained by MC runs</td></tr>
+<tr><td><code>DE.STATUS</code></td><td><code>character</code></td><td>test parameter status</td></tr>
+<tr><td><code>RF_NAT.LIM</code></td><td><code>charcter</code></td><td>used RF_nat curve limits</td></tr>
+<tr><td><code>RF_REG.LIM</code></td><td><code>character</code></td><td>used RF_reg curve limits</td></tr>
+<tr><td><code>POSITION</code></td><td><code>integer</code></td><td>(<em>optional</em>) position of the curves</td></tr>
+<tr><td><code>DATE</code></td><td><code>character</code></td><td>(<em>optional</em>) measurement date</td></tr>
+<tr><td><code>SEQUENCE_NAME</code></td><td><code>character</code></td><td>(<em>optional</em>) sequence name</td></tr>
+<tr><td><code>UID</code></td><td><code>character</code></td><td>unique data set ID</td></tr>
 </table>
 
 
@@ -272,63 +253,36 @@ Currently supported arguments are <code>main</code>, <code>xlab</code>, <code>yl
 <p>A <code>numeric</code> vector with all the De values obtained by the MC runs.</p>
 <p><code>[.. $test_parameters : data.frame]</code></p>
 <table class='table'>
-<tr><td></td><td><strong>Column</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td><code>POSITION</code></td><td></td></tr>
-<tr><td></td><td><code>numeric</code></td><td></td></tr>
-<tr><td>aliquot position</td><td></td><td><code>PARAMETER</code></td></tr>
-<tr><td></td><td></td><td><code>character</code></td></tr>
-<tr><td></td><td>test parameter name</td><td></td></tr>
-<tr><td><code>THRESHOLD</code></td><td></td><td></td></tr>
-<tr><td><code>numeric</code></td><td></td><td>set test parameter threshold value</td></tr>
-<tr><td></td><td><code>VALUE</code></td><td></td></tr>
-<tr><td></td><td><code>numeric</code></td><td></td></tr>
-<tr><td>the calculated test parameter value (to be compared with the threshold)</td><td></td><td><code>STATUS</code></td></tr>
-<tr><td></td><td></td><td><code>character</code></td></tr>
-<tr><td></td><td>test parameter status either</td><td><code>"OK"</code></td></tr>
-<tr><td>or</td><td><code>"FAILED"</code></td><td></td></tr>
-<tr><td></td><td><code>SEQUENCE_NAME</code></td><td></td></tr>
-<tr><td></td><td><code>character</code></td><td></td></tr>
-<tr><td>name of the sequence, so far available</td><td></td><td><code>UID</code></td></tr>
-<tr><td></td><td></td><td><code>character</code></td></tr>
-<tr><td></td><td>unique data set ID</td><td></td></tr>
+<tr><td><strong>Column</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>POSITION</code></td><td><code>numeric</code></td><td>aliquot position</td></tr>
+<tr><td><code>PARAMETER</code></td><td><code>character</code></td><td>test parameter name</td></tr>
+<tr><td><code>THRESHOLD</code></td><td><code>numeric</code></td><td>set test parameter threshold value</td></tr>
+<tr><td><code>VALUE</code></td><td><code>numeric</code></td><td>the calculated test parameter value (to be compared with the threshold)</td></tr>
+<tr><td><code>STATUS</code></td><td><code>character</code></td><td>test parameter status either <code>"OK"</code> or <code>"FAILED"</code></td></tr>
+<tr><td><code>SEQUENCE_NAME</code></td><td><code>character</code></td><td>name of the sequence, so far available</td></tr>
+<tr><td><code>UID</code></td><td><code>character</code></td><td>unique data set ID</td></tr>
 </table>
 
 
 <p><code>[.. $fit : data.frame]</code></p>
-<p>An <a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a> object produced by the fitting.</p>
+<p>An <a href='https://rdrr.io/r/stats/nls.html'>nls</a> object produced by the fitting.</p>
 <p><code>[.. $slide : list]</code></p>
-<p>A <a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a> with data produced during the sliding. Some elements are previously
+<p>A <a href='https://rdrr.io/r/base/list.html'>list</a> with data produced during the sliding. Some elements are previously
 reported with the summary object data. List elements are:</p>
 <table class='table'>
-<tr><td></td><td><strong>Element</strong></td><td></td></tr>
-<tr><td></td><td><strong>Type</strong></td><td></td></tr>
-<tr><td></td><td><strong>Description</strong></td><td></td></tr>
-<tr><td></td><td><code>De</code></td><td></td></tr>
-<tr><td></td><td><code>numeric</code></td><td></td></tr>
-<tr><td>the final De obtained with the sliding approach</td><td></td><td><code>De.MC</code></td></tr>
-<tr><td></td><td></td><td><code>numeric</code></td></tr>
-<tr><td></td><td>all De values obtained by the MC runs</td><td></td></tr>
-<tr><td><code>residuals</code></td><td></td><td></td></tr>
-<tr><td><code>numeric</code></td><td></td><td>the obtained residuals for each channel of the curve</td></tr>
-<tr><td></td><td><code>trend.fit</code></td><td></td></tr>
-<tr><td></td><td><code>lm</code></td><td></td></tr>
-<tr><td>fitting results produced by the fitting of the residuals</td><td></td><td><code>RF_nat.slided</code></td></tr>
-<tr><td></td><td></td><td><code>matrix</code></td></tr>
-<tr><td></td><td>the slided RF_nat curve</td><td></td></tr>
-<tr><td><code>t_n.id</code></td><td></td><td></td></tr>
-<tr><td><code>numeric</code></td><td></td><td>the index of the t_n offset</td></tr>
-<tr><td></td><td><code>I_n</code></td><td></td></tr>
-<tr><td></td><td><code>numeric</code></td><td></td></tr>
-<tr><td>the vertical intensity offset if a vertical slide was applied</td><td></td><td><code>algorithm_error</code></td></tr>
-<tr><td></td><td></td><td><code>numeric</code></td></tr>
-<tr><td></td><td>the vertical sliding suffers from a systematic effect induced by the used</td><td>algorithm. The returned value is the standard deviation of all obtained De values while expanding the</td></tr>
-<tr><td>vertical sliding range. I can be added as systematic error to the final De error; so far wanted.</td><td></td><td><code>vslide_range</code></td></tr>
-<tr><td></td><td></td><td><code>numeric</code></td></tr>
-<tr><td></td><td>the range used for the vertical sliding</td><td></td></tr>
-<tr><td><code>squared_residuals</code></td><td></td><td></td></tr>
-<tr><td><code>numeric</code></td><td></td><td>the squared residuals (horizontal sliding)</td></tr>
+<tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
+<tr><td><code>De</code></td><td><code>numeric</code></td><td>the final De obtained with the sliding approach</td></tr>
+<tr><td><code>De.MC</code></td><td><code>numeric</code></td><td>all De values obtained by the MC runs</td></tr>
+<tr><td><code>residuals</code></td><td><code>numeric</code></td><td>the obtained residuals for each channel of the curve</td></tr>
+<tr><td><code>trend.fit</code></td><td><code>lm</code></td><td>fitting results produced by the fitting of the residuals</td></tr>
+<tr><td><code>RF_nat.slided</code></td><td><code>matrix</code></td><td>the slided RF_nat curve</td></tr>
+<tr><td><code>t_n.id</code></td><td><code>numeric</code></td><td>the index of the t_n offset</td></tr>
+<tr><td><code>I_n</code></td><td><code>numeric</code></td><td>the vertical intensity offset if a vertical slide was applied</td></tr>
+<tr><td><code>algorithm_error</code></td><td><code>numeric</code></td><td>the vertical sliding suffers from a systematic effect induced by the used
+algorithm. The returned value is the standard deviation of all obtained De values while expanding the
+vertical sliding range. I can be added as systematic error to the final De error; so far wanted.</td></tr>
+<tr><td><code>vslide_range</code></td><td><code>numeric</code></td><td>the range used for the vertical sliding</td></tr>
+<tr><td><code>squared_residuals</code></td><td><code>numeric</code></td><td>the squared residuals (horizontal sliding)</td></tr>
 </table>
 
 
@@ -369,7 +323,7 @@ Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is
 <p>To obtain the palaeodose
 \(D_{e}\) the function is changed to:</p>
 <p>$$D_{e} = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda$$</p>
-<p>The fitting is done using the <code>port</code> algorithm of the <a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a> function.</p>
+<p>The fitting is done using the <code>port</code> algorithm of the <a href='https://rdrr.io/r/stats/nls.html'>nls</a> function.</p>
 <p><strong><code>method = "SLIDE"</code></strong></p>
 <p>For this method, the natural curve is slid along the x-axis until
 congruence with the regenerated curve is reached. Instead of fitting this
@@ -384,60 +338,31 @@ for De estimation are all preset with meaningful default parameters and can be
 handled using the argument <code>method.control</code> only, e.g.,
 <code>method.control = list(trace = TRUE)</code>. Supported arguments are:</p>
 <table class='table'>
-<tr><td></td><td><strong>ARGUMENT</strong></td><td></td></tr>
-<tr><td></td><td><strong>METHOD</strong></td><td></td></tr>
-<tr><td></td><td><strong>DESCRIPTION</strong></td><td></td></tr>
-<tr><td></td><td><code>trace</code></td><td></td></tr>
-<tr><td></td><td><code>FIT</code></td><td>,</td></tr>
-<tr><td><code>SLIDE</code></td><td></td><td>as in</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></td><td>; shows sum of squared residuals</td><td></td></tr>
-<tr><td><code>trace_vslide</code></td><td></td><td></td></tr>
-<tr><td><code>SLIDE</code></td><td></td><td></td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td><td>argument to enable or disable the tracing of the vertical sliding</td><td></td></tr>
-<tr><td><code>maxiter</code></td><td></td><td></td></tr>
-<tr><td><code>FIT</code></td><td></td><td>as in</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></td><td></td><td></td></tr>
-<tr><td><code>warnOnly</code></td><td></td><td></td></tr>
-<tr><td><code>FIT</code></td><td></td><td>as in</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></td><td></td><td></td></tr>
-<tr><td><code>minFactor</code></td><td></td><td></td></tr>
-<tr><td><code>FIT</code></td><td></td><td>as in</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></td><td></td><td></td></tr>
-<tr><td><code>correct_onset</code></td><td></td><td></td></tr>
-<tr><td><code>SLIDE</code></td><td></td><td>The logical argument shifts the curves along the x-axis by the first channel,</td></tr>
-<tr><td>as light is expected in the first channel. The default value is</td><td><code>TRUE</code></td><td>.</td></tr>
-<tr><td></td><td><code>show_density</code></td><td></td></tr>
-<tr><td></td><td><code>SLIDE</code></td><td></td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td><td>(</td></tr>
-<tr><td><em>with default</em></td><td>)</td><td>enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.</td></tr>
-<tr><td></td><td><code>show_fit</code></td><td></td></tr>
-<tr><td></td><td><code>SLIDE</code></td><td></td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td><td>(</td></tr>
-<tr><td><em>with default</em></td><td>)</td><td>enables or disables the plot of the fitted curve routinely obtained during the evaluation.</td></tr>
-<tr><td></td><td><code>n.MC</code></td><td></td></tr>
-<tr><td></td><td><code>SLIDE</code></td><td></td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></td><td>(</td></tr>
-<tr><td><em>with default</em></td><td>):</td><td>This controls the number of MC runs within the sliding (assessing the possible minimum values).</td></tr>
-<tr><td>The default</td><td><code>n.MC = 1000</code></td><td>. Note: This parameter is not the same as controlled by the</td></tr>
-<tr><td>function argument</td><td><code>n.MC</code></td><td>.</td></tr>
-<tr><td></td><td><code>vslide_range</code></td><td></td></tr>
-<tr><td></td><td><code>SLDE</code></td><td></td></tr>
-<tr><td></td><td><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical</a></td><td>or</td></tr>
-<tr><td><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></td><td>or</td><td><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></td></tr>
-<tr><td>(</td><td><em>with default</em></td><td>):</td></tr>
-<tr><td>This argument sets the boundaries for a vertical curve</td><td>sliding. The argument expects a vector with an absolute minimum and a maximum (e.g.,</td><td><code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(-1000,1000)</a></code></td></tr>
-<tr><td>).</td><td>Alternatively the values</td><td><code>NULL</code></td></tr>
-<tr><td>and</td><td><code>'auto'</code></td><td>are allowed. The automatic mode detects the</td></tr>
-<tr><td>reasonable vertical sliding range (</td><td><strong>recommended</strong></td><td>).</td></tr>
-<tr><td><code>NULL</code></td><td>applies no vertical sliding.</td><td>The default is</td></tr>
-<tr><td><code>NULL</code></td><td>.</td><td></td></tr>
-<tr><td><code>cores</code></td><td></td><td></td></tr>
-<tr><td><code>SLIDE</code></td><td></td><td></td></tr>
-<tr><td><code>number</code></td><td>or</td><td><code>character</code></td></tr>
-<tr><td>(</td><td><em>with default</em></td><td>): set number of cores to be allocated</td></tr>
-<tr><td>for a parallel processing of the Monte-Carlo runs. The default value is</td><td><code>NULL</code></td><td>(single thread),</td></tr>
-<tr><td>the recommended values is</td><td><code>'auto'</code></td><td>. An optional number (e.g.,</td></tr>
-<tr><td><code>cores</code></td><td>= 8) assigns a value manually.</td><td></td></tr>
+<tr><td><strong>ARGUMENT</strong></td><td><strong>METHOD</strong></td><td><strong>DESCRIPTION</strong></td></tr>
+<tr><td><code>trace</code></td><td><code>FIT</code>, <code>SLIDE</code></td><td>as in <a href='https://rdrr.io/r/stats/nls.html'>nls</a>; shows sum of squared residuals</td></tr>
+<tr><td><code>trace_vslide</code></td><td><code>SLIDE</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a> argument to enable or disable the tracing of the vertical sliding</td></tr>
+<tr><td><code>maxiter</code></td><td><code>FIT</code></td><td>as in <a href='https://rdrr.io/r/stats/nls.html'>nls</a></td></tr>
+<tr><td><code>warnOnly</code></td><td><code>FIT</code></td><td>as in <a href='https://rdrr.io/r/stats/nls.html'>nls</a></td></tr>
+<tr><td><code>minFactor</code></td><td><code>FIT</code></td><td>as in <a href='https://rdrr.io/r/stats/nls.html'>nls</a></td></tr>
+<tr><td><code>correct_onset</code></td><td><code>SLIDE</code></td><td>The logical argument shifts the curves along the x-axis by the first channel,
+as light is expected in the first channel. The default value is <code>TRUE</code>.</td></tr>
+<tr><td><code>show_density</code></td><td><code>SLIDE</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>)
+enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.</td></tr>
+<tr><td><code>show_fit</code></td><td><code>SLIDE</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>)
+enables or disables the plot of the fitted curve routinely obtained during the evaluation.</td></tr>
+<tr><td><code>n.MC</code></td><td><code>SLIDE</code></td><td><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
+This controls the number of MC runs within the sliding (assessing the possible minimum values).
+The default <code>n.MC = 1000</code>. Note: This parameter is not the same as controlled by the
+function argument <code>n.MC</code>.</td></tr>
+<tr><td><code>vslide_range</code></td><td><code>SLDE</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> or <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
+This argument sets the boundaries for a vertical curve
+sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(-1000,1000)</a></code>).
+Alternatively the values <code>NULL</code> and <code>'auto'</code> are allowed. The automatic mode detects the
+reasonable vertical sliding range (<strong>recommended</strong>). <code>NULL</code> applies no vertical sliding.
+The default is <code>NULL</code>.</td></tr>
+<tr><td><code>cores</code></td><td><code>SLIDE</code></td><td><code>number</code> or <code>character</code> (<em>with default</em>): set number of cores to be allocated
+for a parallel processing of the Monte-Carlo runs. The default value is <code>NULL</code> (single thread),
+the recommended values is <code>'auto'</code>. An optional number (e.g., <code>cores</code> = 8) assigns a value manually.</td></tr>
 </table>
     <p><strong>Error estimation</strong></p>
 <p>For <strong><code>method = "FIT"</code></strong> the asymmetric error range is obtained by using the 2.5 % (lower) and
@@ -458,33 +383,33 @@ result will not be evaluated, means it has no effect on the status ("OK" or "FAI
 Setting the parameter to <code>NULL</code> disables the parameter entirely and the parameter will be
 also removed from the function output. This might be useful in cases where a particular parameter
 asks for long computation times. Currently supported parameters are:</p>
-<p><code>curves_ratio</code> <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (default: <code>1.001</code>):</p>
+<p><code>curves_ratio</code> <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: <code>1.001</code>):</p>
 <p>The ratio of \(RF_{nat}\) over \(RF_{reg}\) in the range of\(RF_{nat}\) of is calculated
 and should not exceed the threshold value.</p>
-<p><code>intersection_ratio</code> <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (default: <code>NA</code>):</p>
+<p><code>intersection_ratio</code> <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: <code>NA</code>):</p>
 <p>Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 This value indicates intersection of the RF-curves and should be close to 0 if the curves
 have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
 curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
 the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 found at all, <code>Inf</code> is returned.</p>
-<p><code>residuals_slope</code> <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (default: <code>NA</code>; only for <code>method = "SLIDE"</code>):</p>
+<p><code>residuals_slope</code> <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: <code>NA</code>; only for <code>method = "SLIDE"</code>):</p>
 <p>A linear function is fitted on the residuals after sliding.
 The corresponding slope can be used to discard values as a high (positive, negative) slope
 may indicate that both curves are fundamentally different and the method cannot be applied at all.
 Per default the value of this parameter is calculated but not evaluated.</p>
-<p><code>curves_bounds</code> <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (default: \(max(RF_{reg_counts})\):</p>
+<p><code>curves_bounds</code> <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: \(max(RF_{reg_counts})\):</p>
 <p>This measure uses the maximum time (x) value of the regenerated curve.
 The maximum time (x) value of the natural curve cannot be larger than this value. However, although
 this is not recommended the value can be changed or disabled.</p>
-<p><code>dynamic_ratio</code> <a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (default: <code>NA</code>):</p>
+<p><code>dynamic_ratio</code> <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: <code>NA</code>):</p>
 <p>The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.</p>
 <p><code>lambda</code>, <code>beta</code> and <code>delta.phi</code>
-<a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a> (default: <code>NA</code>; <code>method = "SLIDE"</code>):</p>
+<a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: <code>NA</code>; <code>method = "SLIDE"</code>):</p>
 <p>The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 For <code>method = "FIT"</code> this parameter is obtained during the fitting, for <code>method = "SLIDE"</code> a
-rather rough estimation is made using the function <a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a> and the equation
+rather rough estimation is made using the function <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a> and the equation
 given above. Note: As this procedure requests more computation time, setting of one of these three parameters
 to <code>NULL</code> also prevents a calculation of the remaining two.</p>
     
@@ -496,11 +421,11 @@ findings by Buylaert et al. (2012).</p>
     
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.5 (2019-03-04 17:59:49)</p>
+    <p>0.7.5</p>
     
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.0.104. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S. (2019). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -541,13 +466,13 @@ Measurements 32, 685-690.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>,
-<a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a>, <a href='https://www.rdocumentation.org/packages/minpack.lm/topics/nlsLM'>minpack.lm::nlsLM</a>, <code><a href='https://www.rdocumentation.org/packages/parallel/topics/mclapply'>parallel::mclapply</a></code></p></div>
+<a href='https://rdrr.io/r/stats/nls.html'>nls</a>, <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a>, <code><a href='https://rdrr.io/r/parallel/mclapply.html'>parallel::mclapply</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ExampleData.RLum.Analysis</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/environment'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.RLum.Analysis</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
 
 <span class='co'>##(1) perform analysis using the method 'FIT'</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>)</div><div class='img'><img src='analyse_IRSAR.RF-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -555,7 +480,7 @@ Measurements 32, 685-690.</p>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #&gt; 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #&gt;   DATE SEQUENCE_NAME                               UID
-#&gt; 1   NA            NA 2019-04-19-06:29.0.18945696670562</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
+#&gt; 1   NA            NA 2019-05-03-07:11.0.18945696670562</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #&gt; 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
 #&gt; 2       NA intersection_ratio        NA 5.541736e-03     OK            NA
 #&gt; 3       NA    residuals_slope        NA           NA     OK            NA
@@ -565,14 +490,14 @@ Measurements 32, 685-690.</p>
 #&gt; 7       NA               beta        NA 5.418719e-01     OK            NA
 #&gt; 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #&gt;                                 UID
-#&gt; 1 2019-04-19-06:29.0.18945696670562
-#&gt; 2 2019-04-19-06:29.0.18945696670562
-#&gt; 3 2019-04-19-06:29.0.18945696670562
-#&gt; 4 2019-04-19-06:29.0.18945696670562
-#&gt; 5 2019-04-19-06:29.0.18945696670562
-#&gt; 6 2019-04-19-06:29.0.18945696670562
-#&gt; 7 2019-04-19-06:29.0.18945696670562
-#&gt; 8 2019-04-19-06:29.0.18945696670562</div><div class='input'>
+#&gt; 1 2019-05-03-07:11.0.18945696670562
+#&gt; 2 2019-05-03-07:11.0.18945696670562
+#&gt; 3 2019-05-03-07:11.0.18945696670562
+#&gt; 4 2019-05-03-07:11.0.18945696670562
+#&gt; 5 2019-05-03-07:11.0.18945696670562
+#&gt; 6 2019-05-03-07:11.0.18945696670562
+#&gt; 7 2019-05-03-07:11.0.18945696670562
+#&gt; 8 2019-05-03-07:11.0.18945696670562</div><div class='input'>
 <span class='co'>##(2) perform analysis using the method 'SLIDE'</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt; 	 Run Monte Carlo loops for error estimation
@@ -583,7 +508,7 @@ Measurements 32, 685-690.</p>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(
  <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>,
  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>,
- <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>trace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+ <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>trace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='co'># }</span><div class='input'>
 </div></pre>
@@ -611,8 +536,7 @@ Measurements 32, 685-690.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-<br /> R Luminescence Package Team</p>
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)</p>
   </div>
 </div>
 
@@ -622,7 +546,7 @@ Measurements 32, 685-690.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>
