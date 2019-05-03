@@ -98,7 +98,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.12 (2018-02-23 22:32:54)
+ 0.1.12
 }
 
 \examples{
@@ -166,7 +166,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2019). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.1.6. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2019). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -181,5 +181,5 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{dplot}

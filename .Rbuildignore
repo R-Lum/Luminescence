@@ -1,39 +1,41 @@
-# Exclude R stuff
-NEWS\.Rmd
-NEWS\.html
-^cran-comments.*$
+# -------------------------------------------------------------------------------------------------#
+# .Rbuildignore created by RLumBuild
+# author: Sebastian Kreutzer
+# version: 2019-05-03
+# -------------------------------------------------------------------------------------------------#
+
+# -- Exclude R stuff --
+^NEWS\.Rmd$
+^NEWS\.html$
+^cran-comments\.md$
+^cran-comments\.html$
 ^\.Rprofile$
 
-# Exclude RStudio files
+# -- Exclude RStudio files --
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^packrat/
-packrat
-tests/testdata
+^packrat/$
+^tests/testdata$
 ^\test\*
-# Exclude test suite files
+^_pkgdown\.yml$
+^docs$
+^.*\.sh$
+
+# -- Exclude test suite files --
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
 
-# Exclude GitHub stuff
-LICENSE$
+# -- Exclude GitHub stuff --
+^LICENSE$
 ^README\.Rmd$
-^cran-comments\.md$
-revdep
-R/README\.md
-NEWS_cache
-NEWS_files
-docs
-_pkgdown.yml
+^README\.html$
 
-# Exclude RLum related stuff
-^RLum.*$
-# Exclude vignettes cache and files
+# -- Exclude vignettes cache and files --
 ^vignettes/.*cache$
 ^vignettes/.*files$
 ^vignettes/.*\.xsyg$
 ^vignettes/.*\.bib$
-^_pkgdown\.yml$
-^\man\figures\README-.*\.png$
-^docs$
+
+# -- Package 'Luminescence' stuff -- 
+^Luminescence\..*$

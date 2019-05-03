@@ -1,5 +1,5 @@
 /* DO NOT CHANGE MANUALLY! */
-/* This file was produced by the function RLum.BuildScripts/RLum.PBS_EntryPointRegistration.R */
+/* This file was produced by RLumBuild::.module_register_EntryPoints< */
 #include <R.h>
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
