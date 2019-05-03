@@ -86,4 +86,9 @@ plot_DRCSummary(results)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 Christoph Burow, University of Cologne
+} 
+
+\section{How to cite}{
+Kreutzer, S., Burow, C. (2019). plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
+

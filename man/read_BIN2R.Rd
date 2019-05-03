@@ -115,7 +115,12 @@ version number depends on the used Sequence Editor.
 #temp <- read_BIN2R(FILE)
 #temp
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C. (2019). read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}

@@ -71,7 +71,12 @@ data(ExampleData.DeValues, envir = environment())
 ## calculate De according to Fuchs & Lang (2001)
 temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Burow, C. (2019). calc_FuchsLang2001(): Apply the model after Fuchs & Lang (2001) to a given De distribution.. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 quartz using single-aliqout protocols on sediments from NE Peloponnese,

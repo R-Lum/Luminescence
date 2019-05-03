@@ -122,7 +122,12 @@ fit_ThermalQuenching(
  data = data,
  n.MC = NULL)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. J. R. astr. Soc. 41, 107–113.
 }

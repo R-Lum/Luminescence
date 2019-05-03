@@ -186,7 +186,12 @@ get_RLum(results)
 ##show LnTnLxTx table
 get_RLum(results, data.object = "LnLxTnTx.table")
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.

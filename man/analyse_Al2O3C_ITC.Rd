@@ -105,7 +105,12 @@ data(ExampleData.Al2O3C, envir = environment())
 ##run analysis
 analyse_Al2O3C_ITC(data_ITC)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2019). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
