@@ -41,7 +41,6 @@
 ^vignettes/.*cache$
 ^vignettes/.*files$
 ^vignettes/.*\.xsyg$
-^vignettes/.*\.bib$
 
 # -- Package 'Luminescence' stuff -- 
 ^Luminescence\..*$
