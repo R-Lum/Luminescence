@@ -6,7 +6,7 @@
 #'
 #'
 #' @param object [RLum.Results-class] [data.frame] (**required**): Input data for applying the
-#' fading correction. Alow are (1) [data.frame] with three columns (dose, De, De error), (2)
+#' fading correction. Alow are (1) [data.frame] with three columns (dose, LxTx, LxTx error), (2)
 #' [RLum.Results-class] object created by the function [analyse_SAR.CWOSL] or [analyse_pIRIRSequence]
 #'
 #' @param dose_rate.envir [numeric] vector of length 2 (**required**): Environmental dose rate in mGy/a

@@ -25,6 +25,11 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 ### Bugfixes and changes
 
+### `calc_Lamothe2003()` 
+
+* The documentation wrongly stated that an input `data.frame` should have the columns 'dose', 'De' and 
+'De error', indeed 'dose', 'LxTx' and 'LxTx error' are expected (spotted by Jeong-Heon Choi)
+
 ### Internals 
 
 * The 'DESCRIPTION' file contained the string "[upcoming]". This was a left-over from the development
