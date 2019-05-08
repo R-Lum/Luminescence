@@ -66,10 +66,10 @@ plot_RLum(smooth_RLum(curve))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-} 
+, RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

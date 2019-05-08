@@ -283,7 +283,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2019). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2019). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -300,4 +300,4 @@ from feldspar. Radiation Measurements 81, 224-231.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-}
+, RLum Developer Team}

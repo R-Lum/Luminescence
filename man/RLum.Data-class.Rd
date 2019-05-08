@@ -30,6 +30,6 @@ showClass("RLum.Data")
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+, RLum Developer Team}
 \keyword{classes}
 \keyword{internal}

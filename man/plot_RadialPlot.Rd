@@ -242,7 +242,7 @@ plot_RadialPlot(data = data.3,
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2019). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-13. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2019). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -278,4 +278,4 @@ recommendations. Quaternary Geochronology, 11, 1-27.
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Based on a rewritten S script of Rex Galbraith, 2010
-}
+, RLum Developer Team}

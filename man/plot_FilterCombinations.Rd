@@ -161,10 +161,10 @@ plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
-} 
+, RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2019). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2019). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

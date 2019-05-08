@@ -17,7 +17,7 @@
 #'
 #' @docType package
 #'
-#' @author **Full list of authors and contributors** (alphabetic order)
+#' @details **Full list of authors and contributors** (alphabetic order)
 #'
 #' \tabular{ll}{
 #' Christoph Burow \tab *University of Cologne, Germany** \cr

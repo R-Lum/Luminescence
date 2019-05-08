@@ -228,7 +228,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C. (2019). scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-13. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C. (2019). scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -255,5 +255,5 @@ Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark) \cr
 Christoph Burow, University of Cologne (Germany) \cr
 Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
-}
+, RLum Developer Team}
 \keyword{datagen}

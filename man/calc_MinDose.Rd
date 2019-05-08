@@ -277,7 +277,7 @@ summary(bs$poly.fits$poly.three$fitted.values)
 } 
 
 \section{How to cite}{
-Burow, C. (2019). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-13. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2019). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -336,4 +336,4 @@ Christoph Burow, University of Cologne (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010 \cr
 The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
 Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
-}
+, RLum Developer Team}
