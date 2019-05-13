@@ -30,6 +30,12 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 * The documentation wrongly stated that an input `data.frame` should have the columns 'dose', 'De' and 
 'De error', indeed 'dose', 'LxTx' and 'LxTx error' are expected (spotted by Jeong-Heon Choi)
 
+### `fit_OSLLifeTimes()`
+
+* `0` count values crashed the function for obvious reasons (`a / 0 = Inf`), this can happen in 
+particular for artificial datasets. Now, if `0` is detected, count values are increased by `0.1`
+(reported by Dirk Mittelstrass)
+
 ### Internals 
 
 * The 'DESCRIPTION' file contained the string "[upcoming]". This was a left-over from the development

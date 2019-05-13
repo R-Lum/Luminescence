@@ -122,7 +122,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 #' Christoph Schmidt, University of Bayreuth (Germany)
@@ -261,6 +261,13 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   if(nrow(df) < 5){
     try(stop("[fit_OSLLifeTimes()] Your input dataset has less than 5 data points. NULL returned!", call. = FALSE))
     return(NULL)
+
+  }
+
+  #check for 0 data in dataset ... we opt for hard stop
+  if(any(df[[2]] == 0)){
+    warning("[fit_OSLLifeTimes()] Your dataset contains 0. A value of 0.1 has been added to your count values!",call. = TRUE)
+    df[[2]] <- df[[2]] + 0.1
 
   }
 
