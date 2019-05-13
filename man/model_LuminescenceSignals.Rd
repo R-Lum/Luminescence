@@ -77,6 +77,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S., 2019. model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-17. https://CRAN.R-project.org/package=Luminescence
+Friedrich, J., Kreutzer, S., 2019. model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-18. https://CRAN.R-project.org/package=Luminescence
 }
 
