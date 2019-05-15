@@ -332,7 +332,8 @@ calc_EED_Model <- function(
 
   # # allow automated kapp and sigma_distr parameter estimation
   .guess_EED_parameters <- function(
-    Expected_Dose, D0, Iinit, Nsimul, Dosedata, M_Data, M_Simul, Ndata, method_control){
+    Expected_Dose, D0, Iinit, Nsimul, Dosedata, M_Data, M_Simul, Ndata,
+    method_control_intern = method_control){
 
     ##settings to control the what needs to be controlled
     method_control <- modifyList(
@@ -344,7 +345,7 @@ calc_EED_Model <- function(
         trace = FALSE,
         trace_plot = FALSE
       ),
-      method_control)
+      method_control_intern)
 
     ##define function for the differential evolution
     fn <- function(x, M_Simul, Expected_Dose, D0, Iinit, Nsimul, Dosedata, M_Data, Ndata){
@@ -476,11 +477,11 @@ if(is.null(kappa) || is.null(sigma_distr)){
   sigma_distr <- temp_guess[2]
   min_var <- temp_guess[3]
 
-}
+  if(verbose){
+    cat(">> min. variance:", min_var)
+    cat("\n>> kappa: ", kappa, " | sigma: ",sigma_distr)
+  }
 
-if(verbose){
-  cat(">> min. variance:", min_var)
-  cat("\n>> kappa: ", kappa, " | sigma: ",sigma_distr)
 }
 
 # Calculation ---------------------------------------------------------------------------------
@@ -549,7 +550,7 @@ if(plot) {
   hist(
     x = rep(Dosedata[,1], length.out = length(M_Simul[,3])),
     freq = FALSE,
-    breaks = seq(0, box_width*(1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
+    breaks = seq(0, box_width * (1 + as.integer(max(M_Simul[,3])/box_width)), box_width),
     xlim = plot_settings$xlim,
     border = rgb(0.7,0.1,0,.5),
     col = rgb(240,154,149,alpha = 255, maxColorValue = 255),
