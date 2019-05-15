@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.1.9000-18
-Date: 2019-05-13
+Version: 0.9.1.9000-19
+Date: 2019-05-15
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -20,7 +20,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
     Svenja Riedesel [ctb] (<https://orcid.org/0000-0003-2936-8776>),
     Martin Autzen [ctb],
-    Pierre Guibert [ctb],
+    Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr", comment = c(ORCID = "0000-0002-0734-2199")),
@@ -40,7 +40,7 @@ Authors@R: c(
     person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
     person("Svenja", "Riedesel", role = c("ctb"), comment = c(ORCID = "0000-0003-2936-8776")),
     person("Martin", "Autzen", role = c("ctb")),
-    person("Pierre", "Guibert", role = c("ctb")),
+    person("Pierre", "Guibert", role = c("ctb"), comment = c(ORCID = "0000-0001-8969-8684")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
@@ -135,6 +135,7 @@ Collate:
     'calc_CentralDose.R'
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
+    'calc_EED_Model.R'
     'calc_FadingCorr.R'
     'calc_FastRatio.R'
     'calc_FiniteMixture.R'
