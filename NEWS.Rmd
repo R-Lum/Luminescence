@@ -20,6 +20,7 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 ### New functions 
 
+* `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017)
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
 
