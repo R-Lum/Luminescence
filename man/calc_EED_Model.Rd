@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_EED_Model.R
 \name{calc_EED_Model}
 \alias{calc_EED_Model}
-\title{Modelling Incomplete Bleaching of Single Grains}
+\title{Modelling Exponential Exposure Distribution}
 \usage{
 calc_EED_Model(data, D0 = 120L, expected_dose = 12L, kappa = NULL,
   sigma_distr = NULL, n.simul = 5000L, n.minSimExp = 50L,
@@ -77,7 +77,7 @@ optimisation \cr
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Incomplete Bleaching of Single Grains. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-25. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-28. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

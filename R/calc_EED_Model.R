@@ -1,4 +1,4 @@
-#' @title Modelling Incomplete Bleaching of Single Grains
+#' @title Modelling Exponential Exposure Distribution
 #'
 #' @description Modelling incomplete and heterogeneous bleaching of mobile grains partially
 #' exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019)
@@ -442,7 +442,7 @@ Expected_Dose <- expected_dose #2.7
 # ATTENTION / aucun test de coh?rence n'est fait pour savoir
 # si la valeur num?rique introduite est compatible ou non avec les donn?es
 
-Iinit = .Initial_State_of_OSL(Dosedata, D0, "max")
+Iinit <- .Initial_State_of_OSL(Dosedata, D0, "max")
 # Iinit = .Initial_State_of_OSL(Dosedata, D0, method = 1)
 
 ## on définit une matrice dans laquelle on va stocker et utiliser les données de la simulation ##
@@ -450,13 +450,17 @@ M_Simul <- matrix(nrow = Nsimul, ncol = 9)
 
 # génère une matrice à partir des donnés expérimentales #
 M_Data <- matrix(nrow = Ndata, ncol = 10)
+colnames(M_Data) <- c("CUM_MEAN_DE", "CUM_MEAN_DE_X", "NET_CUM_MEAN_DE_NET", "NET_CUM_MEAN_DE_X",
+                      "RATIO_DE_SIM", "RATIO_DE_SIM_X", "INT_NET_DOSE", "INT_NET_DOSE_X",
+                      "DE", "DE_X")
 
 # Guess parameters if needed ------------------------------------------------------------------
 if(verbose) cat("\n[calc_EED_Model()]\n")
 
 ## introduire le facteur d'eclairement kappa : kappa = 2 : très faible éclairement, kappa >100 bon
 ##  blanchiment ##
-## TODO - add method control parameters
+## TODO - this is not really what Pierre had in mind, he wanted to have the variance, not an automated
+## esstimation
 if(is.null(kappa) || is.null(sigma_distr)){
 
   if(verbose)
@@ -493,7 +497,6 @@ M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, 
 max_dose_simul <- max(M_Simul[,3])
 index_min_uncert <- sort.list(index_min_uncert <-
               rank(M_Data[, 7], ties.method = "first"))
-
 
 
 # Terminal output -----------------------------------------------------------------------------
@@ -723,7 +726,14 @@ if(plot) {
 
 
 # Output --------------------------------------------------------------------------------------
-
+set_RLum(
+  class = "RLum.Results",
+  data = list(
+    M_Data = M_Data ##TODO: we should name the columns
+  ),
+  info = list(
+    call = sys.call()
+  ))
 
 }
 
