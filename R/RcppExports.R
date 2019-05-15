@@ -13,6 +13,10 @@ src_create_RLumDataCurve_matrix <- function(DATA, VERSION, NPOINTS, LTYPE, LOW, 
     .Call(`_Luminescence_create_RLumDataCurve_matrix`, DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
 }
 
+src_find_first_larger_value <- function(x, y) {
+    .Call(`_Luminescence_src_find_first_larger_value`, x, y)
+}
+
 src_get_XSYG_curve_values <- function(s) {
     .Call(`_Luminescence_src_get_XSYG_curve_values`, s)
 }

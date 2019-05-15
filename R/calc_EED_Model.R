@@ -25,6 +25,8 @@
 #' @param n.minSimExp [integer] (*with default*): number of MC runs for calculating the uncertainty
 #' contribution from the sampling
 #'
+#' @param sample_name [character] (*with default*): name of the sample
+#'
 #' @param verbose [logical] (with default): enable/disable verbose mode
 #'
 #' @param plot [logical] (with default): enable/disable plot output
@@ -56,6 +58,7 @@ calc_EED_Model <- function(
   sigma_distr = NULL,
   n.simul = 5000L,
   n.minSimExp = 50L,
+  sample_name = "Unknown",
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -105,7 +108,7 @@ calc_EED_Model <- function(
 
     ## g?n?re une liste de Nsimul valeurs de dose r?siduelle selon une distribution expoentielle de l'exposition ##
     M_Simul[, 2] <-
-      (-D0 * log(1 - Iinit * exp(-rexp(Nsimul, rate = 1 / kappa))))
+      (-D0 * log(1 - Iinit * exp(-stats::rexp(Nsimul, rate = 1 / kappa))))
 
     ## g?n?re la liste des doses individuelles ##
     M_Simul[,3] <- M_Simul[,1] + M_Simul[,2]
@@ -452,10 +455,6 @@ index_min_uncert <- sort.list(index_min_uncert <-
               rank(M_Data[, 7], ties.method = "first"))
 
 
-index_min_var <- sort.list(rank(M_variance[], ties.method = "first"))
-index_kappa <-
-  index_min_var[1] - nb_valeurs_kappa * as.integer((index_min_var[1] - 1) /
-                                                     nb_valeurs_kappa)
 
 # Terminal output -----------------------------------------------------------------------------
 if(verbose){
@@ -581,7 +580,7 @@ if(plot) {
   liste_type <- c(4,8)
 
   ##1st plateau plot
-  matplot(
+  graphics::matplot(
      Dosedata[,1],
      M_Data[,liste_type],
      type = "p",
@@ -601,13 +600,13 @@ if(plot) {
 
   liste_type <- c(1, 6, 3)
   ##2nd plateau plot
-  matplot(
+  graphics::matplot(
     x = Dosedata[,1],
     y = M_Data[,liste_type],
     type = "p",
     pch = 1,
     log = "x",
-    main = paste("sample ", file_name_head, sep = ""),
+    main = paste("sample ", sample_name, sep = ""),
     xlab = plot_settings$xlab,
     ylab = "Cumulative mean doses [Gy]",
     xlim = c(min(Dosedata[,1]), plot_settings$xlim[2]),

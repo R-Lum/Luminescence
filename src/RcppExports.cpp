@@ -51,6 +51,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// src_find_first_larger_value
+NumericVector src_find_first_larger_value(NumericVector x, NumericVector y);
+RcppExport SEXP _Luminescence_src_find_first_larger_value(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(src_find_first_larger_value(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // src_get_XSYG_curve_values
 NumericMatrix src_get_XSYG_curve_values(std::string s);
 RcppExport SEXP _Luminescence_src_get_XSYG_curve_values(SEXP sSEXP) {
@@ -67,6 +79,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_Luminescence_create_UID", (DL_FUNC) &_Luminescence_create_UID, 0},
     {"_Luminescence_analyse_IRSARRF_SRS", (DL_FUNC) &_Luminescence_analyse_IRSARRF_SRS, 5},
     {"_Luminescence_create_RLumDataCurve_matrix", (DL_FUNC) &_Luminescence_create_RLumDataCurve_matrix, 10},
+    {"_Luminescence_src_find_first_larger_value", (DL_FUNC) &_Luminescence_src_find_first_larger_value, 2},
     {"_Luminescence_src_get_XSYG_curve_values", (DL_FUNC) &_Luminescence_src_get_XSYG_curve_values, 1},
     {NULL, NULL, 0}
 };

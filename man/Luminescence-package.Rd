@@ -20,13 +20,14 @@ plotting of equivalent dose distributions.
 \strong{Full list of authors and contributors} (alphabetic order)
 
 \tabular{ll}{
+Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies} \cr
 Christoph Burow \tab \emph{University of Cologne, Germany}* \cr
 Claire Christophe \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
 Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
+Pierre Guibert \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
 Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
-Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies} \cr
 Johannes Friedrich \tab \emph{Chair of Geomorphology, University of Bayreuth, Germany} \cr
 Guillaume Guérin \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Georgina E. King \tab \emph{University of Lausanne, Switzerland} \cr
