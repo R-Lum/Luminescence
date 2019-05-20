@@ -939,7 +939,7 @@ analyse_baSAR <- function(
 
 
      ##limit according to aliquot_range
-     ##TODO Take car of the case that this was provided, otherwise more and more is removed!
+     ##TODO Take care of the case that this was provided, otherwise more and more is removed!
      if (!is.null(aliquot_range)) {
        if (max(aliquot_range) <= nrow(object$input_object)) {
          input_object <- object$input_object[aliquot_range, ]
@@ -1009,7 +1009,8 @@ analyse_baSAR <- function(
     ##      .. S4
 
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
-    if(class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))){
+    if((class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))) ||
+       class(object) == "RLum.Analysis"){
      if(verbose)
        cat("[analyse_baSAR()] RLum.Analysis-object detected .. ")
 

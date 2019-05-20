@@ -26,6 +26,11 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 ### Bugfixes and changes
 
+### `analyse_baSAR()` 
+
+* The function did not really support `RLum.Analysis-class` objects not wrapped in a
+list as stated in the manual; fixed.
+
 ### `calc_Lamothe2003()` 
 
 * The documentation wrongly stated that an input `data.frame` should have the columns 'dose', 'De' and 
