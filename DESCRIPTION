@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.1.9000-30
+Version: 0.9.1.9000-31
 Date: 2019-05-20
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
@@ -73,7 +73,6 @@ Imports:
     zoo (>= 1.8)
 Suggests:
     RLumShiny (>= 0.2.2),
-    RLumModel (>= 0.2.2),
     plotly (>= 4.9.0),
     rmarkdown (>= 1.12),
     rstudioapi (>= 0.7),
@@ -182,7 +181,6 @@ Collate:
     'merge_Risoe.BINfileData.R'
     'methods_DRAC.R'
     'methods_RLum.R'
-    'model_LuminescenceSignals.R'
     'plot_AbanicoPlot.R'
     'plot_DRCSummary.R'
     'plot_DRTResults.R'
