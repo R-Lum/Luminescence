@@ -237,8 +237,8 @@
 #' number of iterations for the Markov chain Monte Carlo (MCMC) simulations
 #'
 #' @param fit.method [character] (*with default*):
-#' fit method used for fitting the growth curve using the function
-#' [plot_GrowthCurve]. Here supported methods: `EXP`, `EXP+LIN` and `LIN`
+#' equation used for the fitting of the dose-response curve using the function
+#' [plot_GrowthCurve] and then for the Bayesian modelling. Here supported methods: `EXP`, `EXP+LIN` and `LIN`
 #'
 #' @param fit.force_through_origin [logical] (*with default*):
 #' force fitting through origin
