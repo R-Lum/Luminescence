@@ -7,6 +7,15 @@
 
 ## Changes in version 0.9.1 (2019-05-20)
 
+### Removed functions
+
+  - `model_LuminescenceSignals()`: This wrapper function for the R
+    package ‘RLumModel’ was removed due to changes on CRAN inflicting a
+    warning ‘object is masked from ’package:Luminescence’ each time
+    ‘RLumModel was loaded. In ’Luminescence’ the function had no real
+    scope, but provided a place holder to point the users on the
+    existence of the package ‘RLumModel’.
+
 ### New functions
 
   - `calc_EED_Model()` Model incomplete and heterogenous bleaching of
