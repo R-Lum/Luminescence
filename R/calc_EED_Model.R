@@ -3,7 +3,9 @@
 #' @description Modelling incomplete and heterogeneous bleaching of mobile grains partially
 #' exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019)
 #'
-#' @details ##TODO
+#' @details The function is an implementation and enhancement of the scripts used for
+#' the work by Guibert et al. (2019).
+#'
 #'
 #' **Method control parameters**
 #'
@@ -95,6 +97,12 @@ calc_EED_Model <- function(
   ##TODO
   ## add docu examples
   ## add docu details
+  ##
+  ## TODO Questions to Pierre
+  ##  - what the user is doing of the real dose/age is not known, can it be assesed?
+  ##  - the underlying assumption is obviously an exponential distribution, what
+  ##  - so far the parameter uncertainty estimation does not work nicely.x
+  ##  happens to data where this is not observd? I cannot work?
 
 # Integrity tests  ----------------------------------------------------------------------------
 

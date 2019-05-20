@@ -159,9 +159,10 @@
 #' }
 #'
 #'
-#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [RLum.Analysis-class] [character] or [list] (**required**):
+#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [list] of [RLum.Analysis-class],
+#' [character] or [list] (**required**):
 #' input object used for the Bayesian analysis. If a `character` is provided the function
-#' assumes a file connection and tries to import a BIN-file using the provided path. If a `list` is
+#' assumes a file connection and tries to import a BIN/BINX-file using the provided path. If a `list` is
 #' provided the list can only contain either `Risoe.BINfileData` objects or `character`s
 #' providing a file connection. Mixing of both types is not allowed. If an [RLum.Results-class]
 #' is provided the function directly starts with the Bayesian Analysis (see details)
@@ -1009,10 +1010,13 @@ analyse_baSAR <- function(
     ##      .. S4
 
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
-    if((class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))) ||
-       class(object) == "RLum.Analysis"){
+    if(class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))){
      if(verbose)
-       cat("[analyse_baSAR()] RLum.Analysis-object detected .. ")
+       cat("[analyse_baSAR()] List of RLum.Analysis-objects detected .. ")
+
+      ##stop for only one element
+      if(length(object) < 2)
+        stop("[analyse_baSAR()] At least two aliquots are needed for the calculation!", call. = FALSE)
 
       ##set number of objects
       if(class(object) == "list"){

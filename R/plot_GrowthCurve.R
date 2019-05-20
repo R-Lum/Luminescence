@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.6
+#' @section Function version: 1.10.7
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
@@ -330,7 +330,7 @@ plot_GrowthCurve <- function(
   }
 
   ##2.3 check whether the dose value is equal all the time
-  if(sum(abs(diff(sample[[1]]))) == 0){
+  if(sum(abs(diff(sample[[1]])), na.rm = TRUE) == 0){
     try(stop("[plot_GrowthCurve()] All points have the same dose. NULL returned!", call. = FALSE))
     return(NULL)
 

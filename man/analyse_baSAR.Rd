@@ -15,9 +15,10 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \linkS4class{RLum.Analysis} \link{character} or \link{list} (\strong{required}):
+\item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \link{list} of \linkS4class{RLum.Analysis},
+\link{character} or \link{list} (\strong{required}):
 input object used for the Bayesian analysis. If a \code{character} is provided the function
-assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
+assumes a file connection and tries to import a BIN/BINX-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
 providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
@@ -392,7 +393,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2019. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-28. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2019. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
