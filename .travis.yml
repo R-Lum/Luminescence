@@ -24,7 +24,6 @@ r_packages:
   - XML
   - zoo
   - RLumShiny
-  - RLumModel
   - plotly
   - rmarkdown
   - rstudioapi
@@ -62,7 +61,7 @@ matrix:
       - brew install gcc
       - brew install jags
       - brew install libssh2
-      - brew install libgit2 
+      - brew install libgit2
     env: CACHE_NAME=JOB4
 
 ##create notifications
