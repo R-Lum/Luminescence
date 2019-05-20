@@ -22,6 +22,7 @@
   - The manual stated that `RLum.Analysis-class` are supported, but
     actually this is not true, it supports a list of `RLum.Analysis`
     objects only.
+  - Some minor manual corrections.
 
 ### `calc_Lamothe2003()`
 

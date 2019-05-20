@@ -93,8 +93,8 @@ ignored and set to \code{'user_defined'}}
 number of iterations for the Markov chain Monte Carlo (MCMC) simulations}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-fit method used for fitting the growth curve using the function
-\link{plot_GrowthCurve}. Here supported methods: \code{EXP}, \code{EXP+LIN} and \code{LIN}}
+equation used for the fitting of the dose-response curve using the function
+\link{plot_GrowthCurve} and then for the Bayesian modelling. Here supported methods: \code{EXP}, \code{EXP+LIN} and \code{LIN}}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default}):
 force fitting through origin}
@@ -393,7 +393,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2019. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-29. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2019. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-30. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
