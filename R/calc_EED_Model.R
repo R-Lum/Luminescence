@@ -440,7 +440,7 @@ calc_EED_Model <- function(
       ##graphical output
       graphics::image(
         s,
-        col = hcl.colors(30, "YlOrRd", rev = TRUE),
+        col = grDevices::hcl.colors(30, "YlOrRd", rev = TRUE),
         xlab = "kappa",
         ylab = "sigma_distr"
       )
@@ -473,10 +473,10 @@ calc_EED_Model <- function(
     }
 
     ###TODO DOES LEAD TO CRASH
-    return(c(
-       kappa = o$optim$bestmem[1],
-       sigma_distr = o$optim$bestmem[2],
-       min_var = o$optim$bestval))
+    # return(c(
+    #    kappa = o$optim$bestmem[1],
+    #    sigma_distr = o$optim$bestmem[2],
+    #    min_var = o$optim$bestval))
 
   }
 
