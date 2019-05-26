@@ -33,8 +33,7 @@ NumericVector src_find_first_larger_value(
       while (x[i] > y[ic] && ic < ic_max)
         ic++;
 
-      //overwrite value in x with
-      //the new index value
+      //fill vector
       cur_mean_id[i] = ic + 1;
 
     }
@@ -42,3 +41,5 @@ NumericVector src_find_first_larger_value(
     return(cur_mean_id);
 
 }
+
+

@@ -133,9 +133,9 @@ calc_EED_Model <- function(
     return (var_ratio / (mean_ratio ^ 2))
   }
 
-  .EED_Simul_Matrix <- function (M_Simul, Expected_Dose, sigma_distr,D0, kappa, Iinit, Nsimul){
-    ## g?n?re une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne Expected_Dose ##
-    M_Simul[,1] <- Expected_Dose * exp(sigma_distr * rnorm(Nsimul)) *
+  .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
+    ## g?n?re une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
+    M_Simul[,1] <- expected_dose * exp(sigma_distr * rnorm(Nsimul)) *
       exp(-0.5 * (sigma_distr ^ 2))
 
     ## g?n?re une liste de Nsimul valeurs de dose r?siduelle selon une distribution expoentielle de l'exposition ##
@@ -163,9 +163,9 @@ calc_EED_Model <- function(
 
 
   #  Calcul de la matrice de M_Data : donnees experimentales traitees
-  .EED_Data_Matrix <- function(M_Data, Dosedata, M_Simul, Expected_Dose, Ndata, Nsimul){
+  .EED_Data_Matrix <- function(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsimul){
     ##set index
-    index_SimRes <- as.integer((1:Ndata)*Nsimul/Ndata)
+    index_SimRes <- as.integer((1:Ndata) * Nsimul / Ndata)
 
     # recopie Dosedata dans les colonnes 9 et 10
     M_Data[, 9] <- Dosedata[, 1]
@@ -192,7 +192,7 @@ calc_EED_Model <- function(
 
     # colonne 6 : dose nette corrigee des r?siduels ET de l'int?gration partielle de la
     # distribution log-normale des burial doses
-    M_Data[, 6] <- M_Data[, 3] * (Expected_Dose / M_Simul[index_SimRes, 8])
+    M_Data[, 6] <- M_Data[, 3] * (expected_dose / M_Simul[index_SimRes, 8])
 
     # colonne 7 : erreur sur dose nette corrigee (premier calcul :
     # incertitude uniquement bas?e sur erreur exp?riementale)
@@ -339,70 +339,144 @@ calc_EED_Model <- function(
   }
 
   # # allow automated kapp and sigma_distr parameter estimation
-  .guess_EED_parameters <- function(
-    Expected_Dose, D0, Iinit, Nsimul, Dosedata, M_Data, M_Simul, Ndata,
+  .guess_EED_parameters <- function(set_kappa, set_sigma_distr,
+    set_expected_dose, D0, Iinit, Nsimul, Dosedata, M_Data, M_Simul, Ndata,
     method_control_intern = method_control){
 
     ##settings to control the what needs to be controlled
     method_control <- modifyList(
       list(
-        lower = c(0, 0),
-        upper = c(1000, 2),
-        itermax = 500,
-        VTR = 1e-05,
-        trace = FALSE,
+        lower = c(0, 0, 0),
+        upper = c(1000, 2, 100),
+        n = 100,
         trace_plot = FALSE
       ),
       method_control_intern)
 
-    ##define function for the differential evolution
-    fn <- function(x, M_Simul, Expected_Dose, D0, Iinit, Nsimul, Dosedata, M_Data, Ndata){
-      kappa <- x[1]
-      sigma_distr <- x[2]
-      M_Simul <- .EED_Simul_Matrix (M_Simul, Expected_Dose, sigma_distr, D0, kappa, Iinit, Nsimul)
-      M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, Expected_Dose, Ndata, Nsimul)
-      M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data,
-        M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul)
+    ##define function for the parameter estimation
+    fn <- function(
+      set_kappa, set_sigma_distr,
+      M_Simul, set_expected_dose,
+      D0, Iinit, Nsimul, Dosedata, M_Data, Ndata){
 
-      .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = 1, MaxDose_Index = nrow(Dosedata))
+      M_Simul <- .EED_Simul_Matrix (M_Simul, set_expected_dose, set_sigma_distr, D0, set_kappa, Iinit, Nsimul)
+      M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, set_expected_dose, Ndata, Nsimul)
+
+      M_Data <- .EED_Calc_Overall_StatUncertainty(
+        M_Data = M_Data,
+        M_Simul = M_Simul,
+        Ndata = Ndata,
+        Nsimul = Nsimul
+      )
+
+      ##return variance and the mean DE
+      return(
+        c(
+        VAR = .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = 1, MaxDose_Index = nrow(Dosedata)),
+        MEAN_DE = mean(M_Data[[5]])
+        ))
+
+      }
+
+    par(mfrow = c(3,3))
+    test_var <- Inf
+    while(test_var > 1e-04){
+      ##define paramter matrix
+      m <- matrix(NA, nrow = 16, ncol = 5)
+
+      ##fill matrix if parameter is not NULL
+      #kappa
+      m[,1] <- rep(
+        exp(seq(log(method_control$lower[1]), log(method_control$upper[1]), length.out = 4)), 4)
+
+      ##sigma_distr
+      m[,2] <- rep(seq(method_control$lower[2],method_control$upper[2],length.out = 4), each = 4)
+
+      ##expected dose
+      if(is.null(expected_dose)){
+      m[, 3] <-
+        runif(n = 16,
+              min = method_control$lower[3],
+              max = method_control$upper[3])
+
+      }else{
+        m[,3] <- rep(expected_dose, 16)
+
+      }
+
+      ##calculate the variance
+      for(i in 1:nrow(m)){
+        m[i, 4:5] <-
+          fn(
+            set_kappa = m[i, 1],
+            set_sigma_distr = m[i, 2],
+            M_Simul,
+            set_expected_dose = m[i,3],
+            D0,
+            Iinit,
+            Nsimul,
+            Dosedata,
+            M_Data,
+            Ndata
+          )
+
+      }
+
+      ##surface interpolation
+      s <-
+        akima::interp(
+          x = m[, 1],
+          y = m[, 2],
+          z = m[, 4],
+          nx = 200,
+          ny = 200,
+          duplicate = "mean"
+        )
+      # s <- list(
+      #   x = unique(m[,1]),
+      #   y = unique(m[,2]),
+      #   z = matrix(m[,4], ncol = 5, nrow = 5))
+
+      ##graphical output
+      graphics::image(
+        s,
+        col = hcl.colors(30, "YlOrRd", rev = TRUE),
+        xlab = "kappa",
+        ylab = "sigma_distr"
+      )
+      graphics::contour(s, add= TRUE, nlevels = 10)
+
+      abline(h = s$y[which(s$z == min(s$z), arr.ind = TRUE)[,2]], lty = 2)
+      abline(v = s$x[which(s$z == min(s$z), arr.ind = TRUE)[,1]], lty = 2)
+
+
+      ##update threshold
+      test_var <- min(s$z)
+
+      ##our decision is the 5 % quantile
+      q10 <- which(s$z<= quantile(s$z, probs = 0.05), arr.ind = TRUE)
+
+      ##write output
+      cat("\n variance threshold: ", min(s$z))
+      cat("\n >> kappa: ", median(s$x[unique(q10[,1])]), "+/-", sd(s$x[unique(q10[,1])]))
+      cat("\n >> sigma_distr: ", median(s$y[unique(q10[,1])]), "+/-", sd(s$y[unique(q10[,1])]))
+
+      ##reset parameters
+      method_control$lower[1:2] <- c(min(s$x[unique(q10[,1])]), min(s$y[unique(q10[,2])]))
+      method_control$upper[1:2] <- c(max(s$x[unique(q10[,1])]), max(s$y[unique(q10[,2])]))
+
+
+      cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ","))
+      cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ","))
+
 
     }
 
-    ##run differential evolution
-    o <- DEoptim::DEoptim(
-      fn,
-      lower = method_control$lower,
-      upper = method_control$upper,
-      control = DEoptim::DEoptim.control(
-        VTR = method_control$VTR,
-        itermax = method_control$itermax,
-        c = 0.5,
-        strategy = 6,
-        trace = method_control$trace
-      ),
-      M_Simul = M_Simul,
-      Expected_Dose = Expected_Dose,
-      D0 = D0,
-      Iinit = Iinit,
-      Nsimul = Nsimul,
-      Dosedata = Dosedata,
-      M_Data = M_Data,
-      Ndata = Ndata
-    )
-
-    ##additional control plots
-    if(method_control$trace_plot){
-      par(mfrow = c(2,1))
-      plot(o$member$bestmemit, type = "b", xlab = "kapp", ylab = "sigma")
-      plot(o$member$bestvalit, type = "b", xlab = "Run index", ylab = "Variance")
-      summary(o)
-
-    }
-
+    ###TODO DOES LEAD TO CRASH
     return(c(
-      kappa = o$optim$bestmem[1],
-      sigma_distr = o$optim$bestmem[2],
-      min_var = o$optim$bestval))
+       kappa = o$optim$bestmem[1],
+       sigma_distr = o$optim$bestmem[2],
+       min_var = o$optim$bestval))
 
   }
 
@@ -439,9 +513,6 @@ if(MinNbSimExp * Ndata > Nsimul)
 ## valeur en Gy de la dose de saturation selon une loi de croissance exponentielle saturante ##
 D0 <- D0 #valeur en Gy
 
-## introduire la dose attendue en Gy ##
-Expected_Dose <- expected_dose #2.7
-
 ## initialise la valeur de l'intensit? initiale (1 = saturation) ##
 #si le param?tre method est "max", l'initialisation se fait selon Iinit = 1-exp(-max(Dosedata[,1])/D0)
 # sinon si l'on donne une valeur comprise entre 0 et 1, la valeur introduite est prise en compte,
@@ -469,13 +540,15 @@ if(verbose) cat("\n[calc_EED_Model()]\n")
 ##  blanchiment ##
 ## TODO - this is not really what Pierre had in mind, he wanted to have the variance, not an automated
 ## esstimation
-if(is.null(kappa) || is.null(sigma_distr)){
+if(is.null(kappa) || is.null(sigma_distr) || is.null(expected_dose)){
 
   if(verbose)
-    cat("\n>> Running differential evolution optimization to find 'kappa' and 'sigma' ... \n")
+    cat("\n>> Running automated parameter estimation... \n")
 
   temp_guess <- .guess_EED_parameters(
-    Expected_Dose = Expected_Dose,
+    set_kappa = kappa,
+    set_sigma_distr = sigma_distr,
+    set_expected_dose = expected_dose,
     D0 = D0,
     Iinit = Iinit,
     Nsimul = Nsimul,
@@ -498,8 +571,8 @@ if(is.null(kappa) || is.null(sigma_distr)){
 
 # Calculation ---------------------------------------------------------------------------------
 
-M_Simul <- .EED_Simul_Matrix (M_Simul, Expected_Dose, sigma_distr,D0, kappa, Iinit, Nsimul)
-M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, Expected_Dose, Ndata, Nsimul)
+M_Simul <- .EED_Simul_Matrix (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
+M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsimul)
 M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul)
 
 max_dose_simul <- max(M_Simul[,3])
@@ -661,7 +734,7 @@ if(plot) {
     xlab = plot_settings$xlab,
     ylab = "Cumulative mean doses [Gy]",
     xlim = c(min(Dosedata[,1]), plot_settings$xlim[2]),
-    ylim = c(0, 2*Expected_Dose))
+    ylim = c(0, 2*expected_dose))
 
     # tracer les valeurs de la liste classee des doses archeologiques de la matrice de simulation
     # contrainte : ne tracer qu'une partie des points sinon on va passer un temps fou
@@ -681,7 +754,7 @@ if(plot) {
      cur_ind <- cur_ind + 1
    }
 
-   abline(h = Expected_Dose)
+   abline(h = expected_dose)
    points(XY_psimul[, 1], XY_psimul[, 2], pch = 1, col = rgb(0,0,0,0.2))
 
    ##add error bars
