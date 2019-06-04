@@ -60,7 +60,7 @@ apply_EfficiencyCorrection <- function(
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
-        warning(paste0("[apply_EfficiencyCorrection()] Skipping ",class(o)," object."), call. = FALSE)
+        warning(paste0("[apply_EfficiencyCorrection()] Skipping ",class(o)," object in input list."), call. = FALSE)
         return(o)
       }
 
@@ -78,7 +78,7 @@ apply_EfficiencyCorrection <- function(
 
 
   if(class(spectral.efficiency) != "data.frame")
-    stop("[apply_EfficiencyCorrection()] Input object is not of type data.frame", call. = FALSE)
+    stop("[apply_EfficiencyCorrection()] 'spectral.efficiency' is not of type data.frame", call. = FALSE)
 
 
   ## grep data matrix from the input object
@@ -88,7 +88,7 @@ apply_EfficiencyCorrection <- function(
   temp.efficiency <- as.matrix(spectral.efficiency[,1:2])
 
   ##test max
-  if(max(m[,2]) > 1)
+  if(max(temp.efficiency[,2]) > 1)
     stop("[apply_EfficiencyCorrection()] Relative quantum efficiency values > 1 are not allowed.", call. = FALSE)
 
   # Apply method ------------------------------------------------------------
