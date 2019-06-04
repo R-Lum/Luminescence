@@ -30,6 +30,11 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 ### Bugfixes and changes
 
+### `apply_EfficiencyCorrection()`
+
+* The function now supports a list of `RLum.Data.Spectrum` objects
+* Minor code polish
+
 ### `analyse_baSAR()` 
 
 * The manual stated that `RLum.Analysis-class` are supported, but actually this is not true, 
