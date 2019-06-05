@@ -26,41 +26,41 @@
 
 ### Bugfixes and changes
 
-### `apply_EfficiencyCorrection()`
+#### `apply_EfficiencyCorrection()`
 
   - The function now supports a list of `RLum.Data.Spectrum` objects
   - Minor code polish
 
-### `analyse_baSAR()`
+#### `analyse_baSAR()`
 
   - The manual stated that `RLum.Analysis-class` are supported, but
     actually this is not true, it supports a list of `RLum.Analysis`
     objects only.
   - Some minor manual corrections.
 
-### `calc_Lamothe2003()`
+#### `calc_Lamothe2003()`
 
   - The documentation wrongly stated that an input `data.frame` should
     have the columns ‘dose’, ‘De’ and ‘De error’, indeed ‘dose’, ‘LxTx’
     and ‘LxTx error’ are expected (spotted by Jeong-Heon Choi)
 
-### `calc_SourceDoseRate()`
+#### `calc_SourceDoseRate()`
 
   - The function learned about the half-life of Cs-137
 
-### `fit_OSLLifeTimes()`
+#### `fit_OSLLifeTimes()`
 
   - `0` count values crashed the function for obvious reasons (`a / 0 =
     Inf`), this can happen in particular for artificial datasets. Now,
     if `0` is detected, count values are increased by `0.1` (reported by
     Dirk Mittelstrass)
 
-### `plot_GrowthCurve()`
+#### `plot_GrowthCurve()`
 
   - If the dose points included `NA` values the function crashed
     unexpectetly.
 
-### Internals
+#### Internals
 
   - The ‘DESCRIPTION’ file contained the string “\[upcoming\]”. This was
     a left-over from the development version and is now removed.
