@@ -12,8 +12,8 @@
 #' If the energy calibration differes for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object [RLum.Data.Spectrum-class] (**required**):
-#' S4 object of class `RLum.Data.Spectrum` or a [list] of such objects. Other objects in
+#' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class](**required**):
+#' S4 object of class `RLum.Data.Spectrum`,  `RLum.Analysis`or a [list] of such objects. Other objects in
 #' the list are skipped.
 #'
 #' @param spectral.efficiency [data.frame] (**required**):
@@ -21,7 +21,7 @@
 #' (y-column) (values between 0 and 1). The provided data will be used to correct all spectra if `object` is
 #' a [list]
 #'
-#' @return Returns same object as input ([RLum.Data.Spectrum-class])
+#' @return Returns same object as provided as input
 #'
 #' @note
 #' Please note that the spectral efficiency data from the camera alone may not
@@ -34,7 +34,7 @@
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)\cr
 #' Johannes Friedrich, University of Bayreuth (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class]
+#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class]
 #'
 #' @keywords manip
 #'
@@ -54,9 +54,11 @@ apply_EfficiencyCorrection <- function(
 
 
   # self-call -----------------------------------------------------------------------------------
+
+  ##case we have a list
   if(class(object) == "list"){
     output_list <- lapply(object, function(o){
-      if(class(o) == "RLum.Data.Spectrum"){
+      if(class(o) == "RLum.Data.Spectrum" || class(o) == "RLum.Analysis"){
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
@@ -69,6 +71,25 @@ apply_EfficiencyCorrection <- function(
     return(output_list)
 
   }
+
+  ##the case of an RLum.Analysis object
+  if(class(object) == "RLum.Analysis"){
+    object@records <- lapply(object@records, function(o){
+      if(class(o) == "RLum.Data.Spectrum"){
+        apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
+
+      }else{
+        warning(paste0("[apply_EfficiencyCorrection()] Skipping ",class(o)," object in input list."), call. = FALSE)
+        return(o)
+      }
+
+    })
+
+    return(object)
+
+  }
+
+
 
   # Integrity check -----------------------------------------------------------
 
