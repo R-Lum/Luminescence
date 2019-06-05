@@ -28,7 +28,9 @@
 
 #### `apply_EfficiencyCorrection()`
 
-  - The function now supports a list of `RLum.Data.Spectrum` objects
+  - The function now suppors `RLum.Analysis` objects as input
+  - All allowed input objects can now be provided as `list` (self-call
+    support)
   - Minor code polish
 
 #### `analyse_baSAR()`
