@@ -46,6 +46,10 @@ it supports a list of `RLum.Analysis` objects only.
 * The documentation wrongly stated that an input `data.frame` should have the columns 'dose', 'De' and 
 'De error', indeed 'dose', 'LxTx' and 'LxTx error' are expected (spotted by Jeong-Heon Choi)
 
+### `calc_SourceDoseRate()`
+
+* The function learned about the half-life of Cs-137
+
 ### `fit_OSLLifeTimes()`
 
 * `0` count values crashed the function for obvious reasons (`a / 0 = Inf`), this can happen in 

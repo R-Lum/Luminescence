@@ -22,7 +22,8 @@
 #'  **#** \tab **Source type** \tab **T.1/2** \tab **Reference** \cr
 #'  `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[2]`\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
-#'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory }
+#'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
+#'  `[4` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 #'
 #' @param measurement.date [character] or [Date] (with default): Date of measurement in "YYYY-MM-DD".
 #' If no value is provided, the date will be set to today. The argument can be provided as vector.
@@ -37,7 +38,7 @@
 #' error of dose rate at date of calibration Gy/s or Gy/min
 #'
 #' @param source.type [character] (*with default*):
-#' specify irrdiation source (`Sr-90` or `Co-60` or `Am-214`),
+#' specify irradiation source (`Sr-90`, `Co-60`, `Cs-137`, `Am-214`),
 #' see details for further information
 #'
 #' @param dose.rate.unit [character] (*with default*):
@@ -79,11 +80,11 @@
 #' it is not recommended to use this option when multiple calibration dates (`calib.date`)
 #' are provided.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [Second2Gray], [get_RLum], [plot_RLum]
@@ -168,11 +169,12 @@ calc_SourceDoseRate <- function(
     source.type,
     "Sr-90" = 28.90,
     "Am-241" = 432.6,
-    "Co-60" = 5.274)
+    "Co-60" = 5.274,
+    "Cs-137" = 30.08
+    )
 
   if(is.null(halflife.years))
     stop("[calc_SourceDoseRate()] Source type unknown or currently not supported!", call. = FALSE)
-
 
 
   halflife.days  <- halflife.years * 365
