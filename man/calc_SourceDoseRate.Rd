@@ -22,7 +22,7 @@ dose rate at date of calibration in Gy/s or Gy/min}
 error of dose rate at date of calibration Gy/s or Gy/min}
 
 \item{source.type}{\link{character} (\emph{with default}):
-specify irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}),
+specify irradiation source (\code{Sr-90}, \code{Co-60}, \code{Cs-137}, \code{Am-214}),
 see details for further information}
 
 \item{dose.rate.unit}{\link{character} (\emph{with default}):
@@ -75,7 +75,8 @@ original .BIN file (using e.g., \code{BINfile <- readBIN2R()} and the slot
 \strong{#} \tab \strong{Source type} \tab \strong{T.1/2} \tab \strong{Reference} \cr
 \code{[1]} \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
 \code{[2]}\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
-\code{[3]} \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory }
+\code{[3]} \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
+\code{[4} \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 }
 \note{
 Please be careful when using the option \code{predict}, especially when a multiple set
@@ -88,7 +89,7 @@ it is not recommended to use this option when multiple calibration dates (\code{
 are provided.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.2
 }
 
 \examples{
@@ -130,7 +131,7 @@ xtable::xtable(get_RLum(dose.rate))
 } 
 
 \section{How to cite}{
-Fuchs, M.C., Kreutzer, S., 2019. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-36. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., Kreutzer, S., 2019. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-37. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -141,6 +142,6 @@ NNDC, Brookhaven National Laboratory \url{http://www.nndc.bnl.gov/}
 }
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 , RLum Developer Team}
 \keyword{manip}
