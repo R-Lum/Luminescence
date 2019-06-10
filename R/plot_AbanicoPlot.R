@@ -231,7 +231,7 @@
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.10
+#' @section Function version: 0.1.11
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -1427,15 +1427,15 @@ plot_AbanicoPlot <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("se.rel" %in% summary[j] == TRUE,
-                                 paste("rel. se = ",
-                                       round(De.stats[i,7], 2), " %",
+                          ifelse("se.abs" %in% summary[j] == TRUE,
+                                 paste("abs. se = ",
+                                       round(De.stats[i,7], 2),
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("se.abs" %in% summary[j] == TRUE,
-                                 paste("abs. se = ",
-                                       round(De.stats[i,8], 2),
+                          ifelse("se.rel" %in% summary[j] == TRUE,
+                                 paste("rel. se = ",
+                                       round(De.stats[i,8], 2), " %",
                                        " | ",
                                        sep = ""),
                                  ""),
