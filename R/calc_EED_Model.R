@@ -424,59 +424,68 @@ calc_EED_Model <- function(
 
       ##surface interpolation
       s <-
-        akima::interp(
+        interp::interp(
           x = m[, 1],
           y = m[, 2],
           z = m[, 4],
           nx = 200,
           ny = 200,
-          duplicate = "mean"
+          duplicate = "linear"
         )
+
       # s <- list(
       #   x = unique(m[,1]),
       #   y = unique(m[,2]),
       #   z = matrix(m[,4], ncol = 5, nrow = 5))
 
       ##graphical output
-      graphics::image(
-        s,
-        col = grDevices::hcl.colors(30, "YlOrRd", rev = TRUE),
-        xlab = "kappa",
-        ylab = "sigma_distr"
-      )
-      graphics::contour(s, add= TRUE, nlevels = 10)
-
-      abline(h = s$y[which(s$z == min(s$z), arr.ind = TRUE)[,2]], lty = 2)
-      abline(v = s$x[which(s$z == min(s$z), arr.ind = TRUE)[,1]], lty = 2)
+      # graphics::image(
+      #   s,
+      #   col = grDevices::hcl.colors(30, "YlOrRd", rev = TRUE),
+      #   xlab = "kappa",
+      #   ylab = "sigma_distr"
+      # )
+      # graphics::contour(s, add= TRUE, nlevels = 10)
+      #
+      # abline(h = s$y[which(s$z == min(s$z, na.rm = TRUE), arr.ind = TRUE)[,2]], lty = 2)
+      # abline(v = s$x[which(s$z == min(s$z, na.rm = TRUE), arr.ind = TRUE)[,1]], lty = 2)
 
 
       ##update threshold
-      test_var <- min(s$z)
+      test_var <- min(s$z, na.rm = TRUE)
 
       ##our decision is the 5 % quantile
-      q10 <- which(s$z<= quantile(s$z, probs = 0.05), arr.ind = TRUE)
+      q10 <- which(s$z<= quantile(s$z, probs = 0.05, na.rm = TRUE), arr.ind = TRUE)
+
+      ##calculate
+      optim_kappa <- c(median(s$x[unique(q10[,1])], na.rm = TRUE), sd(s$x[unique(q10[,1])]))
+      optim_sigm_distr <- c(median(s$y[unique(q10[,1])]), sd(s$y[unique(q10[,1])]))
 
       ##write output
-      cat("\n variance threshold: ", min(s$z))
-      cat("\n >> kappa: ", median(s$x[unique(q10[,1])]), "+/-", sd(s$x[unique(q10[,1])]))
-      cat("\n >> sigma_distr: ", median(s$y[unique(q10[,1])]), "+/-", sd(s$y[unique(q10[,1])]))
+      cat("\n\n variance threshold: ", min(s$z, na.rm = TRUE))
+      cat("\n >> kappa: ",   optim_kappa[1], "+/-", optim_kappa[2])
+      cat("\n >> sigma_distr: ", optim_sigm_distr[1] , "+/-", optim_sigm_distr[2])
 
       ##reset parameters
       method_control$lower[1:2] <- c(min(s$x[unique(q10[,1])]), min(s$y[unique(q10[,2])]))
       method_control$upper[1:2] <- c(max(s$x[unique(q10[,1])]), max(s$y[unique(q10[,2])]))
 
-
       cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ","))
       cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ","))
+
+      ##implement differential break if the search area is already smaller than the area
+      if(diff(c(method_control$lower[1], method_control$upper[1])) < 0.1)
+         break()
+
 
 
     }
 
     ###TODO DOES LEAD TO CRASH
-    # return(c(
-    #    kappa = o$optim$bestmem[1],
-    #    sigma_distr = o$optim$bestmem[2],
-    #    min_var = o$optim$bestval))
+    return(list(
+       kappa = optim_kappa ,
+       sigma_distr = optim_sigm_distr,
+       min_var = test_var))
 
   }
 
@@ -558,9 +567,9 @@ if(is.null(kappa) || is.null(sigma_distr) || is.null(expected_dose)){
     Ndata = Ndata
     )
 
-  kappa <- temp_guess[1]
-  sigma_distr <- temp_guess[2]
-  min_var <- temp_guess[3]
+  kappa <- temp_guess[[1]][1]
+  sigma_distr <- temp_guess[[2]][1]
+  min_var <- temp_guess[[3]]
 
   if(verbose){
     cat(">> min. variance:", min_var)

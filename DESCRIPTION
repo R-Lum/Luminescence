@@ -57,7 +57,7 @@ Depends:
 LinkingTo: Rcpp (>= 1.0.0),
     RcppArmadillo (>= 0.9.300.0.0)
 Imports:
-    akima (>= 0.6),
+    interp (>= 1.0),
     bbmle (>= 1.0.20),
     data.table (>= 1.12.0),
     DEoptim (>= 2.2-4),
