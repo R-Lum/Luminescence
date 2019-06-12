@@ -214,7 +214,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-43. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}
