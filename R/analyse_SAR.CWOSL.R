@@ -137,9 +137,9 @@
 #' [Analyse_SAR.OSLdata], which works with
 #' [Risoe.BINfileData-class] objects.
 #'
-#' **The function currently does only support 'OSL' or 'IRSL' data!**
+#' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.6
+#' @section Function version: 0.8.7
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)
@@ -401,27 +401,25 @@ if(is.list(object)){
     ##INTEGRAL LIMITS
     if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
       stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not
-           of type integer!")
+           of type integer!",  call. = FALSE)
     }
 
 
 
-      ##CHECK IF DATA SET CONTAINS ANY OSL curve
-      if (!any(grepl("OSL", structure_RLum(object)$recordType)) &&
-          !any(grepl("IRSL", structure_RLum(object)$recordType))) {
-        warning(
-          "[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence object! NULL returned.",
-          call. = FALSE
-        )
-
+    ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
+    if (!any(c("OSL", "IRSL", "POSL") %in%  names(object))){
+        stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.", call. = FALSE)
         return(NULL)
 
-      }
+    }
 
-    ##Check if any OSL curve is measured, if not set curve type on IRSL
-    ##to allow further proceedings
-    CWcurve.type  <- ifelse(!TRUE%in%grepl("OSL", structure_RLum(object)$recordType),
-                            "IRSL","OSL")
+    ##set curve type to allowed type, which is basically an automated curve recognition
+    CWcurve.type <- table(names(object))
+    CWcurve.type <-  CWcurve.type[!grepl("TL", names(CWcurve.type), fixed = TRUE)]
+    CWcurve.type <- names(which.max(CWcurve.type))[1]
+
+
+
 
 
 # Rejection criteria ------------------------------------------------------

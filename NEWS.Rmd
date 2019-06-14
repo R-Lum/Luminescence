@@ -42,6 +42,12 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 it supports a list of `RLum.Analysis` objects only.
 * Some minor manual corrections.
 
+#### `analyse_SAR.CWOLS()` 
+
+* Add support for `POSL` data,before the function crashed (reported by Alice Versendaal). 
+`POSL` curves had been not listed as supported curve types though. 
+* Improve dataset recognition (`OSL`, `IRSL`, `POSL`).
+
 #### `calc_Lamothe2003()` 
 
 * The documentation wrongly stated that an input `data.frame` should have the columns 'dose', 'De' and 
