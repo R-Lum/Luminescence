@@ -147,10 +147,10 @@ This function must not be mixed up with the function
 \link{Analyse_SAR.OSLdata}, which works with
 \linkS4class{Risoe.BINfileData} objects.
 
-\strong{The function currently does only support 'OSL' or 'IRSL' data!}
+\strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.8.6
+ 0.8.7
 }
 
 \examples{
@@ -189,7 +189,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-43. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-44. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
