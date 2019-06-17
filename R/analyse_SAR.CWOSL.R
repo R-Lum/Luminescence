@@ -407,7 +407,7 @@ if(is.list(object)){
 
 
     ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
-    if (!any(c("OSL", "IRSL", "POSL") %in%  names(object))){
+    if (!any(grepl("OSL", names(object), fixed = TRUE) || grepl("IRSL", names(object), fixed = TRUE))){
         stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.", call. = FALSE)
         return(NULL)
 
@@ -417,9 +417,7 @@ if(is.list(object)){
     CWcurve.type <- table(names(object))
     CWcurve.type <-  CWcurve.type[!grepl("TL", names(CWcurve.type), fixed = TRUE)]
     CWcurve.type <- names(which.max(CWcurve.type))[1]
-
-
-
+    CWcurve.type <- sub(pattern = " \\(.+", replacement = "", x = CWcurve.type)
 
 
 # Rejection criteria ------------------------------------------------------
