@@ -407,7 +407,7 @@ if(is.list(object)){
 
 
     ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
-    if (!any(grepl("OSL", names(object), fixed = TRUE) || grepl("IRSL", names(object), fixed = TRUE))){
+    if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
         stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.", call. = FALSE)
         return(NULL)
 
