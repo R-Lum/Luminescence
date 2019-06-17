@@ -75,7 +75,8 @@
 #' @param na.rm [logical]: indicating wether `NA` values are
 #' removed before plotting from the input data set
 #'
-#' @param ... further arguments and graphical parameters passed to [plot].
+#' @param ... further arguments and graphical parameters passed to [plot], supported are:
+#' `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex` and `pch``
 #'
 #' @return A plot is returned.
 #'
@@ -86,7 +87,7 @@
 #' @section Function version: 0.1.12
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060 - Université Bordeaux Montaigne (France)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]
@@ -468,7 +469,8 @@ plot_DRTResults <- function(
            xlab = xlab,
            ylab = ylab,
            xaxt = "n",
-           main = "")
+           main = ""
+           )
 
       ##add x-axis ... this avoids digits in the axis labeling
       axis(side = 1, at = 1:(nrow(values[[1]])+1), labels = 1:(nrow(values[[1]])+1))
