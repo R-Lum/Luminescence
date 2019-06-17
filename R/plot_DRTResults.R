@@ -76,7 +76,7 @@
 #' removed before plotting from the input data set
 #'
 #' @param ... further arguments and graphical parameters passed to [plot], supported are:
-#' `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex` and `pch``
+#' `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex`, `las` and `pch``
 #'
 #' @return A plot is returned.
 #'
@@ -84,7 +84,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.12
+#' @section Function version: 0.1.13
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060 - Université Bordeaux Montaigne (France)\cr
@@ -274,6 +274,9 @@ plot_DRTResults <- function(
     abs(seq(from = 20, to = -100))
   }
 
+  ##axis labels
+  las <- if("las" %in% names(extraArgs)) extraArgs$las else 0
+
   fun <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
 
   ## calculations and settings-------------------------------------------------
@@ -284,8 +287,7 @@ plot_DRTResults <- function(
     if(length(given.dose) > 1){
 
       if(length(values) < length(given.dose)){
-
-        stop("[plot_DRTResults()] 'given.dose' > number of input data sets!")
+        stop("[plot_DRTResults()] 'given.dose' > number of input data sets!", call. = FALSE)
 
       }
 
@@ -469,11 +471,12 @@ plot_DRTResults <- function(
            xlab = xlab,
            ylab = ylab,
            xaxt = "n",
+           las = las,
            main = ""
            )
 
       ##add x-axis ... this avoids digits in the axis labeling
-      axis(side = 1, at = 1:(nrow(values[[1]])+1), labels = 1:(nrow(values[[1]])+1))
+      axis(side = 1, at = 1:(nrow(values[[1]])+1), labels = 1:(nrow(values[[1]])+1), las = las)
 
       ## add title
       title(main = main,
@@ -552,6 +555,7 @@ plot_DRTResults <- function(
            ylim = ylim,
            xlab = xlab,
            ylab = ylab,
+           las = las,
            main = "",
            axes = FALSE,
            frame.plot = TRUE)
@@ -621,13 +625,14 @@ plot_DRTResults <- function(
             ylim = ylim,
             xlab = xlab,
             ylab = ylab,
+            las = las,
             xaxt = "n",
             main = "",
             border = col)
 
     ## add axis label, if necessary
     if (length(modes.plot) == 1) {
-      axis(side = 1, at = 1, labels = modes.plot)
+      axis(side = 1, at = 1, labels = modes.plot, las = las)
 
     } else if (length(modes.plot) > length(unique(modes.plot))){
 
@@ -638,6 +643,7 @@ plot_DRTResults <- function(
       axis(
         side = 1,
         at = ticks,
+        las = las,
         labels = unique(modes.plot)
       )
 
@@ -666,7 +672,7 @@ plot_DRTResults <- function(
       }
 
     }else{
-      axis(side = 1, at = 1:length(unique(modes.plot)), labels = unique(modes.plot))
+      axis(side = 1, at = 1:length(unique(modes.plot)), labels = unique(modes.plot), las = las)
 
     }
 
