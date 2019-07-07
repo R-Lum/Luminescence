@@ -285,6 +285,3 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
 
   invisible(newRLumResults.calc_CentralDose)
 }
-
-calc_CentralDose(ExampleData.DeValues$CA1, trace = TRUE)
-calc_CentralDose(ExampleData.DeValues$CA1, trace = TRUE)
