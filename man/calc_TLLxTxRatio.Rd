@@ -33,12 +33,12 @@ channel number for the upper signal integral bound
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
-Slot \code{data} contains a \link{list} with the following structure:\preformatted{$ LxTx.table  
-.. $ LnLx  
-.. $ LnLx.BG  
-.. $ TnTx  
+Slot \code{data} contains a \link{list} with the following structure:\preformatted{$ LxTx.table
+.. $ LnLx
+.. $ LnLx.BG
+.. $ TnTx
 .. $ TnTx.BG
-.. $ Net_LnLx  
+.. $ Net_LnLx
 .. $ Net_LnLx.Error
 }
 }
@@ -61,7 +61,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{
@@ -91,12 +91,12 @@ get_RLum(output)
 \linkS4class{RLum.Results}, \link{analyse_SAR.TL}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France) \cr
 Christoph Schmidt, University of Bayreuth (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2019. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-50. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2019. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-51. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
