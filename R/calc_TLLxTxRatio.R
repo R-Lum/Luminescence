@@ -12,50 +12,50 @@
 #' the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However,
 #' if both signals are similar the error becomes zero.
 #'
-#' @param Lx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' @param Lx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**):
 #' TL data (x = temperature, y = counts) (TL signal)
 #'
-#' @param Lx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*): 
-#' TL data (x = temperature, y = counts). 
+#' @param Lx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*):
+#' TL data (x = temperature, y = counts).
 #' If no data are provided no background subtraction is performed.
 #'
-#' @param Tx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' @param Tx.data.signal [RLum.Data.Curve-class] or [data.frame] (**required**):
 #' TL data (x = temperature, y = counts) (TL test signal)
 #'
-#' @param Tx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*): 
-#' TL data (x = temperature, y = counts). 
+#' @param Tx.data.background [RLum.Data.Curve-class] or [data.frame] (*optional*):
+#' TL data (x = temperature, y = counts).
 #' If no data are provided no background subtraction is performed.
 #'
-#' @param signal.integral.min [integer] (**required**): 
-#' channel number for the lower signal integral bound 
+#' @param signal.integral.min [integer] (**required**):
+#' channel number for the lower signal integral bound
 #' (e.g. `signal.integral.min = 100`)
 #'
-#' @param signal.integral.max [integer] (**required**): 
-#' channel number for the upper signal integral bound 
+#' @param signal.integral.max [integer] (**required**):
+#' channel number for the upper signal integral bound
 #' (e.g. `signal.integral.max = 200`)
 #'
-#' @return 
+#' @return
 #' Returns an S4 object of type [RLum.Results-class].
 #' Slot `data` contains a [list] with the following structure:
-#' 
+#'
 #' ```
-#' $ LxTx.table  
-#' .. $ LnLx  
-#' .. $ LnLx.BG  
-#' .. $ TnTx  
+#' $ LxTx.table
+#' .. $ LnLx
+#' .. $ LnLx.BG
+#' .. $ TnTx
 #' .. $ TnTx.BG
-#' .. $ Net_LnLx  
+#' .. $ Net_LnLx
 #' .. $ Net_LnLx.Error
 #' ```
 #'
-#' @note 
+#' @note
 #' **This function has still BETA status!** Please further note that a similar
 #' background for both curves results in a zero error and is therefore set to `NA`.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France) \cr
 #' Christoph Schmidt, University of Bayreuth (Germany)
 #'
 #' @seealso [RLum.Results-class], [analyse_SAR.TL]
@@ -230,29 +230,27 @@ calc_TLLxTxRatio <- function(
       LxTx.Error <- NA
 
     }else{
-
       LxTx <- net_LnLx/net_TnTx
-      LxTx.Error <- LxTx*((net_LnLx.Error/net_LnLx) + (net_TnTx.Error/net_TnTx))
-
+      LxTx.Error <- abs(LxTx*((net_LnLx.Error/net_LnLx) + (net_TnTx.Error/net_TnTx)))
 
     }
 
 
-
-    ##COMBINE to a data.frame
-    temp.results <- data.frame(LnLx,
-                               LnLx.BG,
-                               TnTx,
-                               TnTx.BG,
-                               net_LnLx,
-                               net_LnLx.Error,
-                               net_TnTx,
-                               net_TnTx.Error,
-                               LxTx,
-                               LxTx.Error)
+    ##COMBINE into a data.frame
+    temp.results <- data.frame(
+      LnLx,
+      LnLx.BG,
+      TnTx,
+      TnTx.BG,
+      net_LnLx,
+      net_LnLx.Error,
+      net_TnTx,
+      net_TnTx.Error,
+      LxTx,
+      LxTx.Error
+    )
 
 # Return values -----------------------------------------------------------
-
     newRLumResults.calc_TLLxTxRatio <- set_RLum(
       class = "RLum.Results",
       data = list(LxTx.table = temp.results),
