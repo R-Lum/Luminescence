@@ -92,6 +92,10 @@ version and is now removed.
 Development versions are only indicated by `.9000` in the version number. Numbers after `9000` 
 (e.g., `9000-1`) indicate build numbers. Both is used for GitHub build versions only. 
 
+* The file name `RisoeBINfileData-class.R` was changed to `Risoe.BINfileData-class.R` for 
+consistency reasons, however, this has no furhter visible effect (#76, spotted by Sébastien 
+Huot)
+
 ## Changes in version 0.9.0.110 (2019-04-21)
 
 'Luminescence' 0.9.X releases will be the last versions supporting **R** < 3.5.0.
