@@ -8,6 +8,6 @@ test_that("Test whether function works", {
   expect_is(names_RLum(IRSAR.RF.Data), "character")
 
   ##test a list of such elements
-  expect_is(names_RLum(list(IRSAR.RF.Data,IRSAR.RF.Data, "a")), "character")
+  expect_is(names_RLum(list(IRSAR.RF.Data,IRSAR.RF.Data, "a")), "list")
 
 })
