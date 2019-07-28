@@ -84,6 +84,13 @@ all arguments,
 
 * If the dose points included `NA` values the function crashed unexpectetly.  
 
+
+#### S4-classes and methods
+
+* `RLum.Data.Image` 
+  * Conversion methods to a `matrix` and from and to `data.frame` never worked as intended.
+  * Code housekeeping
+
 #### Internals 
 
 * The 'DESCRIPTION' file contained the string "[upcoming]". This was a left-over from the development

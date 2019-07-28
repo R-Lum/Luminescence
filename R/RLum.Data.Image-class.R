@@ -30,10 +30,10 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
-#' @section Class version: 0.4.0
+#' @section Class version: 0.4.1
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R]
 #'
@@ -74,7 +74,6 @@ setClass(
 
 ##DATA.FRAME
 ##COERCE RLum.Data.Image >> data.frame AND data.frame >> RLum.Data.Image
-
 #' as()
 #'
 #' for `[RLum.Data.Image-class]`
@@ -91,28 +90,23 @@ setClass(
 #' @name as
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
-
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
-            data = as.matrix(from),
+            data = raster::brick(raster::raster(as.matrix(from))),
             info = list())
       })
 
 setAs("RLum.Data.Image", "data.frame",
-      function(from){
-
-        data.frame(x = from@data@values[seq(1,length(from@data@values), by = 2)],
-                   y = from@data@values[seq(2,length(from@data@values), by = 2)])
-
-      })
+        function(from){
+          as.data.frame(matrix(from@data@data@values[,1], ncol = from@data@ncols))
+        })
 
 
 ##MATRIX
 ##COERCE RLum.Data.Image >> matrix AND matrix >> RLum.Data.Image
 setAs("matrix", "RLum.Data.Image",
       function(from,to){
-
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
@@ -122,10 +116,7 @@ setAs("matrix", "RLum.Data.Image",
 
 setAs("RLum.Data.Image", "matrix",
       function(from){
-
-        ##only the first object is convertec
-        as.matrix(from[[1]])
-
+        matrix(from@data@data@values[,1], ncol = from@data@ncols)
       })
 
 
@@ -289,9 +280,9 @@ setMethod(
 ###get_RLum()
 ####################################################################################################
 #' @describeIn RLum.Data.Image
-#' Accessor method for RLum.Data.Image object. The argument info.object is
-#'  optional to directly access the info elements. If no info element name is
-#'  provided, the raw image data (RasterBrick) will be returned.
+#' Accessor method for RLum.Data.Image object. The argument `info.object` is
+#' optional to directly access the info elements. If no info element name is
+#' provided, the raw image data (`RasterBrick`) will be returned.
 #'
 #' @param object [`get_RLum`], [`names_RLum`] (**required**):
 #' an object of class [RLum.Data.Image-class]
@@ -312,41 +303,23 @@ setMethod("get_RLum",
           signature("RLum.Data.Image"),
           definition = function(object, info.object) {
 
-            ##Check if function is of type RLum.Data.Image
-            if(is(object, "RLum.Data.Image") == FALSE){
-
-              stop("[get_RLum] Function valid for 'RLum.Data.Image' objects only!")
-
-            }
-
             ##if missing info.object just show the curve values
+            if(!missing(info.object)){
+              if(class(info.object) != "character")
+                stop("[get_RLum] 'info.object' has to be a character!", call. = FALSE)
 
-            if(missing(info.object) == FALSE){
-
-              if(is(info.object, "character") == FALSE){
-                stop("[get_RLum] 'info.object' has to be a character!")
-              }
-
-              if(info.object %in% names(object@info) == TRUE){
-
+              if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
 
-              }else{
-
-                ##grep names
-                temp.element.names <- paste(names(object@info), collapse = ", ")
-
-                stop.text <- paste("[get_RLum] Invalid element name. Valid names are:", temp.element.names)
-
-                stop(stop.text)
-
-              }
-
-
-            }else{
-
+              } else {
+                stop(paste0(
+                  "[get_RLum] Invalid element name. Valid names are: ",
+                  paste(names(object@info), collapse = ", ")
+                ),
+                call. = FALSE)
+             }
+            } else {
               object@data
-
             }
           })
 
