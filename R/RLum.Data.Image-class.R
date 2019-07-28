@@ -27,10 +27,10 @@ NULL
 #' The class should only contain data for a set of images. For additional
 #' elements the slot `info` can be used.
 #'
-#' @section Objects from the Class:
+#' @section Objects from the class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
-#' @section Class version: 0.4.1
+#' @section Class version: 0.4.2
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -159,10 +159,9 @@ setMethod("show",
 ####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Construction method for RLum.Data.Image object. The slot info is optional
-#' and predefined as empty list by default..
+#' and predefined as empty list by default.
 #'
-#' @param class [`set_RLum`]; [character]:
-#' name of the `RLum` class to create
+#' @param class [`set_RLum`]; [character]: name of the `RLum` class to create
 #'
 #' @param originator [`set_RLum`]; [character] (*automatic*):
 #' contains the name of the calling function (the function that produces this object);
@@ -182,7 +181,8 @@ setMethod("show",
 #'
 #' @param data [`set_RLum`]; [matrix]:
 #' raw curve data. If data is of type `RLum.Data.Image` this can be used to
-#' re-construct the object.
+#' re-construct the object, i.e. modified parameters except `.uid` and `.pid`. The rest
+#' will be subject to copy and paste unless provided.
 #'
 #' @param info [`set_RLum`]; [list]:
 #' info elements
@@ -198,50 +198,36 @@ setMethod("show",
 setMethod(
   "set_RLum",
   signature = signature("RLum.Data.Image"),
+  definition = function(
+    class,
+    originator,
+    .uid,
+    .pid,
+    recordType = "Image",
+    curveType = NA_character_,
+    data = raster::brick(raster::raster(matrix())),
+    info = list()) {
 
-  definition = function(class,
-                        originator,
-                        .uid,
-                        .pid,
-                        recordType = "Image",
-                        curveType = NA_character_,
-                        data = raster::brick(raster::raster(matrix())),
-                        info = list()) {
     ##The case where an RLum.Data.Image object can be provided
     ##with this RLum.Data.Image objects can be provided to be reconstructed
-
     if (is(data, "RLum.Data.Image")) {
       ##check for missing curveType
-      if (missing(curveType)) {
+      if (missing(curveType))
         curveType <- data@curveType
 
-      }
-
       ##check for missing recordType
-      if (missing(recordType)) {
+      if (missing(recordType))
         recordType <- data@recordType
-
-      }
 
       ##check for missing data ... not possible as data is the object itself
 
       ##check for missing info
-      if (missing(info)) {
+      if (missing(info))
         info <- data@info
 
-      }
-
-      ##check for missing .uid
-      if (missing(.uid)) {
-        info <- data@.uid
-
-      }
-
-      ##check for missing .pid
-      if (missing(.pid)) {
-        info <- data@.pid
-
-      }
+      ##check for modified .uid & .pid
+      ## >> this cannot be changed here, since both would be reset, by
+      ## the arguments passed down from set_RLum() ... the generic function
 
       ##set empty clas form object
       newRLumDataImage <- new("RLum.Data.Image")
@@ -254,10 +240,8 @@ setMethod(
       newRLumDataImage@.uid = data@.uid
       newRLumDataImage@.pid = data@.pid
 
-      return(newRLumDataImage)
-
-    } else{
-      ##set empty clas form object
+    } else {
+      ##set empty class from object
       newRLumDataImage <- new("RLum.Data.Image")
 
       ##fill - this is the faster way, filling in new() costs ...
@@ -269,10 +253,8 @@ setMethod(
       newRLumDataImage@.uid = .uid
       newRLumDataImage@.pid = .pid
 
-      return(newRLumDataImage)
-
     }
-
+    return(newRLumDataImage)
   }
 )
 
