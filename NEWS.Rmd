@@ -87,7 +87,10 @@ all arguments,
 
 #### S4-classes and methods
 
-* `RLum.Data.Image` 
+* `RLum.Data.Curve-class`
+  * Code polish and clearifying the documentation
+
+* `RLum.Data.Image-class` 
   * Conversion methods to a `matrix` and from and to `data.frame` never worked as intended.
   * Code housekeeping
 
