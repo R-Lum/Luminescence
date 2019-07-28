@@ -233,6 +233,7 @@ setMethod(
       newRLumDataImage <- new("RLum.Data.Image")
 
       ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataImage@originator = data@originator
       newRLumDataImage@recordType = recordType
       newRLumDataImage@curveType = curveType
       newRLumDataImage@data = data@data
