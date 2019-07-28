@@ -417,32 +417,26 @@ setMethod("get_RLum",
 
             ##if info.object is set, only the info objects are returned
             else if(!is.null(info.object)) {
-
               if(info.object %in% names(object@info)){
                 unlist(object@info[info.object])
 
               }else{
-
                 ##check for entries
                 if(length(object@info) == 0){
-
-                  warning("[get_RLum()] This RLum.Analysis object has no info objects! NULL returned!)")
-                  return(NULL)
+                  warning(
+                    "[get_RLum()] This RLum.Analysis object has no info objects! NULL returned!)",
+                          call. = FALSE)
 
                 }else{
-
-                  ##grep names
-                  temp.element.names <- paste(names(object@info), collapse = ", ")
-
-                  warning.text <- paste("[get_RLum()] Invalid info.object name. Valid names are:", temp.element.names)
-
-                  warning(warning.text, call. = FALSE)
-                  return(NULL)
+                  warning(paste0(
+                    "[get_RLum()] Invalid info.object name. Valid names are: ",
+                    paste(names(object@info), collapse = ", ")
+                  ),
+                  call. = FALSE)
 
                 }
-
+                return(NULL)
               }
-
 
             } else {
 
@@ -485,11 +479,8 @@ setMethod("get_RLum",
                                                      object@records[[x]]@recordType
                                                    })))
 
-              } else{
-                if (!is(recordType, "character")) {
-                  stop("[get_RLum()] 'recordType' has to be of type 'character'!")
-
-                }
+              } else if (class(recordType) != "character"){
+                  stop("[get_RLum()] 'recordType' has to be of type 'character'!", call. = FALSE)
 
               }
 
@@ -501,16 +492,16 @@ setMethod("get_RLum",
                                                   })))
 
               } else if (!is(curveType, "character")) {
-                stop("[get_RLum()] 'curveType' has to be of type 'character'!")
+                stop("[get_RLum()] 'curveType' has to be of type 'character'!", call. = FALSE)
 
               }
 
               ##RLum.type
               if (is.null(RLum.type)) {
-                RLum.type <- c("RLum.Data.Curve", "RLum.Data.Spectrum")
+                RLum.type <- c("RLum.Data.Curve", "RLum.Data.Spectrum", "RLum.Data.Image")
 
               } else if (!is(RLum.type, "character")) {
-                stop("[get_RLum()] 'RLum.type' has to be of type 'character'!")
+                stop("[get_RLum()] 'RLum.type' has to be of type 'character'!", call. = FALSE)
 
               }
 
