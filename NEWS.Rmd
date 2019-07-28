@@ -86,6 +86,8 @@ all arguments,
 
 
 #### S4-classes and methods
+* `RLum.Analysis-class`
+  * Code polish (no visible changes)
 
 * `RLum.Data.Curve-class`
   * Code polish and clearifying the documentation

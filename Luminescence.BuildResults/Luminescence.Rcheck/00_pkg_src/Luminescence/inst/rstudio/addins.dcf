@@ -1,0 +1,9 @@
+Name: Search for TODOs
+Description: List TODOs in the source code
+Binding: .listTODO
+Interactive: false
+
+Name: Install package development version
+Description: Install the developement version of the R package 'Luminescence'
+Binding: .installDevelopmentVersion
+Interactive: false
