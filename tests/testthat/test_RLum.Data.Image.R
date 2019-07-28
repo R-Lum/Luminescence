@@ -11,7 +11,7 @@ test_that("check class ", {
   expect_s4_class(set_RLum(class = "RLum.Data.Image"), "RLum.Data.Image")
 
   ##overwrite only data
-  set_RLum(class = "RLum.Data.Image", data = set_RLum("RLum.Data.Image"))
+  expect_s4_class(set_RLum(class = "RLum.Data.Image", data = set_RLum("RLum.Data.Image")), "RLum.Data.Image")
 
   ##show-method
   ##show example data

@@ -35,7 +35,6 @@
 #' @md
 #' @noRd
 .set_pid <- function(object){
-
   object@records <-
     lapply(object@records, function(x) {
       x@.pid  <- object@.uid
