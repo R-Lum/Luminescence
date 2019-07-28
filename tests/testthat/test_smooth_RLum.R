@@ -28,7 +28,6 @@ test_that("check class and length of output", {
   ##test on an RLum.Analysis-object
   expect_s4_class(smooth_RLum(temp_analysis), "RLum.Analysis")
 
-
 })
 
 test_that("check values from output example", {
