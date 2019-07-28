@@ -8,7 +8,8 @@ temp <-
       data = as.matrix(ExampleData.CW_OSL_Curve)
   )
 
-
+##create RLum.Analysis object
+temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
@@ -18,13 +19,14 @@ test_that("check class and length of output", {
   expect_is(smooth_RLum(temp), class = "RLum.Data.Curve", info = NULL, label = NULL)
 
   ##test on a list
-
     ##RLum list
     expect_is(smooth_RLum(list(temp, temp)), "list")
 
     ##normal list
     expect_is(smooth_RLum(list(a = 1, b = 2)), "list")
 
+  ##test on an RLum.Analysis-object
+  expect_s4_class(smooth_RLum(temp_analysis), "RLum.Analysis")
 
 
 })
