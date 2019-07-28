@@ -78,9 +78,9 @@ by the function \link{read_SPE2R}
 \item \code{set_RLum}: Construction method for RLum.Data.Image object. The slot info is optional
 and predefined as empty list by default..
 
-\item \code{get_RLum}: Accessor method for RLum.Data.Image object. The argument info.object is
+\item \code{get_RLum}: Accessor method for RLum.Data.Image object. The argument \code{info.object} is
 optional to directly access the info elements. If no info element name is
-provided, the raw image data (RasterBrick) will be returned.
+provided, the raw image data (\code{RasterBrick}) will be returned.
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
@@ -108,7 +108,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Data.Image", ..
 }
 
 \section{Class version}{
- 0.4.0
+ 0.4.1
 }
 
 \examples{
@@ -123,11 +123,11 @@ set_RLum(class = "RLum.Data.Image")
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{read_SPE2R}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-52. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-58. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

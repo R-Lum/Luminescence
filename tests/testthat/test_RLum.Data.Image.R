@@ -26,7 +26,6 @@ test_that("check class ", {
   expect_is(names_RLum(ExampleData.RLum.Data.Image), class = "character")
 
   ##conversions
-
   ##from matrix and to matrix
   expect_is(as(matrix(1:10, ncol = 2), "RLum.Data.Image"), "RLum.Data.Image")
   expect_is(as(ExampleData.RLum.Data.Image, "matrix"), "matrix")
