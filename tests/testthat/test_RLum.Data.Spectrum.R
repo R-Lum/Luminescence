@@ -13,6 +13,8 @@ test_that("check class", {
   ##check get_RLum
   object <- set_RLum(class = "RLum.Data.Spectrum", data = object, info = list(a = "test"))
   expect_error(get_RLum(object, info.object = "est"), regexp = "Invalid element name. Valid names are: a")
+  expect_error(get_RLum(object, info.object = 1L), "'info.object' has to be a character!")
+  expect_is(get_RLum(object, info.object = "a"), "character")
 
   ##test method names
   expect_type(names(object), "character")
@@ -23,11 +25,16 @@ test_that("check class", {
   object@data <- matrix(data = rep(1:20, each = 10), ncol = 20)
   rownames(object@data) <- 1:10
   colnames(object@data) <- 1:20
+  expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 2), "RLum.Data.Spectrum")
 
+  object@data <- matrix(data = rep(1:20, each = 10), nrow = 20)
+  rownames(object@data) <- 1:20
+  colnames(object@data) <- 1:10
   expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 2), "RLum.Data.Spectrum")
 
   ##check conversions
   expect_s4_class(as(object = data.frame(x = 1:10), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
+  expect_is(as(set_RLum("RLum.Data.Spectrum"), "data.frame"), "data.frame")
   expect_s4_class(as(object = matrix(1:10,ncol = 2), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
 
 })
