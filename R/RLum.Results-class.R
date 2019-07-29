@@ -67,9 +67,7 @@ setClass(
 )
 
 
-####################################################################################################
 # as() ----------------------------------------------------------------------------------------
-####################################################################################################
 ##LIST
 ##COERCE RLum.Results >> list AND list >> RLum.Results
 #' as() - RLum-object coercion
@@ -101,9 +99,7 @@ setAs("RLum.Results", "list",
 
       })
 
-####################################################################################################
 # show() --------------------------------------------------------------------------------------
-####################################################################################################
 #' @describeIn RLum.Results
 #' Show structure of `RLum.Results` object
 #'
@@ -145,10 +141,7 @@ setMethod("show",
           })
 
 
-
-####################################################################################################
-# set_RLum ------------------------------------------------------------------------------------
-####################################################################################################
+# set_RLum() ----------------------------------------------------------------------------------
 #' @describeIn RLum.Results
 #' Construction method for an RLum.Results object.
 #'
@@ -205,9 +198,7 @@ setMethod("set_RLum",
           })
 
 
-####################################################################################################
 # get_RLum() ----------------------------------------------------------------------------------
-####################################################################################################
 #' @describeIn RLum.Results
 #' Accessor method for RLum.Results object. The argument data.object allows
 #' directly accessing objects delivered within the slot data. The default
@@ -252,25 +243,21 @@ setMethod(
       if (info.object %in% names(object@info)) {
         unlist(object@info[info.object])
 
-      } else{
+      } else {
         ##check for entries
         if (length(object@info) == 0) {
-          warning("[get_RLum] This RLum.Results object has no info objects! NULL returned!)")
-          return(NULL)
+          warning("[get_RLum] This RLum.Results object has no info objects! NULL returned!)", call. = FALSE)
 
-        } else{
-          ##grep names
-          temp.element.names <-
+        } else {
+          warning(paste0(
+            "[get_RLum] Invalid info.object name. Valid names are: ",
             paste(names(object@info), collapse = ", ")
-
-          warning.text <-
-            paste("[get_RLum] Invalid info.object name. Valid names are:",
-                  temp.element.names)
-
-          warning(warning.text, call. = FALSE)
-          return(NULL)
+          ),
+          call. = FALSE)
 
         }
+        return(NULL)
+
       }
 
     } else{
@@ -293,13 +280,9 @@ setMethod(
             }
 
 
-          } else{
-            error.message <- paste0(
-              "[get_RLum()] data.object(s) unknown, valid names are: ",
-              paste(names(object@data), collapse = ", ")
-
-            )
-            stop(error.message)
+          } else {
+            stop(paste0("[get_RLum()] data.object(s) unknown, valid names are: ",
+              paste(names(object@data), collapse = ", ")), call. = FALSE)
 
           }
 
@@ -319,7 +302,7 @@ setMethod(
             })
 
 
-          } else{
+          } else {
             temp.return <- list(object@data[[data.object]])
 
           }
@@ -332,7 +315,7 @@ setMethod(
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##CASE3: data.object is of an unsupported type
         else{
-          stop("[get_RLum] 'data.object' has to be of type character or numeric!")
+          stop("[get_RLum] 'data.object' has to be of type character or numeric!", call. = FALSE)
         }
 
         ##the CASE data.object is missing
@@ -365,9 +348,7 @@ setMethod(
 
 
 
-####################################################################################################
 # length_RLum() -------------------------------------------------------------------------------
-####################################################################################################
 #' @describeIn RLum.Results
 #' Returns the length of the object, i.e., number of stored data.objects
 #'
@@ -387,9 +368,7 @@ setMethod("length_RLum",
 
           })
 
-####################################################################################################
-# names_RLum ----------------------------------------------------------------------------------
-####################################################################################################
+# names_RLum() --------------------------------------------------------------------------------
 #' @describeIn RLum.Results
 #' Returns the names data.objects
 #'
