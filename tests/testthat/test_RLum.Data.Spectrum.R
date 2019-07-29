@@ -27,10 +27,7 @@ test_that("check class", {
   colnames(object@data) <- 1:20
   expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 2), "RLum.Data.Spectrum")
 
-  object@data <- matrix(data = rep(1:20, each = 10), nrow = 20)
-  rownames(object@data) <- 1:20
-  colnames(object@data) <- 1:10
-  expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 2), "RLum.Data.Spectrum")
+  expect_s4_class(object = bin_RLum.Data(object, bin_size.row = 1, bin_size.col = 2), "RLum.Data.Spectrum")
 
   ##check conversions
   expect_s4_class(as(object = data.frame(x = 1:10), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
