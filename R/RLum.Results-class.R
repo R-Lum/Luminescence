@@ -23,7 +23,7 @@ NULL
 #' @section Class version: 0.5.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [plot_RLum], [merge_RLum]
 #'

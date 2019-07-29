@@ -48,7 +48,8 @@ curve type (e.g. "predefined" or "measured")}
 
 \item{data}{\code{\link{set_RLum}}; \link{matrix}:
 raw curve data. If data is of type \code{RLum.Data.Spectrum}, this can be used
-to re-construct the object.}
+to re-construct the object. If the object is reconstructed, \code{.uid}, \code{.pid} and \code{orginator}
+are always taken from the input object}
 
 \item{info}{\code{\link{set_RLum}} \link{list}:
 info elements}
@@ -129,7 +130,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Data.Spectrum",
 }
 
 \section{Class version}{
- 0.5.1
+ 0.5.2
 }
 
 \examples{
@@ -157,7 +158,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-61. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-62. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}
