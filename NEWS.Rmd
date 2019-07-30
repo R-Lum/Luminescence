@@ -11,22 +11,22 @@ temp <- readLines("DESCRIPTION")
 version_id <- grep(pattern = "Version:", x = temp, fixed = TRUE)
 version_number <-
   unlist(strsplit(x = temp[version_id], split = ":", fixed = TRUE))[2]
-version_number <-
-  unlist(strsplit(x = version_number, split = ".", fixed = TRUE))
-version_number <- paste(version_number[-length(version_number)], collapse = ".")
+version_number <- trimws(version_number)
 ```
 
 ## Changes in version `r version_number` (`r Sys.Date()`)
-
-### Removed functions
-
-* `model_LuminescenceSignals()`: This wrapper function for the R package 'RLumModel'  was removed due to changes on CRAN inflicting a warning 'object is masked from 'package:Luminescence' each time 'RLumModel was loaded. In 'Luminescence' the function had no real scope, but provided a place holder to point the users on the existence of the package 'RLumModel'. 
 
 ### New functions 
 
 * `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017)
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
+
+## Changes in version 0.9.1 (2019-07-30)
+
+### Removed functions
+
+* `model_LuminescenceSignals()`: This wrapper function for the R package 'RLumModel'  was removed due to changes on CRAN inflicting a warning 'object is masked from 'package:Luminescence' each time 'RLumModel was loaded. In 'Luminescence' the function had no real scope, but provided a place holder to point the users on the existence of the package 'RLumModel'. 
 
 ### Bugfixes and changes
 
