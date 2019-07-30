@@ -1,6 +1,15 @@
 ## Release summary
 
-This is a minor bug fix release.
+This is a minor bug fix release after 0.9.1 did not pass the CRAN pre-checks. 
+
+## CRAN check message
+
+>Found the following (possibly) invalid file URI:
+>   URI: **required**
+>     From: man/apply_EfficiencyCorrection.Rd
+
+Fixed and my apologies. Although I have no idea why none of 
+the other tests before showed this wrong 'URL'. 
 
 ## CRAN messages
 
