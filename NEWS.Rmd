@@ -11,9 +11,7 @@ temp <- readLines("DESCRIPTION")
 version_id <- grep(pattern = "Version:", x = temp, fixed = TRUE)
 version_number <-
   unlist(strsplit(x = temp[version_id], split = ":", fixed = TRUE))[2]
-version_number <-
-  unlist(strsplit(x = version_number, split = ".", fixed = TRUE))
-version_number <- paste(version_number[-length(version_number)], collapse = ".")
+version_number <- trimws(version_number)
 ```
 
 ## Changes in version `r version_number` (`r Sys.Date()`)
