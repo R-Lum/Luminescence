@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.1.9000-62
-Date: 2019-07-29
+Version: 0.9.1
+Date: 2019-07-30
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -135,7 +135,6 @@ Collate:
     'calc_CentralDose.R'
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
-    'calc_EED_Model.R'
     'calc_FadingCorr.R'
     'calc_FastRatio.R'
     'calc_FiniteMixture.R'
@@ -163,7 +162,6 @@ Collate:
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
-    'fit_EmissionSpectra.R'
     'fit_LMCurve.R'
     'fit_OSLLifeTimes.R'
     'fit_SurfaceExposure.R'
@@ -203,7 +201,6 @@ Collate:
     'read_BIN2R.R'
     'read_Daybreak2R.R'
     'read_PSL2R.R'
-    'read_RF2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'

@@ -22,12 +22,6 @@ version_number <- paste(version_number[-length(version_number)], collapse = ".")
 
 * `model_LuminescenceSignals()`: This wrapper function for the R package 'RLumModel'  was removed due to changes on CRAN inflicting a warning 'object is masked from 'package:Luminescence' each time 'RLumModel was loaded. In 'Luminescence' the function had no real scope, but provided a place holder to point the users on the existence of the package 'RLumModel'. 
 
-### New functions 
-
-* `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017)
-* `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
-* `read_RF2R()` Add support for importing spatially resolved RF measurement results.
-
 ### Bugfixes and changes
 
 #### `apply_EfficiencyCorrection()`
