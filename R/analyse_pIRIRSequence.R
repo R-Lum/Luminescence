@@ -86,7 +86,7 @@
 #' Best graphical output can be achieved by using the function `pdf`
 #' with the following options:
 #'
-#' `pdf(file = "...", height = 15, width = 15)`
+#' `pdf(file = "<YOUR FILENAME>", height = 15, width = 15)`
 #'
 #' @section Function version: 0.2.4
 #'
@@ -99,12 +99,12 @@
 #' @references
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
-#' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
+#' Measurements 32, 57-73. \doi{10.1016/S1350-4487(99)00253-X}
 #'
 #' Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 #' fading rates of various luminescence signals from feldspar-rich sediment
 #' extracts. Radiation Measurements 43, 1474-1486.
-#' doi:10.1016/j.radmeas.2008.06.002
+#' \doi{10.1016/j.radmeas.2008.06.002}
 #'
 #' @keywords datagen plot
 #'
@@ -152,7 +152,8 @@
 #' ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 #' ## Alternative for PDF output, uncomment and complete for usage
 #' \dontrun{
-#' pdf(file = "...", height = 15, width = 15)
+#' tempfile <- tempfile(fileext = ".pdf")
+#' pdf(file = tempfile, height = 15, width = 15)
 #'   results <- analyse_pIRIRSequence(object,
 #'          signal.integral.min = 1,
 #'          signal.integral.max = 2,
