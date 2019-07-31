@@ -1,26 +1,39 @@
 ## Release summary
 
-This is a minor bug fix release after 0.9.1 did not pass the CRAN pre-checks. 
+This is a minor bug fix release for 0.9.2 the 
+following CRAN check note:
 
-## CRAN check message
+>Version: 0.9.2 
+>Check: dependencies in R code 
+>Result: NOTE 
+>    Namespace in Imports field not imported from: ‘interp’
+>     All declared Imports should be used. 
 
->Found the following (possibly) invalid file URI:
->   URI: **required**
->     From: man/apply_EfficiencyCorrection.Rd
+This was not spotted before and I do appologise. 
+Thanks for your support!
 
-Fixed and my apologies. Although I have no idea why none of 
-the other tests before showed this wrong 'URL'. 
+## CRAN incoming message
+
+>Found the following (possibly) invalid URLs:
+>   URL: https://doi.org/10.1515/geochr-2015-0022
+>     From: inst/doc/HowTo_analyse_Al2O3.html
+>     Status: Error
+>     Message: libcurl error code 60:
+>       	server certificate verification failed. CAfile: none CRLfile: none
+>       	(Status without verification: OK)
+
+The URL is correct. 
 
 ## CRAN messages
 
-> Version: 0.9.0.110 
+> Version: 0.9.2
 > Check: installed package size 
 > Result: NOTE 
 >     installed size is 5.8Mb
 >     sub-directories of 1Mb or more:
 >     R 1.5Mb
 >     help 1.1Mb
->     libs 1.5Mb 
+>     libs 1.6Mb 
 
 We are aware of it, however, this is the package size and there is nothing we can 
 do about.

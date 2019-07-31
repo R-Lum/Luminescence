@@ -133,7 +133,7 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.2. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

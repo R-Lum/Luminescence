@@ -193,6 +193,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2019. report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.2. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2019. report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.3. https://CRAN.R-project.org/package=Luminescence
 }
 

@@ -79,7 +79,7 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.2. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

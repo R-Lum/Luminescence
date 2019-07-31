@@ -181,7 +181,7 @@ text(0.5,6500,"PM", col="blue" ,cex=.8)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.2. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

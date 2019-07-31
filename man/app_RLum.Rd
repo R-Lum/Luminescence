@@ -26,6 +26,6 @@ Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., 2019. app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.2. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.3. https://CRAN.R-project.org/package=Luminescence
 }
 

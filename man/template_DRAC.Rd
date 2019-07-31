@@ -90,7 +90,7 @@ output <- use_DRAC(input)
 } 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2019. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.2. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2019. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
