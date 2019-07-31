@@ -69,10 +69,10 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17440.55)
+    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17441)
 
    }else{
-     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17562.34)
+     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
 
    }
 
@@ -80,10 +80,10 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 2),18238.02)
+   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
 
    }else{
-     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 2),18398.36)
+     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
 
    }
 
@@ -91,10 +91,10 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),17474.29)
+    expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),17474)
 
    }else{
-     expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),18045.34)
+     expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),18045)
 
    }
 
@@ -113,10 +113,10 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 14936.76)
+    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 14937)
 
    }else{
-     expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 16476.02)
+     expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16476)
 
    }
 

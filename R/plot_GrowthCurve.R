@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.7
+#' @section Function version: 1.10.8
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
@@ -621,7 +621,7 @@ plot_GrowthCurve <- function(
                                 upper = max(sample[, 1]) * 1.5), silent = TRUE)
 
       if (!inherits(De.uniroot, "try-error")) {
-        De <- round(De.uniroot$root, digits = 2)
+        De <- De.uniroot$root
         if (verbose) {
           if (mode != "alternate") {
             writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
@@ -714,7 +714,7 @@ plot_GrowthCurve <- function(
         silent = TRUE)
 
         if (!inherits(De.uniroot.MC, "try-error")) {
-          De.MC <- round(De.uniroot.MC$root, digits = 2)
+          De.MC <- De.uniroot.MC$root
 
         } else{
           De.MC <- NA
@@ -858,7 +858,7 @@ plot_GrowthCurve <- function(
 
         #calculate De
         if(mode == "interpolation"){
-          De <- suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
+          De <- suppressWarnings(-c-b*log(1-sample[1,2]/a))
 
         }else if (mode == "extrapolation"){
           De <- suppressWarnings(-c-b*log(1-0/a))
@@ -870,7 +870,7 @@ plot_GrowthCurve <- function(
 
 
         #print D01 value
-        D01<-round(b,digits=2)
+        D01 <- b
         if (verbose) {
           if (mode != "alternate") {
             writeLines(paste0(
@@ -882,7 +882,7 @@ plot_GrowthCurve <- function(
               " | De = ",
               round(abs(De), digits = 2),
               " | D01 = ",
-              D01
+              round(D01, 2)
             ))
           }
         }
@@ -940,7 +940,7 @@ plot_GrowthCurve <- function(
             #calculate x.natural for error calculation
             if(mode == "interpolation"){
               x.natural[i]<-suppressWarnings(
-                round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
+                -var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]))
 
             }else if(mode == "extrapolation"){
               x.natural[i]<-suppressWarnings(
@@ -981,7 +981,7 @@ plot_GrowthCurve <- function(
 
         #calculate De
         if(mode == "interpolation"){
-          De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
+          De <- sample[1,2]/fit.lm$coefficients[1]
 
         }else{
           De <- 0
@@ -993,7 +993,7 @@ plot_GrowthCurve <- function(
 
         #calculate De
         if(mode == "interpolation"){
-          De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
+          De <- (sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2]
 
         }else if(mode == "extrapolation"){
           De <- (0-fit.lm$coefficients[1])/fit.lm$coefficients[2]
@@ -1034,7 +1034,7 @@ plot_GrowthCurve <- function(
 
           #calculate x.natural
           if(mode == "interpolation"){
-            x.natural[i]<-round((data.MC.De[i]/fit.lmMC$coefficients[1]), digits=2)
+            x.natural[i] <- data.MC.De[i]/fit.lmMC$coefficients[1]
 
           }else if (mode == "extrapolation"){
             x.natural[i] <- 0
@@ -1049,11 +1049,11 @@ plot_GrowthCurve <- function(
 
           #calculate x.natural
           if(mode == "interpolation"){
-            x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
-                                  fit.lmMC$coefficients[2], digits=2)
+            x.natural[i] <- (data.MC.De[i]-fit.lmMC$coefficients[1])/
+                                  fit.lmMC$coefficients[2]
 
           }else if (mode == "extrapolation"){
-            x.natural[i]<-abs((0-fit.lmMC$coefficients[1])/
+            x.natural[i] <- abs((0-fit.lmMC$coefficients[1])/
                                   fit.lmMC$coefficients[2])
 
           }
@@ -1195,7 +1195,7 @@ plot_GrowthCurve <- function(
 
 
         if (class(temp.De) != "try-error") {
-          De <- round(temp.De$root, digits = 2)
+          De <- temp.De$root
         } else{
           De <- NA
         }
@@ -1475,7 +1475,7 @@ plot_GrowthCurve <- function(
 
 
         if (class(temp.De) != "try-error") {
-          De <- round(temp.De$root, digits = 2)
+          De <- temp.De$root
         } else{
           De <- NA
         }
@@ -1635,7 +1635,7 @@ plot_GrowthCurve <- function(
 
       #calculate De
       if(mode == "interpolation"){
-        De <- suppressWarnings(round(-(b * (( (a - sample[1,2])/a)^c - 1) * ( ((a - sample[1,2])/a)^-c  )) / c, digits=2))
+        De <- suppressWarnings(-(b * (( (a - sample[1,2])/a)^c - 1) * ( ((a - sample[1,2])/a)^-c  )) / c)
 
       }else if (mode == "extrapolation"){
         De <- suppressWarnings(-(b * (( (a - 0)/a)^c - 1) * ( ((a - 0)/a)^-c  )) / c)
@@ -1646,7 +1646,7 @@ plot_GrowthCurve <- function(
       }
 
       #print D01 value
-      D01<-round(b, digits=2)
+      D01 <- b
 
       if (verbose) {
         if (mode != "alternate") {
@@ -1659,7 +1659,7 @@ plot_GrowthCurve <- function(
             " | De = ",
             round(abs(De), digits = 2),
             " | D01 = ",
-            D01,
+            round(D01,2),
             " | c = ",
             round(c, digits = 2)
           ))
@@ -1715,9 +1715,7 @@ plot_GrowthCurve <- function(
           # calculate x.natural for error calculation
           if(mode == "interpolation"){
             x.natural[i]<-suppressWarnings(
-              round(
-                -(var.b[i] * (( (var.a[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i],
-                digits=2))
+                -(var.b[i] * (( (var.a[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i])
 
           }else if(mode == "extrapolation"){
             x.natural[i]<-suppressWarnings(
@@ -1749,7 +1747,7 @@ plot_GrowthCurve <- function(
   #Get De values from Monto Carlo simulation
 
   #calculate mean and sd (ignore NaN values)
-  De.MonteCarlo<-round(mean(na.exclude(x.natural)),digits=2)
+  De.MonteCarlo <- mean(na.exclude(x.natural))
 
   #De.Error is Error of the whole De (ignore NaN values)
   De.Error <- sd(na.exclude(x.natural))
@@ -2181,9 +2179,9 @@ plot_GrowthCurve <- function(
                       substitute(D[e[MC]] == De,
                                  list(
                                    De = paste(
-                                     De.MonteCarlo,
+                                     round(De.MonteCarlo, 2),
                                      "\u00B1",
-                                     De.Error,
+                                     round(De.Error,2),
                                      " | quality = ",
                                      round((1 - abs(De - De.MonteCarlo) / De) * 100,
                                            digits =

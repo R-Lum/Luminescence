@@ -14,6 +14,13 @@ header-includes:
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
 
+### Bugfixes and changes
+
+#### `plot_GrowthCurve()`
+
+* Remove rounding from numerical output values (#81 suggested by Sébastien Huot); this affects
+all subsequence function. However, terminal and graphical output will not change. 
+
 ## Changes in version 0.9.3 (2019-07-31)
 
 * This version takes care of a CRAN note complaining about a non-used package
