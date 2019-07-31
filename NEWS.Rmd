@@ -18,8 +18,7 @@ header-includes:
 
 #### `plot_GrowthCurve()`
 
-* Remove rounding from numerical output values (#81 suggested by Sébastien Huot); this affects
-all subsequence function. However, terminal and graphical output will not change. 
+* Remove rounding from numerical output values (#81 suggested by Sébastien Huot); this affects all subsequent functions. However, terminal and graphical output do not change. 
 
 ## Changes in version 0.9.3 (2019-07-31)
 
