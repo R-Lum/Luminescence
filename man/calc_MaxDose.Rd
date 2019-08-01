@@ -24,7 +24,7 @@ See details (\link{calc_MinDose}.}
 fit the (un-)logged three parameter minimum dose model to De data}
 
 \item{par}{\link{numeric} (\emph{with default}):
-apply the 3- or 4-parametric minimum age model (\code{par=3} or \code{par=4}).}
+apply the 3- or 4-parameter minimum age model (\code{par=3} or \code{par=4}).}
 
 \item{bootstrap}{\link{logical} (\emph{with default}):
 apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
@@ -88,7 +88,7 @@ calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-15. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-16. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

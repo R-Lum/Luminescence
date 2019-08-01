@@ -25,7 +25,7 @@ See details.}
 fit the (un-)logged minimum dose model to De data.}
 
 \item{par}{\link{numeric} (\emph{with default}):
-apply the 3- or 4-parametric minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
+apply the 3- or 4-parameter minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
 used by default.}
 
 \item{bootstrap}{\link{logical} (\emph{with default}):
@@ -88,8 +88,8 @@ This model has four parameters:
 \code{sigma}: \tab spread in ages above the minimum \cr
 \code{p0}: \tab proportion of grains at gamma \cr }
 
-If \code{par=3} (default) the 3-parametric minimum age model is applied,
-where \code{gamma=mu}. For \code{par=4} the 4-parametric model is applied instead.
+If \code{par=3} (default) the 3-parameter minimum age model is applied,
+where \code{gamma=mu}. For \code{par=4} the 4-parameter model is applied instead.
 
 \strong{(Un-)logged model}
 
@@ -189,7 +189,7 @@ forwards all internal warning messages.
 data(ExampleData.DeValues, envir = environment())
 
 # (1) Apply the minimum age model with minimum required parameters.
-# By default, this will apply the un-logged 3-parametric MAM.
+# By default, this will apply the un-logged 3-parameter MAM.
 calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1)
 
 \dontrun{
@@ -277,7 +277,7 @@ summary(bs$poly.fits$poly.three$fitted.values)
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-15. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-16. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
