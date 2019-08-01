@@ -40,10 +40,10 @@ test_that("check De values", {
 
   ##fix for different R versions
   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-   expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1717.47)
+   expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1717)
 
   }else{
-    expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1716.28)
+    expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
 
   }
 
@@ -61,10 +61,10 @@ test_that("check rejection criteria", {
   testthat::skip_on_cran()
   ##fix for different R versions
   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 3),  1669.348)
+    expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 0),  1669)
 
   }else{
-   expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 3),  1669.347)
+   expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 0),  1669)
 
   }
 
