@@ -20,7 +20,9 @@ Thus, the width of each channel was 0.404 s.
 Thus, the width of each channel is 0.4 s. 
 
 In other words, the first channel does not start anymore at 0 s, as it is the case, e.g., 
-in the *Analyst*.  
+in the *Analyst*. 
+
+**Please note that this will impact your analysis results!**
 
 Thanks to Sébastian Huot for a constructive discussion. 
 

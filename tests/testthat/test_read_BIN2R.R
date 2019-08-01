@@ -45,12 +45,13 @@ test_that("test the import of various BIN-file versions", {
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
 
     ##test further options
-
     ##n.records and fastForward
     expect_is(
       read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V4.bin",
                  txtProgressBar = FALSE, n.records = 1, fastForward = TRUE, verbose = FALSE), class = "list")
 
-  }
+   }
+
+
 
 })
