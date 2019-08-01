@@ -8,6 +8,23 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+### Important user visible changes
+
+**The way the x-axis channels from BIN/BINX-files are generated changed**.  
+So far, during the file import, minimum and maximum values were taken, and channels were distributed equally according to the number of available data points
+
+* Example old behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel was set at 0 s, the last channel to at 40 s.
+Thus, the width of each channel was 0.404 s. 
+
+* Example new behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel is set to 0.4 s, the last channel to at 40 s. 
+Thus, the width of each channel is 0.4 s. 
+
+In other words, the first channel does not start anymore at 0 s, as it is the case, e.g., 
+in the *Analyst*.  
+
+Thanks to Sébastian Huot for a constructive discussion. 
+
+
 ### New functions 
 
 * `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017)
