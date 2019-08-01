@@ -49,10 +49,10 @@ test_that("check output", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-     expect_equal(round(sum(results$data[1:2, 1:4]), 2),7582.62)
+     expect_equal(round(sum(results$data[1:2, 1:4]), 0),7583)
 
    }else{
-     expect_equal(round(sum(results$data[1:2, 1:4]), 2),7584.15)
+     expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
 
    }
 
