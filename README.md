@@ -41,12 +41,6 @@ or visit our [R-Luminescence homepage](http://www.r-luminescence.org).
 
 #### i. Requirements
 
-With release of version 0.4.2 part of the *analyse\_IRSAR.RF()* function
-was rewritten in C++ to increase its perfomance. This inevitably
-introduced the requirement for the GNU Compiler Collection (*gcc*) when
-the R package ‘Luminescence’ is installed from source. Depending on your
-OS please download and install one of the following:
-
 **Windows (32/64bit)** - ‘Rtools’ (provided by CRAN)
 
 <https://cran.r-project.org/bin/windows/Rtools/>
@@ -61,8 +55,6 @@ to the exhaustive collection of installation guides depending on the
 linux distribution.
 
 #### ii. Install the package
-
-##### Since version 0.8.0 with RStudio
 
 Install any development versions using our *RStudio* add-in
 
@@ -82,11 +74,8 @@ To install the latest development builds directly from GitHub, run
 ``` r
 if(!require("devtools"))
   install.packages("devtools")
-devtools::install_github("R-Lum/Luminescence@master")
+devtools::install_github("R-Lum/Luminescence@<wanted branch>")
 ```
-
-To install a developer build other than ‘master’, replace the term
-‘master’ in the codeline by the name of the wanted developer build.
 
 ## Contribute
 
