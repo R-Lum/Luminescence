@@ -7,10 +7,25 @@ temp <- calc_CentralDose(
   plot = FALSE,
   verbose = FALSE)
 
+temp_NA <- data.frame(rnorm(10)+5, rnorm(10)+5)
+temp_NA[1,1] <- NA
+
+test_that("errors and warnings function", {
+  testthat::skip_on_cran()
+
+  expect_error(calc_CentralDose(data = "error"), "'data' has to be of type 'data.frame' or 'RLum.Results'!")
+  expect_error(calc_CentralDose(temp, sigmab = 10), "sigmab needs to be given as a fraction between 0 and 1")
+  expect_s4_class(calc_CentralDose(temp_NA), "RLum.Results")
+  expect_warning(calc_CentralDose(temp_NA, na.rm = TRUE))
+
+})
+
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+
   expect_equal(is(temp), c("RLum.Results", "RLum"))
-  expect_equal(length(temp), 5)
+  expect_equal(length(temp), 4)
 
 })
 
