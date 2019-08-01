@@ -117,18 +117,15 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
     stop(domain = NA)
   }
   if (!missing(sigmab)) {
-    if (sigmab < 0 | sigmab > 1 & log) {
-      cat(paste("sigmab needs to be given as a fraction between", "0 and 1 (e.g. 0.2)"),
-          fill = FALSE)
-      stop(domain = NA)
-    }
+    if (sigmab < 0 | sigmab > 1 & log)
+      stop("[calc_CentralDose()] sigmab needs to be given as a fraction between 0 and 1 (e.g., 0.2)!", call. = FALSE)
+
   }
 
   ##remove NA values
-  if(any(is.na(data))){
+  if(na.rm == TRUE && any(is.na(data))){
     warning("[calc_CentralDose()] ", length(which(is.na(data))), " NA value(s) removed from dataset!", call. = FALSE)
     data <- na.exclude(data)
-
   }
 
 
