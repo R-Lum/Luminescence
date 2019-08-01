@@ -5,7 +5,8 @@
 \title{Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 De distribution}
 \usage{
-calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
+calc_CentralDose(data, sigmab, log = TRUE, na.rm = FALSE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -21,6 +22,8 @@ sigmab must be provided in the same absolute units of the De values (seconds or 
 
 \item{log}{\link{logical} (\emph{with default}):
 fit the (un-)logged central age model to De data}
+
+\item{na.rm}{\link{logical} (\emph{with default}): strip \code{NA} values before the computation proceeds}
 
 \item{plot}{\link{logical} (\emph{with default}):
 plot output}
@@ -56,7 +59,7 @@ be found in the appendix of Galbraith & Laslett (1993, 468-470) and
 Galbraith & Roberts (2012, 15)
 }
 \section{Function version}{
- 1.3.2
+ 1.4.0
 }
 
 \examples{
@@ -70,7 +73,7 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-14. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
