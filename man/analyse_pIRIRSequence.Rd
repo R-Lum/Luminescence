@@ -98,7 +98,7 @@ For further information see \link{analyse_SAR.CWOSL}.
 Best graphical output can be achieved by using the function \code{pdf}
 with the following options:
 
-\code{pdf(file = "...", height = 15, width = 15)}
+\code{pdf(file = "<YOUR FILENAME>", height = 15, width = 15)}
 }
 \section{Function version}{
  0.2.4
@@ -148,7 +148,8 @@ results <- analyse_pIRIRSequence(object,
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Alternative for PDF output, uncomment and complete for usage
 \dontrun{
-pdf(file = "...", height = 15, width = 15)
+tempfile <- tempfile(fileext = ".pdf")
+pdf(file = tempfile, height = 15, width = 15)
   results <- analyse_pIRIRSequence(object,
          signal.integral.min = 1,
          signal.integral.max = 2,
@@ -163,18 +164,18 @@ pdf(file = "...", height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-8. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation
-Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
+Measurements 32, 57-73. \doi{10.1016/S1350-4487(99)00253-X}
 
 Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 fading rates of various luminescence signals from feldspar-rich sediment
 extracts. Radiation Measurements 43, 1474-1486.
-doi:10.1016/j.radmeas.2008.06.002
+\doi{10.1016/j.radmeas.2008.06.002}
 }
 \seealso{
 \link{analyse_SAR.CWOSL}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
