@@ -17,15 +17,22 @@ test_that("errors and warnings function", {
   expect_error(calc_CentralDose(temp, sigmab = 10), "sigmab needs to be given as a fraction between 0 and 1")
   expect_s4_class(calc_CentralDose(temp_NA), "RLum.Results")
   expect_warning(calc_CentralDose(temp_NA, na.rm = TRUE))
+  expect_error(calc_CentralDose(data.frame()), "should have at least two columns and two rows!")
 
 })
 
 
-test_that("check class and length of output", {
+test_that("standard and output", {
   testthat::skip_on_cran()
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 4)
+
+  ##log and trace
+  expect_s4_class(calc_CentralDose(ExampleData.DeValues$CA1, log = FALSE, trace = TRUE), "RLum.Results")
+
+
+
 
 })
 

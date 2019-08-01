@@ -111,22 +111,28 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
       }
     }
   }
-  try(colnames(data) <- c("ED", "ED_Error"), silent = TRUE)
-  if (colnames(data[1]) != "ED" || colnames(data[2]) != "ED_Error") {
-    cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
-    stop(domain = NA)
-  }
-  if (!missing(sigmab)) {
-    if (sigmab < 0 | sigmab > 1 & log)
-      stop("[calc_CentralDose()] sigmab needs to be given as a fraction between 0 and 1 (e.g., 0.2)!", call. = FALSE)
-
-  }
 
   ##remove NA values
   if(na.rm == TRUE && any(is.na(data))){
     warning("[calc_CentralDose()] ", length(which(is.na(data))), " NA value(s) removed from dataset!", call. = FALSE)
     data <- na.exclude(data)
   }
+
+  ##make sure we consider onlyt take the first two columns
+  if(ncol(data) < 2 || nrow(data) < 2)
+    stop("[calc_CentralDose()] 'data' should have at least two columns and two rows!", call. = FALSE)
+
+  ##extract only the first two columns and set column names
+  data <- data[,1:2]
+  colnames(data) <- c("ED", "ED_Error")
+
+  if (!missing(sigmab)) {
+    if (sigmab < 0 | sigmab > 1 & log)
+      stop("[calc_CentralDose()] sigmab needs to be given as a fraction between 0 and 1 (e.g., 0.2)!", call. = FALSE)
+
+  }
+
+
 
 
   ## ============================================================================##
