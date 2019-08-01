@@ -15,9 +15,6 @@ collection of various R functions for luminescence dating data analysis.
 [![Downloads](http://cranlogs.r-pkg.org/badges/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-week/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-day/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
-
-### Test performance
-
 [![Build
 status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
 [![Build
