@@ -10,6 +10,9 @@
 The R package ‘Luminescence’ by the R-Luminescence Group provides a
 collection of various R functions for luminescence dating data analysis.
 
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
