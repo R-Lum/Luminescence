@@ -2,6 +2,8 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.XSYG}
 \alias{ExampleData.XSYG}
+\alias{OSL.SARMeasurement}
+\alias{TL.Spectrum}
 \title{Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 reader}
 \format{\code{OSL.SARMeasurement}: SAR OSL measurement data

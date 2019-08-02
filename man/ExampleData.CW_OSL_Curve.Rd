@@ -3,6 +3,7 @@
 \docType{data}
 \name{ExampleData.CW_OSL_Curve}
 \alias{ExampleData.CW_OSL_Curve}
+\alias{CW_Curve.BosWallinga2012}
 \title{Example CW-OSL curve data for the package Luminescence}
 \format{Data frame with 1000 observations on the following 2 variables:
 

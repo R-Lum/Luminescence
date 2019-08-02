@@ -2,6 +2,9 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{BaseDataSet.CosmicDoseRate}
 \alias{BaseDataSet.CosmicDoseRate}
+\alias{values.cosmic.Softcomp}
+\alias{values.factor.Altitude}
+\alias{values.par.FJH}
 \title{Base data set for cosmic dose rate calculation}
 \format{\tabular{ll}{
 

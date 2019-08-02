@@ -2,6 +2,7 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.RLum.Analysis}
 \alias{ExampleData.RLum.Analysis}
+\alias{IRSAR.RF.Data}
 \title{Example data as \linkS4class{RLum.Analysis} objects}
 \format{\code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
 

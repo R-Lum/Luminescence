@@ -2,6 +2,8 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.FittingLM}
 \alias{ExampleData.FittingLM}
+\alias{values.curve}
+\alias{values.curveBG}
 \title{Example data for fit_LMCurve() in the package Luminescence}
 \format{Two objects (data.frames) with two columns (time and counts).}
 \source{

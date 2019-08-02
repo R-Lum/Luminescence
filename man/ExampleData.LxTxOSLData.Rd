@@ -2,6 +2,8 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.LxTxOSLData}
 \alias{ExampleData.LxTxOSLData}
+\alias{Lx.data}
+\alias{Tx.data}
 \title{Example Lx and Tx curve data from an artificial OSL measurement}
 \format{Two \code{\link{data.frame}}s containing time and count values.}
 \source{

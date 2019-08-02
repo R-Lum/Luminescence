@@ -2,6 +2,8 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.Al2O3C}
 \alias{ExampleData.Al2O3C}
+\alias{data_CrossTalk}
+\alias{data_ITC}
 \title{Example Al2O3:C Measurement Data}
 \format{Two datasets comprising \linkS4class{RLum.Analysis} data imported using the function \link{read_XSYG2R}
 

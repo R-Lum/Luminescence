@@ -4,7 +4,7 @@ BaseDataSet.FractionalGammaDose: BaseDataSet.FractionalGammaDose
 ExampleData.Al2O3C: data_CrossTalk data_ITC
 ExampleData.BINfileData: CWOSL.SAR.Data TL.SAR.Data
 ExampleData.CW_OSL_Curve: CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
-ExampleData.DeValues: .Random.seed ExampleData.DeValues
+ExampleData.DeValues: ExampleData.DeValues
 ExampleData.Fading: ExampleData.Fading
 ExampleData.FittingLM: values.curve values.curveBG
 ExampleData.LxTxData: LxTxData

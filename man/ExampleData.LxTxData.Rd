@@ -2,6 +2,7 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.LxTxData}
 \alias{ExampleData.LxTxData}
+\alias{LxTxData}
 \title{Example Lx/Tx data from CW-OSL SAR measurement}
 \format{A \code{\link{data.frame}} with 4 columns (Dose, LxTx, LxTx.Error, TnTx).}
 \source{
