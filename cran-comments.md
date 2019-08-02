@@ -1,22 +1,41 @@
 ## Release summary
 
-This is a major release with new features and bug fixes. 
+This release addresses a request received from CRAN.
+We also fixed some bugs.
 
-## Addressed CRAN issues
+## Addressed CRAN issues received via mail
 
-* We removed the unconditional stripping in response to the email by 
-Brian Ripley from 2019-04-10 (subject: CRAN packages stripping unconditionally).
+> From: Kurt Hornik, 2019-08-02
+> Issue: datalist not correct 
 
-This necessarily encreased the library size on unix platforms.
+We rebuilt our datalist as requested. 
+Thanks to Kurt Hornik for pointing out this issue!
+
+## R CMD check --as-cran results
+
+0 errors | 0 warnings | 0 note
+
+## CRAN incoming message
+
+>Found the following (possibly) invalid URLs:
+>   URL: https://doi.org/10.1515/geochr-2015-0022
+>     From: inst/doc/HowTo_analyse_Al2O3.html
+>     Status: Error
+>     Message: libcurl error code 60:
+>       	server certificate verification failed. CAfile: none CRLfile: none
+>       	(Status without verification: OK)
+
+The URL is correct. 
 
 ## CRAN messages
 
->Version: 0.8.6 
->Check: installed package size 
->Result: NOTE 
->     installed size is 5.4Mb
+> Version: 0.9.3
+> Check: installed package size 
+> Result: NOTE 
+>     installed size is 5.8Mb
 >     sub-directories of 1Mb or more:
->     R 1.4Mb
+>     R 1.5Mb
+>     help 1.1Mb
 >     libs 1.6Mb 
 
 We are aware of it, however, this is the package size and there is nothing we can 
@@ -30,27 +49,31 @@ do about.
 
 * *winbuilder* 
 
-* old: `Possibly mis-spelled words in DESCRIPTION:` The word is spelled correctly
-* relase: `checking installed package size ... NOTE`: See comments above
-* devel: no notes, warnings or errors
+* old: claims that `https://doi.org/10.1515/geochr-2015-0022` is wrong, the URL is correct.
+* release: OK
+* devel: did not return results after two hours
 
 R-old and R-release also complained about invalid URLs, however, we double 
 checked thous URLs and found them accessible. 
 
 ## Reverse dependency checks
 
-Reverse depends 4: all OK.
-(the note in 'RLumShiny' is not related to 'Luminescence')
+Reverse depends 4: 
+
+* 2/4 are ok. 
+* `RLumModel` crashed but this is not related to 'Luminescence' but something that has 
+changed in 'deSolve'
+* `RLumShiny` showed a note not related to 'Luminescence'
 
 ## Test environments
-* local macOS High Sierra 10.14.4, Xcode 10.2.1, R-release
+* local macOS High Sierra 10.14.6, Xcode 10.3, R-devel
 * on AppVeyor CI
     * i386-w64-mingw32/i386 (32-bit), R-devel
     * x86_64_w64-mingw32/64 (64-bit), R-devel
-    * x86_64_w64-mingw32/64 (64-bit), R 3.5.2 (2018-12-20)
-    * i386-w64-mingw32/i386 (32-bit), R 3.5.2 (2018-12-20)
+    * x86_64_w64-mingw32/64 (64-bit), R 3.6.1 (2019-07-20)
+    * i386-w64-mingw32/i386 (32-bit), R 3.6.1 (2019-07-20)
 * on Travis CI
-    * Ubuntu 14.04.5 LTS, oldrel
-    * Ubuntu 14.04.5 LTS, release
-    * Ubuntu 14.04.5 LTS, devel
+    * Ubuntu 16.04.6 LTS, oldrel
+    * Ubuntu 16.04.6 LTS, release
+    * Ubuntu 16.04.6 LTS, devel
     * macOS Sierra 10.13.3, Xcode 9.4.1, release

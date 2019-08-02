@@ -359,19 +359,19 @@ NULL
 #' data(BaseDataSet.CosmicDoseRate)
 #'
 #' @name BaseDataSet.CosmicDoseRate
+#' @aliases values.cosmic.Softcomp values.factor.Altitude values.par.FJH
 #'
 #' @md
 NULL
 
 
-#' Example data from a SAR OSL and SAR TL measurement for the package
+#' @title Example data from a SAR OSL and SAR TL measurement for the package
 #' Luminescence
 #'
-#' Example data from a SAR OSL and TL measurement for package Luminescence
+#' @description Example data from a SAR OSL and TL measurement for package Luminescence
 #' directly extracted from a Risoe BIN-file and provided in an object of type
 #' [Risoe.BINfileData-class]
-#'
-#'
+
 #' @format
 #'
 #' `CWOSL.SAR.Data`: SAR OSL measurement data
@@ -416,6 +416,8 @@ NULL
 #' `writeR2BIN` as it was generated and implemented in the package long time ago. In the meantime
 #' the BIN-file format changed.
 #'
+#' @docType data
+#'
 #' @keywords datasets
 #'
 #' @examples
@@ -426,8 +428,12 @@ NULL
 #' CWOSL.SAR.Data@@DATA[1:5]
 #'
 #' @name ExampleData.BINfileData
+#' @aliases CWOSL.SAR.Data TL.SAR.Data
 #' @md
 NULL
+
+
+
 
 
 #' Example CW-OSL curve data for the package Luminescence
@@ -480,6 +486,7 @@ NULL
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #' plot(ExampleData.CW_OSL_Curve)
 #'
+#' @aliases CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
 #' @md
 NULL
 
@@ -546,6 +553,7 @@ NULL
 #' plot(values.curve,log="x")
 #'
 #' @name ExampleData.FittingLM
+#' @aliases values.curve values.curveBG
 #' @md
 NULL
 
@@ -574,6 +582,7 @@ NULL
 #' plot(LxTxData$Dose,LxTxData$LxTx)
 #'
 #' @name ExampleData.LxTxData
+#' @aliases LxTxData
 #' @md
 NULL
 
@@ -599,6 +608,7 @@ NULL
 #' plot(Tx.data)
 #'
 #' @name ExampleData.LxTxOSLData
+#' @aliases Lx.data Tx.data
 #' @md
 NULL
 
@@ -647,6 +657,7 @@ NULL
 #' plot_RLum(IRSAR.RF.Data)
 #'
 #' @name ExampleData.RLum.Analysis
+#' @aliases IRSAR.RF.Data
 #' @md
 NULL
 
@@ -790,6 +801,7 @@ NULL
 #' # bin.cols = 1)
 #'
 #' @name ExampleData.XSYG
+#' @aliases OSL.SARMeasurement TL.Spectrum
 #' @md
 NULL
 
@@ -1156,6 +1168,7 @@ NULL
 #' plot_RLum(data_ITC[1:2])
 #'
 #' @name ExampleData.Al2O3C
+#' @aliases data_CrossTalk data_ITC
 #' @md
 NULL
 
@@ -1253,3 +1266,6 @@ NULL
 #' @name extdata
 #' @md
 NULL
+
+
+
