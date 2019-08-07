@@ -66,7 +66,12 @@ read_RF2R <- function(file) {
     stop("[read_RF2R()] File '", file, "' does not exist!", call. = FALSE)
 
   ##read first line to ensure the format
-  if(!grepl(pattern = "macro_version=27-11-2018", x = readLines(file, n = 1), fixed = TRUE))
+  vers_str <-  readLines(file, 1)
+  version_supported <- c("17-10-2018", "27-11-2018")
+  version_found <- regmatches(vers_str,
+                              regexpr("(?<=macro\\_version=)..-..-....", vers_str, perl = TRUE))
+
+  if (!any(version_found %in% version_supported))
     stop("[read_RF2R()] File format not supported!", call. = FALSE)
 
 # Import --------------------------------------------------------------------------------------
