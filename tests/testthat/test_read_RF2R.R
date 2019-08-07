@@ -14,7 +14,7 @@ test_that("Test functionality", {
   expect_type(read_RF2R(file), type = "list")
 
   ##import list
-  expect_null(read_RF2R(list(file, "test")))
+  expect_type(read_RF2R(list(file, "test")), type = "list")
 
 
 })

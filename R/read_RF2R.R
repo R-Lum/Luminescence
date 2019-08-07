@@ -42,8 +42,7 @@ read_RF2R <- function(file) {
       ##check whether it worked
       if(inherits(temp, "try-error")){
         try(
-          stop("[read_RF2R()] Import for file ", f, " failed. NULL returned!", call. = FALSE),
-          silent = TRUE)
+          stop("[read_RF2R()] Import for file ", f, " failed. NULL returned!", call. = FALSE))
         return(NULL)
       }else{
         return(temp)
