@@ -265,12 +265,11 @@ fancy_scientific <- function(l) {
   suffix = ""
 ){
 
-
   # Grep keyword information --------------------------------------------------------------------
-  if(is.null(x)){
-    summary <- calc_Statistics(data.frame(x = 1:10, y = 1:10))
+  if (is.null(x)) {
+    summary <- calc_Statistics(data.frame(x = 1:2, y = 1:2))
 
-  }else{
+  } else {
     summary <- x
 
   }
@@ -287,13 +286,15 @@ fancy_scientific <- function(l) {
 
   # Create call ---------------------------------------------------------------------------------
   #create list
-  l <- lapply(keywords, function(k){
+  l <- lapply(keywords, function(k) {
     ##strip keyword if necessary
-    if(grepl(pattern = "$", x = k, fixed = TRUE)[1]){
+    if (grepl(pattern = "$",
+              x = k,
+              fixed = TRUE)[1]) {
       strip <- strsplit(k, split = "$", fixed = TRUE)[[1]]
       keywords_prefix <- strip[1]
       k_strip <- strip[2]
-    }else{
+    } else{
       keywords_prefix <- "unweighted"
       k_strip <- k
 
