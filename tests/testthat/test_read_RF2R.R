@@ -14,7 +14,7 @@ test_that("Test functionality", {
   expect_type(read_RF2R(file), type = "list")
 
   ##import list
-  expect_warning(read_RF2R(list(file, "test")), regexp = "Import for file test failed. NULL returned!")
+  expect_null(read_RF2R(list(file, "test")))
 
 
 })

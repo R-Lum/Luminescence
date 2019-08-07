@@ -40,8 +40,10 @@ read_RF2R <- function(file) {
       temp <- try(read_RF2R(file = f), silent = TRUE)
 
       ##check whether it worked
-      if(class(temp) == "try-error"){
-        warning("[read_RF2R()] Import for file ", f, " failed. NULL returned!", call. = FALSE)
+      if(inherits(temp, "try-error")){
+        try(
+          stop("[read_RF2R()] Import for file ", f, " failed. NULL returned!", call. = FALSE),
+          silent = TRUE)
         return(NULL)
       }else{
         return(temp)
@@ -55,7 +57,6 @@ read_RF2R <- function(file) {
 
 
 # Integrity check -----------------------------------------------------------------------------
-
   ##check input
   if(class(file) != "character")
     stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)
@@ -65,7 +66,7 @@ read_RF2R <- function(file) {
     stop("[read_RF2R()] File '", file, "' does not exist!", call. = FALSE)
 
   ##read first line to ensure the format
-  if(!grepl(pattern = "macro_version=17-10-2018", x = readLines(file, n = 1), fixed = TRUE))
+  if(!grepl(pattern = "macro_version=27-11-2018", x = readLines(file, n = 1), fixed = TRUE))
     stop("[read_RF2R()] File format not supported!", call. = FALSE)
 
 # Import --------------------------------------------------------------------------------------
