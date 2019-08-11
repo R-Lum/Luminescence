@@ -894,14 +894,26 @@ calc_MinDose <- function(
                        row.names = ""))
 
       cat("\n--- final parameter estimates ---\n")
-      print(round(data.frame(gamma=ifelse(!invert, bbmle::coef(ests)[["gamma"]], (bbmle::coef(ests)[["gamma"]]-x.offset)*-1),
-                             sigma=bbmle::coef(ests)[["sigma"]],
-                             p0=bbmle::coef(ests)[["p0"]],
-                             mu=ifelse(par==4, ifelse(log,log(muend),muend),0),
-                             row.names=""), 2))
-
+      print(round(data.frame(
+        gamma=ifelse(!invert, 
+                     ifelse(log, exp(bbmle::coef(ests)[["gamma"]]), bbmle::coef(ests)[["gamma"]]), 
+                     ifelse(log, exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1),(bbmle::coef(ests)[["gamma"]]-x.offset)*-1) 
+                     ),
+        sigma=ifelse(log, exp(bbmle::coef(ests)[["sigma"]]), bbmle::coef(ests)[["sigma"]]),
+        p0=bbmle::coef(ests)[["p0"]],
+        mu=ifelse(par==4, 
+                  muend, 
+                  0),
+        row.names=""), 2))
+      
       cat("\n------ confidence intervals -----\n")
-      print(round(conf, 2))
+      conf_print <- conf
+      if (log) {
+        logged_rows <- row.names(conf_print) != "p0"
+        conf_print[logged_rows, ] <- exp(conf_print[logged_rows, ])
+      }
+      
+      print(round(conf_print, 2))
 
       cat("\n------ De (asymmetric error) -----\n")
       print(round(data.frame(De=pal,
