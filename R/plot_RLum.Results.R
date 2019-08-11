@@ -116,9 +116,19 @@ plot_RLum.Results<- function(
     
     ## single MAM estimate
     # plot profile log likelhood
+
+    profiles <- object@data$profile 
+    if (object@data$args$log) {
+      profiles@profile$gamma$par.vals[ ,"gamma"] <- exp(profiles@profile$gamma$par.vals[ ,"gamma"])
+      profiles@profile$sigma$par.vals[ ,"sigma"] <- exp(profiles@profile$sigma$par.vals[ ,"sigma"])
+      
+      if (object@data$args$par == 4)
+        profiles@profile$mu$par.vals[ ,"mu"] <- exp(profiles@profile$mu$par.vals[ ,"mu"])
+    }
+    
     tryCatch({
       suppressWarnings(
-        bbmle::plot(object@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
+        bbmle::plot(profiles, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
       )
     }, error = function(e) {
       if (single)
@@ -128,7 +138,7 @@ plot_RLum.Results<- function(
         if (object@data$summary$par == 3 && i == "mu")
           break
         tryCatch({
-          bbmle::plot(object@data$profile, which = i)
+          bbmle::plot(profiles, which = i)
         }, error = function(e)  {
           message(paste("Unable to plot the Likelihood profile for:", i))
         })

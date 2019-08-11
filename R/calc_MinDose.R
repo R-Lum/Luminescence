@@ -727,7 +727,7 @@ calc_MinDose <- function(
                         Lmax=-ests@min,
                         BIC=BIC)
   call <- sys.call()
-  args <- list(log=log, sigmab=sigmab, bootstrap=bootstrap,
+  args <- list(log=log, sigmab=sigmab, par = par, bootstrap=bootstrap,
                init.values=start,
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
 
