@@ -59,6 +59,8 @@ the calculations were made. The output object still returns the original profile
 * The package `data/datalist` listing the example data shipped with the package was not correct 
 (#85, CRAN comment); now corrected.
 
+* The RStudio Addin to install the development version of Luminescence was broken (#90); fixed.
+
 
 ## Changes in version 0.9.3 (2019-07-31)
 
