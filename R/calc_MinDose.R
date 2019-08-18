@@ -119,7 +119,9 @@
 #' @param init.values [numeric] (*optional*):
 #' a named list with starting values for gamma, sigma, p0 and mu
 #' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are provided reasonable values
-#' are tried to be estimated from the data.
+#' are tried to be estimated from the data. **NOTE** that the initial values must always be given
+#' in the absolute units. The the logged model is applied (`log = TRUE`), the provided `init.values`
+#' are automatically log transformed.
 #'
 #' @param level [logical] (*with default*):
 #' the confidence level required (defaults to 0.95).
@@ -356,6 +358,12 @@ calc_MinDose <- function(
     data <- data[complete.cases(data), ]
   }
   
+  if (!missing(init.values) && length(init.values) != 4) {
+    stop("[calc_MinDose] Error: Please provide initial values for all model parameters. ", 
+         "Missing parameter(s): ", paste(setdiff(c("gamma", "sigma", "p0", "mu"), names(init.values)), collapse = ", "), 
+         call. = FALSE)
+  }
+  
   ##============================================================================##
   ## ... ARGUMENTS
   ##============================================================================##
@@ -440,10 +448,10 @@ calc_MinDose <- function(
                   mu = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                               mean(data[ ,1])))
   } else {
-    start <- list(gamma = init.values$gamma,
-                  sigma = init.values$sigma,
+    start <- list(gamma = ifelse(log, log(init.values$gamma), init.values$gamma),
+                  sigma = ifelse(log, log(init.values$sigma), init.values$sigma),
                   p0 = init.values$p0,
-                  mu = init.values$mu)
+                  mu = ifelse(log, log(init.values$mu), init.values$mu))
   }
   
   ##============================================================================##
