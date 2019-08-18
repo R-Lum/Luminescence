@@ -150,7 +150,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.8.7
+ 0.8.8
 }
 
 \examples{
@@ -189,7 +189,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-40. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -213,7 +213,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

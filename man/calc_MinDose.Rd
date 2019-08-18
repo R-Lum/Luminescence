@@ -6,7 +6,8 @@
 to a given De distribution}
 \usage{
 calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
-  init.values, level = 0.95, plot = TRUE, multicore = FALSE, ...)
+  init.values, level = 0.95, log.output = FALSE, plot = TRUE,
+  multicore = FALSE, ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -34,10 +35,16 @@ apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
 \item{init.values}{\link{numeric} (\emph{optional}):
 a named list with starting values for gamma, sigma, p0 and mu
 (e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
-are tried to be estimated from the data.}
+are tried to be estimated from the data. \strong{NOTE} that the initial values must always be given
+in the absolute units. The the logged model is applied (\code{log = TRUE}), the provided \code{init.values}
+are automatically log transformed.}
 
 \item{level}{\link{logical} (\emph{with default}):
 the confidence level required (defaults to 0.95).}
+
+\item{log.output}{\link{logical} (\emph{with default}):
+If \code{TRUE} the console output will also show the logged values of the final parameter estimates
+and confidence intervals (only applicable if \code{log = TRUE}).}
 
 \item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE}/\code{FALSE})}
@@ -277,7 +284,7 @@ summary(bs$poly.fits$poly.three$fitted.values)
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-40. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

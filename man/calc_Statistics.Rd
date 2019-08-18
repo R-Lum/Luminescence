@@ -76,7 +76,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., 2019. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-40. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., 2019. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
