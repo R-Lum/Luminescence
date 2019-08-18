@@ -136,7 +136,9 @@ plot_RLum.Results<- function(
         break
       
       tryCatch({
-        bbmle::plot(profiles, which = i, xlab = "", xaxt = "n")
+        suppressWarnings(
+          bbmle::plot(profiles, which = i, xlab = "", xaxt = "n")
+        )
         axis(1, mgp = c(3, 0.5, 0))
         title(xlab = i, line = 1.2)
         
