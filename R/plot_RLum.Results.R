@@ -136,12 +136,15 @@ plot_RLum.Results<- function(
         break
       
       tryCatch({
+        
+        xvals <- as.data.frame(profiles@profile[[i]]$par.vals)[[i]]
+        xlim <- range(xvals[xvals > 0])
+        
         suppressWarnings(
-          bbmle::plot(profiles, which = i, xlab = "", xaxt = "n")
+          bbmle::plot(profiles, which = i, xlab = "", xaxt = "n", xlim = xlim)
         )
         axis(1, mgp = c(3, 0.5, 0))
         title(xlab = i, line = 1.2)
-        
         
         if (i %in% c("gamma", "sigma", "mu") && object@data$args$log && object@data$args$log.output) {
           axis(1, at = axTicks(1), 
