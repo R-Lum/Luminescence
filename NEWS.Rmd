@@ -35,6 +35,11 @@ Thanks to Sébastian Huot for a constructive discussion.
 
 ### Bugfixes and changes
 
+#### `analyse_SAR.CWOSL()` 
+
+* The newly implemeted automatic curve type recognition broke the vignette of the R package 'RLum.Model'; 
+now refactored to prevent old code from breaking. 
+
 #### `calc_CentralDose()`
 
 * The function does not crash anymore with an odd error if `NA` values are provided (#82 
