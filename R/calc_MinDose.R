@@ -741,7 +741,7 @@ calc_MinDose <- function(
                         BIC=BIC)
   call <- sys.call()
   args <- list(log=log, sigmab=sigmab, par = par, bootstrap=bootstrap,
-               init.values=start,
+               init.values=start, log.output = log.output,
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
   
   ##============================================================================##
@@ -942,7 +942,7 @@ calc_MinDose <- function(
           conf_print <- cbind(round(conf_print, 2), 
                               setNames(conf_tmp, names(conf_tmp)))
           conf_print <- rbind(
-            setNames(data.frame("", "", "logged", "logged", row.names = "", stringsAsFactors = FALSE), names(conf_print)),
+            setNames(data.frame("", "", "(logged)", "(logged)", row.names = "", stringsAsFactors = FALSE), names(conf_print)),
             conf_print)
         }
       }
