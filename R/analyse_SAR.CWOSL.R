@@ -139,10 +139,10 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.7
+#' @section Function version: 0.8.8
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
@@ -408,17 +408,21 @@ if(is.list(object)){
 
     ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
     if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
-        stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.", call. = FALSE)
+        stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
+             call. = FALSE)
         return(NULL)
 
     }
 
-    ##set curve type to allowed type, which is basically an automated curve recognition
-    CWcurve.type <- table(names(object))
-    CWcurve.type <-  CWcurve.type[!grepl("TL", names(CWcurve.type), fixed = TRUE)]
-    CWcurve.type <- names(which.max(CWcurve.type))[1]
-    CWcurve.type <- sub(pattern = " \\(.+", replacement = "", x = CWcurve.type)
+    ## try to extract the correct curves for the sequence based on allowed curve types and
+    ## the curve type used most frequently
+      ## now remove all non-allowed curves
+      CWcurve.type <-
+        regmatches(names(object),
+                   m = regexpr("(OSL|IRSL|POSL)(?!\\))", names(object), perl = TRUE))
 
+      ## now get the type which is used most
+      CWcurve.type <- names(which.max(table(CWcurve.type)))
 
 # Rejection criteria ------------------------------------------------------
 
