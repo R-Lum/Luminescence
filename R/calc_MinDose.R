@@ -734,7 +734,7 @@ calc_MinDose <- function(
                         "ci_lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
                         "ci_upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
                         par=par,
-                        sig=sig,
+                        sig=ifelse(log, exp(sig), sig),
                         p0=p0end,
                         mu=muend,
                         Lmax=-ests@min,
