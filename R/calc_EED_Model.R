@@ -20,7 +20,7 @@
 #'  `VTR` \tab [DEoptim::DEoptim.control] \tab 1e-05 \tab stop value to reached for the
 #'  optimisation \cr
 #'  `trace` \tab [DEoptim::DEoptim.control] \tab `FALSE` \tab enable/disable travce mode \cr
-#'  `trave_plot` \tab - \tab `FALSE` \tab enable/disable additional trace plot output \cr
+#'  `trace_plot` \tab - \tab `FALSE` \tab enable/disable additional trace plot output \cr
 #'
 #' }
 #'
@@ -134,6 +134,7 @@ calc_EED_Model <- function(
   }
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
+
     ## g?n?re une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
     M_Simul[,1] <- expected_dose * exp(sigma_distr * rnorm(Nsimul)) *
       exp(-0.5 * (sigma_distr ^ 2))
@@ -224,57 +225,14 @@ calc_EED_Model <- function(
   # Pour cela on va calculer le nb d'exp?riences simul?es possibles ? partir du rapport Nsimul/Ndata
   # on teste ce rapport et s'il est inf?rieur ? une valeur limite inf?rieure, on demande de relancer le calcul
   # avec davantage de simulations.
-  .EED_Calc_Overall_StatUncertainty <- function (M_Data, M_Simul, Ndata, Nsimul){
-    Nsimexp <- as.integer(Nsimul/Ndata)
 
-    ##initialise matrix matrix
-    M_SimExpResults <- matrix(nrow = Ndata, ncol = 2)
-
-    if (Nsimexp > MinNbSimExp){
-      M_StoreData <- matrix(nrow = Ndata, ncol = Nsimexp)
-      M_CurSimExp <- matrix(nrow = Ndata, ncol = 2)
-
-      ##initialise values (outsite of the loop)
-      cur_mean_id <- numeric(length = Ndata)
-
-      for (j in 1:Nsimexp){
-        ##fill matrix
-        M_CurSimExp[,1] <- M_Simul[(1+(j-1)*Ndata):(j*Ndata),3]
-        M_CurSimExp[,2] <- sort(M_CurSimExp[,1], decreasing = FALSE, method = "quick")
-
-        ##calculate cummulative mean
-        cur_mean <- cumsum(M_CurSimExp[, 2]) / (1:Ndata)
-
-        # on cherche l'indice ic correspondant a la valeur de la moyenne brute
-        # et on extrait de la matrice de simulation la valeur de la moyenne des doses résiduelles
-        ##this loop does not look much efficient, but it is, if we use the usual way,
-        ##we hand the full object which can take very long, here we can stop after the
-        ##mean is greater than the reference value
-
-        #find index of first larger values, using the C++ code gives an order
-        #of magnitude speed plus
-        cur_mean_id <- src_find_first_larger_value(x = cur_mean, y = M_Simul[,7])
-
-        ##store data in matrix
-        M_StoreData[, j] <- cur_mean - M_Simul[cur_mean_id, 9]
-
-      }
-
-      ##calculate rowMeans and row standard deviations
-      M_SimExpResults[,1] <- rowMeans(M_StoreData)
-      M_SimExpResults[,2] <- matrixStats::rowSds(M_StoreData)
-
-    }##end if
-
-    if (Nsimexp<MinNbSimExp)
-      print("pas assez de simulations, merci d'augmenter Nsimul")
+  .EED_Calc_Overall_StatUncertainty <- function (M_Data, M_Simul, Ndata, Nsimul, MinNbSimExp){
+    M_SimExpResults <- src_EED_Calc_Overall_StatUncertainty(M_Simul, Ndata, Nsimul, MinNbSimExp)
 
     # colonne 7 : calcule l'erreur totale sur la dose nette corrig?e M_Data[i,7]
     M_Data[,7] <- abs((M_Data[,6]/M_Data[,3])*sqrt((M_SimExpResults[,2]^2)+(M_Data[,2]^2)))
-
     return (M_Data)
   }
-
 
   # fonction d'initialisation de l'etat initial
   # si absence de valeur, par defaut prend comme etat initial la valeur 1 (saturation)
@@ -338,7 +296,7 @@ calc_EED_Model <- function(
 
   }
 
-  # # allow automated kapp and sigma_distr parameter estimation
+  ## allow automated kapp and sigma_distr parameter estimation
   .guess_EED_parameters <- function(set_kappa, set_sigma_distr,
     set_expected_dose, D0, Iinit, Nsimul, Dosedata, M_Data, M_Simul, Ndata,
     method_control_intern = method_control){
@@ -346,14 +304,15 @@ calc_EED_Model <- function(
     ##settings to control the what needs to be controlled
     method_control <- modifyList(
       list(
-        lower = c(0, 0, 0),
+        lower = c(0, 0, 1),
         upper = c(1000, 2, 100),
-        n = 100,
+        n = 1000,
         trace_plot = FALSE
       ),
       method_control_intern)
 
-    ##define function for the parameter estimation
+    ##define function for the parameter estimation which will be part of
+    ##the interpolation
     fn <- function(
       set_kappa, set_sigma_distr,
       M_Simul, set_expected_dose,
@@ -363,17 +322,18 @@ calc_EED_Model <- function(
       M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, set_expected_dose, Ndata, Nsimul)
 
       M_Data <- .EED_Calc_Overall_StatUncertainty(
-        M_Data = M_Data,
-        M_Simul = M_Simul,
-        Ndata = Ndata,
-        Nsimul = Nsimul
-      )
+          M_Data = M_Data,
+          M_Simul = M_Simul,
+          Ndata = Ndata,
+          Nsimul = Nsimul,
+          MinNbSimExp = MinNbSimExp
+        )
 
       ##return variance and the mean DE
       return(
         c(
         VAR = .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = 1, MaxDose_Index = nrow(Dosedata)),
-        MEAN_DE = mean(M_Data[[5]])
+        RESIDUAL = sum((M_Data[,6] - rep(set_expected_dose, nrow(M_Data)))^2)
         ))
 
       }
@@ -390,14 +350,12 @@ calc_EED_Model <- function(
         exp(seq(log(method_control$lower[1]), log(method_control$upper[1]), length.out = 4)), 4)
 
       ##sigma_distr
-      m[,2] <- rep(seq(method_control$lower[2],method_control$upper[2],length.out = 4), each = 4)
+      m[,2] <- rep(seq(method_control$lower[2],method_control$upper[2], length.out = 4), each = 4)
 
       ##expected dose
       if(is.null(expected_dose)){
       m[, 3] <-
-        runif(n = 16,
-              min = method_control$lower[3],
-              max = method_control$upper[3])
+        rep(runif(n = 1, min = method_control$lower[3], max = method_control$upper[3]), 16)
 
       }else{
         m[,3] <- rep(expected_dose, 16)
@@ -424,14 +382,19 @@ calc_EED_Model <- function(
 
       ##surface interpolation
       s <-
-        interp::interp(
+        try(interp::interp(
           x = m[, 1],
           y = m[, 2],
           z = m[, 4],
           nx = 200,
           ny = 200,
-          duplicate = "linear"
-        )
+          duplicate = "strip"
+        ), silent = FALSE)
+
+
+      ##if we have a try-error >> try again
+      # if(inherits(s, "try-error"))
+      #   next()
 
       # s <- list(
       #   x = unique(m[,1]),
@@ -439,20 +402,18 @@ calc_EED_Model <- function(
       #   z = matrix(m[,4], ncol = 5, nrow = 5))
 
       ##graphical output
-      # graphics::image(
-      #   s,
-      #   col = grDevices::hcl.colors(30, "YlOrRd", rev = TRUE),
-      #   xlab = "kappa",
-      #   ylab = "sigma_distr"
-      # )
-      # graphics::contour(s, add= TRUE, nlevels = 10)
-      #
-      # abline(h = s$y[which(s$z == min(s$z, na.rm = TRUE), arr.ind = TRUE)[,2]], lty = 2)
-      # abline(v = s$x[which(s$z == min(s$z, na.rm = TRUE), arr.ind = TRUE)[,1]], lty = 2)
+      if(plot & method_control$trace_plot){
+        graphics::image(
+          s,
+          col = grDevices::hcl.colors(30, "YlOrRd", rev = TRUE),
+          xlab = "kappa",
+          ylab = "sigma_distr"
+        )
+        graphics::contour(s, add= TRUE, nlevels = 10)
 
-
-      ##update threshold
-      test_var <- min(s$z, na.rm = TRUE)
+        abline(h = s$y[which(s$z == min(s$z, na.rm = TRUE), arr.ind = TRUE)[,2]], lty = 2)
+        abline(v = s$x[which(s$z == min(s$z, na.rm = TRUE), arr.ind = TRUE)[,1]], lty = 2)
+      }
 
       ##our decision is the 5 % quantile
       q10 <- which(s$z<= quantile(s$z, probs = 0.05, na.rm = TRUE), arr.ind = TRUE)
@@ -462,30 +423,38 @@ calc_EED_Model <- function(
       optim_sigm_distr <- c(median(s$y[unique(q10[,1])]), sd(s$y[unique(q10[,1])]))
 
       ##write output
-      cat("\n\n variance threshold: ", min(s$z, na.rm = TRUE))
-      cat("\n >> kappa: ",   optim_kappa[1], "+/-", optim_kappa[2])
-      cat("\n >> sigma_distr: ", optim_sigm_distr[1] , "+/-", optim_sigm_distr[2])
+      if(verbose && method_control$trace){
+        cat("\n\n variance threshold: ", min(s$z, na.rm = TRUE))
+        cat("\n >> kappa: ",   optim_kappa[1], "\u00b1", optim_kappa[2])
+        cat("\n >> sigma_distr: ", optim_sigm_distr[1] , "\u00b1", optim_sigm_distr[2])
 
-      ##reset parameters
-      method_control$lower[1:2] <- c(min(s$x[unique(q10[,1])]), min(s$y[unique(q10[,2])]))
-      method_control$upper[1:2] <- c(max(s$x[unique(q10[,1])]), max(s$y[unique(q10[,2])]))
+      }
 
-      cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ","))
-      cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ","))
+        ##reset parameters
+        method_control$lower[1:2] <- c(min(s$x[unique(q10[,1])]), min(s$y[unique(q10[,2])]))
+        method_control$upper[1:2] <- c(max(s$x[unique(q10[,1])]), max(s$y[unique(q10[,2])]))
+
+      if(verbose && method_control$trace){
+        cat("\n >> lower: ",  paste(method_control$lower[1:2], collapse = ", "))
+        cat("\n >> upper: ",  paste(method_control$upper[1:2], collapse = ", "))
+
+      }
+
+      ##update threshold
+      test_var <- min(s$z, na.rm = TRUE)
 
       ##implement differential break if the search area is already smaller than the area
       if(diff(c(method_control$lower[1], method_control$upper[1])) < 0.1)
          break()
 
-
-
     }
 
-    ###TODO DOES LEAD TO CRASH
     return(list(
        kappa = optim_kappa ,
        sigma_distr = optim_sigm_distr,
-       min_var = test_var))
+       min_var = test_var,
+       expected_dose = m[1,3]
+       ))
 
   }
 
@@ -570,6 +539,7 @@ if(is.null(kappa) || is.null(sigma_distr) || is.null(expected_dose)){
   kappa <- temp_guess[[1]][1]
   sigma_distr <- temp_guess[[2]][1]
   min_var <- temp_guess[[3]]
+  expected_dose <- temp_guess[[4]]
 
   if(verbose){
     cat(">> min. variance:", min_var)
@@ -579,10 +549,9 @@ if(is.null(kappa) || is.null(sigma_distr) || is.null(expected_dose)){
 }
 
 # Calculation ---------------------------------------------------------------------------------
-
 M_Simul <- .EED_Simul_Matrix (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
 M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsimul)
-M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul)
+M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul, MinNbSimExp)
 
 max_dose_simul <- max(M_Simul[,3])
 index_min_uncert <- sort.list(index_min_uncert <-
@@ -599,7 +568,7 @@ cat("\n Averaged Corrected Equivalent Dose: ",
 
 
 }
-##################################################################################################################
+
 #### THE ONE SHOT : calcule les valeurs de dose moyenne
 
 ##TODO discuss with Pierre
@@ -731,19 +700,19 @@ if(plot) {
        y = c((M_Data[i, 4] - M_Data[i, 5]), (M_Data[i, 4] + M_Data[i, 5])))
    }
 
-  liste_type <- c(1, 6, 3)
   ##2nd plateau plot
-  graphics::matplot(
-    x = Dosedata[,1],
-    y = M_Data[,liste_type],
-    type = "p",
-    pch = 1,
-    log = "x",
-    main = paste("sample ", sample_name, sep = ""),
-    xlab = plot_settings$xlab,
-    ylab = "Cumulative mean doses [Gy]",
-    xlim = c(min(Dosedata[,1]), plot_settings$xlim[2]),
-    ylim = c(0, 2*expected_dose))
+   graphics::matplot(
+     x = Dosedata[, 1],
+     y = M_Data[, c(1, 6, 3)],
+     type = "p",
+     pch = 1,
+     log = "x",
+     main = paste("sample ", sample_name, sep = ""),
+     xlab = plot_settings$xlab,
+     ylab = "Cumulative mean doses [Gy]",
+     xlim = c(min(Dosedata[, 1]), plot_settings$xlim[2]),
+     ylim = c(0, 2 * expected_dose)
+   )
 
     # tracer les valeurs de la liste classee des doses archeologiques de la matrice de simulation
     # contrainte : ne tracer qu'une partie des points sinon on va passer un temps fou
@@ -826,4 +795,3 @@ set_RLum(
   ))
 
 }
-
