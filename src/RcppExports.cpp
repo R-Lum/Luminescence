@@ -16,6 +16,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// src_EED_Calc_Overall_StatUncertainty
+NumericMatrix src_EED_Calc_Overall_StatUncertainty(NumericMatrix M_Simul, int Ndata, int Nsimul, int MinNbSimExp);
+RcppExport SEXP _Luminescence_src_EED_Calc_Overall_StatUncertainty(SEXP M_SimulSEXP, SEXP NdataSEXP, SEXP NsimulSEXP, SEXP MinNbSimExpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type M_Simul(M_SimulSEXP);
+    Rcpp::traits::input_parameter< int >::type Ndata(NdataSEXP);
+    Rcpp::traits::input_parameter< int >::type Nsimul(NsimulSEXP);
+    Rcpp::traits::input_parameter< int >::type MinNbSimExp(MinNbSimExpSEXP);
+    rcpp_result_gen = Rcpp::wrap(src_EED_Calc_Overall_StatUncertainty(M_Simul, Ndata, Nsimul, MinNbSimExp));
+    return rcpp_result_gen;
+END_RCPP
+}
 // analyse_IRSARRF_SRS
 RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited, NumericVector values_natural_limited, NumericVector vslide_range, int n_MC, bool trace);
 RcppExport SEXP _Luminescence_analyse_IRSARRF_SRS(SEXP values_regenerated_limitedSEXP, SEXP values_natural_limitedSEXP, SEXP vslide_rangeSEXP, SEXP n_MCSEXP, SEXP traceSEXP) {
@@ -51,18 +65,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// src_find_first_larger_value
-NumericVector src_find_first_larger_value(NumericVector x, NumericVector y);
-RcppExport SEXP _Luminescence_src_find_first_larger_value(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(src_find_first_larger_value(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
 // src_get_XSYG_curve_values
 NumericMatrix src_get_XSYG_curve_values(std::string s);
 RcppExport SEXP _Luminescence_src_get_XSYG_curve_values(SEXP sSEXP) {
@@ -77,9 +79,9 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_Luminescence_create_UID", (DL_FUNC) &_Luminescence_create_UID, 0},
+    {"_Luminescence_src_EED_Calc_Overall_StatUncertainty", (DL_FUNC) &_Luminescence_src_EED_Calc_Overall_StatUncertainty, 4},
     {"_Luminescence_analyse_IRSARRF_SRS", (DL_FUNC) &_Luminescence_analyse_IRSARRF_SRS, 5},
     {"_Luminescence_create_RLumDataCurve_matrix", (DL_FUNC) &_Luminescence_create_RLumDataCurve_matrix, 10},
-    {"_Luminescence_src_find_first_larger_value", (DL_FUNC) &_Luminescence_src_find_first_larger_value, 2},
     {"_Luminescence_src_get_XSYG_curve_values", (DL_FUNC) &_Luminescence_src_get_XSYG_curve_values, 1},
     {NULL, NULL, 0}
 };
