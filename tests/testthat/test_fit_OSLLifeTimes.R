@@ -18,11 +18,13 @@ test_that("standard check", {
   set.seed(1)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = ExampleData.TR_OSL,
+    plot = FALSE,
     n.components = 1), class = "RLum.Results")
 
   ##simple list
   expect_s4_class(object = fit_OSLLifeTimes(
     object = temp_list,
+    plot = FALSE,
     n.components = 1), class = "RLum.Results")
 
   ##simple RLum.Analysis
@@ -36,7 +38,7 @@ test_that("standard check", {
   ##simple run
   expect_s4_class(object = fit_OSLLifeTimes(
     object = ExampleData.TR_OSL,
-    method_control = list(seed = 1, weights = FALSE),
+    method_control = list(seed = 1, weights = FALSE, plot = FALSE),
     n.components = 1), class = "RLum.Results")
 
   ##test options
