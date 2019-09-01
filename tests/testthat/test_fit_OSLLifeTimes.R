@@ -15,6 +15,7 @@ test_that("standard check", {
 
   ## Test different inputs
   ##simple run
+  set.seed(1)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = ExampleData.TR_OSL,
     n.components = 1), class = "RLum.Results")
