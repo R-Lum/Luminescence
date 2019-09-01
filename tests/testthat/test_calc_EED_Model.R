@@ -1,10 +1,10 @@
 context("calc_EED_Model")
 
-## load needed example data
-data(ExampleData.MortarData, envir = environment())
-
 test_that("break function", {
   testthat::skip_on_cran()
+
+  ## load needed example data
+  data(ExampleData.MortarData, envir = environment())
 
   ## data
   expect_error(calc_EED_Model(), regexp = "'data' needs to be a two-column data.frame, see manual!")
@@ -41,5 +41,7 @@ test_that("successfull run", {
     verbose = FALSE,
     plot = FALSE,
     expected_dose = 11.7), "RLum.Results")
+
+  set.seed(NULL)
 
 })
