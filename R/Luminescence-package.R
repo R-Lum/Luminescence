@@ -67,7 +67,6 @@
 #' **Related package projects**
 #'
 #' - [https://cran.r-project.org/package=RLumShiny]()
-#' - [http://shiny.r-luminescence.org]()
 #' - [https://cran.r-project.org/package=RLumModel]()
 #'
 #' **Package maintainer**
@@ -81,7 +80,6 @@
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
-#'
 #'
 #' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
 #' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
