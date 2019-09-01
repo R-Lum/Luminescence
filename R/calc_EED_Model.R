@@ -11,16 +11,11 @@
 #'
 #' \tabular{llll}{
 #'  **ARGUMENT** \tab **FUNCTION** \tab **DEFAULT** \tab **DESCRIPTION**\cr
-#'  `lower`  \tab  [DEoptim::DEoptim] \tab `c(0,0)` \tab set lower bounds for kappa and sigma auto
-#'  parameter finding \cr
-#'  `upper` \tab  [DEoptim::DEoptim] \tab `c(1000,2)` \tab set upper bounds for kapp and sigma
-#'  auto parameter finding \cr
-#'  `itermax` \tab [DEoptim::DEoptim.control] \tab `500` \tab maximum number for iterations to
-#'  find the parameters \cr
-#'  `VTR` \tab [DEoptim::DEoptim.control] \tab 1e-05 \tab stop value to reached for the
-#'  optimisation \cr
-#'  `trace` \tab [DEoptim::DEoptim.control] \tab `FALSE` \tab enable/disable travce mode \cr
-#'  `trace_plot` \tab - \tab `FALSE` \tab enable/disable additional trace plot output \cr
+#'  `lower`  \tab  - \tab `c(0,0,0)` \tab set lower bounds for kappa, sigma, and the expected De in auto mode \cr
+#'  `upper` \tab  - \tab `c(1000,2)` \tab set upper bounds for kappa, sigma, and the expected De in auto mode \cr
+#'  `iter_max` \tab - \tab `1000` \tab maximum number for iterations for used to find kappa and sigma \cr
+#'  `trace` \tab - \tab `FALSE` \tab enable/disable terminal trace mode; overwritten by global argument `verbose`\cr
+#'  `trace_plot` \tab - \tab `FALSE` \tab enable/disable additional trace plot output; overwritten by global argument `verbose` \cr
 #'
 #' }
 #'
@@ -30,7 +25,7 @@
 #' @param D0 [integer] (*with default*): D0 value, defining the characteristation behaviour
 #' of the the quartz. Value are expected in Gy
 #'
-#' @param expected_dose [integer] (): TODO
+#' @param expected_dose [integer] (**required**): ##TODO
 #'
 #' @param kappa [numeric] (*optional*): positive dimensionless exposure parameter
 #' characterising the bleaching state of the grains. Low values (< 10) indicate
@@ -66,7 +61,7 @@
 #' light - Towards a new tool for single grain OSL dating of poorly bleached mortars.
 #' Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 #'
-#' @seealso [DEoptim::DEoptim], [RLum.Results-class], [calc_MinDose], [calc_FuchsLang2001], [calc_IEU],
+#' @seealso [RLum.Results-class], [calc_MinDose], [calc_FuchsLang2001], [calc_IEU],
 #' [calc_FiniteMixture]
 #'
 #' @keywords datagen
@@ -108,7 +103,7 @@ calc_EED_Model <- function(
 
   ##check input data and make it a hard stop
   if(missing(data) || class(data) != 'data.frame')
-    stop("[calc_EED_Model()] 'data' needs to be a two column data.frame, cf. manual!", call. = FALSE)
+    stop("[calc_EED_Model()] 'data' needs to be a two-column data.frame, see manual!", call. = FALSE)
 
 
 # Helper functions ----------------------------------------------------------------------------
@@ -238,7 +233,7 @@ calc_EED_Model <- function(
   # si absence de valeur, par defaut prend comme etat initial la valeur 1 (saturation)
   # MaJ le 9 novembre 2018
   .Initial_State_of_OSL <- function(Dosedata, D0, method) {
-    SaturationState = (1 - exp(-max(Dosedata[, 1]) / D0))
+    SaturationState <- (1 - exp(-max(Dosedata[, 1]) / D0))
     if (method == "max") {
       return  (SaturationState)
     }
@@ -306,7 +301,7 @@ calc_EED_Model <- function(
       list(
         lower = c(0, 0, 1),
         upper = c(1000, 2, 100),
-        n = 1000,
+        iter_max = 1000,
         trace_plot = FALSE
       ),
       method_control_intern)
@@ -340,7 +335,8 @@ calc_EED_Model <- function(
 
     par(mfrow = c(3,3))
     test_var <- Inf
-    while(test_var > 1e-04){
+    n_iter <- 0
+    while(test_var > 1e-04 && n_iter < method_control$iter_max){
       ##define paramter matrix
       m <- matrix(NA, nrow = 16, ncol = 5)
 
@@ -388,18 +384,11 @@ calc_EED_Model <- function(
           z = m[, 4],
           nx = 200,
           ny = 200,
-          duplicate = "strip"
+          duplicate = "strip" #does not seem to work
         ), silent = FALSE)
 
-
-      ##if we have a try-error >> try again
-      # if(inherits(s, "try-error"))
-      #   next()
-
-      # s <- list(
-      #   x = unique(m[,1]),
-      #   y = unique(m[,2]),
-      #   z = matrix(m[,4], ncol = 5, nrow = 5))
+      if(inherits(s, "try-error"))
+        stop("[calc_EED_Model()] Surface interpolation failed, you may want to try it again!", call. = FALSE)
 
       ##graphical output
       if(plot & method_control$trace_plot){
@@ -442,6 +431,7 @@ calc_EED_Model <- function(
 
       ##update threshold
       test_var <- min(s$z, na.rm = TRUE)
+      n_iter <- n_iter + 1
 
       ##implement differential break if the search area is already smaller than the area
       if(diff(c(method_control$lower[1], method_control$upper[1])) < 0.1)

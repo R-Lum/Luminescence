@@ -43,8 +43,8 @@ now refactored to prevent old code from breaking.
 #### `calc_CentralDose()`
 
 * The function does not crash anymore with an odd error if `NA` values are provided (#82 
-reported by Sébastian Huot)
-* The function gained a new argument `na.rm` which is set to `FALSE` by default
+reported by Sébastian Huot).
+* The function gained a new argument `na.rm` which is set to `FALSE` by default.
 
 #### `calc_MinDose()`
 
@@ -54,6 +54,7 @@ purely cosmetic change and no changes to the calculations were made.
 * The values in the profile log-likelihood plots are now always given in their absolute values, independent of
 whether the logged or non-logged model was used (#84 suggested by Sébastien Huot). This is a purely cosmetic change and no changes to 
 the calculations were made. The output object still returns the original profile objects with the logged values.
+* Improved handling of values close to zero if `bootstrap = TRUE` (#91, reported by Andrea Junge).
 
 #### `plot_GrowthCurve()`
 
