@@ -1,17 +1,17 @@
 #' @title Modelling Exponential Exposure Distribution
 #'
 #' @description Modelling incomplete and heterogeneous bleaching of mobile grains partially
-#' exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019)
+#' exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019).
 #'
-#' @details The function is an implementation and enhancement of the scripts used for
-#' the work by Guibert et al. (2019).
+#' @details The function is an implementation and enhancement of the scripts used in
+#' Guibert et al. (2019).
 #'
 #'
 #' **Method control parameters**
 #'
 #' \tabular{llll}{
 #'  **ARGUMENT** \tab **FUNCTION** \tab **DEFAULT** \tab **DESCRIPTION**\cr
-#'  `lower`  \tab  - \tab `c(0,0,0)` \tab set lower bounds for kappa, sigma, and the expected De in auto mode \cr
+#'  `lower`  \tab  - \tab `c(0.1,0,0)` \tab set lower bounds for kappa, sigma, and the expected De in auto mode \cr
 #'  `upper` \tab  - \tab `c(1000,2)` \tab set upper bounds for kappa, sigma, and the expected De in auto mode \cr
 #'  `iter_max` \tab - \tab `1000` \tab maximum number for iterations for used to find kappa and sigma \cr
 #'  `trace` \tab - \tab `FALSE` \tab enable/disable terminal trace mode; overwritten by global argument `verbose`\cr
@@ -25,7 +25,7 @@
 #' @param D0 [integer] (*with default*): D0 value, defining the characteristation behaviour
 #' of the the quartz. Value are expected in Gy
 #'
-#' @param expected_dose [integer] (**required**): ##TODO
+#' @param expected_dose [numeric] (**required**): expected equivalent dose
 #'
 #' @param kappa [numeric] (*optional*): positive dimensionless exposure parameter
 #' characterising the bleaching state of the grains. Low values (< 10) indicate
@@ -68,14 +68,31 @@
 #'
 #' @examples
 #'
-#' ##TODO
+#' data(ExampleData.MortarData, envir = environment())
+#' calc_EED_Model(
+#'  data = MortarData,
+#'  kappa = 14,
+#'  sigma_distr = 0.37,
+#'  expected_dose = 11.7)
+#'
+#' ## automated estimation of
+#' ## sigma_distribution and
+#' ## kappa
+#' \dontrun{
+#'  calc_EED_Model(
+#'  data = MortarData,
+#'  kappa = NULL,
+#'  sigma_distr = NULL,
+#'  expected_dose = 11.7)
+#'
+#' }
 #'
 #' @md
 #' @export
 calc_EED_Model <- function(
   data,
   D0 = 120L,
-  expected_dose = 12L,
+  expected_dose,
   kappa = NULL,
   sigma_distr = NULL,
   n.simul = 5000L,
@@ -100,11 +117,12 @@ calc_EED_Model <- function(
   ##  happens to data where this is not observd? I cannot work?
 
 # Integrity tests  ----------------------------------------------------------------------------
-
   ##check input data and make it a hard stop
   if(missing(data) || class(data) != 'data.frame')
     stop("[calc_EED_Model()] 'data' needs to be a two-column data.frame, see manual!", call. = FALSE)
 
+  if(missing(expected_dose) || !is.numeric(expected_dose))
+    stop("[calc_EED_Model()] 'expected_dose' is either missing or not of type numeric!", call. = FALSE)
 
 # Helper functions ----------------------------------------------------------------------------
 
@@ -299,8 +317,8 @@ calc_EED_Model <- function(
     ##settings to control the what needs to be controlled
     method_control <- modifyList(
       list(
-        lower = c(0, 0, 1),
-        upper = c(1000, 2, 100),
+        lower = c(0.1, 0, 1),
+        upper = c(100, 1, 100),
         iter_max = 1000,
         trace_plot = FALSE
       ),
@@ -349,14 +367,7 @@ calc_EED_Model <- function(
       m[,2] <- rep(seq(method_control$lower[2],method_control$upper[2], length.out = 4), each = 4)
 
       ##expected dose
-      if(is.null(expected_dose)){
-      m[, 3] <-
-        rep(runif(n = 1, min = method_control$lower[3], max = method_control$upper[3]), 16)
-
-      }else{
-        m[,3] <- rep(expected_dose, 16)
-
-      }
+      m[,3] <- rep(expected_dose[1], 16)
 
       ##calculate the variance
       for(i in 1:nrow(m)){
@@ -508,7 +519,7 @@ if(verbose) cat("\n[calc_EED_Model()]\n")
 ##  blanchiment ##
 ## TODO - this is not really what Pierre had in mind, he wanted to have the variance, not an automated
 ## esstimation
-if(is.null(kappa) || is.null(sigma_distr) || is.null(expected_dose)){
+if(is.null(kappa) || is.null(sigma_distr)){
 
   if(verbose)
     cat("\n>> Running automated parameter estimation... \n")
