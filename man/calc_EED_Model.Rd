@@ -4,7 +4,7 @@
 \alias{calc_EED_Model}
 \title{Modelling Exponential Exposure Distribution}
 \usage{
-calc_EED_Model(data, D0 = 120L, expected_dose = 12L, kappa = NULL,
+calc_EED_Model(data, D0 = 120L, expected_dose, kappa = NULL,
   sigma_distr = NULL, n.simul = 5000L, n.minSimExp = 50L,
   sample_name = "", method_control = list(), verbose = TRUE,
   plot = TRUE, ...)
@@ -16,7 +16,7 @@ SE(De). Values are expected in Gy}
 \item{D0}{\link{integer} (\emph{with default}): D0 value, defining the characteristation behaviour
 of the the quartz. Value are expected in Gy}
 
-\item{expected_dose}{\link{integer} (\strong{required}): ##TODO}
+\item{expected_dose}{\link{numeric} (\strong{required}): expected equivalent dose}
 
 \item{kappa}{\link{numeric} (\emph{optional}): positive dimensionless exposure parameter
 characterising the bleaching state of the grains. Low values (< 10) indicate
@@ -44,17 +44,17 @@ are \code{xlab}, \code{xlim}.}
 }
 \description{
 Modelling incomplete and heterogeneous bleaching of mobile grains partially
-exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019)
+exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019).
 }
 \details{
-The function is an implementation and enhancement of the scripts used for
-the work by Guibert et al. (2019).
+The function is an implementation and enhancement of the scripts used in
+Guibert et al. (2019).
 
 \strong{Method control parameters}
 
 \tabular{llll}{
 \strong{ARGUMENT} \tab \strong{FUNCTION} \tab \strong{DEFAULT} \tab \strong{DESCRIPTION}\cr
-\code{lower}  \tab  - \tab \code{c(0,0,0)} \tab set lower bounds for kappa, sigma, and the expected De in auto mode \cr
+\code{lower}  \tab  - \tab \code{c(0.1,0,0)} \tab set lower bounds for kappa, sigma, and the expected De in auto mode \cr
 \code{upper} \tab  - \tab \code{c(1000,2)} \tab set upper bounds for kappa, sigma, and the expected De in auto mode \cr
 \code{iter_max} \tab - \tab \code{1000} \tab maximum number for iterations for used to find kappa and sigma \cr
 \code{trace} \tab - \tab \code{FALSE} \tab enable/disable terminal trace mode; overwritten by global argument \code{verbose}\cr
@@ -68,12 +68,29 @@ the work by Guibert et al. (2019).
 
 \examples{
 
-##TODO
+data(ExampleData.MortarData, envir = environment())
+calc_EED_Model(
+ data = MortarData,
+ kappa = 14,
+ sigma_distr = 0.37,
+ expected_dose = 11.7)
+
+## automated estimation of
+## sigma_distribution and
+## kappa
+\dontrun{
+ calc_EED_Model(
+ data = MortarData,
+ kappa = NULL,
+ sigma_distr = NULL,
+ expected_dose = 11.7)
+
+}
 
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-46. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-48. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

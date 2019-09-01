@@ -4,8 +4,9 @@
 #' exposed to the light, an implementation of the EED model proposed by Guibert et al. (2019).
 #'
 #' @details The function is an implementation and enhancement of the scripts used in
-#' Guibert et al. (2019).
-#'
+#' Guibert et al. (2019). The implementation supports a semi-automated estimation
+#' of the parameters `kappa` and `sigma_distr`. If set to `NULL`, a surface interpolation
+#' is used to esimated those values.
 #'
 #' **Method control parameters**
 #'
@@ -148,21 +149,21 @@ calc_EED_Model <- function(
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
 
-    ## g?n?re une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
+    ## génére une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
     M_Simul[,1] <- expected_dose * exp(sigma_distr * rnorm(Nsimul)) *
       exp(-0.5 * (sigma_distr ^ 2))
 
-    ## g?n?re une liste de Nsimul valeurs de dose r?siduelle selon une distribution expoentielle de l'exposition ##
+    ## génére une liste de Nsimul valeurs de dose r?siduelle selon une distribution expoentielle de l'exposition ##
     M_Simul[, 2] <-
       (-D0 * log(1 - Iinit * exp(-stats::rexp(Nsimul, rate = 1 / kappa))))
 
-    ## g?n?re la liste des doses individuelles ##
+    ## génére la liste des doses individuelles ##
     M_Simul[,3] <- M_Simul[,1] + M_Simul[,2]
 
-    ## g?n?re la liste class?e des doses individuelles ##
+    ## génére la liste class?e des doses individuelles ##
     M_Simul[,4] <- sort(M_Simul[,3], decreasing = FALSE)
 
-    ## g?n?re une liste d'index and sort it
+    ## génére une liste d'index and sort it
     index <- sort.list(rank(M_Simul[,3], ties.method = "first"))
 
     ## la liste d'index est utilis?e pour remettre les colonnes 1 et 2 dans l'ordre du classement des doses totales ##
@@ -199,10 +200,6 @@ calc_EED_Model <- function(
 
     # colonne 5 :erreur stat sur les rapports
     M_Data[, 5] <- M_Data[, 2] / M_Simul[index_SimRes, 7]
-
-    # par(mfrow = c(3,1))
-    # matplot(Dosedata[,1],  M_Data[,4], type = "p", pch = 1, log = "x")
-    # matplot(Dosedata[,1],  M_Data[,5], type = "p", pch = 1, log = "x")
 
     # colonne 6 : dose nette corrigee des r?siduels ET de l'int?gration partielle de la
     # distribution log-normale des burial doses
