@@ -29,7 +29,8 @@ Thanks to Sébastian Huot for a constructive discussion.
 
 ### New functions 
 
-* `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017)
+* `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017). 
+Along with the function, a new exampe data set `ExampleData.MortarData` was added.
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
 

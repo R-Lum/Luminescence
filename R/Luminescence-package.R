@@ -431,9 +431,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example CW-OSL curve data for the package Luminescence
 #'
 #' `data.frame` containing CW-OSL curve data (time, counts)
@@ -610,6 +607,29 @@ NULL
 #' @md
 NULL
 
+#' Example equivalent dose data from mortar samples
+#'
+#' Arbitrary data to test the function `calc_EED_Model`
+#'
+#' @format Two [`data.frame`]s containing De and De error
+#'
+#' @references unpublished data
+#'
+#' @source
+#' Arbitrary measurements.
+#'
+#' @examples
+#'
+#' ##load data
+#' data(ExampleData.MortarData, envir = environment())
+#'
+#' ##plot data
+#' plot(MortarData)
+#'
+#' @name ExampleData.MortarData
+#' @aliases MortarData
+#' @md
+NULL
 
 #' Example data as [RLum.Analysis-class] objects
 #'
