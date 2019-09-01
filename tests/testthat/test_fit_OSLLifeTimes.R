@@ -10,7 +10,7 @@ temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
 test_that("standard check", {
   testthat::skip_on_cran()
 
-  ##trgger errors
+  ##trigger errors
   expect_null(fit_OSLLifeTimes(object = "test"))
 
   ## Test different inputs
