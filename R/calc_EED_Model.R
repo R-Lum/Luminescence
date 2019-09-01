@@ -403,7 +403,7 @@ calc_EED_Model <- function(
       if(plot & method_control$trace_plot){
         graphics::image(
           s,
-          col = grDevices::hcl.colors(30, "YlOrRd", rev = TRUE),
+          col = grDevices::heat.colors(30, rev = TRUE),
           xlab = "kappa",
           ylab = "sigma_distr"
         )
