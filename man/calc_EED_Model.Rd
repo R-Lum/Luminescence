@@ -16,7 +16,7 @@ SE(De). Values are expected in Gy}
 \item{D0}{\link{integer} (\emph{with default}): D0 value, defining the characteristation behaviour
 of the the quartz. Value are expected in Gy}
 
-\item{expected_dose}{\link{integer} (): TODO}
+\item{expected_dose}{\link{integer} (\strong{required}): ##TODO}
 
 \item{kappa}{\link{numeric} (\emph{optional}): positive dimensionless exposure parameter
 characterising the bleaching state of the grains. Low values (< 10) indicate
@@ -54,16 +54,11 @@ the work by Guibert et al. (2019).
 
 \tabular{llll}{
 \strong{ARGUMENT} \tab \strong{FUNCTION} \tab \strong{DEFAULT} \tab \strong{DESCRIPTION}\cr
-\code{lower}  \tab  \link[DEoptim:DEoptim]{DEoptim::DEoptim} \tab \code{c(0,0)} \tab set lower bounds for kappa and sigma auto
-parameter finding \cr
-\code{upper} \tab  \link[DEoptim:DEoptim]{DEoptim::DEoptim} \tab \code{c(1000,2)} \tab set upper bounds for kapp and sigma
-auto parameter finding \cr
-\code{itermax} \tab \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control} \tab \code{500} \tab maximum number for iterations to
-find the parameters \cr
-\code{VTR} \tab \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control} \tab 1e-05 \tab stop value to reached for the
-optimisation \cr
-\code{trace} \tab \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control} \tab \code{FALSE} \tab enable/disable travce mode \cr
-\code{trace_plot} \tab - \tab \code{FALSE} \tab enable/disable additional trace plot output \cr
+\code{lower}  \tab  - \tab \code{c(0,0,0)} \tab set lower bounds for kappa, sigma, and the expected De in auto mode \cr
+\code{upper} \tab  - \tab \code{c(1000,2)} \tab set upper bounds for kappa, sigma, and the expected De in auto mode \cr
+\code{iter_max} \tab - \tab \code{1000} \tab maximum number for iterations for used to find kappa and sigma \cr
+\code{trace} \tab - \tab \code{FALSE} \tab enable/disable terminal trace mode; overwritten by global argument \code{verbose}\cr
+\code{trace_plot} \tab - \tab \code{FALSE} \tab enable/disable additional trace plot output; overwritten by global argument \code{verbose} \cr
 
 }
 }
@@ -78,7 +73,7 @@ optimisation \cr
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-44. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-46. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -88,7 +83,7 @@ light - Towards a new tool for single grain OSL dating of poorly bleached mortar
 Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 }
 \seealso{
-\link[DEoptim:DEoptim]{DEoptim::DEoptim}, \linkS4class{RLum.Results}, \link{calc_MinDose}, \link{calc_FuchsLang2001}, \link{calc_IEU},
+\linkS4class{RLum.Results}, \link{calc_MinDose}, \link{calc_FuchsLang2001}, \link{calc_IEU},
 \link{calc_FiniteMixture}
 }
 \author{

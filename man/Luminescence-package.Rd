@@ -70,7 +70,6 @@ visit our project website (link below).
 \strong{Related package projects}
 \itemize{
 \item \url{https://cran.r-project.org/package=RLumShiny}
-\item \url{http://shiny.r-luminescence.org}
 \item \url{https://cran.r-project.org/package=RLumModel}
 }
 
