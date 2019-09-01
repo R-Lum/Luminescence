@@ -317,6 +317,7 @@ calc_EED_Model <- function(
         lower = c(0.1, 0, 1),
         upper = c(100, 1, 100),
         iter_max = 1000,
+        trace = FALSE,
         trace_plot = FALSE
       ),
       method_control_intern)
