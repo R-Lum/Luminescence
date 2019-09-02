@@ -125,6 +125,11 @@ calc_EED_Model <- function(
   if(missing(expected_dose) || !is.numeric(expected_dose))
     stop("[calc_EED_Model()] 'expected_dose' is either missing or not of type numeric!", call. = FALSE)
 
+
+  ##store and restore par settings
+  par_default <- par(no.readonly = TRUE)
+  on.exit(par(mfrow = par_default$mfrow))
+
 # Helper functions ----------------------------------------------------------------------------
 
   ##the helper functions base on ode by Pierre, each helper was only a little bit
@@ -588,10 +593,6 @@ cat("\n Averaged Corrected Equivalent Dose: ",
 
 # Plotting ------------------------------------------------------------------------------------
 if(plot) {
-
-  ##store and restore par settings
-  par_default <- par()
-  on.exit(par(mfrow = par_default$mfrow))
 
   ##plot settings
   plot_settings <- modifyList(
