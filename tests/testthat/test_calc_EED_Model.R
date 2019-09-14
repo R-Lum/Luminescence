@@ -26,6 +26,8 @@ test_that("successfull run", {
   set.seed(1)
   expect_s4_class(calc_EED_Model(data = MortarData, expected_dose = 11.7), "RLum.Results")
 
+  calc_EED_Model(data = MortarData, expected_dose = 11.7, n.simul = 1950)
+
   ## fast run
   expect_s4_class(calc_EED_Model(
     data = MortarData,

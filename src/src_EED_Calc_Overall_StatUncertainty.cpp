@@ -152,7 +152,7 @@ NumericMatrix src_EED_Calc_Overall_StatUncertainty (
   }
 
   if (Nsimexp < MinNbSimExp)
-    Rcout << "Not enough simulations, please increates Nsimul!";
+    Rcout << "Not enough simulations, please increase Nsimul!";
 
   return M_SimExpResults;
 }

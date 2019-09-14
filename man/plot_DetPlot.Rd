@@ -42,7 +42,7 @@ name of the analyse function to be called. Supported functions are:
 \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
 
 \item{analyse_function.control}{\link{list} (\emph{optional}):
-arguments to be passed to the supported analyse functions
+selected arguments to be passed to the supported analyse functions
 (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
 
 \item{n.channels}{\link{integer} (\emph{optional}):
@@ -98,6 +98,11 @@ consectutively expaning the integral by its chosen length. Example: \code{c(1:3,
 
 Note that in both cases the integral limits are overlap. The finally applied limits are part
 of the function output.
+
+\strong{analyse_function.control}
+
+The argument \code{analyse_function.control} currently supports the following arguments
+\code{sequence.structure}, \code{dose.points}, \code{mtext.outer}, \code{fit.method}, \code{fit.force_through_origin}, \code{plot}, \code{plot.single}
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
@@ -107,7 +112,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using serveral hundreds of channels.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{
@@ -133,7 +138,7 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-53. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4.9000-55. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
