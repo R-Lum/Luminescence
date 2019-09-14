@@ -15,6 +15,11 @@
 #' Note that in both cases the integral limits are overlap. The finally applied limits are part
 #' of the function output.
 #'
+#' **analyse_function.control**
+#'
+#' The argument `analyse_function.control` currently supports the following arguments
+#' `sequence.structure`, `dose.points`, `mtext.outer`, `fit.method`, `fit.force_through_origin`, `plot`, `plot.single`
+#'
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis
 #'
@@ -43,7 +48,7 @@
 #' `'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`
 #'
 #' @param analyse_function.control [list] (*optional*):
-#' arguments to be passed to the supported analyse functions
+#' selected arguments to be passed to the supported analyse functions
 #' (`'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`)
 #'
 #' @param n.channels [integer] (*optional*):
@@ -91,7 +96,7 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using serveral hundreds of channels.
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
@@ -144,13 +149,11 @@ plot_DetPlot <- function(
 
 
 # Integrity Tests -----------------------------------------------------------------------------
-
   ##get structure
   object.structure <- structure_RLum(object)
 
 
 # Set parameters ------------------------------------------------------------------------------
-
   ##set n.channels
   if(is.null(n.channels)){
     n.channels <- ceiling(
@@ -163,6 +166,8 @@ plot_DetPlot <- function(
      sequence.structure = c("TL", "IR50", "pIRIR225"),
      dose.points = NULL,
      mtext.outer = "",
+     fit.method = "EXP",
+     fit.force_through_origin = FALSE,
      plot = FALSE,
      plot.single = FALSE
   )
@@ -171,7 +176,6 @@ plot_DetPlot <- function(
 
 
 # Analyse -------------------------------------------------------------------------------------
-
   ##set integral sequence
   if (is.null(signal_integral.seq)) {
     if(signal.integral.min == signal.integral.max){
@@ -190,7 +194,6 @@ plot_DetPlot <- function(
 
 
   if(analyse_function  == "analyse_SAR.CWOSL"){
-
     results <- merge_RLum(lapply(1:n.channels, function(x){
       analyse_SAR.CWOSL(
         object = object,
@@ -200,10 +203,11 @@ plot_DetPlot <- function(
         background.integral.max = background.integral.max,
         dose.points = analyse_function.settings$dose.points,
         mtext.outer = analyse_function.settings$mtext.outer,
+        fit.force_through_origin = analyse_function.settings$fit.force_through_origin,
+        fit.method = analyse_function.settings$fit.method,
         plot = analyse_function.settings$plot,
         plot.single = analyse_function.settings$plot.single,
         verbose = verbose
-
       )
 
     }))

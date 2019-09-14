@@ -47,6 +47,10 @@ now refactored to prevent old code from breaking.
 reported by Sébastian Huot).
 * The function gained a new argument `na.rm` which is set to `FALSE` by default.
 
+#### `plot_DetPlot()`
+
+* The argument `analyse_function.control` now understands the arguments `fit.method` and `fit.force_through_origin`. 
+
 #### `calc_MinDose()`
 
 * The final parameter estimates and their confidence intervals in the console output are now always reported
