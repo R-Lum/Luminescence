@@ -65,6 +65,10 @@ the calculations were made. The output object still returns the original profile
 
 * Remove rounding from numerical output values (#81 suggested by Sébastien Huot); this affects all subsequent functions. However, terminal and graphical output do not change. 
 
+#### `plot_KDE()`
+
+* The error bars in the plot had been all too short since **2014**, this big design flaw was recognised by Andrea Junge (#93). Big thanks!
+
 #### Internals 
 
 * The package `data/datalist` listing the example data shipped with the package was not correct 

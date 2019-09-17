@@ -94,11 +94,11 @@
 #' The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.5.7
+#' @section Function version: 3.6.0
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne, France
 #'
 #' @seealso [density], [plot]
 #'
@@ -1209,9 +1209,9 @@ plot_KDE <- function(
 
     ## add De error bars
     for(i in 1:length(data)) {
-      arrows(data[[i]][,1] - data[[i]][,2]/2,
+      arrows(data[[i]][,1] - data[[i]][,2],
              1:length(data[[i]][,1]),
-             data[[i]][,1] + data[[i]][,2]/2,
+             data[[i]][,1] + data[[i]][,2],
              1:length(data[[i]][,1]),
              code = 3,
              angle = 90,
