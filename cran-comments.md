@@ -29,14 +29,14 @@ The URL is correct.
 
 ## CRAN messages
 
-> Version: 0.9.3
+> Version: 0.9.3 
 > Check: installed package size 
 > Result: NOTE 
->     installed size is 5.8Mb
+>     installed size is 6.0Mb
 >     sub-directories of 1Mb or more:
 >     R 1.5Mb
 >     help 1.1Mb
->     libs 1.6Mb 
+>     libs 1.7Mb 
 
 We are aware of it, however, this is the package size and there is nothing we can 
 do about.
@@ -60,10 +60,8 @@ checked thous URLs and found them accessible.
 
 Reverse depends 4: 
 
-* 2/4 are ok. 
-* `RLumModel` crashed but this is not related to 'Luminescence' but something that has 
-changed in 'deSolve'
-* `RLumShiny` showed a note not related to 'Luminescence'
+* 3/4 are ok. 
+* `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
 
 ## Test environments
 * local macOS High Sierra 10.14.6, Xcode 10.3, R-devel

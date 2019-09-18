@@ -26,14 +26,6 @@ in the *Analyst*.
 
 Thanks to Sébastian Huot for a constructive discussion. 
 
-
-### New functions 
-
-* `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017). 
-Along with the function, a new exampe data set `ExampleData.MortarData` was added.
-* `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
-* `read_RF2R()` Add support for importing spatially resolved RF measurement results.
-
 ### Bugfixes and changes
 
 #### `analyse_SAR.CWOSL()` 
@@ -75,7 +67,6 @@ the calculations were made. The output object still returns the original profile
 (#85, CRAN comment); now corrected.
 
 * The RStudio Addin to install the development version of Luminescence was broken (#90); fixed.
-
 
 ## Changes in version 0.9.3 (2019-07-31)
 
