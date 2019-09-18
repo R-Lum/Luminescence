@@ -880,9 +880,10 @@ calc_MinDose <- function(
     ## if the input values are too close to zero, we may get
     ## Inf values >>> we remove them here with a warning
     if(any(is.infinite(pairs))){
+      inf_count <- length(which(is.infinite(pairs[,2])))/nrow(pairs)
       pairs <- pairs[!is.infinite(pairs[,2]),]
-      warning("[calc_MinDose()] Inf values produced by bootstrapping removed for LOcal polynominal
-      regrESSion fitting (loess)! This message usually indicates that your values are close to 0.", call. = FALSE)
+      warning(
+      paste0("[calc_MinDose()] Inf values produced by bootstrapping removed for LOcal polynominal regrESSion fitting (loess)!\n The removed values represent  ",round(inf_count * 100,2)," % of the total dataset. This message usually indicates that your values are close to 0."), call. = FALSE)
 
     }
 
