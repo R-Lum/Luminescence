@@ -15,7 +15,7 @@ using namespace Rcpp;
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
 // .. no export
-NumericVector seq(int from, int to, double length_out) {
+NumericVector seq_RLum(int from, int to, double length_out) {
 
   //set variables
   NumericVector sequence(static_cast<int>(length_out));
@@ -70,13 +70,13 @@ NumericMatrix create_RLumDataCurve_matrix(
       //be combined
       //
       //(A) - the start ramping
-      NumericVector heat_ramp_start = seq(LOW,AN_TEMP,static_cast<double>(TOLDELAY));
+      NumericVector heat_ramp_start = seq_RLum(LOW,AN_TEMP,static_cast<double>(TOLDELAY));
       //
       //(B) - the plateau
       //B is simply TOLON
       //
       //(C) - the end ramping
-      NumericVector heat_ramp_end = seq(AN_TEMP, HIGH, static_cast<double>(TOLOFF));
+      NumericVector heat_ramp_end = seq_RLum(AN_TEMP, HIGH, static_cast<double>(TOLOFF));
 
       //set index counters
       int c = 0;
@@ -95,7 +95,7 @@ NumericMatrix create_RLumDataCurve_matrix(
         }
       }
     }else{
-      X = seq(LOW, HIGH, static_cast<double>(NPOINTS));
+      X = seq_RLum(LOW, HIGH, static_cast<double>(NPOINTS));
     }
 
     //set final matrix
@@ -106,7 +106,8 @@ NumericMatrix create_RLumDataCurve_matrix(
 
   }else{
 
-    //set final matrix
+    //set final matrix for the case NPOINTS <= 0
+    //fill this with NA values
     NumericMatrix curve_matrix(1, 2);
     curve_matrix(0,0) = NumericVector::get_na();
     curve_matrix(0,1) = NumericVector::get_na();
