@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "Luminescence",
   "description": "A collection of various R functions for the purpose of Luminescence\n    dating data analysis. This includes, amongst others, data import, export,\n    application of age models, curve deconvolution, sequence analysis and\n    plotting of equivalent dose distributions.",
@@ -7,14 +10,14 @@
   "codeRepository": "https://CRAN.R-project.org/package=Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.4.9000.30",
+  "version": "0.9.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "version": "3.7.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2019-07-31 r76909)",
+  "runtimePlatform": "R Under development (unstable) (2019-09-15 r77192)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -521,7 +524,11 @@
   ],
   "releaseNotes": "https://github.com/R-Lum/Luminescence/blob/master/NEWS.md",
   "readme": "https://github.com/R-Lum/Luminescence/blob/master/README.md",
-  "contIntegration": ["https://ci.appveyor.com/project/tzerk/luminescence/branch/master", "https://travis-ci.org/R-Lum/Luminescence", "https://codecov.io/github/R-Lum/Luminescence?branch=master"],
+  "contIntegration": [
+    "https://ci.appveyor.com/project/tzerk/luminescence/branch/master",
+    "https://travis-ci.org/R-Lum/Luminescence",
+    "https://codecov.io/github/R-Lum/Luminescence?branch=master"
+  ],
   "developmentStatus": "https://www.repostatus.org/#active",
   "citation": [
     {
