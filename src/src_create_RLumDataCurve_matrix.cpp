@@ -2,7 +2,7 @@
 // Title:   src_create_RLumDataCurve_matrix()
 // Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 // Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
-// Version: 0.1.1 [2018-03-22]
+// Version: 0.1.2 [2019-07-01]
 // Purpose: Function to create the RLum.Data.Curve() matrix ... faster than in R itself
 //  - Mainly used by the function Risoe.BINfileData2RLum.Data.Curve()
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -14,22 +14,19 @@ using namespace Rcpp;
 // Define own function to create a sequence for the x-axis
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
-// ..no export
+// .. no export
 NumericVector seq(int from, int to, double length_out) {
 
   //set variables
   NumericVector sequence = length_out;
-  double by = (to - from) / (length_out  - 1);
+  double by = static_cast<double>(to - from) / (length_out);
+
+  //set first channel
+  sequence[0] = static_cast<double>(from) + by;
 
   //loop and create sequence
-  for (int i=0; i < length_out; ++i){
-    if(i == 0){
-      sequence[i] = from;
-
-    }else{
-      sequence[i] = sequence[i-1] + by;
-
-    }
+  for (int i=1; i < length_out; ++i){
+    sequence[i] = sequence[i-1] + by;
 
   }
   return sequence;
@@ -62,10 +59,10 @@ NumericMatrix create_RLumDataCurve_matrix(
     //fill x column for the case we have a TL curve
     if(LTYPE == "TL" && VERSION >= 4){
 
-      //write a fallback for nonconform  BIN/BINX-files, otherwise the
+      //provide a fallback for non-conform  BIN/BINX-files, otherwise the
       //the TL curves are wrong withouth having a reason.
       if((TOLON == 0) & (TOLOFF == 0) & (TOLDELAY == 0)){
-        Rcout << "[src_create_RLumDataCurve_matrix()] BIN/BINX-file nonconform. TL curve may be wrong!\n";
+        Rcout << "[src_create_RLumDataCurve_matrix()] BIN/BINX-file non-conform. TL curve may be wrong!\n";
         TOLOFF = NPOINTS;
       }
 
@@ -95,15 +92,10 @@ NumericMatrix create_RLumDataCurve_matrix(
         }else if(i >= heat_ramp_start.length() + TOLON){
           X[i] = heat_ramp_end[c];
           c++;
-
         }
-
       }
-
-
     }else{
       X = seq(LOW, HIGH, NPOINTS);
-
     }
 
     //set final matrix
@@ -122,5 +114,4 @@ NumericMatrix create_RLumDataCurve_matrix(
     return(curve_matrix);
 
   }
-
 }
