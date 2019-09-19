@@ -22,15 +22,12 @@ NumericVector seq(double from, double to, double length_out) {
 
   double by = (to - from) / (length_out  - 1.0);
 
+
+  sequence[0] = from;
+
   //loop and create sequence
-  for (int i=0; i < length_out; i++){
-    if(i == 0){
-      sequence[i] = from;
-
-    }else{
+  for (int i=1; i < length_out; i++){
       sequence[i] = sequence[i-1] + by;
-
-    }
 
   }
   return sequence;
