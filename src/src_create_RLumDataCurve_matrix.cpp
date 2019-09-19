@@ -53,7 +53,7 @@ NumericMatrix create_RLumDataCurve_matrix(
   if(NPOINTS > 0){
 
     //set needed vectors and predefine matrix
-    NumericVector X = NPOINTS;
+    NumericVector X(NPOINTS);
     NumericMatrix curve_matrix(NPOINTS, 2);
 
     //fill x column for the case we have a TL curve
@@ -70,13 +70,13 @@ NumericMatrix create_RLumDataCurve_matrix(
       //be combined
       //
       //(A) - the start ramping
-      NumericVector heat_ramp_start = seq(LOW,AN_TEMP,TOLDELAY);
+      NumericVector heat_ramp_start = seq(LOW,AN_TEMP,static_cast<double>(TOLDELAY));
       //
       //(B) - the plateau
       //B is simply TOLON
       //
       //(C) - the end ramping
-      NumericVector heat_ramp_end = seq(AN_TEMP, HIGH, TOLOFF);
+      NumericVector heat_ramp_end = seq(AN_TEMP, HIGH, static_cast<double>(TOLOFF));
 
       //set index counters
       int c = 0;
@@ -95,7 +95,7 @@ NumericMatrix create_RLumDataCurve_matrix(
         }
       }
     }else{
-      X = seq(LOW, HIGH, NPOINTS);
+      X = seq(LOW, HIGH, static_cast<double>(NPOINTS));
     }
 
     //set final matrix
