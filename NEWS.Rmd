@@ -14,18 +14,18 @@ header-includes:
 As it turned out, unfortunately, the error bars produced by `plot_KDE()` had been wrong since 2014. The input error values (2nd column in the data.frame) had been, for reasons we cannot recall anymore, divided by two leading to an 'improved' visualisation of uncertainties. A big thank goes to Andrea Junge (#93) who made us aware of this bug. 
 
 2. **The way the x-axis channels from BIN/BINX-files are generated changed**
-So far, during the file import, minimum and maximum values were taken, and channels were distributed equally according to the number of available data points.
+So far, during the file import, minimum and maximum values were taken, and channels were distributed equally according to the number of available data points. Thanks to Sébastien Huot for a constructive discussion. 
 
-* Example old behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel was set at 0 s, the last channel to at 40 s.
-Thus, the width of each channel was 0.404 s. 
+  * Example old behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel was set at 0 s, the last channel
+  to at 40 s. Thus, the width of each channel was 0.404 s. 
 
-* Example new behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel is set to 0.4 s, the last channel to at 40 s. Thus, the width of each channel is 0.4 s. 
+  * Example new behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel is set to 0.4 s, 
+  the last channel to at 40 s. Thus, the width of each channel is 0.4 s. 
+  
+  * In other words, the first channel does not start anymore at 0 s, as it is the case, e.g., in the *Analyst*. 
+  
 
-In other words, the first channel does not start anymore at 0 s, as it is the case, e.g., 
-in the *Analyst*. 
-
-**Please note that this change will impact your analysis results!**
-Thanks to Sébastien Huot for a constructive discussion. 
+**Please note that these changes will impact your analysis results!**
 
 ### Bugfixes and changes
 

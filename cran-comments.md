@@ -15,18 +15,6 @@ Thanks to Kurt Hornik for pointing out this issue!
 
 0 errors | 0 warnings | 0 note
 
-## CRAN incoming message
-
->Found the following (possibly) invalid URLs:
->   URL: https://doi.org/10.1515/geochr-2015-0022
->     From: inst/doc/HowTo_analyse_Al2O3.html
->     Status: Error
->     Message: libcurl error code 60:
->       	server certificate verification failed. CAfile: none CRLfile: none
->       	(Status without verification: OK)
-
-The URL is correct. 
-
 ## CRAN messages
 
 > Version: 0.9.3 
@@ -40,6 +28,11 @@ The URL is correct.
 
 We are aware of it, however, this is the package size and there is nothing we can 
 do about.
+
+## Win-Builder
+
+Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
+The URL is correct and works as expected. 
 
 ## R CMD check --as-cran results
 

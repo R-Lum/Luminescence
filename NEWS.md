@@ -19,7 +19,8 @@
 2.  **The way the x-axis channels from BIN/BINX-files are generated
     changed** So far, during the file import, minimum and maximum values
     were taken, and channels were distributed equally according to the
-    number of available data points.
+    number of available data points. Thanks to Sébastien Huot for a
+    constructive discussion.
 
 <!-- end list -->
 
@@ -31,11 +32,10 @@
     channels, the first channel is set to 0.4 s, the last channel to at
     40 s. Thus, the width of each channel is 0.4 s.
 
-In other words, the first channel does not start anymore at 0 s, as it
-is the case, e.g., in the *Analyst*.
+  - In other words, the first channel does not start anymore at 0 s, as
+    it is the case, e.g., in the *Analyst*.
 
-**Please note that this change will impact your analysis results\!**
-Thanks to Sébastien Huot for a constructive discussion.
+**Please note that these changes will impact your analysis results\!**
 
 ### Bugfixes and changes
 
