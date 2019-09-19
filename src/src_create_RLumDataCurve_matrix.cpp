@@ -15,14 +15,15 @@ using namespace Rcpp;
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
 // .. no export
-NumericVector seq_RLum(int from, int to, double length_out) {
+// [[Rcpp::export]]
+NumericVector seq_RLum(double from, double to, double length_out) {
 
   //set variables
   NumericVector sequence(static_cast<int>(length_out));
-  double by = static_cast<double>(to - from) / length_out;
+  double by = (to - from) / length_out;
 
   //set first channel
-  sequence[0] = static_cast<double>(from) + by;
+  sequence[0] = from + by;
 
   //loop and create sequence
   for (int i=1; i < length_out; ++i){
@@ -37,12 +38,12 @@ NumericVector seq_RLum(int from, int to, double length_out) {
 // [[Rcpp::export("src_create_RLumDataCurve_matrix")]]
 NumericMatrix create_RLumDataCurve_matrix(
   NumericVector DATA,
-  int VERSION,
+  double VERSION,
   int NPOINTS,
   String LTYPE,
-  int LOW,
-  int HIGH,
-  int AN_TEMP,
+  double LOW,
+  double HIGH,
+  double AN_TEMP,
   int TOLDELAY,
   int TOLON,
   int TOLOFF
@@ -57,7 +58,7 @@ NumericMatrix create_RLumDataCurve_matrix(
     NumericMatrix curve_matrix(NPOINTS, 2);
 
     //fill x column for the case we have a TL curve
-    if(LTYPE == "TL" && VERSION >= 4){
+    if(LTYPE == "TL" && VERSION >= 4.0){
 
       //provide a fallback for non-conform  BIN/BINX-files, otherwise the
       //the TL curves are wrong withouth having a reason.
@@ -86,7 +87,7 @@ NumericMatrix create_RLumDataCurve_matrix(
         if(i < heat_ramp_start.length()){
           X[i] = heat_ramp_start[i];
 
-        }else if(i >= heat_ramp_start.length() && i < heat_ramp_start.length() + TOLON){
+        }else if(i >= heat_ramp_start.length() && i < heat_ramp_start.length() + static_cast<double>(TOLON)){
           X[i] = AN_TEMP;
 
         }else if(i >= heat_ramp_start.length() + TOLON){
