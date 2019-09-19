@@ -9,11 +9,19 @@
 
 ### Important user visible changes
 
-**The way the x-axis channels from BIN/BINX-files are generated
-changed**.  
-So far, during the file import, minimum and maximum values were taken,
-and channels were distributed equally according to the number of
-available data points
+1.  **`plot_KDE()`** wrong error bars As it turned out, unfortunately,
+    the error bars produced by `plot_KDE()` had been wrong since 2014.
+    The input error values (2nd column in the data.frame) had been, for
+    reasons we cannot recall anymore, divided by two leading to an
+    ‘improved’ visualisation of uncertainties. A big thank goes to
+    Andrea Junge (\#93) who made us aware of this bug.
+
+2.  **The way the x-axis channels from BIN/BINX-files are generated
+    changed** So far, during the file import, minimum and maximum values
+    were taken, and channels were distributed equally according to the
+    number of available data points.
+
+<!-- end list -->
 
   - Example old behaviour: For an OSL curve recorded over 40 s with 100
     channels, the first channel was set at 0 s, the last channel to at
@@ -26,22 +34,21 @@ available data points
 In other words, the first channel does not start anymore at 0 s, as it
 is the case, e.g., in the *Analyst*.
 
-**Please note that this will impact your analysis results\!**
-
-Thanks to Sébastian Huot for a constructive discussion.
+**Please note that this change will impact your analysis results\!**
+Thanks to Sébastien Huot for a constructive discussion.
 
 ### Bugfixes and changes
 
 #### `analyse_SAR.CWOSL()`
 
-  - The newly implemeted automatic curve type recognition broke the
-    vignette of the R package ‘RLum.Model’; now refactored to prevent
-    old code from breaking.
+  - The automated curve type recognition introduced with the last
+    release broke the vignette of the R package ‘RLum.Model’; now
+    refactored code prevent other people’s code from breaking.
 
 #### `calc_CentralDose()`
 
   - The function does not crash anymore with an odd error if `NA` values
-    are provided (\#82 reported by Sébastian Huot).
+    are provided (\#82 reported by Sébastien Huot).
   - The function gained a new argument `na.rm` which is set to `FALSE`
     by default.
 
@@ -55,12 +62,12 @@ Thanks to Sébastian Huot for a constructive discussion.
   - The final parameter estimates and their confidence intervals in the
     console output are now always reported in their absolute values,
     independent of whether the logged or non-logged model was used (\#84
-    suggested by Sébastien Huot). This is a purely cosmetic change and
+    suggested by Sébastien Huot). This is a purely cosmetic change, and
     no changes to the calculations were made.
   - The values in the profile log-likelihood plots are now always given
     in their absolute values, independent of whether the logged or
     non-logged model was used (\#84 suggested by Sébastien Huot). This
-    is a purely cosmetic change and no changes to the calculations were
+    is a purely cosmetic change, and no changes to the calculations were
     made. The output object still returns the original profile objects
     with the logged values.
   - Improved handling of values close to zero if `bootstrap = TRUE`
@@ -72,16 +79,11 @@ Thanks to Sébastian Huot for a constructive discussion.
     Sébastien Huot); this affects all subsequent functions. However,
     terminal and graphical output do not change.
 
-#### `plot_KDE()`
-
-  - The error bars in the plot had been all too short since **2014**,
-    this big design flaw was recognised by Andrea Junge (\#93). Big
-    thanks\!
-
 #### Internals
 
-  - The package `data/datalist` listing the example data shipped with
-    the package was not correct (\#85, CRAN comment); now corrected.
+  - The package `data/datalist` file listing the example data shipped
+    with the package was not correct (\#85, CRAN comment); now
+    corrected.
 
   - The RStudio Addin to install the development version of Luminescence
     was broken (\#90); fixed.
@@ -93,7 +95,7 @@ Thanks to Sébastian Huot for a constructive discussion.
 
 ## Changes in version 0.9.2 (2019-07-30)
 
-  - This version fixes an URL problem discovered by the CRAN precheck
+  - This version fixes an URL problem discovered by the CRAN pre-check
 
 ## Changes in version 0.9.1 (2019-07-30)
 
@@ -110,7 +112,7 @@ Thanks to Sébastian Huot for a constructive discussion.
 
 #### `apply_EfficiencyCorrection()`
 
-  - The function now suppors `RLum.Analysis` objects as input
+  - The function now supports `RLum.Analysis` objects as input
   - All allowed input objects can now be provided as `list` (self-call
     support)
   - Minor code polish
@@ -137,8 +139,8 @@ Thanks to Sébastian Huot for a constructive discussion.
 
 #### `calc_TLLxTxRatio()`
 
-  - The `LxTx.Error` is no longer negative, even if the subtration lead
-    to negative count values (\#78, reported by Sébastian Huot)
+  - The `LxTx.Error` is no longer negative, even if the subtraction lead
+    to negative count values (\#78, reported by Sébastien Huot)
 
 #### `calc_SourceDoseRate()`
 
@@ -165,14 +167,14 @@ Thanks to Sébastian Huot for a constructive discussion.
 #### `plot_GrowthCurve()`
 
   - If the dose points included `NA` values the function crashed
-    unexpectetly.
+    unexpectedly.
 
 #### S4-classes and methods
 
   - `RLum.Analysis-class`
       - Code polish (no visible changes)
   - `RLum.Data.Curve-class`
-      - Code polish and clearifying the documentation
+      - Code polish and clarifying the documentation
   - `RLum.Data.Image-class`
       - Conversion methods to a `matrix` and from and to `data.frame`
         never worked as intended.
@@ -191,7 +193,7 @@ Thanks to Sébastian Huot for a constructive discussion.
 
   - The file name `RisoeBINfileData-class.R` was changed to
     `Risoe.BINfileData-class.R` for consistency reasons, however, this
-    has no furhter visible effect (\#76, spotted by Sébastien Huot)
+    has no further visible effect (\#76, spotted by Sébastien Huot)
 
 ## Changes in version 0.9.0.110 (2019-04-21)
 
