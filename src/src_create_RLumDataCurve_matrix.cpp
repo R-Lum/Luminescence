@@ -25,10 +25,11 @@ NumericVector seq_RLum(double from, double to, double length_out) {
   sequence[0] = from + by;
 
   //loop and create sequence
-  for (int i=1; i < length_out; ++i){
+  for (int i=1; i < static_cast<int>(length_out); i++){
     sequence[i] = sequence[i-1] + by;
 
   }
+
   return sequence;
 }
 
