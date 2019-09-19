@@ -1,42 +1,38 @@
 ## Release summary
 
-This is a minor bug fix release for 0.9.2 the 
-following CRAN check note:
+This release addresses a request received from CRAN.
+We also fixed some bugs.
 
->Version: 0.9.2 
->Check: dependencies in R code 
->Result: NOTE 
->    Namespace in Imports field not imported from: ‘interp’
->     All declared Imports should be used. 
+## Addressed CRAN issues received via mail
 
-This was not spotted before and I do appologise. 
-Thanks for your support!
+> From: Kurt Hornik, 2019-08-02
+> Issue: datalist not correct 
 
-## CRAN incoming message
+We rebuilt our datalist as requested. 
+Thanks to Kurt Hornik for pointing out this issue!
 
->Found the following (possibly) invalid URLs:
->   URL: https://doi.org/10.1515/geochr-2015-0022
->     From: inst/doc/HowTo_analyse_Al2O3.html
->     Status: Error
->     Message: libcurl error code 60:
->       	server certificate verification failed. CAfile: none CRLfile: none
->       	(Status without verification: OK)
+## R CMD check --as-cran results
 
-The URL is correct. 
+0 errors | 0 warnings | 0 note
 
 ## CRAN messages
 
-> Version: 0.9.2
+> Version: 0.9.3 
 > Check: installed package size 
 > Result: NOTE 
->     installed size is 5.8Mb
+>     installed size is 6.0Mb
 >     sub-directories of 1Mb or more:
 >     R 1.5Mb
 >     help 1.1Mb
->     libs 1.6Mb 
+>     libs 1.7Mb 
 
 We are aware of it, however, this is the package size and there is nothing we can 
 do about.
+
+## Win-Builder
+
+Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
+The URL is correct and works as expected. 
 
 ## R CMD check --as-cran results
 
@@ -57,10 +53,8 @@ checked thous URLs and found them accessible.
 
 Reverse depends 4: 
 
-* 2/4 are ok. 
-* `RLumModel` crashed but this is not related to 'Luminescence' but something that has 
-changed in 'deSolve'
-* `RLumShiny` showed a note not related to 'Luminescence'
+* 3/4 are ok. 
+* `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
 
 ## Test environments
 * local macOS High Sierra 10.14.6, Xcode 10.3, R-devel

@@ -19,16 +19,12 @@ library(Luminescence)
 
 The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
 
-[![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
-[![Rdoc](http://www.rdocumentation.org/badges/version/Luminescence)](http://www.rdocumentation.org/packages/Luminescence)
-
-[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](http://cranlogs.r-pkg.org/badges/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](http://cranlogs.r-pkg.org/badges/last-week/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](http://cranlogs.r-pkg.org/badges/last-day/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
-
-
-### Test performance
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
+[![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
+[![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
+[![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
@@ -50,11 +46,6 @@ our [R-Luminescence homepage](http://www.r-luminescence.org).
 
 #### i. Requirements
 
-With release of version 0.4.2 part of the *analyse_IRSAR.RF()* function was rewritten in C++ to 
-increase its perfomance. This inevitably introduced the requirement for the GNU Compiler Collection (*gcc*) 
-when the R package 'Luminescence' is installed from source. 
-Depending on your OS please download and install one of the following:
-
 **Windows (32/64bit)** - 'Rtools' (provided by CRAN)
 
    https://cran.r-project.org/bin/windows/Rtools/
@@ -66,8 +57,6 @@ Depending on your OS please download and install one of the following:
 For **Linux** users *gcc* often comes pre-installed in most distributions. Should *gcc* be not available, however, we kindly refer to the exhaustive collection of installation guides depending on the linux distribution.
 
 #### ii. Install the package
-
-##### Since version 0.8.0 with RStudio
 
 Install any development versions using our *RStudio* add-in
 
@@ -87,11 +76,8 @@ To install the latest development builds directly from GitHub, run
 ```{r, eval=FALSE}
 if(!require("devtools"))
   install.packages("devtools")
-devtools::install_github("R-Lum/Luminescence@master")
+devtools::install_github("R-Lum/Luminescence@<wanted branch>")
 ```
-
-To install a developer build other than 'master', replace the term 'master' in the codeline by the name
-of the wanted developer build. 
 
 ## Contribute
 
