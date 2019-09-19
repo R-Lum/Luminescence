@@ -18,7 +18,7 @@ using namespace Rcpp;
 NumericVector seq(int from, int to, double length_out) {
 
   //set variables
-  NumericVector sequence(length_out);
+  NumericVector sequence(static_cast<int>(length_out));
   double by = static_cast<double>(to - from) / length_out;
 
   //set first channel
