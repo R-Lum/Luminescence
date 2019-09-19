@@ -15,7 +15,6 @@ using namespace Rcpp;
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
 // .. no export
-// [[Rcpp::export]]
 NumericVector seq_RLum(double from, double to, double length_out) {
 
   //set variables
