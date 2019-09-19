@@ -32,18 +32,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // create_RLumDataCurve_matrix
-NumericMatrix create_RLumDataCurve_matrix(NumericVector DATA, double VERSION, int NPOINTS, String LTYPE, double LOW, double HIGH, double AN_TEMP, int TOLDELAY, int TOLON, int TOLOFF);
+NumericMatrix create_RLumDataCurve_matrix(NumericVector DATA, int VERSION, int NPOINTS, String LTYPE, int LOW, int HIGH, int AN_TEMP, int TOLDELAY, int TOLON, int TOLOFF);
 RcppExport SEXP _Luminescence_create_RLumDataCurve_matrix(SEXP DATASEXP, SEXP VERSIONSEXP, SEXP NPOINTSSEXP, SEXP LTYPESEXP, SEXP LOWSEXP, SEXP HIGHSEXP, SEXP AN_TEMPSEXP, SEXP TOLDELAYSEXP, SEXP TOLONSEXP, SEXP TOLOFFSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type DATA(DATASEXP);
-    Rcpp::traits::input_parameter< double >::type VERSION(VERSIONSEXP);
+    Rcpp::traits::input_parameter< int >::type VERSION(VERSIONSEXP);
     Rcpp::traits::input_parameter< int >::type NPOINTS(NPOINTSSEXP);
     Rcpp::traits::input_parameter< String >::type LTYPE(LTYPESEXP);
-    Rcpp::traits::input_parameter< double >::type LOW(LOWSEXP);
-    Rcpp::traits::input_parameter< double >::type HIGH(HIGHSEXP);
-    Rcpp::traits::input_parameter< double >::type AN_TEMP(AN_TEMPSEXP);
+    Rcpp::traits::input_parameter< int >::type LOW(LOWSEXP);
+    Rcpp::traits::input_parameter< int >::type HIGH(HIGHSEXP);
+    Rcpp::traits::input_parameter< int >::type AN_TEMP(AN_TEMPSEXP);
     Rcpp::traits::input_parameter< int >::type TOLDELAY(TOLDELAYSEXP);
     Rcpp::traits::input_parameter< int >::type TOLON(TOLONSEXP);
     Rcpp::traits::input_parameter< int >::type TOLOFF(TOLOFFSEXP);
