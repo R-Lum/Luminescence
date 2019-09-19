@@ -33,7 +33,7 @@ to install the desired development version of the package.
 
 If \code{force_install=TRUE} the functions checks if 'devtools' is available
 and then attempts to install the chosen development branch via
-\link[devtools:install_github]{devtools::install_github}.
+\link[devtools:remote-reexports]{devtools::remote-reexports}.
 }
 \examples{
 
