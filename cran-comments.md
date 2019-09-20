@@ -2,8 +2,11 @@
 
 This release removes the non-used import from 'interp'. 
 We are sorry about that mistake which had not been shown up 
-in the tests, but we will improve our release process to 
+in the tests, but we will further improve our release process to 
 avoid such mistakes in future. 
+
+The error on CRAN could neither be reproduced nor with the win-builder 
+and appears to be a temporary CRAN-server problem. 
 
 ## CRAN messages
 
@@ -22,7 +25,8 @@ do about.
 ## Win-Builder
 
 Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
-The URL is correct and works as expected. 
+The URL is correct and works as expected, the problem appears to be, however, 
+related to the server behind the DOI forwarding and is thus beyond our reach. 
 
 ## R CMD check --as-cran results
 
