@@ -1,38 +1,19 @@
 ## Release summary
 
-This release addresses a request received from CRAN.
-We also fixed some bugs.
+This release removes the non-used import from 'interp'. 
+We are sorry about that mistake which had not been shown up 
+in the tests, but we will further improve our release process to 
+avoid such mistakes in future. 
 
-## Addressed CRAN issues received via mail
-
-> From: Kurt Hornik, 2019-08-02
-> Issue: datalist not correct 
-
-We rebuilt our datalist as requested. 
-Thanks to Kurt Hornik for pointing out this issue!
-
-## R CMD check --as-cran results
-
-0 errors | 0 warnings | 0 note
-
-## CRAN incoming message
-
->Found the following (possibly) invalid URLs:
->   URL: https://doi.org/10.1515/geochr-2015-0022
->     From: inst/doc/HowTo_analyse_Al2O3.html
->     Status: Error
->     Message: libcurl error code 60:
->       	server certificate verification failed. CAfile: none CRLfile: none
->       	(Status without verification: OK)
-
-The URL is correct. 
+The error on CRAN could neither be reproduced nor with the win-builder 
+and appears to be a temporary CRAN-server problem. 
 
 ## CRAN messages
 
-> Version: 0.9.3
+> Version: 0.9.4 
 > Check: installed package size 
 > Result: NOTE 
->     installed size is 5.8Mb
+>     installed size is 5.9Mb
 >     sub-directories of 1Mb or more:
 >     R 1.5Mb
 >     help 1.1Mb
@@ -40,6 +21,12 @@ The URL is correct.
 
 We are aware of it, however, this is the package size and there is nothing we can 
 do about.
+
+## Win-Builder
+
+Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
+The URL is correct and works as expected, the problem appears to be, however, 
+related to the server behind the DOI forwarding and is thus beyond our reach. 
 
 ## R CMD check --as-cran results
 
@@ -60,10 +47,8 @@ checked thous URLs and found them accessible.
 
 Reverse depends 4: 
 
-* 2/4 are ok. 
-* `RLumModel` crashed but this is not related to 'Luminescence' but something that has 
-changed in 'deSolve'
-* `RLumShiny` showed a note not related to 'Luminescence'
+* 3/4 are ok. 
+* `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
 
 ## Test environments
 * local macOS High Sierra 10.14.6, Xcode 10.3, R-devel
