@@ -61,6 +61,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., 2019. get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.4. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., 2019. get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
 }
 

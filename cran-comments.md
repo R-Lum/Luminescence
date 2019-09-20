@@ -1,30 +1,20 @@
 ## Release summary
 
-This release addresses a request received from CRAN.
-We also fixed some bugs.
-
-## Addressed CRAN issues received via mail
-
-> From: Kurt Hornik, 2019-08-02
-> Issue: datalist not correct 
-
-We rebuilt our datalist as requested. 
-Thanks to Kurt Hornik for pointing out this issue!
-
-## R CMD check --as-cran results
-
-0 errors | 0 warnings | 0 note
+This release removes the non-used import from 'interp'. 
+We are sorry about that mistake which had not been shown up 
+in the tests, but we will improve our release process to 
+avoid such mistakes in future. 
 
 ## CRAN messages
 
-> Version: 0.9.3 
+> Version: 0.9.4 
 > Check: installed package size 
 > Result: NOTE 
->     installed size is 6.0Mb
+>     installed size is 5.9Mb
 >     sub-directories of 1Mb or more:
 >     R 1.5Mb
 >     help 1.1Mb
->     libs 1.7Mb 
+>     libs 1.6Mb 
 
 We are aware of it, however, this is the package size and there is nothing we can 
 do about.
