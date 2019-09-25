@@ -28,6 +28,12 @@
 #'
 #' @param expected_dose [numeric] (**required**): expected equivalent dose
 #'
+#' @param MinIndivDose [numeric] (*with default*): value specifying the minimum dose taken into
+#' account for the plateau. `NULL` applies all values.
+#'
+#' @param MaxIndivDose [numeric] (*with default*): value specifying the maximum dose taken into
+#' account for the plateau. `NULL` applies all values.
+#'
 #' @param kappa [numeric] (*optional*): positive dimensionless exposure parameter
 #' characterising the bleaching state of the grains. Low values (< 10) indicate
 #' poor bleaching
@@ -94,6 +100,8 @@ calc_EED_Model <- function(
   data,
   D0 = 120L,
   expected_dose,
+  MinIndivDose = NULL,
+  MaxIndivDose = NULL,
   kappa = NULL,
   sigma_distr = NULL,
   n.simul = 5000L,
@@ -151,6 +159,15 @@ calc_EED_Model <- function(
     mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 4])
     return (var_ratio / (mean_ratio ^ 2))
   }
+
+  # Calcul de la variance du plateau      ajout le 20.8.2018
+  # sur la base des doses arch?ologiques
+  # ##TODO not yet included
+  .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
+      var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 6])
+      mean_ratio <- mean(M_Data[MinDose_Index:MaxDose_Index, 6])
+      return (var_ratio / (mean_ratio ^ 2))
+    }
 
   .EED_Simul_Matrix <- function (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul){
 
@@ -273,48 +290,46 @@ calc_EED_Model <- function(
 
   # fonction permettant de retourner l'indice de la valeur minimale de la  dose individuelle
   # prise en compte pour le calcul du plateau
-  .Get_Plateau_MinDoseIndex <-
-    function(M_data, Ndata, MinIndivDose) {
-      if (MinIndivDose == "all") {
+  # here combined to one single function returning the minium or the maxixumx
+  .Get_Plateau_MinDoseIndex <- function(M_Data, Ndata, MinIndivDose) {
+      if (is.null(MinIndivDose))
         return(1)
 
-      } else {
-        if (is.numeric(MinIndivDose)) {
-          current_index <- 1
-          while ((MinIndivDose > M_Data[current_index, 9]) &
-                 (current_index < Ndata)) {
-            current_index <- current_index + 1
-          }
-        }
-        return(current_index)
+      if (!is.numeric(MinIndivDose))
+        stop("[calc_EED_Model()] MinIndivDose must by of type numeric or NULL!", call. = FALSE)
+
+      current_index <- 1
+      while ((MinIndivDose > M_Data[current_index, 9]) &
+             (current_index < Ndata)) {
+        current_index <- current_index + 1
       }
+
+      return(current_index)
     }
 
 
   # fonction permettant de retourner l'indice de la valeur maximale de la  dose individuelle
   # prise en compte pour le calcul du plateau
-  .Get_Plateau_MaxDoseIndex <- function(M_data, Ndata, MaxIndivDose) {
-    if (MaxIndivDose == "all") {
+  .Get_Plateau_MaxDoseIndex <- function(M_Data, Ndata, MaxIndivDose) {
+    if (is.null(MaxIndivDose))
       return(Ndata)
-    }
-    else {
-      if (is.numeric(MaxIndivDose))
-      {
-        current_index = 1
+
+    if (!is.numeric(MaxIndivDose))
+      stop("[calc_EED_Model()] MaxIndivDose must by of type numeric or NULL!", call. = FALSE)
+
+        current_index <- 1
         while ((MaxIndivDose > M_Data[current_index, 9]) &
                (current_index < Ndata)) {
-          current_index = current_index + 1
+          current_index <- current_index + 1
         }
-      }
-      return(current_index)
-    }
 
+      return(current_index)
   }
 
   ## allow automated kapp and sigma_distr parameter estimation
   .guess_EED_parameters <- function(set_kappa, set_sigma_distr,
     set_expected_dose, D0, Iinit, Nsimul, Dosedata, M_Data, M_Simul, Ndata,
-    method_control_intern = method_control){
+    set_MinDose_Index, set_MaxDose_Index, method_control_intern = method_control){
 
     ##settings to control the what needs to be controlled
     method_control <- modifyList(
@@ -348,7 +363,8 @@ calc_EED_Model <- function(
       ##return variance and the mean DE
       return(
         c(
-        VAR = .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = 1, MaxDose_Index = nrow(Dosedata)),
+        VAR = .calc_Plateau_Variance_uncorr(M_Data, MinDose_Index = set_MinDose_Index,
+                                            MaxDose_Index = set_MaxDose_Index),
         RESIDUAL = sum((M_Data[,6] - rep(set_expected_dose, nrow(M_Data)))^2)
         ))
 
@@ -515,6 +531,12 @@ colnames(M_Data) <- c("CUM_MEAN_DE", "CUM_MEAN_DE_X", "NET_CUM_MEAN_DE_NET", "NE
                       "RATIO_DE_SIM", "RATIO_DE_SIM_X", "INT_NET_DOSE", "INT_NET_DOSE_X",
                       "DE", "DE_X")
 
+# set limits ... ##TODO M_data is still NA here ... double check, so far only NULL works
+Min_plateau <- .Get_Plateau_MinDoseIndex(M_Data, Ndata, MinIndivDose)
+Max_plateau <- .Get_Plateau_MaxDoseIndex(M_Data, Ndata, MaxIndivDose)
+if (Max_plateau <= Min_plateau) {
+  Min_plateau <- 1
+} #priorité max dose
 # Guess parameters if needed ------------------------------------------------------------------
 if(verbose) cat("\n[calc_EED_Model()]\n")
 
@@ -537,7 +559,9 @@ if(is.null(kappa) || is.null(sigma_distr)){
     Dosedata = Dosedata,
     M_Data = M_Data,
     M_Simul = M_Simul,
-    Ndata = Ndata
+    Ndata = Ndata,
+    set_MinDose_Index = Min_plateau,
+    set_MaxDose_Index = Max_plateau
     )
 
   kappa <- temp_guess[[1]][1]
