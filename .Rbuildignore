@@ -42,7 +42,7 @@
 ^vignettes/.*\.xsyg$
 
 # -- Exclude build stuff
-Makefile
+^Makefile$
 
 # -- Exclude meta data stuff --
 ^codemeta\.json$

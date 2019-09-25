@@ -4,10 +4,10 @@
 \alias{calc_EED_Model}
 \title{Modelling Exponential Exposure Distribution}
 \usage{
-calc_EED_Model(data, D0 = 120L, expected_dose, kappa = NULL,
-  sigma_distr = NULL, n.simul = 5000L, n.minSimExp = 50L,
-  sample_name = "", method_control = list(), verbose = TRUE,
-  plot = TRUE, ...)
+calc_EED_Model(data, D0 = 120L, expected_dose, MinIndivDose = NULL,
+  MaxIndivDose = NULL, kappa = NULL, sigma_distr = NULL,
+  n.simul = 5000L, n.minSimExp = 50L, sample_name = "",
+  method_control = list(), verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}): input data consisting of two columns, the De and the
@@ -17,6 +17,12 @@ SE(De). Values are expected in Gy}
 of the the quartz. Value are expected in Gy}
 
 \item{expected_dose}{\link{numeric} (\strong{required}): expected equivalent dose}
+
+\item{MinIndivDose}{\link{numeric} (\emph{with default}): value specifying the minimum dose taken into
+account for the plateau. \code{NULL} applies all values.}
+
+\item{MaxIndivDose}{\link{numeric} (\emph{with default}): value specifying the maximum dose taken into
+account for the plateau. \code{NULL} applies all values.}
 
 \item{kappa}{\link{numeric} (\emph{optional}): positive dimensionless exposure parameter
 characterising the bleaching state of the grains. Low values (< 10) indicate
@@ -92,7 +98,7 @@ calc_EED_Model(
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-2. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2019. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-7. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
