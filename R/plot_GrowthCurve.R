@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.8
+#' @section Function version: 1.10.9
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
@@ -2221,8 +2221,8 @@ plot_GrowthCurve <- function(
               1:length(sample[, "TnTx"]),
               sample[1:(length(sample[, "TnTx"])), "TnTx"] / sample[1, "TnTx"],
               xlab = "SAR cycle",
-              ylab = expression(paste(T[n] / T[x])),
-              main = "Test dose response",
+              ylab = expression(paste(T[x] / T[n])),
+              main = "Test-dose response",
               type = "o",
               pch = 20,
             )

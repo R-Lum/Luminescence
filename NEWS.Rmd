@@ -17,7 +17,11 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 
 ### Bugfixes and changes
 
-* Dummy
+#### `plot_GrowthCurve()`
+
+* The y-axis labelling of the test-dose response plot finally shows what was done since the beginning: 
+the Tx values are normalised by the Tn values, i.e. Tn/Tx and not Tn/Tx. Thanks to Andrea Junge for spotting 
+this flaw. 
 
 ## Changes in version 0.9.4/0.9.5 (2019-09-20/2019-09-21)
 
