@@ -69,7 +69,7 @@
 #' @param ... further arguments and graphical parameters passed to
 #' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence] (see details for further information).
 #' Plot control parameters are: `ylim`, `xlim`, `ylab`, `xlab`, `main`, `pch`, `mtext`, `cex`, `legend`,
-#' `legend.text`, `legend.position`
+#' `legend.text`, `legend.pos`
 #'
 #' @return
 #' A plot and an [RLum.Results-class] object with the produced De values
