@@ -236,7 +236,7 @@ fit_SurfaceExposure <- function(data,
     # Global fitting requires and equal amount of ages to be provided
     if (length(data) != length(age))
       stop("If 'data' is a list of data sets for global fitting, 'age' must be of the same length.", call. = FALSE)
-    
+
     # TODO: Support weighted fitting for global fit
     if (weights) {
       if (settings$verbose)
@@ -262,12 +262,6 @@ fit_SurfaceExposure <- function(data,
   # Exit if data type is invalid
   if (!inherits(data, "data.frame"))
     stop("'data' must be of class data.frame.", call. = FALSE)
-  
-  # check if length of mu is identical to length of age if both provided
-  if (global_fit && !is.null(mu) && length(mu) > 1) {
-    if (length(age) != length(mu))
-      stop("'mu' must be a single value or of the same length as 'age'", call. = FALSE)
-  }
 
   # Check which parameters have been provided
   if (!is.null(age) && any(is.na(age))) age <- NULL
@@ -307,9 +301,6 @@ fit_SurfaceExposure <- function(data,
 
   ## FITTING ----
 
-  if (global_fit && length(mu) == 1 && length(mu) < length(unique(data$group)))
-    mu <- rep(mu, length(unique(data$group)))
-    
   ## Functions
   # w/o dose rate
   fun <- formula(y ~ exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x)))
@@ -351,7 +342,7 @@ fit_SurfaceExposure <- function(data,
     else
       use_fun <- fun
   }
-  
+
   # (un)constrained fitting
   fit <- tryCatch({
     minpack.lm::nlsLM(formula = use_fun,
@@ -516,7 +507,7 @@ fit_SurfaceExposure <- function(data,
       if (!is.null(sigmaphi))
         formula_text <- gsub("sigmaphi", sigmaphi, formula_text)
       if (!is.null(mu))
-        formula_text <- gsub("mu", paste0("[", paste(unique(mu), collapse = "|"), "]"), formula_text)
+        formula_text <- gsub("mu", mu, formula_text)
 
       legend(ifelse(coord_flip, "bottomleft", "bottomright"), legend = formula_text, cex = 0.8, bty = "n")
     }
@@ -561,14 +552,14 @@ fit_SurfaceExposure <- function(data,
     if (!is.null(sigmaphi))
       cat(paste0(" sigmaphi:\t", sigmaphi, "\n"))
     if (!is.null(mu))
-      cat(paste0(" mu:\t\t", ifelse(length(unique(mu)) == 1, mu, paste(mu, collapse = ", ")), "\n"))
+      cat(paste0(" mu:\t\t", mu, "\n"))
     cat("\n")
 
     if (!is.null(age)) {
       message(paste0("To apply the estimated parameters to a sample of unknown age run:\n\n",
                      "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
                      ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
-                     ", mu = c(", paste(signif(unique(results$summary$mu), 3), collapse = ", "), ")",
+                     ", mu = ", signif(unique(results$summary$mu), 3),
                      ")\n\n"))
     }
   }
