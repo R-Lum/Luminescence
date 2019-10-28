@@ -83,6 +83,13 @@
 #' If `TRUE` the fit will be weighted by the inverse square of the error.
 #' Requires `data` to be a [data.frame] with three columns.
 #'
+#' @param reduced_model [logical] (*optional*):
+#' If `TRUE` the parameters sigmaphi and age will be taken together to a single
+#' parameter. This is useful for estimating parameter mu from ages of unknown age.
+#' The combined parameter will be reported as `sigmaphiage`. This option is only
+#' allowed for single sets of surface exposure data. Values provided for 
+#' `mu`, `sigmaphi` or `age` will be automatically set to `NULL`. (**EXPERIMENTAL**)
+#'
 #' @param plot [logical] (*optional*):
 #' Show or hide the plot.
 #'
@@ -206,6 +213,7 @@ fit_SurfaceExposure <- function(data,
                                 Ddot = NULL,
                                 D0 = NULL,
                                 weights = FALSE,
+                                reduced_model = FALSE,
                                 plot = TRUE,
                                 legend = TRUE,
                                 error_bars = TRUE,
@@ -259,6 +267,25 @@ fit_SurfaceExposure <- function(data,
     global_fit <- FALSE
   }
 
+  # Stop if the user tried to apply the reduced model to a global fit
+  if (reduced_model && global_fit)
+    stop("The reduced model ('reduced_model=TRUE') is not applicable to multiple data sets for global fitting. Either provide a single data set or disable the reduced model.", call. = FALSE)
+  
+  if (reduced_model) {
+    if (!is.null(age)) {
+      age <- NULL
+      warning("Due to 'reduced_model' argument 'age' was set to NULL.", call. = FALSE)
+    }
+    if (!is.null(mu)) {
+      warning("Due to 'reduced_model' argument 'mu' was set to NULL.", call. = FALSE)
+      mu <- NULL
+    }
+    if (!is.null(sigmaphi)) {
+      warning("Due to 'reduced_model' argument 'sigmaphi' was set to NULL.", call. = FALSE)
+      sigmaphi <- NULL
+    }
+  }
+  
   # Exit if data type is invalid
   if (!inherits(data, "data.frame"))
     stop("'data' must be of class data.frame.", call. = FALSE)
@@ -314,6 +341,7 @@ fit_SurfaceExposure <- function(data,
   # w/o dose rate
   fun <- formula(y ~ exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x)))
   fun_global <- formula(y ~ exp(-sigmaphi * age[group] * 365.25*24*3600 * exp(-mu * x)))
+  fun_reduced <- formula(y ~ exp(-sigmaphiage * 365.25*24*3600 * exp(-mu * x)))
 
   # w/ dose rate (Sohbati et al. 2012, eq 12)
   if (!is.null(Ddot))
@@ -339,6 +367,16 @@ fit_SurfaceExposure <- function(data,
                 mu = if (is.null(mu)) Inf else NULL,
                 age = if (is.null(age)) Inf else NULL)
 
+  ## Special case: reduced model for non-global fit
+  if (reduced_model && !global_fit) {
+    start <- list(sigmaphiage = 5e-06,
+                  mu = 0.9)
+    lower <- list(sigmaphiage = 0,
+                  mu = 0)
+    upper <- list(sigmaphiage = Inf,
+                  mu = Inf)
+  }
+  
   ## Decision tree which of the functions to use
   if (!is.null(Ddot) && !is.null(D0)) {
     if (global_fit)
@@ -351,6 +389,10 @@ fit_SurfaceExposure <- function(data,
     else
       use_fun <- fun
   }
+  
+  ## Special case: reduced model (non-global)
+  if (reduced_model)
+    use_fun <- fun_reduced
   
   # (un)constrained fitting
   fit <- tryCatch({
@@ -526,7 +568,7 @@ fit_SurfaceExposure <- function(data,
   if (settings$verbose) {
     cat("\n [fit_SurfaceExposure()] \n\n")
 
-    if (!global_fit) {
+    if (!global_fit && !reduced_model) {
       ## STANDARD OUTPUT
       cat(" Estimated paramater(s):\n",
           "-----------------------\n")
@@ -536,6 +578,15 @@ fit_SurfaceExposure <- function(data,
       if (is.null(sigmaphi))
         cat(paste0(" sigmaphi:\t", signif(results$summary$sigmaphi, 3), " \u00B1 ",
                    signif(results$summary$sigmaphi_error, 3), "\n"))
+      if (is.null(mu))
+        cat(paste0(" mu:\t\t", signif(results$summary$mu, 3), " \u00B1 ",
+                   signif(results$summary$mu_error, 3), "\n"))
+      cat("\n")
+    } else if (!global_fit && reduced_model) {
+      cat(" Estimated paramater(s):\n",
+          "-----------------------\n")
+      cat(paste0(" sigmaphiage:\t", signif(coef["sigmaphiage","Estimate"], 3), " \u00B1 ",
+                 signif(coef["sigmaphiage","Std. Error"], 3), "\n"))
       if (is.null(mu))
         cat(paste0(" mu:\t\t", signif(results$summary$mu, 3), " \u00B1 ",
                    signif(results$summary$mu_error, 3), "\n"))

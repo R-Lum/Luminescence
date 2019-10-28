@@ -5,8 +5,9 @@
 \title{Nonlinear Least Squares Fit for OSL surface exposure data}
 \usage{
 fit_SurfaceExposure(data, sigmaphi = NULL, mu = NULL, age = NULL,
-  Ddot = NULL, D0 = NULL, weights = FALSE, plot = TRUE,
-  legend = TRUE, error_bars = TRUE, coord_flip = FALSE, ...)
+  Ddot = NULL, D0 = NULL, weights = FALSE, reduced_model = FALSE,
+  plot = TRUE, legend = TRUE, error_bars = TRUE,
+  coord_flip = FALSE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} or \link{list} (\strong{required}):
@@ -52,6 +53,13 @@ ignored.}
 \item{weights}{\link{logical} (\emph{optional}):
 If \code{TRUE} the fit will be weighted by the inverse square of the error.
 Requires \code{data} to be a \link{data.frame} with three columns.}
+
+\item{reduced_model}{\link{logical} (\emph{optional}):
+If \code{TRUE} the parameters sigmaphi and age will be taken together to a single
+parameter. This is useful for estimating parameter mu from ages of unknown age.
+The combined parameter will be reported as \code{sigmaphiage}. This option is only
+allowed for single sets of surface exposure data. Values provided for
+\code{mu}, \code{sigmaphi} or \code{age} will be automatically set to \code{NULL}. (\strong{EXPERIMENTAL})}
 
 \item{plot}{\link{logical} (\emph{optional}):
 Show or hide the plot.}
@@ -191,12 +199,7 @@ results <- fit_SurfaceExposure(set_2, age = c(1e2, 1e3, 1e4, 1e5, 1e6),
                                sigmaphi = 5e-10, Ddot = 1, D0 = 40)
 get_RLum(results)
 
-} 
-
-\section{How to cite}{
-Burow, C., 2019. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-7. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
@@ -211,5 +214,5 @@ Icarus 221, 160-166.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-, RLum Developer Team}
+}
 \keyword{datagen}
