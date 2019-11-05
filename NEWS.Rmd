@@ -17,6 +17,10 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 
 ### Bugfixes and changes
 
+#### `analyse_SAR_CWOSL()`
+* Setting the argument `plot.single = TRUE` does not any longer interferes with the global par settings 
+for the rejection criteria plot.
+
 #### `plot_GrowthCurve()`
 
 * The y-axis labelling of the test-dose response plot finally shows what was done since the beginning: 
