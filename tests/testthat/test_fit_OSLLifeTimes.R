@@ -49,8 +49,13 @@ test_that("standard check", {
     plot = FALSE,
     n.components = 1), class = "RLum.Results")
 
-
-
+  ##warning for log
+  expect_warning(object = fit_OSLLifeTimes(
+    object = ExampleData.TR_OSL,
+    verbose = FALSE,
+    plot = TRUE,
+    log = "x",
+    n.components = 1), regexp = "log-scale requires x-values > 0, set min xlim to 0.01!")
 
 })
 

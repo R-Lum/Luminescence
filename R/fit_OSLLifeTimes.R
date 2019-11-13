@@ -642,15 +642,17 @@ if(plot) {
     ##catch log scale
     if(grepl(pattern = "x", plot_settings$log, fixed = TRUE)){
       if(plot_settings$xlim[1] == 0){
-        plot_settings$xlim[1] <- 1
-        warning("[fit_OSLLifeTime()] log-scale requires x-values > 0, set to 1!", immediate. = TRUE, call. = FALSE)
+        plot_settings$xlim[1] <- if(min(df_raw[[1]]) == 0) 1e-04 else min(df_raw[[1]])
+        warning(paste0("[fit_OSLLifeTime()] log-scale requires x-values > 0, set min xlim to ",
+                       round(plot_settings$xlim[1],4), "!"), immediate. = TRUE, call. = FALSE)
       }
     }
 
     if(grepl(pattern = "y", plot_settings$log, fixed = TRUE)){
       if(plot_settings$ylim[1] == 0){
-        plot_settings$ylim[1] <- 1
-        warning("[fit_OSLLifeTime()] log-scale requires y-values > 0, set to 1!", immediate. = TRUE, call. = FALSE)
+        plot_settings$ylim[1] <- if(min(df_raw[[2]]) == 0) 1e-04 else min(df_raw[[2]])
+        warning(paste0("[fit_OSLLifeTime()] log-scale requires y-values > 0, set min ylim to ",
+                       round(plot_settings$ylim[1],4), "!"), immediate. = TRUE, call. = FALSE)
       }
     }
 

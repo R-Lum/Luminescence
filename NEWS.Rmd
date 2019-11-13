@@ -21,6 +21,9 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 * Setting the argument `plot.single = TRUE` does not any longer interferes with the global par settings 
 for the rejection criteria plot.
 
+#### `fit_OSLLifeTimes()`
+* Function now handles the `log = "x"`, `log = "y"` and `log = "xy"` options better.
+
 #### `plot_GrowthCurve()`
 
 * The y-axis labelling of the test-dose response plot finally shows what was done since the beginning: 
