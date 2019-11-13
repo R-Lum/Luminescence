@@ -532,11 +532,18 @@ colnames(M_Data) <- c("CUM_MEAN_DE", "CUM_MEAN_DE_X", "NET_CUM_MEAN_DE_NET", "NE
                       "DE", "DE_X")
 
 # set limits ... ##TODO M_data is still NA here ... double check, so far only NULL works
-Min_plateau <- .Get_Plateau_MinDoseIndex(M_Data, Ndata, MinIndivDose)
-Max_plateau <- .Get_Plateau_MaxDoseIndex(M_Data, Ndata, MaxIndivDose)
+# The problem is that this call comes to early and it should be somehow integrated in the guess_EED_parameter
+# function to get evaluated everytime on the other hand we just want to limit the search range, maybe this
+# can be done better.
+# The code in .Get_Plateau_MinDoseIndex is rather inefficient and loops over the vector, however,
+# this is not out main problem. In fact we have to first understand what this function is really
+# doing and whether we can achive this better and easier. So far it gets called a lot of times
+Min_plateau <- .Get_Plateau_MinDoseIndex(M_Data, Ndata, MinIndivDose = NULL)
+Max_plateau <- .Get_Plateau_MaxDoseIndex(M_Data, Ndata, MaxIndivDose = NULL)
 if (Max_plateau <= Min_plateau) {
   Min_plateau <- 1
 } #priorité max dose
+
 # Guess parameters if needed ------------------------------------------------------------------
 if(verbose) cat("\n[calc_EED_Model()]\n")
 
@@ -579,6 +586,7 @@ if(is.null(kappa) || is.null(sigma_distr)){
 # Calculation ---------------------------------------------------------------------------------
 M_Simul <- .EED_Simul_Matrix (M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul)
 M_Data <- .EED_Data_Matrix(M_Data, Dosedata, M_Simul, expected_dose, Ndata, Nsimul)
+
 M_Data <- .EED_Calc_Overall_StatUncertainty(M_Data = M_Data, M_Simul = M_Simul, Ndata = Ndata, Nsimul = Nsimul, MinNbSimExp)
 
 max_dose_simul <- max(M_Simul[,3])
