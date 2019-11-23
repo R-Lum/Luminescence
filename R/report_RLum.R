@@ -1,6 +1,6 @@
-#' Create a HTML report for (RLum) objects
+#' @title Create a HTML-report for (RLum) objects
 #'
-#' This function creates a HTML report for a given object, listing its complete
+#' @details This function creates a HTML-report for a given object, listing its complete
 #' structure and content. The object itself is saved as a serialised .Rds file.
 #' The report file serves both as a convenient way of browsing through objects with
 #' complex data structures as well as a mean of properly documenting and saving
@@ -53,7 +53,7 @@
 #' \tabular{ll}{
 #' **Argument** \tab **Description** \cr
 #' `font_family` \tab Define the font family of the HTML document (default: arial) \cr
-#' `headings_size` \tab Size of the <h1> to <h6> tags used to define HTML headings (default: 166\%). \cr
+#' `headings_size` \tab Size of the `<h1>` to `<h6>` tags used to define HTML headings (default: 166%). \cr
 #' `content_color` \tab Color of the object's content (default: #a72925). \cr
 #' }
 #'

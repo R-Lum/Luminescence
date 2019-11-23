@@ -338,7 +338,7 @@ fancy_scientific <- function(l) {
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
-#' @example
+#' @examples
 #' a <- list(b = list(c = list("test")))
 #' .unlist_RLum(a)
 #'
