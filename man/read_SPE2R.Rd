@@ -4,15 +4,20 @@
 \alias{read_SPE2R}
 \title{Import Princeton Intruments (TM) SPE-file into R}
 \usage{
-read_SPE2R(file, output.object = "RLum.Data.Image", frame.range,
-  txtProgressBar = TRUE, verbose = TRUE)
+read_SPE2R(
+  file,
+  output.object = "RLum.Data.Image",
+  frame.range,
+  txtProgressBar = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
 spe-file name (including path), e.g.
 \itemize{
-\item \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
-\item \code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}. Additionally internet connections
+\item \verb{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
+\item \verb{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}. Additionally internet connections
 are supported.
 }}
 
@@ -102,7 +107,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

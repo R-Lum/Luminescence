@@ -11,9 +11,16 @@
 \usage{
 \S4method{show}{RLum.Data.Image}(object)
 
-\S4method{set_RLum}{RLum.Data.Image}(class, originator, .uid, .pid,
-  recordType = "Image", curveType = NA_character_,
-  data = raster::brick(raster::raster(matrix())), info = list())
+\S4method{set_RLum}{RLum.Data.Image}(
+  class,
+  originator,
+  .uid,
+  .pid,
+  recordType = "Image",
+  curveType = NA_character_,
+  data = raster::brick(raster::raster(matrix())),
+  info = list()
+)
 
 \S4method{get_RLum}{RLum.Data.Image}(object, info.object)
 
@@ -127,7 +134,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

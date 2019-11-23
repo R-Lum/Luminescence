@@ -4,14 +4,42 @@
 \alias{plot_AbanicoPlot}
 \title{Function to create an Abanico Plot.}
 \usage{
-plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE,
-  z.0 = "mean.weighted", dispersion = "qr", plot.ratio = 0.75,
-  rotate = FALSE, mtext, summary, summary.pos, summary.method = "MCM",
-  legend, legend.pos, stats, rug = FALSE, kde = TRUE, hist = FALSE,
-  dots = FALSE, boxplot = FALSE, y.axis = TRUE, error.bars = FALSE,
-  bar, bar.col, polygon.col, line, line.col, line.lty, line.label,
-  grid.col, frame = 1, bw = "SJ", output = TRUE,
-  interactive = FALSE, ...)
+plot_AbanicoPlot(
+  data,
+  na.rm = TRUE,
+  log.z = TRUE,
+  z.0 = "mean.weighted",
+  dispersion = "qr",
+  plot.ratio = 0.75,
+  rotate = FALSE,
+  mtext,
+  summary,
+  summary.pos,
+  summary.method = "MCM",
+  legend,
+  legend.pos,
+  stats,
+  rug = FALSE,
+  kde = TRUE,
+  hist = FALSE,
+  dots = FALSE,
+  boxplot = FALSE,
+  y.axis = TRUE,
+  error.bars = FALSE,
+  bar,
+  bar.col,
+  polygon.col,
+  line,
+  line.col,
+  line.lty,
+  line.label,
+  grid.col,
+  frame = 1,
+  bw = "SJ",
+  output = TRUE,
+  interactive = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
@@ -35,7 +63,7 @@ measure of dispersion, used for drawing the scatter polygon. One out of
 \itemize{
 \item \code{"qr"} (quartile range),
 \item \code{"pnn"} (symmetric percentile range with nn the lower percentile, e.g.
-\item \code{"p05"} depicting the range between 5 and 95 %),
+\item \code{"p05"} depicting the range between 5 and 95 \%),
 \item \code{"sd"} (standard deviation) and
 \item \code{"2sd"} (2 standard deviations),
 }
@@ -114,7 +142,7 @@ Option to hide y-axis labels. Useful for data with small scatter.}
 
 \item{error.bars}{\link{logical}:
 Option to show De-errors as error bars on De-points. Useful in combination
-with \code{y.axis = FALSE, bar.col = "none"}.}
+with \verb{y.axis = FALSE, bar.col = "none"}.}
 
 \item{bar}{\link{numeric} (\emph{with default}):
 option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
@@ -142,7 +170,7 @@ line type of additional lines}
 labels for the additional lines.}
 
 \item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the grid lines (originating at \code{[0,0]} and strechting to
+colour of the grid lines (originating at \verb{[0,0]} and strechting to
 the z-scale). To disable grid lines use \code{FALSE}. Default is \code{"grey"}.}
 
 \item{frame}{\link{numeric} (\emph{with default}):
@@ -212,7 +240,7 @@ this appears appropriate.
 
 The proportion of the polar part and the cartesian part of the Abanico Plot
 can be modfied for display reasons (\code{plot.ratio = 0.75}). By default,
-the polar part spreads over 75 \% and leaves 25 \% for the part that
+the polar part spreads over 75 \\% and leaves 25 \\% for the part that
 shows the KDE graph.
 
 A statistic summary, i.e. a collection of statistic measures of
@@ -441,7 +469,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2019. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2019. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

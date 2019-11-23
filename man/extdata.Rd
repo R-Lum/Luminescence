@@ -9,7 +9,7 @@ Description and listing of data provided in the folder \code{data/extdata}
 \details{
 The \strong{R} package \code{Luminescence} includes a number of raw data files, which are mostly used in
 the example sections of appropriate functions. They are also used internally for testing corresponding
-functions using the \code{testthat} package (see files in \code{tests/testthat/}) to ensure their operational
+functions using the \code{testthat} package (see files in \verb{tests/testthat/}) to ensure their operational
 reliability.
 
 \strong{Accessibility}

@@ -14,9 +14,16 @@
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
 
-\S4method{set_RLum}{RLum.Data.Curve}(class, originator, .uid, .pid,
-  recordType = NA_character_, curveType = NA_character_,
-  data = matrix(0, ncol = 2), info = list())
+\S4method{set_RLum}{RLum.Data.Curve}(
+  class,
+  originator,
+  .uid,
+  .pid,
+  recordType = NA_character_,
+  curveType = NA_character_,
+  data = matrix(0, ncol = 2),
+  info = list()
+)
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
 
@@ -26,8 +33,7 @@
 
 \S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
 
-\S4method{smooth_RLum}{RLum.Data.Curve}(object, k = NULL, fill = NA,
-  align = "right", method = "mean")
+\S4method{smooth_RLum}{RLum.Data.Curve}(object, k = NULL, fill = NA, align = "right", method = "mean")
 }
 \arguments{
 \item{object}{\code{\link{get_RLum}}, \code{\link{length_RLum}}, \code{\link{names_RLum}} (\strong{required}):
@@ -186,7 +192,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

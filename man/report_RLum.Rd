@@ -2,12 +2,21 @@
 % Please edit documentation in R/report_RLum.R
 \name{report_RLum}
 \alias{report_RLum}
-\title{Create a HTML report for (RLum) objects}
+\title{Create a HTML-report for (RLum) objects}
 \usage{
-report_RLum(object, file = tempfile(), title = "RLum.Report",
-  compact = TRUE, timestamp = TRUE, show_report = TRUE,
-  launch.browser = FALSE, css.file = NULL, quiet = TRUE,
-  clean = TRUE, ...)
+report_RLum(
+  object,
+  file = tempfile(),
+  title = "RLum.Report",
+  compact = TRUE,
+  timestamp = TRUE,
+  show_report = TRUE,
+  launch.browser = FALSE,
+  css.file = NULL,
+  quiet = TRUE,
+  clean = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{(\strong{required}):
@@ -22,7 +31,7 @@ A character string specifying the title of the document.}
 
 \item{compact}{\link{logical} (\emph{with default}):
 When \code{TRUE} the following report components are hidden:
-\code{@.pid}, \code{@.uid}, \code{'Object structure'}, \code{'Session Info'}
+\verb{@.pid}, \verb{@.uid}, \code{'Object structure'}, \code{'Session Info'}
 and only the first and last 5 rows of long matrices and data frames are shown.
 See details.}
 
@@ -52,23 +61,25 @@ the document's structure (see details).}
 Writes a HTML and .Rds file.
 }
 \description{
-This function creates a HTML report for a given object, listing its complete
+Create a HTML-report for (RLum) objects
+}
+\details{
+This function creates a HTML-report for a given object, listing its complete
 structure and content. The object itself is saved as a serialised .Rds file.
 The report file serves both as a convenient way of browsing through objects with
 complex data structures as well as a mean of properly documenting and saving
 objects.
-}
-\details{
+
 The HTML report is created with \link[rmarkdown:render]{rmarkdown::render} and has the
 following structure:
 
 \tabular{ll}{
 \strong{Section} \tab \strong{Description} \cr
 \code{Header} \tab A summary of general characteristics of the object \cr
-\code{Object content} \tab A comprehensive list of the complete structure and content of the provided object. \cr
-\code{Object structure} \tab Summary of the objects structure given as a table \cr
+\verb{Object content} \tab A comprehensive list of the complete structure and content of the provided object. \cr
+\verb{Object structure} \tab Summary of the objects structure given as a table \cr
 \code{File} \tab Information on the saved RDS file \cr
-\code{Session Info} \tab Captured output from \code{sessionInfo()} \cr
+\verb{Session Info} \tab Captured output from \code{sessionInfo()} \cr
 \code{Plots} \tab (\emph{optional}) For \code{RLum-class} objects a variable number of plots \cr
 }
 
@@ -106,7 +117,7 @@ The following arguments can be used to customise the report via CSS (Cascading S
 \tabular{ll}{
 \strong{Argument} \tab \strong{Description} \cr
 \code{font_family} \tab Define the font family of the HTML document (default: arial) \cr
-\code{headings_size} \tab Size of the <h1> to <h6> tags used to define HTML headings (default: 166\%). \cr
+\code{headings_size} \tab Size of the \verb{<h1>} to \verb{<h6>} tags used to define HTML headings (default: 166\%). \cr
 \code{content_color} \tab Color of the object's content (default: #a72925). \cr
 }
 
@@ -193,6 +204,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2019. report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2019. report_RLum(): Create a HTML-report for (RLum) objects. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 

@@ -10,7 +10,7 @@
 ##for coercing.
 ##
 ##(3) Finally, what ever you want to implemnt, check whether a S4-method exists, it should
-##be just passed to this methods, not the opposite, otherwise this will yield in undesired behaviour.
+##be just passed to this methods, not the opposite, otherwise this will yield in undesired behaviour
 ##
 ##TODO: For this S3 generics so far no proper documentation exists ... we should consider
 ##to provide an overview within a separat document, as it becomes otherwise rather

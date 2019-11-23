@@ -5,10 +5,16 @@
 \title{Calculate the gamma dose deposited within a sample taking layer-to-layer
 variations in radioactivity into account (according to Aitken, 1985)}
 \usage{
-scale_GammaDose(data, conversion_factors = c("Cresswelletal2019",
-  "Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
-  fractional_gamma_dose = c("Aitken1985")[1], verbose = TRUE,
-  plot = TRUE, plot_single = TRUE, ...)
+scale_GammaDose(
+  data,
+  conversion_factors = c("Cresswelletal2019", "Guerinetal2011", "AdamiecAitken1998",
+    "Liritzisetal2013")[1],
+  fractional_gamma_dose = c("Aitken1985")[1],
+  verbose = TRUE,
+  plot = TRUE,
+  plot_single = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -20,13 +26,13 @@ table must have the following named columns:
 \item \code{sample_offset} (\link{logical}): distance of the sample in cm,
 \strong{measured from the BOTTOM OF THE TARGET LAYER}. Except for the target layer
 all values must be \code{NA}.
-\item \code{K} (\link{numeric}): K nuclide content in %
+\item \code{K} (\link{numeric}): K nuclide content in \%
 \item \code{K_se} (\link{numeric}): error on the K content
 \item \code{Th} (\link{numeric}): Th nuclide content in ppm
 \item \code{Th_se} (\link{numeric}): error on the Th content
 \item \code{U} (\link{numeric}): U nuclide content in ppm
 \item \code{U_se} (\link{numeric}): error on the U content
-\item \code{water_content} (\link{numeric}): water content of each layer in %
+\item \code{water_content} (\link{numeric}): water content of each layer in \%
 \item \code{water_content_se} (\link{numeric}):  error on the water content
 \item \code{density} (\link{numeric}): bulk density of each layer in g/cm^-3
 }}
@@ -74,29 +80,29 @@ write.csv(table, "c:/path/to/results.csv")
 }
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$summary} \tab \code{data.frame} \tab summary of the model results \cr
-\code{$data} \tab \code{data.frame} \tab the original input data \cr
-\code{$dose_rates} \tab \code{list} \tab two \code{data.frames} for the scaled and infinite matrix dose rates \cr
-\code{$tables} \tab \code{list} \tab several \code{data.frames} containing intermediate results \cr
-\code{$args} \tab \code{character} \tab arguments of the call \cr
-\code{$call} \tab \code{call} \tab the original function call \cr
+\verb{$summary} \tab \code{data.frame} \tab summary of the model results \cr
+\verb{$data} \tab \code{data.frame} \tab the original input data \cr
+\verb{$dose_rates} \tab \code{list} \tab two \code{data.frames} for the scaled and infinite matrix dose rates \cr
+\verb{$tables} \tab \code{list} \tab several \code{data.frames} containing intermediate results \cr
+\verb{$args} \tab \code{character} \tab arguments of the call \cr
+\verb{$call} \tab \code{call} \tab the original function call \cr
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 Currently unused.
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 Three plots are produced:
@@ -136,13 +142,13 @@ each layer, whilst column 3 should contain \code{NA} for all layers that are not
 sampled for OSL/TL. For the layer the OSL/TL sample was taken from a numerical
 value must be provided, which is the distance (in cm) measured from \strong{bottom}
 of the layer of interest. If the whole layer was sampled insert \code{0}. If the
-sample was taken from \emph{within} the layer, insert a numerical value \code{>0},
+sample was taken from \emph{within} the layer, insert a numerical value \verb{>0},
 which describes the distance from the middle of the sample to the bottom of
 the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations
 and their standard errors for
-Potassium (in %), Thorium (in ppm) and Uranium (in ppm). Columns 10 and 11
+Potassium (in \%), Thorium (in ppm) and Uranium (in ppm). Columns 10 and 11
 give information on the water content and its uncertainty (standard error)
-in %. The layer density (in g/cm3) should be given in column 12. No cell
+in \%. The layer density (in g/cm3) should be given in column 12. No cell
 should be left blank. Please ensure to keep the column titles as given in
 the example dataset (\code{data('ExampleData.ScaleGammaDose')}, see examples).
 
@@ -188,7 +194,7 @@ delivered by \strong{A} and \strong{B} is given by
 
 \deqn{ {2 - f(x) - f(t-x)}D_{AB} }
 
-Since \strong{A} and \strong{B} are equally active \code{D_{AB} = D_A = D_B}.
+Since \strong{A} and \strong{B} are equally active \verb{D_\{AB\} = D_A = D_B}.
 
 The function uses the value of the fractional dose rate at the layer
 boundary to start the calculation for the next layer. This way, the function
@@ -228,7 +234,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C., 2019. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C., 2019. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

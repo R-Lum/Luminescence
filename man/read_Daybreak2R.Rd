@@ -4,8 +4,7 @@
 \alias{read_Daybreak2R}
 \title{Import measurement data produced by a Daybreak TL/OSL reader into R}
 \usage{
-read_Daybreak2R(file, raw = FALSE, verbose = TRUE,
-  txtProgressBar = TRUE)
+read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}):
@@ -33,7 +32,7 @@ Daybreak reader into R. The import of the DAT-files is limited to the file
 format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100.
 }
 \note{
-\strong{\code{[BETA VERSION]}}
+\strong{\verb{[BETA VERSION]}}
 This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
@@ -60,7 +59,7 @@ The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Loui
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Zink, A., 2019. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Zink, A., 2019. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

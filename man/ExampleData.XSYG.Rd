@@ -8,7 +8,7 @@
 reader}
 \format{\code{OSL.SARMeasurement}: SAR OSL measurement data
 
-The data contain two elements: (a) \code{$Sequence.Header} is a
+The data contain two elements: (a) \verb{$Sequence.Header} is a
 \link{data.frame} with metadata from the measurement,(b)
 \code{Sequence.Object} contains an \linkS4class{RLum.Analysis} object
 for further analysis.

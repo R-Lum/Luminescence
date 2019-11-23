@@ -4,10 +4,29 @@
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
 \usage{
-plot_RadialPlot(data, na.rm = TRUE, log.z = TRUE, central.value,
-  centrality = "mean.weighted", mtext, summary, summary.pos, legend,
-  legend.pos, stats, rug = FALSE, plot.ratio, bar.col, y.ticks = TRUE,
-  grid.col, line, line.col, line.label, output = FALSE, ...)
+plot_RadialPlot(
+  data,
+  na.rm = TRUE,
+  log.z = TRUE,
+  central.value,
+  centrality = "mean.weighted",
+  mtext,
+  summary,
+  summary.pos,
+  legend,
+  legend.pos,
+  stats,
+  rug = FALSE,
+  plot.ratio,
+  bar.col,
+  y.ticks = TRUE,
+  grid.col,
+  line,
+  line.col,
+  line.label,
+  output = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
@@ -81,7 +100,7 @@ value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.}
 Option to hide y-axis labels. Useful for data with small scatter.}
 
 \item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the grid lines (originating at \code{[0,0]} and stretching to
+colour of the grid lines (originating at \verb{[0,0]} and stretching to
 the z-scale). To disable grid lines, use \code{"none"}. Default is \code{"grey"}.}
 
 \item{line}{\link{numeric}:
@@ -242,7 +261,7 @@ plot_RadialPlot(data = data.3,
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2019. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2019. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

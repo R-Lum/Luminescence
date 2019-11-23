@@ -2,13 +2,25 @@
 % Please edit documentation in R/fit_CWCurve.R
 \name{fit_CWCurve}
 \alias{fit_CWCurve}
-\title{Nonlinear Least Squares Fit for CW-OSL curves \code{[beta version]}}
+\title{Nonlinear Least Squares Fit for CW-OSL curves -beta version-}
 \usage{
-fit_CWCurve(values, n.components.max, fit.failure_threshold = 5,
-  fit.method = "port", fit.trace = FALSE, fit.calcError = FALSE,
-  LED.power = 36, LED.wavelength = 470, cex.global = 0.6,
-  sample_code = "Default", output.path, output.terminal = TRUE,
-  output.terminalAdvanced = TRUE, plot = TRUE, ...)
+fit_CWCurve(
+  values,
+  n.components.max,
+  fit.failure_threshold = 5,
+  fit.method = "port",
+  fit.trace = FALSE,
+  fit.calcError = FALSE,
+  LED.power = 36,
+  LED.wavelength = 470,
+  cex.global = 0.6,
+  sample_code = "Default",
+  output.path,
+  output.terminal = TRUE,
+  output.terminalAdvanced = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -81,7 +93,7 @@ Beside the plot and table output options, an \linkS4class{RLum.Results} object i
 returned.
 
 \code{fit}:
-an \code{nls} object (\code{$fit}) for which generic R functions are
+an \code{nls} object (\verb{$fit}) for which generic R functions are
 provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 details, see \link{nls}.
 
@@ -90,7 +102,7 @@ a \link{data.frame} containing the summarised parameters including the error
 
 \code{component.contribution.matrix}:
 \link{matrix} containing the values for the component to sum contribution plot
-(\code{$component.contribution.matrix}).
+(\verb{$component.contribution.matrix}).
 
 Matrix structure:\cr
 Column 1 and 2: time and \code{rev(time)} values \cr
@@ -105,14 +117,14 @@ beside the plot and table output options, an \linkS4class{RLum.Results} object
 is returned.
 
 \code{fit}:
-an \code{nls} object (\code{$fit}) for which generic R functions
+an \code{nls} object (\verb{$fit}) for which generic R functions
 are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 details, see \link{nls}.
 
 \code{output.table}:
 a \link{data.frame} containing the summarised parameters including the error\cr
 \code{component.contribution.matrix}: \link{matrix} containing the values
-for the component to sum contribution plot (\code{$component.contribution.matrix}).\cr
+for the component to sum contribution plot (\verb{$component.contribution.matrix}).\cr
 
 Matrix structure:\cr
 Column 1 and 2: time and \code{rev(time)} values\cr
@@ -193,11 +205,11 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                    main = "CW Curve Fit",
                    n.components.max = 4,
                    log = "x")
-                   
+
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves [beta version]. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

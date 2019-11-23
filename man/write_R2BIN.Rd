@@ -4,8 +4,13 @@
 \alias{write_R2BIN}
 \title{Export Risoe.BINfileData into Risø BIN/BINX-file}
 \usage{
-write_R2BIN(object, file, version, compatibility.mode = FALSE,
-  txtProgressBar = TRUE)
+write_R2BIN(
+  object,
+  file,
+  version,
+  compatibility.mode = FALSE,
+  txtProgressBar = TRUE
+)
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
@@ -14,8 +19,8 @@ input object to be stored in a bin file.}
 \item{file}{\link{character} (\strong{required}):
 file name and path of the output file
 \itemize{
-\item \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")}
-\item \code{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}
+\item \verb{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")}
+\item \verb{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}
 }}
 
 \item{version}{\link{character} (\emph{optional}):
@@ -92,7 +97,7 @@ write_R2BIN(CWOSL.SAR.Data, file = temp_file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

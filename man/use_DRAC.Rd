@@ -4,8 +4,7 @@
 \alias{use_DRAC}
 \title{Use DRAC to calculate dose rate data}
 \usage{
-use_DRAC(file, name, print_references = TRUE, citation_style = "text",
-  ...)
+use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
@@ -32,15 +31,15 @@ or \code{"R"}. Default is \code{"text"}.}
 \value{
 Returns an \linkS4class{RLum.Results} object containing the following elements:
 
-\item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@data}:
+\item{DRAC}{\link{list}: a named list containing the following elements in slot \verb{@data}:
 
 \tabular{lll}{
-\code{$highlights} \tab \link{data.frame} \tab summary of 25 most important input/output fields \cr
-\code{$header} \tab \link{character} \tab HTTP header from the DRAC server response \cr
-\code{$labels} \tab \link{data.frame} \tab descriptive headers of all input/output fields \cr
-\code{$content} \tab \link{data.frame} \tab complete DRAC input/output table \cr
-\code{$input} \tab \link{data.frame} \tab DRAC input table \cr
-\code{$output} \tab \link{data.frame} \tab DRAC output table \cr
+\verb{$highlights} \tab \link{data.frame} \tab summary of 25 most important input/output fields \cr
+\verb{$header} \tab \link{character} \tab HTTP header from the DRAC server response \cr
+\verb{$labels} \tab \link{data.frame} \tab descriptive headers of all input/output fields \cr
+\verb{$content} \tab \link{data.frame} \tab complete DRAC input/output table \cr
+\verb{$input} \tab \link{data.frame} \tab DRAC input table \cr
+\verb{$output} \tab \link{data.frame} \tab DRAC output table \cr
 \code{references}\tab \link{list} \tab A list of \link{bibentry}s of used references \cr
 }
 
@@ -113,7 +112,7 @@ output <- use_DRAC(input)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C., 2019. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Burow, C., 2019. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

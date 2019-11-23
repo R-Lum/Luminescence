@@ -4,9 +4,15 @@
 \alias{read_XSYG2R}
 \title{Import XSYG files to R}
 \usage{
-read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
-  import = TRUE, pattern = ".xsyg", verbose = TRUE,
-  txtProgressBar = TRUE)
+read_XSYG2R(
+  file,
+  recalculate.TL.curves = TRUE,
+  fastForward = FALSE,
+  import = TRUE,
+  pattern = ".xsyg",
+  verbose = TRUE,
+  txtProgressBar = TRUE
+)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}):
@@ -75,7 +81,7 @@ sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
 }
 
 So far, each
-XSYG file can only contain one \code{<Sample></Sample>}, but multiple
+XSYG file can only contain one \verb{<Sample></Sample>}, but multiple
 sequences.
 
 Each record may comprise several curves.
@@ -168,7 +174,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. read_XSYG2R(): Import XSYG files to R. Function version 0.6.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. read_XSYG2R(): Import XSYG files to R. Function version 0.6.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

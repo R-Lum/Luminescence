@@ -4,12 +4,22 @@
 \alias{plot_DetPlot}
 \title{Create De(t) plot}
 \usage{
-plot_DetPlot(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, method = "shift",
-  signal_integral.seq = NULL, analyse_function = "analyse_SAR.CWOSL",
-  analyse_function.control = list(), n.channels = NULL,
-  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE,
-  verbose = TRUE, ...)
+plot_DetPlot(
+  object,
+  signal.integral.min,
+  signal.integral.max,
+  background.integral.min,
+  background.integral.max,
+  method = "shift",
+  signal_integral.seq = NULL,
+  analyse_function = "analyse_SAR.CWOSL",
+  analyse_function.control = list(),
+  n.channels = NULL,
+  show_ShineDownCurve = TRUE,
+  respect_RC.Status = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -68,7 +78,7 @@ Plot control parameters are: \code{ylim}, \code{xlim}, \code{ylab}, \code{xlab},
 \value{
 A plot and an \linkS4class{RLum.Results} object with the produced De values
 
-\code{@data}:
+\verb{@data}:
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
@@ -76,7 +86,7 @@ De.values \tab \code{data.frame} \tab table with De values \cr
 signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
 }
 
-\code{@info}:
+\verb{@info}:
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
@@ -139,7 +149,7 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

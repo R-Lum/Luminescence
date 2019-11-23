@@ -4,8 +4,15 @@
 \alias{plot_ViolinPlot}
 \title{Create a violin plot}
 \usage{
-plot_ViolinPlot(data, boxplot = TRUE, rug = TRUE, summary = NULL,
-  summary.pos = "sub", na.rm = TRUE, ...)
+plot_ViolinPlot(
+  data,
+  boxplot = TRUE,
+  rug = TRUE,
+  summary = NULL,
+  summary.pos = "sub",
+  na.rm = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{numeric} or \linkS4class{RLum.Results} (\strong{required}):
@@ -49,7 +56,7 @@ The function is passing several arguments to the function \link{plot},
 Supported arguments are:
 \code{xlim}, \code{main}, \code{xlab}, \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 
-\strong{\code{Valid summary keywords}}
+\strong{\verb{Valid summary keywords}}
 
 \code{'n'}, \code{'mean'}, \code{'median'}, \code{'sd.abs'}, \code{'sd.rel'}, \code{'se.abs'}, \code{'se.rel'}.
 \code{'skewness'}, \code{'kurtosis'}
@@ -76,7 +83,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

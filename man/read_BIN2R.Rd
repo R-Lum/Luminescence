@@ -4,11 +4,22 @@
 \alias{read_BIN2R}
 \title{Import Risø BIN/BINX-files into R}
 \usage{
-read_BIN2R(file, show.raw.values = FALSE, position = NULL,
-  n.records = NULL, zero_data.rm = TRUE, duplicated.rm = FALSE,
-  fastForward = FALSE, show.record.number = FALSE,
-  txtProgressBar = TRUE, forced.VersionNumber = NULL,
-  ignore.RECTYPE = FALSE, pattern = NULL, verbose = TRUE, ...)
+read_BIN2R(
+  file,
+  show.raw.values = FALSE,
+  position = NULL,
+  n.records = NULL,
+  zero_data.rm = TRUE,
+  duplicated.rm = FALSE,
+  fastForward = FALSE,
+  show.record.number = FALSE,
+  txtProgressBar = TRUE,
+  forced.VersionNumber = NULL,
+  ignore.RECTYPE = FALSE,
+  pattern = NULL,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the
@@ -118,7 +129,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2019. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2019. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -14,14 +14,30 @@
 \usage{
 \S4method{show}{RLum.Analysis}(object)
 
-\S4method{set_RLum}{RLum.Analysis}(class, originator, .uid, .pid,
-  protocol = NA_character_, records = list(), info = list())
+\S4method{set_RLum}{RLum.Analysis}(
+  class,
+  originator,
+  .uid,
+  .pid,
+  protocol = NA_character_,
+  records = list(),
+  info = list()
+)
 
-\S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
-  recordType = NULL, curveType = NULL, RLum.type = NULL,
-  protocol = "UNKNOWN", get.index = NULL, drop = TRUE,
-  recursive = TRUE, info.object = NULL, subset = NULL,
-  env = parent.frame(2))
+\S4method{get_RLum}{RLum.Analysis}(
+  object,
+  record.id = NULL,
+  recordType = NULL,
+  curveType = NULL,
+  RLum.type = NULL,
+  protocol = "UNKNOWN",
+  get.index = NULL,
+  drop = TRUE,
+  recursive = TRUE,
+  info.object = NULL,
+  subset = NULL,
+  env = parent.frame(2)
+)
 
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
@@ -214,7 +230,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

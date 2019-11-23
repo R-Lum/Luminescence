@@ -4,8 +4,20 @@
 \alias{plot_Histogram}
 \title{Plot a histogram with separate error plot}
 \usage{
-plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug,
-  normal_curve, summary, summary.pos, colour, interactive = FALSE, ...)
+plot_Histogram(
+  data,
+  na.rm = TRUE,
+  mtext,
+  cex.global,
+  se,
+  rug,
+  normal_curve,
+  summary,
+  summary.pos,
+  colour,
+  interactive = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
@@ -130,6 +142,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2019. plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2019. plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 

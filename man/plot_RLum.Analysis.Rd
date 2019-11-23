@@ -4,8 +4,17 @@
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
 \usage{
-plot_RLum.Analysis(object, subset = NULL, nrows, ncols, abline = NULL,
-  combine = FALSE, curve.transformation, plot.single = FALSE, ...)
+plot_RLum.Analysis(
+  object,
+  subset = NULL,
+  nrows,
+  ncols,
+  abline = NULL,
+  combine = FALSE,
+  curve.transformation,
+  plot.single = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -28,7 +37,7 @@ tries to find a value.}
 allows to add ablines to the plot. Argument are provided
 in a list and will be forwared to the function \link{abline},
 e.g., \code{list(v = c(10, 100))} adds two vertical lines add 10 and 100 to all
-plots. In contrast \code{list(v = c(10), v = c(100)} adds a vertical at 10 to
+plots. In contrast \verb{list(v = c(10), v = c(100)} adds a vertical at 10 to
 the first and a vertical line at 100 to the 2nd plot.}
 
 \item{combine}{\link{logical} (\emph{with default}):
@@ -124,7 +133,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

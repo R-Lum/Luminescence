@@ -4,9 +4,16 @@
 \alias{fit_OSLLifeTimes}
 \title{Fitting and Deconvolution of OSL Lifetime Components}
 \usage{
-fit_OSLLifeTimes(object, tp = 0, signal_range = NULL,
-  n.components = NULL, method_control = list(), plot = TRUE,
-  verbose = TRUE, ...)
+fit_OSLLifeTimes(
+  object,
+  tp = 0,
+  signal_range = NULL,
+  n.components = NULL,
+  method_control = list(),
+  plot = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}, \link{data.frame} or \link{matrix} \strong{(required)}:
@@ -37,27 +44,27 @@ all parameters are supported.}
 }
 \value{
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$data} \tab \code{matrix} \tab the final fit matrix \cr
-\code{$start_matrix} \tab \code{matrix} \tab the start matrix used for the fitting \cr
-\code{$total_counts} \tab \code{integer} \tab Photon count sum \cr
-\code{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm} \cr
+\verb{$data} \tab \code{matrix} \tab the final fit matrix \cr
+\verb{$start_matrix} \tab \code{matrix} \tab the start matrix used for the fitting \cr
+\verb{$total_counts} \tab \code{integer} \tab Photon count sum \cr
+\verb{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm} \cr
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
 ------------------------\cr
-\code{[ TERMINAL OUTPUT ]}\cr
+\verb{[ TERMINAL OUTPUT ]}\cr
 ------------------------\cr
 
 Terminal output is only shown of the argument \code{verbose = TRUE}.
@@ -82,7 +89,7 @@ D = 4: the residuals are systematically anticorrlated\cr
 You should be suspicious if D differs largely from 2.
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 A plot showing the original data and the fit so far possible. The lower plot shows the
@@ -122,7 +129,7 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 
 \tabular{lll}{
 \strong{Parameter} \tab \strong{Type} \tab \strong{Description}\cr
-\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:FDist]{stats::FDist})\cr
+\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5 \% a value of 0.95 (the default) should be added, for 1 \%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:FDist]{stats::FDist})\cr
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
@@ -156,7 +163,7 @@ object = ExampleData.TR_OSL)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2019. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2019. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

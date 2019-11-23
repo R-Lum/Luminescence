@@ -4,9 +4,17 @@
 \alias{fit_EmissionSpectra}
 \title{Luminescence Emission Spectra Deconvolution}
 \usage{
-fit_EmissionSpectra(object, frame = NULL, start_parameters = NULL,
-  sub_negative = 0, input_scale = NULL, method_control = list(),
-  verbose = TRUE, plot = TRUE, ...)
+fit_EmissionSpectra(
+  object,
+  frame = NULL,
+  start_parameters = NULL,
+  sub_negative = 0,
+  input_scale = NULL,
+  method_control = list(),
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum}, \link{matrix} (\strong{required}): input
@@ -37,25 +45,25 @@ automatically.}
 }
 \value{
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$data} \tab \code{matrix} \tab the final fit matrix \cr
-\code{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
+\verb{$data} \tab \code{matrix} \tab the final fit matrix \cr
+\verb{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
 ------------------------\cr
-\code{[ TERMINAL OUTPUT ]}   \cr
+\verb{[ TERMINAL OUTPUT ]}   \cr
 ------------------------\cr
 
 The terminal output provides brief information on the
@@ -63,7 +71,7 @@ deconvolution process and the obtained results.
 Terminal output is only shown of the argument \code{verbose = TRUE}.
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}      \cr
+\verb{[ PLOT OUTPUT ]}      \cr
 ------------------------\cr
 
 The function returns a plot showing the raw signal with the
@@ -151,7 +159,7 @@ results <- fit_EmissionSpectra(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

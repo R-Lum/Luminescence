@@ -24,17 +24,17 @@ the transformed curve values.
 \code{RLum.Data.Curve}
 
 \tabular{rl}{
-\code{$CW2pPMi.x.t} \tab: transformed time values \cr
-\code{$CW2pPMi.method} \tab: used method for the production of the new data points
+\verb{$CW2pPMi.x.t} \tab: transformed time values \cr
+\verb{$CW2pPMi.method} \tab: used method for the production of the new data points
 }
 
 \code{data.frame}
 
 \tabular{rl}{
-\code{$x} \tab: time\cr
-\code{$y.t} \tab: transformed count values\cr
-\code{$x.t} \tab: transformed time values \cr
-\code{$method} \tab: used method for the production of the new data points
+\verb{$x} \tab: time\cr
+\verb{$y.t} \tab: transformed count values\cr
+\verb{$x.t} \tab: transformed time values \cr
+\verb{$method} \tab: used method for the production of the new data points
 }
 }
 \description{
@@ -146,7 +146,7 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

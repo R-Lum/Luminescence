@@ -4,8 +4,15 @@
 \alias{plot_NRt}
 \title{Visualise natural/regenerated signal ratios}
 \usage{
-plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"),
-  k = 3, legend = TRUE, legend.pos = "topright", ...)
+plot_NRt(
+  data,
+  log = FALSE,
+  smooth = c("none", "spline", "rmean"),
+  k = 3,
+  legend = TRUE,
+  legend.pos = "topright",
+  ...
+)
 }
 \arguments{
 \item{data}{\link{list}, \link{data.frame}, \link{matrix} or \linkS4class{RLum.Analysis} (\strong{required}):
@@ -124,7 +131,7 @@ par(mfrow = c(1, 1))
 } 
 
 \section{How to cite}{
-Burow, C., 2019. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

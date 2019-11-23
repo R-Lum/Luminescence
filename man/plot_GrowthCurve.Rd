@@ -4,13 +4,26 @@
 \alias{plot_GrowthCurve}
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \usage{
-plot_GrowthCurve(sample, na.rm = TRUE, mode = "interpolation",
-  fit.method = "EXP", fit.force_through_origin = FALSE,
-  fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE,
-  fit.NumberRegPoints = NULL, fit.NumberRegPointsReal = NULL,
-  fit.bounds = TRUE, NumberIterations.MC = 100, output.plot = TRUE,
-  output.plotExtended = TRUE, output.plotExtended.single = FALSE,
-  cex.global = 1, txtProgressBar = TRUE, verbose = TRUE, ...)
+plot_GrowthCurve(
+  sample,
+  na.rm = TRUE,
+  mode = "interpolation",
+  fit.method = "EXP",
+  fit.force_through_origin = FALSE,
+  fit.weights = TRUE,
+  fit.includingRepeatedRegPoints = TRUE,
+  fit.NumberRegPoints = NULL,
+  fit.NumberRegPointsReal = NULL,
+  fit.bounds = TRUE,
+  NumberIterations.MC = 100,
+  output.plot = TRUE,
+  output.plotExtended = TRUE,
+  output.plotExtended.single = FALSE,
+  cex.global = 1,
+  txtProgressBar = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{sample}{\link{data.frame} (\strong{required}):
@@ -39,7 +52,7 @@ function used for fitting. Possible options are:
 \item \code{LIN},
 \item \code{QDR},
 \item \code{EXP},
-\item \code{EXP OR LIN},
+\item \verb{EXP OR LIN},
 \item \code{EXP+LIN},
 \item \code{EXP+EXP} or
 \item \code{GOK}.
@@ -69,7 +82,7 @@ has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
-with the fit methods \code{EXP}, \code{EXP+LIN}, \code{EXP OR LIN} and \code{GOK}.
+with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN} and \code{GOK}.
 Argument to be inserted for experimental application only!}
 
 \item{NumberIterations.MC}{\link{integer} (\emph{with default}):
@@ -117,7 +130,7 @@ the slot \code{data} contains the following elements:
 \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
 \code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}.
-In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \code{EXP OR LIN} \cr
+In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EXP OR LIN} \cr
 \code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
 \code{..$call} : \tab \code{call} \tab The original function call\cr
 }
@@ -130,7 +143,7 @@ extraxpolation to calculate the equivalent dose.
 \details{
 \strong{Fitting methods}
 
-For all options (except for the \code{LIN}, \code{QDR} and the \code{EXP OR LIN}),
+For all options (except for the \code{LIN}, \code{QDR} and the \verb{EXP OR LIN}),
 the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the \code{LM} (Levenberg-Marquardt algorithm)
 algorithm is used. Note: For historical reasons for the Monte Carlo
 simulations partly the function \link{nls} using the \code{port} algorithm.
@@ -147,7 +160,7 @@ The solution is found by transforming the function or using \link{uniroot}.
 \deqn{y = a*(1-exp(-(x+c)/b))}
 Parameters b and c are approximated by a linear fit using \link{lm}. Note: b = D0
 
-\code{EXP OR LIN}: works for some cases where an \code{EXP} fit fails.
+\verb{EXP OR LIN}: works for some cases where an \code{EXP} fit fails.
 If the \code{EXP} fit fails, a \code{LIN} fit is done instead.
 
 \code{EXP+LIN}: tries to fit an exponential plus linear function of the
@@ -283,7 +296,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2019. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2019. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
