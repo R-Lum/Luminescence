@@ -203,20 +203,25 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   ##pretreat some of the ... settings to avoid
   ## expand all arguments
-  arg_list <- lapply(arg_names , function(x){
-    unlist(rep(list(...)[[x]], length.out = length(object)))
-  })
+  if(!is.null(arg_names)){
+    arg_list <- lapply(arg_names , function(x){
+      unlist(rep(list(...)[[x]], length.out = length(object)))
+    })
 
-  ## make sure we organise this list (not nice but it works)
-  arg_list <- lapply(1:length(object), function(x){
-    args <- lapply(1:length(arg_names), function(y){
-      arg_list[[y]][[x]]
+    ## make sure we organise this list (not nice but it works)
+    arg_list <- lapply(1:length(object), function(x){
+      args <- lapply(1:length(arg_names), function(y){
+        arg_list[[y]][[x]]
+
+      })
+      names(args) <- arg_names
+      args
 
     })
-    names(args) <- arg_names
-    args
+  } else{
+    arg_list <- NULL
 
-  })
+  }
 
   ##run function
   temp_results <- lapply(1:length(object), function(x){
@@ -702,8 +707,8 @@ if(plot) {
     }
 
     plot(NA,NA,
-         xaxt = "n",
-         xlab = "",
+         xaxt = if(plot_simple) "s" else "n",
+         xlab = if(plot_simple) plot_settings$xlab else "",
          ylab = plot_settings$ylab,
          ylim = plot_settings$ylim,
          xlim = plot_settings$xlim,
