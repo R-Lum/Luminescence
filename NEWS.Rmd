@@ -22,7 +22,11 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 for the rejection criteria plot.
 
 #### `fit_OSLLifeTimes()`
+* The function gained a new argument `plot_simple` to produce plots without residuals that can be combined
+using standard R layout plot functionality, e.g., `par(mfrow = c(2,1))`. 
 * Function now handles the `log = "x"`, `log = "y"` and `log = "xy"` options better.
+* In the self-call mode (imput is `RLum.Analysis-class` object), all `...` objects are supported 
+as `list` and get recycled if the list does not equal the number of objects
 
 #### `plot_GrowthCurve()`
 
