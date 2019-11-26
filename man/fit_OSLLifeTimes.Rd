@@ -11,6 +11,7 @@ fit_OSLLifeTimes(
   n.components = NULL,
   method_control = list(),
   plot = TRUE,
+  plot_simple = TRUE,
   verbose = TRUE,
   ...
 )
@@ -37,10 +38,15 @@ for allowed options.}
 
 \item{plot}{\link{logical} (\emph{with default}): Enable/disable plot output}
 
+\item{plot_simple}{\link{logical} (\emph{with default}): Enable/disable reduced plot output. If \code{TRUE}, no
+residual plot is shown, however, plot output can be combined using the standard R layout obtions,
+such as \code{par(mfrow = c(2,2))}.}
+
 \item{verbose}{\link{logical} (\emph{with default}): Enable/disable terminal feedback}
 
-\item{...}{parameters passed to \link{plot.default} to control the plot output. Please note that not
-all parameters are supported.}
+\item{...}{parameters passed to \link{plot.default} to control the plot output, supported are:
+\code{main}, \code{xlab}, \code{ylab}, \code{log}, \code{xlim}, \code{ylim}, \code{col}, \code{lty}, \code{legend.pos}, \code{legend.text}. If the input
+object is of type \linkS4class{RLum.Analysis} this arguments can be provided as a \link{list}.}
 }
 \value{
 -----------------------------------\cr
@@ -141,7 +147,7 @@ The default values is \code{TRUE} \cr
 }
 }
 \section{Function version}{
- 0.1.4
+ 0.1.5
 }
 
 \examples{
@@ -163,7 +169,7 @@ object = ExampleData.TR_OSL)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2019. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-32. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2019. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-33. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
