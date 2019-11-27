@@ -1,14 +1,11 @@
 ## Release summary
 
-This release mainly addresses the 
-new CRAN error messages for R-devel
+This release addresses mainly the 
+new CRAN error messages that suddenlty appeared for R-devel
 caused by `class(m) == "matrix"` calls. 
-We sanitized the all code lines. 
+We sanitized the all corresponding code lines. 
 
-
-## CFurther RAN messages
-
-
+## Further CAN messages
 
 > Version: 0.9.5 
 > Check: installed package size 
