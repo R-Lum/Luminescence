@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.7
+#' @section Function version: 0.6.8
 #'
 #'
 #' @author
@@ -508,15 +508,13 @@ read_XSYG2R <- function(
                 temp.sequence.object.curveValue.PMT <- src_get_XSYG_curve_values(XML::xmlValue(
                   temp[[x]][[i]][[j]]))
 
-
-                ##round values (1 digit is technical resolution of the heating element)
+                ##round values (1 digit is the technical resolution of the heating element)
                 temp.sequence.object.curveValue.PMT[,1] <- round(
                   temp.sequence.object.curveValue.PMT[,1], digits = 1)
 
                 #grep values from heating element
                 temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
                   temp[[x]][[i]][[3]]))
-
 
 
               }else{
@@ -547,7 +545,7 @@ read_XSYG2R <- function(
                     temp.sequence.object.curveValue.heating.element[,1] >=
                       min(temp.sequence.object.curveValue.PMT[,1]) &
                       temp.sequence.object.curveValue.heating.element[,1] <=
-                      max(temp.sequence.object.curveValue.PMT[,1]),]
+                      max(temp.sequence.object.curveValue.PMT[,1]), ,drop = FALSE]
 
               }else{
 
@@ -571,7 +569,7 @@ read_XSYG2R <- function(
               heating.rate.values <- temp.sequence.object.curveValue.heating.element[
                 temp.sequence.object.curveValue.heating.element[,2] > 0 &
                   temp.sequence.object.curveValue.heating.element[,2] <=
-                  max(temp.sequence.object.curveValue.heating.element[,2]),]
+                  max(temp.sequence.object.curveValue.heating.element[,2]),,drop = FALSE]
 
               heating.rate <- (heating.rate.values[length(heating.rate.values[,2]), 2] -
                                  heating.rate.values[1,2])/

@@ -34,6 +34,11 @@ as `list` and get recycled if the list does not equal the number of objects
 the Tx values are normalised by the Tn values, i.e. Tn/Tx and not Tn/Tx. Thanks to Andrea Junge for spotting 
 this flaw. 
 
+### `read_XSYG2R()` 
+
+* The function now supports the temperature recalculation of TL curves even they consist of only 
+a single point value.
+
 ### Internals
 * Changes in the developement version of R caused error messages on CRAN and would have stopped
 the package from function properly in the future. This was corrected, the changes do not have any
