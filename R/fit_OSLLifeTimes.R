@@ -233,6 +233,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
          n.components = n.components[[x]],
          method_control = method_control,
          plot = plot,
+         plot_simple = plot_simple,
          verbose = verbose
          ),
          arg_list[[x]])
