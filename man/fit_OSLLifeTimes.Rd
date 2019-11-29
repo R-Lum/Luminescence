@@ -11,7 +11,7 @@ fit_OSLLifeTimes(
   n.components = NULL,
   method_control = list(),
   plot = TRUE,
-  plot_simple = TRUE,
+  plot_simple = FALSE,
   verbose = TRUE,
   ...
 )
@@ -169,7 +169,7 @@ object = ExampleData.TR_OSL)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2019. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.6.9000-36. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2019. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6.9000-37. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
