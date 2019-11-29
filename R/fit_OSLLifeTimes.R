@@ -174,7 +174,7 @@ fit_OSLLifeTimes <- function(
   n.components = NULL,
   method_control = list(),
   plot = TRUE,
-  plot_simple = TRUE,
+  plot_simple = FALSE,
   verbose = TRUE,
   ...
   ){
