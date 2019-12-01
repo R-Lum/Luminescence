@@ -94,10 +94,6 @@
     x <- get_RLum(x)$highlights
     x <- .digits(x, digits)
 
-    ##remove the first project ID, we don't want them in the LaTeX; the table does not fit
-    ##on a page
-    x[1] <- NULL
-
     ##remove columns containing zero values ... they add no information
     x <- x[sapply(x, function(y){
       y <- suppressWarnings(as.numeric(y))
@@ -114,9 +110,8 @@
     fields.w.error <- (grep(names(x), pattern = "err", fixed = TRUE) - 1)
 
     for(i in fields.w.error)
-      x[ ,i] <- paste0(x[ ,i], "\\,$\\pm$\\,", x[ ,i + 1])
+      x[ ,i] <- paste0(x[ ,i], "\\,$\\pm$\\,", trimws(x[ ,i + 1]))
     x <- x[-c(fields.w.error + 1)]
-
 
     ##create latex table
     text <- .as.latex.table(x, comments = comments, pos = pos, split = split, ...)
@@ -126,12 +121,13 @@
 
     ##exchange columns ... or delete them at all (2nd step)
 
-        ##Sample ID
-        text[[1]][7] <-  "\t\\multicolumn{1}{p{2cm}}{\\centering \\textbf{ID}} & "
+      ##Mineral ID
+      for(i in 1:length(text)){
+        text[[i]][grepl(pattern = "Mineral", x = text[[i]], fixed = TRUE)] <-
+          "\t\\multicolumn{1}{p{0.5cm}}{\\centering \\textbf{M.}} & "
 
-        ##Mineral
-        text[[1]][8] <-  "\t\\multicolumn{1}{p{0.5cm}}{\\centering \\textbf{M.} } & "
 
+      }
 
     ##put things again together (single character)
     text <- paste(text[[1]], collapse = "\n")
@@ -147,7 +143,6 @@
     text <- gsub(pattern = "External \\\\ doserate", replacement = "$\\dot{D}_{ext.}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "Internal \\\\ doserate", replacement = "$\\dot{D}_{int.}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "Environmental \\\\ Dose \\\\ Rate", replacement = "$\\dot{D}_{env.}$", x = text, fixed = TRUE)
-
 
     ##retrun result
     return(text)
@@ -243,6 +238,10 @@
                                paste(paste(x.chunk[j, ], collapse = " & "),
                                      "\\\\ \n"))
     }
+
+    ## catch potential latex problems with underscores - after all are numbers, in can be only
+    ## on the ID
+    tex.table.rows <- gsub("_", "\\_", tex.table.rows, fixed = TRUE)
 
     ## Tex table ----
     if (nchar(pos) != 1 && nchar(pos) != ncol(x))
