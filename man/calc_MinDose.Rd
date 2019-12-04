@@ -5,9 +5,19 @@
 \title{Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)
 to a given De distribution}
 \usage{
-calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
-  init.values, level = 0.95, log.output = FALSE, plot = TRUE,
-  multicore = FALSE, ...)
+calc_MinDose(
+  data,
+  sigmab,
+  log = TRUE,
+  par = 3,
+  bootstrap = FALSE,
+  init.values,
+  level = 0.95,
+  log.output = FALSE,
+  plot = TRUE,
+  multicore = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -18,7 +28,7 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details.}
 
@@ -56,7 +66,7 @@ the computation time. Note that this option is highly experimental and may not
 work on all machines. (\code{TRUE}/\code{FALSE})}
 
 \item{...}{(\emph{optional}) further arguments for bootstrapping
-(\code{bs.M, bs.N, bs.h, sigmab.sd}). See details for their usage.
+(\verb{bs.M, bs.N, bs.h, sigmab.sd}). See details for their usage.
 Further arguments are
 \itemize{
 \item \code{verbose} to de-/activate console output (logical),
@@ -103,7 +113,7 @@ where \code{gamma=mu}. For \code{par=4} the 4-parameter model is applied instead
 In the original version of the minimum dose model, the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for \code{sigmab} must be provided as a ratio
-(e.g, 0.2 for 20 \%). This model will be applied if \code{log = TRUE}.
+(e.g, 0.2 for 20 \\%). This model will be applied if \code{log = TRUE}.
 
 If \code{log=FALSE}, the modified un-logged model will be applied instead. This
 has essentially the same form as the original version.  \code{gamma} and
@@ -167,10 +177,10 @@ otherwise there will be a massive perfomance hit.
 The likelihood profiles are generated and plotted by the \code{bbmle} package.
 The profile likelihood plots look different to ordinary profile likelihood as
 
-"\code{[...]} the plot method for likelihood profiles displays the square root of
+"\verb{[...]} the plot method for likelihood profiles displays the square root of
 the the deviance difference (twice the difference in negative log-likelihood from
 the best fit), so it will be V-shaped for cases where the quadratic approximation
-works well \code{[...]}." (Bolker 2016).
+works well \verb{[...]}." (Bolker 2016).
 
 For more details on the profile likelihood
 calculations and plots please see the vignettes of the \code{bbmle} package
@@ -228,7 +238,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
                  centrality = res$de,
                  line.col = "red",
                  grid.col = "none",
-                 line.label = paste0(round(res$de, 1), "\\U00B1",
+                 line.label = paste0(round(res$de, 1), "\U00B1",
                                      round(res$de_err, 1), " Gy"),
                  bw = 0.1,
                  ylim = c(-25, 18),
@@ -284,7 +294,7 @@ summary(bs$poly.fits$poly.three$fitted.values)
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

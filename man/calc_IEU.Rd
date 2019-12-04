@@ -20,7 +20,7 @@ intercept}
 
 \item{interval}{\link{numeric} (\strong{required}):
 fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to
-Lowest.De used to create Graph.IEU \code{[Dbar.Fixed vs Z]}}
+Lowest.De used to create Graph.IEU \verb{[Dbar.Fixed vs Z]}}
 
 \item{decimal.point}{\link{numeric} (\emph{with default}):
 number of decimal points for rounding calculations (e.g. 2)}
@@ -28,7 +28,7 @@ number of decimal points for rounding calculations (e.g. 2)}
 \item{plot}{\link{logical} (\emph{with default}):
 plot output}
 
-\item{...}{further arguments (\code{trace, verbose}).}
+\item{...}{further arguments (\verb{trace, verbose}).}
 }
 \value{
 Returns a plot (\emph{optional}) and terminal output. In addition an
@@ -65,7 +65,7 @@ ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 } 
 
 \section{How to cite}{
-Smedley, R.K., 2019. calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Smedley, R.K., 2019. calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

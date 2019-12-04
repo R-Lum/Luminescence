@@ -4,9 +4,20 @@
 \alias{fit_SurfaceExposure}
 \title{Nonlinear Least Squares Fit for OSL surface exposure data}
 \usage{
-fit_SurfaceExposure(data, sigmaphi = NULL, mu = NULL, age = NULL,
-  Ddot = NULL, D0 = NULL, weights = FALSE, plot = TRUE,
-  legend = TRUE, error_bars = TRUE, coord_flip = FALSE, ...)
+fit_SurfaceExposure(
+  data,
+  sigmaphi = NULL,
+  mu = NULL,
+  age = NULL,
+  Ddot = NULL,
+  D0 = NULL,
+  weights = FALSE,
+  plot = TRUE,
+  legend = TRUE,
+  error_bars = TRUE,
+  coord_flip = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} or \link{list} (\strong{required}):
@@ -78,28 +89,28 @@ Custom parameters include:
 Function returns results numerically and graphically:
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$summary} \tab \code{data.frame} \tab summary of the fitting results \cr
-\code{$data} \tab \code{data.frame} \tab the original input data \cr
-\code{$fit} \tab \code{nls} \tab the fitting object produced by \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} \cr
-\code{$args} \tab \code{character} \tab arguments of the call \cr
-\code{$call} \tab \code{call} \tab the original function call \cr
+\verb{$summary} \tab \code{data.frame} \tab summary of the fitting results \cr
+\verb{$data} \tab \code{data.frame} \tab the original input data \cr
+\verb{$fit} \tab \code{nls} \tab the fitting object produced by \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} \cr
+\verb{$args} \tab \code{character} \tab arguments of the call \cr
+\verb{$call} \tab \code{call} \tab the original function call \cr
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 Currently unused.
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 A scatter plot of the provided depth-intensity OSL surface exposure data
@@ -194,7 +205,11 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Burow, C., 2019. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Burow, C., 2019. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

@@ -4,12 +4,22 @@
 \alias{plot_DetPlot}
 \title{Create De(t) plot}
 \usage{
-plot_DetPlot(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, method = "shift",
-  signal_integral.seq = NULL, analyse_function = "analyse_SAR.CWOSL",
-  analyse_function.control = list(), n.channels = NULL,
-  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE,
-  verbose = TRUE, ...)
+plot_DetPlot(
+  object,
+  signal.integral.min,
+  signal.integral.max,
+  background.integral.min,
+  background.integral.max,
+  method = "shift",
+  signal_integral.seq = NULL,
+  analyse_function = "analyse_SAR.CWOSL",
+  analyse_function.control = list(),
+  n.channels = NULL,
+  show_ShineDownCurve = TRUE,
+  respect_RC.Status = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -61,13 +71,14 @@ remove De-values with 'FAILED' RC.Status from the plot
 enables or disables terminal feedback}
 
 \item{...}{further arguments and graphical parameters passed to
-\link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}.
-See details for further information.}
+\link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence} (see details for further information).
+Plot control parameters are: \code{ylim}, \code{xlim}, \code{ylab}, \code{xlab}, \code{main}, \code{pch}, \code{mtext}, \code{cex}, \code{legend},
+\code{legend.text}, \code{legend.pos}}
 }
 \value{
 A plot and an \linkS4class{RLum.Results} object with the produced De values
 
-\code{@data}:
+\verb{@data}:
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
@@ -75,7 +86,7 @@ De.values \tab \code{data.frame} \tab table with De values \cr
 signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
 }
 
-\code{@info}:
+\verb{@info}:
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
@@ -138,7 +149,11 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

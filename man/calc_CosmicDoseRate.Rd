@@ -4,9 +4,18 @@
 \alias{calc_CosmicDoseRate}
 \title{Calculate the cosmic dose rate}
 \usage{
-calc_CosmicDoseRate(depth, density, latitude, longitude, altitude,
-  corr.fieldChanges = FALSE, est.age = NA, half.depth = FALSE,
-  error = 10, ...)
+calc_CosmicDoseRate(
+  depth,
+  density,
+  latitude,
+  longitude,
+  altitude,
+  corr.fieldChanges = FALSE,
+  est.age = NA,
+  half.depth = FALSE,
+  error = 10,
+  ...
+)
 }
 \arguments{
 \item{depth}{\link{numeric} (\strong{required}):
@@ -122,7 +131,7 @@ rate is calculated for exactly one sample and one absorber as overburden
 sample that is overlain by more than one absorber, e.g. in a profile with
 soil layers of different thickness and a distinct difference in density.
 This can be calculated by providing a matching number of values for
-\code{depth} and \code{density} (e.g. \code{depth = c(1, 2), density = c(1.7, 2.4)})
+\code{depth} and \code{density} (e.g. \verb{depth = c(1, 2), density = c(1.7, 2.4)})
 
 (3) Another possibility is to calculate the cosmic dose rate for more than
 one sample of the same profile. This is done by providing more than one
@@ -212,7 +221,7 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -31,7 +31,7 @@
 #'
 #' \tabular{lll}{
 #' **Parameter** \tab **Type** \tab **Description**\cr
-#' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5\% a value of 0.95 (the default) should be added, for 1\%, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::FDist])\cr
+#' `p` \tab [numeric] \tab controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 > p > 0 (cf. [stats::FDist])\cr
 #' `seed` \tab [numeric] \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 #' `DEoptim.trace` \tab [logical] \tab enables/disables the tracing of the differential evolution (cf. [DEoptim::DEoptim.control]) \cr
 #' `DEoptim.itermax` \tab [logical] \tab controls the number of the allowed generations (cf. [DEoptim::DEoptim.control]) \cr
@@ -63,10 +63,15 @@
 #'
 #' @param plot [logical] (*with default*): Enable/disable plot output
 #'
+#' @param plot_simple [logical] (*with default*): Enable/disable reduced plot output. If `TRUE`, no
+#' residual plot is shown, however, plot output can be combined using the standard R layout obtions,
+#' such as `par(mfrow = c(2,2))`.
+#'
 #' @param verbose [logical] (*with default*): Enable/disable terminal feedback
 #'
-#' @param ... parameters passed to [plot.default] to control the plot output. Please note that not
-#' all parameters are supported.
+#' @param ... parameters passed to [plot.default] to control the plot output, supported are:
+#' `main`, `xlab`, `ylab`, `log`, `xlim`, `ylim`, `col`, `lty`, `legend.pos`, `legend.text`. If the input
+#' object is of type [RLum.Analysis-class] this arguments can be provided as a [list].
 #'
 #' @return
 #'
@@ -122,7 +127,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
 #' Christoph Schmidt, University of Bayreuth (Germany)
@@ -169,6 +174,7 @@ fit_OSLLifeTimes <- function(
   n.components = NULL,
   method_control = list(),
   plot = TRUE,
+  plot_simple = FALSE,
   verbose = TRUE,
   ...
   ){
@@ -192,17 +198,46 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   ##tp
   tp <- as.list(rep(tp, length(object)))
 
+  ## names of extra arguments
+  arg_names <- names(list(...))
+
+  ##pretreat some of the ... settings to avoid
+  ## expand all arguments
+  if(!is.null(arg_names)){
+    arg_list <- lapply(arg_names , function(x){
+      unlist(rep(list(...)[[x]], length.out = length(object)))
+    })
+
+    ## make sure we organise this list (not nice but it works)
+    arg_list <- lapply(1:length(object), function(x){
+      args <- lapply(1:length(arg_names), function(y){
+        arg_list[[y]][[x]]
+
+      })
+      names(args) <- arg_names
+      args
+
+    })
+  } else{
+    arg_list <- NULL
+
+  }
+
   ##run function
   temp_results <- lapply(1:length(object), function(x){
-      temp <- try(fit_OSLLifeTimes(
-        object = object[[x]],
-        tp = tp[[x]],
-        signal_range = signal_range,
-        n.components = n.components[[x]],
-        method_control = method_control,
-        plot = plot,
-        verbose = verbose,
-        ... = list(...)
+      temp <- try(do.call(what = fit_OSLLifeTimes,
+        c(list(
+         object = object[[x]],
+         tp = tp[[x]],
+         signal_range = signal_range,
+         n.components = n.components[[x]],
+         method_control = method_control,
+         plot = plot,
+         plot_simple = plot_simple,
+         verbose = verbose
+         ),
+         arg_list[[x]])
+
      ), silent = FALSE)
 
      if(class(temp) == "try-error"){
@@ -642,15 +677,17 @@ if(plot) {
     ##catch log scale
     if(grepl(pattern = "x", plot_settings$log, fixed = TRUE)){
       if(plot_settings$xlim[1] == 0){
-        plot_settings$xlim[1] <- 1
-        warning("[fit_OSLLifeTime()] log-scale requires x-values > 0, set to 1!", immediate. = TRUE, call. = FALSE)
+        plot_settings$xlim[1] <- if(min(df_raw[[1]]) == 0) 1e-04 else min(df_raw[[1]])
+        warning(paste0("[fit_OSLLifeTime()] log-scale requires x-values > 0, set min xlim to ",
+                       round(plot_settings$xlim[1],4), "!"), immediate. = TRUE, call. = FALSE)
       }
     }
 
     if(grepl(pattern = "y", plot_settings$log, fixed = TRUE)){
       if(plot_settings$ylim[1] == 0){
-        plot_settings$ylim[1] <- 1
-        warning("[fit_OSLLifeTime()] log-scale requires y-values > 0, set to 1!", immediate. = TRUE, call. = FALSE)
+        plot_settings$ylim[1] <- if(min(df_raw[[2]]) == 0) 1e-04 else min(df_raw[[2]])
+        warning(paste0("[fit_OSLLifeTime()] log-scale requires y-values > 0, set min ylim to ",
+                       round(plot_settings$ylim[1],4), "!"), immediate. = TRUE, call. = FALSE)
       }
     }
 
@@ -658,18 +695,21 @@ if(plot) {
   ##plot if the fitting was a sucess
   if (class(fit) != 'try-error') {
 
-    ##make sure that the screen closes if something is wrong
-    on.exit(close.screen(all.screens = TRUE))
+    if(!plot_simple){
+      ##make sure that the screen closes if something is wrong
+      on.exit(close.screen(all.screens = TRUE))
 
-    split.screen(rbind(
-      c(0.1,1,0.32, 0.98),
-      c(0.1,1,0.1, 0.32)))
+      split.screen(rbind(
+        c(0.1,1,0.32, 0.98),
+        c(0.1,1,0.1, 0.32)))
 
-    screen(1)
-    par(mar = c(0, 4, 3, 4))
+      screen(1)
+      par(mar = c(0, 4, 3, 4))
+    }
+
     plot(NA,NA,
-         xaxt = "n",
-         xlab = "",
+         xaxt = if(plot_simple) "s" else "n",
+         xlab = if(plot_simple) plot_settings$xlab else "",
          ylab = plot_settings$ylab,
          ylim = plot_settings$ylim,
          xlim = plot_settings$xlim,
@@ -720,18 +760,20 @@ if(plot) {
     )
 
 
-    screen(2)
-    par(mar = c(4, 4, 0, 4))
-    plot(
-      x = df[[1]],
-      y = residuals(fit),
-      xlab = plot_settings$xlab,
-      type = "b",
-      pch = 20,
-      xlim = plot_settings$xlim,
-      log = if(plot_settings$log == "x"){"x"}else{""},
-      ylab = "\u03B5"
-    )
+    if(!plot_simple){
+      screen(2)
+      par(mar = c(4, 4, 0, 4))
+      plot(
+        x = df[[1]],
+        y = residuals(fit),
+        xlab = plot_settings$xlab,
+        type = "b",
+        pch = 20,
+        xlim = plot_settings$xlim,
+        log = if(plot_settings$log == "x"){"x"}else{""},
+        ylab = "\u03B5"
+      )
+    }
 
   }else{
       plot(

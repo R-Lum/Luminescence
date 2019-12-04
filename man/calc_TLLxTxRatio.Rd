@@ -2,11 +2,16 @@
 % Please edit documentation in R/calc_TLLxTxRatio.R
 \name{calc_TLLxTxRatio}
 \alias{calc_TLLxTxRatio}
-\title{Calculate the Lx/Tx ratio for a given set of TL curves \code{[beta version]}}
+\title{Calculate the Lx/Tx ratio for a given set of TL curves -beta version-}
 \usage{
-calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL,
-  Tx.data.signal, Tx.data.background = NULL, signal.integral.min,
-  signal.integral.max)
+calc_TLLxTxRatio(
+  Lx.data.signal,
+  Lx.data.background = NULL,
+  Tx.data.signal,
+  Tx.data.background = NULL,
+  signal.integral.min,
+  signal.integral.max
+)
 }
 \arguments{
 \item{Lx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -96,7 +101,7 @@ Christoph Schmidt, University of Bayreuth (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2019. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2019. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

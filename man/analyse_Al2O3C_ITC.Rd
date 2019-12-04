@@ -4,9 +4,16 @@
 \alias{analyse_Al2O3C_ITC}
 \title{Al2O3 Irradiation Time Correction Analysis}
 \usage{
-analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2,
-  4, 8, 12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
-  verbose = TRUE, plot = TRUE, ...)
+analyse_Al2O3C_ITC(
+  object,
+  signal_integral = NULL,
+  dose_points = c(2, 4, 8, 12, 16),
+  recordType = c("OSL (UVVIS)"),
+  method_control = NULL,
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}:
@@ -41,27 +48,27 @@ enable/disable plot output}
 Function returns results numerically and graphically:
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$data} \tab \code{data.frame} \tab correction value and error \cr
-\code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
-\code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-\code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{plot_GrowthCurve}
+\verb{$data} \tab \code{data.frame} \tab correction value and error \cr
+\verb{$table} \tab \code{data.frame} \tab table used for plotting  \cr
+\verb{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
+\verb{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{plot_GrowthCurve}
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 \itemize{
 \item A dose response curve with the marked correction values
@@ -108,7 +115,7 @@ analyse_Al2O3C_ITC(data_ITC)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

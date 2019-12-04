@@ -4,10 +4,21 @@
 \alias{Analyse_SAR.OSLdata}
 \title{Analyse SAR CW-OSL measurements.}
 \usage{
-Analyse_SAR.OSLdata(input.data, signal.integral, background.integral,
-  position, run, set, dtype, keep.SEL = FALSE,
-  info.measurement = "unkown measurement", output.plot = FALSE,
-  output.plot.single = FALSE, cex.global = 1, ...)
+Analyse_SAR.OSLdata(
+  input.data,
+  signal.integral,
+  background.integral,
+  position,
+  run,
+  set,
+  dtype,
+  keep.SEL = FALSE,
+  info.measurement = "unkown measurement",
+  output.plot = FALSE,
+  output.plot.single = FALSE,
+  cex.global = 1,
+  ...
+)
 }
 \arguments{
 \item{input.data}{\linkS4class{Risoe.BINfileData} (\strong{required}):
@@ -83,13 +94,13 @@ Lx/Tx value the function \link{calc_OSLLxTxRatio} is used.
 
 \strong{Provided rejection criteria}
 
-\code{[recyling ratio]}: calculated for every repeated regeneration dose point.
+\verb{[recyling ratio]}: calculated for every repeated regeneration dose point.
 
-\code{[recuperation]}: recuperation rate calculated by comparing the Lx/Tx values of the zero
+\verb{[recuperation]}: recuperation rate calculated by comparing the Lx/Tx values of the zero
 regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
 signal). For methodological background see Aitken and Smith (1988)
 
-\code{[IRSL/BOSL]}: the integrated counts (\code{signal.integral}) of an
+\verb{[IRSL/BOSL]}: the integrated counts (\code{signal.integral}) of an
 IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
 regenerated dose point. \strong{Note:} This is not the IR depletation ratio
@@ -129,7 +140,7 @@ output.SAR
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2019. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2019. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

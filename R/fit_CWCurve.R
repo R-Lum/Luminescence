@@ -1,4 +1,4 @@
-#' Nonlinear Least Squares Fit for CW-OSL curves `[beta version]`
+#' Nonlinear Least Squares Fit for CW-OSL curves -beta version-
 #'
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
@@ -7,30 +7,30 @@
 #'
 #' **Fitting function**
 #'
-#' The function for the CW-OSL fitting has the general form: 
-#' 
-#' \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } 
-#' 
+#' The function for the CW-OSL fitting has the general form:
+#'
+#' \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) }
+#'
 #' where \eqn{0 < i < 8}
-#' 
+#'
 #' and \eqn{\lambda} is the decay constant \cr
 #' and \eqn{I0} the intial number of trapped electrons.
-#' 
+#'
 #' *(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)*
 #'
 #' **Start values**
 #'
 #' Start values are estimated automatically by fitting a linear function to the
 #' logarithmized input data set. Currently, there is no option to manually
-#' provide start parameters. 
+#' provide start parameters.
 #'
 #' **Goodness of fit**
 #'
 #' The goodness of the fit is given as pseudoR^2 value (pseudo coefficient of
 #' determination). According to Lave (1970), the value is calculated as:
-#' 
-#' \deqn{pseudoR^2 = 1 - RSS/TSS} 
-#' 
+#'
+#' \deqn{pseudoR^2 = 1 - RSS/TSS}
+#'
 #' where \eqn{RSS = Residual~Sum~of~Squares} \cr
 #' and \eqn{TSS = Total~Sum~of~Squares}
 #'
@@ -47,74 +47,74 @@
 #'
 #' *For details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
 #' x, y data of measured values (time and counts). See examples.
-#' 
-#' @param n.components.max [vector] (*optional*): 
-#' maximum number of components that are to be used for fitting. 
+#'
+#' @param n.components.max [vector] (*optional*):
+#' maximum number of components that are to be used for fitting.
 #' The upper limit is 7.
-#' 
-#' @param fit.failure_threshold [vector] (*with default*): 
+#'
+#' @param fit.failure_threshold [vector] (*with default*):
 #' limits the failed fitting attempts.
-#' 
-#' @param fit.method [character] (*with default*): 
+#'
+#' @param fit.method [character] (*with default*):
 #' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
-#' routine usint the funtion [nls] `'LM'` utilises the function `nlsLM` from 
+#' routine usint the funtion [nls] `'LM'` utilises the function `nlsLM` from
 #' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
-#' 
-#' @param fit.trace [logical] (*with default*): 
+#'
+#' @param fit.trace [logical] (*with default*):
 #' traces the fitting process on the terminal.
-#' 
-#' @param fit.calcError [logical] (*with default*): 
+#'
+#' @param fit.calcError [logical] (*with default*):
 #' calculate 1-sigma error range of components using [confint]
-#' 
-#' @param LED.power [numeric] (*with default*): 
-#' LED power (max.) used for intensity ramping in mW/cm^2. 
-#' **Note:** The value is used for the calculation of the absolute 
+#'
+#' @param LED.power [numeric] (*with default*):
+#' LED power (max.) used for intensity ramping in mW/cm^2.
+#' **Note:** The value is used for the calculation of the absolute
 #' photoionisation cross section.
-#' 
-#' @param LED.wavelength [numeric] (*with default*): 
-#' LED wavelength used for stimulation in nm. 
-#' **Note:** The value is used for the calculation of the absolute 
+#'
+#' @param LED.wavelength [numeric] (*with default*):
+#' LED wavelength used for stimulation in nm.
+#' **Note:** The value is used for the calculation of the absolute
 #' photoionisation cross section.
-#' 
-#' @param cex.global [numeric] (*with default*): 
+#'
+#' @param cex.global [numeric] (*with default*):
 #' global scaling factor.
-#' 
-#' @param sample_code [character] (*optional*): 
+#'
+#' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (mtext).
-#' 
-#' @param output.path [character] (*optional*): 
-#' output path for table output containing the results of the fit. The file 
+#'
+#' @param output.path [character] (*optional*):
+#' output path for table output containing the results of the fit. The file
 #' name is set automatically. If the file already exists in the directory,
 #' the values are appended.
-#' 
-#' @param output.terminal [logical] (*with default*): 
+#'
+#' @param output.terminal [logical] (*with default*):
 #' terminal ouput with fitting results.
-#' 
-#' @param output.terminalAdvanced [logical] (*with default*): 
-#' enhanced terminal output. Requires `output.terminal = TRUE`. 
+#'
+#' @param output.terminalAdvanced [logical] (*with default*):
+#' enhanced terminal output. Requires `output.terminal = TRUE`.
 #' If `output.terminal = FALSE` no advanced output is possible.
-#' 
-#' @param plot [logical] (*with default*): 
+#'
+#' @param plot [logical] (*with default*):
 #' returns a plot of the fitted curves.
-#' 
+#'
 #' @param ... further arguments and graphical parameters passed to [plot].
-#' 
-#' @return 
+#'
+#' @return
 #' **plot (*optional*)**
-#' 
+#'
 #' the fitted CW-OSL curves are returned as plot.
-#' 
-#' **table (*optional*)** 
-#' 
-#' an output table (*.csv) with parameters of the fitted components is 
+#'
+#' **table (*optional*)**
+#'
+#' an output table (*.csv) with parameters of the fitted components is
 #' provided if the `output.path` is set.
-#' 
-#' 
+#'
+#'
 #' **RLum.Results**
-#'  
-#' Beside the plot and table output options, an [RLum.Results-class] object is 
+#'
+#' Beside the plot and table output options, an [RLum.Results-class] object is
 #' returned.
 #'
 #' `fit`:
@@ -122,31 +122,31 @@
 #' provided, e.g. [summary], [confint], [profile]. For more
 #' details, see [nls].
 #'
-#' `output.table`: 
+#' `output.table`:
 #' a [data.frame] containing the summarised parameters including the error
-#' 
-#' `component.contribution.matrix`: 
+#'
+#' `component.contribution.matrix`:
 #' [matrix] containing the values for the component to sum contribution plot
 #' (`$component.contribution.matrix`).
 #'
-#' Matrix structure:\cr 
+#' Matrix structure:\cr
 #' Column 1 and 2: time and `rev(time)` values \cr
 #' Additional columns are used for the components, two for each component,
 #' containing I0 and n0. The last columns `cont.` provide information on
 #' the relative component contribution for each time interval including the row
 #' sum for this values.
-#' 
+#'
 #' **object**
-#' 
-#' beside the plot and table output options, an [RLum.Results-class] object 
+#'
+#' beside the plot and table output options, an [RLum.Results-class] object
 #' is returned.
 #'
-#' `fit`: 
+#' `fit`:
 #' an `nls` object (`$fit`) for which generic R functions
 #' are provided, e.g. [summary], [confint], [profile]. For more
 #' details, see [nls].
 #'
-#' `output.table`: 
+#' `output.table`:
 #' a [data.frame] containing the summarised parameters including the error\cr
 #' `component.contribution.matrix`: [matrix] containing the values
 #' for the component to sum contribution plot (`$component.contribution.matrix`).\cr
@@ -157,10 +157,10 @@
 #' containing I0 and n0. The last columns `cont.` provide information on
 #' the relative component contribution for each time interval including the row
 #' sum for this values.
-#' 
-#' 
-#' @note 
-#' 
+#'
+#'
+#' @note
+#'
 #' **Beta version - This function has not been properly tested yet and**
 #' **should therefore not be used for publication purposes!**
 #'
@@ -168,18 +168,18 @@
 #' fit. The trade off between the `n.components` and the pseudo-R^2 value
 #' is currently not considered.
 #'
-#' The function **does not** ensure that the fitting procedure has reached a 
+#' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
 #' @section Function version: 0.5.2
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [fit_LMCurve], [plot],[nls], [RLum.Data.Curve-class], 
+#' @seealso [fit_LMCurve], [plot],[nls], [RLum.Data.Curve-class],
 #' [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM]
-#' 
-#' @references 
+#'
+#' @references
 #' Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
 #'
@@ -188,9 +188,9 @@
 #'
 #' Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R.
 #' Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
-#' 
+#'
 #' @keywords dplot models
-#' 
+#'
 #' @examples
 #'
 #' ##load data
@@ -201,7 +201,7 @@
 #'                    main = "CW Curve Fit",
 #'                    n.components.max = 4,
 #'                    log = "x")
-#'                    
+#'
 #' @md
 #' @export
 fit_CWCurve<- function(
@@ -756,7 +756,7 @@ fit_CWCurve<- function(
 
     if (output.terminal==TRUE)
       writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
-    
+
     output.table<-NA
     component.contribution.matrix <- NA
   }

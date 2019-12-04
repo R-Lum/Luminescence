@@ -4,9 +4,21 @@
 \alias{plot_DRTResults}
 \title{Visualise dose recovery test results}
 \usage{
-plot_DRTResults(values, given.dose = NULL, error.range = 10, preheat,
-  boxplot = FALSE, mtext, summary, summary.pos, legend, legend.pos,
-  par.local = TRUE, na.rm = FALSE, ...)
+plot_DRTResults(
+  values,
+  given.dose = NULL,
+  error.range = 10,
+  preheat,
+  boxplot = FALSE,
+  mtext,
+  summary,
+  summary.pos,
+  legend,
+  legend.pos,
+  par.local = TRUE,
+  na.rm = FALSE,
+  ...
+)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -167,7 +179,11 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., Dietze, M., 2019. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., Dietze, M., 2019. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

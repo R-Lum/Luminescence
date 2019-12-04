@@ -4,12 +4,26 @@
 \alias{fit_LMCurve}
 \title{Nonlinear Least Squares Fit for LM-OSL curves}
 \usage{
-fit_LMCurve(values, values.bg, n.components = 3, start_values,
-  input.dataType = "LM", fit.method = "port", sample_code = "",
-  sample_ID = "", LED.power = 36, LED.wavelength = 470,
-  fit.trace = FALSE, fit.advanced = FALSE, fit.calcError = FALSE,
-  bg.subtraction = "polynomial", verbose = TRUE, plot = TRUE,
-  plot.BG = FALSE, ...)
+fit_LMCurve(
+  values,
+  values.bg,
+  n.components = 3,
+  start_values,
+  input.dataType = "LM",
+  fit.method = "port",
+  sample_code = "",
+  sample_ID = "",
+  LED.power = 36,
+  LED.wavelength = 470,
+  fit.trace = FALSE,
+  fit.advanced = FALSE,
+  fit.calcError = FALSE,
+  bg.subtraction = "polynomial",
+  verbose = TRUE,
+  plot = TRUE,
+  plot.BG = FALSE,
+  ...
+)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -83,13 +97,13 @@ background subtraction.}
 Various types of plots are returned. For details see above. Furthermore an
 \code{RLum.Results} object is returned with the following structure:
 
-\strong{\code{@data:}}
+\strong{\verb{@data:}}
 
 \code{.. $data} : \link{data.frame} with fitting results\cr
 \code{.. $fit} : nls (\link{nls} object)\cr
 \code{.. $component.contribution.matrix} : \link{list} component distribution matrix
 
-\strong{\code{info:}}
+\strong{\verb{info:}}
 
 \code{.. $call} : \link{call} the original function call
 
@@ -210,7 +224,7 @@ fit_LMCurve(values = values.curve, n.components = 3, log = "x")
 
 ##(2) fit LM data with background subtraction and export as JPEG
 ## -alter file path for your preferred system
-##jpeg(file = "~/Desktop/Fit_Output\\\%03d.jpg", quality = 100,
+##jpeg(file = "~/Desktop/Fit_Output\\%03d.jpg", quality = 100,
 ## height = 3000, width = 3000, res = 300)
 data(ExampleData.FittingLM, envir = environment())
 fit_LMCurve(values = values.curve, values.bg = values.curveBG,
@@ -228,7 +242,11 @@ fit_LMCurve(values = values.curve,
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

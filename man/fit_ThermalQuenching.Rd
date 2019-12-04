@@ -4,9 +4,15 @@
 \alias{fit_ThermalQuenching}
 \title{Fitting Thermal Quenching Data}
 \usage{
-fit_ThermalQuenching(data, start_param = list(),
-  method_control = list(), n.MC = 100, verbose = TRUE, plot = TRUE,
-  ...)
+fit_ThermalQuenching(
+  data,
+  start_param = list(),
+  method_control = list(),
+  n.MC = 100,
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}): input data with three columns, the first column contains
@@ -19,7 +25,7 @@ detalis}
 further information}
 
 \item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation. If \code{n.MC} is
-\code{NULL} or \code{<=1}, the error estimation is skipped}
+\code{NULL} or \verb{<=1}, the error estimation is skipped}
 
 \item{verbose}{\link{logical} (\emph{with default}): enables/disables terminal output}
 
@@ -32,31 +38,31 @@ further information}
 The function returns numerical output and an (\emph{optional}) plot.
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
-\code{[.. $data : data.frame]}\cr
+\verb{[.. $data : data.frame]}\cr
 
 A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.
 
-\code{[.. $fit : nls object]} \cr
+\verb{[.. $fit : nls object]} \cr
 
 The nls \link[stats:nls]{stats::nls} object returned by the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. This object
 can be further passed to other functions supporting an nls object (cf. details section
 in \link[stats:nls]{stats::nls})
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
-\code{[.. $call : call]}\cr
+\verb{[.. $call : call]}\cr
 
 The original function call.
 
 -----------------------------------\cr
-\code{[ GAPHICAL OUTPUT ]}\cr
+\verb{[ GAPHICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 Plotted are temperature against the signal and their uncertainties.
@@ -125,7 +131,11 @@ fit_ThermalQuenching(
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

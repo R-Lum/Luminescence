@@ -94,13 +94,13 @@
 #'
 #' **Error estimation**
 #'
-#' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 \% (lower) and
-#' the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
+#' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 % (lower) and
+#' the 97.5 % (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
 #'
 #' For **`method = "SLIDE"`** the error is obtained by bootstrapping the residuals of the slided
 #' curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
 #' ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
-#' interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
+#' interval using the  2.5 % (lower) and the 97.5 % (upper) quantiles. The results of the MC runs
 #' are returned with the function output.
 #'
 #' **Test parameters**
@@ -237,8 +237,8 @@
 #'  **Column** \tab **Type** \tab **Description**\cr
 #'  `DE` \tab `numeric` \tab the obtained equivalent dose\cr
 #'  `DE.ERROR` \tab `numeric` \tab (only `method = "SLIDE"`) standard deviation obtained from MC runs \cr
-#'  `DE.LOWER` \tab `numeric`\tab 2.5\% quantile for De values obtained by MC runs \cr
-#'  `DE.UPPER` \tab `numeric`\tab 97.5\% quantile for De values obtained by MC runs  \cr
+#'  `DE.LOWER` \tab `numeric`\tab 2.5% quantile for De values obtained by MC runs \cr
+#'  `DE.UPPER` \tab `numeric`\tab 97.5% quantile for De values obtained by MC runs  \cr
 #'  `DE.STATUS`  \tab `character`\tab test parameter status\cr
 #'  `RF_NAT.LIM`  \tab `charcter`\tab used RF_nat curve limits \cr
 #'  `RF_REG.LIM` \tab `character`\tab used RF_reg curve limits\cr

@@ -57,7 +57,7 @@
 #' @param cross_talk_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obained by another experiements.
 #' If a `numeric` vector is provided it has to be of length three:
-#' mean, 2.5 \% quantile, 97.5 \% quantile.
+#' mean, 2.5 % quantile, 97.5 % quantile.
 #'
 #' @param travel_dosimeter [numeric] (*optional*): specify the position of the travel dosimeter
 #' (so far measured a the same time). The dose of travel dosimeter will be subtracted from all

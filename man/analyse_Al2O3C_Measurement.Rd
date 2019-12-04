@@ -4,11 +4,20 @@
 \alias{analyse_Al2O3C_Measurement}
 \title{Al2O3:C Passive Dosimeter Measurement Analysis}
 \usage{
-analyse_Al2O3C_Measurement(object, signal_integral = NULL,
-  dose_points = c(0, 4), recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
-  calculate_TL_dose = FALSE, irradiation_time_correction = NULL,
-  cross_talk_correction = NULL, travel_dosimeter = NULL,
-  test_parameters = NULL, verbose = TRUE, plot = TRUE, ...)
+analyse_Al2O3C_Measurement(
+  object,
+  signal_integral = NULL,
+  dose_points = c(0, 4),
+  recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
+  calculate_TL_dose = FALSE,
+  irradiation_time_correction = NULL,
+  cross_talk_correction = NULL,
+  travel_dosimeter = NULL,
+  test_parameters = NULL,
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -58,17 +67,17 @@ a \link{numeric} vector can be provided to limit the plot output to certain aliq
 Function returns results numerically and graphically:
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
-\code{$data_table} \tab \code{data.frame} \tab full dose and signal table \cr
+\verb{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
+\verb{$data_table} \tab \code{data.frame} \tab full dose and signal table \cr
 \code{test_parameters} \tab \code{data.frame} \tab results with test paramaters \cr
 \code{data_TDcorrected} \tab \code{data.frame} \tab travel dosimeter corrected results (only if TD was provided)\cr
 }
@@ -77,12 +86,12 @@ Function returns results numerically and graphically:
 values in the table \code{data} table are already corrected, i.e. if you want to get an uncorrected value,
 you can use the column \code{CT_CORRECTION} remove the correction}
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 \itemize{
 \item OSL and TL curves, combined on two plots.
@@ -135,13 +144,13 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-Geochromometria 45, 56-67. \doi{10.1515/geochr-2015-0086}
+Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 }
 \seealso{
 \link{analyse_Al2O3C_ITC}

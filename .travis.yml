@@ -6,7 +6,7 @@ sudo: required
 apt_packages:
   - jags
 
-r_packages:
+r_binary_package:
   - devtools
   - covr
   - magrittr

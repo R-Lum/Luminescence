@@ -48,7 +48,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2019. convert_Daybreak2CSV(): Export measurement data produced by a Daybreak luminescence reader to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. convert_Daybreak2CSV(): Export measurement data produced by a Daybreak luminescence reader to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

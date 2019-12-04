@@ -4,9 +4,13 @@
 \alias{extract_IrradiationTimes}
 \title{Extract Irradiation Times from an XSYG-file}
 \usage{
-extract_IrradiationTimes(object, file.BINX,
-  recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)",
-  "TL (UVVIS)"), compatibility.mode = TRUE, txtProgressBar = TRUE)
+extract_IrradiationTimes(
+  object,
+  file.BINX,
+  recordType = c("irradiation (NA)", "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"),
+  compatibility.mode = TRUE,
+  txtProgressBar = TRUE
+)
 }
 \arguments{
 \item{object}{\link{character}, \linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
@@ -129,7 +133,11 @@ towards a correct time order.
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

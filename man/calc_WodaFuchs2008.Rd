@@ -13,7 +13,7 @@ For plotting multiple data sets, these must be provided as \code{list}
 (e.g. \code{list(dataset1, dataset2)}).}
 
 \item{breaks}{\link{numeric}:
-Either number or locations of breaks. See \code{[hist]} for details.
+Either number or locations of breaks. See \verb{[hist]} for details.
 If missing, the number of breaks will be estimated based on the bin width
 (as function of median error).}
 
@@ -49,7 +49,7 @@ results <- calc_WodaFuchs2008(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2019. calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2019. calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -12,16 +12,22 @@
 \usage{
 \S4method{show}{RLum.Data.Spectrum}(object)
 
-\S4method{set_RLum}{RLum.Data.Spectrum}(class, originator, .uid, .pid,
-  recordType = "Spectrum", curveType = NA_character_,
-  data = matrix(), info = list())
+\S4method{set_RLum}{RLum.Data.Spectrum}(
+  class,
+  originator,
+  .uid,
+  .pid,
+  recordType = "Spectrum",
+  curveType = NA_character_,
+  data = matrix(),
+  info = list()
+)
 
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
 
 \S4method{names_RLum}{RLum.Data.Spectrum}(object)
 
-\S4method{bin_RLum.Data}{RLum.Data.Spectrum}(object, bin_size.col = 1,
-  bin_size.row = 1)
+\S4method{bin_RLum.Data}{RLum.Data.Spectrum}(object, bin_size.col = 1, bin_size.row = 1)
 }
 \arguments{
 \item{object}{\code{\link{get_RLum}}, \code{\link{names_RLum}} (\strong{required}):
@@ -68,21 +74,21 @@ two channels are binned. Note: The function does not check the input, very large
 mean a full row binning (a single sum)}
 }
 \value{
-\strong{\code{[set_RLum]}}
+\strong{\verb{[set_RLum]}}
 
 An object from the class \code{RLum.Data.Spectrum}
 
-\strong{\code{[get_RLum]}}
+\strong{\verb{[get_RLum]}}
 \enumerate{
 \item A \link{matrix} with the spectrum values or
 \item only the info object if \code{info.object} was set.
 }
 
-\strong{\code{[names_RLum]}}
+\strong{\verb{[names_RLum]}}
 
 The names of the info objects
 
-\strong{\code{[bin_RLum.Data]}}
+\strong{\verb{[bin_RLum.Data]}}
 
 Same object as input, after applying the binning.
 }
@@ -158,7 +164,11 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \keyword{classes}

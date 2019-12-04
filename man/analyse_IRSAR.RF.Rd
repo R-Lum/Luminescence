@@ -4,11 +4,20 @@
 \alias{analyse_IRSAR.RF}
 \title{Analyse IRSAR RF measurements}
 \usage{
-analyse_IRSAR.RF(object, sequence_structure = c("NATURAL",
-  "REGENERATED"), RF_nat.lim = NULL, RF_reg.lim = NULL,
-  method = "FIT", method.control = NULL, test_parameters = NULL,
-  n.MC = 10, txtProgressBar = TRUE, plot = TRUE,
-  plot_reduced = FALSE, ...)
+analyse_IRSAR.RF(
+  object,
+  sequence_structure = c("NATURAL", "REGENERATED"),
+  RF_nat.lim = NULL,
+  RF_reg.lim = NULL,
+  method = "FIT",
+  method.control = NULL,
+  test_parameters = NULL,
+  n.MC = 10,
+  txtProgressBar = TRUE,
+  plot = TRUE,
+  plot_reduced = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \linkS4class{RLum.Analysis}-objects (\strong{required}):
@@ -76,14 +85,14 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 The function returns numerical output and an (\emph{optional}) plot.
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
-\code{[.. $data : data.frame]}
+\verb{[.. $data : data.frame]}
 
 \tabular{lll}{
 \strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
@@ -100,11 +109,11 @@ The function returns numerical output and an (\emph{optional}) plot.
 \code{UID} \tab \code{character}\tab unique data set ID
 }
 
-\code{[.. $De.MC : numeric]}
+\verb{[.. $De.MC : numeric]}
 
 A \code{numeric} vector with all the De values obtained by the MC runs.
 
-\code{[.. $test_parameters : data.frame]}
+\verb{[.. $test_parameters : data.frame]}
 
 \tabular{lll}{
 \strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
@@ -117,11 +126,11 @@ A \code{numeric} vector with all the De values obtained by the MC runs.
 \code{UID} \tab \code{character}\tab unique data set ID
 }
 
-\code{[.. $fit : data.frame]}
+\verb{[.. $fit : data.frame]}
 
 An \link{nls} object produced by the fitting.
 
-\code{[.. $slide : list]}
+\verb{[.. $slide : list]}
 
 A \link{list} with data produced during the sliding. Some elements are previously
 reported with the summary object data. List elements are:
@@ -142,14 +151,14 @@ vertical sliding range. I can be added as systematic error to the final De error
 \code{squared_residuals} \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call (\link[methods:LanguageClasses]{methods::language-class}-object)
 
 The output (\code{data}) should be accessed using the function \link{get_RLum}
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 The slided IR-RF curves with the finally obtained De
@@ -347,7 +356,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

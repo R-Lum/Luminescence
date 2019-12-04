@@ -4,11 +4,18 @@
 \alias{analyse_SAR.TL}
 \title{Analyse SAR TL measurements}
 \usage{
-analyse_SAR.TL(object, object.background, signal.integral.min,
-  signal.integral.max, integral_input = "channel",
+analyse_SAR.TL(
+  object,
+  object.background,
+  signal.integral.min,
+  signal.integral.max,
+  integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
-  rejection.criteria = list(recycling.ratio = 10, recuperation.rate =
-  10), dose.points, log = "", ...)
+  rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
+  dose.points,
+  log = "",
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or a \link{list} of such objects (\strong{required}) :
@@ -71,9 +78,9 @@ used.
 
 \strong{Provided rejection criteria}
 
-\code{[recyling.ratio]}: calculated for every repeated regeneration dose point.
+\verb{[recyling.ratio]}: calculated for every repeated regeneration dose point.
 
-\code{[recuperation.rate]}: recuperation rate calculated by
+\verb{[recuperation.rate]}: recuperation rate calculated by
 comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 value (the Lx/Tx ratio of the natural signal).  For methodological
 background see Aitken and Smith (1988)
@@ -107,7 +114,7 @@ analyse_SAR.TL(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

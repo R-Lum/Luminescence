@@ -4,8 +4,15 @@
 \alias{calc_AverageDose}
 \title{Calculate the Average Dose and the dose rate dispersion}
 \usage{
-calc_AverageDose(data, sigma_m = NULL, Nb_BE = 500, na.rm = TRUE,
-  plot = TRUE, verbose = TRUE, ...)
+calc_AverageDose(
+  data,
+  sigma_m = NULL,
+  Nb_BE = 500,
+  na.rm = TRUE,
+  plot = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -41,13 +48,13 @@ Further supported arguments: \code{mtext} (\link{character}), \code{rug} (\code{
 The function returns numerical output and an (\emph{optional}) plot.
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]} \cr
+\verb{[ NUMERICAL OUTPUT ]} \cr
 -----------------------------------\cr
 \strong{\code{RLum.Results}}-object\cr
 
-\strong{slot:} \strong{\code{@data}} \cr
+\strong{slot:} \strong{\verb{@data}} \cr
 
-\code{[.. $summary : data.frame]}\cr
+\verb{[.. $summary : data.frame]}\cr
 
 \tabular{lll}{
 \strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
@@ -64,16 +71,16 @@ IC_SIGMA_D.UPPER \tab \link{character}\tab upper sigma quantile\cr
 L_MAX \tab \link{character}\tab maximum likelihood value
 }
 
-\code{[.. $dstar : matrix]} \cr
+\verb{[.. $dstar : matrix]} \cr
 
 Matrix with bootstrap values\cr
 
-\code{[.. $hist : list]}\cr
+\verb{[.. $hist : list]}\cr
 
 Object as produced by the function histogram
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 The function returns two different plot panels.
@@ -120,7 +127,7 @@ plot_AbanicoPlot(
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S., 2019. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S., 2019. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

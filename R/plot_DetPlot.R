@@ -67,8 +67,9 @@
 #' enables or disables terminal feedback
 #'
 #' @param ... further arguments and graphical parameters passed to
-#' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
-#' See details for further information.
+#' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence] (see details for further information).
+#' Plot control parameters are: `ylim`, `xlim`, `ylab`, `xlab`, `main`, `pch`, `mtext`, `cex`, `legend`,
+#' `legend.text`, `legend.pos`
 #'
 #' @return
 #' A plot and an [RLum.Results-class] object with the produced De values
@@ -292,7 +293,8 @@ plot_DetPlot <- function(
       pch = 1,
       mtext = ifelse(is.na(pIRIR_signals[1]), "", paste0("Signal: ",pIRIR_signals[i])),
       cex = 1,
-      legend = c(expression(L[n]-signal), expression(D[e])),
+      legend = TRUE,
+      legend.text = c(expression(L[n]-signal), expression(D[e])),
       legend.pos = "bottomleft"
     )
     plot.settings <- modifyList(plot.settings, list(...))
@@ -342,12 +344,14 @@ plot_DetPlot <- function(
     mtext(side = 3, plot.settings$mtext)
 
     ##legend
-    legend(
-      plot.settings$legend.pos,
-      legend = plot.settings$legend,
-      pch = c(plot.settings$pch, 20),
-      bty = "n"
-    )
+    if(plot.settings$legend){
+      legend(
+        plot.settings$legend.pos,
+        legend = plot.settings$legend.text,
+        pch = c(plot.settings$pch, 20),
+        bty = "n"
+      )
+    }
 
     ##set return
     return(df_final)

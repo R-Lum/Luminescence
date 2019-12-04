@@ -4,8 +4,15 @@
 \alias{calc_gSGC}
 \title{Calculate De value based on the gSGC by Li et al., 2015}
 \usage{
-calc_gSGC(data, gSGC.type = "0-250", gSGC.parameters, n.MC = 100,
-  verbose = TRUE, plot = TRUE, ...)
+calc_gSGC(
+  data,
+  gSGC.type = "0-250",
+  gSGC.parameters,
+  n.MC = 100,
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -38,15 +45,15 @@ enable or disable graphical feedback as plot}
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
 
-\strong{\code{@data}}\cr
-\code{$ De.value} (\link{data.frame}) \cr
+\strong{\verb{@data}}\cr
+\verb{$ De.value} (\link{data.frame}) \cr
 \code{.. $ De}  \cr
 \code{.. $ De.error} \cr
 \code{.. $ Eta} \cr
-\code{$ De.MC} (\link{list}) contains the matricies from the error estimation.\cr
-\code{$ uniroot} (\link{list}) contains the uniroot outputs of the De estimations\cr
+\verb{$ De.MC} (\link{list}) contains the matricies from the error estimation.\cr
+\verb{$ uniroot} (\link{list}) contains the uniroot outputs of the De estimations\cr
 
-\strong{\code{@info}}\cr
+\strong{\verb{@info}}\cr
 `$ call`` (\link{call}) the original function call
 }
 \description{
@@ -74,7 +81,7 @@ get_RLum(results, data.object = "De")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

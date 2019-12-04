@@ -74,7 +74,8 @@ get_Quote <- function(
     c("Deep trap electron to infrared photon", "Don't bother me, I need to rest."),
     c("A single grain", "I feel so lonley."),
     c("Luminescence data to Bayesian process", "Don't you ever touch me again."),
-    c("Quartz grain to heating plate", "Go ahead, I need a phase change.")
+    c("Quartz grain to heating plate", "Go ahead, I need a phase change."),
+    c("Photon to electron", "I am in charge!")
     )
 
   ## Check input data

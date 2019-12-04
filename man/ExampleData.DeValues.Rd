@@ -6,10 +6,10 @@
 \format{A \link{list} with two elements, each containing a two column \link{data.frame}:
 
 \describe{
-\code{$BT998}: De and De error values for a fine grain quartz
+\verb{$BT998}: De and De error values for a fine grain quartz
 sample from a loess section in Rottewitz.
 
-\code{$CA1}: Single grain De
+\verb{$CA1}: Single grain De
 and De error values for a coarse grain quartz sample from a fluvial deposit
 in the rock shelter of Cueva Anton
 }}

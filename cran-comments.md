@@ -1,16 +1,13 @@
 ## Release summary
 
-This release removes the non-used import from 'interp'. 
-We are sorry about that mistake which had not been shown up 
-in the tests, but we will further improve our release process to 
-avoid such mistakes in future. 
+This release addresses mainly the 
+new CRAN error messages that suddenlty appeared for R-devel
+caused by `class(m) == "matrix"` calls. 
+We sanitized the all corresponding code lines. 
 
-The error on CRAN could neither be reproduced nor with the win-builder 
-and appears to be a temporary CRAN-server problem. 
+## Further CAN messages
 
-## CRAN messages
-
-> Version: 0.9.4 
+> Version: 0.9.5 
 > Check: installed package size 
 > Result: NOTE 
 >     installed size is 5.9Mb

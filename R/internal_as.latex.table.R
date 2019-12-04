@@ -4,29 +4,32 @@
 #' can be copied in any tex document.
 #'
 #' @param x [data.frame] or `RLum` object (**required**)
-#' 
+#'
 #' @param row.names currently unused
-#' 
+#'
 #' @param col.names currently unused
-#' 
-#' @param comments [logical] (*with default*): 
+#'
+#' @param comments [logical] (*with default*):
 #' insert LaTex comments
-#' 
-#' @param pos [character] (*with default*): 
-#' `character` of length one specifying the alignment of each column, e.g., 
+#'
+#' @param pos [character] (*with default*):
+#' `character` of length one specifying the alignment of each column, e.g.,
 #' pos'clr' for a three column data frame and center, left
 #'  and right alignment
-#' 
-#' @param digits [numeric] (*with default*): 
+#'
+#' @param digits [numeric] (*with default*):
 #' number of digits (numeric fields)
-#' 
-#' @param select [character] (*optional*): 
+#'
+#' @param select [character] (*optional*):
 #' a [character] vector passed to [subset]
-#' 
-#' @param split [integer] (*optional*): 
+#'
+#' @param split [integer] (*optional*):
 #' an [integer] specifying the number of individual tables
 #' the data frame is split into. Useful for wide tables. Currently unnused.
-#' 
+#'
+#' @param tabular_only [logical] (*with default*): if `TRUE` on the tablular but not the
+#' table environment is returned. This gives a lot of additional flexibility at hand
+#'
 #' @param ... options: `verbose`
 #'
 #' @section TODO:
@@ -52,6 +55,7 @@
                             digits = 3,
                             select,
                             split = NULL,
+                            tabular_only = FALSE,
                             ...) {
 
   args <- list(x = x,
@@ -61,6 +65,7 @@
                pos = pos,
                digits = digits,
                split = split,
+               tabular_only = tabular_only,
                ... = ...)
   if (!missing(select))
     args$select <- select
@@ -89,10 +94,6 @@
     x <- get_RLum(x)$highlights
     x <- .digits(x, digits)
 
-    ##remove the first project ID, we don't want them in the LaTeX; the table does not fit
-    ##on a page
-    x[1] <- NULL
-
     ##remove columns containing zero values ... they add no information
     x <- x[sapply(x, function(y){
       y <- suppressWarnings(as.numeric(y))
@@ -109,9 +110,8 @@
     fields.w.error <- (grep(names(x), pattern = "err", fixed = TRUE) - 1)
 
     for(i in fields.w.error)
-      x[ ,i] <- paste0(x[ ,i], "\\,$\\pm$\\,", x[ ,i + 1])
+      x[ ,i] <- paste0(x[ ,i], "\\,$\\pm$\\,", trimws(x[ ,i + 1]))
     x <- x[-c(fields.w.error + 1)]
-
 
     ##create latex table
     text <- .as.latex.table(x, comments = comments, pos = pos, split = split, ...)
@@ -121,12 +121,13 @@
 
     ##exchange columns ... or delete them at all (2nd step)
 
-        ##Sample ID
-        text[[1]][7] <-  "\t\\multicolumn{1}{p{2cm}}{\\centering \\textbf{ID}} & "
+      ##Mineral ID
+      for(i in 1:length(text)){
+        text[[i]][grepl(pattern = "Mineral", x = text[[i]], fixed = TRUE)] <-
+          "\t\\multicolumn{1}{p{0.5cm}}{\\centering \\textbf{M.}} & "
 
-        ##Mineral
-        text[[1]][8] <-  "\t\\multicolumn{1}{p{0.5cm}}{\\centering \\textbf{M.} } & "
 
+      }
 
     ##put things again together (single character)
     text <- paste(text[[1]], collapse = "\n")
@@ -142,7 +143,6 @@
     text <- gsub(pattern = "External \\\\ doserate", replacement = "$\\dot{D}_{ext.}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "Internal \\\\ doserate", replacement = "$\\dot{D}_{int.}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "Environmental \\\\ Dose \\\\ Rate", replacement = "$\\dot{D}_{env.}$", x = text, fixed = TRUE)
-
 
     ##retrun result
     return(text)
@@ -162,6 +162,7 @@
                                        digits = 3,
                                        select,
                                        split = NULL,
+                                       tabular_only = FALSE,
                                        ...) {
   ## Integrity checks ----
   if (!is.data.frame(x))
@@ -238,6 +239,10 @@
                                      "\\\\ \n"))
     }
 
+    ## catch potential latex problems with underscores - after all are numbers, in can be only
+    ## on the ID
+    tex.table.rows <- gsub("_", "\\_", tex.table.rows, fixed = TRUE)
+
     ## Tex table ----
     if (nchar(pos) != 1 && nchar(pos) != ncol(x))
       pos <- "c"
@@ -246,16 +251,26 @@
     if (nchar(pos) == 1)
       pos <- paste0(rep(pos, ncol(x)), collapse = "")
 
-    tex.table.begin <- paste0("\\begin{table}[ht] \n",
-                              "  \\centering \n",
-                              "  \\begin{adjustbox}{max width=\\textwidth} \n",
-                              paste("  \\begin{tabular}{", pos, "}\n"),
-                              "     \\hline \n")
+    if(tabular_only){
+      tex.table.begin <- paste0(paste("  \\begin{tabular}{", pos, "}\n"),
+                                "     \\hline \n")
 
-    tex.table.end <-  paste0("     \\hline \n",
-                             "   \\end{tabular} \n",
-                             "   \\end{adjustbox} \n",
-                             "\\end{table}")
+      tex.table.end <-  paste0("     \\hline \n",
+                               "   \\end{tabular}")
+
+
+    }else{
+      tex.table.begin <- paste0("\\begin{table}[ht] \n",
+                                "  \\centering \n",
+                                "  \\begin{adjustbox}{max width=\\textwidth} \n",
+                                paste("  \\begin{tabular}{", pos, "}\n"),
+                                "     \\hline \n")
+
+      tex.table.end <-  paste0("     \\hline \n",
+                               "   \\end{tabular} \n",
+                               "   \\end{adjustbox} \n",
+                               "\\end{table}")
+    }
 
     tex.table <- paste0(tex.comment.usePackage,
                         tex.table.begin,

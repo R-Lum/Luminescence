@@ -25,17 +25,17 @@ the transformed curve values.
 \strong{\code{RLum.Data.Curve}}
 
 \tabular{ll}{
-\code{$CW2pHMi.x.t} \tab: transformed time values \cr
-\code{$CW2pHMi.method} \tab: used method for the production of the new data points
+\verb{$CW2pHMi.x.t} \tab: transformed time values \cr
+\verb{$CW2pHMi.method} \tab: used method for the production of the new data points
 }
 
 \strong{\code{data.frame}}
 
 \tabular{ll}{
-\code{$x} \tab: time\cr
-\code{$y.t} \tab: transformed count values\cr
-\code{$x.t} \tab: transformed time values \cr
-\code{$method} \tab: used method for the production of the new data points
+\verb{$x} \tab: time\cr
+\verb{$y.t} \tab: transformed count values\cr
+\verb{$x.t} \tab: transformed time values \cr
+\verb{$method} \tab: used method for the production of the new data points
 }
 }
 \description{
@@ -181,7 +181,11 @@ text(0.5,6500,"PM", col="blue" ,cex=.8)
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

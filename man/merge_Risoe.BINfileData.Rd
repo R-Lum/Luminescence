@@ -4,8 +4,12 @@
 \alias{merge_Risoe.BINfileData}
 \title{Merge Risoe.BINfileData objects or Risoe BIN-files}
 \usage{
-merge_Risoe.BINfileData(input.objects, output.file,
-  keep.position.number = FALSE, position.number.append.gap = 0)
+merge_Risoe.BINfileData(
+  input.objects,
+  output.file,
+  keep.position.number = FALSE,
+  position.number.append.gap = 0
+)
 }
 \arguments{
 \item{input.objects}{\link{character} with \linkS4class{Risoe.BINfileData} objects (\strong{required}):
@@ -50,14 +54,14 @@ be added to all other position numbers of the next data set (e.g. 1 + 48 =
 However, there might be cases where an additional addend (summand) is needed
 before the next position starts. Example:
 \itemize{
-\item Position number set (A): \code{1,3,5,7}
-\item Position number set (B): \code{1,3,5,7}
+\item Position number set (A): \verb{1,3,5,7}
+\item Position number set (B): \verb{1,3,5,7}
 }
 
 With no additional summand the new position numbers would be:
-\code{1,3,5,7,8,9,10,11}. That might be unwanted. Using the argument
+\verb{1,3,5,7,8,9,10,11}. That might be unwanted. Using the argument
 \code{position.number.append.gap = 1} it will become:
-\code{1,3,5,7,9,11,13,15,17}.
+\verb{1,3,5,7,9,11,13,15,17}.
 }
 \note{
 The validity of the output objects is not further checked.
@@ -79,7 +83,11 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

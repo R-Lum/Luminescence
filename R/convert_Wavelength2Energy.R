@@ -130,7 +130,7 @@ convert_Wavelength2Energy <- function(
 
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object) == "list"){
+  if(class(object)[1] == "list"){
     return(lapply(object, convert_Wavelength2Energy))
 
   }
@@ -156,7 +156,7 @@ convert_Wavelength2Energy <- function(
 
 
   # Treat input data ----------------------------------------------------------------------------
-  if(class(object) == "RLum.Data.Spectrum"){
+  if(class(object)[1] == "RLum.Data.Spectrum"){
      ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){
@@ -188,7 +188,7 @@ convert_Wavelength2Energy <- function(
     ##return new object
     return(object)
 
-  }else if(class(object) == "matrix" || class(object) == "data.frame"){
+  }else if(class(object)[1] == "matrix" || class(object)[1] == "data.frame"){
     temp <- as.matrix(object[,2:ncol(object)])
 
     ##set rownames
@@ -206,7 +206,7 @@ convert_Wavelength2Energy <- function(
     if(order) temp <- temp[order(temp[,1]),]
 
     ##return
-    if(class(object) == "data.frame")
+    if(class(object)[1] == "data.frame")
       return(as.data.frame(temp))
 
     return(temp)

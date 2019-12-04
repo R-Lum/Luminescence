@@ -4,8 +4,15 @@
 \alias{calc_AliquotSize}
 \title{Estimate the amount of grains on an aliquot}
 \usage{
-calc_AliquotSize(grain.size, sample.diameter, packing.density = 0.65,
-  MC = TRUE, grains.counted, plot = TRUE, ...)
+calc_AliquotSize(
+  grain.size,
+  sample.diameter,
+  packing.density = 0.65,
+  MC = TRUE,
+  grains.counted,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{grain.size}{\link{numeric} (\strong{required}):
@@ -35,7 +42,7 @@ Note that this overrides \code{packing.density}.}
 \item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE}/\code{FALSE})}
 
-\item{...}{further arguments to pass (\code{main, xlab, MC.iter}).}
+\item{...}{further arguments to pass (\verb{main, xlab, MC.iter}).}
 }
 \value{
 Returns a terminal output. In addition an
@@ -85,7 +92,7 @@ when setting \code{MC = TRUE}. Each of the parameters necessary to calculate
 
 For the mean grain size random samples are taken first from
 \eqn{N(\mu_y, \sigma_y)}, where \eqn{\mu_y = mean.grain.size} and
-\eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95\% of all
+\eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95\\% of all
 grains are within the provided the grain size range. This effectively takes
 into account that after sieving the sample there is still a small chance of
 having grains smaller or larger than the used mesh sizes. For each random
@@ -128,7 +135,7 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

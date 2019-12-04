@@ -4,9 +4,19 @@
 \alias{plot_Risoe.BINfileData}
 \title{Plot single luminescence curves from a BIN file object}
 \usage{
-plot_Risoe.BINfileData(BINfileData, position, run, set,
-  sorter = "POSITION", ltype = c("IRSL", "OSL", "TL", "RIR", "RBR",
-  "RL"), curve.transformation, dose_rate, temp.lab, cex.global = 1, ...)
+plot_Risoe.BINfileData(
+  BINfileData,
+  position,
+  run,
+  set,
+  sorter = "POSITION",
+  ltype = c("IRSL", "OSL", "TL", "RIR", "RBR", "RL"),
+  curve.transformation,
+  dose_rate,
+  temp.lab,
+  cex.global = 1,
+  ...
+)
 }
 \arguments{
 \item{BINfileData}{\linkS4class{Risoe.BINfileData} (\strong{required}):
@@ -106,7 +116,11 @@ data(ExampleData.BINfileData, envir = environment())
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., Dietze, M., 2019. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., Dietze, M., 2019. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

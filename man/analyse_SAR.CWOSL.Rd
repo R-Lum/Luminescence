@@ -4,10 +4,20 @@
 \alias{analyse_SAR.CWOSL}
 \title{Analyse SAR CW-OSL measurements}
 \usage{
-analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max,
-  rejection.criteria = NULL, dose.points = NULL, mtext.outer,
-  plot = TRUE, plot.single = FALSE, onlyLxTxTable = FALSE, ...)
+analyse_SAR.CWOSL(
+  object,
+  signal.integral.min,
+  signal.integral.max,
+  background.integral.min,
+  background.integral.max,
+  rejection.criteria = NULL,
+  dose.points = NULL,
+  mtext.outer,
+  plot = TRUE,
+  plot.single = FALSE,
+  onlyLxTxTable = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
@@ -129,18 +139,18 @@ the pIRIR225 curves.
 
 \strong{Supported rejection criteria}
 
-\code{[recycling.ratio]}: calculated for every repeated regeneration dose point.
+\verb{[recycling.ratio]}: calculated for every repeated regeneration dose point.
 
-\code{[recuperation.rate]}: recuperation rate calculated by comparing the
+\verb{[recuperation.rate]}: recuperation rate calculated by comparing the
 Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).
 
-\code{[testdose.error]}: set the allowed error for the testdose, which per
-default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
+\verb{[testdose.error]}: set the allowed error for the testdose, which per
+default should not exceed 10\\%. The testdose error is calculated as Tx_net.error/Tx_net.
 
-\code{[palaeodose.error]}: set the allowed error for the De value, which per
-default should not exceed 10\%.
+\verb{[palaeodose.error]}: set the allowed error for the De value, which per
+default should not exceed 10\\%.
 }
 \note{
 This function must not be mixed up with the function
@@ -189,7 +199,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

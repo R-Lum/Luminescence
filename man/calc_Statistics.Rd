@@ -4,8 +4,13 @@
 \alias{calc_Statistics}
 \title{Function to calculate statistic measures}
 \usage{
-calc_Statistics(data, weight.calc = "square", digits = NULL,
-  n.MCM = NULL, na.rm = TRUE)
+calc_Statistics(
+  data,
+  weight.calc = "square",
+  digits = NULL,
+  n.MCM = NULL,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
@@ -76,7 +81,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., 2019. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., 2019. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

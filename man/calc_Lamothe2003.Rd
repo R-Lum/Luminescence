@@ -4,8 +4,17 @@
 \alias{calc_Lamothe2003}
 \title{Apply fading correction after Lamothe et al., 2003}
 \usage{
-calc_Lamothe2003(object, dose_rate.envir, dose_rate.source, g_value,
-  tc = NULL, tc.g_value = tc, verbose = TRUE, plot = TRUE, ...)
+calc_Lamothe2003(
+  object,
+  dose_rate.envir,
+  dose_rate.source,
+  g_value,
+  tc = NULL,
+  tc.g_value = tc,
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}): Input data for applying the
@@ -16,7 +25,7 @@ fading correction. Alow are (1) \link{data.frame} with three columns (dose, LxTx
 
 \item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}): Irradiation source dose rate in Gy/s}
 
-\item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \%/decade \emph{recalculated at the moment}
+\item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \\%/decade \emph{recalculated at the moment}
 the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement \strong{and} the De measurement or
 needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
 lead to wrong results}
@@ -40,20 +49,20 @@ The function returns are graphical output produced by the function \link{plot_Gr
 an \linkS4class{RLum.Results}.
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$data} \tab \code{data.frame} \tab the fading corrected values \cr
-\code{$fit} \tab \code{nls} \tab the object returned by the dose response curve fitting \cr
+\verb{$data} \tab \code{data.frame} \tab the fading corrected values \cr
+\verb{$fit} \tab \code{nls} \tab the object returned by the dose response curve fitting \cr
 }
 
-'\strong{slot:} \strong{\code{@info}}
+'\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 }
@@ -101,7 +110,7 @@ results_corr <- calc_Lamothe2003(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Mercier, N., 2019. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Mercier, N., 2019. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -1531,13 +1531,10 @@ if(is.list(object)){
 
     # Plot graphical interpretation of rejection criteria -----------------------------------------
 
-    if (plot == TRUE && 7 %in% plot.single.sel) {
+    if (plot && 7 %in% plot.single.sel) {
       ##set graphical parameter
-      if (!plot.single) {
+      if (!plot.single[1])
         par(mfrow = c(1,2))
-      }else{
-        par(mfrow = c(1,1))
-      }
 
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(temp.results.final,

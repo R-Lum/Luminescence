@@ -13,15 +13,15 @@ object to be coerced from}
 class name to be coerced to}
 }
 \description{
-for \code{[RLum.Analysis-class]}
+for \verb{[RLum.Analysis-class]}
 
-for \code{[RLum.Data.Curve-class]}
+for \verb{[RLum.Data.Curve-class]}
 
-for \code{[RLum.Data.Image-class]}
+for \verb{[RLum.Data.Image-class]}
 
-for \code{[RLum.Data.Spectrum-class]}
+for \verb{[RLum.Data.Spectrum-class]}
 
-for \code{[RLum.Results-class]}
+for \verb{[RLum.Results-class]}
 }
 \details{
 \strong{\linkS4class{RLum.Analysis}}

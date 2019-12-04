@@ -137,8 +137,8 @@
 #' @seealso [RLum.Data.Curve-class], [Analyse_SAR.OSLdata], [plot_GrowthCurve],
 #' [analyse_SAR.CWOSL]
 #'
-#' @references Duller, G., 2016. Analyst v4.31.9 - User Manual.
-#' [http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da]()\cr
+#' @references Duller, G., 2018. Analyst v4.57 - User Manual.
+#' [http://users.aber.ac.uk/ggd/]()\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 #' count. Ancient TL, 20 (2), 49-51.

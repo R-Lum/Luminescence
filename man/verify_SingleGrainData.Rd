@@ -5,8 +5,14 @@
 \title{Verify single grain data sets and check for invalid grains, i.e.
 zero-light level grains}
 \usage{
-verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
-  cleanup_level = "aliquot", verbose = TRUE, plot = FALSE)
+verify_SingleGrainData(
+  object,
+  threshold = 10,
+  cleanup = FALSE,
+  cleanup_level = "aliquot",
+  verbose = TRUE,
+  plot = FALSE
+)
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis} (\strong{required}):
@@ -41,21 +47,21 @@ enables or disables the graphical feedback}
 The function returns
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:****\code{@data}}
+\strong{slot:****\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
-\code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
-\code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
+\verb{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
+\verb{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
+\verb{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 }
 
-\strong{slot:****\code{@info}}
+\strong{slot:****\verb{@info}}
 
 The original function call
 
@@ -146,7 +152,11 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2019. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2019. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \keyword{datagen}

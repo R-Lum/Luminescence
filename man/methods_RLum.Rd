@@ -134,11 +134,9 @@ bin.RLum.Data.Spectrum(x, bin_size.row = 1, bin_size.col = 1, ...)
 
 \method{row.names}{RLum.Data.Spectrum}(x, ...)
 
-\method{as.data.frame}{RLum.Data.Curve}(x, row.names = NULL,
-  optional = FALSE, ...)
+\method{as.data.frame}{RLum.Data.Curve}(x, row.names = NULL, optional = FALSE, ...)
 
-\method{as.data.frame}{RLum.Data.Spectrum}(x, row.names = NULL,
-  optional = FALSE, ...)
+\method{as.data.frame}{RLum.Data.Spectrum}(x, row.names = NULL, optional = FALSE, ...)
 
 \method{as.list}{RLum.Results}(x, ...)
 
@@ -210,7 +208,7 @@ the row index of the matrix, data.frame}
 \item{object}{\linkS4class{RLum} (\strong{required}):
 input opject}
 
-\item{subset}{\code{[subset]} \link{expression} (\strong{required}):
+\item{subset}{\verb{[subset]} \link{expression} (\strong{required}):
 logical expression indicating elements or rows to keep, this function works
 in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
 of the object structure}

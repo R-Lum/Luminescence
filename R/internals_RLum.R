@@ -338,7 +338,7 @@ fancy_scientific <- function(l) {
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
-#' @example
+#' @examples
 #' a <- list(b = list(c = list("test")))
 #' .unlist_RLum(a)
 #'
@@ -383,7 +383,7 @@ fancy_scientific <- function(l) {
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @note Row and column names are transformed to numeric and also summed up; this is not a bug
 #' but a feature!
@@ -407,7 +407,7 @@ fancy_scientific <- function(l) {
 
 
   # The only check ------------------------------------------------------------------------------
-  if(class(m) != "matrix")
+  if(class(m)[1] != "matrix")
     stop("[.matrix_binning()] Input is not of class 'matrix'!", call. = FALSE)
 
   # transpose in column mode --------------------------------------------------------------------

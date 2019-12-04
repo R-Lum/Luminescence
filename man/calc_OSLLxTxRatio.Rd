@@ -4,11 +4,19 @@
 \alias{calc_OSLLxTxRatio}
 \title{Calculate Lx/Tx ratio for CW-OSL curves}
 \usage{
-calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
-  signal.integral.Tx = NULL, background.integral,
+calc_OSLLxTxRatio(
+  Lx.data,
+  Tx.data = NULL,
+  signal.integral,
+  signal.integral.Tx = NULL,
+  background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
-  use_previousBG = FALSE, sigmab = NULL, sig0 = 0, digits = NULL)
+  use_previousBG = FALSE,
+  sigmab = NULL,
+  sig0 = 0,
+  digits = NULL
+)
 }
 \arguments{
 \item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -157,12 +165,12 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Duller, G., 2016. Analyst v4.31.9 - User Manual.
-\url{http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da}\cr
+Duller, G., 2018. Analyst v4.57 - User Manual.
+\url{http://users.aber.ac.uk/ggd/}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.

@@ -4,10 +4,19 @@
 \alias{calc_Huntley2006}
 \title{Apply the Huntley (2006) model}
 \usage{
-calc_Huntley2006(data, LnTn = NULL, rhop, ddot, readerDdot,
-  normalise = TRUE, fit.method = c("EXP", "GOK")[1],
-  lower.bounds = c(-Inf, -Inf, -Inf), summary = TRUE, plot = TRUE,
-  ...)
+calc_Huntley2006(
+  data,
+  LnTn = NULL,
+  rhop,
+  ddot,
+  readerDdot,
+  normalise = TRUE,
+  fit.method = c("EXP", "GOK")[1],
+  lower.bounds = c(-Inf, -Inf, -Inf),
+  summary = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -17,7 +26,7 @@ A \code{data.frame} with one of the following structures:
 c) LxTx error.
 \item If a \strong{two column} data frame is provided it is automatically
 assumed that errors on LxTx are missing. A third column will be attached
-with an arbitrary 5 \% error on the provided LxTx values.
+with an arbitrary 5 \\% error on the provided LxTx values.
 \item Can also be a \strong{wide table}, i.e. a \link{data.frame} with a number of colums divisible by 3
 and where each triplet has the aforementioned column structure.
 }\preformatted{                        (optional)
@@ -85,9 +94,9 @@ with great care.}
 Only applicable for \code{fit.method = 'GOK'}. A vector of length 3 that
 contains the lower bound values for fitting the general-order kinetics
 function using \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the default values
-(c(\code{-Inf, -Inf, -Inf})) are appropriate for finding a best fit, but
+(c(\verb{-Inf, -Inf, -Inf})) are appropriate for finding a best fit, but
 sometimes it may be useful to restrict the lower bounds to e.g.
-c(\code{0, 0, 0}). The values of the vector are for parameters
+c(\verb{0, 0, 0}). The values of the vector are for parameters
 \code{a}, \code{D0} and \code{c} in that particular order (see details in
 \link[Luminescence:plot_GrowthCurve]{Luminescence::plot_GrowthCurve}).}
 
@@ -163,13 +172,13 @@ where
 \deqn{\phi(t*) = exp(-\rho' x ln(1.8 x s_tilde x t*)^3)}
 
 after King et al. (2016) where \code{A} is a pre-exponential factor,
-\code{t*} (s) is the irradiation time, starting at the mid-point of
+\verb{t*} (s) is the irradiation time, starting at the mid-point of
 irradiation (Auclair et al. 2003) and \code{s_tilde} (3x10^15 s^-1) is the athermal
 frequency factor after Huntley (2006). \cr
 
 Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
 response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
-\code{[1]} and \code{[2]}. Computed LxTx values are then fitted using the
+\verb{[1]} and \verb{[2]}. Computed LxTx values are then fitted using the
 \link{plot_GrowthCurve} function and the laboratory measured LnTn can then
 be interpolated onto this curve to determine the fading corrected
 De value, from which the fading corrected age is calculated.
@@ -184,7 +193,7 @@ the model fits a general-order kinetics function of the form:
 
 \deqn{LxTx(t*) = A x \phi(t*) x (1-(1+(1/D0) x t* x c)^(-1/c))}
 
-where \code{A}, \eqn{\phi}, \code{t*} and \code{D0} are the same as above and \code{c} is a
+where \code{A}, \eqn{\phi}, \verb{t*} and \code{D0} are the same as above and \code{c} is a
 dimensionless kinetic order modifier (cf. equation 10 in
 Guralnik et al., 2015).
 
@@ -202,7 +211,7 @@ distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
 of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
 in the derivation of (n/N) and (n/N)_SS.
 
-\strong{Age calculated from 2*D0 of the simulated natural DRC}
+*\emph{Age calculated from 2\\emph{D0 of the simulated natural DRC}}
 
 In addition to the age calculated from the equivalent dose derived from
 \code{Ln/Tn} projected on the simulated natural dose response curve (DRC), this function
@@ -267,7 +276,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2019. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., 2019. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

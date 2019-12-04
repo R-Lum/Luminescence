@@ -7,8 +7,7 @@
 \alias{github_issues}
 \title{GitHub API}
 \usage{
-github_commits(user = "r-lum", repo = "luminescence",
-  branch = "master", n = 5)
+github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 5)
 
 github_branches(user = "r-lum", repo = "luminescence")
 
@@ -34,32 +33,32 @@ print the output to the console (defaults to \code{TRUE}).}
 \code{github_commits}: \link{data.frame} with columns:
 
 \tabular{ll}{
-\code{[ ,1]} \tab SHA \cr
-\code{[ ,2]} \tab AUTHOR \cr
-\code{[ ,3]} \tab DATE \cr
-\code{[ ,4]} \tab MESSAGE \cr
+\verb{[ ,1]} \tab SHA \cr
+\verb{[ ,2]} \tab AUTHOR \cr
+\verb{[ ,3]} \tab DATE \cr
+\verb{[ ,4]} \tab MESSAGE \cr
 }
 
 \code{github_branches}: \link{data.frame} with columns:
 
 \tabular{ll}{
-\code{[ ,1]} \tab BRANCH \cr
-\code{[ ,2]} \tab SHA \cr
-\code{[ ,3]} \tab INSTALL \cr
+\verb{[ ,1]} \tab BRANCH \cr
+\verb{[ ,2]} \tab SHA \cr
+\verb{[ ,3]} \tab INSTALL \cr
 }
 
 \code{github_commits}: Nested \link{list} with \code{n} elements.
 Each commit element is a list with elements:
 
 \tabular{ll}{
-\code{[[1]]} \tab NUMBER \cr
-\code{[[2]]} \tab TITLE \cr
-\code{[[3]]} \tab BODY \cr
-\code{[[4]]} \tab CREATED \cr
-\code{[[5]]} \tab UPDATED \cr
-\code{[[6]]} \tab CREATOR \cr
-\code{[[7]]} \tab URL \cr
-\code{[[8]]} \tab STATUS \cr
+\verb{[[1]]} \tab NUMBER \cr
+\verb{[[2]]} \tab TITLE \cr
+\verb{[[3]]} \tab BODY \cr
+\verb{[[4]]} \tab CREATED \cr
+\verb{[[5]]} \tab UPDATED \cr
+\verb{[[6]]} \tab CREATOR \cr
+\verb{[[7]]} \tab URL \cr
+\verb{[[8]]} \tab STATUS \cr
 }
 }
 \description{
@@ -91,7 +90,11 @@ github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 } 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Burow, C., 2019. GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+=======
+Burow, C., 2019. GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_9.6.0
 }
 
 \references{

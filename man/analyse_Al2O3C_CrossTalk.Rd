@@ -4,10 +4,16 @@
 \alias{analyse_Al2O3C_CrossTalk}
 \title{Al2O3:C Reader Cross Talk Analysis}
 \usage{
-analyse_Al2O3C_CrossTalk(object, signal_integral = NULL,
-  dose_points = c(0, 4), recordType = c("OSL (UVVIS)"),
-  irradiation_time_correction = NULL, method_control = NULL,
-  plot = TRUE, ...)
+analyse_Al2O3C_CrossTalk(
+  object,
+  signal_integral = NULL,
+  dose_points = c(0, 4),
+  recordType = c("OSL (UVVIS)"),
+  irradiation_time_correction = NULL,
+  method_control = NULL,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -41,27 +47,27 @@ enable/disable plot output}
 Function returns results numerically and graphically:
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
-\code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
-\code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
-\code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
+\verb{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
+\verb{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+\verb{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
+\verb{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 \itemize{
 \item An overview of the obtained apparent dose values
@@ -86,7 +92,7 @@ analyse_Al2O3C_CrossTalk(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

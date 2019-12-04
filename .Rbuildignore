@@ -20,7 +20,6 @@
 ^\test\*
 ^_pkgdown\.yml$
 ^docs$
-^.*\.sh$
 
 # -- Exclude compiled code --
 ^src/.*\.o$
@@ -41,6 +40,11 @@
 ^vignettes/.*cache$
 ^vignettes/.*files$
 ^vignettes/.*\.xsyg$
+^vignettes/.*\.log$
+^vignettes/.*\.csv$
+
+# -- Exclude build stuff
+^Makefile$
 
 # -- Exclude meta data stuff --
 ^codemeta\.json$

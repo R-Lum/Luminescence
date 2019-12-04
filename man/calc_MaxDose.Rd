@@ -4,8 +4,16 @@
 \alias{calc_MaxDose}
 \title{Apply the maximum age model to a given De distribution}
 \usage{
-calc_MaxDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
-  init.values, plot = TRUE, ...)
+calc_MaxDose(
+  data,
+  sigmab,
+  log = TRUE,
+  par = 3,
+  bootstrap = FALSE,
+  init.values,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -16,7 +24,7 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+a fraction, e.g. 0.2 (= 20 \\%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details (\link{calc_MinDose}.}
 
@@ -36,7 +44,7 @@ length three in the form of \code{c(gamma, sigma, p0)}.}
 \item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE}/\code{FALSE})}
 
-\item{...}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}).
+\item{...}{further arguments for bootstrapping (\verb{bs.M, bs.N, bs.h, sigmab.sd}).
 See details for their usage.}
 }
 \value{
@@ -88,7 +96,7 @@ calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 } 
 
 \section{How to cite}{
-Burow, C., 2019. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2019. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

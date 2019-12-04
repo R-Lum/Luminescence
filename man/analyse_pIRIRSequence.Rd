@@ -4,10 +4,18 @@
 \alias{analyse_pIRIRSequence}
 \title{Analyse post-IR IRSL measurement sequences}
 \usage{
-analyse_pIRIRSequence(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, dose.points = NULL,
-  sequence.structure = c("TL", "IR50", "pIRIR225"), plot = TRUE,
-  plot.single = FALSE, ...)
+analyse_pIRIRSequence(
+  object,
+  signal.integral.min,
+  signal.integral.max,
+  background.integral.min,
+  background.integral.max,
+  dose.points = NULL,
+  sequence.structure = c("TL", "IR50", "pIRIR225"),
+  plot = TRUE,
+  plot.single = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \link{list} of \linkS4class{RLum.Analysis} objects (\strong{required}):
@@ -164,7 +172,7 @@ pdf(file = tempfile, height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

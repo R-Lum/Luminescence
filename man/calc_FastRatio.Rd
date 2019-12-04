@@ -4,10 +4,23 @@
 \alias{calc_FastRatio}
 \title{Calculate the Fast Ratio for CW-OSL curves}
 \usage{
-calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
-  sigmaF = 2.6e-17, sigmaM = 4.28e-18, Ch_L1 = 1, Ch_L2 = NULL,
-  Ch_L3 = NULL, x = 1, x2 = 0.1, dead.channels = c(0, 0),
-  fitCW.sigma = FALSE, fitCW.curve = FALSE, plot = TRUE, ...)
+calc_FastRatio(
+  object,
+  stimulation.power = 30.6,
+  wavelength = 470,
+  sigmaF = 2.6e-17,
+  sigmaM = 4.28e-18,
+  Ch_L1 = 1,
+  Ch_L2 = NULL,
+  Ch_L3 = NULL,
+  x = 1,
+  x2 = 0.1,
+  dead.channels = c(0, 0),
+  fitCW.sigma = FALSE,
+  fitCW.curve = FALSE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
@@ -38,11 +51,11 @@ A vector of length 2 with integer values specifying the start and end channels f
 (e.g., \code{c(40, 50)}).}
 
 \item{x}{\link{numeric} (\emph{with default}):
-\% of signal remaining from the fast component.
+\\% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
 
 \item{x2}{\link{numeric} (\emph{with default}):
-\% of signal remaining from the medium component.
+\\% of signal remaining from the medium component.
 Used to define the location of L3 (end).}
 
 \item{dead.channels}{\link{numeric} (\emph{with default}):
@@ -70,7 +83,7 @@ The slot \code{data} contains a \link{list} with the following elements:
 \item{data}{the original input data}
 \item{fit}{\linkS4class{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
 \item{args}{\link{list} of used arguments}
-\item{call}{\code{[call]} the function call}
+\item{call}{\verb{[call]} the function call}
 }
 \description{
 Function to calculate the fast ratio of quartz CW-OSL single grain or single
@@ -79,7 +92,7 @@ aliquot curves after Durcan & Duller (2011).
 \details{
 This function follows the equations of Durcan & Duller (2011). The energy
 required to reduce the fast and medium quartz OSL components to \code{x} and
-\code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start
+\code{x2} \\% respectively using eq. 3 to determine channels L2 and L3 (start
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
@@ -99,7 +112,7 @@ get_RLum(res)
 } 
 
 \section{How to cite}{
-King, G.E., Durcan, J., Burow, C., 2019. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Durcan, J., Burow, C., 2019. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -5,9 +5,17 @@
 \title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
 g-value and a given tc}
 \usage{
-calc_FadingCorr(age.faded, g_value, tc = NULL, tc.g_value = tc,
-  n.MC = 10000, seed = NULL, interval = c(0.01, 500),
-  txtProgressBar = TRUE, verbose = TRUE)
+calc_FadingCorr(
+  age.faded,
+  g_value,
+  tc = NULL,
+  tc.g_value = tc,
+  n.MC = 10000,
+  seed = NULL,
+  interval = c(0.01, 500),
+  txtProgressBar = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{age.faded}{\link{numeric} \link{vector} (\strong{required}):
@@ -49,14 +57,14 @@ enables or disables terminal output}
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.\cr
 
-Slot: \strong{\code{@data}}\cr
+Slot: \strong{\verb{@data}}\cr
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Comment} \cr
 \code{age.corr} \tab \link{data.frame} \tab Corrected age \cr
 \code{age.corr.MC} \tab \link{numeric} \tab MC simulation results with all possible ages from that simulation \cr
 }
 
-Slot: \strong{\code{@info}}\cr
+Slot: \strong{\verb{@info}}\cr
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Comment} \cr
@@ -165,7 +173,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

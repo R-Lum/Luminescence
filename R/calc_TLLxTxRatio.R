@@ -1,4 +1,4 @@
-#' Calculate the Lx/Tx ratio for a given set of TL curves `[beta version]`
+#' Calculate the Lx/Tx ratio for a given set of TL curves -beta version-
 #'
 #' Calculate Lx/Tx ratio for a given set of TL curves.
 #'

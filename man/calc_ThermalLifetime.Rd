@@ -4,9 +4,17 @@
 \alias{calc_ThermalLifetime}
 \title{Calculates the Thermal Lifetime using the Arrhenius equation}
 \usage{
-calc_ThermalLifetime(E, s, T = 20, output_unit = "Ma",
-  profiling = FALSE, profiling_config = NULL, verbose = TRUE,
-  plot = TRUE, ...)
+calc_ThermalLifetime(
+  E,
+  s,
+  T = 20,
+  output_unit = "Ma",
+  profiling = FALSE,
+  profiling_config = NULL,
+  verbose = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{E}{\link{numeric} (\strong{required}):
@@ -55,7 +63,7 @@ Standard plot parameters are supported (\link{plot.default})}
 A \linkS4class{RLum.Results} object is returned a along with a plot (for
 \code{profiling = TRUE}). The output object contain the following slots:
 
-\strong{\code{@data}}
+\strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description} \cr
@@ -63,7 +71,7 @@ A \linkS4class{RLum.Results} object is returned a along with a plot (for
 \code{profiling_matrix} \tab \link{matrix} \tab profiling matrix used for the MC runs
 }
 
-\strong{\code{@info}}
+\strong{\verb{@info}}
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description} \cr
@@ -121,7 +129,7 @@ temp <- calc_ThermalLifetime(
   output_unit = "Ma"
 )
 contour(x = E, y = T, z = temp$lifetimes[1,,],
-        ylab = "Temperature [\\u00B0C]",
+        ylab = "Temperature [\u00B0C]",
         xlab = "Trap depth [eV]",
         main = "Thermal Lifetime Contour Plot"
 )
@@ -143,7 +151,7 @@ calc_ThermalLifetime(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2019. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2019. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

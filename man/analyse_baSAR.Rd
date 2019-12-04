@@ -4,15 +4,33 @@
 \alias{analyse_baSAR}
 \title{Bayesian models (baSAR) applied on luminescence data}
 \usage{
-analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
-  source_doserate = NULL, signal.integral, signal.integral.Tx = NULL,
-  background.integral, background.integral.Tx = NULL,
-  irradiation_times = NULL, sigmab = 0, sig0 = 0.025,
-  distribution = "cauchy", baSAR_model = NULL, n.MCMC = 1e+05,
-  fit.method = "EXP", fit.force_through_origin = TRUE,
-  fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  digits = 3L, distribution_plot = "kde", plot = TRUE,
-  plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE, ...)
+analyse_baSAR(
+  object,
+  XLS_file = NULL,
+  aliquot_range = NULL,
+  source_doserate = NULL,
+  signal.integral,
+  signal.integral.Tx = NULL,
+  background.integral,
+  background.integral.Tx = NULL,
+  irradiation_times = NULL,
+  sigmab = 0,
+  sig0 = 0.025,
+  distribution = "cauchy",
+  baSAR_model = NULL,
+  n.MCMC = 1e+05,
+  fit.method = "EXP",
+  fit.force_through_origin = TRUE,
+  fit.includingRepeatedRegPoints = TRUE,
+  method_control = list(),
+  digits = 3L,
+  distribution_plot = "kde",
+  plot = TRUE,
+  plot_reduced = TRUE,
+  plot.single = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \link{list} of \linkS4class{RLum.Analysis},
@@ -134,28 +152,28 @@ enables or disables verbose mode}
 Function returns results numerically and graphically:
 
 -----------------------------------\cr
-\code{[ NUMERICAL OUTPUT ]}\cr
+\verb{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:} \strong{\code{@data}}
+\strong{slot:} \strong{\verb{@data}}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
-\code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
-\code{$mcmc} \tab \code{mcmc} \tab \link[coda:mcmc.list]{coda::mcmc.list} object including raw output \cr
-\code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
-\code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
-\code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
+\verb{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
+\verb{$mcmc} \tab \code{mcmc} \tab \link[coda:mcmc.list]{coda::mcmc.list} object including raw output \cr
+\verb{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
+\verb{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
+\verb{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
 }
 
-\strong{slot:} \strong{\code{@info}}
+\strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
 ------------------------\cr
-\code{[ PLOT OUTPUT ]}\cr
+\verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 \itemize{
 \item (A) Ln/Tn curves with set integration limits,
@@ -218,7 +236,7 @@ be produced by using the function \link{read_BIN2R}, but this function is called
 if only a filename and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.
 
-\code{[XLS_file = NULL]}
+\verb{[XLS_file = NULL]}
 
 If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
 consists of the following steps:
@@ -230,7 +248,7 @@ consists of the following steps:
 
 These proceeded data are subsequently used in for the Bayesian analysis
 
-\code{[XLS_file != NULL]}
+\verb{[XLS_file != NULL]}
 
 If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
 steps consists of the following steps:
@@ -243,7 +261,7 @@ Means, the XLS file should contain a selection of the BIN-file names and the ali
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by \link{verify_SingleGrainData} might be not totally sufficient.
 
-\strong{(2) - \code{object} \code{RLum.Results object}}
+\strong{(2) - \code{object} \verb{RLum.Results object}}
 
 If an \linkS4class{RLum.Results} object is provided as input and(!) this object was
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
@@ -300,7 +318,7 @@ A: You can't, but you can use the function output to create own, modified plots.
 Q: Can I change the boundaries for the central_D?
 
 A: Yes, we made it possible, but we DO NOT recommend it, except you know what you are doing!\cr
-Example: \code{method_control = list(lower_centralD = 10))}
+Example: \verb{method_control = list(lower_centralD = 10))}
 
 Q: The lines in the baSAR-model appear to be in a wrong logical order?\cr
 
@@ -393,7 +411,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2019. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2019. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

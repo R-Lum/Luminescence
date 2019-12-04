@@ -7,10 +7,10 @@
 
 \tabular{ll}{
 \strong{Element} \tab \strong{Content} \cr
-\code{$sample_1} \tab A \link{data.frame} with 3 columns (depth, intensity, error) \cr
-\code{$sample_2} \tab A \link{data.frame} with 3 columns (depth, intensity, error) \cr
-\code{$set_1} \tab A \link{list} of 4 \link{data.frame}s, each representing a sample with different ages \cr
-\code{$set_2} \tab A \link{list} of 5 \link{data.frame}s, each representing a sample with different ages \cr
+\verb{$sample_1} \tab A \link{data.frame} with 3 columns (depth, intensity, error) \cr
+\verb{$sample_2} \tab A \link{data.frame} with 3 columns (depth, intensity, error) \cr
+\verb{$set_1} \tab A \link{list} of 4 \link{data.frame}s, each representing a sample with different ages \cr
+\verb{$set_2} \tab A \link{list} of 5 \link{data.frame}s, each representing a sample with different ages \cr
 }}
 \source{
 See examples for the code used to create the data sets.
@@ -21,28 +21,28 @@ A set of synthetic OSL surface exposure dating data to demonstrate the
 interactively.
 }
 \details{
-\strong{\code{$sample_1}}
+\strong{\verb{$sample_1}}
 
 \tabular{ccc}{
 \strong{mu} \tab \strong{sigmaphi} \tab \strong{age} \cr
 0.9 \tab 5e-10 \tab 10000 \cr
 }
 
-\strong{\code{$sample_2}}
+\strong{\verb{$sample_2}}
 
 \tabular{ccccc}{
 \strong{mu} \tab \strong{sigmaphi} \tab \strong{age} \tab \strong{Dose rate} \tab \strong{D0} \cr
 0.9 \tab 5e-10 \tab 10000 \tab 2.5 \tab 40 \cr
 }
 
-\strong{\code{$set_1}}
+\strong{\verb{$set_1}}
 
 \tabular{ccc}{
 \strong{mu} \tab \strong{sigmaphi} \tab \strong{ages} \cr
 0.9 \tab 5e-10 \tab 1e3, 1e4, 1e5, 1e6 \cr
 }
 
-\strong{\code{$set_2}}
+\strong{\verb{$set_2}}
 
 \tabular{ccccc}{
 \strong{mu} \tab \strong{sigmaphi} \tab \strong{ages} \tab \strong{Dose rate} \tab \strong{D0} \cr
