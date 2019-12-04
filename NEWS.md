@@ -40,12 +40,12 @@
 
 ### Internals
 
-  - Changes in the developement version of R caused error messages on
+  - Changes in the development version of R caused error messages on
     CRAN and would have stopped the package from function properly in
-    the future. This was corrected, the changes do not have any user
-    visible effect.
-  - The internal funtion for the DRAC output `.as.latex.table()` gained
-    a new argument `tabular_only` which gives a little bot more
+    the future. This was corrected; the changes do not have any
+    user-visible effect.
+  - The internal function for the DRAC output `.as.latex.table()` gained
+    a new argument `tabular_only` which gives a little bit more
     flexibility at hand of the output the DRAC is combined with LaTeX.
 
 ## Changes in version 0.9.4/0.9.5 (2019-09-20/2019-09-21)
