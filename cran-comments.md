@@ -27,17 +27,6 @@ related to the server behind the DOI forwarding and is thus beyond our reach.
 
 0 errors | 0 warnings | 0 note
 
-## Other notes or warnings
-
-* *winbuilder* 
-
-* old: claims that `https://doi.org/10.1515/geochr-2015-0022` is wrong, the URL is correct.
-* release: OK
-* devel: did not return results after two hours
-
-R-old and R-release also complained about invalid URLs, however, we double 
-checked thous URLs and found them accessible. 
-
 ## Reverse dependency checks
 
 Reverse depends 4: 
