@@ -174,11 +174,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 } 
 
 \section{How to cite}{
-<<<<<<< HEAD
-Kreutzer, S., 2019. read_XSYG2R(): Import XSYG files to R. Function version 0.6.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.5. https://CRAN.R-project.org/package=Luminescence
-=======
 Kreutzer, S., 2019. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
->>>>>>> dev_9.6.0
 }
 
 \references{

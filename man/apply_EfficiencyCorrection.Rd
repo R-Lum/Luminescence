@@ -8,7 +8,7 @@ class objects}
 apply_EfficiencyCorrection(object, spectral.efficiency)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} or \href{**required**}{RLum.Analysis-class}:
+\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}):
 S4 object of class \code{RLum.Data.Spectrum},  \code{RLum.Analysis}or a \link{list} of such objects. Other objects in
 the list are skipped.}
 
