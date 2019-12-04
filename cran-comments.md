@@ -1,9 +1,8 @@
 ## Release summary
 
-This release addresses mainly the 
-new CRAN error messages that suddenlty appeared for R-devel
-caused by `class(m) == "matrix"` calls. 
-We sanitized the all corresponding code lines. 
+This release addresses mainly the new CRAN error messages that suddenly appeared for R-devel
+caused by `class(m) == "matrix"` calls. We sanitized all corresponding code lines. 
+See also email by Kurt Hornik from 2019-12-04.
 
 ## Further CAN messages
 
@@ -16,8 +15,7 @@ We sanitized the all corresponding code lines.
 >     help 1.1Mb
 >     libs 1.6Mb 
 
-We are aware of it, however, this is the package size and there is nothing we can 
-do about.
+We are aware of it, this is the size of our package, which we tried to keep to a minimum. 
 
 ## Win-Builder
 
