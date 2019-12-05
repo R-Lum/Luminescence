@@ -29,7 +29,7 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 
 | error | fail | warn | note | ok |
 | ----: | ---: | ---: | ---: | -: |
-|     2 |    0 |    0 |    7 |  4 |
+|     1 |    0 |    0 |    8 |  4 |
 
 ## Social media and other resources
 
