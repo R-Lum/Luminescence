@@ -17,6 +17,11 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 
 ### Bugfixes and changes
 
+#### `analyse_Al2O3C_Measurements()`
+* Supplementary argument `main` never worked; fixed.
+* New supplementary argument `title` which allows to pass further names of 
+a sample to the plot output. 
+
 ## Changes in version 0.9.6 (2019-12-05)
 
 ### Bugfixes and changes
