@@ -22,6 +22,11 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 * New supplementary argument `title` which allows to pass further names of 
 a sample to the plot output. 
 
+#### `internal_as.latex.table()`
+
+* The function gained a new argument `rm.zero` which is preset to `TRUE`. If set, all columns containing
+zero values only are removed. The new argument enables a better fine tuning of the latex output.
+
 ## Changes in version 0.9.6 (2019-12-05)
 
 ### Bugfixes and changes
