@@ -22,6 +22,16 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 * New supplementary argument `title` which allows to pass further names of 
 a sample to the plot output. 
 
+#### `plot_AbanicoPlot()`
+
+* The plot now can handle negative values, fixed in combination with #88 (reported by Sébastien 
+Huot)
+
+#### `plot_RadialPlot()`
+
+* Fix display problem when `log.z = FALSE` combined with negative values (#88, reported
+by Sébastien Huot)
+
 #### `internal_as.latex.table()`
 
 * The function gained a new argument `rm.zero` which is preset to `TRUE`. If set, all columns containing
