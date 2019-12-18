@@ -32,6 +32,9 @@ Huot)
 * Fix display problem when `log.z = FALSE` combined with negative values (#88, reported
 by Sébastien Huot)
 
+#### `read_BIN2R()` 
+* Due to a typo, some bytes were read in the wrong order (big-endian instead of little-endian). While the fix does not affect the behaviour of the function, the non-fixed function would have soon crashed on CRAN servers. A big thanks to Tomas Kalibera from the CRAN team for his support and for pointing out this issue.
+
 #### `internal_as.latex.table()`
 
 * The function gained a new argument `rm.zero` which is preset to `TRUE`. If set, all columns containing

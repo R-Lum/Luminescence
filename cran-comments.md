@@ -5,6 +5,13 @@ new CRAN error messages that suddenlty appeared for R-devel
 caused by `class(m) == "matrix"` calls. 
 We sanitized the all corresponding code lines. 
 
+## Addressed CRAN issues
+
+* Fix the issue raised via email by Tomas Kalibera (2019-12-18)
+
+>  passing argument endian="litte" (with the typo) to readBin (repeated on 5 source lines). 
+> It should be endian="little" for little endian. 
+
 ## Further CAN messages
 
 > Version: 0.9.5 
