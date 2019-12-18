@@ -1800,6 +1800,7 @@ analyse_baSAR <- function(
       ##create needed data.frame (this way to make sure that rows are doubled if something is missing)
       selected_sample <- as.data.frame(cbind(sample_dose, sample_LxTx, sample_sLxTx, TnTx))
 
+      print(additional_arguments)
       ##call plot_GrowthCurve() to get De and De value
       fitcurve <-
         suppressWarnings(plot_GrowthCurve(
