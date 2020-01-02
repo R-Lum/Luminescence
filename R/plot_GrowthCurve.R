@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.9
+#' @section Function version: 1.10.10
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
@@ -198,7 +198,11 @@
 #' temp <- plot_GrowthCurve(LxTxData)
 #' get_RLum(temp)
 #'
-#' ##(1a) to access the fitting value try
+#' ##(1b) horizontal plot arrangement
+#' layout(mat = matrix(c(1,1,2,3), ncol = 2))
+#' plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
+#'
+#' ##(1c) to access the fitting value try
 #' get_RLum(temp, data.object = "Fit")
 #'
 #' ##(2) plot the growth curve only - uncomment to use
