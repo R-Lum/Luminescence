@@ -12,7 +12,7 @@
 #'
 #' @section Function version: 0.1.4
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France), Dirk Mittelstraß, TU Dresden (Germany)
 #'
 #' @examples
 #'
@@ -75,7 +75,8 @@ get_Quote <- function(
     c("A single grain", "I feel so lonley."),
     c("Luminescence data to Bayesian process", "Don't you ever touch me again."),
     c("Quartz grain to heating plate", "Go ahead, I need a phase change."),
-    c("Photon to electron", "I am in charge!")
+    c("Photon to electron", "I am in charge!"),
+    c("You cannot spell 'data analysis' without 'daily satan'")
     )
 
   ## Check input data
