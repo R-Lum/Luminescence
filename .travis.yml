@@ -57,7 +57,9 @@ matrix:
     r: release
     before_install:
       - sudo rm '/usr/local/bin/gfortran'
-      - | if ! brew ls --versions gcc > /dev/null; then
+      - |
+        ## Test whether gcc is already installed
+        if ! brew ls --versions gcc > /dev/null; then
             brew install gcc
           fi
       - brew install jags
