@@ -359,11 +359,8 @@ plot_RadialPlot <- function(
                   (1.1 + z.span) * max(De.global))
   }
 
-  ticks <- round(pretty(limits.z, n = 5), 3)
-  De.delta <- ticks[2] - ticks[1]
-
   ## calculate correction dose to shift negative values
-  if(min(De.global) <= 0) {
+  if(min(De.global) < 0) {
 
     if("zlim" %in% names(extraArgs)) {
 
@@ -382,6 +379,9 @@ plot_RadialPlot <- function(
   } else {
     De.add <- 0
   }
+ 
+  ticks <- round(pretty(limits.z, n = 5), 3)
+  De.delta <- ticks[2] - ticks[1]
 
   ## optionally add correction dose to data set and adjust error
   if(log.z == TRUE) {
@@ -808,7 +808,7 @@ if(centrality[1] == "mean") {
 
   ## subtract De.add from label values
   if(De.add != 0) {
-    label.z.text <- label.z.text - De.add
+    label.z.text <- label.z.text #- De.add
   }
 
   labels <- cbind(label.x, label.y, label.z.text)

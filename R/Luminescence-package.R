@@ -31,7 +31,7 @@
 #' Johannes Friedrich \tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
 #' Guillaume Guérin \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Georgina E. King \tab *University of Lausanne, Switzerland* \cr
-#' Sebastian Kreutzer \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
+#' Sebastian Kreutzer \tab *Department of Geography & Earth Sciences, Aberystwyth University, United Kingdom * \cr
 #' Norbert Mercier \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
 #' Christoph Schmidt \tab *Chair of Geomorophology, University of Bayreuth, Germany* \cr
@@ -71,7 +71,7 @@
 #'
 #' **Package maintainer**
 #'
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS- Université Bordeaux Montaigne, France,\cr
+#' Sebastian Kreutzer, Department of of Geography & Earth Sciences, Aberystwyth University, United Kingdom,\cr
 #' \email{sebastian.kreutzer@@u-bordeaux-montaigne.fr}
 #'
 #' **Funding**
@@ -608,6 +608,7 @@ NULL
 #' @aliases Lx.data Tx.data
 #' @md
 NULL
+
 
 #' Example data as [RLum.Analysis-class] objects
 #'

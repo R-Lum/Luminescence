@@ -20,6 +20,9 @@
 #' @param digits [numeric] (*with default*):
 #' number of digits (numeric fields)
 #'
+#' @param rm.zero [logical] (*with default*): remove columns containing
+#' only zeros, however this might not be wanted in all cases
+#'
 #' @param select [character] (*optional*):
 #' a [character] vector passed to [subset]
 #'
@@ -53,6 +56,7 @@
                             comments = TRUE,
                             pos = "c",
                             digits = 3,
+                            rm.zero = TRUE,
                             select,
                             split = NULL,
                             tabular_only = FALSE,
@@ -64,6 +68,7 @@
                comments = comments,
                pos = pos,
                digits = digits,
+               rm.zero = rm.zero,
                split = split,
                tabular_only = tabular_only,
                ... = ...)
@@ -85,6 +90,7 @@
                                          comments = TRUE,
                                          pos = "c",
                                          digits = 3,
+                                         rm.zero = TRUE,
                                          select,
                                          split = NULL,
                                          ...) {
@@ -95,16 +101,18 @@
     x <- .digits(x, digits)
 
     ##remove columns containing zero values ... they add no information
-    x <- x[sapply(x, function(y){
-      y <- suppressWarnings(as.numeric(y))
-      if(anyNA(y) || sum(y, na.rm = TRUE) != 0){
-        TRUE
+    if(rm.zero){
+      x <- x[sapply(x, function(y){
+        y <- suppressWarnings(as.numeric(y))
+        if(anyNA(y) || sum(y, na.rm = TRUE) != 0){
+          TRUE
 
-      }else{
-        FALSE
+        }else{
+          FALSE
 
-      }
-    })]
+        }
+      })]
+    }
 
     ##add +/- symbol and remove the columns we don't need
     fields.w.error <- (grep(names(x), pattern = "err", fixed = TRUE) - 1)

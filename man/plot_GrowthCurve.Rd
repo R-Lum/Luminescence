@@ -209,7 +209,7 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.10.9
+ 1.10.10
 }
 
 \examples{
@@ -219,7 +219,11 @@ data(ExampleData.LxTxData, envir = environment())
 temp <- plot_GrowthCurve(LxTxData)
 get_RLum(temp)
 
-##(1a) to access the fitting value try
+##(1b) horizontal plot arrangement
+layout(mat = matrix(c(1,1,2,3), ncol = 2))
+plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
+
+##(1c) to access the fitting value try
 get_RLum(temp, data.object = "Fit")
 
 ##(2) plot the growth curve only - uncomment to use
@@ -296,7 +300,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2019. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2019. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.6. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

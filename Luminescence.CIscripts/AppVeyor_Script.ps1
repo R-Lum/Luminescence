@@ -3,10 +3,10 @@
 ## Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 ## Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
 ## Date:    Sun Jul 22 12:34:53 2018
-## Info:    The successful download of JAGS from the remote server very fragile and is often enough
+## Info:    The successful download of JAGS from the remote server is fragile and often enough
 ##          pure luck. If the download fails, the build fails. This script provides a function
-##          that first tries to use JAGS from the internal cache before attempting to dowload
-##          JAGS from the remove server.
+##          that first tries to grep JAGS from the internal cache before attempting to dowload
+##          JAGS from the remote server.
 ## +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Function InstallJAGS {
   [CmdletBinding()]

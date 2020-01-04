@@ -1,31 +1,52 @@
 ## Release summary
 
-This release addresses mainly the new CRAN error messages that suddenly appeared for R-devel
-caused by `class(m) == "matrix"` calls. We sanitized all corresponding code lines. 
-See also email by Kurt Hornik from 2019-12-04.
+This is a bugfix release addressing the issue raised by Tomas Kalibera (see below).
+We also run reverse dependency checks to assure that our changes have no site effect. 
+
+## Addressed CRAN issues
+
+* Fix the issue raised via email by Tomas Kalibera (2019-12-18)
+
+>  passing argument endian="litte" (with the typo) to readBin (repeated on 5 source lines). 
+> It should be endian="little" for little endian. 
 
 ## Further CAN messages
 
-> Version: 0.9.5 
+> Version: 0.9.6
 > Check: installed package size 
 > Result: NOTE 
->     installed size is 5.9Mb
+>     installed size is 6.0Mb
 >     sub-directories of 1Mb or more:
->     R 1.5Mb
+>     R 1.6Mb
 >     help 1.1Mb
 >     libs 1.6Mb 
 
-We are aware of it, this is the size of our package, which we tried to keep to a minimum. 
+We are aware of it, however, this is the package size and there is nothing we can 
+do about.
 
 ## Win-Builder
 
-Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
-The URL is correct and works as expected, the problem appears to be, however, 
-related to the server behind the DOI forwarding and is thus beyond our reach. 
+Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022 for example
+"Message: libcurl error code 35:". 
+
+* The URL is correct and the SSL certificate is valid. 
+* We cannot reproduce this error. Indeed there was a problem in the past with that particular server, 
+but it is not the case anymore.
 
 ## R CMD check --as-cran results
 
 0 errors | 0 warnings | 0 note
+
+## Other notes or warnings
+
+* *winbuilder* 
+
+* old: claims that `https://doi.org/10.1515/geochr-2015-0022` is wrong, the URL is correct.
+* release: OK
+* devel: did not return results after two hours
+
+R-old and R-release also complained about invalid URLs, however, we double 
+checked thous URLs and found them accessible. 
 
 ## Reverse dependency checks
 

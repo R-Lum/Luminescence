@@ -31,7 +31,7 @@ Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Inst
 Johannes Friedrich \tab \emph{Chair of Geomorphology, University of Bayreuth, Germany} \cr
 Guillaume Guérin \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Georgina E. King \tab \emph{University of Lausanne, Switzerland} \cr
-Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
+Sebastian Kreutzer \tab *Department of Geography & Earth Sciences, Aberystwyth University, United Kingdom * \cr
 Norbert Mercier \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
 Christoph Schmidt \tab \emph{Chair of Geomorophology, University of Bayreuth, Germany} \cr
@@ -75,7 +75,7 @@ visit our project website (link below).
 
 \strong{Package maintainer}
 
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS- Université Bordeaux Montaigne, France,\cr
+Sebastian Kreutzer, Department of of Geography & Earth Sciences, Aberystwyth University, United Kingdom,\cr
 \email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
 
 \strong{Funding}

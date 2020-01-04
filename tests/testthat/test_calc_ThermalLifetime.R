@@ -2,35 +2,42 @@ context("calc_ThermalLifetime")
 
 ##EXAMPLE 1
 ##calculation for two trap-depths with similar frequency factor for different temperatures
-E <- c(1.66, 1.70)
-s <- 1e+13
-T <- 10:20
-
 set.seed(1)
 temp <- calc_ThermalLifetime(
- E = E,
- s = s,
- T = T,
+ E = c(1.66, 1.70),
+ s = 1e+13,
+ T = 10:20,
  output_unit = "Ma",
  verbose = FALSE
+)
+
+##EXAMPLE 2
+##profiling of thermal life time for E and s and their standard error
+temp2 <- calc_ThermalLifetime(
+  E = c(1.600, 0.003),
+  s = c(1e+13,1e+011),
+  T = 20,
+  profiling = TRUE,
+  output_unit = "Ma",
+  verbose = FALSE,
+  plot = FALSE
 )
 
 
 test_that("check class and length of output example 1", {
   testthat::skip_on_cran()
-  expect_equal(is(temp), c("RLum.Results", "RLum"))
+  expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 2)
 
 })
-
+#
 test_that("check values from output example 1", {
   testthat::skip_on_cran()
-  expect_equal(is(temp$lifetimes), c("array", "structure", "vector"))
+  expect_is(temp$lifetimes, c("array", "structure", "vector"))
   expect_equal(dim(temp$lifetimes), c(1, 2, 11))
 
   ##check results for 10 °C
-
-  results <- lapply(1:length(T), function(x){
+  results <- lapply(1:length(10:20), function(x){
     temp$lifetimes[,,x]
   })
 
@@ -48,36 +55,19 @@ test_that("check values from output example 1", {
 
 })
 
-##EXAMPLE 2
-##profiling of thermal life time for E and s and their standard error
-E <- c(1.600, 0.003)
-s <- c(1e+13,1e+011)
-T <- 20
-
-set.seed(1)
-temp <- calc_ThermalLifetime(
-  E = E,
-  s = s,
-  T = T,
-  profiling = TRUE,
-  output_unit = "Ma",
-  verbose = FALSE,
-  plot = FALSE
-)
 
 test_that("check class and length of output example 2", {
   testthat::skip_on_cran()
-  expect_equal(is(temp), c("RLum.Results", "RLum"))
-  expect_equal(length(temp), 2)
+  expect_s4_class(temp2, c("RLum.Results"))
+  testthat::expect_equal(length(temp2), 2)
 
 })
 
 test_that("check values from output example 2", {
   testthat::skip_on_cran()
-  expect_equal(is(temp$lifetimes), c("numeric", "vector"))
-  expect_equal(length(temp$lifetimes), 1000)
-  expect_equal(dim(temp$profiling_matrix), c(1000, 4))
-
+  testthat::expect_is(temp2$lifetimes, class = c("numeric", "vector"))
+  testthat::expect_equal(length(temp2$lifetimes), 1000)
+  testthat::expect_equal(dim(temp2$profiling_matrix), c(1000, 4))
 
 
 })
@@ -100,3 +90,4 @@ test_that("check arguments", {
   expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03), plot = TRUE, profiling = TRUE))
 
 })
+

@@ -674,24 +674,36 @@ plot_AbanicoPlot <- function(
     fun <- FALSE
   }
 
-  ## check for negative values, stoppp function, but do not stop
+  ## check for negative values, stop function, but do not stop
   if(min(De.global) < 0) {
-    message("\n [plot_AbanicoPlot()] data contains negative values. Nothing plotted!")
-    return(NULL)
+    
+    if("zlim" %in% names(extraArgs)) {
+      
+      De.add <- abs(extraArgs$zlim[1])
+    } else {
+      
+      ## estimate delta De to add to all data
+      De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
+      
+      ## optionally readjust delta De for extreme values
+      if(De.add <= abs(min(De.global))) {
+        
+        De.add <- De.add * 10
+      }
+    }
+  } else {
+    De.add <- 0
   }
 
-  ##check for 0 dose values and adjust for plotting ...
-  if((min(De.global) == 0) && log.z == TRUE){
-    warning("\n [plot_AbanicoPlot()] data contains 0 values, values positively shifted by 0.01",
-            call. = FALSE)
-    data <- lapply(1:length(data), function(x){
-      df <- data.frame(
-        data[[x]][,1] + 0.01, data[[x]][,2])
-      colnames(df) <- colnames(data)
-      return(df)
-
-    })
-
+  ## optionally add correction dose to data set and adjust error
+  if(log.z == TRUE) {
+    
+    for(i in 1:length(data)) {
+      data[[i]][,1] <- data[[i]][,1] + De.add
+    }
+    
+    De.global <- De.global + De.add
+    
   }
 
   ## calculate and append statistical measures --------------------------------
@@ -704,6 +716,7 @@ plot_AbanicoPlot <- function(
       data[[x]][,1]
     }
   })
+  
   if(is(z, "list") == FALSE) {
     z <- list(z)
   }
@@ -713,16 +726,22 @@ plot_AbanicoPlot <- function(
   rm(z)
 
   ## calculate dispersion based on log-option
-  se <- lapply(1:length(data), function(x){
+  se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-      data[[x]][,2] / data[[x]][,1]
+      
+      if(De.add != 0) {
+        data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
+      } else {
+        data[[x]][,2] / data[[x]][,1]
+      }
     } else {
       data[[x]][,2]
-    }
-  })
+    }}, De.add = De.add)
+  
   if(is(se, "list") == FALSE) {
     se <- list(se)
   }
+  
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])
   })
@@ -731,31 +750,42 @@ plot_AbanicoPlot <- function(
   ## calculate initial data statistics
   stats.init <- list(NA)
   for(i in 1:length(data)) {
-    stats.init[[length(stats.init) + 1]] <- calc_Statistics(data = data[[i]][,3:4])
+    stats.init[[length(stats.init) + 1]] <- 
+      calc_Statistics(data = data[[i]][,3:4])
   }
   stats.init[[1]] <- NULL
 
   ## calculate central values
   if(z.0 == "mean") {
+    
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$unweighted$mean,
           length(data[[x]][,3]))})
+    
   } else if(z.0 == "median") {
+    
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$unweighted$median,
           length(data[[x]][,3]))})
+    
   } else  if(z.0 == "mean.weighted") {
+    
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$weighted$mean,
           length(data[[x]][,3]))})
+    
   } else if(is.numeric(z.0) == TRUE) {
+    
     z.central <- lapply(1:length(data), function(x){
       rep(ifelse(log.z == TRUE,
                  log(z.0),
                  z.0),
           length(data[[x]][,3]))})
+    
   } else {
+    
     stop("Value for z.0 not supported!")
+    
   }
 
   data <- lapply(1:length(data), function(x) {

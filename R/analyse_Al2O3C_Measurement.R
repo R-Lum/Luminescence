@@ -73,7 +73,8 @@
 #' @param plot [logical] (*with default*): enable/disable plot output, if `object` is of type [list],
 #' a [numeric] vector can be provided to limit the plot output to certain aliquots
 #'
-#' @param ... further arguments that can be passed to the plot output, supported are `norm`, `main`, `mtext`
+#' @param ... further arguments that can be passed to the plot output, supported are `norm`, `main`, `mtext`,
+#' `title` (for self-call mode to specify, e.g., sample names)
 #'
 #' @return Function returns results numerically and graphically:
 #'
@@ -108,7 +109,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
 #'
@@ -228,7 +229,7 @@ analyse_Al2O3C_Measurement <- function(
 
      ##add running number to the plot, but only of we had a plot here...
      if(plot[x]){
-       title(main = paste0("#", x), adj = 1)
+       title(main = paste0(list(...)$title[x], " ","#", x), adj = 1, line = 3)
 
      }
 
@@ -640,7 +641,6 @@ analyse_Al2O3C_Measurement <- function(
 
 
   # Plotting ------------------------------------------------------------------------------------
-
     ##enable or disable plot ... we cannot put the condition higher, because we here
     ##calculate something we are going to need later
     if (plot) {
@@ -651,14 +651,14 @@ analyse_Al2O3C_Measurement <- function(
 
       ##settings
       plot_settings <- list(
-        main = "Sample Carousel Crosstalk",
+        main = c(paste("ALQ POS:", POSITION, "| OSL"), paste("ALQ POS:", POSITION, "| TL")),
         norm = TRUE,
         mtext = ""
       )
 
-      ##modify on request
-      plot_settings <- modifyList(x = plot_settings, list(...))
 
+     ##modify on request
+     plot_settings <- modifyList(x = plot_settings, val = list(...),)
 
      ##plot curves
      par(mfrow = c(1,2))
@@ -671,7 +671,7 @@ analyse_Al2O3C_Measurement <- function(
        xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
        legend.text = list(list("#1 NAT", "#3 REG", "#5 BG"), list("#2 NAT", "#4 REG")),
        legend.pos = list("topright", "topleft"),
-       main = list(paste("ALQ POS:", POSITION, "| OSL"), paste("ALQ POS:", POSITION, "| TL")),
+       main = as.list(plot_settings$main),
        norm = plot_settings$norm
      )
 

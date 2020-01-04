@@ -59,7 +59,7 @@
 #'
 #' Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen
 #' Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
-#' [http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf]()
+#' [https://www.bmu.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf]()
 #'
 #' @keywords IO
 #'

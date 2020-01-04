@@ -90,7 +90,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
-#' @section Function version: 0.16.1
+#' @section Function version: 0.16.2
 #'
 #'
 #' @author
@@ -365,7 +365,7 @@ read_BIN2R <- function(
 
 
   ##start for BIN-file check up
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
+  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
 
      ##force version number
     if(!is.null(forced.VersionNumber)){
@@ -404,19 +404,19 @@ read_BIN2R <- function(
 
 
     #empty byte position
-    EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
+    EMPTY<-readBin(con, what = "raw", 1, size = 1, endian = "little")
 
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
-      STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="litte")
+      STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="little")
 
     }else{
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=2, endian="little")
-      STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="litte")
+      STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="little")
 
     }
 
@@ -669,7 +669,7 @@ read_BIN2R <- function(
   # LOOP --------------------------------------------------------------------
 
   ##start loop for import BIN data
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
+  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
 
     ##force version number
     if(!is.null(forced.VersionNumber)){
@@ -701,7 +701,7 @@ read_BIN2R <- function(
 
 
     #empty byte position
-    EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
+    EMPTY<-readBin(con, what="raw", 1, size=1, endian="little")
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
