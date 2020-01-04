@@ -26,9 +26,12 @@ do about.
 
 ## Win-Builder
 
-Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
-The URL is correct and works as expected, the problem appears to be, however, 
-related to the server behind the DOI forwarding and is thus beyond our reach. 
+Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022 for example
+"Message: libcurl error code 35:". 
+
+* The URL is correct and the SSL certificate is valid. 
+* We cannot reproduce this error. Indeed there was a problem in the past with that particular server, 
+but it is not the case anymore.
 
 ## R CMD check --as-cran results
 
