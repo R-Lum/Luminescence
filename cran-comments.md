@@ -1,9 +1,7 @@
 ## Release summary
 
-This release addresses mainly the 
-new CRAN error messages that suddenlty appeared for R-devel
-caused by `class(m) == "matrix"` calls. 
-We sanitized the all corresponding code lines. 
+This is a bugfix release addressing the issue raised by Tomas Kalibera (see below).
+We also run reverse dependency checks to assure that our changes have no site effect. 
 
 ## Addressed CRAN issues
 
@@ -14,12 +12,12 @@ We sanitized the all corresponding code lines.
 
 ## Further CAN messages
 
-> Version: 0.9.5 
+> Version: 0.9.6
 > Check: installed package size 
 > Result: NOTE 
->     installed size is 5.9Mb
+>     installed size is 6.0Mb
 >     sub-directories of 1Mb or more:
->     R 1.5Mb
+>     R 1.6Mb
 >     help 1.1Mb
 >     libs 1.6Mb 
 
