@@ -1,30 +1,9 @@
 ## Release summary
 
-This release addresses mainly the 
-new CRAN error messages that suddenlty appeared for R-devel
-caused by `class(m) == "matrix"` calls. 
-We sanitized the all corresponding code lines. 
 
 ## Addressed CRAN issues
 
-* Fix the issue raised via email by Tomas Kalibera (2019-12-18)
 
->  passing argument endian="litte" (with the typo) to readBin (repeated on 5 source lines). 
-> It should be endian="little" for little endian. 
-
-## Further CAN messages
-
-> Version: 0.9.5 
-> Check: installed package size 
-> Result: NOTE 
->     installed size is 5.9Mb
->     sub-directories of 1Mb or more:
->     R 1.5Mb
->     help 1.1Mb
->     libs 1.6Mb 
-
-We are aware of it, however, this is the package size and there is nothing we can 
-do about.
 
 ## Win-Builder
 
