@@ -31,9 +31,9 @@ Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Inst
 Johannes Friedrich \tab \emph{Chair of Geomorphology, University of Bayreuth, Germany} \cr
 Guillaume Guérin \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
 Georgina E. King \tab \emph{University of Lausanne, Switzerland} \cr
-Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
+Sebastian Kreutzer \tab \emph{Department of Geograpy & Earth Sciences, Aberystwyth University, United Kingdom} \cr
 Norbert Mercier \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
-Svenja Riedesel \tab \emph{Aberystwyth University, United Kingdom} \cr
+Svenja Riedesel \tab \emph{Department of Geograpy & Earth Sciences ,Aberystwyth University, United Kingdom} \cr
 Christoph Schmidt \tab \emph{Chair of Geomorophology, University of Bayreuth, Germany} \cr
 Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
 Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
@@ -87,6 +87,10 @@ Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 
 Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
 by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
+
+Between 2020--2021, the work of Sebastian Kreutzer as maintainer of the package has received funding
+from the European Union’s Horizon 2020 research and innovation programme under
+the Marie Skłodowska-Curie grant agreement No 844457
 }
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,

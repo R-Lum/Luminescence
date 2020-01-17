@@ -209,7 +209,7 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.10.10
+ 1.10.11
 }
 
 \examples{
@@ -300,7 +300,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-2. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

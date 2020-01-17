@@ -14,6 +14,7 @@ analyse_SAR.CWOSL(
   dose.points = NULL,
   mtext.outer,
   plot = TRUE,
+  plot_onePage = FALSE,
   plot.single = FALSE,
   onlyLxTxTable = FALSE,
   ...
@@ -64,8 +65,9 @@ overwrites dose point values in the signal curves. Can be a \link{list} of
 option to provide an outer margin mtext. Can be a \link{list} of \link{character}s,
 if \code{object} is of type \link{list}}
 
-\item{plot}{\link{logical} (\emph{with default}):
-enables or disables plot output.}
+\item{plot}{\link{logical} (\emph{with default}): enables or disables plot output.}
+
+\item{plot_onePage}{\link{logical} (\emph{with default}): enables or disables on page plot output}
 
 \item{plot.single}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot windows.
@@ -160,7 +162,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.8.8
+ 0.8.9
 }
 
 \examples{
@@ -199,7 +201,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-2. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -223,7 +225,8 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberyswyth University
+(United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}
