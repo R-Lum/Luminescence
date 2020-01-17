@@ -15,6 +15,12 @@ Along with the function, a new exampe data set `ExampleData.MortarData` was adde
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
 
+### Bugfixes and changes
+
+#### `analyse_Al2O3C_Measurements()`
+* The function gained a new argument `plot_onePage`. If set to `TRUE` plot output is gathered 
+in one single plot window instead of three.
+
 ## Changes in version 0.9.7 (2020-01-04)
 
 ### Bugfixes and changes

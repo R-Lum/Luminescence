@@ -99,8 +99,9 @@
 #' option to provide an outer margin mtext. Can be a [list] of [character]s,
 #' if `object` is of type [list]
 #'
-#' @param plot [logical] (*with default*):
-#' enables or disables plot output.
+#' @param plot [logical] (*with default*): enables or disables plot output.
+#'
+#' @param plot_onePage [logical] (*with default*): enables or disables on page plot output
 #'
 #' @param plot.single [logical] (*with default*) or [numeric] (*optional*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.
@@ -139,10 +140,11 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.8
+#' @section Function version: 0.8.9
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberyswyth University
+#' (United Kingdom)
 #'
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
@@ -212,6 +214,7 @@ analyse_SAR.CWOSL<- function(
   dose.points = NULL,
   mtext.outer,
   plot = TRUE,
+  plot_onePage = FALSE,
   plot.single = FALSE,
   onlyLxTxTable = FALSE,
   ...
@@ -947,23 +950,40 @@ if(is.list(object)){
     ##============================================================================##
     ##PLOTTING
     ##============================================================================##
-
-    if (plot == TRUE) {
-      # Plotting - Config -------------------------------------------------------
+    if (plot) {
+      par.default <- par(no.readonly = TRUE)
+      on.exit(par(par.default))
 
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
 
+      # plot everyting on one page ... doing it here is much cleaner than
+      # Plotting - one Page config -------------------------------------------------------
+      if(plot_onePage){
+      plot.single <- TRUE
+      layout(matrix(
+        c(1, 1, 3, 3, 6, 6, 7,
+          1, 1, 3, 3, 6, 6, 8,
+          2, 2, 4, 4, 9, 9, 10,
+          2, 2, 4, 4, 9, 9, 10,
+          5, 5, 5, 5, 5, 5, 5), 5, 7, byrow = TRUE
+      ))
+      par(oma = c(0, 0, 0, 0),
+          mar = c(4, 4, 3, 1),
+          cex = cex * 0.6)
+
+      }
+
+
+      # Plotting - old way config -------------------------------------------------------
       if (plot.single[1] == FALSE) {
-        ## read par settings
-        par.default <- par(no.readonly = TRUE)
 
         layout(matrix(
-          c(1,1,3,3,
-            1,1,3,3,
-            2,2,4,4,
-            2,2,4,4,
-            5,5,5,5),5,4,byrow = TRUE
+          c(1, 1, 3, 3,
+            1, 1, 3, 3,
+            2, 2, 4, 4,
+            2, 2, 4, 4,
+            5, 5, 5, 5), 5, 4, byrow = TRUE
         ))
 
         par(
@@ -1337,13 +1357,8 @@ if(is.list(object)){
 
       }#plot.single.sel
 
-      if (exists("par.default")) {
-        par(par.default)
 
-      }
-
-
-    }##end plot == TRUE
+    }##end plot
 
 
     # Plotting  GC  ----------------------------------------
@@ -1368,9 +1383,15 @@ if(is.list(object)){
 
     ##Fit and plot growth curve
     if(!onlyLxTxTable){
-        temp.GC <- plot_GrowthCurve(temp.sample,
-                                    output.plot = plot,
-                                    ...)
+      temp.GC <- do.call(plot_GrowthCurve, args = modifyList(
+          list(
+            sample = temp.sample,
+            output.plot = plot,
+            output.plotExtended.single = plot_onePage,
+            cex.global = if(plot_onePage) .6 else 1
+            ),
+          list(...)
+        ))
 
         ##if null
         if(is.null(temp.GC)){
@@ -1759,13 +1780,6 @@ if(is.list(object)){
     }
 
 
-    ##It is doubled in this function, but the par settings need some more careful considerations ...
-    if (exists("par.default")) {
-      par(par.default)
-      rm(par.default)
-    }
-
-
     # Return --------------------------------------------------------------------------------------
     invisible(temp.results.final)
 
@@ -1780,4 +1794,29 @@ if(is.list(object)){
 
 }
 
+##load data
+##ExampleData.BINfileData contains two BINfileData objects
+##CWOSL.SAR.Data and TL.SAR.Data
+data(ExampleData.BINfileData, envir = environment())
 
+##transform the values from the first position in a RLum.Analysis object
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+
+##perform SAR analysis and set rejection criteria
+results <- analyse_SAR.CWOSL(
+  object = object,
+  signal.integral.min = 1,
+  signal.integral.max = 2,
+  background.integral.min = 900,
+  background.integral.max = 1000,
+  log = "x",
+  main = "test",
+  plot_onePage = TRUE,
+  fit.method = "EXP",
+  rejection.criteria = list(
+    recycling.ratio = 10,
+    recuperation.rate = 10,
+    testdose.error = 10,
+    palaeodose.error = 10,
+    exceed.max.regpoint = TRUE)
+)
