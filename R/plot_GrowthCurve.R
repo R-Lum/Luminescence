@@ -174,7 +174,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.10
+#' @section Function version: 1.10.11
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
@@ -1840,7 +1840,7 @@ plot_GrowthCurve <- function(
     extraArgs <- list(...)
 
     main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-    {"Growth curve"}
+    {"Dose-response curve"}
 
     xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
     {"Dose [s]"}
@@ -1957,7 +1957,7 @@ plot_GrowthCurve <- function(
       }
 
       #ADD HEADER
-      title(main = main, line = 3)
+      title(main = main, line = NA)
 
       #CURVE	#plot fitted curve
       if (fit.method == "EXP+LIN") {
@@ -2078,7 +2078,7 @@ plot_GrowthCurve <- function(
       ##TEXT		#Insert fit and result
       try(mtext(side = 3,
                 mtext,
-                line = 0.5,
+                line = 0,
                 cex = 0.8 * cex.global), silent = TRUE)
 
       #write error message in plot if De is NaN
@@ -2239,7 +2239,7 @@ plot_GrowthCurve <- function(
               NA,
               xlim = c(0, 10),
               ylim = c(0, 10),
-              main = "Test dose response"
+              main = "Test-dose response"
             )
             text(5, 5, "not available\n no TnTx column")
           }#end if else
