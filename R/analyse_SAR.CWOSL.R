@@ -952,7 +952,8 @@ if(is.list(object)){
     ##PLOTTING
     ##============================================================================##
     if (plot) {
-      par.default <- par(no.readonly = TRUE)
+      ##make sure the par settings are ok after the functions stops
+      par.default <- par()[c("oma","mar","cex")]
       on.exit(par(par.default))
 
       ##colours and double for plotting
