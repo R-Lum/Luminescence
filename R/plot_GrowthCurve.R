@@ -1905,17 +1905,17 @@ plot_GrowthCurve <- function(
     x<-NULL; rm(x)
 
     #PAR	#open plot area
-    if(output.plot== TRUE &
-       output.plotExtended== TRUE &
-       output.plotExtended.single == FALSE ){
+    if(output.plot == TRUE &
+       output.plotExtended == TRUE &
+       output.plotExtended.single == FALSE){
 
       ####grep recent plot parameter for later reset
-      par.default.complex <- par(no.readonly = TRUE)
-      on.exit(par(par.default.complex))
+      par.default.complex <- par()$cex
+      on.exit(par(cex = par.default.complex$cex))
 
       ##set new parameter
-      layout(matrix(c(1,1,1,1,2,3), 3, 2, byrow=TRUE), respect=TRUE)
-      par(cex=0.8*cex.global)
+      layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
+      par(cex = 0.8 * cex.global)
 
     }else{
 

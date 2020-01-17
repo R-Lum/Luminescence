@@ -143,7 +143,7 @@
 #' @section Function version: 0.8.9
 #'
 #' @author
-#' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberyswyth University
+#' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
 #'
 #'
@@ -954,7 +954,7 @@ if(is.list(object)){
     if (plot) {
       ##make sure the par settings are ok after the functions stops
       par.default <- par()[c("oma","mar","cex")]
-      on.exit(par(par.default))
+      on.exit(par(oma = par.default$oma, mar = par.default$mar, cex = par.default$cex))
 
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
