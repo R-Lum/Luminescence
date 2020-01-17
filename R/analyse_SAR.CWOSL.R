@@ -300,6 +300,7 @@ if(is.list(object)){
                       plot = plot,
                       rejection.criteria = rejection.criteria[[x]],
                       plot.single = plot.single,
+                      plot_onePage = plot_onePage,
                       onlyLxTxTable = onlyLxTxTable,
                       main = main[[x]],
                       ...)
