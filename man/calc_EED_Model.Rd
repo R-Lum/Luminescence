@@ -110,7 +110,7 @@ calc_EED_Model(
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2020. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-4. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2020. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -150,7 +150,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
