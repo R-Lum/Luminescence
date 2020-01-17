@@ -31,9 +31,9 @@
 #' Johannes Friedrich \tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
 #' Guillaume Guérin \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Georgina E. King \tab *University of Lausanne, Switzerland* \cr
-#' Sebastian Kreutzer \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
+#' Sebastian Kreutzer \tab *Department of Geograpy & Earth Sciences, Aberystwyth University, United Kingdom* \cr
 #' Norbert Mercier \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
-#' Svenja Riedesel \tab *Aberystwyth University, United Kingdom* \cr
+#' Svenja Riedesel \tab *Department of Geograpy & Earth Sciences ,Aberystwyth University, United Kingdom* \cr
 #' Christoph Schmidt \tab *Chair of Geomorophology, University of Bayreuth, Germany* \cr
 #' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
 #' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
@@ -83,6 +83,10 @@
 #'
 #' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
 #' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
+#'
+#' Between 2020--2021, the work of Sebastian Kreutzer as maintainer of the package has received funding
+#' from the European Union’s Horizon 2020 research and innovation programme under
+#' the Marie Skłodowska-Curie grant agreement No 844457
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
