@@ -2143,7 +2143,7 @@ plot_GrowthCurve <- function(
             x.natural,
             xlab = xlab,
             ylab = "Frequency",
-            main = expression(paste(D[e], " from MC simulation")),
+            main = "MC runs",
             freq = FALSE,
             border = "white",
             axes = FALSE,
