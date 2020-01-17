@@ -1910,7 +1910,7 @@ plot_GrowthCurve <- function(
        output.plotExtended.single == FALSE){
 
       ####grep recent plot parameter for later reset
-      par.default.complex <- par()$cex
+      par.default.complex <- par()["cex"]
       on.exit(par(cex = par.default.complex$cex))
 
       ##set new parameter
