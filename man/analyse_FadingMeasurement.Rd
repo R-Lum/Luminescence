@@ -22,7 +22,7 @@ analyse_FadingMeasurement(
 input object with the measurement data. Alternatively, a \link{list} containing \linkS4class{RLum.Analysis}
 objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
+Can also be a wide table, i.e. a \link{data.frame} with a number of columns divisible by 3
 and where each triplet has the before mentioned column structure.
 \strong{Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 only IRSL curves representing Lx (and Tx)}
@@ -45,7 +45,7 @@ vector with the bounds for the background integral.
 Not required if a \code{data.frame} with LxTx values are provided.}
 
 \item{t_star}{\link{character} (\emph{with default}):
-method for calculating the time elasped since irradiaton. Options are:
+method for calculating the time elapsed since irradiation. Options are:
 \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 and \code{'end'}, which takes the time between irradiation and the measurement step.
 Default is \code{'half'}}
@@ -64,7 +64,10 @@ enables/disables single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot.single = c(3,4)} draws only the last two plots}
 
-\item{...}{(\emph{optional}) further arguments that can be passed to internally used functions (see details)}
+\item{...}{(\emph{optional}) further arguments that can be passed to internally used functions. Supported arguments:
+\code{xlab}, \code{log}, \code{mtext} and \code{xlim} for the two first curve plots, and \code{ylim} for the fading
+curve plot. For further plot customization plesea use the numerical output of the functions for
+own plots.}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -75,7 +78,7 @@ Slot: \strong{@data}
 \strong{OBJECT} \tab \strong{TYPE} \tab \strong{COMMENT}\cr
 \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
 \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \link[stats:lm]{stats::lm}\cr
-\code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
+\code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. (2008) \cr
 \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
 \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
 }
@@ -90,8 +93,8 @@ Slot: \strong{@info}
 \description{
 The function analysis fading measurements and returns a fading rate including an error estimation.
 The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
-Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
-Kars et al. 2008.
+Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
+Kars et al. (2008).
 }
 \details{
 All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
@@ -101,7 +104,7 @@ can be passed to the function \link{calc_FadingCorr}.
 \strong{Fitting and error estimation}
 
 For the fitting the function \link[stats:lm]{stats::lm} is used without applying weights. For the
-error estimation all input values, except tc, as the precision can be consdiered as sufficiently
+error estimation all input values, except \code{tc}, as the precision can be considered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation.
 
@@ -121,7 +124,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.11
+ 0.1.12
 }
 
 \examples{
@@ -150,26 +153,27 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
-SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
+Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
+SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
 
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-1093-1106. doi:10.1139/cjes-38-7-1093
+1093-1106. doi{10.1139/cjes-38-7-1093}
 
-Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
-IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
+Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
+fading correction for feldspar  IRSL dating-tests on samples in field saturation.
+Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{read_BIN2R}, \link{read_XSYG2R},
 \link{extract_IrradiationTimes}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team}
 \keyword{datagen}
