@@ -2,8 +2,8 @@
 #'
 #' The function analysis fading measurements and returns a fading rate including an error estimation.
 #' The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
-#' Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
-#' Kars et al. 2008.
+#' Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
+#' Kars et al. (2008).
 #'
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
@@ -12,7 +12,7 @@
 #' **Fitting and error estimation**
 #'
 #' For the fitting the function [stats::lm] is used without applying weights. For the
-#' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
+#' error estimation all input values, except `tc`, as the precision can be considered as sufficiently
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
 #' for each value with the value as the mean and the provided uncertainty as standard deviation.
 #'
@@ -35,7 +35,7 @@
 #' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
 #' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-#' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
+#' Can also be a wide table, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #' **Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 #' only IRSL curves representing Lx (and Tx)**
@@ -58,7 +58,7 @@
 #' Not required if a `data.frame` with LxTx values are provided.
 #'
 #' @param t_star [character] (*with default*):
-#' method for calculating the time elasped since irradiaton. Options are:
+#' method for calculating the time elapsed since irradiation. Options are:
 #' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 #' and `'end'`, which takes the time between irradiation and the measurement step.
 #' Default is `'half'`
@@ -77,7 +77,10 @@
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot.single = c(3,4)` draws only the last two plots
 #'
-#' @param ... (*optional*) further arguments that can be passed to internally used functions (see details)
+#' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
+#' `xlab`, `log`, `mtext` and `xlim` for the two first curve plots, and `ylim` for the fading
+#' curve plot. For further plot customization plesea use the numerical output of the functions for
+#' own plots.
 #'
 #' @return
 #' An [RLum.Results-class] object is returned:
@@ -88,7 +91,7 @@
 #'  **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
 #' `fading_results` \tab `data.frame` \tab results of the fading measurement in a table \cr
 #' `fit` \tab `lm` \tab object returned by the used linear fitting function [stats::lm]\cr
-#' `rho_prime` \tab `data.frame` \tab results of rho' estimation after Kars et al. 2008 \cr
+#' `rho_prime` \tab `data.frame` \tab results of rho' estimation after Kars et al. (2008) \cr
 #' `LxTx_table` \tab `data.frame` \tab Lx/Tx table, if curve data had been provided \cr
 #' `irr.times` \tab `integer` \tab vector with the irradiation times in seconds \cr
 #' }
@@ -101,10 +104,9 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.11
+#' @section Function version: 0.1.12
 #'
-#' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) \cr
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #'
@@ -112,15 +114,16 @@
 #'
 #' @references
 #'
-#' Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
-#' SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
+#' Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
+#' SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
 #'
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-#' 1093-1106. doi:10.1139/cjes-38-7-1093
+#' 1093-1106. doi{10.1139/cjes-38-7-1093}
 #'
-#' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
-#' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
+#' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
+#' fading correction for feldspar  IRSL dating-tests on samples in field saturation.
+#' Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 #'
 #' @seealso [calc_OSLLxTxRatio], [read_BIN2R], [read_XSYG2R],
 #' [extract_IrradiationTimes]
@@ -322,7 +325,7 @@ analyse_FadingMeasurement <- function(
 
     # Calculation ---------------------------------------------------------------------------------
 
-    ##calculate Lx/Tx or ... just Lx, it depends on the patttern ... set IRR_TIME
+    ##calculate Lx/Tx or ... just Lx, it depends on the pattern ... set IRR_TIME
     if(length(structure) == 2){
       Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
       Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
@@ -574,6 +577,8 @@ analyse_FadingMeasurement <- function(
     ##set some plot settings
     plot_settings <- list(
       xlab = "Stimulation time [s]",
+      ylim = NULL,
+      xlim = NULL,
       log = "",
       mtext = ""
 
@@ -609,6 +614,7 @@ analyse_FadingMeasurement <- function(
             legend.text = c(paste(irradiation_times.unique, "s"), "others"),
             legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
             xlab = plot_settings$xlab,
+            xlim = plot_settings$xlim,
             log = plot_settings$log,
             legend.pos = "outside",
             main = expression(paste(L[x], " - curves")),
@@ -778,7 +784,6 @@ analyse_FadingMeasurement <- function(
           text(x = .5, y = .5, labels = "All NA values!")
 
       }else{
-
         plot(
           NA,
           NA,
@@ -786,10 +791,15 @@ analyse_FadingMeasurement <- function(
           xaxt = "n",
           xlab = "Time since irradition [s]",
           sub = expression(paste("[", log[10](t / t[c]), "]")),
-          ylim = if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
-            c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
-          } else{
-            c(0.1, 1.1)
+          ylim = if(is.null(plot_settings$ylim)){
+            if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
+              c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
+            } else {
+              c(0.1, 1.1)
+            }
+          } else {
+            plot_settings$ylim
+
           },
           xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE),
           main = "Signal Fading"
