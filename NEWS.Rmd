@@ -24,6 +24,8 @@ in one single plot window instead of three.
 #### `analyse_FadingMeasurements()`
 * Typo correction in the manual and a better documentation of supported `...` arguments
 * The `ylim` argument can now be used to control the 'Signal Fading' plot output.
+* While the x-axis of the fading curve output was correct, it probably caused too
+much confusion, and now the avalues are shown with superscripts, e.g., `10^0, 10^1` etc.
 
 ## Changes in version 0.9.7 (2020-01-04)
 

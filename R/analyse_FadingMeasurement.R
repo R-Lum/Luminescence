@@ -104,7 +104,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.12
+#' @section Function version: 0.1.13
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -530,7 +530,7 @@ analyse_FadingMeasurement <- function(
     Q_0.975 = quantile(x = g_value.MC, probs = 0.975, na.rm = TRUE)
   )
 
-  ##normalise the g-value to 2-days using the equation provided by Sebastien Huot via e-mail
+  ##normalise the g-value to 2-days using the equation provided by Sébastien Huot via e-mail
   ##this means the data is extended
   k0 <- g_value[,c("FIT", "SD")] / 100 / log(10)
   k1 <- k0 / (1 - k0 * log(172800/tc))
@@ -805,14 +805,17 @@ analyse_FadingMeasurement <- function(
           main = "Signal Fading"
         )
 
-        ##add axis
-        axis(side = 1,
-             at = axTicks(side = 1),
-             labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
-                                              digits = 0,
-                                              decimal.mark = "",
-                                              scientific = TRUE
-             )))
+        ##add axis (with an additional formatting to provide a nice log10-axis)
+        ##https://stackoverflow.com/questions/6897243/labelling-logarithmic-scale-display-in-r
+        x_axis_lab <- seq(0:nchar(floor(max(LxTx_table[["TIMESINCEIRR"]]))))
+        x_axis_ticks <- log10((10^x_axis_lab)/tc)
+        axis(
+          side = 1,
+          at = x_axis_ticks,
+          labels = sapply(x_axis_lab,function(i)
+            as.expression(bquote(10^ .(i)))
+          )
+        )
 
         mtext(
           side = 3,
