@@ -809,13 +809,27 @@ analyse_FadingMeasurement <- function(
         ##https://stackoverflow.com/questions/6897243/labelling-logarithmic-scale-display-in-r
         x_axis_lab <- seq(0:nchar(floor(max(LxTx_table[["TIMESINCEIRR"]]))))
         x_axis_ticks <- log10((10^x_axis_lab)/tc)
-        axis(
-          side = 1,
-          at = x_axis_ticks,
-          labels = sapply(x_axis_lab,function(i)
-            as.expression(bquote(10^ .(i)))
+
+        ## if we have less then two values to show, we fall back to the
+        ## old data representation.
+        if (length(x_axis_ticks[x_axis_ticks > 0]) > 2) {
+          axis(
+            side = 1,
+            at = x_axis_ticks,
+            labels = sapply(x_axis_lab, function(i)
+              as.expression(bquote(10 ^ .(
+                i
+              ))))
           )
-        )
+        } else {
+          axis(
+            side = 1,
+            at = axTicks(side = 1),
+            labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
+                                                digits = 0,
+                                                decimal.mark = "",
+                                                scientific = TRUE)))
+        }
 
         mtext(
           side = 3,
