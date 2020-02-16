@@ -787,7 +787,7 @@ analyse_FadingMeasurement <- function(
         plot(
           NA,
           NA,
-          ylab = "Normalised intensity [a.u.]",
+          ylab = "Norm. intensity",
           xaxt = "n",
           xlab = "Time since irradition [s]",
           sub = expression(paste("[", log[10](t / t[c]), "]")),
