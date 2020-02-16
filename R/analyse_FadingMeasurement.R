@@ -817,9 +817,7 @@ analyse_FadingMeasurement <- function(
             side = 1,
             at = x_axis_ticks,
             labels = sapply(x_axis_lab, function(i)
-              as.expression(bquote(10 ^ .(
-                i
-              ))))
+              as.expression(bquote(10 ^ .(i))))
           )
         } else {
           axis(

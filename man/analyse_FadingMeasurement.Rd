@@ -124,7 +124,7 @@ of each aliquot by its individual prompt measurement please do so \strong{before
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.12
+ 0.1.13
 }
 
 \examples{
@@ -153,7 +153,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -170,7 +170,7 @@ Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{read_BIN2R}, \link{read_XSYG2R},
-\link{extract_IrradiationTimes}
+\link{extract_IrradiationTimes}, \link{calc_FadingCorr}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
