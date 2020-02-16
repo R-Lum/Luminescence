@@ -126,7 +126,7 @@
 #' Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 #'
 #' @seealso [calc_OSLLxTxRatio], [read_BIN2R], [read_XSYG2R],
-#' [extract_IrradiationTimes]
+#' [extract_IrradiationTimes], [calc_FadingCorr]
 #'
 #' @examples
 #'
