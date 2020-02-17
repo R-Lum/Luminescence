@@ -104,7 +104,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.13
+#' @section Function version: 0.1.14
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -608,7 +608,7 @@ analyse_FadingMeasurement <- function(
             set_RLum(class = "RLum.Analysis", records = object_clean[seq(1, length(object_clean), by = 2)]),
             combine = TRUE,
             col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
+              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             )),
             plot.single = TRUE,
             legend.text = c(paste(irradiation_times.unique, "s"), "others"),
@@ -640,7 +640,7 @@ analyse_FadingMeasurement <- function(
             set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
             combine = TRUE,
             col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
+              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             )),
             plot.single = TRUE,
             legend.text = c(paste(irradiation_times.unique, "s"), "others"),

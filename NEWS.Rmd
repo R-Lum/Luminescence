@@ -26,7 +26,10 @@ in one single plot window instead of three.
 * The `ylim` argument can now be used to control the 'Signal Fading' plot output.
 * While the x-axis of the fading curve output was correct, it probably caused too
 much confusion, and now the values are shown with superscripts, e.g., `10^0, 10^1` etc.
-If the number of data points is too small, the function will fall back to the old representation. 
+If the number of data points is too small, the function will fall back to the old representation.
+* The function did not work properly for less than five data points and stopped with 
+`Error in rep(rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5)` (thanks to Annette Kadereit for flagging this)
+
 
 ## Changes in version 0.9.7 (2020-01-04)
 
