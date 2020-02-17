@@ -30,6 +30,6 @@ inspired by R.G.
 , RLum Developer Team} 
 
 \section{How to cite}{
-NA, NA, , , 2020. get_rightAnswer(): Function to get the right answer. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-11. https://CRAN.R-project.org/package=Luminescence
+NA, NA, , , 2020. get_rightAnswer(): Function to get the right answer. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-12. https://CRAN.R-project.org/package=Luminescence
 }
 

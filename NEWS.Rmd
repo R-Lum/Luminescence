@@ -10,8 +10,8 @@ header-includes:
 
 ### New functions 
 
-* `calc_EED_Model()` Model incomplete and heterogenous bleaching of mobile grains after Guibert et al. (2017). 
-Along with the function, a new exampe data set `ExampleData.MortarData` was added.
+* `calc_EED_Model()` Model incomplete and heterogeneous bleaching of mobile grains after Guibert et al. (2017). 
+Along with the function, a new example data set `ExampleData.MortarData` was added.
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
 
@@ -28,7 +28,7 @@ in one single plot window instead of three.
 much confusion, and now the values are shown with superscripts, e.g., `10^0, 10^1` etc.
 If the number of data points is too small, the function will fall back to the old representation.
 * The function did not work properly for less than five data points and stopped with 
-`Error in rep(rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5)` (thanks to Annette Kadereit for flagging this)
+`Error in rep(rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5)` (thanks to Annette Kadereit for flagging this issue)
 
 
 ## Changes in version 0.9.7 (2020-01-04)
