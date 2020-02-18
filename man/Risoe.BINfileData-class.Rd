@@ -60,7 +60,7 @@ the object directly, it is just showing a terminal message.
 \strong{Internal METADATA - object structure}
 
 This structure is compatible with BIN/BINX-files version 03-08, however, it does not follow (in its
-sequential arrangment) the manual provided by the manufacturer,
+sequential arrangement) the manual provided by the manufacturer,
 but an own structure accounting for the different versions.
 
 \tabular{rllll}{
@@ -158,48 +158,51 @@ the BIN-file data import! Data types are converted during data import.\cr
 \strong{LTYPE} values
 
 \tabular{rll}{
-\verb{[,0]} \tab TL \tab: Thermoluminescence \cr
-\verb{[,1]} \tab OSL \tab: Optically stimulated luminescence \cr
-\verb{[,2]} \tab IRSL \tab: Infrared stimulated luminescence \cr
-\verb{[,3]} \tab M-IR \tab: Infrared monochromator scan\cr
-\verb{[,4]} \tab M-VIS \tab: Visible monochromator scan\cr
-\verb{[,5]} \tab TOL \tab: Thermo-optical luminescence \cr
-\verb{[,6]} \tab TRPOSL \tab: Time Resolved Pulsed OSL\cr
-\verb{[,7]} \tab RIR \tab: Ramped IRSL\cr
-\verb{[,8]} \tab RBR \tab: Ramped (Blue) LEDs\cr
-\verb{[,9]} \tab USER \tab: User defined\cr
-\verb{[,10]} \tab POSL \tab: Pulsed OSL \cr
-\verb{[,11]} \tab SGOSL \tab: Single Grain OSL\cr
-\verb{[,12]} \tab RL \tab: Radio Luminescence \cr
-\verb{[,13]} \tab XRF \tab: X-ray Fluorescence
+VALUE \tab TYPE \tab DESCRIPTION \cr
+\verb{[0]} \tab TL \tab: Thermoluminescence \cr
+\verb{[1]} \tab OSL \tab: Optically stimulated luminescence \cr
+\verb{[2]} \tab IRSL \tab: Infrared stimulated luminescence \cr
+\verb{[3]} \tab M-IR \tab: Infrared monochromator scan\cr
+\verb{[4]} \tab M-VIS \tab: Visible monochromator scan\cr
+\verb{[5]} \tab TOL \tab: Thermo-optical luminescence \cr
+\verb{[6]} \tab TRPOSL \tab: Time Resolved Pulsed OSL\cr
+\verb{[7]} \tab RIR \tab: Ramped IRSL\cr
+\verb{[8]} \tab RBR \tab: Ramped (Blue) LEDs\cr
+\verb{[9]} \tab USER \tab: User defined\cr
+\verb{[10]} \tab POSL \tab: Pulsed OSL \cr
+\verb{[11]} \tab SGOSL \tab: Single Grain OSL\cr
+\verb{[12]} \tab RL \tab: Radio Luminescence \cr
+\verb{[13]} \tab XRF \tab: X-ray Fluorescence
 }
 
 \strong{DTYPE} values
 
-\tabular{rll}{
-\verb{[,0]} \tab 0 \tab Natural \cr
-\verb{[,1]} \tab 1 \tab N+dose \cr
-\verb{[,2]} \tab 2 \tab Bleach \cr
-\verb{[,3]} \tab 3 \tab Bleach+dose \cr
-\verb{[,4]} \tab 4 \tab Natural (Bleach) \cr
-\verb{[,5]} \tab 5 \tab N+dose (Bleach) \cr
-\verb{[,6]} \tab 6 \tab Dose \cr
-\verb{[,7]} \tab 7 \tab Background
+\tabular{rl}{
+VALUE \tab DESCRIPTION \cr
+\verb{[0]} \tab Natural \cr
+\verb{[1]} \tab N+dose \cr
+\verb{[2]} \tab Bleach \cr
+\verb{[3]} \tab Bleach+dose \cr
+\verb{[4]} \tab Natural (Bleach) \cr
+\verb{[5]} \tab N+dose (Bleach) \cr
+\verb{[6]} \tab Dose \cr
+\verb{[7]} \tab Background
 }
 
 \strong{LIGHTSOURCE} values
 
-\tabular{rll}{
-\verb{[,0]} \tab 0 \tab None \cr
-\verb{[,1]} \tab 1 \tab Lamp \cr
-\verb{[,2]} \tab 2 \tab IR diodes/IR Laser \cr
-\verb{[,3]} \tab 3 \tab Calibration LED \cr
-\verb{[,4]} \tab 4 \tab Blue Diodes \cr
-\verb{[,5]} \tab 5 \tab White lite \cr
-\verb{[,6]} \tab 6 \tab Green laser (single grain) \cr
-\verb{[,7]} \tab 7 \tab IR laser (single grain) }
+\tabular{rl}{
+VALUE \tab DESCRIPTION \cr
+\verb{[0]} \tab None \cr
+\verb{[1]} \tab Lamp \cr
+\verb{[2]} \tab IR diodes/IR Laser \cr
+\verb{[3]} \tab Calibration LED \cr
+\verb{[4]} \tab Blue Diodes \cr
+\verb{[5]} \tab White light \cr
+\verb{[6]} \tab Green laser (single grain) \cr
+\verb{[7]} \tab IR laser (single grain) }
 
-(information on the BIN/BINX file format are kindly provided by Risoe, DTU Nutech)
+(information on the BIN/BINX file format are kindly provided by Risø, DTU Nutech)
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
@@ -217,7 +220,7 @@ showClass("Risoe.BINfileData")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-12. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-13. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
