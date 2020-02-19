@@ -32,7 +32,7 @@ If the number of data points is too small, the function will fall back to the ol
 
 ### Internals
 * `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
-conversion into a single data.frames. Count values are add in columns (thanks to Annette Kaderit for the idea)
+conversion into a single data.frames. Count values are added in columns for each record (thanks to Annette Kadereit for the idea).
 
 
 ## Changes in version 0.9.7 (2020-01-04)
