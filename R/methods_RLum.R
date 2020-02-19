@@ -337,6 +337,25 @@ as.data.frame.RLum.Data.Curve <- function(x, row.names = NULL, optional = FALSE,
 as.data.frame.RLum.Data.Spectrum <- function(x,  row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
 # for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
+#' @rdname methods_RLum
+#' @export
+as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FALSE, ...) {
+
+  ## set matrix
+  m <- matrix(NA, ncol = max(sapply(x@DATA, length)), nrow = length(x@DATA))
+
+  ## rename columns
+  colnames(m) <- paste0("C",1:ncol(m))
+
+  ## fill matrix
+  for(i in 1:length(x@DATA)) m[i,1:length(x@DATA[[i]])] <- x@DATA[[i]]
+
+  ##convert to data.frame and bind
+  cbind(x@METADATA, as.data.frame(m))
+
+}
+
+
 ####################################################################################################
 # methods for generic: as.list()
 # ##################################################################################################
