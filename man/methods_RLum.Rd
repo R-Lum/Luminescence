@@ -37,6 +37,7 @@
 \alias{row.names.RLum.Data.Spectrum}
 \alias{as.data.frame.RLum.Data.Curve}
 \alias{as.data.frame.RLum.Data.Spectrum}
+\alias{as.data.frame.Risoe.BINfileData}
 \alias{as.list.RLum.Results}
 \alias{as.list.RLum.Data.Curve}
 \alias{as.list.RLum.Analysis}
@@ -137,6 +138,8 @@ bin.RLum.Data.Spectrum(x, bin_size.row = 1, bin_size.col = 1, ...)
 \method{as.data.frame}{RLum.Data.Curve}(x, row.names = NULL, optional = FALSE, ...)
 
 \method{as.data.frame}{RLum.Data.Spectrum}(x, row.names = NULL, optional = FALSE, ...)
+
+\method{as.data.frame}{Risoe.BINfileData}(x, row.names = NULL, optional = FALSE, ...)
 
 \method{as.list}{RLum.Results}(x, ...)
 
