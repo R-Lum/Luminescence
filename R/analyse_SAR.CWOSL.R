@@ -140,7 +140,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.9
+#' @section Function version: 0.8.10
 #'
 #' @author
 #' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
@@ -952,9 +952,20 @@ if(is.list(object)){
     ##PLOTTING
     ##============================================================================##
     if (plot) {
-      ##make sure the par settings are ok after the functions stops
-      par.default <- par()[c("oma","mar","cex")]
-      on.exit(par(oma = par.default$oma, mar = par.default$mar, cex = par.default$cex))
+      ##make sure the par settings are good after the functions stops
+      ##Why this is so complicated? Good question, if par() is called in the
+      ##single mode, it starts a new plot and then subsequent functions like
+      ##analyse_pIRIRSequence() produce an odd plot output.
+      par.default <- par()[c("oma","mar","cex", "mfrow", "mfcol")]
+      on_exit <- function(x = par.default){
+        par(
+          oma = x$oma,
+          mar = x$mar,
+          cex = x$cex,
+          mfrow = x$mfrow,
+          mfcol = x$mfcol
+        )
+      }
 
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
@@ -962,6 +973,8 @@ if(is.list(object)){
       # plot everyting on one page ... doing it here is much cleaner than
       # Plotting - one Page config -------------------------------------------------------
       if(plot_onePage){
+      on.exit(on_exit())
+
       plot.single <- TRUE
       layout(matrix(
         c(1, 1, 3, 3, 6, 6, 7,
@@ -979,7 +992,7 @@ if(is.list(object)){
 
       # Plotting - old way config -------------------------------------------------------
       if (plot.single[1] == FALSE) {
-
+        on.exit(on_exit())
         layout(matrix(
           c(1, 1, 3, 3,
             1, 1, 3, 3,
@@ -1394,6 +1407,7 @@ if(is.list(object)){
             ),
           list(...)
         ))
+
 
         ##if null
         if(is.null(temp.GC)){
