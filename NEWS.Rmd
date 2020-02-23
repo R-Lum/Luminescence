@@ -17,7 +17,7 @@ Along with the function, a new example data set `ExampleData.MortarData` was add
 
 ### Bugfixes and changes
 
-#### `analyse_Al2O3C_Measurements()`
+#### `analyse_SAR.CWOSLOSL()`
 * The function gained a new argument `plot_onePage`. If set to `TRUE` plot output is gathered 
 in one single plot window instead of three.
 
@@ -29,10 +29,6 @@ much confusion, and now the values are shown with superscripts, e.g., `10^0, 10^
 If the number of data points is too small, the function will fall back to the old representation.
 * The function did not work properly for less than five data points and stopped with 
 `Error in rep(rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5)` (thanks to Annette Kadereit for flagging this issue)
-
-#### `analyse_pIRIRSequence()`
-* The one page plot option (`plot.single = TRUE`) introduced for `analyse_SAR.CWOSL()` in December 2019 broke the plot 
-output of `analyse_pIRIRSequence()`. No one complained, however, it was a bug and now it got fixed.
 
 ### Internals
 * `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
