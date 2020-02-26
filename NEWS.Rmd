@@ -18,7 +18,7 @@ Along with the function, a new example data set `ExampleData.MortarData` was add
 ### Bugfixes and changes
 
 #### `analyse_SAR.CWOSLOSL()`
-* The function gained a new argument `plot_onePage`. If set to `TRUE` plot output is gathered 
+* The function gained a new argument `plot_onePage`. If set to `TRUE`, the plot output is gathered 
 in one single plot window instead of three.
 
 #### `analyse_FadingMeasurements()`
