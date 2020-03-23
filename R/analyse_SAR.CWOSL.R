@@ -94,7 +94,14 @@
 #' a numeric vector containg the dose points values Using this argument
 #' overwrites dose point values in the signal curves. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
-#'
+#' #'
+#' @param OSL.component [character] (*optional*):
+#' an [numeric] index or a name describing which OSL signal component shall be evaluated.
+#' It presumes, that the data set was manipulated by function [OSLdecomposition::decompose_RLumData].
+#' This argument can either be the name of the OSL component given by [OSLdecomposition::fit_OSLcurve]
+#' or the index of component. Then "1" selects the fastest decaying component, "2" the second fastest
+#' and so on.
+#' 
 #' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin mtext. Can be a [list] of [character]s,
 #' if `object` is of type [list]
@@ -212,6 +219,7 @@ analyse_SAR.CWOSL<- function(
   background.integral.max,
   rejection.criteria = NULL,
   dose.points = NULL,
+  OSL.component = NULL,
   mtext.outer,
   plot = TRUE,
   plot_onePage = FALSE,
@@ -220,26 +228,46 @@ analyse_SAR.CWOSL<- function(
   ...
 ) {
 
+
+  if (is.null(OSL.component)) {
+    
+    if(missing("background.integral.min")){
+      stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!")
+    }
+    
+    if(missing("background.integral.max")){
+      stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!")
+    }
+    
+    ##make life easy
+    if(missing("signal.integral.min")){
+      signal.integral.min <- 1
+      warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
+    }
+    
+    if(missing("signal.integral.max")){
+      signal.integral.max <- 2
+      warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
+    }
+    
+  } else {
+    
+    # DM: If a component argument is given, no integration intervals are necessary
+    # DM: But to prevent later errors, we give them NA values
+    signal.integral.min <- NA
+    signal.integral.max <- NA
+    background.integral.min <- NA
+    background.integral.max <- NA
+  }
+  
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
-
-  ##make life easy
-  if(missing("signal.integral.min")){
-    signal.integral.min <- 1
-    warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
-  }
-
-  if(missing("signal.integral.max")){
-    signal.integral.max <- 2
-    warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
-  }
-
+  
   ##now we have to extend everything to allow list of arguments ... this is just consequent
   signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
   signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
   background.integral.min <- rep(as.list(background.integral.min), length = length(object))
   background.integral.max <- rep(as.list(background.integral.max), length = length(object))
-
 
   ##it is a little bit more complex, as we have a list in a list
   if(is(rejection.criteria[[1]], "list")){
@@ -265,6 +293,15 @@ if(is.list(object)){
     dose.points <- rep(list(NULL), length(object))
 
   }
+  
+  # Do the list-thing also for the OSL component argument
+  if(!is.null(OSL.component)){
+    OSL.component <- rep(list(OSL.component), length = length(object))
+    
+  }else{
+    OSL.component <- rep(list(NULL), length(object))
+    
+  }
 
   if(!missing(mtext.outer)){
     mtext.outer <- rep(as.list(mtext.outer), length = length(object))
@@ -288,6 +325,9 @@ if(is.list(object)){
 
   }
 
+  #DM, Question: What is the point in transforming the arguments into lists? 
+  #              Shouldn't this work without transformation?
+  
    ##run analysis
    temp <- lapply(1:length(object), function(x){
     analyse_SAR.CWOSL(object[[x]],
@@ -332,75 +372,76 @@ if(is.list(object)){
 # General Integrity Checks ---------------------------------------------------
 
   ##GENERAL
+  
+  #DM: I guess, this code is not necessary:
 
-    ##MISSING INPUT
-    if(missing("object")){
-      stop("[analyse_SAR.CWOSL()] No value set for 'object'!")
-    }
+  #  ##MISSING INPUT
+  #  if(missing("object")){
+  #   stop("[analyse_SAR.CWOSL()] No value set for 'object'!")
+  #  }
 
     ##INPUT OBJECTS
-    if(!is(object, "RLum.Analysis")){
-      stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analyis'!")
+  #  if(!is(object, "RLum.Analysis")){
+  #    stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analyis'!")
+  #  }
+
+
+  # if(missing("signal.integral.min") & !is.list(object)){
+  #    signal.integral.min <- 1
+  #    warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
+  #  }
+
+  #  if(missing("signal.integral.max") & !is.list(object)){
+  #    signal.integral.max <- 2
+  #    warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
+  #  }
+
+
+
+  if (is.null(OSL.component)) {
+    
+    ##build signal and background integrals
+    signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
+    background.integral <- c(background.integral.min[1]:background.integral.max[1])
+    
+    ##account for the case that Lx and Tx integral differ
+    if (length(signal.integral.min) == 2 &
+        length(signal.integral.max) == 2) {
+      signal.integral.Tx <-
+        c(signal.integral.min[2]:signal.integral.max[2])
+      
+    }else{
+      signal.integral.Tx <- NULL
+      
     }
-
-
-    if(missing("signal.integral.min") & !is.list(object)){
-      signal.integral.min <- 1
-      warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
+    
+    if (length(background.integral.min) == 2 &
+        length(background.integral.max) == 2) {
+      background.integral.Tx <-
+        c(background.integral.min[2]:background.integral.max[2])
+      
+    }else{
+      background.integral.Tx <- NULL
+      
     }
-
-    if(missing("signal.integral.max") & !is.list(object)){
-      signal.integral.max <- 2
-      warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
+    
+    ##Account for the case that the use did not provide everything ...
+    if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
+      signal.integral.Tx <- signal.integral
+      
+      warning("[analyse_SAR.CWOSL()] background integral for Tx curves set, but not for the signal integral; signal integral for Tx automatically set.")
     }
-
-    if(missing("background.integral.min")){
-     stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!")
+    
+    if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
+      background.integral.Tx <- background.integral
+      
+      warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
     }
+    
+    
+  }
 
-    if(missing("background.integral.max")){
-      stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!")
-    }
-
-
-      ##build signal and background integrals
-      signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
-      background.integral <- c(background.integral.min[1]:background.integral.max[1])
-
-        ##account for the case that Lx and Tx integral differ
-        if (length(signal.integral.min) == 2 &
-            length(signal.integral.max) == 2) {
-          signal.integral.Tx <-
-            c(signal.integral.min[2]:signal.integral.max[2])
-
-        }else{
-          signal.integral.Tx <- NULL
-
-        }
-
-        if (length(background.integral.min) == 2 &
-            length(background.integral.max) == 2) {
-          background.integral.Tx <-
-            c(background.integral.min[2]:background.integral.max[2])
-
-        }else{
-          background.integral.Tx <- NULL
-
-        }
-
-        ##Account for the case that the use did not provide everything ...
-        if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
-          signal.integral.Tx <- signal.integral
-
-          warning("[analyse_SAR.CWOSL()] background integral for Tx curves set, but not for the signal integral; signal integral for Tx automatically set.")
-        }
-
-      if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
-        background.integral.Tx <- background.integral
-
-        warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
-      }
-
+     
 
     ##INTEGRAL LIMITS
     if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
@@ -550,72 +591,78 @@ if(is.list(object)){
 
   ##just proceed if error list is empty
   if (length(error.list) == 0) {
-
-    ##check background integral
-    if (max(signal.integral) == min(signal.integral)) {
-      signal.integral <-
-        c(min(signal.integral) : (max(signal.integral) + 1))
-
-      warning("[analyse_SAR.CWOSL()] integral signal limits cannot be equal, reset automatically!")
-
-    }
-
-
-    ##background integral should not longer than curve channel length
-    if (max(background.integral) == min(background.integral)) {
-      background.integral <-
-        c((min(background.integral) - 1) : max(background.integral))
-
-    }
-
-    if (max(background.integral) > temp.matrix.length[1]) {
-      background.integral <-
+    
+    if (is.null(OSL.component)) {
+      
+      ##check background integral
+      if (max(signal.integral) == min(signal.integral)) {
+        signal.integral <-
+          c(min(signal.integral) : (max(signal.integral) + 1))
+        
+        warning("[analyse_SAR.CWOSL()] integral signal limits cannot be equal, reset automatically!")
+        
+      }
+      
+      
+      ##background integral should not longer than curve channel length
+      if (max(background.integral) == min(background.integral)) {
+        background.integral <-
+          c((min(background.integral) - 1) : max(background.integral))
+        
+      }
+      
+      if (max(background.integral) > temp.matrix.length[1]) {
+        background.integral <-
           c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
-
-      ##prevent that the background integral becomes negative
-      if(min(background.integral) < max(signal.integral)){
-        background.integral <- c((max(signal.integral) + 1):max(background.integral))
-
-      }
-
-      warning(
-        "[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
-        min(background.integral),":", max(background.integral),")"
-      )
-
-    }
-
-    ##Do the same for the Tx-if set
-    if (!is.null(background.integral.Tx)) {
-
-      if (max(background.integral.Tx) == min(background.integral.Tx)) {
-        background.integral.Tx <-
-          c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
-
-      }
-
-      if (max(background.integral.Tx) > temp.matrix.length[2]) {
-        background.integral.Tx <-
-          c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
-
-
+        
         ##prevent that the background integral becomes negative
-        if (min(background.integral.Tx) < max(signal.integral.Tx)) {
-          background.integral.Tx <-
-            c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
-
-
+        if(min(background.integral) < max(signal.integral)){
+          background.integral <- c((max(signal.integral) + 1):max(background.integral))
+          
         }
-
+        
         warning(
-          "Background integral for Tx out of bounds. Set to: c(",
-          min(background.integral.Tx),
-          ":",
-          max(background.integral.Tx),
-          ")"
+          "[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
+          min(background.integral),":", max(background.integral),")"
         )
-
+        
       }
+      
+      ##Do the same for the Tx-if set
+      if (!is.null(background.integral.Tx)) {
+        
+        if (max(background.integral.Tx) == min(background.integral.Tx)) {
+          background.integral.Tx <-
+            c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
+          
+        }
+        
+        if (max(background.integral.Tx) > temp.matrix.length[2]) {
+          background.integral.Tx <-
+            c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
+          
+          
+          ##prevent that the background integral becomes negative
+          if (min(background.integral.Tx) < max(signal.integral.Tx)) {
+            background.integral.Tx <-
+              c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
+            
+            
+          }
+          
+          warning(
+            "Background integral for Tx out of bounds. Set to: c(",
+            min(background.integral.Tx),
+            ":",
+            max(background.integral.Tx),
+            ")"
+          )
+          
+        }
+      
+      }
+
+   
     }
 
 
@@ -679,8 +726,9 @@ if(is.list(object)){
 
     ##calculate LxTx values using external function
     LnLxTnTx <- lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
-      temp.LnLxTnTx <- get_RLum(
-        calc_OSLLxTxRatio(
+      
+      if (is.null(OSL.component)) {
+        temp_RLum <- calc_OSLLxTxRatio(
           Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
           Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
           signal.integral = signal.integral,
@@ -691,7 +739,16 @@ if(is.list(object)){
           sigmab = sigmab,
           sig0 = sig0
         )
-      )
+      } else {
+        
+        #temp_RLum <- calc_OSLLxTxDecomposed(
+        # Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
+        # Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
+        # OSL.component = OSL.component)
+        
+      }
+      
+      temp.LnLxTnTx <- get_RLum(temp_RLum)
 
         ##grep dose
         if (exists("temp.irradiation") == FALSE) {
