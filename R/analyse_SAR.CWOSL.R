@@ -336,6 +336,7 @@ if(is.list(object)){
                       background.integral.min = background.integral.min[[x]],
                       background.integral.max = background.integral.max[[x]] ,
                       dose.points = dose.points[[x]],
+                      OSL.component = OSL.component[[x]],
                       mtext.outer = mtext.outer[[x]],
                       plot = plot,
                       rejection.criteria = rejection.criteria[[x]],
@@ -398,7 +399,13 @@ if(is.list(object)){
 
 
 
-  if (is.null(OSL.component)) {
+  # Define integral variables, even if they are not needed due OSL-component-wise analysis
+  signal.integral <- NA
+  background.integral <- NA
+  signal.integral.Tx <- NULL
+  background.integral.Tx <- NULL
+
+    if (is.null(OSL.component)) {
     
     ##build signal and background integrals
     signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
@@ -410,18 +417,12 @@ if(is.list(object)){
       signal.integral.Tx <-
         c(signal.integral.min[2]:signal.integral.max[2])
       
-    }else{
-      signal.integral.Tx <- NULL
-      
     }
     
     if (length(background.integral.min) == 2 &
         length(background.integral.max) == 2) {
       background.integral.Tx <-
         c(background.integral.min[2]:background.integral.max[2])
-      
-    }else{
-      background.integral.Tx <- NULL
       
     }
     
@@ -438,16 +439,18 @@ if(is.list(object)){
       warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
     }
     
-    
-  }
-
-     
-
     ##INTEGRAL LIMITS
     if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
       stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not
            of type integer!",  call. = FALSE)
     }
+    
+    
+  }
+
+     
+
+
 
 
 
@@ -741,10 +744,10 @@ if(is.list(object)){
         )
       } else {
         
-        #temp_RLum <- calc_OSLLxTxDecomposed(
-        # Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
-        # Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
-        # OSL.component = OSL.component)
+        temp_RLum <- calc_OSLLxTxDecomposed(
+         Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
+         Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
+         OSL.component = OSL.component)
         
       }
       
@@ -1610,7 +1613,7 @@ if(is.list(object)){
     # Set return Values -----------------------------------------------------------
 
     ##generate unique identifier
-    UID <- create_UID()
+    UID <- Luminescence:::create_UID()
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",
