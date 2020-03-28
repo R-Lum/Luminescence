@@ -98,7 +98,7 @@
 #' @param OSL.component [character] (*optional*):
 #' an [numeric] index or a name describing which OSL signal component shall be evaluated.
 #' It presumes, that the data set was manipulated by function [OSLdecomposition::decompose_RLumData].
-#' This argument can either be the name of the OSL component given by [OSLdecomposition::fit_OSLcurve]
+#' This argument can either be the name of the OSL component assigned by [OSLdecomposition::fit_OSLcurve]
 #' or the index of component. Then "1" selects the fastest decaying component, "2" the second fastest
 #' and so on.
 #' 
@@ -262,6 +262,29 @@ analyse_SAR.CWOSL<- function(
   
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
+  
+  #DM: Check if all list entries are of type 'RLum.Analysis'. Delete those, who aren't
+  for (i in 1:length(object)) {
+    if (class(object[[i]]) != "RLum.Analysis") {
+      warning("[analyse_SAR.CWOSL()] Object item ", i,
+              " (name: '", names(object)[i], 
+              "'; class: '", class(object[[i]])[1], 
+              "') is not of class RLum.Analysis. Item skipped")
+      object[[i]] <- NULL
+    }
+  }
+  
+#  object <- lapply(object, function(list_entry){
+#    if (class(list_entry) != "RLum.Analysis") {
+#      warning("[analyse_SAR.CWOSL()] Object item 
+#              '; class: '", class(list_entry)[1], 
+#              "') is not of class RLum.Analysis. Item skipped")
+#      list_entry <- NULL
+#    }
+#    return(list_entry)
+#  })
+
+  
   
   ##now we have to extend everything to allow list of arguments ... this is just consequent
   signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
@@ -447,10 +470,6 @@ if(is.list(object)){
     
     
   }
-
-     
-
-
 
 
 
@@ -748,7 +767,6 @@ if(is.list(object)){
          Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
          Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
          OSL.component = OSL.component)
-        
       }
       
       temp.LnLxTnTx <- get_RLum(temp_RLum)

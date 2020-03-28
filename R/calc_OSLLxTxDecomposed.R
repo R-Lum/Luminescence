@@ -3,13 +3,20 @@
 #' Calculate Lx/Tx ratios from a given set of CW-OSL curves which was decomposed by
 #' [OSLdecomposition::decompose_RLumData]
 #' 
+#' @param OSL.component [character] (*optional*):
+#' an [numeric] index or a name describing which OSL signal component shall be evaluated.
+#' It presumes, that the data set was manipulated by function [OSLdecomposition::decompose_RLumData].
+#' This argument can either be the name of the OSL component assigned by [OSLdecomposition::fit_OSLcurve]
+#' or the index of component. Then "1" selects the fastest decaying component, "2" the second fastest
+#' and so on.
+#' 
 #' 
 
 calc_OSLLxTxDecomposed <- function(
   Lx.data,
   Tx.data = NULL,
   OSL.component = 1,
-  allow.negative.values = TRUE,
+  sig0 = 0,
   digits = NULL
 ){
   
@@ -17,6 +24,9 @@ calc_OSLLxTxDecomposed <- function(
   # ToDo's:
   # - Integrity checks for the component table
   # - Handle background-signal-component if present
+  # - add Tx.data integrity checks
+  # - add previous-residual-subtraction functionality
+  # - add list with decomposition algorithm parameters to return object
   #
   #
   # Example of the 'object@records[[...]]@info$COMPONENTS' Data.frame:
@@ -79,6 +89,77 @@ calc_OSLLxTxDecomposed <- function(
   ##--------------------------------------------------------------------------##
   ## (2) - extract Lx and Tx values
   
+  LnLx <- Lx.data$n[component_index]
+  LnLx.Error <- Lx.data$n.error[component_index]
 
-   
+  TnTx <- 1
+  TnTx.Error <- 0
+  if (!is.null(Tx.data)) {
+    
+    TnTx <- Tx.data$n[component_index]
+    TnTx.Error <- Tx.data$n.error[component_index]
+  }
+  
+  ##combine results
+  LnLxTnTx <- cbind(
+    LnLx,
+    LnLx.Error,
+    TnTx,
+    TnTx.Error
+  )
+  
+  # THE FOLLOWING CODE IS MOSTLY IDENTICAL WITH (4) IN calc_OSLLxTxRatio()  
+  
+  ##--------------------------------------------------------------------------##
+  ##(4) Calculate LxTx error according Galbraith (2014)
+  
+  #transform results in a data.frame
+  LnLxTnTx <- as.data.frame((LnLxTnTx))
+  
+  #add col names
+  colnames(LnLxTnTx)<-c("Net_LnLx", "Net_LnLx.Error",
+                        "Net_TnTx", "Net_TnTx.Error")
+  
+  ##calculate Ln/Tx
+  LxTx <- LnLxTnTx$Net_LnLx/LnLxTnTx$Net_TnTx
+  
+  ##set NaN
+  if(is.nan(LxTx)) LxTx <- 0
+  
+  ##calculate Ln/Tx error
+  LxTx.relError <- sqrt((LnLx.Error / LnLx)^2 + (TnTx.Error / TnTx)^2)
+  LxTx.Error <- abs(LxTx * LxTx.relError)
+  
+  ##set NaN
+  if(is.nan(LxTx.Error)) LxTx.Error <- 0
+  
+  ##add an extra component of error
+  LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx)^2)
+  
+  ##return combined values
+  temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)
+  
+  
+  ##apply digits if wanted
+  if(!is.null(digits)){
+    temp[1,] <- round(temp[1,], digits = digits)
+    
+  }
+  
+  # ToDo: Add decomposition algorithm parameters here
+  # calc.parameters <- list(...)
+  
+  ##set results object
+  temp.return <-
+    set_RLum(
+      class = "RLum.Results",
+      data = list(
+        LxTx.table = temp),
+      #  calc.parameters = calc.parameters),
+      info = list(call = sys.call())
+    )
+  
+  invisible(temp.return)
+  
+
 }
