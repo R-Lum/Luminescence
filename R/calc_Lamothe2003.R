@@ -6,7 +6,7 @@
 #'
 #'
 #' @param object [RLum.Results-class] [data.frame] (**required**): Input data for applying the
-#' fading correction. Alow are (1) [data.frame] with three columns (dose, LxTx, LxTx error), (2)
+#' fading correction. Allow are (1) [data.frame] with three columns (dose, LxTx, LxTx error), (2)
 #' [RLum.Results-class] object created by the function [analyse_SAR.CWOSL] or [analyse_pIRIRSequence]
 #'
 #' @param dose_rate.envir [numeric] vector of length 2 (**required**): Environmental dose rate in mGy/a
@@ -186,7 +186,7 @@ calc_Lamothe2003 <- function(
     if(object@originator == "analyse_SAR.CWOSL" || object@originator == "analyse_pIRIRSequence"){
       ##now we do crazy stuff, we make a self-call here since this file can contain a lot of information
 
-        ##get number of datasets; we have to search for the word natural, everthing else is not safe enough
+        ##get number of datasets; we have to search for the word natural, everything else is not safe enough
         full_table <- object@data$LnLxTnTx.table
         set_start <- which(grepl(full_table$Name, pattern = "Natural", fixed = TRUE))
         set_end <- c(set_start[-1] - 1, nrow(full_table))
@@ -276,8 +276,7 @@ calc_Lamothe2003 <- function(
 
   # Age calculation -----------------------------------------------------------------------------
   Age <-  get_RLum(fit_results)[["De"]] / dose_rate.envir[1]
-  s_Age <-  sqrt (  (100*get_RLum(fit_results)[["De.Error"]]/get_RLum(fit_results)[["De"]])^2 + (100*dose_rate.envir[2]/dose_rate.envir[1])^2   ) *Age/100
-
+  s_Age <-  sqrt((100*get_RLum(fit_results)[["De.Error"]]/get_RLum(fit_results)[["De"]])^2 + (100*dose_rate.envir[2]/dose_rate.envir[1])^2) *Age/100
 
 
   # Terminal output -----------------------------------------------------------------------------
@@ -314,7 +313,6 @@ calc_Lamothe2003 <- function(
           LnTn_BEFORE.ERROR = LnTn_BEFORE.ERROR,
           LnTn_AFTER = data[[2]][1],
           LnTn_AFTER.ERROR = data[[3]][1],
-          DE = get_RLum(fit_results)[["De"]],
           DE = get_RLum(fit_results)[["De"]],
           DE.ERROR = get_RLum(fit_results)[["De.Error"]],
           AGE = Age,
