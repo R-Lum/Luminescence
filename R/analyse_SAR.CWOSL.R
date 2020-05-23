@@ -94,14 +94,21 @@
 #' a numeric vector containg the dose points values Using this argument
 #' overwrites dose point values in the signal curves. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
-#' #'
-#' @param OSL.component [character] (*optional*):
-#' an [numeric] index or a name describing which OSL signal component shall be evaluated.
-#' It presumes, that the data set was manipulated by function [OSLdecomposition::decompose_RLumData].
-#' This argument can either be the name of the OSL component assigned by [OSLdecomposition::fit_OSLcurve]
-#' or the index of component. Then "1" selects the fastest decaying component, "2" the second fastest
+#' 
+#' @param OSL.component [character] or [integer] (*optional*):
+#' an [integer] index or a [character] string describing which OSL signal component shall be evaluated. 
+#' Can be a [list] of [integer]s or strings (or mixed), if `object` is of type [list].
+#' It requires that the object was processed by [OSLdecomposition::RLum.OSL_decomposition].
+#' This argument can either be the name of the OSL component assigned by [OSLdecomposition::RLum.OSL_global_fitting]
+#' or the index in the descending order of decay rates. Then "1" selects the fastest decaying component, "2" the second fastest
 #' and so on.
 #' 
+#' @param CWcurve.type [character] (*optional*):
+#' a [character] string specifying which type of CW-OSL records shall be analyzed. 
+#' Can be a [list] of [character] strings , if `object` is of type [list]. If set [NULL] those curve type will be choosen
+#' that has the most records in each object and contains the substring 'OSL' or 'IRSL'. If the parameter [OSL.component]
+#' is defined, but `CWcurve.type` is [NULL], the value in `object$DECOMPOSITION$parameters$record_type` will be used.
+#'
 #' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin mtext. Can be a [list] of [character]s,
 #' if `object` is of type [list]
@@ -147,7 +154,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.10
+#' @section Function version: 0.9.0
 #'
 #' @author
 #' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
@@ -220,6 +227,7 @@ analyse_SAR.CWOSL<- function(
   rejection.criteria = NULL,
   dose.points = NULL,
   OSL.component = NULL,
+  CWcurve.type = NULL,
   mtext.outer,
   plot = TRUE,
   plot_onePage = FALSE,
@@ -230,62 +238,87 @@ analyse_SAR.CWOSL<- function(
 
 
   if (is.null(OSL.component)) {
-    
+
     if(missing("background.integral.min")){
       stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!")
     }
-    
+
     if(missing("background.integral.max")){
       stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!")
     }
-    
+
     ##make life easy
     if(missing("signal.integral.min")){
       signal.integral.min <- 1
       warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
     }
-    
+
     if(missing("signal.integral.max")){
       signal.integral.max <- 2
       warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
     }
-    
+
   } else {
-    
+
     # DM: If a component argument is given, no integration intervals are necessary
-    # DM: But to prevent later errors, we give them NA values
+    # But to prevent later errors, we give them NA values
     signal.integral.min <- NA
     signal.integral.max <- NA
     background.integral.min <- NA
     background.integral.max <- NA
+    
+    # DM: The definition of a CW-OSL curve type is mandatory for decomposed data sets (because of data consistency). 
+    # If none is given, take the one used at OSLdecomposition::RLum.OSL_decomposition()
+    if (is.null(CWcurve.type)) {
+      if ("DECOMPOSITION" %in% names(object)) {
+        CWcurve.type <- object$DECOMPOSITION$parameters$record_type
+        
+      } else {
+        stop("[analyse_SAR.CWOSL()] Neither an argument CWcurve.type is defined nor contains the object a slot $DECOMPOSITION")}}
+    
+    # DM: R session crashes if we plot OSLdecomposed data sets
+    if (plot) {
+      plot <- FALSE
+      warning("[analyse_SAR.CWOSL()] Plot output for OSLdecomposition data sets is currently no available")}
   }
-  
+
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
-  
-  #DM: Check if all list entries are of type 'RLum.Analysis'. Delete those, who aren't
-  for (i in 1:length(object)) {
-    if (class(object[[i]]) != "RLum.Analysis") {
-      warning("[analyse_SAR.CWOSL()] Object item ", i,
-              " (name: '", names(object)[i], 
-              "'; class: '", class(object[[i]])[1], 
-              "') is not of class RLum.Analysis. Item skipped")
-      object[[i]] <- NULL
+
+  # DM: The the RLum.XXX functions of the package OSLdecomposition add list items which are not RLum.Analysis
+  # They may also rename @RecordType values, so some list items may miss any 'record_type' record
+  for (j in length(object):1) {
+    
+    #DM: Check if all list items are of type 'RLum.Analysis'. Delete those, who aren't
+    if (class(object[[j]]) != "RLum.Analysis") {
+      
+      cat(paste0("Object item ", j, " (name: '", names(object)[j], 
+                 "'; class: '", class(object[[j]])[1], "') is not of class RLum.Analysis. Item skipped\n"))
+      
+      object[[j]] <- NULL
+      
+    } else {
+      
+      N_of_correct_record_types <- 0
+     # for(i in length(object[[j]]@records)) {
+     #   if (object[[j]]@records[[i]]@recordType ==) {}}
+      #FB[[1]]@records[[1]]@recordType
+      #FB_decomposed[["DECOMPOSITION"]][["parameters"]][["record_type"]]
     }
   }
-  
+
 #  object <- lapply(object, function(list_entry){
 #    if (class(list_entry) != "RLum.Analysis") {
-#      warning("[analyse_SAR.CWOSL()] Object item 
-#              '; class: '", class(list_entry)[1], 
+#      warning("[analyse_SAR.CWOSL()] Object item
+#              '; class: '", class(list_entry)[1],
 #              "') is not of class RLum.Analysis. Item skipped")
 #      list_entry <- NULL
 #    }
 #    return(list_entry)
 #  })
 
-  
-  
+
+
   ##now we have to extend everything to allow list of arguments ... this is just consequent
   signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
   signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
@@ -316,15 +349,19 @@ if(is.list(object)){
     dose.points <- rep(list(NULL), length(object))
 
   }
-  
-  # Do the list-thing also for the OSL component argument
+
   if(!is.null(OSL.component)){
     OSL.component <- rep(list(OSL.component), length = length(object))
+
+  }else{
+    OSL.component <- rep(list(NULL), length(object))}
+  
+  if(!is.null(CWcurve.type)){
+    CWcurve.type <- rep(list(CWcurve.type), length = length(object))
     
   }else{
-    OSL.component <- rep(list(NULL), length(object))
-    
-  }
+    CWcurve.type <- rep(list(NULL), length(object))}
+
 
   if(!missing(mtext.outer)){
     mtext.outer <- rep(as.list(mtext.outer), length = length(object))
@@ -348,9 +385,7 @@ if(is.list(object)){
 
   }
 
-  #DM, Question: What is the point in transforming the arguments into lists? 
-  #              Shouldn't this work without transformation?
-  
+
    ##run analysis
    temp <- lapply(1:length(object), function(x){
     analyse_SAR.CWOSL(object[[x]],
@@ -360,6 +395,7 @@ if(is.list(object)){
                       background.integral.max = background.integral.max[[x]] ,
                       dose.points = dose.points[[x]],
                       OSL.component = OSL.component[[x]],
+                      CWcurve.type = CWcurve.type[[x]],
                       mtext.outer = mtext.outer[[x]],
                       plot = plot,
                       rejection.criteria = rejection.criteria[[x]],
@@ -396,7 +432,7 @@ if(is.list(object)){
 # General Integrity Checks ---------------------------------------------------
 
   ##GENERAL
-  
+
   #DM: I guess, this code is not necessary:
 
   #  ##MISSING INPUT
@@ -428,68 +464,83 @@ if(is.list(object)){
   signal.integral.Tx <- NULL
   background.integral.Tx <- NULL
 
-    if (is.null(OSL.component)) {
-    
+  if (is.null(OSL.component)) {
+
     ##build signal and background integrals
     signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
     background.integral <- c(background.integral.min[1]:background.integral.max[1])
-    
+
     ##account for the case that Lx and Tx integral differ
     if (length(signal.integral.min) == 2 &
         length(signal.integral.max) == 2) {
       signal.integral.Tx <-
         c(signal.integral.min[2]:signal.integral.max[2])
-      
+
     }
-    
+
     if (length(background.integral.min) == 2 &
         length(background.integral.max) == 2) {
       background.integral.Tx <-
         c(background.integral.min[2]:background.integral.max[2])
-      
+
     }
-    
+
     ##Account for the case that the use did not provide everything ...
     if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
       signal.integral.Tx <- signal.integral
-      
+
       warning("[analyse_SAR.CWOSL()] background integral for Tx curves set, but not for the signal integral; signal integral for Tx automatically set.")
     }
-    
+
     if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
       background.integral.Tx <- background.integral
-      
+
       warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
     }
-    
+
     ##INTEGRAL LIMITS
     if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
       stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not
            of type integer!",  call. = FALSE)
     }
+  }
+  
+  if (is.null(CWcurve.type)) {
+    
+    ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
+    if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
+      stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL' or similar detected! NULL returned.",
+           call. = FALSE)
+      return(NULL)
+    }
     
     
+    ## try to extract the correct curves for the sequence based on allowed curve types and
+    ## the curve type used most frequently
+    ## now remove all non-allowed curves
+    CWcurve.type <-
+      regmatches(names(object),
+                 m = regexpr("(OSL|IRSL|POSL)(?!\\))", names(object), perl = TRUE))
+    
+    ## now get the type which is used most
+    CWcurve.type <- names(which.max(table(CWcurve.type)))
+    #if (verbose) cat("Analyse ", CWcurve.type," curve types\n")
+    
+  }else{
+    
+    CWcurve.N <- sum(names(object) == CWcurve.type)
+    
+    if (CWcurve.N == 0){
+     # stop("[analyse_SAR.CWOSL()] No record of type '", CWcurve.type,"' detected! NULL returned.", call. = FALSE)
+      cat(paste0("[analyse_SAR.CWOSL()] No record of type '", CWcurve.type,"' detected! NULL returned."))
+      return(NULL)}
+    
+    if (CWcurve.N == 1){
+      cat(paste0("[analyse_SAR.CWOSL()] Just one record of type '", CWcurve.type,"' detected! At least two are necessary. NULL returned."))
+      return(NULL)}
   }
 
 
-
-    ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
-    if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
-        stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
-             call. = FALSE)
-        return(NULL)
-
-    }
-
-    ## try to extract the correct curves for the sequence based on allowed curve types and
-    ## the curve type used most frequently
-      ## now remove all non-allowed curves
-      CWcurve.type <-
-        regmatches(names(object),
-                   m = regexpr("(OSL|IRSL|POSL)(?!\\))", names(object), perl = TRUE))
-
-      ## now get the type which is used most
-      CWcurve.type <- names(which.max(table(CWcurve.type)))
 
 # Rejection criteria ------------------------------------------------------
 
@@ -613,65 +664,65 @@ if(is.list(object)){
 
   ##just proceed if error list is empty
   if (length(error.list) == 0) {
-    
+
     if (is.null(OSL.component)) {
-      
+
       ##check background integral
       if (max(signal.integral) == min(signal.integral)) {
         signal.integral <-
           c(min(signal.integral) : (max(signal.integral) + 1))
-        
+
         warning("[analyse_SAR.CWOSL()] integral signal limits cannot be equal, reset automatically!")
-        
+
       }
-      
-      
+
+
       ##background integral should not longer than curve channel length
       if (max(background.integral) == min(background.integral)) {
         background.integral <-
           c((min(background.integral) - 1) : max(background.integral))
-        
+
       }
-      
+
       if (max(background.integral) > temp.matrix.length[1]) {
         background.integral <-
           c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
-        
+
         ##prevent that the background integral becomes negative
         if(min(background.integral) < max(signal.integral)){
           background.integral <- c((max(signal.integral) + 1):max(background.integral))
-          
+
         }
-        
+
         warning(
           "[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
           min(background.integral),":", max(background.integral),")"
         )
-        
+
       }
-      
+
       ##Do the same for the Tx-if set
       if (!is.null(background.integral.Tx)) {
-        
+
         if (max(background.integral.Tx) == min(background.integral.Tx)) {
           background.integral.Tx <-
             c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
-          
+
         }
-        
+
         if (max(background.integral.Tx) > temp.matrix.length[2]) {
           background.integral.Tx <-
             c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
-          
-          
+
+
           ##prevent that the background integral becomes negative
           if (min(background.integral.Tx) < max(signal.integral.Tx)) {
             background.integral.Tx <-
               c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
-            
-            
+
+
           }
-          
+
           warning(
             "Background integral for Tx out of bounds. Set to: c(",
             min(background.integral.Tx),
@@ -679,12 +730,12 @@ if(is.list(object)){
             max(background.integral.Tx),
             ")"
           )
-          
+
         }
-      
+
       }
 
-   
+
     }
 
 
@@ -748,7 +799,7 @@ if(is.list(object)){
 
     ##calculate LxTx values using external function
     LnLxTnTx <- lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
-      
+
       if (is.null(OSL.component)) {
         temp_RLum <- calc_OSLLxTxRatio(
           Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
@@ -762,13 +813,13 @@ if(is.list(object)){
           sig0 = sig0
         )
       } else {
-        
+
         temp_RLum <- calc_OSLLxTxDecomposed(
          Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
          Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
          OSL.component = OSL.component)
       }
-      
+
       temp.LnLxTnTx <- get_RLum(temp_RLum)
 
         ##grep dose
