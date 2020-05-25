@@ -18,7 +18,7 @@ calc_Lamothe2003(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}): Input data for applying the
-fading correction. Alow are (1) \link{data.frame} with three columns (dose, LxTx, LxTx error), (2)
+fading correction. Allow are (1) \link{data.frame} with three columns (dose, LxTx, LxTx error), (2)
 \linkS4class{RLum.Results} object created by the function \link{analyse_SAR.CWOSL} or \link{analyse_pIRIRSequence}}
 
 \item{dose_rate.envir}{\link{numeric} vector of length 2 (\strong{required}): Environmental dose rate in mGy/a}
@@ -110,7 +110,7 @@ results_corr <- calc_Lamothe2003(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Mercier, N., 2020. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Mercier, N., 2020. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -125,7 +125,7 @@ Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Me
 \link{plot_GrowthCurve}, \link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France), Norbert Mercier,
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom), Norbert Mercier,
 IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 , RLum Developer Team}
 \keyword{datagen}

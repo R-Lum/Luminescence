@@ -3,7 +3,8 @@
 \name{ExampleData.DeValues}
 \alias{ExampleData.DeValues}
 \title{Example De data sets for the package Luminescence}
-\format{A \link{list} with two elements, each containing a two column \link{data.frame}:
+\format{
+A \link{list} with two elements, each containing a two column \link{data.frame}:
 
 \describe{
 \verb{$BT998}: De and De error values for a fine grain quartz
@@ -12,7 +13,8 @@ sample from a loess section in Rottewitz.
 \verb{$CA1}: Single grain De
 and De error values for a coarse grain quartz sample from a fluvial deposit
 in the rock shelter of Cueva Anton
-}}
+}
+}
 \description{
 Equivalent dose (De) values measured for a fine grain quartz sample from a
 loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz

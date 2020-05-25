@@ -140,7 +140,7 @@ output.SAR
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2020. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2020. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -158,7 +158,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \link{calc_OSLLxTxRatio}, \linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{plot_GrowthCurve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 Margret C. Fuchs, HZDR, Freiberg (Germany)
 , RLum Developer Team}
 \keyword{datagen}

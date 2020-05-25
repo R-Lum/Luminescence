@@ -3,14 +3,16 @@
 \name{BaseDataSet.FractionalGammaDose}
 \alias{BaseDataSet.FractionalGammaDose}
 \title{Base data set of fractional gamma-dose values}
-\format{A \code{\link{list}} with fractional gamma dose-rate values
+\format{
+A \code{\link{list}} with fractional gamma dose-rate values
 sorted by article:
 
 \tabular{ll}{
 
 \code{Aitken1985}: \tab
 Fractional gamma-dose values from table H.1
-}}
+}
+}
 \source{
 Fractional gamma dose values were carefully read from the tables given in the
 references above.

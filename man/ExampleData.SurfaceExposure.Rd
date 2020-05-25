@@ -3,7 +3,8 @@
 \name{ExampleData.SurfaceExposure}
 \alias{ExampleData.SurfaceExposure}
 \title{Example OSL surface exposure dating data}
-\format{A \link{list} with 4 elements:
+\format{
+A \link{list} with 4 elements:
 
 \tabular{ll}{
 \strong{Element} \tab \strong{Content} \cr
@@ -11,7 +12,8 @@
 \verb{$sample_2} \tab A \link{data.frame} with 3 columns (depth, intensity, error) \cr
 \verb{$set_1} \tab A \link{list} of 4 \link{data.frame}s, each representing a sample with different ages \cr
 \verb{$set_2} \tab A \link{list} of 5 \link{data.frame}s, each representing a sample with different ages \cr
-}}
+}
+}
 \source{
 See examples for the code used to create the data sets.
 }

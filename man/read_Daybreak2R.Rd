@@ -52,14 +52,14 @@ temp <- read_Daybreak2R(file)
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link[data.table:data.table]{data.table::data.table}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 Anotine Zink, C2RMF, Palais du Louvre, Paris (France)
 
 The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Zink, A., 2020. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Zink, A., 2020. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

@@ -1,7 +1,7 @@
 ## +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Title:   AppVeyor powershell script to overcome problems while installing JAGS on the VM
 ## Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-## Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+## Contact: sebastian.kreutzer@aber.ac.uk
 ## Date:    Sun Jul 22 12:34:53 2018
 ## Info:    The successful download of JAGS from the remote server is fragile and often enough
 ##          pure luck. If the download fails, the build fails. This script provides a function

@@ -4,7 +4,9 @@
 \alias{ExampleData.MortarData}
 \alias{MortarData}
 \title{Example equivalent dose data from mortar samples}
-\format{Two \code{\link{data.frame}}s containing De and De error}
+\format{
+Two \code{\link{data.frame}}s containing De and De error
+}
 \source{
 Arbitrary measurements.
 }

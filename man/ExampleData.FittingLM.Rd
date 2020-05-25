@@ -5,7 +5,9 @@
 \alias{values.curve}
 \alias{values.curveBG}
 \title{Example data for fit_LMCurve() in the package Luminescence}
-\format{Two objects (data.frames) with two columns (time and counts).}
+\format{
+Two objects (data.frames) with two columns (time and counts).
+}
 \source{
 \tabular{ll}{
 Lab: \tab Luminescence Laboratory Bayreuth\cr

@@ -3,7 +3,8 @@
 \name{BaseDataSet.ConversionFactors}
 \alias{BaseDataSet.ConversionFactors}
 \title{Base data set of dose-rate conversion factors}
-\format{A \code{\link{list}} with three elements with dose-rate conversion factors
+\format{
+A \code{\link{list}} with three elements with dose-rate conversion factors
 sorted by article and radiation type (alpha, beta, gamma):
 
 \tabular{ll}{
@@ -16,7 +17,8 @@ Conversion factors from Tables 1, 2 and 3 \cr
 
 \code{Liritzisetal2013}: \tab
 Conversion factors from Tables 1, 2 and 3 \cr
-}}
+}
+}
 \source{
 All gamma conversion factors were carefully read from the tables given in the
 references above.

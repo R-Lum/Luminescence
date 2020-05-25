@@ -7,13 +7,15 @@
 \alias{TL.SAR.Data}
 \title{Example data from a SAR OSL and SAR TL measurement for the package
 Luminescence}
-\format{\code{CWOSL.SAR.Data}: SAR OSL measurement data
+\format{
+\code{CWOSL.SAR.Data}: SAR OSL measurement data
 
 \code{TL.SAR.Data}: SAR TL measurement data
 
 Each class object contains two slots: (a) \code{METADATA} is a \link{data.frame} with
 all metadata stored in the BIN file of the measurements and (b) \code{DATA}
-contains a list of vectors of the measured data (usually count values).}
+contains a list of vectors of the measured data (usually count values).
+}
 \source{
 \strong{CWOSL.SAR.Data}
 
