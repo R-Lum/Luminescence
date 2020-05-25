@@ -94,17 +94,17 @@
 #' a numeric vector containg the dose points values Using this argument
 #' overwrites dose point values in the signal curves. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
-#' 
+#'
 #' @param OSL.component [character] or [integer] (*optional*):
-#' an [integer] index or a [character] string describing which OSL signal component shall be evaluated. 
+#' an [integer] index or a [character] string describing which OSL signal component shall be evaluated.
 #' Can be a [list] of [integer]s or strings (or mixed), if `object` is of type [list].
 #' It requires that the object was processed by [OSLdecomposition::RLum.OSL_decomposition].
 #' This argument can either be the name of the OSL component assigned by [OSLdecomposition::RLum.OSL_global_fitting]
 #' or the index in the descending order of decay rates. Then "1" selects the fastest decaying component, "2" the second fastest
 #' and so on.
-#' 
+#'
 #' @param CWcurve.type [character] (*optional*):
-#' a [character] string specifying which type of CW-OSL records shall be analyzed. 
+#' a [character] string specifying which type of CW-OSL records shall be analyzed.
 #' Can be a [list] of [character] strings , if `object` is of type [list]. If set [NULL] those curve type will be choosen
 #' that has the most records in each object and contains the substring 'OSL' or 'IRSL'. If the parameter [OSL.component]
 #' is defined, but `CWcurve.type` is [NULL], the value in `object$DECOMPOSITION$parameters$record_type` will be used.
@@ -266,16 +266,16 @@ analyse_SAR.CWOSL<- function(
     signal.integral.max <- NA
     background.integral.min <- NA
     background.integral.max <- NA
-    
-    # DM: The definition of a CW-OSL curve type is mandatory for decomposed data sets (because of data consistency). 
+
+    # DM: The definition of a CW-OSL curve type is mandatory for decomposed data sets (because of data consistency).
     # If none is given, take the one used at OSLdecomposition::RLum.OSL_decomposition()
     if (is.null(CWcurve.type)) {
       if ("DECOMPOSITION" %in% names(object)) {
         CWcurve.type <- object$DECOMPOSITION$parameters$record_type
-        
+
       } else {
         stop("[analyse_SAR.CWOSL()] Neither an argument CWcurve.type is defined nor contains the object a slot $DECOMPOSITION")}}
-    
+
     # DM: R session crashes if we plot OSLdecomposed data sets
     if (plot) {
       plot <- FALSE
@@ -288,17 +288,17 @@ if(is.list(object)){
   # DM: The the RLum.XXX functions of the package OSLdecomposition add list items which are not RLum.Analysis
   # They may also rename @RecordType values, so some list items may miss any 'record_type' record
   for (j in length(object):1) {
-    
+
     #DM: Check if all list items are of type 'RLum.Analysis'. Delete those, who aren't
     if (class(object[[j]]) != "RLum.Analysis") {
-      
-      cat(paste0("Object item ", j, " (name: '", names(object)[j], 
+
+      cat(paste0("Object item ", j, " (name: '", names(object)[j],
                  "'; class: '", class(object[[j]])[1], "') is not of class RLum.Analysis. Item skipped\n"))
-      
+
       object[[j]] <- NULL
-      
+
     } else {
-      
+
       N_of_correct_record_types <- 0
      # for(i in length(object[[j]]@records)) {
      #   if (object[[j]]@records[[i]]@recordType ==) {}}
@@ -355,10 +355,10 @@ if(is.list(object)){
 
   }else{
     OSL.component <- rep(list(NULL), length(object))}
-  
+
   if(!is.null(CWcurve.type)){
     CWcurve.type <- rep(list(CWcurve.type), length = length(object))
-    
+
   }else{
     CWcurve.type <- rep(list(NULL), length(object))}
 
@@ -504,37 +504,37 @@ if(is.list(object)){
            of type integer!",  call. = FALSE)
     }
   }
-  
+
   if (is.null(CWcurve.type)) {
-    
+
     ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
     if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
       stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL' or similar detected! NULL returned.",
            call. = FALSE)
       return(NULL)
     }
-    
-    
+
+
     ## try to extract the correct curves for the sequence based on allowed curve types and
     ## the curve type used most frequently
     ## now remove all non-allowed curves
     CWcurve.type <-
       regmatches(names(object),
                  m = regexpr("(OSL|IRSL|POSL)(?!\\))", names(object), perl = TRUE))
-    
+
     ## now get the type which is used most
     CWcurve.type <- names(which.max(table(CWcurve.type)))
     #if (verbose) cat("Analyse ", CWcurve.type," curve types\n")
-    
+
   }else{
-    
+
     CWcurve.N <- sum(names(object) == CWcurve.type)
-    
+
     if (CWcurve.N == 0){
      # stop("[analyse_SAR.CWOSL()] No record of type '", CWcurve.type,"' detected! NULL returned.", call. = FALSE)
       cat(paste0("[analyse_SAR.CWOSL()] No record of type '", CWcurve.type,"' detected! NULL returned."))
       return(NULL)}
-    
+
     if (CWcurve.N == 1){
       cat(paste0("[analyse_SAR.CWOSL()] Just one record of type '", CWcurve.type,"' detected! At least two are necessary. NULL returned."))
       return(NULL)}
@@ -1683,6 +1683,7 @@ if(is.list(object)){
 
     ##generate unique identifier
     UID <- Luminescence:::create_UID()
+    #UID <- create_UID()
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",
