@@ -13,7 +13,7 @@
 #'
 #'@section Function version: 0.1.3
 #'
-#'@author  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'@author  Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'@seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [write_R2BIN]
 #'

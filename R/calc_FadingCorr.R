@@ -121,7 +121,7 @@
 #' @section Function version: 0.4.2
 #'
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'
 #' @seealso [RLum.Results-class], [get_RLum], [uniroot]

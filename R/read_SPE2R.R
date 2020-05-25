@@ -61,7 +61,7 @@
 #' @section Function version: 0.1.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [readBin], [RLum.Data.Spectrum-class], [raster::raster]
 #'

@@ -29,7 +29,7 @@
 #' @section Function version: 0.2.3
 #'
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [plot], [plot_RLum]
 #'

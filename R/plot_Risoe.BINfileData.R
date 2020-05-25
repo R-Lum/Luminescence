@@ -73,7 +73,7 @@
 #' @section Function version: 0.4.1
 #' 
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr 
 #' Michael Dietze, GFZ Potsdam (Germany)
 #' 
 #' @seealso [Risoe.BINfileData-class],[read_BIN2R], [CW2pLM], [CW2pLMi], 

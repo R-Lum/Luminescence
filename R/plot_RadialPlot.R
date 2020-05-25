@@ -129,7 +129,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
 #' @seealso [plot], [plot_KDE], [plot_Histogram]

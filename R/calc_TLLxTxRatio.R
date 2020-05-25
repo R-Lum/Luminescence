@@ -55,7 +55,7 @@
 #' @section Function version: 0.3.3
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France) \cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Schmidt, University of Bayreuth (Germany)
 #'
 #' @seealso [RLum.Results-class], [analyse_SAR.TL]

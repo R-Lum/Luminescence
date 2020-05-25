@@ -31,7 +31,7 @@
 #' @section Function version: 0.3.1
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Anotine Zink, C2RMF, Palais du Louvre, Paris (France)
 #'
 #' The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin

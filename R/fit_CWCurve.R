@@ -174,7 +174,7 @@
 #' @section Function version: 0.5.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [fit_LMCurve], [plot],[nls], [RLum.Data.Curve-class],
 #' [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM]

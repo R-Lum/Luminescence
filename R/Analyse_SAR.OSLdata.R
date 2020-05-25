@@ -99,7 +99,7 @@
 #'
 #'
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Margret C. Fuchs, HZDR, Freiberg (Germany)
 #' 
 #' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [plot_GrowthCurve]

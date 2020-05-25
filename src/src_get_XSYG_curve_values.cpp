@@ -1,7 +1,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   src_get_XSYG_curve_values()
-// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
+// Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.0 [2017-07-07]
 // Usage:   used within the function read_XSYG2R() to extract curve values more efficiently
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -174,7 +174,7 @@ NULL
 #'
 #' @section Function version: 0.4.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)\cr
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
 #' @seealso [plot_Risoe.BINfileData], [read_BIN2R], [write_R2BIN],

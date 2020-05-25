@@ -95,7 +95,7 @@
 #' @section Function version: 0.2.2
 #' 
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Based on comments and suggestions from:\cr 
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #' 

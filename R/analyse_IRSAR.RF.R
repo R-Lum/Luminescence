@@ -310,7 +310,7 @@
 #'
 #' @section Function version: 0.7.5
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
 #' [nls], [minpack.lm::nlsLM], `parallel::mclapply`

@@ -42,7 +42,7 @@ NULL
 #'
 #' @section Class version: 0.4.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Data-class], [RLum.Data.Curve-class], [RLum.Data.Spectrum-class], [RLum.Data.Image-class],
 #' [RLum.Analysis-class], [RLum.Results-class], [methods_RLum]

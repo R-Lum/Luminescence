@@ -1,7 +1,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   src_analyse_IRSARRF_SRS()
-// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
+// Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.3.5 [2017-02-06]
 // Purpose:
 //

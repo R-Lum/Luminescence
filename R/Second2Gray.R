@@ -58,7 +58,7 @@
 #' @section Function version: 0.6.0
 #'
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr 
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 #'

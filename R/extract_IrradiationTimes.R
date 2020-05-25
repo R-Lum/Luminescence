@@ -97,7 +97,7 @@
 #' @section Function version: 0.3.1
 #'
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [Risoe.BINfileData-class],
 #' [read_XSYG2R], [read_BIN2R], [write_R2BIN]

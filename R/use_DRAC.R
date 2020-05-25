@@ -49,7 +49,7 @@
 #' @section Function version: 0.1.3
 #'
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)\cr 
 #' Christoph Burow, University of Cologne (Germany)
 #'

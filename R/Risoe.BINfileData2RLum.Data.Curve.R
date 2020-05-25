@@ -40,7 +40,7 @@
 #' @section Function version: 0.5.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis], [set_RLum],

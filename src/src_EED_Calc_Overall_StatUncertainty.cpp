@@ -3,10 +3,10 @@ using namespace Rcpp;
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   find_first_larger_value()
-// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
 //          based on an R script written by Pierre Guibert, IRAMAT-CRP2A,
 //          Universite Bordeaux Montaigne (France)
-// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.0 [2019-05-15]
 // @description: Find the first positions where the values in x are great than in y
 //               Where x and y are numerical vectors
@@ -43,9 +43,9 @@ NumericVector find_first_larger_value(
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   row_sd()
-// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
 //
-// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.0 [2019-08-27]
 // @description: Calculate the row standard deviation of a matrix
 //
@@ -81,10 +81,10 @@ NumericVector row_sd(NumericMatrix m){
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   .EED_Calc_Overall_StatUncertainty
-// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) based
+// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom) based
 // on R code by Pierre Guibert, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 //
-// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.0 [2019-08-27]
 // @description: Helper function to calculate the statistical uncertainty, the Rcpp implementation
 // here is around 200 times faster than the pure R implementation

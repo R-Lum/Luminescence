@@ -32,7 +32,7 @@
 #' @section Function version: 0.4.1
 #' 
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #' 
 #' @seealso [CW2pHMi], [CW2pLMi], [CW2pPMi], [fit_LMCurve], [lm],
 #' [RLum.Data.Curve-class]

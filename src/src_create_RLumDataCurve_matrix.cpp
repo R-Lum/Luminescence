@@ -1,7 +1,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   src_create_RLumDataCurve_matrix()
-// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
+// Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.3 [2019-09-19]
 // Purpose: Function to create the RLum.Data.Curve() matrix ... faster than in R itself
 //  - Mainly used by the function Risoe.BINfileData2RLum.Data.Curve()

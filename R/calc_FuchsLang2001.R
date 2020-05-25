@@ -50,7 +50,7 @@
 #' @section Function version: 0.4.1
 #' 
 #' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #' 
 #' @seealso [plot], [calc_MinDose], [calc_FiniteMixture], [calc_CentralDose],
