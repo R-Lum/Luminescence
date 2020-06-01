@@ -55,7 +55,7 @@ global par settings are considered, normally this should end in one plot per pag
 the \code{plot} function.
 
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-\code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}...
+\code{norm} (see \link{plot_RLum.Data.Curve}), \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}, ...
 
 and for \code{combine = TRUE} also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos}
 (typical plus 'outside'), \code{legend.col}, \code{smooth}.
@@ -93,7 +93,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.11
+ 0.3.12
 }
 
 \examples{
@@ -133,7 +133,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

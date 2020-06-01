@@ -41,7 +41,6 @@ the highest point (the default), `"min"` for a normalisation to the lowest point
 for a normalisation suggested by Sébastien Huot (#87) via GitHub. Please note that 
 `norm` only works if `combine = TRUE`. 
 
-
 ### Internals
 * `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
 conversion into a single data.frames. Count values are added in columns for each record (thanks to Annette Kadereit for the idea).
