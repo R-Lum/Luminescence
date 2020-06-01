@@ -19,6 +19,33 @@ test_that("Test the basic plot functionality", {
     abline = list(v = c(110))
   ))
 
+  ## test norm = "max"
+  expect_silent(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "TL"),
+    combine = TRUE,
+    norm = "max",
+    abline = list(v = c(110))
+  ))
+
+  ## test norm = "min"
+  expect_silent(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "OSL"),
+    combine = TRUE,
+    norm = "min",
+    abline = list(v = c(110))
+  ))
+
+  ## test norm = "huot
+  expect_silent(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "OSL"),
+    combine = TRUE,
+    norm = "huot",
+    abline = list(v = c(110))
+  ))
+
   ##test arguments
   ##ylim
   expect_silent(plot_RLum.Analysis(
