@@ -128,7 +128,7 @@ plot_RLum.Data.Curve<- function(
     }
 
     ##normalise curves if argument has been set
-    if(norm[1] %in% c('max', 'last', 'huot') || norm[1]){
+    if(norm[1] %in% c('max', 'last', 'huot') || norm[1] == TRUE){
       if (norm[1] == "max" || norm[1] == TRUE) {
         object@data[,2] <- object@data[,2] / max(object@data[,2])
 
@@ -142,8 +142,8 @@ plot_RLum.Data.Curve<- function(
       }
 
       ##check for Inf and NA
-      if(any(is.infinite(object@data[,2]) || is.na(object@data[,2]))){
-        object@data[,2][is.infinite(object@data[,2]) || is.na(object@data[,2])] <- 0
+      if(any(is.infinite(object@data[,2])) || anyNA(object@data[,2])){
+        object@data[,2][is.infinite(object@data[,2]) | is.na(object@data[,2])] <- 0
         warning("[plot_RLum.Data.Curve()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
 
       }

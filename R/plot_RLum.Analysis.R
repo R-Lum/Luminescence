@@ -571,7 +571,7 @@ plot_RLum.Analysis <- function(
         temp.data <- as(object.list[[x]], "data.frame")
 
         ##normalise curves if argument has been set
-        if(plot.settings$norm[[k]][1] %in% c('max', 'last', 'huot') || plot.settings$norm[[k]][1]){
+        if(plot.settings$norm[[k]][1] %in% c('max', 'last', 'huot') || plot.settings$norm[[k]][1] == TRUE){
           if (plot.settings$norm[[k]] == "max" || plot.settings$norm[[k]] == TRUE) {
              temp.data[[2]] <-  temp.data[[2]] / max(temp.data[[2]])
 
@@ -586,8 +586,8 @@ plot_RLum.Analysis <- function(
           }
 
           ##check for Inf and NA
-          if(any(is.infinite(temp.data[[2]]) || is.na(temp.data[[2]]))){
-            temp.data[[2]][is.infinite(temp.data[[2]]) || is.na(temp.data[[2]])] <- 0
+          if(any(is.infinite(temp.data[[2]])) || anyNA(temp.data[[2]])){
+            temp.data[[2]][is.infinite(temp.data[[2]]) | is.na(temp.data[[2]])] <- 0
             warning("[plot_RLum.Data.Analysis()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
 
           }
