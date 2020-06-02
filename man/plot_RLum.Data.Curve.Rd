@@ -49,7 +49,7 @@ options are supported:
 \code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
 count value in the curve
 
-\code{norm = "min"}: Curves values are normalised to the lowest count value
+\code{norm = "last"}: Curves values are normalised to the last count value
 (this can be useful in particular for radiofluorescence curves)
 
 \code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
@@ -91,7 +91,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-25. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-27. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
