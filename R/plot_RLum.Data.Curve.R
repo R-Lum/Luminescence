@@ -14,7 +14,7 @@
 #' `norm = TRUE` or `norm = "max"`: Curve values are normalised to the highest
 #' count value in the curve
 #'
-#' `norm = "min"`: Curves values are normalised to the lowest count value
+#' `norm = "last"`: Curves values are normalised to the last count value
 #' (this can be useful in particular for radiofluorescence curves)
 #'
 #' `norm = "huot"`: Curve values are normalised as suggested by Sébastien Huot
@@ -128,17 +128,28 @@ plot_RLum.Data.Curve<- function(
     }
 
     ##normalise curves if argument has been set
-    if (norm[1] == "max" | norm[1] == TRUE) {
-      object@data[,2] <- object@data[,2] / max(object@data[,2])
+    if(norm[1] %in% c('max', 'last', 'huot') || norm[1]){
+      if (norm[1] == "max" || norm[1] == TRUE) {
+        object@data[,2] <- object@data[,2] / max(object@data[,2])
 
-    } else if (norm[1] == "min") {
-      object@data[,2] <- object@data[,2] / min(object@data[,2])
+      } else if (norm[1] == "last") {
+        object@data[,2] <- object@data[,2] / object@data[nrow(object@data),2]
 
-    } else if (norm[1] == "huot") {
-      bg <- median(object@data[floor(nrow(object@data)*0.8):nrow(object@data),2])
-      object@data[,2] <-  (object@data[,2] - bg) / max(object@data[,2] - bg)
+      } else if (norm[1] == "huot") {
+        bg <- median(object@data[floor(nrow(object@data)*0.8):nrow(object@data),2])
+        object@data[,2] <-  (object@data[,2] - bg) / max(object@data[,2] - bg)
+
+      }
+
+      ##check for Inf and NA
+      if(any(is.infinite(object@data[,2]) || is.na(object@data[,2]))){
+        object@data[,2][is.infinite(object@data[,2]) || is.na(object@data[,2])] <- 0
+        warning("[plot_RLum.Data.Curve()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
+
+      }
 
     }
+
 
     ylab <- if (!is.na(ylab.xsyg)) {
       ylab.xsyg
@@ -216,3 +227,4 @@ plot_RLum.Data.Curve<- function(
     ##plot additional mtext
     mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)
 }
+

@@ -10,6 +10,14 @@ test_that("Test the basic plot functionality", {
   ##convert values for position 1
   temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
+  ## trigger warning
+  expect_warning(plot_RLum.Analysis(
+    set_RLum("RLum.Analysis", records = list(
+      set_RLum("RLum.Data.Curve", recordType = "OSL"),
+      set_RLum("RLum.Data.Curve", recordType = "OSL")
+      )), norm = TRUE, combine = TRUE),
+    "Normalisation led to Inf or NaN values. Values replaced by 0")
+
   ##Basic plot
   expect_silent(plot_RLum.Analysis(
     temp,
@@ -33,7 +41,7 @@ test_that("Test the basic plot functionality", {
     temp,
     subset = list(recordType = "OSL"),
     combine = TRUE,
-    norm = "min",
+    norm = "last",
     abline = list(v = c(110))
   ))
 
@@ -64,7 +72,7 @@ test_that("Test the basic plot functionality", {
     temp,
     subset = list(recordType = "TL"),
     combine = FALSE,
-    norm = TRUE,
+    #norm = TRUE,
     ylim = c(1,200),
     xlim = c(1,100),
     abline = list(v = c(110))

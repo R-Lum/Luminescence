@@ -417,6 +417,7 @@ plot_RLum.Analysis <- function(
               lty = plot.settings$lty[[i]],
               xlim = xlim.set,
               ylim = ylim.set,
+              norm = plot.settings$norm,
               pch = plot.settings$pch[[i]],
               cex = plot.settings$cex[[i]],
               smooth = plot.settings$smooth[[i]]
@@ -426,10 +427,9 @@ plot_RLum.Analysis <- function(
 
           arguments[duplicated(names(arguments))] <- NULL
 
-        ##call the fucntion plot_RLum.Data.Curve
+        ##call the function plot_RLum.Data.Curve
         do.call(what = "plot_RLum.Data.Curve", args = arguments)
         rm(arguments)
-
 
         ##add abline
         if(!is.null(abline[[i]])){
@@ -568,26 +568,30 @@ plot_RLum.Analysis <- function(
 
         }
 
-
         temp.data <- as(object.list[[x]], "data.frame")
 
         ##normalise curves if argument has been set
-        if (plot.settings$norm[[k]] == "max" || plot.settings$norm[[k]] == TRUE) {
-           temp.data[,2] <-  temp.data[,2] / max( temp.data[,2])
+        if(plot.settings$norm[[k]][1] %in% c('max', 'last', 'huot') || plot.settings$norm[[k]][1]){
+          if (plot.settings$norm[[k]] == "max" || plot.settings$norm[[k]] == TRUE) {
+             temp.data[[2]] <-  temp.data[[2]] / max(temp.data[[2]])
 
-        } else if (plot.settings$norm[[k]] == "min") {
-           temp.data[,2] <-  temp.data[,2] / min(temp.data[,2])
-           temp.data[is.infinite(temp.data[,2]) || is.na(temp.data[,2]), 2] <- 0
+          } else if (plot.settings$norm[[k]] == "last") {
+            temp.data[[2]] <-  temp.data[[2]] / temp.data[[2]][length(temp.data[[2]])]
 
 
-        } else if (plot.settings$norm[[k]] == "huot") {
-          bg <- median(temp.data[floor(nrow(temp.data)*0.8):nrow(temp.data),2])
-           temp.data[,2] <-  (temp.data[,2] - bg) / max( temp.data[,2] - bg)
+          } else if (plot.settings$norm[[k]] == "huot") {
+            bg <- median(temp.data[[2]][floor(nrow(temp.data)*0.8):nrow(temp.data)])
+            temp.data[[2]] <-  (temp.data[[2]] - bg) / max(temp.data[[2]] - bg)
 
+          }
+
+          ##check for Inf and NA
+          if(any(is.infinite(temp.data[[2]]) || is.na(temp.data[[2]]))){
+            temp.data[[2]][is.infinite(temp.data[[2]]) || is.na(temp.data[[2]])] <- 0
+            warning("[plot_RLum.Data.Analysis()] Normalisation led to Inf or NaN values. Values replaced by 0.", call. = FALSE)
+
+          }
         }
-
-
-
 
         return(temp.data)
 

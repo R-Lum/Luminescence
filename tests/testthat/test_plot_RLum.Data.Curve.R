@@ -15,6 +15,7 @@ test_that("Test the basic plot functionality", {
 
   ## trigger warning
   expect_warning(plot_RLum.Data.Curve(temp_NA), regexp = "Curve contains only NA-values, nothing plotted.")
+  expect_warning(plot_RLum.Data.Curve(set_RLum("RLum.Data.Curve"), norm = TRUE), "Normalisation led to Inf or NaN values. Values replaced by 0")
 
   ## run function with various conditions
   expect_silent(plot_RLum.Data.Curve(temp))
