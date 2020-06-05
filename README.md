@@ -114,9 +114,10 @@ more details.
 
   - [RLumModel](https://github.com/R-Lum/RLumModel)
   - [RLumShiny](https://github.com/R-Lum/RLumShiny)
-  - [BayLum](https://github.com/R-Lum/BayLum)
   - [RLumDocker](https://github.com/R-Lum/RLumDocker)
+  - [BayLum](https://github.com/crp2a/BayLum)
   - [RCarb](https://github.com/R-Lum/RCarb)
+  - [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
 
 ## R package dependencies
 
