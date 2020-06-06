@@ -107,7 +107,7 @@ any later version.
 * [RLumModel](https://github.com/R-Lum/RLumModel)
 * [RLumShiny](https://github.com/R-Lum/RLumShiny)
 * [RLumDocker](https://github.com/R-Lum/RLumDocker)
-* [BayLum](https://github.com/crp2a/BayLum)
+* [BayLum](https://github.com/crp2a/BayLum )
 * [RCarb](https://github.com/R-Lum/RCarb)
 * [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
 

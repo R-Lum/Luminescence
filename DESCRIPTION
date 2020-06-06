@@ -73,6 +73,7 @@ Imports:
     XML (>= 3.98-1.9),
     zoo (>= 1.8)
 Suggests:
+    spelling (>= 2.1),
     RLumShiny (>= 0.2.2),
     plotly (>= 4.9.0),
     rmarkdown (>= 1.12),
@@ -86,6 +87,7 @@ Suggests:
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
+Language: en-GB
 Collate: 
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
