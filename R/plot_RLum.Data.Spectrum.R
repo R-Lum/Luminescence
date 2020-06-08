@@ -5,9 +5,9 @@
 #'
 #' **Matrix structure** \cr (cf. [RLum.Data.Spectrum-class])
 #'
-#' - `rows` (x-values): wavelengths/channels (xlim, xlab)
-#' - `columns` (y-values): time/temperature (ylim, ylab)
-#' - `cells` (z-values): count values (zlim, zlab)
+#' - `rows` (x-values): wavelengths/channels (`xlim`, `xlab`)
+#' - `columns` (y-values): time/temperature (`ylim`, `ylab`)
+#' - `cells` (z-values): count values (`zlim`, `zlab`)
 #'
 #' *Note: This nomenclature is valid for all plot types of this function!*
 #'
@@ -63,7 +63,7 @@
 #' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
 #' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count
 #' values of the spectrum.\cr
-#' Please note that in case of a matrix rownames and colnames are set
+#' Please note that in case of a matrix row names and col names are set
 #' automatically if not provided.
 #'
 #' @param par.local [logical] (*with default*):
@@ -134,7 +134,7 @@
 #' @section Function version: 0.6.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United Kingdom)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [persp],
 #' [plotly::plot_ly], [contour]

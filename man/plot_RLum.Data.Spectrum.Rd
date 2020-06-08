@@ -25,7 +25,7 @@ plot_RLum.Data.Spectrum(
 \item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
 S4 object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count
 values of the spectrum.\cr
-Please note that in case of a matrix rownames and colnames are set
+Please note that in case of a matrix row names and col names are set
 automatically if not provided.}
 
 \item{par.local}{\link{logical} (\emph{with default}):
@@ -100,9 +100,9 @@ RLum.Data.Spectrum S4 class object
 \details{
 \strong{Matrix structure} \cr (cf. \linkS4class{RLum.Data.Spectrum})
 \itemize{
-\item \code{rows} (x-values): wavelengths/channels (xlim, xlab)
-\item \code{columns} (y-values): time/temperature (ylim, ylab)
-\item \code{cells} (z-values): count values (zlim, zlab)
+\item \code{rows} (x-values): wavelengths/channels (\code{xlim}, \code{xlab})
+\item \code{columns} (y-values): time/temperature (\code{ylim}, \code{ylab})
+\item \code{cells} (z-values): count values (\code{zlim}, \code{zlab})
 }
 
 \emph{Note: This nomenclature is valid for all plot types of this function!}
@@ -238,11 +238,11 @@ plot_RLum.Data.Spectrum(
 \link[plotly:plot_ly]{plotly::plot_ly}, \link{contour}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-30. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
