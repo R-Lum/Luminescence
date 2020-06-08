@@ -33,7 +33,7 @@ NULL
 #' @section Class version: 0.5.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United Kingdom)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
 #'
@@ -347,7 +347,7 @@ setMethod("names_RLum",
 # bin_RLum() ----------------------------------------------------------------------------------#
 #' @describeIn RLum.Data.Spectrum
 #' Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
-#' for wavalength/energy values the mean is calculated.
+#' for wavelength/energy values the mean is calculated.
 #'
 #' @param bin_size.col [integer] (*with default*):
 #' set number of channels used for each bin, e.g. `bin_size.col = 2` means that

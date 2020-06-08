@@ -31,7 +31,7 @@ add statistic measures of centrality and dispersion to the plot.
 Can be one or more of several keywords. See details for available keywords.}
 
 \item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
-optional position keywords (cf., \link{legend}) for the statistical summary.
+optional position keywords (cf. \link{legend}) for the statistical summary.
 Alternatively, the keyword \code{"sub"} may be specified to place the summary
 below the plot header. However, this latter option in only possible if
 \code{mtext} is not used.}
@@ -43,13 +43,12 @@ exclude NA values from the data set prior to any further operations.}
 \link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for further information}
 }
 \description{
-Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin
+Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin
 is constructed using a mirrored density curve. This plot is especially designed for cases
 where the individual errors are zero or to small to be visualised. The idea for this plot is
-based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.
+based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
 The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
-}
-\details{
+
 The function is passing several arguments to the function \link{plot},
 \link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
 
@@ -65,7 +64,7 @@ Supported arguments are:
 Although the code for this function was developed independently and just the idea for the plot
 was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
 two other R packages exist providing a possibility to produces this kind of plot, namely:
-'vioplot' and 'violinmplot' (see References for details).
+'vioplot' and 'violinmplot' (see references for details).
 }
 \section{Function version}{
  0.1.4
@@ -83,7 +82,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-33. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

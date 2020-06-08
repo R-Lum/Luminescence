@@ -1,6 +1,6 @@
-#' Calculate Lx/Tx ratio for CW-OSL curves
+#' Calculate `Lx/Tx` ratio for CW-OSL curves
 #'
-#' Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
+#' Calculate `Lx/Tx` ratios from a given set of CW-OSL curves assuming late light
 #' background subtraction.
 #'
 #' The integrity of the chosen values for the signal and background integral is
@@ -13,17 +13,17 @@
 #' example due to zero-signal, and therefore a division of 0 by 0), these `NaN`
 #' values are replaced by 0.
 #'
-#' **sigmab**
+#' **`sigmab`**
 #'
 #' The default value of `sigmab` is calculated assuming the background is
 #' constant and **would not** applicable when the background varies as,
-#' e.g., as observed for the early light substraction method.
+#' e.g., as observed for the early light subtraction method.
 #'
 #' **sig0**
 #'
-#' This argument allows to add an extra component of error to the final Lx/Tx
+#' This argument allows to add an extra component of error to the final `Lx/Tx`
 #' error value. The input will be treated as factor that is multiplied with
-#' the already calculated LxTx and the result is add up by:
+#' the already calculated `LxTx` and the result is add up by:
 #'
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
@@ -32,7 +32,7 @@
 #'
 #' This argument allows selecting the distribution assumption that is used for
 #' the error calculation. According to Galbraith (2002, 2014) the background
-#' counts may be overdispersed (i.e. do not follow a poisson distribution,
+#' counts may be overdispersed (i.e. do not follow a Poisson distribution,
 #' which is assumed for the photomultiplier counts). In that case (might be the
 #' normal case) it has to be accounted for the overdispersion by estimating
 #' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
@@ -44,10 +44,10 @@
 #' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
 #'
 #' **Please note** that when using the early background subtraction method in
-#' combination with the 'non-poisson' distribution argument, the corresponding Lx/Tx error
-#' may considerably increase due to a high sigmab value.
+#' combination with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
+#' may considerably increase due to a high `sigmab` value.
 #' Please check whether this is valid for your data set and  if necessary
-#' consider to provide an own sigmab value using the corresponding argument `sigmab`.
+#' consider to provide an own `sigmab` value using the corresponding argument `sigmab`.
 #'
 #' @param Lx.data [RLum.Data.Curve-class] or [data.frame] (**required**):
 #' requires a CW-OSL shine down curve (x = time, y = counts)
@@ -61,7 +61,7 @@
 #' vector with the limits for the signal integral.
 #'
 #' @param signal.integral.Tx [vector] (*optional*):
-#' vector with the limits for the signal integral for the Tx curve. If nothing is provided the
+#' vector with the limits for the signal integral for the Tx-curve. If nothing is provided the
 #' value from `signal.integral` is used.
 #'
 #' @param background.integral [vector] (**required**):
@@ -124,7 +124,7 @@
 #'
 #' @note
 #' The results of this function have been cross-checked with the Analyst
-#' (vers. 3.24b). Access to the results object via [get_RLum].
+#' (version 3.24b). Access to the results object via [get_RLum].
 #'
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.

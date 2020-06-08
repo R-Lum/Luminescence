@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_OSLLxTxRatio.R
 \name{calc_OSLLxTxRatio}
 \alias{calc_OSLLxTxRatio}
-\title{Calculate Lx/Tx ratio for CW-OSL curves}
+\title{Calculate \code{Lx/Tx} ratio for CW-OSL curves}
 \usage{
 calc_OSLLxTxRatio(
   Lx.data,
@@ -31,7 +31,7 @@ is calculated.}
 vector with the limits for the signal integral.}
 
 \item{signal.integral.Tx}{\link{vector} (\emph{optional}):
-vector with the limits for the signal integral for the Tx curve. If nothing is provided the
+vector with the limits for the signal integral for the Tx-curve. If nothing is provided the
 value from \code{signal.integral} is used.}
 
 \item{background.integral}{\link{vector} (\strong{required}):
@@ -89,7 +89,7 @@ $ calc.parameters (list)
 }
 }
 \description{
-Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
+Calculate \code{Lx/Tx} ratios from a given set of CW-OSL curves assuming late light
 background subtraction.
 }
 \details{
@@ -103,17 +103,17 @@ error calculation is done according to Galbraith (2002).
 example due to zero-signal, and therefore a division of 0 by 0), these \code{NaN}
 values are replaced by 0.
 
-\strong{sigmab}
+\strong{\code{sigmab}}
 
 The default value of \code{sigmab} is calculated assuming the background is
 constant and \strong{would not} applicable when the background varies as,
-e.g., as observed for the early light substraction method.
+e.g., as observed for the early light subtraction method.
 
 \strong{sig0}
 
-This argument allows to add an extra component of error to the final Lx/Tx
+This argument allows to add an extra component of error to the final \code{Lx/Tx}
 error value. The input will be treated as factor that is multiplied with
-the already calculated LxTx and the result is add up by:
+the already calculated \code{LxTx} and the result is add up by:
 
 \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 
@@ -121,7 +121,7 @@ the already calculated LxTx and the result is add up by:
 
 This argument allows selecting the distribution assumption that is used for
 the error calculation. According to Galbraith (2002, 2014) the background
-counts may be overdispersed (i.e. do not follow a poisson distribution,
+counts may be overdispersed (i.e. do not follow a Poisson distribution,
 which is assumed for the photomultiplier counts). In that case (might be the
 normal case) it has to be accounted for the overdispersion by estimating
 \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
@@ -134,14 +134,14 @@ standard error is calculated as:
 }
 
 \strong{Please note} that when using the early background subtraction method in
-combination with the 'non-poisson' distribution argument, the corresponding Lx/Tx error
-may considerably increase due to a high sigmab value.
+combination with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
+may considerably increase due to a high \code{sigmab} value.
 Please check whether this is valid for your data set and  if necessary
-consider to provide an own sigmab value using the corresponding argument \code{sigmab}.
+consider to provide an own \code{sigmab} value using the corresponding argument \code{sigmab}.
 }
 \note{
 The results of this function have been cross-checked with the Analyst
-(vers. 3.24b). Access to the results object via \link{get_RLum}.
+(version 3.24b). Access to the results object via \link{get_RLum}.
 
 \strong{Caution:} If you are using early light subtraction (EBG), please either provide your
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
@@ -165,7 +165,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-33. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

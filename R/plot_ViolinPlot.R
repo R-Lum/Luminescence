@@ -1,9 +1,10 @@
-#' Create a violin plot
+#' @title  Create a violin plot
 #'
-#' Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin
+#' @description
+#' Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin
 #' is constructed using a mirrored density curve. This plot is especially designed for cases
 #' where the individual errors are zero or to small to be visualised. The idea for this plot is
-#' based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.
+#' based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
 #' The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 #'
 #' The function is passing several arguments to the function [plot],
@@ -33,7 +34,7 @@
 #' Can be one or more of several keywords. See details for available keywords.
 #'
 #' @param summary.pos [numeric] or [character] (*with default*):
-#' optional position keywords (cf., [legend]) for the statistical summary.
+#' optional position keywords (cf. [legend]) for the statistical summary.
 #' Alternatively, the keyword `"sub"` may be specified to place the summary
 #' below the plot header. However, this latter option in only possible if
 #' `mtext` is not used.
@@ -48,7 +49,7 @@
 #' Although the code for this function was developed independently and just the idea for the plot
 #' was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
 #' two other R packages exist providing a possibility to produces this kind of plot, namely:
-#' 'vioplot' and 'violinmplot' (see References for details).
+#' 'vioplot' and 'violinmplot' (see references for details).
 #'
 #' @section Function version: 0.1.4
 #'

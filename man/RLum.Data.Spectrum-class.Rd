@@ -109,7 +109,7 @@ is provided, the raw curve data (matrix) will be returned
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
 
 \item \code{bin_RLum.Data}: Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
-for wavalength/energy values the mean is calculated.
+for wavelength/energy values the mean is calculated.
 }}
 
 \section{Slots}{
@@ -160,11 +160,11 @@ plot_RLum(TL.Spectrum)
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-33. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}
