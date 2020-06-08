@@ -46,19 +46,13 @@ our [R-Luminescence homepage](http://www.r-luminescence.org).
 
 #### i. Requirements
 
-**Windows (32/64bit)** - 'Rtools' (provided by CRAN)
-
-   https://cran.r-project.org/bin/windows/Rtools/
-
-**Mac OS X** - 'Xcode' (provided by Apple)
-
-   https://developer.apple.com/xcode/downloads/
-
-For **Linux** users *gcc* often comes pre-installed in most distributions. Should *gcc* be not available, however, we kindly refer to the exhaustive collection of installation guides depending on the linux distribution.
+* *Windows (32/64bit)*:  [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (provided by CRAN)
+* *macOS*: [Xcode](https://developer.apple.com/xcode/downloads/) (provided by Apple)
+* *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in most distributions. 
 
 #### ii. Install the package
 
-Install any development versions using our *RStudio* add-in
+Install any development versions using our [RStudio](https://rstudio.com) add-in
 
 ![](man/figures/README-Screenshot_AddIn.png)
 
@@ -88,7 +82,7 @@ The R luminescence project is based on and evolves from ideas, contributions and
 **The package comes without any guarantee!**
 
 Please further note that this version is a development version and may change day by day. For stable branches please visit
-the package on [CRAN 'Luminescence'](https://cran.r-project.org/package=Luminescence).
+the package on [CRAN 'Luminescence'](https://CRAN.R-project.org/package=Luminescence).
 
 ## License
 
