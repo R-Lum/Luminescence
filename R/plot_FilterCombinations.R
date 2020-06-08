@@ -1,7 +1,7 @@
 #' Plot filter combinations along with the (optional) net transmission window
 #'
 #' The function allows to plot transmission windows for different filters. Missing data for specific
-#' wavelenghts are automatically interpolated for the given filter data using the function [approx].
+#' wavelengths are automatically interpolated for the given filter data using the function [approx].
 #' With that a standardised output is reached and a net transmission window can be shown.
 #'
 #' **Calculations**
@@ -27,11 +27,11 @@
 #' *CASE 1*
 #'
 #' The function expects that all filter values are either of type `matrix` or `data.frame`
-#' with two columns. The first columens contains the wavelength, the second the relative transmission
+#' with two columns. The first columns contains the wavelength, the second the relative transmission
 #' (but not in percentage, i.e. the maximum transmission can be only become 1).
 #'
 #' In this case only the transmission window is show as provided. Changes in filter thickness and
-#' relection factor are not considered.
+#' reflection factor are not considered.
 #'
 #' *CASE 2*
 #'
@@ -114,7 +114,7 @@
 #'
 #' @section Function version: 0.3.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Results-class], [approx]
 #'

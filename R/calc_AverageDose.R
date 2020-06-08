@@ -5,13 +5,13 @@
 #'
 #' **`sigma_m`**\cr
 #'
-#'The program requires the input of a known value of sigma_m,
+#'The program requires the input of a known value of `sigma_m`,
 #'which corresponds to the intrinsic overdispersion, as determined
-#'by a dose recovery experiment. Then the dispersion in doses (sigma_d)
-#'will be that over and above sigma_m (and individual uncertainties sigma_wi).
+#'by a dose recovery experiment. Then the dispersion in doses (`sigma_d`)
+#'will be that over and above `sigma_m` (and individual uncertainties `sigma_wi`).
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**):
-#' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
+#' for [data.frame]: two columns with `De` `(data[,1])` and `De error` `(values[,2])`
 #'
 #' @param sigma_m [numeric] (**required**):
 #' the overdispersion resulting from a dose recovery
@@ -44,7 +44,7 @@
 #' @author Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
 #' Anne Philippe, Universite de Nantes, (France),
 #' Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [read.table], [graphics::hist]
 #'

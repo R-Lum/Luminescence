@@ -16,7 +16,7 @@ calc_AverageDose(
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
-for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
+for \link{data.frame}: two columns with \code{De} \code{(data[,1])} and \verb{De error} \code{(values[,2])}}
 
 \item{sigma_m}{\link{numeric} (\strong{required}):
 the overdispersion resulting from a dose recovery
@@ -97,10 +97,10 @@ the standard errors by bootstrapping based on the Average Dose Model by Guerin e
 \details{
 \strong{\code{sigma_m}}\cr
 
-The program requires the input of a known value of sigma_m,
+The program requires the input of a known value of \code{sigma_m},
 which corresponds to the intrinsic overdispersion, as determined
-by a dose recovery experiment. Then the dispersion in doses (sigma_d)
-will be that over and above sigma_m (and individual uncertainties sigma_wi).
+by a dose recovery experiment. Then the dispersion in doses (\code{sigma_d})
+will be that over and above \code{sigma_m} (and individual uncertainties \code{sigma_wi}).
 }
 \note{
 This function has beta status!
@@ -127,7 +127,7 @@ plot_AbanicoPlot(
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S., 2020. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-31. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S., 2020. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -148,6 +148,6 @@ and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
 Anne Philippe, Universite de Nantes, (France),
 Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}

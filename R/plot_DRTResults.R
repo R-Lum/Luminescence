@@ -72,7 +72,7 @@
 #' column and one row. If `par.local = FALSE`, global parameters are inherited,
 #' i.e. parameters provided via `par()` work
 #'
-#' @param na.rm [logical]: indicating wether `NA` values are
+#' @param na.rm [logical]: indicating whether `NA` values are
 #' removed before plotting from the input data set
 #'
 #' @param ... further arguments and graphical parameters passed to [plot], supported are:

@@ -53,7 +53,7 @@ Dormagen-Nievenheim (Germany) during a practical course on Luminesence dating in
 \strong{Type:} Test data for exponential fits \cr
 \strong{Reference:} Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 
-\emph{>>XYSG_file.xysg}
+\emph{>>XSYG_file.xsyg}
 
 \strong{Type:} XSYG-file stump \cr
 **Info: ** XSYG-file with some basic curves to test functions \cr

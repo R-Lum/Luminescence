@@ -84,7 +84,7 @@ use local graphical parameters for plotting, e.g. the plot is shown in one
 column and one row. If \code{par.local = FALSE}, global parameters are inherited,
 i.e. parameters provided via \code{par()} work}
 
-\item{na.rm}{\link{logical}: indicating wether \code{NA} values are
+\item{na.rm}{\link{logical}: indicating whether \code{NA} values are
 removed before plotting from the input data set}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}, supported are:
@@ -179,7 +179,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2020. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-31. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2020. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

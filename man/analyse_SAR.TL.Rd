@@ -50,8 +50,9 @@ list containing rejection criteria in percentage for the calculation.}
 option set dose points manually}
 
 \item{log}{\link{character} (\emph{with default}):
-a character string which contains "x" if the x axis is to be logarithmic,
-"y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
+a character string which contains \code{"x"} if the x-axis is to be logarithmic,
+\code{"y"} if the y axis is to be logarithmic and \code{"xy"} or \code{"yx"} if both axes
+are to be logarithmic. See
 \link{plot.default}).}
 
 \item{...}{further arguments that will be passed to the function \link{plot_GrowthCurve}}
@@ -114,7 +115,7 @@ analyse_SAR.TL(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-31. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

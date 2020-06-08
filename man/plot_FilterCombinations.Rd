@@ -56,7 +56,7 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 }
 \description{
 The function allows to plot transmission windows for different filters. Missing data for specific
-wavelenghts are automatically interpolated for the given filter data using the function \link{approx}.
+wavelengths are automatically interpolated for the given filter data using the function \link{approx}.
 With that a standardised output is reached and a net transmission window can be shown.
 }
 \details{
@@ -83,11 +83,11 @@ Please consider using own calculations for more precise values.
 \emph{CASE 1}
 
 The function expects that all filter values are either of type \code{matrix} or \code{data.frame}
-with two columns. The first columens contains the wavelength, the second the relative transmission
+with two columns. The first columns contains the wavelength, the second the relative transmission
 (but not in percentage, i.e. the maximum transmission can be only become 1).
 
 In this case only the transmission window is show as provided. Changes in filter thickness and
-relection factor are not considered.
+reflection factor are not considered.
 
 \emph{CASE 2}
 
@@ -165,11 +165,11 @@ plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 \linkS4class{RLum.Results}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-31. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

@@ -47,7 +47,7 @@ as shown in Steffen et al. 2009
 \details{
 This function accepts the individual curve data in many different formats. If
 \code{data} is a \code{list}, each element of the list must contain a two
-column \code{data.frame} or \code{matrix} containing the XY data of the curves
+column \code{data.frame} or \code{matrix} containing the \code{XY} data of the curves
 (time and counts). Alternatively, the elements can be objects of class
 \linkS4class{RLum.Data.Curve}.
 
@@ -131,7 +131,7 @@ par(mfrow = c(1, 1))
 } 
 
 \section{How to cite}{
-Burow, C., 2020. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-31. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2020. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

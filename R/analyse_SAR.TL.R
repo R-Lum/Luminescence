@@ -49,8 +49,9 @@
 #' option set dose points manually
 #'
 #' @param log [character] (*with default*):
-#' a character string which contains "x" if the x axis is to be logarithmic,
-#' "y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
+#' a character string which contains `"x"` if the x-axis is to be logarithmic,
+#' `"y"` if the y axis is to be logarithmic and `"xy"` or `"yx"` if both axes
+#' are to be logarithmic. See
 #' [plot.default]).
 #'
 #' @param ... further arguments that will be passed to the function [plot_GrowthCurve]
