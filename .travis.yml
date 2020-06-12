@@ -5,7 +5,7 @@ warnings_are_errors: true
 apt_packages:
   - jags
 
-r_binary_packages:
+r_packages:
   - devtools
   - covr
   - magrittr
