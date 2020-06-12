@@ -1,7 +1,6 @@
 language: r
 cache: packages
 warnings_are_errors: true
-sudo: required
 
 apt_packages:
   - jags
@@ -33,7 +32,7 @@ r_binary_package:
   - R.rsp
 
 ## test different platforms
-matrix:
+jobs:
   include:
   - os: linux
     r: oldrel
