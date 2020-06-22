@@ -103,7 +103,7 @@
 #' Terminal output is only shown of the argument `verbose = TRUE`.
 #'
 #' *(1) Start parameter and component adapation*\cr
-#' Trave of the parameter adaption process
+#' Trave of the parameter adaptation process
 #'
 #' *(2) Fitting results (sorted by ascending tau)*\cr
 #' The fitting results sorted by ascending tau value. Please note
@@ -113,9 +113,9 @@
 #' - The photon count sum
 #' - Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
 #' the residuals should be not correlated at all. Rough measures are: \cr
-#' D = 0: the residuls are systematically correlated \cr
+#' D = 0: the residuals are systematically correlated \cr
 #' D = 2: the residuals are randomly distributed \cr
-#' D = 4: the residuals are systematically anticorrlated\cr
+#' D = 4: the residuals are systematically anticorrelated\cr
 #'
 #' You should be suspicious if D differs largely from 2.
 #'
@@ -129,7 +129,7 @@
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University,
 #' Christoph Schmidt, University of Bayreuth (Germany)
 #'
 #' @seealso [minpack.lm::nls.lm], [DEoptim::DEoptim]
@@ -693,7 +693,7 @@ if(plot) {
 
 
   ##plot if the fitting was a sucess
-  if (class(fit) != 'try-error') {
+  if (class(fit)[1] != 'try-error') {
 
     if(!plot_simple){
       ##make sure that the screen closes if something is wrong
