@@ -640,7 +640,7 @@ if(verbose){
   cat("Durbin-Watson residual statistic: ", D,"")
 
   if(!is.na(D)){
-    string <- c("[",rep(" ",(D * 10)/4),"<>",rep(" ",10 - (D * 10)/4),"]\n")
+    string <- c("\u005b",rep(" ",(D * 10)/4),"\u003c\u003e",rep(" ",10 - (D * 10)/4),"\u005d\n")
 
   }else{
     string <- NA
@@ -771,7 +771,7 @@ if(plot) {
         pch = 20,
         xlim = plot_settings$xlim,
         log = if(plot_settings$log == "x"){"x"}else{""},
-        ylab = "\u03B5"
+        ylab = "\u03b5"
       )
     }
 
