@@ -2,18 +2,18 @@
 #'
 #' This function allows the application of Bayesian models on luminescence data, measured
 #' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
-#' it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
-#' a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+#' it follows the idea proposed by Combès et al., 2015 of using an hierarchical model for estimating
+#' a central equivalent dose from a set of luminescence measurements. This function is (I) the adoption
 #' of this approach for the R environment and (II) an extension and a technical refinement of the
 #' published code.
 #'
 #' Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
-#' and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
+#' and applying the hierarchical model and (II) a data pre-processing part. The Bayesian core can be run
 #' independently, if the input data are sufficient (see below). The data pre-processing part was
 #' implemented to simplify the analysis for the user as all needed data pre-processing is done
 #' by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
 #' data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
-#' LxTx, the LxTx error and the dose values for all regeneration points.
+#' `LxTx`, the `LxTx` error and the dose values for all regeneration points.
 #'
 #' **How the systematic error contribution is calculated?**
 #'
@@ -48,7 +48,7 @@
 #' consists of the following steps:
 #'
 #'  1. Select all valid aliquots using the function [verify_SingleGrainData]
-#'  2. Calculate Lx/Tx values using the function [calc_OSLLxTxRatio]
+#'  2. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
 #'  3. Calculate De values using the function [plot_GrowthCurve]
 #'
 #' These proceeded data are subsequently used in for the Bayesian analysis
@@ -58,7 +58,7 @@
 #' If an XLS-file is provided or a `data.frame` providing similar information the pre-processing
 #' steps consists of the following steps:
 #'
-#'  1. Calculate Lx/Tx values using the function [calc_OSLLxTxRatio]
+#'  1. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
 #'  2. Calculate De values using the function [plot_GrowthCurve]
 #'
 #' Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
@@ -322,7 +322,7 @@
 #' @section Function version: 0.1.33
 #'
 #' @author
-#' Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' The underlying Bayesian model based on a contribution by Combes et al., 2015.
 #'
