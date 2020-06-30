@@ -49,7 +49,7 @@
 #' @section Function version: 0.2.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
 #' [utils::write.table]

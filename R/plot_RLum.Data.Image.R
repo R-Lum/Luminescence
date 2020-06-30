@@ -6,7 +6,7 @@
 #'
 #' **Details on the plot functions**
 #'
-#' Image is visualised as 2D plot usinng generic plot types provided by other
+#' Image is visualised as 2D plot using generic plot types provided by other
 #' packages.
 #'
 #' Supported plot types:
@@ -27,10 +27,10 @@
 #' Uses the function [raster::plotRGB] from the
 #' [raster::raster] package. Only one image plot is produced as all layers
 #' in a brick a combined.  This plot type is useful to see whether any signal
-#' is recorded by the camera.\cr 
+#' is recorded by the camera.\cr
 #' Arguments that are passed through the function call:
 #'
-#' `main`,`axes`, `xlab`, `ylab`, `ext`, `interpolate`, `maxpixels`, 
+#' `main`,`axes`, `xlab`, `ylab`, `ext`, `interpolate`, `maxpixels`,
 #' `alpha`, `colNA`, `stretch`
 #'
 #' **`plot.type = "contour"`**
@@ -44,34 +44,34 @@
 #'
 #' @param object [RLum.Data.Image-class] (**required**): S4
 #' object of class `RLum.Data.Image`
-#' 
+#'
 #' @param par.local [logical] (*with default*): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If `par.local = FALSE` global parameters are inherited.
-#' 
+#'
 #' @param plot.type [character] (*with default*): plot types.
 #' Supported types are `plot.raster`, `plotRGB` or `contour`
-#' 
+#'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions.
-#' 
+#'
 #' @return Returns a plot.
-#' 
-#' @note 
-#' This function has been created to faciliate the plotting of image data
+#'
+#' @note
+#' This function has been created to facilitate the plotting of image data
 #' imported by the function [read_SPE2R]. However, so far the
 #' function is not optimized to handle image data > ca. 200 MByte and thus
 #' plotting of such data is extremely slow.
-#' 
+#'
 #' @section Function version: 0.1
-#' 
-#' @author 
+#'
+#' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-#' 
+#'
 #' @seealso [RLum.Data.Image-class], [plot], [plot_RLum], [raster::raster]
-#' 
+#'
 #' @keywords aplot
-#' 
+#'
 #' @examples
 #'
 #' ##load data

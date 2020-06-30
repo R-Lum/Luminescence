@@ -1,22 +1,22 @@
 #' Import Risø BIN/BINX-files into R
 #'
-#' Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL
+#' Import a *.bin or a *.binx file produced by a Risø DA15 and DA20 TL/OSL
 #' reader into R.
 #'
 #' The binary data file is parsed byte by byte following the data structure
 #' published in the Appendices of the Analyst manual p. 42.
 #'
 #' For the general BIN/BINX-file structure, the reader is referred to the
-#' Risoe website: [http://www.nutech.dtu.dk/]()
+#' Risø website: [http://www.nutech.dtu.dk/]()
 #'
 #' @param file [character] or [list] (**required**): path and file name of the
-#' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
+#' BIN/BINX file (urls are supported). If input is a `list` it should comprise
 #' only `character`s representing each valid path and BIN/BINX-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all BIN/BINX files found in the directory.
 #'
 #' @param show.raw.values [logical] (*with default*):
-#' shows raw values from BIN file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
+#' shows raw values from BIN-file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
 #' translation in characters. Can be provided as `list` if `file` is a `list`.
 #'
 #' @param n.records [raw] (*optional*):
@@ -25,13 +25,13 @@
 #' Can be provided as `list` if `file` is a `list`.
 #'
 #' @param zero_data.rm [logical] (*with default*):
-#' remove erroneous data with no count values. As such data are usally not
+#' remove erroneous data with no count values. As such data are usually not
 #' needed for the subsequent data analysis they will be removed by default.
 #' Can be provided as `list` if `file` is a `list`.
 #'
 #' @param duplicated.rm [logical] (*with default*):
 #' remove duplicated entries if `TRUE`. This may happen due to an erroneous
-#' produced BIN/BINX-file. This option compares only predeccessor and successor.
+#' produced BIN/BINX-file. This option compares only predecessor and successor.
 #' Can be provided as `list` if `file` is a `list`.
 #'
 #' @param position [numeric] (*optional*):
@@ -78,8 +78,9 @@
 #' Returns an S4 [Risoe.BINfileData-class] object containing two
 #' slots:
 #'
-#' \item{METADATA}{A [data.frame] containing all variables stored in the bin-file.}
-#' \item{DATA}{A [list] containing a numeric [vector] of the measured data. The ID corresponds to the record ID in METADATA.}
+#' \item{METADATA}{A [data.frame] containing all variables stored in the BIN-file.}
+#' \item{DATA}{A [list] containing a numeric [vector] of the measured data.
+#' The ID corresponds to the record ID in METADATA.}
 #'
 #' If `fastForward = TRUE` a list of [RLum.Analysis-class] object is returned. The
 #' internal coercing is done using the function [Risoe.BINfileData2RLum.Analysis]
@@ -88,13 +89,13 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
+#' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
 #'
 #' @section Function version: 0.16.2
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)\cr
 #' Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'

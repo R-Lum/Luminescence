@@ -59,7 +59,7 @@
 #'
 #' @param fit.method [character] (*with default*):
 #' select fit method, allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
-#' routine usint the funtion [nls] `'LM'` utilises the function `nlsLM` from
+#' routine from the function [nls] `'LM'` utilises the function `nlsLM` from
 #' the package `minpack.lm` and with that the Levenberg-Marquardt algorithm.
 #'
 #' @param fit.trace [logical] (*with default*):

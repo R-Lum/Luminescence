@@ -96,7 +96,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)
 #'
 #'
 #' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [write_R2BIN],
