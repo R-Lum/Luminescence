@@ -14,7 +14,7 @@
 #'
 #' The argument `calculate_TL_dose` provides the possibility to experimentally calculate a TL-dose,
 #' i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
-#' this value is only a fallback in case something went wrong during the measurement of the optical
+#' this value is only a fall back in case something went wrong during the measurement of the optical
 #' stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
 #' but not considered if a travel dosimeter is defined.
 #'
@@ -27,7 +27,7 @@
 #'
 #' `stimulation_power` [numeric] (default: `0.05`):
 #'
-#' So far available, information on the delievered optical stimulation are compared. Compared are
+#' So far available, information on the delivered optical stimulation are compared. Compared are
 #' the information from the first curves with all others. If the ratio differs more from
 #' unity than the defined by the threshold, a warning is returned.
 #'
@@ -48,14 +48,14 @@
 #' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
 #'
 #' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
-#' information on the used irradiation time correction obained by another experiements.
+#' information on the used irradiation time correction obtained by another experiments.
 #' I a `numeric` is provided it has to be of length two: mean, standard error
 #'
 #' @param calculate_TL_dose [logical] (*with default*): Enables/disables experimental dose estimation
 #' based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.
 #'
 #' @param cross_talk_correction [numeric] or [RLum.Results-class] (*optional*):
-#' information on the used irradiation time correction obained by another experiements.
+#' information on the used irradiation time correction obtained by another experiments.
 #' If a `numeric` vector is provided it has to be of length three:
 #' mean, 2.5 % quantile, 97.5 % quantile.
 #'
@@ -111,7 +111,7 @@
 #'
 #' @section Function version: 0.2.5
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'

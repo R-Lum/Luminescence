@@ -24,7 +24,7 @@
 #' **`method = "FIT"`**
 #'
 #' The principle is described above and follows the original suggestions by
-#' Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is used.
+#' Erfurt et al., 2003. For the fitting the mean count value of the `RF_nat` curve is used.
 #'
 #' Function used for the fitting (according to Erfurt et al. (2003)):
 #'
