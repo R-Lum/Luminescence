@@ -1,6 +1,6 @@
 #' Import XSYG files to R
 #'
-#' Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
+#' Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 #'
 #' **How does the import function work?**
 #'
@@ -61,7 +61,7 @@
 #' **Note:**
 #' Please note that due to the recalculation of the temperature
 #' values based on values delivered by the heating element, it may happen that
-#' mutiple count values exists for each temperature value and temperature
+#' multiple count values exists for each temperature value and temperature
 #' values may also decrease during heating, not only increase.
 #'
 #' **Advanced file import**
@@ -75,9 +75,9 @@
 #'
 #' @param file [character] or [list] (**required**):
 #' path and file name of the XSYG file. If input is a `list` it should comprise
-#' only `character`s representing each valid path and xsyg-file names.
+#' only `character`s representing each valid path and XSYG-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
-#' the function tries to detect and import all xsyg files found in the directory.
+#' the function tries to detect and import all XSYG-files found in the directory.
 #'
 #' @param recalculate.TL.curves [logical] (*with default*):
 #' if set to `TRUE`, TL curves are returned as temperature against count values
@@ -129,7 +129,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'
 #' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]

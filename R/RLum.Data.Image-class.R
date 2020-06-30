@@ -33,7 +33,7 @@ NULL
 #' @section Class version: 0.4.2
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R]
 #'

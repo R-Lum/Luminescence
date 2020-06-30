@@ -1,11 +1,11 @@
-#' Import Princeton Intruments (TM) SPE-file into R
+#' Import Princeton Instruments (TM) SPE-file into R
 #'
 #' Function imports Princeton Instruments (TM) SPE-files into R environment and
 #' provides `RLum` objects as output.
 #'
-#' Function provides an import routine for the Princton Instruments SPE format.
+#' Function provides an import routine for the Princeton Instruments SPE format.
 #' Import functionality is based on the file format description provided by
-#' Princton Instruments and a MatLab script written by Carl Hall (s.
+#' Princeton Instruments and a MatLab script written by Carl Hall (s.
 #' references).
 #'
 #' @param file [character] (**required**):
