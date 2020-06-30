@@ -1,10 +1,10 @@
 #' Export Risoe.BINfileData into Risø BIN/BINX-file
 #'
 #' Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be
-#' opened by the Analyst software or other Risoe software.
+#' opened by the Analyst software or other Risø software.
 #'
 #' The structure of the exported binary data follows the data structure
-#' published in the Appendices of the Analyst manual p. 42.
+#' published in the Appendices of the *Analyst* manual p. 42.
 #'
 #' If
 #' `LTYPE`, `DTYPE` and `LIGHTSOURCE` are not of type
@@ -44,7 +44,7 @@
 #'
 #' The validity of the file path is not further checked. BIN-file conversions
 #' using the argument `version` may be a lossy conversion, depending on the
-#' chosen input andoutput data (e.g., conversion from version 08 to 07 to 06 to 05 to 04 or 03).
+#' chosen input and output data (e.g., conversion from version 08 to 07 to 06 to 05 to 04 or 03).
 #'
 #' **Warning**
 #'
@@ -52,12 +52,12 @@
 #' produced by Risø DA 15/20 TL/OSL readers slightly differ on the byte level.
 #' No obvious differences are observed in the METADATA, however, the
 #' BIN/BINX-file may not fully compatible, at least not similar to the once
-#' directly produced by the Risoe readers!
+#' directly produced by the Risø readers!
 #'
 #' @section Function version: 0.5.1
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @note
 #' ROI definitions (introduced in BIN-file version 8) are not supported!
@@ -66,7 +66,7 @@
 #' @seealso [read_BIN2R], [Risoe.BINfileData-class], [writeBin]
 #'
 #' @references
-#' DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
+#' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 #' [http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals]()
 #'
 #' @keywords IO

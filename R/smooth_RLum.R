@@ -12,7 +12,7 @@
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
 #'
-#' @param ... further arguments passed to the specifc class method
+#' @param ... further arguments passed to the specific class method
 #'
 #' @return
 #' An object of the same type as the input object is provided

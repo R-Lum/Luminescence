@@ -1,7 +1,7 @@
 #' Create a DRAC input data template (v1.2)
 #'
 #' This function returns a DRAC input template (v1.2) to be used in conjunction
-#' with the use_DRAC() function
+#' with the [use_DRAC] function
 #'
 #' @param nrow [integer] (*with default*):
 #' specifies the number of rows of the template (i.e., the number of data
