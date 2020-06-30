@@ -1,6 +1,6 @@
 ---
 title: "How to analyse post-IR IRSL measurements?"
-author: "Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montagine, France"
+author: "Sebastian Kreutzer, Geography & Earth Sciences, Aberysthwyth University (United Kingdom)"
 date: "Last modified: `r Sys.Date()` ('Luminescence' version: `r packageVersion('Luminescence')`)"
 output: 
   rmarkdown::html_vignette:
@@ -199,12 +199,12 @@ which is a `data.frame` (and here limited to three columns):
 results$data[,c("De", "De.Error", "RC.Status", "Signal")]
 ```
 
-The column `RC.Status` informs you about a failed rejection criterium, which one is not revealed, 
-but the column provides a possibilty for further subsetting. For a quick data processing this is, 
+The column `RC.Status` informs you about a failed rejection criterion, which one is not revealed, 
+but the column provides a possibility for further sub setting. For a quick data processing this is, 
 together with the plot output, usually enough information. However, to see all rejection criteria 
 type `results$rejection.criteria`. To see all information type `results$data` without further information. 
 
-If you want to combine the two tables for a more virtous data processing, you can merge both tables
+If you want to combine the two tables for a more virtuous data processing, you can merge both tables
 by calling:
 
 ```{r}
