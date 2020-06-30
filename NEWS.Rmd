@@ -288,7 +288,7 @@ in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
 and `RLum.Analysis` objects (also nested in a list)
 
 #### `apply_EfficiencyCorrection()`
-* The function produced a warning ("collapsing to unique 'x' values") on R-devel; fixed.
+* The function produced a warning ("collapsing to unique `x` values") on R-devel; fixed.
 
 #### `analyse_SAR.CWOSL()` 
 * If the function was used in a self-call mode (object of type `list`), the arguments contrary 
