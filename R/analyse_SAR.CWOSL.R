@@ -646,9 +646,10 @@ if(is.list(object)){
 
   ##check if the wanted curves are a multiple of two
   ##gsub removes unwanted information from the curves
-  if(table(temp.ltype)[CWcurve.type]%%2!=0){
-    error.list[[1]] <- "[analyse_SAR.CWOSL()] Input OSL/IRSL curves are not a multiple of two."
-  }
+  # DM: This check crashes in case the object contains no record of type CWcurve.type
+  #if(table(temp.ltype)[CWcurve.type]%%2!=0){
+  #  error.list[[1]] <- "[analyse_SAR.CWOSL()] Input OSL/IRSL curves are not a multiple of two."
+  #}
 
   ##check if the curve lengths differ
   temp.matrix.length <- unlist(sapply(1:length(object@records), function(x) {
@@ -743,7 +744,7 @@ if(is.list(object)){
 
     ##grep relevant curves from RLum.Analyis object
     OSL.Curves.ID <-
-      get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
+      get_RLum(object, recordType = paste0(CWcurve.type, "$"), get.index = TRUE)
 
     ##separate curves by Lx and Tx (it makes it much easier)
     OSL.Curves.ID.Lx <-

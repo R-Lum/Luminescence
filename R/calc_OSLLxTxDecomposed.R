@@ -47,9 +47,14 @@ calc_OSLLxTxDecomposed <- function(
   ## (1) - integrity checks
 
 
+  # ... insert all further input checks here ...
 
+  if (!(is.data.frame(Lx.data) && (nrow(Lx.data) >= 1))) {
+    stop("[calc_OSLLxTxDecomposed()] No valid component data.frame for Lx value")}
 
-  # ... insert all the data.frame checks here ...
+  if (!(is.null(Tx.data)) && !(is.data.frame(Tx.data) && (nrow(Tx.data) >= 1))) {
+    stop("[calc_OSLLxTxDecomposed()] No valid component data.frame for Tx value")}
+
 
   # define the component
   component_index <- NA
@@ -62,7 +67,7 @@ calc_OSLLxTxDecomposed <- function(
 
     if (tolower(OSL.component) %in% tolower(Lx.data$name)) {
 
-      component_index <- which(tolower("OSL.component") == tolower(Lx.data$name))
+      component_index <- which(tolower(OSL.component) == tolower(Lx.data$name))
 
     } else {
 
