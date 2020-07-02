@@ -17,9 +17,9 @@ read_XSYG2R(
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}):
 path and file name of the XSYG file. If input is a \code{list} it should comprise
-only \code{character}s representing each valid path and xsyg-file names.
+only \code{character}s representing each valid path and XSYG-file names.
 Alternatively the input character can be just a directory (path), in this case the
-the function tries to detect and import all xsyg files found in the directory.}
+the function tries to detect and import all XSYG-files found in the directory.}
 
 \item{recalculate.TL.curves}{\link{logical} (\emph{with default}):
 if set to \code{TRUE}, TL curves are returned as temperature against count values
@@ -61,7 +61,7 @@ sequence.} \item{Sequence.Object}{\linkS4class{RLum.Analysis}
 containing the curves.}
 }
 \description{
-Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
+Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 }
 \details{
 \strong{How does the import function work?}
@@ -121,7 +121,7 @@ and count values from the PMT.
 \strong{Note:}
 Please note that due to the recalculation of the temperature
 values based on values delivered by the heating element, it may happen that
-mutiple count values exists for each temperature value and temperature
+multiple count values exists for each temperature value and temperature
 values may also decrease during heating, not only increase.
 
 \strong{Advanced file import}
@@ -174,7 +174,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -189,6 +189,6 @@ XML: \url{http://en.wikipedia.org/wiki/XML}
 \link{xml}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{IO}

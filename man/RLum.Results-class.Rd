@@ -101,7 +101,7 @@ receiving function if results are pipped.
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{Object of class "list" containing output data}
+\item{\code{data}}{Object of class \link{list} containing output data}
 }}
 
 \note{
@@ -151,11 +151,11 @@ dose.rate$parameters
 \linkS4class{RLum}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

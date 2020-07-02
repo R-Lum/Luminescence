@@ -148,11 +148,11 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 \link{read_BIN2R}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

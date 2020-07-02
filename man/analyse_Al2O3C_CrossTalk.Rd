@@ -32,7 +32,7 @@ made by Kreutzer et al., 2018}
 function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
-information on the used irradiation time correction obained by another experiements.}
+information on the used irradiation time correction obtained by another experiments.}
 
 \item{method_control}{\link{list} (\emph{optional}):
 optional parameters to control the calculation.
@@ -92,7 +92,7 @@ analyse_Al2O3C_CrossTalk(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

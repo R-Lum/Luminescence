@@ -13,7 +13,7 @@ smooth_RLum(object, ...)
 \item{object}{\linkS4class{RLum} (\strong{required}):
 S4 object of class \code{RLum}}
 
-\item{...}{further arguments passed to the specifc class method}
+\item{...}{further arguments passed to the specific class method}
 }
 \value{
 An object of the same type as the input object is provided
@@ -68,7 +68,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

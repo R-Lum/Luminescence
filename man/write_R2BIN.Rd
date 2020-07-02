@@ -45,11 +45,11 @@ Write a binary file.
 }
 \description{
 Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be
-opened by the Analyst software or other Risoe software.
+opened by the Analyst software or other Risø software.
 }
 \details{
 The structure of the exported binary data follows the data structure
-published in the Appendices of the Analyst manual p. 42.
+published in the Appendices of the \emph{Analyst} manual p. 42.
 
 If
 \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} are not of type
@@ -61,7 +61,7 @@ the output data depends on the user.
 
 The validity of the file path is not further checked. BIN-file conversions
 using the argument \code{version} may be a lossy conversion, depending on the
-chosen input andoutput data (e.g., conversion from version 08 to 07 to 06 to 05 to 04 or 03).
+chosen input and output data (e.g., conversion from version 08 to 07 to 06 to 05 to 04 or 03).
 
 \strong{Warning}
 
@@ -69,7 +69,7 @@ Although the coding was done carefully it seems that the BIN/BINX-files
 produced by Risø DA 15/20 TL/OSL readers slightly differ on the byte level.
 No obvious differences are observed in the METADATA, however, the
 BIN/BINX-file may not fully compatible, at least not similar to the once
-directly produced by the Risoe readers!
+directly produced by the Risø readers!
 
 ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
@@ -97,17 +97,17 @@ write_R2BIN(CWOSL.SAR.Data, file = temp_file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
+DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
 \link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{IO}

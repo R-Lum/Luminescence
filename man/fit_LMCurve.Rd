@@ -46,7 +46,7 @@ See: \link{CW2pLM}}
 
 \item{fit.method}{\link{character} (\emph{with default}):
 select fit method, allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-routine usint the funtion \link{nls} \code{'LM'} utilises the function \code{nlsLM} from
+routine from the function \link{nls} \code{'LM'} utilises the function \code{nlsLM} from
 the package \code{minpack.lm} and with that the Levenberg-Marquardt algorithm.}
 
 \item{sample_code}{\link{character} (\emph{optional}):
@@ -242,7 +242,7 @@ fit_LMCurve(values = values.curve,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -98,7 +98,7 @@ function using \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the de
 sometimes it may be useful to restrict the lower bounds to e.g.
 c(\verb{0, 0, 0}). The values of the vector are for parameters
 \code{a}, \code{D0} and \code{c} in that particular order (see details in
-\link[Luminescence:plot_GrowthCurve]{Luminescence::plot_GrowthCurve}).}
+\link{plot_GrowthCurve}).}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user
@@ -276,7 +276,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2020. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., 2020. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

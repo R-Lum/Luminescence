@@ -188,7 +188,7 @@ Actually two methods are supported to obtain the \eqn{D_{e}}:
 \strong{\code{method = "FIT"}}
 
 The principle is described above and follows the original suggestions by
-Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is used.
+Erfurt et al., 2003. For the fitting the mean count value of the \code{RF_nat} curve is used.
 
 Function used for the fitting (according to Erfurt et al. (2003)):
 
@@ -356,7 +356,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

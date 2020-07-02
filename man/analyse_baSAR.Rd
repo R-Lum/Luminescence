@@ -195,19 +195,19 @@ no further statistical conclusion should be drawn from it.
 \description{
 This function allows the application of Bayesian models on luminescence data, measured
 with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
-it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
-a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+it follows the idea proposed by Combès et al., 2015 of using an hierarchical model for estimating
+a central equivalent dose from a set of luminescence measurements. This function is (I) the adoption
 of this approach for the R environment and (II) an extension and a technical refinement of the
 published code.
 }
 \details{
 Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
-and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
+and applying the hierarchical model and (II) a data pre-processing part. The Bayesian core can be run
 independently, if the input data are sufficient (see below). The data pre-processing part was
 implemented to simplify the analysis for the user as all needed data pre-processing is done
 by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
-LxTx, the LxTx error and the dose values for all regeneration points.
+\code{LxTx}, the \code{LxTx} error and the dose values for all regeneration points.
 
 \strong{How the systematic error contribution is calculated?}
 
@@ -242,7 +242,7 @@ If no XLS file (or data frame with the same format) is provided the functions ru
 consists of the following steps:
 \enumerate{
 \item Select all valid aliquots using the function \link{verify_SingleGrainData}
-\item Calculate Lx/Tx values using the function \link{calc_OSLLxTxRatio}
+\item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
 \item Calculate De values using the function \link{plot_GrowthCurve}
 }
 
@@ -253,7 +253,7 @@ These proceeded data are subsequently used in for the Bayesian analysis
 If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
 steps consists of the following steps:
 \enumerate{
-\item Calculate Lx/Tx values using the function \link{calc_OSLLxTxRatio}
+\item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
 \item Calculate De values using the function \link{plot_GrowthCurve}
 }
 
@@ -411,7 +411,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2020. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2020. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -439,7 +439,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/proje
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{
-Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 The underlying Bayesian model based on a contribution by Combes et al., 2015.
 , RLum Developer Team}

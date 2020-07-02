@@ -119,7 +119,7 @@ received by the sample in the target layer.
 \description{
 This function calculates the gamma dose deposited in a luminescence sample
 taking into account layer-to-layer variations in sediment radioactivity .
-The function scales user inputs of Uranium, Thorium and Potassium based on
+The function scales user inputs of uranium, thorium and potassium based on
 input parameters for sediment density, water content and given layer
 thicknesses and distances to the sample.
 }
@@ -146,7 +146,7 @@ sample was taken from \emph{within} the layer, insert a numerical value \verb{>0
 which describes the distance from the middle of the sample to the bottom of
 the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations
 and their standard errors for
-Potassium (in \%), Thorium (in ppm) and Uranium (in ppm). Columns 10 and 11
+potassium (in \%), thorium (in ppm) and uranium (in ppm). Columns 10 and 11
 give information on the water content and its uncertainty (standard error)
 in \%. The layer density (in g/cm3) should be given in column 12. No cell
 should be left blank. Please ensure to keep the column titles as given in
@@ -234,7 +234,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C., 2020. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C., 2020. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

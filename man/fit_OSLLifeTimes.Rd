@@ -135,7 +135,7 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 
 \tabular{lll}{
 \strong{Parameter} \tab \strong{Type} \tab \strong{Description}\cr
-\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5 \% a value of 0.95 (the default) should be added, for 1 \%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:FDist]{stats::FDist})\cr
+\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5 \% a value of 0.95 (the default) should be added, for 1 \%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:Fdist]{stats::FDist})\cr
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enables/disables the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{DEoptim.itermax} \tab \link{logical} \tab controls the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
@@ -169,7 +169,7 @@ object = ExampleData.TR_OSL)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2020. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2020. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -39,11 +39,11 @@ function \link{get_RLum}. To deactivate the automatic selection set the argument
 based on the TL curves. Taken is the ratio of the peak sums of each curves +/- 5 channels.}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
-information on the used irradiation time correction obained by another experiements.
+information on the used irradiation time correction obtained by another experiments.
 I a \code{numeric} is provided it has to be of length two: mean, standard error}
 
 \item{cross_talk_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
-information on the used irradiation time correction obained by another experiements.
+information on the used irradiation time correction obtained by another experiments.
 If a \code{numeric} vector is provided it has to be of length three:
 mean, 2.5 \% quantile, 97.5 \% quantile.}
 
@@ -114,7 +114,7 @@ of the other dosimeters.
 
 The argument \code{calculate_TL_dose} provides the possibility to experimentally calculate a TL-dose,
 i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
-this value is only a fallback in case something went wrong during the measurement of the optical
+this value is only a fall back in case something went wrong during the measurement of the optical
 stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
 but not considered if a travel dosimeter is defined.
 
@@ -127,7 +127,7 @@ thermal contact of the chip.
 
 \code{stimulation_power} \link{numeric} (default: \code{0.05}):
 
-So far available, information on the delievered optical stimulation are compared. Compared are
+So far available, information on the delivered optical stimulation are compared. Compared are
 the information from the first curves with all others. If the ratio differs more from
 unity than the defined by the threshold, a warning is returned.
 }
@@ -145,7 +145,7 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -157,6 +157,6 @@ Geochromometria 45, 56-67. \doi{10.1515/geochr-2015-0086}
 \link{analyse_Al2O3C_ITC}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}

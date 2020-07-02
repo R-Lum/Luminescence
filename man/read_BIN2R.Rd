@@ -23,13 +23,13 @@ read_BIN2R(
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the
-BIN/BINX file (URLs are supported). If input is a \code{list} it should comprise
+BIN/BINX file (urls are supported). If input is a \code{list} it should comprise
 only \code{character}s representing each valid path and BIN/BINX-file names.
 Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all BIN/BINX files found in the directory.}
 
 \item{show.raw.values}{\link{logical} (\emph{with default}):
-shows raw values from BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
+shows raw values from BIN-file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
 translation in characters. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{position}{\link{numeric} (\emph{optional}):
@@ -43,13 +43,13 @@ limits the number of imported records. Can be used in combination with
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{zero_data.rm}{\link{logical} (\emph{with default}):
-remove erroneous data with no count values. As such data are usally not
+remove erroneous data with no count values. As such data are usually not
 needed for the subsequent data analysis they will be removed by default.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{duplicated.rm}{\link{logical} (\emph{with default}):
 remove duplicated entries if \code{TRUE}. This may happen due to an erroneous
-produced BIN/BINX-file. This option compares only predeccessor and successor.
+produced BIN/BINX-file. This option compares only predecessor and successor.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
@@ -91,14 +91,15 @@ automatically sets \code{fastForward = TRUE}}
 Returns an S4 \linkS4class{Risoe.BINfileData} object containing two
 slots:
 
-\item{METADATA}{A \link{data.frame} containing all variables stored in the bin-file.}
-\item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data. The ID corresponds to the record ID in METADATA.}
+\item{METADATA}{A \link{data.frame} containing all variables stored in the BIN-file.}
+\item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data.
+The ID corresponds to the record ID in METADATA.}
 
 If \code{fastForward = TRUE} a list of \linkS4class{RLum.Analysis} object is returned. The
 internal coercing is done using the function \link{Risoe.BINfileData2RLum.Analysis}
 }
 \description{
-Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL
+Import a *.bin or a *.binx file produced by a Risø DA15 and DA20 TL/OSL
 reader into R.
 }
 \details{
@@ -106,13 +107,13 @@ The binary data file is parsed byte by byte following the data structure
 published in the Appendices of the Analyst manual p. 42.
 
 For the general BIN/BINX-file structure, the reader is referred to the
-Risoe website: \url{http://www.nutech.dtu.dk/}
+Risø website: \url{http://www.nutech.dtu.dk/}
 }
 \note{
 The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
 
-\strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.}
+\strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.}
 }
 \section{Function version}{
  0.16.2
@@ -129,7 +130,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2020. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2020. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -142,7 +143,7 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team}
