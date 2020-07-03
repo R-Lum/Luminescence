@@ -247,19 +247,24 @@ calc_Lamothe2003 <- function(
   ## I_faded = I_unfaded*(1-g*log((1/e)*DR_lab/DR_soil)))
   rr <-  31.5576e+09 * dose_rate.source[1] / (exp(1) * dose_rate.envir[1])
   s_rr <- sqrt((dose_rate.source[2]/dose_rate.source[1])^2 + (dose_rate.envir[2]/dose_rate.envir[1])^2) * rr
-  Fading_C <- 1 - (g_value[1])/100 * log10(rr)
-  sFading_C <- sqrt((log10(rr))^2 * ((g_value[2])/100)^2 + (g_value[1]/(100 * rr))^2 * (s_rr)^2)
+  Fading_C <- 1 - g_value[1] / 100 * log10(rr)
+  sFading_C <- sqrt((log10(rr) * g_value[2]/100)^2 + (g_value[1]/(100 * rr) * s_rr)^2)
 
-  # apply to input data
+  # store original Lx/Tx in new object
   LnTn_BEFORE <- data[[2]][1]
   LnTn_BEFORE.ERROR <- data[[3]][1]
 
+  # apply to input data
   data[[2]][1] <-  data[[2]][1] / Fading_C
   data[[3]][1] <-  sqrt((data[[3]][1]/data[[2]][1])^2 +
                             ((1/Fading_C - 1) * sFading_C/Fading_C)^2) * data[[2]][1]
 
-  print(  LnTn_BEFORE.ERROR/LnTn_BEFORE)
-  print(  data[[3]][1]/ data[[2]][1] )
+  ##TODO discuss with Norbert
+  # data[[3]][1] <-  sqrt((data[[3]][1]/data[[2]][1])^2 +
+  #                         (sFading_C/Fading_C)^2) * data[[2]][1]
+  #
+  # print(LnTn_BEFORE.ERROR/LnTn_BEFORE)
+  # print(data[[3]][1]/ data[[2]][1] )
 
   # Fitting ---------------------------------------------------------------------------------
   ##set arguments
