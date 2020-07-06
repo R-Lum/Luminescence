@@ -100,7 +100,7 @@
 #' Can be a [list] of [integer]s or strings (or mixed), if `object` is of type [list].
 #' It requires that the object was processed by [OSLdecomposition::RLum.OSL_decomposition].
 #' This argument can either be the name of the OSL component assigned by [OSLdecomposition::RLum.OSL_global_fitting]
-#' or the index in the descending order of decay rates. Then "1" selects the fastest decaying component, "2" the second fastest
+#' or the index in the descending order of decay rates. Then `'1'` selects the fastest decaying component, `'2'` the second fastest
 #' and so on.
 #'
 #' @param CWcurve.type [character] (*optional*):
@@ -523,7 +523,7 @@ if(is.list(object)){
                  m = regexpr("(OSL|IRSL|POSL)(?!\\))", names(object), perl = TRUE))
 
     ## now get the type which is used most
-    CWcurve.type <- names(which.max(table(CWcurve.type)))
+    #CWcurve.type <- names(which.max(table(CWcurve.type)))
     #if (verbose) cat("Analyse ", CWcurve.type," curve types\n")
 
   }else{

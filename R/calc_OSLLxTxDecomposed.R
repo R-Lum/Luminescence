@@ -1,17 +1,65 @@
 #' Calculate Lx/Tx ratio for CW-OSL signal components
 #'
-#' Calculate Lx/Tx ratios from a given set of CW-OSL curves which was decomposed by
+#' Calculate Lx/Tx ratios from a given set of CW-OSL curves decomposed in its OSL components by
 #' [OSLdecomposition::RLum.OSL_decomposition]
 #'
-#' @param OSL.component [character] (*optional*):
+#' @param OSL.component [numeric] or [character] (*optional*):
 #' an [numeric] index or a name describing which OSL signal component shall be evaluated.
-#' It presumes, that the data set was manipulated by function [OSLdecomposition::RLum.OSL_decomposition].
 #' This argument can either be the name of the OSL component assigned by [OSLdecomposition::RLum.OSL_global_fitting]
-#' or the index of component. Then "1" selects the fastest decaying component, "2" the second fastest
-#' and so on.
+#' or the index of component. Then `'1'` selects the fastest decaying component, `'2'` the second fastest
+#' and so on. If not defined, the fastest decaying component is selected. 
+#'
+#' @param Lx.data [data.frame] (**required**):
+#' Component table created by [OSLdecomposition::RLum.OSL_decomposition] 
+#' and per default located at *object@records[[...]]@info$COMPONENTS*. 
+#' The value of *$n[OSL.component]* is set as *LnLx*. The value of *$n.error[OSL.component]* is set as *LnLx.error*
+#' 
+#' @param Tx.data [data.frame] (*optional*):
+#' Component table created by [OSLdecomposition::RLum.OSL_decomposition] 
+#' and per default located at *object@records[[...]]@info$COMPONENTS*. 
+#' The value of *$n[OSL.component]* is set as *TnTx*. The value of *$n.error[OSL.component]* is set as *TnTx.error*
+#' 
+#' @param sig0 [numeric] (*with default*):
+#' allow adding an extra component of error to the final Lx/Tx error value
+#' (e.g., instrumental error).
+#' 
+#' @param digits [integer] (*with default*):
+#' round numbers to the specified digits.
+#' If digits is set to `NULL` nothing is rounded.
+#' 
+#' @return
+#' Returns an S4 object of type [RLum.Results-class].
+#'
+#' Slot `data` contains a [list] with the following structure:
+#'
+#' **@data**
+#' ```
+#' $LxTx.table (data.frame)
+#' .. $ LnLx
+#' .. $ TnTx
+#' .. $ Net_LnLx
+#' .. $ Net_LnLx.Error
+#' .. $ Net_TnTx
+#' .. $ Net_TnTx.Error
+#' .. $ LxTx
+#' .. $ LxTx.relError
+#' .. $ LxTx.Error
+#' ```
+#'
+#' @section Function version: 0.1.0 (2020-07-06)
+#'
+#' @author
+#' Dirk Mittelstrass
+#'
+#' @seealso [RLum.Data.Curve-class], [plot_GrowthCurve],
+#' [analyse_SAR.CWOSL]
+#'
+#' @references Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019. Automated identification and separation of quartz CW-OSL signal components with R. talk presented at DLED 2019, Bingen, Germany
+#' [http://luminescence.de/OSLdecomp_talk.pdf]()\cr
 #'
 #'
-
+#' @md
+#' @export
 calc_OSLLxTxDecomposed <- function(
   Lx.data,
   Tx.data = NULL,
@@ -20,34 +68,18 @@ calc_OSLLxTxDecomposed <- function(
   digits = NULL
 ){
 
-  #
-  # ToDo's:
+  # ToDo:
   # - Integrity checks for the component table
   # - Handle background-signal-component if present
   # - add Tx.data integrity checks
   # - add previous-residual-subtraction functionality
   # - add list with decomposition algorithm parameters to return object
-  #
-  #
-  # Example of the 'object@records[[...]]@info$COMPONENTS' Data.frame:
-  #
-  # name      lambda cross.section cross.relative SAR.compatible   t.start     t.end ch.start
-  # 1 Component 1 0.988274358  1.392307e-17         1.0000              1  0.000000  2.097898        1
-  # 2 Component 2 0.141741931  1.996898e-18         0.1434              1  2.097898 14.185786       22
-  # 3       Slow3 0.002876973  4.053156e-20         0.0029              0 14.185786 40.059861      143
-  # ch.end          n    n.error n.residual  bin bin.error
-  # 1     21  3733.3078   84.68497          0 3951  60.23047
-  # 2    142   720.6614  162.03757          2 3842  71.17842
-  # 3    401 85018.4793 1409.87313      75764 5910  84.88269
-  #
-  #
-
+  # - add example in documentation
 
   ##--------------------------------------------------------------------------##
   ## (1) - integrity checks
 
 
-  # ... insert all further input checks here ...
 
   if (!(is.data.frame(Lx.data) && (nrow(Lx.data) >= 1))) {
     stop("[calc_OSLLxTxDecomposed()] No valid component data.frame for Lx value")}
@@ -119,7 +151,7 @@ calc_OSLLxTxDecomposed <- function(
   ##(4) Calculate LxTx error according Galbraith (2014)
 
   #transform results in a data.frame
-  LnLxTnTx <- as.data.frame((LnLxTnTx))
+  LnLxTnTx <- as.data.frame(LnLxTnTx)
 
   #add col names
   colnames(LnLxTnTx)<-c("Net_LnLx", "Net_LnLx.Error",
@@ -142,7 +174,7 @@ calc_OSLLxTxDecomposed <- function(
   LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx)^2)
 
   ##return combined values
-  temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)
+  temp <- cbind(LnLxTnTx, LxTx, LxTx.Error)
 
 
   ##apply digits if wanted

@@ -88,7 +88,7 @@
 #'
 #' @param sig0 [numeric] (*with default*):
 #' allow adding an extra component of error to the final Lx/Tx error value
-#' (e.g., instrumental errror, see details).
+#' (e.g., instrumental error, see details).
 #'
 #' @param digits [integer] (*with default*):
 #' round numbers to the specified digits.
