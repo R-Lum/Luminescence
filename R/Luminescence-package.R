@@ -148,6 +148,9 @@ NULL
 #' `AdamiecAitken1998`: \tab
 #' Conversion factors from Tables 5 and 6 \cr
 #'
+#' `Cresswelletal2018`: \tab
+#' Conversion factors from Tables 5 and 6 \cr
+#'
 #' `Guerinetal2011`: \tab
 #' Conversion factors from Tables 1, 2 and 3 \cr
 #'
@@ -155,19 +158,24 @@ NULL
 #' Conversion factors from Tables 1, 2 and 3 \cr
 #' }
 #'
-#'
-#' @section Version: 0.1
+#' @section Version: 0.2.0
 #'
 #' @references
-#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
-#' factors: update. Ancient TL, 29, 5-8.
 #'
 #' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 #' Ancient TL 16, 37-46.
 #'
+#' Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
+#' Dose rate conversion parameters: Assessment of nuclear data.
+#' Radiation Measurements 120, 195-201.
+#'
+#' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+#' factors: update. Ancient TL, 29, 5-8.
+#'
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 #' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 #' Archaeology and Archaeometry 13, 1-15.
+#'
 #'
 #' @source
 #' All gamma conversion factors were carefully read from the tables given in the
@@ -178,7 +186,7 @@ NULL
 #' @examples
 #'
 #' ## Load data
-#' data("BaseDataSet.ConversionFactors")
+#' data("BaseDataSet.ConversionFactors", envir = environment())
 #'
 #' @name BaseDataSet.ConversionFactors
 #' @md
