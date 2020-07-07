@@ -1,7 +1,7 @@
 #' Apply fading correction after Lamothe et al., 2003
 #'
 #' This function applies the fading correction for the prediction of long-term fading as suggested
-#' by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fit a new dose-response
+#' by Lamothe et al., 2003. The function basically adjusts the Ln/Tn values and fit a new dose-response
 #' curve using the function [plot_GrowthCurve].
 #'
 #'
@@ -11,15 +11,18 @@
 #'
 #' @param dose_rate.envir [numeric] vector of length 2 (**required**): Environmental dose rate in mGy/a
 #'
-#' @param dose_rate.source [numeric] vector of length 2 (**required**): Irradiation source dose rate in Gy/s
+#' @param dose_rate.source [numeric] vector of length 2 (**required**): Irradiation source dose rate in Gy/s,
+#' which is, according to Lamothe et al. (2003) De/t*.
 #'
 #' @param g_value [numeric] vector of length 2 (**required**): g_value in \%/decade *recalculated at the moment*
 #' the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement **and** the De measurement or
 #' needs be to recalculated (cf. [calc_FadingCorr]). Inserting a normalised g-value, e.g., normalised to 2-days , will
 #' lead to wrong results
 #'
-#' @param tc [numeric] (optional): time in seconds between irradiation and the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
-#' If set to `NULL` it is assumed that tc is similar for the equivalent dose estimation and the g-value estimation
+#' @param tc [numeric] (optional): time in seconds between irradiation and
+#' the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
+#' If set to `NULL` it is assumed that tc is similar for the equivalent dose
+#' estimation and the g-value estimation
 #'
 #' @param tc.g_value [numeric] (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
 #' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here along with the time used for the
@@ -59,7 +62,7 @@
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
 #'
 #' Lamothe, M., Auclair, M., Hamzaoui, C., Huot, S., 2003.
-#' Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Measurements 37,
+#' Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation Measurements 37,
 #' 493-498.
 #'
 #' @section Function version: 0.1.0
