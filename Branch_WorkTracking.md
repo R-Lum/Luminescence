@@ -13,7 +13,22 @@
 * Add documentation
 * Add news
 
+## `convert_Concentration2DoseRate()`
+* Add function to package
+* Add integrity tests + RLum.Results return
+* Slight code polish
+* Add alternative template output if input is missing
+* Add docu from Svenja and Martin >> reformat
+* Add further mandatory documentation
+* Add running example
+* TODO: add unit tests 
+
 # NEWS (to be added)
+
+* Add new function `convert_Concentration2DoseRate()` by Svenja Riedesel 
+and Martin Autzen. This function converts radionuclide concentrations (K in %, Th and U in ppm) 
+into dose rates (Gy/ka). Beta dose rates are also attenuated for the grain size. 
+Beta and gamma dose rates are corrected for the water content. 
 
 * `BaseDateSet.Conversion`, `Cresswelletal2019` was changed to `Cresswelletal2018`. 
 The corresponding function `scale_GammaDose()` was updated.
