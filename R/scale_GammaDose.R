@@ -38,7 +38,7 @@
 #' The user can decide which dose rate
 #' conversion factors should be used to calculate the gamma dose rates.
 #' The options are:
-#' - `"Cresswelletal2019"` (Cresswell et al., in press; the default)
+#' - `"Cresswelletal2018"` (Cresswell et al., 2018)
 #' - `"Liritzisetal2013"` (Liritzis et al., 2013)
 #' - `"Guerinetal2011"` (Guerin et al., 2011)
 #' - `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
@@ -107,7 +107,7 @@
 #' The conversion factors used to calculate the dose rate from sediument
 #' nuclide contents. Valid options are:
 #'
-#' - `"Cresswelletal2019"` (default)
+#' - `"Cresswelletal2018"` (default)
 #' - `"Liritzisetal2013"`
 #' - `"Guerinetal2011"`
 #' - `"AdamiecAitken1998"`
@@ -181,7 +181,7 @@
 #' - A barplot visualising the contribution of each layer to the total dose rate
 #' received by the sample in the target layer.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @keywords datagen
 #'
@@ -194,7 +194,8 @@
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
 #'
-#' @seealso [ExampleData.ScaleGammaDose], [approx], [barplot]
+#' @seealso [ExampleData.ScaleGammaDose],
+#' [BaseDataSet.ConversionFactors], [approx], [barplot]
 #'
 #' @references
 #'
@@ -203,8 +204,9 @@
 #' Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 #' Ancient TL 16, 37-46.
 #'
-#' Cresswell, A. J., Carter, J., Sanderson, D. C. W., in press. Dose rate
-#' conversion parameters: Assessment of nuclear data. Radiation Measurements.
+#' Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
+#' Dose rate conversion parameters: Assessment of nuclear data.
+#' Radiation Measurements 120, 195-201.
 #'
 #' Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 #' factors: update. Ancient TL, 29, 5-8.
@@ -227,7 +229,7 @@
 #'
 #' # Scale gamma dose rate
 #' results <- scale_GammaDose(data = x,
-#'                            conversion_factors = "Cresswelletal2019",
+#'                            conversion_factors = "Cresswelletal2018",
 #'                            fractional_gamma_dose = "Aitken1985",
 #'                            verbose = TRUE,
 #'                            plot = TRUE)
@@ -238,7 +240,7 @@
 #' @export
 scale_GammaDose <- function(
   data,
-  conversion_factors = c("Cresswelletal2019", "Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
+  conversion_factors = c("Cresswelletal2018", "Guerinetal2011", "AdamiecAitken1998", "Liritzisetal2013")[1],
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
   plot = TRUE,
