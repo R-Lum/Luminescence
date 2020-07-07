@@ -7,10 +7,19 @@
 * Compress dataset with `xz` to reduce file size
 * Update `scale_GammaDose()`
 
+## `BaseDateSet.GrainSizeAttenuation.rda`
+* Add dataset to package
+* Rename from `GSA` to `BaseDataSet.GrainSizeAttenuation`
+* Add documentation
+* Add news
 
 # NEWS (to be added)
 
 * `BaseDateSet.Conversion`, `Cresswelletal2019` was changed to `Cresswelletal2018`. 
 The corresponding function `scale_GammaDose()` was updated.
+
+* `BaseDateSet.GrainSizeAttenuation.rda`: Grain size correction data for beta-dose 
+rates published by Guerin et al. (2012). Dataset contributed by Svenja Riedesel
+and Martin Autzen.
 
 * The package new depends on R (>= 3.5.0)

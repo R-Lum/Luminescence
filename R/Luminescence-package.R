@@ -192,6 +192,34 @@ NULL
 #' @md
 NULL
 
+#' @title Base dataset for grain size attenuation data by Guérin et al. (2012)
+#'
+#' @description Grain size correction data for beta-dose rates
+#' published by Guérin et al. (2012).
+#'
+#'#' @format
+#'
+#' A [`data.frame`] seven columns and sixteen rows. Column headers
+#' are `GrainSize`, `Q_K`, `FS_K`, `Q_Th`, `FS_Th`, `Q_U`, `FS_U`.
+#' Grain sizes are quoted in µm (e.g., 20, 40, 60 etc.)
+#'
+#' @section Version: 0.1.0
+#'
+#' @source Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012.
+#' On the use of the infinite matrix assumption and associated concepts:
+#' A critical review. Radiation Measurements, 47, 778-785.
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## load data
+#' data("BaseDataSet.GrainSizeAttenuation", envir = environment())
+#'
+#' @name BaseDataSet.GrainSizeAttenuation
+#' @md
+NULL
+
 #' Base data set of fractional gamma-dose values
 #'
 #' Collection of (un-)published fractional gamma dose-rate values to scale the
