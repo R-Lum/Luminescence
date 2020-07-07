@@ -1,6 +1,7 @@
 BaseDataSet.ConversionFactors: BaseDataSet.ConversionFactors
 BaseDataSet.CosmicDoseRate: values.cosmic.Softcomp values.factor.Altitude values.par.FJH
 BaseDataSet.FractionalGammaDose: BaseDataSet.FractionalGammaDose
+BaseDataSet.GrainSizeAttenuation: BaseDataSet.GrainSizeAttenuation
 ExampleData.Al2O3C: data_CrossTalk data_ITC
 ExampleData.BINfileData: CWOSL.SAR.Data TL.SAR.Data
 ExampleData.CW_OSL_Curve: CW_Curve.BosWallinga2012 ExampleData.CW_OSL_Curve
