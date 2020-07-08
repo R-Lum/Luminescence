@@ -21,7 +21,11 @@
 * Add docu from Svenja and Martin >> reformat
 * Add further mandatory documentation
 * Add running example
-* TODO: add unit tests 
+* Add unit tests 
+* Fix bug for quartz: object 'data' was never created by the function, the 
+conversion did not work
+* Add new stop for input data with more than one row
+
 
 # NEWS (to be added)
 

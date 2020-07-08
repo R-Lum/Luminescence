@@ -44,6 +44,7 @@
 #'
 #'@param input [data.frame] (*optional*): a table containing all relevant information
 #' for each individual layer if nothing is provided, the function returns a template [data.frame]
+#' Please note that until one dataset per input is supported!
 #'
 #'@param conversion [character] (*with default*): which dose rate conversion factors to use,
 #' defaults uses Guérin et al. (2011). For accepted values see [BaseDataSet.ConversionFactors]
@@ -139,14 +140,20 @@ convert_Concentration2DoseRate <- function(
   GSA <- BaseDataSet.GrainSizeAttenuation
 
 # Integrity tests ------------------------------------------------------------
+  if(class(input)[1] != "data.frame" & class(input)[1] != "matrix")
+    stop("[convert_Concentration2DoseRate()] input must be of type 'data.frame or 'matrix'!",
+         call. = FALSE)
+
+  if(ncol(input) != ncol(suppressMessages(convert_Concentration2DoseRate())) || nrow(input) > 1)
+    stop("[convert_Concentration2DoseRate()] number of rows/columns in input does not match the requirements. See manual!",
+         call. = FALSE)
+
   if(!conversion[1] %in% names(BaseDataSet.ConversionFactors))
-    stop("[convert_Concentration2DoseRate()] You have not entered a valid conversion.
-         Please check your spelling and consult the documentation!",
+    stop("[convert_Concentration2DoseRate()] You have not entered a valid conversion. Please check your spelling and consult the documentation!",
          call. = FALSE)
 
   if(!any(input[,1] %in% c("FS","Q")))
-    stop("[convert_Concentration2DoseRate()] As mineral only 'FS' or 'Q' is
-         supported!", call. = FALSE)
+    stop("[convert_Concentration2DoseRate()] As mineral only 'FS' or 'Q' is supported!", call. = FALSE)
 
 # Convert -----------------------------------------------------------------
     InfDR <- matrix(data = NA, nrow = 2, ncol = 6)
@@ -184,7 +191,7 @@ convert_Concentration2DoseRate <- function(
       }
     }
 
-    ##### --- Correct cobble dose rate for grain size --- #####
+    ##### --- dose rate for grain size --- #####
 
     if (input[1,1] == "FS") {                                       # FELDSPAR
       KFit <- approx(GSA$GrainSize, GSA$FS_K, n = 981, method = "linear")
@@ -197,8 +204,7 @@ convert_Concentration2DoseRate <- function(
       InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y[Temp])                    # Th
       InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y[Temp])                     # U
 
-    } else if (data[1,5] == "Q")  {                                # QUARTZ
-
+    } else if (input[1,1] == "Q")  {                                # QUARTZ
       KFit <- approx(GSA$GrainSize, GSA$Q_K, n = 981, method = "linear")
       ThFit <- approx(GSA$GrainSize, GSA$Q_Th, n = 981, method = "linear")
       UFit <- approx(GSA$GrainSize, GSA$Q_U, n = 981, method = "linear")
