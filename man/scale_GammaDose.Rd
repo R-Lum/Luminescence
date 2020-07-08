@@ -7,7 +7,7 @@ variations in radioactivity into account (according to Aitken, 1985)}
 \usage{
 scale_GammaDose(
   data,
-  conversion_factors = c("Cresswelletal2019", "Guerinetal2011", "AdamiecAitken1998",
+  conversion_factors = c("Cresswelletal2018", "Guerinetal2011", "AdamiecAitken1998",
     "Liritzisetal2013")[1],
   fractional_gamma_dose = c("Aitken1985")[1],
   verbose = TRUE,
@@ -41,7 +41,7 @@ all values must be \code{NA}.
 The conversion factors used to calculate the dose rate from sediument
 nuclide contents. Valid options are:
 \itemize{
-\item \code{"Cresswelletal2019"} (default)
+\item \code{"Cresswelletal2018"} (default)
 \item \code{"Liritzisetal2013"}
 \item \code{"Guerinetal2011"}
 \item \code{"AdamiecAitken1998"}
@@ -156,7 +156,7 @@ The user can decide which dose rate
 conversion factors should be used to calculate the gamma dose rates.
 The options are:
 \itemize{
-\item \code{"Cresswelletal2019"} (Cresswell et al., in press; the default)
+\item \code{"Cresswelletal2018"} (Cresswell et al., 2018)
 \item \code{"Liritzisetal2013"} (Liritzis et al., 2013)
 \item \code{"Guerinetal2011"} (Guerin et al., 2011)
 \item \code{"AdamiecAitken1998"} (Adamiec and Aitken, 1998)
@@ -206,7 +206,7 @@ density and water content is not constant for the entire section.
 \strong{cross-checked.}
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \section{Acknowledgements}{
@@ -224,7 +224,7 @@ x <- ExampleData.ScaleGammaDose
 
 # Scale gamma dose rate
 results <- scale_GammaDose(data = x,
-                           conversion_factors = "Cresswelletal2019",
+                           conversion_factors = "Cresswelletal2018",
                            fractional_gamma_dose = "Aitken1985",
                            verbose = TRUE,
                            plot = TRUE)
@@ -234,7 +234,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C., 2020. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-39. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C., 2020. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-49. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -243,8 +243,9 @@ Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 Ancient TL 16, 37-46.
 
-Cresswell, A. J., Carter, J., Sanderson, D. C. W., in press. Dose rate
-conversion parameters: Assessment of nuclear data. Radiation Measurements.
+Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
+Dose rate conversion parameters: Assessment of nuclear data.
+Radiation Measurements 120, 195-201.
 
 Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 factors: update. Ancient TL, 29, 5-8.
@@ -254,7 +255,8 @@ A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 Archaeology and Archaeometry 13, 1-15.
 }
 \seealso{
-\link{ExampleData.ScaleGammaDose}, \link{approx}, \link{barplot}
+\link{ExampleData.ScaleGammaDose},
+\link{BaseDataSet.ConversionFactors}, \link{approx}, \link{barplot}
 }
 \author{
 Svenja Riedesel, Aberystwyth University (United Kingdom) \cr

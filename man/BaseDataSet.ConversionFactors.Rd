@@ -12,6 +12,9 @@ sorted by article and radiation type (alpha, beta, gamma):
 \code{AdamiecAitken1998}: \tab
 Conversion factors from Tables 5 and 6 \cr
 
+\code{Cresswelletal2018}: \tab
+Conversion factors from Tables 5 and 6 \cr
+
 \code{Guerinetal2011}: \tab
 Conversion factors from Tables 1, 2 and 3 \cr
 
@@ -28,21 +31,25 @@ Collection of published dose-rate conversion factors to convert concentrations
 of radioactive isotopes to dose rate values.
 }
 \section{Version}{
- 0.1
+ 0.2.0
 }
 
 \examples{
 
 ## Load data
-data("BaseDataSet.ConversionFactors")
+data("BaseDataSet.ConversionFactors", envir = environment())
 
 }
 \references{
-Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
-factors: update. Ancient TL, 29, 5-8.
-
 Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 Ancient TL 16, 37-46.
+
+Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
+Dose rate conversion parameters: Assessment of nuclear data.
+Radiation Measurements 120, 195-201.
+
+Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
+factors: update. Ancient TL, 29, 5-8.
 
 Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 A re-evaluation of radiation dose-rate conversion factors. Mediterranean
