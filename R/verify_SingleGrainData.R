@@ -32,8 +32,8 @@
 #' the `var` of the count values (see details)
 #'
 #' @param cleanup [logical] (*with default*):
-#' if set to `TRUE` curves indentified as zero light level curves are
-#' automatically removed. Ouput is an object as same type as the input, i.e.
+#' if set to `TRUE` curves identified as zero light level curves are
+#' automatically removed. Output is an object as same type as the input, i.e.
 #' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
 #' @param cleanup_level [character] (*with default*):
@@ -159,7 +159,8 @@ verify_SingleGrainData <- function(
         threshold = threshold,
         cleanup = cleanup,
         cleanup_level = cleanup_level,
-        verbose = verbose
+        verbose = verbose,
+        plot = plot
       )
     })
 
@@ -210,7 +211,6 @@ verify_SingleGrainData <- function(
 
 
         if(cleanup_level == "aliquot"){
-
           selection_id <- sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
             which(
               .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &

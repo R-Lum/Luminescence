@@ -64,6 +64,9 @@ the highest point (the default), `"min"` for a normalisation to the lowest point
 for a normalisation suggested by Sébastien Huot (#87) via GitHub. Please note that 
 `norm` only works if `combine = TRUE`. 
 
+### `verify_SingleGrainData()` 
+* The function did not always return a plot: Fixed. 
+
 ### Internals
 
 * `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
