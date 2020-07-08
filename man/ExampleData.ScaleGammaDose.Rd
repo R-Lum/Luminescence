@@ -19,7 +19,7 @@ soil radioactivity.
 \examples{
 
 ## Load data
-data("ExampleData.ScaleGammaDose")
+data("ExampleData.ScaleGammaDose", envir = environment())
 
 }
 \keyword{datasets}

@@ -8,12 +8,35 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+### Important user affecting changes
+* The version requires R (>= 3.5.0)
+
 ### New functions 
 
 * `calc_EED_Model()` Model incomplete and heterogeneous bleaching of mobile grains after Guibert et al. (2017). 
 Along with the function, a new example data set `ExampleData.MortarData` was added.
+
 * `fit_EmissionSpectra()` Luminescence emission spectra deconvolution
+
 * `read_RF2R()` Add support for importing spatially resolved RF measurement results.
+
+* `convert_Concentration2DoseRate()` by Svenja Riedesel 
+and Martin Autzen. This function converts radionuclide concentrations (K in %, Th and U in ppm) 
+into dose rates (Gy/ka). Beta dose rates are also attenuated for the grain size. 
+Beta and gamma dose rates are corrected for the water content. 
+
+* `calc_CobbleDoseRate()` by Svenja Riedesel and Martin Autzen. The function 
+calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
+
+### Datesets
+* `ExampleData.CobbleDate` new example dataset to be used in conjunction with the 
+function `calc_CobbleDoseRate()`. Contributed by Svenja Riedesel and Martin Autzen.
+
+* `BaseDateSet.Conversion`, `Cresswelletal2019` was changed to `Cresswelletal2018`. 
+The corresponding function `scale_GammaDose()` was updated.
+
+* `BaseDateSet.GrainSizeAttenuation.rda`: Grain size correction data for beta-dose 
+rates published by Guerin et al. (2012). Dataset contributed by Svenja Riedesel and Martin Autzen.
 
 ### Bugfixes and changes
 
@@ -42,8 +65,10 @@ for a normalisation suggested by Sébastien Huot (#87) via GitHub. Please note t
 `norm` only works if `combine = TRUE`. 
 
 ### Internals
+
 * `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
 conversion into a single data.frames. Count values are added in columns for each record (thanks to Annette Kadereit for the idea).
+
 
 
 ## Changes in version 0.9.7 (2020-01-04)

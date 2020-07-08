@@ -251,7 +251,7 @@ NULL
 #' @examples
 #'
 #' ## Load data
-#' data("BaseDataSet.FractionalGammaDose")
+#' data("BaseDataSet.FractionalGammaDose", envir = environment())
 #'
 #' @name BaseDataSet.FractionalGammaDose
 #' @md
@@ -276,9 +276,32 @@ NULL
 #' @examples
 #'
 #' ## Load data
-#' data("ExampleData.ScaleGammaDose")
+#' data("ExampleData.ScaleGammaDose", envir = environment())
 #'
 #' @name ExampleData.ScaleGammaDose
+#' @md
+NULL
+
+#' Example data for calc_CobbleDoseRate()
+#'
+#' An example data set for the function [calc_CobbleDoseRate] containing layer
+#' specific information for the cobble to be used in the function.
+#'
+#' @format
+#'
+#' A [`data.frame`]. Please see [calc_CobbleDoseRate] for further information
+#' on the structure#'
+#'
+#' @section Version: 0.1.0
+#'
+#' @keywords datasets
+#'
+#' @examples
+#'
+#' ## Load data
+#' data("ExampleData.CobbleData", envir = environment())
+#'
+#' @name ExampleData.CobbleData
 #' @md
 NULL
 

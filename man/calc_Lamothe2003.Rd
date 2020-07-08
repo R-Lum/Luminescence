@@ -23,15 +23,18 @@ fading correction. Allow are (1) \link{data.frame} with three columns (dose, LxT
 
 \item{dose_rate.envir}{\link{numeric} vector of length 2 (\strong{required}): Environmental dose rate in mGy/a}
 
-\item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}): Irradiation source dose rate in Gy/s}
+\item{dose_rate.source}{\link{numeric} vector of length 2 (\strong{required}): Irradiation source dose rate in Gy/s,
+which is, according to Lamothe et al. (2003) De/t*.}
 
 \item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \\%/decade \emph{recalculated at the moment}
 the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement \strong{and} the De measurement or
 needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
 lead to wrong results}
 
-\item{tc}{\link{numeric} (optional): time in seconds between irradiation and the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
-If set to \code{NULL} it is assumed that tc is similar for the equivalent dose estimation and the g-value estimation}
+\item{tc}{\link{numeric} (optional): time in seconds between irradiation and
+the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
+If set to \code{NULL} it is assumed that tc is similar for the equivalent dose
+estimation and the g-value estimation}
 
 \item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
 If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here along with the time used for the
@@ -68,7 +71,7 @@ The original function call
 }
 \description{
 This function applies the fading correction for the prediction of long-term fading as suggested
-by Lamothe et atl., 2003. The function basically adjusts the Ln/Tn values and fit a new dose-response
+by Lamothe et al., 2003. The function basically adjusts the Ln/Tn values and fit a new dose-response
 curve using the function \link{plot_GrowthCurve}.
 }
 \section{Function version}{
@@ -110,7 +113,7 @@ results_corr <- calc_Lamothe2003(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Mercier, N., 2020. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-39. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Mercier, N., 2020. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-53. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -118,7 +121,7 @@ Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars an
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
 
 Lamothe, M., Auclair, M., Hamzaoui, C., Huot, S., 2003.
-Towards a prediction of long-term anomalous fadingof feldspar IRSL. Radiation Measurements 37,
+Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation Measurements 37,
 493-498.
 }
 \seealso{

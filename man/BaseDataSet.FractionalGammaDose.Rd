@@ -28,7 +28,7 @@ gamma-dose rate considering layer-to-layer variations in soil radioactivity.
 \examples{
 
 ## Load data
-data("BaseDataSet.FractionalGammaDose")
+data("BaseDataSet.FractionalGammaDose", envir = environment())
 
 }
 \references{

@@ -8,7 +8,8 @@ convert_Concentration2DoseRate(input, conversion = "Guerinetal2011")
 }
 \arguments{
 \item{input}{\link{data.frame} (\emph{optional}): a table containing all relevant information
-for each individual layer if nothing is provided, the function returns a template \link{data.frame}}
+for each individual layer if nothing is provided, the function returns a template \link{data.frame}
+Please note that until one dataset per input is supported!}
 
 \item{conversion}{\link{character} (\emph{with default}): which dose rate conversion factors to use,
 defaults uses Guérin et al. (2011). For accepted values see \link{BaseDataSet.ConversionFactors}}
@@ -86,7 +87,7 @@ convert_Concentration2DoseRate(input)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., 2020. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-49. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., 2020. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-53. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
