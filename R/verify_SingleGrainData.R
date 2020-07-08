@@ -8,7 +8,7 @@
 #'
 #' The function compares the expected values (\eqn{E(X)}) and the variance
 #' (\eqn{Var(X)}) of the count values for each curve. Assuming that the
-#' background roughly follows a poisson distribution the absolute difference
+#' background roughly follows a Poisson distribution the absolute difference
 #' of both values should be zero or at least around zero as
 #'
 #' \deqn{E(x) = Var(x) = \lambda}
@@ -17,7 +17,7 @@
 #'
 #' \deqn{abs(E(x) - Var(x)) >= \Theta}
 #'
-#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above the
+#' With \eqn{\Theta} an arbitrary, user defined, threshold. Values above the
 #' threshold indicating curves comprising a signal.
 #'
 #' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the
