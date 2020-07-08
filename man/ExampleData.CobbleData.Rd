@@ -4,8 +4,8 @@
 \alias{ExampleData.CobbleData}
 \title{Example data for calc_CobbleDoseRate()}
 \format{
-A \code{\link{data.frame}}. Please see \link{calc_CobbleDoseRate} for further information
-on the structure#'
+A \code{\link{data.frame}}. Please see \link{calc_CobbleDoseRate} for detailed information
+on the structure of the \link{data.frame}.
 }
 \description{
 An example data set for the function \link{calc_CobbleDoseRate} containing layer
