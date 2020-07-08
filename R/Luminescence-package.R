@@ -19,6 +19,8 @@
 #'
 #' @details **Full list of authors and contributors** (alphabetic order)
 #'
+#' *In the case authors retired the last affiliation is mentioned.*
+#'
 #' \tabular{ll}{
 #' Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies* \cr
 #' Christoph Burow \tab *University of Cologne, Germany** \cr
@@ -26,17 +28,17 @@
 #' Michael Dietze \tab *GFZ Helmholtz Centre Potsdam, Germany* \cr
 #' Julie Durcan \tab *University of Oxford, United Kingdom* \cr
 #' Pierre Guibert \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
-#' Manfred Fischer\tab *University of Bayreuth, Germany* \cr
+#' Manfred Fischer\tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
 #' Margret C. Fuchs \tab *Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany* \cr
 #' Johannes Friedrich \tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
 #' Guillaume Guérin \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Georgina E. King \tab *University of Lausanne, Switzerland* \cr
-#' Sebastian Kreutzer \tab *Department of Geograpy & Earth Sciences, Aberystwyth University, United Kingdom* \cr
+#' Sebastian Kreutzer \tab *Department of Geography & Earth Sciences, Aberystwyth University, United Kingdom* \cr
 #' Norbert Mercier \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
 #' Svenja Riedesel \tab *Department of Geograpy & Earth Sciences ,Aberystwyth University, United Kingdom* \cr
-#' Christoph Schmidt \tab *Chair of Geomorophology, University of Bayreuth, Germany* \cr
+#' Christoph Schmidt \tab *Institute of Earth Surface Dynamics,University of Lausanne, Switzerland* \cr
 #' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
-#' Anne Philippe \tab  *Universite de Nantes and ANJA INRIA, Rennes, France* \cr
+#' Anne Philippe \tab  *Université de Nantes and ANJA INRIA, Rennes, France* \cr
 #' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
 #' }
 #'
@@ -68,11 +70,12 @@
 #'
 #' - [https://cran.r-project.org/package=RLumShiny]()
 #' - [https://cran.r-project.org/package=RLumModel]()
+#' - [https://cran.r-project.org/package=RLumCarlo]()
 #'
 #' **Package maintainer**
 #'
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS- Université Bordeaux Montaigne, France,\cr
-#' \email{sebastian.kreutzer@@u-bordeaux-montaigne.fr}
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom),\cr
+#' \email{sebastian.kreutzer@@aber.ac.uk}
 #'
 #' **Funding**
 #'
@@ -86,7 +89,7 @@
 #'
 #' Between 2020--2021, the work of Sebastian Kreutzer as maintainer of the package has received funding
 #' from the European Union’s Horizon 2020 research and innovation programme under
-#' the Marie Skłodowska-Curie grant agreement No 844457
+#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit).
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -289,8 +292,8 @@ NULL
 #'
 #' @format
 #'
-#' A [`data.frame`]. Please see [calc_CobbleDoseRate] for further information
-#' on the structure#'
+#' A [`data.frame`]. Please see [calc_CobbleDoseRate] for detailed information
+#' on the structure of the [data.frame].
 #'
 #' @section Version: 0.1.0
 #'
