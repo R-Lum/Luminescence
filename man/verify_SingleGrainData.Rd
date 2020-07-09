@@ -23,8 +23,8 @@ numeric threshold value for the allowed difference between the \code{mean} and
 the \code{var} of the count values (see details)}
 
 \item{cleanup}{\link{logical} (\emph{with default}):
-if set to \code{TRUE} curves indentified as zero light level curves are
-automatically removed. Ouput is an object as same type as the input, i.e.
+if set to \code{TRUE} curves identified as zero light level curves are
+automatically removed. Output is an object as same type as the input, i.e.
 either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 
 \item{cleanup_level}{\link{character} (\emph{with default}):
@@ -82,7 +82,7 @@ from single grain data measurements.
 
 The function compares the expected values (\eqn{E(X)}) and the variance
 (\eqn{Var(X)}) of the count values for each curve. Assuming that the
-background roughly follows a poisson distribution the absolute difference
+background roughly follows a Poisson distribution the absolute difference
 of both values should be zero or at least around zero as
 
 \deqn{E(x) = Var(x) = \lambda}
@@ -91,7 +91,7 @@ Thus the function checks for:
 
 \deqn{abs(E(x) - Var(x)) >= \Theta}
 
-With \eqn{\Theta} an arbitray, user defined, threshold. Values above the
+With \eqn{\Theta} an arbitrary, user defined, threshold. Values above the
 threshold indicating curves comprising a signal.
 
 Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the
@@ -152,7 +152,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Ki
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-55. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-57. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

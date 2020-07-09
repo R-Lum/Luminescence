@@ -24,3 +24,4 @@ test_that("functionality", {
   expect_is(convert_RLum2Risoe.BINfileData(list(IRSAR.RF.Data,IRSAR.RF.Data)), "Risoe.BINfileData")
 
 })
+
