@@ -131,7 +131,7 @@ par(mfrow = c(1, 1))
 } 
 
 \section{How to cite}{
-Burow, C., 2020. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-57. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2020. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-61. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
