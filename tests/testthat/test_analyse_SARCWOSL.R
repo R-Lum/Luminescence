@@ -55,6 +55,58 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+  ##plot single
+  expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      plot = TRUE,
+      plot.single = TRUE
+    ),
+    class = "RLum.Results"
+  )
+
+  ##trigger warnings
+  expect_warning(analyse_SAR.CWOSL(
+      object = object[[1]],
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+  ), regexp = "'signal.integral.min' missing, set to 1")
+
+ ##trigger stops for parameters
+ ##object
+  expect_error(analyse_SAR.CWOSL(
+    object = "fail",
+    background.integral.min = 900,
+    fit.method = "LIN",
+    plot = FALSE,
+    verbose = FALSE
+  ), regexp = "Input object is not of type 'RLum.Analyis'!")
+
+ expect_error(suppressWarnings(analyse_SAR.CWOSL(
+    object = object[[1]],
+    background.integral.min = 900,
+    fit.method = "LIN",
+    plot = FALSE,
+    verbose = FALSE
+  )), regexp = "No value set for 'background.integral.max'!")
+
+ expect_error(suppressWarnings(analyse_SAR.CWOSL(
+   object = object[[1]],
+   background.integral.max = 900,
+   fit.method = "LIN",
+   plot = FALSE,
+   verbose = FALSE
+ )), regexp = "No value set for 'background.integral.min'!")
+
+
 })
 
 test_that("tests class elements", {
