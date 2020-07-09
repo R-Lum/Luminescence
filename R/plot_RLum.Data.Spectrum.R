@@ -134,7 +134,7 @@
 #' @section Function version: 0.6.2
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United Kingdom)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [persp],
 #' [plotly::plot_ly], [contour]
