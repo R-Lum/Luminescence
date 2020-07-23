@@ -43,7 +43,7 @@ NumericVector find_first_larger_value(
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   row_sd()
-// Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
+// Author:  Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 //
 // Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.0 [2019-08-27]
@@ -127,7 +127,7 @@ NumericMatrix src_EED_Calc_Overall_StatUncertainty (
       //sort vector
       M_CurSimExp.sort(false);
 
-      //cummulative sum
+      //cumulative sum
       NumericVector cur_mean = cumsum(M_CurSimExp);
 
       //normalise to data

@@ -170,8 +170,8 @@ RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited,
   //sliding_vector: the original results_vector (this can be used to reproduced the results in R)
   //sliding_vector_min_index: the index of the minimum, it is later also calculated in R, however, sometimes we may need it directly
   //sliding_vector_min_MC: minimum values based on bootstrapping
-  //vslide_index: this is the index where the minium was identified for the vertical sliding
-  //vslide_minium: return the identified minium value, this helps to re-run the function, as the
+  //vslide_index: this is the index where the minimum was identified for the vertical sliding
+  //vslide_minimum: return the identified minimum value, this helps to re-run the function, as the
   //algorithm might got trapped in the local minimum
   List results_list;
     results_list["sliding_vector"] = results;
