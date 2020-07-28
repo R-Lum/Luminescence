@@ -3,8 +3,8 @@
 // Author:  Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 // Contact: sebastian.kreutzer@aber.ac.uk
 // Version: 0.1.0 [2016-01-26]
-// Purpose: The purpose of this function is to create a unique ID for RLum objects based on the system time
-//and a random number.
+// Purpose: The purpose of this function is to create a unique ID for RLum
+// objects based on the system time and a random number.
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #include <Rcpp.h>
