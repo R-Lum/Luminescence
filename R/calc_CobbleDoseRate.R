@@ -5,7 +5,7 @@
 #'Calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
 #'
 #'Corrects the beta dose rate in the cobble for the grain size following results
-#'of Guerin et al. (2012). Sediment beta and gamma dose rates are corrected
+#'of Guérin et al. (2012). Sediment beta and gamma dose rates are corrected
 #'for the water content of the sediment using the correction factors of Aitken (1985).
 #'Water content in the cobble is assumed to be 0.
 #'
@@ -60,7 +60,7 @@
 #'@author Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 #'Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 #'
-#'@return The function returns an RLum.Results object for which the first element
+#'@return The function returns an [RLum.Results-class] object for which the first element
 #'is a [matrix] (`DataIndividual`) that gives the dose rate results for each slice
 #'for each decay chain individually, for both, the cobble dose rate and the sediment
 #'dose rate. The second element is also a [matrix] (`DataComponent`) that gives
