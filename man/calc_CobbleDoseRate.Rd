@@ -13,7 +13,7 @@ for each individual layer. For the table layout see details.}
 \item{conversion}{Which dose rate conversion factors to use. For accepted values see \link{BaseDataSet.ConversionFactors}}
 }
 \value{
-The function returns an RLum.Results object for which the first element
+The function returns an \linkS4class{RLum.Results} object for which the first element
 is a \link{matrix} (\code{DataIndividual}) that gives the dose rate results for each slice
 for each decay chain individually, for both, the cobble dose rate and the sediment
 dose rate. The second element is also a \link{matrix} (\code{DataComponent}) that gives
@@ -24,7 +24,7 @@ for each slice of the cobble.
 Calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
 
 Corrects the beta dose rate in the cobble for the grain size following results
-of Guerin et al. (2012). Sediment beta and gamma dose rates are corrected
+of Guérin et al. (2012). Sediment beta and gamma dose rates are corrected
 for the water content of the sediment using the correction factors of Aitken (1985).
 Water content in the cobble is assumed to be 0.
 }
@@ -77,7 +77,7 @@ calc_CobbleDoseRate(ExampleData.CobbleData)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., 2020. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-63. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., 2020. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-64. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
