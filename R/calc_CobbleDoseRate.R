@@ -60,6 +60,13 @@
 #'@author Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 #'Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 #'
+#'@return The function returns an RLum.Results object for which the first element
+#'is a [matrix] (`DataIndividual`) that gives the dose rate results for each slice
+#'for each decay chain individually, for both, the cobble dose rate and the sediment
+#'dose rate. The second element is also a [matrix] (`DataComponent`) that gives
+#'the total beta and gamma-dose rates for the cobble and the adjacent sediment
+#'for each slice of the cobble.
+#'
 #'@keywords datagen
 #'
 #'@seealso [convert_Concentration2DoseRate]
