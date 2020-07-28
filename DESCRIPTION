@@ -19,7 +19,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Anne Philippe [ctb],
     Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
     Svenja Riedesel [ctb] (<https://orcid.org/0000-0003-2936-8776>),
-    Martin Autzen [ctb],
+    Martin Autzen [ctb] (<https://orcid.org/0000-0001-6249-426X>),
     Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
     Markus Fuchs [ths]
 Authors@R: c(
@@ -39,7 +39,7 @@ Authors@R: c(
     person("Anne", "Philippe", role = c("ctb")),
     person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
     person("Svenja", "Riedesel", role = c("aut"), comment = c(ORCID = "0000-0003-2936-8776")),
-    person("Martin", "Autzen", role = c("aut")),
+    person("Martin", "Autzen", role = c("aut"), comment = c(ORCID = "0000-0001-6249-426X")),
     person("Pierre", "Guibert", role = c("ctb"), comment = c(ORCID = "0000-0001-8969-8684")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
