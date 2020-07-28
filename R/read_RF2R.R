@@ -15,9 +15,9 @@
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [analyse_IRSAR.RF]
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Geography & Earth Science, Aberstywtyh University (United Kingdom)
 #'
-#' @section Function version: 0.0.1
+#' @section Function version: 0.1.0
 #'
 #' @keywords IO
 #'
@@ -34,7 +34,6 @@
 read_RF2R <- function(file) {
 
 # Self-call -----------------------------------------------------------------------------------
-
   if(class(file) == "list"){
     results_list <- lapply(file, function(f){
       temp <- try(read_RF2R(file = f), silent = TRUE)
@@ -103,7 +102,7 @@ read_RF2R <- function(file) {
 
 
     ##extract tag boundaries framed by tags +++++++++++++++++++
-    ##the 2nd line corrects the inner boandaries
+    ##the 2nd line corrects the inner boundaries
     ##(1) statistics
     id_statistics <- grep(pattern = "Statistics>", x = temp, fixed = TRUE)
     id_statistics <- c(id_statistics[1] + 1, id_statistics[2] - 1)
@@ -212,7 +211,7 @@ read_RF2R <- function(file) {
                originator = "read_RF2R",
                records = records,
                info = c(
-                 as.list(df_statistics[1,]),
+                 as.list(df_statistics[a,]),
                  header
                  ))
 
