@@ -65,7 +65,7 @@ read_RF2R <- function(file) {
 
   ##read first line to ensure the format
   vers_str <-  readLines(file, 1)
-  version_supported <- c("17-10-2018", "27-11-2018")
+  version_supported <- c("17-10-2018", "27-11-2018", "0.1.0")
   version_found <- regmatches(vers_str,
                               regexpr("(?<=macro\\_version=)..-..-....", vers_str, perl = TRUE))
 
