@@ -61,7 +61,11 @@
 #' method for calculating the time elapsed since irradiation. Options are:
 #' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 #' and `'end'`, which takes the time between irradiation and the measurement step.
-#' Default is `'half'`
+#' Default is `'half'`. Alternatively, `t_star` can be a function with one parameter which
+#' works on `t1`.\cr
+#'
+#' *`t_star` has no effect if the input is a [data.frame], because this input comes
+#' without irradiation times.*
 #'
 #' @param n.MC [integer] (*with default*):
 #' number for Monte Carlo runs for the error estimation
@@ -233,32 +237,13 @@ analyse_FadingMeasurement <- function(
                                                x = x$irr.times[["STEP"]],
                                                fixed = TRUE)]
 
-        ##substract half irradiation time
+        ##subtract half irradiation time
         temp_IRR_TIME <-
           x$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
                                            x = x$irr.times[["STEP"]],
                                            fixed = TRUE)]
 
-        ##in accordance with Auclair et al., 2003, p. 488
-        ##but here we have no t1 ... this needs to be calculated
-        ##set variables
-        t1 <- temp_TIMESINCEIRR
-        t2 <- temp_TIMESINCEIRR + temp_IRR_TIME
-
-        if(t_star == "half"){
-          ##calculate t_star
-          t_star <- t1 + (t2 - t1)/2
-
-        }else if (t_star == "end"){
-          ##set t_start as t_1 (so after the end of irradiation)
-          t_star <- t1
-
-        }else{
-          stop("[analyse_FadingMeasurement()] Invalid value for t_star.", call. = FALSE)
-
-        }
-
-        return(t_star)
+         return(temp_IRR_TIME)
 
       }))
 
@@ -322,6 +307,35 @@ analyse_FadingMeasurement <- function(
       return(NULL)
 
     }
+
+    ##correct irradiation time for t_star
+    ##in accordance with Auclair et al., 2003, p. 488
+    ##but here we have no t1 ... this needs to be calculated
+    ##set variables
+    t1 <- TIMESINCEIRR
+    t2 <- TIMESINCEIRR + irradiation_times
+
+    if(is(t_star, "function")){
+      t_star <- t_star(t1)
+
+    } else {
+      if(t_star == "half"){
+        ##calculate t_star
+        t_star <- t1 + (t2 - t1)/2
+
+      }else if (t_star == "end"){
+        ##set t_start as t_1 (so after the end of irradiation)
+        t_star <- t1
+
+      }else{
+        stop("[analyse_FadingMeasurement()] Invalid value for t_star.", call. = FALSE)
+
+      }
+    }
+
+    ##overwrite TIMESINCEIRR
+    TIMESINCEIRR <- t_star
+    rm(t_star)
 
     # Calculation ---------------------------------------------------------------------------------
 
@@ -819,6 +833,15 @@ analyse_FadingMeasurement <- function(
             labels = sapply(x_axis_lab, function(i)
               as.expression(bquote(10 ^ .(i))))
           )
+          ##lower axis
+          axis(
+            side = 1,
+            at = x_axis_ticks,
+            labels = paste0("[",round(x_axis_ticks,1),"]"),
+            cex.axis = 0.7,
+            tick = FALSE,
+            line = 0.75)
+
         } else {
           axis(
             side = 1,
@@ -827,17 +850,17 @@ analyse_FadingMeasurement <- function(
                                                 digits = 0,
                                                 decimal.mark = "",
                                                 scientific = TRUE)))
-        }
 
-        ##now add also the log axis
-        axis(
-          side = 1,
-          at = x_axis_ticks,
-          labels = paste0("[",axTicks(1),"]"),
-          cex.axis = 0.7,
-          tick = FALSE,
-          line = 0.75,
-        )
+          ##lower axis
+          axis(
+            side = 1,
+            at = axTicks(1),
+            labels = axTicks(1),
+            cex.axis = 0.7,
+            tick = FALSE,
+            line = 0.75)
+
+        }
 
         mtext(
           side = 3,
@@ -998,17 +1021,3 @@ analyse_FadingMeasurement <- function(
   ))
 
 }
-
-
-## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
-data("ExampleData.Fading", envir = environment())
-
-##(1) get fading measurement data (here a three column data.frame)
-fading_data <- ExampleData.Fading$fading.data$IR50
-
-##(2) run analysis
-g_value <- analyse_FadingMeasurement(
-  fading_data,
-  plot = TRUE,
-  verbose = TRUE,
-  n.MC = 10)
