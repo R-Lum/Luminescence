@@ -52,6 +52,7 @@ much confusion, and now the values are shown with superscripts, e.g., `10^0, 10^
 If the number of data points is too small, the function will fall back to the old representation.
 * The function did not work properly for less than five data points and stopped with 
 `Error in rep(rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5)` (thanks to Annette Kadereit for flagging this issue)
+* The function now shows also the normalised log-values under the time-scale (#97)
 
 #### `plot_RLum.Data.Curve()` 
 * The argument `norm` now supports the options `"max"` for a normalisation to 

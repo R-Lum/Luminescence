@@ -104,7 +104,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.14
+#' @section Function version: 0.1.15
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -829,6 +829,16 @@ analyse_FadingMeasurement <- function(
                                                 scientific = TRUE)))
         }
 
+        ##now add also the log axis
+        axis(
+          side = 1,
+          at = x_axis_ticks,
+          labels = paste0("[",axTicks(1),"]"),
+          cex.axis = 0.7,
+          tick = FALSE,
+          line = 0.75,
+        )
+
         mtext(
           side = 3,
           paste0(
@@ -988,3 +998,17 @@ analyse_FadingMeasurement <- function(
   ))
 
 }
+
+
+## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
+data("ExampleData.Fading", envir = environment())
+
+##(1) get fading measurement data (here a three column data.frame)
+fading_data <- ExampleData.Fading$fading.data$IR50
+
+##(2) run analysis
+g_value <- analyse_FadingMeasurement(
+  fading_data,
+  plot = TRUE,
+  verbose = TRUE,
+  n.MC = 10)
