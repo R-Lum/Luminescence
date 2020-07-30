@@ -55,7 +55,7 @@ If the number of data points is too small, the function will fall back to the ol
 * The function now shows also the normalised log-values under the time-scale (#97)
 * As it turned out, `t_star` did not work if the input was produced by `read_BIN2R()`; fixed along with (#97)
 * `t_star` now can be a function, e.g., `function(x) x+100`, which would add a constant value to all 
-`TIMESINCEIRR` values. 
+`TIMESINCEIRR` values (#97).
 
 #### `plot_RLum.Data.Curve()` 
 * The argument `norm` now supports the options `"max"` for a normalisation to 
