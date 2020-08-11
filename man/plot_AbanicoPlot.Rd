@@ -469,7 +469,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2020. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-69. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2020. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-72. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
