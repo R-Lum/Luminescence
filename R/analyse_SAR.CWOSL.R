@@ -140,7 +140,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.10
+#' @section Function version: 0.8.11
 #'
 #' @author
 #' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
@@ -635,47 +635,13 @@ if(is.list(object)){
     TL.Curves.ID <-
       suppressWarnings(get_RLum(object, recordType = "TL$", get.index = TRUE))
 
-    ##separate TL curves
-    TL.Curves.ID.Lx <-
-      lapply(1:length(OSL.Curves.ID.Lx), function(x) {
-        TL.Curves.ID[which(TL.Curves.ID == (OSL.Curves.ID.Lx[x] - 1))]
-      })
+    ##separate TL curves which is always coming before the OSL curve
+    ##Note: we do not check anymore whether the sequence makes sense.
+    TL.Curves.ID.Lx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Lx - 1)]
+    TL.Curves.ID.Tx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Tx - 1)]
 
 
-    TL.Curves.ID.Tx <-
-      lapply(1:length(OSL.Curves.ID.Tx), function(x) {
-        TL.Curves.ID[which(TL.Curves.ID == (OSL.Curves.ID.Tx[x] - 1))]
-      })
-
-
-    # COMPONENT FITTING -------------------------------------------------------
-
-
-    # for(x in seq(1,length(OSL.Curves.ID),by=2)){
-    #
-    #
-    #   temp.fit.output <- fit_CWCurve(object@records[[OSL.Curves.ID[x]]],
-    #                 n.components.max=3,
-    #                 output.terminal = FALSE,
-    #                 output.terminalAdvanced = FALSE,
-    #                 plot = FALSE
-    #
-    #               )
-    #   if(exists("fit.output") == FALSE){
-    #
-    #     fit.output <- get_RLum(temp.fit.output)
-    #
-    #   }else{
-    #
-    #     fit.output <- rbind(fit.output, get_RLum(temp.fit.output))
-    #
-    #   }
-    #
-    # }
-
-    ##TODO
-
-    # Calculate LnLxTnTx values  --------------------------------------------------
+# Calculate LnLxTnTx values  --------------------------------------------------
 
     ##calculate LxTx values using external function
     LnLxTnTx <- lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
