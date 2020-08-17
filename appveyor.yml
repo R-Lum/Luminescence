@@ -20,6 +20,8 @@ cache:
 environment:
   global:
     WARNINGS_ARE_ERRORS: 1
+    NOT_CRAN: true
+    PKGTYPE: both
 
   matrix:
   - R_VERSION: devel
