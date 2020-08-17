@@ -60,7 +60,6 @@ test_that("test support for IR-RF data", {
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
   temp <- read_RF2R(file)
 
-  expect_s4_class(analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1),
-    "RLum.Results")
+  expect_s4_class(analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1), "RLum.Results")
 
 })

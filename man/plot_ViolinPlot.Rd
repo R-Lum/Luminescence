@@ -82,7 +82,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-85. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-86. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
