@@ -52,3 +52,16 @@ test_that("test controlled chrash conditions", {
 
 
 })
+
+test_that("test support for IR-RF data", {
+  testthat::skip_on_cran()
+
+  ## get needed data
+  file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
+  temp <- read_RF2R(file)
+
+  expect_s4_class(
+    analyse_IRSAR.RF(object = temp[1:2], method = "SLIDE", plot_reduced = TRUE, n.MC = 1),
+    "RLum.Results")
+
+})

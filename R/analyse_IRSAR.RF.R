@@ -308,7 +308,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.5
+#' @section Function version: 0.7.6
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -458,7 +458,11 @@ analyse_IRSAR.RF<- function(
       }
 
     }else{
-      temp_main <- as.list(paste0("ALQ #",1:length(object)))
+      if(object[[1]]@originator == "read_RF2R"){
+        temp_main <- as.list(paste0("ROI #",1:length(object)))
+      } else {
+        temp_main <- as.list(paste0("ALQ #",1:length(object)))
+      }
 
     }
 
@@ -1583,9 +1587,7 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
   # Plotting ------------------------------------------------------------------------------------
   ##===============================================================================================#
-
-  if(plot){
-
+  if (plot) {
 
     ##get internal colour definition
     col <- get("col", pos = .LuminescenceEnv)
@@ -1607,9 +1609,7 @@ analyse_IRSAR.RF<- function(
 
       }
     }else{
-
       if(plot.settings[["cex"]] != 1){
-
         def.par <- par()[["cex"]]
         on.exit(par(def.par))
 

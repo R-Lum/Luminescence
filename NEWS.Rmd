@@ -63,6 +63,10 @@ If the number of data points is too small, the function will fall back to the ol
 * `t_star` now can be a function, e.g., `function(x) x+100`, which would add a constant value to all 
 `TIMESINCEIRR` values (#97).
 
+#### `analyse_IRSAR.RF()`
+* The function learned to recognise input from `read_RF2R` and changes the header
+labelling accordingly.
+
 #### `plot_RLum.Data.Curve()` 
 * The argument `norm` now supports the options `"max"` for a normalisation to 
 the highest point (the default), `"min"` for a normalisation to the lowest point and `huot` 
