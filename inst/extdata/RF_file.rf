@@ -1,4 +1,4 @@
-<macro_version=17-10-2018 imagej_version=1.52h99 ID=P10c_natural.tif_2018-10-22_145700 source_nat=P10c_natural.tif source_reg=P10c_bleached.tif source_background=none image_width=390 image_heigth=390 running_median=5 background_substraction=0 image_alignment=1 translation_x=0.8863 translation_y=-1.5723 rotation=0.1136 grain_threshold=10 grain_d=20>
+<macro_version=17-10-2018 imagej_version=1.52h99 ID=P10c_natural.tif_2018-10-22_145700 source_nat=P10c_natural.tif source_reg=P10c_bleached.tif source_background=none image_width=390 image_height=390 running_median=5 background_substraction=0 image_alignment=1 translation_x=0.8863 translation_y=-1.5723 rotation=0.1136 grain_threshold=10 grain_d=20>
 <Statistics>
 ROI:	ROI 1	ROI 2	ROI 3	ROI 4	ROI 5	ROI 6	ROI 7	ROI 8	ROI 9	ROI 10	ROI 11
 x:	19	117	135	54	49	78	209	108	246	232	28
