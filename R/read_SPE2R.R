@@ -58,7 +58,7 @@
 #'
 #' *Currently not all information provided by the SPE format are supported.*
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -188,7 +188,7 @@ read_SPE2R <- function(
   yDimDet <- readBin(con, what="int", 1, size=2, endian="little", signed = TRUE)
 
   #Date
-  Date <- readChar(con, 10, useBytes=TRUE)
+  Date <- suppressWarnings(readChar(con, 10, useBytes=TRUE))
 
   ##jump
   stepping <- readBin(con, what="raw", 4, size=1, endian="little", signed = TRUE)

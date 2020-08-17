@@ -86,6 +86,10 @@ for a normalisation suggested by Sébastien Huot (#87) via GitHub. Please note t
 * Function complained about missing header; fixed.
 * Function threw warnings `Duplicate identifier 'root'`; fixed.
 
+#### `read_SPE2R()`
+* The function threw a warning about truncated strings; the warning was not relevant
+and is no suppressed. 
+
 #### `verify_SingleGrainData()` 
 * The function did not always return a plot: Fixed. 
 
