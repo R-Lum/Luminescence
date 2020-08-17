@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.8.9000-72
-Date: 2020-08-11
+Version: 0.9.8.9000-76
+Date: 2020-08-17
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -201,6 +201,7 @@ Collate:
     'plot_RLum.Data.Spectrum.R'
     'plot_RLum.R'
     'plot_RLum.Results.R'
+    'plot_ROI.R'
     'plot_RadialPlot.R'
     'plot_Risoe.BINfileData.R'
     'plot_ViolinPlot.R'
