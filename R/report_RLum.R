@@ -38,13 +38,14 @@
 #'
 #' \tabular{ll}{
 #' **Argument** \tab **Description** \cr
-#' `short_table` \tab If `TRUE` only show the first and last 5 rows of lang tables. \cr
+#' `short_table` \tab If `TRUE` only show the first and last 5 rows of long tables. \cr
 #' `theme` \tab Specifies the Bootstrap
-#' theme to use for the report. Valid themes include "default", "cerulean", "journal", "flatly",
-#' "readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti". \cr
-#' `highlight` \tab Specifies the syntax highlighting
-#'  style. Supported styles include "default", "tango", "pygments", "kate", "monochrome",
-#'  "espresso", "zenburn", "haddock", and "textmate". \cr
+#' theme to use for the report. Valid themes include `"default"`, `"cerulean"`, `"journal"`, `"flatly"`,
+#' `"readable"`, `"spacelab"`, `"united"`, `"cosmo"`, `"lumen"`, `"paper"`, `"sandstone"`,
+#' `"simplex"`, and `"yeti"`. \cr
+#' `highlight` \tab Specifies the syntax highlighting style.
+#'  Supported styles include `"default"`, `"tango"`, `"pygments"`, `"kate"`, `"monochrome"`,
+#'  `"espresso"`, `"zenburn"`, `"haddock"`, and `"textmate"`. \cr
 #' `css` \tab `TRUE` or `FALSE` to enable/disable custom CSS styling \cr
 #' }
 #'
@@ -52,9 +53,9 @@
 #'
 #' \tabular{ll}{
 #' **Argument** \tab **Description** \cr
-#' `font_family` \tab Define the font family of the HTML document (default: arial) \cr
+#' `font_family` \tab Define the font family of the HTML document (default: `"arial"`) \cr
 #' `headings_size` \tab Size of the `<h1>` to `<h6>` tags used to define HTML headings (default: 166%). \cr
-#' `content_color` \tab Color of the object's content (default: #a72925). \cr
+#' `content_color` \tab Colour of the object's content (default: #a72925). \cr
 #' }
 #'
 #' Note that these arguments must all be of class [character] and follow standard CSS syntax.
@@ -91,7 +92,7 @@
 #' Path to a CSS file to change the default styling of the HTML document.
 #'
 #' @param quiet [logical] (*with default*):
-#' `TRUE` to supress printing of the pandoc command line.
+#' `TRUE` to suppress printing of the pandoc command line.
 #'
 #' @param clean [logical] (*with default*):
 #' `TRUE` to clean intermediate files created during rendering.
@@ -99,7 +100,7 @@
 #' @param ... further arguments passed to or from other methods and to control
 #' the document's structure (see details).
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),

@@ -1,6 +1,5 @@
 ## Release summary
 
-
 ## Addressed CRAN issues
 
 > Undeclared package ‘shiny’ in Rd xrefs 
