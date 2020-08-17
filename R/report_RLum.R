@@ -279,6 +279,7 @@ report_RLum <- function(
 
   # HEADER ----
   writeLines("---", tmp)
+  writeLines("title: RLum.Report", tmp)
   writeLines("output:", tmp)
   writeLines("  html_document:", tmp)
   writeLines("    mathjax: null", tmp)
