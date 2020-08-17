@@ -6,7 +6,8 @@ test_that("check class and length of output", {
   set.seed(1)
   data(ExampleData.RLum.Analysis, envir = environment())
   results_fit <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "FIT")
-  results_slide <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "SLIDE", n.MC = NULL)
+  results_slide <- suppressWarnings(
+    analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "SLIDE", n.MC = NULL))
   results_slide_alt <-
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
@@ -47,7 +48,7 @@ test_that("test controlled chrash conditions", {
       n.MC = 2,
       method.control = list(vslide_range = c(0,1e+07)),
       txtProgressBar = FALSE
-    ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!", fixed = TRUE)
+    ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
 
 
 
@@ -60,6 +61,6 @@ test_that("test support for IR-RF data", {
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
   temp <- read_RF2R(file)
 
-  expect_s4_class(analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1), "RLum.Results")
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1)), "RLum.Results")
 
 })

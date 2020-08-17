@@ -2,7 +2,7 @@
 // Title:   src_analyse_IRSARRF_SRS()
 // Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
 // Contact: sebastian.kreutzer@aber.ac.uk
-// Version: 0.3.5 [2017-02-06]
+// Version: 0.4.0 [2020-08-17]
 // Purpose:
 //
 //    Function calculates the squared residuals for the R function analyse_IRSAR.RF()
@@ -184,3 +184,10 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 
   return results_list;
 }
+
+/*** R
+microbenchmark::microbenchmark(
+  test = src_analyse_IRSARRF_SRS(
+    values_regenerated_limited = 1:1000, values_natural_limited = 1:100, vslide_range = c(2), n_MC = 1),
+  times = 1)
+*/
