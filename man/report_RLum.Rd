@@ -49,7 +49,7 @@ it has been rendered.}
 Path to a CSS file to change the default styling of the HTML document.}
 
 \item{quiet}{\link{logical} (\emph{with default}):
-\code{TRUE} to supress printing of the pandoc command line.}
+\code{TRUE} to suppress printing of the pandoc command line.}
 
 \item{clean}{\link{logical} (\emph{with default}):
 \code{TRUE} to clean intermediate files created during rendering.}
@@ -102,13 +102,14 @@ Further options that can be provided via the \code{...} argument:
 
 \tabular{ll}{
 \strong{Argument} \tab \strong{Description} \cr
-\code{short_table} \tab If \code{TRUE} only show the first and last 5 rows of lang tables. \cr
+\code{short_table} \tab If \code{TRUE} only show the first and last 5 rows of long tables. \cr
 \code{theme} \tab Specifies the Bootstrap
-theme to use for the report. Valid themes include "default", "cerulean", "journal", "flatly",
-"readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti". \cr
-\code{highlight} \tab Specifies the syntax highlighting
-style. Supported styles include "default", "tango", "pygments", "kate", "monochrome",
-"espresso", "zenburn", "haddock", and "textmate". \cr
+theme to use for the report. Valid themes include \code{"default"}, \code{"cerulean"}, \code{"journal"}, \code{"flatly"},
+\code{"readable"}, \code{"spacelab"}, \code{"united"}, \code{"cosmo"}, \code{"lumen"}, \code{"paper"}, \code{"sandstone"},
+\code{"simplex"}, and \code{"yeti"}. \cr
+\code{highlight} \tab Specifies the syntax highlighting style.
+Supported styles include \code{"default"}, \code{"tango"}, \code{"pygments"}, \code{"kate"}, \code{"monochrome"},
+\code{"espresso"}, \code{"zenburn"}, \code{"haddock"}, and \code{"textmate"}. \cr
 \code{css} \tab \code{TRUE} or \code{FALSE} to enable/disable custom CSS styling \cr
 }
 
@@ -116,9 +117,9 @@ The following arguments can be used to customise the report via CSS (Cascading S
 
 \tabular{ll}{
 \strong{Argument} \tab \strong{Description} \cr
-\code{font_family} \tab Define the font family of the HTML document (default: arial) \cr
+\code{font_family} \tab Define the font family of the HTML document (default: \code{"arial"}) \cr
 \code{headings_size} \tab Size of the \verb{<h1>} to \verb{<h6>} tags used to define HTML headings (default: 166\%). \cr
-\code{content_color} \tab Color of the object's content (default: #a72925). \cr
+\code{content_color} \tab Colour of the object's content (default: #a72925). \cr
 }
 
 Note that these arguments must all be of class \link{character} and follow standard CSS syntax.
@@ -129,7 +130,7 @@ CSS styling can be turned of using \code{css = FALSE}.
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{
@@ -204,6 +205,6 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2020. report_RLum(): Create a HTML-report for (RLum) objects. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-80. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2020. report_RLum(): Create a HTML-report for (RLum) objects. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-85. https://CRAN.R-project.org/package=Luminescence
 }
 

@@ -1,10 +1,12 @@
 ## Release summary
 
+- new address... 
+
 ## Addressed CRAN issues
 
 > Undeclared package ‘shiny’ in Rd xrefs 
 
-We removed the link to the 'shiny' package, since it is not used direclty 
+We removed the link to the 'shiny' package, since it is not used directly
 by 'Luminescence'.
 
 ## Win-Builder
