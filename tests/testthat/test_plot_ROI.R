@@ -13,6 +13,7 @@ test_that("Complete test", {
 
   ##test standard cases
   expect_silent(plot_ROI(temp))
+  expect_silent(plot_ROI(temp, grid = TRUE))
 
   ##test non-list case
   expect_silent(plot_ROI(temp[[1]]))
