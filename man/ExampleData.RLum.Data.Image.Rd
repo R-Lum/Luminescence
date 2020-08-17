@@ -3,7 +3,9 @@
 \name{ExampleData.RLum.Data.Image}
 \alias{ExampleData.RLum.Data.Image}
 \title{Example data as \linkS4class{RLum.Data.Image} objects}
-\format{Object of class \linkS4class{RLum.Data.Image}}
+\format{
+Object of class \linkS4class{RLum.Data.Image}
+}
 \source{
 \strong{ExampleData.RLum.Data.Image}
 

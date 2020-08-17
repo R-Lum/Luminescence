@@ -3,8 +3,10 @@
 \name{ExampleData.ScaleGammaDose}
 \alias{ExampleData.ScaleGammaDose}
 \title{Example data for scale_GammaDose()}
-\format{A \code{\link{data.frame}}. Please see \code{?scale_GammaDose()} for a detailed description
-of its structure.}
+\format{
+A \code{\link{data.frame}}. Please see \code{?scale_GammaDose()} for a detailed description
+of its structure.
+}
 \description{
 An example data set for the function \code{scale_GammaDose()} containing layer
 specific information to scale the gamma dose rate considering variations in

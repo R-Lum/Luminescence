@@ -98,7 +98,7 @@ function using \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}. In most cases, the de
 sometimes it may be useful to restrict the lower bounds to e.g.
 c(\verb{0, 0, 0}). The values of the vector are for parameters
 \code{a}, \code{D0} and \code{c} in that particular order (see details in
-\link[Luminescence:plot_GrowthCurve]{Luminescence::plot_GrowthCurve}).}
+\link{plot_GrowthCurve}).}
 
 \item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user

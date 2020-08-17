@@ -4,9 +4,11 @@
 \alias{ExampleData.RLum.Analysis}
 \alias{IRSAR.RF.Data}
 \title{Example data as \linkS4class{RLum.Analysis} objects}
-\format{\code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
+\format{
+\code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
 
-Each object contains data needed for the given protocol analysis.}
+Each object contains data needed for the given protocol analysis.
+}
 \source{
 \strong{IRSAR.RF.Data}
 

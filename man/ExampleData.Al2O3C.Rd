@@ -5,7 +5,8 @@
 \alias{data_CrossTalk}
 \alias{data_ITC}
 \title{Example Al2O3:C Measurement Data}
-\format{Two datasets comprising \linkS4class{RLum.Analysis} data imported using the function \link{read_XSYG2R}
+\format{
+Two datasets comprising \linkS4class{RLum.Analysis} data imported using the function \link{read_XSYG2R}
 
 \describe{
 \code{data_ITC}: Measurement data to determine the irradiation time correction, the data can
@@ -14,7 +15,8 @@ be analysed with the function \link{analyse_Al2O3C_ITC}
 \code{data_CrossTalk}: Measurement data obtained while estimating the irradiation cross-talk of the
 reader used for the experiments. The data can be analysed either with the function
 \link{analyse_Al2O3C_CrossTalk} or \link{analyse_Al2O3C_Measurement}
-}}
+}
+}
 \description{
 Measurement data obtained from measuring Al2O3:C chips at the IRAMAT-CRP2A, Université Bordeaux
 Montainge in 2017 on a Freiberg Instruments lexsyg SMART reader.

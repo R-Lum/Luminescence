@@ -6,7 +6,8 @@
 \alias{values.factor.Altitude}
 \alias{values.par.FJH}
 \title{Base data set for cosmic dose rate calculation}
-\format{\tabular{ll}{
+\format{
+\tabular{ll}{
 
 \code{values.cosmic.Softcomp}: \tab
 data frame containing cosmic dose rates
@@ -24,7 +25,8 @@ data frame containing values for parameters F, J
 and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression \cr
 }
 
-\deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}}
+\deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}
+}
 \source{
 The following data were carefully read from figures in mentioned
 sources and used for fitting procedures. The derived expressions are used in

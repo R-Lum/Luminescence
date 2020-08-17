@@ -5,12 +5,14 @@
 \alias{ExampleData.CW_OSL_Curve}
 \alias{CW_Curve.BosWallinga2012}
 \title{Example CW-OSL curve data for the package Luminescence}
-\format{Data frame with 1000 observations on the following 2 variables:
+\format{
+Data frame with 1000 observations on the following 2 variables:
 
 \describe{
 \item{list("x")}{a numeric vector, time}
 \item{list("y")}{a numeric vector, counts}
-}}
+}
+}
 \source{
 \strong{ExampleData.CW_OSL_Curve}
 

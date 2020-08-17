@@ -3,7 +3,8 @@
 \name{ExampleData.Fading}
 \alias{ExampleData.Fading}
 \title{Example data for feldspar fading measurements}
-\format{A \link{list} with two elements, each containing a further \link{list} of
+\format{
+A \link{list} with two elements, each containing a further \link{list} of
 \link{data.frame}s containing the data on the fading and equivalent dose measurements:
 
 \describe{
@@ -20,7 +21,8 @@ each having three named columns (\verb{dose, LxTx, LxTx.error}).\cr
 \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr
 \code{..$IR150}: Equivalent dose measurement data of the IR150 signal.\cr
 \code{..$IR225}: Equivalent dose measurement data of the IR225 signal.\cr
-}}
+}
+}
 \source{
 These data were kindly provided by Georgina E. King. Detailed information
 on the sample UNIL/NB123 can be found in the reference given below. The raw

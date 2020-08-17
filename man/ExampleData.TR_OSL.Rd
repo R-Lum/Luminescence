@@ -3,12 +3,14 @@
 \name{ExampleData.TR_OSL}
 \alias{ExampleData.TR_OSL}
 \title{Example TR-OSL data}
-\format{One \linkS4class{RLum.Data.Curve} dataset imported using the function \link{read_XSYG2R}
+\format{
+One \linkS4class{RLum.Data.Curve} dataset imported using the function \link{read_XSYG2R}
 
 \describe{
 \code{ExampleData.TR_OSL}: A single \linkS4class{RLum.Data.Curve} object with the TR-OSL data
 
-}}
+}
+}
 \description{
 Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
 (origin: Trebgast Valley, Germay, quartz, 90-200 µm, unpublished data).

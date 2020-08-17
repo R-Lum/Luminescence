@@ -23,7 +23,7 @@ This function is a convenient method for installing the development
 version of the R package 'Luminescence' directly from GitHub.
 }
 \details{
-This function uses \link[Luminescence:GitHub-API]{Luminescence::github_branches} to check
+This function uses \link[=GitHub-API]{Luminescence::github_branches} to check
 which development branches of the R package 'Luminescence' are currently
 available on GitHub. The user is then prompted to choose one of the branches
 to be installed. It further checks whether the R package 'devtools' is

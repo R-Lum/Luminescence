@@ -6,7 +6,8 @@
 \alias{TL.Spectrum}
 \title{Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 reader}
-\format{\code{OSL.SARMeasurement}: SAR OSL measurement data
+\format{
+\code{OSL.SARMeasurement}: SAR OSL measurement data
 
 The data contain two elements: (a) \verb{$Sequence.Header} is a
 \link{data.frame} with metadata from the measurement,(b)
@@ -19,7 +20,8 @@ for further analysis.
 spectrum was cleaned from cosmic-rays using the function
 
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
-was performed.}
+was performed.
+}
 \source{
 \strong{OSL.SARMeasurement}
 
