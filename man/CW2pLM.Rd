@@ -66,7 +66,7 @@ plot(values.transformed)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-88. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-89. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -78,7 +78,7 @@ convert_Activity2Concentration(data)
 } 
 
 \section{How to cite}{
-Fuchs, M.C., 2020. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-88. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., 2020. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-89. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
