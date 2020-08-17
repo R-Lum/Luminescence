@@ -79,14 +79,14 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   //start loop
   do {
 
-    for (int t=0;t<t_leftright.size(); t++){
+    for (int t=0;t<static_cast<int>(t_leftright.size()); t++){
 
       //HORIZONTAL SLIDING CORE -------------------------------------------------------------(start)
       //slide the curves against each other
-      for (int i=0; i<results.size(); ++i){
+      for (int i=0; i<static_cast<int>(results.size()); ++i){
 
         //calculate squared residuals along one curve
-        for (int j=0; j<values_natural_limited.size(); ++j){
+        for (int j=0; j<static_cast<int>(values_natural_limited.size()); ++j){
           residuals[j] = pow((values_regenerated_limited[j+i] - (values_natural_limited[j] + vslide_range[t_leftright[t]])),2);
 
         }
@@ -157,7 +157,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 
 
   //this follows the way described in Frouin et al., 2017 ... still ...
-  for (int i=0; i<results_vector_min_MC.size(); ++i){
+  for (int i=0; i<static_cast<int>(results_vector_min_MC.size()); ++i){
     results_vector_min_MC[i] = min(
       RcppArmadillo::sample(
         results,
