@@ -99,7 +99,7 @@
 #' @param ... further arguments passed to or from other methods and to control
 #' the document's structure (see details).
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),
@@ -274,6 +274,9 @@ report_RLum <- function(
   # save RDS file
   saveRDS(object, file.rds)
 
+  # get object
+  elements <- .struct_RLum(object, root = deparse(substitute(object)))
+
   ## ------------------------------------------------------------------------ ##
   ## WRITE CONTENT ----
 
@@ -299,7 +302,8 @@ report_RLum <- function(
     writeLines(paste0(
       "<style>",
       paste0("h1, h2, h3, h4, h5, h6 { font-size:", css$headings_size," } \n"),
-      paste0("#root { color: ", css$content_color," } \n"),
+      paste0("#root", seq(1,nrow(elements)), " { color: ",
+             css$content_color," } \n"),
       paste0("BODY { font-family:", css$font_family, " } \n"),
       "</style>"
     ),
@@ -351,8 +355,6 @@ report_RLum <- function(
   }#EndOf::Header
 
   # OBJECT ----
-  elements <- .struct_RLum(object, root = deparse(substitute(object)))
-
   if (structure$main) {
     for (i in 1:nrow(elements)) {
 
@@ -377,7 +379,7 @@ report_RLum <- function(
         hlevel <- paste(rep("#", elements$depth[i]), collapse = "")
 
       # write header; number of dots represents depth in the object. because there
-      # may be duplicate header names, for each further occurence of a name
+      # may be duplicate header names, for each further occurrence of a name
       # Zero-width non-joiner entities are added to the name (non visible)
       writeLines(paste0(hlevel, " ",
                         "<span style='color:#74a9d8'>",
@@ -386,7 +388,8 @@ report_RLum <- function(
                         "</span>",
                         paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
                         short.name[length(short.name)],
-                        ifelse(elements$endpoint[i], "", "{#root}"),
+                        ifelse(elements$endpoint[i], "", paste0("{#root",i,"}")),
+                        ##ifelse(elements$endpoint[i], "", "{#root}"),
                         "\n\n"),
                  tmp)
 

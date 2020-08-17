@@ -78,6 +78,10 @@ the highest point (the default), `"min"` for a normalisation to the lowest point
 for a normalisation suggested by Sébastien Huot (#87) via GitHub. Please note that 
 `norm` only works if `combine = TRUE`. 
 
+#### `report_RLum()`
+* Function complained about missing header; fixed.
+* Function threw warnings `Duplicate identifier 'root'`; fixed.
+
 #### `verify_SingleGrainData()` 
 * The function did not always return a plot: Fixed. 
 
