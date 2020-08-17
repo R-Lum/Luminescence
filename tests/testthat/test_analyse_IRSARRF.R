@@ -61,7 +61,7 @@ test_that("test support for IR-RF data", {
   temp <- read_RF2R(file)
 
   expect_s4_class(
-    analyse_IRSAR.RF(object = temp[1:2], method = "SLIDE", plot_reduced = TRUE, n.MC = 1),
+    analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1),
     "RLum.Results")
 
 })
