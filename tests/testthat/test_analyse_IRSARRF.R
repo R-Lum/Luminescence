@@ -37,15 +37,15 @@ test_that("check class and length of output", {
 test_that("test controlled chrash conditions", {
   testthat::skip_on_cran()
 
-  ##the sliding range should not exceed a certrain value ... test it
+  ##the sliding range should not exceed a certain value ... test it
   data(ExampleData.RLum.Analysis, envir = environment())
   expect_error(
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
       method = "SLIDE",
-      n.MC = 10,
-      method.control = list(vslide_range = c(0,1e+08)),
+      n.MC = 2,
+      method.control = list(vslide_range = c(0,1e+07)),
       txtProgressBar = FALSE
     ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!", fixed = TRUE)
 

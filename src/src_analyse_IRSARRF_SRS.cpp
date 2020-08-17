@@ -25,8 +25,8 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 ){
 
   //check for the vslide_range()
-  if(vslide_range.size() > 1e+08){
-    stop("[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!");
+  if(vslide_range.size() > 1e+07){
+    stop("[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!");
   }
 
 
