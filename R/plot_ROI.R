@@ -183,18 +183,17 @@ plot_ROI <- function(
       if(!i%in%sel_euc_dist && !i%in%exclude_ROI)
         points(x = m[i, "x"], y = m[i, "y"], pch = 4, col = "red")
 
-      if (i > 1) {
-        ## add text
-        graphics::text(
-          x = m[i, "x"],
-          y = m[i, "y"],
-          labels = plot_settings$text.labels[i],
-          cex = 0.6,
-          pos = 3,
-          offset = plot_settings$text.offset
-        )
-      }
     }
+
+    ## add text
+    graphics::text(
+       x = m[-exclude_ROI, "x"],
+       y = m[-exclude_ROI, "y"],
+       labels = plot_settings$text.labels[-exclude_ROI],
+       cex = 0.6,
+       pos = 3,
+       offset = plot_settings$text.offset
+     )
 
     ##add legend
     if(plot_settings$legend) {
