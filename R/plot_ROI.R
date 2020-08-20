@@ -9,16 +9,30 @@
 #'data input. Please note that to avoid function errors, only input created
 #'by the function [read_RF2R] is accepted
 #'
+#'@param exclude_ROI [numeric] (*with default*): option to remove particular ROIs from the
+#'analysis. Those ROIs are plotted but not coloured and not taken into account
+#'in distance analysis. `0` excludes nothing.
+#'
+#'@param dist_thre [numeric] (*optional*): euclidean distance threshold in pixel
+#'distance. All ROI for which the euclidean distance is smaller are marked. This
+#'helps to identify ROIs that might be affected by signal cross-talk. Note:
+#'the distance is calculated from the centre of an ROI, e.g., the threshold
+#'should include consider the ROIs or grain radius.
+#'
+#'@param dim.CCD [numeric] (*optional*): metric x and y for the recorded (chip)
+#'surface in µm. For instance `c(8192,8192)`, if set additional x and y-axes are shown
+#'
 #'@param plot [logical] (*with default*): enable or disable plot output to use
 #'the function only to extract the ROI data
 #'
 #'@param ... further parameters to manipulate the plot. On top of all arguments of
 #'[graphics::plot.default] the following arguments are supported: `lwd.ROI`, `lty.ROI`,
-#'`col.ROI`, `col.pixed`, `text.labels`, `text.offset`, `grid` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`),
+#'`col.ROI`, `col.pixel`, `text.labels`, `text.offset`, `grid` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`),
 #'`legend.text`, `legend.pos`
 #'
 #'@return An ROI plot and an [RLum.Results-class] object with a matrix containing
-#'the extracted ROI data.
+#'the extracted ROI data and a object produced by [stats::dist] containing
+#'the euclidean distance between the ROIS.
 #'
 #'@section Function version: 0.1.0
 #'
@@ -38,6 +52,9 @@
 #'@export
 plot_ROI <- function(
   object,
+  exclude_ROI = c(1),
+  dist_thre = -Inf,
+  dim.CCD = NULL,
   plot = TRUE,
   ...) {
   ##extract content helper function
@@ -72,6 +89,22 @@ plot_ROI <- function(
   ##make numeric
   storage.mode(m) <- "numeric"
 
+  ## add mid_x and mid_y
+  m <- cbind(m, mid_x = c(m[,"x"] + m[,"width"] / 2), mid_y =  c(m[,"y"] + m[,"height"] / 2))
+  rownames(m) <- m[,"ROI"]
+
+  ## distance calculation
+  euc_dist <- sel_euc_dist <- stats::dist(m[-exclude_ROI,c("mid_x","mid_y")])
+
+  ## distance threshold selector
+  sel_euc_dist[sel_euc_dist < dist_thre[1]] <- NA
+  sel_euc_dist <- as.numeric(rownames(na.exclude(as.matrix(sel_euc_dist))))
+
+
+  ## add information to matrix
+  m <- cbind(m, dist_sel = FALSE)
+  m[sel_euc_dist ,"dist_sel"] <- TRUE
+
   ## --- Plotting ---
   if(plot) {
     plot_settings <- modifyList(x = list(
@@ -89,9 +122,10 @@ plot_ROI <- function(
       text.offset = 0.3,
       grid = FALSE,
       legend = TRUE,
-      legend.text = c("ROI", "sel. pixel"),
+      legend.text = c("ROI", "sel. pixel", "> dist_thre"),
       legend.pos = "topright"
     ), val = list(...))
+
 
     ## set plot area
     do.call(
@@ -102,9 +136,31 @@ plot_ROI <- function(
 
     if (plot_settings$grid) grid(nx = max(m[,"img_width"]), ny = max(m[,"img_height"]))
 
+    ## plot metric scale
+    if (!is.null(dim.CCD)) {
+      axis(
+        side = 1,
+        at = axTicks(1),
+        labels = paste(floor(dim.CCD[1] / max(m[,"img_width"]) * axTicks(1)), "µm"),
+        lwd = -1,
+        lwd.ticks = -1,
+        line = -2.2,
+        cex.axis = 0.8
+      )
+      axis(
+        side = 2,
+        at = axTicks(2)[-1],
+        labels = paste(floor(dim.CCD[2] / max(m[,"img_height"]) * axTicks(2)), "µm")[-1],
+        lwd = -1,
+        lwd.ticks = -1,
+        line = -2.2,
+        cex.axis = 0.8
+      )
+    }
+
     ## add circles and rectangles
     for (i in 1:nrow(m)) {
-      if (i > 1) {
+      if (!i%in%exclude_ROI) {
         ## mark selected pixels
         polygon(
           x = c(m[i, "x"], m[i, "x"], m[i, "x"] + m[i, "width"], m[i, "x"] + m[i, "width"]),
@@ -122,6 +178,10 @@ plot_ROI <- function(
         lty = plot_settings$lty.ROI,
         lwd = plot_settings$lwd.ROI
       )
+
+      ## add distance marker
+      if(!i%in%sel_euc_dist && !i%in%exclude_ROI)
+        points(x = m[i, "x"], y = m[i, "y"], pch = 4, col = "red")
 
       if (i > 1) {
         ## add text
@@ -141,15 +201,24 @@ plot_ROI <- function(
       legend(
         plot_settings$legend.pos,
         bty = "n",
-        pch  = c(1, 15),
+        pch  = c(1, 15, 4),
         legend = plot_settings$legend.text,
-        col = c(plot_settings$col.ROI, plot_settings$col.pixel)
+        col = c(plot_settings$col.ROI, plot_settings$col.pixel, "red")
       )
+
     }
 
   }##end if plot
 
   ## return results
-  return(set_RLum("RLum.Results", data = list(ROI = m)))
+  return(set_RLum(
+    class = "RLum.Results",
+    data = list(
+      ROI = m,
+      euc_dist = euc_dist),
+    info = list(
+      call = sys.call()
+    )))
+
 
 }

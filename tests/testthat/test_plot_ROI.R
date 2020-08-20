@@ -14,6 +14,9 @@ test_that("Complete test", {
   ##test standard cases
   expect_silent(plot_ROI(temp))
   expect_silent(plot_ROI(temp, grid = TRUE))
+  expect_silent(plot_ROI(temp, dim.CCD = c(8192,8192)))
+  expect_silent(plot_ROI(temp, dist_thre = 20))
+  expect_silent(plot_ROI(temp, exclude_ROI = 0))
 
   ##test non-list case
   expect_silent(plot_ROI(temp[[1]]))
