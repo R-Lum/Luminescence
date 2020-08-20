@@ -191,7 +191,7 @@ function \code{.smoothing} is used.
 }}
 
 \note{
-The method \link{structure_RLum} is currently just avaiblable for objects
+The method \link{structure_RLum} is currently just available for objects
 containing \linkS4class{RLum.Data.Curve}.
 }
 \section{Objects from the Class}{
@@ -200,7 +200,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 }
 
 \section{Class version}{
- 0.4.15
+ 0.4.16
 }
 
 \examples{
@@ -226,11 +226,11 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 \linkS4class{Risoe.BINfileData}, \linkS4class{RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-91. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-93. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}
