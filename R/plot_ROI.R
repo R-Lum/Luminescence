@@ -141,7 +141,7 @@ plot_ROI <- function(
       axis(
         side = 1,
         at = axTicks(1),
-        labels = paste(floor(dim.CCD[1] / max(m[,"img_width"]) * axTicks(1)), "µm"),
+        labels = paste(floor(dim.CCD[1] / max(m[,"img_width"]) * axTicks(1)), "\u00b5m"),
         lwd = -1,
         lwd.ticks = -1,
         line = -2.2,
@@ -150,7 +150,7 @@ plot_ROI <- function(
       axis(
         side = 2,
         at = axTicks(2)[-1],
-        labels = paste(floor(dim.CCD[2] / max(m[,"img_height"]) * axTicks(2)), "µm")[-1],
+        labels = paste(floor(dim.CCD[2] / max(m[,"img_height"]) * axTicks(2)), "\u00b5m")[-1],
         lwd = -1,
         lwd.ticks = -1,
         line = -2.2,
