@@ -20,7 +20,7 @@ by the function \link{read_RF2R} is accepted}
 
 \item{exclude_ROI}{\link{numeric} (\emph{with default}): option to remove particular ROIs from the
 analysis. Those ROIs are plotted but not coloured and not taken into account
-in distance analysis. \code{0} excludes nothing.}
+in distance analysis. \code{NULL} excludes nothing.}
 
 \item{dist_thre}{\link{numeric} (\emph{optional}): euclidean distance threshold in pixel
 distance. All ROI for which the euclidean distance is smaller are marked. This
@@ -66,7 +66,7 @@ Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth Univer
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-93. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-94. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
