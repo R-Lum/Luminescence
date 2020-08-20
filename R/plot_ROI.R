@@ -11,7 +11,7 @@
 #'
 #'@param exclude_ROI [numeric] (*with default*): option to remove particular ROIs from the
 #'analysis. Those ROIs are plotted but not coloured and not taken into account
-#'in distance analysis. `0` excludes nothing.
+#'in distance analysis. `NULL` excludes nothing.
 #'
 #'@param dist_thre [numeric] (*optional*): euclidean distance threshold in pixel
 #'distance. All ROI for which the euclidean distance is smaller are marked. This
@@ -88,6 +88,11 @@ plot_ROI <- function(
 
   ##make numeric
   storage.mode(m) <- "numeric"
+
+  ##make sure the ROI selection works
+  if(is.null(exclude_ROI[1]) || exclude_ROI[1] <= 0)
+    exclude_ROI <- length(nrow(m) + 1)
+
 
   ## add mid_x and mid_y
   m <- cbind(m, mid_x = c(m[,"x"] + m[,"width"] / 2), mid_y =  c(m[,"y"] + m[,"height"] / 2))
