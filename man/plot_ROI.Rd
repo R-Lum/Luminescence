@@ -4,24 +4,45 @@
 \alias{plot_ROI}
 \title{Create Regions of Interest (ROI) Graphic}
 \usage{
-plot_ROI(object, plot = TRUE, ...)
+plot_ROI(
+  object,
+  exclude_ROI = c(1),
+  dist_thre = -Inf,
+  dim.CCD = NULL,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or a \link{list} of such objects (\strong{required}):
 data input. Please note that to avoid function errors, only input created
 by the function \link{read_RF2R} is accepted}
 
+\item{exclude_ROI}{\link{numeric} (\emph{with default}): option to remove particular ROIs from the
+analysis. Those ROIs are plotted but not coloured and not taken into account
+in distance analysis. \code{0} excludes nothing.}
+
+\item{dist_thre}{\link{numeric} (\emph{optional}): euclidean distance threshold in pixel
+distance. All ROI for which the euclidean distance is smaller are marked. This
+helps to identify ROIs that might be affected by signal cross-talk. Note:
+the distance is calculated from the centre of an ROI, e.g., the threshold
+should include consider the ROIs or grain radius.}
+
+\item{dim.CCD}{\link{numeric} (\emph{optional}): metric x and y for the recorded (chip)
+surface in µm. For instance \code{c(8192,8192)}, if set additional x and y-axes are shown}
+
 \item{plot}{\link{logical} (\emph{with default}): enable or disable plot output to use
 the function only to extract the ROI data}
 
 \item{...}{further parameters to manipulate the plot. On top of all arguments of
 \link[graphics:plot.default]{graphics::plot.default} the following arguments are supported: \code{lwd.ROI}, \code{lty.ROI},
-\code{col.ROI}, \code{col.pixed}, \code{text.labels}, \code{text.offset}, \code{grid} (\code{TRUE/FALSE}), \code{legend} (\code{TRUE/FALSE}),
+\code{col.ROI}, \code{col.pixel}, \code{text.labels}, \code{text.offset}, \code{grid} (\code{TRUE/FALSE}), \code{legend} (\code{TRUE/FALSE}),
 \code{legend.text}, \code{legend.pos}}
 }
 \value{
 An ROI plot and an \linkS4class{RLum.Results} object with a matrix containing
-the extracted ROI data.
+the extracted ROI data and a object produced by \link[stats:dist]{stats::dist} containing
+the euclidean distance between the ROIS.
 }
 \description{
 Create Regions of Interest (ROI) Graphic
@@ -45,7 +66,7 @@ Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth Univer
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-89. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-91. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
