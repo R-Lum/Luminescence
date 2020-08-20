@@ -117,7 +117,7 @@ plot_ROI <- function(
       lwd.ROI = 0.75,
       lty.ROI = 2,
       col.ROI = "black",
-      col.pixel = "green",
+      col.pixel = rgb(0,1,0,0.6),
       text.labels = m[,"ROI"],
       text.offset = 0.3,
       grid = FALSE,
@@ -176,14 +176,16 @@ plot_ROI <- function(
         mid = c(m[i, "x"] + m[i, "width"] / 2, m[i, "y"] + m[i, "height"] / 2),
         lcol = plot_settings$col.ROI,
         lty = plot_settings$lty.ROI,
-        lwd = plot_settings$lwd.ROI
-      )
-
-      ## add distance marker
-      if(!i%in%sel_euc_dist && !i%in%exclude_ROI)
-        points(x = m[i, "x"], y = m[i, "y"], pch = 4, col = "red")
+        lwd = plot_settings$lwd.ROI)
 
     }
+
+    ## add distance marker
+    points(
+      x = m[!m[,"ROI"]%in%sel_euc_dist & !m[,"ROI"]%in%exclude_ROI, "x"],
+      y = m[!m[,"ROI"]%in%sel_euc_dist & !m[,"ROI"]%in%exclude_ROI, "y"],
+      pch = 4,
+      col = "red")
 
     ## add text
     graphics::text(
