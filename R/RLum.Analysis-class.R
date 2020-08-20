@@ -19,16 +19,16 @@ NULL
 #' Object of class [list] containing objects of class [RLum.Data-class]
 #'
 #' @note
-#' The method [structure_RLum] is currently just avaiblable for objects
+#' The method [structure_RLum] is currently just available for objects
 #' containing [RLum.Data.Curve-class].
 #'
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.15
+#' @section Class version: 0.4.16
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis],
 #' [Risoe.BINfileData-class], [RLum-class]
@@ -656,7 +656,8 @@ setMethod("structure_RLum",
 
             ##check if the object containing other elements than allowed
             if(!all(vapply(object@records, FUN = class, character(1)) == "RLum.Data.Curve"))
-              stop("[structure_RLum()]  Only 'RLum.Data.Curve' objects are allowed!", call. = FALSE)
+              stop("[structure_RLum()]  Only 'RLum.Data.Curve' objects are allowed!",
+                   call. = FALSE)
 
             ##get length object
             temp.object.length <- length(object@records)
@@ -693,7 +694,8 @@ setMethod("structure_RLum",
             temp.uid <- unlist(lapply(object@records, function(x){x@.uid}))
 
             ##.pid
-            temp.pid <- unlist(lapply(object@records, function(x){x@.pid}))
+            temp.pid <- paste(
+              unlist(lapply(object@records, function(x){x@.pid})), collapse = ", ")
 
             ##originator
             temp.originator <- unlist(lapply(object@records, function(x){x@originator}))

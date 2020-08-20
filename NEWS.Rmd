@@ -98,7 +98,9 @@ and is no suppressed.
 * `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
 conversion into a single data.frames. Count values are added in columns for each record (thanks to Annette Kadereit for the idea).
 
-
+* `structure_RLum()` for `RLum.Analysis-class` recycled rows in the output `data.frame` if objects had more than one parent id (`.pid`). This led to 
+odd behaviour if functions expected (correctly) that the number
+of entries in the `data.frame` returned by `structure_RLum()`, cannot not have more rows than number of records in the object. This could happen, e.g., after merging `RLum.Data.Curve-class` objects. ow multiple `.pid` entries still create only one string and the number of rows matches the number of records in the object.
 
 ## Changes in version 0.9.7 (2020-01-04)
 
