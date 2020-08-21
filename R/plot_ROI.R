@@ -229,4 +229,3 @@ plot_ROI <- function(
 
 
 }
-plot_ROI(temp[[1]], exclude_ROI = NULL)
