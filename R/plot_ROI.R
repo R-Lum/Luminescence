@@ -91,7 +91,7 @@ plot_ROI <- function(
 
   ##make sure the ROI selection works
   if(is.null(exclude_ROI[1]) || exclude_ROI[1] <= 0)
-    exclude_ROI <- length(nrow(m) + 1)
+    exclude_ROI <- nrow(m) + 1
 
 
   ## add mid_x and mid_y
@@ -103,8 +103,7 @@ plot_ROI <- function(
 
   ## distance threshold selector
   sel_euc_dist[sel_euc_dist < dist_thre[1]] <- NA
-  sel_euc_dist <- as.numeric(rownames(na.exclude(as.matrix(sel_euc_dist))))
-
+  sel_euc_dist <- suppressWarnings(as.numeric(rownames(na.exclude(as.matrix(sel_euc_dist)))))
 
   ## add information to matrix
   m <- cbind(m, dist_sel = FALSE)
@@ -193,14 +192,16 @@ plot_ROI <- function(
       col = "red")
 
     ## add text
-    graphics::text(
-       x = m[-exclude_ROI, "x"],
-       y = m[-exclude_ROI, "y"],
-       labels = plot_settings$text.labels[-exclude_ROI],
-       cex = 0.6,
-       pos = 3,
-       offset = plot_settings$text.offset
-     )
+    if(length(m[-exclude_ROI,"x"]) > 0) {
+      graphics::text(
+         x = m[-exclude_ROI, "x"],
+         y = m[-exclude_ROI, "y"],
+         labels = plot_settings$text.labels[-exclude_ROI],
+         cex = 0.6,
+         pos = 3,
+         offset = plot_settings$text.offset
+       )
+    }
 
     ##add legend
     if(plot_settings$legend) {
@@ -228,3 +229,4 @@ plot_ROI <- function(
 
 
 }
+plot_ROI(temp[[1]], exclude_ROI = NULL)

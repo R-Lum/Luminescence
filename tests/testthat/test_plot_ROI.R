@@ -20,6 +20,7 @@ test_that("Complete test", {
 
   ##test non-list case
   expect_silent(plot_ROI(temp[[1]]))
+  expect_silent(plot_ROI(temp[[1]], exclude_ROI = NULL))
 
   ##output only case
   expect_s4_class(plot_ROI(temp, plot = FALSE), class = "RLum.Results")
