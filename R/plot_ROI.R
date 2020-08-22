@@ -93,7 +93,6 @@ plot_ROI <- function(
   if(is.null(exclude_ROI[1]) || exclude_ROI[1] <= 0)
     exclude_ROI <- nrow(m) + 1
 
-
   ## add mid_x and mid_y
   m <- cbind(m, mid_x = c(m[,"x"] + m[,"width"] / 2), mid_y =  c(m[,"y"] + m[,"height"] / 2))
   rownames(m) <- m[,"ROI"]
@@ -107,7 +106,7 @@ plot_ROI <- function(
 
   ## add information to matrix
   m <- cbind(m, dist_sel = FALSE)
-  m[sel_euc_dist ,"dist_sel"] <- TRUE
+  m[m[,"ROI"]%in%sel_euc_dist,"dist_sel"] <- TRUE
 
   ## --- Plotting ---
   if(plot) {
@@ -229,3 +228,4 @@ plot_ROI <- function(
 
 
 }
+
