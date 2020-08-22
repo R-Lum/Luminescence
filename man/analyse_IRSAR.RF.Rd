@@ -22,7 +22,7 @@ analyse_IRSAR.RF(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \linkS4class{RLum.Analysis}-objects (\strong{required}):
 input object containing data for protocol analysis. The function expects to
-find at least two curves in the \linkS4class{RLum.Analysis} object: (1) RF_nat, (2) RF_reg.
+find at least two curves in the \linkS4class{RLum.Analysis} object: (1) \code{RF_nat}, (2) \code{RF_reg}.
 If a \code{list} is provided as input all other parameters can be provided as
 \code{list} as well to gain full control.}
 
@@ -47,8 +47,8 @@ Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{method.control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
-These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for
-(2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
+These are for (1) \code{method = "FIT"}: \code{'trace'}, \code{'maxiter'}, \code{'warnOnly'}, \code{'minFactor'} and for
+(2) \code{method = "SLIDE"}: \code{'correct_onset'}, \code{'show_density'},  \code{'show_fit'}, \code{'trace'}.
 See details.}
 
 \item{test_parameters}{\link{list} (\emph{with default}):
@@ -161,7 +161,7 @@ The output (\code{data}) should be accessed using the function \link{get_RLum}
 \verb{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
-The slided IR-RF curves with the finally obtained De
+The slid IR-RF curves with the finally obtained De
 }
 \description{
 Function to analyse IRSAR RF measurements on K-feldspar samples, performed
@@ -222,7 +222,7 @@ For the mathematical details of the implementation see Frouin et al., 2017
 \strong{\code{method.control}}
 
 To keep the generic argument list as clear as possible, arguments to control the methods
-for De estimation are all preset with meaningful default parameters and can be
+for De estimation are all pre set with meaningful default parameters and can be
 handled using the argument \code{method.control} only, e.g.,
 \code{method.control = list(trace = TRUE)}. Supported arguments are:
 
@@ -259,7 +259,7 @@ the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} 
 For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
 the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
 
-For \strong{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slided
+For \strong{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slid
 curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
 ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
 interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
@@ -325,7 +325,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.6
+ 0.7.7
 }
 
 \examples{
@@ -356,7 +356,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-96. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-100. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
