@@ -59,7 +59,7 @@
 #' **`method.control`**
 #'
 #' To keep the generic argument list as clear as possible, arguments to control the methods
-#' for De estimation are all preset with meaningful default parameters and can be
+#' for De estimation are all pre set with meaningful default parameters and can be
 #' handled using the argument `method.control` only, e.g.,
 #' `method.control = list(trace = TRUE)`. Supported arguments are:
 #'
@@ -97,7 +97,7 @@
 #' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 % (lower) and
 #' the 97.5 % (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.
 #'
-#' For **`method = "SLIDE"`** the error is obtained by bootstrapping the residuals of the slided
+#' For **`method = "SLIDE"`** the error is obtained by bootstrapping the residuals of the slid
 #' curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
 #' ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
 #' interval using the  2.5 % (lower) and the 97.5 % (upper) quantiles. The results of the MC runs
@@ -160,7 +160,7 @@
 #'
 #' @param object [RLum.Analysis-class] or a [list] of [RLum.Analysis-class]-objects (**required**):
 #' input object containing data for protocol analysis. The function expects to
-#' find at least two curves in the [RLum.Analysis-class] object: (1) RF_nat, (2) RF_reg.
+#' find at least two curves in the [RLum.Analysis-class] object: (1) `RF_nat`, (2) `RF_reg`.
 #' If a `list` is provided as input all other parameters can be provided as
 #' `list` as well to gain full control.
 #'
@@ -185,8 +185,8 @@
 #'
 #' @param method.control [list] (*optional*):
 #' parameters to control the method, that can be passed to the chosen method.
-#' These are for (1) `method = "FIT"`: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for
-#' (2) `method = "SLIDE"`: 'correct_onset', 'show_density',  'show_fit', 'trace'.
+#' These are for (1) `method = "FIT"`: `'trace'`, `'maxiter'`, `'warnOnly'`, `'minFactor'` and for
+#' (2) `method = "SLIDE"`: `'correct_onset'`, `'show_density'`,  `'show_fit'`, `'trace'`.
 #' See details.
 #'
 #' @param test_parameters [list] (*with default*):
@@ -301,14 +301,14 @@
 #' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
-#' The slided IR-RF curves with the finally obtained De
+#' The slid IR-RF curves with the finally obtained De
 #'
 #' @note
 #' This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.6
+#' @section Function version: 0.7.7
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -1803,9 +1803,9 @@ analyse_IRSAR.RF<- function(
                               De.upper > max(RF_reg.x))){
 
         try(mtext(side=3, substitute(D[e] == De,
-                                     list(De=paste(
-                                       De," (",De.lower," ", De.upper,")", sep=""))),
-                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
+                                     list(De=paste0(
+                                       De," (",round(De.lower,2)," ", round(De.upper,2),")")),
+                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE))
 
         De.status <- "VALUE OUT OF BOUNDS"
 
@@ -1818,8 +1818,7 @@ analyse_IRSAR.RF<- function(
             side = 3,
             substitute(D[e] == De,
                        list(
-                         De = paste(De," [",De.lower," ; ", De.upper,"]", sep =
-                                      "")
+                         De = paste0(De," [",round(De.lower,2)," ; ", round(De.upper,2),"]")
                        )),
             line = 0,
             cex = 0.7 * par()[["cex"]]
