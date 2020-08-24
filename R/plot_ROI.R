@@ -72,6 +72,7 @@ plot_ROI <- function(
     c(ROI = info$ROI,
       x = info$x,
       y = info$y,
+      area = info$area,
       width = info$width,
       height = info$height,
       img_width = info$image_width,
@@ -84,7 +85,7 @@ plot_ROI <- function(
   if(!is.list(object)) object <- list(object)
 
   ##extract values and convert to numeric matrix
-  m <- t(vapply(object, .spatial_data, character(length = 8)))
+  m <- t(vapply(object, .spatial_data, character(length = 9)))
 
   ##make numeric
   storage.mode(m) <- "numeric"
