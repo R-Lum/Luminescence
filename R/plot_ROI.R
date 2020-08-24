@@ -57,7 +57,7 @@ plot_ROI <- function(
   dim.CCD = NULL,
   plot = TRUE,
   ...) {
-  ##extract content helper function
+  ##helper function to extract content
   .spatial_data <- function(x) {
     ##ignore all none RLum.Analysis
     if (class(x) != "RLum.Analysis" || x@originator != "read_RF2R") {

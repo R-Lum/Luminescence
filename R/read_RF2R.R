@@ -15,7 +15,7 @@
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [analyse_IRSAR.RF]
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Science, Aberstywtyh University (United Kingdom)
+#' @author Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 #'
 #' @section Function version: 0.1.0
 #'
@@ -55,6 +55,13 @@ read_RF2R <- function(file) {
 
 
 # Integrity check -----------------------------------------------------------------------------
+  ##throw warning if we have a vector
+  if(length(file) > 1){
+    warning("[read_RF2R()] 'file' has a length > 1. Only the first element was taken!
+            If you want to import multiple files, 'file' has to be of type 'list'.", call. = TRUE)
+    file <- file[1]
+  }
+
   ##check input
   if(class(file) != "character")
     stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)

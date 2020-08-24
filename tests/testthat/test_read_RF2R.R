@@ -16,5 +16,7 @@ test_that("Test functionality", {
   ##import list
   expect_type(read_RF2R(list(file, "test")), type = "list")
 
+  ##import false list
+  expect_warning(read_RF2R(c(file, file)), regexp = "'file' has a length > 1. Only the first element was taken!")
 
 })
