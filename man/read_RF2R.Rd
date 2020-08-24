@@ -36,7 +36,7 @@ temp <- read_RF2R(file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. read_RF2R(): Import RF-files to R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-100. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. read_RF2R(): Import RF-files to R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-103. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -46,6 +46,6 @@ Kreutzer, S., 2020. read_RF2R(): Import RF-files to R. Function version 0.1.0. I
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{analyse_IRSAR.RF}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Science, Aberstywtyh University (United Kingdom)
+Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{IO}
