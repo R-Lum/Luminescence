@@ -1804,8 +1804,8 @@ analyse_IRSAR.RF<- function(
 
         try(mtext(side=3, substitute(D[e] == De,
                                      list(De=paste0(
-                                       De," (",round(De.lower,2)," ", round(De.upper,2),")")),
-                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE))
+                                       De," (", De.lower," ", De.upper,")"))),
+                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
 
         De.status <- "VALUE OUT OF BOUNDS"
 
@@ -1818,7 +1818,7 @@ analyse_IRSAR.RF<- function(
             side = 3,
             substitute(D[e] == De,
                        list(
-                         De = paste0(De," [",round(De.lower,2)," ; ", round(De.upper,2),"]")
+                         De = paste0(De," [",De.lower," ; ", De.upper,"]")
                        )),
             line = 0,
             cex = 0.7 * par()[["cex"]]
