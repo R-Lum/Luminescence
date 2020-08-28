@@ -140,7 +140,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.11
+#' @section Function version: 0.8.12
 #'
 #' @author
 #' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
@@ -836,20 +836,9 @@ if(is.list(object)){
       ))
 
     ##RecyclingRatio
-    if (!is.na(RecyclingRatio)[1] & !is.na(rejection.criteria$recycling.ratio)) {
-      temp.status.RecyclingRatio <-
-        sapply(1:length(RecyclingRatio), function(x) {
-          if (abs(1 - RecyclingRatio[x]) > (rejection.criteria$recycling.ratio / 100)) {
-            "FAILED"
-          }else{
-            "OK"
-          }
-        })
-
-    }else{
-      temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
-
-    }
+    temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
+    if (!any(is.na(RecyclingRatio)) & !is.na(rejection.criteria$recycling.ratio))
+      temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation
     if (!is.na(Recuperation)[1] &

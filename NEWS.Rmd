@@ -49,6 +49,9 @@ in one single plot window instead of three.
 preheat (no signal recorded) the function stopped with an uncontrolled error. Now the function 
 is more flexible. However, this comes at a cost, e.g., if the user accidentally swaps 
 the sequence order (such as OSL-TL, instead of TL-OSL) this may remain unnoticed.
+* For zero count data (e.g., observed in single grain curves), the function crashed with a non-indicative 
+error message because `NaN` are usually produced if the recycling ratio is calculated; fixed (thanks to 
+Brice Lebrun for reporting the issue).
 
 #### `analyse_FadingMeasurements()`
 * Typo correction in the manual and a better documentation of supported `...` arguments
