@@ -269,11 +269,12 @@ are returned with the function output.
 
 The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
 which will be evaluated during the function run. If a threshold is set and it will be exceeded the
-test parameter status will be set to "FAILED". Intentionally this parameter is not termed
-'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
+test parameter status will be set to \code{"FAILED"}. Intentionally this parameter is not termed
+\code{'rejection criteria'} as not all test parameters are evaluated for both methods and some parameters
 are calculated by not evaluated by default. Common for all parameters are the allowed argument options
 \code{NA} and \code{NULL}. If the parameter is set to \code{NA} the value is calculated but the
-result will not be evaluated, means it has no effect on the status ("OK" or "FAILED") of the parameter.
+result will not be evaluated, means it has no effect on the status (\code{"OK"} or \code{"FAILED"})
+of the parameter.
 Setting the parameter to \code{NULL} disables the parameter entirely and the parameter will be
 also removed from the function output. This might be useful in cases where a particular parameter
 asks for long computation times. Currently supported parameters are:
@@ -288,8 +289,8 @@ and should not exceed the threshold value.
 Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 This value indicates intersection of the RF-curves and should be close to 0 if the curves
 have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
-curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
-the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
+curve is obtained using the maximum count value of the \code{RF_nat} curve and only this segment (fitting to
+the \code{RF_nat} curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 found at all, \code{Inf} is returned.
 
 \code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}):
@@ -325,7 +326,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.7
+ 0.7.8
 }
 
 \examples{
@@ -356,7 +357,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-106. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-108. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
