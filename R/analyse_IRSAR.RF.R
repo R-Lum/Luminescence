@@ -1,9 +1,9 @@
-#' Analyse IRSAR RF measurements
+#' @title Analyse IRSAR RF measurements
 #'
-#' Function to analyse IRSAR RF measurements on K-feldspar samples, performed
+#' @description Function to analyse IRSAR RF measurements on K-feldspar samples, performed
 #' using the protocol according to Erfurt et al. (2003) and beyond.
 #'
-#' The function performs an IRSAR analysis described for K-feldspar samples by
+#' @details The function performs an IRSAR analysis described for K-feldspar samples by
 #' Erfurt et al. (2003) assuming a negligible sensitivity change of the RF
 #' signal.
 #'
@@ -107,11 +107,12 @@
 #'
 #' The argument `test_parameters` allows to pass some thresholds for several test parameters,
 #' which will be evaluated during the function run. If a threshold is set and it will be exceeded the
-#' test parameter status will be set to "FAILED". Intentionally this parameter is not termed
-#' 'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
+#' test parameter status will be set to `"FAILED"`. Intentionally this parameter is not termed
+#' `'rejection criteria'` as not all test parameters are evaluated for both methods and some parameters
 #' are calculated by not evaluated by default. Common for all parameters are the allowed argument options
 #' `NA` and `NULL`. If the parameter is set to `NA` the value is calculated but the
-#' result will not be evaluated, means it has no effect on the status ("OK" or "FAILED") of the parameter.
+#' result will not be evaluated, means it has no effect on the status (`"OK"` or `"FAILED"`)
+#' of the parameter.
 #' Setting the parameter to `NULL` disables the parameter entirely and the parameter will be
 #' also removed from the function output. This might be useful in cases where a particular parameter
 #' asks for long computation times. Currently supported parameters are:
@@ -126,8 +127,8 @@
 #' Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 #' This value indicates intersection of the RF-curves and should be close to 0 if the curves
 #' have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
-#' curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
-#' the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
+#' curve is obtained using the maximum count value of the `RF_nat` curve and only this segment (fitting to
+#' the `RF_nat` curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 #' found at all, `Inf` is returned.
 #'
 #' `residuals_slope` [numeric] (default: `NA`; only for `method = "SLIDE"`):
@@ -308,7 +309,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.7
+#' @section Function version: 0.7.8
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -1049,7 +1050,7 @@ analyse_IRSAR.RF<- function(
         }
 
         ##construct list of vector ranges we want to check for, this should avoid that we
-        ##got trapped in a local minium
+        ##got trapped in a local minimum
         median_vslide_range.index <- median(1:length(vslide_range))
         vslide_range.list <- lapply(seq(1, median_vslide_range.index, length.out = 10), function(x){
            c(median_vslide_range.index - as.integer(x), median_vslide_range.index + as.integer(x))
@@ -1076,7 +1077,7 @@ analyse_IRSAR.RF<- function(
         temp_hslide_indices <- vapply(temp_minium_list, function(x){
           x$sliding_vector_min_index}, FUN.VALUE = numeric(length = 1))
 
-        ##get also the vertical slide indicies
+        ##get also the vertical slide indices
         temp_vslide_indicies <- vapply(temp_minium_list, function(x){
           x$vslide_index}, FUN.VALUE = numeric(length = 1))
 
@@ -1121,7 +1122,7 @@ analyse_IRSAR.RF<- function(
 
       #(2) get minimum value (index and time value)
       index_min <- which.min(temp.sum.residuals$sliding_vector)
-      t_n.id <- index_min
+      if(length(index_min) == 0) t_n.id <- 1 else t_n.id <- index_min
 
       if (is.null(vslide_range)) {
         I_n <- 0
@@ -1315,14 +1316,12 @@ analyse_IRSAR.RF<- function(
         if(txtProgressBar){
           ##progress bar
           cat("\n\t Run Monte Carlo loops for error estimation\n")
-          pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
+          pb <- txtProgressBar(min = 0, max = n.MC, initial = 0, char = "=", style = 3)
         }
 
         De.MC <- sapply(1:n.MC, function(i) {
-
           # update progress bar
-          if (txtProgressBar)
-            setTxtProgressBar(pb, i)
+          if (txtProgressBar) setTxtProgressBar(pb, i)
 
           sliding(
             RF_nat = RF_nat,
@@ -1331,6 +1330,9 @@ analyse_IRSAR.RF<- function(
             numerical.only = TRUE
           )[[2]]
         })
+
+        ## close progress bar
+        if (txtProgressBar) close(pb)
 
       ## MULTICORE -----
       } else {
@@ -1370,7 +1372,8 @@ analyse_IRSAR.RF<- function(
 
   }else{
 
-    warning("[analyse_IRSAR.RF()] Analysis skipped: Unknown method or threshold of test parameter exceeded.", call. = FALSE)
+    warning("[analyse_IRSAR.RF()] Analysis skipped: Unknown method or threshold of test parameter exceeded.",
+            call. = FALSE)
 
   }
 
