@@ -184,10 +184,3 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 
   return results_list;
 }
-
-/*** R
-microbenchmark::microbenchmark(
-  test = src_analyse_IRSARRF_SRS(
-    values_regenerated_limited = 1:1000, values_natural_limited = 1:100, vslide_range = c(2), n_MC = 1),
-  times = 1)
-*/
