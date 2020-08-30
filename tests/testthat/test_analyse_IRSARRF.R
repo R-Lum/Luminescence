@@ -64,3 +64,26 @@ test_that("test support for IR-RF data", {
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1)), "RLum.Results")
 
 })
+
+test_that("test edge cases", {
+  testthat::skip_on_cran()
+
+  data(ExampleData.RLum.Analysis, envir = environment())
+  RF_nat <- RF_reg <- IRSAR.RF.Data[[2]]
+  RF_reg@data[,2] <- runif(length(RF_reg@data[,2]), 0.007557956, 0.05377426 )
+  RF_nat@data[,2] <- runif(length(RF_nat@data[,2]), 65.4, 76.7)
+  RF_nat@data <- RF_nat@data[1:50,]
+
+  expect_s4_class(analyse_IRSAR.RF(
+    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    method = "SLIDE",
+    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    RF_nat.lim = 2,
+    RF_reg.lim = 2,
+    plot = FALSE,
+    txtProgressBar = FALSE
+  ), "RLum.Results")
+
+})
+
+
