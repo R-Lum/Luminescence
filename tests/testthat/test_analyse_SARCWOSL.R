@@ -88,7 +88,7 @@ test_that("simple run", {
     fit.method = "LIN",
     plot = FALSE,
     verbose = FALSE
-  ), regexp = "Input object is not of type 'RLum.Analyis'!")
+  ), regexp = "Input object is not of type 'RLum.Analysis'!")
 
  expect_error(suppressWarnings(analyse_SAR.CWOSL(
     object = object[[1]],

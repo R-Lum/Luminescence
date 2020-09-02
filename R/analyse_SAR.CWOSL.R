@@ -5,7 +5,7 @@
 #'
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
-#' calculation of the Lx/Tx value the function [calc_OSLLxTxRatio] is
+#' calculation of the `Lx/Tx` value the function [calc_OSLLxTxRatio] is
 #' used. For **changing the way the Lx/Tx error is calculated** use the argument
 #' `background.count.distribution` and `sigmab`, which will be passed to the function
 #' [calc_OSLLxTxRatio].
@@ -14,12 +14,12 @@
 #'
 #' If the argument `object` is of type [list] containing **only**
 #' [RLum.Analysis-class] objects, the function re-calls itself as often as elements
-#' are in the list. This is usefull if an entire measurement wanted to be analysed without
+#' are in the list. This is useful if an entire measurement wanted to be analysed without
 #' writing separate for-loops. To gain in full control of the parameters (e.g., `dose.points`) for
 #' every aliquot (corresponding to one [RLum.Analysis-class] object in the list), in
 #' this case the arguments can be provided as [list]. This `list` should
 #' be of similar length as the `list` provided with the argument `object`,
-#' otherwise the function will create an own list of the requested lenght.
+#' otherwise the function will create an own list of the requested length.
 #' Function output will be just one single [RLum.Results-class] object.
 #'
 #' Please be careful when using this option. It may allow a fast an efficient data analysis, but
@@ -36,9 +36,9 @@
 #' have to be pre-selected by the user to fit the standards of the SAR
 #' protocol, i.e., Lx,Tx,Lx,Tx and so on.
 #'
-#' Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
-#' Only one curve type can be analysed at the same time: The pIRIR50 curves or
-#' the pIRIR225 curves.
+#' Example: Imagine the measurement contains `pIRIR50` and `pIRIR225` IRSL curves.
+#' Only one curve type can be analysed at the same time: The `pIRIR50` curves or
+#' the `pIRIR225` curves.
 #'
 #' **Supported rejection criteria**
 #'
@@ -62,22 +62,22 @@
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the minimum signal integral for the Tx curve.
+#' as the minimum signal integral for the `Tx` curve.
 #'
 #' @param signal.integral.max [integer] (**required**):
 #' upper bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the maximum signal integral for the Tx curve.
+#' as the maximum signal integral for the `Tx` curve.
 #'
 #' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the minimum background integral for the Tx curve.
+#' as the minimum background integral for the `Tx` curve.
 #'
 #' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the maximum background integral for the Tx curve.
+#' as the maximum background integral for the `Tx` curve.
 #'
 #' @param rejection.criteria [list] (*with default*):
 #' provide a named list and set rejection criteria in **percentage** for further calculation. Can be a [list] in
@@ -87,16 +87,16 @@
 #' `palaeodose.error`, `testdose.error` and `exceed.max.regpoint = TRUE/FALSE`.
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
 #' Per default all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
-#' Every criterium can be set to `NA`. In this value are calculated, but not considered, i.e.
+#' Every criterion can be set to `NA`. In this value are calculated, but not considered, i.e.
 #' the RC.Status becomes always `'OK'`
 #'
 #' @param dose.points [numeric] (*optional*):
-#' a numeric vector containg the dose points values Using this argument
+#' a numeric vector containing the dose points values Using this argument
 #' overwrites dose point values in the signal curves. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
 #'
 #' @param mtext.outer [character] (*optional*):
-#' option to provide an outer margin mtext. Can be a [list] of [character]s,
+#' option to provide an outer margin `mtext`. Can be a [list] of [character]s,
 #' if `object` is of type [list]
 #'
 #' @param plot [logical] (*with default*): enables or disables plot output.
@@ -105,14 +105,15 @@
 #'
 #' @param plot.single [logical] (*with default*) or [numeric] (*optional*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.
-#' If a numerice vector is provided the plots can be selected individually, i.e.
+#' If a [numeric] vector is provided the plots can be selected individually, i.e.
 #' `plot.single = c(1,2,3,4)` will plot the TL and Lx, Tx curves but not the legend (5) or the
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
-#' @param onlyLxTxTable [logical] (with default): If `TRUE` the dose response curve fitting and plotting
-#' is skipped. This allows to get hands on the Lx/Tx table for large datasets without the need for
-#' a curve fitting.
+#'@param onlyLxTxTable [logical] (with default): If `TRUE` the dose response
+#'curve fitting and plotting is skipped.
+#'This allows to get hands on the `Lx/Tx` table for large datasets
+#'without the need for a curve fitting.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
@@ -126,7 +127,8 @@
 #' returned containing the following elements:
 #'
 #' \item{data}{[data.frame] containing De-values, De-error and further parameters}
-#' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points}
+#' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal,
+#' background counts and the dose points}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
 #' \item{Formula}{[formula] formula that have been used for the growth curve fitting }
 #'
