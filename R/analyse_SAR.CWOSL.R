@@ -335,12 +335,13 @@ if(is.list(object)){
 
     ##MISSING INPUT
     if(missing("object")){
-      stop("[analyse_SAR.CWOSL()] No value set for 'object'!")
+      stop("[analyse_SAR.CWOSL()] No value set for 'object'!",
+           call. = FALSE)
     }
 
     ##INPUT OBJECTS
     if(!is(object, "RLum.Analysis")){
-      stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analyis'!")
+      stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!", call. = FALSE)
     }
 
 
@@ -355,11 +356,11 @@ if(is.list(object)){
     }
 
     if(missing("background.integral.min")){
-     stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!")
+     stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!", call. = FALSE)
     }
 
     if(missing("background.integral.max")){
-      stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!")
+      stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!", call. = FALSE)
     }
 
 
