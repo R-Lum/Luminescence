@@ -28,22 +28,22 @@ input object containing data for analysis, alternatively a \link{list} of
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum signal integral for the Tx curve.}
+as the minimum signal integral for the \code{Tx} curve.}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
 upper bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum signal integral for the Tx curve.}
+as the maximum signal integral for the \code{Tx} curve.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum background integral for the Tx curve.}
+as the minimum background integral for the \code{Tx} curve.}
 
 \item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum background integral for the Tx curve.}
+as the maximum background integral for the \code{Tx} curve.}
 
 \item{rejection.criteria}{\link{list} (\emph{with default}):
 provide a named list and set rejection criteria in \strong{percentage} for further calculation. Can be a \link{list} in
@@ -53,16 +53,16 @@ Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
 \code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
 Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
-Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
+Every criterion can be set to \code{NA}. In this value are calculated, but not considered, i.e.
 the RC.Status becomes always \code{'OK'}}
 
 \item{dose.points}{\link{numeric} (\emph{optional}):
-a numeric vector containg the dose points values Using this argument
+a numeric vector containing the dose points values Using this argument
 overwrites dose point values in the signal curves. Can be a \link{list} of
 \link{numeric} vectors, if \code{object} is of type \link{list}}
 
 \item{mtext.outer}{\link{character} (\emph{optional}):
-option to provide an outer margin mtext. Can be a \link{list} of \link{character}s,
+option to provide an outer margin \code{mtext}. Can be a \link{list} of \link{character}s,
 if \code{object} is of type \link{list}}
 
 \item{plot}{\link{logical} (\emph{with default}): enables or disables plot output.}
@@ -71,14 +71,15 @@ if \code{object} is of type \link{list}}
 
 \item{plot.single}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot windows.
-If a numerice vector is provided the plots can be selected individually, i.e.
+If a \link{numeric} vector is provided the plots can be selected individually, i.e.
 \code{plot.single = c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
 growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
 
-\item{onlyLxTxTable}{\link{logical} (with default): If \code{TRUE} the dose response curve fitting and plotting
-is skipped. This allows to get hands on the Lx/Tx table for large datasets without the need for
-a curve fitting.}
+\item{onlyLxTxTable}{\link{logical} (with default): If \code{TRUE} the dose response
+curve fitting and plotting is skipped.
+This allows to get hands on the \code{Lx/Tx} table for large datasets
+without the need for a curve fitting.}
 
 \item{...}{further arguments that will be passed to the function
 \link{plot_GrowthCurve} or \link{calc_OSLLxTxRatio}
@@ -91,7 +92,8 @@ A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \item{data}{\link{data.frame} containing De-values, De-error and further parameters}
-\item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal, background counts and the dose points}
+\item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal,
+background counts and the dose points}
 \item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
 \item{Formula}{\link{formula} formula that have been used for the growth curve fitting }
 
@@ -104,7 +106,7 @@ The function performs a SAR CW-OSL analysis on an
 \details{
 The function performs an analysis for a standard SAR protocol measurements
 introduced by Murray and Wintle (2000) with CW-OSL curves. For the
-calculation of the Lx/Tx value the function \link{calc_OSLLxTxRatio} is
+calculation of the \code{Lx/Tx} value the function \link{calc_OSLLxTxRatio} is
 used. For \strong{changing the way the Lx/Tx error is calculated} use the argument
 \code{background.count.distribution} and \code{sigmab}, which will be passed to the function
 \link{calc_OSLLxTxRatio}.
@@ -113,12 +115,12 @@ used. For \strong{changing the way the Lx/Tx error is calculated} use the argume
 
 If the argument \code{object} is of type \link{list} containing \strong{only}
 \linkS4class{RLum.Analysis} objects, the function re-calls itself as often as elements
-are in the list. This is usefull if an entire measurement wanted to be analysed without
+are in the list. This is useful if an entire measurement wanted to be analysed without
 writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
 every aliquot (corresponding to one \linkS4class{RLum.Analysis} object in the list), in
 this case the arguments can be provided as \link{list}. This \code{list} should
 be of similar length as the \code{list} provided with the argument \code{object},
-otherwise the function will create an own list of the requested lenght.
+otherwise the function will create an own list of the requested length.
 Function output will be just one single \linkS4class{RLum.Results} object.
 
 Please be careful when using this option. It may allow a fast an efficient data analysis, but
@@ -135,9 +137,9 @@ SAR protocol structure, i.e., to analyse a post-IR IRSL protocol, curve data
 have to be pre-selected by the user to fit the standards of the SAR
 protocol, i.e., Lx,Tx,Lx,Tx and so on.
 
-Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
-Only one curve type can be analysed at the same time: The pIRIR50 curves or
-the pIRIR225 curves.
+Example: Imagine the measurement contains \code{pIRIR50} and \code{pIRIR225} IRSL curves.
+Only one curve type can be analysed at the same time: The \code{pIRIR50} curves or
+the \code{pIRIR225} curves.
 
 \strong{Supported rejection criteria}
 
@@ -201,7 +203,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-108. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-110. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
