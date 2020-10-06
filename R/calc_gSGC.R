@@ -8,29 +8,29 @@
 #' Large values for `n.MC` will significantly increase the computation time.
 #'
 #'
-#' @param data [data.frame] (**required**): 
+#' @param data [data.frame] (**required**):
 #' input data of providing the following columns: *'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'*
 #' **Note:** column names are not required. The function expect the input data in the given order
 #'
-#' @param gSGC.type [character] (*with default*): 
+#' @param gSGC.type [character] (*with default*):
 #' define the function parameters that
 #' should be used for the iteration procedure: Li et al., 2015 (Table 2)
 #' presented function parameters for two dose ranges: `"0-450"` and `"0-250"`
 #'
-#' @param gSGC.parameters [list] (*optional*): 
+#' @param gSGC.parameters [list] (*optional*):
 #' option to provide own function parameters used for fitting as named list.
 #' Nomenclature follows Li et al., 2015, i.e. `list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)`,
 #' range requires a vector for the range the function is considered as valid, e.g. `range = c(0,250)`\cr
 #' Using this option overwrites the default parameter list of the gSGC, meaning the argument
 #' `gSGC.type` will be without effect
 #'
-#' @param n.MC [integer] (*with default*): 
+#' @param n.MC [integer] (*with default*):
 #' number of Monte Carlo simulation runs for error estimation, see details.
 #'
-#' @param verbose [logical]: 
+#' @param verbose [logical]:
 #' enable or disable terminal output
 #'
-#' @param plot [logical]: 
+#' @param plot [logical]:
 #' enable or disable graphical feedback as plot
 #'
 #' @param ... parameters will be passed to the plot output
@@ -42,8 +42,8 @@
 #'  `.. $ De`  \cr
 #'  `.. $ De.error` \cr
 #'  `.. $ Eta` \cr
-#' `$ De.MC` ([list]) contains the matricies from the error estimation.\cr
-#' `$ uniroot` ([list]) contains the uniroot outputs of the De estimations\cr
+#' `$ De.MC` ([list]) contains the matrices from the error estimation.\cr
+#' `$ uniroot` ([list]) contains the [uniroot] outputs of the De estimations\cr
 #'
 #' **`@info`**\cr
 #' `$ call`` ([call]) the original function call
@@ -51,12 +51,12 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
+#' @author
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Results-class], [get_RLum], [uniroot]
 #'
-#' @references  
+#' @references
 #' Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 #' a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.
 #' Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
@@ -64,7 +64,7 @@
 #' @keywords datagen
 #'
 #' @examples
-#' 
+#'
 #' results <- calc_gSGC(data = data.frame(
 #' LnTn =  2.361, LnTn.error = 0.087,
 #' Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
@@ -88,11 +88,11 @@ calc_gSGC<- function(
 ##CHECK INPUT DATA
 ##============================================================================##
 
-  if(!is(data, "data.frame")){stop("'data' needs to be of type data.frame.")}
-  if(!is(gSGC.type, "character")){stop("'gSGC.type' needs to be of type character.")}
+  if(!is(data, "data.frame")) stop("[calc_gSGC()] 'data' needs to be of type data.frame.", call. = FALSE)
+  if(!is(gSGC.type, "character")) stop("[calc_gSGC()] 'gSGC.type' needs to be of type character.", call. = FALSE)
 
   ##check length of input data
-  if(ncol(data) != 5){stop("Structure of 'data' does not fit the expectations.")}
+  if(ncol(data) != 5) stop("[calc_gSGC()] Structure of 'data' does not fit the expectations.", call. = FALSE)
 
   ##rename columns for consistency reasons
   colnames(data) <- c('LnTn', 'LnTn.error', 'Lr1Tr1', 'Lr1Tr1.error', 'Dr1')
@@ -106,7 +106,7 @@ calc_gSGC<- function(
     f <- function(x,A,D0,c,Y0,Dr1,Lr1Tr1,LnTn) {
       (((A * (1 - exp( - Dr1 / D0))) + c * Dr1 + Y0)/Lr1Tr1) -
       (((A * (1 - exp( - x/D0))) + c * x + Y0)/LnTn)
-  }
+    }
 
     ##set general parameters
     if (!missing(gSGC.parameters)) {
@@ -146,7 +146,7 @@ calc_gSGC<- function(
         range <- c(0.1,250)
 
       }else{
-        stop("Unknown input for 'gSGC.type'")
+        stop("[calc_gSGC()] Unknown input for 'gSGC.type'", call. = FALSE)
 
       }
 
@@ -252,7 +252,7 @@ calc_gSGC<- function(
       De.error <- sd(temp.MC.matrix[,7])
 
   }else{
-    warning("No solution was found!")
+    warning("No solution was found!", call. = FALSE)
     De <- NA
     Eta <- NA
     De.error <- NA
@@ -270,10 +270,8 @@ calc_gSGC<- function(
 
   }
 
-##============================================================================##
-##PLOT OUTPUT
-##============================================================================##
 
+# Plot output -------------------------------------------------------------
   if (plot) {
 
     ##set plot settings
@@ -292,8 +290,6 @@ calc_gSGC<- function(
     )
 
     plot.settings <-  modifyList(plot.settings, list(...))
-
-
 
     ##graphical feedback
     x <- NA
@@ -373,22 +369,20 @@ calc_gSGC<- function(
 
   }
 
-##============================================================================##
-##OUTPUT VISUALISATION
-##============================================================================##
 
+# Terminal output ---------------------------------------------------------
     if (verbose) {
       cat("\n[calc_gSGC()]")
-      cat("\n\t Corresponding De based on the gSGC\n")
+      cat("\n Corresponding De based on the gSGC\n")
 
-      cat(paste0("\n\t"," Ln/Tn:\t\t ",LnTn," \u00B1 ", LnTn.error,"\n"))
-      cat(paste0("\t"," Lr1/Tr1:\t ",Lr1Tr1," \u00B1 ", Lr1Tr1.error,"\n"))
-      cat(paste0("\t"," Dr1:\t\t ",Dr1,"\n"))
-      cat(paste0("\t"," f(D):\t\t ",A," * (1 - exp(-D /",D0,")) + c * D + ",Y0,"\n"))
-      cat(paste0("\t"," n.MC:\t\t ",n.MC,"\n"))
-      cat(paste0("\t ------------------------------ \n"))
-      cat(paste0("\t De:\t\t",round(De,digits = 2)," \u00B1 ",round(De.error,digits = 2),"\n"))
-      cat(paste0("\t ------------------------------ \n"))
+      cat(paste0("\n"," Ln/Tn:\t\t ",LnTn," \u00B1 ", LnTn.error,"\n"))
+      cat(paste0(""," Lr1/Tr1:\t ",Lr1Tr1," \u00B1 ", Lr1Tr1.error,"\n"))
+      cat(paste0(""," Dr1:\t\t ",Dr1,"\n"))
+      cat(paste0(""," f(D):\t\t ",A," * (1 - exp(-D /",D0,")) + c * D + ",Y0,"\n"))
+      cat(paste0(""," n.MC:\t\t ",n.MC,"\n"))
+      cat(paste0(" ------------------------------ \n"))
+      cat(paste0(" De:\t\t",round(De,digits = 2)," \u00B1 ",round(De.error,digits = 2),"\n"))
+      cat(paste0(" ------------------------------ \n"))
 
     }
 
@@ -411,21 +405,17 @@ calc_gSGC<- function(
 
     ##matrix - to prevent memory overload limit output
     if(n.MC * nrow(data) > 1e6){
-
       if(i == 1){
-
         output.De.MC[[i]] <- temp.MC.matrix
 
       }else{
-
         output.De.MC[[i]] <- NA
 
       }
 
-      warning("Only the first MC matrix is returned to prevent memory overload!")
+      warning("Only the first MC matrix is returned to prevent memory overload!", call. = FALSE)
 
     }else{
-
       output.De.MC[[i]] <- temp.MC.matrix
 
     }
