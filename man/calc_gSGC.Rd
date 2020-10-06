@@ -50,8 +50,8 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 \code{.. $ De}  \cr
 \code{.. $ De.error} \cr
 \code{.. $ Eta} \cr
-\verb{$ De.MC} (\link{list}) contains the matricies from the error estimation.\cr
-\verb{$ uniroot} (\link{list}) contains the uniroot outputs of the De estimations\cr
+\verb{$ De.MC} (\link{list}) contains the matrices from the error estimation.\cr
+\verb{$ uniroot} (\link{list}) contains the \link{uniroot} outputs of the De estimations\cr
 
 \strong{\verb{@info}}\cr
 `$ call`` (\link{call}) the original function call
@@ -81,7 +81,7 @@ get_RLum(results, data.object = "De")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-110. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-113. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -93,6 +93,6 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 \linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}

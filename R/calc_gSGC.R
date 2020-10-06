@@ -169,11 +169,8 @@ calc_gSGC<- function(
 ##============================================================================##
 ##CALCULATION
 ##============================================================================##
-
-
- for(i in 1:nrow(data)){
-
-    Lr1Tr1 <-data[i,"Lr1Tr1"]
+for(i in 1:nrow(data)){
+    Lr1Tr1 <- data[i, "Lr1Tr1"]
     Lr1Tr1.error <- data[i,"Lr1Tr1.error"]
     Dr1 <- data[i,"Dr1"]
     Dr1.error <- data[i,"Dr1.error"]
