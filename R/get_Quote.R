@@ -4,7 +4,7 @@
 #' growing library. If called without any parameters, a random quote is
 #' returned.
 #'
-#' @param ID [character] (*optional*): qoute ID to be returned.
+#' @param ID [character] (*optional*): quote ID to be returned.
 #'
 #' @param separated [logical] (*with default*): return result in separated form.
 #'
@@ -12,11 +12,11 @@
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France), Dirk Mittelstraß, TU Dresden (Germany)
+#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom), Dirk Mittelstraß, TU Dresden (Germany)
 #'
 #' @examples
 #'
-#' ## ask for an arbitrary qoute
+#' ## ask for an arbitrary quote
 #' get_Quote()
 #'
 #' @md
