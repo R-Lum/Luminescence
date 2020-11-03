@@ -9,22 +9,29 @@
 <title>Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 reader — ExampleData.XSYG • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,13 +39,13 @@ reader — ExampleData.XSYG • Luminescence</title>
 
 
 
+
 <meta property="og:title" content="Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 reader — ExampleData.XSYG" />
-
 <meta property="og:description" content="Example data from a SAR OSL measurement and a TL spectrum for package
 Luminescence imported from a Freiberg Instruments XSYG file using the
 function read_XSYG2R." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,9 +59,10 @@ function read_XSYG2R." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,7 +76,7 @@ function read_XSYG2R." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -92,7 +100,6 @@ function read_XSYG2R." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -115,6 +122,7 @@ function read_XSYG2R." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -122,19 +130,18 @@ function read_XSYG2R." />
     <div class="page-header">
     <h1>Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
 reader</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/Luminescence-package.R'><code>R/Luminescence-package.R</code></a></small>
     <div class="hidden name"><code>ExampleData.XSYG.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Example data from a SAR OSL measurement and a TL spectrum for package
 Luminescence imported from a Freiberg Instruments XSYG file using the
 function <a href='read_XSYG2R.html'>read_XSYG2R</a>.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p><code>OSL.SARMeasurement</code>: SAR OSL measurement data</p>
@@ -147,7 +154,6 @@ for further analysis.</p>
 spectrum was cleaned from cosmic-rays using the function</p>
 <p><code>apply_CosmicRayRemoval</code>. Note that no quantum efficiency calibration
 was performed.</p>
-    
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p><strong>OSL.SARMeasurement</strong></p>
@@ -158,7 +164,9 @@ was performed.</p>
 <tr><td>Material:</td><td>Coarse grain quartz  on steel cups on lexsyg research reader</td></tr>
 <tr><td>Reference:</td><td>unpublished</td></tr>
 </table>
-    <p><strong>TL.Spectrum</strong></p>
+
+
+<p><strong>TL.Spectrum</strong></p>
 <table class='table'>
 <tr><td>Lab:</td><td>Luminescence Laboratory Giessen</td></tr>
 <tr><td>Lab-Code:</td><td>BT753</td></tr>
@@ -168,11 +176,11 @@ was performed.</p>
 <tr><td>Spectrum:</td><td>Integration time 19 s, channel time 20 s</td></tr>
 <tr><td>Heating:</td><td>1 K/s, up to 500 deg. C</td></tr>
 </table>
-    
+
+
     <h2 class="hasAnchor" id="version"><a class="anchor" href="#version"></a>Version</h2>
 
     <p>0.1</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Unpublished data measured to serve as example data for that
@@ -181,20 +189,19 @@ package. Location origin of sample BT753 is given here:</p>
 F., Moine, O., Gauthier, C., Svoboda, J., Lisa, L., 2013. The loess sequence
 of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>,
 <a href='plot_RLum.html'>plot_RLum</a>, <a href='plot_RLum.Analysis.html'>plot_RLum.Analysis</a>, <a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##show data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.XSYG</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## =========================================</span>
 <span class='co'>##(1) OSL.SARMeasurement</span>
-<span class='no'>OSL.SARMeasurement</span></div><div class='output co'>#&gt; $Sequence.Header
+<span class='va'>OSL.SARMeasurement</span>
+</div><div class='output co'>#&gt; $Sequence.Header
 #&gt;                                         
 #&gt; state                           finished
 #&gt; parentID                1002220348205854
@@ -254,7 +261,8 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
 #&gt; 	 .. .. : #117 TL (UVVIS) &lt;&gt; #118 TL (NA) &lt;&gt; #119 TL (NA)
 #&gt; 	 .. .. : #120 OSL (UVVIS) &lt;&gt; #121 OSL (NA) &lt;&gt; #122 OSL (NA) &lt;&gt; #123 OSL (NA) &lt;&gt; #124 OSL (NA)</div><div class='input'>
 <span class='co'>##show $Sequence.Object</span>
-<span class='no'>OSL.SARMeasurement</span>$<span class='no'>Sequence.Object</span></div><div class='output co'>#&gt; 
+<span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span>
+</div><div class='output co'>#&gt; 
 #&gt;  [RLum.Analysis-class]
 #&gt; 	 originator: read_XSYG2R()
 #&gt; 	 protocol: SAR
@@ -302,12 +310,14 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
 #&gt; 	 .. .. : #117 TL (UVVIS) &lt;&gt; #118 TL (NA) &lt;&gt; #119 TL (NA)
 #&gt; 	 .. .. : #120 OSL (UVVIS) &lt;&gt; #121 OSL (NA) &lt;&gt; #122 OSL (NA) &lt;&gt; #123 OSL (NA) &lt;&gt; #124 OSL (NA)</div><div class='input'>
 <span class='co'>##grep OSL curves and plot the first curve</span>
-<span class='no'>OSLcurve</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>OSL.SARMeasurement</span>$<span class='no'>Sequence.Object</span>,
-<span class='kw'>recordType</span><span class='kw'>=</span><span class='st'>"OSL"</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span>(<span class='no'>OSLcurve</span>)</div><div class='img'><img src='ExampleData.XSYG-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>OSLcurve</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span>,
+recordType<span class='op'>=</span><span class='st'>"OSL"</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>OSLcurve</span><span class='op'>)</span>
+</div><div class='img'><img src='ExampleData.XSYG-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## =========================================</span>
 <span class='co'>##(2) TL.Spectrum</span>
-<span class='no'>TL.Spectrum</span></div><div class='output co'>#&gt; 
+<span class='va'>TL.Spectrum</span>
+</div><div class='output co'>#&gt; 
 #&gt;  [RLum.Data.Spectrum-class]
 #&gt; 	 recordType: TL (Spectrometer)
 #&gt; 	 curveType: measured
@@ -318,38 +328,27 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
 #&gt; 	 .. .. range count values: 554 65405
 #&gt; 	 additional info elements: 14</div><div class='input'>
 <span class='co'>##plot simple spectrum (2D)</span>
-<span class='fu'><a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a></span>(<span class='no'>TL.Spectrum</span>,
-                        <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"contour"</span>,
-                        <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
-                        <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
-                        <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='ExampleData.XSYG-2.png' alt='' width='700' height='433' /></div><div class='input'>
-##plot 3d spectrum (uncomment for usage)
-# plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",
-# xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-# bin.cols = 1)
+<span class='fu'><a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span>,
+                        plot.type<span class='op'>=</span><span class='st'>"contour"</span>,
+                        xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
+                        ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>,
+                        bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+                        bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='ExampleData.XSYG-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>##plot 3d spectrum (uncomment for usage)</span>
+<span class='co'># plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",</span>
+<span class='co'># xlim = c(310,750), ylim = c(0,300), bin.rows=10,</span>
+<span class='co'># bin.cols = 1)</span>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#source">Source</a></li>
-
-      <li><a href="#version">Version</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -357,13 +356,16 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

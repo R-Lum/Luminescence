@@ -8,22 +8,29 @@
 
 <title>Plot function for an RLum.Data.Spectrum S4 class object — plot_RLum.Data.Spectrum • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Plot function for an RLum.Data.Spectrum S4 class object — plot_RLum.Data.Spectrum" />
 
+<meta property="og:title" content="Plot function for an RLum.Data.Spectrum S4 class object — plot_RLum.Data.Spectrum" />
 <meta property="og:description" content="The function provides a standardised plot output for spectrum data of an
 RLum.Data.Spectrum S4 class object" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ RLum.Data.Spectrum S4 class object" />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ RLum.Data.Spectrum S4 class object" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -89,7 +97,6 @@ RLum.Data.Spectrum S4 class object" />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -112,29 +119,39 @@ RLum.Data.Spectrum S4 class object" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot function for an RLum.Data.Spectrum S4 class object</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/plot_RLum.Data.Spectrum.R'><code>R/plot_RLum.Data.Spectrum.R</code></a></small>
     <div class="hidden name"><code>plot_RLum.Data.Spectrum.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function provides a standardised plot output for spectrum data of an
 RLum.Data.Spectrum S4 class object</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>object</span>, <span class='kw'>par.local</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"contour"</span>, <span class='kw'>optical.wavelength.colours</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bg.spectrum</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bg.channels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bin.rows</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>norm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>limit_counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xaxis.energy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>legend.text</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  par.local <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot.type <span class='op'>=</span> <span class='st'>"contour"</span>,
+  optical.wavelength.colours <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  bg.spectrum <span class='op'>=</span> <span class='cn'>NULL</span>,
+  bg.channels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  bin.rows <span class='op'>=</span> <span class='fl'>1</span>,
+  bin.cols <span class='op'>=</span> <span class='fl'>1</span>,
+  norm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rug <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  limit_counts <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xaxis.energy <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>legend.text</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -233,11 +250,10 @@ plot types providing a legend, e.g. <code>plot.type="transect"</code></p></td>
 to the <code>plot</code> function.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a plot.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Matrix structure</strong> <br /> (cf. <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>)</p><ul>
@@ -245,13 +261,15 @@ to the <code>plot</code> function.</p></td>
 <li><p><code>columns</code> (y-values): time/temperature (ylim, ylab)</p></li>
 <li><p><code>cells</code> (z-values): count values (zlim, zlab)</p></li>
 </ul>
-    <p><em>Note: This nomenclature is valid for all plot types of this function!</em></p>
+
+<p><em>Note: This nomenclature is valid for all plot types of this function!</em></p>
 <p><strong>Nomenclature for value limiting</strong></p><ul>
 <li><p><code>xlim</code>: Limits values along the wavelength axis</p></li>
 <li><p><code>ylim</code>: Limits values along the time/temperature axis</p></li>
 <li><p><code>zlim</code>: Limits values along the count value axis</p></li>
 </ul>
-    <p><strong>Details on the plot functions</strong></p>
+
+<p><strong>Details on the plot functions</strong></p>
 <p>Spectrum is visualised as 3D or 2D plot. Both plot types are based on
 internal R plot functions.</p>
 <p><strong><code>plot.type = "persp"</code></strong></p>
@@ -262,7 +280,8 @@ internal R plot functions.</p>
 <li><p><code>expand</code>: default is <code>1</code></p></li>
 <li><p><code>ticktype</code>: default is <code>detailed</code>, <code>r</code>: default is <code>10</code></p></li>
 </ul>
-    <p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
+
+<p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
 to set the background transparent and reduce the thickness of the lines use:
 <code><a href='https://rdrr.io/r/graphics/par.html'>par(bg = NA, lwd = 0.7)</a></code> previous the function call.</p>
 <p><strong><code>plot.type = "single"</code></strong></p>
@@ -281,113 +300,100 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
 <p><code>xlab</code>, <code>ylab</code>, <code>zlab</code>, <code>xlim</code>, <code>ylim</code>,
 <code>zlim</code>, <code>main</code>, <code>mtext</code>, <code>pch</code>, <code>type</code> ("single", "multiple.lines", "interactive"),
 <code>col</code>, <code>border</code>, <code>box</code> <code>lwd</code>, <code>bty</code>, <code>showscale</code> ("interactive")</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Not all additional arguments (<code>...</code>) will be passed similarly!</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.6.2</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>persp</a>,
+    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>persp</a>,
 <a href='https://rdrr.io/pkg/plotly/man/plot_ly.html'>plotly::plot_ly</a>, <a href='https://rdrr.io/r/graphics/contour.html'>contour</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+, RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.XSYG</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##(1)plot simple spectrum (2D) - contour</span>
-<span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
-                        <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"contour"</span>,
-                        <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
-                        <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>),
-                        <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-                        <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span><span class='va'>TL.Spectrum</span>,
+                        plot.type<span class='op'>=</span><span class='st'>"contour"</span>,
+                        xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
+                        ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>,
+                        bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+                        bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) plot spectrum (3D)</span>
-<span class='fu'>plot_RLum.Data.Spectrum</span>(
-  <span class='no'>TL.Spectrum</span>,
-  <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"persp"</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
-  <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-  <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span>
+  <span class='va'>TL.Spectrum</span>,
+  plot.type<span class='op'>=</span><span class='st'>"persp"</span>,
+  xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
+  ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span>,
+  bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+  bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(3) plot spectrum on energy axis</span>
 <span class='co'>##please note the background subtraction</span>
-<span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>,
-<span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"persp"</span>,
-<span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>200</span>),
-<span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
-<span class='kw'>bg.channels</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-<span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-<span class='kw'>xaxis.energy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 3 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span><span class='va'>TL.Spectrum</span>,
+plot.type<span class='op'>=</span><span class='st'>"persp"</span>,
+ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>200</span><span class='op'>)</span>,
+bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+bg.channels <span class='op'>=</span> <span class='fl'>10</span>,
+bin.cols <span class='op'>=</span> <span class='fl'>1</span>,
+xaxis.energy <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 3 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(4) plot multiple lines (2D) - multiple.lines (with ylim)</span>
-<span class='fu'>plot_RLum.Data.Spectrum</span>(
- <span class='no'>TL.Spectrum</span>,
- <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"multiple.lines"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>),
- <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>100</span>),
- <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
- <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
+<span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span>
+ <span class='va'>TL.Spectrum</span>,
+ plot.type<span class='op'>=</span><span class='st'>"multiple.lines"</span>,
+ xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
+ ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span>,
+ bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+ bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
  <span class='co'>##(4) interactive plot using the package plotly ("surface")</span>
- <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
- <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+ <span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span><span class='va'>TL.Spectrum</span>, plot.type<span class='op'>=</span><span class='st'>"interactive"</span>,
+ xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>, bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+ bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
  <span class='co'>##(5) interactive plot using the package plotly ("contour")</span>
- <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
- <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>,
- <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"contour"</span>,
- <span class='kw'>showscale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+ <span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span><span class='va'>TL.Spectrum</span>, plot.type<span class='op'>=</span><span class='st'>"interactive"</span>,
+ xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>, bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+ bin.cols <span class='op'>=</span> <span class='fl'>1</span>,
+ type <span class='op'>=</span> <span class='st'>"contour"</span>,
+ showscale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
  <span class='co'>##(6) interactive plot using the package plotly ("heatmap")</span>
- <span class='fu'>plot_RLum.Data.Spectrum</span>(<span class='no'>TL.Spectrum</span>, <span class='kw'>plot.type</span><span class='kw'>=</span><span class='st'>"interactive"</span>,
- <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>310</span>,<span class='fl'>750</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>300</span>), <span class='kw'>bin.rows</span><span class='kw'>=</span><span class='fl'>10</span>,
- <span class='kw'>bin.cols</span> <span class='kw'>=</span> <span class='fl'>1</span>,
- <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"heatmap"</span>,
- <span class='kw'>showscale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+ <span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span><span class='va'>TL.Spectrum</span>, plot.type<span class='op'>=</span><span class='st'>"interactive"</span>,
+ xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>, bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+ bin.cols <span class='op'>=</span> <span class='fl'>1</span>,
+ type <span class='op'>=</span> <span class='st'>"heatmap"</span>,
+ showscale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
  <span class='co'>##(7) alternative using the package fields</span>
- <span class='kw pkg'>fields</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></span>(<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>TL.Spectrum</span>))
- <span class='fu'><a href='https://rdrr.io/r/graphics/contour.html'>contour</a></span>(<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>TL.Spectrum</span>), <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+ <span class='fu'>fields</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></span><span class='op'>(</span><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='fu'><a href='https://rdrr.io/r/graphics/contour.html'>contour</a></span><span class='op'>(</span><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span><span class='op'>)</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># }</span><div class='input'>
+<span class='op'>}</span>
+
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -395,13 +401,16 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -8,22 +8,29 @@
 
 <title>Plot a histogram with separate error plot — plot_Histogram • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Plot a histogram with separate error plot — plot_Histogram" />
 
+<meta property="og:title" content="Plot a histogram with separate error plot — plot_Histogram" />
 <meta property="og:description" content="Function plots a predefined histogram with an accompanying error plot as
 suggested by Rex Galbraith at the UK LED in Oxford 2010." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -89,7 +97,6 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -112,26 +119,37 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot a histogram with separate error plot</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/plot_Histogram.R'><code>R/plot_Histogram.R</code></a></small>
     <div class="hidden name"><code>plot_Histogram.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Function plots a predefined histogram with an accompanying error plot as
 suggested by Rex Galbraith at the UK LED in Oxford 2010.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_Histogram</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>mtext</span>, <span class='no'>cex.global</span>, <span class='no'>se</span>, <span class='no'>rug</span>,
-  <span class='no'>normal_curve</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>, <span class='no'>colour</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_Histogram</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>mtext</span>,
+  <span class='va'>cex.global</span>,
+  <span class='va'>se</span>,
+  <span class='va'>rug</span>,
+  <span class='va'>normal_curve</span>,
+  <span class='va'>summary</span>,
+  <span class='va'>summary.pos</span>,
+  <span class='va'>colour</span>,
+  interactive <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -201,7 +219,7 @@ create an interactive histogram plot (requires the 'plotly' package)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments and graphical parameters passed to <a href='https://rdrr.io/r/graphics/plot.html'>plot</a> or
+      <td><p>further arguments and graphical parameters passed to <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a> or
 <a href='https://rdrr.io/r/graphics/hist.html'>hist</a>. If y-axis labels are provided, these must be specified as a vector
 of length 2 since the plot features two axes
 (e.g. <code>ylab = c("axis label 1", "axis label 2")</code>). Y-axes limits
@@ -210,7 +228,7 @@ elements specifying the left axes limits and the latter two elements giving
 the right axis limits.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If the normal curve is added, the y-axis in the histogram will show the
@@ -233,74 +251,61 @@ one or more of the following keywords:</p><ul>
 <li><p><code>"kurtosis"</code> (kurtosis) and</p></li>
 <li><p><code>"skewness"</code> (skewness).</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The input data is not restricted to a special type.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.4.4</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/hist.html'>hist</a>, <a href='https://rdrr.io/r/graphics/plot.html'>plot</a></p></div>
-    
+    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/hist.html'>hist</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Dietze, GFZ Potsdam (Germany)<br />
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+, RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2019). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Dietze, M., Kreutzer, S., 2020. plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='kw'>dose.rate</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ExampleData.DeValues</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, dose.rate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0438</span>,<span class='fl'>0.0019</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## plot histogram the easiest way</span>
-<span class='fu'>plot_Histogram</span>(<span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_Histogram-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_Histogram</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_Histogram-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## plot histogram with some more modifications</span>
-<span class='fu'>plot_Histogram</span>(<span class='no'>ExampleData.DeValues</span>,
-               <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-               <span class='kw'>normal_curve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-               <span class='kw'>cex.global</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-               <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-               <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"grey"</span>, <span class='st'>"black"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span>),
-               <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sdrel"</span>),
-               <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>,
-               <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Histogram of De-values"</span>,
-               <span class='kw'>mtext</span> <span class='kw'>=</span> <span class='st'>"Example data set"</span>,
-               <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>D</span>[<span class='no'>e</span>], <span class='st'>" distribution"</span>)),
-                        <span class='st'>"Standard error"</span>),
-               <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>250</span>),
-               <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>5</span>, <span class='fl'>20</span>))</div><div class='img'><img src='plot_Histogram-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_Histogram</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>,
+               rug <span class='op'>=</span> <span class='cn'>TRUE</span>,
+               normal_curve <span class='op'>=</span> <span class='cn'>TRUE</span>,
+               cex.global <span class='op'>=</span> <span class='fl'>0.9</span>,
+               pch <span class='op'>=</span> <span class='fl'>2</span>,
+               colour <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"grey"</span>, <span class='st'>"black"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span><span class='op'>)</span>,
+               summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sdrel"</span><span class='op'>)</span>,
+               summary.pos <span class='op'>=</span> <span class='st'>"topleft"</span>,
+               main <span class='op'>=</span> <span class='st'>"Histogram of De-values"</span>,
+               mtext <span class='op'>=</span> <span class='st'>"Example data set"</span>,
+               ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>D</span><span class='op'>[</span><span class='va'>e</span><span class='op'>]</span>, <span class='st'>" distribution"</span><span class='op'>)</span><span class='op'>)</span>,
+                        <span class='st'>"Standard error"</span><span class='op'>)</span>,
+               xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>250</span><span class='op'>)</span>,
+               ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>5</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_Histogram-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Michael Dietze, GFZ Potsdam (Germany)<br />
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -308,13 +313,16 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

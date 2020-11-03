@@ -8,22 +8,29 @@
 
 <title>Citation and Authors • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="pkgdown.css" rel="stylesheet">
@@ -31,7 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Citation and Authors" />
+
 
 
 
@@ -45,9 +54,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-citation-authors">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -61,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -85,7 +95,6 @@
   <a href="reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="news/NEWS_Version0.9.0.html">
@@ -108,30 +117,25 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="contents col-md-9">
     <div class="page-header">
       <h1>Citation</h1>
-      
+      <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/inst/CITATION'><code>inst/CITATION</code></a></small>
     </div>
 
-    <p>Kreutzer S, Burow C, Dietze M, Fuchs M, Schmidt C, Fischer M, Friedrich J (2019).
-<em>Luminescence: Comprehensive Luminescence Dating Data Analysis</em>.
-R package version 0.9.1.9000-11, <a href="https://CRAN.R-project.org/package=Luminescence">https://CRAN.R-project.org/package=Luminescence</a>. 
-</p>
+    <p>Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer and Johannes Friedrich (2020). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
     <pre>@Manual{,
   title = {Luminescence: Comprehensive Luminescence Dating Data Analysis},
   author = {Sebastian Kreutzer and Christoph Burow and Michael Dietze and Margret C. Fuchs and Christoph Schmidt and Manfred Fischer and Johannes Friedrich},
-  year = {2019},
-  note = {R package version 0.9.1.9000-11},
+  year = {2020},
+  note = {R package version 0.9.7},
   url = {https://CRAN.R-project.org/package=Luminescence},
 }</pre>
-    <p>Kreutzer S, Schmidt C, Fuchs MC, Dietze M, Fischer M, Fuchs M (2012).
-&ldquo;Introducing an R package for luminescence dating analysis.&rdquo;
-<em>Ancient TL</em>, <b>30</b>(1), 1-8. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {Introducing an R package for luminescence dating analysis},
   author = {Sebastian Kreutzer and Christoph Schmidt and Margret C. Fuchs and Michael Dietze and Manfred Fischer and Markus Fuchs},
@@ -141,10 +145,7 @@ R package version 0.9.1.9000-11, <a href="https://CRAN.R-project.org/package=Lum
   number = {1},
   pages = {1-8},
 }</pre>
-    <p>Dietze M, Kreutzer S, Fuchs MC, Burow C, Fischer M, Schmidt C (2013).
-&ldquo;A practical guide to the R package Luminescence.&rdquo;
-<em>Ancient TL</em>, <b>31</b>(1), 11-18. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {A practical guide to the R package Luminescence},
   author = {Michael Dietze and Sebastian Kreutzer and Margret C. Fuchs and Christoph Burow and Manfred Fischer and Christoph Schmidt},
@@ -154,11 +155,7 @@ R package version 0.9.1.9000-11, <a href="https://CRAN.R-project.org/package=Lum
   number = {1},
   pages = {11-18},
 }</pre>
-    <p>Fuchs MC, Kreutzer S, Burow C, Dietze M, Fischer M, Schmidt C, Fuchs M (2015).
-&ldquo;Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'.&rdquo;
-<em>Quaternary International</em>, <b>362</b>, 8-13.
-doi: <a href="https://doi.org/10.1016/j.quaint.2014.06.034">10.1016/j.quaint.2014.06.034</a>. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'},
   author = {Margret C. Fuchs and Sebastian Kreutzer and Christoph Burow and Michael Dietze and Manfred Fischer and Christoph Schmidt and Markus Fuchs},
@@ -168,10 +165,7 @@ doi: <a href="https://doi.org/10.1016/j.quaint.2014.06.034">10.1016/j.quaint.201
   pages = {8-13},
   doi = {10.1016/j.quaint.2014.06.034},
 }</pre>
-    <p>Smedley RK (2015).
-&ldquo;A new R function for the Internal External Uncertainty (IEU) model.&rdquo;
-<em>Ancient TL</em>, <b>33</b>(1), 16-21. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {A new R function for the Internal External Uncertainty (IEU) model},
   author = {Rachel K Smedley},
@@ -181,11 +175,7 @@ doi: <a href="https://doi.org/10.1016/j.quaint.2014.06.034">10.1016/j.quaint.201
   number = {1},
   pages = {16-21},
 }</pre>
-    <p>Dietze M, Kreutzer S, Burow C, Fuchs MC, Fischer M, Schmidt C (2016).
-&ldquo;The abanico plot: visualising chronometric data with individual standard errors.&rdquo;
-<em>Quaternary Geochronology</em>, <b>31</b>, 12-18.
-doi: <a href="https://doi.org/10.1016/j.quageo.2015.09.003">10.1016/j.quageo.2015.09.003</a>. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {The abanico plot: visualising chronometric data with individual standard errors},
   author = {Michael Dietze and Sebastian Kreutzer and Christoph Burow and Margret C. Fuchs and Manfred Fischer and Christoph Schmidt},
@@ -195,10 +185,7 @@ doi: <a href="https://doi.org/10.1016/j.quageo.2015.09.003">10.1016/j.quageo.201
   pages = {12-18},
   doi = {10.1016/j.quageo.2015.09.003},
 }</pre>
-    <p>Mercier N, Kreutzer S, Christophe C, Guerin G, Guibert P, Lahaye C, Lanos P, Philippe A, Tribolo C (2016).
-&ldquo;Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'.&rdquo;
-<em>Ancient TL</em>, <b>34</b>(2), 14-21. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'},
   author = {Norbert Mercier and Sebastian Kreutzer and Claire Christophe and Guillaume Guerin and Pierre Guibert and Christelle Lahaye and Philippe Lanos and Anne Philippe and Chantal Tribolo},
@@ -208,10 +195,7 @@ doi: <a href="https://doi.org/10.1016/j.quageo.2015.09.003">10.1016/j.quageo.201
   number = {2},
   pages = {14-21},
 }</pre>
-    <p>Kreutzer S, Burow C, Dietze M, Fuchs MC, Fischer M, Schmidt C (2017).
-&ldquo;Software in the context of luminescence dating: status, concepts and suggestions exemplified by the R package 'Luminescence'.&rdquo;
-<em>Ancient TL</em>, <b>35</b>(2), 1-11. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {Software in the context of luminescence dating: status, concepts and suggestions exemplified by the R package 'Luminescence'},
   author = {Sebastian Kreutzer and Christoph Burow and Michael Dietze and Margret C. Fuchs and Manfred Fischer and Christoph Schmidt},
@@ -221,11 +205,7 @@ doi: <a href="https://doi.org/10.1016/j.quageo.2015.09.003">10.1016/j.quageo.201
   number = {2},
   pages = {1-11},
 }</pre>
-    <p>Kreutzer S, Martin L, Guerin G, Tribolo C, Selva P, Mercier N (2018).
-&ldquo;Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.&rdquo;
-<em>Geochronometria</em>, <b>45</b>, 56-67.
-doi: <a href="https://doi.org/10.1515/geochr-2015-0086">10.1515/geochr-2015-0086</a>. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips},
   author = {Sebastian Kreutzer and Loic Martin and Guillaume Guerin and Chantal Tribolo and Pierre Selva and Norbert Mercier},
@@ -235,11 +215,7 @@ doi: <a href="https://doi.org/10.1515/geochr-2015-0086">10.1515/geochr-2015-0086
   pages = {56-67},
   doi = {10.1515/geochr-2015-0086},
 }</pre>
-    <p>E.King G, Burow C, M.Roberts H, J.G.Pearce N (2018).
-&ldquo;Age determination using feldspar: Evaluating fading-correction model performance.&rdquo;
-<em>Radiation Measurements</em>, <b>119</b>, 58-73.
-doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2018.07.013</a>. 
-</p>
+    <p></p>
     <pre>@Article{,
   title = {Age determination using feldspar: Evaluating fading-correction model performance},
   author = {Georgina E.King and Christoph Burow and Helen M.Roberts and Nicholas J.G.Pearce},
@@ -249,21 +225,22 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2
   pages = {58-73},
   doi = {10.1016/j.radmeas.2018.07.013},
 }</pre>
+
     <div class="page-header">
       <h1>Authors</h1>
     </div>
 
     <ul class="list-unstyled">
       <li>
-        <p><strong>Sebastian Kreutzer</strong>. Author, translator, maintainer, data contributor. <a href='https://orcid.org/0000-0002-0734-2199' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Sebastian Kreutzer</strong>. Author, translator, maintainer, data contributor. <a href='https://orcid.org/0000-0002-0734-2199' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Christoph Burow</strong>. Author, translator, data contributor. <a href='https://orcid.org/0000-0002-5023-4046' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Christoph Burow</strong>. Author, translator, data contributor. <a href='https://orcid.org/0000-0002-5023-4046' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Michael Dietze</strong>. Author. <a href='https://orcid.org/0000-0001-6063-1726' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Michael Dietze</strong>. Author. <a href='https://orcid.org/0000-0001-6063-1726' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
@@ -271,7 +248,7 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2
         </p>
       </li>
       <li>
-        <p><strong>Christoph Schmidt</strong>. Author. <a href='https://orcid.org/0000-0002-2309-3209' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Christoph Schmidt</strong>. Author. <a href='https://orcid.org/0000-0002-2309-3209' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
@@ -279,15 +256,15 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2
         </p>
       </li>
       <li>
-        <p><strong>Johannes Friedrich</strong>. Author. <a href='https://orcid.org/0000-0002-0805-9547' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Johannes Friedrich</strong>. Author. <a href='https://orcid.org/0000-0002-0805-9547' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Norbert Mercier</strong>. Contributor. <a href='https://orcid.org/0000-0002-6375-9108' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Norbert Mercier</strong>. Contributor. <a href='https://orcid.org/0000-0002-6375-9108' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Rachel K. Smedley</strong>. Contributor. <a href='https://orcid.org/0000-0001-7773-5193' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Rachel K. Smedley</strong>. Contributor. <a href='https://orcid.org/0000-0001-7773-5193' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
@@ -295,15 +272,15 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2
         </p>
       </li>
       <li>
-        <p><strong>Antoine Zink</strong>. Contributor. <a href='https://orcid.org/0000-0001-7146-1101' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Antoine Zink</strong>. Contributor. <a href='https://orcid.org/0000-0001-7146-1101' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Julie Durcan</strong>. Contributor. <a href='https://orcid.org/0000-0001-8724-8022' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Julie Durcan</strong>. Contributor. <a href='https://orcid.org/0000-0001-8724-8022' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Georgina E. King</strong>. Contributor, data contributor. <a href='https://orcid.org/0000-0003-1059-8192' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Georgina E. King</strong>. Contributor, data contributor. <a href='https://orcid.org/0000-0003-1059-8192' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
@@ -311,15 +288,19 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2
         </p>
       </li>
       <li>
-        <p><strong>Guillaume Guerin</strong>. Contributor. <a href='https://orcid.org/0000-0001-6298-5579' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Guillaume Guerin</strong>. Contributor. <a href='https://orcid.org/0000-0001-6298-5579' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
-        <p><strong>Svenja Riedesel</strong>. Contributor. <a href='https://orcid.org/0000-0003-2936-8776' target='orcid.widget'><img src='https://members.orcid.org/sites/default/files/vector_iD_icon.svg' class='orcid' alt='ORCID' height='16'></a>
+        <p><strong>Svenja Riedesel</strong>. Contributor. <a href='https://orcid.org/0000-0003-2936-8776' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
         <p><strong>Martin Autzen</strong>. Contributor. 
+        </p>
+      </li>
+      <li>
+        <p><strong>Pierre Guibert</strong>. Contributor. <a href='https://orcid.org/0000-0001-8969-8684' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
         </p>
       </li>
       <li>
@@ -333,19 +314,23 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2018.07.013">10.1016/j.radmeas.2
 </div>
 
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

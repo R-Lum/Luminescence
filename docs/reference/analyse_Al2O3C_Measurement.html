@@ -8,22 +8,29 @@
 
 <title>Al2O3:C Passive Dosimeter Measurement Analysis — analyse_Al2O3C_Measurement • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Al2O3:C Passive Dosimeter Measurement Analysis — analyse_Al2O3C_Measurement" />
 
+<meta property="og:title" content="Al2O3:C Passive Dosimeter Measurement Analysis — analyse_Al2O3C_Measurement" />
 <meta property="og:description" content="The function provides the analysis routines for measurements on a
 FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018" /
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018" /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -89,7 +97,6 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018" /
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -112,29 +119,37 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018" /
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Al2O3:C Passive Dosimeter Measurement Analysis</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/analyse_Al2O3C_Measurement.R'><code>R/analyse_Al2O3C_Measurement.R</code></a></small>
     <div class="hidden name"><code>analyse_Al2O3C_Measurement.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function provides the analysis routines for measurements on a
 FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_Al2O3C_Measurement</span>(<span class='no'>object</span>, <span class='kw'>signal_integral</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dose_points</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>4</span>), <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"OSL (UVVIS)"</span>, <span class='st'>"TL (UVVIS)"</span>),
-  <span class='kw'>calculate_TL_dose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>irradiation_time_correction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cross_talk_correction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>travel_dosimeter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>analyse_Al2O3C_Measurement</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  signal_integral <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dose_points <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>4</span><span class='op'>)</span>,
+  recordType <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OSL (UVVIS)"</span>, <span class='st'>"TL (UVVIS)"</span><span class='op'>)</span>,
+  calculate_TL_dose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  irradiation_time_correction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cross_talk_correction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  travel_dosimeter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  test_parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -203,10 +218,11 @@ a <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> vector can be provid
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments that can be passed to the plot output, supported are <code>norm</code>, <code>main</code>, <code>mtext</code></p></td>
+      <td><p>further arguments that can be passed to the plot output, supported are <code>norm</code>, <code>main</code>, <code>mtext</code>,
+<code>title</code> (for self-call mode to specify, e.g., sample names)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Function returns results numerically and graphically:</p>
@@ -235,7 +251,6 @@ you can use the column <code>CT_CORRECTION</code> remove the correction</em></p>
 <li><p>OSL and TL curves, combined on two plots.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Working with a travel dosimeter</strong></p>
@@ -257,32 +272,32 @@ thermal contact of the chip.</p>
 <p>So far available, information on the delievered optical stimulation are compared. Compared are
 the information from the first curves with all others. If the ratio differs more from
 unity than the defined by the threshold, a warning is returned.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.2.4</p>
-    
+    <p>0.2.5</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
-    
+Geochromometria 45, 56-67. doi: <a href='https://doi.org/10.1515/geochr-2015-0086'>10.1515/geochr-2015-0086</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='analyse_Al2O3C_ITC.html'>analyse_Al2O3C_ITC</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.Al2O3C</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.Al2O3C</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##run analysis</span>
-<span class='fu'>analyse_Al2O3C_Measurement</span>(<span class='no'>data_CrossTalk</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: TL peak shift detected for aliquot position 1! Check curves!</span></div><div class='output co'>#&gt;  [analyse_Al2O3_Measurement()] #1 DE: 0 ± 0</div><div class='img'><img src='analyse_Al2O3C_Measurement-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;  ... (#1 | ALQ POS: 1)
+<span class='fu'>analyse_Al2O3C_Measurement</span><span class='op'>(</span><span class='va'>data_CrossTalk</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: TL peak shift detected for aliquot position 1! Check curves!</span></div><div class='output co'>#&gt;  [analyse_Al2O3_Measurement()] #1 DE: 0 ± 0</div><div class='img'><img src='analyse_Al2O3C_Measurement-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;  ... (#1 | ALQ POS: 1)
 #&gt;  [analyse_Al2O3_Measurement()] #2 DE: 0 ± 0</div><div class='img'><img src='analyse_Al2O3C_Measurement-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;  ... (#2 | ALQ POS: 2)</div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
 #&gt; 	 originator: analyse_Al2O3C_Measurement()
@@ -293,30 +308,13 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
 #&gt; 	 additional info elements:  1</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -324,13 +322,16 @@ Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -8,22 +8,29 @@
 
 <title>Calculate the Fast Ratio for CW-OSL curves — calc_FastRatio • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Calculate the Fast Ratio for CW-OSL curves — calc_FastRatio" />
 
+<meta property="og:title" content="Calculate the Fast Ratio for CW-OSL curves — calc_FastRatio" />
 <meta property="og:description" content="Function to calculate the fast ratio of quartz CW-OSL single grain or single
 aliquot curves after Durcan &amp;amp; Duller (2011)." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ aliquot curves after Durcan &amp;amp; Duller (2011)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ aliquot curves after Durcan &amp;amp; Duller (2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -89,7 +97,6 @@ aliquot curves after Durcan &amp;amp; Duller (2011)." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -112,28 +119,40 @@ aliquot curves after Durcan &amp;amp; Duller (2011)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate the Fast Ratio for CW-OSL curves</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_FastRatio.R'><code>R/calc_FastRatio.R</code></a></small>
     <div class="hidden name"><code>calc_FastRatio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Function to calculate the fast ratio of quartz CW-OSL single grain or single
 aliquot curves after Durcan &amp; Duller (2011).</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>calc_FastRatio</span>(<span class='no'>object</span>, <span class='kw'>stimulation.power</span> <span class='kw'>=</span> <span class='fl'>30.6</span>, <span class='kw'>wavelength</span> <span class='kw'>=</span> <span class='fl'>470</span>,
-  <span class='kw'>sigmaF</span> <span class='kw'>=</span> <span class='fl'>2.6e-17</span>, <span class='kw'>sigmaM</span> <span class='kw'>=</span> <span class='fl'>4.28e-18</span>, <span class='kw'>Ch_L1</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>Ch_L2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Ch_L3</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>dead.channels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>fitCW.sigma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fitCW.curve</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>calc_FastRatio</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  stimulation.power <span class='op'>=</span> <span class='fl'>30.6</span>,
+  wavelength <span class='op'>=</span> <span class='fl'>470</span>,
+  sigmaF <span class='op'>=</span> <span class='fl'>2.6e-17</span>,
+  sigmaM <span class='op'>=</span> <span class='fl'>4.28e-18</span>,
+  Ch_L1 <span class='op'>=</span> <span class='fl'>1</span>,
+  Ch_L2 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Ch_L3 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x <span class='op'>=</span> <span class='fl'>1</span>,
+  x2 <span class='op'>=</span> <span class='fl'>0.1</span>,
+  dead.channels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  fitCW.sigma <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fitCW.curve <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -183,13 +202,13 @@ A vector of length 2 with integer values specifying the start and end channels f
     <tr>
       <th>x</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-% of signal remaining from the fast component.
+\<!-- % of signal remaining from the fast component. -->
 Used to define the location of L2 and L3 (start).</p></td>
     </tr>
     <tr>
       <th>x2</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-% of signal remaining from the medium component.
+\<!-- % of signal remaining from the medium component. -->
 Used to define the location of L3 (end).</p></td>
     </tr>
     <tr>
@@ -220,7 +239,7 @@ plot output (<code>TRUE</code>/<code>FALSE</code>)</p></td>
 Further arguments passed to <a href='fit_CWCurve.html'>fit_CWCurve</a>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a plot (<em>optional</em>) and an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.
@@ -231,22 +250,18 @@ The slot <code>data</code> contains a <a href='https://rdrr.io/r/base/list.html'
 <dt>args</dt><dd><p><a href='https://rdrr.io/r/base/list.html'>list</a> of used arguments</p></dd>
 <dt>call</dt><dd><p><code>[call]</code> the function call</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function follows the equations of Durcan &amp; Duller (2011). The energy
 required to reduce the fast and medium quartz OSL components to <code>x</code> and
-<code>x2</code> % respectively using eq. 3 to determine channels L2 and L3 (start
+<code>x2</code> \<!-- % respectively using eq. 3 to determine channels L2 and L3 (start -->
 and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\).</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.1.1</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>King, G.E., Durcan, J., Burow, C. (2019). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>King, G.E., Durcan, J., Burow, C., 2020. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Durcan, J.A. &amp; Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
@@ -258,19 +273,24 @@ using optical dating. Geomorphology 109, 36-45.</p>
 <p><strong>Further reading</strong></p>
 <p>Steffen, D., Preusser, F. &amp; Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='fit_CWCurve.html'>fit_CWCurve</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
 <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Georgina E. King, University of Bern (Switzerland) <br />
+Julie A. Durcan, University of Oxford (United Kingdom) <br />
+Christoph Burow, University of Cologne (Germany)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load example CW-OSL curve</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ExampleData.CW_OSL_Curve"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.CW_OSL_Curve"</span><span class='op'>)</span>
 
 <span class='co'># calculate the fast ratio w/o further adjustments</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_FastRatio</span>(<span class='no'>ExampleData.CW_OSL_Curve</span>)</div><div class='output co'>#&gt; 
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FastRatio</span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; [calc_FastRatio()]
 #&gt; 
 #&gt;  -------------------------------
@@ -303,7 +323,8 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
 #&gt;  -------------------------------
 #&gt; </div><div class='img'><img src='calc_FastRatio-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># show the summary table</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>res</span>)</div><div class='output co'>#&gt;   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width
 #&gt; 1    405.122      119.7442       29.55756     1000          0.04
 #&gt;   dead.channels.start dead.channels.end  sigmaF   sigmaM           I0
 #&gt; 1                   0                 0 2.6e-17 4.28e-18 7.240067e+16
@@ -313,32 +334,13 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
 #&gt; 1         373       558  11111     65 37.66667</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Georgina E. King, University of Bern (Switzerland) <br />
-Julie A. Durcan, University of Oxford (United Kingdom) <br />
-Christoph Burow, University of Cologne (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -346,13 +348,16 @@ Christoph Burow, University of Cologne (Germany)</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -8,22 +8,29 @@
 
 <title>Fitting and Deconvolution of OSL Lifetime Components — fit_OSLLifeTimes • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Fitting and Deconvolution of OSL Lifetime Components — fit_OSLLifeTimes" />
 
+<meta property="og:title" content="Fitting and Deconvolution of OSL Lifetime Components — fit_OSLLifeTimes" />
 <meta property="og:description" content="Fitting and Deconvolution of OSL Lifetime Components" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -88,7 +96,6 @@
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -111,26 +118,33 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fitting and Deconvolution of OSL Lifetime Components</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/fit_OSLLifeTimes.R'><code>R/fit_OSLLifeTimes.R</code></a></small>
     <div class="hidden name"><code>fit_OSLLifeTimes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Fitting and Deconvolution of OSL Lifetime Components</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>fit_OSLLifeTimes</span>(<span class='no'>object</span>, <span class='kw'>tp</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>signal_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method_control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>fit_OSLLifeTimes</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  tp <span class='op'>=</span> <span class='fl'>0</span>,
+  signal_range <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.components <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method_control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot_simple <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -168,16 +182,23 @@ for allowed options.</p></td>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): Enable/disable plot output</p></td>
     </tr>
     <tr>
+      <th>plot_simple</th>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): Enable/disable reduced plot output. If <code>TRUE</code>, no
+residual plot is shown, however, plot output can be combined using the standard R layout obtions,
+such as <code><a href='https://rdrr.io/r/graphics/par.html'>par(mfrow = c(2,2))</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): Enable/disable terminal feedback</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>parameters passed to <a href='https://rdrr.io/r/graphics/plot.default.html'>plot.default</a> to control the plot output. Please note that not
-all parameters are supported.</p></td>
+      <td><p>parameters passed to <a href='https://rdrr.io/r/graphics/plot.default.html'>plot.default</a> to control the plot output, supported are:
+<code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>log</code>, <code>xlim</code>, <code>ylim</code>, <code>col</code>, <code>lty</code>, <code>legend.pos</code>, <code>legend.text</code>. If the input
+object is of type <a href='RLum.Analysis-class.html'>RLum.Analysis</a> this arguments can be provided as a <a href='https://rdrr.io/r/base/list.html'>list</a>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>-----------------------------------<br />
@@ -220,7 +241,6 @@ D = 4: the residuals are systematically anticorrlated<br /></p></li>
 ------------------------<br /></p>
 <p>A plot showing the original data and the fit so far possible. The lower plot shows the
 residuals of the fit.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function intends to provide an easy access to pulsed optically stimulated luminescence (POSL) data,
@@ -242,7 +262,7 @@ contrast to their work, for the optimisation by differential evolution here the 
 <p><strong><code>method_control</code></strong></p>
 <table class='table'>
 <tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
-<tr><td><code>p</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>controls the probability for the F statistic reference values. For a significance level of 5% a value of 0.95 (the default) should be added, for 1%, a value of 0.99 is sufficient: 1 &gt; p &gt; 0 (cf. <a href='https://rdrr.io/r/stats/Fdist.html'>stats::qf</a>)</td></tr>
+<tr><td><code>p</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 &gt; p &gt; 0 (cf. stats::FDist)</td></tr>
 <tr><td><code>seed</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>set the seed for the random number generator, provide a value here to get reproducible results</td></tr>
 <tr><td><code>DEoptim.trace</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables the tracing of the differential evolution (cf. <a href='https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html'>DEoptim::DEoptim.control</a>)</td></tr>
 <tr><td><code>DEoptim.itermax</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>controls the number of the allowed generations (cf. <a href='https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html'>DEoptim::DEoptim.control</a>)</td></tr>
@@ -252,15 +272,14 @@ The default values is <code>TRUE</code></td></tr>
 <tr><td><code>nlsLM.upper</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables upper parameter boundary, default is <code>TRUE</code></td></tr>
 <tr><td><code>nlsLM.lower</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables lower parameter boundary, default is <code>TRUE</code></td></tr>
 </table>
-    
+
+
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.3</p>
-    
+    <p>0.1.5</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Schmidt, C. (2019). fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., Schmidt, C., 2020. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
@@ -272,21 +291,25 @@ Biometrika 37, 409-21. doi:10.2307/2332391</p>
 <p>Storn, R., Price, K., 1997. Differential Evolution –
 A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces.
 Journal of Global Optimization 11, 341–359.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/pkg/minpack.lm/man/nls.lm.html'>minpack.lm::nls.lm</a>, <a href='https://rdrr.io/pkg/DEoptim/man/DEoptim.html'>DEoptim::DEoptim</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
+Christoph Schmidt, University of Bayreuth (Germany)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.TR_OSL</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.TR_OSL</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##fit lifetimes (short run)</span>
-<span class='fu'>fit_OSLLifeTimes</span>(
- <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>ExampleData.TR_OSL</span>,
- <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>fit_OSLLifeTimes</span><span class='op'>(</span>
+ object <span class='op'>=</span> <span class='va'>ExampleData.TR_OSL</span>,
+ n.components <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; [fit_OSLLifeTime()]
 #&gt; 
 #&gt; (1) Start parameter and component adapation
@@ -311,7 +334,7 @@ Journal of Global Optimization 11, 341–359.</p>
 #&gt; -------------------------------------------------------------------------
 #&gt; Photon count sum:  3.831e+13 
 #&gt; Durbin-Watson residual statistic:  0.77 [ &lt;&gt;        ]
-#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on 'ε' in 'mbcsToSbcs': dot substituted for &lt;ce&gt;</span></div><div class='output co'>#&gt; <span class='warning'>Warning: conversion failure on 'ε' in 'mbcsToSbcs': dot substituted for &lt;b5&gt;</span></div><div class='img'><img src='fit_OSLLifeTimes-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; </div><div class='img'><img src='fit_OSLLifeTimes-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
 #&gt; 	 originator: fit_OSLLifeTimes()
 #&gt; 	 data: 4
@@ -320,38 +343,21 @@ Journal of Global Optimization 11, 341–359.</p>
 #&gt; 	 .. $total_counts : numeric
 #&gt; 	 .. $fit : nls
 #&gt; 	 additional info elements:  1</div><div class='input'>
-##long example
-</div><span class='co'># NOT RUN {</span>
-<span class='fu'>fit_OSLLifeTimes</span>(
-<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>ExampleData.TR_OSL</span>)
-<span class='co'># }</span><div class='input'>
+<span class='co'>##long example</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>fit_OSLLifeTimes</span><span class='op'>(</span>
+object <span class='op'>=</span> <span class='va'>ExampleData.TR_OSL</span><span class='op'>)</span>
+<span class='op'>}</span>
+
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France),
-Christoph Schmidt, University of Bayreuth (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -359,13 +365,16 @@ Christoph Schmidt, University of Bayreuth (Germany)</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

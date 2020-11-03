@@ -8,22 +8,29 @@
 
 <title>Extract Irradiation Times from an XSYG-file — extract_IrradiationTimes • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,12 +38,12 @@
 
 
 
-<meta property="og:title" content="Extract Irradiation Times from an XSYG-file — extract_IrradiationTimes" />
 
+<meta property="og:title" content="Extract Irradiation Times from an XSYG-file — extract_IrradiationTimes" />
 <meta property="og:description" content="Extracts irradiation times, dose and times since last irradiation, from a
 Freiberg Instruments XSYG-file. These information can be further used to
 update an existing BINX-file." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -50,9 +57,10 @@ update an existing BINX-file." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +74,7 @@ update an existing BINX-file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -90,7 +98,6 @@ update an existing BINX-file." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../news/NEWS_Version0.9.0.html">
@@ -113,28 +120,31 @@ update an existing BINX-file." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extract Irradiation Times from an XSYG-file</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/extract_IrradiationTimes.R'><code>R/extract_IrradiationTimes.R</code></a></small>
     <div class="hidden name"><code>extract_IrradiationTimes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Extracts irradiation times, dose and times since last irradiation, from a
 Freiberg Instruments XSYG-file. These information can be further used to
 update an existing BINX-file.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>extract_IrradiationTimes</span>(<span class='no'>object</span>, <span class='no'>file.BINX</span>,
-  <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"irradiation (NA)"</span>, <span class='st'>"IRSL (UVVIS)"</span>, <span class='st'>"OSL (UVVIS)"</span>,
-  <span class='st'>"TL (UVVIS)"</span>), <span class='kw'>compatibility.mode</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>extract_IrradiationTimes</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>file.BINX</span>,
+  recordType <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"irradiation (NA)"</span>, <span class='st'>"IRSL (UVVIS)"</span>, <span class='st'>"OSL (UVVIS)"</span>, <span class='st'>"TL (UVVIS)"</span><span class='op'>)</span>,
+  compatibility.mode <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  txtProgressBar <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -180,11 +190,11 @@ values to a max. value of 48, cf.<a href='write_R2BIN.html'>write_R2BIN</a></p><
 enables <code>TRUE</code> or disables <code>FALSE</code> the progression bars during import and export</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An <a href='RLum.Results-class.html'>RLum.Results</a> object is returned with the
-following structure:</p><pre>.. $irr.times (data.frame)
+following structure:</p><pre><span class='va'>..</span> <span class='op'>$</span><span class='fu'>irr.times</span> <span class='op'>(</span><span class='va'>data.frame</span><span class='op'>)</span>
 </pre>
 
 <p>If a BINX-file path and name is set, the output will be additionally
@@ -194,7 +204,6 @@ not work if the input object is a file path to an XSYG-file, instead of a
 link to only one file. In this case the argument input for <code>file.BINX</code> is ignored.</p>
 <p>In the self call mode (input is a <code>list</code> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects
 a list of <a href='RLum.Results-class.html'>RLum.Results</a> is returned.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function was written to compensate missing information in the BINX-file
@@ -206,7 +215,6 @@ be further used by other software, e.g., Analyst (Geoff Duller).</p>
 using the Analyst or any other self written script.</p>
 <p>Beside the some simple data transformation steps the function applies the
 functions <a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='write_R2BIN.html'>write_R2BIN</a> for data import and export.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The produced output object contains still the irradiation steps to
@@ -225,77 +233,58 @@ Example: TL step may comprise three curves:</p><ul>
 <li><p>(b) measured temperature vs. time and</p></li>
 <li><p>(c) predefined temperature vs. time.</p></li>
 </ul>
-    <p>Three curves, but they are all belonging to one TL measurement step, but with regard to
+
+<p>Three curves, but they are all belonging to one TL measurement step, but with regard to
 the time stamps this could produce negative values as the important function
 (<a href='read_XSYG2R.html'>read_XSYG2R</a>) do not change the order of entries for one step
 towards a correct time order.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.3.1</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.7. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
 recent improvements. Ancient TL 33, 35-42.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>,
 <a href='read_XSYG2R.html'>read_XSYG2R</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='write_R2BIN.html'>write_R2BIN</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-## (1) - example for your own data
-##
-## set files and run function
-#
-#   file.XSYG <- file.choose()
-#   file.BINX <- file.choose()
-#
-#     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
-#     get_RLum(output)
-#
-## export results additionally to a CSV.file in the same directory as the XSYG-file
-#       write.table(x = get_RLum(output),
-#                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
-#                   sep = ";",
-#                   row.names = FALSE)
+<span class='co'>## (1) - example for your own data</span>
+<span class='co'>##</span>
+<span class='co'>## set files and run function</span>
+<span class='co'>#</span>
+<span class='co'>#   file.XSYG &lt;- file.choose()</span>
+<span class='co'>#   file.BINX &lt;- file.choose()</span>
+<span class='co'>#</span>
+<span class='co'>#     output &lt;- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)</span>
+<span class='co'>#     get_RLum(output)</span>
+<span class='co'>#</span>
+<span class='co'>## export results additionally to a CSV.file in the same directory as the XSYG-file</span>
+<span class='co'>#       write.table(x = get_RLum(output),</span>
+<span class='co'>#                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),</span>
+<span class='co'>#                   sep = ";",</span>
+<span class='co'>#                   row.names = FALSE)</span>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -303,13 +292,16 @@ recent improvements. Ancient TL 33, 35-42.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
