@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 library(Luminescence)
 ```
-
+ 
 # Luminesence <img width=120px src="man/figures/RL_Logo.svg" align="right" />
 
 The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
