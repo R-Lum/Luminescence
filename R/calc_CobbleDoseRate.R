@@ -152,8 +152,8 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   KBetaSed <- function(x) 2 - (1 - 0.5 * exp(-3.77 * x * Scaling)) - (1 - 0.5 * exp(-3.77 * t * Scaling))
   ThBetaSed_short <- function(x) 2 - (1 - 0.5 * exp(-5.36 * x * Scaling)) - (1 - 0.5 * exp(-5.36 * t * Scaling))
   ThBetaSed_long <- function(x) 2 - (1 - 0.33 * exp(-2.36 * x * Scaling)) - (1 - 0.33 * exp(-2.36 * t * Scaling))
-  UBetaSed_short <- function(x) 2 - (1 - 0.5 * exp(-3.51 * x * Scaling)) - (1 - 0.5 * exp(-3.51 * t * Scaling))
-  UBetaSed_long <- function(x) 2 - (1 - 0.33 * exp(-1.39 * x * Scaling)) - (1 - 0.33 * exp(-1.39 * t * Scaling))
+  UBetaSed_short <- function(x) 2 - (1 - 0.5 * exp(-4.15 * x * Scaling)) - (1 - 0.5 * exp(-4.15 * t * Scaling))
+  UBetaSed_long <- function(x) 2 - (1 - 0.33 * exp(-2.36 * x * Scaling)) - (1 - 0.33 * exp(-2.36 * t * Scaling))
 
   GammaSed <- function(x) 2 - (1 - 0.5 * exp(-0.02 * x * Scaling)) - (1 - 0.5 * exp(-0.02 * tGamma *
                                                                                       Scaling))
