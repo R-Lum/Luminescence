@@ -92,7 +92,7 @@ Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Ki
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-122. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. http://r-luminescence.org
 }
 
 \keyword{IO}

@@ -14,6 +14,7 @@ collection of various R functions for luminescence dating data analysis.
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
+[![DOI](https://zenodo.org/badge/23153315.svg)](https://zenodo.org/badge/latestdoi/23153315)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
