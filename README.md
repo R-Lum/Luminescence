@@ -27,9 +27,9 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 
 ### CRAN check status
 
-| error | fail | warn | note | ok |
-| ----: | ---: | ---: | ---: | -: |
-|     0 |    0 |    0 |    7 |  5 |
+| error | fail | warn | note |  ok |
+|------:|-----:|-----:|-----:|----:|
+|     0 |    0 |    0 |    7 |   5 |
 
 ## Social media and other resources
 
@@ -41,12 +41,12 @@ or visit our [R-Luminescence homepage](http://www.r-luminescence.org).
 
 #### i. Requirements
 
-  - *Windows (32/64bit)*:
+-   *Windows (32/64bit)*:
     [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (provided
     by CRAN)
-  - *macOS*: [Xcode](https://developer.apple.com/xcode/downloads/)
+-   *macOS*: [Xcode](https://developer.apple.com/xcode/downloads/)
     (provided by Apple)
-  - *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in
+-   *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in
     most distributions.
 
 #### ii. Install the package
@@ -82,11 +82,11 @@ as well as a user-friendly design. Try
 <https://github.com/R-Lum/Luminescence/issues> or write us an
 [e-mail](mailto:developers@r-luminescence.org) if anything crosses your
 mind or if you want your new self-written function to be to implemented.
-You are kindly invited to bring forward the package with us\!
+You are kindly invited to bring forward the package with us!
 
 ## Note
 
-**The package comes without any guarantee\!**
+**The package comes without any guarantee!**
 
 Please further note that this version is a development version and may
 change day by day. For stable branches please visit the package on [CRAN
@@ -108,12 +108,12 @@ more details.
 
 ## Related projects
 
-  - [RLumModel](https://github.com/R-Lum/RLumModel)
-  - [RLumShiny](https://github.com/R-Lum/RLumShiny)
-  - [RLumDocker](https://github.com/R-Lum/RLumDocker)
-  - [BayLum](https://github.com/crp2a/BayLum)
-  - [RCarb](https://github.com/R-Lum/RCarb)
-  - [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
+-   [RLumModel](https://github.com/R-Lum/RLumModel)
+-   [RLumShiny](https://github.com/R-Lum/RLumShiny)
+-   [RLumDocker](https://github.com/R-Lum/RLumDocker)
+-   [BayLum](https://github.com/crp2a/BayLum)
+-   [RCarb](https://github.com/R-Lum/RCarb)
+-   [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
 
 ## R package dependencies
 
