@@ -61,7 +61,7 @@ visit our project website (link below).
 
 \strong{Project website}
 \itemize{
-\item \url{http://www.r-luminescence.org}
+\item \url{https://r-luminescence.org}
 }
 
 \strong{Project source code repository}

@@ -203,7 +203,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-120. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-122. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

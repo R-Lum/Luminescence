@@ -34,8 +34,8 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 ## Social media and other resources
 
 Follow us on
-[![](http://i.imgur.com/wWzX9uB.png)](https://www.twitter.com/RLuminescence)
-or visit our [R-Luminescence homepage](http://www.r-luminescence.org).
+[![](http://i.imgur.com/wWzX9uB.png)](https://twitter.com/RLuminescence)
+or visit our [R-Luminescence homepage](https://r-luminescence.org).
 
 ## Installation
 

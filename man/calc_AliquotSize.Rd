@@ -28,7 +28,7 @@ If \code{packing.density = "Inf"} a hexagonal structure on an infinite plane wit
 a packing density of \eqn{0.906\ldots} is assumed.}
 
 \item{MC}{\link{logical} (\emph{optional}):
-if \code{TRUE} the function performs a monte carlo simulation for estimating the
+if \code{TRUE} the function performs a Monte Carlo simulation for estimating the
 amount of grains on the sample carrier and assumes random errors in grain
 size distribution and packing density. Requires a vector with min and max
 grain size for \code{grain.size}. For more information see details.}
@@ -135,7 +135,7 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 } 
 
 \section{How to cite}{
-Burow, C., 2020. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-120. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2020. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-122. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -149,7 +149,7 @@ are there on a single aliquot?. Ancient TL 30, 9-16.
 \strong{Further reading}
 
 Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
-Theorem on Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf},
+Theorem on Circle Packing. \url{https://arxiv.org/pdf/1009.4322v1.pdf},
 2013-09-13.
 
 Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,

@@ -24,7 +24,7 @@ requires a CW-OSL shine down curve (x = time, y = counts)}
 
 \item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 requires a CW-OSL shine down curve (x = time, y = counts). If no
-input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
+input is given the Tx.data will be treated as \code{NA} and no \code{Lx/Tx} ratio
 is calculated.}
 
 \item{signal.integral}{\link{vector} (\strong{required}):
@@ -165,12 +165,12 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-120. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-122. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Duller, G., 2018. Analyst v4.57 - User Manual.
-\url{http://users.aber.ac.uk/ggd/}\cr
+\url{https://users.aber.ac.uk/ggd/}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.

@@ -28,7 +28,7 @@ and \code{Pych}. See details for further information.}
 
 \item{method.Pych.smoothing}{\link{integer} (\emph{with default}):
 Smoothing parameter for cosmic ray removal according to Pych (2003).
-The value defines how many neighboring values in each frame are used for smoothing
+The value defines how many neighbouring values in each frame are used for smoothing
 (e.g., \code{2} means that the two previous and two following values are used).}
 
 \item{method.Pych.threshold_factor}{\link{numeric} (\emph{with default}):
@@ -107,20 +107,19 @@ dataset (see example).
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-120. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-122. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 Single Images. Astrophysics 116, 148-153.
-\url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
+\url{https://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link{smooth}, \link{smooth.spline},
 \link{apply_CosmicRayRemoval}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{manip}

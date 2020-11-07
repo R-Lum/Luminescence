@@ -39,8 +39,8 @@ knitr::kable(foghorn::cran_results(pkg = "Luminescence")[,2:6])
 ```
 
 ## Social media and other resources 
-Follow us on [![](http://i.imgur.com/wWzX9uB.png)](https://www.twitter.com/RLuminescence) or visit 
-our [R-Luminescence homepage](http://www.r-luminescence.org).
+Follow us on [![](http://i.imgur.com/wWzX9uB.png)](https://twitter.com/RLuminescence) or visit 
+our [R-Luminescence homepage](https://r-luminescence.org).
 
 ## Installation
 
