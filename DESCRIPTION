@@ -84,7 +84,7 @@ Suggests:
     devtools (>= 2.0.0),
     R.rsp (>= 0.43.0)
 VignetteBuilder: R.rsp
-URL: https://r-luminescence.org
+URL: http://r-luminescence.org
 Encoding: UTF-8
 Language: en-GB
 Collate: 
