@@ -157,7 +157,6 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
 
   GammaSed <- function(x) 2 - (1 - 0.5 * exp(-0.02 * x * Scaling)) - (1 - 0.5 * exp(-0.02 * tGamma *
                                                                                       Scaling))
-
   Temp[, 1] <- DiameterSeq
   Temp[, 2] <- KBetaCobble(DiameterSeq)
   Temp[, 3] <- ThBetaCobble_long(DiameterSeq)
@@ -173,9 +172,8 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   TempThSed <- ThBetaSed_short(DiameterSeq)
   TempUSed <- UBetaSed_short(DiameterSeq)
 
-  n = which(DiameterSeq==max(DiameterSeq)-0.15)
-
-  Max = length(DiameterSeq)
+  n <- which(DiameterSeq >= (max(DiameterSeq)-0.15))[1]
+  Max <- length(DiameterSeq)
 
   ## Create the full matrix based on the short and long beta attenuations
   Temp[0:16, 3] <- TempThCob[0:16]
