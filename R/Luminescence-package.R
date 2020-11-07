@@ -60,7 +60,7 @@
 #'
 #' **Project website**
 #'
-#' - [http://www.r-luminescence.org]()
+#' - [https://r-luminescence.org]()
 #'
 #' **Project source code repository**
 #'

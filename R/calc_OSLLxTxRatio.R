@@ -54,7 +54,7 @@
 #'
 #' @param Tx.data [RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' requires a CW-OSL shine down curve (x = time, y = counts). If no
-#' input is given the Tx.data will be treated as `NA` and no Lx/Tx ratio
+#' input is given the Tx.data will be treated as `NA` and no `Lx/Tx` ratio
 #' is calculated.
 #'
 #' @param signal.integral [vector] (**required**):
@@ -138,7 +138,7 @@
 #' [analyse_SAR.CWOSL]
 #'
 #' @references Duller, G., 2018. Analyst v4.57 - User Manual.
-#' [http://users.aber.ac.uk/ggd/]()\cr
+#' [https://users.aber.ac.uk/ggd/]()\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 #' count. Ancient TL, 20 (2), 49-51.
