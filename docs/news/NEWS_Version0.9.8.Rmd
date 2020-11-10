@@ -1,0 +1,191 @@
+---
+title: "R Luminescence version - 0.9.8 </br> - Energetic Bird -"
+author: "R Luminescence Developer Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+Dear **R** Luminescence users!
+
+As the years passing by, the 'Luminescence' package gets bigger every year, and we are falling more and more behind our schedules for next major releases. Nevertheless, today, we are happy to announce another major release [0.9.0](https://CRAN.R-project.org/package=Luminescence) before we are finally moving to 1.0.0 in 2020. 
+*Please note that the 0.9.X package release series will be last supporting **R** versions < 3.5.0.* 
+
+Unfortunately, due to last minute CRAN correction requests after we had merged the development branches, 
+we cannot ship all the new functions that we have had prepared for you over the last year. They will come later the year with further updates.
+
+We are thankful for all the helpful suggestions and comments we received over time, and we are welcoming 
+two new members in our development team: Svenja Riedesel (Aberystwyth University, UK) and Martin
+Autzen (Technical University of Denmark, DK) who contributed their first function. 
+
+As usual, below we are featuring some changes and new functions. 
+For a full list of changes and notably the bug fixes, please check the news on the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+
+Have fun and do not forget to report bugs via https://github.com/R-Lum/Luminescence/issues.
+<br><br>
+Your R 'Luminescence' Developer Team
+
+*(Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt,  Manfred Fischer, 
+Johannes Friedrich, Norbert Mercier, Rachel K. Smedley, Claire Christophe , Antoine Zink, Julie Durcan,  
+Georgina E. King, Anne Philippe, Guillaume Guerin, Svenja Riedesel, Martin Autzen)*
+
+```{r, echo = FALSE, message=FALSE}
+library(Luminescence)
+```
+
+## New functions
+
+### Give me energy: `convert_Wavelength2Energy()` 
+
+Since a few years ‘Luminescence’ includes functions to treat and display 3D emission spectra, e.g., plot_RLum.Data.Spectrum(). 
+Such spectra are usually recorded on a wavelength scale but need to be transposed to energy scales, e.g., 
+to deconvolute individual peaks by fitting. For emission spectra it needs more than just replacing 
+the wavelength axis, but also the signal values need to be recalculated to maintain the area under the sum spectrum (example after Mooney et al., 2013).
+
+```{r, echo=FALSE, fig.align="center", fig.width=6, fig.height=4}
+##(1) Literature example after Mooney et al. (2013)
+##(1.1) create matrix
+m <- matrix(
+  data = c(seq(400, 800, 50), rep(1, 9)), ncol = 2)
+
+##(1.2) set plot function to reproduce the
+##literature figure
+p <- function(m) {
+ plot(x = m[, 1], y = m[, 2])
+ polygon(
+ x = c(m[, 1], rev(m[, 1])),
+ y = c(m[, 2], rep(0, nrow(m))))
+ for (i in 1:nrow(m)) {
+  lines(x = rep(m[i, 1], 2), y = c(0, m[i, 2]))
+ }
+}
+
+##(1.3) plot curves
+par(mfrow = c(1,2))
+p(m)
+p(convert_Wavelength2Energy(m))
+```
+
+A simplified form of such conversion was already included in `plot_RLum.Data.Spectrum()`, but the values could not be extracted. To quicken and unify the workflow among the package 'Luminescence' now `convert_Wavelength2Energy()` takes over and is also used internally by `plot_RLum.Data.Spectrum()`. Output values are similar to the allowed input values ( `RLum.Data.Spectrum()`, `data.frame` and `matrix`). Example: 
+
+```{r, echo = FALSE, fig.align="center"}
+#=====================##
+##(2) Another example using density curves
+##create dataset
+xy <- density(
+ c(rnorm(n = 100, mean = 500, sd = 20),
+ rnorm(n = 100, mean = 800, sd = 20)))
+xy <- data.frame(xy$x, xy$y)
+```
+
+```{r, fig.align="center"}
+plot(
+ convert_Wavelength2Energy(xy),
+ xy$y,
+ type = "l",
+ xlim = c(1.23, 8.3),
+ xlab = "Energy [eV]",
+ ylab = "Luminescence [a.u.]"
+)
+```
+
+
+### Life is short: `fit_OSLLifeTimes()` 
+
+New equipment brings new data, brings new challenges. Back in late 2017, we got our first nanosecond pulsing unit shipping to Bordeaux. The project aimed at investigating very short luminescence signal lifetimes in quartz in minerals. To analyse the data and deconvolve the bulk signal, a series of photons arriving after an OSL pulse, Sebastian and Christoph S. created a new function using ideas
+proposed by Bluszcz and Adamiec (2006) to identify a statistically justified number of lifetimes components. 
+
+The function works on `RLum.Data.Curve`, `data.frame` or `matrix` objects and runs a differential evolution algorithm to identify meaningful start parameters later piped into a nonlinear least square
+fitting. 
+
+```{r, echo=FALSE}
+##load example data
+data(ExampleData.TR_OSL, envir = environment())
+```
+
+```{r, cache=TRUE, fig.align="center", fig.width=6, fig.height=5, results=FALSE}
+fit_OSLLifeTimes(
+object = ExampleData.TR_OSL, 
+verbose = TRUE)
+```
+
+### Show it all: `plot_DRCSummary()` 
+
+You have always been wondering how the dose-response curves would look like if combined in a single plot? 
+Now we have a solution: `plot_DRCSummary()` works directly on the output of the function `analyse_SAR.CWOSL()` and extracts the equations with the fitting parameters for you, and it displays everything in a single plot. Of course, it also works on a `list` of objects created by `analyse_SAR.CWOSL()`.
+
+```{r, echo=FALSE}
+#load data example data
+data(ExampleData.BINfileData, envir = environment())
+
+#transform the values from the first position in a RLum.Analysis object
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
+
+results <- analyse_SAR.CWOSL(
+  object = object,
+  signal.integral.min = 1,
+  signal.integral.max = 2,
+   background.integral.min = 900,
+   background.integral.max = 1000,
+   plot = FALSE, 
+   verbose = FALSE
+ )
+```
+
+```{r, fig.align="center", message=FALSE, fig.width=4, fig.height=3.5,results=FALSE}
+plot_DRCSummary(
+  object = results,
+  show_natural = TRUE,
+  show_dose_points = TRUE
+)
+```
+
+
+### Nothing is as it seems: `scale_GammaDose()` 
+
+```{r, echo=FALSE}
+# Load example data
+data("ExampleData.ScaleGammaDose", envir = environment())
+```
+
+Scale the $\gamma$-dose rate considering layer-to-layer variations in soil radioactivity. The first contribution by S. Riedesel and M. Autzen. The range of $\gamma$-radiation requires corrections to be made for the dose received by a sample when situated within a complex sediment sequence. If no portable $\gamma$-ray spectrometry was performed, individual dosimetry samples should be taken within the influencing distance for $\gamma$-radiation. The function allows the user to input element concentrations for U, Th and K for all samples taken from layers that may impact the $\gamma$-dose received by the luminescence sample. The function calculates the $\gamma$-dose rate received by the samples using the superposition approach according to Aitken (1985). The user will also be provided with details on the contribution of each sediment layer to the overall dose rate and a figure showing details of the sediment sequence, element concentrations of the samples and dose rate contributions. 
+
+```{r, fig.align="center", fig.width = 8, fig.height=6}
+results <- scale_GammaDose(
+  data = ExampleData.ScaleGammaDose,
+  conversion_factors = "Cresswelletal2019",
+  fractional_gamma_dose = "Aitken1985",
+  verbose = FALSE,
+  plot = TRUE
+)
+
+```
+
+### Completing the toolset: `fit_ThermalQuenching()` 
+
+Investigating thermal quenching of luminescence signals (e.g., Wintle, 1975) using pulsed-annealing 
+experiments are one of the fundamental experiments to determine defect parameters, such as the energy depth of an electron trap. What was missing so far was a function in 'Luminescence' ready to be used on your datasets, `fit_ThermalQuenching()` closes this gap and could not be easier to be used:
+
+```{r, echo=FALSE}
+##create short example dataset
+data <- data.frame(
+  T = c(25, 40, 50, 60, 70, 80, 90, 100, 110),
+  V = c(0.06, 0.058, 0.052, 0.051, 0.041, 0.034, 0.035, 0.033, 0.032),
+  V_X = c(0.012, 0.009, 0.008, 0.008, 0.007, 0.006, 0.005, 0.005, 0.004))
+```
+
+```{r, fig.align="center", fig.width=5, fig.height=4, results=FALSE}
+fit_ThermalQuenching(
+ data = data)
+```
+
+
+# References {-}
+
+Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, Oxford.
+
+Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves. Radiation Measurements 41, 886–891. doi: [10.1016/j.radmeas.2006.05.016](https://doi.org/10.1016/j.radmeas.2006.05.016)
+
+Mooney, J., Kambhampati, P., 2013. Get the Basics Right: Jacobian Conversion of Wavelength and Energy Scales for Quantitative Analysis of Emission Spectra. J. Phys. Chem. Lett. 4, 3316–3318. doi: [10.1021/jz401508t](https://doi.org/10.1021/jz401508t)
+
+Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. J. R. astr. Soc. 41, 107–113.
