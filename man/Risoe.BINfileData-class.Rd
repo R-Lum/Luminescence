@@ -220,7 +220,7 @@ showClass("Risoe.BINfileData")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8.9000-123. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-1. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
