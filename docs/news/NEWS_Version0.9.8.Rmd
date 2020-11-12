@@ -35,6 +35,45 @@ library(Luminescence)
 
 ## New functions
 
+### `convert_Concentration2DoseRate()`
+
+This function converts radionuclide concentrations (K in %, Th and U in ppm) into dose rates (Gy/ka). Beta dose rates are also attenuated for the grain size (Guérin et al., 2012). Beta and gamma dose rates are corrected for the water content (based on the factors provided by Aitken, 1985).
+
+```{r, echo=FALSE}
+## create input template
+input <- convert_Concentration2DoseRate()
+
+## fill input
+input$Mineral <- "FS"
+input$K <- 2.13
+input$K_SE <- 0.07
+input$Th <- 9.76
+input$Th_SE <- 0.32
+input$U <- 2.24
+input$U_SE <- 0.12
+input$GrainSize <- 200
+input$WaterContent <- 30
+input$WaterContent_SE <- 5
+
+## convert
+convert_Concentration2DoseRate(input)
+```
+
+### `calc_CobbleDoseRate()`
+
+Cobbles and rocks are increasingly being used in luminescence dating applications. This function calculates the dose rate profile through the cobble based on the attenuation coeffecients presented by Riedesel and Autzen (2020). This function uses the new function `convert_Concentration2DoseRate()` to convert provided U, Th and K concentrations into dose rates. The function then corrects the beta dose rate in the cobble for the grain size following results of Guerin et al. (2012). Sediment beta and gamma dose rates are corrected for the water content of the sediment using the correction factors of Aitken (1985). Water content in the cobble is assumed to be 0. An example data set is provided.
+
+```{r, echo=FALSE}
+## load example data
+data("ExampleData.CobbleData", envir = environment())
+
+## run function
+calc_CobbleDoseRate(ExampleData.CobbleData)
+
+```
+
+
+
 ### Give me energy: `convert_Wavelength2Energy()` 
 
 Since a few years ‘Luminescence’ includes functions to treat and display 3D emission spectra, e.g., plot_RLum.Data.Spectrum(). 
