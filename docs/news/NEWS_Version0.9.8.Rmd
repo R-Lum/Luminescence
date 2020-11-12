@@ -73,6 +73,10 @@ calc_CobbleDoseRate(ExampleData.CobbleData)
 
 ```
 
+### Show me only the interesting part:  `plot_ROI()`
+
+### Read it: `read_RF2R()`
+
 # References {-}
 
 Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
