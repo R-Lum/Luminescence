@@ -9,22 +9,29 @@
 <title>Verify single grain data sets and check for invalid grains, i.e.
 zero-light level grains — verify_SingleGrainData • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,12 +39,12 @@ zero-light level grains — verify_SingleGrainData • Luminescence</title>
 
 
 
+
 <meta property="og:title" content="Verify single grain data sets and check for invalid grains, i.e.
 zero-light level grains — verify_SingleGrainData" />
-
 <meta property="og:description" content="This function tries to identify automatically zero-light level curves (grains)
 from single grain data measurements." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -51,9 +58,10 @@ from single grain data measurements." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +75,7 @@ from single grain data measurements." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -91,10 +99,9 @@ from single grain data measurements." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -114,6 +121,7 @@ from single grain data measurements." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -121,20 +129,24 @@ from single grain data measurements." />
     <div class="page-header">
     <h1>Verify single grain data sets and check for invalid grains, i.e.
 zero-light level grains</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/verify_SingleGrainData.R'><code>R/verify_SingleGrainData.R</code></a></small>
     <div class="hidden name"><code>verify_SingleGrainData.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function tries to identify automatically zero-light level curves (grains)
 from single grain data measurements.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>verify_SingleGrainData</span>(<span class='no'>object</span>, <span class='kw'>threshold</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>cleanup</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cleanup_level</span> <span class='kw'>=</span> <span class='st'>"aliquot"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>verify_SingleGrainData</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  threshold <span class='op'>=</span> <span class='fl'>10</span>,
+  cleanup <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cleanup_level <span class='op'>=</span> <span class='st'>"aliquot"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -152,8 +164,8 @@ the <code>var</code> of the count values (see details)</p></td>
     <tr>
       <th>cleanup</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-if set to <code>TRUE</code> curves indentified as zero light level curves are
-automatically removed. Ouput is an object as same type as the input, i.e.
+if set to <code>TRUE</code> curves identified as zero light level curves are
+automatically removed. Output is an object as same type as the input, i.e.
 either <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> or <a href='RLum.Analysis-class.html'>RLum.Analysis</a></p></td>
     </tr>
     <tr>
@@ -178,7 +190,7 @@ enables or disables the terminal feedback</p></td>
 enables or disables the graphical feedback</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The function returns</p>
@@ -203,23 +215,21 @@ enables or disables the graphical feedback</p></td>
 or an <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object is returned in such cases.
 An <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> object can be exported to a BIN-file by
 using the function <a href='write_R2BIN.html'>write_R2BIN</a>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>How does the method work?</strong></p>
 <p>The function compares the expected values (\(E(X)\)) and the variance
 (\(Var(X)\)) of the count values for each curve. Assuming that the
-background roughly follows a poisson distribution the absolute difference
+background roughly follows a Poisson distribution the absolute difference
 of both values should be zero or at least around zero as</p>
 <p>$$E(x) = Var(x) = \lambda$$</p>
 <p>Thus the function checks for:</p>
 <p>$$abs(E(x) - Var(x)) &gt;= \Theta$$</p>
-<p>With \(\Theta\) an arbitray, user defined, threshold. Values above the
+<p>With \(\Theta\) an arbitrary, user defined, threshold. Values above the
 threshold indicating curves comprising a signal.</p>
 <p>Note: the absolute difference of \(E(X)\) and \(Var(x)\) instead of the
 ratio was chosen as both terms can become 0 which would result in 0 or <code>Inf</code>,
 if the ratio is calculated.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function can work with <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects or
@@ -230,29 +240,30 @@ remove identify invalid grains before the conversion to an
 <p>The function checking for invalid curves works rather robust and it is likely
 that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.2.1</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='write_R2BIN.html'>write_R2BIN</a>,
 <a href='read_BIN2R.html'>read_BIN2R</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyh University (United Kingdom)
+, RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##01 - basic example I</span>
 <span class='co'>##just show how to apply the function</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.XSYG</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##verify and get data.frame out of it</span>
-<span class='fu'>verify_SingleGrainData</span>(<span class='no'>OSL.SARMeasurement</span>$<span class='no'>Sequence.Object</span>)$<span class='no'>selection_full</span></div><div class='output co'>#&gt; <span class='warning'>Warning: [verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!</span></div><div class='output co'>#&gt;     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID
+<span class='fu'>verify_SingleGrainData</span><span class='op'>(</span><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>selection_full</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: [verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!</span></div><div class='output co'>#&gt;     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID
 #&gt; 1         NA    NA  23.66271 2.572619e+02   10.872037        10  TRUE
 #&gt; 2         NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
 #&gt; 3         NA    NA 146.85632 4.982419e+03   33.927165        10  TRUE
@@ -378,62 +389,51 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 #&gt; 123       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
 #&gt; 124       NA    NA  27.24765 3.470933e+02   12.738468        10  TRUE</div><div class='input'>
 <span class='co'>##02 - basic example II</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='no'>id</span> <span class='kw'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>CWOSL.SAR.Data</span>,
-<span class='kw'>cleanup_level</span> <span class='kw'>=</span> <span class='st'>"aliquot"</span>)$<span class='no'>selection_id</span></div><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>id</span> <span class='op'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,
+cleanup_level <span class='op'>=</span> <span class='st'>"aliquot"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>selection_id</span>
+
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>##03 - advanced example I</span>
 <span class='co'>##importing and exporting a BIN-file</span>
 
 <span class='co'>##select and import file</span>
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span>()
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_BIN2R.html'>read_BIN2R</a></span>(<span class='no'>file</span>)
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_BIN2R.html'>read_BIN2R</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>
 
 <span class='co'>##remove invalid aliquots(!)</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span>(<span class='no'>object</span>, <span class='kw'>cleanup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span><span class='op'>(</span><span class='va'>object</span>, cleanup <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'>##export to new BIN-file</span>
-<span class='fu'><a href='write_R2BIN.html'>write_R2BIN</a></span>(<span class='no'>object</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>file</span>),<span class='st'>"/"</span>, <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span>(<span class='no'>file</span>), <span class='st'>"_CLEANED.BIN"</span>))
-<span class='co'># }</span><div class='input'>
+<span class='fu'><a href='write_R2BIN.html'>write_R2BIN</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>,<span class='st'>"/"</span>, <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>, <span class='st'>"_CLEANED.BIN"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

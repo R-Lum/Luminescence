@@ -8,22 +8,29 @@
 
 <title>Estimate the amount of grains on an aliquot — calc_AliquotSize • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Estimate the amount of grains on an aliquot — calc_AliquotSize" />
 
+<meta property="og:title" content="Estimate the amount of grains on an aliquot — calc_AliquotSize" />
 <meta property="og:description" content="Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ density of an aliquot is computed." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ density of an aliquot is computed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -89,10 +97,9 @@ density of an aliquot is computed." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -112,26 +119,32 @@ density of an aliquot is computed." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate the amount of grains on an aliquot</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_AliquotSize.R'><code>R/calc_AliquotSize.R</code></a></small>
     <div class="hidden name"><code>calc_AliquotSize.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>calc_AliquotSize</span>(<span class='no'>grain.size</span>, <span class='no'>sample.diameter</span>, <span class='kw'>packing.density</span> <span class='kw'>=</span> <span class='fl'>0.65</span>,
-  <span class='kw'>MC</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>grains.counted</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>calc_AliquotSize</span><span class='op'>(</span>
+  <span class='va'>grain.size</span>,
+  <span class='va'>sample.diameter</span>,
+  packing.density <span class='op'>=</span> <span class='fl'>0.65</span>,
+  MC <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>grains.counted</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -179,7 +192,7 @@ plot output (<code>TRUE</code>/<code>FALSE</code>)</p></td>
       <td><p>further arguments to pass (<code>main, xlab, MC.iter</code>).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a terminal output. In addition an
@@ -192,7 +205,6 @@ following element:</p>
 
 The output should be accessed using the function get_RLum.
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function can be used to either estimate the number of grains on an
@@ -218,7 +230,7 @@ when setting <code>MC = TRUE</code>. Each of the parameters necessary to calcula
 \(\mu_x, \mu_y, \mu_d\) and standard deviations \(\sigma_x, \sigma_y, \sigma_d\).</p>
 <p>For the mean grain size random samples are taken first from
 \(N(\mu_y, \sigma_y)\), where \(\mu_y = mean.grain.size\) and
-\(\sigma_y = (max.grain.size-min.grain.size)/4\) so that 95% of all
+\(\sigma_y = (max.grain.size-min.grain.size)/4\) so that 95\<!-- % of all -->
 grains are within the provided the grain size range. This effectively takes
 into account that after sieving the sample there is still a small chance of
 having grains smaller or larger than the used mesh sizes. For each random
@@ -241,15 +253,12 @@ normal distributions the amount of grains on the aliquot is calculated. By
 default, <code>10^5</code> iterations are used, but can be reduced/increased with
 <code>MC.iter</code> (see <code>...</code>). The results are visualised in a bar- and
 boxplot together with a statistical summary.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.31</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2019). calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Burow, C., 2020. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
@@ -259,7 +268,7 @@ sediments: why aliquot size matters in luminescence dating. Boreas 37,
 are there on a single aliquot?. Ancient TL 30, 9-16.</p>
 <p><strong>Further reading</strong></p>
 <p>Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
-Theorem on Circle Packing. <a href='http://arxiv.org/pdf/1009.4322v1.pdf'>http://arxiv.org/pdf/1009.4322v1.pdf</a>,
+Theorem on Circle Packing. <a href='https://arxiv.org/pdf/1009.4322v1.pdf'>https://arxiv.org/pdf/1009.4322v1.pdf</a>,
 2013-09-13.</p>
 <p>Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
 Oestergard, P.R.J., 1998.  Dense packings of congruent circles in a circle.
@@ -267,12 +276,16 @@ Discrete Mathematics 181, 139-154.</p>
 <p>Huang, W., Ye, T., 2011. Global
 optimization method for finding dense packings of equal circles in a circle.
 European Journal of Operational Research 210, 474-481.</p>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Christoph Burow, University of Cologne (Germany)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Estimate the amount of grains on a small aliquot</span>
-<span class='fu'>calc_AliquotSize</span>(<span class='kw'>grain.size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>150</span>), <span class='kw'>sample.diameter</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>MC.iter</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>calc_AliquotSize</span><span class='op'>(</span>grain.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>150</span><span class='op'>)</span>, sample.diameter <span class='op'>=</span> <span class='fl'>1</span>, MC.iter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;  [calc_AliquotSize]
 #&gt; 
 #&gt;  ---------------------------------------------------------
@@ -291,8 +304,9 @@ European Journal of Operational Research 210, 474-481.</p>
 #&gt;  standard error from CI (mean): 2
 #&gt;  ---------------------------------------------------------</div><div class='img'><img src='calc_AliquotSize-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Calculate the mean packing density of large aliquots</span>
-<span class='fu'>calc_AliquotSize</span>(<span class='kw'>grain.size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>200</span>), <span class='kw'>sample.diameter</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-                 <span class='kw'>grains.counted</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2525</span>,<span class='fl'>2312</span>,<span class='fl'>2880</span>), <span class='kw'>MC.iter</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>calc_AliquotSize</span><span class='op'>(</span>grain.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>200</span><span class='op'>)</span>, sample.diameter <span class='op'>=</span> <span class='fl'>8</span>,
+                 grains.counted <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2525</span>,<span class='fl'>2312</span>,<span class='fl'>2880</span><span class='op'>)</span>, MC.iter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Monte Carlo simulation is only available for estimating the amount of grains on the sample disc. Automatically set to FALSE.
 #&gt; 
 #&gt;  [calc_AliquotSize]
@@ -306,42 +320,30 @@ European Journal of Operational Research 210, 474-481.</p>
 #&gt;  ---------------------------------------------------------</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Christoph Burow, University of Cologne (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

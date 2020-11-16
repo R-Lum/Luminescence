@@ -8,22 +8,29 @@
 
 <title>Bayesian models (baSAR) applied on luminescence data — analyse_baSAR • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,15 +38,15 @@
 
 
 
-<meta property="og:title" content="Bayesian models (baSAR) applied on luminescence data — analyse_baSAR" />
 
+<meta property="og:title" content="Bayesian models (baSAR) applied on luminescence data — analyse_baSAR" />
 <meta property="og:description" content="This function allows the application of Bayesian models on luminescence data, measured
 with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
-it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
-a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+it follows the idea proposed by Combès et al., 2015 of using an hierarchical model for estimating
+a central equivalent dose from a set of luminescence measurements. This function is (I) the adoption
 of this approach for the R environment and (II) an extension and a technical refinement of the
 published code." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -53,9 +60,10 @@ published code." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +77,7 @@ published code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -93,10 +101,9 @@ published code." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -116,45 +123,63 @@ published code." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Bayesian models (baSAR) applied on luminescence data</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/analyse_baSAR.R'><code>R/analyse_baSAR.R</code></a></small>
     <div class="hidden name"><code>analyse_baSAR.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function allows the application of Bayesian models on luminescence data, measured
 with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
-it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
-a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+it follows the idea proposed by Combès et al., 2015 of using an hierarchical model for estimating
+a central equivalent dose from a set of luminescence measurements. This function is (I) the adoption
 of this approach for the R environment and (II) an extension and a technical refinement of the
 published code.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_baSAR</span>(<span class='no'>object</span>, <span class='kw'>XLS_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>aliquot_range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>source_doserate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>signal.integral</span>, <span class='kw'>signal.integral.Tx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>background.integral</span>, <span class='kw'>background.integral.Tx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>irradiation_times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sigmab</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sig0</span> <span class='kw'>=</span> <span class='fl'>0.025</span>,
-  <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='st'>"cauchy"</span>, <span class='kw'>baSAR_model</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n.MCMC</span> <span class='kw'>=</span> <span class='fl'>1e+05</span>,
-  <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP"</span>, <span class='kw'>fit.force_through_origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fit.includingRepeatedRegPoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>method_control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>distribution_plot</span> <span class='kw'>=</span> <span class='st'>"kde"</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>plot_reduced</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>analyse_baSAR</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  XLS_file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  aliquot_range <span class='op'>=</span> <span class='cn'>NULL</span>,
+  source_doserate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>signal.integral</span>,
+  signal.integral.Tx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>background.integral</span>,
+  background.integral.Tx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  irradiation_times <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sigmab <span class='op'>=</span> <span class='fl'>0</span>,
+  sig0 <span class='op'>=</span> <span class='fl'>0.025</span>,
+  distribution <span class='op'>=</span> <span class='st'>"cauchy"</span>,
+  baSAR_model <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.MCMC <span class='op'>=</span> <span class='fl'>1e+05</span>,
+  fit.method <span class='op'>=</span> <span class='st'>"EXP"</span>,
+  fit.force_through_origin <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fit.includingRepeatedRegPoints <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  method_control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  digits <span class='op'>=</span> <span class='fl'>3L</span>,
+  distribution_plot <span class='op'>=</span> <span class='st'>"kde"</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot_reduced <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot.single <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p><a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a> <a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> (<strong>required</strong>):
+      <td><p><a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
+<a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> (<strong>required</strong>):
 input object used for the Bayesian analysis. If a <code>character</code> is provided the function
-assumes a file connection and tries to import a BIN-file using the provided path. If a <code>list</code> is
+assumes a file connection and tries to import a BIN/BINX-file using the provided path. If a <code>list</code> is
 provided the list can only contain either <code>Risoe.BINfileData</code> objects or <code>character</code>s
 providing a file connection. Mixing of both types is not allowed. If an <a href='RLum.Results-class.html'>RLum.Results</a>
 is provided the function directly starts with the Bayesian Analysis (see details)</p></td>
@@ -257,8 +282,8 @@ number of iterations for the Markov chain Monte Carlo (MCMC) simulations</p></td
     <tr>
       <th>fit.method</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-fit method used for fitting the growth curve using the function
-<a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>. Here supported methods: <code>EXP</code>, <code>EXP+LIN</code> and <code>LIN</code></p></td>
+equation used for the fitting of the dose-response curve using the function
+<a href='plot_GrowthCurve.html'>plot_GrowthCurve</a> and then for the Bayesian modelling. Here supported methods: <code>EXP</code>, <code>EXP+LIN</code> and <code>LIN</code></p></td>
     </tr>
     <tr>
       <th>fit.force_through_origin</th>
@@ -315,7 +340,7 @@ enables or disables verbose mode</p></td>
 <code>position</code>, <code>duplicated.rm</code>), see details.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Function returns results numerically and graphically:</p>
@@ -354,16 +379,15 @@ no further statistical conclusion should be drawn from it.</p></li>
 </ul>
 
 <p><strong>Please note: If distribution was set to <code>log_normal</code> the central dose is given as geometric mean!</strong></p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
-and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
+and applying the hierarchical model and (II) a data pre-processing part. The Bayesian core can be run
 independently, if the input data are sufficient (see below). The data pre-processing part was
 implemented to simplify the analysis for the user as all needed data pre-processing is done
 by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
-LxTx, the LxTx error and the dose values for all regeneration points.</p>
+<code>LxTx</code>, the <code>LxTx</code> error and the dose values for all regeneration points.</p>
 <p><strong>How the systematic error contribution is calculated?</strong></p>
 <p>Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 and added to final central dose by:</p>
@@ -386,17 +410,19 @@ used for the analysis.</p>
 <p>If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
 consists of the following steps:</p><ol>
 <li><p>Select all valid aliquots using the function <a href='verify_SingleGrainData.html'>verify_SingleGrainData</a></p></li>
-<li><p>Calculate Lx/Tx values using the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a></p></li>
+<li><p>Calculate <code>Lx/Tx</code> values using the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a></p></li>
 <li><p>Calculate De values using the function <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></p></li>
 </ol>
-    <p>These proceeded data are subsequently used in for the Bayesian analysis</p>
+
+<p>These proceeded data are subsequently used in for the Bayesian analysis</p>
 <p><code>[XLS_file != NULL]</code></p>
 <p>If an XLS-file is provided or a <code>data.frame</code> providing similar information the pre-processing
 steps consists of the following steps:</p><ol>
-<li><p>Calculate Lx/Tx values using the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a></p></li>
+<li><p>Calculate <code>Lx/Tx</code> values using the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a></p></li>
 <li><p>Calculate De values using the function <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></p></li>
 </ol>
-    <p>Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+
+<p>Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by <a href='verify_SingleGrainData.html'>verify_SingleGrainData</a> might be not totally sufficient.</p>
 <p><strong>(2) - <code>object</code> <code>RLum.Results object</code></strong></p>
@@ -420,7 +446,9 @@ are:</p>
 <code>'central_D'</code>, <code>'sigma_D'</code>, <code>'D'</code>, <code>'Q'</code>, <code>'a'</code>, <code>'b'</code>, <code>'c'</code>, <code>'g'</code>.
 Note: only variables present in the model can be monitored.</td></tr>
 </table>
-    <p><strong>User defined models</strong><br /></p>
+
+
+<p><strong>User defined models</strong><br /></p>
 <p>The function provides the option to modify and to define own models that can be used for
 the Bayesian calculation. In the case the user wants to modify a model, a new model
 can be piped into the funtion via the argument <code>baSAR_model</code> as <code>character</code>.
@@ -430,14 +458,15 @@ will break.</p>
 <p><strong>FAQ</strong></p>
 <p>Q: How can I set the seed for the random number generator (RNG)?</p>
 <p>A: Use the argument <code>method_control</code>, e.g., for three MCMC chains
-(as it is the default):</p><pre>method_control = list(
-inits = list(
- list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
- list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
- list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
-))
+(as it is the default):</p><pre><span class='va'>method_control</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+inits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>.RNG.name <span class='op'>=</span> <span class='st'>"base::Wichmann-Hill"</span>, .RNG.seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>.RNG.name <span class='op'>=</span> <span class='st'>"base::Wichmann-Hill"</span>, .RNG.seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>,
+ <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>.RNG.name <span class='op'>=</span> <span class='st'>"base::Wichmann-Hill"</span>, .RNG.seed <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='op'>)</span><span class='op'>)</span>
 </pre>
-    <p>This sets a reproducible set for every chain separately.<br /></p>
+
+<p>This sets a reproducible set for every chain separately.<br /></p>
 <p>Q: How can I modify the output plots?</p>
 <p>A: You can't, but you can use the function output to create own, modified plots.</p>
 <p>Q: Can I change the boundaries for the central_D?</p>
@@ -466,7 +495,8 @@ functions.</p>
 <tr><td><code>output.plot</code></td><td><a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enables / disables dose response curve plot</td></tr>
 <tr><td><code>output.plotExtended</code></td><td><a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enables / disables extended dose response curve plot</td></tr>
 </table>
-    
+
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><strong>If you provide more than one BIN-file</strong>, it is <strong>strongly</strong> recommanded to provide
@@ -475,15 +505,12 @@ a <code>list</code> with the same number of elements for the following parameter
 <code>background.integral.Tx</code>, <code>sigmab</code>, <code>sig0</code>.</p>
 <p>Example for two BIN-files: <code>source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))</code></p>
 <p><strong>The function is currently limited to work with standard Risoe BIN-files only!</strong></p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.1.33</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Mercier, N., Kreutzer, S. (2019). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Mercier, N., Kreutzer, S., 2020. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
@@ -498,100 +525,89 @@ Bayesian Data Analysis, Third Edition. CRC Press.</p>
 <p>Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X</p>
 <p>Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='read_BIN2R.html'>read_BIN2R</a>, <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>,
 <a href='https://readxl.tidyverse.org/reference/read_excel.html'>readxl::read_excel</a>, <a href='verify_SingleGrainData.html'>verify_SingleGrainData</a>,
 <a href='https://rdrr.io/pkg/rjags/man/jags.model.html'>rjags::jags.model</a>, <a href='https://rdrr.io/pkg/rjags/man/coda.samples.html'>rjags::coda.samples</a>, <a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot.default</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) <br />
+Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br />
+The underlying Bayesian model based on a contribution by Combes et al., 2015.
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) load package test data set</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##(2) selecting relevant curves, and limit dataset</span>
-<span class='no'>CWOSL.SAR.Data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(
-  <span class='no'>CWOSL.SAR.Data</span>,
-  <span class='kw'>subset</span> <span class='kw'>=</span> <span class='no'>POSITION</span><span class='kw'>%in%</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='kw'>&amp;</span> <span class='no'>LTYPE</span> <span class='kw'>==</span> <span class='st'>"OSL"</span>)</div><span class='co'># NOT RUN {</span>
+<span class='va'>CWOSL.SAR.Data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span>
+  <span class='va'>CWOSL.SAR.Data</span>,
+  subset <span class='op'>=</span> <span class='va'>POSITION</span><span class='op'>%in%</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='va'>LTYPE</span> <span class='op'>==</span> <span class='st'>"OSL"</span><span class='op'>)</span>
+
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>##(3) run analysis</span>
 <span class='co'>##please not that the here selected parameters are</span>
 <span class='co'>##choosen for performance, not for reliability</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_baSAR</span>(
-  <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>CWOSL.SAR.Data</span>,
-  <span class='kw'>source_doserate</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.04</span>, <span class='fl'>0.001</span>),
-  <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>),
-  <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>80</span>:<span class='fl'>100</span>),
-  <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"LIN"</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n.MCMC</span> <span class='kw'>=</span> <span class='fl'>200</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_baSAR</span><span class='op'>(</span>
+  object <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,
+  source_doserate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.04</span>, <span class='fl'>0.001</span><span class='op'>)</span>,
+  signal.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>,
+  background.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>:</span><span class='fl'>100</span><span class='op'>)</span>,
+  fit.method <span class='op'>=</span> <span class='st'>"LIN"</span>,
+  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  n.MCMC <span class='op'>=</span> <span class='fl'>200</span>
 
-)
+<span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>results</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
 
 
 <span class='co'>##XLS_file template</span>
 <span class='co'>##copy and paste this the code below in the terminal</span>
 <span class='co'>##you can further use the function write.csv() to export the example</span>
 
-<span class='no'>XLS_file</span> <span class='kw'>&lt;-</span>
-<span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
- <span class='kw'>BIN_FILE</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>,
- <span class='kw'>DISC</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
- <span class='kw'>GRAIN</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>),
-   <span class='kw'>.Names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BIN_FILE"</span>, <span class='st'>"DISC"</span>, <span class='st'>"GRAIN"</span>),
-   <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>,
-   <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1L</span>
-)
+<span class='va'>XLS_file</span> <span class='op'>&lt;-</span>
+<span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span>
+<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+ BIN_FILE <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+ DISC <span class='op'>=</span> <span class='cn'>NA_real_</span>,
+ GRAIN <span class='op'>=</span> <span class='cn'>NA_real_</span><span class='op'>)</span>,
+   .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"BIN_FILE"</span>, <span class='st'>"DISC"</span>, <span class='st'>"GRAIN"</span><span class='op'>)</span>,
+   class <span class='op'>=</span> <span class='st'>"data.frame"</span>,
+   row.names <span class='op'>=</span> <span class='fl'>1L</span>
+<span class='op'>)</span>
 
-<span class='co'># }</span><div class='input'>
+<span class='op'>}</span>
+
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) <br />
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) <br />
-The underlying Bayesian model based on a contribution by Combes et al., 2015.</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

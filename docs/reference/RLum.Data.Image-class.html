@@ -6,24 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Class <code>"RLum.Data.Image"</code> — RLum.Data.Image-class • Luminescence</title>
+<title>Class "RLum.Data.Image" — RLum.Data.Image-class • Luminescence</title>
+
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Class <code>"RLum.Data.Image"</code> — RLum.Data.Image-class" />
 
+<meta property="og:title" content="Class "RLum.Data.Image" — RLum.Data.Image-class" />
 <meta property="og:description" content="Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
 by the function read_SPE2R" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ by the function read_SPE2R" />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ by the function read_SPE2R" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -89,10 +97,9 @@ by the function read_SPE2R" />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -112,37 +119,43 @@ by the function read_SPE2R" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class <code>"RLum.Data.Image"</code></h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/RLum.Data.Image-class.R'><code>R/RLum.Data.Image-class.R</code></a></small>
     <div class="hidden name"><code>RLum.Data.Image-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
 by the function <a href='read_SPE2R.html'>read_SPE2R</a></p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S4 method for RLum.Data.Image</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)
+<span class='fu'>show</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for RLum.Data.Image</span>
-<span class='fu'><a href='set_RLum.html'>set_RLum</a></span>(<span class='no'>class</span>, <span class='no'>originator</span>, <span class='no'>.uid</span>, <span class='no'>.pid</span>,
-  <span class='kw'>recordType</span> <span class='kw'>=</span> <span class='st'>"Image"</span>, <span class='kw'>curveType</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span>(<span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>())), <span class='kw'>info</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())
+<span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>
+  <span class='va'>class</span>,
+  <span class='va'>originator</span>,
+  <span class='va'>.uid</span>,
+  <span class='va'>.pid</span>,
+  recordType <span class='op'>=</span> <span class='st'>"Image"</span>,
+  curveType <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  data <span class='op'>=</span> <span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/brick.html'>brick</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+  info <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for RLum.Data.Image</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>object</span>, <span class='no'>info.object</span>)
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>info.object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for RLum.Data.Image</span>
-<span class='fu'><a href='names_RLum.html'>names_RLum</a></span>(<span class='no'>object</span>)</pre>
-    
+<span class='fu'><a href='names_RLum.html'>names_RLum</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -153,8 +166,7 @@ an object of class RLum.Data.Image</p></td>
     </tr>
     <tr>
       <th>class</th>
-      <td><p><code><a href='set_RLum.html'>set_RLum</a></code>; <a href='https://rdrr.io/r/base/character.html'>character</a>:
-name of the <code>RLum</code> class to create</p></td>
+      <td><p><code><a href='set_RLum.html'>set_RLum</a></code>; <a href='https://rdrr.io/r/base/character.html'>character</a>: name of the <code>RLum</code> class to create</p></td>
     </tr>
     <tr>
       <th>originator</th>
@@ -186,7 +198,8 @@ curve type (e.g. "predefined" or "measured")</p></td>
       <th>data</th>
       <td><p><code><a href='set_RLum.html'>set_RLum</a></code>; <a href='https://rdrr.io/r/base/matrix.html'>matrix</a>:
 raw curve data. If data is of type <code>RLum.Data.Image</code> this can be used to
-re-construct the object.</p></td>
+re-construct the object, i.e. modified parameters except <code>.uid</code> and <code>.pid</code>. The rest
+will be subject to copy and paste unless provided.</p></td>
     </tr>
     <tr>
       <th>info</th>
@@ -199,7 +212,7 @@ info elements</p></td>
 name of the info object to returned</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><strong><code>set_RLum</code></strong></p>
@@ -211,56 +224,60 @@ name of the info object to returned</p></td>
 
 <p><strong><code>names_RLum</code></strong></p>
 <p>Returns the names of the info elements</p>
-    
     <h2 class="hasAnchor" id="methods-by-generic-"><a class="anchor" href="#methods-by-generic-"></a>Methods (by generic)</h2>
 
-    <ul>
+    
+<ul>
 <li><p><code>show</code>: Show structure of <code>RLum.Data.Image</code> object</p></li>
 <li><p><code>set_RLum</code>: Construction method for RLum.Data.Image object. The slot info is optional
-and predefined as empty list by default..</p></li>
-<li><p><code>get_RLum</code>: Accessor method for RLum.Data.Image object. The argument info.object is
+and predefined as empty list by default.</p></li>
+<li><p><code>get_RLum</code>: Accessor method for RLum.Data.Image object. The argument <code>info.object</code> is
 optional to directly access the info elements. If no info element name is
-provided, the raw image data (RasterBrick) will be returned.</p></li>
+provided, the raw image data (<code>RasterBrick</code>) will be returned.</p></li>
 <li><p><code>names_RLum</code>: Returns the names info elements coming along with this curve object</p></li>
 </ul>
-    
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
     
-    <dl class='dl-horizontal'>
+
+<dl>
 <dt><code>recordType</code></dt><dd><p>Object of class <a href='https://rdrr.io/r/base/character.html'>character</a> containing the type of the curve (e.g. "OSL image", "TL image")</p></dd>
-    <dt><code>curveType</code></dt><dd><p>Object of class <a href='https://rdrr.io/r/base/character.html'>character</a> containing curve type, allowed values
+
+<dt><code>curveType</code></dt><dd><p>Object of class <a href='https://rdrr.io/r/base/character.html'>character</a> containing curve type, allowed values
 are measured or predefined</p></dd>
-    <dt><code>data</code></dt><dd><p>Object of class <a href='https://rdrr.io/pkg/raster/man/brick.html'>raster::brick</a> containing images (raster data).</p></dd>
-    <dt><code>info</code></dt><dd><p>Object of class <a href='https://rdrr.io/r/base/list.html'>list</a> containing further meta information objects</p></dd>
+
+<dt><code>data</code></dt><dd><p>Object of class <a href='https://rdrr.io/pkg/raster/man/brick.html'>raster::brick</a> containing images (raster data).</p></dd>
+
+<dt><code>info</code></dt><dd><p>Object of class <a href='https://rdrr.io/r/base/list.html'>list</a> containing further meta information objects</p></dd>
+
 </dl>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The class should only contain data for a set of images. For additional
 elements the slot <code>info</code> can be used.</p>
-    
-    <h2 class="hasAnchor" id="objects-from-the-class"><a class="anchor" href="#objects-from-the-class"></a>Objects from the Class</h2>
+    <h2 class="hasAnchor" id="objects-from-the-class"><a class="anchor" href="#objects-from-the-class"></a>Objects from the class</h2>
 
     
-    <p>Objects can be created by calls of the form <code><a href='set_RLum.html'>set_RLum("RLum.Data.Image", ...)</a></code>.</p>
-    
+
+<p>Objects can be created by calls of the form <code><a href='set_RLum.html'>set_RLum("RLum.Data.Image", ...)</a></code>.</p>
     <h2 class="hasAnchor" id="class-version"><a class="anchor" href="#class-version"></a>Class version</h2>
 
-    <p>0.4.0</p>
-    
+    <p>0.4.2</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum-class.html'>RLum</a>, <a href='RLum.Data-class.html'>RLum.Data</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='read_SPE2R.html'>read_SPE2R</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+, RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>showClass</span>(<span class='st'>"RLum.Data.Image"</span>)</div><div class='output co'>#&gt; Class "RLum.Data.Image" [package "Luminescence"]
+<span class='fu'>showClass</span><span class='op'>(</span><span class='st'>"RLum.Data.Image"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Class "RLum.Data.Image" [package "Luminescence"]
 #&gt; 
 #&gt; Slots:
 #&gt;                                                                               
@@ -274,7 +291,8 @@ elements the slot <code>info</code> can be used.</p>
 #&gt; Class "RLum.Data", directly
 #&gt; Class "RLum", by class "RLum.Data", distance 2</div><div class='input'>
 <span class='co'>##create empty RLum.Data.Image object</span>
-<span class='fu'><a href='set_RLum.html'>set_RLum</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"RLum.Data.Image"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>class <span class='op'>=</span> <span class='st'>"RLum.Data.Image"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;  [RLum.Data.Image-class]
 #&gt; 	 recordType: Image
 #&gt; 	 curveType: NA
@@ -286,48 +304,30 @@ elements the slot <code>info</code> can be used.</p>
 #&gt; 	 additional info elements: 0</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#methods-by-generic-">Methods (by generic)</a></li>
-
-      <li><a href="#slots">Slots</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#objects-from-the-class">Objects from the Class</a></li>
-
-      <li><a href="#class-version">Class version</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

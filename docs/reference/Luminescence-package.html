@@ -8,22 +8,29 @@
 
 <title>Comprehensive Luminescence Dating Data Analysis — Luminescence-package • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Comprehensive Luminescence Dating Data Analysis — Luminescence-package" />
 
+<meta property="og:title" content="Comprehensive Luminescence Dating Data Analysis — Luminescence-package" />
 <meta property="og:description" content="
 R Luminescence Developer Team" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ R Luminescence Developer Team" />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ R Luminescence Developer Team" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -89,10 +97,9 @@ R Luminescence Developer Team" />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -112,31 +119,92 @@ R Luminescence Developer Team" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Comprehensive Luminescence Dating Data Analysis</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/Luminescence-package.R'><code>R/Luminescence-package.R</code></a></small>
     <div class="hidden name"><code>Luminescence-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p><img src='figures/RL_Logo.png' width="50px" alt="r-luminescence.org" /><br />
 <em>R Luminescence Developer Team</em></p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A collection of various R functions for the purpose of Luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.</p>
-    
+<p><strong>Full list of authors and contributors</strong> (alphabetic order)</p>
+<p><em>In the case authors retired the last affiliation is mentioned.</em></p>
+<table class='table'>
+<tr><td>Martin Autzen</td><td><em>DTU NUTECH Center for Nuclear Technologies</em></td></tr>
+<tr><td>Christoph Burow</td><td><em>University of Cologne, Germany</em>*</td></tr>
+<tr><td>Claire Christophe</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
+<tr><td>Michael Dietze</td><td><em>GFZ Helmholtz Centre Potsdam, Germany</em></td></tr>
+<tr><td>Julie Durcan</td><td><em>University of Oxford, United Kingdom</em></td></tr>
+<tr><td>Pierre Guibert</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
+<tr><td>Manfred Fischer</td><td><em>Chair of Geomorphology, University of Bayreuth, Germany</em></td></tr>
+<tr><td>Margret C. Fuchs</td><td><em>Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany</em></td></tr>
+<tr><td>Johannes Friedrich</td><td><em>Chair of Geomorphology, University of Bayreuth, Germany</em></td></tr>
+<tr><td>Guillaume Guérin</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
+<tr><td>Georgina E. King</td><td><em>University of Lausanne, Switzerland</em></td></tr>
+<tr><td>Sebastian Kreutzer</td><td><em>Department of Geography &amp; Earth Sciences, Aberystwyth University, United Kingdom</em></td></tr>
+<tr><td>Norbert Mercier</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
+<tr><td>Svenja Riedesel</td><td><em>Department of Geograpy &amp; Earth Sciences ,Aberystwyth University, United Kingdom</em></td></tr>
+<tr><td>Christoph Schmidt</td><td><em>Institute of Earth Surface Dynamics,University of Lausanne, Switzerland</em></td></tr>
+<tr><td>Rachel K. Smedley</td><td><em>Liverpool University, United Kingdom</em></td></tr>
+<tr><td>Anne Philippe</td><td><em>Université de Nantes and ANJA INRIA, Rennes, France</em></td></tr>
+<tr><td>Antoine Zink</td><td><em>C2RMF, Palais du Louvre, Paris, France</em></td></tr>
+</table>
+
+
+<p><strong>Supervisor of the initial version in 2012</strong></p>
+<p>Markus Fuchs, Justus-Liebig-University Giessen, Germany</p>
+<p><strong>Support contact</strong></p>
+<p><a href='mailto:developers@r-luminescence.org'>developers@r-luminescence.org</a></p>
+<p>We may further encourage the usage of our support forum. For this please
+visit our project website (link below).</p>
+<p><strong>Bug reporting</strong></p><ul>
+<li><p><a href='mailto:developers@r-luminescence.org'>developers@r-luminescence.org</a> or</p></li>
+<li><p><a href='https://github.com/R-Lum/Luminescence/issues'>https://github.com/R-Lum/Luminescence/issues</a></p></li>
+</ul>
+
+<p><strong>Project website</strong></p><ul>
+<li><p><a href='https://www.r-luminescence.org'>https://www.r-luminescence.org</a></p></li>
+</ul>
+
+<p><strong>Project source code repository</strong></p><ul>
+<li><p><a href='https://github.com/R-Lum/Luminescence'>https://github.com/R-Lum/Luminescence</a></p></li>
+</ul>
+
+<p><strong>Related package projects</strong></p><ul>
+<li><p><a href='https://cran.r-project.org/package=RLumShiny'>https://cran.r-project.org/package=RLumShiny</a></p></li>
+<li><p><a href='https://cran.r-project.org/package=RLumModel'>https://cran.r-project.org/package=RLumModel</a></p></li>
+<li><p><a href='https://cran.r-project.org/package=RLumCarlo'>https://cran.r-project.org/package=RLumCarlo</a></p></li>
+</ul>
+
+<p><strong>Package maintainer</strong></p>
+<p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom),<br />
+<a href='mailto:sebastian.kreutzer@aber.ac.uk'>sebastian.kreutzer@aber.ac.uk</a></p>
+<p><strong>Funding</strong></p>
+<p>Cooperation and personal exchange between the developers is gratefully
+funded by the DFG (SCHM 3051/3-1) in the framework of the program
+"Scientific Networks". Project title: "RLum.Network: Ein
+Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)</p>
+<p>Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
+by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).</p>
+<p>Between 2020--2021, the work of Sebastian Kreutzer as maintainer of the package has received funding
+from the European Union’s Horizon 2020 research and innovation programme under
+the Marie Skłodowska-Curie grant agreement No 844457 (CREDit).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -160,92 +228,32 @@ Ancient TL, 33 (1), 16-21.</p>
 <p>King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., 2018. Age determination
 using feldspar: evaluating fading-correction model performance. Radiation Measurements 119, 58-73.
 https://doi.org/10.1016/j.radmeas.2018.07.013</p>
-    
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    <p><strong>Full list of authors and contributors</strong> (alphabetic order)</p>
-<table class='table'>
-<tr><td>Christoph Burow</td><td><em>University of Cologne, Germany</em>*</td></tr>
-<tr><td>Claire Christophe</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
-<tr><td>Michael Dietze</td><td><em>GFZ Helmholtz Centre Potsdam, Germany</em></td></tr>
-<tr><td>Julie Durcan</td><td><em>University of Oxford, United Kingdom</em></td></tr>
-<tr><td>Manfred Fischer</td><td><em>University of Bayreuth, Germany</em></td></tr>
-<tr><td>Margret C. Fuchs</td><td><em>Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany</em></td></tr>
-<tr><td>Martin Autzen</td><td><em>DTU NUTECH Center for Nuclear Technologies</em></td></tr>
-<tr><td>Johannes Friedrich</td><td><em>Chair of Geomorphology, University of Bayreuth, Germany</em></td></tr>
-<tr><td>Guillaume Guérin</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
-<tr><td>Georgina E. King</td><td><em>University of Lausanne, Switzerland</em></td></tr>
-<tr><td>Sebastian Kreutzer</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
-<tr><td>Norbert Mercier</td><td><em>IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France</em></td></tr>
-<tr><td>Svenja Riedesel</td><td><em>Aberystwyth University, United Kingdom</em></td></tr>
-<tr><td>Christoph Schmidt</td><td><em>Chair of Geomorophology, University of Bayreuth, Germany</em></td></tr>
-<tr><td>Rachel K. Smedley</td><td><em>Liverpool University, United Kingdom</em></td></tr>
-<tr><td>Anne Philippe</td><td><em>Universite de Nantes and ANJA INRIA, Rennes, France</em></td></tr>
-<tr><td>Antoine Zink</td><td><em>C2RMF, Palais du Louvre, Paris, France</em></td></tr>
-</table>
-
-
-<p><strong>Supervisor of the initial version in 2012</strong></p>
-<p>Markus Fuchs, Justus-Liebig-University Giessen, Germany</p>
-<p><strong>Support contact</strong></p>
-<p><a href='mailto:developers@r-luminescence.org'>developers@r-luminescence.org</a></p>
-<p>We may further encourage the usage of our support forum. For this please
-visit our project website (link below).</p>
-<p><strong>Bug reporting</strong></p><ul>
-<li><p><a href='mailto:developers@r-luminescence.org'>developers@r-luminescence.org</a> or</p></li>
-<li><p><a href='https://github.com/R-Lum/Luminescence/issues'>https://github.com/R-Lum/Luminescence/issues</a></p></li>
-</ul>
-
-<p><strong>Project website</strong></p><ul>
-<li><p><a href='http://www.r-luminescence.org'>http://www.r-luminescence.org</a></p></li>
-</ul>
-
-<p><strong>Project source code repository</strong></p><ul>
-<li><p><a href='https://github.com/R-Lum/Luminescence'>https://github.com/R-Lum/Luminescence</a></p></li>
-</ul>
-
-<p><strong>Related package projects</strong></p><ul>
-<li><p><a href='https://cran.r-project.org/package=RLumShiny'>https://cran.r-project.org/package=RLumShiny</a></p></li>
-<li><p><a href='http://shiny.r-luminescence.org'>http://shiny.r-luminescence.org</a></p></li>
-<li><p><a href='https://cran.r-project.org/package=RLumModel'>https://cran.r-project.org/package=RLumModel</a></p></li>
-</ul>
-
-<p><strong>Package maintainer</strong></p>
-<p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS- Université Bordeaux Montaigne, France,<br />
-<a href='mailto:sebastian.kreutzer@aber.ac.uk'>sebastian.kreutzer@aber.ac.uk</a></p>
-<p><strong>Funding</strong></p>
-<p>Cooperation and personal exchange between the developers is gratefully
-funded by the DFG (SCHM 3051/3-1) in the framework of the program
-"Scientific Networks". Project title: "RLum.Network: Ein
-Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)</p>
-<p>Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
-by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

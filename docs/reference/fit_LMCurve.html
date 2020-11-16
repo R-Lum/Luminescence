@@ -8,22 +8,29 @@
 
 <title>Nonlinear Least Squares Fit for LM-OSL curves — fit_LMCurve • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,13 +38,13 @@
 
 
 
-<meta property="og:title" content="Nonlinear Least Squares Fit for LM-OSL curves — fit_LMCurve" />
 
+<meta property="og:title" content="Nonlinear Least Squares Fit for LM-OSL curves — fit_LMCurve" />
 <meta property="og:description" content="The function determines weighted nonlinear least-squares estimates of the
 component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
 uses the function nls with the port algorithm." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -51,9 +58,10 @@ uses the function nls with the port algorithm." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +75,7 @@ uses the function nls with the port algorithm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -91,10 +99,9 @@ uses the function nls with the port algorithm." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -114,32 +121,45 @@ uses the function nls with the port algorithm." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Nonlinear Least Squares Fit for LM-OSL curves</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/fit_LMCurve.R'><code>R/fit_LMCurve.R</code></a></small>
     <div class="hidden name"><code>fit_LMCurve.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function determines weighted nonlinear least-squares estimates of the
 component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 components and returns various component parameters. The fitting procedure
 uses the function <a href='https://rdrr.io/r/stats/nls.html'>nls</a> with the <code>port</code> algorithm.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>fit_LMCurve</span>(<span class='no'>values</span>, <span class='no'>values.bg</span>, <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>start_values</span>,
-  <span class='kw'>input.dataType</span> <span class='kw'>=</span> <span class='st'>"LM"</span>, <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"port"</span>, <span class='kw'>sample_code</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>sample_ID</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>LED.power</span> <span class='kw'>=</span> <span class='fl'>36</span>, <span class='kw'>LED.wavelength</span> <span class='kw'>=</span> <span class='fl'>470</span>,
-  <span class='kw'>fit.trace</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fit.advanced</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fit.calcError</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bg.subtraction</span> <span class='kw'>=</span> <span class='st'>"polynomial"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>fit_LMCurve</span><span class='op'>(</span>
+  <span class='va'>values</span>,
+  <span class='va'>values.bg</span>,
+  n.components <span class='op'>=</span> <span class='fl'>3</span>,
+  <span class='va'>start_values</span>,
+  input.dataType <span class='op'>=</span> <span class='st'>"LM"</span>,
+  fit.method <span class='op'>=</span> <span class='st'>"port"</span>,
+  sample_code <span class='op'>=</span> <span class='st'>""</span>,
+  sample_ID <span class='op'>=</span> <span class='st'>""</span>,
+  LED.power <span class='op'>=</span> <span class='fl'>36</span>,
+  LED.wavelength <span class='op'>=</span> <span class='fl'>470</span>,
+  fit.trace <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fit.advanced <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fit.calcError <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  bg.subtraction <span class='op'>=</span> <span class='st'>"polynomial"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot.BG <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -175,7 +195,7 @@ See: <a href='CW2pLM.html'>CW2pLM</a></p></td>
       <th>fit.method</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 select fit method, allowed values: <code>'port'</code> and <code>'LM'</code>. <code>'port'</code> uses the 'port'
-routine usint the funtion <a href='https://rdrr.io/r/stats/nls.html'>nls</a> <code>'LM'</code> utilises the function <code>nlsLM</code> from
+routine from the function <a href='https://rdrr.io/r/stats/nls.html'>nls</a> <code>'LM'</code> utilises the function <code>nlsLM</code> from
 the package <code>minpack.lm</code> and with that the Levenberg-Marquardt algorithm.</p></td>
     </tr>
     <tr>
@@ -247,7 +267,7 @@ background subtraction.</p></td>
 <code>xlab</code>, <code>xlab</code>, <code>main</code>, <code>log</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Various types of plots are returned. For details see above. Furthermore an
@@ -264,7 +284,6 @@ Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns <code>cont.</code> provide information on
 the relative component contribution for each time interval including the row
 sum for this values.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Fitting function</strong></p>
@@ -289,7 +308,8 @@ $$y = a*x + b$$</p></li>
 <li><p><code>channel</code>: the measured
 background signal is subtracted channelwise from the measured signal.</p></li>
 </ul>
-    <p><strong>Start values</strong></p>
+
+<p><strong>Start values</strong></p>
 <p>The choice of the initial parameters for the <code>nls</code>-fitting is a crucial
 point and the fitting procedure may mainly fail due to ill chosen start
 parameters. Here, three options are provided:</p>
@@ -327,7 +347,6 @@ option is deactived by default. In addition, the error for the components
 can be estimated by using internal R functions like <a href='https://rdrr.io/r/base/summary.html'>summary</a>. See the
 <a href='https://rdrr.io/r/stats/nls.html'>nls</a> help page for more information.</p>
 <p><em>For more details on the nonlinear regression in R, see Ritz &amp; Streibig (2008).</em></p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The pseudo-R^2 may not be the best parameter to describe the goodness
@@ -336,15 +355,12 @@ value currently remains unconsidered.</p>
 <p>The function <strong>does not</strong> ensure that the fitting procedure has reached a
 global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.3.2</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bulur, E., 1996. An Alternative Technique For Optically
@@ -360,17 +376,20 @@ LM-OSL. Radiation Measurements, 43, 737-741.</p>
 Economics and Statistics, 52 (3), 320-323.</p>
 <p>Ritz, C. &amp; Streibig, J.C., 2008. Nonlinear Regression with R. R. Gentleman,
 K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='fit_CWCurve.html'>fit_CWCurve</a>, <a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='https://rdrr.io/r/stats/nls.html'>nls</a>, <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
-    
+    <div class='dont-index'><p><a href='fit_CWCurve.html'>fit_CWCurve</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='https://rdrr.io/r/stats/nls.html'>nls</a>, <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) fit LM data without background subtraction</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.FittingLM</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='fu'>fit_LMCurve</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>values.curve</span>, <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>, n.components <span class='op'>=</span> <span class='fl'>3</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; [fit_LMCurve()]
 #&gt; 
 #&gt; Fitting was done using a 3-component function:
@@ -404,9 +423,10 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 <span class='co'>## -alter file path for your preferred system</span>
 <span class='co'>##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,</span>
 <span class='co'>## height = 3000, width = 3000, res = 300)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.FittingLM</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='fu'>fit_LMCurve</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>values.curve</span>, <span class='kw'>values.bg</span> <span class='kw'>=</span> <span class='no'>values.curveBG</span>,
-            <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>plot.BG</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>, values.bg <span class='op'>=</span> <span class='va'>values.curveBG</span>,
+            n.components <span class='op'>=</span> <span class='fl'>2</span>, log <span class='op'>=</span> <span class='st'>"x"</span>, plot.BG <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; [fit_LMCurve()]
 #&gt; 
 #&gt; Fitting was done using a 2-component function:
@@ -434,12 +454,13 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 #&gt; pseudo-R^2 = 0.9417</div><div class='img'><img src='fit_LMCurve-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>##dev.off()</span>
 
 <span class='co'>##(3) fit LM data with manual start parameters</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.FittingLM</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='fu'>fit_LMCurve</span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>values.curve</span>,
-            <span class='kw'>values.bg</span> <span class='kw'>=</span> <span class='no'>values.curveBG</span>,
-            <span class='kw'>n.components</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-            <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>,
-            <span class='kw'>start_values</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>Im</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>170</span>,<span class='fl'>25</span>,<span class='fl'>400</span>), <span class='kw'>xm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>56</span>,<span class='fl'>200</span>,<span class='fl'>1500</span>)))</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>,
+            values.bg <span class='op'>=</span> <span class='va'>values.curveBG</span>,
+            n.components <span class='op'>=</span> <span class='fl'>3</span>,
+            log <span class='op'>=</span> <span class='st'>"x"</span>,
+            start_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Im <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>170</span>,<span class='fl'>25</span>,<span class='fl'>400</span><span class='op'>)</span>, xm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>56</span>,<span class='fl'>200</span>,<span class='fl'>1500</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!
 #&gt; 
 #&gt; [fit_LMCurve()]
 #&gt; 
@@ -472,46 +493,30 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 #&gt; pseudo-R^2 = 0.9437</div><div class='img'><img src='fit_LMCurve-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

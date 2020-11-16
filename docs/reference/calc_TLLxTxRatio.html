@@ -6,24 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code> — calc_TLLxTxRatio • Luminescence</title>
+<title>Calculate the Lx/Tx ratio for a given set of TL curves -beta version- — calc_TLLxTxRatio • Luminescence</title>
+
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code> — calc_TLLxTxRatio" />
 
+<meta property="og:title" content="Calculate the Lx/Tx ratio for a given set of TL curves -beta version- — calc_TLLxTxRatio" />
 <meta property="og:description" content="Calculate Lx/Tx ratio for a given set of TL curves." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -88,10 +96,9 @@
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -111,26 +118,30 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate the Lx/Tx ratio for a given set of TL curves <code>[beta version]</code></h1>
-    
+    <h1>Calculate the Lx/Tx ratio for a given set of TL curves -beta version-</h1>
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_TLLxTxRatio.R'><code>R/calc_TLLxTxRatio.R</code></a></small>
     <div class="hidden name"><code>calc_TLLxTxRatio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Calculate Lx/Tx ratio for a given set of TL curves.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>calc_TLLxTxRatio</span>(<span class='no'>Lx.data.signal</span>, <span class='kw'>Lx.data.background</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>Tx.data.signal</span>, <span class='kw'>Tx.data.background</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>signal.integral.min</span>,
-  <span class='no'>signal.integral.max</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>calc_TLLxTxRatio</span><span class='op'>(</span>
+  <span class='va'>Lx.data.signal</span>,
+  Lx.data.background <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>Tx.data.signal</span>,
+  Tx.data.background <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>signal.integral.min</span>,
+  <span class='va'>signal.integral.max</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -169,20 +180,19 @@ channel number for the upper signal integral bound
 (e.g. <code>signal.integral.max = 200</code>)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.
-Slot <code>data</code> contains a <a href='https://rdrr.io/r/base/list.html'>list</a> with the following structure:</p><pre>$ LxTx.table  
-.. $ LnLx  
-.. $ LnLx.BG  
-.. $ TnTx  
+Slot <code>data</code> contains a <a href='https://rdrr.io/r/base/list.html'>list</a> with the following structure:</p><pre>$ LxTx.table
+.. $ LnLx
+.. $ LnLx.BG
+.. $ TnTx
 .. $ TnTx.BG
-.. $ Net_LnLx  
+.. $ Net_LnLx
 .. $ Net_LnLx.Error
 </pre>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Uncertainty estimation</strong></p>
@@ -191,90 +201,76 @@ Slot <code>data</code> contains a <a href='https://rdrr.io/r/base/list.html'>lis
 <p>where \(BG_f\) is a term estimated by calculating the standard deviation of the sum of
 the \(L_x\) background counts and the sum of the \(T_x\) background counts. However,
 if both signals are similar the error becomes zero.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><strong>This function has still BETA status!</strong> Please further note that a similar
 background for both curves results in a zero error and is therefore set to <code>NA</code>.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.2</p>
-    
+    <p>0.3.3</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='analyse_SAR.TL.html'>analyse_SAR.TL</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br />
+Christoph Schmidt, University of Bayreuth (Germany)
+, RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Schmidt, C. (2019). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., Schmidt, C., 2020. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load package example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##convert Risoe.BINfileData into a curve object</span>
-<span class='no'>temp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span>(<span class='no'>TL.SAR.Data</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span><span class='op'>(</span><span class='va'>TL.SAR.Data</span>, pos <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 
 
-<span class='no'>Lx.data.signal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>record.id</span><span class='kw'>=</span><span class='fl'>1</span>)
-<span class='no'>Lx.data.background</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>record.id</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>Tx.data.signal</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>record.id</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='no'>Tx.data.background</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>temp</span>, <span class='kw'>record.id</span><span class='kw'>=</span><span class='fl'>4</span>)
-<span class='no'>signal.integral.min</span> <span class='kw'>&lt;-</span> <span class='fl'>210</span>
-<span class='no'>signal.integral.max</span> <span class='kw'>&lt;-</span> <span class='fl'>230</span>
+<span class='va'>Lx.data.signal</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>temp</span>, record.id<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>Lx.data.background</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>temp</span>, record.id<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>Tx.data.signal</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>temp</span>, record.id<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>Tx.data.background</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>temp</span>, record.id<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='va'>signal.integral.min</span> <span class='op'>&lt;-</span> <span class='fl'>210</span>
+<span class='va'>signal.integral.max</span> <span class='op'>&lt;-</span> <span class='fl'>230</span>
 
-<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_TLLxTxRatio</span>(<span class='no'>Lx.data.signal</span>,
-                           <span class='no'>Lx.data.background</span>,
-                           <span class='no'>Tx.data.signal</span>, <span class='no'>Tx.data.background</span>,
-                           <span class='no'>signal.integral.min</span>, <span class='no'>signal.integral.max</span>)
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>output</span>)</div><div class='output co'>#&gt;     LnLx LnLx.BG  TnTx TnTx.BG net_LnLx net_LnLx.Error net_TnTx net_TnTx.Error
+<span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'>calc_TLLxTxRatio</span><span class='op'>(</span><span class='va'>Lx.data.signal</span>,
+                           <span class='va'>Lx.data.background</span>,
+                           <span class='va'>Tx.data.signal</span>, <span class='va'>Tx.data.background</span>,
+                           <span class='va'>signal.integral.min</span>, <span class='va'>signal.integral.max</span><span class='op'>)</span>
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>output</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     LnLx LnLx.BG  TnTx TnTx.BG net_LnLx net_LnLx.Error net_TnTx net_TnTx.Error
 #&gt; 1 257042    4068 82298    2943   252974       49468.92    79355       21449.72
 #&gt;       LxTx LxTx.Error
 #&gt; 1 3.187877   1.485073</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) <br />
-Christoph Schmidt, University of Bayreuth (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

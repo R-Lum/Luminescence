@@ -8,22 +8,29 @@
 
 <title>Calculate the cosmic dose rate — calc_CosmicDoseRate • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,13 +38,13 @@
 
 
 
-<meta property="og:title" content="Calculate the cosmic dose rate — calc_CosmicDoseRate" />
 
+<meta property="og:title" content="Calculate the cosmic dose rate — calc_CosmicDoseRate" />
 <meta property="og:description" content="This function calculates the cosmic dose rate taking into account the soft-
 and hard-component of the cosmic ray flux and allows corrections for
 geomagnetic latitude, altitude above sea-level and geomagnetic field
 changes." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -51,9 +58,10 @@ changes." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +75,7 @@ changes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -91,10 +99,9 @@ changes." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -114,29 +121,37 @@ changes." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate the cosmic dose rate</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_CosmicDoseRate.R'><code>R/calc_CosmicDoseRate.R</code></a></small>
     <div class="hidden name"><code>calc_CosmicDoseRate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function calculates the cosmic dose rate taking into account the soft-
 and hard-component of the cosmic ray flux and allows corrections for
 geomagnetic latitude, altitude above sea-level and geomagnetic field
 changes.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>calc_CosmicDoseRate</span>(<span class='no'>depth</span>, <span class='no'>density</span>, <span class='no'>latitude</span>, <span class='no'>longitude</span>, <span class='no'>altitude</span>,
-  <span class='kw'>corr.fieldChanges</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>est.age</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>half.depth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>
+  <span class='va'>depth</span>,
+  <span class='va'>density</span>,
+  <span class='va'>latitude</span>,
+  <span class='va'>longitude</span>,
+  <span class='va'>altitude</span>,
+  corr.fieldChanges <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  est.age <span class='op'>=</span> <span class='cn'>NA</span>,
+  half.depth <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  error <span class='op'>=</span> <span class='fl'>10</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -195,7 +210,7 @@ general error (percentage) to be implemented on corrected cosmic dose rate estim
       <td><p>further arguments (<code>verbose</code> to disable/enable console output).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a terminal output. In addition an
@@ -207,7 +222,6 @@ following element:</p>
 
 The output should be accessed using the function get_RLum
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function calculates the total cosmic dose rate considering both the
@@ -259,7 +273,6 @@ one sample of the same profile. This is done by providing more than one
 values for <code>depth</code> and only one for <code>density</code>. For example,
 <code>depth = c(1, 2, 3)</code> and <code>density = 1.7</code> will calculate the cosmic dose rate
 for three samples in 1, 2 and 3 m depth in a sediment of density 1.7 g/cm^3.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Despite its universal use the equation to calculate the cosmic dose
@@ -287,15 +300,12 @@ these values assume an average overburden density of 2 g/cm^3.</p>
 <p>It is currently not possible to obtain more precise cosmic dose rate values
 for near-surface samples as there is no equation known to the author of this
 function at the time of writing.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.5.2</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2019). calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Burow, C., 2020. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
@@ -316,18 +326,21 @@ for luminescence and ESR dating: large depths and long-term time variations.
 Radiation Measurements 23, 497-500.</p>
 <p>Prescott, J.R., Stephan, L.G., 1982. The contribution of cosmic radiation to the environmental dose for
 thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-25.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='BaseDataSet.CosmicDoseRate.html'>BaseDataSet.CosmicDoseRate</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Christoph Burow, University of Cologne (Germany)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##(1) calculate cosmic dose rate (one absorber)</span>
-<span class='fu'>calc_CosmicDoseRate</span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>2.78</span>, <span class='kw'>density</span> <span class='kw'>=</span> <span class='fl'>1.7</span>,
-                    <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fl'>38.06451</span>, <span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fl'>1.49646</span>,
-                    <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='fl'>364</span>, <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fl'>2.78</span>, density <span class='op'>=</span> <span class='fl'>1.7</span>,
+                    latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,
+                    altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt;  [calc_CosmicDoseRate]
 #&gt; 
@@ -350,9 +363,10 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 #&gt;  ---------------------------------------------------------
 #&gt; </div><div class='input'>
 <span class='co'>##(2a) calculate cosmic dose rate (two absorber)</span>
-<span class='fu'>calc_CosmicDoseRate</span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5.0</span>, <span class='fl'>2.78</span>), <span class='kw'>density</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.65</span>, <span class='fl'>1.7</span>),
-                    <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fl'>38.06451</span>, <span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fl'>1.49646</span>,
-                    <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='fl'>364</span>, <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>2.78</span><span class='op'>)</span>, density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.65</span>, <span class='fl'>1.7</span><span class='op'>)</span>,
+                    latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,
+                    altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt;  [calc_CosmicDoseRate]
 #&gt; 
@@ -378,10 +392,11 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 #&gt; </div><div class='input'>
 <span class='co'>##(2b) calculate cosmic dose rate (two absorber) and</span>
 <span class='co'>##correct for geomagnetic field changes</span>
-<span class='fu'>calc_CosmicDoseRate</span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5.0</span>, <span class='fl'>2.78</span>), <span class='kw'>density</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.65</span>, <span class='fl'>1.7</span>),
-                    <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fl'>12.04332</span>, <span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fl'>4.43243</span>,
-                    <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='fl'>364</span>, <span class='kw'>corr.fieldChanges</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                    <span class='kw'>est.age</span> <span class='kw'>=</span> <span class='fl'>67</span>, <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>15</span>)</div><div class='output co'>#&gt; [1] "corr.fac 1.04562628608 diff.one 0.02 alt.fac 1.281314304"
+<span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>2.78</span><span class='op'>)</span>, density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.65</span>, <span class='fl'>1.7</span><span class='op'>)</span>,
+                    latitude <span class='op'>=</span> <span class='fl'>12.04332</span>, longitude <span class='op'>=</span> <span class='fl'>4.43243</span>,
+                    altitude <span class='op'>=</span> <span class='fl'>364</span>, corr.fieldChanges <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                    est.age <span class='op'>=</span> <span class='fl'>67</span>, error <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "corr.fac 1.04562628608 diff.one 0.02 alt.fac 1.281314304"
 #&gt; 
 #&gt; 
 #&gt;  [calc_CosmicDoseRate]
@@ -409,9 +424,10 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 
 <span class='co'>##(3) calculate cosmic dose rate and export results to .csv file</span>
 <span class='co'>#calculate cosmic dose rate and save to variable</span>
-<span class='no'>results</span><span class='kw'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>2.78</span>, <span class='kw'>density</span> <span class='kw'>=</span> <span class='fl'>1.7</span>,
-                              <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fl'>38.06451</span>, <span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fl'>1.49646</span>,
-                              <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='fl'>364</span>, <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; 
+<span class='va'>results</span><span class='op'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fl'>2.78</span>, density <span class='op'>=</span> <span class='fl'>1.7</span>,
+                              latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,
+                              altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt;  [calc_CosmicDoseRate]
 #&gt; 
@@ -434,7 +450,8 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 #&gt;  ---------------------------------------------------------
 #&gt; </div><div class='input'>
 <span class='co'># the results can be accessed by</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='st'>"summary"</span>)</div><div class='output co'>#&gt;   depth density latitude longitude altitude total_absorber.gcm2        d0
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, <span class='st'>"summary"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   depth density latitude longitude altitude total_absorber.gcm2        d0
 #&gt; 1  2.78     1.7 38.06451   1.49646      364               472.6 0.1518269
 #&gt;   geom_lat       dc
 #&gt; 1  41.0685 0.161002</div><div class='input'>
@@ -444,10 +461,11 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class='co'>##(4) calculate cosmic dose rate for 6 samples from the same profile</span>
 <span class='co'>##    and save to .csv file</span>
 <span class='co'>#calculate cosmic dose rate and save to variable</span>
-<span class='no'>results</span><span class='kw'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span>(<span class='kw'>depth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.5</span> , <span class='fl'>2.1</span>, <span class='fl'>2.7</span>, <span class='fl'>4.2</span>, <span class='fl'>6.3</span>),
-                              <span class='kw'>density</span> <span class='kw'>=</span> <span class='fl'>1.7</span>, <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fl'>38.06451</span>,
-                              <span class='kw'>longitude</span> <span class='kw'>=</span> <span class='fl'>1.49646</span>, <span class='kw'>altitude</span> <span class='kw'>=</span> <span class='fl'>364</span>,
-                              <span class='kw'>error</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; 
+<span class='va'>results</span><span class='op'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.5</span> , <span class='fl'>2.1</span>, <span class='fl'>2.7</span>, <span class='fl'>4.2</span>, <span class='fl'>6.3</span><span class='op'>)</span>,
+                              density <span class='op'>=</span> <span class='fl'>1.7</span>, latitude <span class='op'>=</span> <span class='fl'>38.06451</span>,
+                              longitude <span class='op'>=</span> <span class='fl'>1.49646</span>, altitude <span class='op'>=</span> <span class='fl'>364</span>,
+                              error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt;  [calc_CosmicDoseRate]
 #&gt; 
@@ -455,56 +473,40 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 #&gt; 
 #&gt;   depth (m) d0 (Gy/ka) dc (Gy/ka) dc_error (Gy/ka)
 #&gt; 1       0.1     0.2599     0.2756           0.0276
-#&gt; 2       0.5     0.2000     0.2120           0.0212
+#&gt; 2       0.5     0.1999     0.2120           0.0212
 #&gt; 3       2.1     0.1640     0.1739           0.0174
 #&gt; 4       2.7     0.1532     0.1625           0.0162
 #&gt; 5       4.2     0.1299     0.1377           0.0138
 #&gt; 6       6.3     0.1045     0.1109           0.0111</div><div class='input'>
-#export results to .csv file - uncomment for usage
-#write.csv(results, file = "c:/users/public/results_profile.csv")
+<span class='co'>#export results to .csv file - uncomment for usage</span>
+<span class='co'>#write.csv(results, file = "c:/users/public/results_profile.csv")</span>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Christoph Burow, University of Cologne (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

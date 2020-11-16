@@ -9,22 +9,29 @@
 <title>Calculate the gamma dose deposited within a sample taking layer-to-layer
 variations in radioactivity into account (according to Aitken, 1985) — scale_GammaDose • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,15 +39,15 @@ variations in radioactivity into account (according to Aitken, 1985) — scale_G
 
 
 
+
 <meta property="og:title" content="Calculate the gamma dose deposited within a sample taking layer-to-layer
 variations in radioactivity into account (according to Aitken, 1985) — scale_GammaDose" />
-
 <meta property="og:description" content="This function calculates the gamma dose deposited in a luminescence sample
 taking into account layer-to-layer variations in sediment radioactivity .
-The function scales user inputs of Uranium, Thorium and Potassium based on
+The function scales user inputs of uranium, thorium and potassium based on
 input parameters for sediment density, water content and given layer
 thicknesses and distances to the sample." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,9 +61,10 @@ thicknesses and distances to the sample." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +78,7 @@ thicknesses and distances to the sample." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -94,10 +102,9 @@ thicknesses and distances to the sample." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -117,6 +124,7 @@ thicknesses and distances to the sample." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -124,25 +132,29 @@ thicknesses and distances to the sample." />
     <div class="page-header">
     <h1>Calculate the gamma dose deposited within a sample taking layer-to-layer
 variations in radioactivity into account (according to Aitken, 1985)</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/scale_GammaDose.R'><code>R/scale_GammaDose.R</code></a></small>
     <div class="hidden name"><code>scale_GammaDose.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function calculates the gamma dose deposited in a luminescence sample
 taking into account layer-to-layer variations in sediment radioactivity .
-The function scales user inputs of Uranium, Thorium and Potassium based on
+The function scales user inputs of uranium, thorium and potassium based on
 input parameters for sediment density, water content and given layer
 thicknesses and distances to the sample.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>scale_GammaDose</span>(<span class='no'>data</span>, <span class='kw'>conversion_factors</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Cresswelletal2019"</span>,
-  <span class='st'>"Guerinetal2011"</span>, <span class='st'>"AdamiecAitken1998"</span>, <span class='st'>"Liritzisetal2013"</span>)[<span class='fl'>1</span>],
-  <span class='kw'>fractional_gamma_dose</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Aitken1985"</span>)[<span class='fl'>1</span>], <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot_single</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>scale_GammaDose</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  conversion_factors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Cresswelletal2018"</span>, <span class='st'>"Guerinetal2011"</span>, <span class='st'>"AdamiecAitken1998"</span>,
+    <span class='st'>"Liritzisetal2013"</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  fractional_gamma_dose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Aitken1985"</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot_single <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -156,13 +168,13 @@ table must have the following named columns:</p><ul>
 <li><p><code>sample_offset</code> (<a href='https://rdrr.io/r/base/logical.html'>logical</a>): distance of the sample in cm,
 <strong>measured from the BOTTOM OF THE TARGET LAYER</strong>. Except for the target layer
 all values must be <code>NA</code>.</p></li>
-<li><p><code>K</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): K nuclide content in <!-- % --></p></li>
+<li><p><code>K</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): K nuclide content in %</p></li>
 <li><p><code>K_se</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): error on the K content</p></li>
 <li><p><code>Th</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): Th nuclide content in ppm</p></li>
 <li><p><code>Th_se</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): error on the Th content</p></li>
 <li><p><code>U</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): U nuclide content in ppm</p></li>
 <li><p><code>U_se</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): error on the U content</p></li>
-<li><p><code>water_content</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): water content of each layer in <!-- % --></p></li>
+<li><p><code>water_content</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): water content of each layer in %</p></li>
 <li><p><code>water_content_se</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>):  error on the water content</p></li>
 <li><p><code>density</code> (<a href='https://rdrr.io/r/base/numeric.html'>numeric</a>): bulk density of each layer in g/cm^-3</p></li>
 </ul></td>
@@ -172,7 +184,7 @@ all values must be <code>NA</code>.</p></li>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 The conversion factors used to calculate the dose rate from sediument
 nuclide contents. Valid options are:</p><ul>
-<li><p><code>"Cresswelletal2019"</code> (default)</p></li>
+<li><p><code>"Cresswelletal2018"</code> (default)</p></li>
 <li><p><code>"Liritzisetal2013"</code></p></li>
 <li><p><code>"Guerinetal2011"</code></p></li>
 <li><p><code>"AdamiecAitken1998"</code></p></li>
@@ -205,7 +217,7 @@ Show all plots in one panel (defaults to <code>TRUE</code>).</p></td>
       <td><p>Further parameters passed to <a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>After performing the calculations the user is provided with different outputs.</p><ol>
@@ -215,10 +227,10 @@ print in the console.</p></li>
 and the contribution to total gamma dose rate.</p></li>
 <li><p>RLum Results. If the user wishes to save these results, writing a script
 to run the function and to save the results would look like this:</p></li>
-</ol><pre>mydata &lt;- read.table("c:/path/to/input/file.txt")
-results &lt;- scale_GammaDose(mydata)
-table &lt;- get_RLum(results)
-write.csv(table, "c:/path/to/results.csv")
+</ol><pre><span class='va'>mydata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='st'>"c:/path/to/input/file.txt"</span><span class='op'>)</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>scale_GammaDose</span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
+<span class='va'>table</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/write.table.html'>write.csv</a></span><span class='op'>(</span><span class='va'>table</span>, <span class='st'>"c:/path/to/results.csv"</span><span class='op'>)</span>
 </pre>
 
 <p>-----------------------------------<br />
@@ -252,7 +264,6 @@ specific layers to the layer of interest.</p></li>
 received by the sample in the target layer.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>User Input</strong></p>
@@ -275,20 +286,21 @@ sample was taken from <em>within</em> the layer, insert a numerical value <code>
 which describes the distance from the middle of the sample to the bottom of
 the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations
 and their standard errors for
-Potassium (in <!-- %), Thorium (in ppm) and Uranium (in ppm). Columns 10 and 11 -->
+potassium (in %), thorium (in ppm) and uranium (in ppm). Columns 10 and 11
 give information on the water content and its uncertainty (standard error)
-in <!-- %. The layer density (in g/cm3) should be given in column 12. No cell -->
+in %. The layer density (in g/cm3) should be given in column 12. No cell
 should be left blank. Please ensure to keep the column titles as given in
 the example dataset (<code><a href='https://rdrr.io/r/utils/data.html'>data('ExampleData.ScaleGammaDose')</a></code>, see examples).</p>
 <p>The user can decide which dose rate
 conversion factors should be used to calculate the gamma dose rates.
 The options are:</p><ul>
-<li><p><code>"Cresswelletal2019"</code> (Cresswell et al., in press; the default)</p></li>
+<li><p><code>"Cresswelletal2018"</code> (Cresswell et al., 2018)</p></li>
 <li><p><code>"Liritzisetal2013"</code> (Liritzis et al., 2013)</p></li>
 <li><p><code>"Guerinetal2011"</code> (Guerin et al., 2011)</p></li>
 <li><p><code>"AdamiecAitken1998"</code> (Adamiec and Aitken, 1998)</p></li>
 </ul>
-    <p><strong>Water content</strong></p>
+
+<p><strong>Water content</strong></p>
 <p>The water content provided by the user should be calculated according to:</p>
 <p>$$ ( Wet weight [g] - Dry weight [g] ) / Dry weight [g] * 100 $$</p>
 <p><strong>Calculations</strong></p>
@@ -315,60 +327,65 @@ delivered by <strong>A</strong> and <strong>B</strong> is given by</p>
 boundary to start the calculation for the next layer. This way, the function
 is able to scale the gamma dose rate accurately for distant layers when the
 density and water content is not constant for the entire section.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><strong>This function has BETA status. If possible, results should be</strong>
 <strong>cross-checked.</strong></p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.1</p>
-    
+    <p>0.1.2</p>
     <h2 class="hasAnchor" id="acknowledgements"><a class="anchor" href="#acknowledgements"></a>Acknowledgements</h2>
 
     
-    <p>We thank Dr Ian Bailiff for the provision of an excel spreadsheet, which has
+
+
+<p>We thank Dr Ian Bailiff for the provision of an excel spreadsheet, which has
 been very helpful when writing this function.</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Riedesel, S., Autzen, M., Burow, C. (2019). scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Riedesel, S., Autzen, M., Burow, C., 2020. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.</p>
 <p>Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 Ancient TL 16, 37-46.</p>
-<p>Cresswell, A. J., Carter, J., Sanderson, D. C. W., in press. Dose rate
-conversion parameters: Assessment of nuclear data. Radiation Measurements.</p>
+<p>Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018.
+Dose rate conversion parameters: Assessment of nuclear data.
+Radiation Measurements 120, 195-201.</p>
 <p>Guerin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
 factors: update. Ancient TL, 29, 5-8.</p>
 <p>Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 Archaeology and Archaeometry 13, 1-15.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='ExampleData.ScaleGammaDose.html'>ExampleData.ScaleGammaDose</a>, <a href='https://rdrr.io/r/stats/approxfun.html'>approx</a>, <a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></p></div>
-    
+    <div class='dont-index'><p><a href='ExampleData.ScaleGammaDose.html'>ExampleData.ScaleGammaDose</a>,
+<a href='BaseDataSet.ConversionFactors.html'>BaseDataSet.ConversionFactors</a>, <a href='https://rdrr.io/r/stats/approxfun.html'>approx</a>, <a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Svenja Riedesel, Aberystwyth University (United Kingdom) <br />
+Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark) <br />
+Christoph Burow, University of Cologne (Germany) <br />
+Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ExampleData.ScaleGammaDose"</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.ScaleGammaDose</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.ScaleGammaDose"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.ScaleGammaDose</span>
 
 <span class='co'># Scale gamma dose rate</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>scale_GammaDose</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x</span>,
-                           <span class='kw'>conversion_factors</span> <span class='kw'>=</span> <span class='st'>"Cresswelletal2019"</span>,
-                           <span class='kw'>fractional_gamma_dose</span> <span class='kw'>=</span> <span class='st'>"Aitken1985"</span>,
-                           <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                           <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>scale_GammaDose</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>x</span>,
+                           conversion_factors <span class='op'>=</span> <span class='st'>"Cresswelletal2018"</span>,
+                           fractional_gamma_dose <span class='op'>=</span> <span class='st'>"Aitken1985"</span>,
+                           verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                           plot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;  [scale_GammaDose()]
 #&gt; 
 #&gt;  ----
-#&gt;  Conversion factors: Cresswelletal2019 
+#&gt;  Conversion factors: Cresswelletal2018 
 #&gt;  Gamma dose fractions: Aitken1985 
 #&gt;  Target layer: A 
 #&gt; 
@@ -403,57 +420,37 @@ Archaeology and Archaeometry 13, 1-15.</p>
 #&gt;  Infinite matrix gamma dose rate:	 0.917 ± 0.351 Gy/ka 
 #&gt;  Scaled gamma dose rate:		 0.927 ± 0.214 Gy/ka
 #&gt; </div><div class='img'><img src='scale_GammaDose-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;   id dose_rate_K dose_rate_K_err dose_rate_Th dose_rate_Th_err dose_rate_U
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   id dose_rate_K dose_rate_K_err dose_rate_Th dose_rate_Th_err dose_rate_U
 #&gt; 1  A   0.3854764       0.1521888    0.3419409        0.1252244   0.1999792
 #&gt;   dose_rate_U_err dose_rate_total dose_rate_total_err
 #&gt; 1      0.08217342       0.9273965             0.21353</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#acknowledgements">Acknowledgements</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Svenja Riedesel, Aberystwyth University (United Kingdom) <br />
-Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark) <br />
-Christoph Burow, University of Cologne (Germany) <br />
-Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

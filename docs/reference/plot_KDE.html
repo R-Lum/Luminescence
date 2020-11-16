@@ -8,22 +8,29 @@
 
 <title>Plot kernel density estimate with statistics — plot_KDE • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,15 +38,15 @@
 
 
 
-<meta property="og:title" content="Plot kernel density estimate with statistics — plot_KDE" />
 
+<meta property="og:title" content="Plot kernel density estimate with statistics — plot_KDE" />
 <meta property="og:description" content="Plot a kernel density estimate of measurement values in combination with the
 actual values and associated error bars in ascending order. If enabled, the
 boxplot will show the usual distribution parameters (median as
 bold line, box delimited by the first and third quartile, whiskers defined
 by the extremes and outliers shown as points) and also the mean and
 standard deviation as pale bold line and pale polygon, respectively." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -53,9 +60,10 @@ standard deviation as pale bold line and pale polygon, respectively." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +77,7 @@ standard deviation as pale bold line and pale polygon, respectively." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -93,10 +101,9 @@ standard deviation as pale bold line and pale polygon, respectively." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -116,31 +123,41 @@ standard deviation as pale bold line and pale polygon, respectively." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot kernel density estimate with statistics</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/plot_KDE.R'><code>R/plot_KDE.R</code></a></small>
     <div class="hidden name"><code>plot_KDE.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Plot a kernel density estimate of measurement values in combination with the
 actual values and associated error bars in ascending order. If enabled, the
 boxplot will show the usual distribution parameters (median as
 bold line, box delimited by the first and third quartile, whiskers defined
 by the extremes and outliers shown as points) and also the mean and
 standard deviation as pale bold line and pale polygon, respectively.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_KDE</span>(<span class='no'>data</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>values.cumulative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rug</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>summary</span>, <span class='no'>summary.pos</span>,
-  <span class='kw'>summary.method</span> <span class='kw'>=</span> <span class='st'>"MCM"</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_KDE</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  values.cumulative <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  order <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  boxplot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  rug <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>summary</span>,
+  <span class='va'>summary.pos</span>,
+  summary.method <span class='op'>=</span> <span class='st'>"MCM"</span>,
+  bw <span class='op'>=</span> <span class='st'>"nrd0"</span>,
+  output <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -213,10 +230,10 @@ reproduce similar plots. Default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments and graphical parameters passed to <a href='https://rdrr.io/r/graphics/plot.html'>plot</a>.</p></td>
+      <td><p>further arguments and graphical parameters passed to <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function allows passing several plot arguments, such as <code>main</code>,
@@ -240,7 +257,8 @@ one or more of the following keywords:</p><ul>
 <li><p><code>"kurtosis"</code> (kurtosis)</p></li>
 <li><p><code>"skewness"</code> (skewness)</p></li>
 </ul>
-    <p><strong>Note</strong> that the input data for the statistic summary is sent to the function
+
+<p><strong>Note</strong> that the input data for the statistic summary is sent to the function
 <code><a href='calc_Statistics.html'>calc_Statistics()</a></code> depending on the log-option for the z-scale. If
 <code>"log.z = TRUE"</code>, the summary is based on the logarithms of the input
 data. If <code>"log.z = FALSE"</code> the linearly scaled data is used.</p>
@@ -249,109 +267,105 @@ measures in three different ways: <code>unweighted</code>, <code>weighted</code>
 <code>MCM-based</code> (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
 with the appropriate keyword using the argument <code>summary.method</code>.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>3.5.7</p>
-    
+    <p>3.6.0</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://rdrr.io/r/stats/density.html'>density</a>, <a href='https://rdrr.io/r/graphics/plot.html'>plot</a></p></div>
-    
+    <div class='dont-index'><p><a href='https://rdrr.io/r/stats/density.html'>density</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Dietze, GFZ Potsdam (Germany)<br />
+Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne, France
+, RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S. (2019). plot_KDE(): Plot kernel density estimate with statistics. Function version 3.5.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Dietze, M., Kreutzer, S., 2020. plot_KDE(): Plot kernel density estimate with statistics. Function version 3.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## read example data set</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='no'>ExampleData.DeValues</span> <span class='kw'>&lt;-</span>
-  <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>BT998</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.0438</span>,<span class='fl'>0.0019</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ExampleData.DeValues</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0438</span>,<span class='fl'>0.0019</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## create plot straightforward</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>)</div><div class='img'><img src='plot_KDE-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with logarithmic x-axis</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"x"</span>)</div><div class='img'><img src='plot_KDE-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
+         log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with user-defined labels and axes limits</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Dose distribution"</span>,
-         <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Dose (s)"</span>,
-         <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"KDE estimate"</span>, <span class='st'>"Cumulative dose value"</span>),
-         <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>250</span>),
-         <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.08</span>, <span class='fl'>0</span>, <span class='fl'>30</span>))</div><div class='img'><img src='plot_KDE-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
+         main <span class='op'>=</span> <span class='st'>"Dose distribution"</span>,
+         xlab <span class='op'>=</span> <span class='st'>"Dose (s)"</span>,
+         ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"KDE estimate"</span>, <span class='st'>"Cumulative dose value"</span><span class='op'>)</span>,
+         xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>250</span><span class='op'>)</span>,
+         ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.08</span>, <span class='fl'>0</span>, <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with boxplot option</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>boxplot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
+         boxplot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with statistical summary below header</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>, <span class='st'>"in.2s"</span>))</div><div class='img'><img src='plot_KDE-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
+         summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with statistical summary as legend</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-         <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sd.rel"</span>, <span class='st'>"se.abs"</span>),
-         <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>)</div><div class='img'><img src='plot_KDE-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
+         summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"mean"</span>, <span class='st'>"sd.rel"</span>, <span class='st'>"se.abs"</span><span class='op'>)</span>,
+         summary.pos <span class='op'>=</span> <span class='st'>"topleft"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## split data set into sub-groups, one is manipulated, and merge again</span>
-<span class='no'>data.1</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>1</span>:<span class='fl'>15</span>,]
-<span class='no'>data.2</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.DeValues</span>[<span class='fl'>16</span>:<span class='fl'>25</span>,] * <span class='fl'>1.3</span>
-<span class='no'>data.3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>data.1</span>, <span class='no'>data.2</span>)
+<span class='va'>data.1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>,<span class='op'>]</span>
+<span class='va'>data.2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>25</span>,<span class='op'>]</span> <span class='op'>*</span> <span class='fl'>1.3</span>
+<span class='va'>data.3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>data.1</span>, <span class='va'>data.2</span><span class='op'>)</span>
 
 <span class='co'>## create plot with two subsets straightforward</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>)</div><div class='img'><img src='plot_KDE-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## create plot with two subsets and summary legend at user coordinates</span>
-<span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data.3</span>,
-         <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span>),
-         <span class='kw'>summary.pos</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>110</span>, <span class='fl'>0.07</span>),
-         <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"orange"</span>))</div><div class='img'><img src='plot_KDE-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,
+         summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"median"</span>, <span class='st'>"skewness"</span><span class='op'>)</span>,
+         summary.pos <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>110</span>, <span class='fl'>0.07</span><span class='op'>)</span>,
+         col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"orange"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## example of how to use the numerical output of the function</span>
 <span class='co'>## return plot output to draw a thicker KDE line</span>
-<span class='no'>KDE_out</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_KDE</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ExampleData.DeValues</span>,
-<span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_KDE-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>KDE_out</span> <span class='op'>&lt;-</span> <span class='fu'>plot_KDE</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
+output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_KDE-9.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Michael Dietze, GFZ Potsdam (Germany)<br />
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

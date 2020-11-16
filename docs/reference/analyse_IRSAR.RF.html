@@ -8,22 +8,29 @@
 
 <title>Analyse IRSAR RF measurements — analyse_IRSAR.RF • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Analyse IRSAR RF measurements — analyse_IRSAR.RF" />
 
+<meta property="og:title" content="Analyse IRSAR RF measurements — analyse_IRSAR.RF" />
 <meta property="og:description" content="Function to analyse IRSAR RF measurements on K-feldspar samples, performed
 using the protocol according to Erfurt et al. (2003) and beyond." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -89,10 +97,9 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -112,29 +119,37 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse IRSAR RF measurements</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/analyse_IRSAR.RF.R'><code>R/analyse_IRSAR.RF.R</code></a></small>
     <div class="hidden name"><code>analyse_IRSAR.RF.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Function to analyse IRSAR RF measurements on K-feldspar samples, performed
 using the protocol according to Erfurt et al. (2003) and beyond.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_IRSAR.RF</span>(<span class='no'>object</span>, <span class='kw'>sequence_structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NATURAL"</span>,
-  <span class='st'>"REGENERATED"</span>), <span class='kw'>RF_nat.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>RF_reg.lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"FIT"</span>, <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>test_parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>txtProgressBar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>plot_reduced</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>analyse_IRSAR.RF</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  sequence_structure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"NATURAL"</span>, <span class='st'>"REGENERATED"</span><span class='op'>)</span>,
+  RF_nat.lim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  RF_reg.lim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='st'>"FIT"</span>,
+  method.control <span class='op'>=</span> <span class='cn'>NULL</span>,
+  test_parameters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n.MC <span class='op'>=</span> <span class='fl'>10</span>,
+  txtProgressBar <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot_reduced <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -142,7 +157,7 @@ using the protocol according to Erfurt et al. (2003) and beyond.</p>
       <th>object</th>
       <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> or a <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a>-objects (<strong>required</strong>):
 input object containing data for protocol analysis. The function expects to
-find at least two curves in the <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object: (1) RF_nat, (2) RF_reg.
+find at least two curves in the <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object: (1) <code>RF_nat</code>, (2) <code>RF_reg</code>.
 If a <code>list</code> is provided as input all other parameters can be provided as
 <code>list</code> as well to gain full control.</p></td>
     </tr>
@@ -177,8 +192,8 @@ Possible options are <code>"FIT"</code> or <code>"SLIDE"</code>.</p></td>
       <th>method.control</th>
       <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
 parameters to control the method, that can be passed to the chosen method.
-These are for (1) <code>method = "FIT"</code>: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for
-(2) <code>method = "SLIDE"</code>: 'correct_onset', 'show_density',  'show_fit', 'trace'.
+These are for (1) <code>method = "FIT"</code>: <code>'trace'</code>, <code>'maxiter'</code>, <code>'warnOnly'</code>, <code>'minFactor'</code> and for
+(2) <code>method = "SLIDE"</code>: <code>'correct_onset'</code>, <code>'show_density'</code>,  <code>'show_fit'</code>, <code>'trace'</code>.
 See details.</p></td>
     </tr>
     <tr>
@@ -223,7 +238,7 @@ Currently supported arguments are <code>main</code>, <code>xlab</code>, <code>yl
 <a href='https://rdrr.io/r/graphics/legend.html'>graphics::legend</a>), <code>xaxt</code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The function returns numerical output and an (<em>optional</em>) plot.</p>
@@ -292,8 +307,7 @@ vertical sliding range. I can be added as systematic error to the final De error
 <p>------------------------<br />
 <code>[ PLOT OUTPUT ]</code><br />
 ------------------------<br /></p>
-<p>The slided IR-RF curves with the finally obtained De</p>
-    
+<p>The slid IR-RF curves with the finally obtained De</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function performs an IRSAR analysis described for K-feldspar samples by
@@ -307,11 +321,12 @@ signal.</p>
 <li><p>Fitting data with a stretched exponential function</p></li>
 <li><p>Calculate the the palaeodose \(D_{e}\) using the parameters from the fitting</p></li>
 </ol>
-    <p>Actually two methods are supported to obtain the \(D_{e}\):
+
+<p>Actually two methods are supported to obtain the \(D_{e}\):
 <code>method = "FIT"</code> and <code>method = "SLIDE"</code>:</p>
 <p><strong><code>method = "FIT"</code></strong></p>
 <p>The principle is described above and follows the original suggestions by
-Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is used.</p>
+Erfurt et al., 2003. For the fitting the mean count value of the <code>RF_nat</code> curve is used.</p>
 <p>Function used for the fitting (according to Erfurt et al. (2003)):</p>
 <p>$$\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta$$</p>
 <p>with
@@ -334,7 +349,7 @@ and Lapp et al., 2012.</p>
 For the mathematical details of the implementation see Frouin et al., 2017</p>
 <p><strong><code>method.control</code></strong></p>
 <p>To keep the generic argument list as clear as possible, arguments to control the methods
-for De estimation are all preset with meaningful default parameters and can be
+for De estimation are all pre set with meaningful default parameters and can be
 handled using the argument <code>method.control</code> only, e.g.,
 <code>method.control = list(trace = TRUE)</code>. Supported arguments are:</p>
 <table class='table'>
@@ -364,10 +379,12 @@ The default is <code>NULL</code>.</td></tr>
 for a parallel processing of the Monte-Carlo runs. The default value is <code>NULL</code> (single thread),
 the recommended values is <code>'auto'</code>. An optional number (e.g., <code>cores</code> = 8) assigns a value manually.</td></tr>
 </table>
-    <p><strong>Error estimation</strong></p>
+
+
+<p><strong>Error estimation</strong></p>
 <p>For <strong><code>method = "FIT"</code></strong> the asymmetric error range is obtained by using the 2.5 % (lower) and
 the 97.5 % (upper) quantiles of the \(RF_{nat}\) curve for calculating the \(D_{e}\) error range.</p>
-<p>For <strong><code>method = "SLIDE"</code></strong> the error is obtained by bootstrapping the residuals of the slided
+<p>For <strong><code>method = "SLIDE"</code></strong> the error is obtained by bootstrapping the residuals of the slid
 curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
 ways: (a) the standard deviation of the herewith obtained \(D_{e}\) from the MC runs and (b) the confidence
 interval using the  2.5 % (lower) and the 97.5 % (upper) quantiles. The results of the MC runs
@@ -375,11 +392,12 @@ are returned with the function output.</p>
 <p><strong>Test parameters</strong></p>
 <p>The argument <code>test_parameters</code> allows to pass some thresholds for several test parameters,
 which will be evaluated during the function run. If a threshold is set and it will be exceeded the
-test parameter status will be set to "FAILED". Intentionally this parameter is not termed
-'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
+test parameter status will be set to <code>"FAILED"</code>. Intentionally this parameter is not termed
+<code>'rejection criteria'</code> as not all test parameters are evaluated for both methods and some parameters
 are calculated by not evaluated by default. Common for all parameters are the allowed argument options
 <code>NA</code> and <code>NULL</code>. If the parameter is set to <code>NA</code> the value is calculated but the
-result will not be evaluated, means it has no effect on the status ("OK" or "FAILED") of the parameter.
+result will not be evaluated, means it has no effect on the status (<code>"OK"</code> or <code>"FAILED"</code>)
+of the parameter.
 Setting the parameter to <code>NULL</code> disables the parameter entirely and the parameter will be
 also removed from the function output. This might be useful in cases where a particular parameter
 asks for long computation times. Currently supported parameters are:</p>
@@ -390,8 +408,8 @@ and should not exceed the threshold value.</p>
 <p>Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 This value indicates intersection of the RF-curves and should be close to 0 if the curves
 have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
-curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
-the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
+curve is obtained using the maximum count value of the <code>RF_nat</code> curve and only this segment (fitting to
+the <code>RF_nat</code> curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 found at all, <code>Inf</code> is returned.</p>
 <p><code>residuals_slope</code> <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (default: <code>NA</code>; only for <code>method = "SLIDE"</code>):</p>
 <p>A linear function is fitted on the residuals after sliding.
@@ -412,21 +430,17 @@ For <code>method = "FIT"</code> this parameter is obtained during the fitting, f
 rather rough estimation is made using the function <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a> and the equation
 given above. Note: As this procedure requests more computation time, setting of one of these three parameters
 to <code>NULL</code> also prevents a calculation of the remaining two.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function assumes that there is no sensitivity change during the
 measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.5</p>
-    
+    <p>0.7.8</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
@@ -462,25 +476,30 @@ of Luminescence 85, 45-58.</p>
 <p>Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a>,
 <a href='https://rdrr.io/r/stats/nls.html'>nls</a>, <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a>, <code><a href='https://rdrr.io/r/parallel/mclapply.html'>parallel::mclapply</a></code></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.RLum.Analysis</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.RLum.Analysis</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##(1) perform analysis using the method 'FIT'</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>)</div><div class='img'><img src='analyse_IRSAR.RF-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>IRSAR.RF.Data</span><span class='op'>)</span>
+</div><div class='img'><img src='analyse_IRSAR.RF-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##show De results and test paramter results</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"data"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #&gt; 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #&gt;   DATE SEQUENCE_NAME                               UID
-#&gt; 1   NA            NA 2019-05-03-07:11.0.18945696670562</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>, <span class='kw'>data.object</span> <span class='kw'>=</span> <span class='st'>"test_parameters"</span>)</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
+#&gt; 1   NA            NA 2020-11-16-01:22.0.18945696670562</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"test_parameters"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #&gt; 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
 #&gt; 2       NA intersection_ratio        NA 5.541736e-03     OK            NA
 #&gt; 3       NA    residuals_slope        NA           NA     OK            NA
@@ -490,69 +509,55 @@ Measurements 32, 685-690.</p>
 #&gt; 7       NA               beta        NA 5.418719e-01     OK            NA
 #&gt; 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #&gt;                                 UID
-#&gt; 1 2019-05-03-07:11.0.18945696670562
-#&gt; 2 2019-05-03-07:11.0.18945696670562
-#&gt; 3 2019-05-03-07:11.0.18945696670562
-#&gt; 4 2019-05-03-07:11.0.18945696670562
-#&gt; 5 2019-05-03-07:11.0.18945696670562
-#&gt; 6 2019-05-03-07:11.0.18945696670562
-#&gt; 7 2019-05-03-07:11.0.18945696670562
-#&gt; 8 2019-05-03-07:11.0.18945696670562</div><div class='input'>
+#&gt; 1 2020-11-16-01:22.0.18945696670562
+#&gt; 2 2020-11-16-01:22.0.18945696670562
+#&gt; 3 2020-11-16-01:22.0.18945696670562
+#&gt; 4 2020-11-16-01:22.0.18945696670562
+#&gt; 5 2020-11-16-01:22.0.18945696670562
+#&gt; 6 2020-11-16-01:22.0.18945696670562
+#&gt; 7 2020-11-16-01:22.0.18945696670562
+#&gt; 8 2020-11-16-01:22.0.18945696670562</div><div class='input'>
 <span class='co'>##(2) perform analysis using the method 'SLIDE'</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>IRSAR.RF.Data</span>, method <span class='op'>=</span> <span class='st'>"SLIDE"</span>, n.MC <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 	 Run Monte Carlo loops for error estimation
 #&gt;   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</div><div class='output co'>#&gt; <span class='warning'>Warning: [analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!</span></div><div class='img'><img src='analyse_IRSAR.RF-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>##(3) perform analysis using the method 'SLIDE' and method control option</span>
 <span class='co'>## 'trace</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span>(
- <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>IRSAR.RF.Data</span>,
- <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"SLIDE"</span>,
- <span class='kw'>method.control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>trace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span><span class='op'>(</span>
+ object <span class='op'>=</span> <span class='va'>IRSAR.RF.Data</span>,
+ method <span class='op'>=</span> <span class='st'>"SLIDE"</span>,
+ method.control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>trace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># }</span><div class='input'>
+<span class='op'>}</span>
+
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

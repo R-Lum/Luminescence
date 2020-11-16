@@ -9,22 +9,29 @@
 <title>Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 De distribution — calc_CentralDose • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,13 +39,13 @@ De distribution — calc_CentralDose • Luminescence</title>
 
 
 
+
 <meta property="og:title" content="Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 De distribution — calc_CentralDose" />
-
 <meta property="og:description" content="This function calculates the central dose and dispersion of the De
 distribution, their standard errors and the profile log likelihood function
 for sigma." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,9 +59,10 @@ for sigma." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,7 +76,7 @@ for sigma." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -92,10 +100,9 @@ for sigma." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -115,6 +122,7 @@ for sigma." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -122,20 +130,18 @@ for sigma." />
     <div class="page-header">
     <h1>Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 De distribution</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_CentralDose.R'><code>R/calc_CentralDose.R</code></a></small>
     <div class="hidden name"><code>calc_CentralDose.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This function calculates the central dose and dispersion of the De
 distribution, their standard errors and the profile log likelihood function
 for sigma.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>calc_CentralDose</span>(<span class='no'>data</span>, <span class='no'>sigmab</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>calc_CentralDose</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>sigmab</span>, log <span class='op'>=</span> <span class='cn'>TRUE</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, plot <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -151,13 +157,17 @@ additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham &amp; Walling 2012, p. 100).
 <strong>NOTE</strong>: For the logged model (<code>log = TRUE</code>) this value must be
-a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (<code>log = FALSE</code>),
+a fraction, e.g. 0.2 (= 20 \<!-- %). If the un-logged model is used (\code{log = FALSE}), -->
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).</p></td>
     </tr>
     <tr>
       <th>log</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 fit the (un-)logged central age model to De data</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): strip <code>NA</code> values before the computation proceeds</p></td>
     </tr>
     <tr>
       <th>plot</th>
@@ -169,7 +179,7 @@ plot output</p></td>
       <td><p>further arguments (<code>trace</code>, <code>verbose</code>).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a plot (<em>optional</em>) and terminal output. In addition an
@@ -182,7 +192,6 @@ plot output</p></td>
 
 The output should be accessed using the function get_RLum
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function uses the equations of Galbraith &amp; Roberts (2012). The
@@ -194,15 +203,12 @@ maximum likelihood approach are <strong>only</strong> presented in the plot and 
 in the console. A detailed explanation on maximum likelihood estimation can
 be found in the appendix of Galbraith &amp; Laslett (1993, 468-470) and
 Galbraith &amp; Roberts (2012, 15)</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>1.3.2</p>
-    
+    <p>1.4.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C. (2019). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Burow, C., 2020. calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R.F. &amp; Laslett, G.M., 1993. Statistical models for
@@ -227,20 +233,24 @@ Quaternary Geochronology 12, 98-106.</p>
 of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120.</p>
 <p>Rodnight, H., 2008. How many equivalent dose values are needed to
 obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/plot.html'>plot</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
+    <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='calc_CommonDose.html'>calc_CommonDose</a>, <a href='calc_FiniteMixture.html'>calc_FiniteMixture</a>,
 <a href='calc_FuchsLang2001.html'>calc_FuchsLang2001</a>, <a href='calc_MinDose.html'>calc_MinDose</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Christoph Burow, University of Cologne (Germany) <br />
+Based on a rewritten S script of Rex Galbraith, 2010
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.DeValues</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##apply the central dose model</span>
-<span class='fu'>calc_CentralDose</span>(<span class='no'>ExampleData.DeValues</span>$<span class='no'>CA1</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>calc_CentralDose</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;  [calc_CentralDose]
 #&gt; 
 #&gt; ----------- meta data ----------------
@@ -259,45 +269,30 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
 #&gt; </div><div class='img'><img src='calc_CentralDose-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Christoph Burow, University of Cologne (Germany) <br />
-Based on a rewritten S script of Rex Galbraith, 2010</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

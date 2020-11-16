@@ -8,22 +8,29 @@
 
 <title>Calculate Lx/Tx ratio for CW-OSL curves — calc_OSLLxTxRatio • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Calculate Lx/Tx ratio for CW-OSL curves — calc_OSLLxTxRatio" />
 
+<meta property="og:title" content="Calculate Lx/Tx ratio for CW-OSL curves — calc_OSLLxTxRatio" />
 <meta property="og:description" content="Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
 background subtraction." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ background subtraction." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ background subtraction." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -89,10 +97,9 @@ background subtraction." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -112,29 +119,36 @@ background subtraction." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate Lx/Tx ratio for CW-OSL curves</h1>
-    
+    <h1>Calculate <code>Lx/Tx</code> ratio for CW-OSL curves</h1>
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_OSLLxTxRatio.R'><code>R/calc_OSLLxTxRatio.R</code></a></small>
     <div class="hidden name"><code>calc_OSLLxTxRatio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
+    <p>Calculate <code>Lx/Tx</code> ratios from a given set of CW-OSL curves assuming late light
 background subtraction.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>calc_OSLLxTxRatio</span>(<span class='no'>Lx.data</span>, <span class='kw'>Tx.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>signal.integral</span>,
-  <span class='kw'>signal.integral.Tx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>background.integral</span>,
-  <span class='kw'>background.integral.Tx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>background.count.distribution</span> <span class='kw'>=</span> <span class='st'>"non-poisson"</span>,
-  <span class='kw'>use_previousBG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sigmab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sig0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>calc_OSLLxTxRatio</span><span class='op'>(</span>
+  <span class='va'>Lx.data</span>,
+  Tx.data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>signal.integral</span>,
+  signal.integral.Tx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>background.integral</span>,
+  background.integral.Tx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  background.count.distribution <span class='op'>=</span> <span class='st'>"non-poisson"</span>,
+  use_previousBG <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sigmab <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sig0 <span class='op'>=</span> <span class='fl'>0</span>,
+  digits <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -158,7 +172,7 @@ vector with the limits for the signal integral.</p></td>
     <tr>
       <th>signal.integral.Tx</th>
       <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
-vector with the limits for the signal integral for the Tx curve. If nothing is provided the
+vector with the limits for the signal integral for the Tx-curve. If nothing is provided the
 value from <code>signal.integral</code> is used.</p></td>
     </tr>
     <tr>
@@ -206,7 +220,7 @@ round numbers to the specified digits.
 If digits is set to <code>NULL</code> nothing is rounded.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.</p>
@@ -230,7 +244,6 @@ $ calc.parameters (list)
 <p><strong>@info</strong></p><pre>$ call (original function call)
 </pre>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The integrity of the chosen values for the signal and background integral is
@@ -241,19 +254,19 @@ error calculation is done according to Galbraith (2002).</p>
 <p><strong>Please note:</strong> In cases where the calculation results in <code>NaN</code> values (for
 example due to zero-signal, and therefore a division of 0 by 0), these <code>NaN</code>
 values are replaced by 0.</p>
-<p><strong>sigmab</strong></p>
+<p><strong><code>sigmab</code></strong></p>
 <p>The default value of <code>sigmab</code> is calculated assuming the background is
 constant and <strong>would not</strong> applicable when the background varies as,
-e.g., as observed for the early light substraction method.</p>
+e.g., as observed for the early light subtraction method.</p>
 <p><strong>sig0</strong></p>
-<p>This argument allows to add an extra component of error to the final Lx/Tx
+<p>This argument allows to add an extra component of error to the final <code>Lx/Tx</code>
 error value. The input will be treated as factor that is multiplied with
-the already calculated LxTx and the result is add up by:</p>
+the already calculated <code>LxTx</code> and the result is add up by:</p>
 <p>$$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)$$</p>
 <p><strong>background.count.distribution</strong></p>
 <p>This argument allows selecting the distribution assumption that is used for
 the error calculation. According to Galbraith (2002, 2014) the background
-counts may be overdispersed (i.e. do not follow a poisson distribution,
+counts may be overdispersed (i.e. do not follow a Poisson distribution,
 which is assumed for the photomultiplier counts). In that case (might be the
 normal case) it has to be accounted for the overdispersion by estimating
 \(\sigma^2\) (i.e. the overdispersion value). Therefore the relative
@@ -263,98 +276,82 @@ $$rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k$$</p></li>
 <li><p><code>non-poisson</code>
 $$rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k$$</p></li>
 </ul>
-    <p><strong>Please note</strong> that when using the early background subtraction method in
-combination with the 'non-poisson' distribution argument, the corresponding Lx/Tx error
-may considerably increase due to a high sigmab value.
+
+<p><strong>Please note</strong> that when using the early background subtraction method in
+combination with the 'non-poisson' distribution argument, the corresponding <code>Lx/Tx</code> error
+may considerably increase due to a high <code>sigmab</code> value.
 Please check whether this is valid for your data set and  if necessary
-consider to provide an own sigmab value using the corresponding argument <code>sigmab</code>.</p>
-    
+consider to provide an own <code>sigmab</code> value using the corresponding argument <code>sigmab</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The results of this function have been cross-checked with the Analyst
-(vers. 3.24b). Access to the results object via <a href='get_RLum.html'>get_RLum</a>.</p>
+(version 3.24b). Access to the results object via <a href='get_RLum.html'>get_RLum</a>.</p>
 <p><strong>Caution:</strong> If you are using early light subtraction (EBG), please either provide your
 own <code>sigmab</code> value or use <code>background.count.distribution = "poisson"</code>.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.7.0</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Duller, G., 2016. Analyst v4.31.9 - User Manual.
-<a href='http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da'>http://www.nutech.dtu.dk/english/-/media/Andre_Universitetsenheder/Nutech/Produkter-og-services/radiation_measurement_instruments/tl_osl_reader/Manuals/Analyst-Manual.ashx?la=da</a><br /></p>
+    <p>Duller, G., 2018. Analyst v4.57 - User Manual.
+<a href='https://users.aber.ac.uk/ggd/'>https://users.aber.ac.uk/ggd/</a><br /></p>
 <p>Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.</p>
 <p>Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='Analyse_SAR.OSLdata.html'>Analyse_SAR.OSLdata</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>,
 <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.LxTxOSLData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.LxTxOSLData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##calculate Lx/Tx ratio</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_OSLLxTxRatio</span>(<span class='no'>Lx.data</span>, <span class='no'>Tx.data</span>, <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>),
-                             <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>85</span>:<span class='fl'>100</span>))
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_OSLLxTxRatio</span><span class='op'>(</span><span class='va'>Lx.data</span>, <span class='va'>Tx.data</span>, signal.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>,
+                             background.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>85</span><span class='op'>:</span><span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##get results object</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span>(<span class='no'>results</span>)</div><div class='output co'>#&gt;    LnLx LnLx.BG TnTx TnTx.BG Net_LnLx Net_LnLx.Error Net_TnTx Net_TnTx.Error
+<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    LnLx LnLx.BG TnTx TnTx.BG Net_LnLx Net_LnLx.Error Net_TnTx Net_TnTx.Error
 #&gt; 1 81709     530 7403     513    81179       286.5461     6890       88.53581
 #&gt;       LxTx LxTx.Error
 #&gt; 1 11.78215  0.1570077</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

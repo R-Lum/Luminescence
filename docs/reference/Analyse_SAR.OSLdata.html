@@ -8,22 +8,29 @@
 
 <title>Analyse SAR CW-OSL measurements. — Analyse_SAR.OSLdata • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,12 +38,12 @@
 
 
 
-<meta property="og:title" content="Analyse SAR CW-OSL measurements. — Analyse_SAR.OSLdata" />
 
+<meta property="og:title" content="Analyse SAR CW-OSL measurements. — Analyse_SAR.OSLdata" />
 <meta property="og:description" content="The function analyses SAR CW-OSL curve data and provides a summary of the
 measured data for every position. The output of the function is optimised
 for SAR OSL measurements on quartz." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -50,9 +57,10 @@ for SAR OSL measurements on quartz." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +74,7 @@ for SAR OSL measurements on quartz." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -90,10 +98,9 @@ for SAR OSL measurements on quartz." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -113,29 +120,39 @@ for SAR OSL measurements on quartz." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse SAR CW-OSL measurements.</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/Analyse_SAR.OSLdata.R'><code>R/Analyse_SAR.OSLdata.R</code></a></small>
     <div class="hidden name"><code>Analyse_SAR.OSLdata.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function analyses SAR CW-OSL curve data and provides a summary of the
 measured data for every position. The output of the function is optimised
 for SAR OSL measurements on quartz.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>Analyse_SAR.OSLdata</span>(<span class='no'>input.data</span>, <span class='no'>signal.integral</span>, <span class='no'>background.integral</span>,
-  <span class='no'>position</span>, <span class='no'>run</span>, <span class='no'>set</span>, <span class='no'>dtype</span>, <span class='kw'>keep.SEL</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>info.measurement</span> <span class='kw'>=</span> <span class='st'>"unkown measurement"</span>, <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>output.plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cex.global</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>Analyse_SAR.OSLdata</span><span class='op'>(</span>
+  <span class='va'>input.data</span>,
+  <span class='va'>signal.integral</span>,
+  <span class='va'>background.integral</span>,
+  <span class='va'>position</span>,
+  <span class='va'>run</span>,
+  <span class='va'>set</span>,
+  <span class='va'>dtype</span>,
+  keep.SEL <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  info.measurement <span class='op'>=</span> <span class='st'>"unkown measurement"</span>,
+  output.plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  output.plot.single <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cex.global <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -218,7 +235,7 @@ global scaling factor.</p></td>
 Supported" <code>mtext</code>, <code>log</code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A plot (<em>optional</em>) and <a href='https://rdrr.io/r/base/list.html'>list</a> is returned containing the
@@ -228,7 +245,6 @@ following elements:</p>
 <dt>SARParameters</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> of additional measurement parameters obtained from the BIN file, e.g. preheat or read temperature
 (not valid for all types of measurements).</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function works only for standard SAR protocol measurements introduced by
@@ -244,7 +260,6 @@ IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
 regenerated dose point. <strong>Note:</strong> This is not the IR depletation ratio
 described by Duller (2003).</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Rejection criteria are calculated but not considered during the
@@ -253,15 +268,12 @@ analysis to discard values.</p>
 consider using the functions <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> or
 <a href='analyse_pIRIRSequence.html'>analyse_pIRIRSequence</a> instead.</p>
 <p><strong>The development of this function will not be continued. We recommend to use the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a> or instead.</strong></p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.2.17</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Fuchs, M.C. (2019). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., Fuchs, M.C., 2020. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -271,28 +283,33 @@ luminescence measurements. Radiation Measurements, 37 (2), 161-165.</p>
 <p>Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br />
+Margret C. Fuchs, HZDR, Freiberg (Germany)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##analyse data</span>
-<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>Analyse_SAR.OSLdata</span>(<span class='kw'>input.data</span> <span class='kw'>=</span> <span class='no'>CWOSL.SAR.Data</span>,
-                              <span class='kw'>signal.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
-                              <span class='kw'>background.integral</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>900</span>:<span class='fl'>1000</span>),
-                              <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>1</span>),
-                              <span class='kw'>output.plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='Analyse_SAR.OSLdata-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+<span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'>Analyse_SAR.OSLdata</span><span class='op'>(</span>input.data <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,
+                              signal.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>,
+                              background.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>900</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>,
+                              position <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>,
+                              output.plot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='Analyse_SAR.OSLdata-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; [Analyse_SAR.OSLdata()] &gt;&gt; Figure for position 1 produced.</div><div class='input'>
 <span class='co'>##combine results relevant for further analysis</span>
-<span class='no'>output.SAR</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>Dose</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>Dose</span>,
-                         <span class='kw'>LxTx</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx</span>,
-                         <span class='kw'>LxTx.Error</span> <span class='kw'>=</span> <span class='no'>output</span>$<span class='no'>LnLxTnTx</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>LxTx.Error</span>)
-<span class='no'>output.SAR</span></div><div class='output co'>#&gt;   Dose       LxTx  LxTx.Error
+<span class='va'>output.SAR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Dose <span class='op'>=</span> <span class='va'>output</span><span class='op'>$</span><span class='va'>LnLxTnTx</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>Dose</span>,
+                         LxTx <span class='op'>=</span> <span class='va'>output</span><span class='op'>$</span><span class='va'>LnLxTnTx</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>LxTx</span>,
+                         LxTx.Error <span class='op'>=</span> <span class='va'>output</span><span class='op'>$</span><span class='va'>LnLxTnTx</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>LxTx.Error</span><span class='op'>)</span>
+<span class='va'>output.SAR</span>
+</div><div class='output co'>#&gt;   Dose       LxTx  LxTx.Error
 #&gt; 1    0 4.31385656 0.049585512
 #&gt; 2  450 1.54110507 0.020078494
 #&gt; 3 1050 3.03229838 0.035808499
@@ -302,47 +319,30 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #&gt; 7    0 0.01668642 0.001735488</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
-Margret C. Fuchs, HZDR, Freiberg (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

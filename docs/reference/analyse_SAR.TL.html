@@ -8,22 +8,29 @@
 
 <title>Analyse SAR TL measurements — analyse_SAR.TL • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Analyse SAR TL measurements — analyse_SAR.TL" />
 
+<meta property="og:title" content="Analyse SAR TL measurements — analyse_SAR.TL" />
 <meta property="og:description" content="The function performs a SAR TL analysis on a
 RLum.Analysis object including growth curve fitting." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +56,10 @@ RLum.Analysis object including growth curve fitting." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +73,7 @@ RLum.Analysis object including growth curve fitting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -89,10 +97,9 @@ RLum.Analysis object including growth curve fitting." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -112,29 +119,35 @@ RLum.Analysis object including growth curve fitting." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse SAR TL measurements</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/analyse_SAR.TL.R'><code>R/analyse_SAR.TL.R</code></a></small>
     <div class="hidden name"><code>analyse_SAR.TL.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function performs a SAR TL analysis on a
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> object including growth curve fitting.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_SAR.TL</span>(<span class='no'>object</span>, <span class='no'>object.background</span>, <span class='no'>signal.integral.min</span>,
-  <span class='no'>signal.integral.max</span>, <span class='kw'>integral_input</span> <span class='kw'>=</span> <span class='st'>"channel"</span>,
-  <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"PREHEAT"</span>, <span class='st'>"SIGNAL"</span>, <span class='st'>"BACKGROUND"</span>),
-  <span class='kw'>rejection.criteria</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>recycling.ratio</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>recuperation.rate</span> <span class='kw'>=</span>
-  <span class='fl'>10</span>), <span class='no'>dose.points</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>analyse_SAR.TL</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>object.background</span>,
+  <span class='va'>signal.integral.min</span>,
+  <span class='va'>signal.integral.max</span>,
+  integral_input <span class='op'>=</span> <span class='st'>"channel"</span>,
+  sequence.structure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"PREHEAT"</span>, <span class='st'>"SIGNAL"</span>, <span class='st'>"BACKGROUND"</span><span class='op'>)</span>,
+  rejection.criteria <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>recycling.ratio <span class='op'>=</span> <span class='fl'>10</span>, recuperation.rate <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+  <span class='va'>dose.points</span>,
+  log <span class='op'>=</span> <span class='st'>""</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -188,8 +201,9 @@ option set dose points manually</p></td>
     <tr>
       <th>log</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-a character string which contains "x" if the x axis is to be logarithmic,
-"y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
+a character string which contains <code>"x"</code> if the x-axis is to be logarithmic,
+<code>"y"</code> if the y axis is to be logarithmic and <code>"xy"</code> or <code>"yx"</code> if both axes
+are to be logarithmic. See
 <a href='https://rdrr.io/r/graphics/plot.default.html'>plot.default</a>).</p></td>
     </tr>
     <tr>
@@ -197,7 +211,7 @@ a character string which contains "x" if the x axis is to be logarithmic,
       <td><p>further arguments that will be passed to the function <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A plot (<em>optional</em>) and an <a href='RLum.Results-class.html'>RLum.Results</a> object is
@@ -208,7 +222,6 @@ returned containing the following elements:</p>
 
 note: the output should be accessed using the function get_RLum
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function performs a SAR TL analysis on a set of curves. The SAR
@@ -221,21 +234,17 @@ used.</p>
 comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 value (the Lx/Tx ratio of the natural signal).  For methodological
 background see Aitken and Smith (1988)</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><strong>THIS IS A BETA VERSION</strong></p>
 <p>None TL curves will be removed
 from the input object without further warning.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.3.0</p>
-    
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S. (2019). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -243,28 +252,31 @@ after bleaching.  Quaternary Science Reviews 7, 387-393.</p>
 <p>Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='calc_TLLxTxRatio.html'>calc_TLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a>,
 <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ExampleData.BINfileData</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##transform the values from the first position in a RLum.Analysis object</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span>(<span class='no'>TL.SAR.Data</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>3</span>)
+<span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a></span><span class='op'>(</span><span class='va'>TL.SAR.Data</span>, pos<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'>##perform analysis</span>
-<span class='fu'>analyse_SAR.TL</span>(
- <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>object</span>,
- <span class='kw'>signal.integral.min</span> <span class='kw'>=</span> <span class='fl'>210</span>,
- <span class='kw'>signal.integral.max</span> <span class='kw'>=</span> <span class='fl'>220</span>,
- <span class='kw'>fit.method</span> <span class='kw'>=</span> <span class='st'>"EXP OR LIN"</span>,
- <span class='kw'>sequence.structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SIGNAL"</span>, <span class='st'>"BACKGROUND"</span>))</div><div class='img'><img src='analyse_SAR.TL-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP OR LIN (interpolation) | De = 416.29 | D01 = 1181596791.4</div><div class='img'><img src='analyse_SAR.TL-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+<span class='fu'>analyse_SAR.TL</span><span class='op'>(</span>
+ object <span class='op'>=</span> <span class='va'>object</span>,
+ signal.integral.min <span class='op'>=</span> <span class='fl'>210</span>,
+ signal.integral.max <span class='op'>=</span> <span class='fl'>220</span>,
+ fit.method <span class='op'>=</span> <span class='st'>"EXP OR LIN"</span>,
+ sequence.structure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SIGNAL"</span>, <span class='st'>"BACKGROUND"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='analyse_SAR.TL-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP OR LIN (interpolation) | De = 416.29 | D01 = 1181596791.4</div><div class='img'><img src='analyse_SAR.TL-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt;  [RLum.Results-class]
 #&gt; 	 originator: analyse_SAR.TL()
 #&gt; 	 data: 3
@@ -274,46 +286,30 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #&gt; 	 additional info elements:  1</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -8,22 +8,29 @@
 
 <title>Analyse fading measurements and returns the fading rate per decade (g-value) — analyse_FadingMeasurement • Luminescence</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,13 +38,13 @@
 
 
 
-<meta property="og:title" content="Analyse fading measurements and returns the fading rate per decade (g-value) — analyse_FadingMeasurement" />
 
+<meta property="og:title" content="Analyse fading measurements and returns the fading rate per decade (g-value) — analyse_FadingMeasurement" />
 <meta property="og:description" content="The function analysis fading measurements and returns a fading rate including an error estimation.
 The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
-Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
-Kars et al. 2008." />
-<meta name="twitter:card" content="summary" />
+Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
+Kars et al. (2008)." />
+
 
 
 
@@ -51,9 +58,10 @@ Kars et al. 2008." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +75,7 @@ Kars et al. 2008." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
       </span>
     </div>
 
@@ -91,10 +99,9 @@ Kars et al. 2008." />
   <a href="../reference/index.html">References</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/NEWS.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -114,29 +121,37 @@ Kars et al. 2008." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyse fading measurements and returns the fading rate per decade (g-value)</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/analyse_FadingMeasurement.R'><code>R/analyse_FadingMeasurement.R</code></a></small>
     <div class="hidden name"><code>analyse_FadingMeasurement.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>The function analysis fading measurements and returns a fading rate including an error estimation.
 The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
-Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
-Kars et al. 2008.</p>
-    
+Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
+Kars et al. (2008).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>analyse_FadingMeasurement</span>(<span class='no'>object</span>, <span class='kw'>structure</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Lx"</span>, <span class='st'>"Tx"</span>),
-  <span class='no'>signal.integral</span>, <span class='no'>background.integral</span>, <span class='kw'>t_star</span> <span class='kw'>=</span> <span class='st'>"half"</span>, <span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot.single</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>analyse_FadingMeasurement</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  structure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lx"</span>, <span class='st'>"Tx"</span><span class='op'>)</span>,
+  <span class='va'>signal.integral</span>,
+  <span class='va'>background.integral</span>,
+  t_star <span class='op'>=</span> <span class='st'>"half"</span>,
+  n.MC <span class='op'>=</span> <span class='fl'>100</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  plot.single <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -146,7 +161,7 @@ Kars et al. 2008.</p>
 input object with the measurement data. Alternatively, a <a href='https://rdrr.io/r/base/list.html'>list</a> containing <a href='RLum.Analysis-class.html'>RLum.Analysis</a>
 objects or a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-Can also be a wide table, i.e. a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with a number of colums divisible by 3
+Can also be a wide table, i.e. a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with a number of columns divisible by 3
 and where each triplet has the before mentioned column structure.
 <strong>Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 only IRSL curves representing Lx (and Tx)</strong></p>
@@ -176,10 +191,13 @@ Not required if a <code>data.frame</code> with LxTx values are provided.</p></td
     <tr>
       <th>t_star</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-method for calculating the time elasped since irradiaton. Options are:
+method for calculating the time elapsed since irradiation. Options are:
 <code>'half'</code>, which is \(t_star := t_1 + (t_2 - t_1)/2\) (Auclair et al., 2003)
 and <code>'end'</code>, which takes the time between irradiation and the measurement step.
-Default is <code>'half'</code></p></td>
+Default is <code>'half'</code>. Alternatively, <code>t_star</code> can be a function with one parameter which
+works on <code>t1</code>.<br /></p>
+<p><em><code>t_star</code> has no effect if the input is a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>, because this input comes
+without irradiation times.</em></p></td>
     </tr>
     <tr>
       <th>n.MC</th>
@@ -205,10 +223,13 @@ Alternatively a vector specifying the plot to be drawn, e.g.,
     </tr>
     <tr>
       <th>...</th>
-      <td><p>(<em>optional</em>) further arguments that can be passed to internally used functions (see details)</p></td>
+      <td><p>(<em>optional</em>) further arguments that can be passed to internally used functions. Supported arguments:
+<code>xlab</code>, <code>log</code>, <code>mtext</code> and <code>xlim</code> for the two first curve plots, and <code>ylim</code> for the fading
+curve plot. For further plot customization plesea use the numerical output of the functions for
+own plots.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An <a href='RLum.Results-class.html'>RLum.Results</a> object is returned:</p>
@@ -217,7 +238,7 @@ Alternatively a vector specifying the plot to be drawn, e.g.,
 <tr><td><strong>OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>COMMENT</strong></td></tr>
 <tr><td><code>fading_results</code></td><td><code>data.frame</code></td><td>results of the fading measurement in a table</td></tr>
 <tr><td><code>fit</code></td><td><code>lm</code></td><td>object returned by the used linear fitting function <a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></td></tr>
-<tr><td><code>rho_prime</code></td><td><code>data.frame</code></td><td>results of rho' estimation after Kars et al. 2008</td></tr>
+<tr><td><code>rho_prime</code></td><td><code>data.frame</code></td><td>results of rho' estimation after Kars et al. (2008)</td></tr>
 <tr><td><code>LxTx_table</code></td><td><code>data.frame</code></td><td>Lx/Tx table, if curve data had been provided</td></tr>
 <tr><td><code>irr.times</code></td><td><code>integer</code></td><td>vector with the irradiation times in seconds</td></tr>
 </table>
@@ -230,7 +251,6 @@ Alternatively a vector specifying the plot to be drawn, e.g.,
 </table>
 
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>All provided output corresponds to the \(tc\) value obtained by this analysis. Additionally
@@ -238,7 +258,7 @@ in the output object the g-value normalised to 2-days is provided. The output of
 can be passed to the function <a href='calc_FadingCorr.html'>calc_FadingCorr</a>.</p>
 <p><strong>Fitting and error estimation</strong></p>
 <p>For the fitting the function <a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a> is used without applying weights. For the
-error estimation all input values, except tc, as the precision can be consdiered as sufficiently
+error estimation all input values, except <code>tc</code>, as the precision can be considered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation.</p>
 <p><strong>Density of recombination centres</strong></p>
@@ -252,45 +272,47 @@ prompt measurement of the first aliquot. This implicitly assumes that there are 
 inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
 of each aliquot by its individual prompt measurement please do so <strong>before</strong> running
 analyse_FadingMeasurement and provide the already normalised values for <code>object</code> instead.</p>
-    
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.11</p>
-    
+    <p>0.1.15</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Burow, C. (2019). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2019). Luminescence: Comprehensive Luminescence Dating Data AnalysisR package version 0.9.1.9000-11. https://CRAN.R-project.org/package=Luminescence</p>
-    
+    <p>Kreutzer, S., Burow, C., 2020. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
-SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0</p>
+    <p>Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
+SAR. Radiation Measurements 37, 487-492. doi: <a href='https://doi.org/10.1016/S1350-4487(03)00018-0'>10.1016/S1350-4487(03)00018-0</a></p>
 <p>Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-1093-1106. doi:10.1139/cjes-38-7-1093</p>
-<p>Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
-IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021</p>
-    
+1093-1106. doi10.1139/cjes-38-7-1093</p>
+<p>Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
+fading correction for feldspar  IRSL dating-tests on samples in field saturation.
+Radiation Measurements 43, 786-790. doi: <a href='https://doi.org/10.1016/j.radmeas.2008.01.021'>10.1016/j.radmeas.2008.01.021</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='read_BIN2R.html'>read_BIN2R</a>, <a href='read_XSYG2R.html'>read_XSYG2R</a>,
-<a href='extract_IrradiationTimes.html'>extract_IrradiationTimes</a></p></div>
-    
+<a href='extract_IrradiationTimes.html'>extract_IrradiationTimes</a>, <a href='calc_FadingCorr.html'>calc_FadingCorr</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br />
+Christoph Burow, University of Cologne (Germany)
+, RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## load example data (sample UNIL/NB123, see ?ExampleData.Fading)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"ExampleData.Fading"</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.Fading"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>##(1) get fading measurement data (here a three column data.frame)</span>
-<span class='no'>fading_data</span> <span class='kw'>&lt;-</span> <span class='no'>ExampleData.Fading</span>$<span class='no'>fading.data</span>$<span class='no'>IR50</span>
+<span class='va'>fading_data</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.Fading</span><span class='op'>$</span><span class='va'>fading.data</span><span class='op'>$</span><span class='va'>IR50</span>
 
 <span class='co'>##(2) run analysis</span>
-<span class='no'>g_value</span> <span class='kw'>&lt;-</span> <span class='fu'>analyse_FadingMeasurement</span>(
-<span class='no'>fading_data</span>,
-<span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='analyse_FadingMeasurement-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+<span class='va'>g_value</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_FadingMeasurement</span><span class='op'>(</span>
+<span class='va'>fading_data</span>,
+plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+n.MC <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='analyse_FadingMeasurement-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; [analyse_FadingMeasurement()]
 #&gt; 
 #&gt;  n.MC:	10
@@ -306,10 +328,11 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 #&gt; ---------------------------------------------------</div><div class='input'>
 <span class='co'>##(3) this can be further used in the function</span>
 <span class='co'>## to correct the age according to Huntley &amp; Lamothe, 2001</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span>(
-<span class='kw'>age.faded</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>2</span>),
-<span class='kw'>g_value</span> <span class='kw'>=</span> <span class='no'>g_value</span>,
-<span class='kw'>n.MC</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; 
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span><span class='op'>(</span>
+age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>2</span><span class='op'>)</span>,
+g_value <span class='op'>=</span> <span class='va'>g_value</span>,
+n.MC <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; [calc_FadingCorr()]
 #&gt; 
@@ -329,45 +352,30 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#function-version">Function version</a></li>
-
-      <li><a href="#how-to-cite">How to cite</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France) <br />
-Christoph Burow, University of Cologne (Germany)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
