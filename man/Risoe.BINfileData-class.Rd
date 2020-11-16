@@ -220,7 +220,7 @@ showClass("Risoe.BINfileData")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. http://r-luminescence.org
+Kreutzer, S., 2020. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
 }
 
 \references{
@@ -228,7 +228,7 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
 
 The Sequence Editor User Manual - Feburar 2016
 
-\url{http://www.nutech.dtu.dk/}
+\url{https://www.nutech.dtu.dk/}
 }
 \seealso{
 \link{plot_Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN},

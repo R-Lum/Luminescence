@@ -49,7 +49,7 @@ Option to suppress terminal output.,}
 
 \item{plot}{\link{logical} (\emph{with default}):
 If \code{TRUE} the histograms used for the cosmic-ray removal are returned as plot
-including the used threshold. Note: A separat plot is returned for each frame!
+including the used threshold. Note: A separate plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
 \item{...}{further arguments and graphical parameters that will be passed
@@ -107,13 +107,13 @@ dataset (see example).
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. http://r-luminescence.org
+Kreutzer, S., 2020. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
 }
 
 \references{
 Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 Single Images. Astrophysics 116, 148-153.
-\url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
+\url{https://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link{smooth}, \link{smooth.spline},

@@ -1,6 +1,6 @@
 ## Release summary
 
-- new address... 
+This a bugfix release intend to replace Luminescence version 0.9.7 on CRAN.
 
 ## Addressed CRAN issues
 
@@ -27,8 +27,6 @@ related to the server behind the DOI forwarding and is thus beyond our reach.
 * release: OK
 * devel: did not return results after two hours
 
-R-old and R-release also complained about invalid URLs, however, we double 
-checked thous URLs and found them accessible. 
 
 ## Reverse dependency checks
 
