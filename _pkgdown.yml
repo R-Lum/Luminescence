@@ -4,19 +4,15 @@ navbar:
     - icon: fa-home
       text: "Home"
       href: index.html
-    - icon: fa-play
-      text: "Articles"
-      href: articles/index.html
     - text: "References"
       href: reference/index.html
   right:
     - icon: fa-newspaper-o
       text: "News"
-      href: news/NEWS.html
+      href: news/index.html
     - icon: fa-github
       text: "GitHub"
       href: https://github.com/R-Lum/Luminescence
-
 
 template:
   params:
