@@ -99,7 +99,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-1. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}

@@ -31,7 +31,7 @@ Georgina E. King, Anne Philippe, Guillaume Guérin, Svenja Riedesel & Martin Aut
 library(Luminescence)
 ```
 
-## New functions
+## Featured new functions
 
 ### Convert me: `convert_Concentration2DoseRate()`
 
@@ -70,12 +70,7 @@ data("ExampleData.CobbleData", envir = environment())
 
 ## run function
 calc_CobbleDoseRate(ExampleData.CobbleData)
-
 ```
-
-### Show me only the interesting part:  `plot_ROI()`
-
-### Read it: `read_RF2R()`
 
 # References {-}
 
