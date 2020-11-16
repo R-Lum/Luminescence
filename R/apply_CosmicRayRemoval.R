@@ -63,7 +63,7 @@
 #'
 #' @param plot [logical] (*with default*):
 #' If `TRUE` the histograms used for the cosmic-ray removal are returned as plot
-#' including the used threshold. Note: A separat plot is returned for each frame!
+#' including the used threshold. Note: A separate plot is returned for each frame!
 #' Currently only for `method = "Pych"` a graphical output is provided.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
@@ -82,7 +82,7 @@
 #' @references
 #' Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 #' Single Images. Astrophysics 116, 148-153.
-#' [http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail]()
+#' [https://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail]()
 #'
 #' @keywords manip
 #'

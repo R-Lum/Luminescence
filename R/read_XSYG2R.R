@@ -141,7 +141,7 @@
 #'
 #' **Further reading**
 #'
-#' XML: [http://en.wikipedia.org/wiki/XML]()
+#' XML: [https://en.wikipedia.org/wiki/XML]()
 #'
 #' @keywords IO
 #'

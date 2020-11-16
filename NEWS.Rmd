@@ -9,7 +9,7 @@ header-includes:
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
 ### Important user affecting changes
-* The version requires R (>= 3.5.0)
+* The version requires R >= 3.5.0
 * We removed a few of our vignettes from the package. They are now 
 available on https://r-luminescence.org/tutorials/
 
@@ -325,7 +325,7 @@ Huot)
 ### Important R related changes (R >= 3.6.0)
 
 The behaviour of the base R function `sample()` was changed / corrected (see news on 
-https://r-project.org for details). This function is used heavily within functions by 
+https://www.r-project.org for details). This function is used heavily within functions by 
 'Luminescence' (e.g., `plot_GrowthCurve()`). That being said, it means that old data re-analysed by 'Luminescence' 
 using R versions >= 3.6.0 will not give the same results. Differences are small, however, they may significant. 
 If you want to reproduce your data, we recommend to use one of our [Docker images](https://github.com/R-Lum/RLumDocker) 
