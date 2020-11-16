@@ -10,6 +10,8 @@ header-includes:
 
 ### Important user affecting changes
 * The version requires R (>= 3.5.0)
+* We removed a few of our vignettes from the package. They are now 
+available on https://r-luminescence.org/tutorials/
 
 ### New functions 
 
