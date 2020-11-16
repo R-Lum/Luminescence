@@ -9,7 +9,7 @@ This a bugfix release intend to replace Luminescence version 0.9.7 on CRAN.
 We removed the link to the 'shiny' package, since it is not used directly
 by 'Luminescence'.
 
-## Win-Builder
+## Win-Builder (old, release, devel)
 
 Multiple errors for URL https://doi.org/10.1515/geochr-2015-0022
 The URL is correct and works as expected, the problem appears to be, however, 
@@ -17,7 +17,9 @@ related to the server behind the DOI forwarding and is thus beyond our reach.
 
 ## R CMD check --as-cran results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 1 note
+
+The note concerns the change of the maintainer's email address. 
 
 ## Other notes or warnings
 
@@ -30,20 +32,7 @@ related to the server behind the DOI forwarding and is thus beyond our reach.
 
 ## Reverse dependency checks
 
-Reverse depends 4: 
+Reverse depends 3: 
 
-* 3/4 are ok. 
+* 2/3 are ok. 
 * `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
-
-## Test environments
-* local macOS High Sierra 10.14.6, Xcode 10.3, R-devel
-* on AppVeyor CI
-    * i386-w64-mingw32/i386 (32-bit), R-devel
-    * x86_64_w64-mingw32/64 (64-bit), R-devel
-    * x86_64_w64-mingw32/64 (64-bit), R 3.6.1 (2019-07-20)
-    * i386-w64-mingw32/i386 (32-bit), R 3.6.1 (2019-07-20)
-* on Travis CI
-    * Ubuntu 16.04.6 LTS, oldrel
-    * Ubuntu 16.04.6 LTS, release
-    * Ubuntu 16.04.6 LTS, devel
-    * macOS Sierra 10.13.3, Xcode 9.4.1, release
