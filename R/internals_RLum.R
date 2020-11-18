@@ -358,12 +358,43 @@ fancy_scientific <- function(l) {
 
 }
 
+#++++++++++++++++++++++++++++++
+#+ .rm_nonRLum                +
+#++++++++++++++++++++++++++++++
+#' @title Removes all non-RLum objects from list
+#'
+#' @description Removes all non RLum objects from a list
+#' supposed to consist only of RLum-class objects
+#' As an internal function, the function is rather unforgiving, no further
+#' checks are applied.
+#'
+#' @param x [list] (**required**): list
+#'
+#' @param class [character]: class to look for, if nothing is set
+#' it checks for RLum in general
+#'
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'
+#' @examples
+#' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
+#' .rm_nonRLum(x)
+#'
+#' @return [list] with only RLum objects
+#'
+#' @md
+#' @noRd
+.rm_nonRLum <- function(x, class = NULL){
+  if(is.null(class))
+    return(x[vapply(x, inherits, logical(1), "RLum")])
+
+  x[vapply(x, "class", character(1)) == class[1]]
+}
 
 #++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
 #
-#' This function allows efficient binning of matricies including
+#' This function allows efficient binning of matrices including
 #' row and column name handling. Internally, the function uses [rowsum],
 #' means the binning is always applied on the rows. For column binning the function
 #' internally transposes the matrix first

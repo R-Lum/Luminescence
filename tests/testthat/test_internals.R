@@ -26,6 +26,14 @@ test_that("Test internals", {
   # .unlist_RLum() ------------------------------------------------------------------------------
   expect_length(Luminescence:::.unlist_RLum(list(a = list(b = list(c = list(d = 1, e = 2))))), 2)
 
+  # .rm_nonRLum() -----------------------------------------------------------
+  expect_type(
+    Luminescence:::.rm_nonRLum(c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)),
+    "list")
+  expect_type(
+    Luminescence:::.rm_nonRLum(
+      c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2), class = "RLum.Analysis"),
+    "list")
 
   # .matrix_binning() ---------------------------------------------------------------------------
   m <- matrix(data = c(rep(1:20,each = 20)), ncol = 10, nrow = 20)
