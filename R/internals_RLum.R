@@ -5,8 +5,8 @@
 #+++++++++++++++++++++
 #+ .set_pid()        +
 #+++++++++++++++++++++
-
-#' Set unique id of the RLum.Analysis object as parent id for each RLum.Data object in the record list
+#' Set unique id of the RLum.Analysis object as parent id for each RLum.Data
+#' object in the record list
 #'
 #' This function only applies on RLum.Analysis objects and was written for performance not
 #' usability, means the functions runs without any checks and is for internal usage only.

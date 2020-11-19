@@ -438,7 +438,6 @@ error.list <- list()
 
     }
 
-
     ##background integral should not be longer than curve channel length
     if (max(background.integral) == min(background.integral)) {
       background.integral <-
@@ -1135,7 +1134,6 @@ error.list <- list()
       }# plot.single.sel
 
       # Plotting Legend ----------------------------------------
-
       ##overall plot option selection for plot.single.sel
       if (5 %in% plot.single.sel) {
         par.margin  <- par()$mar
