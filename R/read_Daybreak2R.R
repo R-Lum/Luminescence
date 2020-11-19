@@ -43,7 +43,7 @@
 #' @examples
 #'
 #' \dontrun{
-#' file <- file.choose()
+#' file <- system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence")
 #' temp <- read_Daybreak2R(file)
 #' }
 #'
@@ -112,6 +112,7 @@ read_Daybreak2R <- function(
   if(substr(file, start = nchar(file) - 3, stop = nchar(file)) == ".DAT"){
 
      # Read DAT-file ------------------------------------------------------------------------------
+      on.exit(close(con))
 
       ##screen file to get information on the number of stored records
       con<-file(file,"rb")
@@ -246,9 +247,6 @@ read_Daybreak2R <- function(
         }
 
       }
-
-      ##close connection
-      close(con)
 
       ##close ProgressBar
       if(txtProgressBar & verbose) close(pb)
@@ -484,3 +482,7 @@ read_Daybreak2R <- function(
     return(RLum.Analysis.list)
     }
 }
+
+test <- read_Daybreak2R(
+  file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence")
+)
