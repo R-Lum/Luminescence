@@ -213,7 +213,7 @@ analyse_SAR.CWOSL<- function(
   signal.integral.max = 2,
   background.integral.min,
   background.integral.max,
-  rejection.criteria = NULL,
+  rejection.criteria = list(),
   dose.points = NULL,
   mtext.outer = "",
   plot = TRUE,
@@ -349,40 +349,16 @@ error.list <- list()
   CWcurve.type <- names(which.max(table(CWcurve.type)))
 
 # Rejection criteria ------------------------------------------------------
-
     ##set list
-    rejection.criteria.default <- list(
+    rejection.criteria <- modifyList(x = list(
       recycling.ratio = 10,
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
       exceed.max.regpoint = TRUE
-
-    )
-
-    ##modify list on the request
-    if(!is.null(rejection.criteria)){
-
-      ##check if the provided values are valid at all
-      if(!all(names(rejection.criteria)%in%names(rejection.criteria.default))){
-        try(stop(
-          paste0("[analyse_SAR.CWOSL()] Rejection criteria '",
-                paste(
-                  names(
-                    rejection.criteria)[
-                      !names(rejection.criteria)%in%names(rejection.criteria.default)], collapse = ", ")
-                       ,"' unknown! Input ignored!"), call. = FALSE))
-
-      }
-
-      ##modify list
-      rejection.criteria <- modifyList(rejection.criteria.default, rejection.criteria)
-
-    }else{
-      rejection.criteria <- rejection.criteria.default
-
-    }
-
+    ),
+    val = rejection.criteria,
+    keep.null = TRUE)
 
 # Deal with extra arguments ----------------------------------------------------
 
