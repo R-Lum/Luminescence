@@ -331,20 +331,19 @@ error.list <- list()
     stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not of type integer!",  call. = FALSE)
   }
 
-  ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
-  if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
-      try(stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
-           call. = FALSE))
-      return(NULL)
-
-  }
-
   ## try to extract the correct curves for the sequence based on allowed curve types and
   ## the curve type used most frequently
   ## now remove all non-allowed curves
   CWcurve.type <- regmatches(
     x = names(object),
     m = regexpr("(OSL|IRSL|POSL)(?!\\))", names(object), perl = TRUE))
+
+  if(length(CWcurve.type) == 0) {
+    try(stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
+             call. = FALSE))
+     return(NULL)
+
+  }
 
   ## now get the type which is used most
   CWcurve.type <- names(which.max(table(CWcurve.type)))

@@ -21,7 +21,6 @@ Along with the function, a new example data set `ExampleData.MortarData` was add
 * If the input records were not of type `OSL`, `IRSL` or `POSL` the function was supposed
 to return `NULL`, but crashed instead; fixed.
 
-
 ## Changes in version 0.9.8 (2020-11-16)
 
 ### Important user affecting changes
