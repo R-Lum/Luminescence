@@ -511,7 +511,7 @@ fancy_scientific <- function(l) {
 #'
 #' @md
 #' @noRd
-.expand_parameters <- function(len = length(object)){
+.expand_parameters <- function(len){
   def <- sys.function(sys.parent())
   call <- sys.call(sys.parent())
   args_new <- as.list(match.call(def, call, FALSE))[-c(1:2)]
