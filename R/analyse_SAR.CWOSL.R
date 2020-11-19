@@ -496,7 +496,7 @@ error.list <- list()
     }
 
 
-    # Grep Curves -------------------------------------------------------------
+  # Grep Curves -------------------------------------------------------------
    ##grep relevant curves from RLum.Analyis object
     OSL.Curves.ID <-
       get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
@@ -629,7 +629,7 @@ error.list <- list()
       temp.Repeated <-
         LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,c("Name","Dose","LxTx")]
 
-      ##find concering previous dose for the repeated dose
+      ##find concerning previous dose for the repeated dose
       temp.Previous <-
         t(sapply(1:length(temp.Repeated[,1]),function(x) {
           LnLxTnTx[LnLxTnTx[,"Dose"] == temp.Repeated[x,"Dose"] &
@@ -774,9 +774,9 @@ error.list <- list()
 
     RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
 
-    ##============================================================================##
+    ##========================================================================##
     ##PLOTTING
-    ##============================================================================##
+    ##========================================================================##
     if (plot) {
       ##make sure the par settings are good after the functions stops
       ##Why this is so complicated? Good question, if par() is called in the
@@ -855,7 +855,6 @@ error.list <- list()
         }
 
       }
-
 
       ##warning if number of curves exceed colour values
       if (length(col) < length(OSL.Curves.ID) / 2) {
@@ -977,7 +976,6 @@ error.list <- list()
 
         ##plot curves
         sapply(1:length(OSL.Curves.ID.Lx), function(x) {
-
           if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1] == 0){
             object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] <-
               object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] +
@@ -993,29 +991,22 @@ error.list <- list()
 
 
         ##mark integration limit Lx curves
-        abline(
-          v = (object@records[[OSL.Curves.ID.Lx[1]]]@data[min(signal.integral),1]), lty =
-            2, col = "gray"
-        )
-        abline(
-          v = (object@records[[OSL.Curves.ID.Lx[1]]]@data[max(signal.integral),1]), lty =
-            2, col = "gray"
-        )
-        abline(
-          v = (object@records[[OSL.Curves.ID.Lx[1]]]@data[min(background.integral),1]), lty =
-            2, col = "gray"
-        )
-        abline(
-          v = (object@records[[OSL.Curves.ID.Lx[1]]]@data[max(background.integral),1]), lty =
-            2, col = "gray"
-        )
+        abline(v = c(
+            (object@records[[OSL.Curves.ID.Lx[1]]]@data[min(signal.integral),1]),
+            (object@records[[OSL.Curves.ID.Lx[1]]]@data[max(signal.integral),1]),
+            (object@records[[OSL.Curves.ID.Lx[1]]]@data[min(background.integral),1]),
+            (object@records[[OSL.Curves.ID.Lx[1]]]@data[max(background.integral),1]),
+          lty = 2,
+          col = "gray"))
 
         ##mtext, implemented here, as a plot window has to be called first
-        if (missing(mtext.outer)) {
-          mtext.outer  <- ""
-        }
         mtext(
-          mtext.outer, side = 4, outer = TRUE, line = -1.7, cex = cex, col = "blue"
+          mtext.outer,
+          side = 4,
+          outer = TRUE,
+          line = -1.7,
+          cex = cex,
+          col = "blue"
         )
 
       }# plot.single.sel
