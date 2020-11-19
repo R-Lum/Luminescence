@@ -361,37 +361,25 @@ error.list <- list()
     keep.null = TRUE)
 
 # Deal with extra arguments ----------------------------------------------------
-
   ##deal with addition arguments
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {""}
-
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {1}
+  main <- if("main" %in% names(extraArgs)) extraArgs$main else  ""
+  log <- if("log" %in% names(extraArgs)) extraArgs$log else ""
+  cex <- if("cex" %in% names(extraArgs)) extraArgs$cex else 1
 
   background.count.distribution <-
     if ("background.count.distribution" %in% names(extraArgs)) {
       extraArgs$background.count.distribution
-    } else
-    {
+    } else  {
       "non-poisson"
     }
 
-  sigmab <- if("sigmab" %in% names(extraArgs)) {extraArgs$sigmab} else
-  {NULL}
-
-  sig0 <- if("sig0" %in% names(extraArgs)) {extraArgs$sig0} else
-  {0}
-
+  sigmab <- if("sigmab" %in% names(extraArgs)) extraArgs$sigmab else NULL
+  sig0 <- if("sig0" %in% names(extraArgs)) extraArgs$sig0 else 0
 
 # Protocol Integrity Checks --------------------------------------------------
-
-  ##check overall structur of the object
+  ##check overall structure of the object
   ##every SAR protocol has to have equal number of curves
 
 
@@ -410,7 +398,7 @@ error.list <- list()
   ##problem: FI lexsyg devices provide irradiation information in a separate curve
   if("irradiation"%in%temp.ltype){
 
-    ##grep irraditation times
+    ##grep irradiation times
     temp.irradiation <- structure_RLum(object)
     temp.irradiation <- temp.irradiation[temp.irradiation$recordType == "irradiation",
                                          "x.max"]
