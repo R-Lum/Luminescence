@@ -1,34 +1,32 @@
-#' @title Calculate Lx/Tx ratio for CW-OSL signal components
+#' @title Calculate Lx/Tx ratio for decomposed CW-OSL signal components
 #'
-#' @description Calculate Lx/Tx ratios from a given set of CW-OSL curves decomposed in its OSL components by
-#' [OSLdecomposition::RLum.OSL_decomposition]
+#' @description Calculate `Lx/Tx` ratios from a given set of decomposed
+#' CW-OSL curves decomposed by [OSLdecomposition::RLum.OSL_decomposition]
 #'
 #' @param OSL.component [numeric] or [character] (*optional*):
 #' an [numeric] index or a name describing which OSL signal component shall be evaluated.
-#' This argument can either be the name of the OSL component assigned by [OSLdecomposition::RLum.OSL_global_fitting]
-#' or the index of component. Then `'1'` selects the fastest decaying component, `'2'` the second fastest
-#' and so on. If not defined, the fastest decaying component is selected.
+#' This argument can either be the name of the OSL component assigned by
+#' [OSLdecomposition::RLum.OSL_global_fitting] or the index of component.
+#' Then `'1'` selects the fastest decaying component, `'2'` the
+#' second fastest and so on. If not defined, the fastest decaying component is selected.
 #'
-#' @param Lx.data [data.frame] (**required**):
-#' Component table created by [OSLdecomposition::RLum.OSL_decomposition]
-#' and per default located at *object@records[[...]]@info$COMPONENTS*.
-#' The value of *$n[OSL.component]* is set as *LnLx*. The value of *$n.error[OSL.component]* is set as *LnLx.error*
+#' @param Lx.data [data.frame] (**required**): Component table created by
+#' [OSLdecomposition::RLum.OSL_decomposition] and per default located
+#' at `object@records[[...]]@info$COMPONENTS`.The value of `$n[OSL.component]`
+#' is set as `LnLx`. The value of `$n.error[OSL.component]` is set as `LnLx.error`
 #'
-#' @param Tx.data [data.frame] (*optional*):
-#' Component table created by [OSLdecomposition::RLum.OSL_decomposition]
-#' and per default located at *object@records[[...]]@info$COMPONENTS*.
-#' The value of *$n[OSL.component]* is set as *TnTx*. The value of *$n.error[OSL.component]* is set as *TnTx.error*
+#' @param Tx.data [data.frame] (*optional*): Component table created by
+#' [OSLdecomposition::RLum.OSL_decomposition] and per default located at
+#' `object@records[[...]]@info$COMPONENTS`. The value of `$n[OSL.component]`
+#' is set as `TnTx`. The value of `$n.error[OSL.component]` is set as `TnTx.error`
 #'
-#' @param sig0 [numeric] (*with default*):
-#' allow adding an extra component of error to the final Lx/Tx error value
-#' (e.g., instrumental error).
+#' @param sig0 [numeric] (*with default*): allows adding an extra error component
+#' to the final `Lx/Tx` error value (e.g., instrumental error).
 #'
-#' @param digits [integer] (*with default*):
-#' round numbers to the specified digits.
+#' @param digits [integer] (*with default*): round numbers to the specified digits.
 #' If digits is set to `NULL` nothing is rounded.
 #'
-#' @return
-#' Returns an S4 object of type [RLum.Results-class].
+#' @return Returns an S4 object of type [RLum.Results-class].
 #'
 #' Slot `data` contains a [list] with the following structure:
 #'
@@ -46,16 +44,18 @@
 #' .. $ LxTx.Error
 #' ```
 #'
-#' @section Function version: 0.1.0 (2020-07-06)
+#' @section Function version: 0.1.0
 #'
 #' @author Dirk Mittelstrass
 #'
 #' @seealso [RLum.Data.Curve-class], [plot_GrowthCurve], [analyse_SAR.CWOSL]
 #'
-#' @references Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019. Automated identification and separation of quartz CW-OSL signal components with R. talk presented at DLED 2019, Bingen, Germany
+#' @references Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019.
+#' Automated identification and separation of quartz CW-OSL signal components with R.
+#' talk presented at DLED 2019, Bingen, Germany
 #' [http://luminescence.de/OSLdecomp_talk.pdf]()\cr
 #'
-#'
+#' @keywords datagen
 #' @md
 #' @export
 calc_OSLLxTxDecomposed <- function(
@@ -109,7 +109,8 @@ calc_OSLLxTxDecomposed <- function(
       # insert background-signal-component check here
 
     } else {
-      stop(paste0("[calc_OSLLxTxDecomposed()] Invalid OSL component index! Component table has ", nrow(Lx.data), " rows."))
+      stop(paste0("[calc_OSLLxTxDecomposed()] Invalid OSL component index!
+                  Component table has ", nrow(Lx.data), " rows."))
 
     }
 
