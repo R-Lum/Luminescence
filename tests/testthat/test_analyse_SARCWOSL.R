@@ -153,6 +153,16 @@ test_that("simple run", {
      verbose = FALSE
    ))
 
+   ##check background integral
+   expect_warning(analyse_SAR.CWOSL(
+     object = object[[1]],
+     background.integral.min = 800,
+     background.integral.max = 9900,
+     fit.method = "LIN",
+     plot = FALSE,
+     verbose = FALSE
+   ), regexp = "Background integral out of bounds")
+
 })
 
 

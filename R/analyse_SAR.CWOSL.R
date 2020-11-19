@@ -382,33 +382,27 @@ error.list <- list()
   ##check overall structure of the object
   ##every SAR protocol has to have equal number of curves
 
-
   ##grep curve types from analysis value and remove unwanted information
   temp.ltype <- sapply(1:length(object@records), function(x) {
-
-                ##export as global variable
-                object@records[[x]]@recordType <<- gsub(" .*", "",
-                                                        object@records[[x]]@recordType)
-
-                object@records[[x]]@recordType
+     ##export as global variable
+     object@records[[x]]@recordType <<- gsub(" .*", "", object@records[[x]]@recordType)
+     object@records[[x]]@recordType
 
   })
-
 
   ##problem: FI lexsyg devices provide irradiation information in a separate curve
   if("irradiation"%in%temp.ltype){
 
     ##grep irradiation times
     temp.irradiation <- structure_RLum(object)
-    temp.irradiation <- temp.irradiation[temp.irradiation$recordType == "irradiation",
-                                         "x.max"]
+    temp.irradiation <- temp.irradiation[
+      temp.irradiation$recordType == "irradiation", "x.max"]
 
     ##remove every 2nd entry (test dose) and add "0" dose for natural signal
     temp.Dose <- c(0,temp.irradiation)
 
     ##remove irradiation entries from file
-    object <- set_RLum(
-               class = "RLum.Analysis",
+    object <- set_RLum(class = "RLum.Analysis",
                records = get_RLum(object, recordType = c(CWcurve.type, "TL")),
                protocol = "SAR")
 
@@ -445,7 +439,7 @@ error.list <- list()
     }
 
 
-    ##background integral should not longer than curve channel length
+    ##background integral should not be longer than curve channel length
     if (max(background.integral) == min(background.integral)) {
       background.integral <-
         c((min(background.integral) - 1) : max(background.integral))
@@ -462,9 +456,8 @@ error.list <- list()
 
       }
 
-      warning(
-        "[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
-        min(background.integral),":", max(background.integral),")"
+      warning("[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
+        min(background.integral),":", max(background.integral),")", call. = FALSE
       )
 
     }
