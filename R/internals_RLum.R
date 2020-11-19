@@ -490,3 +490,47 @@ fancy_scientific <- function(l) {
   # Return --------------------------------------------------------------------------------------
   return(temp_m)
 }
+
+#++++++++++++++++++++++++++++++
+#+ .expand_Parameters         +
+#++++++++++++++++++++++++++++++
+#' @title Expand function parameters of self-call
+#'
+#' @description For the self-call, the function parameters need to
+#' be expended, this was done, so far in a non-consistent way and
+#' repeated in every function using the self-call. This functions
+#' does it once and for all similar in all functions.
+#'
+#' @param len [numeric] (**required**): lenth of the parameter expension
+#'
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'
+#' @examples
+#'
+#' @return [list] with expanded parameters
+#'
+#' @md
+#' @noRd
+.expand_parameters <- function(len = length(object)){
+  def <- sys.function(sys.parent())
+  call <- sys.call(sys.parent())
+  args_new <- as.list(match.call(def, call, FALSE))[-c(1:2)]
+  args <- modifyList(
+    x = as.list(args(as.character(call[[1]])))[-1],
+    val = args_new,
+    keep.null = TRUE)
+
+  ##expand all arguments
+  for(i in 1:length(args))
+    if(class(args[[i]])[1] == "list"){
+      args[[i]] <- rep(
+        as.list(args[[i]]), length = len[1])
+
+    } else {
+      args[[i]] <- rep(
+        list(eval(args[[i]])), length = len[1])
+
+    }
+  return(args)
+}
+
