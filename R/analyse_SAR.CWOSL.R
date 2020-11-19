@@ -274,39 +274,20 @@ if(is.list(object)){
   error.list <- list()
 
 # General Integrity Checks ---------------------------------------------------
+  ##MISSING INPUT
+  if(class(object)[1] != "RLum.Analysis")
+    stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
+         call. = FALSE)
 
-  ##GENERAL
+  if(missing("background.integral.min")){
+   stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!",
+        call. = FALSE)
+  }
 
-    ##MISSING INPUT
-    if(missing("object")){
-      stop("[analyse_SAR.CWOSL()] No value set for 'object'!",
-           call. = FALSE)
-    }
-
-    ##INPUT OBJECTS
-    if(!is(object, "RLum.Analysis")){
-      stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!", call. = FALSE)
-    }
-
-
-    if(missing("signal.integral.min") & !is.list(object)){
-      signal.integral.min <- 1
-      warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
-    }
-
-    if(missing("signal.integral.max") & !is.list(object)){
-      signal.integral.max <- 2
-      warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
-    }
-
-    if(missing("background.integral.min")){
-     stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!", call. = FALSE)
-    }
-
-    if(missing("background.integral.max")){
-      stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!", call. = FALSE)
-    }
-
+  if(missing("background.integral.max")){
+    stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!",
+         call. = FALSE)
+  }
 
       ##build signal and background integrals
       signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
