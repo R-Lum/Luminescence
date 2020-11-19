@@ -984,20 +984,18 @@ error.list <- list()
 
             warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
           }
-
           lines(object@records[[OSL.Curves.ID.Lx[[x]]]]@data,col = col[x])
 
         })
 
-
         ##mark integration limit Lx curves
         abline(v = c(
-            (object@records[[OSL.Curves.ID.Lx[1]]]@data[min(signal.integral),1]),
-            (object@records[[OSL.Curves.ID.Lx[1]]]@data[max(signal.integral),1]),
-            (object@records[[OSL.Curves.ID.Lx[1]]]@data[min(background.integral),1]),
-            (object@records[[OSL.Curves.ID.Lx[1]]]@data[max(background.integral),1]),
+            object@records[[OSL.Curves.ID.Lx[1]]]@data[min(signal.integral),1],
+            object@records[[OSL.Curves.ID.Lx[1]]]@data[max(signal.integral),1],
+            object@records[[OSL.Curves.ID.Lx[1]]]@data[min(background.integral),1],
+            object@records[[OSL.Curves.ID.Lx[1]]]@data[max(background.integral),1]),
           lty = 2,
-          col = "gray"))
+          col = "gray")
 
         ##mtext, implemented here, as a plot window has to be called first
         mtext(
@@ -1027,8 +1025,6 @@ error.list <- list()
             range(object@records[[TL.Curves.ID.Tx[[x]]]]@data[,2])
 
           })
-
-
 
           plot(
             NA,NA,
@@ -1074,7 +1070,6 @@ error.list <- list()
       }#plot.single.sel
 
       # Plotting TnTx Curves ----------------------------------------------------
-
       ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
         ylim.range <- sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
@@ -1097,8 +1092,7 @@ error.list <- list()
         plot(
           NA,NA,
           xlab = "Time [s]",
-          ylab = paste(CWcurve.type ," [cts/",resolution.OSLCurves," s]",sep =
-                         ""),
+          ylab = paste0(CWcurve.type ," [cts/",resolution.OSLCurves," s]"),
           xlim = xlim,
           ylim = range(ylim.range),
           main = main,
@@ -1129,22 +1123,14 @@ error.list <- list()
         })
 
         ##mark integration limit Tx curves
-        abline(
-          v = (object@records[[OSL.Curves.ID.Tx[1]]]@data[min(signal.integral),1]), lty =
-            2, col = "gray"
-        )
-        abline(
-          v = (object@records[[OSL.Curves.ID.Tx[1]]]@data[max(signal.integral),1]), lty =
-            2, col = "gray"
-        )
-        abline(
-          v = (object@records[[OSL.Curves.ID.Tx[1]]]@data[min(background.integral),1]), lty =
-            2, col = "gray"
-        )
-        abline(
-          v = (object@records[[OSL.Curves.ID.Tx[1]]]@data[max(background.integral),1]), lty =
-            2, col = "gray"
-        )
+        abline(v = c(
+          object@records[[OSL.Curves.ID.Tx[1]]]@data[min(signal.integral),1],
+          object@records[[OSL.Curves.ID.Tx[1]]]@data[max(signal.integral),1],
+          object@records[[OSL.Curves.ID.Tx[1]]]@data[min(background.integral),1],
+          object@records[[OSL.Curves.ID.Tx[1]]]@data[max(background.integral),1]),
+          lty = 2,
+          col = "gray")
+
 
       }# plot.single.sel
 
@@ -1338,17 +1324,18 @@ error.list <- list()
         if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
           temp.GC <- data.frame(temp.GC, RC.Status = "FAILED", stringsAsFactors = FALSE)
 
-
         }else{
           temp.GC <- data.frame(temp.GC, RC.Status = "OK", stringsAsFactors = FALSE)
-
 
         }
        }#endif for is.null
 
      ##end onlyLxTxTable
      }else{
-       temp.GC <- data.frame(De = NA, De.Error = NA, D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA, De.MC = NA, Fit = NA)
+       temp.GC <- data.frame(
+         De = NA, De.Error = NA,
+         D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA,
+         De.MC = NA, Fit = NA)
        temp.GC.fit.Formula <- NULL
      }
 
@@ -1367,8 +1354,7 @@ error.list <- list()
         )
 
 
-    # Set return Values -----------------------------------------------------------
-
+# Set return Values -----------------------------------------------------------
     ##generate unique identifier
     UID <- create_UID()
 
@@ -1387,20 +1373,23 @@ error.list <- list()
 
     if (plot && 7 %in% plot.single.sel) {
       ##set graphical parameter
-      if (!plot.single[1])
-        par(mfrow = c(1,2))
+      if (!plot.single[1]) par(mfrow = c(1,2))
 
       ##Rejection criteria
       temp.rejection.criteria <- get_RLum(temp.results.final,
                                           data.object = "rejection.criteria")
 
-      temp.rc.reycling.ratio <- temp.rejection.criteria[grep("Recycling ratio",temp.rejection.criteria[,"Criteria"]),]
+      temp.rc.reycling.ratio <- temp.rejection.criteria[
+        grep("Recycling ratio",temp.rejection.criteria[,"Criteria"]),]
 
-      temp.rc.recuperation.rate <- temp.rejection.criteria[grep("Recuperation rate",temp.rejection.criteria[,"Criteria"]),]
+      temp.rc.recuperation.rate <- temp.rejection.criteria[
+        grep("Recuperation rate",temp.rejection.criteria[,"Criteria"]),]
 
-      temp.rc.palaedose.error <- temp.rejection.criteria[grep("Palaeodose error",temp.rejection.criteria[,"Criteria"]),]
+      temp.rc.palaedose.error <- temp.rejection.criteria[
+        grep("Palaeodose error",temp.rejection.criteria[,"Criteria"]),]
 
-      temp.rc.testdose.error <- temp.rejection.criteria[grep("Testdose error",temp.rejection.criteria[,"Criteria"]),]
+      temp.rc.testdose.error <- temp.rejection.criteria[
+        grep("Testdose error",temp.rejection.criteria[,"Criteria"]),]
 
       plot(
         NA,NA,
@@ -1418,26 +1407,22 @@ error.list <- list()
 
       ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
       ##polygon for recycling ratio
-      text(
-        x = -0.35, y = 35, "Recycling R.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
-      )
-      polygon(
-        x = c(
+      text(x = -0.35, y = 35, "Recycling R.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0)
+      polygon(x = c(
           -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
           as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
           as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]
         ),
         y = c(31,39,39,31),
         col = "gray",
-        border = NA
-      )
+        border = NA)
+
       polygon(
         x = c(-0.3, -0.3, 0.3, 0.3) ,
         y = c(31, 39, 39, 31),
         border = ifelse(any(
           grepl(pattern = "FAILED", temp.rc.reycling.ratio$Status)
-        ), "red", "black")
-      )
+        ), "red", "black"))
 
 
       ##consider possibility of multiple pIRIR signals and multiple recycling ratios
