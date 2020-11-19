@@ -27,4 +27,8 @@ test_that("Test functionality", {
     file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence")
   ), "list")
 
+  ##test silence
+  expect_silent(read_Daybreak2R(
+    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence"), verbose = FALSE))
+
 })

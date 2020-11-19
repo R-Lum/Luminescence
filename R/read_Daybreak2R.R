@@ -28,7 +28,7 @@
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough rests using a few files.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -202,15 +202,17 @@ read_Daybreak2R <- function(
         i_SHIFT<-ligne3[9] #0
 
         #string[7]
-        i_GRUNIT<-substr(readChar(con, nchars=8, useBytes = TRUE),2,8)#""
-        i_BRUNIT<-substr(readChar(con, nchars=8, useBytes = FALSE),2,8) #Gy/sec
-        i_ARUNIT<-substr(readChar(con, nchars=8, useBytes = FALSE),2,8)#u-2/sec
+        temp <- readBin(con, "raw", 24, 1)
+        i_GRUNIT <- rawToChar(temp[3:8])
+        i_BRUNIT <- rawToChar(temp[10:16])
+        i_ARUNIT <- rawToChar(temp[18:24])
 
         #string[6]
-        i_BFILTER<-substr(readChar(con, nchars=8, useBytes = FALSE),2,7)#none
-        i_GSOURCE<-substr(readChar(con, nchars=8, useBytes = FALSE),2,7)#
-        i_BSOURCE<-substr(readChar(con, nchars=8, useBytes = FALSE),2,7)#Sr-90
-        i_ASOURCE<-substr(readChar(con, nchars=8, useBytes = FALSE),2,7)#Pu-238
+        temp <- readBin(con, "raw", 32, 1)
+        i_BFILTER <- rawToChar(temp[2:8])
+        i_GSOURCE <- rawToChar(temp[10:16])
+        i_BSOURCE <- rawToChar(temp[18:24])
+        i_ASOURCE <- rawToChar(temp[26:32])
 
         #date record
         raw_IRRAD_DATE<-readBin(con,what="raw",4,size=1,endian="little")#27-Nov-2006
@@ -221,7 +223,8 @@ read_Daybreak2R <- function(
         i_IRRAD_DATE<-paste0(DATE.AAAA,"-",MM=DATE.MM,"-",JJ=DATE.JJ)
 
         #string[40]
-        i_RUNREMARK<-readChar(con, nchars=40, useBytes = FALSE)
+        i_RUNREMARK <- readBin(con, "raw", n = 40)
+        i_RUNREMARK <- rawToChar(i_RUNREMARK[2:40])
 
         i_DATA<-readBin(con,what="double",i_MAXPT+1,size=8,endian="little")
 
@@ -482,7 +485,3 @@ read_Daybreak2R <- function(
     return(RLum.Analysis.list)
     }
 }
-
-test <- read_Daybreak2R(
-  file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence")
-)
