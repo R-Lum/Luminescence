@@ -1,22 +1,22 @@
 #' @title Calculate Lx/Tx ratio for decomposed CW-OSL signal components
 #'
 #' @description Calculate `Lx/Tx` ratios from a given set of decomposed
-#' CW-OSL curves decomposed by [OSLdecomposition::RLum.OSL_decomposition]
+#' CW-OSL curves decomposed by `[OSLdecomposition::RLum.OSL_decomposition]`
 #'
 #' @param OSL.component [numeric] or [character] (*optional*):
 #' an [numeric] index or a name describing which OSL signal component shall be evaluated.
 #' This argument can either be the name of the OSL component assigned by
-#' [OSLdecomposition::RLum.OSL_global_fitting] or the index of component.
+#' `[OSLdecomposition::RLum.OSL_global_fitting]` or the index of component.
 #' Then `'1'` selects the fastest decaying component, `'2'` the
 #' second fastest and so on. If not defined, the fastest decaying component is selected.
 #'
 #' @param Lx.data [data.frame] (**required**): Component table created by
-#' [OSLdecomposition::RLum.OSL_decomposition] and per default located
+#' `[OSLdecomposition::RLum.OSL_decomposition]` and per default located
 #' at `object@records[[...]]@info$COMPONENTS`.The value of `$n[OSL.component]`
 #' is set as `LnLx`. The value of `$n.error[OSL.component]` is set as `LnLx.error`
 #'
 #' @param Tx.data [data.frame] (*optional*): Component table created by
-#' [OSLdecomposition::RLum.OSL_decomposition] and per default located at
+#' `[OSLdecomposition::RLum.OSL_decomposition]` and per default located at
 #' `object@records[[...]]@info$COMPONENTS`. The value of `$n[OSL.component]`
 #' is set as `TnTx`. The value of `$n.error[OSL.component]` is set as `TnTx.error`
 #'
