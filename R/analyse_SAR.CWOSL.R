@@ -665,7 +665,6 @@ error.list <- list()
     }
 
 
-
     # Calculate Recuperation Rate ---------------------------------------------
     ##Recuperation Rate (capable to handle multiple type of recuperation values)
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
@@ -695,7 +694,6 @@ error.list <- list()
        colnames(RecyclingRatio)}else{NA},
       if(!is.null(colnames(Recuperation))){
         colnames(Recuperation)}else{NA})
-
 
     temp.value <- c(RecyclingRatio,Recuperation)
 
