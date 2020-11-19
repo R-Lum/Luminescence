@@ -1,8 +1,9 @@
-#' Analyse SAR CW-OSL measurements
+#' @title  Analyse SAR CW-OSL measurements
 #'
-#' The function performs a SAR CW-OSL analysis on an
+#' @description The function performs a SAR CW-OSL analysis on an
 #' [RLum.Analysis-class] object including growth curve fitting.
 #'
+#' @details
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 #' calculation of the `Lx/Tx` value the function [calc_OSLLxTxRatio] is
@@ -50,7 +51,7 @@
 #' Smith (1988).
 #'
 #' `[testdose.error]`: set the allowed error for the testdose, which per
-#' default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
+#' default should not exceed 10\%. The test dose error is calculated as `Tx_net.error/Tx_net`.
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
@@ -142,7 +143,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.12
+#' @section Function version: 0.8.2
 #'
 #' @author
 #' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
@@ -208,13 +209,13 @@
 #' @export
 analyse_SAR.CWOSL<- function(
   object,
-  signal.integral.min,
-  signal.integral.max,
+  signal.integral.min = 1,
+  signal.integral.max = 2,
   background.integral.min,
   background.integral.max,
   rejection.criteria = NULL,
   dose.points = NULL,
-  mtext.outer,
+  mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
   plot.single = FALSE,
@@ -224,59 +225,11 @@ analyse_SAR.CWOSL<- function(
 
 # SELF CALL -----------------------------------------------------------------------------------
 if(is.list(object)){
+  ##clean object input and expand parameters
+  object <- .rm_nonRLum(object)
+  parm <- .expand_parameters(length(object))
 
-  ##make life easy
-  if(missing("signal.integral.min")){
-    signal.integral.min <- 1
-    warning("[analyse_SAR.CWOSL()] 'signal.integral.min' missing, set to 1", call. = FALSE)
-  }
-
-  if(missing("signal.integral.max")){
-    signal.integral.max <- 2
-    warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
-  }
-
-  ##now we have to extend everything to allow list of arguments ... this is just consequent
-  signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
-  signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
-  background.integral.min <- rep(as.list(background.integral.min), length = length(object))
-  background.integral.max <- rep(as.list(background.integral.max), length = length(object))
-
-
-  ##it is a little bit more complex, as we have a list in a list
-  if(is(rejection.criteria[[1]], "list")){
-    rejection.criteria <- rep(rejection.criteria, length = length(object))
-
-  }else{
-    rejection.criteria <- rep(list(rejection.criteria), length = length(object))
-
-  }
-
-
-  if(!is.null(dose.points)){
-
-    if(is(dose.points, "list")){
-      dose.points <- rep(dose.points, length = length(object))
-
-    }else{
-      dose.points <- rep(list(dose.points), length = length(object))
-
-    }
-
-  }else{
-    dose.points <- rep(list(NULL), length(object))
-
-  }
-
-  if(!missing(mtext.outer)){
-    mtext.outer <- rep(as.list(mtext.outer), length = length(object))
-
-  }else{
-    mtext.outer <- rep(list(""), length = length(object))
-
-  }
-
-  ##handle main
+  ##handle main separately
   if("main"%in% names(list(...))){
     if(class(list(...)$main) == "list"){
       main <- rep(list(...)$main,length = length(object))
@@ -290,40 +243,29 @@ if(is.list(object)){
 
   }
 
-   ##run analysis
-   temp <- lapply(1:length(object), function(x){
-    analyse_SAR.CWOSL(object[[x]],
-                      signal.integral.min = signal.integral.min[[x]],
-                      signal.integral.max = signal.integral.max[[x]],
-                      background.integral.min = background.integral.min[[x]],
-                      background.integral.max = background.integral.max[[x]] ,
-                      dose.points = dose.points[[x]],
-                      mtext.outer = mtext.outer[[x]],
-                      plot = plot,
-                      rejection.criteria = rejection.criteria[[x]],
-                      plot.single = plot.single,
-                      plot_onePage = plot_onePage,
-                      onlyLxTxTable = onlyLxTxTable,
-                      main = main[[x]],
-                      ...)
+  results <- merge_RLum(lapply(1:length(object), function(x){
+    analyse_SAR.CWOSL(
+      object = object[[x]],
+      signal.integral.min = parm$signal.integral.min[[x]],
+      signal.integral.max = parm$signal.integral.max[[x]],
+      background.integral.min = parm$background.integral.min[[x]],
+      background.integral.max = parm$background.integral.max[[x]] ,
+      dose.points = parm$dose.points[[x]],
+      mtext.outer = parm$mtext.outer[[x]],
+      plot = parm$plot[[x]],
+      rejection.criteria = parm$rejection.criteria[[x]],
+      plot.single = parm$plot.single[[x]],
+      plot_onePage = parm$plot_onePage[[x]],
+      onlyLxTxTable = parm$onlyLxTxTable[[x]],
+      main = main[[x]],
+      ...)
+  }))
 
-  })
-
-  ##combine everything to one RLum.Results object as this as what was written ... only
-  ##one object
-
-  ##merge results and check if the output became NULL
-  results <- merge_RLum(temp)
-
+  ##return
   ##DO NOT use invisible here, this will prevent the function from stopping
-  if(length(results) == 0){
-    return(NULL)
+  if(length(results) == 0) return(NULL)
 
-  }else{
-    return(results)
-
-  }
-
+  return(results)
 }
 
 # CONFIG  -----------------------------------------------------------------
