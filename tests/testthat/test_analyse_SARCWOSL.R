@@ -128,6 +128,16 @@ test_that("simple run", {
       verbose = FALSE
     ), regexp = "Input object is not of type 'RLum.Analysis'!")
 
+   expect_error(analyse_SAR.CWOSL(
+     object = object[[1]],
+     background.integral.min = 900,
+     background.integral.max = 1000,
+     dose.points = c(0,1,2),
+     fit.method = "LIN",
+     plot = FALSE,
+     verbose = FALSE
+   ), regexp = "length 'dose.points' differs from number of curves")
+
    expect_error(suppressWarnings(analyse_SAR.CWOSL(
       object = object[[1]],
       background.integral.min = 900,

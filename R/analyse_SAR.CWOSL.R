@@ -497,8 +497,7 @@ error.list <- list()
 
 
     # Grep Curves -------------------------------------------------------------
-
-    ##grep relevant curves from RLum.Analyis object
+   ##grep relevant curves from RLum.Analyis object
     OSL.Curves.ID <-
       get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
 
@@ -519,7 +518,6 @@ error.list <- list()
 
 
 # Calculate LnLxTnTx values  --------------------------------------------------
-
     ##calculate LxTx values using external function
     LnLxTnTx <- lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
       temp.LnLxTnTx <- get_RLum(
@@ -558,16 +556,14 @@ error.list <- list()
     LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
 
     # Set regeneration points -------------------------------------------------
-
     ##overwrite dose point manually
     if (!is.null(dose.points)) {
       if (length(dose.points) != length(LnLxTnTx$Dose)) {
-        stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.")
+        stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.", call. = FALSE)
 
       }
 
       LnLxTnTx$Dose <- dose.points
-
     }
 
     ##check whether we have dose points at all
