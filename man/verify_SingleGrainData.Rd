@@ -152,7 +152,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Ki
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-3. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-8. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

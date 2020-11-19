@@ -6,13 +6,13 @@
 \usage{
 analyse_SAR.CWOSL(
   object,
-  signal.integral.min,
-  signal.integral.max,
+  signal.integral.min = 1,
+  signal.integral.max = 2,
   background.integral.min,
   background.integral.max,
   rejection.criteria = NULL,
   dose.points = NULL,
-  mtext.outer,
+  mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
   plot.single = FALSE,
@@ -151,7 +151,7 @@ ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).
 
 \verb{[testdose.error]}: set the allowed error for the testdose, which per
-default should not exceed 10\\%. The testdose error is calculated as Tx_net.error/Tx_net.
+default should not exceed 10\\%. The test dose error is calculated as \code{Tx_net.error/Tx_net}.
 
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\\%.
@@ -164,7 +164,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.8.12
+ 0.8.2
 }
 
 \examples{
@@ -203,7 +203,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-3. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-8. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

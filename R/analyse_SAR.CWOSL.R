@@ -269,9 +269,8 @@ if(is.list(object)){
 }
 
 # CONFIG  -----------------------------------------------------------------
-
-  ##set error list, this allows to set error messages without breaking the function
-  error.list <- list()
+##set error list, this allows to set error messages without breaking the function
+error.list <- list()
 
 # General Integrity Checks ---------------------------------------------------
   ##MISSING INPUT
@@ -327,14 +326,11 @@ if(is.list(object)){
         warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
       }
 
-
     ##INTEGRAL LIMITS
     if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
       stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not
            of type integer!",  call. = FALSE)
     }
-
-
 
     ##CHECK IF DATA SET CONTAINS ANY OSL or IRSL curve
     if (!any(c(grepl("OSL", names(object), fixed = TRUE), grepl("IRSL", names(object), fixed = TRUE)))){
