@@ -164,7 +164,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United 
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

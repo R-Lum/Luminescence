@@ -28,22 +28,26 @@ input object containing data for analysis, alternatively a \link{list} of
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum signal integral for the \code{Tx} curve.}
+as the minimum signal integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
 upper bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum signal integral for the \code{Tx} curve.}
+as the maximum signal integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum background integral for the \code{Tx} curve.}
+as the minimum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum background integral for the \code{Tx} curve.}
+as the maximum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{rejection.criteria}{\link{list} (\emph{with default}):
 provide a named list and set rejection criteria in \strong{percentage} for further calculation. Can be a \link{list} in
@@ -203,7 +207,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

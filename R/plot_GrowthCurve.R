@@ -976,7 +976,7 @@ plot_GrowthCurve <- function(
     ##LIN -----
     ##two options: just linear fit or LIN fit after the EXP fit failed
 
-    #set fit object, if fit objekt was not set before
+    #set fit object, if fit object was not set before
     if(exists("fit")==FALSE){fit<-NA}
 
     if ((fit.method=="EXP OR LIN" & class(fit)=="try-error") |
