@@ -11,6 +11,7 @@ test_that("Test certain input scenarios", {
 
 test_that("Test plotting", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   #load data example data
   data(ExampleData.BINfileData, envir = environment())
