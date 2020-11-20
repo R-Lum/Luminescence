@@ -1,5 +1,3 @@
-context("analyse_SAR.CWOSL")
-
 ##prepare test file for regression test
 set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
@@ -14,18 +12,20 @@ results <- analyse_SAR.CWOSL(
 
 test_that("tests class elements", {
   testthat::skip_on_cran()
+  local_edition(3)
 
-  expect_is(results, "RLum.Results")
+  expect_s4_class(results, "RLum.Results")
   expect_equal(length(results), 4)
-  expect_is(results$data, "data.frame")
-  expect_is(results$LnLxTnTx.table, "data.frame")
-  expect_is(results$rejection.criteria, "data.frame")
-  expect_is(results$Formula, "expression")
+  expect_s3_class(results$data, "data.frame")
+  expect_s3_class(results$LnLxTnTx.table, "data.frame")
+  expect_s3_class(results$rejection.criteria, "data.frame")
+  expect_type(results$Formula, "expression")
 
 })
 
 test_that("regression tests De values", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##fix for different R versions
   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
@@ -40,6 +40,8 @@ test_that("regression tests De values", {
 
 test_that("regression test LxTx table", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx), digits = 5),  20.92051)
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx.Error), digits = 2), 0.34)
 
@@ -47,6 +49,8 @@ test_that("regression test LxTx table", {
 
 test_that("regression test - check rejection criteria", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   ##fix for different R versions
   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 0),  1669)
@@ -60,6 +64,7 @@ test_that("regression test - check rejection criteria", {
 
 test_that("simple run", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##verbose and plot off
   expect_s4_class(
@@ -71,6 +76,21 @@ test_that("simple run", {
       plot = FALSE,
       verbose = FALSE
     ),
+    class = "RLum.Results"
+  )
+
+  ##signal integral set to NA
+  expect_s4_class(
+    suppressWarnings(analyse_SAR.CWOSL(
+      object = object[1],
+      signal.integral.min = NA,
+      signal.integral.max = NA,
+      background.integral.min = NA,
+      background.integral.max = NA,
+      fit.method = "EXP",
+      plot = FALSE,
+      verbose = FALSE
+    )),
     class = "RLum.Results"
   )
 
