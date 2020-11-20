@@ -207,8 +207,19 @@ test_that("create warnings", {
     Lx.data,
     Tx.data,
     signal.integral = c(1:20),
-    background.integral = 80:100
-  ), "Number of background channels for Lx < 25; error estimation might be not reliable!")
+    signal.integral.Tx = c(1:20),
+    background.integral = 80:100,
+    background.integral.Tx = 60:100
+  ), "Number of background channels for Lx < 25; error estimation might not be reliable!")
+
+  expect_warning(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:20),
+    signal.integral.Tx = c(1:20),
+    background.integral = 60:100,
+    background.integral.Tx = 80:100
+  ), "Number of background channels for Tx < 25; error estimation might not be reliable!",)
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -227,7 +238,6 @@ test_that("create warnings", {
     background.integral.Tx = 40:100,
     use_previousBG = TRUE
   ), "For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.")
-
 
 })
 

@@ -398,7 +398,9 @@ calc_OSLLxTxRatio <- function(
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m < 25) {
-      warning("[calc_OSLLxTxRatio()] Number of background channels for Lx < 25; error estimation might be not reliable!", call. = FALSE)
+      warning(
+        "[calc_OSLLxTxRatio()] Number of background channels for Lx < 25; error estimation might not be reliable!",
+        call. = FALSE)
 
     }
 
@@ -429,7 +431,8 @@ calc_OSLLxTxRatio <- function(
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m.Tx < 25 && use_previousBG == FALSE) {
-      warning("[calc_OSLLxTxRatio()] Number of background channels for Tx < 25; error estimation might be not reliable!", call. = FALSE)
+      warning("[calc_OSLLxTxRatio()] Number of background channels for Tx < 25; error estimation might not be reliable!",
+              call. = FALSE)
 
     }
 
