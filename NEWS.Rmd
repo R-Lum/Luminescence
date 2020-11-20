@@ -31,6 +31,9 @@ to return `NULL`, but crashed instead; fixed.
 * As implemented by `calc_OSLLxTxRatio()` the function now supports `NA` values for the 
 integrals. If this happens, sum curves are taken. This option enables a bunch of new
 possibilities to test more experimental protocols without modifying the function.
+* The identification of the allowed curves was further improved to cover cases 
+where users want to provide experimental OSL curves. Allowed are combinations 
+where `OSL` is included in the word or separated by a dash `-`.  
 
 #### `calc_OSLLxTxRatio()`
 * The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
@@ -45,6 +48,10 @@ started to be more strict about embedded null bytes within a character. The code
 was updated to a newer version and no further warnings is shown.
 * Under particular circumstances the function left open connections behind; fixed.
 
+### Internals
+* The automated tests now use consistently `testthat` >= 3.0.0. Naturally this 
+has no use visible effects, however, we found a couple of minor bugs while
+updating the tests. 
 
 ## Changes in version 0.9.8 (2020-11-16)
 
