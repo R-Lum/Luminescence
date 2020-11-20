@@ -1,5 +1,3 @@
-context("calc_HomogeneityTest")
-
 ##use the data example given by Galbraith (2003)
 df <-
   data.frame(
@@ -11,13 +9,16 @@ temp <- calc_HomogeneityTest(df)
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  expect_equal(is(temp), c("RLum.Results", "RLum"))
+  local_edition(3)
+
+  expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 3)
 
 })
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   results <- get_RLum(temp)
 

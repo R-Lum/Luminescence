@@ -1,7 +1,6 @@
-context("merge_RLum.Data.Curve")
-
 test_that("Merge tests", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##load example data
   data(ExampleData.XSYG, envir = environment())
@@ -13,10 +12,10 @@ test_that("Merge tests", {
   expect_error(merge_RLum.Data.Curve("", merge.method = "/"))
 
   ##check various operations
-  expect_is(TL.curve.1 + TL.curve.3, "RLum.Data.Curve")
-  expect_is(TL.curve.1 - TL.curve.3, "RLum.Data.Curve")
-  expect_is(TL.curve.3 / TL.curve.1, "RLum.Data.Curve")
+  expect_s4_class(TL.curve.1 + TL.curve.3, "RLum.Data.Curve")
+  expect_s4_class(TL.curve.1 - TL.curve.3, "RLum.Data.Curve")
+  expect_s4_class(suppressWarnings(TL.curve.3 / TL.curve.1), "RLum.Data.Curve")
   expect_warning(TL.curve.3 / TL.curve.1)
-  expect_is(TL.curve.1 * TL.curve.3, "RLum.Data.Curve")
+  expect_s4_class(TL.curve.1 * TL.curve.3, "RLum.Data.Curve")
 
 })

@@ -1,10 +1,9 @@
-context("calc_EED_Model")
-
 ## load needed example data
 data(ExampleData.MortarData, envir = environment())
 
 test_that("break function", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ## data
   expect_error(calc_EED_Model(), regexp = "'data' needs to be a two-column data.frame, see manual!")
@@ -21,6 +20,7 @@ test_that("break function", {
 
 test_that("successfull run", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ## automated
   set.seed(1)

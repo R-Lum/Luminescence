@@ -1,7 +1,6 @@
-context("plot_AbanicoPlot()")
-
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
+  local_edition(3)
 
    ## load example data and recalculate to Gray
   data(ExampleData.DeValues, envir = environment())
@@ -15,7 +14,7 @@ test_that("Test examples from the example page", {
                    log.z = FALSE))
 
   ## now with output of the plot parameters
-  expect_is(plot_AbanicoPlot(data = ExampleData.DeValues,
+  expect_type(plot_AbanicoPlot(data = ExampleData.DeValues,
                             output = TRUE), "list")
 
   ## now with adjusted z-scale limits
@@ -157,7 +156,7 @@ test_that("Test examples from the example page", {
 
   ## now with manually added plot content
   ## create empty plot with numeric output
-  expect_is(plot_AbanicoPlot(data = ExampleData.DeValues,
+  expect_type(plot_AbanicoPlot(data = ExampleData.DeValues,
                          pch = NA,
                          output = TRUE), "list")
 
@@ -166,6 +165,7 @@ test_that("Test examples from the example page", {
 
 test_that("Cause full function stop", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##wrong input data
   expect_error(plot_AbanicoPlot(data = "Michael"),

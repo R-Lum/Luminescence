@@ -1,14 +1,14 @@
-context("apply_CosmicRayRemoval")
-
 test_that("check function", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##load data
   data(ExampleData.XSYG, envir = environment())
 
   ##crash the function
-  expect_error(apply_CosmicRayRemoval("error"),
-               regexp = "An object of class 'character' is not supported as input; please read the manual!")
+  expect_error(
+    apply_CosmicRayRemoval("error"),
+    regexp = "An object of class 'character' is not supported as input; please read the manual!")
 
   ##run basic tests
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych"))
@@ -18,7 +18,7 @@ test_that("check function", {
   expect_silent(apply_CosmicRayRemoval(TL.Spectrum, method = "Pych",
                                        method.Pych.smoothing = 2, method.Pych.threshold_factor = 2))
 
-  ##constructe objects for different tests
+  ##construct objects for different tests
   RLum_list <- list(TL.Spectrum)
   RLum.Analysis <- set_RLum("RLum.Analysis", records = RLum_list)
   RLum.Analysis_list <- list(RLum.Analysis)
@@ -27,12 +27,12 @@ test_that("check function", {
   RLum.Analysis_mixed_list <- list(RLum.Analysis_mixed)
 
   ##run tests
-  expect_is(apply_CosmicRayRemoval(RLum_list), class = "list")
-  expect_is(apply_CosmicRayRemoval(RLum.Analysis), class = "RLum.Analysis")
-  expect_is(apply_CosmicRayRemoval(RLum.Analysis_list), class = "list")
+  expect_type(apply_CosmicRayRemoval(RLum_list),"list")
+  expect_s4_class(apply_CosmicRayRemoval(RLum.Analysis), class = "RLum.Analysis")
+  expect_type(apply_CosmicRayRemoval(RLum.Analysis_list), "list")
   expect_error(apply_CosmicRayRemoval(RLum_list_mixed))
-  expect_is(apply_CosmicRayRemoval(RLum.Analysis_mixed), class = "RLum.Analysis")
-  expect_is(apply_CosmicRayRemoval(RLum.Analysis_mixed_list), class = "list")
+  expect_s4_class(apply_CosmicRayRemoval(RLum.Analysis_mixed), class = "RLum.Analysis")
+  expect_type(apply_CosmicRayRemoval(RLum.Analysis_mixed_list), "list")
 
 })
 

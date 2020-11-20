@@ -1,5 +1,3 @@
-context("fit_ThermalQuenching()")
-
 ##create example data
 data <- data.frame(
   T = c(25, 40, 50, 60, 70, 80, 90, 100, 110),
@@ -13,8 +11,9 @@ data_NA[1,] <- NA
 
 test_that("standard check", {
   testthat::skip_on_cran()
+  local_edition(3)
 
-  ##trgger errors
+  ##trigger errors
   expect_error(fit_ThermalQuenching(data = "test"))
 
   ##simple run with error

@@ -1,5 +1,3 @@
-context("get_RLum")
-
 data(ExampleData.DeValues, envir = environment())
 temp <- calc_CentralDose(ExampleData.DeValues$CA1, plot = FALSE, verbose = FALSE)
 
@@ -13,29 +11,31 @@ temp_RLumResults <- set_RLum(class = "RLum.Results")
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
 
-  expect_is(get_RLum(temp), class = "data.frame")
-  expect_is(get_RLum(temp, data.object = "args"), class = "list")
+  expect_s3_class(get_RLum(temp), class = "data.frame")
+  expect_type(get_RLum(temp, data.object = "args"), "list")
 
   ##test objects
-  expect_is(get_RLum(temp_RLumDataCurve), class = "matrix")
-  expect_is(get_RLum(temp_RLumDataImage), class = "RasterBrick")
-  expect_is(get_RLum(temp_RLumDataSpectrum), class = "matrix")
-  expect_null(get_RLum(temp_RLumAnalysis))
+  expect_type(get_RLum(temp_RLumDataCurve), "double")
+  expect_s4_class(get_RLum(temp_RLumDataImage), class = "RasterBrick")
+  expect_type(get_RLum(temp_RLumDataSpectrum), "logical")
+  expect_null(suppressWarnings(get_RLum(temp_RLumAnalysis)))
   expect_null(get_RLum(temp_RLumResults))
 
 })
 
 test_that("check get_RLum on a list and NULL", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   object <- set_RLum(class = "RLum.Analysis", records = rep(set_RLum(class = "RLum.Data.Curve"), 10))
   expect_warning(get_RLum(object, recordType = "test"))
 
-  expect_is(get_RLum(NULL), "NULL")
+  expect_null(get_RLum(NULL), "NULL")
 
   ##check class argument
   a <- list(set_RLum("RLum.Results"), set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))))
-  expect_is(get_RLum(a, class = "test", drop = FALSE), class = "list")
-  expect_is(get_RLum(a, class = "RLum.Results", drop = FALSE), class = "list")
+  expect_type(get_RLum(a, class = "test", drop = FALSE), "list")
+  expect_type(get_RLum(a, class = "RLum.Results", drop = FALSE), "list")
 })

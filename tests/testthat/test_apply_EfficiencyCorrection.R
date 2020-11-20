@@ -1,7 +1,6 @@
-context("apply_EfficiencyCorrection")
-
 test_that("check function", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##load data
   data(ExampleData.XSYG, envir = environment())
@@ -25,7 +24,8 @@ test_that("check function", {
 
 
   ##run tests
-  expect_s4_class(apply_EfficiencyCorrection(TL.Spectrum,spectral.efficiency = eff_data), "RLum.Data.Spectrum")
+  expect_s4_class(apply_EfficiencyCorrection(TL.Spectrum,spectral.efficiency = eff_data),
+                  "RLum.Data.Spectrum")
 
   ##run list test
   expect_warning(
@@ -34,12 +34,13 @@ test_that("check function", {
 
   ##run test with RLum.Analysis objects
   expect_s4_class(
-    apply_EfficiencyCorrection(set_RLum("RLum.Analysis", records = list(TL.Spectrum)), spectral.efficiency = eff_data),
+    apply_EfficiencyCorrection(set_RLum("RLum.Analysis",
+                                        records = list(TL.Spectrum)), spectral.efficiency = eff_data),
     "RLum.Analysis")
 
   ##run test with everything combined
   input <- list(a = "test", TL.Spectrum,set_RLum("RLum.Analysis", records = list(TL.Spectrum)))
-  apply_EfficiencyCorrection(input, eff_data)
+  expect_warning(apply_EfficiencyCorrection(input, eff_data), "Skipping character object in input list")
 
 })
 

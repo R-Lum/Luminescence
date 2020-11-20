@@ -1,8 +1,7 @@
-context("analyse_SAR.TL")
-
 ##Full check
 test_that("Test examples", {
   skip_on_cran()
+  local_edition(3)
 
   ##load data
   data(ExampleData.BINfileData, envir = environment())
@@ -11,7 +10,7 @@ test_that("Test examples", {
   object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 
   ##perform analysis
-  expect_is(
+  expect_s4_class(
     analyse_SAR.TL(
       object,
       signal.integral.min = 210,

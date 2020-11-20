@@ -1,7 +1,6 @@
-context("plot_DRCSummary")
-
 test_that("Test certain input scenarios", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##function stop
   expect_error(plot_DRCSummary("test"), regexp = "The input is not of class 'RLum.Results'")

@@ -1,5 +1,3 @@
-context("fit_LWCurve")
-
 ## Test 1 with NLS
 data(ExampleData.FittingLM, envir = environment())
 fit <- fit_LMCurve(values = values.curve,
@@ -10,14 +8,17 @@ fit <- fit_LMCurve(values = values.curve,
             plot = FALSE)
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
+  local_edition(3)
 
-  expect_equal(is(fit), c("RLum.Results", "RLum"))
+  expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 3)
 
 })
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$Im1, digits = 0), 169)
@@ -37,14 +38,17 @@ fit <- fit_LMCurve(values = values.curve,
                    plot = FALSE)
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
+  local_edition(3)
 
-  expect_equal(is(fit), c("RLum.Results", "RLum"))
+  expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 3)
 
 })
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$Im1, digits = 0), 169)

@@ -1,7 +1,6 @@
-context("write_RLumCSV")
-
 test_that("test errors and general export function", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##test error
   expect_error(write_RLum2CSV(object = "", export = FALSE),
@@ -10,7 +9,7 @@ test_that("test errors and general export function", {
 
   ##test export
   data("ExampleData.portableOSL", envir = environment())
-  expect_is(write_RLum2CSV(ExampleData.portableOSL, export = FALSE), "list")
+  expect_type(write_RLum2CSV(ExampleData.portableOSL, export = FALSE), "list")
 
   ##test RLum.Results objects
   ## load example data

@@ -1,5 +1,3 @@
-context("calc_Huntley2006")
-
 set.seed(1)
 data("ExampleData.Fading", envir = environment())
 fading_data <- ExampleData.Fading$fading.data$IR50
@@ -24,18 +22,20 @@ huntley <- calc_Huntley2006(
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   ##rhop
-  expect_is(rhop, class = "RLum.Results", info = NULL, label = NULL)
-    expect_is(rhop$fading_results, "data.frame")
-    expect_is(rhop$fit, "lm")
-    expect_is(rhop$rho_prime, "data.frame")
+  expect_s4_class(rhop, class = "RLum.Results")
+  expect_s3_class(rhop$fading_results, "data.frame")
+  expect_s3_class(rhop$fit, "lm")
+  expect_s3_class(rhop$rho_prime, "data.frame")
 
   ##kars
-  expect_is(huntley, class = "RLum.Results", info = NULL, label = NULL)
-    expect_is(huntley$results, class = "data.frame", info = NULL, label = NULL)
-    expect_is(huntley$data, class = "data.frame", info = NULL, label = NULL)
-    expect_is(huntley$Ln, class = "numeric", info = NULL, label = NULL)
-    expect_is(huntley$fits, class = "list", info = NULL, label = NULL)
+  expect_s4_class(huntley, class = "RLum.Results")
+  expect_s3_class(huntley$results, class = "data.frame")
+  expect_s3_class(huntley$data, class = "data.frame")
+  expect_type(huntley$Ln, "double")
+  expect_type(huntley$fits, "list")
 
 })
 

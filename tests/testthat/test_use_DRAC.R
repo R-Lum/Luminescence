@@ -1,8 +1,7 @@
-context("use_DRAC")
-
 ##Full check
 test_that("Test DRAC", {
-  skip_on_cran()
+  testthat::skip_on_cran()
+  local_edition(3)
 
  ##use manuel example
  ##create template
@@ -43,6 +42,6 @@ test_that("Test DRAC", {
 
  ## print method for DRAC.highlights
  expect_output(print(output$DRAC$highlights), regexp = "TO:GP = errAge")
- 
+
 })
 

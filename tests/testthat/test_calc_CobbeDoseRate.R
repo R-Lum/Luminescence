@@ -1,7 +1,6 @@
-context("calc_CobbleDoseRate")
-
 test_that("basic checks", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ## simple run with example data
   data("ExampleData.CobbleData", envir = environment())
