@@ -40,6 +40,7 @@
 #'
 #' - `poisson`
 #' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k}
+#'
 #' - `non-poisson`
 #' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
 #'
@@ -61,7 +62,7 @@
 #' vector with the limits for the signal integral.
 #'
 #' @param signal.integral.Tx [vector] (*optional*):
-#' vector with the limits for the signal integral for the Tx-curve. If nothing is provided the
+#' vector with the limits for the signal integral for the `Tx`-curve. If nothing is provided the
 #' value from `signal.integral` is used.
 #'
 #' @param background.integral [vector] (**required**):
@@ -178,8 +179,6 @@ calc_OSLLxTxRatio <- function(
 
   ##--------------------------------------------------------------------------##
   ##(1) - integrity checks
-
-
   if(!is.null(Tx.data)){
 
     ##(a) - check data type
@@ -189,13 +188,10 @@ calc_OSLLxTxRatio <- function(
 
     ##(b) - test if data.type is valid in general
     if(is(Lx.data)[1] == "RLum.Data.Curve"){
-
       Lx.data <- as(Lx.data, "data.frame")
       Tx.data <- as(Tx.data, "data.frame")
 
-
     }else{
-
       ##go further
       if((is(Lx.data)[1] != "data.frame" &
           is(Lx.data)[1] != "numeric") &
@@ -278,8 +274,6 @@ calc_OSLLxTxRatio <- function(
 
   }
 
-
-
   ##check sigmab
   if (!is.null(sigmab)) {
       if (!is(sigmab, "numeric")) {
@@ -290,8 +284,6 @@ calc_OSLLxTxRatio <- function(
         stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.", call. = FALSE)
       }
   }
-
-
 
   ##--------------------------------------------------------------------------##
   ##(2) - read data and produce background subtracted values
@@ -337,7 +329,6 @@ calc_OSLLxTxRatio <- function(
 
   TnTx <- (Tx.signal-Tx.background)
 
-
   ##--------------------------------------------------------------------------##
   ##(3)
   ## calculate Lx/Tx Errors according Galbraith (2002) and the personal
@@ -351,7 +342,6 @@ calc_OSLLxTxRatio <- function(
   Y.0_TnTx <- Tx.signal
   Y.1 <- sum(Lx.curve[background.integral])
   Y.1_TnTx <- sum(Tx.curve[background.integral.Tx])
-
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
@@ -371,9 +361,7 @@ calc_OSLLxTxRatio <- function(
     sigmab.LnLx <- abs(var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean
     ##therefore here absolute values are given
 
-
   }else{
-
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m < 25) {
@@ -432,10 +420,10 @@ calc_OSLLxTxRatio <- function(
 
   ##(c)
   ## Calculate relative error of the background subtracted signal
-  ## according to Galbratith (2002), equation (6) with changes
+  ## according to Galbraith (2002), equation (6) with changes
   ## from Galbraith (2014), equation 6
   ## Discussion with Rex Galbraith via e-mail (2014-02-27):
-  ## Equation 6 is approriate to be implemented as standard
+  ## Equation 6 is appropriate to be implemented as standard
 
   if(background.count.distribution == "poisson"){
 
@@ -531,6 +519,5 @@ calc_OSLLxTxRatio <- function(
     )
 
   invisible(temp.return)
-
 }
 
