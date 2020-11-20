@@ -99,7 +99,7 @@ with the parameters \eqn{\sigma} (peak width) and \eqn{\mu} (peak centre) and \e
 
 \strong{Start parameter estimation and fitting algorithm}
 
-The spectrum deconvolution consits of the following steps:
+The spectrum deconvolution consists of the following steps:
 \enumerate{
 \item Peak finding \cr
 \item Start parameter estimation \cr
@@ -114,7 +114,7 @@ For the use in this context, the algorithm has been further modified to scale on
 input data resolution (cv source code).\cr
 
 The start parameter estimation uses random sampling from a range of meaningful parameters
-and repeats the fitting until 100 sucessful fits have been produced or the set \code{max.runs} value
+and repeats the fitting until 100 successful fits have been produced or the set \code{max.runs} value
 is exceeded.
 
 Currently the best fit is the one with the lowest number for squared residuals.
@@ -130,7 +130,7 @@ the searching stops \cr
 }
 }
 \note{
-Beta version, not uet recommended for productive usage
+Beta version, not recommended for productive usage
 }
 \section{Function version}{
  0.1.0
@@ -159,7 +159,7 @@ results <- fit_EmissionSpectra(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -170,6 +170,6 @@ Kreutzer, S., 2020. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvo
 \link{convert_Wavelength2Energy}, \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geograrphy & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
