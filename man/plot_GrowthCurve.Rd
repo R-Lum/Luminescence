@@ -27,8 +27,8 @@ plot_GrowthCurve(
 }
 \arguments{
 \item{sample}{\link{data.frame} (\strong{required}):
-data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx.
-The column for the test dose response is optional, but requires 'TnTx' as
+data frame with three columns for \code{x=Dose},\code{y=LxTx},\code{z=LxTx.Error}, \code{y1=TnTx}.
+The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.}
 
@@ -43,7 +43,7 @@ selects calculation mode of the function.
 \item \code{"alternate"} calculates no De and just fits the data points.
 }
 
-Please note that for option \code{"regenrative"} the first point is considered
+Please note that for option \code{"regenerative"} the first point is considered
 as natural dose}
 
 \item{fit.method}{\link{character} (\emph{with default}):
@@ -138,7 +138,7 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 \description{
 A dose response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
-extraxpolation to calculate the equivalent dose.
+extrapolation to calculate the equivalent dose.
 }
 \details{
 \strong{Fitting methods}
@@ -205,7 +205,7 @@ Each error estimation is done with the function of the chosen fitting method.
 
 \strong{Subtitle information}
 
-To avoid plotting the subtitle information, provide an empty user mtext
+To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
@@ -300,7 +300,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

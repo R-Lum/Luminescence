@@ -288,9 +288,15 @@ error.list <- list()
          call. = FALSE)
   }
 
-      ##build signal and background integrals
-      signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
-      background.integral <- c(background.integral.min[1]:background.integral.max[1])
+  ##skip all those tests if signal integral is NA
+  if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
+    signal.integral <- background.integral <- NA
+    signal.integral.Tx <- background.integral.Tx <- NULL
+
+  } else {
+  ##build signal and background integrals
+  signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
+  background.integral <- c(background.integral.min[1]:background.integral.max[1])
 
         ##account for the case that Lx and Tx integral differ
         if (length(signal.integral.min) == 2 &
@@ -322,13 +328,13 @@ error.list <- list()
 
       if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
         background.integral.Tx <- background.integral
-
         warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
       }
 
-  ##INTEGRAL LIMITS
-  if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
-    stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not of type integer!",  call. = FALSE)
+    ##INTEGRAL LIMITS
+    if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
+      stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not of type integer!",  call. = FALSE)
+    }
   }
 
   ## try to extract the correct curves for the sequence based on allowed curve types and
@@ -430,7 +436,7 @@ error.list <- list()
   if (length(error.list) == 0) {
 
     ##check background integral
-    if (max(signal.integral) == min(signal.integral)) {
+    if (!is.na(signal.integral) && max(signal.integral) == min(signal.integral)) {
       signal.integral <-
         c(min(signal.integral) : (max(signal.integral) + 1))
 
@@ -439,13 +445,13 @@ error.list <- list()
     }
 
     ##background integral should not be longer than curve channel length
-    if (max(background.integral) == min(background.integral)) {
+    if (!is.na(background.integral) && max(background.integral) == min(background.integral)) {
       background.integral <-
         c((min(background.integral) - 1) : max(background.integral))
 
     }
 
-    if (max(background.integral) > temp.matrix.length[1]) {
+    if (!is.na(background.integral) && max(background.integral) > temp.matrix.length[1]) {
       background.integral <-
           c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
 
@@ -463,7 +469,6 @@ error.list <- list()
 
     ##Do the same for the Tx-if set
     if (!is.null(background.integral.Tx)) {
-
       if (max(background.integral.Tx) == min(background.integral.Tx)) {
         background.integral.Tx <-
           c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
@@ -514,7 +519,6 @@ error.list <- list()
     ##Note: we do not check anymore whether the sequence makes sense.
     TL.Curves.ID.Lx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Lx - 1)]
     TL.Curves.ID.Tx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Tx - 1)]
-
 
 # Calculate LnLxTnTx values  --------------------------------------------------
     ##calculate LxTx values using external function
