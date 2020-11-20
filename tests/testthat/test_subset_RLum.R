@@ -1,9 +1,7 @@
-context("subset_RLum")
-
-
 # RLum.Analysis -----------------------------------------------------------
 test_that("subset RLum.Analysis", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   data("ExampleData.RLum.Analysis")
   temp <- IRSAR.RF.Data
@@ -20,13 +18,13 @@ test_that("subset RLum.Analysis", {
   expect_null(subset(temp, recordType == "xx"))
 
   ### valid
-  expect_is(subset(temp, recordType == "RF"), class = "RLum.Analysis")
-  expect_is(subset(temp, recordType == "RF")[[1]], class = "RLum.Data.Curve")
+  expect_s4_class(subset(temp, recordType == "RF"), class = "RLum.Analysis")
+  expect_s4_class(subset(temp, recordType == "RF")[[1]], class = "RLum.Data.Curve")
   expect_length(subset(temp, recordType == "RF"), n = length(temp))
 
   ## get_RLum(<obj>, subset = (<condition>))
-  expect_is(get_RLum(temp, subset = recordType == "RF"), class = "RLum.Analysis")
-  expect_is(get_RLum(temp, subset = recordType == "RF")[[1]], class = "RLum.Data.Curve")
+  expect_s4_class(get_RLum(temp, subset = recordType == "RF"), class = "RLum.Analysis")
+  expect_s4_class(get_RLum(temp, subset = recordType == "RF")[[1]], class = "RLum.Data.Curve")
   expect_length(get_RLum(temp, subset = recordType == "RF"), n = length(temp))
 
 })

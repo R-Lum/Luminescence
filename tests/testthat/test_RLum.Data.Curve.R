@@ -1,7 +1,6 @@
-context("RLum.Data.Curve")
-
 test_that("check class", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##set empty curve object and show it
   expect_output(show(set_RLum(class = "RLum.Data.Curve")))

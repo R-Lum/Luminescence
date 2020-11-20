@@ -1,6 +1,6 @@
 ##Full check
 test_that("Check template creation ", {
-  skip_on_cran()
+  testthat::skip_on_cran()
   local_edition(3)
 
   ## test output class

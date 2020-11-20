@@ -1,7 +1,6 @@
-context("Test plot_ROI")
-
 test_that("Complete test", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##create suitable dataset
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")

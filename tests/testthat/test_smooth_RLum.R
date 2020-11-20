@@ -1,5 +1,3 @@
-context("smooth_RLum")
-
 data(ExampleData.CW_OSL_Curve, envir = environment())
 temp <-
   set_RLum(
@@ -13,17 +11,18 @@ temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##standard tests
-  expect_is(temp, class = "RLum.Data.Curve", info = NULL, label = NULL)
-  expect_is(smooth_RLum(temp), class = "RLum.Data.Curve", info = NULL, label = NULL)
+  expect_s4_class(temp, class = "RLum.Data.Curve")
+  expect_s4_class(smooth_RLum(temp), class = "RLum.Data.Curve")
 
   ##test on a list
     ##RLum list
-    expect_is(smooth_RLum(list(temp, temp)), "list")
+    expect_type(smooth_RLum(list(temp, temp)), "list")
 
     ##normal list
-    expect_is(smooth_RLum(list(a = 1, b = 2)), "list")
+    expect_type(smooth_RLum(list(a = 1, b = 2)), "list")
 
   ##test on an RLum.Analysis-object
   expect_s4_class(smooth_RLum(temp_analysis), "RLum.Analysis")
@@ -32,7 +31,9 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
  testthat::skip_on_cran()
- expect_equivalent(round(mean(smooth_RLum(temp, k = 5)[,2], na.rm = TRUE), 0), 100)
- expect_equivalent(round(mean(smooth_RLum(temp, k = 10)[,2], na.rm = TRUE), 0), 85)
+  local_edition(3)
+
+ expect_equal(round(mean(smooth_RLum(temp, k = 5)[,2], na.rm = TRUE), 0), 100)
+ expect_equal(round(mean(smooth_RLum(temp, k = 10)[,2], na.rm = TRUE), 0), 85)
 
 })
