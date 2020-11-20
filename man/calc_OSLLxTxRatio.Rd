@@ -31,7 +31,7 @@ is calculated.}
 vector with the limits for the signal integral.}
 
 \item{signal.integral.Tx}{\link{vector} (\emph{optional}):
-vector with the limits for the signal integral for the Tx-curve. If nothing is provided the
+vector with the limits for the signal integral for the \code{Tx}-curve. If nothing is provided the
 value from \code{signal.integral} is used.}
 
 \item{background.integral}{\link{vector} (\strong{required}):
@@ -165,7 +165,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
