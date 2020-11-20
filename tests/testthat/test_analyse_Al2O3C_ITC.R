@@ -1,8 +1,7 @@
-context("analyse_Al2O3_ITC")
-
 ##Full check
 test_that("Full check", {
   skip_on_cran()
+  local_edition(3)
 
    ##check stops
    ##RLum-object
@@ -19,10 +18,7 @@ test_that("Full check", {
    data(ExampleData.Al2O3C, envir = environment())
 
    ##run analysis
-   expect_is(analyse_Al2O3C_ITC(data_ITC), "RLum.Results")
-
-
-
+   expect_s4_class(analyse_Al2O3C_ITC(data_ITC), "RLum.Results")
 
 })
 

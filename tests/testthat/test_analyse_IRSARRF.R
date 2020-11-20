@@ -1,7 +1,6 @@
-context("analyse_IRSAR.RF")
-
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   set.seed(1)
   data(ExampleData.RLum.Analysis, envir = environment())
@@ -22,10 +21,9 @@ test_that("check class and length of output", {
   expect_equal(is(results_fit), c("RLum.Results", "RLum"))
   expect_equal(length(results_fit), 5)
   expect_equal(length(results_slide), 5)
-  expect_is(results_fit$fit, class = "nls", info = NULL, label = NULL)
-  expect_is(results_slide$fit, class = "nls", info = NULL, label = NULL)
+  expect_s3_class(results_fit$fit, class = "nls")
+  expect_s3_class(results_slide$fit, class = "nls")
   expect_length(results_slide$slide, 10)
-
 
   expect_equal(results_fit$data$DE, 623.25)
   expect_equal(results_fit$data$DE.LOWER, 600.63)
@@ -37,6 +35,7 @@ test_that("check class and length of output", {
 
 test_that("test controlled chrash conditions", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##the sliding range should not exceed a certain value ... test it
   data(ExampleData.RLum.Analysis, envir = environment())
@@ -51,22 +50,26 @@ test_that("test controlled chrash conditions", {
     ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
 
 
-
 })
 
 test_that("test support for IR-RF data", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ## get needed data
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
   temp <- read_RF2R(file)
 
-  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1)), "RLum.Results")
+  expect_s4_class(
+    suppressWarnings(
+      analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE", plot_reduced = TRUE, n.MC = 1)),
+    "RLum.Results")
 
 })
 
 test_that("test edge cases", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   data(ExampleData.RLum.Analysis, envir = environment())
   RF_nat <- RF_reg <- IRSAR.RF.Data[[2]]
@@ -85,5 +88,3 @@ test_that("test edge cases", {
   ), "RLum.Results")
 
 })
-
-
