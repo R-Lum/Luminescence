@@ -66,29 +66,25 @@ test_that("Test the basic plot functionality", {
 
   ##test arguments
   ##ylim - warning
-  ##TODO
-  # expect_warning(plot_RLum.Analysis(
-  #   temp,
-  #   subset = list(recordType = "TL"),
-  #   combine = FALSE,
-  #   #norm = TRUE,
-  #   ylim = c(1,200),
-  #   xlim = c(1,100),
-  #   abline = list(v = c(110))
-  # ))
+  #TODO
+  expect_warning(Luminescence:::.warningCatcher(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "TL"),
+    combine = FALSE,
+    #norm = TRUE,
+    ylim = c(1,200),
+    xlim = c(1,100),
+    abline = list(v = c(110))
+  )))
 
   ##test arguments
-  ##ylim - warning
-  ##TODO
-  # expect_warning(plot_RLum.Analysis(
-  #   temp,
-  #   subset = list(recordType = "TL"),
-  #   combine = FALSE,
-  #   norm = TRUE,
-  #   log = "y"
-  # ))
-
-
-
+  #ylim - warning
+  expect_warning(Luminescence:::.warningCatcher(plot_RLum.Analysis(
+    temp,
+    subset = list(recordType = "TL"),
+    combine = FALSE,
+    norm = TRUE,
+    log = "y"
+  )))
 
 })
