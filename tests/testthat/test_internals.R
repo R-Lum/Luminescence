@@ -3,8 +3,7 @@ test_that("Test internals", {
   local_edition(3)
 
   # .warningCatcher() ---------------------------------------------------------------------------
-  #TODO
-  #expect_warning(Luminescence:::.warningCatcher(for(i in 1:5){warning("test")}))
+  expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) warning("test")))
 
   # .smoothing ----------------------------------------------------------------------------------
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))
