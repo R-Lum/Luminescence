@@ -33,7 +33,7 @@ integrals. If this happens, sum curves are taken. This option enables a bunch of
 possibilities to test more experimental protocols without modifying the function.
 * The identification of the allowed curves was further improved to cover cases 
 where users want to provide experimental OSL curves. Allowed are combinations 
-where `OSL` with additional letters `[a-zA-Z]`. Everythingelse is, as before, ignored. 
+where `OSL` with additional letters `[a-zA-Z]`. Everything else is, as before, ignored. 
 
 #### `calc_OSLLxTxRatio()`
 * The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
