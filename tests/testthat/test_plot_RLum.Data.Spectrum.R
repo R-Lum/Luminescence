@@ -58,8 +58,7 @@ test_that("test pure success of the plotting without warning or error", {
       bg.spectrum = bg.spectrum,
       bin.rows = 10,
       bin.cols = 1
-    ), "[plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.",
-    fixed = TRUE)
+    ))
 
     ##test energy axis
     expect_silent(plot_RLum.Data.Spectrum(
