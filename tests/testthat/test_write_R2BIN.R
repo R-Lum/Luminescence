@@ -1,7 +1,6 @@
-context("write_R2BIN")
-
 test_that("write to empty connection", {
   testthat::skip_on_cran()
+  local_edition(3)
 
 #Unit test for write_BIN2R() function
 
@@ -49,7 +48,7 @@ data(ExampleData.BINfileData, envir = environment())
 
   ##catch errors
   expect_error(write_R2BIN(object = "a", file = ""), "[write_R2BIN()] Input object is not of type Risoe.BINfileData!", fixed = TRUE)
-  expect_error(write_R2BIN(object = set_Risoe.BINfileData(), file = ""))
+  expect_error(suppressWarnings(write_R2BIN(object = set_Risoe.BINfileData(), file = "")))
 
 })
 
