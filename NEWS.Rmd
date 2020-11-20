@@ -29,9 +29,16 @@ some of the non-support curves could slip through; corrected.
 * If the input records were not of type `OSL`, `IRSL` or `POSL` the function was supposed
 to return `NULL`, but crashed instead; fixed.
 
-### `read_Daybreak()`
+#### `calc_OSLLxTxRatio()`
+* The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
+set to `NA` the sum of the count values is used. This is useful if the users wants to process
+component data that were already extracted and do not need anymore integral limits. 
+* The output of the function is not anymore invisible, but a normal return. This should have
+no further effect. 
+
+#### `read_Daybreak()`
 * The function threw a lot of warnings for the `*.DAT` import after `R >= 4.0.0` 
-started to be more strict about embedded nul bytes within a character. The code
+started to be more strict about embedded null bytes within a character. The code
 was updated to a newer version and no further warnings is shown.
 * Under particular circumstances the function left open connections behind; fixed.
 
