@@ -349,7 +349,7 @@ error.list <- list()
   ## now remove all non-allowed curves
   CWcurve.type <- regmatches(
     x = names(object),
-    m = regexpr("(OSL[^\\s_-]*|IRSL[^\\s_-]*|POSL[^\\s_-]*)", names(object), perl = TRUE))
+    m = regexpr("(OSL[a-zA-Z]*|IRSL[a-zA-Z]*|POSL[a-zA-Z]*)", names(object), perl = TRUE))
 
   if(length(CWcurve.type) == 0) {
     try(stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
