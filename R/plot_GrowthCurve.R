@@ -1,8 +1,11 @@
-#' Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
+#' @title Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
 #'
+#' @description
 #' A dose response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol. The function supports interpolation and
-#' extraxpolation to calculate the equivalent dose.
+#' extrapolation to calculate the equivalent dose.
+#'
+#' @details
 #'
 #' **Fitting methods**
 #'
@@ -68,12 +71,12 @@
 #'
 #' **Subtitle information**
 #'
-#' To avoid plotting the subtitle information, provide an empty user mtext
+#' To avoid plotting the subtitle information, provide an empty user `mtext`
 #' `mtext = ""`. To plot any other subtitle text, use `mtext`.
 #'
 #' @param sample [data.frame] (**required**):
-#' data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx.
-#' The column for the test dose response is optional, but requires 'TnTx' as
+#' data frame with three columns for `x=Dose`,`y=LxTx`,`z=LxTx.Error`, `y1=TnTx`.
+#' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.
 #'
@@ -86,7 +89,7 @@
 #' - `"extrapolation"` calculates the De by extrapolation and
 #' - `"alternate"` calculates no De and just fits the data points.
 #'
-#' Please note that for option `"regenrative"` the first point is considered
+#' Please note that for option `"regenerative"` the first point is considered
 #' as natural dose
 #'
 #' @param fit.method [character] (*with default*):
