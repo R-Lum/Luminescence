@@ -21,7 +21,7 @@
 #'
 #'**Start parameter estimation and fitting algorithm**
 #'
-#'The spectrum deconvolution consits of the following steps:
+#'The spectrum deconvolution consists of the following steps:
 #'
 #'1. Peak finding \cr
 #'2. Start parameter estimation \cr
@@ -35,7 +35,7 @@
 #'input data resolution (cv source code).\cr
 #'
 #'The start parameter estimation uses random sampling from a range of meaningful parameters
-#'and repeats the fitting until 100 sucessful fits have been produced or the set `max.runs` value
+#'and repeats the fitting until 100 successful fits have been produced or the set `max.runs` value
 #'is exceeded.
 #'
 #'Currently the best fit is the one with the lowest number for squared residuals.
@@ -114,11 +114,11 @@
 #' showing the raw data and indicating the peaks detected for the start
 #' parameter estimation.
 #'
-#'@note Beta version, not uet recommended for productive usage
+#'@note Beta version, not recommended for productive usage
 #'
 #'@section Function version: 0.1.0
 #'
-#'@author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#'@author Sebastian Kreutzer, Geograrphy & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
 #'[convert_Wavelength2Energy], [minpack.lm::nls.lm]
