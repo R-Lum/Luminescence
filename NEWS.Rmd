@@ -82,7 +82,7 @@ function `calc_CobbleDoseRate()`. Contributed by Svenja Riedesel and Martin Autz
 The corresponding function `scale_GammaDose()` was updated.
 
 * `BaseDateSet.GrainSizeAttenuation.rda`: Grain size correction data for beta-dose 
-rates published by Guerin et al. (2012). Dataset contributed by Svenja Riedesel and Martin Autzen.
+rates published by Guérin et al. (2012). Dataset contributed by Svenja Riedesel and Martin Autzen.
 
 ### Bugfixes and changes
 
