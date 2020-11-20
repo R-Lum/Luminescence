@@ -95,16 +95,16 @@
     w_table <- table(as.character(unlist(warning_collector)))
     w_table_names <- names(w_table)
 
-    for (w in 1:length(w_table)) {
-      warning(paste(
-        w_table_names[w],
-        "This warning occurred",
-        w_table[w],
-        "times!"
-      ),
+    warning(paste0(
+       "(",
+        1:length(w_table),
+        ") ",
+        w_table_names,
+        ": This warning occurred ",
+        w_table,
+        " times!"
+      ,collapse = "\n"),
       call. = FALSE)
-
-    }
 
   }
   return(results)
@@ -543,4 +543,3 @@ fancy_scientific <- function(l) {
 
   return(args)
 }
-
