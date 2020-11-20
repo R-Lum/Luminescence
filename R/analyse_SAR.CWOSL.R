@@ -63,22 +63,29 @@
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the minimum signal integral for the `Tx` curve.
+#' as the minimum signal integral for the `Tx` curve. Can be set to `NA`, in this
+#' case no integrals are taken into account.
 #'
 #' @param signal.integral.max [integer] (**required**):
 #' upper bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the maximum signal integral for the `Tx` curve.
+#' as the maximum signal integral for the `Tx` curve. Can be set to `NA`, in this
+#' case no integrals are taken into account.
+#'
 #'
 #' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the minimum background integral for the `Tx` curve.
+#' as the minimum background integral for the `Tx` curve. Can be set to `NA`, in this
+#' case no integrals are taken into account.
+#'
 #'
 #' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
-#' as the maximum background integral for the `Tx` curve.
+#' as the maximum background integral for the `Tx` curve. Can be set to `NA`, in this
+#' case no integrals are taken into account.
+#'
 #'
 #' @param rejection.criteria [list] (*with default*):
 #' provide a named list and set rejection criteria in **percentage** for further calculation. Can be a [list] in
@@ -1613,4 +1620,3 @@ error.list <- list()
   }
 
 }
-

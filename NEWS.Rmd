@@ -28,6 +28,9 @@ behaviour of the function, but it allowed use to greatly simplify the underlying
 some of the non-support curves could slip through; corrected.
 * If the input records were not of type `OSL`, `IRSL` or `POSL` the function was supposed
 to return `NULL`, but crashed instead; fixed.
+* As implemented by `calc_OSLLxTxRatio()` the function now supports `NA` values for the 
+integrals. If this happens, sum curves are taken. This option enables a bunch of new
+possibilities to test more experimental protocols without modifying the function.
 
 #### `calc_OSLLxTxRatio()`
 * The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
