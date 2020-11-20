@@ -242,7 +242,7 @@ calc_OSLLxTxRatio <- function(
     LnLx <- sum(Lx.data[[2]])
     TnTx <- sum(Tx.data[[2]])
 
-    LnLxTnTx <- cbind(
+    LnLxTnTx <- data.frame(
       LnLx = LnLx,
       LnLx.BG = 0,
       TnTx = TnTx,
