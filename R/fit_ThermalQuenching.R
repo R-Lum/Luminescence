@@ -11,12 +11,12 @@
 #' \deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
 #'
 #' *W* is the energy depth in eV and *C* is dimensionless constant. *A* and *c* are used to
-#' adjust the curve for the given signal. *k* is the Blotzmann in eV/K and *x* is the absolute
+#' adjust the curve for the given signal. *k* is the Boltzmann in eV/K and *x* is the absolute
 #' temperature in K.
 #'
 #' **Error estimation**\cr
 #'
-#' The error estimation is done be varying the input parameters using the given uncertanties in
+#' The error estimation is done be varying the input parameters using the given uncertainties in
 #' a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
 #'
 #' **start_param** \cr
@@ -40,16 +40,16 @@
 #' `trace`   \tab [logical] \tab enables/disables progression trace for [minpack.lm::nlsLM]\cr
 #'  `weights` \tab [numeric] \tab option to provide own weights for the fitting, the length of this
 #'  vector needs to be equal to the number for rows of the input `data.frame`. If set to `NULL` no weights
-#'  are applied. The weights are defined by the thrid column of the input `data.frame`.
+#'  are applied. The weights are defined by the third column of the input `data.frame`.
 #' }
 #'
 #' @param data [data.frame] (**required**): input data with three columns, the first column contains
-#' temperature values in deg. C, colmns 2 and 3 the dependent values with its error
+#' temperature values in deg. C, columns 2 and 3 the dependent values with its error
 #'
 #' @param start_param [list] (optional): option to provide own start parameters for the fitting, see
-#' detalis
+#' details
 #'
-#' @param method_control [list] (optianl): further options to fine tune the fitting, see details for
+#' @param method_control [list] (optional): further options to fine tune the fitting, see details for
 #' further information
 #'
 #' @param n.MC [numeric] (*with default*): number of Monte Carlo runs for the error estimation. If `n.MC` is
@@ -101,7 +101,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR5060, CNRS - Université Bordeaux Montaigne (Frange)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @references
 #'
