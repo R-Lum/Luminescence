@@ -515,13 +515,18 @@ fancy_scientific <- function(l) {
   def <- sys.function(sys.parent())
   call <- sys.call(sys.parent())
   args_new <- as.list(match.call(def, call, FALSE))[-c(1:2)]
+  args_default <- as.list(args(as.character(call[[1]])))
   args <- modifyList(
-    x = as.list(args(as.character(call[[1]])))[-1],
+    x = args_default[-1],
     val = args_new,
     keep.null = TRUE)
 
   ##expand all arguments
   for(i in 1:length(args))
+    if(class(args[[i]])[1] == "name")
+      stop(paste0("[",call[[1]],"()]: Argument ",
+                  names(args[i]), " missing; with no default!"), call. = FALSE)
+
     if(class(args[[i]])[1] == "list"){
       args[[i]] <- rep(
         as.list(args[[i]]), length = len[1])
