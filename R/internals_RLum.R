@@ -523,7 +523,7 @@ fancy_scientific <- function(l) {
 
   ##expand all arguments
   for(i in 1:length(args))
-    if(class(args[[i]])[1] == "name")
+    if(class(args[[i]])[1] == "name" && names(args[i]) != "...")
       stop(paste0("[",call[[1]],"()]: Argument ",
                   names(args[i]), " missing; with no default!"), call. = FALSE)
 
