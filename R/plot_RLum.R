@@ -20,7 +20,8 @@
 #' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`. Optional a [list] containing objects of
 #' class [RLum-class] can be provided. In this case the function tries to plot
-#' every object in this list according to its `RLum` class.
+#' every object in this list according to its `RLum` class. Non-RLum objects are
+#' removed.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions. The only argument that is supported directly is `main`
@@ -32,7 +33,7 @@
 #'
 #' @note The provided plot output depends on the input object.
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.4
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -46,7 +47,6 @@
 #' @keywords dplot
 #'
 #' @examples
-#'
 #' #load Example data
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #'
@@ -56,7 +56,6 @@
 #' #plot RLum object
 #' plot_RLum(temp)
 #'
-#'
 #' @md
 #' @export
 plot_RLum<- function(
@@ -64,9 +63,8 @@ plot_RLum<- function(
   ...
 ){
 
-  # Define dispatcher function ----------------------------------------------------------
-
-  ##check if object is of class RLum
+# Define dispatcher function ----------------------------------------------------------
+##check if object is of class RLum
   RLum.dispatcher <- function(object, ...) {
     if (inherits(object, "RLum")) {
 
@@ -106,73 +104,53 @@ plot_RLum<- function(
 
 
   # Run dispatcher ------------------------------------------------------------------------------
-
   ##call for the list, if not just proceed as normal
   if(class(object) == "list") {
 
     ##(0) we might have plenty of sublists before we have the list containing only
     ##RLum-objects
     object <- .unlist_RLum(object)
-
-    ##(1) get rid of objects which are not RLum objects to avoid errors
-    object.cleaned <-
-      object[sapply(object, inherits, what = "RLum")]
-
-    ##(1.1) place warning message
-    if (length(object) > length(object.cleaned)) {
-      warning(paste0(
-        length(object) - length(object.cleaned)," non 'RLum' object(s) removed from list."
-      ))
-
-    }
+    object <- .rm_nonRLum(object)
 
     ##(2) check if empty, if empty do nothing ...
-    if (length(object.cleaned) != 0) {
-
-      ## If we iterate over a list, this might be extremly useful to have different plot titles
+    if (length(object) != 0) {
+      ## If we iterate over a list, this might be extremely useful to have different plot titles
       if("main" %in% names(list(...))){
         if(is(list(...)$main,"list")){
-          main.list <- rep(list(...)$main, length = length(object.cleaned))
+          main.list <- rep(list(...)$main, length = length(object))
 
         }
       }
 
       ##set also mtext, but in a different way
       if(!"mtext" %in% names(list(...))){
-
-
         if(is(object[[1]], "RLum.Analysis")){
-          mtext <- paste("Record:", 1:length(object.cleaned))
+          mtext <- paste("Record:", 1:length(object))
 
         }else{
           mtext <- NULL
 
         }
       }else{
-        mtext <- rep(list(...)$mtext, length.out = length(object.cleaned))
+        mtext <- rep(list(...)$mtext, length.out = length(object))
 
       }
 
-
       if(exists("main.list")){
         ##dispatch objects
-        for (i in 1:length(object.cleaned)) {
+        for (i in 1:length(object)) {
           RLum.dispatcher(object = object[[i]],
                           main = main.list[[i]],
                           mtext = mtext[[i]],
                           ...)
         }
       }else{
-        for (i in 1:length(object.cleaned)) {
-
-
+        for (i in 1:length(object)) {
           RLum.dispatcher(object = object[[i]],
                           mtext = mtext[[i]],
                           ...)
         }
-
       }
-
     }
 
   }else{
@@ -180,6 +158,5 @@ plot_RLum<- function(
     RLum.dispatcher(object = object, ...)
 
   }
-
 }
 
