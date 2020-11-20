@@ -239,8 +239,8 @@ calc_OSLLxTxRatio <- function(
   # Alternate mode ----------------------------------------------------------
   if(any(is.na(c(signal.integral, background.integral)))){
     signal.integral <- background.integral <- NA
-    LnLx <- sum(Lx.data[[2]])
-    TnTx <- sum(Tx.data[[2]])
+    LnLx <- sum(Lx.data[,2])
+    TnTx <- sum(Tx.data[,2])
 
     LnLxTnTx <- data.frame(
       LnLx = LnLx,
