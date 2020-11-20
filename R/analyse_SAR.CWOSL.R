@@ -443,7 +443,8 @@ error.list <- list()
   if (length(error.list) == 0) {
 
     ##check background integral
-    if (!is.na(signal.integral) && max(signal.integral) == min(signal.integral)) {
+    if (!all(is.na(signal.integral)) &&
+        max(signal.integral) == min(signal.integral)) {
       signal.integral <-
         c(min(signal.integral) : (max(signal.integral) + 1))
 
@@ -452,13 +453,15 @@ error.list <- list()
     }
 
     ##background integral should not be longer than curve channel length
-    if (!is.na(background.integral) && max(background.integral) == min(background.integral)) {
+    if (!all(is.na(background.integral)) &&
+             max(background.integral) == min(background.integral)) {
       background.integral <-
         c((min(background.integral) - 1) : max(background.integral))
 
     }
 
-    if (!is.na(background.integral) && max(background.integral) > temp.matrix.length[1]) {
+    if (!all(is.na(background.integral)) &&
+        max(background.integral) > temp.matrix.length[1]) {
       background.integral <-
           c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
 
