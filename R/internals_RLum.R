@@ -522,20 +522,25 @@ fancy_scientific <- function(l) {
     keep.null = TRUE)
 
   ##expand all arguments
-  for(i in 1:length(args))
-    if(class(args[[i]])[1] == "name" && names(args[i]) != "...")
+  for(i in 1:length(args)){
+    if(class(args[[i]])[1] == "name" && names(args[i]) != "...") {
       stop(paste0("[",call[[1]],"()]: Argument ",
                   names(args[i]), " missing; with no default!"), call. = FALSE)
+    }
 
     if(class(args[[i]])[1] == "list"){
       args[[i]] <- rep(
         as.list(args[[i]]), length = len[1])
 
     } else {
+      if(names(args[i]) == "...") next
       args[[i]] <- rep(
         list(eval(args[[i]])), length = len[1])
 
     }
+
+  }
+
   return(args)
 }
 
