@@ -567,6 +567,10 @@ fancy_scientific <- function(l) {
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
+#' @references
+#' Hyndman, R.J., 1996. Computing and Graphing Highest Density Regions.
+#' The American Statistician 50, 120–8. doi:10.2307/2684423
+#'
 #' @examples
 #' x <- rnorm(100)
 #' .calc_HPDI(x)
