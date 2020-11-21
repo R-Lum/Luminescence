@@ -86,9 +86,18 @@
 #' as the maximum background integral for the `Tx` curve. Can be set to `NA`, in this
 #' case no integrals are taken into account.
 #'
+#' @param OSL.component [character] or [integer] (*optional*): an [integer] index
+#' or a [character] defining the signal component to be evaluated.
+#' Can be a [list] of [integer]s or strings (or mixed), If `object` is of type [list].
+#' It requires that the object was processed by `[OSLdecomposition::RLum.OSL_decomposition]`.
+#' This argument can either be the name of the OSL component assigned by
+#' `[OSLdecomposition::RLum.OSL_global_fitting]` or the index in the descending
+#' order of decay rates. Then `"1"` selects the fastest decaying component, `"2"`
+#' the second fastest and so on. `NULL` does not process any component.
 #'
 #' @param rejection.criteria [list] (*with default*):
-#' provide a named list and set rejection criteria in **percentage** for further calculation. Can be a [list] in
+#' provide a named list and set rejection criteria in **percentage**
+#' for further calculation. Can be a [list] in
 #' a [list], if `object` is of type [list]
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
@@ -118,18 +127,17 @@
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
-#'@param onlyLxTxTable [logical] (with default): If `TRUE` the dose response
-#'curve fitting and plotting is skipped.
-#'This allows to get hands on the `Lx/Tx` table for large datasets
-#'without the need for a curve fitting.
+#' @param onlyLxTxTable [logical] (with default): If `TRUE` the dose response
+#' curve fitting and plotting is skipped.
+#' This allows to get hands on the `Lx/Tx` table for large datasets
+#' without the need for a curve fitting.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
 #' (supported: `background.count.distribution`, `sigmab`, `sig0`).
 #' **Please note** that if you consider to use the early light subtraction
-#'  method you should provide your own `sigmab` value!
-#'
-#'
+#' method you should provide your own `sigmab` value!
+#
 #' @return
 #' A plot (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
@@ -137,11 +145,11 @@
 #' \item{data}{[data.frame] containing De-values, De-error and further parameters}
 #' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal,
 #' background counts and the dose points}
-#' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+#' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria.
+#' `NA` is produced if no R0 dose point exists.}
 #' \item{Formula}{[formula] formula that have been used for the growth curve fitting }
 #'
 #' The output should be accessed using the function [get_RLum].
-#'
 #'
 #' @note
 #' This function must not be mixed up with the function
@@ -152,14 +160,12 @@
 #'
 #' @section Function version: 0.8.2
 #'
-#' @author
-#' Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
 #'
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
-#'
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -220,6 +226,7 @@ analyse_SAR.CWOSL<- function(
   signal.integral.max = 2,
   background.integral.min,
   background.integral.max,
+  OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
   mtext.outer = "",
@@ -1623,3 +1630,13 @@ error.list <- list()
   }
 
 }
+
+FB_fast_De <- analyse_SAR.CWOSL(
+  FB_decomposed,
+  signal.integral.min = NA,
+  signal.integral.max = NA,
+  background.integral.min = NA,
+  background.integral.max = NA,
+  OSL.component = 1
+
+)
