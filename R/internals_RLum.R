@@ -543,3 +543,67 @@ fancy_scientific <- function(l) {
 
   return(args)
 }
+
+#++++++++++++++++++++++++++++++
+#+ .calc_HPDI                +
+#++++++++++++++++++++++++++++++
+#' @title Calculates Highest Probability Density Interval
+#'
+#' @description The idea of this function is to provide a convenient
+#' method to calculate the highest probability density intervals for
+#' sets of data. This function might be exported later
+#' Currently it follows roughly the idea of what is implemented
+#' in `code` and `hdrcde`. If the results has more than one peak,
+#' also this is shown, therefore the output is a matrix
+#'
+#' @param object [numeric] (**required**): numeric object with input data
+#'
+#' @param prob [numeric] (*with default*): sets aimed probability interval
+#'
+#' @param plot [logical] (*with default*): enables/disables additional control
+#' plot
+#'
+#' @param ... further arguments passed to [stats::density]
+#'
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'
+#' @examples
+#' x <- rnorm(100)
+#' .calc_HPDI(x)
+#'
+#' @return [matrix] with HPDI
+#'
+#' @md
+#' @noRd
+.calc_HPDI <- function(object, prob = 0.95, plot = FALSE, ...){
+  ##estimate density
+  dens <- density(object, ...)
+  diff <- diff(dens$x[1:2])
+
+  ##calculate probabilities
+  m <- cbind(matrix(c(dens$x, dens$y), ncol = 2), dens$y * diff)
+  o <- order(m[, 3], decreasing = TRUE)
+  m_ind <- which(cumsum(m[o, 3]) <= prob)
+  thres <- min(m[o, 2][m_ind])
+
+  ##get peaks
+  peaks_id <- which(abs(diff((m[,2] - thres) > 0)) == 1)
+
+  ##calculate HPDI
+  HPDI <- matrix(m[peaks_id,1], ncol = 2)
+  colnames(HPDI) <- c("lower", "upper")
+  attr(HPDI, "Probabilty") <- prob
+
+  if(plot){
+    xy <- m[m_ind,c(1,2)]
+    plot(dens, main = "HPDI (control plot)")
+    abline(h = thres, lty = 2)
+    for(i in seq(1,length(peaks_id),2)) {
+      lines(x = m[peaks_id[i]:peaks_id[i + 1], 1],
+            y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
+    }
+
+  }
+
+  return(HPDI)
+}
