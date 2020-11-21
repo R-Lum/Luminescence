@@ -10,6 +10,7 @@ analyse_SAR.CWOSL(
   signal.integral.max = 2,
   background.integral.min,
   background.integral.max,
+  OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
   mtext.outer = "",
@@ -49,8 +50,18 @@ of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value 
 as the maximum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
 case no integrals are taken into account.}
 
+\item{OSL.component}{\link{character} or \link{integer} (\emph{optional}): an \link{integer} index
+or a \link{character} defining the signal component to be evaluated.
+Can be a \link{list} of \link{integer}s or strings (or mixed), If \code{object} is of type \link{list}.
+It requires that the object was processed by \verb{[OSLdecomposition::RLum.OSL_decomposition]}.
+This argument can either be the name of the OSL component assigned by
+\verb{[OSLdecomposition::RLum.OSL_global_fitting]} or the index in the descending
+order of decay rates. Then \code{"1"} selects the fastest decaying component, \code{"2"}
+the second fastest and so on. \code{NULL} does not process any component.}
+
 \item{rejection.criteria}{\link{list} (\emph{with default}):
-provide a named list and set rejection criteria in \strong{percentage} for further calculation. Can be a \link{list} in
+provide a named list and set rejection criteria in \strong{percentage}
+for further calculation. Can be a \link{list} in
 a \link{list}, if \code{object} is of type \link{list}
 
 Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
@@ -98,7 +109,8 @@ returned containing the following elements:
 \item{data}{\link{data.frame} containing De-values, De-error and further parameters}
 \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal,
 background counts and the dose points}
-\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria.
+\code{NA} is produced if no R0 dose point exists.}
 \item{Formula}{\link{formula} formula that have been used for the growth curve fitting }
 
 The output should be accessed using the function \link{get_RLum}.
@@ -207,7 +219,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-28. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -231,7 +243,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
