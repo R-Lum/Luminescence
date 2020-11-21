@@ -148,6 +148,18 @@ test_that("simple run", {
       verbose = FALSE
     ), regexp = "Input object is not of type 'RLum.Analysis'!")
 
+    ##check stop for OSL.components ... failing
+    expect_null(analyse_SAR.CWOSL(
+       object = object[[1]],
+       background.integral.min = 900,
+       background.integral.max = 1000,
+       dose.points = c(0,1,2),
+       fit.method = "LIN",
+       OSL.component = 1,
+       plot = FALSE,
+       verbose = FALSE
+     ))
+
    expect_error(analyse_SAR.CWOSL(
      object = object[[1]],
      background.integral.min = 900,

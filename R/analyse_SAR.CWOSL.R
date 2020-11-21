@@ -163,7 +163,6 @@
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
 #'
-#'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
 #'
@@ -263,7 +262,8 @@ if(is.list(object)){
       signal.integral.min = parm$signal.integral.min[[x]],
       signal.integral.max = parm$signal.integral.max[[x]],
       background.integral.min = parm$background.integral.min[[x]],
-      background.integral.max = parm$background.integral.max[[x]] ,
+      background.integral.max = parm$background.integral.max[[x]],
+      OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
@@ -538,21 +538,30 @@ error.list <- list()
     TL.Curves.ID.Tx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Tx - 1)]
 
 # Calculate LnLxTnTx values  --------------------------------------------------
-    ##calculate LxTx values using external function
-    LnLxTnTx <- lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
-      temp.LnLxTnTx <- get_RLum(
-        calc_OSLLxTxRatio(
-          Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
-          Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
-          signal.integral = signal.integral,
-          signal.integral.Tx = signal.integral.Tx,
-          background.integral = background.integral,
-          background.integral.Tx = background.integral.Tx,
-          background.count.distribution = background.count.distribution,
-          sigmab = sigmab,
-          sig0 = sig0
-        )
-      )
+  ##calculate LxTx values using external function
+  LnLxTnTx <- try(lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
+      if(!is.null(OSL.component)){
+       temp.LnLxTnTx <- get_RLum(
+          calc_OSLLxTxDecomposed(
+            Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
+            Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
+            OSL.component = OSL.component,
+            digits = 4,
+            sig0 = sig0))
+
+      } else {
+       temp.LnLxTnTx <- get_RLum(
+          calc_OSLLxTxRatio(
+            Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
+            Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
+            signal.integral = signal.integral,
+            signal.integral.Tx = signal.integral.Tx,
+            background.integral = background.integral,
+            background.integral.Tx = background.integral.Tx,
+            background.count.distribution = background.count.distribution,
+            sigmab = sigmab,
+            sig0 = sig0))
+      }
 
         ##grep dose
         if (exists("temp.irradiation") == FALSE) {
@@ -570,7 +579,16 @@ error.list <- list()
           temp.LnLxTnTx <- cbind(Dose = temp.Dose[x], temp.LnLxTnTx)
 
         }
-      })
+      }), silent = TRUE)
+
+    ##this is basically for the OSL.component case to avoid that everything
+    ##fails if something goes wrong therein
+    if(inherits(LnLxTnTx, "try-error")){
+      try(stop(
+        "[analyse_SAR.CWOSL()] Something went wrong while generating the LxTx-table. Return NULL.",
+         call. = FALSE))
+      return(NULL)
+    }
 
     ##combine
     LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
@@ -579,8 +597,8 @@ error.list <- list()
     ##overwrite dose point manually
     if (!is.null(dose.points)) {
       if (length(dose.points) != length(LnLxTnTx$Dose)) {
-        stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.", call. = FALSE)
-
+        stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.",
+           call. = FALSE)
       }
 
       LnLxTnTx$Dose <- dose.points
@@ -588,7 +606,8 @@ error.list <- list()
 
     ##check whether we have dose points at all
     if (is.null(dose.points) & anyNA(LnLxTnTx$Dose)) {
-      stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!")
+      stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!",
+           call. = FALSE)
 
     }
 
@@ -1230,7 +1249,6 @@ error.list <- list()
           list(...)
         ))
 
-
         ##if null
         if(is.null(temp.GC)){
           temp.GC <- data.frame(
@@ -1590,7 +1608,7 @@ error.list <- list()
 
 
     if (plot == TRUE && 8 %in% plot.single.sel) {
-      ##graphical represenation of IR-curve
+      ##graphical representation of IR-curve
       temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
       if(length(temp.IRSL) != 0){
         if(class(temp.IRSL) == "RLum.Data.Curve"){
@@ -1630,13 +1648,3 @@ error.list <- list()
   }
 
 }
-
-FB_fast_De <- analyse_SAR.CWOSL(
-  FB_decomposed,
-  signal.integral.min = NA,
-  signal.integral.max = NA,
-  background.integral.min = NA,
-  background.integral.max = NA,
-  OSL.component = 1
-
-)
