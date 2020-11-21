@@ -42,6 +42,17 @@ component data that were already extracted and do not need anymore integral limi
 * The output of the function is not anymore invisible, but a normal return. This should have
 no further effect. 
 
+### `plot_GrowthCurve()` 
+* Users sometimes complained about large uncertainties produced by the Monte-Carlo
+runs to estimate the error on the $D_{e}$, which returns the standard deviation of
+the MC runs. Large standard deviations are a result of large individual 
+uncertainties (e.g., noisy data) provided as input. The function now returns, experimentally, 
+estimates of the highest probability density intervals as an alternative. Beyond
+we may recall that the results of the MC runs are always returned as a separate
+object by the function. Means, you can run any statistic you prefer to best
+estimate they uncertainties on the $D_{e}$.
+
+
 #### `read_Daybreak()`
 * The function threw a lot of warnings for the `*.DAT` import after `R >= 4.0.0` 
 started to be more strict about embedded null bytes within a character. The code
