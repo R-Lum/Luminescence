@@ -2272,7 +2272,7 @@ plot_GrowthCurve <- function(
 # Output ------------------------------------------------------------------
   ##calculate HPDI
   HPDI <- matrix(c(NA,NA,NA,NA), ncol = 4)
-  if(!is.na(x.natural)){
+  if(!any(is.na(x.natural))){
     HPDI <- cbind(
       .calc_HPDI(x.natural, prob = 0.68)[1, ,drop = FALSE],
       .calc_HPDI(x.natural, prob = 0.95)[1, ,drop = FALSE])
