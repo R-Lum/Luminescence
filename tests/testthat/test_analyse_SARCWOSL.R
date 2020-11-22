@@ -206,3 +206,4 @@ test_that("simple run", {
    ), regexp = "Background integral out of bounds")
 
 })
+

@@ -13,14 +13,14 @@ test_that("general test", {
                regexp = "'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!")
 
   ## run routine analysis
-  expect_s4_class(g_value <- analyse_FadingMeasurement(
+  expect_s4_class(analyse_FadingMeasurement(
     fading_data,
     plot = TRUE,
     verbose = TRUE,
     n.MC = 10), class = "RLum.Results")
 
   ##not plot not verbose
-  expect_s4_class(g_value <- analyse_FadingMeasurement(
+  expect_s4_class(analyse_FadingMeasurement(
     fading_data,
     plot = FALSE,
     verbose = FALSE,

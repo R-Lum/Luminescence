@@ -7,6 +7,9 @@ temp <- calc_AliquotSize(
   verbose = FALSE)
 
 test_that("consistency checks", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
   expect_error(calc_AliquotSize(grain.size = 1:3))
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2))
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1))
@@ -20,8 +23,9 @@ test_that("consistency checks", {
     calc_AliquotSize(
       grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
   expect_s4_class(
-    calc_AliquotSize(
-      grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 10, MC = FALSE), "RLum.Results")
+    suppressWarnings(calc_AliquotSize(
+      grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 10, MC = FALSE)),
+    "RLum.Results")
 })
 
 test_that("check class and length of output", {
@@ -69,3 +73,4 @@ test_that("check MC run", {
   expect_length(temp$MC$kde$x, 10000)
   expect_length(temp$MC$kde$y, 10000)
 })
+
