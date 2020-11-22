@@ -7,45 +7,45 @@
 
 test_that("Check github_commits()", {
   testthat::skip_on_cran()
-  testthat::skip_on_os("mac")
   local_edition(3)
 
   response <- tryCatch(github_commits(), error = function(e) return(e))
 
-  if (inherits(response, "error"))
+  if (inherits(response, "error")){
     expect_output(print(response), regexp = "status code 403")
-  else
+  } else {
     expect_s3_class(response, "data.frame")
+  }
 
   rm(response)
 })
 
 test_that("Check github_branches()", {
   testthat::skip_on_cran()
-  testthat::skip_on_os("mac")
   local_edition(3)
 
   response <- tryCatch(github_branches(), error = function(e) return(e))
 
-  if (inherits(response, "error"))
+  if (inherits(response, "error")) {
     expect_output(print(response), regexp = "status code 403")
-  else
+ }else {
     expect_s3_class(response, "data.frame")
+ }
 
   rm(response)
 })
 
 test_that("Check github_issues()", {
   testthat::skip_on_cran()
-  testthat::skip_on_os("mac")
   local_edition(3)
 
   response <- tryCatch(github_issues(), error = function(e) return(e))
 
-  if (inherits(response, "error"))
+  if (inherits(response, "error")){
     expect_output(print(response), regexp = "status code 403")
-  else
+  }else{
     expect_type(response, "list")
+  }
 
   rm(response)
 })

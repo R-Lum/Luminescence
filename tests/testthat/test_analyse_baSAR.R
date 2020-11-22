@@ -14,7 +14,7 @@ test_that("Full check of analyse_baSAR function", {
     ##(3) run analysis
     ##please not that the here selected parameters are
     ##chosen for performance, not for reliability
-    results <- analyse_baSAR(
+    results <- suppressWarnings(analyse_baSAR(
       object = CWOSL.SAR.Data,
       source_doserate = c(0.04, 0.001),
       signal.integral = c(1:2),
@@ -30,7 +30,7 @@ test_that("Full check of analyse_baSAR function", {
       n.MCMC = 100,
       txtProgressBar = TRUE
 
-    )
+    ))
 
     expect_s4_class(results, class = "RLum.Results")
     expect_s3_class(results$summary, "data.frame")

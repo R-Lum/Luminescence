@@ -137,7 +137,6 @@ test_that("test pure success of the plotting without warning or error", {
 
 })
 
-
 test_that("test for return values, if any", {
   testthat::skip_on_cran()
   local_edition(3)
