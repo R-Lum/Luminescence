@@ -182,7 +182,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.12
+#' @section Function version: 1.10.13
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -423,7 +423,12 @@ plot_GrowthCurve <- function(
     }
 
   }else{
-    fit.weights <- rep(1, length(abs(y.Error)))
+    if(sum(y.Error) == 0) {
+      fit.weights <- NA
+
+    } else {
+      fit.weights <- rep(1, length(abs(y.Error)))
+    }
 
   }
 
