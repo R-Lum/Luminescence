@@ -6,10 +6,10 @@
 \usage{
 analyse_SAR.CWOSL(
   object,
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min,
-  background.integral.max,
+  signal.integral.min = NA,
+  signal.integral.max = NA,
+  background.integral.min = NA,
+  background.integral.max = NA,
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
@@ -180,7 +180,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.8.2
+ 0.9.0
 }
 
 \examples{
@@ -219,7 +219,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-31. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-36. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
