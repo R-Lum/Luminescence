@@ -31,6 +31,8 @@ to return `NULL`, but crashed instead; fixed.
 * As implemented by `calc_OSLLxTxRatio()` the function now supports `NA` values for the 
 integrals. If this happens, sum curves are taken. This option enables a bunch of new
 possibilities to test more experimental protocols without modifying the function.
+* Following the `NA` support, all integral arguments are now set to `NA` by default. To avoid
+user errors, a warning is thrown each time the function runs with integral limits set to `NA`.
 * The identification of the allowed curves was further improved to cover cases 
 where users want to provide experimental OSL curves. Allowed are combinations 
 where `OSL` with additional letters `[a-zA-Z]`. Everything else is, as before, ignored. 

@@ -4,6 +4,8 @@ data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
 results <- analyse_SAR.CWOSL(
   object = object[[1]],
+  signal.integral.min = 1,
+  signal.integral.max = 2,
   background.integral.min = 900,
   background.integral.max = 1000,
   plot = FALSE,
@@ -70,6 +72,8 @@ test_that("simple run", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[1:2],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
       background.integral.min = 900,
       background.integral.max = 1000,
       fit.method = "LIN",
@@ -80,6 +84,20 @@ test_that("simple run", {
   )
 
   ##signal integral set to NA
+  expect_warning(
+    analyse_SAR.CWOSL(
+      object = object[1],
+      signal.integral.min = NA,
+      signal.integral.max = NA,
+      background.integral.min = NA,
+      background.integral.max = NA,
+      fit.method = "EXP",
+      plot = FALSE,
+      verbose = FALSE,
+      fit.weights = FALSE
+    ), "\\[analyse_SAR.CWOSL\\(\\)\\] No signal or background integral applied, because they were set to NA\\!")
+
+
   expect_s4_class(
     suppressWarnings(analyse_SAR.CWOSL(
       object = object[1],
@@ -98,6 +116,8 @@ test_that("simple run", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
       background.integral.min = 900,
       background.integral.max = 1000,
       fit.method = "LIN",
@@ -110,6 +130,8 @@ test_that("simple run", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
       background.integral.min = 900,
       background.integral.max = 1000,
       fit.method = "EXP",
@@ -123,6 +145,8 @@ test_that("simple run", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
       background.integral.min = 900,
       background.integral.max = 1000,
       fit.method = "LIN",
@@ -151,6 +175,8 @@ test_that("simple run", {
     ##check stop for OSL.components ... failing
     expect_null(analyse_SAR.CWOSL(
        object = object[[1]],
+       signal.integral.min = 1,
+       signal.integral.max = 2,
        background.integral.min = 900,
        background.integral.max = 1000,
        dose.points = c(0,1,2),
@@ -162,6 +188,8 @@ test_that("simple run", {
 
    expect_error(analyse_SAR.CWOSL(
      object = object[[1]],
+     signal.integral.min = 1,
+     signal.integral.max = 2,
      background.integral.min = 900,
      background.integral.max = 1000,
      dose.points = c(0,1,2),
@@ -170,24 +198,11 @@ test_that("simple run", {
      verbose = FALSE
    ), regexp = "length 'dose.points' differs from number of curves")
 
-   expect_error(suppressWarnings(analyse_SAR.CWOSL(
-      object = object[[1]],
-      background.integral.min = 900,
-      fit.method = "LIN",
-      plot = FALSE,
-      verbose = FALSE
-    )), regexp = "No value set for 'background.integral.max'!")
-
-   expect_error(suppressWarnings(analyse_SAR.CWOSL(
-     object = object[[1]],
-     background.integral.max = 900,
-     fit.method = "LIN",
-     plot = FALSE,
-     verbose = FALSE
-   )), regexp = "No value set for 'background.integral.min'!")
 
    expect_null(analyse_SAR.CWOSL(
      object = set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve", recordType = "false"))),
+     signal.integral.min = 1,
+     signal.integral.max = 2,
      background.integral.min = 800,
      background.integral.max = 900,
      fit.method = "LIN",
@@ -198,6 +213,8 @@ test_that("simple run", {
    ##check background integral
    expect_warning(analyse_SAR.CWOSL(
      object = object[[1]],
+     signal.integral.min = 1,
+     signal.integral.max = 2,
      background.integral.min = 800,
      background.integral.max = 9900,
      fit.method = "LIN",

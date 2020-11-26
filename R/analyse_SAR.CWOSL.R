@@ -221,10 +221,10 @@
 #' @export
 analyse_SAR.CWOSL<- function(
   object,
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min,
-  background.integral.max,
+  signal.integral.min = NA,
+  signal.integral.max = NA,
+  background.integral.min = NA,
+  background.integral.max = NA,
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
@@ -292,20 +292,11 @@ error.list <- list()
     stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
          call. = FALSE)
 
-  if(missing("background.integral.min")){
-   stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.min'!",
-        call. = FALSE)
-  }
-
-  if(missing("background.integral.max")){
-    stop("[analyse_SAR.CWOSL()] No value set for 'background.integral.max'!",
-         call. = FALSE)
-  }
-
   ##skip all those tests if signal integral is NA
   if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
+    warning("[analyse_SAR.CWOSL()] No signal or background integral applied, because they were set to NA!", call. = FALSE)
 
   } else {
   ##build signal and background integrals
@@ -1287,7 +1278,7 @@ error.list <- list()
           ##grep results
           temp.GC <- get_RLum(temp.GC)
 
-          # Provide Rejection Criteria for Palaedose error --------------------------
+          # Provide Rejection Criteria for Palaeodose error --------------------------
           if(is.na(temp.GC[,1])){
             palaeodose.error.calculated <- NA
 
