@@ -158,7 +158,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.8.2
+#' @section Function version: 0.9.0
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -377,7 +377,7 @@ error.list <- list()
       testdose.error = 10,
       exceed.max.regpoint = TRUE
     ),
-    val = rejection.criteria,
+    val = if(is.null(rejection.criteria)) list() else rejection.criteria,
     keep.null = TRUE)
 
 # Deal with extra arguments ----------------------------------------------------
@@ -1648,3 +1648,4 @@ error.list <- list()
   }
 
 }
+
