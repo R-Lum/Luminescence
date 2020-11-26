@@ -501,7 +501,10 @@ fancy_scientific <- function(l) {
 #' repeated in every function using the self-call. This functions
 #' does it once and for all similar in all functions.
 #'
-#' @param len [numeric] (**required**): lenth of the parameter expension
+#' **NOTE**: the first argument is never extended due to performance reasons,
+#' it might be a very large object
+#'
+#' @param len [numeric] (**required**): length of the parameter expansion
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -512,36 +515,50 @@ fancy_scientific <- function(l) {
 #' @md
 #' @noRd
 .expand_parameters <- function(len){
-  def <- sys.function(sys.parent())
-  call <- sys.call(sys.parent())
-  args_new <- as.list(match.call(def, call, FALSE))[-c(1:2)]
-  args_default <- as.list(args(as.character(call[[1]])))
+  ##get original definition and the call of f
+  f_def <- sys.function(sys.parent())
+  f_call <- sys.call(sys.parent())
+
+  ##extract arguments (do not consider the first argument, this might be a very
+  ##large object)
+  args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
+  args_new <- as.list(match.call(f_def, f_call, FALSE))[-c(1:2)]
+
+  ##combine the two arguments
   args <- modifyList(
-    x = args_default[-1],
+    x = args_default,
     val = args_new,
     keep.null = TRUE)
 
-  ##expand all arguments
+  ##evaluate arguments
   for(i in 1:length(args)){
-    if(class(args[[i]])[1] == "name" && names(args[i]) != "...") {
-      stop(paste0("[",call[[1]],"()]: Argument ",
-                  names(args[i]), " missing; with no default!"), call. = FALSE)
+    if(is.na(names(args[i])) || names(args[i]) == "...") next
+    if(class(args[[i]])[1] == "name" & names(args[i]) != "...") {
+      stop(paste0("[",f_call[[1]],"()]: Argument <",
+                  names(args[i]), "> missing; with no default!"), call. = FALSE)
     }
 
+    ##evaluate and cover special cases
+    if(!is.null(args[[i]])) args[[i]] <- eval(args[[i]])
+    if(class(args[i])[1] == "list" & length(args[[i]]) == 0) args[[i]] <- list()
+
+  }
+
+  ##expand all arguments
+  for(i in 1:length(args)){
     if(class(args[[i]])[1] == "list"){
-      args[[i]] <- rep(
-        as.list(args[[i]]), length = len[1])
+      args[[i]] <- rep(args[[i]], length.out = len[1])
 
     } else {
-      if(names(args[i]) == "...") next
       args[[i]] <- rep(
-        list(eval(args[[i]])), length = len[1])
+        list(args[[i]]), length = len[1])
 
     }
 
   }
 
   return(args)
+
 }
 
 #++++++++++++++++++++++++++++++
