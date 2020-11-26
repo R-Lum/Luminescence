@@ -33,7 +33,7 @@ NULL
 #' @section Class version: 0.5.2
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystywyth University (United Kingdom)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
 #'

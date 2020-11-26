@@ -95,7 +95,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'

@@ -96,7 +96,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'
 #' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [write_R2BIN],
