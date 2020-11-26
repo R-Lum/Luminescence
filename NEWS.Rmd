@@ -21,29 +21,30 @@ Along with the function, a new example data set `ExampleData.MortarData` was add
 ### Bugfixes and changes
 
 #### `analyse_SAR.CWOSLOSL()`
-* The default values for the `rejection.criteria` is now `list()` instead of `NULL`. As before, 
-the default values uses the internal set rejection criteria and this change should not affect the
-behaviour of the function, but it allowed use to greatly simplify the underlying code. 
-* The function did not check correctly for all record types, under certain circumstances, 
+* The default value for `rejection.criteria` is now `list()` instead of `NULL`. As before, 
+the default value means that internally set rejection criteria are applied and hence 
+this change should not affect the behaviour of the function, but it allowed us to 
+greatly simplify the underlying code. 
+* The function did not check correctly for all record types, under particular circumstances, 
 some of the non-support curves could slip through; corrected.
 * If the input records were not of type `OSL`, `IRSL` or `POSL` the function was supposed
-to return `NULL`, but crashed instead; fixed.
+to return `NULL` but crashed instead; fixed.
 * As implemented by `calc_OSLLxTxRatio()` the function now supports `NA` values for the 
-integrals. If this happens, sum curves are taken. This option enables a bunch of new
+integrals. If set, sum curves are taken for the calculation. This option enables a bunch of new
 possibilities to test more experimental protocols without modifying the function.
-* Following the `NA` support, all integral arguments are now set to `NA` by default. To avoid
+* Following the `NA` support, all integral arguments are now preset to `NA`. To avoid
 user errors, a warning is thrown each time the function runs with integral limits set to `NA`.
 * The identification of the allowed curves was further improved to cover cases 
-where users want to provide experimental OSL curves. Allowed are combinations 
-where `OSL` with additional letters `[a-zA-Z]`. Everything else is, as before, ignored. 
+where users may want to provide experimental OSL curves. Allowed are combinations 
+where `OSL` is combined with additional letters `[a-zA-Z]`. Everything else is, as before, ignored. 
 * The function now supports the input from the upcoming R package `'OSLdecomposition'` by
-Dirk Mittelstrass. For this a new argument was added `OSL.component`.
+Dirk Mittelstrass and hence gained a new argumentc called `OSL.component`.
 
 #### `calc_OSLLxTxRatio()`
 * The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
 set to `NA` the sum of the count values is used. This is useful if the users wants to process
-component data that were already extracted and do not need anymore integral limits. 
-* The output of the function is not anymore invisible, but a normal return. This should have
+component data that were already extracted and do not need integral limits. 
+* The output of the function is not anymore invisible. This should have
 no further effect. 
 
 #### `plot_GrowthCurve()` 
@@ -53,19 +54,19 @@ the MC runs. Large standard deviations are a result of large individual
 uncertainties (e.g., noisy data) provided as input. The function now returns, experimentally, 
 estimates of the highest probability density intervals as an alternative. Beyond
 we may recall that the results of the MC runs are always returned as a separate
-object by the function. Means, you can run any statistic you prefer to best
-estimate they uncertainties on the $D_{e}$.
+object by the function. Means, users ca run any statistic of choice to best
+estimate the uncertainties on the $D_{e}$.
 
 
 #### `read_Daybreak()`
-* The function threw a lot of warnings for the `*.DAT` import after `R >= 4.0.0` 
+* The function threw a lot of warnings for the `*.DAT` after `R >= 4.0.0` 
 started to be more strict about embedded null bytes within a character. The code
-was updated to a newer version and no further warnings is shown.
+was updated to a newer version and no further warnings are shown.
 * Under particular circumstances the function left open connections behind; fixed.
 
 ### Internals
 * The automated tests now use consistently `testthat` >= 3.0.0. Naturally this 
-has no use visible effects, however, we found a couple of minor bugs while
+has no user visible effect, however, we found a couple of minor bugs while
 updating the tests. 
 
 ## Changes in version 0.9.8 (2020-11-16)
