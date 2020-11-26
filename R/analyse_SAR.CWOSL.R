@@ -158,7 +158,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.0
+#' @section Function version: 0.9.1
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -912,17 +912,16 @@ error.list <- list()
       ##overall plot option selection for plot.single.sel
       if (1 %in% plot.single.sel) {
         ##check if TL curves are available
-        if (length(TL.Curves.ID.Lx[[1]] > 0)) {
+        if (length(TL.Curves.ID.Lx) > 0) {
           ##It is just an approximation taken from the data
           resolution.TLCurves <-  round(mean(diff(
             round(object@records[[TL.Curves.ID.Lx[[1]]]]@data[,1], digits = 1)
           )), digits = 1)
 
-          ylim.range <-
-            sapply(seq(1,length(TL.Curves.ID.Lx),by = 1) ,function(x) {
-              range(object@records[[TL.Curves.ID.Lx[[x]]]]@data[,2])
+          ylim.range <- vapply(TL.Curves.ID.Lx, function(x) {
+              range(object@records[[x]]@data[,2])
 
-            })
+            }, numeric(2))
 
           plot(
             NA,NA,
@@ -968,22 +967,18 @@ error.list <- list()
       }#plot.single.sel
 
       # Plotting LnLx Curves ----------------------------------------------------
-
       ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
-        ylim.range <- sapply(1:length(OSL.Curves.ID.Lx) ,function(x) {
-          range(object@records[[OSL.Curves.ID.Lx[x]]]@data[,2])
-        })
+        ylim.range <- vapply(OSL.Curves.ID.Lx, function(x) {
+          range(object@records[[x]]@data[,2])
+        }, numeric(2))
 
         if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[1]]]]@data[1,1] == 0){
           xlim <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1],
                     max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]) +
                       object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1])
 
-
         }else{
-
-
         xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
 
@@ -1011,7 +1006,6 @@ error.list <- list()
               object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] +
               diff(c(object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1],
                      object@records[[OSL.Curves.ID.Lx[[x]]]]@data[2,1]))
-
             warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
           }
           lines(object@records[[OSL.Curves.ID.Lx[[x]]]]@data,col = col[x])
@@ -1044,17 +1038,15 @@ error.list <- list()
       ##overall plot option selection for plot.single.sel
       if (3 %in% plot.single.sel) {
         ##check if TL curves are available
-        if (length(TL.Curves.ID.Tx[[1]] > 0)) {
+        if (length(TL.Curves.ID.Tx) > 0) {
           ##It is just an approximation taken from the data
           resolution.TLCurves <-  round(mean(diff(
             round(object@records[[TL.Curves.ID.Tx[[1]]]]@data[,1], digits = 1)
           )), digits = 1)
 
-
-          ylim.range <- sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
-            range(object@records[[TL.Curves.ID.Tx[[x]]]]@data[,2])
-
-          })
+          ylim.range <- vapply(TL.Curves.ID.Tx, function(x) {
+            range(object@records[[x]]@data[,2])
+          }, numeric(2))
 
           plot(
             NA,NA,
@@ -1102,10 +1094,9 @@ error.list <- list()
       # Plotting TnTx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
-        ylim.range <- sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
-          range(object@records[[OSL.Curves.ID.Tx[x]]]@data[,2])
-
-        })
+        ylim.range <- vapply(OSL.Curves.ID.Tx, function(x) {
+          range(object@records[[x]]@data[,2])
+        }, numeric(2))
 
         if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[1]]]]@data[1,1] == 0){
           xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1],

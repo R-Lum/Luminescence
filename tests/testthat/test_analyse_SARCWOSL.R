@@ -12,6 +12,10 @@ results <- analyse_SAR.CWOSL(
   verbose = FALSE
 )
 
+##generate different datasets removing TL curves
+object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
+object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
+
 test_that("tests class elements", {
   testthat::skip_on_cran()
   local_edition(3)
@@ -22,7 +26,6 @@ test_that("tests class elements", {
   expect_s3_class(results$LnLxTnTx.table, "data.frame")
   expect_s3_class(results$rejection.criteria, "data.frame")
   expect_type(results$Formula, "expression")
-
 })
 
 test_that("regression tests De values", {
@@ -113,6 +116,7 @@ test_that("simple run", {
   )
 
   ##verbose and plot on
+  ##full dataset
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
@@ -122,6 +126,36 @@ test_that("simple run", {
       background.integral.max = 1000,
       fit.method = "LIN",
       log = "x",
+    ),
+    class = "RLum.Results"
+  )
+
+  ##only CH TL
+  expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object_CH_TL[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      log = "x",
+      plot_onePage = TRUE
+    ),
+    class = "RLum.Results"
+  )
+
+  ##no TL
+  expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object_NO_TL[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      log = "x",
+      plot_onePage = TRUE
     ),
     class = "RLum.Results"
   )

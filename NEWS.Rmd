@@ -38,7 +38,9 @@ user errors, a warning is thrown each time the function runs with integral limit
 where users may want to provide experimental OSL curves. Allowed are combinations 
 where `OSL` is combined with additional letters `[a-zA-Z]`. Everything else is, as before, ignored. 
 * The function now supports the input from the upcoming R package `'OSLdecomposition'` by
-Dirk Mittelstrass and hence gained a new argumentc called `OSL.component`.
+Dirk Mittelstrass and hence gained a new argument called `OSL.component`.
+* In particular circumstances, when no TL-curves were detected as preheat, the 
+function crashed; fixed (flagged by Dirk Mittelstrass).
 
 #### `calc_OSLLxTxRatio()`
 * The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
