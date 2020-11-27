@@ -1,6 +1,6 @@
-#' Al2O3:C Reader Cross Talk Analysis
+#' @title Al2O3:C Reader Cross Talk Analysis
 #'
-#' The function provides the analysis of cross-talk measurements on a
+#' @description The function provides the analysis of cross-talk measurements on a
 #' FI lexsyg SMART reader using Al2O3:C chips
 #'
 #' @param object [RLum.Analysis-class] **(required)**:
@@ -58,8 +58,6 @@
 #' ------------------------\cr
 #'
 #' - An overview of the obtained apparent dose values
-#'
-#'
 #'
 #' @section Function version: 0.1.2
 #'

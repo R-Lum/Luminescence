@@ -151,7 +151,7 @@
 #' dating. Journal of Geophysical Research 117, B09202. doi:10.1029/2012JB009383
 #'
 #' Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
-#' non-terrestial bodies using optically stimulated luminescence: A new method.
+#' non-terrestrial bodies using optically stimulated luminescence: A new method.
 #' Icarus 221, 160-166.
 #'
 #' @keywords datagen

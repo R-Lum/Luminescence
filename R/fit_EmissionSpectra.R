@@ -1,7 +1,7 @@
 #'@title Luminescence Emission Spectra Deconvolution
 #'
 #'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
-#'on an **energy scale**. The function is optimised for emission spectra typially
+#'on an **energy scale**. The function is optimised for emission spectra typically
 #'obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
 #'
 #'@details
@@ -57,7 +57,7 @@
 #'@param frame [numeric] (*optional*): defines the frame to be analysed
 #'
 #'@param start_parameters (*optional*): allows to provide own start parameters for a
-#'semi-automated precedure. ##TODO
+#'semi-automated procedure. ##TODO
 #'
 #'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
 #'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
@@ -118,7 +118,7 @@
 #'
 #'@section Function version: 0.1.0
 #'
-#'@author Sebastian Kreutzer, Geograrphy & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
 #'[convert_Wavelength2Energy], [minpack.lm::nls.lm]

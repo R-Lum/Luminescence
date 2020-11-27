@@ -23,7 +23,7 @@ object. Please note that an energy spectrum is expected}
 \item{frame}{\link{numeric} (\emph{optional}): defines the frame to be analysed}
 
 \item{start_parameters}{(\emph{optional}): allows to provide own start parameters for a
-semi-automated precedure. ##TODO}
+semi-automated procedure. ##TODO}
 
 \item{sub_negative}{\link{numeric} (\emph{with default}): substitute negative values in the input object
 by the number provided here (default: \code{0}). Can be set to \code{NULL}, i.e. negative values are kept.}
@@ -81,7 +81,7 @@ parameter estimation.
 }
 \description{
 Luminescence spectra deconvolution on \linkS4class{RLum.Data.Spectrum} and \link{matrix} objects
-on an \strong{energy scale}. The function is optimised for emission spectra typially
+on an \strong{energy scale}. The function is optimised for emission spectra typically
 obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
 }
 \details{
@@ -159,7 +159,7 @@ results <- fit_EmissionSpectra(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-38. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-39. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -170,6 +170,6 @@ Kreutzer, S., 2020. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvo
 \link{convert_Wavelength2Energy}, \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
 }
 \author{
-Sebastian Kreutzer, Geograrphy & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
