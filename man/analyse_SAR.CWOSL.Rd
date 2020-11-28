@@ -50,14 +50,17 @@ of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value 
 as the maximum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
 case no integrals are taken into account.}
 
-\item{OSL.component}{\link{character} or \link{integer} (\emph{optional}): an \link{integer} index
+\item{OSL.component}{\link{character} or \link{integer} (\emph{optional}): s single index
 or a \link{character} defining the signal component to be evaluated.
-Can be a \link{list} of \link{integer}s or strings (or mixed), If \code{object} is of type \link{list}.
 It requires that the object was processed by \verb{[OSLdecomposition::RLum.OSL_decomposition]}.
 This argument can either be the name of the OSL component assigned by
 \verb{[OSLdecomposition::RLum.OSL_global_fitting]} or the index in the descending
 order of decay rates. Then \code{"1"} selects the fastest decaying component, \code{"2"}
-the second fastest and so on. \code{NULL} does not process any component.}
+the second fastest and so on. Can be a \link{list} of \link{integer}s or strings (or mixed)
+If object is a \link{list} and this parameter is provided as \link{list} it alternates over
+the elements (aliquots) of the object list, e.g., \code{list(1,2)} processes the first
+aliquot with component \code{1} and the second aliquot with component \code{2}.
+\code{NULL} does not process any component.}
 
 \item{rejection.criteria}{\link{list} (\emph{with default}):
 provide a named list and set rejection criteria in \strong{percentage}
@@ -219,7 +222,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-39. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-40. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

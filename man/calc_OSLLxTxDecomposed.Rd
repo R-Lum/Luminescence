@@ -7,7 +7,7 @@
 calc_OSLLxTxDecomposed(
   Lx.data,
   Tx.data = NULL,
-  OSL.component = 1,
+  OSL.component = 1L,
   sig0 = 0,
   digits = NULL
 )
@@ -23,8 +23,8 @@ is set as \code{LnLx}. The value of \verb{$n.error[OSL.component]} is set as \co
 \code{object@records[[...]]@info$COMPONENTS}. The value of \verb{$n[OSL.component]}
 is set as \code{TnTx}. The value of \verb{$n.error[OSL.component]} is set as \code{TnTx.error}}
 
-\item{OSL.component}{\link{numeric} or \link{character} (\emph{optional}):
-an \link{numeric} index or a name describing which OSL signal component shall be evaluated.
+\item{OSL.component}{\link{integer} or \link{character} (\emph{optional}):
+a single index or a name describing which OSL signal component shall be evaluated.
 This argument can either be the name of the OSL component assigned by
 \verb{[OSLdecomposition::RLum.OSL_global_fitting]} or the index of component.
 Then \code{'1'} selects the fastest decaying component, \code{'2'} the
@@ -63,7 +63,7 @@ CW-OSL curves decomposed by \verb{[OSLdecomposition::RLum.OSL_decomposition]}
  
 
 \section{How to cite}{
-Mittelstrass, D., 2020. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-39. https://CRAN.R-project.org/package=Luminescence
+Mittelstrass, D., 2020. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9.9000-40. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
