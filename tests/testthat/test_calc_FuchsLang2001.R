@@ -10,7 +10,7 @@ test_that("check class and length of output", {
   local_edition(3)
 
   expect_s4_class(temp, "RLum.Results")
-  expect_equal(length(temp), 5)
+  expect_equal(length(temp), 4)
 
 })
 
