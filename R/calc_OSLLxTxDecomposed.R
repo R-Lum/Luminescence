@@ -3,7 +3,7 @@
 #' @description Calculate `Lx/Tx` ratios from a given set of decomposed
 #' CW-OSL curves decomposed by `[OSLdecomposition::RLum.OSL_decomposition]`
 #'
-#' @param OSL.component [numeric] or [character] (*optional*):
+#' @param OSL.component [integer] or [character] (*optional*):
 #' a single index or a name describing which OSL signal component shall be evaluated.
 #' This argument can either be the name of the OSL component assigned by
 #' `[OSLdecomposition::RLum.OSL_global_fitting]` or the index of component.
@@ -61,7 +61,7 @@
 calc_OSLLxTxDecomposed <- function(
   Lx.data,
   Tx.data = NULL,
-  OSL.component = 1,
+  OSL.component = 1L,
   sig0 = 0,
   digits = NULL
 ){
@@ -87,7 +87,7 @@ calc_OSLLxTxDecomposed <- function(
 
   #select only the first element; we do this silently because it is clearly
   #written in the documentation
-  OSL.component <- OSL.component[1]
+  OSL.component <- as.integer(OSL.component[1])
 
   if (!(is.numeric(OSL.component) || is.character(OSL.component)))
     stop("[calc_OSLLxTxDecomposed()] Type error! No valid data type for OSL.component", call. = FALSE)
