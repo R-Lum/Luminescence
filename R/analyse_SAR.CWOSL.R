@@ -86,14 +86,17 @@
 #' as the maximum background integral for the `Tx` curve. Can be set to `NA`, in this
 #' case no integrals are taken into account.
 #'
-#' @param OSL.component [character] or [integer] (*optional*): an [integer] index
+#' @param OSL.component [character] or [integer] (*optional*): s single index
 #' or a [character] defining the signal component to be evaluated.
-#' Can be a [list] of [integer]s or strings (or mixed), If `object` is of type [list].
 #' It requires that the object was processed by `[OSLdecomposition::RLum.OSL_decomposition]`.
 #' This argument can either be the name of the OSL component assigned by
 #' `[OSLdecomposition::RLum.OSL_global_fitting]` or the index in the descending
 #' order of decay rates. Then `"1"` selects the fastest decaying component, `"2"`
-#' the second fastest and so on. `NULL` does not process any component.
+#' the second fastest and so on. Can be a [list] of [integer]s or strings (or mixed)
+#' If object is a [list] and this parameter is provided as [list] it alternates over
+#' the elements (aliquots) of the object list, e.g., `list(1,2)` processes the first
+#' aliquot with component `1` and the second aliquot with component `2`.
+#' `NULL` does not process any component.
 #'
 #' @param rejection.criteria [list] (*with default*):
 #' provide a named list and set rejection criteria in **percentage**
