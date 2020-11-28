@@ -49,7 +49,7 @@ Option to suppress terminal output.,}
 
 \item{plot}{\link{logical} (\emph{with default}):
 If \code{TRUE} the histograms used for the cosmic-ray removal are returned as plot
-including the used threshold. Note: A separat plot is returned for each frame!
+including the used threshold. Note: A separate plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
 \item{...}{further arguments and graphical parameters that will be passed
