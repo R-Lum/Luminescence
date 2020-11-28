@@ -4,7 +4,7 @@
 #' CW-OSL curves decomposed by `[OSLdecomposition::RLum.OSL_decomposition]`
 #'
 #' @param OSL.component [numeric] or [character] (*optional*):
-#' an [numeric] index or a name describing which OSL signal component shall be evaluated.
+#' a single index or a name describing which OSL signal component shall be evaluated.
 #' This argument can either be the name of the OSL component assigned by
 #' `[OSLdecomposition::RLum.OSL_global_fitting]` or the index of component.
 #' Then `'1'` selects the fastest decaying component, `'2'` the
@@ -76,7 +76,6 @@ calc_OSLLxTxDecomposed <- function(
 
   ##--------------------------------------------------------------------------##
   ## (1) - integrity checks
-
   if (!(is.data.frame(Lx.data) && (nrow(Lx.data) >= 1)))
     stop("[calc_OSLLxTxDecomposed()] No valid component data.frame for Lx value", call. = FALSE)
 
@@ -85,6 +84,10 @@ calc_OSLLxTxDecomposed <- function(
 
   # define the component
   component_index <- NA
+
+  #select only the first element; we do this silently because it is clearly
+  #written in the documentation
+  OSL.component <- OSL.component[1]
 
   if (!(is.numeric(OSL.component) || is.character(OSL.component)))
     stop("[calc_OSLLxTxDecomposed()] Type error! No valid data type for OSL.component", call. = FALSE)
@@ -95,7 +98,6 @@ calc_OSLLxTxDecomposed <- function(
       component_index <- which(tolower(OSL.component) == tolower(Lx.data$name))
 
     } else {
-
       stop(paste0("[calc_OSLLxTxDecomposed()] Invalid OSL component name! Valid names are: ",
                   paste(Lx.data$name, collapse = ", ")), call. = FALSE)
     }
