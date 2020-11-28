@@ -50,7 +50,7 @@ calculation (e.g. 2nd or 3rd value).
 \strong{Basic steps of the approach}
 \enumerate{
 \item Estimate natural relative variation of the sample using a dose recovery test
-\item Sort the input values ascendingly
+\item Sort the input values ascendantly
 \item Calculate a running mean, starting with the lowermost two values and add values iteratively.
 \item Stop if the calculated \code{c[v]} exceeds the specified \code{cvThreshold}
 }
@@ -78,7 +78,7 @@ Kreutzer, S., Burow, C., 2020. calc_FuchsLang2001(): Apply the model after Fuchs
 
 \references{
 Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
-quartz using single-aliqout protocols on sediments from NE Peloponnese,
+quartz using single-aliquot protocols on sediments from NE Peloponnese,
 Greece. In: Quaternary Science Reviews 20, 783-787.
 
 Fuchs, M. & Wagner, G.A., 2003. Recognition of insufficient bleaching by
