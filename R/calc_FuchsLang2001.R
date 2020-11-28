@@ -4,8 +4,8 @@
 #' heterogeneously bleached samples with a given coefficient of variation
 #' threshold.
 #'
-#' **Used values** 
-#' 
+#' **Used values**
+#'
 #' If the coefficient of variation (`c[v]`) of the first
 #' two values is larger than the threshold `c[v_threshold]`, the first value is
 #' skipped.  Use the `startDeValue` argument to define a start value for
@@ -14,60 +14,60 @@
 #' **Basic steps of the approach**
 #'
 #' 1. Estimate natural relative variation of the sample using a dose recovery test
-#' 2. Sort the input values ascendingly
+#' 2. Sort the input values ascendantly
 #' 3. Calculate a running mean, starting with the lowermost two values and add values iteratively.
 #' 4. Stop if the calculated `c[v]` exceeds the specified `cvThreshold`
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' @param data [RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
-#' 
-#' @param cvThreshold [numeric] (*with default*): 
+#'
+#' @param cvThreshold [numeric] (*with default*):
 #' coefficient of variation in percent, as threshold for the method,
 #' e.g. `cvThreshold = 3`. See details
 #' .
-#' @param startDeValue [numeric] (*with default*): 
+#' @param startDeValue [numeric] (*with default*):
 #' number of the first aliquot that is used for the calculations
-#' 
-#' @param plot [logical] (*with default*): 
+#'
+#' @param plot [logical] (*with default*):
 #' plot output `TRUE`/`FALSE`
-#' 
+#'
 #' @param ... further arguments and graphical parameters passed to [plot]
-#' 
-#' @return 
+#'
+#' @return
 #' Returns a plot (*optional*) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
 #' \item{summary}{[data.frame] summary of all relevant model results.}
-#' \item{data}{[data.frame] original input data} 
-#' \item{args}{[list] used arguments} 
+#' \item{data}{[data.frame] original input data}
+#' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
 #' \item{usedDeValues}{[data.frame] containing the used values for the calculation}
-#' 
+#'
 #' @note Please consider the requirements and the constraints of this method
 #' (see Fuchs & Lang, 2001)
-#' 
+#'
 #' @section Function version: 0.4.1
-#' 
-#' @author 
+#'
+#' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
-#' 
+#'
 #' @seealso [plot], [calc_MinDose], [calc_FiniteMixture], [calc_CentralDose],
 #' [calc_CommonDose], [RLum.Results-class]
-#' 
-#' @references 
+#'
+#' @references
 #' Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
-#' quartz using single-aliqout protocols on sediments from NE Peloponnese,
+#' quartz using single-aliquot protocols on sediments from NE Peloponnese,
 #' Greece. In: Quaternary Science Reviews 20, 783-787.
 #'
 #' Fuchs, M. & Wagner, G.A., 2003. Recognition of insufficient bleaching by
 #' small aliquots of quartz for reconstructing soil erosion in Greece.
 #' Quaternary Science Reviews 22, 1161-1167.
-#' 
+#'
 #' @keywords dplot
-#' 
-#' 
+#'
+#'
 #' @examples
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
@@ -86,7 +86,6 @@ calc_FuchsLang2001 <- function(
 ){
 
   # Integrity Tests ---------------------------------------------------------
-
   if(missing(data)==FALSE){
     if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
       stop("[calc_FuchsLang2001] 'data' has to be of type 'data.frame' or 'RLum.Results'!")
@@ -118,15 +117,15 @@ calc_FuchsLang2001 <- function(
   usedDeValues<-data.frame(De=NA,De_Error=NA,cv=NA)
   endDeValue<-startDeValue
 
-  # if the frist D[e] values are not used write this information in the data.frame
+  # if the first D[e] values are not used write this information in the data.frame
   if (startDeValue!=1) {
 
-    n <- abs(1-startDeValue)
+    n <- abs(1 - startDeValue)
 
     #  write used D[e] values in data.frame
-    usedDeValues[1:n,1]<-data_ordered[1:n,1]
-    usedDeValues[1:n,2]<-data_ordered[1:n,2]
-    usedDeValues[1:n,3]<-"skipped"
+    usedDeValues[1:n, 1] <- data_ordered[1:n, 1]
+    usedDeValues[1:n, 2] <- data_ordered[1:n, 2]
+    usedDeValues[1:n, 3] <- "skipped"
   }
 
   ##=================================================================================================##
@@ -139,7 +138,7 @@ calc_FuchsLang2001 <- function(
     #calculate mean, sd and cv
     mean<-round(mean(data_ordered[startDeValue:endDeValue,1]),digits=2) #calculate mean from ordered D[e] values
     sd<-round(sd(data_ordered[startDeValue:endDeValue,1]),digits=2)		#calculate sd from ordered D[e] values
-    cv<-round(sd/mean*100, digits=2) #calculate coefficent of variation
+    cv<-round(sd/mean*100, digits=2) #calculate coefficient of variation
 
 
     # break if cv > cvThreshold
@@ -147,20 +146,18 @@ calc_FuchsLang2001 <- function(
 
       # if the first two D[e] values give a cv > cvThreshold, than skip the first D[e] value
       if (endDeValue-startDeValue<2) {
-
         #  write used D[e] values in data.frame
-        usedDeValues[endDeValue,1]<-data_ordered[endDeValue,1]
-        usedDeValues[endDeValue,2]<-data_ordered[endDeValue,2]
-        usedDeValues[endDeValue-1,3]<-"not used"
+        usedDeValues[endDeValue, 1] <- data_ordered[endDeValue, 1]
+        usedDeValues[endDeValue, 2] <- data_ordered[endDeValue, 2]
+        usedDeValues[endDeValue - 1, 3] <- "not used"
 
         # go to the next D[e] value
-        startDeValue<-startDeValue+1
+        startDeValue <- startDeValue + 1
 
       } else {
-
-        usedDeValues[endDeValue,1]<-data_ordered[endDeValue,1]
-        usedDeValues[endDeValue,2]<-data_ordered[endDeValue,2]
-        usedDeValues[endDeValue,3]<-paste("# ",cv," %",sep="")
+        usedDeValues[endDeValue, 1] <- data_ordered[endDeValue, 1]
+        usedDeValues[endDeValue, 2] <- data_ordered[endDeValue, 2]
+        usedDeValues[endDeValue, 3] <- paste("# ", cv, " %", sep = "")
 
         break #break loop
       }
@@ -198,9 +195,9 @@ calc_FuchsLang2001 <- function(
   n.usedDeValues<-endDeValue-startDeValue+1
 
   # standard error
-  se<- round(sd/sqrt(endDeValue-startDeValue+1), digits=2)
+  se <- round(sd / sqrt(endDeValue - startDeValue + 1), digits = 2)
 
-  if(verbose==TRUE){
+  if(verbose){
     cat("\n [calc_FuchsLang2001]")
     cat(paste("\n\n----------- meta data --------------"))
     cat(paste("\n cvThreshold:            ",cvThreshold,"%"))
@@ -213,17 +210,15 @@ calc_FuchsLang2001 <- function(
     cat(paste("\n------------------------------------\n\n"))
   }
 
-  ##=================================================================================================#
+  ##===========================================================================#
   ##RETURN  VALUES
-  ##=================================================================================================##
-
+  ##==========================================================================##
   summary<- data.frame(de=mean,
                        de_err=sd,
                        de_weighted=weighted_mean,
                        de_weighted_err=weighted_sd,
                        n.usedDeValues=n.usedDeValues)
 
-  call<- sys.call()
   args<- list(cvThreshold = cvThreshold, startDeValue = startDeValue)
 
   newRLumResults.calc_FuchsLang2001<- set_RLum(
@@ -231,15 +226,14 @@ calc_FuchsLang2001 <- function(
     data = list(summary = summary,
                 data = data,
                 args = args,
-                call = call,
-                usedDeValues=usedDeValues))
+                usedDeValues=usedDeValues),
+    info = list(call = sys.call()))
 
   ##=========##
   ## PLOTTING
-  if(plot==TRUE) {
+  if(plot) {
     try(plot_RLum.Results(newRLumResults.calc_FuchsLang2001, ...))
   }#endif::plot
 
   invisible(newRLumResults.calc_FuchsLang2001)
-
 }
