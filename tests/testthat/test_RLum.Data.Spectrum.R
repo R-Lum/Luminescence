@@ -1,7 +1,6 @@
-context("RLum.Data.Spectrum")
-
 test_that("check class", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##set empty spectrum object and show it
   expect_output(show(set_RLum(class = "RLum.Data.Spectrum")))
@@ -14,7 +13,7 @@ test_that("check class", {
   object <- set_RLum(class = "RLum.Data.Spectrum", data = object, info = list(a = "test"))
   expect_error(get_RLum(object, info.object = "est"), regexp = "Invalid element name. Valid names are: a")
   expect_error(get_RLum(object, info.object = 1L), "'info.object' has to be a character!")
-  expect_is(get_RLum(object, info.object = "a"), "character")
+  expect_type(get_RLum(object, info.object = "a"), "character")
 
   ##test method names
   expect_type(names(object), "character")
@@ -31,7 +30,7 @@ test_that("check class", {
 
   ##check conversions
   expect_s4_class(as(object = data.frame(x = 1:10), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
-  expect_is(as(set_RLum("RLum.Data.Spectrum"), "data.frame"), "data.frame")
+  expect_s3_class(as(set_RLum("RLum.Data.Spectrum"), "data.frame"), "data.frame")
   expect_s4_class(as(object = matrix(1:10,ncol = 2), Class = "RLum.Data.Spectrum"), "RLum.Data.Spectrum")
 
 })

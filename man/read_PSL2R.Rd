@@ -54,7 +54,7 @@ regular expression to find and extract all relevant information. See \strong{not
 \note{
 Because this function relies heavily on regular expressions to parse
 PSL files it is currently only in beta status. If the routine fails to import
-a specific PSL file please report to \href{mailto:christoph.burow@gmx.net}{christoph.burow@gmx.net} so the
+a specific PSL file please report to \verb{<christoph.burow@gmx.net>} so the
 function can be updated.
 }
 \section{Function version}{
@@ -79,7 +79,7 @@ Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., 2020. read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Burow, C., 2020. read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

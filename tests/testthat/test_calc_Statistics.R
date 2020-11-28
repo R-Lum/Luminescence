@@ -1,5 +1,3 @@
-context("calc_Statistics")
-
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 
@@ -12,7 +10,9 @@ temp_RLum <- set_RLum(class = "RLum.Results", data = list(data = ExampleData.DeV
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  expect_equal(is(temp), c("list", "vector"))
+  local_edition(3)
+
+  expect_type(temp, "list")
   expect_equal(length(temp), 3)
 
 })
@@ -33,6 +33,7 @@ test_that("Test certain input scenarios", {
 
 test_that("check error messages", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   df <- ExampleData.DeValues$BT998
 
@@ -46,6 +47,8 @@ test_that("check error messages", {
 
 test_that("check weighted values from output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(temp$weighted$n, 25)
   expect_equal(sum(unlist(temp_alt1)),24535.72)
   expect_equal(sum(unlist(temp_alt2)),24534.1)

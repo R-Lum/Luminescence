@@ -1,5 +1,3 @@
-context("fit_SurfaceExposure")
-
 data("ExampleData.SurfaceExposure", envir = environment())
 d1 <- ExampleData.SurfaceExposure$sample_1
 d2 <- ExampleData.SurfaceExposure$sample_2
@@ -12,6 +10,8 @@ fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
   expect_equal(is(fit$fit), "nls")
@@ -19,6 +19,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(round(fit$summary$age), 9893)
   expect_equal(round(fit$summary$age_error), 369)
 })
@@ -30,6 +32,8 @@ fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(round(fit$summary$age), 9624)
   expect_equal(round(fit$summary$age_error), 273)
 })
@@ -41,6 +45,8 @@ fit <- fit_SurfaceExposure(data = d2, age = 1e4, sigmaphi = 5e-10, Ddot = 2.5, D
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
   expect_equal(is(fit$fit), "nls")
@@ -48,6 +54,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(round(fit$summary$mu, 3), 0.904)
   expect_equal(round(fit$summary$mu_error, 3), 0.007)
 })
@@ -59,6 +67,8 @@ fit <- fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6), sigmaphi = 5e
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(nrow(fit$summary), 4)
   expect_equal(length(fit), 5)
@@ -67,6 +77,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(round(unique(fit$summary$mu), 3), 0.901)
   expect_equal(round(unique(fit$summary$mu_error), 3), 0.002)
 })
@@ -114,6 +126,6 @@ test_that("not enough parameters provided", {
                         plot = FALSE, verbose = FALSE),
     "'age' must be of the same length"
   )
-  
+
 })
 

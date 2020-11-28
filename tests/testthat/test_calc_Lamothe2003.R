@@ -1,7 +1,6 @@
-context("calc_Kars2008")
-
 test_that("Force function to break", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##argument check
 
@@ -19,26 +18,61 @@ test_that("Force function to break", {
                regexp = "Input for 'dose_rate.source' is not of type 'numeric' and/or of length < 2!")
 
   ##check warnings
-  expect_warning(calc_Lamothe2003(object = data.frame(x = c(0,10,20), y = c(1.4,0.7,2.3), z = c(0.01,0.02, 0.03)),
-                                  dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1)))
+  expect_s4_class(
+    suppressWarnings(calc_Lamothe2003(
+      object = data.frame(
+        x = c(0,10,20), y = c(1.4,0.7,2.3), z = c(0.01,0.02, 0.03)),
+      dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1))),
+    "RLum.Results")
 
   ##g_value
-  expect_error(calc_Lamothe2003(object = NULL, dose_rate.envir = NULL, dose_rate.source = NULL), regexp = "Input for 'g_value' missing but required!")
+  expect_error(
+    calc_Lamothe2003(
+      object = NULL,
+      dose_rate.envir = NULL,
+      dose_rate.source = NULL
+    ),
+    regexp = "Input for 'g_value' missing but required!"
+  )
 
   ##object
-  expect_error(calc_Lamothe2003(object = NULL, dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = NULL),
-               regexp = "Unsupported data type for 'object'")
-  expect_error(calc_Lamothe2003(object = set_RLum("RLum.Results"), dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = NULL))
+  expect_error(suppressWarnings(
+    calc_Lamothe2003(
+      object = NULL,
+      dose_rate.envir = c(1, 2, 3),
+      dose_rate.source = c(1, 2, 3),
+      g_value = NULL
+    ),
+    regexp = "Unsupported data type for 'object'"
+  ))
+
+  expect_error(suppressWarnings(
+    calc_Lamothe2003(
+      object = set_RLum("RLum.Results"),
+      dose_rate.envir = c(1, 2, 3),
+      dose_rate.source = c(1, 2, 3),
+      g_value = NULL
+    )
+  ))
 
   ##tc
-  expect_error(calc_Lamothe2003(object = set_RLum("RLum.Results"), dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1), tc.g_value = 1000),
-               regexp = "If you set 'tc.g_value' you have to provide a value for 'tc' too!")
+  expect_error(
+    suppressWarnings(calc_Lamothe2003(
+      object = set_RLum("RLum.Results"),
+      dose_rate.envir = c(1, 2, 3),
+      dose_rate.source = c(1, 2, 3),
+      g_value = c(1, 1),
+      tc.g_value = 1000
+    ),
+    regexp = "If you set 'tc.g_value' you have to provide a value for 'tc' too!"
+  ))
 
 
 })
 
 test_that("Test the function itself", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##This is based on the package example
   ##load data
@@ -62,7 +96,7 @@ test_that("Test the function itself", {
   )
 
   ##run fading correction
-  expect_is(calc_Lamothe2003(
+  expect_s4_class(calc_Lamothe2003(
     object = results,
     dose_rate.envir =  c(1.676 , 0.180),
     dose_rate.source = c(0.184, 0.003),
@@ -71,7 +105,7 @@ test_that("Test the function itself", {
     fit.method = "EXP"), class = "RLum.Results")
 
   ##run fading correction
-  expect_is(calc_Lamothe2003(
+  expect_s4_class(calc_Lamothe2003(
     object = results,
     dose_rate.envir =  c(1.676 , 0.180),
     dose_rate.source = c(0.184, 0.003),

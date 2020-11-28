@@ -74,7 +74,7 @@
 #' a packing density of \eqn{0.906\ldots} is assumed.
 #'
 #' @param MC [logical] (*optional*):
-#' if `TRUE` the function performs a monte carlo simulation for estimating the
+#' if `TRUE` the function performs a Monte Carlo simulation for estimating the
 #' amount of grains on the sample carrier and assumes random errors in grain
 #' size distribution and packing density. Requires a vector with min and max
 #' grain size for `grain.size`. For more information see details.

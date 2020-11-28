@@ -28,7 +28,7 @@ If \code{packing.density = "Inf"} a hexagonal structure on an infinite plane wit
 a packing density of \eqn{0.906\ldots} is assumed.}
 
 \item{MC}{\link{logical} (\emph{optional}):
-if \code{TRUE} the function performs a monte carlo simulation for estimating the
+if \code{TRUE} the function performs a Monte Carlo simulation for estimating the
 amount of grains on the sample carrier and assumes random errors in grain
 size distribution and packing density. Requires a vector with min and max
 grain size for \code{grain.size}. For more information see details.}
@@ -135,7 +135,7 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 } 
 
 \section{How to cite}{
-Burow, C., 2020. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Burow, C., 2020. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

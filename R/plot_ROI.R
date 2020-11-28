@@ -101,6 +101,7 @@ plot_ROI <- function(
   ## distance calculation
   euc_dist <- sel_euc_dist <- stats::dist(m[-exclude_ROI,c("mid_x","mid_y")])
 
+
   ## distance threshold selector
   sel_euc_dist[sel_euc_dist < dist_thre[1]] <- NA
   sel_euc_dist <- suppressWarnings(as.numeric(rownames(na.exclude(as.matrix(sel_euc_dist)))))

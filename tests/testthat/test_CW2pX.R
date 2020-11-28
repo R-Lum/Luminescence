@@ -1,18 +1,18 @@
-context("CW2X Conversion Tests")
-
 ##load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 values <- CW_Curve.BosWallinga2012
 
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   values_pLM <- CW2pLM(values)
   values_pLMi <- CW2pLMi(values, P = 1/20)
   values_pLMi_alt <- CW2pLMi(values)
-  values_pHMi <- CW2pHMi(values, delta = 40)
-  values_pHMi_alt <- CW2pHMi(values)
-  values_pHMi_alt1 <- CW2pHMi(values, delta = 2)
-  values_pPMi <- CW2pPMi(values, P = 1/10)
+  values_pHMi <- suppressWarnings(CW2pHMi(values, delta = 40))
+  values_pHMi_alt <- suppressWarnings(CW2pHMi(values))
+  values_pHMi_alt1 <- suppressWarnings(CW2pHMi(values, delta = 2))
+  values_pPMi <- suppressWarnings(CW2pPMi(values, P = 1/10))
 
     ##check conversion sum values
     expect_equal(round(sum(values_pLM), digits = 0),90089)
@@ -28,6 +28,8 @@ test_that("Check the example and the numerical values", {
 
 test_that("Test RLum.Types", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   ##load CW-OSL curve data
   data(ExampleData.CW_OSL_Curve, envir = environment())
   object <-
@@ -40,10 +42,10 @@ test_that("Test RLum.Types", {
 
 
   ##transform values
-  expect_is(CW2pLM(object), class = "RLum.Data.Curve")
-  expect_is(CW2pLMi(object), class = "RLum.Data.Curve")
-  expect_is(CW2pHMi(object), class = "RLum.Data.Curve")
-  expect_is(CW2pPMi(object), class = "RLum.Data.Curve")
+  expect_s4_class(CW2pLM(object), class = "RLum.Data.Curve")
+  expect_s4_class(CW2pLMi(object), class = "RLum.Data.Curve")
+  expect_s4_class(CW2pHMi(object), class = "RLum.Data.Curve")
+  expect_s4_class(suppressWarnings(CW2pPMi(object)), class = "RLum.Data.Curve")
 
   ##test error handling
   expect_error(CW2pLMi(values, P = 0), regexp = "[CW2pLMi] P has to be > 0!", fixed = TRUE)
@@ -54,9 +56,8 @@ test_that("Test RLum.Types", {
   expect_error(object = CW2pPMi(values = matrix(0, 2)))
 
   object@recordType <- "RF"
-  expect_error(object = CW2pLM(values = object),
-               regexp = "[CW2pLM()] recordType RF is not allowed for the transformation!",
-               fixed = TRUE)
+  expect_error(CW2pLM(values = object),
+               "recordType RF is not allowed for the transformation")
   expect_error(object = CW2pLMi(values = object),
                regexp = "[CW2pLMi()] recordType RF is not allowed for the transformation!",
                fixed = TRUE)

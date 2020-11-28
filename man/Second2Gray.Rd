@@ -94,7 +94,7 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Fuchs, M.C., 2020. Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., Dietze, M., Fuchs, M.C., 2020. Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -70,7 +70,7 @@
 #' Format Specification, Version 1.A (for document URL please use an internet search machine)
 #'
 #' Hall, C., 2012: readSPE.m.
-#' [https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe]()
+#' https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe
 #'
 #' @keywords IO
 #'

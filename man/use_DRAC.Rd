@@ -112,7 +112,7 @@ output <- use_DRAC(input)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C., 2020. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., Dietze, M., Burow, C., 2020. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

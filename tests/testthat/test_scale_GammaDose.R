@@ -1,16 +1,16 @@
-context("fit_SurfaceExposure")
-
 data("ExampleData.ScaleGammaDose", envir = environment())
 d <- ExampleData.ScaleGammaDose
 
 ## Conversion factors: Liritzisetal2013
-results <- scale_GammaDose(data = d, 
-                           conversion_factors = "Liritzisetal2013", 
+results <- scale_GammaDose(data = d,
+                           conversion_factors = "Liritzisetal2013",
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
@@ -18,18 +18,22 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9242")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2131")
 })
 
 ## Conversion factors: Guerinetal2011
-results <- scale_GammaDose(data = d, 
-                           conversion_factors = "Guerinetal2011", 
+results <- scale_GammaDose(data = d,
+                           conversion_factors = "Guerinetal2011",
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
@@ -37,18 +41,22 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9214")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2124")
 })
 
 ## Conversion factors: Guerinetal2011
-results <- scale_GammaDose(data = d, 
-                           conversion_factors = "AdamiecAitken1998", 
+results <- scale_GammaDose(data = d,
+                           conversion_factors = "AdamiecAitken1998",
                            fractional_gamma_dose = "Aitken1985",
                            plot = FALSE, verbose = FALSE)
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
   expect_equal(is(results$summary)[1], "data.frame")
@@ -56,6 +64,8 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9123")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2097")
 })
@@ -63,8 +73,8 @@ test_that("check values from output example", {
 ## CONSOLE & PLOT OUTPUT
 test_that("console & plot", {
   expect_output({
-   scale_GammaDose(d, plot = TRUE, verbose = TRUE) 
-   scale_GammaDose(d, plot = TRUE, plot_single = FALSE, verbose = TRUE) 
+   scale_GammaDose(d, plot = TRUE, verbose = TRUE)
+   scale_GammaDose(d, plot = TRUE, plot_single = FALSE, verbose = TRUE)
   })
 })
 
@@ -72,6 +82,8 @@ test_that("console & plot", {
 ## WARNINGS & FAILURES
 test_that("check input data", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_error(
     scale_GammaDose(NA, plot = FALSE, verbose = TRUE),
     "must be a data frame"

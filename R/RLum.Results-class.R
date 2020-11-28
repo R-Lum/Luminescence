@@ -136,7 +136,7 @@ setMethod("show",
             cat("\n\t originator: ", object@originator, "()", sep = "")
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
-            cat("\n\t additional info elements: ", length(object@info))
+            cat("\n\t additional info elements: ", length(object@info),"\n")
 
           })
 

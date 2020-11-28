@@ -1,8 +1,7 @@
-context("analyse_baSAR")
-
 ##Full check
 test_that("Full check of analyse_baSAR function", {
   skip_on_cran()
+  local_edition(3)
 
     set.seed(1)
     ##(1) load package test data set
@@ -12,11 +11,10 @@ test_that("Full check of analyse_baSAR function", {
     CWOSL.SAR.Data <- subset(CWOSL.SAR.Data,
                              subset = POSITION %in% c(1:3) & LTYPE == "OSL")
 
-
     ##(3) run analysis
     ##please not that the here selected parameters are
-    ##choosen for performance, not for reliability
-    results <- analyse_baSAR(
+    ##chosen for performance, not for reliability
+    results <- suppressWarnings(analyse_baSAR(
       object = CWOSL.SAR.Data,
       source_doserate = c(0.04, 0.001),
       signal.integral = c(1:2),
@@ -32,19 +30,12 @@ test_that("Full check of analyse_baSAR function", {
       n.MCMC = 100,
       txtProgressBar = TRUE
 
-    )
+    ))
 
-
-    expect_is(
-      results,
-      class = "RLum.Results",
-      info = NULL,
-      label = NULL
-    )
-    expect_is(results$summary, "data.frame")
-    expect_is(results$mcmc, "mcmc.list")
-    expect_is(results$models, "list")
-
+    expect_s4_class(results, class = "RLum.Results")
+    expect_s3_class(results$summary, "data.frame")
+    expect_s3_class(results$mcmc, "mcmc.list")
+    expect_type(results$models, "list")
     expect_type(round(sum(results$summary[, c(6:9)]), 2),type = "double")
 
 })

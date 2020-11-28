@@ -28,7 +28,7 @@ and \code{Pych}. See details for further information.}
 
 \item{method.Pych.smoothing}{\link{integer} (\emph{with default}):
 Smoothing parameter for cosmic ray removal according to Pych (2003).
-The value defines how many neighboring values in each frame are used for smoothing
+The value defines how many neighbouring values in each frame are used for smoothing
 (e.g., \code{2} means that the two previous and two following values are used).}
 
 \item{method.Pych.threshold_factor}{\link{numeric} (\emph{with default}):
@@ -49,7 +49,7 @@ Option to suppress terminal output.,}
 
 \item{plot}{\link{logical} (\emph{with default}):
 If \code{TRUE} the histograms used for the cosmic-ray removal are returned as plot
-including the used threshold. Note: A separate plot is returned for each frame!
+including the used threshold. Note: A separat plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
 \item{...}{further arguments and graphical parameters that will be passed
@@ -107,7 +107,7 @@ dataset (see example).
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -120,7 +120,6 @@ Single Images. Astrophysics 116, 148-153.
 \link{apply_CosmicRayRemoval}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{manip}

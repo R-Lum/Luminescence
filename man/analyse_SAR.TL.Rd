@@ -62,7 +62,7 @@ A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \item{De.values}{\link{data.frame} containing De-values and further parameters}
-\item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal, background counts and the dose points.}
+\item{LnLxTnTx.values}{\link{data.frame} of all calculated \code{Lx/Tx} values including signal, background counts and the dose points.}
 \item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
 
 \strong{note:} the output should be accessed using the function \link{get_RLum}
@@ -74,7 +74,7 @@ The function performs a SAR TL analysis on a
 \details{
 This function performs a SAR TL analysis on a set of curves. The SAR
 procedure in general is given by Murray and Wintle (2000). For the
-calculation of the Lx/Tx value the function \link{calc_TLLxTxRatio} is
+calculation of the \code{Lx/Tx} value the function \link{calc_TLLxTxRatio} is
 used.
 
 \strong{Provided rejection criteria}
@@ -82,8 +82,8 @@ used.
 \verb{[recyling.ratio]}: calculated for every repeated regeneration dose point.
 
 \verb{[recuperation.rate]}: recuperation rate calculated by
-comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
-value (the Lx/Tx ratio of the natural signal).  For methodological
+comparing the \code{Lx/Tx} values of the zero regeneration point with the \code{Ln/Tn}
+value (the \code{Lx/Tx} ratio of the natural signal).  For methodological
 background see Aitken and Smith (1988)
 }
 \note{
@@ -115,7 +115,7 @@ analyse_SAR.TL(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -131,7 +131,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

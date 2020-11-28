@@ -1,8 +1,11 @@
-#' Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
+#' @title Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
 #'
+#' @description
 #' A dose response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol. The function supports interpolation and
-#' extraxpolation to calculate the equivalent dose.
+#' extrapolation to calculate the equivalent dose.
+#'
+#' @details
 #'
 #' **Fitting methods**
 #'
@@ -55,25 +58,30 @@
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
-#' Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
-#' constructed by randomly drawing curve data from samled from normal
-#' distributions. The normal distribution is defined by the input values (mean
-#' = value, sd = value.error). Then, a growth curve fit is attempted for each
-#' dataset resulting in a new distribution of single De values. The [sd]
-#' of this distribution is becomes then the error of the De. With increasing
-#' iterations, the error value becomes more stable.
+#' Error estimation is done using a parametric bootstrapping approach. A set of
+#' `Lx/Tx` values is constructed by randomly drawing curve data sampled from normal
+#' distributions. The normal distribution is defined by the input values (`mean
+#' = value`, `sd = value.error`). Then, a dose-response curve fit is attempted for each
+#' dataset resulting in a new distribution of single `De` values. The standard
+#' deviation of this distribution is becomes then the error of the `De`. With increasing
+#' iterations, the error value becomes more stable. However, naturally the error
+#' will not decrease with more MC runs.
+#'
+#' Alternatively, the function returns highest probability density interval
+#' estimates as output, users may find more useful under certain circumstances.
+#'
 #' **Note:** It may take some calculation time with increasing MC runs,
 #' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
 #' Each error estimation is done with the function of the chosen fitting method.
 #'
 #' **Subtitle information**
 #'
-#' To avoid plotting the subtitle information, provide an empty user mtext
+#' To avoid plotting the subtitle information, provide an empty user `mtext`
 #' `mtext = ""`. To plot any other subtitle text, use `mtext`.
 #'
 #' @param sample [data.frame] (**required**):
-#' data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx.
-#' The column for the test dose response is optional, but requires 'TnTx' as
+#' data frame with three columns for `x=Dose`,`y=LxTx`,`z=LxTx.Error`, `y1=TnTx`.
+#' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.
 #'
@@ -86,7 +94,7 @@
 #' - `"extrapolation"` calculates the De by extrapolation and
 #' - `"alternate"` calculates no De and just fits the data points.
 #'
-#' Please note that for option `"regenrative"` the first point is considered
+#' Please note that for option `"regenerative"` the first point is considered
 #' as natural dose
 #'
 #' @param fit.method [character] (*with default*):
@@ -103,8 +111,8 @@
 #'
 #' @param fit.force_through_origin [logical] (*with default*)
 #' allow to force the fitted function through the origin.
-#' For `method = "EXP+EXP"` and `method = "GOK"` the function will go through the origin in either case,
-#' so this option will have no effect.
+#' For `method = "EXP+EXP"` and `method = "GOK"` the function will go through
+#' the origin in either case, so this option will have no effect.
 #'
 #' @param fit.weights [logical] (*with default*):
 #' option whether the fitting is done with or without weights. See details.
@@ -150,8 +158,8 @@
 #' global scaling factor.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enables or disables txtProgressBar. If `verbose = FALSE` also no
-#' txtProgressBar is shown.
+#' enables or disables `txtProgressBar`. If `verbose = FALSE` also no
+#' `txtProgressBar` is shown.
 #'
 #' @param verbose [logical] (*with default*):
 #' enables or disables terminal feedback.
@@ -174,10 +182,10 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.11
+#' @section Function version: 1.10.13
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @references
@@ -322,10 +330,8 @@ plot_GrowthCurve <- function(
 
   }
 
-
   ##2.2 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-
       #https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
       #This is slow, but it does not break with previous code
       sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
@@ -417,7 +423,12 @@ plot_GrowthCurve <- function(
     }
 
   }else{
-    fit.weights <- rep(1, length(abs(y.Error)))
+    if(sum(y.Error) == 0) {
+      fit.weights <- NA
+
+    } else {
+      fit.weights <- rep(1, length(abs(y.Error)))
+    }
 
   }
 
@@ -973,7 +984,7 @@ plot_GrowthCurve <- function(
     ##LIN -----
     ##two options: just linear fit or LIN fit after the EXP fit failed
 
-    #set fit object, if fit objekt was not set before
+    #set fit object, if fit object was not set before
     if(exists("fit")==FALSE){fit<-NA}
 
     if ((fit.method=="EXP OR LIN" & class(fit)=="try-error") |
@@ -1604,7 +1615,6 @@ plot_GrowthCurve <- function(
 
   }
   else if (fit.method=="GOK") {
-  #==========================================================================
   #==========================================================================
   # GOK -----
 
@@ -2263,7 +2273,17 @@ plot_GrowthCurve <- function(
 
   }
 
-  ##RETURN - return De values and parameter
+
+# Output ------------------------------------------------------------------
+  ##calculate HPDI
+  HPDI <- matrix(c(NA,NA,NA,NA), ncol = 4)
+  if(!any(is.na(x.natural))){
+    HPDI <- cbind(
+      .calc_HPDI(x.natural, prob = 0.68)[1, ,drop = FALSE],
+      .calc_HPDI(x.natural, prob = 0.95)[1, ,drop = FALSE])
+
+  }
+
   output <- try(data.frame(
     De = abs(De),
     De.Error = De.Error,
@@ -2272,7 +2292,11 @@ plot_GrowthCurve <- function(
     D02 = D02,
     D02.ERROR = D02.ERROR,
     De.MC = De.MonteCarlo,
-    Fit = fit.method
+    Fit = fit.method,
+    HPDI68_L = HPDI[1,1],
+    HPDI68_U = HPDI[1,2],
+    HPDI95_L = HPDI[1,3],
+    HPDI95_U = HPDI[1,4]
   ),
   silent = TRUE
   )
@@ -2293,4 +2317,3 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
-

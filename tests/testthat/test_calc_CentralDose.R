@@ -1,5 +1,3 @@
-context("calc_CentralDose")
-
 data(ExampleData.DeValues, envir = environment())
 
 temp <- calc_CentralDose(
@@ -12,6 +10,7 @@ temp_NA[1,1] <- NA
 
 test_that("errors and warnings function", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_error(calc_CentralDose(data = "error"), "'data' has to be of type 'data.frame' or 'RLum.Results'!")
   expect_error(calc_CentralDose(temp, sigmab = 10), "sigmab needs to be given as a fraction between 0 and 1")
@@ -24,6 +23,7 @@ test_that("errors and warnings function", {
 
 test_that("standard and output", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 4)
@@ -31,13 +31,11 @@ test_that("standard and output", {
   ##log and trace
   expect_s4_class(calc_CentralDose(ExampleData.DeValues$CA1, log = FALSE, trace = TRUE), "RLum.Results")
 
-
-
-
 })
 
 test_that("check summary output", {
   testthat::skip_on_cran()
+  local_edition(3)
   results <- get_RLum(temp)
 
   expect_equal(round(results$de, digits = 5), 65.70929)

@@ -1,5 +1,3 @@
-context("calc_gSGC")
-
 set.seed(seed = 1)
 temp <- calc_gSGC(data = data.frame(
   LnTn =  2.361, LnTn.error = 0.087,
@@ -10,19 +8,23 @@ temp <- calc_gSGC(data = data.frame(
   )
 
 test_that("plot and verbose and so", {
-  expect_output(calc_gSGC(data = data.frame(
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  expect_s4_class(calc_gSGC(data = data.frame(
     LnTn =  2.361, LnTn.error = 0.087,
     Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
     Dr1 = 34.4),
     plot = TRUE,
     verbose = TRUE
-  ))
+  ), "RLum.Results")
 
 })
 
 
 test_that("test errors", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_error(calc_gSGC(data = NA))
   expect_error(calc_gSGC(data = data.frame(

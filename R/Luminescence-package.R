@@ -60,7 +60,7 @@
 #'
 #' **Project website**
 #'
-#' - [https://www.r-luminescence.org]()
+#' - [https://r-luminescence.org]()
 #'
 #' **Project source code repository**
 #'
@@ -675,6 +675,30 @@ NULL
 #' @md
 NULL
 
+#' Example equivalent dose data from mortar samples
+#'
+#' Arbitrary data to test the function `calc_EED_Model`
+#'
+#' @format Two [`data.frame`]s containing De and De error
+#'
+#' @references unpublished data
+#'
+#' @source
+#' Arbitrary measurements.
+#'
+#' @examples
+#'
+#' ##load data
+#' data(ExampleData.MortarData, envir = environment())
+#'
+#' ##plot data
+#' plot(MortarData)
+#'
+#' @name ExampleData.MortarData
+#' @aliases MortarData
+#' @md
+NULL
+
 #' Example data as [RLum.Analysis-class] objects
 #'
 #' Collection of different [RLum.Analysis-class] objects for
@@ -1219,7 +1243,7 @@ NULL
 #'
 #' @references Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018.
 #' Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-#' Geochronometria 45, 56–67. \doi{10.1515/geochr-2015-0086}
+#' Geochronometria 45, 56–67.
 #'
 #' @keywords datasets
 #'

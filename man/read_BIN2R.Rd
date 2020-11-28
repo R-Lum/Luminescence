@@ -130,7 +130,7 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2020. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., Fuchs, M.C., 2020. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -143,7 +143,7 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyh University (United Kingdom)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team}

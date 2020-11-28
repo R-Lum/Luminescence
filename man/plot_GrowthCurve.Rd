@@ -27,8 +27,8 @@ plot_GrowthCurve(
 }
 \arguments{
 \item{sample}{\link{data.frame} (\strong{required}):
-data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx.
-The column for the test dose response is optional, but requires 'TnTx' as
+data frame with three columns for \code{x=Dose},\code{y=LxTx},\code{z=LxTx.Error}, \code{y1=TnTx}.
+The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.}
 
@@ -43,7 +43,7 @@ selects calculation mode of the function.
 \item \code{"alternate"} calculates no De and just fits the data points.
 }
 
-Please note that for option \code{"regenrative"} the first point is considered
+Please note that for option \code{"regenerative"} the first point is considered
 as natural dose}
 
 \item{fit.method}{\link{character} (\emph{with default}):
@@ -62,8 +62,8 @@ See details.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default})
 allow to force the fitted function through the origin.
-For \code{method = "EXP+EXP"} and \code{method = "GOK"} the function will go through the origin in either case,
-so this option will have no effect.}
+For \code{method = "EXP+EXP"} and \code{method = "GOK"} the function will go through
+the origin in either case, so this option will have no effect.}
 
 \item{fit.weights}{\link{logical} (\emph{with default}):
 option whether the fitting is done with or without weights. See details.}
@@ -111,8 +111,8 @@ single plot windows. Requires \code{output.plot = TRUE} and
 global scaling factor.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enables or disables txtProgressBar. If \code{verbose = FALSE} also no
-txtProgressBar is shown.}
+enables or disables \code{txtProgressBar}. If \code{verbose = FALSE} also no
+\code{txtProgressBar} is shown.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enables or disables terminal feedback.}
@@ -138,7 +138,7 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 \description{
 A dose response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
-extraxpolation to calculate the equivalent dose.
+extrapolation to calculate the equivalent dose.
 }
 \details{
 \strong{Fitting methods}
@@ -192,24 +192,28 @@ provided signal errors (Lx/Tx error):
 
 \strong{Error estimation using Monte Carlo simulation}
 
-Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
-constructed by randomly drawing curve data from samled from normal
-distributions. The normal distribution is defined by the input values (mean
-= value, sd = value.error). Then, a growth curve fit is attempted for each
-dataset resulting in a new distribution of single De values. The \link{sd}
-of this distribution is becomes then the error of the De. With increasing
-iterations, the error value becomes more stable.
+Error estimation is done using a parametric bootstrapping approach. A set of
+\code{Lx/Tx} values is constructed by randomly drawing curve data sampled from normal
+distributions. The normal distribution is defined by the input values (\code{mean = value}, \code{sd = value.error}). Then, a dose-response curve fit is attempted for each
+dataset resulting in a new distribution of single \code{De} values. The standard
+deviation of this distribution is becomes then the error of the \code{De}. With increasing
+iterations, the error value becomes more stable. However, naturally the error
+will not decrease with more MC runs.
+
+Alternatively, the function returns highest probability density interval
+estimates as output, users may find more useful under certain circumstances.
+
 \strong{Note:} It may take some calculation time with increasing MC runs,
 especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
 Each error estimation is done with the function of the chosen fitting method.
 
 \strong{Subtitle information}
 
-To avoid plotting the subtitle information, provide an empty user mtext
+To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.10.11
+ 1.10.13
 }
 
 \examples{
@@ -300,7 +304,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -315,6 +319,6 @@ from feldspar. Radiation Measurements 81, 224-231.
 \link{lm}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team}

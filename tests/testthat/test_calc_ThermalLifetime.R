@@ -1,5 +1,3 @@
-context("calc_ThermalLifetime")
-
 ##EXAMPLE 1
 ##calculation for two trap-depths with similar frequency factor for different temperatures
 set.seed(1)
@@ -26,6 +24,8 @@ temp2 <- calc_ThermalLifetime(
 
 test_that("check class and length of output example 1", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 2)
 
@@ -33,7 +33,9 @@ test_that("check class and length of output example 1", {
 #
 test_that("check values from output example 1", {
   testthat::skip_on_cran()
-  expect_is(temp$lifetimes, c("array", "structure", "vector"))
+  local_edition(3)
+
+  expect_type(temp$lifetimes, "double")
   expect_equal(dim(temp$lifetimes), c(1, 2, 11))
 
   ##check results for 10 °C
@@ -80,9 +82,20 @@ test_that("check arguments", {
   expect_error(calc_ThermalLifetime())
 
   ##profiling settings
-  expect_warning(calc_ThermalLifetime(E = 1.4, s = 1e05, profiling_config = list(n = 10)))
-  expect_error(calc_ThermalLifetime(E = 1.4, s = 1e05, profiling = TRUE, profiling_config = list(E.distribution = "test")))
-  expect_error(calc_ThermalLifetime(E = 1.4, s = 1e05, profiling = TRUE, profiling_config = list(s.distribution = "test")))
+  expect_warning(
+    calc_ThermalLifetime(E = 1.4, s = 1e05, profiling_config = list(n = 10)))
+  expect_error(calc_ThermalLifetime(
+    E = 1.4,
+    s = 1e05,
+    profiling = TRUE,
+    profiling_config = list(E.distribution = "test")
+  ))
+  expect_error(suppressWarnings(calc_ThermalLifetime(
+    E = 1.4,
+    s = 1e05,
+    profiling = TRUE,
+    profiling_config = list(s.distribution = "test"))
+  ))
 
   ##output
   expect_warning(calc_ThermalLifetime(E = 1.4, s = 1e05, output_unit = "test"))

@@ -1,7 +1,6 @@
-context("plot_RLum.Data.Curve")
-
 test_that("Test the basic plot functionality", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ## create dataset
   #load Example data

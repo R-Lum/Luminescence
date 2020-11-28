@@ -10,7 +10,8 @@ plot_RLum(object, ...)
 \item{object}{\linkS4class{RLum} (\strong{required}):
 S4 object of class \code{RLum}. Optional a \link{list} containing objects of
 class \linkS4class{RLum} can be provided. In this case the function tries to plot
-every object in this list according to its \code{RLum} class.}
+every object in this list according to its \code{RLum} class. Non-RLum objects are
+removed.}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions. The only argument that is supported directly is \code{main}
@@ -44,11 +45,10 @@ found in the documentations of each plot function.
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.4.3
+ 0.4.4
 }
 
 \examples{
-
 #load Example data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
@@ -57,7 +57,6 @@ temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
 
 #plot RLum object
 plot_RLum(temp)
-
 
 }
 \seealso{
@@ -71,7 +70,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{dplot}

@@ -5,8 +5,8 @@
 #+++++++++++++++++++++
 #+ .set_pid()        +
 #+++++++++++++++++++++
-
-#' Set unique id of the RLum.Analysis object as parent id for each RLum.Data object in the record list
+#' Set unique id of the RLum.Analysis object as parent id for each RLum.Data
+#' object in the record list
 #'
 #' This function only applies on RLum.Analysis objects and was written for performance not
 #' usability, means the functions runs without any checks and is for internal usage only.
@@ -95,16 +95,16 @@
     w_table <- table(as.character(unlist(warning_collector)))
     w_table_names <- names(w_table)
 
-    for (w in 1:length(w_table)) {
-      warning(paste(
-        w_table_names[w],
-        "This warning occurred",
-        w_table[w],
-        "times!"
-      ),
+    warning(paste0(
+       "(",
+        1:length(w_table),
+        ") ",
+        w_table_names,
+        ": This warning occurred ",
+        w_table,
+        " times!"
+      ,collapse = "\n"),
       call. = FALSE)
-
-    }
 
   }
   return(results)
@@ -358,12 +358,43 @@ fancy_scientific <- function(l) {
 
 }
 
+#++++++++++++++++++++++++++++++
+#+ .rm_nonRLum                +
+#++++++++++++++++++++++++++++++
+#' @title Removes all non-RLum objects from list
+#'
+#' @description Removes all non RLum objects from a list
+#' supposed to consist only of RLum-class objects
+#' As an internal function, the function is rather unforgiving, no further
+#' checks are applied.
+#'
+#' @param x [list] (**required**): list
+#'
+#' @param class [character]: class to look for, if nothing is set
+#' it checks for RLum in general
+#'
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'
+#' @examples
+#' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
+#' .rm_nonRLum(x)
+#'
+#' @return [list] with only RLum objects
+#'
+#' @md
+#' @noRd
+.rm_nonRLum <- function(x, class = NULL){
+  if(is.null(class))
+    return(x[vapply(x, inherits, logical(1), "RLum")])
+
+  x[vapply(x, "class", character(1)) == class[1]]
+}
 
 #++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
 #
-#' This function allows efficient binning of matricies including
+#' This function allows efficient binning of matrices including
 #' row and column name handling. Internally, the function uses [rowsum],
 #' means the binning is always applied on the rows. For column binning the function
 #' internally transposes the matrix first
@@ -458,4 +489,142 @@ fancy_scientific <- function(l) {
 
   # Return --------------------------------------------------------------------------------------
   return(temp_m)
+}
+
+#++++++++++++++++++++++++++++++
+#+ .expand_Parameters         +
+#++++++++++++++++++++++++++++++
+#' @title Expand function parameters of self-call
+#'
+#' @description For the self-call, the function parameters need to
+#' be expended, this was done, so far in a non-consistent way and
+#' repeated in every function using the self-call. This functions
+#' does it once and for all similar in all functions.
+#'
+#' **NOTE**: the first argument is never extended due to performance reasons,
+#' it might be a very large object
+#'
+#' @param len [numeric] (**required**): length of the parameter expansion
+#'
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'
+#' @examples
+#'
+#' @return [list] with expanded parameters
+#'
+#' @md
+#' @noRd
+.expand_parameters <- function(len){
+  ##get original definition and the call of f
+  f_def <- sys.function(sys.parent())
+  f_call <- sys.call(sys.parent())
+
+  ##extract arguments (do not consider the first argument, this might be a very
+  ##large object)
+  args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
+  args_new <- as.list(match.call(f_def, f_call, FALSE))[-c(1:2)]
+
+  ##combine the two arguments
+  args <- modifyList(
+    x = args_default,
+    val = args_new,
+    keep.null = TRUE)
+
+  ##evaluate arguments
+  for(i in 1:length(args)){
+    if(is.na(names(args[i])) || names(args[i]) == "...") next
+    if(class(args[[i]])[1] == "name" & names(args[i]) != "...") {
+      stop(paste0("[",f_call[[1]],"()]: Argument <",
+                  names(args[i]), "> missing; with no default!"), call. = FALSE)
+    }
+
+    ##evaluate and cover special cases
+    if(!is.null(args[[i]])) args[[i]] <- eval(args[[i]])
+    if(class(args[i])[1] == "list" & length(args[[i]]) == 0) args[[i]] <- list()
+
+  }
+
+  ##expand all arguments
+  for(i in 1:length(args)){
+    if(class(args[[i]])[1] == "list"){
+      args[[i]] <- rep(args[[i]], length.out = len[1])
+
+    } else {
+      args[[i]] <- rep(
+        list(args[[i]]), length = len[1])
+
+    }
+
+  }
+
+  return(args)
+
+}
+
+#++++++++++++++++++++++++++++++
+#+ .calc_HPDI                +
+#++++++++++++++++++++++++++++++
+#' @title Calculates Highest Probability Density Interval
+#'
+#' @description The idea of this function is to provide a convenient
+#' method to calculate the highest probability density intervals for
+#' sets of data. This function might be exported later
+#' Currently it follows roughly the idea of what is implemented
+#' in `code` and `hdrcde`. If the results has more than one peak,
+#' also this is shown, therefore the output is a matrix
+#'
+#' @param object [numeric] (**required**): numeric object with input data
+#'
+#' @param prob [numeric] (*with default*): sets aimed probability interval
+#'
+#' @param plot [logical] (*with default*): enables/disables additional control
+#' plot
+#'
+#' @param ... further arguments passed to [stats::density]
+#'
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'
+#' @references
+#' Hyndman, R.J., 1996. Computing and Graphing Highest Density Regions.
+#' The American Statistician 50, 120–8. doi:10.2307/2684423
+#'
+#' @examples
+#' x <- rnorm(100)
+#' .calc_HPDI(x)
+#'
+#' @return [matrix] with HPDI
+#'
+#' @md
+#' @noRd
+.calc_HPDI <- function(object, prob = 0.95, plot = FALSE, ...){
+  ##estimate density
+  dens <- density(object, ...)
+  diff <- diff(dens$x[1:2])
+
+  ##calculate probabilities
+  m <- cbind(matrix(c(dens$x, dens$y), ncol = 2), dens$y * diff)
+  o <- order(m[, 3], decreasing = TRUE)
+  m_ind <- which(cumsum(m[o, 3]) <= prob)
+  thres <- min(m[o, 2][m_ind])
+
+  ##get peaks
+  peaks_id <- which(abs(diff((m[,2] - thres) > 0)) == 1)
+
+  ##calculate HPDI
+  HPDI <- matrix(m[peaks_id,1], ncol = 2)
+  colnames(HPDI) <- c("lower", "upper")
+  attr(HPDI, "Probabilty") <- prob
+
+  if(plot){
+    xy <- m[m_ind,c(1,2)]
+    plot(dens, main = "HPDI (control plot)")
+    abline(h = thres, lty = 2)
+    for(i in seq(1,length(peaks_id),2)) {
+      lines(x = m[peaks_id[i]:peaks_id[i + 1], 1],
+            y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
+    }
+
+  }
+
+  return(HPDI)
 }

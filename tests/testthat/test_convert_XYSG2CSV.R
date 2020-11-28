@@ -1,7 +1,6 @@
-context("convert_X2CSV")
-
 test_that("test convert functions", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##test for errors
   expect_error(convert_BIN2CSV(file = "", export = FALSE),
@@ -16,10 +15,10 @@ test_that("test convert functions", {
   ##test conversion itself
     ##BIN2CSV
     data(ExampleData.BINfileData, envir = environment())
-    expect_is(convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE), "list")
+    expect_type(convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE), "list")
 
     ##XSYG2CSV
     data(ExampleData.XSYG, envir = environment())
-    expect_is(convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE), "list")
+    expect_type(convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE), "list")
 
 })

@@ -1,6 +1,6 @@
-#' Al2O3:C Reader Cross Talk Analysis
+#' @title Al2O3:C Reader Cross Talk Analysis
 #'
-#' The function provides the analysis of cross-talk measurements on a
+#' @description The function provides the analysis of cross-talk measurements on a
 #' FI lexsyg SMART reader using Al2O3:C chips
 #'
 #' @param object [RLum.Analysis-class] **(required)**:
@@ -59,8 +59,6 @@
 #'
 #' - An overview of the obtained apparent dose values
 #'
-#'
-#'
 #' @section Function version: 0.1.2
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -71,7 +69,7 @@
 #'
 #' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 #' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-#' Geochromometria 45, 56-67. doi: 10.1515/geochr-2015-0086
+#' Geochronometria 45, 56-67.
 #'
 #' @keywords datagen
 #'

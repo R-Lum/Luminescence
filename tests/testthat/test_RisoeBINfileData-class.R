@@ -1,7 +1,7 @@
-context("RisoeBINfileData Class Tests")
-
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   ##construct empty object
   temp <-
     set_Risoe.BINfileData(METADATA = data.frame(), DATA = list(), .RESERVED = list())
@@ -10,7 +10,7 @@ test_that("Check the example and the numerical values", {
   expect_null(get_Risoe.BINfileData(temp))
 
   ##check object
-  expect_is(temp, class = "Risoe.BINfileData")
+  expect_s4_class(temp, class = "Risoe.BINfileData")
   expect_output(show(temp))
 
   ##show method

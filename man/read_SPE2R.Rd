@@ -107,7 +107,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -115,7 +115,7 @@ Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 Format Specification, Version 1.A (for document URL please use an internet search machine)
 
 Hall, C., 2012: readSPE.m.
-\url{https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe}
+https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe
 }
 \seealso{
 \link{readBin}, \linkS4class{RLum.Data.Spectrum}, \link[raster:raster]{raster::raster}

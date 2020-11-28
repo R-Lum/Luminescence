@@ -6,13 +6,14 @@
 \usage{
 analyse_SAR.CWOSL(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
-  rejection.criteria = NULL,
+  signal.integral.min = NA,
+  signal.integral.max = NA,
+  background.integral.min = NA,
+  background.integral.max = NA,
+  OSL.component = NULL,
+  rejection.criteria = list(),
   dose.points = NULL,
-  mtext.outer,
+  mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
   plot.single = FALSE,
@@ -28,25 +29,42 @@ input object containing data for analysis, alternatively a \link{list} of
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum signal integral for the \code{Tx} curve.}
+as the minimum signal integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{signal.integral.max}{\link{integer} (\strong{required}):
 upper bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum signal integral for the \code{Tx} curve.}
+as the maximum signal integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the minimum background integral for the \code{Tx} curve.}
+as the minimum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
 
 \item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
-as the maximum background integral for the \code{Tx} curve.}
+as the maximum background integral for the \code{Tx} curve. Can be set to \code{NA}, in this
+case no integrals are taken into account.}
+
+\item{OSL.component}{\link{character} or \link{integer} (\emph{optional}): s single index
+or a \link{character} defining the signal component to be evaluated.
+It requires that the object was processed by \verb{[OSLdecomposition::RLum.OSL_decomposition]}.
+This argument can either be the name of the OSL component assigned by
+\verb{[OSLdecomposition::RLum.OSL_global_fitting]} or the index in the descending
+order of decay rates. Then \code{"1"} selects the fastest decaying component, \code{"2"}
+the second fastest and so on. Can be a \link{list} of \link{integer}s or strings (or mixed)
+If object is a \link{list} and this parameter is provided as \link{list} it alternates over
+the elements (aliquots) of the object list, e.g., \code{list(1,2)} processes the first
+aliquot with component \code{1} and the second aliquot with component \code{2}.
+\code{NULL} does not process any component.}
 
 \item{rejection.criteria}{\link{list} (\emph{with default}):
-provide a named list and set rejection criteria in \strong{percentage} for further calculation. Can be a \link{list} in
+provide a named list and set rejection criteria in \strong{percentage}
+for further calculation. Can be a \link{list} in
 a \link{list}, if \code{object} is of type \link{list}
 
 Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
@@ -94,7 +112,8 @@ returned containing the following elements:
 \item{data}{\link{data.frame} containing De-values, De-error and further parameters}
 \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal,
 background counts and the dose points}
-\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria.
+\code{NA} is produced if no R0 dose point exists.}
 \item{Formula}{\link{formula} formula that have been used for the growth curve fitting }
 
 The output should be accessed using the function \link{get_RLum}.
@@ -151,7 +170,7 @@ ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).
 
 \verb{[testdose.error]}: set the allowed error for the testdose, which per
-default should not exceed 10\\%. The testdose error is calculated as Tx_net.error/Tx_net.
+default should not exceed 10\\%. The test dose error is calculated as \code{Tx_net.error/Tx_net}.
 
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\\%.
@@ -164,7 +183,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.8.12
+ 0.9.1
 }
 
 \examples{
@@ -203,7 +222,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.8.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -227,7 +246,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}

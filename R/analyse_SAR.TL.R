@@ -1,11 +1,11 @@
-#' Analyse SAR TL measurements
+#' @title Analyse SAR TL measurements
 #'
-#' The function performs a SAR TL analysis on a
+#' @description The function performs a SAR TL analysis on a
 #' [RLum.Analysis-class] object including growth curve fitting.
 #'
-#' This function performs a SAR TL analysis on a set of curves. The SAR
+#' @details This function performs a SAR TL analysis on a set of curves. The SAR
 #' procedure in general is given by Murray and Wintle (2000). For the
-#' calculation of the Lx/Tx value the function [calc_TLLxTxRatio] is
+#' calculation of the `Lx/Tx` value the function [calc_TLLxTxRatio] is
 #' used.
 #'
 #' **Provided rejection criteria**
@@ -13,8 +13,8 @@
 #' `[recyling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by
-#' comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
-#' value (the Lx/Tx ratio of the natural signal).  For methodological
+#' comparing the `Lx/Tx` values of the zero regeneration point with the `Ln/Tn`
+#' value (the `Lx/Tx` ratio of the natural signal).  For methodological
 #' background see Aitken and Smith (1988)
 #'
 #' @param object [RLum.Analysis-class] or a [list] of such objects (**required**) :
@@ -61,7 +61,7 @@
 #' returned containing the following elements:
 #'
 #' \item{De.values}{[data.frame] containing De-values and further parameters}
-#' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points.}
+#' \item{LnLxTnTx.values}{[data.frame] of all calculated `Lx/Tx` values including signal, background counts and the dose points.}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
 #'
 #' **note:** the output should be accessed using the function [get_RLum]
@@ -75,7 +75,7 @@
 #' @section Function version: 0.3.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]

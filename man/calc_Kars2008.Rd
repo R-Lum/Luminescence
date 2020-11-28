@@ -76,7 +76,7 @@ kars <- suppressWarnings(
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2020. calc_Kars2008(): Apply the Kars et al. (2008) model (deprecated). Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+King, G.E., Burow, C., 2020. calc_Kars2008(): Apply the Kars et al. (2008) model (deprecated). Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

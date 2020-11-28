@@ -1,5 +1,3 @@
-context("calc_AliquotSize")
-
 set.seed(1)
 temp <- calc_AliquotSize(
   grain.size = c(100,150),
@@ -9,28 +7,42 @@ temp <- calc_AliquotSize(
   verbose = FALSE)
 
 test_that("consistency checks", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
   expect_error(calc_AliquotSize(grain.size = 1:3))
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2))
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = -1))
   expect_error(calc_AliquotSize(grain.size = 100, sample.diameter = 9.8, MC = TRUE))
   expect_output(calc_AliquotSize(grain.size = 100, packing.density = 1, sample.diameter = 9.8, grains.counted = 30, MC = TRUE),
                 regexp = "Monte Carlo simulation is only available for estimating the amount of grains on the sample disc.")
-  expect_is(calc_AliquotSize(grain.size = 100, packing.density = "inf", sample.diameter = 9.8, MC = FALSE), "RLum.Results")
-  expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
-  expect_is(calc_AliquotSize(grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 10, MC = FALSE), "RLum.Results")
+  expect_s4_class(
+    calc_AliquotSize(
+      grain.size = 100, packing.density = "inf", sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+  expect_s4_class(
+    calc_AliquotSize(
+      grain.size = c(100, 150), grains.counted = 1000, sample.diameter = 9.8, MC = FALSE), "RLum.Results")
+  expect_s4_class(
+    suppressWarnings(calc_AliquotSize(
+      grain.size = c(100, 150), grains.counted = c(1000, 1100, 900), sample.diameter = 10, MC = FALSE)),
+    "RLum.Results")
 })
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
-  expect_is(temp$summary, "data.frame")
-  expect_is(temp$MC, "list")
+  expect_s3_class(temp$summary, "data.frame")
+  expect_type(temp$MC, "list")
 
 })
 
 test_that("check summary output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   result <- get_RLum(temp)
 
   expect_equal(result$grain.size, 125)
@@ -42,6 +54,7 @@ test_that("check summary output", {
 
 test_that("check MC run", {
   testthat::skip_on_cran()
+  local_edition(3)
   expect_equal(round(temp$MC$statistics$n), 100)
   expect_equal(round(temp$MC$statistics$mean), 43)
   expect_equal(round(temp$MC$statistics$median), 39)
@@ -60,3 +73,4 @@ test_that("check MC run", {
   expect_length(temp$MC$kde$x, 10000)
   expect_length(temp$MC$kde$y, 10000)
 })
+

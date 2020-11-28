@@ -16,12 +16,12 @@ fit_ThermalQuenching(
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}): input data with three columns, the first column contains
-temperature values in deg. C, colmns 2 and 3 the dependent values with its error}
+temperature values in deg. C, columns 2 and 3 the dependent values with its error}
 
 \item{start_param}{\link{list} (optional): option to provide own start parameters for the fitting, see
-detalis}
+details}
 
-\item{method_control}{\link{list} (optianl): further options to fine tune the fitting, see details for
+\item{method_control}{\link{list} (optional): further options to fine tune the fitting, see details for
 further information}
 
 \item{n.MC}{\link{numeric} (\emph{with default}): number of Monte Carlo runs for the error estimation. If \code{n.MC} is
@@ -80,12 +80,12 @@ The equation used for the fitting is
 \deqn{y = (A / (1 + C * (exp(-W / (k * x))))) + c}
 
 \emph{W} is the energy depth in eV and \emph{C} is dimensionless constant. \emph{A} and \emph{c} are used to
-adjust the curve for the given signal. \emph{k} is the Blotzmann in eV/K and \emph{x} is the absolute
+adjust the curve for the given signal. \emph{k} is the Boltzmann in eV/K and \emph{x} is the absolute
 temperature in K.
 
 \strong{Error estimation}\cr
 
-The error estimation is done be varying the input parameters using the given uncertanties in
+The error estimation is done be varying the input parameters using the given uncertainties in
 a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
 
 \strong{start_param} \cr
@@ -108,7 +108,7 @@ are requried, e.g., \code{c(A = 0, C = 0, W = 0, c = 0)} \cr
 \code{trace}   \tab \link{logical} \tab enables/disables progression trace for \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}\cr
 \code{weights} \tab \link{numeric} \tab option to provide own weights for the fitting, the length of this
 vector needs to be equal to the number for rows of the input \code{data.frame}. If set to \code{NULL} no weights
-are applied. The weights are defined by the thrid column of the input \code{data.frame}.
+are applied. The weights are defined by the third column of the input \code{data.frame}.
 }
 }
 \section{Function version}{
@@ -131,7 +131,7 @@ fit_ThermalQuenching(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -141,5 +141,5 @@ Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. 
 \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR5060, CNRS - Université Bordeaux Montaigne (Frange)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}

@@ -1,7 +1,6 @@
-context("convert_Wavelength2Energy")
-
 test_that("test convert functions", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   # Set up test scenario ------------------------------------------------------------------------
   #create artifical dataset according to Mooney et al. (2013)
@@ -25,16 +24,16 @@ test_that("test convert functions", {
   expect_error(convert_Wavelength2Energy("test"), regexp = "Class 'character' not supported as input!")
 
   ##test all three allowed input objects
-  expect_is(convert_Wavelength2Energy(data), class = "matrix")
-  expect_is(convert_Wavelength2Energy(as.data.frame(data)), class = "data.frame")
+  expect_type(convert_Wavelength2Energy(data), "double")
+  expect_s3_class(convert_Wavelength2Energy(as.data.frame(data)), class = "data.frame")
   object <- set_RLum(class = "RLum.Data.Spectrum", data = data[,1,drop = FALSE])
-  expect_is(convert_Wavelength2Energy(object), class = "RLum.Data.Spectrum")
+  expect_s4_class(convert_Wavelength2Energy(object), class = "RLum.Data.Spectrum")
 
   ##test the list option
-  expect_is(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), class = "list")
+  expect_type(convert_Wavelength2Energy(list(data, as.data.frame(data), object)), "list")
 
   ##test order argument
-  expect_is(convert_Wavelength2Energy(data, order = TRUE), class = "matrix")
+  expect_type(convert_Wavelength2Energy(data, order = TRUE), "double")
 
   ##test special treatment of RLum.Data.Spectrum objects
   object@info[["curveDescripter"]] <- "energy"
@@ -57,9 +56,6 @@ test_that("test convert functions", {
   # par(mfrow = c(1,2))
   # plot_RLum.Data.Spectrum(object, plot.type = "single", par.local = FALSE)
   # plot_RLum.Data.Spectrum(convert_Wavelength2Energy(object), plot.type = "single", par.local = FALSE)
-
-
-
 
 
 })

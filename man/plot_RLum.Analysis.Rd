@@ -34,8 +34,8 @@ sets number of columns for plot output, if nothing is set the function
 tries to find a value.}
 
 \item{abline}{\link{list} (\emph{optional}):
-allows to add ablines to the plot. Argument are provided
-in a list and will be forwared to the function \link{abline},
+allows to add ab-lines to the plot. Argument are provided
+in a list and will be forward to the function \link{abline},
 e.g., \code{list(v = c(10, 100))} adds two vertical lines add 10 and 100 to all
 plots. In contrast \verb{list(v = c(10), v = c(100)} adds a vertical at 10 to
 the first and a vertical line at 100 to the 2nd plot.}
@@ -83,7 +83,7 @@ the transformation functions. The argument works only for \code{ltype}
 \code{OSL} and \code{IRSL}.
 
 Please note: The curve transformation within this functions works roughly,
-i.e. every IRSL or OSL curve is transformed, without considerung whether it
+i.e. every IRSL or OSL curve is transformed, without considering whether it
 is measured with the PMT or not! However, for a fast look it might be
 helpful.
 }
@@ -133,7 +133,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2020. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org
+Kreutzer, S., 2020. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

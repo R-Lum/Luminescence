@@ -1,8 +1,7 @@
-context("Test Various Plot Functions")
-
-
 test_that("test pure success of the plotting without warning or error", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   ##distribution plots
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- ExampleData.DeValues$CA1
@@ -30,7 +29,7 @@ test_that("test pure success of the plotting without warning or error", {
    ##plot_Det
   data(ExampleData.BINfileData, envir = environment())
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-  expect_is(
+  expect_s4_class(
     plot_DetPlot(
       object,
       signal.integral.min = 1,
@@ -138,11 +137,12 @@ test_that("test pure success of the plotting without warning or error", {
 
 })
 
-
 test_that("test for return values, if any", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   data(ExampleData.DeValues, envir = environment())
   output <- plot_AbanicoPlot(ExampleData.DeValues, output = TRUE)
-    expect_is(output, "list")
+    expect_type(output, "list")
     expect_length(output, 10)
 })

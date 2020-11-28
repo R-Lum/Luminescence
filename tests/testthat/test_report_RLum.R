@@ -1,7 +1,6 @@
-context("report_RLum")
-
 test_that("Test Simple RLum Report", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ## the test fails on AppVeyor for no obvious reason on the windows
   ## platform ... attempts to reproduce this failure failed. So

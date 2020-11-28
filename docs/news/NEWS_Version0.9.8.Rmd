@@ -1,0 +1,81 @@
+---
+title: "R Luminescence version - 0.9.8 - Lazy Cat"
+author: "R Luminescence Developer Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_document
+---
+
+Dear **R** Luminescence users!
+
+We are proud to present the 'lazy cat', our newest update of R `Luminescence`. 
+Our apologies for not delivering earlier, we know we kept you waiting but
+better late than never. 
+
+*Please note that this package release will need **R**  >= v3.5.0*  
+
+While not all of the new functions we were preparing are ready for being released 
+(so still no `v1.0.0`) we did not want to wait any longer to show you what is ready. 
+See our featured functions below and do not forget to check the full list of changes 
+and notably the list of bug fixes [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+Have fun and do not forget to report bugs via https://github.com/R-Lum/Luminescence/issues.
+<br><br>
+
+Your R 'Luminescence' Developer Team
+
+*(Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, 
+Johannes Friedrich, Norbert Mercier, Rachel K. Smedley, Claire Christophe, Antoine Zink, Julie Durcan,  
+Georgina E. King, Anne Philippe, Guillaume Guérin, Svenja Riedesel & Martin Autzen)*
+
+```{r, echo = FALSE, message=FALSE}
+library(Luminescence)
+```
+
+## Featured new functions
+
+### Convert me: `convert_Concentration2DoseRate()`
+
+Looking for a tool that converts your radionuclide concentrations into dose rates?
+`convert_Concentration2DoseRate()` is you friend.
+
+This function converts radionuclide concentrations (K in %, Th and U in ppm) into dose rates (Gy/ka). Beta dose rates are also attenuated for the grain size (Guérin et al., 2012). Beta and gamma dose rates are corrected for the water content (based on the factors provided by Aitken, 1985).
+
+```{r, echo=FALSE}
+## create input template
+input <- convert_Concentration2DoseRate()
+
+## fill input
+input$Mineral <- "FS"
+input$K <- 2.13
+input$K_SE <- 0.07
+input$Th <- 9.76
+input$Th_SE <- 0.32
+input$U <- 2.24
+input$U_SE <- 0.12
+input$GrainSize <- 200
+input$WaterContent <- 30
+input$WaterContent_SE <- 5
+
+## convert
+convert_Concentration2DoseRate(input)
+```
+
+### Let that stone shine: `calc_CobbleDoseRate()`
+
+Cobbles and rocks are increasingly being used in luminescence dating applications. This function calculates the dose rate profile through the cobble based on the attenuation coefficients presented by Riedesel and Autzen (2020). This function uses the new function `convert_Concentration2DoseRate()` to convert provided U, Th and K concentrations into dose rates. The function then corrects the beta dose rate in the cobble for the grain size following results of Guérin et al. (2012). Sediment beta and gamma dose rates are corrected for the water content of the sediment using the correction factors of Aitken (1985). Water content in the cobble is assumed to be 0. An example data set is provided.
+
+```{r, echo=FALSE}
+## load example data
+data("ExampleData.CobbleData", envir = environment())
+
+## run function
+calc_CobbleDoseRate(ExampleData.CobbleData)
+```
+
+# References {-}
+
+Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
+
+Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012. On the use of the infinite matrix assumption and associated concepts: A critical review. Radiation Measurements 47, 778–785. doi:10.1016/j.radmeas.2012.04.004
+
+Riedesel, S., Autzen, M., 2020. Beta and gamma dose rate attenuation in rocks and sediment. Radiation Measurements 133, 106295. doi:10.1016/j.radmeas.2020.106295

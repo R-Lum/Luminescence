@@ -1,13 +1,12 @@
-context("template_DRAC")
-
 ##Full check
 test_that("Check template creation ", {
-  skip_on_cran()
+  testthat::skip_on_cran()
+  local_edition(3)
 
   ## test output class
-  expect_is(template_DRAC(), "DRAC.list")
-  expect_is(template_DRAC(notification = FALSE), "DRAC.list")
-  expect_is(template_DRAC(nrow = 10, notification = FALSE), "DRAC.list")
+  expect_s3_class(template_DRAC(), "DRAC.list")
+  expect_s3_class(template_DRAC(notification = FALSE), "DRAC.list")
+  expect_s3_class(template_DRAC(nrow = 10, notification = FALSE), "DRAC.list")
 
   ## test presets
   expect_identical(as.numeric(template_DRAC(notification = FALSE, preset = "quartz_coarse")$`a-value`), 0.035)

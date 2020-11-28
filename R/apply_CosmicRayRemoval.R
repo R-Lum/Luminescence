@@ -43,7 +43,7 @@
 #'
 #' @param method.Pych.smoothing [integer] (*with default*):
 #' Smoothing parameter for cosmic ray removal according to Pych (2003).
-#' The value defines how many neighboring values in each frame are used for smoothing
+#' The value defines how many neighbouring values in each frame are used for smoothing
 #' (e.g., `2` means that the two previous and two following values are used).
 #'
 #' @param method.Pych.threshold_factor [numeric] (*with default*):
@@ -73,8 +73,7 @@
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne
-#' (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [smooth], [smooth.spline],
 #' [apply_CosmicRayRemoval]

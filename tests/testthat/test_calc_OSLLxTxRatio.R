@@ -1,8 +1,5 @@
-context("calc_OSLLxTxRatio")
-
 ##preloads
 data(ExampleData.LxTxOSLData, envir = environment())
-
 temp <- calc_OSLLxTxRatio(
   Lx.data = Lx.data,
   Tx.data = Tx.data,
@@ -11,6 +8,8 @@ temp <- calc_OSLLxTxRatio(
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
+  local_edition(3)
+
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
 
@@ -18,6 +17,7 @@ test_that("check class and length of output", {
 
 test_that("test arguments", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##digits
   expect_silent(calc_OSLLxTxRatio(
@@ -50,6 +50,7 @@ test_that("test arguments", {
 
 test_that("test input", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##RLum.Curve
   expect_silent(calc_OSLLxTxRatio(
@@ -94,11 +95,11 @@ test_that("test input", {
     signal.integral = c(1:2),
     background.integral = c(70:100)))
 
-
 })
 
 test_that("force function break", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data[1:10,],
@@ -200,13 +201,25 @@ test_that("force function break", {
 
 test_that("create warnings", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal.integral = c(1:20),
-    background.integral = 80:100
-  ), "Number of background channels for Lx < 25; error estimation might be not reliable!")
+    signal.integral.Tx = c(1:20),
+    background.integral = 80:100,
+    background.integral.Tx = 60:100
+  ), "Number of background channels for Lx < 25; error estimation might not be reliable!")
+
+  expect_warning(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:20),
+    signal.integral.Tx = c(1:20),
+    background.integral = 60:100,
+    background.integral.Tx = 80:100
+  ), "Number of background channels for Tx < 25; error estimation might not be reliable!",)
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -224,14 +237,14 @@ test_that("create warnings", {
     background.integral = 60:100,
     background.integral.Tx = 40:100,
     use_previousBG = TRUE
-  ), " For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.")
-
+  ), "For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.")
 
 })
 
 
 test_that("check weird circumstances", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##(1) - Lx curve 0
   expect_type(calc_OSLLxTxRatio(
@@ -285,10 +298,9 @@ test_that("check weird circumstances", {
 
 })
 
-
-
 test_that("check values from output example", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   results <- get_RLum(temp)
 
@@ -305,4 +317,17 @@ test_that("check values from output example", {
 
 })
 
+test_that("test NA mode with no signal integrals", {
+  testthat::skip_on_cran()
+  local_edition(3)
 
+  data(ExampleData.LxTxOSLData, envir = environment())
+  temp <- expect_s4_class(calc_OSLLxTxRatio(
+    Lx.data = Lx.data,
+    Tx.data = Tx.data,
+    signal.integral = NA,
+    background.integral = NA), "RLum.Results")
+
+  expect_equal(round(sum(temp$LxTx.table[1,]),0), 391926)
+
+})

@@ -1,5 +1,3 @@
-context("calc_CosmicDoseRate")
-
 temp <- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                             latitude = 38.06451, longitude = 1.49646,
                             altitude = 364, error = 10)
@@ -7,13 +5,16 @@ temp <- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  expect_equal(is(temp), c("RLum.Results", "RLum"))
+  local_edition(3)
+
+  expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 3)
 
 })
 
 test_that("check values from output example 1", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   results <- get_RLum(temp)
 
@@ -34,6 +35,7 @@ test_that("check values from output example 1", {
 
 test_that("check values from output example 2b", {
   testthat::skip_on_cran()
+  local_edition(3)
   temp <- calc_CosmicDoseRate(depth = c(5.0, 2.78), density = c(2.65, 1.7),
                               latitude = 12.04332, longitude = 4.43243,
                               altitude = 364, corr.fieldChanges = TRUE,

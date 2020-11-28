@@ -15,7 +15,7 @@
 #' `OSL` and `IRSL`.
 #'
 #' Please note: The curve transformation within this functions works roughly,
-#' i.e. every IRSL or OSL curve is transformed, without considerung whether it
+#' i.e. every IRSL or OSL curve is transformed, without considering whether it
 #' is measured with the PMT or not! However, for a fast look it might be
 #' helpful.
 #'
@@ -38,8 +38,8 @@
 #' tries to find a value.
 #'
 #' @param abline [list] (*optional*):
-#' allows to add ablines to the plot. Argument are provided
-#' in a list and will be forwared to the function [abline],
+#' allows to add ab-lines to the plot. Argument are provided
+#' in a list and will be forward to the function [abline],
 #' e.g., `list(v = c(10, 100))` adds two vertical lines add 10 and 100 to all
 #' plots. In contrast `list(v = c(10), v = c(100)` adds a vertical at 10 to
 #' the first and a vertical line at 100 to the 2nd plot.

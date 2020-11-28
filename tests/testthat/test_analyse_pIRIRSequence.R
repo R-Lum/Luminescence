@@ -1,5 +1,3 @@
-context("analyse_pIRIRSequence")
-
 set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
@@ -36,16 +34,19 @@ results <- analyse_pIRIRSequence(
 
 test_that("check class and length of output", {
     testthat::skip_on_cran()
-    expect_is(results, "RLum.Results")
+    local_edition(3)
+
+    expect_s4_class(results, "RLum.Results")
     expect_equal(length(results), 4)
-    expect_is(results$LnLxTnTx.table, "data.frame")
-    expect_is(results$rejection.criteria, "data.frame")
+    expect_s3_class(results$LnLxTnTx.table, "data.frame")
+    expect_s3_class(results$rejection.criteria, "data.frame")
 
 
 })
 
 test_that("check output", {
    testthat::skip_on_cran()
+   local_edition(3)
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){

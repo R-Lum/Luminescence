@@ -1,7 +1,6 @@
-context("plot_RLum.Analysis")
-
 test_that("Test the basic plot functionality", {
   testthat::skip_on_cran()
+  local_edition(3)
 
   ##create dataset
   ##load data
@@ -11,12 +10,11 @@ test_that("Test the basic plot functionality", {
   temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
   ## trigger warning
-  expect_warning(plot_RLum.Analysis(
+  expect_silent(suppressWarnings(plot_RLum.Analysis(
     set_RLum("RLum.Analysis", records = list(
       set_RLum("RLum.Data.Curve", recordType = "OSL"),
       set_RLum("RLum.Data.Curve", recordType = "OSL")
-      )), norm = TRUE, combine = TRUE),
-    "Normalisation led to Inf or NaN values. Values replaced by 0")
+      )), norm = TRUE, combine = TRUE)))
 
   ##Basic plot
   expect_silent(plot_RLum.Analysis(
@@ -68,7 +66,8 @@ test_that("Test the basic plot functionality", {
 
   ##test arguments
   ##ylim - warning
-  expect_warning(plot_RLum.Analysis(
+  #TODO
+  expect_warning(Luminescence:::.warningCatcher(plot_RLum.Analysis(
     temp,
     subset = list(recordType = "TL"),
     combine = FALSE,
@@ -76,19 +75,16 @@ test_that("Test the basic plot functionality", {
     ylim = c(1,200),
     xlim = c(1,100),
     abline = list(v = c(110))
-  ))
+  )))
 
   ##test arguments
-  ##ylim - warning
-  expect_warning(plot_RLum.Analysis(
+  #ylim - warning
+  expect_warning(Luminescence:::.warningCatcher(plot_RLum.Analysis(
     temp,
     subset = list(recordType = "TL"),
     combine = FALSE,
     norm = TRUE,
     log = "y"
-  ))
-
-
-
+  )))
 
 })
