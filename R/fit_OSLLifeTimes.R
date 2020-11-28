@@ -771,7 +771,7 @@ if(plot) {
         pch = 20,
         xlim = plot_settings$xlim,
         log = if(plot_settings$log == "x"){"x"}else{""},
-        ylab = "\u03b5"
+        ylab = "Resid."
       )
     }
 
