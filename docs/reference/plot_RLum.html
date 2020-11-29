@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
       </span>
     </div>
 
@@ -136,7 +136,8 @@
       <td><p><a href='RLum-class.html'>RLum</a> (<strong>required</strong>):
 S4 object of class <code>RLum</code>. Optional a <a href='https://rdrr.io/r/base/list.html'>list</a> containing objects of
 class <a href='RLum-class.html'>RLum</a> can be provided. In this case the function tries to plot
-every object in this list according to its <code>RLum</code> class.</p></td>
+every object in this list according to its <code>RLum</code> class. Non-RLum objects are
+removed.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -173,7 +174,7 @@ found in the documentations of each plot function.</p>
     <p>The provided plot output depends on the input object.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4.3</p>
+    <p>0.4.4</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='plot_RLum.Data.Curve.html'>plot_RLum.Data.Curve</a>, <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a>,
@@ -186,11 +187,10 @@ found in the documentations of each plot function.</p>
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
+    <p>Kreutzer, S., 2020. plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>#load Example data</span>
+    <pre class="examples"><div class='input'><span class='co'>#load Example data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>#transform data.frame to RLum.Data.Curve object</span>
@@ -199,7 +199,6 @@ found in the documentations of each plot function.</p>
 <span class='co'>#plot RLum object</span>
 <span class='fu'>plot_RLum</span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_RLum-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -212,7 +211,7 @@ found in the documentations of each plot function.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
 </div>
 
 <div class="pkgdown">

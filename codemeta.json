@@ -7,7 +7,7 @@
   "identifier": "Luminescence",
   "description": "A collection of various R functions for the purpose of Luminescence\n    dating data analysis. This includes, amongst others, data import, export,\n    application of age models, curve deconvolution, sequence analysis and\n    plotting of equivalent dose distributions.",
   "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
-  "codeRepository": "https://CRAN.R-project.org/package=Luminescence",
+  "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "0.9.9",
@@ -16,7 +16,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2020-11-27 r79522)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -953,5 +953,6 @@
       }
     }
   ],
-  "relatedLink": "https://CRAN.R-project.org/package=Luminescence"
+  "relatedLink": "https://CRAN.R-project.org/package=Luminescence",
+  "releaseNotes": "https://github.com/R-Lum/Luminescence/blob/master/NEWS.md"
 }

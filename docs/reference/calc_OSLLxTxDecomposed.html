@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>sTeve - sophisticated tool for efficient data validation and evaluation — sTeve • Luminescence</title>
+<title>Calculate Lx/Tx ratio for decomposed CW-OSL signal components — calc_OSLLxTxDecomposed • Luminescence</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="sTeve - sophisticated tool for efficient data validation and evaluation — sTeve" />
-<meta property="og:description" content="This function provides a sophisticated routine for comprehensive
-luminescence dating data analysis." />
+<meta property="og:title" content="Calculate Lx/Tx ratio for decomposed CW-OSL signal components — calc_OSLLxTxDecomposed" />
+<meta property="og:description" content="Calculate Lx/Tx ratios from a given set of decomposed
+CW-OSL curves decomposed by [OSLdecomposition::RLum.OSL_decomposition]" />
 
 
 
@@ -118,68 +118,98 @@ luminescence dating data analysis." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>sTeve - sophisticated tool for efficient data validation and evaluation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/zzz.R'><code>R/zzz.R</code></a></small>
-    <div class="hidden name"><code>sTeve.Rd</code></div>
+    <h1>Calculate Lx/Tx ratio for decomposed CW-OSL signal components</h1>
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/calc_OSLLxTxDecomposed.R'><code>R/calc_OSLLxTxDecomposed.R</code></a></small>
+    <div class="hidden name"><code>calc_OSLLxTxDecomposed.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function provides a sophisticated routine for comprehensive
-luminescence dating data analysis.</p>
+    <p>Calculate <code>Lx/Tx</code> ratios from a given set of decomposed
+CW-OSL curves decomposed by <code>[OSLdecomposition::RLum.OSL_decomposition]</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>sTeve</span><span class='op'>(</span>n_frames <span class='op'>=</span> <span class='fl'>10</span>, t_animation <span class='op'>=</span> <span class='fl'>2</span>, n.tree <span class='op'>=</span> <span class='fl'>7</span>, <span class='va'>type</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>calc_OSLLxTxDecomposed</span><span class='op'>(</span>
+  <span class='va'>Lx.data</span>,
+  Tx.data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  OSL.component <span class='op'>=</span> <span class='fl'>1L</span>,
+  sig0 <span class='op'>=</span> <span class='fl'>0</span>,
+  digits <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>n_frames</th>
-      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
-n frames</p></td>
+      <th>Lx.data</th>
+      <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<strong>required</strong>): Component table created by
+<code>[OSLdecomposition::RLum.OSL_decomposition]</code> and per default located
+at <code>object@records[[...]]@info$COMPONENTS</code>.The value of <code>$n[OSL.component]</code>
+is set as <code>LnLx</code>. The value of <code>$n.error[OSL.component]</code> is set as <code>LnLx.error</code></p></td>
     </tr>
     <tr>
-      <th>t_animation</th>
-      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
-t animation</p></td>
+      <th>Tx.data</th>
+      <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<em>optional</em>): Component table created by
+<code>[OSLdecomposition::RLum.OSL_decomposition]</code> and per default located at
+<code>object@records[[...]]@info$COMPONENTS</code>. The value of <code>$n[OSL.component]</code>
+is set as <code>TnTx</code>. The value of <code>$n.error[OSL.component]</code> is set as <code>TnTx.error</code></p></td>
     </tr>
     <tr>
-      <th>n.tree</th>
-      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
-how many trees do you want to cut?</p></td>
+      <th>OSL.component</th>
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> or <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
+a single index or a name describing which OSL signal component shall be evaluated.
+This argument can either be the name of the OSL component assigned by
+<code>[OSLdecomposition::RLum.OSL_global_fitting]</code> or the index of component.
+Then <code>'1'</code> selects the fastest decaying component, <code>'2'</code> the
+second fastest and so on. If not defined, the fastest decaying component is selected.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>optional</em>):
-Make a decision: 1, 2 or 3</p></td>
+      <th>sig0</th>
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>): allows adding an extra error component
+to the final <code>Lx/Tx</code> error value (e.g., instrumental error).</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>): round numbers to the specified digits.
+If digits is set to <code>NULL</code> nothing is rounded.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Validates your data.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>Returns an S4 object of type <a href='RLum.Results-class.html'>RLum.Results</a>.</p>
+<p>Slot <code>data</code> contains a <a href='https://rdrr.io/r/base/list.html'>list</a> with the following structure:</p>
+<p><strong>@data</strong></p><pre>$LxTx.table (data.frame)
+.. $ LnLx
+.. $ TnTx
+.. $ Net_LnLx
+.. $ Net_LnLx.Error
+.. $ Net_TnTx
+.. $ Net_TnTx.Error
+.. $ LxTx
+.. $ LxTx.relError
+.. $ LxTx.Error
+</pre>
 
-    <p>This amazing sophisticated function validates your data seriously.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>This function should not be taken too seriously.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='plot_KDE.html'>plot_KDE</a></p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>R Luminescence Team, 2012-2046
-, RLum Developer Team</p>
+    <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>NA, NA, , , 2020. sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Mittelstrass, D., 2020. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##no example available</span>
+    <p>Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019.
+Automated identification and separation of quartz CW-OSL signal components with R.
+talk presented at DLED 2019, Bingen, Germany
+<a href='http://luminescence.de/OSLdecomp_talk.pdf'>http://luminescence.de/OSLdecomp_talk.pdf</a><br /></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-</div></pre>
+    <div class='dont-index'><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>, <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dirk Mittelstrass
+, RLum Developer Team</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

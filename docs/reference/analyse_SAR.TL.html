@@ -73,7 +73,7 @@ RLum.Analysis object including growth curve fitting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
       </span>
     </div>
 
@@ -210,7 +210,7 @@ are to be logarithmic. See
     <p>A plot (<em>optional</em>) and an <a href='RLum.Results-class.html'>RLum.Results</a> object is
 returned containing the following elements:</p>
 <dt>De.values</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> containing De-values and further parameters</p></dd>
-<dt>LnLxTnTx.values</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> of all calculated Lx/Tx values including signal, background counts and the dose points.</p></dd>
+<dt>LnLxTnTx.values</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> of all calculated <code>Lx/Tx</code> values including signal, background counts and the dose points.</p></dd>
 <dt>rejection.criteria</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
 
 note: the output should be accessed using the function get_RLum
@@ -219,13 +219,13 @@ note: the output should be accessed using the function get_RLum
 
     <p>This function performs a SAR TL analysis on a set of curves. The SAR
 procedure in general is given by Murray and Wintle (2000). For the
-calculation of the Lx/Tx value the function <a href='calc_TLLxTxRatio.html'>calc_TLLxTxRatio</a> is
+calculation of the <code>Lx/Tx</code> value the function <a href='calc_TLLxTxRatio.html'>calc_TLLxTxRatio</a> is
 used.</p>
 <p><strong>Provided rejection criteria</strong></p>
 <p><code>[recyling.ratio]</code>: calculated for every repeated regeneration dose point.</p>
 <p><code>[recuperation.rate]</code>: recuperation rate calculated by
-comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
-value (the Lx/Tx ratio of the natural signal).  For methodological
+comparing the <code>Lx/Tx</code> values of the zero regeneration point with the <code>Ln/Tn</code>
+value (the <code>Lx/Tx</code> ratio of the natural signal).  For methodological
 background see Aitken and Smith (1988)</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -237,7 +237,7 @@ from the input object without further warning.</p>
     <p>0.3.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
+    <p>Kreutzer, S., 2020. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -251,7 +251,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 <a href='RLum.Results-class.html'>RLum.Results</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CRNS-Universite Bordeaux Montaigne (France)
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -276,7 +276,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #&gt;  	 .. $data : data.frame
 #&gt; 	 .. $LnLxTnTx.table : data.frame
 #&gt; 	 .. $rejection.criteria : data.frame
-#&gt; 	 additional info elements:  1</div><div class='input'>
+#&gt; 	 additional info elements:  1 </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -289,7 +289,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
 </div>
 
 <div class="pkgdown">

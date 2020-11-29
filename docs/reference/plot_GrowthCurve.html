@@ -42,7 +42,7 @@
 <meta property="og:title" content="Fit and plot a growth curve for luminescence data (Lx/Tx against dose) — plot_GrowthCurve" />
 <meta property="og:description" content="A dose response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
-extraxpolation to calculate the equivalent dose." />
+extrapolation to calculate the equivalent dose." />
 
 
 
@@ -74,7 +74,7 @@ extraxpolation to calculate the equivalent dose." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
       </span>
     </div>
 
@@ -127,7 +127,7 @@ extraxpolation to calculate the equivalent dose." />
     <div class="ref-description">
     <p>A dose response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
-extraxpolation to calculate the equivalent dose.</p>
+extrapolation to calculate the equivalent dose.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_GrowthCurve</span><span class='op'>(</span>
@@ -157,8 +157,8 @@ extraxpolation to calculate the equivalent dose.</p>
     <tr>
       <th>sample</th>
       <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<strong>required</strong>):
-data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx.
-The column for the test dose response is optional, but requires 'TnTx' as
+data frame with three columns for <code>x=Dose</code>,<code>y=LxTx</code>,<code>z=LxTx.Error</code>, <code>y1=TnTx</code>.
+The column for the test dose response is optional, but requires <code>'TnTx'</code> as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.</p></td>
     </tr>
@@ -176,7 +176,7 @@ selects calculation mode of the function.</p><ul>
 <li><p><code>"alternate"</code> calculates no De and just fits the data points.</p></li>
 </ul>
 
-<p>Please note that for option <code>"regenrative"</code> the first point is considered
+<p>Please note that for option <code>"regenerative"</code> the first point is considered
 as natural dose</p></td>
     </tr>
     <tr>
@@ -198,8 +198,8 @@ function used for fitting. Possible options are:</p><ul>
       <th>fit.force_through_origin</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>)
 allow to force the fitted function through the origin.
-For <code>method = "EXP+EXP"</code> and <code>method = "GOK"</code> the function will go through the origin in either case,
-so this option will have no effect.</p></td>
+For <code>method = "EXP+EXP"</code> and <code>method = "GOK"</code> the function will go through
+the origin in either case, so this option will have no effect.</p></td>
     </tr>
     <tr>
       <th>fit.weights</th>
@@ -268,8 +268,8 @@ global scaling factor.</p></td>
     <tr>
       <th>txtProgressBar</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-enables or disables txtProgressBar. If <code>verbose = FALSE</code> also no
-txtProgressBar is shown.</p></td>
+enables or disables <code>txtProgressBar</code>. If <code>verbose = FALSE</code> also no
+<code>txtProgressBar</code> is shown.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -336,25 +336,27 @@ Guralnik et al. (2015) of the form of</p>
 provided signal errors (Lx/Tx error):
 $$fit.weights = 1/error/(sum(1/error))$$</p>
 <p><strong>Error estimation using Monte Carlo simulation</strong></p>
-<p>Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
-constructed by randomly drawing curve data from samled from normal
-distributions. The normal distribution is defined by the input values (mean
-= value, sd = value.error). Then, a growth curve fit is attempted for each
-dataset resulting in a new distribution of single De values. The <a href='https://rdrr.io/r/stats/sd.html'>sd</a>
-of this distribution is becomes then the error of the De. With increasing
-iterations, the error value becomes more stable.
-<strong>Note:</strong> It may take some calculation time with increasing MC runs,
+<p>Error estimation is done using a parametric bootstrapping approach. A set of
+<code>Lx/Tx</code> values is constructed by randomly drawing curve data sampled from normal
+distributions. The normal distribution is defined by the input values (<code>mean = value</code>, <code>sd = value.error</code>). Then, a dose-response curve fit is attempted for each
+dataset resulting in a new distribution of single <code>De</code> values. The standard
+deviation of this distribution is becomes then the error of the <code>De</code>. With increasing
+iterations, the error value becomes more stable. However, naturally the error
+will not decrease with more MC runs.</p>
+<p>Alternatively, the function returns highest probability density interval
+estimates as output, users may find more useful under certain circumstances.</p>
+<p><strong>Note:</strong> It may take some calculation time with increasing MC runs,
 especially for the composed functions (<code>EXP+LIN</code> and <code>EXP+EXP</code>).<br />
 Each error estimation is done with the function of the chosen fitting method.</p>
 <p><strong>Subtitle information</strong></p>
-<p>To avoid plotting the subtitle information, provide an empty user mtext
+<p>To avoid plotting the subtitle information, provide an empty user <code>mtext</code>
 <code>mtext = ""</code>. To plot any other subtitle text, use <code>mtext</code>.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>1.10.11</p>
+    <p>1.10.13</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
+    <p>Kreutzer, S., Dietze, M., 2020. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.</p>
@@ -367,7 +369,7 @@ from feldspar. Radiation Measurements 81, 224-231.</p>
 <a href='https://rdrr.io/r/stats/lm.html'>lm</a>, <a href='https://rdrr.io/r/stats/uniroot.html'>uniroot</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)<br />
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br />
 Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team</p>
 
@@ -377,8 +379,10 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.LxTxData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span><span class='op'>(</span><span class='va'>LxTxData</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         De De.Error      D01 D01.ERROR D02 D02.ERROR    De.MC Fit
-#&gt; 1 1737.881    59.89 1766.074  98.79673  NA        NA 1742.763 EXP</div><div class='input'>
+</div><div class='output co'>#&gt;             De De.Error      D01 D01.ERROR D02 D02.ERROR    De.MC Fit HPDI68_L
+#&gt; lower 1737.881    59.89 1766.074  98.79673  NA        NA 1742.763 EXP 1693.345
+#&gt;       HPDI68_U HPDI95_L HPDI95_U
+#&gt; lower  1818.73 1612.741 1851.569</div><div class='input'>
 <span class='co'>##(1b) horizontal plot arrangement</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/layout.html'>layout</a></span><span class='op'>(</span>mat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>plot_GrowthCurve</span><span class='op'>(</span><span class='va'>LxTxData</span>, output.plotExtended.single <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -423,7 +427,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 #&gt; 	 .. $De.MC : numeric
 #&gt; 	 .. $Fit : nls
 #&gt; 	 .. $Formula : expression
-#&gt; 	 additional info elements:  1</div><div class='input'>
+#&gt; 	 additional info elements:  1 </div><div class='input'>
 <span class='co'>##(6) plot using the 'alternate' mode</span>
 <span class='va'>LxTxData</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.001</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>plot_GrowthCurve</span><span class='op'>(</span><span class='va'>LxTxData</span>,mode <span class='op'>=</span> <span class='st'>"alternate"</span><span class='op'>)</span><span class='op'>)</span>
@@ -435,7 +439,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 #&gt; 	 .. $De.MC : logical
 #&gt; 	 .. $Fit : nls
 #&gt; 	 .. $Formula : expression
-#&gt; 	 additional info elements:  1</div><div class='input'>
+#&gt; 	 additional info elements:  1 </div><div class='input'>
 <span class='co'>##(7) import and fit test data set by Berger &amp; Huntley 1989</span>
 <span class='va'>QNL84_2_unbleached</span> <span class='op'>&lt;-</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/QNL84_2_unbleached.txt"</span>, package <span class='op'>=</span> <span class='st'>"Luminescence"</span><span class='op'>)</span><span class='op'>)</span>
@@ -496,7 +500,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
 </div>
 
 <div class="pkgdown">

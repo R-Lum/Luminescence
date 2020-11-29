@@ -74,7 +74,7 @@ With that a standardised output is reached and a net transmission window can be 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
       </span>
     </div>
 
@@ -254,7 +254,7 @@ instead.</p>
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
+    <p>Kreutzer, S., 2020. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -274,7 +274,7 @@ instead.</p>
 #&gt;  	 .. $net_transmission_window : matrix
 #&gt; 	 .. $OD_total : matrix
 #&gt; 	 .. $filter_matrix : matrix
-#&gt; 	 additional info elements:  1</div><div class='input'>
+#&gt; 	 additional info elements:  1 </div><div class='input'>
 <span class='co'>## Example 2 (with d and P value and name for filter 2)</span>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>plot_FilterCombinations</span><span class='op'>(</span>
 filters <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>filter_1 <span class='op'>=</span> <span class='va'>filter1</span>, Rectangle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>filter2</span>, d <span class='op'>=</span> <span class='fl'>2</span>, P <span class='op'>=</span> <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
@@ -286,7 +286,7 @@ filters <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/ba
 #&gt;  	 .. $net_transmission_window : matrix
 #&gt; 	 .. $OD_total : matrix
 #&gt; 	 .. $filter_matrix : matrix
-#&gt; 	 additional info elements:  1</div><div class='input'>
+#&gt; 	 additional info elements:  1 </div><div class='input'>
 <span class='co'>## Example 3 show optical density</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>$</span><span class='va'>OD_total</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_FilterCombinations-3.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -310,7 +310,7 @@ filters <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/ba
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
 </div>
 
 <div class="pkgdown">

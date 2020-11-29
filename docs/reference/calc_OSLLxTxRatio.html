@@ -73,7 +73,7 @@ background subtraction." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
       </span>
     </div>
 
@@ -154,29 +154,30 @@ requires a CW-OSL shine down curve (x = time, y = counts)</p></td>
       <th>Tx.data</th>
       <td><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> or <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<em>optional</em>):
 requires a CW-OSL shine down curve (x = time, y = counts). If no
-input is given the Tx.data will be treated as <code>NA</code> and no Lx/Tx ratio
+input is given the <code>Tx.data</code> will be treated as <code>NA</code> and no <code>Lx/Tx</code> ratio
 is calculated.</p></td>
     </tr>
     <tr>
       <th>signal.integral</th>
-      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
-vector with the limits for the signal integral.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>): vector with the limits for the signal integral.
+Can be set to <code>NA</code> than now integrals are considered and all other integrals are set to <code>NA</code> as well.</p></td>
     </tr>
     <tr>
       <th>signal.integral.Tx</th>
-      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
-vector with the limits for the signal integral for the Tx-curve. If nothing is provided the
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
+vector with the limits for the signal integral for the <code>Tx</code>-curve. If nothing is provided the
 value from <code>signal.integral</code> is used.</p></td>
     </tr>
     <tr>
       <th>background.integral</th>
-      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
-vector with the bounds for the background integral.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>):
+vector with the bounds for the background integral.
+Can be set to <code>NA</code> than now integrals are considered and all other integrals are set to <code>NA</code> as well.</p></td>
     </tr>
     <tr>
       <th>background.integral.Tx</th>
-      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<em>optional</em>):
-vector with the limits for the background integral for the Tx curve.
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
+vector with the limits for the background integral for the <code>Tx</code> curve.
 If nothing is provided the value from <code>background.integral</code> is used.</p></td>
     </tr>
     <tr>
@@ -188,23 +189,23 @@ Possible arguments <code>poisson</code> or <code>non-poisson</code>. See details
     <tr>
       <th>use_previousBG</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-If set to <code>TRUE</code> the background of the Lx-signal is substracted also
-from the Tx-signal. Please note that in this case separat
-signal integral limits for the Tx signal are not allowed and will be reset.</p></td>
+If set to <code>TRUE</code> the background of the <code>Lx</code>-signal is subtracted also
+from the <code>Tx</code>-signal. Please note that in this case separate
+signal integral limits for the <code>Tx</code>-signal are not allowed and will be reset.</p></td>
     </tr>
     <tr>
       <th>sigmab</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
-option to set a manual value for the overdispersion (for LnTx and TnTx),
-used for the Lx/Tx error calculation. The value should be provided as
+option to set a manual value for the overdispersion (for <code>LnTx</code> and <code>TnTx</code>),
+used for the <code>Lx/Tx</code> error calculation. The value should be provided as
 absolute squared count values, e.g. <code>sigmab = c(300,300)</code>.
-<strong>Note:</strong> If only one value is provided this value is taken for both (LnTx and TnTx) signals.</p></td>
+<strong>Note:</strong> If only one value is provided this value is taken for both (<code>LnTx</code> and <code>TnTx</code>) signals.</p></td>
     </tr>
     <tr>
       <th>sig0</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-allow adding an extra component of error to the final Lx/Tx error value
-(e.g., instrumental errror, see details).</p></td>
+allow adding an extra component of error to the final <code>Lx/Tx</code> error value
+(e.g., instrumental error, see details).</p></td>
     </tr>
     <tr>
       <th>digits</th>
@@ -283,10 +284,10 @@ consider to provide an own <code>sigmab</code> value using the corresponding arg
 own <code>sigmab</code> value or use <code>background.count.distribution = "poisson"</code>.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.7.0</p>
+    <p>0.8.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.8. https://r-luminescence.org</p>
+    <p>Kreutzer, S., 2020. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Duller, G., 2018. Analyst v4.57 - User Manual.
@@ -331,7 +332,7 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
 </div>
 
 <div class="pkgdown">
