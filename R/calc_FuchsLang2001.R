@@ -99,22 +99,20 @@ calc_FuchsLang2001 <- function(
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments
   extraArgs <- list(...)
-
   verbose <- if("verbose" %in% names(extraArgs)) {extraArgs$verbose} else {TRUE}
-
 
   ##============================================================================##
   ##PREPARE DATA
   ##============================================================================##
 
-  ##1. order values in acending order write used D[e] values in data.frame
-  o <- order(data[1]) # o is only an order parameter
+  ##1. order values in ascending order write used D[e] values in data.frame
+  o <- order(data[[1]]) # o is only an order parameter
   data_ordered <- data[o,] # sort values after o and write them into a new variable
 
   ##2. estimate D[e]
 
   # set variables
-  usedDeValues<-data.frame(De=NA,De_Error=NA,cv=NA)
+  usedDeValues <- data.frame(De = NA, De_Error = NA, cv = NA)
   endDeValue<-startDeValue
 
   # if the first D[e] values are not used write this information in the data.frame
