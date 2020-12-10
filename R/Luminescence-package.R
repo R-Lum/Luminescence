@@ -1,7 +1,7 @@
 #' Comprehensive Luminescence Dating Data Analysis
 #'
 #' \if{html}{
-#' \figure{RL_Logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
+#' \figure{Luminescence_logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
 #' \emph{R Luminescence Developer Team}
 #' }
 #'
