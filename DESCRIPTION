@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.10.9000-29
+Version: 0.9.10
 Date: 2020-12-10
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
@@ -59,7 +59,6 @@ Depends:
 LinkingTo: Rcpp (>= 1.0.5),
     RcppArmadillo (>= 0.10.1.0.0)
 Imports:
-    interp (>= 1.0),
     bbmle (>= 1.0.23),
     data.table (>= 1.13.2),
     DEoptim (>= 2.2-5),
