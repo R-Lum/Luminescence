@@ -15,6 +15,11 @@ header-includes:
 * `fit_EmissionSpectra()` Function for luminescence emission spectra deconvolution.
 
 ### Bugfixes and changes
+* Dummy
+
+## Changes in version 0.9.10 (2020-12-10)
+
+### Bugfixes and changes
 
 #### `analyse_SAR.CWOSLOSL()`
 * The recent changes in 0.9.9 improving the self-call had unwanted side effects 
