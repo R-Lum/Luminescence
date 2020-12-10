@@ -12,6 +12,7 @@ results <- analyse_SAR.CWOSL(
   verbose = FALSE
 )
 
+
 ##generate different datasets removing TL curves
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
 object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
@@ -86,6 +87,7 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+  local_edition(3)
   ##signal integral set to NA
   expect_warning(
     analyse_SAR.CWOSL(
@@ -256,15 +258,19 @@ test_that("simple run", {
      verbose = FALSE
    ), regexp = "Background integral out of bounds")
 
+  local_edition(3)
 })
 
 test_that("advance tests run", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
   ##this tests basically checks the parameter expansion and make
   ##sure everything is evaluated properly
   # signal.integral.min <- 1
   # signal.integral.max <- 2
-  #
-  # ##test with variables for signal integral
+
+  ##test with variables for signal integral
   # expect_s4_class(
   #   analyse_SAR.CWOSL(
   #     object = object[1:2],

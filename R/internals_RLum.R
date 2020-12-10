@@ -526,12 +526,11 @@ fancy_scientific <- function(l) {
 
   ##now we have to make sure that we evaluate all language objects
   ##before passing them further down
-  args_new <- lapply(args_new, function(x){
-    if(class(x)[1] == "name" | class(x)[1] == "call")
-      return(eval(x))
+  for(i in 1:length(args_new)){
+    if(class(args_new[[i]])[1] == "name" | class(args_new[[i]])[1] == "call")
+      args_new[[i]] <- eval(args_new[[i]])
+  }
 
-    x
-  })
 
   ##combine the two argument lists
   args <- modifyList(
@@ -558,7 +557,7 @@ fancy_scientific <- function(l) {
   ##    ... the case when the user what to use different values for the objects
   ##2:  the argument is no list ...
   ##    ... the standard automated expansion
-  ##    ... OR it is a list with names (e.g., rejection.creteria = list(recycling.ration = 10))
+  ##    ... OR it is a list with names (e.g., rejection.criteria = list(recycling.ration = 10))
   for(i in 1:length(args)){
     if(class(args[[i]]) == "list" & is.null(names(args[[i]]))){
       args[[i]] <- rep(args[[i]], length = len[1])
