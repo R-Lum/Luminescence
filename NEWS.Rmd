@@ -17,7 +17,10 @@ Along with the function, a new example data set `ExampleData.MortarData` was add
 
 ### Bugfixes and changes
 
-* Dummy
+#### `analyse_SAR.CWOSLOSL()`
+* The recent changes in 0.9.9 improving the self-call had unwanted side effects 
+if the input parameters were itself objects. For example: `signal.integral.min = setting`
+led to a `missing parameter` error; fixed (thanks to Thomas Kolb for reporting). 
 
 ## Changes in version 0.9.9 (2020-11-29)
 
