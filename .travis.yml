@@ -1,4 +1,6 @@
 language: r
+os: linux
+dist: xenial
 cache: packages
 warnings_are_errors: true
 
@@ -54,7 +56,6 @@ jobs:
       - sudo apt-get -qq update
       - sudo apt-get install -y ghostscript
       - sudo apt-get install libgit2-dev
-
     env: CACHE_NAME=JOB3
   - os: osx
     osx_image: xcode11.4
