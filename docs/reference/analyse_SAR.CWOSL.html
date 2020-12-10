@@ -73,7 +73,7 @@ RLum.Analysis object including growth curve fitting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
       </span>
     </div>
 
@@ -81,28 +81,22 @@ RLum.Analysis object including growth curve fitting." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
-    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">References</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+  <a href="https://github.com/R-Lum/Luminescence/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
-    News
-  </a>
-</li>
-<li>
-  <a href="https://github.com/R-Lum/Luminescence">
-    <span class="fa fa-github"></span>
-     
-    GitHub
   </a>
 </li>
       </ul>
@@ -203,9 +197,9 @@ aliquot with component <code>1</code> and the second aliquot with component <cod
     <tr>
       <th>rejection.criteria</th>
       <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>with default</em>):
-provide a named list and set rejection criteria in <strong>percentage</strong>
-for further calculation. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> in
-a <a href='https://rdrr.io/r/base/list.html'>list</a>, if <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a></p>
+provide a <em>named</em> list and set rejection criteria in <strong>percentage</strong>
+for further calculation. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> in a <a href='https://rdrr.io/r/base/list.html'>list</a>, if <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a>.
+Note: If an <em>unnamed</em> <a href='https://rdrr.io/r/base/list.html'>list</a> is provided the new settings are ignored!</p>
 <p>Allowed arguments are <code>recycling.ratio</code>, <code>recuperation.rate</code>,
 <code>palaeodose.error</code>, <code>testdose.error</code> and <code>exceed.max.regpoint = TRUE/FALSE</code>.
 Example: <code>rejection.criteria = list(recycling.ratio = 10)</code>.
@@ -323,10 +317,10 @@ default should not exceed 10\<!-- %. --></p>
 <p><strong>The function currently does support only 'OSL', 'IRSL' and 'POSL' data!</strong></p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.9.1</p>
+    <p>0.9.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -384,7 +378,7 @@ rejection.criteria <span class='op'>=</span> <span class='fu'><a href='https://r
 #&gt;   HPDI68_U HPDI95_L HPDI95_U RC.Status signal.range background.range
 #&gt; 1 1709.013 1570.493 1761.183        OK        1 : 2       900 : 1000
 #&gt;   signal.range.Tx background.range.Tx                                UID
-#&gt; 1         NA : NA             NA : NA 2020-11-29-11:10.0.878804486710578</div><div class='input'>
+#&gt; 1         NA : NA             NA : NA 2020-12-10-06:17.0.878804486710578</div><div class='input'>
 <span class='co'>##show LnTnLxTx table</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"LnLxTnTx.table"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      Name Repeated Dose  LnLx   LnLx.BG TnTx   TnTx.BG    Net_LnLx
@@ -404,13 +398,13 @@ rejection.criteria <span class='op'>=</span> <span class='fu'><a href='https://r
 #&gt; 6       97.54912 5732.396       77.37976 1.61426805 0.027647946
 #&gt; 7       14.86509 5989.356       78.87190 0.01629624 0.002491179
 #&gt;                                  UID
-#&gt; 1 2020-11-29-11:10.0.878804486710578
-#&gt; 2 2020-11-29-11:10.0.878804486710578
-#&gt; 3 2020-11-29-11:10.0.878804486710578
-#&gt; 4 2020-11-29-11:10.0.878804486710578
-#&gt; 5 2020-11-29-11:10.0.878804486710578
-#&gt; 6 2020-11-29-11:10.0.878804486710578
-#&gt; 7 2020-11-29-11:10.0.878804486710578</div><div class='input'>
+#&gt; 1 2020-12-10-06:17.0.878804486710578
+#&gt; 2 2020-12-10-06:17.0.878804486710578
+#&gt; 3 2020-12-10-06:17.0.878804486710578
+#&gt; 4 2020-12-10-06:17.0.878804486710578
+#&gt; 5 2020-12-10-06:17.0.878804486710578
+#&gt; 6 2020-12-10-06:17.0.878804486710578
+#&gt; 7 2020-12-10-06:17.0.878804486710578</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

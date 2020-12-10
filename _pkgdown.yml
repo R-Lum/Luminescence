@@ -1,21 +1,4 @@
-navbar:
-  title: "Luminescence"
-  left:
-    - icon: fa-home
-      text: "Home"
-      href: index.html
-    - text: "References"
-      href: reference/index.html
-  right:
-    - icon: fa-newspaper-o
-      text: "News"
-      href: news/index.html
-    - icon: fa-github
-      text: "GitHub"
-      href: https://github.com/R-Lum/Luminescence
-
 template:
   params:
    bootswatch: cosmo
-
 

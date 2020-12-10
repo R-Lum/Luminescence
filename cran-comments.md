@@ -18,7 +18,7 @@ files related to one function and fixed.
 
 ## Reverse dependency checks
 
-Reverse depends 4: 
+Reverse depends 3: 
 
 * 2/3 are ok. 
 * `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
