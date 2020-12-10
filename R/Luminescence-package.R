@@ -10,7 +10,6 @@
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.
 #'
-#'
 #' @name Luminescence-package
 #'
 #' @aliases Luminescence-package Luminescence
