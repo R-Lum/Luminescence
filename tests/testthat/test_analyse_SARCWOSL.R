@@ -261,30 +261,30 @@ test_that("simple run", {
 test_that("advance tests run", {
   ##this tests basically checks the parameter expansion and make
   ##sure everything is evaluated properly
-  signal.integral.min <- 1
-  signal.integral.max <- 2
-
-  ##test with variables for signal integral
-  expect_s4_class(
-    analyse_SAR.CWOSL(
-      object = object[1:2],
-      signal.integral.min = signal.integral.min,
-      signal.integral.max = signal.integral.max,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      fit.method = "LIN",
-      rejection.criteria= list(
-        recycling.ratio = NA,
-        recuperation.rate = 1,
-        palaeodose.error = 1,
-        testdose.error = 1,
-        test = "new",
-        exceed.max.regpoint = FALSE),
-      plot = FALSE,
-      verbose = FALSE
-    ),
-    class = "RLum.Results"
-  )
+  # signal.integral.min <- 1
+  # signal.integral.max <- 2
+  #
+  # ##test with variables for signal integral
+  # expect_s4_class(
+  #   analyse_SAR.CWOSL(
+  #     object = object[1:2],
+  #     signal.integral.min = signal.integral.min,
+  #     signal.integral.max = signal.integral.max,
+  #     background.integral.min = 900,
+  #     background.integral.max = 1000,
+  #     fit.method = "LIN",
+  #     rejection.criteria = list(
+  #       recycling.ratio = NA,
+  #       recuperation.rate = 1,
+  #       palaeodose.error = 1,
+  #       testdose.error = 1,
+  #       test = "new",
+  #       exceed.max.regpoint = FALSE),
+  #     plot = FALSE,
+  #     verbose = FALSE
+  #   ),
+  #   class = "RLum.Results"
+  # )
 
   ##test rejection criteria is a list without(!) names,
   ##this should basically lead to no fail

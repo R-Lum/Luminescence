@@ -527,7 +527,7 @@ fancy_scientific <- function(l) {
   ##now we have to make sure that we evaluate all language objects
   ##before passing them further down
   args_new <- lapply(args_new, function(x){
-    if(class(x)[1] == "name" || class(x)[1] == "call")
+    if(class(x)[1] == "name" | class(x)[1] == "call")
       return(eval(x))
 
     x
