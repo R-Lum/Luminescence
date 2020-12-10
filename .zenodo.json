@@ -26,7 +26,9 @@
                                                   [
                                                     [
                                                       [
-                                                        ["eng"]
+                                                        [
+                                                          ["eng"]
+                                                        ]
                                                       ]
                                                     ]
                                                   ]
@@ -81,7 +83,9 @@
                                                   [
                                                     [
                                                       [
-                                                        ["GPL-2.0-or-later"]
+                                                        [
+                                                          ["GPL-2.0-or-later"]
+                                                        ]
                                                       ]
                                                     ]
                                                   ]
@@ -139,7 +143,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["url"]
+                                                            [
+                                                              ["url"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -194,7 +200,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["https://CRAN.R-project.org/package=Luminescence"]
+                                                            [
+                                                              ["https://CRAN.R-project.org/package=Luminescence"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -249,7 +257,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["isSupplementTo"]
+                                                            [
+                                                              ["isSupplementTo"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -304,7 +314,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["software"]
+                                                            [
+                                                              ["software"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -361,7 +373,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["url"]
+                                                            [
+                                                              ["url"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -416,7 +430,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["https://github.com/R-Lum/Luminescence/tree/master"]
+                                                            [
+                                                              ["https://github.com/R-Lum/Luminescence/tree/master"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -471,7 +487,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["isIdenticalTo"]
+                                                            [
+                                                              ["isIdenticalTo"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -528,7 +546,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["doi"]
+                                                            [
+                                                              ["doi"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -583,7 +603,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["10.5281/zenodo.596252"]
+                                                            [
+                                                              ["10.5281/zenodo.596252"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -638,7 +660,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["isVersionOf"]
+                                                            [
+                                                              ["isVersionOf"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -696,7 +720,9 @@
                                                   [
                                                     [
                                                       [
-                                                        ["software"]
+                                                        [
+                                                          ["software"]
+                                                        ]
                                                       ]
                                                     ]
                                                   ]
@@ -752,7 +778,9 @@
                                                     [
                                                       [
                                                         [
-                                                          ["Luminescence"]
+                                                          [
+                                                            ["Luminescence"]
+                                                          ]
                                                         ]
                                                       ]
                                                     ]
@@ -807,7 +835,9 @@
                                                     [
                                                       [
                                                         [
-                                                          ["Luminescence dating"]
+                                                          [
+                                                            ["Luminescence dating"]
+                                                          ]
                                                         ]
                                                       ]
                                                     ]
@@ -862,7 +892,9 @@
                                                     [
                                                       [
                                                         [
-                                                          ["Chronology"]
+                                                          [
+                                                            ["Chronology"]
+                                                          ]
                                                         ]
                                                       ]
                                                     ]
@@ -917,7 +949,9 @@
                                                     [
                                                       [
                                                         [
-                                                          ["Age models"]
+                                                          [
+                                                            ["Age models"]
+                                                          ]
                                                         ]
                                                       ]
                                                     ]
@@ -973,7 +1007,9 @@
                                                   [
                                                     [
                                                       [
-                                                        ["2020-11-29"]
+                                                        [
+                                                          ["2020-11-29"]
+                                                        ]
                                                       ]
                                                     ]
                                                   ]
@@ -1030,7 +1066,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0002-0734-2199"]
+                                                            [
+                                                              ["0000-0002-0734-2199"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1085,7 +1123,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Department of Geography and Earth Sciences, Aberystwyth University (United Kingdom)"]
+                                                            [
+                                                              ["Department of Geography and Earth Sciences, Aberystwyth University (United Kingdom)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1140,7 +1180,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Kreutzer, Sebastian"]
+                                                            [
+                                                              ["Kreutzer, Sebastian"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1197,7 +1239,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0002-5023-4046"]
+                                                            [
+                                                              ["0000-0002-5023-4046"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1252,7 +1296,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["University of Cologne (Germany)"]
+                                                            [
+                                                              ["University of Cologne (Germany)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1307,7 +1353,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Burow, Christoph"]
+                                                            [
+                                                              ["Burow, Christoph"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1364,7 +1412,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-6063-1726"]
+                                                            [
+                                                              ["0000-0001-6063-1726"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1419,7 +1469,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["GFZ Potsdam (Germany"]
+                                                            [
+                                                              ["GFZ Potsdam (Germany"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1474,7 +1526,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Dietze, Michael"]
+                                                            [
+                                                              ["Dietze, Michael"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1531,7 +1585,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["HZDR Freiberg (Germany)"]
+                                                            [
+                                                              ["HZDR Freiberg (Germany)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1586,7 +1642,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Fuchs, Margret C."]
+                                                            [
+                                                              ["Fuchs, Margret C."]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1643,7 +1701,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0002-2309-3209"]
+                                                            [
+                                                              ["0000-0002-2309-3209"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1698,7 +1758,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Université de Lausanne (Switzerland)"]
+                                                            [
+                                                              ["Université de Lausanne (Switzerland)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1753,7 +1815,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Schmidt, Christoph"]
+                                                            [
+                                                              ["Schmidt, Christoph"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1810,7 +1874,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0002-0805-9547"]
+                                                            [
+                                                              ["0000-0002-0805-9547"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1865,7 +1931,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["University of Bayreuth (Germany)"]
+                                                            [
+                                                              ["University of Bayreuth (Germany)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1920,7 +1988,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Fischer, Manfred"]
+                                                            [
+                                                              ["Fischer, Manfred"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -1977,7 +2047,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0002-0805-9547"]
+                                                            [
+                                                              ["0000-0002-0805-9547"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2032,7 +2104,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["University of Bayreuth (Germany)"]
+                                                            [
+                                                              ["University of Bayreuth (Germany)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2087,7 +2161,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Friedrich, Johannes"]
+                                                            [
+                                                              ["Friedrich, Johannes"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2144,7 +2220,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0002-6375-9108"]
+                                                            [
+                                                              ["0000-0002-6375-9108"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2199,7 +2277,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["CNRS (France)"]
+                                                            [
+                                                              ["CNRS (France)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2254,7 +2334,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Mercier, Norbert"]
+                                                            [
+                                                              ["Mercier, Norbert"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2311,7 +2393,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-7773-5193"]
+                                                            [
+                                                              ["0000-0001-7773-5193"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2366,7 +2450,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["University of Liverpool (United Kingdom)"]
+                                                            [
+                                                              ["University of Liverpool (United Kingdom)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2421,7 +2507,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Smedley, Rachel K."]
+                                                            [
+                                                              ["Smedley, Rachel K."]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2478,7 +2566,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Université de Nantes (France)"]
+                                                            [
+                                                              ["Université de Nantes (France)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2533,7 +2623,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Christophe, Claire"]
+                                                            [
+                                                              ["Christophe, Claire"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2590,7 +2682,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-7146-1101"]
+                                                            [
+                                                              ["0000-0001-7146-1101"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2645,7 +2739,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Centre de Recherche et de Restauration des Musées de France: Paris, Île-de-France (France)"]
+                                                            [
+                                                              ["Centre de Recherche et de Restauration des Musées de France: Paris, Île-de-France (France)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2700,7 +2796,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Zink, Antoine"]
+                                                            [
+                                                              ["Zink, Antoine"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2757,7 +2855,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-8724-8022"]
+                                                            [
+                                                              ["0000-0001-8724-8022"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2812,7 +2912,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["University of Oxford (United Kingdom)"]
+                                                            [
+                                                              ["University of Oxford (United Kingdom)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2867,7 +2969,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Durcan, Julie"]
+                                                            [
+                                                              ["Durcan, Julie"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2924,7 +3028,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0003-1059-8192"]
+                                                            [
+                                                              ["0000-0003-1059-8192"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -2979,7 +3085,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Université de Lausanne (Switzerland)"]
+                                                            [
+                                                              ["Université de Lausanne (Switzerland)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3034,7 +3142,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["King, Georgina E."]
+                                                            [
+                                                              ["King, Georgina E."]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3091,7 +3201,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Université de Nantes (France)"]
+                                                            [
+                                                              ["Université de Nantes (France)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3146,7 +3258,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Philippe, Anne"]
+                                                            [
+                                                              ["Philippe, Anne"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3203,7 +3317,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-6298-5579"]
+                                                            [
+                                                              ["0000-0001-6298-5579"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3258,7 +3374,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["CNRS (France)"]
+                                                            [
+                                                              ["CNRS (France)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3313,7 +3431,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Guérin, Guillaume"]
+                                                            [
+                                                              ["Guérin, Guillaume"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3370,7 +3490,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0003-2936-8776"]
+                                                            [
+                                                              ["0000-0003-2936-8776"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3425,7 +3547,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["University of Cologne (Germany)"]
+                                                            [
+                                                              ["University of Cologne (Germany)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3480,7 +3604,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Riedesel, Svenja"]
+                                                            [
+                                                              ["Riedesel, Svenja"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3537,7 +3663,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-6249-426X"]
+                                                            [
+                                                              ["0000-0001-6249-426X"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3592,7 +3720,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Autzen, Martin"]
+                                                            [
+                                                              ["Autzen, Martin"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3649,7 +3779,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["0000-0001-8969-8684"]
+                                                            [
+                                                              ["0000-0001-8969-8684"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3704,7 +3836,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["CNRS (France)"]
+                                                            [
+                                                              ["CNRS (France)"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3759,7 +3893,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Guibert, Pierre"]
+                                                            [
+                                                              ["Guibert, Pierre"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3816,7 +3952,9 @@
                                                       [
                                                         [
                                                           [
-                                                            ["Mittelstrass, Dirk"]
+                                                            [
+                                                              ["Mittelstrass, Dirk"]
+                                                            ]
                                                           ]
                                                         ]
                                                       ]
@@ -3873,7 +4011,9 @@
                                                   [
                                                     [
                                                       [
-                                                        ["open"]
+                                                        [
+                                                          ["open"]
+                                                        ]
                                                       ]
                                                     ]
                                                   ]
