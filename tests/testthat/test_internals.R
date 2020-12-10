@@ -20,8 +20,9 @@ test_that("Test internals", {
   expect_length(f(object, a = 1, c = list(a = 1, b = 2, c = 3))$c, 3)
 
   # .calc_HPDI() ------------------------------------------------------------
-
-
+  set.seed(1234)
+  test <- expect_type(Luminescence:::.calc_HPDI(rnorm(100), plot = TRUE), "double")
+  expect_equal(round(sum(test),2), 0.20)
 
   # .warningCatcher() ---------------------------------------------------------------------------
   expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) warning("test")))
