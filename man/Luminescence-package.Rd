@@ -7,7 +7,7 @@
 \title{Comprehensive Luminescence Dating Data Analysis}
 \description{
 \if{html}{
-\figure{RL_Logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
+\figure{Luminescence_logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
 \emph{R Luminescence Developer Team}
 }
 }
@@ -16,31 +16,6 @@ A collection of various R functions for the purpose of Luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
-
-\strong{Full list of authors and contributors} (alphabetic order)
-
-\emph{In the case authors retired the last affiliation is mentioned.}
-
-\tabular{ll}{
-Martin Autzen \tab \emph{DTU NUTECH Center for Nuclear Technologies} \cr
-Christoph Burow \tab \emph{University of Cologne, Germany}* \cr
-Claire Christophe \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
-Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
-Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
-Pierre Guibert \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
-Manfred Fischer\tab \emph{Chair of Geomorphology, University of Bayreuth, Germany} \cr
-Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
-Johannes Friedrich \tab \emph{Chair of Geomorphology, University of Bayreuth, Germany} \cr
-Guillaume Guérin \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
-Georgina E. King \tab \emph{University of Lausanne, Switzerland} \cr
-Sebastian Kreutzer \tab \emph{Department of Geography & Earth Sciences, Aberystwyth University, United Kingdom} \cr
-Norbert Mercier \tab \emph{IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France} \cr
-Svenja Riedesel \tab \emph{Department of Geograpy & Earth Sciences ,Aberystwyth University, United Kingdom} \cr
-Christoph Schmidt \tab \emph{Institute of Earth Surface Dynamics,University of Lausanne, Switzerland} \cr
-Rachel K. Smedley \tab \emph{Liverpool University, United Kingdom} \cr
-Anne Philippe \tab  \emph{Université de Nantes and ANJA INRIA, Rennes, France} \cr
-Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
-}
 
 \strong{Supervisor of the initial version in 2012}
 

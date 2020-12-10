@@ -63,9 +63,9 @@ aliquot with component \code{1} and the second aliquot with component \code{2}.
 \code{NULL} does not process any component.}
 
 \item{rejection.criteria}{\link{list} (\emph{with default}):
-provide a named list and set rejection criteria in \strong{percentage}
-for further calculation. Can be a \link{list} in
-a \link{list}, if \code{object} is of type \link{list}
+provide a \emph{named} list and set rejection criteria in \strong{percentage}
+for further calculation. Can be a \link{list} in a \link{list}, if \code{object} is of type \link{list}.
+Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
 
 Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
 \code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
@@ -183,7 +183,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.9.1
+ 0.9.2
 }
 
 \examples{
@@ -222,7 +222,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

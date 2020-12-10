@@ -59,7 +59,7 @@ The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Loui
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Zink, A., 2020. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Zink, A., 2020. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

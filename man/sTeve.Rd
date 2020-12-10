@@ -45,7 +45,7 @@ R Luminescence Team, 2012-2046
 , RLum Developer Team} 
 
 \section{How to cite}{
-NA, NA, , , 2020. sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
+NA, NA, , , 2020. sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}

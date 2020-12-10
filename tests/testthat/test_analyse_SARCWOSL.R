@@ -12,6 +12,7 @@ results <- analyse_SAR.CWOSL(
   verbose = FALSE
 )
 
+
 ##generate different datasets removing TL curves
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
 object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
@@ -86,6 +87,7 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+  local_edition(3)
   ##signal integral set to NA
   expect_warning(
     analyse_SAR.CWOSL(
@@ -256,5 +258,102 @@ test_that("simple run", {
      verbose = FALSE
    ), regexp = "Background integral out of bounds")
 
+  local_edition(3)
 })
+
+test_that("advance tests run", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  ##this tests basically checks the parameter expansion and make
+  ##sure everything is evaluated properly
+  # signal.integral.min <- 1
+  # signal.integral.max <- 2
+
+  ##test with variables for signal integral
+  # expect_s4_class(
+  #   analyse_SAR.CWOSL(
+  #     object = object[1:2],
+  #     signal.integral.min = signal.integral.min,
+  #     signal.integral.max = signal.integral.max,
+  #     background.integral.min = 900,
+  #     background.integral.max = 1000,
+  #     fit.method = "LIN",
+  #     rejection.criteria = list(
+  #       recycling.ratio = NA,
+  #       recuperation.rate = 1,
+  #       palaeodose.error = 1,
+  #       testdose.error = 1,
+  #       test = "new",
+  #       exceed.max.regpoint = FALSE),
+  #     plot = FALSE,
+  #     verbose = FALSE
+  #   ),
+  #   class = "RLum.Results"
+  # )
+
+  ##test rejection criteria is a list without(!) names,
+  ##this should basically lead to no fail
+  test_failed <-
+    analyse_SAR.CWOSL(
+      object = object[1],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 200,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria = list(recycling.ratio = 0),
+      plot = FALSE,
+      verbose = FALSE)
+  expect_equal(object = test_failed$data$RC.Status, "FAILED")
+
+  ##the same test but without a named list >>> OK
+  test_ok <-
+    analyse_SAR.CWOSL(
+      object = object[1],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 200,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria = list(1),
+      plot = FALSE,
+      verbose = FALSE)
+
+  expect_equal(object = test_ok$data$RC.Status, "OK")
+
+  ##test multi parameter settings
+  expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object[1:2],
+      signal.integral.min = 1,
+      signal.integral.max = list(10,20),
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    class = "RLum.Results"
+  )
+
+  ##test rejection criteria list in list + test unknow argument
+  expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object[1:2],
+      signal.integral.min = 1,
+      signal.integral.max = list(10,20),
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      rejection.criteria = list(list(recycling.ratio = 0)),
+      fit.method = "LIN",
+      unknown_argument = "hallo",
+      plot = TRUE,
+      verbose = FALSE
+    ),
+    class = "RLum.Results"
+  )
+
+})
+
 

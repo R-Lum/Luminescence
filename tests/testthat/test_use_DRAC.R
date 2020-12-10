@@ -3,7 +3,7 @@ test_that("Test DRAC", {
   testthat::skip_on_cran()
   local_edition(3)
 
- ##use manuel example
+ ##use manual example
  ##create template
  input <- template_DRAC(preset = "DRAC-example_quartz")
 
@@ -38,7 +38,7 @@ test_that("Test DRAC", {
  input$`errDe (Gy)` <- 0.2
 
  ##run DRAC
- expect_s4_class(output <- use_DRAC(input), "RLum.Results")
+ output <- expect_s4_class(use_DRAC(input), "RLum.Results")
 
  ## print method for DRAC.highlights
  expect_output(print(output$DRAC$highlights), regexp = "TO:GP = errAge")

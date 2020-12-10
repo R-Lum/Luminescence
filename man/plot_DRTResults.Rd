@@ -179,7 +179,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2020. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2020. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

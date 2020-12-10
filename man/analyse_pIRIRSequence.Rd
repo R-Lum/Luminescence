@@ -77,30 +77,9 @@ returned containing the following elements:
 The output should be accessed using the function \link{get_RLum}.
 }
 \description{
-The function performs an analysis of post-IR IRSL sequences including curve
+The function performs an analysis of post-IR IRSL sequences
+including curve
 fitting on \linkS4class{RLum.Analysis} objects.
-}
-\details{
-To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
-this function has been written as extended wrapper function for the function
-\link{analyse_SAR.CWOSL}, facilitating an entire sequence analysis in
-one run. With this, its functionality is strictly limited by the
-functionality of the function \link{analyse_SAR.CWOSL}.
-
-**Defining the sequence structure **
-
-The argument \code{sequence.structure} expects a shortened pattern of your sequence structure and was
-mainly introduced to ease the use of the function. For example: If your measurement data contains
-the following curves: \code{TL}, \code{IRSL}, \code{IRSL}, \code{TL}, \code{IRSL}, \code{IRSL}, the sequence pattern in \code{sequence.structure}
-becomes \code{c('TL', 'IRSL', 'IRSL')}. The second part of your sequence for one cycle should be
-similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
-have to be removed before using the function.
-
-\strong{If the input is a \code{list}}
-
-If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
-for different sets of parameters for every single input element.
-For further information see \link{analyse_SAR.CWOSL}.
 }
 \note{
 Best graphical output can be achieved by using the function \code{pdf}
@@ -172,7 +151,7 @@ pdf(file = tempfile, height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2020. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2020. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

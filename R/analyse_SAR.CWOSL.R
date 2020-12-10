@@ -99,9 +99,9 @@
 #' `NULL` does not process any component.
 #'
 #' @param rejection.criteria [list] (*with default*):
-#' provide a named list and set rejection criteria in **percentage**
-#' for further calculation. Can be a [list] in
-#' a [list], if `object` is of type [list]
+#' provide a *named* list and set rejection criteria in **percentage**
+#' for further calculation. Can be a [list] in a [list], if `object` is of type [list].
+#' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
 #' `palaeodose.error`, `testdose.error` and `exceed.max.regpoint = TRUE/FALSE`.
@@ -161,7 +161,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.1
+#' @section Function version: 0.9.2
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -363,7 +363,10 @@ error.list <- list()
   CWcurve.type <- names(which.max(table(CWcurve.type)))
 
 # Rejection criteria ------------------------------------------------------
-    ##set list
+  if(is.null(rejection.criteria) || class(rejection.criteria)[1] != "list")
+    rejection.criteria <- list()
+
+  ##set list
     rejection.criteria <- modifyList(x = list(
       recycling.ratio = 10,
       recuperation.rate = 10,
@@ -371,8 +374,8 @@ error.list <- list()
       testdose.error = 10,
       exceed.max.regpoint = TRUE
     ),
-    val = if(is.null(rejection.criteria)) list() else rejection.criteria,
-    keep.null = TRUE)
+    val = rejection.criteria,
+  keep.null = TRUE)
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
@@ -534,7 +537,7 @@ error.list <- list()
 # Calculate LnLxTnTx values  --------------------------------------------------
   ##calculate LxTx values using external function
   LnLxTnTx <- try(lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
-      if(!is.null(OSL.component)){
+      if(!is.null(OSL.component) && length(OSL.component) > 0){
        temp.LnLxTnTx <- get_RLum(
           calc_OSLLxTxDecomposed(
             Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
@@ -589,7 +592,7 @@ error.list <- list()
 
     # Set regeneration points -------------------------------------------------
     ##overwrite dose point manually
-    if (!is.null(dose.points)) {
+    if (!is.null(dose.points) & length(dose.points) > 0) {
       if (length(dose.points) != length(LnLxTnTx$Dose)) {
         stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.",
            call. = FALSE)
@@ -1633,4 +1636,3 @@ error.list <- list()
   }
 
 }
-

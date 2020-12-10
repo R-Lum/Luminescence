@@ -1,4 +1,6 @@
 language: r
+os: linux
+dist: xenial
 cache: packages
 warnings_are_errors: true
 
@@ -39,18 +41,21 @@ jobs:
     before_install:
       - sudo apt-get -qq update
       - sudo apt-get install -y ghostscript
+      - sudo apt-get install libgit2-dev
     env: CACHE_NAME=JOB1
   - os: linux
     r: release
     before_install:
       - sudo apt-get -qq update
       - sudo apt-get install -y ghostscript
+      - sudo apt-get install libgit2-dev
     env: CACHE_NAME=JOB2
   - os: linux
     r: devel
     before_install:
       - sudo apt-get -qq update
       - sudo apt-get install -y ghostscript
+      - sudo apt-get install libgit2-dev
     env: CACHE_NAME=JOB3
   - os: osx
     osx_image: xcode11.4
@@ -71,8 +76,7 @@ jobs:
 notifications:
   email:
     recipients:
-      - cb@r-luminescence.de
-      - sk@r-luminescence.de
+      - sk@r-luminescence.org
     on_success: change
     on_failure: change
 

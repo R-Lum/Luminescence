@@ -49,7 +49,7 @@ results <- calc_WodaFuchs2008(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2020. calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.9. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2020. calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

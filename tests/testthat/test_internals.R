@@ -2,6 +2,28 @@ test_that("Test internals", {
   testthat::skip_on_cran()
   local_edition(3)
 
+  # .expand_parameters() ------------------------------------------------------
+  ##create empty function ... reminder
+  ##this is an internal function, the first object is always discarded, it
+  ##might be a list of RLum.Analysis objects is might be super large
+  f <- function(object, a, b = 1, c = list(), d = NULL) {
+    Luminescence:::.expand_parameters(len = 3)
+
+  }
+
+  ##test some functions
+  ##missing arguments must be identified
+  expect_error(f(), "Argument <a> missing; with no default!")
+
+  ##check whether the objects are properly recycled
+  expect_type(f(object, a = 1), "list")
+  expect_length(f(object, a = 1, c = list(a = 1, b = 2, c = 3))$c, 3)
+
+  # .calc_HPDI() ------------------------------------------------------------
+  set.seed(1234)
+  test <- expect_type(Luminescence:::.calc_HPDI(rnorm(100), plot = TRUE), "double")
+  expect_equal(round(sum(test),2), 0.20)
+
   # .warningCatcher() ---------------------------------------------------------------------------
   expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) warning("test")))
 
@@ -9,18 +31,15 @@ test_that("Test internals", {
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))
   expect_error(Luminescence:::.smoothing(runif(100), method = "test"))
 
-
   # fancy_scientific ()--------------------------------------------------------------------------
   plot(seq(1e10, 1e20, length.out = 10),1:10, xaxt = "n")
   expect_silent(axis(1, at = axTicks(1),labels = Luminescence:::fancy_scientific(axTicks(1))))
-
 
   # .create_StatisticalSummaryText() ------------------------------------------------------------
   expect_silent(Luminescence:::.create_StatisticalSummaryText())
   expect_type(
     Luminescence:::.create_StatisticalSummaryText(
       calc_Statistics(data.frame(1:10,1:10)), keywords = "mean"), "character")
-
 
   # .unlist_RLum() ------------------------------------------------------------------------------
   expect_length(Luminescence:::.unlist_RLum(list(a = list(b = list(c = list(d = 1, e = 2))))), 2)

@@ -86,11 +86,11 @@ calc_FuchsLang2001 <- function(
 ){
 
   # Integrity Tests ---------------------------------------------------------
-  if(missing(data)==FALSE){
-    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_FuchsLang2001] 'data' has to be of type 'data.frame' or 'RLum.Results'!")
+  if(!missing(data)){
+    if(!is(data, "data.frame") & !is(data,"RLum.Results")){
+      stop("[calc_FuchsLang2001()] 'data' has to be of type 'data.frame' or 'RLum.Results'!", call. = FALSE)
     } else {
-      if(is(data, "RLum.Results") == TRUE){
+      if(is(data, "RLum.Results")){
         data <- get_RLum(data, "data")
       }
     }
@@ -99,28 +99,24 @@ calc_FuchsLang2001 <- function(
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments
   extraArgs <- list(...)
-
   verbose <- if("verbose" %in% names(extraArgs)) {extraArgs$verbose} else {TRUE}
-
 
   ##============================================================================##
   ##PREPARE DATA
   ##============================================================================##
 
-  ##1. order values in acending order write used D[e] values in data.frame
-  o <- order(data[1]) # o is only an order parameter
+  ##1. order values in ascending order write used D[e] values in data.frame
+  o <- order(data[[1]]) # o is only an order parameter
   data_ordered <- data[o,] # sort values after o and write them into a new variable
 
   ##2. estimate D[e]
-
   # set variables
-  usedDeValues<-data.frame(De=NA,De_Error=NA,cv=NA)
-  endDeValue<-startDeValue
+  usedDeValues <- data.frame(De = NA, De_Error = NA, cv = NA)
+  endDeValue <- startDeValue[1]
 
   # if the first D[e] values are not used write this information in the data.frame
-  if (startDeValue!=1) {
-
-    n <- abs(1 - startDeValue)
+  if (startDeValue[1] != 1) {
+    n <- abs(1 - startDeValue[1])
 
     #  write used D[e] values in data.frame
     usedDeValues[1:n, 1] <- data_ordered[1:n, 1]
@@ -131,19 +127,16 @@ calc_FuchsLang2001 <- function(
   ##=================================================================================================##
   ##LOOP FOR MODEL
   ##=================================================================================================##
-
   # repeat loop (run at least one time)
   repeat {
-
     #calculate mean, sd and cv
     mean<-round(mean(data_ordered[startDeValue:endDeValue,1]),digits=2) #calculate mean from ordered D[e] values
     sd<-round(sd(data_ordered[startDeValue:endDeValue,1]),digits=2)		#calculate sd from ordered D[e] values
-    cv<-round(sd/mean*100, digits=2) #calculate coefficient of variation
+    cv <- round(sd / mean * 100, digits = 2) #calculate coefficient of variation
 
 
     # break if cv > cvThreshold
-    if (cv>cvThreshold & endDeValue>startDeValue){
-
+    if (cv > cvThreshold[1] & endDeValue > startDeValue) {
       # if the first two D[e] values give a cv > cvThreshold, than skip the first D[e] value
       if (endDeValue-startDeValue<2) {
         #  write used D[e] values in data.frame
@@ -189,18 +182,18 @@ calc_FuchsLang2001 <- function(
   ##=================================================================================================##
 
   # additional calculate weighted mean
-  w<-1/(data_ordered[startDeValue:endDeValue,2])^2 #weights for weighted mean
+  w <- 1 / (data_ordered[startDeValue:endDeValue, 2]) ^ 2 #weights for weighted mean
   weighted_mean <- round(weighted.mean(data_ordered[startDeValue:endDeValue,1], w), digits=2)
-  weighted_sd<-round(sqrt(1/sum(w)),digits=2)
-  n.usedDeValues<-endDeValue-startDeValue+1
+  weighted_sd <- round(sqrt(1 / sum(w)), digits = 2)
+  n.usedDeValues <- endDeValue - startDeValue + 1
 
   # standard error
   se <- round(sd / sqrt(endDeValue - startDeValue + 1), digits = 2)
 
   if(verbose){
-    cat("\n [calc_FuchsLang2001]")
+    cat("\n[calc_FuchsLang2001]")
     cat(paste("\n\n----------- meta data --------------"))
-    cat(paste("\n cvThreshold:            ",cvThreshold,"%"))
+    cat(paste("\n cvThreshold:            ",cvThreshold[1],"%"))
     cat(paste("\n used values:            ",n.usedDeValues))
     cat(paste("\n----------- dose estimate ----------"))
     cat(paste("\n mean:                   ",mean))
@@ -213,21 +206,25 @@ calc_FuchsLang2001 <- function(
   ##===========================================================================#
   ##RETURN  VALUES
   ##==========================================================================##
-  summary<- data.frame(de=mean,
-                       de_err=sd,
-                       de_weighted=weighted_mean,
-                       de_weighted_err=weighted_sd,
-                       n.usedDeValues=n.usedDeValues)
+  summary <- data.frame(
+    de = mean,
+    de_err = sd,
+    de_weighted = weighted_mean,
+    de_weighted_err = weighted_sd,
+    n.usedDeValues = n.usedDeValues
+  )
 
-  args<- list(cvThreshold = cvThreshold, startDeValue = startDeValue)
-
-  newRLumResults.calc_FuchsLang2001<- set_RLum(
+  args <- list(cvThreshold = cvThreshold, startDeValue = startDeValue)
+  newRLumResults.calc_FuchsLang2001 <- set_RLum(
     class = "RLum.Results",
-    data = list(summary = summary,
-                data = data,
-                args = args,
-                usedDeValues=usedDeValues),
-    info = list(call = sys.call()))
+    data = list(
+      summary = summary,
+      data = data,
+      args = args,
+      usedDeValues = usedDeValues
+    ),
+    info = list(call = sys.call())
+  )
 
   ##=========##
   ## PLOTTING

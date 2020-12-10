@@ -492,7 +492,7 @@ fancy_scientific <- function(l) {
 }
 
 #++++++++++++++++++++++++++++++
-#+ .expand_Parameters         +
+#+ .expand_parameters         +
 #++++++++++++++++++++++++++++++
 #' @title Expand function parameters of self-call
 #'
@@ -524,13 +524,22 @@ fancy_scientific <- function(l) {
   args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
   args_new <- as.list(match.call(f_def, f_call, FALSE))[-c(1:2)]
 
-  ##combine the two arguments
+  ##now we have to make sure that we evaluate all language objects
+  ##before passing them further down
+  if(length(args_new) > 0){
+    for(i in 1:length(args_new)){
+      if(class(args_new[[i]])[1] == "name" | class(args_new[[i]])[1] == "call")
+        args_new[[i]] <- eval(args_new[[i]])
+    }
+  }
+
+  ##combine the two argument lists
   args <- modifyList(
     x = args_default,
     val = args_new,
     keep.null = TRUE)
 
-  ##evaluate arguments
+  ##evaluate arguments and take care of missing values
   for(i in 1:length(args)){
     if(is.na(names(args[i])) || names(args[i]) == "...") next
     if(class(args[[i]])[1] == "name" & names(args[i]) != "...") {
@@ -543,22 +552,24 @@ fancy_scientific <- function(l) {
     if(class(args[i])[1] == "list" & length(args[[i]]) == 0) args[[i]] <- list()
 
   }
-
   ##expand all arguments
+  ##we have two conditions and three cases
+  ##1:  the argument is a list AND the list itself is not named
+  ##    ... the case when the user what to use different values for the objects
+  ##2:  the argument is no list ...
+  ##    ... the standard automated expansion
+  ##    ... OR it is a list with names (e.g., rejection.criteria = list(recycling.ration = 10))
   for(i in 1:length(args)){
-    if(class(args[[i]])[1] == "list"){
-      args[[i]] <- rep(args[[i]], length.out = len[1])
+    if(class(args[[i]]) == "list" & is.null(names(args[[i]]))){
+      args[[i]] <- rep(args[[i]], length = len[1])
 
     } else {
-      args[[i]] <- rep(
-        list(args[[i]]), length = len[1])
+      args[[i]] <- rep(list(args[[i]]), length = len[1])
 
     }
-
   }
 
   return(args)
-
 }
 
 #++++++++++++++++++++++++++++++

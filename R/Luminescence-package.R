@@ -1,7 +1,7 @@
 #' Comprehensive Luminescence Dating Data Analysis
 #'
 #' \if{html}{
-#' \figure{RL_Logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
+#' \figure{Luminescence_logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
 #' \emph{R Luminescence Developer Team}
 #' }
 #'
@@ -10,37 +10,13 @@
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.
 #'
-#'
 #' @name Luminescence-package
 #'
 #' @aliases Luminescence-package Luminescence
 #'
 #' @docType package
 #'
-#' @details **Full list of authors and contributors** (alphabetic order)
-#'
-#' *In the case authors retired the last affiliation is mentioned.*
-#'
-#' \tabular{ll}{
-#' Martin Autzen \tab *DTU NUTECH Center for Nuclear Technologies* \cr
-#' Christoph Burow \tab *University of Cologne, Germany** \cr
-#' Claire Christophe \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
-#' Michael Dietze \tab *GFZ Helmholtz Centre Potsdam, Germany* \cr
-#' Julie Durcan \tab *University of Oxford, United Kingdom* \cr
-#' Pierre Guibert \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
-#' Manfred Fischer\tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
-#' Margret C. Fuchs \tab *Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany* \cr
-#' Johannes Friedrich \tab *Chair of Geomorphology, University of Bayreuth, Germany* \cr
-#' Guillaume Guérin \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
-#' Georgina E. King \tab *University of Lausanne, Switzerland* \cr
-#' Sebastian Kreutzer \tab *Department of Geography & Earth Sciences, Aberystwyth University, United Kingdom* \cr
-#' Norbert Mercier \tab *IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne, France* \cr
-#' Svenja Riedesel \tab *Department of Geograpy & Earth Sciences ,Aberystwyth University, United Kingdom* \cr
-#' Christoph Schmidt \tab *Institute of Earth Surface Dynamics,University of Lausanne, Switzerland* \cr
-#' Rachel K. Smedley \tab *Liverpool University, United Kingdom* \cr
-#' Anne Philippe \tab  *Université de Nantes and ANJA INRIA, Rennes, France* \cr
-#' Antoine Zink \tab *C2RMF, Palais du Louvre, Paris, France*
-#' }
+#' @details
 #'
 #' **Supervisor of the initial version in 2012**
 #'
