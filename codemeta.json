@@ -1,5 +1,8 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "Luminescence",
   "description": "A collection of various R functions for the purpose of Luminescence\n    dating data analysis. This includes, amongst others, data import, export,\n    application of age models, curve deconvolution, sequence analysis and\n    plotting of equivalent dose distributions.",
@@ -7,14 +10,13 @@
   "codeRepository": "https://CRAN.R-project.org/package=Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.4.9000.30",
+  "version": "0.9.10",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.7.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2019-07-31 r76909)",
+  "runtimePlatform": "R Under development (unstable) (2020-12-09 r79601)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -62,6 +64,23 @@
       "givenName": "Johannes",
       "familyName": "Friedrich",
       "@id": "https://orcid.org/0000-0002-0805-9547"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Svenja",
+      "familyName": "Riedesel",
+      "@id": "https://orcid.org/0000-0003-2936-8776"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Martin",
+      "familyName": "Autzen",
+      "@id": "https://orcid.org/0000-0001-6249-426X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Dirk",
+      "familyName": "Mittelstrass"
     }
   ],
   "contributor": [
@@ -110,17 +129,6 @@
       "givenName": "Guillaume",
       "familyName": "Guerin",
       "@id": "https://orcid.org/0000-0001-6298-5579"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Svenja",
-      "familyName": "Riedesel",
-      "@id": "https://orcid.org/0000-0003-2936-8776"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Martin",
-      "familyName": "Autzen"
     },
     {
       "@type": "Person",
@@ -185,6 +193,19 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "version": ">= 2.2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "RLumShiny",
       "name": "RLumShiny",
       "version": ">= 0.2.2",
@@ -200,7 +221,7 @@
       "@type": "SoftwareApplication",
       "identifier": "plotly",
       "name": "plotly",
-      "version": ">= 4.9.0",
+      "version": ">= 4.9.2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -213,7 +234,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
-      "version": ">= 1.12",
+      "version": ">= 2.5",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -226,7 +247,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rstudioapi",
       "name": "rstudioapi",
-      "version": ">= 0.7",
+      "version": ">= 0.13",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -239,7 +260,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rjags",
       "name": "rjags",
-      "version": ">= 4-8",
+      "version": ">= 4-10",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -252,7 +273,7 @@
       "@type": "SoftwareApplication",
       "identifier": "coda",
       "name": "coda",
-      "version": ">= 0.19-1",
+      "version": ">= 0.19-4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -265,7 +286,7 @@
       "@type": "SoftwareApplication",
       "identifier": "pander",
       "name": "pander",
-      "version": ">= 0.6.1",
+      "version": ">= 0.6.3",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -278,7 +299,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 2.0.0",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -291,7 +312,7 @@
       "@type": "SoftwareApplication",
       "identifier": "devtools",
       "name": "devtools",
-      "version": ">= 2.0.0",
+      "version": ">= 2.3.2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -304,7 +325,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R.rsp",
       "name": "R.rsp",
-      "version": ">= 0.43.0",
+      "version": ">= 0.44.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -319,7 +340,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.4.0"
+      "version": ">= 3.5.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -341,22 +362,9 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "interp",
-      "name": "interp",
-      "version": ">= 1.0",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=interp"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "bbmle",
       "name": "bbmle",
-      "version": ">= 1.0.20",
+      "version": ">= 1.0.23",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -369,7 +377,7 @@
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
-      "version": ">= 1.12.0",
+      "version": ">= 1.13.2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -382,7 +390,7 @@
       "@type": "SoftwareApplication",
       "identifier": "DEoptim",
       "name": "DEoptim",
-      "version": ">= 2.2-4",
+      "version": ">= 2.2-5",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -395,7 +403,7 @@
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
-      "version": ">= 1.4.0",
+      "version": ">= 1.4.2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -408,7 +416,7 @@
       "@type": "SoftwareApplication",
       "identifier": "matrixStats",
       "name": "matrixStats",
-      "version": ">= 0.54.0",
+      "version": ">= 0.57.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -426,7 +434,7 @@
       "@type": "SoftwareApplication",
       "identifier": "minpack.lm",
       "name": "minpack.lm",
-      "version": ">= 1.2",
+      "version": ">= 1.2.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -452,7 +460,7 @@
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
-      "version": ">= 2.8-0",
+      "version": ">= 3.4-0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -465,7 +473,7 @@
       "@type": "SoftwareApplication",
       "identifier": "readxl",
       "name": "readxl",
-      "version": ">= 1.3.0",
+      "version": ">= 1.3.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -478,7 +486,7 @@
       "@type": "SoftwareApplication",
       "identifier": "shape",
       "name": "shape",
-      "version": ">= 1.4.3",
+      "version": ">= 1.4.5",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -496,7 +504,7 @@
       "@type": "SoftwareApplication",
       "identifier": "XML",
       "name": "XML",
-      "version": ">= 3.98-1.9",
+      "version": ">= 3.99",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -519,8 +527,6 @@
       "sameAs": "https://CRAN.R-project.org/package=zoo"
     }
   ],
-  "releaseNotes": "https://github.com/R-Lum/Luminescence/blob/master/NEWS.md",
-  "readme": "https://github.com/R-Lum/Luminescence/blob/master/README.md",
   "contIntegration": ["https://ci.appveyor.com/project/tzerk/luminescence/branch/master", "https://travis-ci.org/R-Lum/Luminescence", "https://codecov.io/github/R-Lum/Luminescence?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "citation": [
@@ -560,7 +566,7 @@
         }
       ],
       "name": "Introducing an R package for luminescence dating analysis",
-      "paginiation": "1-8",
+      "pagination": "1-8",
       "isPartOf": {
         "@type": "PublicationIssue",
         "issueNumber": "1",
@@ -608,7 +614,7 @@
         }
       ],
       "name": "A practical guide to the R package Luminescence",
-      "paginiation": "11-18",
+      "pagination": "11-18",
       "isPartOf": {
         "@type": "PublicationIssue",
         "issueNumber": "1",
@@ -662,7 +668,7 @@
       ],
       "name": "Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'",
       "identifier": "10.1016/j.quaint.2014.06.034",
-      "paginiation": "8-13",
+      "pagination": "8-13",
       "@id": "https://doi.org/10.1016/j.quaint.2014.06.034",
       "sameAs": "https://doi.org/10.1016/j.quaint.2014.06.034",
       "isPartOf": {
@@ -686,7 +692,7 @@
         }
       ],
       "name": "A new R function for the Internal External Uncertainty (IEU) model",
-      "paginiation": "16-21",
+      "pagination": "16-21",
       "isPartOf": {
         "@type": "PublicationIssue",
         "issueNumber": "1",
@@ -735,7 +741,7 @@
       ],
       "name": "The abanico plot: visualising chronometric data with individual standard errors",
       "identifier": "10.1016/j.quageo.2015.09.003",
-      "paginiation": "12-18",
+      "pagination": "12-18",
       "@id": "https://doi.org/10.1016/j.quageo.2015.09.003",
       "sameAs": "https://doi.org/10.1016/j.quageo.2015.09.003",
       "isPartOf": {
@@ -799,7 +805,7 @@
         }
       ],
       "name": "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'",
-      "paginiation": "14-21",
+      "pagination": "14-21",
       "isPartOf": {
         "@type": "PublicationIssue",
         "issueNumber": "2",
@@ -847,7 +853,7 @@
         }
       ],
       "name": "Software in the context of luminescence dating: status, concepts and suggestions exemplified by the R package 'Luminescence'",
-      "paginiation": "1-11",
+      "pagination": "1-11",
       "isPartOf": {
         "@type": "PublicationIssue",
         "issueNumber": "2",
@@ -895,10 +901,7 @@
         }
       ],
       "name": "Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips",
-      "identifier": "10.1515/geochr-2015-0086",
-      "paginiation": "56-67",
-      "@id": "https://doi.org/10.1515/geochr-2015-0086",
-      "sameAs": "https://doi.org/10.1515/geochr-2015-0086",
+      "pagination": "56-67",
       "isPartOf": {
         "@type": "PublicationIssue",
         "datePublished": "2018",
@@ -936,7 +939,7 @@
       ],
       "name": "Age determination using feldspar: Evaluating fading-correction model performance",
       "identifier": "10.1016/j.radmeas.2018.07.013",
-      "paginiation": "58-73",
+      "pagination": "58-73",
       "@id": "https://doi.org/10.1016/j.radmeas.2018.07.013",
       "sameAs": "https://doi.org/10.1016/j.radmeas.2018.07.013",
       "isPartOf": {
