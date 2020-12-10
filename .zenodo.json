@@ -1,15 +1,15 @@
 {
   "license": ["GPL-2.0-or-later"],
-  "description": ["<p>A collection of functions to simulate luminescence production in <\/p>"],
+  "description": ["<p>A collection of various R functions for the purpose of Luminescence<\/p>"],
   "language": ["eng"],
-  "title": ["RLumCarlo: Monte-Carlo Methods for Simulating Luminescence Phenomena"],
+  "title": ["Luminescence: Comprehensive Luminescence Dating Data Analysis"],
   "grants": [
     {
       "id": "10.13039/501100000780::844457"
     }
   ],
   "upload_type": ["software"],
-  "version": ["0.1.7"],
+  "version": ["0.9.11.9000-1"],
   "keywords": ["Modelling", "Monte-Carlo Simulations", "Luminescence"],
   "publication_date": ["2020-12-10"],
   "creators": [
