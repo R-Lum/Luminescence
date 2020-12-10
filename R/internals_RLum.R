@@ -492,7 +492,7 @@ fancy_scientific <- function(l) {
 }
 
 #++++++++++++++++++++++++++++++
-#+ .expand_Parameters         +
+#+ .expand_parameters         +
 #++++++++++++++++++++++++++++++
 #' @title Expand function parameters of self-call
 #'
@@ -526,11 +526,12 @@ fancy_scientific <- function(l) {
 
   ##now we have to make sure that we evaluate all language objects
   ##before passing them further down
-  for(i in 1:length(args_new)){
-    if(class(args_new[[i]])[1] == "name" | class(args_new[[i]])[1] == "call")
-      args_new[[i]] <- eval(args_new[[i]])
+  if(length(args_new) > 0){
+    for(i in 1:length(args_new)){
+      if(class(args_new[[i]])[1] == "name" | class(args_new[[i]])[1] == "call")
+        args_new[[i]] <- eval(args_new[[i]])
+    }
   }
-
 
   ##combine the two argument lists
   args <- modifyList(
