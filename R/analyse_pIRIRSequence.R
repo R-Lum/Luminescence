@@ -1,9 +1,10 @@
-#' Analyse post-IR IRSL measurement sequences
+#' @title Analyse post-IR IRSL measurement sequences
 #'
-#' The function performs an analysis of post-IR IRSL sequences including curve
+#' @description The function performs an analysis of post-IR IRSL sequences
+#' including curve
 #' fitting on [RLum.Analysis-class] objects.
 #'
-#' To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
+#' @detail To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
 #' this function has been written as extended wrapper function for the function
 #' [analyse_SAR.CWOSL], facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
