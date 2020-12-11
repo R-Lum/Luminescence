@@ -14,22 +14,21 @@ collection of various R functions for luminescence dating data analysis.
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
+[![CRAN
+checks](https://cranchecks.info/badges/summary/Luminescence)](https://cran.r-project.org/web/checks/check_results_Luminescence.html)
+[![](https://img.shields.io/badge/devel%20version-0.9.11.9000--1-blue.svg)](https://github.com/R-Lum/Luminescence)
+
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
+
 [![Build
 status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
 [![Build
 Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
-
-### CRAN check status
-
-| error | fail | warn | note |  ok |
-|------:|-----:|-----:|-----:|----:|
-|     5 |    0 |    0 |    4 |   3 |
 
 ## Social media and other resources
 
