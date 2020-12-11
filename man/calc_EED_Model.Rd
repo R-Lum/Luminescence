@@ -68,7 +68,7 @@ exposed to the light, an implementation of the EED model proposed by Guibert et 
 The function is an implementation and enhancement of the scripts used in
 Guibert et al. (2019). The implementation supports a semi-automated estimation
 of the parameters \code{kappa} and \code{sigma_distr}. If set to \code{NULL}, a surface interpolation
-is used to esimated those values.
+is used to estimated those values.
 
 \strong{Method control parameters}
 
@@ -110,7 +110,7 @@ calc_EED_Model(
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2020. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-1. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2020. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-6. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

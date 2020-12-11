@@ -14,6 +14,9 @@ header-includes:
 
 * `fit_EmissionSpectra()` Function for luminescence emission spectra deconvolution.
 
+* `calc_gSGC_feldspar()` Function to support the calculation of the equivalent dose using the
+global standardised growth curve (gSGC) for feldspar proposed by Li et al. (2015)
+
 ### Bugfixes and changes
 * Dummy
 

@@ -6,7 +6,7 @@
 #' @details The function is an implementation and enhancement of the scripts used in
 #' Guibert et al. (2019). The implementation supports a semi-automated estimation
 #' of the parameters `kappa` and `sigma_distr`. If set to `NULL`, a surface interpolation
-#' is used to esimated those values.
+#' is used to estimated those values.
 #'
 #' **Method control parameters**
 #'
@@ -120,10 +120,10 @@ calc_EED_Model <- function(
   ## add docu details
   ##
   ## TODO Questions to Pierre
-  ##  - what the user is doing of the real dose/age is not known, can it be assesed?
+  ##  - what the user is doing of the real dose/age is not known, can it be assessed?
   ##  - the underlying assumption is obviously an exponential distribution, what
   ##  - so far the parameter uncertainty estimation does not work nicely.x
-  ##  happens to data where this is not observd? I cannot work?
+  ##  happens to data where this is not observed? I cannot work?
 
 # Integrity tests  ----------------------------------------------------------------------------
   ##check input data and make it a hard stop
@@ -374,7 +374,7 @@ calc_EED_Model <- function(
     test_var <- Inf
     n_iter <- 0
     while(test_var > 1e-04 && n_iter < method_control$iter_max){
-      ##define paramter matrix
+      ##define parameter matrix
       m <- matrix(NA, nrow = 16, ncol = 5)
 
       ##fill matrix if parameter is not NULL
