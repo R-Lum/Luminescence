@@ -13,8 +13,8 @@
 #' `"150Lx"`, `"150Tx"`, `"200LxTx"`, `"200Lx"`, `"200Tx"`, `"250LxTx"`, `"250Lx"`,
 #' `"250Tx"`
 #'
-#'@param gSGC.parameters [numeric] (*optional*): an own parameter set for the
-#'gSGC as *named* numeric vector with the following elements `y1`, `y1_err`, `D1`
+#'@param gSGC.parameters [data.frame] (*optional*): an own parameter set for the
+#'gSGC with the following columns `y1`, `y1_err`, `D1`
 #'`D1_err`, `y2`, `y2_err`, `y0`, `y0_err`.
 #'
 #'@param n.MC [numeric] (*with default*): number of Monte-Carlo runs for the
@@ -37,7 +37,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Harrison Gray, USGS *United States),
+#' @author Harrison Gray, USGS (United States),
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Results-class], [get_RLum], [uniroot], [calc_gSGC]
@@ -80,7 +80,7 @@ calc_gSGC_feldspar <- function (
     stop("[calc_gSGC_feldspar()] 'data' needs to be of type data.frame.", call. = FALSE)
   }
   if (!is(gSGC.type[1], "character")) {
-    stop("[calc_gSGC_feldspar()] 'gSGC.type' needs to be of type character.", call = FALSE)
+    stop("[calc_gSGC_feldspar()] 'gSGC.type' needs to be of type character.", call. = FALSE)
   }
   if (ncol(data) != 5) {
     stop("[calc_gSGC_feldspar()] Structure of 'data' does not fit the expectations.", call. = FALSE)
@@ -297,6 +297,7 @@ calc_gSGC_feldspar <- function (
 
 
 # Return ------------------------------------------------------------------
+
   ##output matrix
   m <- matrix(ncol = 4, nrow = nrow(data))
 
@@ -312,6 +313,7 @@ calc_gSGC_feldspar <- function (
     m[i,4] <- HPD[1,2]
 
   }
+
   df <- data.frame(
     DE = m[, 1],
     DE.ERROR = m[, 2],
@@ -323,7 +325,7 @@ calc_gSGC_feldspar <- function (
     set_RLum("RLum.Results",
       data = list(
         data = df,
-        m.MC = lapply(l, function(x) x$m.MC)
+        m.MC = lapply(l, function(x) {if(is.na(x)) {return(x)} else {ex$m.MC} })
       ),
       info = list(
         call = sys.call()
