@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.11.9000-1
-Date: 2020-12-10
+Version: 0.9.11.9000-3
+Date: 2020-12-11
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -22,6 +22,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
     Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
     Dirk Mittelstrass [aut],
+    Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
@@ -43,6 +44,7 @@ Authors@R: c(
     person("Martin", "Autzen", role = c("aut"), comment = c(ORCID = "0000-0001-6249-426X")),
     person("Pierre", "Guibert", role = c("ctb"), comment = c(ORCID = "0000-0001-8969-8684")),
     person("Dirk", "Mittelstrass", role = c("aut")),
+    person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
 Description: A collection of various R functions for the purpose of Luminescence
@@ -160,6 +162,7 @@ Collate:
     'calc_ThermalLifetime.R'
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
+    'calc_gSGC_feldspar.R'
     'convert_Activity2Concentration.R'
     'convert_BIN2CSV.R'
     'convert_Concentration2DoseRate.R'
