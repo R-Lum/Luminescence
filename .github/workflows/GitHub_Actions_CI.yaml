@@ -8,14 +8,12 @@ on:
     branches:
       - master
 
-name: R-CMD-check
+name: GitHub Actions CI
 
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
     strategy:
       fail-fast: false
       matrix:
@@ -69,7 +67,7 @@ jobs:
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
         run: |
-          bew install jags
+          brew install jags
 
       - name: Install dependencies
         run: |
