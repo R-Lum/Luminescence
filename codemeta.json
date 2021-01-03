@@ -16,7 +16,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R Under development (unstable) (2020-12-09 r79601)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -527,7 +527,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zoo"
     }
   ],
-  "contIntegration": ["https://ci.appveyor.com/project/tzerk/luminescence/branch/master", "https://travis-ci.org/R-Lum/Luminescence", "https://codecov.io/github/R-Lum/Luminescence?branch=master"],
+  "contIntegration": ["https://ci.appveyor.com/project/tzerk/luminescence/branch/master", "https://codecov.io/github/R-Lum/Luminescence?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "citation": [
     {
