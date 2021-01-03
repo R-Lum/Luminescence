@@ -21,8 +21,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
-[![Build
-Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
+[![R-CMD-check](https://github.com/R-Lum/Luminescence/workflows/GitHub%20Actions%20CI/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
 
