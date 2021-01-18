@@ -161,7 +161,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.2
+#' @section Function version: 0.9.10
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -1248,6 +1248,10 @@ error.list <- list()
             D02.ERROR = NA,
             De.MC = NA,
             Fit = NA,
+            HPDI68_L = NA,
+            HPDI68_U = NA,
+            HPDI95_L = NA,
+            HPDI95_U = NA,
             RC.Status = NA,
             stringsAsFactors = FALSE
           )
@@ -1345,7 +1349,7 @@ error.list <- list()
                                      exceed.max.regpoint.data.frame)
 
 
-        ##add recjection status
+        ##add rejection status
         if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
           temp.GC <- data.frame(temp.GC, RC.Status = "FAILED", stringsAsFactors = FALSE)
 
