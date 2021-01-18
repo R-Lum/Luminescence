@@ -198,6 +198,7 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+   # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters
    ##object
    expect_error(analyse_SAR.CWOSL(

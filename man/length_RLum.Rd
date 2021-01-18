@@ -40,7 +40,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. length_RLum(): General accessor function for RLum S4 class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-12. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. length_RLum(): General accessor function for RLum S4 class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-14. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}
