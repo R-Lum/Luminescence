@@ -41,6 +41,19 @@ temp_QDR <-
     NumberIterations.MC = 10
   )
 
+test_that("fail fast", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  ##fit.method
+  expect_error(
+    plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
+    regexp = "[plot_GrowthCurve()] fit method not supported, supported methods are: LIN, QDR, EXP, EXP OR LIN, EXP+LIN, EXP+EXP, GOK",
+    fixed = TRUE
+  )
+
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)

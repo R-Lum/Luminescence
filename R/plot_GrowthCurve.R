@@ -182,7 +182,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.13
+#' @section Function version: 1.10.14
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -317,6 +317,16 @@ plot_GrowthCurve <- function(
       call. = FALSE
     )
   )
+
+  ##2. Check supported fit methods
+  fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK")
+  if (!fit.method[1] %in% fit.method_supported) {
+    stop(paste0(
+      "[plot_GrowthCurve()] fit method not supported, supported methods are: ",
+      paste(fit.method_supported, collapse = ", ")
+    ),
+    call. = FALSE)
+  }
 
   ##2. check if sample contains a least three rows
   if(length(sample[[1]])<3 & fit.method != "LIN"){
