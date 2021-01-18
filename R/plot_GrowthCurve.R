@@ -542,7 +542,7 @@ plot_GrowthCurve <- function(
   ##--------------------------------------------------------------------------##
   ##general setting of start parameters for fitting
 
-  ##a - estimation for a a the maxium of the y-values (Lx/Tx)
+  ##a - estimation for a a the maximum of the y-values (Lx/Tx)
   a <- max(data[,2])
 
   ##b - get start parameters from a linear fit of the log(y) data
@@ -775,7 +775,6 @@ plot_GrowthCurve <- function(
   #EXP ---------------
 
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
-
     if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
       try(stop("[plot_GrowthCurve()] Fit could not be applied for this data set. NULL returned!", call. = FALSE))
       return(NULL)
