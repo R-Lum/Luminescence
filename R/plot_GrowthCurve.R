@@ -182,7 +182,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.10.14
+#' @section Function version: 1.10.15
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -2206,9 +2206,7 @@ plot_GrowthCurve <- function(
                                      "\u00B1",
                                      round(De.Error,2),
                                      " | quality = ",
-                                     round((1 - abs(De - De.MonteCarlo) / De) * 100,
-                                           digits =
-                                             1),
+                                     round((1 - abs(abs(De) - De.MonteCarlo) / abs(De)) * 100,1),
                                      "%"
                                    )
                                  )),
