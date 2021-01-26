@@ -184,7 +184,8 @@ test_that("check extrapolation", {
   EXP <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"), "RLum.Results")
   EXPLIN <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN"), "RLum.Results")
+    suppressWarnings(
+      plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")), "RLum.Results")
   GOK <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
   LambertW <- expect_s4_class(

@@ -53,11 +53,11 @@
 #' `LambertW`: tries to fit a dose-response curve based on the Lambert W function
 #' according to Pagonis et al. (2020). The function has the form
 #'
-#' \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D[int]) / D[c]))) / (1 - R))) * N}
+#' \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
 #' \eqn{R} the dimensionless detrapping ratio, \eqn{N} the total concentration
-#' of trappings states in cm^-3 and \eqn{D[c] = N/R} a constant. \eqn{D[int]} is
+#' of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
 #' the offset on the x-axis.
 #'
 #' **Fit weighting**
