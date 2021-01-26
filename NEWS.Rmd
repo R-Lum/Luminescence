@@ -25,6 +25,12 @@ very particular circumstances after throwing a fitting error; fixed (report by B
 #### `plot_GrowthCurve()`
 * The quality index for the comparison of the $D_{e}$ and the $D_{e}$ estimated from the 
 Monte-Carlo yielded > 100% if `mode = 'extrapolation'`; spooky and fixed. 
+* Add support for the Lambert W dose-response curve suggested by Pagonis et al. (2020)
+(thanks to @vpagonis for developing the math)
+
+### Internals
+* `'lamW'` add as new package dependency. This is needed to support the Lambert W function 
+as in the function `plot_GrowthCurve()`
 
 ## Changes in version 0.9.10 (2020-12-10)
 

@@ -161,7 +161,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.10
+#' @section Function version: 0.9.11
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -1246,6 +1246,7 @@ error.list <- list()
             D01.ERROR = NA,
             D02 = NA,
             D02.ERROR = NA,
+            Dc = NA,
             De.MC = NA,
             Fit = NA,
             HPDI68_L = NA,
@@ -1362,9 +1363,20 @@ error.list <- list()
      ##end onlyLxTxTable
      }else{
        temp.GC <- data.frame(
-         De = NA, De.Error = NA,
-         D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA,
-         De.MC = NA, Fit = NA)
+         De = NA,
+         De.Error = NA,
+         D01 = NA,
+         D01.ERROR = NA,
+         D02 = NA,
+         D02.ERROR = NA,
+         Dc = NA,
+         De.MC = NA,
+         Fit = NA,
+         HPDI68_L = NA,
+         HPDI68_U = NA,
+         HPDI95_L = NA,
+         HPDI95_U = NA,
+         RC.Status = NA)
        temp.GC.fit.Formula <- NULL
      }
 

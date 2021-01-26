@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.11.9000-17
-Date: 2021-01-25
+Version: 0.9.11.9000-23
+Date: 2021-01-26
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -66,6 +66,7 @@ Imports:
     data.table (>= 1.13.2),
     DEoptim (>= 2.2-5),
     httr (>= 1.4.2),
+    lamW (>= 2.0.0),
     matrixStats (>= 0.57.0),
     methods,
     minpack.lm (>= 1.2-1),
