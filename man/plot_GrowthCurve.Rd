@@ -54,8 +54,9 @@ function used for fitting. Possible options are:
 \item \code{EXP},
 \item \verb{EXP OR LIN},
 \item \code{EXP+LIN},
-\item \code{EXP+EXP} or
-\item \code{GOK}.
+\item \code{EXP+EXP},
+\item \code{GOK},
+\item \code{LambertW}
 }
 
 See details.}
@@ -82,7 +83,7 @@ has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
-with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN} and \code{GOK}.
+with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{LambertW}
 Argument to be inserted for experimental application only!}
 
 \item{NumberIterations.MC}{\link{integer} (\emph{with default}):
@@ -184,6 +185,16 @@ Guralnik et al. (2015) of the form of
 where \strong{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
 
+\code{LambertW}: tries to fit a dose-response curve based on the Lambert W function
+according to Pagonis et al. (2020). The function has the form
+
+\deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+
+with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
+\eqn{R} the dimensionless detrapping ratio, \eqn{N} the total concentration
+of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
+the offset on the x-axis.
+
 \strong{Fit weighting}
 
 If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
@@ -213,7 +224,7 @@ To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.10.15
+ 1.11.0
 }
 
 \examples{
@@ -304,7 +315,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2021. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.10.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2021. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -313,10 +324,13 @@ Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7,
 Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 from feldspar. Radiation Measurements 81, 224-231.
+
+Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
+based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 }
 \seealso{
 \link{nls}, \linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM},
-\link{lm}, \link{uniroot}
+\link{lm}, \link{uniroot}, \link[lamW:lamW]{lamW::lambertW0}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
