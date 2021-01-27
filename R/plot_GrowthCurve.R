@@ -1779,18 +1779,21 @@ plot_GrowthCurve <- function(
     } else if (fit.method=="LambertW") {
     #==========================================================================
     # LambertW -----
+    if(mode == "extrapolation"){
+      Dint_lower <- 0.1
+
+    } else{
+      Dint_lower <- 0
+
+    }
     fit <- try(minpack.lm::nlsLM(
           formula = fit.formulaLambertW,
           data = data,
-          start = list(R = 0, Dc = b, N = 0, Dint = 0),
+          start = list(R = 0, Dc = b, N = b, Dint = 0),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
-          lower = if (fit.bounds) {
-            c(0,0,0,0)
-          }else{
-            c(-Inf,-Inf,-Inf, -Inf)
-          },
+          lower = if (fit.bounds) c(0, 0, 0, Dint_lower) else c(-Inf,-Inf,-Inf, -Inf),
           upper = if(fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf),
           control = minpack.lm::nls.lm.control(maxiter = 500)
         ), silent = TRUE)
@@ -1799,9 +1802,8 @@ plot_GrowthCurve <- function(
           if(verbose) writeLines("[plot_GrowthCurve()] try-error for LambertW fit")
 
         }else{
-
           #get parameters out of it
-          parameters <- (coef(fit))
+          parameters <- coef(fit)
           R <- as.vector((parameters["R"]))
           Dc <- as.vector((parameters["Dc"]))
           N <- as.vector((parameters["N"]))
@@ -1821,11 +1823,25 @@ plot_GrowthCurve <- function(
           }else if (mode == "extrapolation"){
             De <- try(suppressWarnings(stats::uniroot(
               f = function(x, R, Dc, N, Dint) {fit.functionLambertW(R, Dc, N, Dint, x)},
-              interval = c(-max(sample[[1]]), max(sample[[1]]) * 1.2),
+              interval = c(-max(sample[[1]]),0),
               R = R,
               Dc = Dc,
               N = N,
               Dint = Dint)$root), silent = TRUE)
+
+            ## there are cases where the function cannot calculate the root
+            ## due to its shape, here we have to use the minimum
+            if(inherits(De, "try-error")){
+              De <- try(suppressWarnings(stats::optimize(
+                f = function(x, R, Dc, N, Dint) {fit.functionLambertW(R, Dc, N, Dint, x)},
+                interval = c(-max(sample[[1]]),0),
+                R = R,
+                Dc = Dc,
+                N = N,
+                Dint = Dint)$minimum), silent = TRUE)
+
+
+            }
 
           }
 
@@ -2133,7 +2149,6 @@ plot_GrowthCurve <- function(
       temp.xy.plot  <- sample[fit.RegPointsReal,]
 
     }else{
-
       temp.xy.plot  <- xy[1:fit.NumberRegPointsReal,]
 
     }
@@ -2196,7 +2211,7 @@ plot_GrowthCurve <- function(
         try(curve(fit.functionGOK(a, b, c, x), lwd = 1.5, add = TRUE))
       }
       else if (fit.method == "LambertW") {
-        try(curve(fit.functionLambertW(R, Dc, N, Dint, x), lwd = 1.5, add = TRUE))
+        try(curve(fit.functionLambertW(R, Dc, N, Dint, x), lwd = 1.5, add = TRUE, n = 10000))
       }
 
       ##POINTS	#Plot Reg0 and Repeated Points
@@ -2418,7 +2433,7 @@ plot_GrowthCurve <- function(
 
 
         ##PLOT		#PLOT test dose response curve if available if not plot not available
-        #plot Tx/Tn value for sensitiviy change
+        #plot Tx/Tn value for sensitvity change
         if (!is(plot_check, "try-error")) {
           if ("TnTx" %in% colnames(sample) == TRUE) {
             plot(
