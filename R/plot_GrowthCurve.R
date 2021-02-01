@@ -193,7 +193,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.0
+#' @section Function version: 1.11.1
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -1963,13 +1963,6 @@ plot_GrowthCurve <- function(
   #De.Error is Error of the whole De (ignore NaN values)
   De.Error <- sd(na.exclude(x.natural))
 
-  ##choose format in dependency of the size of the error
-  De.Error <- ifelse(De.Error <= 0.01,
-                     format(De.Error, scientific = TRUE, digits = 2),
-                     round(De.Error, digits = 2))
-
-
-
   # Formula creation --------------------------------------------------------
   if(!is(fit,"try-error") & !is.na(fit[1])){
     if(fit.method == "EXP") {
@@ -2284,7 +2277,7 @@ plot_GrowthCurve <- function(
         if(mode != "alternate"){
         substitute(D[e] == De,
                    list(De = paste(
-                     round(abs(De), digits = 2), "\u00B1", round(as.numeric(De.Error), digits = 2), " | fit: ", fit.method
+                     round(abs(De), digits = 2), "\u00B1", format(De.Error, scientific = TRUE, digits = 2), " | fit: ", fit.method
                    )))
         }else{
           ""
@@ -2402,7 +2395,7 @@ plot_GrowthCurve <- function(
                                    De = paste(
                                      round(De.MonteCarlo, 2),
                                      "\u00B1",
-                                     round(De.Error,2),
+                                     format(De.Error, scientific = TRUE, digits = 2),
                                      " | quality = ",
                                      round((1 - abs(abs(De) - De.MonteCarlo) / abs(De)) * 100,1),
                                      "%"
