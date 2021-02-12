@@ -161,7 +161,7 @@ test_that("check values from output example", {
    expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
    ##fix for different R versions
    if(R.version$major > "3"){
-     expect_identical(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 0), 17829)
+     expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.0001)
 
    }
 
