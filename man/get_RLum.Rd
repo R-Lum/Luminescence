@@ -75,7 +75,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-30. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}
