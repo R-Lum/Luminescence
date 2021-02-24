@@ -67,7 +67,7 @@
 #' f <- function() {
 #'  warning("warning 1")
 #'  warning("warning 1")
-#'  warning("warnigs 2")
+#'  warning("warning 2")
 #'  1:10
 #' }
 #' print(.warningCatcher(f()))
@@ -83,10 +83,11 @@
   results <- withCallingHandlers(
     expr = expr,
     warning = function(c) {
+      temp <- c(get("warning_collector", envir = env), c[[1]])
       assign(x = "warning_collector",
-             value = c,
+             value = temp,
              envir = env)
-      invokeRestart("muffleWarning")
+      tryInvokeRestart("muffleWarning")
     }
   )
 
