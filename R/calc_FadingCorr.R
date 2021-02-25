@@ -4,10 +4,10 @@
 #' This function solves the equation used for correcting the fading affected age
 #' including the error for a given g-value according to Huntley & Lamothe (2001).
 #'
-#' As the g-value sligthly depends on the time between irradiation and the prompt measurement,
+#' As the g-value slightly depends on the time between irradiation and the prompt measurement,
 #' this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
 #' time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-#' for the g-value needs to be provided (argument `tc.g_value` and then the g-value is recalcualted
+#' for the g-value needs to be provided (argument `tc.g_value` and then the g-value is recalculated
 #' to tc of the measurement used for estimating the age applying the following equation:
 #'
 #' \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))}
@@ -36,7 +36,7 @@
 #' If the determined error does not differ from the 9 values calculated previously
 #' within a precision of (here) 3 digits the calculation is stopped as it is assumed that the error
 #' is stable. Please note that (a) the duration depends on the input values as well as on
-#' the provided computation ressources and it may take a while, (b) the length (size) of the output
+#' the provided computation resources and it may take a while, (b) the length (size) of the output
 #' vector `age.corr.MC`, where all the single values produced during the MC runs are stored,
 #' equals the number of MC runs (here termed observations).
 #'
@@ -53,48 +53,48 @@
 #' appear similar, but they are not comparable!\cr
 #'
 #' **FAQ**\cr
-#' 
+#'
 #' Q: Which tc value is expected?\cr
-#' 
+#'
 #' A: tc is the time in seconds between irradiation and the prompt measurement applied during your
 #' De measurement. However, this tc might differ from the tc used for estimating the g-value. In the
 #' case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
 #' tc value (the one used for estimating the g-value) using the argument `tc.g_value`.\cr
 #'
-#' @param age.faded [numeric] [vector] (**required**): 
+#' @param age.faded [numeric] [vector] (**required**):
 #' uncorrected age with error in ka (see example)
 #'
-#' @param g_value [vector] (**required**): 
-#' g-value and error obtained from separate fading measurements (see example). 
+#' @param g_value [vector] (**required**):
+#' g-value and error obtained from separate fading measurements (see example).
 #' Alternatively an [RLum.Results-class] object can be provided produced by the function
 #' [analyse_FadingMeasurement], in this case tc is set automatically
 #'
-#' @param tc [numeric] (**required**): 
-#' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). 
+#' @param tc [numeric] (**required**):
+#' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
 #' Argument will be ignored if `g_value` was an [RLum.Results-class] object
 #'
-#' @param tc.g_value [numeric] (*with default*): 
-#' the time in seconds between irradiation and the prompt measurement used for estimating the g-value. 
-#' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. 
-#' If nothing is provided the time is set to tc, which is usual case for g-values obtained using the 
+#' @param tc.g_value [numeric] (*with default*):
+#' the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
+#' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
+#' If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
 #' SAR method and g-values that had been not normalised to 2 days.
 #'
-#' @param n.MC [integer] (*with default*): 
-#' number of Monte Carlo simulation runs for error estimation. 
-#' If `n.MC = 'auto'` is used the function tries to find a 'stable' error for the age. 
+#' @param n.MC [integer] (*with default*):
+#' number of Monte Carlo simulation runs for error estimation.
+#' If `n.MC = 'auto'` is used the function tries to find a 'stable' error for the age.
 #' **Note:** This may take a while!
 #'
-#' @param seed [integer] (*optional*): 
+#' @param seed [integer] (*optional*):
 #' sets the seed for the random number generator in R using [set.seed]
 #'
-#' @param interval [numeric] (*with default*): 
-#' a vector containing the end-points (age interval) of the interval to be searched for the root in 'ka'. 
+#' @param interval [numeric] (*with default*):
+#' a vector containing the end-points (age interval) of the interval to be searched for the root in 'ka'.
 #' This argument is passed to the function [stats::uniroot] used for solving the equation.
 #'
-#' @param txtProgressBar [logical] (*with default*): 
+#' @param txtProgressBar [logical] (*with default*):
 #' enables or disables [txtProgressBar]
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enables or disables terminal output
 #'
 #'
@@ -115,7 +115,7 @@
 #' }
 #'
 #'
-#' @note Special thanks to Sebastien Huot for his support and clarification via e-mail.
+#' @note Special thanks to Sébastien Huot for his support and clarification via e-mail.
 #'
 #'
 #' @section Function version: 0.4.2
@@ -127,7 +127,7 @@
 #' @seealso [RLum.Results-class], [get_RLum], [uniroot]
 #'
 #'
-#' @references 
+#' @references
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
 #' in K-feldspars and the measurement and correction for it in optical dating.
 #' Canadian Journal of Earth Sciences, 38, 1093-1106.

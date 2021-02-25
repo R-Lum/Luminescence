@@ -102,7 +102,7 @@
 #'
 #' Terminal output is only shown of the argument `verbose = TRUE`.
 #'
-#' *(1) Start parameter and component adapation*\cr
+#' *(1) Start parameter and component adaption*\cr
 #' Trave of the parameter adaptation process
 #'
 #' *(2) Fitting results (sorted by ascending tau)*\cr
@@ -115,7 +115,7 @@
 #' the residuals should be not correlated at all. Rough measures are: \cr
 #' D = 0: the residuals are systematically correlated \cr
 #' D = 2: the residuals are randomly distributed \cr
-#' D = 4: the residuals are systematically anticorrelated\cr
+#' D = 4: the residuals are systematically anti-correlated\cr
 #'
 #' You should be suspicious if D differs largely from 2.
 #'
@@ -422,7 +422,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(B) RUN DIFFERENTIAL EVOLUTION TO DETERMINE NUMBER OF COMPONENTS
-  ##prevent collateral demage, so we want a data.frame that has at least 10 rows
+  ##prevent collateral damage, so we want a data.frame that has at least 10 rows
   if(verbose){
       cat("\n[fit_OSLLifeTime()]\n")
       cat("\n(1) Start parameter and component adapation")

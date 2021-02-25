@@ -11,12 +11,12 @@
 #' distribution of the values, on the actual scale of the measured data (e.g.
 #' seconds, equivalent dose, years). The principle of the plot is shown in
 #' Galbraith & Green (1990). The function authors are thankful for the
-#' thoughtprovocing figure in this article.
+#' thought provoking figure in this article.
 #'
 #' The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 #' line here, which actually is the basis for combining this polar (radial)
 #' part of the plot with any other cartesian visualisation method
-#' (KDE, histogram, PDF and so on). Note that the plot allows dispaying
+#' (KDE, histogram, PDF and so on). Note that the plot allows displaying
 #' two measures of distribution. One is the 2-sigma
 #' bar, which illustrates the spread in value errors, and the other is the
 #' polygon, which stretches over both parts of the Abanico Plot (polar and
@@ -37,9 +37,9 @@
 #' this appears appropriate.
 #'
 #' The proportion of the polar part and the cartesian part of the Abanico Plot
-#' can be modfied for display reasons (`plot.ratio = 0.75`). By default,
-#'  the polar part spreads over 75 \% and leaves 25 \% for the part that
-#'  shows the KDE graph.
+#' can be modified for display reasons (`plot.ratio = 0.75`). By default,
+#' the polar part spreads over 75 \% and leaves 25 \% for the part that
+#' shows the KDE graph.
 #'
 #'
 #' A statistic summary, i.e. a collection of statistic measures of
@@ -93,7 +93,7 @@
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
 #'
 #' @param z.0 [character] or [numeric]:
-#' User-defined central value, used for centering of data. One out of `"mean"`,
+#' User-defined central value, used for centring of data. One out of `"mean"`,
 #' `"mean.weighted"` and `"median"` or a numeric value (not its logarithm).
 #' Default is `"mean.weighted"`.
 #'
@@ -203,7 +203,7 @@
 #' labels for the additional lines.
 #'
 #' @param grid.col [character] or [numeric] (*with default*):
-#' colour of the grid lines (originating at `[0,0]` and strechting to
+#' colour of the grid lines (originating at `[0,0]` and stretching to
 #' the z-scale). To disable grid lines use `FALSE`. Default is `"grey"`.
 #'
 #' @param frame [numeric] (*with default*):
@@ -223,7 +223,7 @@
 #' reproduce similar plots. Default is `TRUE`.
 #'
 #' @param interactive [logical] (*with default*):
-#' create an interactive abanico plot (requires the 'plotly' package)
+#' create an interactive abanico plot (requires the `'plotly'` package)
 #'
 #' @param ... Further plot arguments to pass. `xlab` must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
@@ -235,7 +235,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
 #' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram]
@@ -676,18 +676,18 @@ plot_AbanicoPlot <- function(
 
   ## check for negative values, stop function, but do not stop
   if(min(De.global) < 0) {
-    
+
     if("zlim" %in% names(extraArgs)) {
-      
+
       De.add <- abs(extraArgs$zlim[1])
     } else {
-      
+
       ## estimate delta De to add to all data
       De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
-      
+
       ## optionally readjust delta De for extreme values
       if(De.add <= abs(min(De.global))) {
-        
+
         De.add <- De.add * 10
       }
     }
@@ -697,13 +697,13 @@ plot_AbanicoPlot <- function(
 
   ## optionally add correction dose to data set and adjust error
   if(log.z == TRUE) {
-    
+
     for(i in 1:length(data)) {
       data[[i]][,1] <- data[[i]][,1] + De.add
     }
-    
+
     De.global <- De.global + De.add
-    
+
   }
 
   ## calculate and append statistical measures --------------------------------
@@ -716,7 +716,7 @@ plot_AbanicoPlot <- function(
       data[[x]][,1]
     }
   })
-  
+
   if(is(z, "list") == FALSE) {
     z <- list(z)
   }
@@ -728,7 +728,7 @@ plot_AbanicoPlot <- function(
   ## calculate dispersion based on log-option
   se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-      
+
       if(De.add != 0) {
         data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
       } else {
@@ -737,11 +737,11 @@ plot_AbanicoPlot <- function(
     } else {
       data[[x]][,2]
     }}, De.add = De.add)
-  
+
   if(is(se, "list") == FALSE) {
     se <- list(se)
   }
-  
+
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])
   })
@@ -750,42 +750,42 @@ plot_AbanicoPlot <- function(
   ## calculate initial data statistics
   stats.init <- list(NA)
   for(i in 1:length(data)) {
-    stats.init[[length(stats.init) + 1]] <- 
+    stats.init[[length(stats.init) + 1]] <-
       calc_Statistics(data = data[[i]][,3:4])
   }
   stats.init[[1]] <- NULL
 
   ## calculate central values
   if(z.0 == "mean") {
-    
+
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$unweighted$mean,
           length(data[[x]][,3]))})
-    
+
   } else if(z.0 == "median") {
-    
+
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$unweighted$median,
           length(data[[x]][,3]))})
-    
+
   } else  if(z.0 == "mean.weighted") {
-    
+
     z.central <- lapply(1:length(data), function(x){
       rep(stats.init[[x]]$weighted$mean,
           length(data[[x]][,3]))})
-    
+
   } else if(is.numeric(z.0) == TRUE) {
-    
+
     z.central <- lapply(1:length(data), function(x){
       rep(ifelse(log.z == TRUE,
                  log(z.0),
                  z.0),
           length(data[[x]][,3]))})
-    
+
   } else {
-    
+
     stop("Value for z.0 not supported!")
-    
+
   }
 
   data <- lapply(1:length(data), function(x) {
