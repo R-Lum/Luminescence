@@ -81,7 +81,7 @@
 #' are:
 #'
 #' \tabular{lll}{
-#' **Parameter** \tab **Type** \tab **Descritpion**\cr
+#' **Parameter** \tab **Type** \tab **Descrtption**\cr
 #' `lower_centralD` \tab [numeric] \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 #' `upper_centralD` \tab [numeric] \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 #' `n.chains` \tab [integer] \tab sets number of parallel chains for the model (default = 3) (cf. [rjags::jags.model])\cr

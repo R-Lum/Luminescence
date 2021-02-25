@@ -7,10 +7,10 @@
 #'
 #' **method**
 #'
-#' The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
+#' The original method presented by Bailey et al., 2003 shifted the signal integrals and slightly
 #' extended them accounting for changes in the counting statistics. Example: `c(1:3, 3:5, 5:7)`.
 #' However, here also another method is provided allowing to expand the signal integral by
-#' consectutively expaning the integral by its chosen length. Example: `c(1:3, 1:5, 1:7)`
+#' consecutively expanding the integral by its chosen length. Example: `c(1:3, 1:5, 1:7)`
 #'
 #' Note that in both cases the integral limits are overlap. The finally applied limits are part
 #' of the function output.
@@ -95,12 +95,11 @@
 #' [analyse_SAR.CWOSL] and [analyse_pIRIRSequence]. However, the integrity
 #' checks of this function are not that thoughtful as in these functions itself.
 #' It means, that every sequence should be checked carefully before running long
-#' calculations using serveral hundreds of channels.
+#' calculations using several hundreds of channels.
 #'
 #' @section Function version: 0.1.3
 #'
-#' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' @author Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @references
 #' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting

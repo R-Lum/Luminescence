@@ -1237,7 +1237,7 @@ NULL
 #' Example TR-OSL data
 #'
 #' Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
-#' (origin: Trebgast Valley, Germay, quartz, 90-200 µm, unpublished data).
+#' (origin: Trebgast Valley, Germany, quartz, 90-200 µm, unpublished data).
 #'
 #' @format One [RLum.Data.Curve-class] dataset imported using the function [read_XSYG2R]
 #'

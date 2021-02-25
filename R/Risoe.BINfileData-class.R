@@ -183,7 +183,7 @@ NULL
 #' @references
 #' Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
 #'
-#' The Sequence Editor User Manual - Feburar 2016
+#' The Sequence Editor User Manual - February 2016
 #'
 #' [https://www.nutech.dtu.dk/]()
 #'
