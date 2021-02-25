@@ -96,7 +96,7 @@
 #'
 #' The function provides the option to modify and to define own models that can be used for
 #' the Bayesian calculation. In the case the user wants to modify a model, a new model
-#' can be piped into the funtion via the argument `baSAR_model` as `character`.
+#' can be piped into the function via the argument `baSAR_model` as `character`.
 #' The model has to be provided in the JAGS dialect of the BUGS language (cf. [rjags::jags.model])
 #' and parameter names given with the pre-defined names have to be respected, otherwise the function
 #' will break.
@@ -180,8 +180,8 @@
 #' new selection will add the aliquots to the removed aliquots table.
 #'
 #' @param source_doserate [numeric] **(required)**:
-#' source dose rate of beta-source used for the measuremnt and its uncertainty
-#' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Paramater can be provided
+#' source dose rate of beta-source used for the measurement and its uncertainty
+#' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Parameter can be provided
 #' as `list`, for the case that more than one BIN-file is provided, e.g.,
 #' `source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))`.
 #'
@@ -209,18 +209,18 @@
 #'
 #' @param irradiation_times [numeric] (*optional*): if set this vector replaces all irradiation
 #' times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
-#' Plesae note that if this argument is used, for every(!) single curve
+#' Please note that if this argument is used, for every(!) single curve
 #' in the dataset an irradiation time needs to be set.
 #'
 #' @param sigmab [numeric] (*with default*):
-#' option to set a manual value for the overdispersion (for LnTx and TnTx),
-#' used for the Lx/Tx error calculation. The value should be provided as
+#' option to set a manual value for the overdispersion (for `LnTx` and `TnTx`),
+#' used for the `Lx`/`Tx` error calculation. The value should be provided as
 #' absolute squared count values, cf. [calc_OSLLxTxRatio].
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param sig0 [numeric] (*with default*):
 #' allow adding an extra component of error to the final Lx/Tx error value
-#' (e.g., instrumental errror, see details is [calc_OSLLxTxRatio]).
+#' (e.g., instrumental error, see details is [calc_OSLLxTxRatio]).
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param distribution [character] (*with default*):

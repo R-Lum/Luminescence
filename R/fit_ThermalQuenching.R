@@ -19,23 +19,23 @@
 #' The error estimation is done be varying the input parameters using the given uncertainties in
 #' a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
 #'
-#' **start_param** \cr
+#' **`start_param`** \cr
 #'
 #' The function allows the injection of own start parameters via the argument `start_param`. The
 #' parameters needs to be provided as names list. The names are the parameters to be optimised.
 #' Examples: `start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)`
 #'
 #'
-#' **method_control** \cr
+#' **`method_control`** \cr
 #'
 #' The following arguments can be provided via `method_control`. Please note that arguments provided
-#' via `method_control` are not further tested, i.e., if the function crashs your input was probably
+#' via `method_control` are not further tested, i.e., if the function crashes your input was probably
 #' wrong.
 #'
 #' \tabular{lll}{
 #' **ARGUMENT** \tab **TYPE** \tab **DESCRIPTION**\cr
 #' `upper` \tab named [vector] \tab sets upper fitting boundaries, if provided boundaries for all arguments
-#' are requried, e.g., `c(A = 0, C = 0, W = 0, c = 0)` \cr
+#' are required, e.g., `c(A = 0, C = 0, W = 0, c = 0)` \cr
 #' `lower` \tab names [vector] \tab sets lower fitting boundaries (see `upper` for details) \cr
 #' `trace`   \tab [logical] \tab enables/disables progression trace for [minpack.lm::nlsLM]\cr
 #'  `weights` \tab [numeric] \tab option to provide own weights for the fitting, the length of this

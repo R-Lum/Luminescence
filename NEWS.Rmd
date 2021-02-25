@@ -135,7 +135,7 @@ Beta and gamma dose rates are corrected for the water content.
 * `calc_CobbleDoseRate()` by Svenja Riedesel and Martin Autzen. The function 
 calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
 
-### Datesets
+### Datasets
 * `ExampleData.CobbleDate` new example dataset to be used in conjunction with the 
 function `calc_CobbleDoseRate()`. Contributed by Svenja Riedesel and Martin Autzen.
 
@@ -338,7 +338,7 @@ declared in the Import fields.
 
 ## Changes in version 0.9.2 (2019-07-30)
 
-* This version fixes an URL problem discovered by the CRAN precheck
+* This version fixes an URL problem discovered by the CRAN pre-check
 
 ## Changes in version 0.9.1 (2019-07-30)
 
@@ -368,13 +368,13 @@ it supports a list of `RLum.Analysis` objects only.
 
 #### `calc_Lamothe2003()` 
 
-* The documentation wrongly stated that an input `data.frame` should have the columns 'dose', 'De' and 
-'De error', indeed 'dose', 'LxTx' and 'LxTx error' are expected (spotted by Jeong-Heon Choi)
+* The documentation wrongly stated that an input `data.frame` should have the columns `dose`, `De` and 
+`De error`, indeed `dose`, `LxTx` and `LxTx error` are expected (spotted by Jeong-Heon Choi)
 
 #### `calc_TLLxTxRatio()` 
 
-* The `LxTx.Error` is no longer negative, even if the subtration lead to negative count values (#78, reported
-by Sébastian Huot)
+* The `LxTx.Error` is no longer negative, even if the subtraction lead to negative count values (#78, reported
+by Sébastien Huot)
 
 
 #### `calc_SourceDoseRate()`

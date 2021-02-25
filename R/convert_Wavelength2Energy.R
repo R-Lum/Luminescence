@@ -8,7 +8,7 @@
 #'
 #'@details
 #'
-#' The intensity of the spectrum is re-calcualted using the following approach to recalulate
+#' The intensity of the spectrum is re-calculated using the following approach to recalculate
 #' wavelength and corresponding intensity values
 #' (e.g., Appendix 4 in Blasse and Grabmeier, 1994; Mooney and Kambhampati, 2013):
 #'
@@ -37,7 +37,7 @@
 #' @return The same object class as provided as input is returned.
 #'
 #' @note This conversion works solely for emission spectra. In case of absorption spectra only
-#' the x-axsis has to be converted.
+#' the x-axis has to be converted.
 #'
 #' @section Function version: 0.1.1
 #'
