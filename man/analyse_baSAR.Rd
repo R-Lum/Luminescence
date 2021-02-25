@@ -276,7 +276,7 @@ These are arguments that can be passed directly to the Bayesian calculation core
 are:
 
 \tabular{lll}{
-\strong{Parameter} \tab \strong{Type} \tab \strong{Descritpion}\cr
+\strong{Parameter} \tab \strong{Type} \tab \strong{Descrtption}\cr
 \code{lower_centralD} \tab \link{numeric} \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{upper_centralD} \tab \link{numeric} \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{n.chains} \tab \link{integer} \tab sets number of parallel chains for the model (default = 3) (cf. \link[rjags:jags.model]{rjags::jags.model})\cr
@@ -411,7 +411,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-39. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
