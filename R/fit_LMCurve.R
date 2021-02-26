@@ -35,7 +35,7 @@
 #' \deqn{y = a*x + b}
 #'
 #' - `channel`: the measured
-#' background signal is subtracted channelwise from the measured signal.
+#' background signal is subtracted channel wise from the measured signal.
 #'
 #'
 #' **Start values**
@@ -61,8 +61,8 @@
 #'
 #' **(c)**
 #' If no start parameters are provided and
-#' the option `fit.advanced = TRUE` is chosen, an advanced start paramter
-#' estimation is applied using a stochastical attempt. Therefore, the
+#' the option `fit.advanced = TRUE` is chosen, an advanced start parameter
+#' estimation is applied using a stochastic attempt. Therefore, the
 #' recalculated start parameters **(a)** are used to construct a normal
 #' distribution. The start parameters are then sampled randomly from this
 #' distribution. A maximum of 100 attempts will be made. **Note:** This
@@ -70,7 +70,7 @@
 #'
 #' **Goodness of fit**
 #'
-#' The goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
+#' The goodness of the fit is given by a pseudo-R^2 value (pseudo coefficient of
 #' determination). According to Lave (1970), the value is calculated as:
 #'
 #' \deqn{pseudoR^2 = 1 - RSS/TSS}
@@ -81,8 +81,8 @@
 #' **Error of fitted component parameters**
 #'
 #' The 1-sigma error for the components is calculated using
-#' the function [confint]. Due to considerable calculation time, this
-#' option is deactived by default. In addition, the error for the components
+#' the function [stats::confint]. Due to considerable calculation time, this
+#' option is deactivated by default. In addition, the error for the components
 #' can be estimated by using internal R functions like [summary]. See the
 #' [nls] help page for more information.
 #'
@@ -99,11 +99,11 @@
 #' (min = 1, max = 7).
 #'
 #' @param start_values [data.frame] (*optional*):
-#' start parameters for lm and xm data for the fit. If no start values are given,
+#' start parameters for `lm` and `xm` data for the fit. If no start values are given,
 #' an automatic start value estimation is attempted (see details).
 #'
 #' @param input.dataType [character] (*with default*):
-#' alter the plot output depending on the input data: "LM" or "pLM" (pseudo-LM).
+#' alter the plot output depending on the input data: `"LM"` or `"pLM"` (pseudo-LM).
 #' See: [CW2pLM]
 #'
 #' @param fit.method [character] (*with default*):
@@ -118,7 +118,7 @@
 #' additional identifier used as column header for the table output.
 #'
 #' @param LED.power [numeric] (*with default*):
-#' LED power (max.) used forintensity ramping in mW/cm^2.
+#' LED power (max.) used for intensity ramping in mW/cm^2.
 #' **Note:** This value is used for the calculation of the absolute
 #' photoionisation cross section.
 #'
@@ -136,7 +136,7 @@
 #' **Note:** It may take a while and it is not compatible with `fit.method = "LM"`.
 #'
 #' @param fit.calcError [logical] (*with default*):
-#' calculate 1-sigma error range of components using [confint].
+#' calculate 1-sigma error range of components using [stats::confint].
 #'
 #' @param bg.subtraction [character] (*with default*):
 #' specifies method for background subtraction (`polynomial`, `linear`, `channel`,

@@ -83,7 +83,7 @@
 #'
 #' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
 #' `xlab`, `log`, `mtext` and `xlim` for the two first curve plots, and `ylim` for the fading
-#' curve plot. For further plot customization plesea use the numerical output of the functions for
+#' curve plot. For further plot customization please use the numerical output of the functions for
 #' own plots.
 #'
 #' @return
@@ -123,7 +123,7 @@
 #'
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-#' 1093-1106. doi{10.1139/cjes-38-7-1093}
+#' 1093-1106. doi: `10.1139/cjes-38-7-1093`
 #'
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
 #' fading correction for feldspar  IRSL dating-tests on samples in field saturation.

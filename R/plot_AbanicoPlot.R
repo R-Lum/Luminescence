@@ -72,7 +72,7 @@
 #' sophisticated. Each element of the plot can be addressed and its properties
 #' can be defined. This includes font type, size and decoration, colours and
 #' sizes of all plot items. To infer the definition of a specific layout style
-#' cf. `get_Layout()` or type eg. for the layout type `"journal"`
+#' cf. `get_Layout()` or type e.g., for the layout type `"journal"`
 #' `get_Layout("journal")`. A layout type can be modified by the user by
 #' assigning new values to the list object.
 #'
@@ -107,7 +107,7 @@
 #'
 #' The default is `"qr"`. Note that `"sd"` and `"2sd"` are only meaningful in
 #' combination with `"z.0 = 'mean'"` because the unweighted mean is used to
-#' center the polygon.
+#' centre the polygon.
 #'
 #' @param plot.ratio [numeric]:
 #' Relative space, given to the radial versus the cartesian plot part,
@@ -179,7 +179,7 @@
 #'
 #' @param bar [numeric] (*with default*):
 #' option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
-#' centered at the defined values. By default a bar is drawn according to `"z.0"`.
+#' centred at the defined values. By default a bar is drawn according to `"z.0"`.
 #' To omit the bar set `"bar = FALSE"`.
 #'
 #' @param bar.col [character] or [numeric] (*with default*):

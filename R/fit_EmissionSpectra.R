@@ -28,7 +28,7 @@
 #'3. Fitting via [minpack.lm::nls.lm]\cr
 #'
 #'The peak finding is realised by an approach (re-)suggested by Petr Pikal via the R-help
-#'mailing list (https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html) in November 2005.
+#'mailing list (`https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html`) in November 2005.
 #'This goes back to even earlier discussion in 2001 based on Prof Brian Ripley's idea.
 #'It smartly uses the functions [stats::embed] and [max.col] to identify peaks positions.
 #'For the use in this context, the algorithm has been further modified to scale on the
@@ -44,7 +44,7 @@
 #'**Supported `method_control` settings**
 #'
 #'\tabular{llll}{
-#' **Parameter** \tab **Type** \tab **Default** \tab **Descritpion**\cr
+#' **Parameter** \tab **Type** \tab **Default** \tab **Description**\cr
 #' `max.runs` \tab [integer] \tab `1000` \tab maximum allowed search iterations, if exceed
 #' the searching stops \cr
 #' `trace` \tab [logical] \tab `FALSE` \tab enables/disables the tracing of the minimisation routine

@@ -4,62 +4,62 @@
 #' object to an RLum.Analysis object.
 #'
 #' The [RLum.Analysis-class] object requires a set of curves for
-#' specific further protocol analyses. However, the [Risoe.BINfileData-class] 
-#' usually contains a set of curves for different aliquots and different 
+#' specific further protocol analyses. However, the [Risoe.BINfileData-class]
+#' usually contains a set of curves for different aliquots and different
 #' protocol types that may be mixed up. Therefore, a conversion is needed.
 #'
 #' @param object [Risoe.BINfileData-class] (**required**):
 #' `Risoe.BINfileData` object
 #'
-#' @param pos [numeric] (*optional*): position number of the `Risoe.BINfileData` 
-#' object for which the curves are stored in the `RLum.Analysis` object. 
-#' If `length(position)>1` a list of `RLum.Analysis` objects is returned. 
-#' If nothing is provided every position will be converted. 
+#' @param pos [numeric] (*optional*): position number of the `Risoe.BINfileData`
+#' object for which the curves are stored in the `RLum.Analysis` object.
+#' If `length(position)>1` a list of `RLum.Analysis` objects is returned.
+#' If nothing is provided every position will be converted.
 #' If the position is not valid `NA` is returned.
 #'
-#' @param grain [vector], [numeric] (*optional*): 
-#' grain number from the measurement to limit the converted data set 
-#' (e.g., `grain = c(1:48)`). Please be aware that this option may lead to 
-#' unwanted effects, as the output is strictly limited to the choosen grain 
+#' @param grain [vector], [numeric] (*optional*):
+#' grain number from the measurement to limit the converted data set
+#' (e.g., `grain = c(1:48)`). Please be aware that this option may lead to
+#' unwanted effects, as the output is strictly limited to the chosen grain
 #' number for all position numbers
 #'
-#' @param run [vector], [numeric] (*optional*): 
-#' run number from the measurement to limit the converted data set 
+#' @param run [vector], [numeric] (*optional*):
+#' run number from the measurement to limit the converted data set
 #' (e.g., `run = c(1:48)`).
 #'
-#' @param set [vector], [numeric] (*optional*): 
-#' set number from the measurement to limit the converted data set 
+#' @param set [vector], [numeric] (*optional*):
+#' set number from the measurement to limit the converted data set
 #' (e.g., `set = c(1:48)`).
 #'
-#' @param ltype [vector], [character] (*optional*): 
-#' curve type to limit the converted data. Commonly allowed values are: 
-#' `IRSL`, `OSL`, `TL`, `RIR`, `RBR` and `USER` 
+#' @param ltype [vector], [character] (*optional*):
+#' curve type to limit the converted data. Commonly allowed values are:
+#' `IRSL`, `OSL`, `TL`, `RIR`, `RBR` and `USER`
 #' (see also [Risoe.BINfileData-class])
 #'
-#' @param dtype [vector], [character] (*optional*): 
-#' data type to limit the converted data. Commonly allowed values are 
+#' @param dtype [vector], [character] (*optional*):
+#' data type to limit the converted data. Commonly allowed values are
 #' listed in [Risoe.BINfileData-class]
 #'
-#' @param protocol [character] (*optional*): 
-#' sets protocol type for analysis object. Value may be used by subsequent 
+#' @param protocol [character] (*optional*):
+#' sets protocol type for analysis object. Value may be used by subsequent
 #' analysis functions.
 #'
-#' @param keep.empty [logical] (*with default*): 
-#' If `TRUE` (default) an `RLum.Analysis` object is returned even if it does 
+#' @param keep.empty [logical] (*with default*):
+#' If `TRUE` (default) an `RLum.Analysis` object is returned even if it does
 #' not contain any records. Set to `FALSE` to discard all empty objects.
 #'
-#' @param txtProgressBar [logical] (*with default*): 
+#' @param txtProgressBar [logical] (*with default*):
 #' enables or disables [txtProgressBar].
 #'
 #' @return Returns an [RLum.Analysis-class] object.
 #'
-#' @note 
+#' @note
 #' The `protocol` argument of the [RLum.Analysis-class]
 #' object is set to 'unknown' if not stated otherwise.
 #'
 #' @section Function version: 0.4.2
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [read_BIN2R]
