@@ -46,11 +46,11 @@
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
-#' Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
+#' Lx/Tx values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx
 #' ratio of the natural signal). For methodological background see Aitken and
 #' Smith (1988).
 #'
-#' `[testdose.error]`: set the allowed error for the testdose, which per
+#' `[testdose.error]`: set the allowed error for the test dose, which per
 #' default should not exceed 10\%. The test dose error is calculated as `Tx_net.error/Tx_net`.
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per

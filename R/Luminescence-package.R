@@ -1050,28 +1050,28 @@ NULL
 #' **`$sample_1`**
 #'
 #' \tabular{ccc}{
-#' **mu** \tab **sigmaphi** \tab **age** \cr
+#' **mu** \tab **`sigmaphi`** \tab **age** \cr
 #'   0.9 \tab 5e-10 \tab 10000 \cr
 #' }
 #'
 #' **`$sample_2`**
 #'
 #' \tabular{ccccc}{
-#' **mu** \tab **sigmaphi** \tab **age** \tab **Dose rate** \tab **D0** \cr
+#' **mu** \tab **`sigmaphi`** \tab **age** \tab **Dose rate** \tab **D0** \cr
 #'   0.9 \tab 5e-10 \tab 10000 \tab 2.5 \tab 40 \cr
 #' }
 #'
 #' **`$set_1`**
 #'
 #' \tabular{ccc}{
-#' **mu** \tab **sigmaphi** \tab **ages** \cr
+#' **mu** \tab **`sigmaphi`** \tab **ages** \cr
 #'   0.9 \tab 5e-10 \tab 1e3, 1e4, 1e5, 1e6 \cr
 #' }
 #'
 #' **`$set_2`**
 #'
 #' \tabular{ccccc}{
-#' **mu** \tab **sigmaphi** \tab **ages** \tab **Dose rate** \tab **D0** \cr
+#' **mu** \tab **`sigmaphi`** \tab **ages** \tab **Dose rate** \tab **D0** \cr
 #'   0.9 \tab 5e-10 \tab 1e2, 1e3, 1e4, 1e5, 1e6 \tab 1.0 \tab 40 \cr
 #' }
 #'

@@ -5,50 +5,50 @@
 #' (2000).
 #'
 #' According to Bulur (2000) the curve data are transformed by introducing two
-#' new parameters P (stimulation period) and u (transformed time):
-#' 
-#' \deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}} 
-#' 
-#' The new count values are then calculated by 
-#' \deqn{ctsNEW = cts(u/P)} 
-#' 
+#' new parameters `P` (stimulation period) and `u` (transformed time):
+#'
+#' \deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}}
+#'
+#' The new count values are then calculated by
+#' \deqn{ctsNEW = cts(u/P)}
+#'
 #' and the returned `data.frame` is produced by: `data.frame(u,ctsNEW)`
 #'
 #' The output of the function can be further used for LM-OSL fitting.
-#' 
-#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**): 
-#' `RLum.Data.Curve` data object. Alternatively, a `data.frame` of the measured 
+#'
+#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' `RLum.Data.Curve` data object. Alternatively, a `data.frame` of the measured
 #' curve data of type stimulation time (t) (`values[,1]`) and measured counts (cts)
 #' (`values[,2]`) can be provided.
-#' 
-#' @return 
+#'
+#' @return
 #' The function returns the same data type as the input data type with
 #' the transformed curve values ([data.frame] or [RLum.Data.Curve-class]).
-#' 
-#' @note 
+#'
+#' @note
 #' The transformation is recommended for curves recorded with a channel
 #' resolution of at least 0.05 s/channel.
-#' 
+#'
 #' @section Function version: 0.4.1
-#' 
-#' @author 
+#'
+#' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-#' 
+#'
 #' @seealso [CW2pHMi], [CW2pLMi], [CW2pPMi], [fit_LMCurve], [lm],
 #' [RLum.Data.Curve-class]
 #'
-#' 
-#' @references 
+#'
+#' @references
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL
 #' curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 #'
 #' **Further Reading**
 #'
-#' Bulur, E., 1996. An Alternative Technique For Optically Stimulated 
+#' Bulur, E., 1996. An Alternative Technique For Optically Stimulated
 #' Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
-#' 
+#'
 #' @keywords manip
-#' 
+#'
 #' @examples
 #'
 #' ##read curve from CWOSL.SAR.Data transform curve and plot values

@@ -3,19 +3,19 @@
 #' Function calls object-specific get functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' [RLum-class] objects.\cr 
-#' Depending on the input object, the corresponding get function will be selected. 
-#' Allowed arguments can be found in the documentations of the corresponding 
+#' [RLum-class] objects.\cr
+#' Depending on the input object, the corresponding get function will be selected.
+#' Allowed arguments can be found in the documentations of the corresponding
 #' [RLum-class] class.
 #'
-#' @param object [RLum-class] (**required**): 
+#' @param object [RLum-class] (**required**):
 #' S4 object of class `RLum`
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #' (France)
 #' @seealso
 #' [RLum.Data.Curve-class],

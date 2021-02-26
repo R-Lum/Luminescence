@@ -1,6 +1,6 @@
   #' Merge Risoe.BINfileData objects or Risoe BIN-files
 #'
-#' Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.
+#' Function allows merging Risoe BIN/BINX files or `Risoe.BINfileData` objects.
 #'
 #' The function allows merging different measurements to one file or one
 #' object. The record IDs are recalculated for the new object. Other values
