@@ -83,7 +83,7 @@ setClass("RLum.Analysis",
 #'   `list` \tab `list`\cr
 #' }
 #'
-#' Given that the [list] consits of [RLum.Analysis-class] objects.
+#' Given that the [list] consists of [RLum.Analysis-class] objects.
 #'
 #' @md
 #' @name as

@@ -90,7 +90,7 @@
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `data.frame` \tab the estimated equivalent dose \cr
 #'  `$data_table` \tab `data.frame` \tab full dose and signal table \cr
-#'  `test_parameters` \tab `data.frame` \tab results with test paramaters \cr
+#'  `test_parameters` \tab `data.frame` \tab results with test parameters \cr
 #'  `data_TDcorrected` \tab `data.frame` \tab travel dosimeter corrected results (only if TD was provided)\cr
 #' }
 #'

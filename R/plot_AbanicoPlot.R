@@ -100,7 +100,7 @@
 #' @param dispersion [character] (*with default*):
 #' measure of dispersion, used for drawing the scatter polygon. One out of
 #' - `"qr"` (quartile range),
-#' - `"pnn"` (symmetric percentile range with nn the lower percentile, e.g.
+#' - `"pnn"` (symmetric percentile range with `nn` the lower percentile, e.g.
 #' - `"p05"` depicting the range between 5 and 95 %),
 #' - `"sd"` (standard deviation) and
 #' - `"2sd"` (2 standard deviations),

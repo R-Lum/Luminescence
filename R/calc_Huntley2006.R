@@ -67,7 +67,7 @@
 #' in the derivation of (n/N) and (n/N)_SS.
 #'
 #'
-#' **Age calculated from 2\*D0 of the simulated natural DRC**
+#' **Age calculated from 2D0 of the simulated natural DRC**
 #'
 #' In addition to the age calculated from the equivalent dose derived from
 #' `Ln/Tn` projected on the simulated natural dose response curve (DRC), this function

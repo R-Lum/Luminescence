@@ -24,7 +24,7 @@
 #' - `DRAC-example_polymineral`
 #'
 #' Note that the last three options can be used to produce a template
-#' with values directly taken from the official DRAC input .csv file.
+#' with values directly taken from the official DRAC input `.csv` file.
 #'
 #' @param notification [logical] (*with default*):
 #' show or hide the notification

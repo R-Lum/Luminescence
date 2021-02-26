@@ -65,7 +65,7 @@
 #' `net_transmission.col` \tab `col` \tab colour of net transmission window polygon \cr
 #' `net_transmission.col_lines` \tab `col` \tab colour of net transmission window polygon lines \cr
 #' `net_transmission.density` \tab  `numeric` \tab specify line density in the transmission polygon \cr
-#' `grid` \tab `list` \tab full list of arguments that can be passd to the function [graphics::grid]
+#' `grid` \tab `list` \tab full list of arguments that can be passed to the function [graphics::grid]
 #' }
 #'
 #' For further modifications standard additional R plot functions are recommend, e.g., the legend
@@ -91,7 +91,7 @@
 #' enables or disables the plot output
 #'
 #' @param ... further arguments that can be passed to control the plot output.
-#' Suppored are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
+#' Supported are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
 #' For non common plotting parameters see the details section.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].

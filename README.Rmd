@@ -15,9 +15,9 @@ knitr::opts_chunk$set(
 library(Luminescence)
 ```
 
-# Luminesence <img width=120px src="man/figures/Luminescence_logo.png" align="right" />
+# Luminescence <img width=120px src="man/figures/Luminescence_logo.png" align="right" />
 
-The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
+The R package `'Luminescence'` by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![DOI](https://zenodo.org/badge/23153315.svg)](https://zenodo.org/badge/latestdoi/23153315)
@@ -79,7 +79,7 @@ The R luminescence project is based on and evolves from ideas, contributions and
 **The package comes without any guarantee!**
 
 Please further note that this version is a development version and may change day by day. For stable branches please visit
-the package on [CRAN 'Luminescence'](https://CRAN.R-project.org/package=Luminescence).
+the package on [CRAN Luminescence](https://CRAN.R-project.org/package=Luminescence).
 
 ## License
 
