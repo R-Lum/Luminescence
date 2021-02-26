@@ -32,7 +32,7 @@
 #'
 #'@return An ROI plot and an [RLum.Results-class] object with a matrix containing
 #'the extracted ROI data and a object produced by [stats::dist] containing
-#'the euclidean distance between the ROIS.
+#'the euclidean distance between the ROIs.
 #'
 #'@section Function version: 0.1.0
 #'

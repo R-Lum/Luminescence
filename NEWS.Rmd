@@ -29,7 +29,7 @@ Monte-Carlo yielded > 100% if `mode = 'extrapolation'`; spooky and fixed.
 a user unfriendly error message (`Error in temp.GC[, 2]/temp.GC[, 1]`). This was caused by 
 an unintentional type conversion to a `character` for very small values (#103, thanks to @IMHarly for spotting).
 * Add support for the Lambert W dose-response curve suggested by Pagonis et al. (2020)
-(thanks to @vpagonis for developing the math.)
+(thanks to @vpagonis for developing the math)
 
 ### Internals
 * `'lamW'` add as new package dependency. This is needed to support the Lambert W function 
