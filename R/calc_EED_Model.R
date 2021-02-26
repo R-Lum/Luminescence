@@ -23,7 +23,7 @@
 #' @param data [data.frame] (**required**): input data consisting of two columns, the De and the
 #' SE(De). Values are expected in Gy
 #'
-#' @param D0 [integer] (*with default*): D0 value, defining the characteristation behaviour
+#' @param D0 [integer] (*with default*): D0 value, defining the characterisation behaviour
 #' of the the quartz. Value are expected in Gy
 #'
 #' @param expected_dose [numeric] (**required**): expected equivalent dose
@@ -64,7 +64,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @references Guibert, P., Christophe, C., Urbanova, P., Guérin, G., Blain, S., 2017.
-#' Modeling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
+#' Modelling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
 #' light - Towards a new tool for single grain OSL dating of poorly bleached mortars.
 #' Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 #'
@@ -161,7 +161,7 @@ calc_EED_Model <- function(
   }
 
   # Calcul de la variance du plateau      ajout le 20.8.2018
-  # sur la base des doses arch?ologiques
+  # sur la base des doses archeologiques
   # ##TODO not yet included
   .calc_Plateau_Variance_AD <- function (M_Data, MinDose_Index, MaxDose_Index) {
       var_ratio <- var(M_Data[MinDose_Index:MaxDose_Index, 6])

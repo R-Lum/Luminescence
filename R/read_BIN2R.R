@@ -10,7 +10,7 @@
 #' Risø website: [https://www.nutech.dtu.dk/]()
 #'
 #' @param file [character] or [list] (**required**): path and file name of the
-#' BIN/BINX file (urls are supported). If input is a `list` it should comprise
+#' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
 #' only `character`s representing each valid path and BIN/BINX-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all BIN/BINX files found in the directory.

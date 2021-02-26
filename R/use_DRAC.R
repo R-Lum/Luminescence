@@ -9,7 +9,7 @@
 #' spreadsheet to be passed to the DRAC website for calculation. Can also be a
 #' DRAC template object obtained from `template_DRAC()`.
 #'
-#' @param name [character] (*with defautl*):
+#' @param name [character] (*with default*):
 #' Optional user name submitted to DRAC. If omitted, a random name will be generated
 #'
 #' @param print_references (*with default*):
@@ -36,7 +36,7 @@
 #'    `$content` \tab [data.frame] \tab complete DRAC input/output table \cr
 #'    `$input` \tab [data.frame] \tab DRAC input table \cr
 #'    `$output` \tab [data.frame] \tab DRAC output table \cr
-#'    `references`\tab [list] \tab A list of [bibentry]s of used references \cr
+#'    `references`\tab [list] \tab A list of bib entries of used references \cr
 #' }
 #'
 #' }
