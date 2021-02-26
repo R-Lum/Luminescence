@@ -81,7 +81,7 @@ doi:10.1016/j.quageo.2016.01.004
 \tabular{ll}{
 Lab: \tab University of Lausanne \cr
 Lab-Code: \tab UNIL/NB123 \cr
-Location: \tab Namche Barwa (eastern Himalaya)\cr
+Location: \tab Namche Barwa (eastern Himalayas)\cr
 Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr
 Units: \tab Values are given in seconds \cr
 Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s \cr

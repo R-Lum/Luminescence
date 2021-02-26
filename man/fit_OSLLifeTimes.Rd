@@ -33,13 +33,13 @@ from channel 2 onwards.}
 to fit the number of predefined components. If nothing is set, the algorithm will try to find the best number
 of components.}
 
-\item{method_control}{\link{list} (\emph{optonal}): Named to allow a more fine control of the fitting process. See details
+\item{method_control}{\link{list} (\emph{optional}): Named to allow a more fine control of the fitting process. See details
 for allowed options.}
 
 \item{plot}{\link{logical} (\emph{with default}): Enable/disable plot output}
 
 \item{plot_simple}{\link{logical} (\emph{with default}): Enable/disable reduced plot output. If \code{TRUE}, no
-residual plot is shown, however, plot output can be combined using the standard R layout obtions,
+residual plot is shown, however, plot output can be combined using the standard R layout options,
 such as \code{par(mfrow = c(2,2))}.}
 
 \item{verbose}{\link{logical} (\emph{with default}): Enable/disable terminal feedback}
@@ -75,7 +75,7 @@ The original function call
 
 Terminal output is only shown of the argument \code{verbose = TRUE}.
 
-\emph{(1) Start parameter and component adapation}\cr
+\emph{(1) Start parameter and component adaption}\cr
 Trave of the parameter adaptation process
 
 \emph{(2) Fitting results (sorted by ascending tau)}\cr
@@ -89,7 +89,7 @@ that if you access the \code{nls} fitting object, the values are not sorted.
 the residuals should be not correlated at all. Rough measures are: \cr
 D = 0: the residuals are systematically correlated \cr
 D = 2: the residuals are randomly distributed \cr
-D = 4: the residuals are systematically anticorrelated\cr
+D = 4: the residuals are systematically anti-correlated\cr
 }
 
 You should be suspicious if D differs largely from 2.
@@ -114,11 +114,11 @@ following the approach by Bluszcz & Adamiec (2006).
 
 The component deconvolution consists of two steps:
 
-(1) Adaption phase
+(1) Adaptation phase
 
-In the adaption phase the function tries to figure out the optimal and statistically justified
-number of signal components following roughly the approach suggestd by Bluszcz & Adamiec (2006). In
-contrast to their work, for the optimisation by differential evolution here the package 'DEoptim' is used.
+In the adaptation phase the function tries to figure out the optimal and statistically justified
+number of signal components following roughly the approach suggested by Bluszcz & Adamiec (2006). In
+contrast to their work, for the optimisation by differential evolution here the package \code{'DEoptim'} is used.
 
 The function to be optimized has the form:
 
@@ -169,12 +169,12 @@ object = ExampleData.TR_OSL)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2021. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2021. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
-Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016\cr
+Radiation Measurements 41, 886-891. \doi{10.1016/j.radmeas.2006.05.016}\cr
 
 Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
 Biometrika 37, 409-21. doi:10.2307/2332391

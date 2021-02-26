@@ -30,7 +30,7 @@ a minimum of reasonable preset values.
 }
 
 Note that the last three options can be used to produce a template
-with values directly taken from the official DRAC input .csv file.}
+with values directly taken from the official DRAC input \code{.csv} file.}
 
 \item{notification}{\link{logical} (\emph{with default}):
 show or hide the notification}
@@ -90,7 +90,7 @@ output <- use_DRAC(input)
 } 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2021. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2021. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

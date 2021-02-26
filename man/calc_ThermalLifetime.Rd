@@ -26,7 +26,7 @@ vector of frequency factor in 1/s,
 if \code{profiling = TRUE} only the first two elements are considered}
 
 \item{T}{\link{numeric} (\emph{with default}):
-temperature in deg. C for which the lifetime(s) will be calculted.
+temperature in deg. C for which the lifetime(s) will be calculated.
 A vector can be provided.}
 
 \item{output_unit}{\link{character} (\emph{with default}):
@@ -39,12 +39,12 @@ given E and s parameters and their corresponding standard error
 (cf. details and examples section)}
 
 \item{profiling_config}{\link{list} (\emph{optional}):
-allows to set configurate parameters used for the profiling
+allows to set configuration parameters used for the profiling
 (and only have an effect here). Supported parameters are:
 \itemize{
 \item \code{n} (number of MC runs),
-\item \code{E.distribution} (distribution used for the resampling for E) and
-\item \code{s.distribution} (distribution used for the resampling for s).
+\item \code{E.distribution} (distribution used for the re-sampling for E) and
+\item \code{s.distribution} (distribution used for the re-sampling for s).
 }
 
 Currently only the normal distribution is supported
@@ -54,7 +54,7 @@ Currently only the normal distribution is supported
 enables/disables verbose mode}
 
 \item{plot}{\link{logical}:
-enables/disables output plot, currenlty only in combination with \code{profiling = TRUE}.}
+enables/disables output plot, currently only in combination with \code{profiling = TRUE}.}
 
 \item{...}{further arguments that can be passed in combination with the plot output.
 Standard plot parameters are supported (\link{plot.default})}
@@ -108,8 +108,8 @@ where:
 \eqn{T} the temperature in K and \eqn{k} the Boltzmann constant in eV/K (cf. Furetta, 2010).
 }
 \note{
-The profiling is currently based on resampling from a normal distribution, this
-distribution assumption might be, however, not valid for given E and s paramters.
+The profiling is currently based on re-sampling from a normal distribution, this
+distribution assumption might be, however, not valid for given E and s parameters.
 }
 \section{Function version}{
  0.1.0
@@ -151,11 +151,11 @@ calc_ThermalLifetime(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.
+Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. World Scientific.
 }
 \seealso{
 \link[graphics:matplot]{graphics::matplot}, \link[stats:Normal]{stats::rnorm}, \link{get_RLum}

@@ -201,7 +201,7 @@ is.RLum.Results(x, ...)
 }
 \arguments{
 \item{x}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\strong{required}):
-input opject}
+input object}
 
 \item{y}{\link{integer} (\emph{optional}):
 the row index of the matrix, data.frame}
@@ -209,7 +209,7 @@ the row index of the matrix, data.frame}
 \item{...}{further arguments that can be passed to the method}
 
 \item{object}{\linkS4class{RLum} (\strong{required}):
-input opject}
+input object}
 
 \item{subset}{\verb{[subset]} \link{expression} (\strong{required}):
 logical expression indicating elements or rows to keep, this function works
@@ -256,8 +256,8 @@ The term S3-generics sounds complicated, however, it just means that something
 has been implemented in the package to increase the usability for users new
 in R and who are not familiar with the underlying \code{RLum}-object structure of
 the package. The practical outcome is that operations and functions presented
-in standard books on R can be used without knowing the specifica of the R
-package 'Luminescence'. For examples see the example section.
+in standard books on R can be used without knowing the specifics of the R
+package \code{'Luminescence'}. For examples see the example section.
 }
 \note{
 \code{methods_RLum} are not really new functions, everything given here are mostly just

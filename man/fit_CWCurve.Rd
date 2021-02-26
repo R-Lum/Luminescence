@@ -42,7 +42,7 @@ the package \code{minpack.lm} and with that the Levenberg-Marquardt algorithm.}
 traces the fitting process on the terminal.}
 
 \item{fit.calcError}{\link{logical} (\emph{with default}):
-calculate 1-sigma error range of components using \link{confint}}
+calculate 1-sigma error range of components using \link[stats:confint]{stats::confint}}
 
 \item{LED.power}{\link{numeric} (\emph{with default}):
 LED power (max.) used for intensity ramping in mW/cm^2.
@@ -58,7 +58,7 @@ photoionisation cross section.}
 global scaling factor.}
 
 \item{sample_code}{\link{character} (\emph{optional}):
-sample code used for the plot and the optional output table (mtext).}
+sample code used for the plot and the optional output table (\code{mtext}).}
 
 \item{output.path}{\link{character} (\emph{optional}):
 output path for table output containing the results of the fit. The file
@@ -66,7 +66,7 @@ name is set automatically. If the file already exists in the directory,
 the values are appended.}
 
 \item{output.terminal}{\link{logical} (\emph{with default}):
-terminal ouput with fitting results.}
+terminal output with fitting results.}
 
 \item{output.terminalAdvanced}{\link{logical} (\emph{with default}):
 enhanced terminal output. Requires \code{output.terminal = TRUE}.
@@ -84,7 +84,7 @@ the fitted CW-OSL curves are returned as plot.
 
 \strong{table (\emph{optional})}
 
-an output table (*.csv) with parameters of the fitted components is
+an output table (\verb{*.csv}) with parameters of the fitted components is
 provided if the \code{output.path} is set.
 
 \strong{RLum.Results}
@@ -94,7 +94,7 @@ returned.
 
 \code{fit}:
 an \code{nls} object (\verb{$fit}) for which generic R functions are
-provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
+provided, e.g. \link{summary}, \link[stats:confint]{stats::confint}, \link{profile}. For more
 details, see \link{nls}.
 
 \code{output.table}:
@@ -149,7 +149,7 @@ The function for the CW-OSL fitting has the general form:
 where \eqn{0 < i < 8}
 
 and \eqn{\lambda} is the decay constant \cr
-and \eqn{I0} the intial number of trapped electrons.
+and \eqn{I0} the initial number of trapped electrons.
 
 \emph{(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)}
 
@@ -172,8 +172,8 @@ and \eqn{TSS = Total~Sum~of~Squares}
 \strong{Error of fitted component parameters}
 
 The 1-sigma error for the
-components is calculated using the function \link{confint}. Due to
-considerable calculation time, this option is deactived by default. In
+components is calculated using the function \link[stats:confint]{stats::confint}. Due to
+considerable calculation time, this option is deactivated by default. In
 addition, the error for the components can be estimated by using internal R
 functions like \link{summary}. See the \link{nls} help page
 for more information.
@@ -209,7 +209,7 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

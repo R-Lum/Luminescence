@@ -53,7 +53,7 @@ deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
 parameter of the normal distribution}
 
 \item{pdf.colors}{\link{character} (\emph{with default}):
-color coding of the components in the the plot.
+colour coding of the components in the the plot.
 Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}}
 
 \item{pdf.scale}{\link{numeric}:
@@ -76,12 +76,12 @@ following elements:
 \item{.$data}{\link{data.frame} original input data}
 \item{.$args}{\link{list} used arguments}
 \item{.$call}{\link{call} the function call}
-\item{.$mle}{ covariance matrices of the log likelhoods}
+\item{.$mle}{ covariance matrices of the log likelihoods}
 \item{.$BIC}{ BIC score}
 \item{.$llik}{ maximum log likelihood}
 \item{.$grain.probability}{ probabilities of a grain belonging to a component}
 \item{.$components}{\link{matrix} estimates of the de, de error and proportion for each component}
-\item{.$single.comp}{\link{data.frame} single componente FFM estimate}
+\item{.$single.comp}{\link{data.frame} single component FFM estimate}
 
 If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
 \code{mle} and \code{grain.probability} are lists containing matrices of the
@@ -104,7 +104,7 @@ Indications of overfitting are:
 \item increasing BIC
 \item repeated dose estimates
 \item covariance matrix not positive definite
-\item covariance matrix produces NaNs
+\item covariance matrix produces \code{NaN}
 \item convergence problems
 }
 
@@ -161,7 +161,7 @@ get_RLum(object = FMM, data.object = "components")
 } 
 
 \section{How to cite}{
-Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -101,8 +101,8 @@ The function returns numerical output and an (\emph{optional}) plot.
 \code{DE.LOWER} \tab \code{numeric}\tab 2.5\% quantile for De values obtained by MC runs \cr
 \code{DE.UPPER} \tab \code{numeric}\tab 97.5\% quantile for De values obtained by MC runs  \cr
 \code{DE.STATUS}  \tab \code{character}\tab test parameter status\cr
-\code{RF_NAT.LIM}  \tab \code{charcter}\tab used RF_nat curve limits \cr
-\code{RF_REG.LIM} \tab \code{character}\tab used RF_reg curve limits\cr
+\code{RF_NAT.LIM}  \tab \code{character}\tab used \code{RF_nat} curve limits \cr
+\code{RF_REG.LIM} \tab \code{character}\tab used \code{RF_reg} curve limits\cr
 \code{POSITION} \tab \code{integer}\tab (\emph{optional}) position of the curves\cr
 \code{DATE} \tab \code{character}\tab (\emph{optional}) measurement date\cr
 \code{SEQUENCE_NAME} \tab \code{character}\tab (\emph{optional}) sequence name\cr
@@ -141,7 +141,7 @@ reported with the summary object data. List elements are:
 \code{De.MC} \tab \code{numeric} \tab all De values obtained by the MC runs \cr
 \code{residuals} \tab \code{numeric} \tab the obtained residuals for each channel of the curve \cr
 \code{trend.fit} \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
-\code{RF_nat.slided} \tab \code{matrix} \tab the slided RF_nat curve \cr
+\code{RF_nat.slid} \tab \code{matrix} \tab the slid \code{RF_nat} curve \cr
 \code{t_n.id} \tab \code{numeric} \tab the index of the t_n offset \cr
 \code{I_n} \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
 \code{algorithm_error} \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
@@ -357,7 +357,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

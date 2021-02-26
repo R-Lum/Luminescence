@@ -47,7 +47,7 @@ Draws a kernel density plot in combination with a boxplot in its middle. The sha
 is constructed using a mirrored density curve. This plot is especially designed for cases
 where the individual errors are zero or to small to be visualised. The idea for this plot is
 based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang.
-The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
+The general idea for the violin plot seems to be introduced by Hintze and Nelson (1998).
 
 The function is passing several arguments to the function \link{plot},
 \link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
@@ -64,7 +64,7 @@ Supported arguments are:
 Although the code for this function was developed independently and just the idea for the plot
 was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
 two other R packages exist providing a possibility to produces this kind of plot, namely:
-'vioplot' and 'violinmplot' (see references for details).
+\code{'vioplot'} and \code{'violinmplot'} (see references for details).
 }
 \section{Function version}{
  0.1.4
@@ -82,7 +82,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -19,7 +19,7 @@ reader used for the experiments. The data can be analysed either with the functi
 }
 \description{
 Measurement data obtained from measuring Al2O3:C chips at the IRAMAT-CRP2A, Université Bordeaux
-Montainge in 2017 on a Freiberg Instruments lexsyg SMART reader.
+Montaigne in 2017 on a Freiberg Instruments lexsyg SMART reader.
 The example data used in particular to allow test of the functions
 developed in framework of the work by Kreutzer et al., 2018.
 }

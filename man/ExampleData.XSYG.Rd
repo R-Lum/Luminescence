@@ -39,7 +39,7 @@ Reference: \tab unpublished
 Lab: \tab Luminescence Laboratory Giessen\cr
 Lab-Code: \tab BT753\cr
 Location: \tab Dolni Vestonice/Czech Republic\cr
-Material: \tab Fine grain polymineral on steel cups on lexsyg rearch reader\cr
+Material: \tab Fine grain polymineral on steel cups on lexsyg research reader\cr
 Reference: \tab Fuchs et al., 2013 \cr
 Spectrum: \tab Integration time 19 s, channel time 20 s\cr
 Heating: \tab 1 K/s, up to 500 deg. C

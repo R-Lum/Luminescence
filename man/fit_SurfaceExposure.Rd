@@ -38,7 +38,7 @@ they must \strong{not} include the optional error column. Providing a \link{list
 input automatically activates the global fitting procedure (see details).}
 
 \item{sigmaphi}{\link{numeric} (\emph{optional}):
-A numeric value for sigmaphi, i.e. the charge detrapping rate.
+A numeric value for \code{sigmaphi}, i.e. the charge detrapping rate.
 Example: \code{sigmaphi = 5e-10}}
 
 \item{mu}{\link{numeric} (\emph{optional}):
@@ -80,7 +80,7 @@ Flip the coordinate system.}
 Custom parameters include:
 \itemize{
 \item \code{verbose} (\link{logical}): show or hide console output
-\item \code{line_col}: Color of the fitted line
+\item \code{line_col}: Colour of the fitted line
 \item \code{line_lty}: Type of the fitted line (see \code{lty} in \code{?par})
 \item \code{line_lwd}: Line width of the fitted line (see \code{lwd} in \code{?par})
 }}
@@ -118,7 +118,7 @@ with the fitted model.
 }
 \description{
 This function determines the (weighted) least-squares estimates of the
-parameters of either eq. 1 in \emph{Sohbati et al. (2012a)} or eq. 12 in
+parameters of either equation 1 in \emph{Sohbati et al. (2012a)} or equation 12 in
 \emph{Sohbati et al. (2012b)} for a given OSL surface exposure data set (\strong{BETA}).
 }
 \details{
@@ -134,11 +134,11 @@ fitting.
 \strong{Dose rate}
 
 If any of the arguments \code{Ddot} or \code{D0} is at its default value (\code{NULL}),
-this function will fit eq. 1 in Sohbati et al. (2012a) to the data. If
+this function will fit equation 1 in Sohbati et al. (2012a) to the data. If
 the effect of dose rate (i.e., signal saturation) needs to be considered,
 numeric values for the dose rate (\code{Ddot}) (in Gy/ka) and the characteristic
 saturation dose (\code{D0}) (in Gy) must be provided. The function will then fit
-eq. 12 in Sohbati et al. (2012b) to the data.
+equation 12 in Sohbati et al. (2012b) to the data.
 
 \strong{NOTE}: Currently, this function does \strong{not} consider the variability
 of the dose rate with sample depth (\code{x})! In the original equation the dose
@@ -205,13 +205,13 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-dating. Journal of Geophysical Research 117, B09202. doi:10.1029/2012JB009383
+dating. Journal of Geophysical Research 117, B09202. \doi{10.1029/2012JB009383}
 
 Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 non-terrestrial bodies using optically stimulated luminescence: A new method.

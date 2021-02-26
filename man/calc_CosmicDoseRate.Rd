@@ -152,7 +152,7 @@ of Prescott & Hutton (1994) underestimates the total cosmic dose rate, as it
 neglects the influence of the soft-component of the cosmic ray flux. For
 samples at zero depth and at sea-level the underestimation can be as large
 as ~0.1 Gy/ka. In a previous article, Prescott & Hutton (1988) give another
-approximation of Barbouti & Rastins equation in the form of
+approximation of Barbouti & Rastin's equation in the form of
 
 \deqn{D = 0.21*exp(-0.070*absorber+0.0005*absorber^2)}
 
@@ -163,7 +163,7 @@ read.
 As a result, this function employs the equation of Prescott & Hutton (1994)
 only for depths > 167 g/cm^2, i.e. only for the hard-component of the cosmic
 ray flux. Cosmic dose rate values for depths < 167 g/cm^2 were obtained from
-the "AGE" programm (Gruen 2009) and fitted with a 6-degree polynomial curve
+the "AGE" program (Gruen 2009) and fitted with a 6-degree polynomial curve
 (and hence reproduces the graph shown in Prescott & Hutton 1988). However,
 these values assume an average overburden density of 2 g/cm^3.
 
@@ -221,7 +221,7 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 } 
 
 \section{How to cite}{
-Burow, C., 2021. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

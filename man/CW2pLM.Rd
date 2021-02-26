@@ -23,7 +23,7 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
 }
 \details{
 According to Bulur (2000) the curve data are transformed by introducing two
-new parameters P (stimulation period) and u (transformed time):
+new parameters \code{P} (stimulation period) and \code{u} (transformed time):
 
 \deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}}
 
@@ -66,7 +66,7 @@ plot(values.transformed)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

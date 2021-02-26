@@ -76,10 +76,10 @@ This function solves the equation used for correcting the fading affected age
 including the error for a given g-value according to Huntley & Lamothe (2001).
 }
 \details{
-As the g-value sligthly depends on the time between irradiation and the prompt measurement,
+As the g-value slightly depends on the time between irradiation and the prompt measurement,
 this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
 time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-for the g-value needs to be provided (argument \code{tc.g_value} and then the g-value is recalcualted
+for the g-value needs to be provided (argument \code{tc.g_value} and then the g-value is recalculated
 to tc of the measurement used for estimating the age applying the following equation:
 
 \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))}
@@ -107,7 +107,7 @@ calculating the corresponding error.
 If the determined error does not differ from the 9 values calculated previously
 within a precision of (here) 3 digits the calculation is stopped as it is assumed that the error
 is stable. Please note that (a) the duration depends on the input values as well as on
-the provided computation ressources and it may take a while, (b) the length (size) of the output
+the provided computation resources and it may take a while, (b) the length (size) of the output
 vector \code{age.corr.MC}, where all the single values produced during the MC runs are stored,
 equals the number of MC runs (here termed observations).
 
@@ -133,7 +133,7 @@ case of an SAR measurement tc should be similar, however, if it differs, you hav
 tc value (the one used for estimating the g-value) using the argument \code{tc.g_value}.\cr
 }
 \note{
-Special thanks to Sebastien Huot for his support and clarification via e-mail.
+Special thanks to Sébastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
  0.4.2
@@ -173,7 +173,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

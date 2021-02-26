@@ -70,7 +70,7 @@ Alternatively a vector specifying the plot to be drawn, e.g.,
 
 \item{...}{(\emph{optional}) further arguments that can be passed to internally used functions. Supported arguments:
 \code{xlab}, \code{log}, \code{mtext} and \code{xlim} for the two first curve plots, and \code{ylim} for the fading
-curve plot. For further plot customization plesea use the numerical output of the functions for
+curve plot. For further plot customization please use the numerical output of the functions for
 own plots.}
 }
 \value{
@@ -157,7 +157,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -166,7 +166,7 @@ SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
 
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-1093-1106. doi{10.1139/cjes-38-7-1093}
+1093-1106. doi: \code{10.1139/cjes-38-7-1093}
 
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
 fading correction for feldspar  IRSL dating-tests on samples in field saturation.

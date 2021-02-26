@@ -32,30 +32,30 @@ Water content in the cobble is assumed to be 0.
 \strong{The input table layout}
 
 \tabular{lll}{
-COLUMN \tab DATATYPE \tab DESCRIPTION\cr
-Distance \tab \code{numeric} \tab distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column\cr
-DistanceError \tab \code{numeric} \tab Error on the distance in mm\cr
-Thickness \tab \code{numeric} \tab Thickness of each slice in mm\cr
-TicknessError \tab \code{numeric} \tab uncertainty of the thickness in mm.\cr
-Mineral \tab \code{character} \tab \code{'FS'} for feldspar, \code{'Q'} for quartz, depending which mineral in the cobble is used for dating\cr
-Cobble_K \tab \code{numeric} \tab K nuclide content in \% of the bulk cobble\cr
-Cobble_K_SE \tab \code{numeric} \tab error on K nuclide content in \% of the bulk cobble\cr
-Cobble_Th \tab \code{numeric} \tab Th nuclide content in ppm of the bulk cobble\cr
-Cobble_Th_SE \tab \code{numeric} \tab error on Th nuclide content in ppm of the bulk cobble\cr
-Cobble_U \tab \code{numeric} \tab U nuclide content in ppm of the bulk cobble\cr
-CobbleU_SE \tab \code{numeric} \tab error on U nuclide content in ppm of the bulk cobble\cr
-GrainSize \tab \code{numeric} \tab average grain size in µm of the grains used for dating\cr
-Density \tab \code{numeric} \tab Density of the cobble. Default is 2.7 g cm^-3\cr
-CobbleDiameter \tab \code{numeric} \tab Diameter of the cobble in cm.\cr
-Sed_K \tab \code{numeric} \tab K nuclide content in \% of the sediment matrix\cr
-Sed_K_SE \tab \code{numeric} \tab error on K nuclide content in \% of the sediment matrix\cr
-Sed_Th \tab \code{numeric} \tab Th nuclide content in ppm of the sediment matrix\cr
-Sed_Th_SE \tab \code{numeric} \tab error on Th nuclide content in ppm of the sediment matrix\cr
-Sed_U \tab \code{numeric} \tab U nuclide content in ppm of the sediment matrix\cr
-Sed_U_SE \tab \code{numeric} \tab error on U nuclide content in ppm of the sediment matrix\cr
-GrainSize \tab \code{numeric} \tab average grain size of the sediment matrix\cr
-WaterContent \tab \code{numeric} \tab mean water content of the sediment matrix in \%\cr
-WaterContent_SE \tab \code{numeric} \tab relative error on water content
+COLUMN \tab DATA TYPE \tab DESCRIPTION\cr
+\code{Distance} \tab \code{numeric} \tab distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column\cr
+\code{DistanceError} \tab \code{numeric} \tab Error on the distance in mm\cr
+\code{Thickness} \tab \code{numeric} \tab Thickness of each slice in mm\cr
+\code{TicknessError} \tab \code{numeric} \tab uncertainty of the thickness in mm.\cr
+\code{Mineral} \tab \code{character} \tab \code{'FS'} for feldspar, \code{'Q'} for quartz, depending which mineral in the cobble is used for dating\cr
+\code{Cobble_K} \tab \code{numeric} \tab K nuclide content in \% of the bulk cobble\cr
+\code{Cobble_K_SE} \tab \code{numeric} \tab error on K nuclide content in \% of the bulk cobble\cr
+\code{Cobble_Th} \tab \code{numeric} \tab Th nuclide content in ppm of the bulk cobble\cr
+\code{Cobble_Th_SE} \tab \code{numeric} \tab error on Th nuclide content in ppm of the bulk cobble\cr
+\code{Cobble_U} \tab \code{numeric} \tab U nuclide content in ppm of the bulk cobble\cr
+\code{CobbleU_SE} \tab \code{numeric} \tab error on U nuclide content in ppm of the bulk cobble\cr
+\code{GrainSize} \tab \code{numeric} \tab average grain size in µm of the grains used for dating\cr
+\code{Density} \tab \code{numeric} \tab Density of the cobble. Default is 2.7 g cm^-3\cr
+\code{CobbleDiameter} \tab \code{numeric} \tab Diameter of the cobble in cm.\cr
+\code{Sed_K} \tab \code{numeric} \tab K nuclide content in \% of the sediment matrix\cr
+\code{Sed_K_SE} \tab \code{numeric} \tab error on K nuclide content in \% of the sediment matrix\cr
+\code{Sed_Th} \tab \code{numeric} \tab Th nuclide content in ppm of the sediment matrix\cr
+\code{Sed_Th_SE} \tab \code{numeric} \tab error on Th nuclide content in ppm of the sediment matrix\cr
+\code{Sed_U} \tab \code{numeric} \tab U nuclide content in ppm of the sediment matrix\cr
+\code{Sed_U_SE} \tab \code{numeric} \tab error on U nuclide content in ppm of the sediment matrix\cr
+\code{GrainSize} \tab \code{numeric} \tab average grain size of the sediment matrix\cr
+\code{WaterContent} \tab \code{numeric} \tab mean water content of the sediment matrix in \%\cr
+\code{WaterContent_SE} \tab \code{numeric} \tab relative error on water content
 }
 
 \strong{Water content}
@@ -77,7 +77,7 @@ calc_CobbleDoseRate(ExampleData.CobbleData)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., 2021. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., 2021. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

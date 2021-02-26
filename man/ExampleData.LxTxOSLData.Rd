@@ -12,7 +12,7 @@ Two \code{\link{data.frame}}s containing time and count values.
 Arbitrary OSL measurement.
 }
 \description{
-Lx and Tx data of continous wave (CW-) OSL signal curves.
+\code{Lx} and \code{Tx} data of continuous wave (CW-) OSL signal curves.
 }
 \examples{
 

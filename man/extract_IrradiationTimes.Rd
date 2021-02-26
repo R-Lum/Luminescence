@@ -83,7 +83,7 @@ functions \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN} for data imp
 The produced output object contains still the irradiation steps to
 keep the output transparent. However, for the BINX-file export this steps
 are removed as the BINX-file format description does not allow irradiations
-as separat sequences steps.
+as separate sequences steps.
 
 \strong{BINX-file 'Time Since Irradiation' value differs from the table output?}
 
@@ -133,7 +133,7 @@ towards a correct time order.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

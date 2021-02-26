@@ -11,7 +11,7 @@ use_DRAC(file, name, print_references = TRUE, citation_style = "text", ...)
 spreadsheet to be passed to the DRAC website for calculation. Can also be a
 DRAC template object obtained from \code{template_DRAC()}.}
 
-\item{name}{\link{character} (\emph{with defautl}):
+\item{name}{\link{character} (\emph{with default}):
 Optional user name submitted to DRAC. If omitted, a random name will be generated}
 
 \item{print_references}{(\emph{with default}):
@@ -40,7 +40,7 @@ Returns an \linkS4class{RLum.Results} object containing the following elements:
 \verb{$content} \tab \link{data.frame} \tab complete DRAC input/output table \cr
 \verb{$input} \tab \link{data.frame} \tab DRAC input table \cr
 \verb{$output} \tab \link{data.frame} \tab DRAC output table \cr
-\code{references}\tab \link{list} \tab A list of \link{bibentry}s of used references \cr
+\code{references}\tab \link{list} \tab A list of bib entries of used references \cr
 }
 
 }
@@ -112,7 +112,7 @@ output <- use_DRAC(input)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C., 2021. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Burow, C., 2021. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

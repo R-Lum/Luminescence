@@ -58,7 +58,7 @@ The function returns numerical output and an (\emph{optional}) plot.
 
 \tabular{lll}{
 \strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
-AVERAGE_DOSE \tab \link{numeric} \tab the obtained averge dose\cr
+AVERAGE_DOSE \tab \link{numeric} \tab the obtained average dose\cr
 AVERAGE_DOSE.SE \tab \link{numeric} \tab the average dose error \cr
 SIGMA_D \tab \link{numeric}\tab sigma \cr
 SIGMA_D.SE \tab \link{numeric}\tab standard error of the sigma  \cr
@@ -127,7 +127,7 @@ plot_AbanicoPlot(
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S., 2021. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Kreutzer, S., 2021. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -145,9 +145,9 @@ and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 \link{read.table}, \link[graphics:hist]{graphics::hist}
 }
 \author{
-Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
-Anne Philippe, Universite de Nantes, (France),
-Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
+Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
+Anne Philippe, Université de Nantes, (France),
+Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}

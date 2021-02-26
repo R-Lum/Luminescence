@@ -20,7 +20,7 @@ analyse_pIRIRSequence(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \link{list} of \linkS4class{RLum.Analysis} objects (\strong{required}):
 input object containing data for analysis.
-If a \link{list} is provided the functions tries to iteratre over the list.}
+If a \link{list} is provided the functions tries to iterate over the list.}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Provide this value as vector for different
@@ -68,7 +68,7 @@ returned containing the following elements:
 \tabular{lll}{
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
-\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
+\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the \code{LnLxTnTx} values \cr
 \code{..$rejection.criteria} : \tab \link{data.frame} \tab rejection criteria \cr
 \code{..$Formula} : \tab \link{list} \tab Function used for fitting of the dose response curve \cr
 \code{..$call} : \tab \link{call} \tab the original function call
@@ -151,7 +151,7 @@ pdf(file = tempfile, height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -169,8 +169,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

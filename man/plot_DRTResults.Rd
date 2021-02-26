@@ -29,7 +29,7 @@ sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 \item{given.dose}{\link{numeric} (\emph{optional}):
 given dose used for the dose recovery test to normalise data.
 If only one given dose is provided this given dose is valid for all input
-data sets (i.e., \code{values} is a list).  Oherwise a given dose for each input
+data sets (i.e., \code{values} is a list).  Otherwise a given dose for each input
 data set has to be provided (e.g., \code{given.dose = c(100,200)}).
 If \code{given.dose} in \code{NULL} the values are plotted without normalisation
 (might be useful for preheat plateau tests).
@@ -179,7 +179,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2021. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2021. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -192,7 +192,7 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 \link{plot}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060 - Université Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team}
 \keyword{dplot}

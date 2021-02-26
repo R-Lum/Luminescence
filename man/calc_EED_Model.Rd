@@ -25,7 +25,7 @@ calc_EED_Model(
 \item{data}{\link{data.frame} (\strong{required}): input data consisting of two columns, the De and the
 SE(De). Values are expected in Gy}
 
-\item{D0}{\link{integer} (\emph{with default}): D0 value, defining the characteristation behaviour
+\item{D0}{\link{integer} (\emph{with default}): D0 value, defining the characterisation behaviour
 of the the quartz. Value are expected in Gy}
 
 \item{expected_dose}{\link{numeric} (\strong{required}): expected equivalent dose}
@@ -110,12 +110,12 @@ calc_EED_Model(
 } 
 
 \section{How to cite}{
-Guibert, P., Kreutzer, S., 2021. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Guibert, P., Kreutzer, S., 2021. calc_EED_Model(): Modelling Exponential Exposure Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Guibert, P., Christophe, C., Urbanova, P., Guérin, G., Blain, S., 2017.
-Modeling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
+Modelling incomplete and heterogeneous bleaching of mobile grains partially exposed to the
 light - Towards a new tool for single grain OSL dating of poorly bleached mortars.
 Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 }

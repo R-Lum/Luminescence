@@ -107,11 +107,11 @@ The spectrum deconvolution consists of the following steps:
 }
 
 The peak finding is realised by an approach (re-)suggested by Petr Pikal via the R-help
-mailing list (https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html) in November 2005.
+mailing list (\verb{https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html}) in November 2005.
 This goes back to even earlier discussion in 2001 based on Prof Brian Ripley's idea.
 It smartly uses the functions \link[stats:embed]{stats::embed} and \link{max.col} to identify peaks positions.
 For the use in this context, the algorithm has been further modified to scale on the
-input data resolution (cv source code).\cr
+input data resolution (cf. source code).\cr
 
 The start parameter estimation uses random sampling from a range of meaningful parameters
 and repeats the fitting until 100 successful fits have been produced or the set \code{max.runs} value
@@ -122,7 +122,7 @@ Currently the best fit is the one with the lowest number for squared residuals.
 \strong{Supported \code{method_control} settings}
 
 \tabular{llll}{
-\strong{Parameter} \tab \strong{Type} \tab \strong{Default} \tab \strong{Descritpion}\cr
+\strong{Parameter} \tab \strong{Type} \tab \strong{Default} \tab \strong{Description}\cr
 \code{max.runs} \tab \link{integer} \tab \code{1000} \tab maximum allowed search iterations, if exceed
 the searching stops \cr
 \code{trace} \tab \link{logical} \tab \code{FALSE} \tab enables/disables the tracing of the minimisation routine
@@ -159,7 +159,7 @@ results <- fit_EmissionSpectra(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

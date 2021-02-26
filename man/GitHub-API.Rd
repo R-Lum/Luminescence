@@ -15,13 +15,13 @@ github_issues(user = "r-lum", repo = "luminescence", verbose = TRUE)
 }
 \arguments{
 \item{user}{\link{character} (\emph{with default}):
-GitHub user name (defaults to 'r-lum').}
+GitHub user name (defaults to \code{'r-lum'}).}
 
 \item{repo}{\link{character} (\emph{with default}):
-name of a GitHub repository (defaults to 'luminescence').}
+name of a GitHub repository (defaults to \code{'luminescence'}).}
 
 \item{branch}{\link{character} (\emph{with default}):
-branch of a GitHub repository (defaults to 'master').}
+branch of a GitHub repository (defaults to \code{'master'}).}
 
 \item{n}{\link{integer} (\emph{with default}):
 number of commits returned (defaults to 5).}
@@ -90,7 +90,7 @@ github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 } 
 
 \section{How to cite}{
-Burow, C., 2021. GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

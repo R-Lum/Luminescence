@@ -32,7 +32,7 @@ enable/disable interactive plot}
 enables or disables the plot output}
 
 \item{...}{further arguments that can be passed to control the plot output.
-Suppored are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
+Supported are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
 For non common plotting parameters see the details section.}
 }
 \value{
@@ -121,7 +121,7 @@ The following further non-common plotting parameters can be passed to the functi
 \code{net_transmission.col} \tab \code{col} \tab colour of net transmission window polygon \cr
 \code{net_transmission.col_lines} \tab \code{col} \tab colour of net transmission window polygon lines \cr
 \code{net_transmission.density} \tab  \code{numeric} \tab specify line density in the transmission polygon \cr
-\code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function \link[graphics:grid]{graphics::grid}
+\code{grid} \tab \code{list} \tab full list of arguments that can be passed to the function \link[graphics:grid]{graphics::grid}
 }
 
 For further modifications standard additional R plot functions are recommend, e.g., the legend
@@ -169,7 +169,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

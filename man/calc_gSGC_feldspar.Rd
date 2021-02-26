@@ -37,7 +37,7 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 \strong{\verb{@data}}\cr
 \verb{$ df} (\link{data.frame}) \cr
 \code{.. $DE} the calculated equivalent dose\cr
-\code{.. $DE.ERROR} terror on the equivalent dose, which is the sd of the MC runs\cr
+\code{.. $DE.ERROR} terror on the equivalent dose, which is the standard deviation of the MC runs\cr
 \code{.. $HPD95_LOWER} lower boundary of the highest probability density (95\%)\cr
 \code{.. $HPD95_UPPER} upper boundary of the highest probability density (95\%)\cr
 \verb{$ m.MC} (\link{list}) numeric vector with results from the MC runs.\cr
@@ -75,7 +75,7 @@ plot_AbanicoPlot(results)
 } 
 
 \section{How to cite}{
-Gray, H.J., Kreutzer, S., 2021. calc_gSGC_feldspar(): Calculate Global Standardised Growth Curve (gSGC) for Feldspar. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Gray, H.J., Kreutzer, S., 2021. calc_gSGC_feldspar(): Calculate Global Standardised Growth Curve (gSGC) for Feldspar. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

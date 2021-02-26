@@ -54,8 +54,8 @@ the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this c
 new selection will add the aliquots to the removed aliquots table.}
 
 \item{source_doserate}{\link{numeric} \strong{(required)}:
-source dose rate of beta-source used for the measuremnt and its uncertainty
-in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}. Paramater can be provided
+source dose rate of beta-source used for the measurement and its uncertainty
+in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}. Parameter can be provided
 as \code{list}, for the case that more than one BIN-file is provided, e.g.,
 \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.}
 
@@ -83,18 +83,18 @@ The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{irradiation_times}{\link{numeric} (\emph{optional}): if set this vector replaces all irradiation
 times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
-Plesae note that if this argument is used, for every(!) single curve
+Please note that if this argument is used, for every(!) single curve
 in the dataset an irradiation time needs to be set.}
 
 \item{sigmab}{\link{numeric} (\emph{with default}):
-option to set a manual value for the overdispersion (for LnTx and TnTx),
-used for the Lx/Tx error calculation. The value should be provided as
+option to set a manual value for the overdispersion (for \code{LnTx} and \code{TnTx}),
+used for the \code{Lx}/\code{Tx} error calculation. The value should be provided as
 absolute squared count values, cf. \link{calc_OSLLxTxRatio}.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{sig0}{\link{numeric} (\emph{with default}):
 allow adding an extra component of error to the final Lx/Tx error value
-(e.g., instrumental errror, see details is \link{calc_OSLLxTxRatio}).
+(e.g., instrumental error, see details is \link{calc_OSLLxTxRatio}).
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{distribution}{\link{character} (\emph{with default}):
@@ -165,7 +165,7 @@ Function returns results numerically and graphically:
 \verb{$mcmc} \tab \code{mcmc} \tab \link[coda:mcmc.list]{coda::mcmc.list} object including raw output \cr
 \verb{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
 \verb{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
-\verb{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
+\verb{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., \code{NaN}, or \code{Inf} \code{Lx}/\code{Tx} values). If nothing was removed \code{NULL} is returned
 }
 
 \strong{slot:} \strong{\verb{@info}}
@@ -276,7 +276,7 @@ These are arguments that can be passed directly to the Bayesian calculation core
 are:
 
 \tabular{lll}{
-\strong{Parameter} \tab \strong{Type} \tab \strong{Descrtption}\cr
+\strong{Parameter} \tab \strong{Type} \tab \strong{Description}\cr
 \code{lower_centralD} \tab \link{numeric} \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{upper_centralD} \tab \link{numeric} \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{n.chains} \tab \link{integer} \tab sets number of parallel chains for the model (default = 3) (cf. \link[rjags:jags.model]{rjags::jags.model})\cr
@@ -291,7 +291,7 @@ Note: only variables present in the model can be monitored.
 
 The function provides the option to modify and to define own models that can be used for
 the Bayesian calculation. In the case the user wants to modify a model, a new model
-can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
+can be piped into the function via the argument \code{baSAR_model} as \code{character}.
 The model has to be provided in the JAGS dialect of the BUGS language (cf. \link[rjags:jags.model]{rjags::jags.model})
 and parameter names given with the pre-defined names have to be respected, otherwise the function
 will break.
@@ -349,7 +349,7 @@ functions.
 }
 }
 \note{
-\strong{If you provide more than one BIN-file}, it is \strong{strongly} recommanded to provide
+\strong{If you provide more than one BIN-file}, it is \strong{strongly} recommended to provide
 a \code{list} with the same number of elements for the following parameters:
 
 \code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
@@ -411,11 +411,11 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
+Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 
@@ -431,7 +431,7 @@ Bayesian Data Analysis, Third Edition. CRC Press.
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 
-Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download
+Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download}
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
@@ -441,6 +441,6 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/proje
 \author{
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-The underlying Bayesian model based on a contribution by Combes et al., 2015.
+The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team}
 \keyword{datagen}

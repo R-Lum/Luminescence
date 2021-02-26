@@ -2,7 +2,7 @@
 % Please edit documentation in R/Second2Gray.R
 \name{Second2Gray}
 \alias{Second2Gray}
-\title{Converting equivalent dose values from seconds (s) to gray (Gy)}
+\title{Converting equivalent dose values from seconds (s) to Gray (Gy)}
 \usage{
 Second2Gray(data, dose.rate, error.propagation = "omit")
 }
@@ -12,7 +12,7 @@ input values, structure: data (\code{values[,1]}) and data error (\code{values [
 are required}
 
 \item{dose.rate}{\linkS4class{RLum.Results}, \link{data.frame} or \link{numeric} (\strong{required}):
-\code{RLum.Results} needs to be orginated from the function \link{calc_SourceDoseRate},
+\code{RLum.Results} needs to be originated from the function \link{calc_SourceDoseRate},
 for \code{vector} dose rate in Gy/s and dose rate error in Gy/s}
 
 \item{error.propagation}{\link{character} (\emph{with default}):
@@ -23,16 +23,16 @@ error propagation method used for error calculation (\code{omit}, \code{gaussian
 Returns a \link{data.frame} with converted values.
 }
 \description{
-Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
+Conversion of absorbed radiation dose in seconds (s) to the SI unit Gray
 (Gy) including error propagation. Normally used for equivalent dose data.
 }
 \details{
-Calculation of De values from seconds (s) to gray (Gy)
+Calculation of De values from seconds (s) to Gray (Gy)
 
 \deqn{De [Gy] = De [s] * Dose Rate [Gy/s])}
 
 Provided calculation error propagation methods for error calculation
-(with 'se' as the standard error and 'DR' of the dose rate of the beta-source):
+(with \code{'se'} as the standard error and \code{'DR'} of the dose rate of the beta-source):
 
 \strong{(1) \code{omit}} (default)
 
@@ -50,13 +50,13 @@ be prescriptive.
 
 \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 
-Applicable under the assumption that errors of De and se are uncorrelated.
+Applicable under the assumption that errors of \code{De} and \code{se} are uncorrelated.
 
 \strong{(3) \code{absolute}} error propagation
 
 \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 
-Applicable under the assumption that errors of De and se are not uncorrelated.
+Applicable under the assumption that errors of \code{De} and \code{se} are correlated.
 }
 \note{
 If no or a wrong error propagation method is given, the execution of the function is
@@ -94,7 +94,7 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Fuchs, M.C., 2021. Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Fuchs, M.C., 2021. Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

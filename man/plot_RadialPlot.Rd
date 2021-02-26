@@ -41,11 +41,11 @@ excludes \code{NA} values from the data set prior to any further operations.}
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
 
 \item{central.value}{\link{numeric}:
-User-defined central value, primarily used for horizontal centering
+User-defined central value, primarily used for horizontal centring
 of the z-axis.}
 
 \item{centrality}{\link{character} or \link{numeric} (\emph{with default}):
-measure of centrality, used for automatically centering the plot and drawing
+measure of centrality, used for automatically centring the plot and drawing
 the central line. Can either be one out of
 \itemize{
 \item \code{"mean"},
@@ -261,7 +261,7 @@ plot_RadialPlot(data = data.3,
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2021. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

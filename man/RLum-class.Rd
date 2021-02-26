@@ -17,7 +17,7 @@ number for times each element is repeated element}
 }
 \description{
 Abstract class for data in the package Luminescence
-Sublasses are:
+Subclasses are:
 }
 \details{
 \strong{RLum-class}\cr
@@ -43,7 +43,7 @@ function for the object. Set automatically by using the function \link{set_RLum}
 \item{\code{info}}{Object of class \link{list} for additional information on the object itself}
 
 \item{\code{.uid}}{Object of class \link{character} for a unique object identifier. This id is
-usually calculated using the internal function \code{create_UID()} if the funtion \link{set_RLum}
+usually calculated using the internal function \code{create_UID()} if the function \link{set_RLum}
 is called.}
 
 \item{\code{.pid}}{Object of class \link{character} for a parent id. This allows nesting RLum-objects
@@ -76,7 +76,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. RLum-class(): Class 'RLum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. RLum-class(): Class 'RLum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

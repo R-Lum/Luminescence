@@ -42,7 +42,7 @@ the function only to extract the ROI data}
 \value{
 An ROI plot and an \linkS4class{RLum.Results} object with a matrix containing
 the extracted ROI data and a object produced by \link[stats:dist]{stats::dist} containing
-the euclidean distance between the ROIS.
+the euclidean distance between the ROIs.
 }
 \description{
 Create Regions of Interest (ROI) Graphic
@@ -66,7 +66,7 @@ Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth Univer
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

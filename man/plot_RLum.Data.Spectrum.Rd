@@ -80,11 +80,11 @@ especially in case of TL-spectra.}
 \item{xaxis.energy}{\link{logical} (\emph{with default}): enables or disables energy instead of
 wavelength axis. For the conversion the function \link{convert_Wavelength2Energy} is used.
 
-\strong{Note:} This option means not only simnply redrawing the axis,
+\strong{Note:} This option means not only simply redrawing the axis,
 instead the spectrum in terms of intensity is recalculated, s. details.}
 
 \item{legend.text}{\link{character} (\emph{with default}):
-possiblity to provide own legend text. This argument is only considered for
+possibility to provide own legend text. This argument is only considered for
 plot types providing a legend, e.g. \code{plot.type="transect"}}
 
 \item{...}{further arguments and graphical parameters that will be passed
@@ -121,7 +121,7 @@ internal R plot functions.
 
 \strong{\code{plot.type = "persp"}}
 
-Arguments that will be passed to \link{persp}:
+Arguments that will be passed to \link[graphics:persp]{graphics::persp}:
 \itemize{
 \item \code{shade}: default is \code{0.4}
 \item \code{phi}: default is \code{15}
@@ -234,7 +234,7 @@ plot_RLum.Data.Spectrum(
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link{persp},
+\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp},
 \link[plotly:plot_ly]{plotly::plot_ly}, \link{contour}
 }
 \author{
@@ -242,7 +242,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-42. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
