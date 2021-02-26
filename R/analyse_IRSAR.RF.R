@@ -241,8 +241,8 @@
 #'  `DE.LOWER` \tab `numeric`\tab 2.5% quantile for De values obtained by MC runs \cr
 #'  `DE.UPPER` \tab `numeric`\tab 97.5% quantile for De values obtained by MC runs  \cr
 #'  `DE.STATUS`  \tab `character`\tab test parameter status\cr
-#'  `RF_NAT.LIM`  \tab `charcter`\tab used RF_nat curve limits \cr
-#'  `RF_REG.LIM` \tab `character`\tab used RF_reg curve limits\cr
+#'  `RF_NAT.LIM`  \tab `character`\tab used `RF_nat` curve limits \cr
+#'  `RF_REG.LIM` \tab `character`\tab used `RF_reg` curve limits\cr
 #'  `POSITION` \tab `integer`\tab (*optional*) position of the curves\cr
 #'  `DATE` \tab `character`\tab (*optional*) measurement date\cr
 #'  `SEQUENCE_NAME` \tab `character`\tab (*optional*) sequence name\cr

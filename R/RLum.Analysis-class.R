@@ -347,7 +347,7 @@ setMethod(
 #'
 #' 1. [list] of [RLum.Data-class] objects or
 #' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
-#' 3. [RLum.Analysis-class] ojects for `drop = FALSE`
+#' 3. [RLum.Analysis-class] objects for `drop = FALSE`
 #'
 #' @md
 #' @export

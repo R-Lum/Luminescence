@@ -24,7 +24,7 @@
 #'
 #'**`plot.type = "persp"`**
 #'
-#' Arguments that will be passed to [persp]:
+#' Arguments that will be passed to [graphics::persp]:
 #'
 #' - `shade`: default is `0.4`
 #' - `phi`: default is `15`
@@ -117,11 +117,11 @@
 #' @param xaxis.energy [logical] (*with default*): enables or disables energy instead of
 #' wavelength axis. For the conversion the function [convert_Wavelength2Energy] is used.
 #'
-#' **Note:** This option means not only simnply redrawing the axis,
+#' **Note:** This option means not only simply redrawing the axis,
 #' instead the spectrum in terms of intensity is recalculated, s. details.
 #'
 #' @param legend.text [character] (*with default*):
-#' possiblity to provide own legend text. This argument is only considered for
+#' possibility to provide own legend text. This argument is only considered for
 #' plot types providing a legend, e.g. `plot.type="transect"`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
@@ -136,7 +136,7 @@
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [persp],
+#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [graphics::persp],
 #' [plotly::plot_ly], [contour]
 #'
 #' @keywords aplot

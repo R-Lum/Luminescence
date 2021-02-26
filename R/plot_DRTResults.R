@@ -19,7 +19,7 @@
 #' @param given.dose [numeric] (*optional*):
 #' given dose used for the dose recovery test to normalise data.
 #' If only one given dose is provided this given dose is valid for all input
-#' data sets (i.e., `values` is a list).  Oherwise a given dose for each input
+#' data sets (i.e., `values` is a list).  Otherwise a given dose for each input
 #' data set has to be provided (e.g., `given.dose = c(100,200)`).
 #' If `given.dose` in `NULL` the values are plotted without normalisation
 #' (might be useful for preheat plateau tests).
@@ -87,7 +87,7 @@
 #' @section Function version: 0.1.13
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060 - Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]

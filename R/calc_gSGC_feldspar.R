@@ -27,7 +27,7 @@
 #' **`@data`**\cr
 #' `$ df` ([data.frame]) \cr
 #'  `.. $DE` the calculated equivalent dose\cr
-#'  `.. $DE.ERROR` terror on the equivalent dose, which is the sd of the MC runs\cr
+#'  `.. $DE.ERROR` terror on the equivalent dose, which is the standard deviation of the MC runs\cr
 #'  `.. $HPD95_LOWER` lower boundary of the highest probability density (95%)\cr
 #'  `.. $HPD95_UPPER` upper boundary of the highest probability density (95%)\cr
 #' `$ m.MC` ([list]) numeric vector with results from the MC runs.\cr

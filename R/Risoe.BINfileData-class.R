@@ -50,17 +50,17 @@ NULL
 #' `[,18]` \tab `SYSTEMID` \tab `integer` \tab 03-08 \tab Risø system id\cr
 #' `[,19]` \tab `FNAME` \tab `factor` \tab 05-08 \tab File name (*.bin/*.binx)\cr
 #' `[,20]` \tab `USER` \tab `factor` \tab 03-08 \tab User name\cr
-#' `[,21]` \tab `TIME` \tab `character` \tab 03-08 \tab Data collection time (hh-mm-ss)\cr
+#' `[,21]` \tab `TIME` \tab `character` \tab 03-08 \tab Data collection time (`hh-mm-ss`)\cr
 #' `[,22]` \tab `DATE` \tab `factor` \tab 03-08 \tab Data collection date (`ddmmyy`)\cr
 #' `[,23]` \tab `DTYPE` \tab `character` \tab 03-08 \tab Data type\cr
 #' `[,24]` \tab `BL_TIME` \tab `numeric` \tab 03-08 \tab Bleaching time\cr
-#' `[,25]` \tab `BL_UNIT` \tab `integer` \tab 03-08 \tab Bleaching unit (mJ, J, secs, mins, hrs)\cr
+#' `[,25]` \tab `BL_UNIT` \tab `integer` \tab 03-08 \tab Bleaching unit (mJ, J, s, min, h)\cr
 #' `[,26]` \tab `NORM1` \tab `numeric` \tab 03-08 \tab Normalisation factor (1)\cr
 #' `[,27]` \tab `NORM2` \tab `numeric` \tab 03-08 \tab Normalisation factor (2)\cr
 #' `[,28]` \tab `NORM3` \tab `numeric` \tab 03-08 \tab Normalisation factor (3)\cr
 #' `[,29]` \tab `BG` \tab `numeric` \tab 03-08 \tab Background level\cr
 #' `[,30]` \tab `SHIFT` \tab `integer` \tab 03-08 \tab Number of channels to shift data\cr
-#' `[,31]` \tab `TAG` \tab `integer` \tab 03-08 \tab Tag, triggers SEL\cr
+#' `[,31]` \tab `TAG` \tab `integer` \tab 03-08 \tab Tag, triggers `SEL`\cr
 #' `[,32]` \tab `LTYPE` \tab `character` \tab 03-08 \tab Luminescence type\cr
 #' `[,33]` \tab `LIGHTSOURCE` \tab `character` \tab 03-08 \tab Light source\cr
 #' `[,34]` \tab `LPOWER` \tab `numeric` \tab 03-08 \tab Optical stimulation power\cr
@@ -77,7 +77,7 @@ NULL
 #' `[,45]` \tab `TOLOFF` \tab `integer` \tab 03-08 \tab TOL 'off' channels\cr
 #' `[,46]` \tab `IRR_TIME` \tab `numeric` \tab 03-08 \tab Irradiation time\cr
 #' `[,47]` \tab `IRR_TYPE` \tab `integer` \tab 03-08 \tab Irradiation type (alpha, beta or gamma)\cr
-#' `[,48]` \tab `IRR_UNIT` \tab `integer` \tab 03-04 \tab Irradiation unit (Gy, Rads, secs, mins, hrs)\cr
+#' `[,48]` \tab `IRR_UNIT` \tab `integer` \tab 03-04 \tab Irradiation unit (Gy, rad, s, min, h)\cr
 #' `[,49]` \tab `IRR_DOSERATE` \tab `numeric` \tab 05-08 \tab Irradiation dose rate (Gy/s)\cr
 #' `[,50]` \tab `IRR_DOSERATEERR` \tab `numeric` \tab 06-08 \tab Irradiation dose rate error (Gy/s)\cr
 #' `[,51]` \tab `TIMESINCEIRR` \tab `integer` \tab 05-08 \tab Time since irradiation (s)\cr
@@ -95,11 +95,11 @@ NULL
 #' `[,63]` \tab `MAXLPOWER` \tab `numeric` \tab 05-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
 #' `[,64]` \tab `XRF_ACQTIME` \tab `numeric` \tab 05-08 \tab XRF acquisition time (s)\cr
 #' `[,65]` \tab `XRF_HV` \tab `numeric` \tab 05-08 \tab XRF X-ray high voltage (V)\cr
-#' `[,66]` \tab `XRF_CURR` \tab `integer` \tab 05-08 \tab XRF X-ray current (uA)\cr
+#' `[,66]` \tab `XRF_CURR` \tab `integer` \tab 05-08 \tab XRF X-ray current (µA)\cr
 #' `[,67]` \tab `XRF_DEADTIMEF` \tab `numeric` \tab 05-08 \tab XRF dead time fraction\cr
 #' `[,68]` \tab `DETECTOR_ID` \tab `raw` \tab 07-08 \tab Detector ID\cr
 #' `[,69]` \tab `LOWERFILTER_ID` \tab `integer` \tab 07-08 \tab Lower filter ID in reader\cr
-#' `[,70]` \tab `UPPERFILTER_ID` \tab `integer` \tab 07-08 \tab Uper filter ID in reader\cr
+#' `[,70]` \tab `UPPERFILTER_ID` \tab `integer` \tab 07-08 \tab Upper filter ID in reader\cr
 #' `[,71]` \tab `ENOISEFACTOR` \tab `numeric` \tab 07-08 \tab Excess noise filter, usage unknown \cr
 #' `[,72]` \tab `MARKPOS_X1` \tab `numeric` \tab 08 \tab Coordinates marker position 1 \cr
 #' `[,73]` \tab `MARKPOS_Y1` \tab `numeric` \tab 08 \tab Coordinates marker position 1 \cr
@@ -124,20 +124,20 @@ NULL
 #'
 #' \tabular{rll}{
 #'  VALUE \tab TYPE \tab DESCRIPTION \cr
-#' `[0]` \tab TL \tab: Thermoluminescence \cr
-#' `[1]` \tab OSL \tab: Optically stimulated luminescence \cr
-#' `[2]` \tab IRSL \tab: Infrared stimulated luminescence \cr
-#' `[3]` \tab M-IR \tab: Infrared monochromator scan\cr
-#' `[4]` \tab M-VIS \tab: Visible monochromator scan\cr
-#' `[5]` \tab TOL \tab: Thermo-optical luminescence \cr
-#' `[6]` \tab TRPOSL \tab: Time Resolved Pulsed OSL\cr
-#' `[7]` \tab RIR \tab: Ramped IRSL\cr
-#' `[8]` \tab RBR \tab: Ramped (Blue) LEDs\cr
-#' `[9]` \tab USER \tab: User defined\cr
-#' `[10]` \tab POSL \tab: Pulsed OSL \cr
-#' `[11]` \tab SGOSL \tab: Single Grain OSL\cr
-#' `[12]` \tab RL \tab: Radio Luminescence \cr
-#' `[13]` \tab XRF \tab: X-ray Fluorescence
+#' `[0]` \tab `TL` \tab: Thermoluminescence \cr
+#' `[1]` \tab `OSL` \tab: Optically stimulated luminescence \cr
+#' `[2]` \tab `IRSL` \tab: Infrared stimulated luminescence \cr
+#' `[3]` \tab `M-IR` \tab: Infrared monochromator scan\cr
+#' `[4]` \tab `M-VIS` \tab: Visible monochromator scan\cr
+#' `[5]` \tab `TOL` \tab: Thermo-optical luminescence \cr
+#' `[6]` \tab `TRPOSL` \tab: Time Resolved Pulsed OSL\cr
+#' `[7]` \tab `RIR` \tab: Ramped IRSL\cr
+#' `[8]` \tab `RBR` \tab: Ramped (Blue) LEDs\cr
+#' `[9]` \tab `USER` \tab: User defined\cr
+#' `[10]` \tab `POSL` \tab: Pulsed OSL \cr
+#' `[11]` \tab `SGOSL` \tab: Single Grain OSL\cr
+#' `[12]` \tab `RL` \tab: Radio Luminescence \cr
+#' `[13]` \tab `XRF` \tab: X-ray Fluorescence
 #' }
 #'
 #' **DTYPE** values
