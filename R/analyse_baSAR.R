@@ -81,7 +81,7 @@
 #' are:
 #'
 #' \tabular{lll}{
-#' **Parameter** \tab **Type** \tab **Descrtption**\cr
+#' **Parameter** \tab **Type** \tab **Description**\cr
 #' `lower_centralD` \tab [numeric] \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 #' `upper_centralD` \tab [numeric] \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 #' `n.chains` \tab [integer] \tab sets number of parallel chains for the model (default = 3) (cf. [rjags::jags.model])\cr
@@ -291,7 +291,7 @@
 #'  `$mcmc` \tab `mcmc` \tab [coda::mcmc.list] object including raw output \cr
 #'  `$models` \tab `character` \tab implemented models used in the baSAR-model core \cr
 #'  `$input_object` \tab `data.frame` \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
-#'  `$removed_aliquots` \tab `data.frame` \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed `NULL` is returned
+#'  `$removed_aliquots` \tab `data.frame` \tab table with removed aliquots (e.g., `NaN`, or `Inf` `Lx`/`Tx` values). If nothing was removed `NULL` is returned
 #' }
 #'
 #'**slot:** **`@info`**
@@ -324,7 +324,7 @@
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-#' The underlying Bayesian model based on a contribution by Combes et al., 2015.
+#' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [read_BIN2R], [calc_OSLLxTxRatio], [plot_GrowthCurve],
 #' [readxl::read_excel], [verify_SingleGrainData],
@@ -333,7 +333,7 @@
 #'
 #' @references
 #'
-#' Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
+#' Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 #' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 #'
@@ -349,10 +349,10 @@
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 #' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 #'
-#' Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download
+#' Plummer, M., 2017. JAGS Version 4.3.0 user manual. `https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download`
 #'
 #' @note
-#' **If you provide more than one BIN-file**, it is **strongly** recommanded to provide
+#' **If you provide more than one BIN-file**, it is **strongly** recommended to provide
 #' a `list` with the same number of elements for the following parameters:
 #'
 #' `source_doserate`, `signal.integral`, `signal.integral.Tx`, `background.integral`,

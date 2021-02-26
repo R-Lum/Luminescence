@@ -32,7 +32,7 @@
 #'This goes back to even earlier discussion in 2001 based on Prof Brian Ripley's idea.
 #'It smartly uses the functions [stats::embed] and [max.col] to identify peaks positions.
 #'For the use in this context, the algorithm has been further modified to scale on the
-#'input data resolution (cv source code).\cr
+#'input data resolution (cf. source code).\cr
 #'
 #'The start parameter estimation uses random sampling from a range of meaningful parameters
 #'and repeats the fitting until 100 successful fits have been produced or the set `max.runs` value

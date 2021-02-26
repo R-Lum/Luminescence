@@ -48,7 +48,7 @@
 #' If no start values (`start_values`) are provided by the user, a cheap guess is made
 #' by using the detrapping values found by Jain et al. (2003) for quartz for a
 #' maximum of 7 components. Based on these values, the pseudo start parameters
-#' xm and Im are recalculated for the given data set. In all cases, the fitting
+#' `xm` and `Im` are recalculated for the given data set. In all cases, the fitting
 #' starts with the ultra-fast component and (depending on `n.components`)
 #' steps through the following values. If no fit could be achieved, an error
 #' plot (for `plot = TRUE`) with the pseudo curve (based on the

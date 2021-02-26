@@ -23,7 +23,7 @@
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @note
-#' Currenlty only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`
+#' Currently only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`
 #' (with curve data) are supported!
 #'
 #' @seealso [RLum.Data.Curve-class], [RLum.Analysis-class]

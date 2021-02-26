@@ -1,7 +1,7 @@
 #' Apply the maximum age model to a given De distribution
 #'
 #' Function to fit the maximum age model to De data. This is a wrapper function
-#' that calls calc_MinDose() and applies a similiar approach as described in
+#' that calls [calc_MinDose] and applies a similar approach as described in
 #' Olley et al. (2006).
 #'
 #' **Data transformation**
@@ -11,10 +11,10 @@
 #' et al. (1999) is adapted. The measured De values are transformed as follows:
 #'
 #' 1. convert De values to natural logs
-#' 2. multiply the logged data to creat a mirror image of the De distribution
+#' 2. multiply the logged data to create a mirror image of the De distribution
 #' 3. shift De values along x-axis by the smallest x-value found to obtain only positive values
 #' 4. combine in quadrature the measurement error associated with each De value
-#' with a relative error specified by sigmab
+#' with a relative error specified by `sigmab`
 #' 5. apply the MAM to these data
 #'
 #' When all calculations are done the results are then converted as follows

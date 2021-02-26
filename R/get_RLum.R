@@ -1,4 +1,4 @@
-#' General accessor function for RLum S4 class objects
+#' General accessors function for RLum S4 class objects
 #'
 #' Function calls object-specific get functions for RLum S4 class objects.
 #'
@@ -13,7 +13,7 @@
 #' of type [RLum-class]
 #'
 #' @param ... further arguments that will be passed to the object specific methods. For
-#' furter details on the supported arguments please see the class
+#' further details on the supported arguments please see the class
 #' documentation: [RLum.Data.Curve-class], [RLum.Data.Spectrum-class],
 #' [RLum.Data.Image-class], [RLum.Analysis-class] and [RLum.Results-class]
 #'
@@ -22,7 +22,7 @@
 #' @section Function version: 0.3.3
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
 #'  [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]

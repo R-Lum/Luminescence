@@ -14,7 +14,7 @@
 #' - increasing BIC
 #' - repeated dose estimates
 #' - covariance matrix not positive definite
-#' - covariance matrix produces NaNs
+#' - covariance matrix produces `NaN`
 #' - convergence problems
 #'
 #' **Plot**
@@ -68,7 +68,7 @@
 #' parameter of the normal distribution
 #'
 #' @param pdf.colors [character] (*with default*):
-#' color coding of the components in the the plot.
+#' colour coding of the components in the the plot.
 #' Possible options are `"gray"`, `"colors"` and `"none"`
 #'
 #' @param pdf.scale [numeric]:
@@ -91,12 +91,12 @@
 #' \item{.$data}{[data.frame] original input data}
 #' \item{.$args}{[list] used arguments}
 #' \item{.$call}{[call] the function call}
-#' \item{.$mle}{ covariance matrices of the log likelhoods}
+#' \item{.$mle}{ covariance matrices of the log likelihoods}
 #' \item{.$BIC}{ BIC score}
 #' \item{.$llik}{ maximum log likelihood}
 #' \item{.$grain.probability}{ probabilities of a grain belonging to a component}
 #' \item{.$components}{[matrix] estimates of the de, de error and proportion for each component}
-#' \item{.$single.comp}{[data.frame] single componente FFM estimate}
+#' \item{.$single.comp}{[data.frame] single component FFM estimate}
 #'
 #' If a vector for `n.components` is provided (e.g.  `c(2:8)`),
 #' `mle` and `grain.probability` are lists containing matrices of the

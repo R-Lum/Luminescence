@@ -8,7 +8,7 @@
 #'
 #' @details The conversion from nuclide activity of a sample to nuclide concentration
 #' is performed using conversion factors that are based on the mass-related
-#' specific activity of the respective nuclides.
+#' specific activity of the respective nuclide.
 #' The factors can be calculated using the equation:
 #'
 #' \deqn{
@@ -22,8 +22,8 @@
 #' where:
 #'
 #' - `A` - specific activity of the nuclide
-#' - `N.freq` - natural frequency of the isotop
-#' - `N.mol.mass` molare mass
+#' - `N.freq` - natural frequency of the isotope
+#' - `N.mol.mass` molar mass
 #' - `n.half.life` half-life of the nuclide
 #'
 #' example for U238:
@@ -51,7 +51,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
+#' @author Margret C. Fuchs, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 #'
 #' @references
 #' Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with

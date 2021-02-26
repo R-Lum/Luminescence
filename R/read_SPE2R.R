@@ -40,7 +40,7 @@
 #' `RLum.Data.Image`
 #'
 #' An object of type [RLum.Data.Image-class] is returned.  Due to
-#' performace reasons the import is aborted for files containing more than 100
+#' performance reasons the import is aborted for files containing more than 100
 #' frames. This limitation can be overwritten manually by using the argument
 #' `frame.frange`.
 #'
@@ -70,7 +70,7 @@
 #' Format Specification, Version 1.A (for document URL please use an internet search machine)
 #'
 #' Hall, C., 2012: readSPE.m.
-#' https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe
+#' `https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe`
 #'
 #' @keywords IO
 #'

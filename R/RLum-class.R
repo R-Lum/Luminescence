@@ -4,7 +4,7 @@ NULL
 #' Class `"RLum"`
 #'
 #' Abstract class for data in the package Luminescence
-#' Sublasses are:
+#' Subclasses are:
 #'
 #' **RLum-class**\cr
 #' |\cr
@@ -28,7 +28,7 @@ NULL
 #'
 #' @slot .uid
 #' Object of class [character] for a unique object identifier. This id is
-#' usually calculated using the internal function `create_UID()` if the funtion [set_RLum]
+#' usually calculated using the internal function `create_UID()` if the function [set_RLum]
 #' is called.
 #'
 #' @slot .pid
