@@ -5,19 +5,18 @@
   "related_identifiers": [
     {
       "scheme": "url",
-      "identifier": "https://CRAN.R-project.org/package=Luminescence",
-      "relation": "isSupplementTo",
-      "resource_type": "software"
+      "identifier": "https://CRAN.R-project.org/package=RLumCarlo",
+      "relation": "isSupplementedBy"
     },
     {
       "scheme": "url",
       "identifier": "https://github.com/R-Lum/Luminescence/tree/master",
-      "relation": "isIdenticalTo"
+      "relation": "isPreviousVersionOf"
     },
     {
       "scheme": "doi",
       "identifier": "10.5281/zenodo.596252",
-      "relation": "isVersionOf"
+      "relation": "isReferencedBy"
     }
   ],
   "version": "0.9.10",
