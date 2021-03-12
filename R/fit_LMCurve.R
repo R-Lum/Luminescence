@@ -163,8 +163,8 @@
 #'
 #' `.. $data` : [data.frame] with fitting results\cr
 #' `.. $fit` : nls ([nls] object)\cr
+#' `.. $component_matrix` : [matrix] with numerical xy-values of the single fitted components with the resolution of the input data
 #' `.. $component.contribution.matrix` : [list] component distribution matrix
-#'
 #'
 #' **`info:`**
 #'
@@ -187,7 +187,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -469,7 +469,7 @@ fit_LMCurve<- function(
   ##automatic start parameter estimation
 
   ##set fit function
-  fit.function<-fit.equation(Im.i=1:n.components,xm.i=1:n.components)
+  fit.function <- fit.equation(Im.i = 1:n.components, xm.i = 1:n.components)
 
   if(missing(start_values)){
 
@@ -891,9 +891,26 @@ fit_LMCurve<- function(
     writeLines("[fit_LMCurve] Fitting Error: Plot without fit produced!")
 
   }
-  ##============================================================================##
-  ##  PLOTTING
-  ##============================================================================##
+
+  # Calculate component curves ----------------------------------------------
+  component_matrix <- NA
+  if(!inherits(fit,"try-error")){
+    component_matrix <- matrix(NA, nrow = nrow(values), ncol = 2 + length(Im))
+    colnames(component_matrix) <- c("TIME", "SUM", paste("COMP_", 1:length(Im)))
+    component_matrix[, 1] <- values[, 1]
+    component_matrix[, 2] <- eval(fit.function)
+
+    ## add single components
+    for(i in 1:length(Im)){
+      component_matrix[, 2 + i] <-
+        exp(0.5) * Im[i] * values[, 1] /
+        xm[i] * exp(-values[, 1] ^ 2 / (2 * xm[i] ^ 2))
+
+    }
+
+  }
+
+  # Plotting ----------------------------------------------------------------
   if(plot){
 
     ##cheat the R check routine
@@ -917,7 +934,7 @@ fit_LMCurve<- function(
     layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
     par(oma=c(1,1,1,1),mar=c(0,4,3,0), cex=cex)
 
-    ##==uppper plot==##
+    ##==upper plot==##
     ##open plot area
     plot(
       NA,
@@ -1047,6 +1064,7 @@ fit_LMCurve<- function(
     data = list(
       data = output.table,
       fit = fit,
+      component_matrix = component_matrix,
       component.contribution.matrix = list(component.contribution.matrix)
     ),
     info = list(call = sys.call())

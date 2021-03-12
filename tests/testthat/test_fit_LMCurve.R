@@ -13,6 +13,9 @@ test_that("check class and length of output", {
 
   expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 3)
+  expect_type(fit$component_matrix, "double")
+  expect_equal(nrow(fit$component_matrix), 4000)
+
 
 })
 
@@ -56,4 +59,6 @@ test_that("check values from output example", {
   expect_equal(round(fit$data$b1, digits = 0), 2)
   expect_equal(round(fit$data$`pseudo-R^2`, digits = 0), 1)
 
+
 })
+
