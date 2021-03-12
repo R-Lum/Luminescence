@@ -101,6 +101,7 @@ Various types of plots are returned. For details see above. Furthermore an
 
 \code{.. $data} : \link{data.frame} with fitting results\cr
 \code{.. $fit} : nls (\link{nls} object)\cr
+\code{.. $component_matrix} : \link{matrix} with numerical xy-values of the single fitted components with the resolution of the input data
 \code{.. $component.contribution.matrix} : \link{list} component distribution matrix
 
 \strong{\verb{info:}}
@@ -213,7 +214,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{
@@ -242,7 +243,7 @@ fit_LMCurve(values = values.curve,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-52. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-54. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

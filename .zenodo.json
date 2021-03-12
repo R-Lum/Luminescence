@@ -20,10 +20,10 @@
       "relation": "isVersionOf"
     }
   ],
-  "version": "0.9.11.9000-52",
+  "version": "0.9.11.9000-54",
   "upload_type": "software",
   "keywords": ["Luminescence", "Luminescence dating", "Chronology", "Age models"],
-  "publication_date": "2021-02-26",
+  "publication_date": "2021-03-12",
   "creators": [
     {
       "orcid": "0000-0002-0734-2199",
@@ -112,6 +112,7 @@
       "name": "Guibert, Pierre"
     },
     {
+      "orcid": "0000-0002-9567-8791",
       "name": "Mittelstrass, Dirk"
     },
     {
