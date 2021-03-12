@@ -12,7 +12,7 @@ test_that("check class and length of output", {
   local_edition(3)
 
   expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 3)
+  expect_equal(length(fit), 4)
   expect_type(fit$component_matrix, "double")
   expect_equal(nrow(fit$component_matrix), 4000)
 
@@ -45,7 +45,7 @@ test_that("check class and length of output", {
   local_edition(3)
 
   expect_s4_class(fit, "RLum.Results")
-  expect_equal(length(fit), 3)
+  expect_equal(length(fit), 4)
 
 })
 
