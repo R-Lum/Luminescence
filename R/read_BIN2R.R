@@ -708,7 +708,7 @@ read_BIN2R <- function(
     # BINX FORMAT SUPPORT -----------------------------------------------------
     if(temp.VERSION == 05 | temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
 
-      ##(1) Header size and strucutre
+      ##(1) Header size and structure
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
       temp <- readBin(con, what="int", 3, size=4, endian="little")
 
@@ -1057,17 +1057,20 @@ read_BIN2R <- function(
 
 
       ##POSITION
-      temp.POSITION<-readBin(con, what="int", 1, size=1, endian="little")
+      temp.POSITION <- readBin(
+        con, what="int", 1, size=1, endian="little", signed = FALSE)
 
       ##RUN
-      temp.RUN<-readBin(con, what="int", 1, size=1, endian="little")
+      temp.RUN <- readBin(
+        con, what="int", 1, size=1, endian="little", signed = FALSE)
 
       ##TIME
-      TIME_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+      TIME_SIZE <- readBin(
+        con, what="int", 1, size=1, endian="little")
 
 
       ##time size corrections for wrong time formats; set n to 6 for all values
-      ##accoording the handbook of Geoff Duller, 2007
+      ##according to the handbook of Geoff Duller, 2007
       TIME_SIZE<-6
       temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
 

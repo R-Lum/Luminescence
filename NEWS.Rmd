@@ -35,6 +35,10 @@ an unintentional type conversion to a `character` for very small values (#103, t
 * Add support for the Lambert W dose-response curve suggested by Pagonis et al. (2020)
 (thanks to @vpagonis for developing the math)
 
+#### `read_BIN2R()`
+* Only BIN/BINX-file version 3 and 4: if the numbers of runs exceeded 128, the number became
+negative; fixed. 
+
 ### Internals
 * `'lamW'` add as new package dependency. This is needed to support the Lambert W function 
 as in the function `plot_GrowthCurve()`
