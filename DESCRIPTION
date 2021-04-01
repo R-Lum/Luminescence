@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.11.9000-56
-Date: 2021-03-31
+Version: 0.9.11.9000-58
+Date: 2021-04-01
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -170,6 +170,7 @@ Collate:
     'convert_Daybreak2CSV.R'
     'convert_PSL2CSV.R'
     'convert_RLum2Risoe.BINfileData.R'
+    'convert_SG2MG.R'
     'convert_Wavelength2Energy.R'
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
