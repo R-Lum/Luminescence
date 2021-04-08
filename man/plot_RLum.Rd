@@ -70,7 +70,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-58. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-60. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{dplot}
