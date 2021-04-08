@@ -193,7 +193,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.1
+#' @section Function version: 1.11.2
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -1780,12 +1780,13 @@ plot_GrowthCurve <- function(
     #==========================================================================
     # LambertW -----
     if(mode == "extrapolation"){
-      Dint_lower <- 0.1
+      Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
     } else{
-      Dint_lower <- 0
+      Dint_lower <- 0.01
 
     }
+
     fit <- try(minpack.lm::nlsLM(
           formula = fit.formulaLambertW,
           data = data,
@@ -1812,7 +1813,8 @@ plot_GrowthCurve <- function(
           #calculate De
           if(mode == "interpolation"){
              De <- try(suppressWarnings(stats::uniroot(
-               f = function(x, R, Dc, N, Dint, LnTn) {fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
+               f = function(x, R, Dc, N, Dint, LnTn) {
+                 fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
                interval = c(0, max(sample[[1]]) * 1.2),
                R = R,
                Dc = Dc,
@@ -1822,7 +1824,8 @@ plot_GrowthCurve <- function(
 
           }else if (mode == "extrapolation"){
             De <- try(suppressWarnings(stats::uniroot(
-              f = function(x, R, Dc, N, Dint) {fit.functionLambertW(R, Dc, N, Dint, x)},
+              f = function(x, R, Dc, N, Dint) {
+                fit.functionLambertW(R, Dc, N, Dint, x)},
               interval = c(-max(sample[[1]]),0),
               R = R,
               Dc = Dc,
@@ -1833,14 +1836,13 @@ plot_GrowthCurve <- function(
             ## due to its shape, here we have to use the minimum
             if(inherits(De, "try-error")){
               De <- try(suppressWarnings(stats::optimize(
-                f = function(x, R, Dc, N, Dint) {fit.functionLambertW(R, Dc, N, Dint, x)},
+                f = function(x, R, Dc, N, Dint) {
+                  fit.functionLambertW(R, Dc, N, Dint, x)},
                 interval = c(-max(sample[[1]]),0),
                 R = R,
                 Dc = Dc,
                 N = N,
                 Dint = Dint)$minimum), silent = TRUE)
-
-
             }
 
           }
@@ -1871,16 +1873,13 @@ plot_GrowthCurve <- function(
           #	--take De_Error
 
           #set variables
-          var.R <- vector(mode = "numeric", length = NumberIterations.MC)
-          var.Dc <- vector(mode = "numeric", length = NumberIterations.MC)
-          var.N <- vector(mode = "numeric", length = NumberIterations.MC)
-          var.Dint <- vector(mode = "numeric", length = NumberIterations.MC)
+          var.R <-  var.Dc <- var.N <- var.Dint <- vector(
+            mode = "numeric", length = NumberIterations.MC)
 
           #start loop
           for (i in 1:NumberIterations.MC) {
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
-
             fit.MC <- try(minpack.lm::nlsLM(
               formula = fit.formulaLambertW,
               data = data,
@@ -1888,21 +1887,14 @@ plot_GrowthCurve <- function(
               weights = fit.weights,
               trace = FALSE,
               algorithm = "LM",
-              lower = if (fit.bounds) {
-                c(0,0,0,-Inf)
-              }else{
-                c(-Inf,-Inf,-Inf,-Inf)
-              },
+              lower = if (fit.bounds) c(0, 0, 0, Dint*runif(1,0,2)) else c(-Inf,-Inf,-Inf, -Inf),
               upper = if(fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf),
               control = minpack.lm::nls.lm.control(maxiter = 500)
             ), silent = TRUE)
 
             # get parameters out of it including error handling
-            if (class(fit.MC)=="try-error") {
-              x.natural[i] <- NA
-
-            } else {
-
+            x.natural[i] <- NA
+            if (!inherits(fit.MC, "try-error")) {
               # get parameters out
               parameters<-coef(fit.MC)
               var.R[i] <- as.vector((parameters["R"]))
@@ -1914,7 +1906,8 @@ plot_GrowthCurve <- function(
               if(mode == "interpolation"){
                 x.natural[i]<-try(
                 {suppressWarnings(stats::uniroot(
-                  f = function(x, R, Dc, N, Dint, LnTn) {fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
+                  f = function(x, R, Dc, N, Dint, LnTn) {
+                    fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
                   interval = c(0, max(sample[[1]]) * 1.2),
                   R = var.R[i],
                   Dc = var.Dc[i],
@@ -1926,23 +1919,39 @@ plot_GrowthCurve <- function(
               }else if(mode == "extrapolation"){
                 try <- try(
                   suppressWarnings(stats::uniroot(
-                    f = function(x, R, Dc, N, Dint) {fit.functionLambertW(R, Dc, N, Dint, x) - 0},
-                    interval = c(-max(sample[[1]]), max(sample[[1]]) * 1.2),
+                    f = function(x, R, Dc, N, Dint) {
+                      fit.functionLambertW(R, Dc, N, Dint, x)},
+                    interval = c(-max(sample[[1]]), 0),
                     R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N[i],
-                    Dint = var.Dint[i])$root), silent = TRUE)
+                    Dint = var.Dint[i])$root),
+                  silent = TRUE)
 
-                if(inherits(try, "try-error")) x.natural[i] <- NA else x.natural[i] <- try
+                if(inherits(try, "try-error")){
+                  try <- try(suppressWarnings(stats::optimize(
+                    f = function(x, R, Dc, N, Dint) {
+                      fit.functionLambertW(R, Dc, N, Dint, x)},
+                    interval = c(-max(sample[[1]]),0),
+                    R = var.R[i],
+                    Dc = var.Dc[i],
+                    N = var.N[i],
+                    Dint = var.Dint[i])$minimum),
+                    silent = TRUE)
 
-              }else{
-                x.natural[i] <- NA
+                }
+
+                if(!inherits(try, "try-error"))
+                  x.natural[i] <- try
 
               }
 
             }
 
           }#end for loop
+
+          ##we need absolute numbers
+          x.natural <- abs(x.natural)
 
           ##write Dc.ERROR
           Dc.ERROR <- sd(var.Dc, na.rm = TRUE)
@@ -1955,7 +1964,7 @@ plot_GrowthCurve <- function(
   #===========================================================================
   }#End if Fit Method
 
-  #Get De values from Monto Carlo simulation
+  #Get De values from Monte Carlo simulation
 
   #calculate mean and sd (ignore NaN values)
   De.MonteCarlo <- mean(na.exclude(x.natural))
@@ -2358,13 +2367,7 @@ plot_GrowthCurve <- function(
             border = "white",
             axes = FALSE,
             ylim = c(0, max(norm.curve.y)),
-            sub =
-              paste(
-                "n = ",
-                NumberIterations.MC,
-                ", valid fits =",
-                length(na.exclude(x.natural))
-              ),
+            sub = paste0("valid fits = ", length(na.exclude(x.natural)), "/",NumberIterations.MC),
             col = "grey"
           ), silent = TRUE)
 
@@ -2393,11 +2396,11 @@ plot_GrowthCurve <- function(
                       substitute(D[e[MC]] == De,
                                  list(
                                    De = paste(
-                                     round(De.MonteCarlo, 2),
+                                     abs(round(De.MonteCarlo, 2)),
                                      "\u00B1",
                                      format(De.Error, scientific = TRUE, digits = 2),
-                                     " | quality = ",
-                                     round((1 - abs(abs(De) - De.MonteCarlo) / abs(De)) * 100,1),
+                                     " | diff. = ",
+                                     abs(round((abs(abs(De) - De.MonteCarlo) / abs(De)) * 100,1)),
                                      "%"
                                    )
                                  )),
@@ -2413,7 +2416,7 @@ plot_GrowthCurve <- function(
             NA,
             xlim = c(0, 10),
             ylim = c(0, 10),
-            main = expression(paste(D[e], " from Monte Carlo simulation"))),
+            main = expression(paste(D[e], " from MC runs"))),
             silent = TRUE
           )
 

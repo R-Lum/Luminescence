@@ -37,6 +37,7 @@ a user unfriendly error message (`Error in temp.GC[, 2]/temp.GC[, 1]`). This was
 an unintentional type conversion to a `character` for very small values (#103, thanks to @IMHarly for spotting).
 * Add support for the Lambert W dose-response curve suggested by Pagonis et al. (2020)
 (thanks to @vpagonis for developing the math)
+* Minor tweaks to improve the graphical output and avoid various errors 
 
 #### `read_BIN2R()`
 * Only BIN/BINX-file version 3 and 4: if the numbers of runs exceeded 128, the number became

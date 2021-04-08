@@ -168,7 +168,7 @@ test_that("check values from output example", {
    expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
    ##fix for different R versions
    if(R.version$major > "3"){
-     expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17811)
+     expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17662)
 
    }
 
