@@ -20,8 +20,7 @@ combine_Dr_De(
 \arguments{
 \item{Dr}{\link{numeric} (\strong{required}): a dose rate sample}
 
-\item{int_OD}{\link{numeric} (\strong{required}): the intrinsic overdispersion, typicall
-the standard deviation characterizing the DRT distribution}
+\item{int_OD}{\link{numeric} (\strong{required}): the intrinsic overdispersion, typically the standard deviation characterizing a dose-recovery test distribution}
 
 \item{De}{\link{numeric} (\strong{required}): a equivalent dose sample}
 
@@ -88,20 +87,20 @@ results <- combine_Dr_De(
 Dr = Dr,
 int_OD = 0.1,
 De,
-s, 
+s,
 Age_range = c(0,100),
  method_control = list(
-  n.iter = 100, 
+  n.iter = 100,
   n.chains = 1))
-  
+
 ## show models used
 writeLines(results$models$model_IAM)
 writeLines(results$models$model_BCAM)
-  
+
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-77. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-78. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

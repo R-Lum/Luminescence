@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_OSLAgeSummary.R
 \name{plot_OSLAgeSummary}
 \alias{plot_OSLAgeSummary}
-\title{Plot Posterior OSL Age Summary}
+\title{Plot Posterior OSL-Age Summary}
 \usage{
 plot_OSLAgeSummary(object, level = 0.95, digits = 1L, verbose = TRUE, ...)
 }
@@ -51,7 +51,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. plot_OSLAgeSummary(): Plot Posterior OSL Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-77. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. plot_OSLAgeSummary(): Plot Posterior OSL-Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-78. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{dplot}
