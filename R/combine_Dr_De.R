@@ -365,8 +365,8 @@
 #' `thin` \tab [numeric] \tab `1` \tab thinning interval for the monitoring cf. [rjags::coda.samples]\cr
 #' `diag` \tab [logical] \tab `FALSE` \tab additional terminal output for convergence diagnostic. 
 #' `FALSE` if `verbose = FALSE`\cr
-#' `progress.bar` \tab [logical] \tab `TRUE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
-#' `quiet` \tab [logical] \tab `FALSE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE` 
+#' `progress.bar` \tab [logical] \tab `FALSE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
+#' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE` 
 #'}
 #'
 #'##TODO: write tests for this function
