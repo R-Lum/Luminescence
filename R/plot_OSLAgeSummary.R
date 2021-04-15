@@ -50,6 +50,10 @@ plot_OSLAgeSummary <- function(
      object@originator %in% c(".calc_BayesianCentralAgeModel", ".calc_IndividualAgeModel"))
     object <- get_RLum(object, data.object = "A")
 
+  if(is(object, "RLum.Results") && object@originator "combine_Dr_De")
+    object <- get_RLum(object, data.object = "Ages")
+
+
   if(!is(object, "numeric")) {
     stop(paste0("[plot_OSLAgeSummary()] class ", class(object)[1],
                 " not supported as input for object!"),call. = FALSE)
