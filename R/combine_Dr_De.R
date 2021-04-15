@@ -134,6 +134,8 @@
   }
   
   ## run model
+  if(verbose) cat("\n(1) Running Bayesian modelling Individual Age Model ... ")
+    
   jags <- rjags::jags.model(
     file = model,
     data = data1,
@@ -145,7 +147,7 @@
   stats::update(
     jags,
     n.iter = method_control$n.iter,
-    progress.bar = method_control$prograss.bar,
+    progress.bar = method_control$progress.bar,
     quiet = method_control$quiet
   )
   
@@ -155,9 +157,10 @@
       variable.names = method_control$variable.names,
       n.iter = method_control$n.iter,
       thin = method_control$thin,
-      progress.bar = method_control$prograss.bar
+      progress.bar = method_control$progress.bar
     )
-  
+
+  if(verbose & method_control$quiet) cat("DONE")  
   if(method_control$diag) {
     cat("\n[.calc_IndividualAgeModel()]\n")
     print(coda::gelman.diag(samp))
@@ -291,6 +294,8 @@
   }
   
   ## run modelling
+  if(verbose) cat("\n(2) Running Bayesian modelling Bayesian Central Age Model ... ")
+  
   jags2 <- rjags::jags.model(
     file = model,
     data = data,
@@ -302,7 +307,7 @@
   stats::update(
     object = jags2,
     n.iter = method_control$n.iter,
-    progress.bar = method_control$prograss.bar,
+    progress.bar = method_control$progress.bar,
     quiet = method_control$quiet
   )
   
@@ -311,9 +316,11 @@
     variable.names = method_control$variable.names,
     n.iter = method_control$n.iter,
     thin = method_control$thin,
-    progress.bar = method_control$prograss.bar
+    progress.bar = method_control$progress.bar
   )
   
+  if(verbose & method_control$quiet) cat("DONE")
+
   if(method_control$diag) {
     cat("\n[.calc_BayesianCentralAgeModel()]\n")
     print(coda::gelman.diag(samp2))
@@ -336,11 +343,32 @@
 #'@title Combine Dose Rate and Equivalent Dose Distribution 
 #' 
 #'@description A Bayesian statistical analysis of OSL age requiring dose rate sample. 
-#' Estimation contains a preliminary step for detecting outliers in the equivalent 
-#' dose sample.
+#'Estimation contains a preliminary step for detecting outliers in the equivalent 
+#'dose sample.
 #' 
-#'@details ##TODO add table for method control and check method control
-#'##TODO: why do I see only two progress bars? 
+#'@details 
+#'
+#'**Parameters available for `method_control`**
+#'
+#'The parameters listed below are used to granular control Bayesian modelling using 
+#'[rjags::rjags]. Internally the functions `.calc_IndividualAgeModel()` and
+#'`.calc_BayesianCentraAgelModel()`. The parameter settings affect both models.
+#'Note: `method_control` expects a **named** list of parameters
+#'
+#'\tabular{llll}{
+#' **PARAMETER** \tab **TYPE** \tab **DEFAULT** \tab **REMARKS** \cr
+#' `variable.names_IAM` \tab [character] \tab `c('A', 'a', 'sig_a')` \tab variables names to be monitored in the modelling process using the internal function `.calc_IndividualAgeModel()`\cr
+#' `variable.names_BCAM` \tab [character] \tab `c('A', 'D_e')` \tab variables names to be monitored in the modelling process using the internal function `.calc_BayesianCentraAgelModel()`\cr
+#' `n.chains` \tab [integer] \tab `4` \tab number of MCMC chains\cr
+#' `n.adapt` \tab [integer] \tab `1000` \tab number of iterations for the adaptation\cr
+#' `n.iter` \tab [integer] \tab `5000` \tab number of iterations to monitor cf. [rjags::coda.samples]\cr
+#' `thin` \tab [numeric] \tab `1` \tab thinning interval for the monitoring cf. [rjags::coda.samples]\cr
+#' `diag` \tab [logical] \tab `FALSE` \tab additional terminal output for convergence diagnostic. 
+#' `FALSE` if `verbose = FALSE`\cr
+#' `progress.bar` \tab [logical] \tab `TRUE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
+#' `quiet` \tab [logical] \tab `FALSE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE` 
+#'}
+#'
 #'##TODO: write tests for this function
 #'##TODO: Make sure that plot_OSLAgeSummary() supports also this function
 #'##TODO: Reduce time for example
@@ -361,8 +389,8 @@
 #'@param alpha [numeric] (*with default*): the required significance level used
 #'for the outlier detection
 #' 
-#'@param method_control [list] (*with default*): further parameters passed down 
-#' to the jags modelling process
+#'@param method_control [list] (*with default*): named [list] of further parameters passed down 
+#' to the [rjags::rjags] modelling 
 #' 
 #'@param outlier_analysis_plot [logical] (*with default*): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output
 #'
@@ -441,13 +469,15 @@ if (!requireNamespace(c("rjags", "coda", "mclust"), quietly = TRUE)) {
       n.adapt = 1000,
       n.iter = 5000, 
       thin = 1, 
-      progress.bar = if(verbose) "text" else "none",
-      quiet = if(verbose) FALSE else TRUE, 
+      progress.bar = "none",
+      quiet = TRUE,
       diag = FALSE
     ), 
     val = method_control)
   
 # Bayesian Modelling IAM --------------------------------------------------
+if(verbose)  cat("\n[combine_Dr_De()]")
+  
 fit_IAM <- .calc_IndividualAgeModel(
       theta = theta,
       mu = mu,
@@ -462,7 +492,7 @@ fit_IAM <- .calc_IndividualAgeModel(
           n.adapt = method_control$n.adapt,
           n.iter = method_control$n.iter, 
           thin = method_control$thin, 
-          progress.bar = method_control$method_control,
+          progress.bar = method_control$progress.bar,
           quiet = method_control$quiet,
           diag = method_control$diag)
       )
@@ -478,12 +508,14 @@ fit_IAM <- .calc_IndividualAgeModel(
   age <- matrixStats::colMedians(fit_IAM$a)
   
   if(verbose){
-    if (length(out) == 0) {
-      cat("\n[combine_Dr_De()]\n No outliers detected!\n")
-      
-    } else {
-      cat("\n[combine_Dr_De()]\n")
-      cat(paste0(" % of outliers: ", length(out)/length(De)))
+    if (length(out) > 0) {
+      cat(
+        paste0(
+          "\n    >> Outliers detected: ",
+          length(out), "/", length(De),
+          " (", length(out) / length(De) * 100, "%)"
+        )
+      )
     }
   }
     
@@ -498,7 +530,8 @@ fit_IAM <- .calc_IndividualAgeModel(
    
    }
  
-  ## run Bayesian modelling
+
+# Bayesian modelling BCAM -------------------------------------------------
   fit_BCAM <- .calc_BayesianCentralAgeModel(
       theta,
       mu,
@@ -512,7 +545,7 @@ fit_IAM <- .calc_IndividualAgeModel(
         n.adapt = method_control$n.adapt,
         n.iter = method_control$n.iter, 
         thin = method_control$thin, 
-        progress.bar = method_control$method_control,
+        progress.bar = method_control$progress.bar,
         quiet = method_control$quiet,
         diag = method_control$diag)
     )
@@ -563,7 +596,8 @@ if(plot){
   plot_OSLAgeSummary(
     object = fit_BCAM,
     level = 0.68,
-    polygon_col = rgb(100, 149, 237, 75, maxColorValue = 255)
+    polygon_col = rgb(100, 149, 237, 75, maxColorValue = 255), 
+    verbose = FALSE
   )
 
   ##plot ECDF
@@ -638,3 +672,12 @@ if(plot){
   ))
 
 }
+
+ n <- 1000
+ sdt <- 0.3
+ Dr <- stats::rlnorm (n, 0, sdt)
+ int_OD <-  0.1
+ k <- 50
+ De <-  50*sample(Dr,k,replace=TRUE)
+ s <- stats::rnorm(k, 10, 2)
+ combine_Dr_De(Dr,int_OD,De,s,Age_range = c(0,100))
