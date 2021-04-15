@@ -27,7 +27,7 @@ to obtain an age from Bayesian modelling using both distributions. In the back a
 additional functions have been added to support this novel approach. This function requires [JAGS](https://mcmc-jags.sourceforge.io) (supported through `'rjags'`) on your computer along with a 
 couple of other R packages prompted to you when you first try to use this function. 
 
-* `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however it can be used as stand-alone plot.
+* `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
 
 ### Bugfixes and changes
 #### `analyse_SAR.CWOSL()`
