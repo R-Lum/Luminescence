@@ -1,4 +1,4 @@
-#'@title Plot Posterior OSL Age Summary
+#'@title Plot Posterior OSL-Age Summary
 #'
 #'@description A graphical summary of the statistical inference of an OSL age
 #'
