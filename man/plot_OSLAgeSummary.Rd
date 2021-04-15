@@ -17,7 +17,7 @@ by \link{combine_Dr_De}. Alternatively, a \link{numeric} vector of a parameter f
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable additional terminal output}
 
 \item{...}{further arguments to modify the plot, supported: \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab},
-\code{main}, \code{lwd}, \code{lty}, \code{col}, \code{polygon_col}, \code{polygon_density}}
+\code{main}, \code{lwd}, \code{lty}, \code{col}, \code{polygon_col}, \code{polygon_density}, \code{rug}}
 }
 \value{
 A posterior distribution plot and an \linkS4class{RLum.Results}
@@ -51,7 +51,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. plot_OSLAgeSummary(): Plot Posterior OSL Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-75. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. plot_OSLAgeSummary(): Plot Posterior OSL Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-77. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{dplot}
