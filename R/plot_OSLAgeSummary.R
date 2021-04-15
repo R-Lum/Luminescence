@@ -14,7 +14,7 @@
 #'@param verbose [logical] (*with default*): enable/disable additional terminal output
 #'
 #'@param ... further arguments to modify the plot, supported: `xlim`, `ylim`, `xlab`, `ylab`,
-#' `main`, `lwd`, `lty`, `col`, `polygon_col`, `polygon_density`
+#' `main`, `lwd`, `lty`, `col`, `polygon_col`, `polygon_density`, `rug`
 #'
 #'@return A posterior distribution plot and an [RLum.Results-class]
 #' object with the credible interval.
@@ -88,7 +88,8 @@ plot_OSLAgeSummary <- function(
     lty = 1,
     col = "black",
     polygon_col = rgb(1,0,0,0.3),
-    polygon_density = 20
+    polygon_density = 20,
+    rug = TRUE
 
   ), val = list(...))
 
@@ -129,6 +130,9 @@ plot_OSLAgeSummary <- function(
     lwd = 0.5,
     density = plot_settings$polygon_density
   )
+
+  ##add rug
+  if(plot_settings$rug) rug(A)
 
   ## add text
   text(x = density_A$x[xy_id][1], y = density_A$y[xy_id][2], CI[1,1], pos = 2, cex = 0.6)
