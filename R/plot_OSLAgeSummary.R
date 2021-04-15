@@ -50,7 +50,7 @@ plot_OSLAgeSummary <- function(
      object@originator %in% c(".calc_BayesianCentralAgeModel", ".calc_IndividualAgeModel"))
     object <- get_RLum(object, data.object = "A")
 
-  if(is(object, "RLum.Results") && object@originator "combine_Dr_De")
+  if(is(object, "RLum.Results") && object@originator == "combine_Dr_De")
     object <- get_RLum(object, data.object = "Ages")
 
 

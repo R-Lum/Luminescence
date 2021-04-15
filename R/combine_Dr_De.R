@@ -360,8 +360,6 @@
 #' `progress.bar` \tab [logical] \tab `FALSE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
 #' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE` 
 #'}
-#'
-#'##TODO: write tests for this function
 #'##TODO: Write NEWS
 #' 
 #'@param Dr [numeric] (**required**): a dose rate sample
