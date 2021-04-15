@@ -1,6 +1,6 @@
 #'@title Create Regions of Interest (ROI) Graphic
 #'
-#'@decription Create ROI graphic with data extracted from the data imported
+#'@description Create ROI graphic with data extracted from the data imported
 #'via [read_RF2R]. This function is used internally by [analyse_IRSAR.RF] but
 #'might be of use to work with reduced data from spatially resolved measurements.
 #'The plot dimensions mimic the original image dimensions
