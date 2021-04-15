@@ -294,7 +294,7 @@
 #'
 #' **slot:** **`@info`**
 #'
-#' The original function call ([methods::language-class][methods::LanguageClasses]-object)
+#' The original function call ([methods::language-class]-object)
 #'
 #' The output (`data`) should be accessed using the function [get_RLum]
 #'
