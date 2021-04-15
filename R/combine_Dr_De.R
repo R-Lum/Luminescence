@@ -211,14 +211,6 @@
 #'Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'@examples
-#'n <- 1000
-#'sdt <- 0.3
-#'Dr <- stats::rlnorm (n, 0, sdt)
-#'int_OD <-  0.1
-#'k <- 50
-#'De <-  50 * sample(Dr, k, replace = TRUE)
-#'s <- stats::rnorm(k, 10, 2)
-#'combine_Dr_De(Dr, int_OD, De, s, Age_range = c(0,100))
 #'
 #'@md
 #'@noRd
@@ -370,7 +362,6 @@
 #'}
 #'
 #'##TODO: write tests for this function
-#'##TODO: Reduce time for example
 #'##TODO: Write NEWS
 #' 
 #'@param Dr [numeric] (**required**): a dose rate sample
@@ -410,14 +401,27 @@
 #'@keywords dplot distribution 	datagen	
 #'
 #'@examples
-#'  n <- 1000
-#'  sdt <- 0.3
-#'  Dr <- stats::rlnorm (n, 0, sdt)
-#'  int_OD <-  0.1
-#'  k <- 50
-#'  De <-  50*sample(Dr,k,replace=TRUE)
-#'  s <- stats::rnorm(k, 10, 2)
-#'  combine_Dr_De(Dr,int_OD,De,s,Age_range = c(0,100))
+#'## set parameters
+#' Dr <- stats::rlnorm (1000, 0, 0.3)
+#' De <-  50*sample(Dr, 50, replace = TRUE)
+#' s <- stats::rnorm(50, 10, 2)
+#' 
+#'## run modelling
+#'## note: modify parameters for more realistic results
+#'results <- combine_Dr_De(
+#' Dr = Dr,
+#' int_OD = 0.1,
+#' De,
+#' s, 
+#' Age_range = c(0,100),
+#'  method_control = list(
+#'   n.iter = 100, 
+#'   n.chains = 1))
+#'   
+#'## show models used
+#'writeLines(results$models$model_IAM)
+#'writeLines(results$models$model_BCAM)
+#'   
 #'@md
 #'@export  
 combine_Dr_De <- function(
@@ -428,7 +432,7 @@ combine_Dr_De <- function(
   Age_range,
   alpha = .05,
   method_control = list(),
-  outlier_analysis_plot = TRUE, 
+  outlier_analysis_plot = FALSE, 
   verbose = TRUE, 
   plot = TRUE
 ) {
@@ -671,11 +675,19 @@ if(plot){
 
 }
 
- n <- 1000
- sdt <- 0.3
- Dr <- stats::rlnorm (n, 0, sdt)
- int_OD <-  0.1
- k <- 50
- De <-  50*sample(Dr,k,replace=TRUE)
- s <- stats::rnorm(k, 10, 2)
- combine_Dr_De(Dr,int_OD,De,s,Age_range = c(0,100))
+## set parameters
+Dr <- stats::rlnorm (1000, 0, 0.3)
+De <-  50*sample(Dr, 50, replace = TRUE)
+s <- stats::rnorm(50, 10, 2)
+
+## run modelling
+## note: modify parameters for more realistic results
+results <- combine_Dr_De(
+Dr = Dr,
+int_OD = 0.1,
+De,
+s,
+Age_range = c(0,100),
+ method_control = list(
+  n.iter = 100,
+  n.chains = 1))
