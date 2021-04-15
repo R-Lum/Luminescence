@@ -88,7 +88,7 @@ plot_OSLAgeSummary <- function(
     lty = 1,
     col = "black",
     polygon_col = rgb(1,0,0,0.3),
-    polygon_density = NULL
+    polygon_density = 20
 
   ), val = list(...))
 
@@ -117,7 +117,7 @@ plot_OSLAgeSummary <- function(
     y = c(density_A$y, rep(0, length(density_A$y))),
     col = plot_settings$polygon_col,
     lty = 0,
-    density = plot_settings$polygon_density
+    density = NULL
   )
 
   ## add CI
@@ -127,7 +127,7 @@ plot_OSLAgeSummary <- function(
     y = c(density_A$y[xy_id], rep(0, length(density_A$y[xy_id]))),
     col = "black",
     lwd = 0.5,
-    density = 20
+    density = plot_settings$polygon_density
   )
 
   ## add text
