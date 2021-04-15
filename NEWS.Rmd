@@ -8,6 +8,8 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+**This package version requires R (>= 3.6.0).**
+
 ### New functions
 
 * `calc_EED_Model()` Model incomplete and heterogeneous bleaching of mobile grains after Guibert et al. (2017). Along with the function, a new example data set `ExampleData.MortarData` was added.
