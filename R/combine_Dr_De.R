@@ -672,20 +672,3 @@ if(plot){
   ))
 
 }
-
-## set parameters
-Dr <- stats::rlnorm (1000, 0, 0.3)
-De <-  50*sample(Dr, 50, replace = TRUE)
-s <- stats::rnorm(50, 10, 2)
-
-## run modelling
-## note: modify parameters for more realistic results
-results <- combine_Dr_De(
-Dr = Dr,
-int_OD = 0.1,
-De,
-s,
-Age_range = c(0,100),
- method_control = list(
-  n.iter = 100,
-  n.chains = 1))

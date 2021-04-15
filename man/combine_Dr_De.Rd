@@ -12,7 +12,7 @@ combine_Dr_De(
   Age_range,
   alpha = 0.05,
   method_control = list(),
-  outlier_analysis_plot = TRUE,
+  outlier_analysis_plot = FALSE,
   verbose = TRUE,
   plot = TRUE
 )
@@ -32,8 +32,8 @@ the standard deviation characterizing the DRT distribution}
 \item{alpha}{\link{numeric} (\emph{with default}): the required significance level used
 for the outlier detection}
 
-\item{method_control}{\link{list} (\emph{with default}): further parameters passed down
-to the jags modelling process}
+\item{method_control}{\link{list} (\emph{with default}): named \link{list} of further parameters passed down
+to the \link[rjags:rjags-package]{rjags::rjags} modelling}
 
 \item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output}
 
@@ -50,25 +50,58 @@ Estimation contains a preliminary step for detecting outliers in the equivalent
 dose sample.
 }
 \details{
-##TODO add table for method control and check method controll
+\strong{Parameters available for \code{method_control}}
+
+The parameters listed below are used to granular control Bayesian modelling using
+\link[rjags:rjags-package]{rjags::rjags}. Internally the functions \code{.calc_IndividualAgeModel()} and
+\code{.calc_BayesianCentraAgelModel()}. The parameter settings affect both models.
+Note: \code{method_control} expects a \strong{named} list of parameters
+
+\tabular{llll}{
+\strong{PARAMETER} \tab \strong{TYPE} \tab \strong{DEFAULT} \tab \strong{REMARKS} \cr
+\code{variable.names_IAM} \tab \link{character} \tab \code{c('A', 'a', 'sig_a')} \tab variables names to be monitored in the modelling process using the internal function \code{.calc_IndividualAgeModel()}\cr
+\code{variable.names_BCAM} \tab \link{character} \tab \code{c('A', 'D_e')} \tab variables names to be monitored in the modelling process using the internal function \code{.calc_BayesianCentraAgelModel()}\cr
+\code{n.chains} \tab \link{integer} \tab \code{4} \tab number of MCMC chains\cr
+\code{n.adapt} \tab \link{integer} \tab \code{1000} \tab number of iterations for the adaptation\cr
+\code{n.iter} \tab \link{integer} \tab \code{5000} \tab number of iterations to monitor cf. \link[rjags:coda.samples]{rjags::coda.samples}\cr
+\code{thin} \tab \link{numeric} \tab \code{1} \tab thinning interval for the monitoring cf. \link[rjags:coda.samples]{rjags::coda.samples}\cr
+\code{diag} \tab \link{logical} \tab \code{FALSE} \tab additional terminal output for convergence diagnostic.
+\code{FALSE} if \code{verbose = FALSE}\cr
+\code{progress.bar} \tab \link{logical} \tab \code{FALSE} \tab enable/disable progress bar. \code{FALSE} if \code{verbose = FALSE}\cr
+\code{quiet} \tab \link{logical} \tab \code{TRUE} \tab silence terminal output. Set to \code{TRUE} if \code{verbose = FALSE}
+}
+##TODO: Write NEWS
 }
 \section{Function version}{
  0.1.0
 }
 
 \examples{
- n <- 1000
- sdt <- 0.3
- Dr <- stats::rlnorm (n, 0, sdt)
- int_OD <-  0.1
- k <- 50
- De <-  50*sample(Dr,k,replace=TRUE)
- s <- stats::rnorm(k, 10, 2)
- combine_Dr_De(Dr,int_OD,De,s,Age_range = c(0,100))
+## set parameters
+Dr <- stats::rlnorm (1000, 0, 0.3)
+De <-  50*sample(Dr, 50, replace = TRUE)
+s <- stats::rnorm(50, 10, 2)
+
+## run modelling
+## note: modify parameters for more realistic results
+results <- combine_Dr_De(
+Dr = Dr,
+int_OD = 0.1,
+De,
+s, 
+Age_range = c(0,100),
+ method_control = list(
+  n.iter = 100, 
+  n.chains = 1))
+  
+## show models used
+writeLines(results$models$model_IAM)
+writeLines(results$models$model_BCAM)
+  
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-68. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-75. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
