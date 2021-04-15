@@ -178,6 +178,7 @@ test_that("check extrapolation", {
   testthat::skip_on_cran()
   local_edition(3)
 
+  set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
   LIN <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"), "RLum.Results")
