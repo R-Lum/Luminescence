@@ -343,7 +343,8 @@
 #'##TODO: why do I see only two progress bars? 
 #'##TODO: write tests for this function
 #'##TODO: Make sure that plot_OSLAgeSummary() supports also this function
-#'##TODO: Reduce time for examples
+#'##TODO: Reduce time for example
+#'##TODO: Write NEWS
 #'
 #' 
 #'@param Dr [numeric] (**required**): a dose rate sample
