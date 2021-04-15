@@ -44,8 +44,9 @@ an unintentional type conversion to a `character` for very small values (#103, t
 negative; fixed. 
 
 ### Internals
-* `'lamW'` add as new package dependency. This is needed to support the Lambert W function 
+* `'lamW'` added as new package dependency. This is needed to support the Lambert W function 
 as in the function `plot_GrowthCurve()`
+* `mclust` added as new package dependency to support the new Bayesian models  
 
 ## Changes in version 0.9.10 (2020-12-10)
 
