@@ -4,7 +4,7 @@
 #' including curve
 #' fitting on [RLum.Analysis-class] objects.
 #'
-#' @detail To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
+#' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
 #' this function has been written as extended wrapper function for the function
 #' [analyse_SAR.CWOSL], facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
