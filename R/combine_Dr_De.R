@@ -364,7 +364,6 @@
 #' `progress.bar` \tab [logical] \tab `FALSE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
 #' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE`
 #'}
-#'##TODO: Write NEWS
 #'
 #'@param Dr [numeric] (**required**): a dose rate sample
 #'
@@ -391,7 +390,16 @@
 #'
 #'@param plot [logical] (*with default*): enable/disable plot output
 #'
-#'@return ##TODO
+#'@return The function returns a plot if `plot = TRUE` and an [RLum.Results-class]
+#'object with the following slots:
+#'
+#' `@data`\cr
+#' `.. $Ages`: a [numeric] vector with the modelled \cr
+#' `.. $outliers_index`: the index with the detected outliers\cr
+#'
+#' `@info`\cr
+#' `.. $call`: the original function call\cr
+#' `.. $models`: the BUGS models used in the Bayesian process\cr
 #'
 #'@references ##TODO
 #'
@@ -447,6 +455,10 @@ if (!requireNamespace(c("rjags", "coda", "mclust"), quietly = TRUE)) {
     stop("[combine_Dr_De()] To use this function you have to first
          install the package 'rjags', 'coda', and 'mclust'.", call. = FALSE)
 }
+
+# Integrity checks --------------------------------------------------------
+ if(length(De) != length(s))
+   stop("[combine_Dr_De()] 'De' and 's' are not of similar length!", call. = FALSE)
 
 # Prepare data ------------------------------------------------------------
   ## we have to fetch the function otherwise
@@ -672,12 +684,13 @@ if(plot){
     "RLum.Results",
     data = list(
       Ages = fit_BCAM$A,
-      outliers_index = out,
+      outliers_index = out),
+    info = list(
+      call = sys.call(),
       models = list(
         model_IAM = fit_IAM$model,
         model_BCAM = fit_BCAM$model
-      )),
-    info = list(call = sys.call())
+      ))
   ))
 
 }
