@@ -13,6 +13,7 @@ combine_Dr_De(
   alpha = 0.05,
   method_control = list(),
   outlier_analysis_plot = FALSE,
+  par_local = TRUE,
   verbose = TRUE,
   plot = TRUE
 )
@@ -36,12 +37,25 @@ to the \link[rjags:rjags-package]{rjags::rjags} modelling}
 
 \item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output}
 
+\item{par_local}{\link{logical} (\emph{with default}): if set to \code{TRUE} the function uses its
+own \link[graphics:par]{graphics::par} settings (which will end in two plots next to each other)}
+
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal feedback}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
 }
 \value{
-##TODO
+The function returns a plot if \code{plot = TRUE} and an \linkS4class{RLum.Results}
+object with the following slots:
+
+\verb{@data}\cr
+\code{.. $Ages}: a \link{numeric} vector with the modelled \cr
+\code{.. $outliers_index}: the index with the detected outliers\cr
+
+\verb{@info}\cr
+\code{.. $call}: the original function call\cr
+\code{.. $model_IAM}: the BUGS model used to derive the individual age\cr
+\code{.. $model_BCAM}: the BUGS model used to calculate the Bayesian Central Age\cr
 }
 \description{
 A Bayesian statistical analysis of OSL age requiring dose rate sample.
@@ -69,7 +83,6 @@ Note: \code{method_control} expects a \strong{named} list of parameters
 \code{progress.bar} \tab \link{logical} \tab \code{FALSE} \tab enable/disable progress bar. \code{FALSE} if \code{verbose = FALSE}\cr
 \code{quiet} \tab \link{logical} \tab \code{TRUE} \tab silence terminal output. Set to \code{TRUE} if \code{verbose = FALSE}
 }
-##TODO: Write NEWS
 }
 \section{Function version}{
  0.1.0
@@ -94,13 +107,13 @@ Age_range = c(0,100),
   n.chains = 1))
 
 ## show models used
-writeLines(results$models$model_IAM)
-writeLines(results$models$model_BCAM)
+writeLines(results@info$model_IAM)
+writeLines(results@info$model_BCAM)
 
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-79. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-83. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

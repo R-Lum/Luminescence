@@ -399,7 +399,8 @@
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
-#' `.. $models`: the BUGS models used in the Bayesian process\cr
+#' `.. $model_IAM`: the BUGS model used to derive the individual age\cr
+#' `.. $model_BCAM`: the BUGS model used to calculate the Bayesian Central Age\cr
 #'
 #'@references ##TODO
 #'
@@ -431,8 +432,8 @@
 #'   n.chains = 1))
 #'
 #'## show models used
-#'writeLines(results$models$model_IAM)
-#'writeLines(results$models$model_BCAM)
+#'writeLines(results@info$model_IAM)
+#'writeLines(results@info$model_BCAM)
 #'
 #'@md
 #'@export
@@ -687,10 +688,8 @@ if(plot){
       outliers_index = out),
     info = list(
       call = sys.call(),
-      models = list(
-        model_IAM = fit_IAM$model,
-        model_BCAM = fit_BCAM$model
-      ))
+      model_IAM = fit_IAM$model,
+      model_BCAM = fit_BCAM$model)
   ))
 
 }
