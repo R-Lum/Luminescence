@@ -384,6 +384,9 @@
 #'
 #'@param outlier_analysis_plot [logical] (*with default*): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output
 #'
+#'@param par_local [logical] (*with default*): if set to `TRUE` the function uses its
+#'own [graphics::par] settings (which will end in two plots next to each other)
+#'
 #'@param verbose [logical] (*with default*): enable/disable terminal feedback
 #'
 #'@param plot [logical] (*with default*): enable/disable plot output
@@ -434,6 +437,7 @@ combine_Dr_De <- function(
   alpha = .05,
   method_control = list(),
   outlier_analysis_plot = FALSE,
+  par_local = TRUE,
   verbose = TRUE,
   plot = TRUE
 ) {
@@ -556,9 +560,11 @@ fit_IAM <- .calc_IndividualAgeModel(
 # Plotting ----------------------------------------------------------------
 if(plot){
   ##make sure we reset plots
-  old.par <- par(no.readonly = TRUE)
-  on.exit(par(old.par))
-  par(mfrow = c(1, 2))
+  if(par_local) {
+    old.par <- par(no.readonly = TRUE)
+    on.exit(par(old.par))
+    par(mfrow = c(1, 2))
+  }
 
   if(outlier_analysis_plot){
     N <- length(De)
