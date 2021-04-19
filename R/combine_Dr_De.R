@@ -127,7 +127,9 @@
   on.exit(close(model))
   ## select model
   if(length(theta) == 1) {
+    data1$theta <- NULL
     model <- textConnection(event1)
+
   } else {
     model <- textConnection(event2)
 
@@ -279,7 +281,9 @@
 
   ## select model
   if(length(theta) == 1) {
+    data$theta <- NULL
     model <- textConnection(central_age_model1)
+
   } else {
     model <- textConnection(central_age_model2)
 
