@@ -376,7 +376,7 @@
 #'@param Age_range [numeric] (**required**): the age range to be investigated
 #'
 #'@param alpha [numeric] (*with default*): the required significance level used
-#'for the outlier detection
+#'for the outlier detection. If set to `1`, no outliers are removed.
 #'
 #'@param method_control [list] (*with default*): named [list] of further parameters passed down
 #' to the [rjags::rjags] modelling
@@ -518,14 +518,14 @@ fit_IAM <- .calc_IndividualAgeModel(
       )
 
 # Outlier detection -------------------------------------------------------
-  test <- vector()
   sig_max <- sig0 * ((1 - alpha) / alpha) ^ .5
-  for (j in 1:length(De)) {
-    test[j] <- mean(fit_IAM$sig_a[, j] >= sig_max)
-  }
+  test <- vapply(1:length(De), function(j){
+    mean(fit_IAM$sig_a[, j] >= sig_max)
+
+  }, numeric(1))
 
   out <- sort(which(test > alpha))
-  age <- matrixStats::colMedians(fit_IAM$a)
+  ##age <- matrixStats::colMedians(fit_IAM$a) ##TODO has no use
 
   if(verbose){
     if (length(out) > 0) {
@@ -533,7 +533,7 @@ fit_IAM <- .calc_IndividualAgeModel(
         paste0(
           "\n    >> Outliers detected: ",
           length(out), "/", length(De),
-          " (", length(out) / length(De) * 100, "%)"
+          " (", round(length(out) / length(De) * 100, 1), "%)"
         )
       )
     }
