@@ -10,9 +10,10 @@ combine_Dr_De(
   De,
   s,
   Age_range,
-  alpha = 0.05,
-  method_control = list(),
+  outlier_threshold = 0.05,
+  outlier_method = "default",
   outlier_analysis_plot = FALSE,
+  method_control = list(),
   par_local = TRUE,
   verbose = TRUE,
   plot = TRUE
@@ -29,13 +30,18 @@ combine_Dr_De(
 
 \item{Age_range}{\link{numeric} (\strong{required}): the age range to be investigated}
 
-\item{alpha}{\link{numeric} (\emph{with default}): the required significance level used
-for the outlier detection}
+\item{outlier_threshold}{\link{numeric} (\emph{with default}): the required significance level used
+for the outlier detection. If set to \code{1}, no outliers are removed. If
+\code{outlier_method = "RousseeuwCroux1993"}, the median distance is used as outlier threshold.
+Please see details for further information.}
+
+\item{outlier_method}{\link{character} (\emph{with default}): select the outlier detection
+method, either \code{"default"} or \code{"RousseeuwCroux1993"}. See details for further information.}
+
+\item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output}
 
 \item{method_control}{\link{list} (\emph{with default}): named \link{list} of further parameters passed down
 to the \link[rjags:rjags-package]{rjags::rjags} modelling}
-
-\item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output}
 
 \item{par_local}{\link{logical} (\emph{with default}): if set to \code{TRUE} the function uses its
 own \link[graphics:par]{graphics::par} settings (which will end in two plots next to each other)}
@@ -63,6 +69,9 @@ Estimation contains a preliminary step for detecting outliers in the equivalent
 dose sample.
 }
 \details{
+\strong{Outlier detection}
+#TODO
+
 \strong{Parameters available for \code{method_control}}
 
 The parameters listed below are used to granular control Bayesian modelling using
@@ -113,7 +122,7 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-83. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_Dr_De(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-86. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
