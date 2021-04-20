@@ -344,6 +344,9 @@
 #'
 #'@details
 #'
+#'**Outlier detection**
+#'#TODO
+#'
 #'**Parameters available for `method_control`**
 #'
 #'The parameters listed below are used to granular control Bayesian modelling using
@@ -375,13 +378,18 @@
 #'
 #'@param Age_range [numeric] (**required**): the age range to be investigated
 #'
-#'@param alpha [numeric] (*with default*): the required significance level used
-#'for the outlier detection. If set to `1`, no outliers are removed.
+#'@param outlier_threshold [numeric] (*with default*): the required significance level used
+#'for the outlier detection. If set to `1`, no outliers are removed. If
+#'`outlier_method = "RousseeuwCroux1993"`, the median distance is used as outlier threshold.
+#'Please see details for further information.
+#'
+#'@param outlier_method [character] (*with default*): select the outlier detection
+#'method, either `"default"` or `"RousseeuwCroux1993"`. See details for further information.
+#'
+#'@param outlier_analysis_plot [logical] (*with default*): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output
 #'
 #'@param method_control [list] (*with default*): named [list] of further parameters passed down
 #' to the [rjags::rjags] modelling
-#'
-#'@param outlier_analysis_plot [logical] (*with default*): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output
 #'
 #'@param par_local [logical] (*with default*): if set to `TRUE` the function uses its
 #'own [graphics::par] settings (which will end in two plots next to each other)
@@ -443,9 +451,10 @@ combine_Dr_De <- function(
   De,
   s,
   Age_range,
-  alpha = .05,
-  method_control = list(),
+  outlier_threshold = .05,
+  outlier_method = "default",
   outlier_analysis_plot = FALSE,
+  method_control = list(),
   par_local = TRUE,
   verbose = TRUE,
   plot = TRUE
@@ -518,13 +527,25 @@ fit_IAM <- .calc_IndividualAgeModel(
       )
 
 # Outlier detection -------------------------------------------------------
-  sig_max <- sig0 * ((1 - alpha) / alpha) ^ .5
-  test <- vapply(1:length(De), function(j){
-    mean(fit_IAM$sig_a[, j] >= sig_max)
+  alpha <- outlier_threshold[1]
 
-  }, numeric(1))
+  if(outlier_method == "RousseeuwCroux1993") {
+    ## calculate the median of the sig_a
+    xj <- log(matrixStats::colMedians(fit_IAM$sig_a))
+    MAD <- 1.483 * median(abs(xj - median(xj)))
+    test <- (xj - median(xj)) / MAD
+    out <- sort(which(test > alpha))
 
-  out <- sort(which(test > alpha))
+  } else {
+    sig_max <- sig0 * ((1 - alpha) / alpha) ^ .5
+    test <- vapply(1:length(De), function(j){
+      mean(fit_IAM$sig_a[, j] >= sig_max)
+
+    }, numeric(1))
+
+    out <- sort(which(test > alpha))
+  }
+
   ##age <- matrixStats::colMedians(fit_IAM$a) ##TODO has no use
 
   if(verbose){
@@ -596,7 +617,7 @@ if(plot){
       side = 3,
       cex = 0.8
     )
-    abline(h = sig0, col = 3)
+    abline(h = sig0, col = "violet")
 
     ##plot sd of outliers
     if(length(out) > 0){
@@ -605,7 +626,10 @@ if(plot){
               names = out,
               ylab = "Individual sd [a.u.]",
               main = "Outliers: posterior distr.")
-      abline(h = sig0, col = 3)
+
+    abline(h = sig0, col = "violet")
+
+
     } else {
       shape::emptyplot()
       text(0.5, 0.5, "No outlier detected!")
