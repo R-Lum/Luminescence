@@ -89,6 +89,7 @@
       "name": "King, Georgina E."
     },
     {
+      "orcid": "0000-0002-5331-5087",
       "affiliation": "Université de Nantes (France)",
       "name": "Philippe, Anne"
     },
@@ -119,6 +120,11 @@
       "orcid": "0000-0002-4555-7473",
       "affiliation": "USGS (United States)",
       "name": "Gray, Harrison J."
+    },
+    {
+      "orcid": "0000-0003-2219-8727",
+      "affiliation": "University of Nantes (France)",
+      "name": "Galharret, Jean-Michel"
     }
   ],
   "access_right": "open",
