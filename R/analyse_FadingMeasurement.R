@@ -83,7 +83,7 @@
 #'
 #' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
 #' `xlab`, `log`, `mtext` and `xlim` for the two first curve plots, and `ylim` for the fading
-#' curve plot. For further plot customization plesea use the numerical output of the functions for
+#' curve plot. For further plot customization please use the numerical output of the functions for
 #' own plots.
 #'
 #' @return
@@ -108,7 +108,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.15
+#' @section Function version: 0.1.16
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -123,7 +123,7 @@
 #'
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-#' 1093-1106. doi{10.1139/cjes-38-7-1093}
+#' 1093-1106. doi: `10.1139/cjes-38-7-1093`
 #'
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
 #' fading correction for feldspar  IRSL dating-tests on samples in field saturation.
@@ -359,7 +359,7 @@ analyse_FadingMeasurement <- function(
     }
 
     ##calculate Lx/Tx table
-    LxTx_table <- merge_RLum(lapply(1:length(Lx_data), function(x) {
+    LxTx_table <- merge_RLum(.warningCatcher(lapply(1:length(Lx_data), function(x) {
       calc_OSLLxTxRatio(
         Lx.data = Lx_data[[x]],
         Tx.data = Tx_data[[x]],
@@ -382,7 +382,7 @@ analyse_FadingMeasurement <- function(
         }
       )
 
-    }))$LxTx.table
+    })))$LxTx.table
 
   }
 
@@ -976,7 +976,7 @@ analyse_FadingMeasurement <- function(
     cat("\n---------------------------------------------------")
     cat(paste0("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3), " \u00b1 ", format(rhoPrime$SD, digits = 3)))
     cat(paste0("\nlog10(rho'):\t\t", suppressWarnings(round(log10(rhoPrime$MEAN), 2)), " \u00b1 ", round(rhoPrime$SD /  (rhoPrime$MEAN * log(10, base = exp(1))), 2)))
-    cat("\n---------------------------------------------------")
+    cat("\n---------------------------------------------------\n")
 
   }
 

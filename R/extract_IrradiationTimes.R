@@ -16,23 +16,23 @@
 #' Beside the some simple data transformation steps the function applies the
 #' functions [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
 #'
-#' @param object [character], [RLum.Analysis-class] or [list] (**required**): 
-#' path and file name of the XSYG file or an [RLum.Analysis-class] 
-#' produced by the function [read_XSYG2R]; 
+#' @param object [character], [RLum.Analysis-class] or [list] (**required**):
+#' path and file name of the XSYG file or an [RLum.Analysis-class]
+#' produced by the function [read_XSYG2R];
 #' alternatively a `list` of [RLum.Analysis-class] can be provided.
 #'
 #' **Note**: If an [RLum.Analysis-class] is used, any input for
 #' the arguments `file.BINX` and `recordType` will be ignored!
 #'
-#' @param file.BINX [character] (*optional*): 
-#' path and file name of an existing BINX-file. If a file name is provided the 
-#' file will be updated with the information from the XSYG file in the same 
+#' @param file.BINX [character] (*optional*):
+#' path and file name of an existing BINX-file. If a file name is provided the
+#' file will be updated with the information from the XSYG file in the same
 #' folder as the original BINX-file.
-#' 
+#'
 #' **Note:** The XSYG and the BINX-file have to be originate from the
 #' same measurement!
 #'
-#' @param recordType [character] (*with default*): 
+#' @param recordType [character] (*with default*):
 #' select relevant curves types from the XSYG file or [RLum.Analysis-class]
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
@@ -42,18 +42,18 @@
 #'
 #' **Note:** A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
-#' 
-#' @param compatibility.mode [logical] (*with default*): 
+#'
+#' @param compatibility.mode [logical] (*with default*):
 #' this option is parsed only if a BIN/BINX file is produced and it will reset all position
 #' values to a max. value of 48, cf.[write_R2BIN]
-#' 
-#' @param txtProgressBar [logical] (*with default*): 
+#'
+#' @param txtProgressBar [logical] (*with default*):
 #' enables `TRUE` or disables `FALSE` the progression bars during import and export
 #'
-#' @return 
+#' @return
 #' An [RLum.Results-class] object is returned with the
 #' following structure:
-#' 
+#'
 #' ```
 #' .. $irr.times (data.frame)
 #' ```
@@ -67,11 +67,11 @@
 #' In the self call mode (input is a `list` of [RLum.Analysis-class] objects
 #' a list of [RLum.Results-class] is returned.
 #'
-#' @note 
+#' @note
 #' The produced output object contains still the irradiation steps to
 #' keep the output transparent. However, for the BINX-file export this steps
 #' are removed as the BINX-file format description does not allow irradiations
-#' as separat sequences steps.
+#' as separate sequences steps.
 #'
 #' **BINX-file 'Time Since Irradiation' value differs from the table output?**
 #'
@@ -83,12 +83,12 @@
 #' **Negative values for `TIMESINCELAS.STEP`?**
 #'
 #' Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
-#' Example: TL step may comprise three curves: 
-#' 
-#' - (a) counts vs. time, 
-#' - (b) measured temperature vs. time and 
-#' - (c) predefined temperature vs. time. 
-#' 
+#' Example: TL step may comprise three curves:
+#'
+#' - (a) counts vs. time,
+#' - (b) measured temperature vs. time and
+#' - (c) predefined temperature vs. time.
+#'
 #' Three curves, but they are all belonging to one TL measurement step, but with regard to
 #' the time stamps this could produce negative values as the important function
 #' ([read_XSYG2R]) do not change the order of entries for one step
@@ -96,13 +96,13 @@
 #'
 #' @section Function version: 0.3.1
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [Risoe.BINfileData-class],
 #' [read_XSYG2R], [read_BIN2R], [write_R2BIN]
 #'
-#' @references 
+#' @references
 #' Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
 #' recent improvements. Ancient TL 33, 35-42.
 #'

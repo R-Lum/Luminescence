@@ -26,28 +26,28 @@ interactively.
 \strong{\verb{$sample_1}}
 
 \tabular{ccc}{
-\strong{mu} \tab \strong{sigmaphi} \tab \strong{age} \cr
+\strong{mu} \tab \strong{\code{sigmaphi}} \tab \strong{age} \cr
 0.9 \tab 5e-10 \tab 10000 \cr
 }
 
 \strong{\verb{$sample_2}}
 
 \tabular{ccccc}{
-\strong{mu} \tab \strong{sigmaphi} \tab \strong{age} \tab \strong{Dose rate} \tab \strong{D0} \cr
+\strong{mu} \tab \strong{\code{sigmaphi}} \tab \strong{age} \tab \strong{Dose rate} \tab \strong{D0} \cr
 0.9 \tab 5e-10 \tab 10000 \tab 2.5 \tab 40 \cr
 }
 
 \strong{\verb{$set_1}}
 
 \tabular{ccc}{
-\strong{mu} \tab \strong{sigmaphi} \tab \strong{ages} \cr
+\strong{mu} \tab \strong{\code{sigmaphi}} \tab \strong{ages} \cr
 0.9 \tab 5e-10 \tab 1e3, 1e4, 1e5, 1e6 \cr
 }
 
 \strong{\verb{$set_2}}
 
 \tabular{ccccc}{
-\strong{mu} \tab \strong{sigmaphi} \tab \strong{ages} \tab \strong{Dose rate} \tab \strong{D0} \cr
+\strong{mu} \tab \strong{\code{sigmaphi}} \tab \strong{ages} \tab \strong{Dose rate} \tab \strong{D0} \cr
 0.9 \tab 5e-10 \tab 1e2, 1e3, 1e4, 1e5, 1e6 \tab 1.0 \tab 40 \cr
 }
 }

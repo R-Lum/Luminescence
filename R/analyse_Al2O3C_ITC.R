@@ -91,7 +91,7 @@
 #'
 #' Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 #' Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-#' Geochronometria 45, 56-67.
+#' Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 #'
 #' @keywords datagen
 #'

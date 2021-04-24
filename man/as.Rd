@@ -31,7 +31,7 @@ for \verb{[RLum.Results-class]}
 \code{list} \tab \code{list}\cr
 }
 
-Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
+Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
 
 \strong{\linkS4class{RLum.Data.Curve}}
 
@@ -65,7 +65,7 @@ Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 \code{list} \tab \code{list}\cr
 }
 
-Given that the \link{list} consits of \linkS4class{RLum.Results} objects.
+Given that the \link{list} consists of \linkS4class{RLum.Results} objects.
 }
 \note{
 Due to the complex structure of the \code{RLum} objects itself a coercing to standard

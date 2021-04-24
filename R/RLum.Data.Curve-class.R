@@ -24,7 +24,7 @@ NULL
 #'          data = Your.RLum.Data.Curve,
 #'          recordType = 'never seen before')
 #' ```
-#' would just change the recordType. Missing arguements  the value is taken
+#' would just change the `recordType`. Missing arguments  the value is taken
 #' from the input object in 'data' (which is already an RLum.Data.Curve object
 #' in this example)
 #'
@@ -33,7 +33,7 @@ NULL
 #' The class should only contain data for a single curve. For additional
 #' elements the slot `info` can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class `RLum.Data.Curve` are produced by other
-#' functions (partyl within [RLum.Analysis-class] objects),
+#' functions (partly within [RLum.Analysis-class] objects),
 #' namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
 #'
 #' @section Create objects from this Class:
@@ -453,7 +453,7 @@ setMethod(f = "bin_RLum.Data",
 #' In particular the internal function `.smoothing` is used.
 #'
 #' @param k [`smooth_RLum`]; [integer] (*with default*):
-#' window for the rolling mean; must be odd for rollmedian.
+#' window for the rolling mean; must be odd for `rollmedian`.
 #' If nothing is set k is set automatically
 #'
 #' @param fill [`smooth_RLum`]; [numeric] (*with default*):
@@ -461,7 +461,7 @@ setMethod(f = "bin_RLum.Data",
 #'
 #' @param align [`smooth_RLum`]; [character] (*with default*):
 #' specifying whether the index of the result should be left- or right-aligned
-#' or centered (default) compared to the rolling window of observations, allowed
+#' or centred (default) compared to the rolling window of observations, allowed
 #' `"right"`, `"center"` and `"left"`
 #'
 #' @param method [`smooth_RLum`]; [character] (*with default*):

@@ -83,7 +83,7 @@ following elements:
 \item{.$data}{\link{data.frame} original input data}
 \item{args}{\link{list} used arguments}
 \item{call}{\link{call} the function call}
-\item{.$mle}{\link{mle2} object containing the maximum log likelhood functions for all parameters}
+\item{.$mle}{\link{mle2} object containing the maximum log likelihood functions for all parameters}
 \item{BIC}{\link{numeric} BIC score}
 \item{.$confint}{\link{data.frame} confidence intervals for all parameters}
 \item{.$profile}{\link{profile.mle2} the log likelihood profiles}
@@ -122,7 +122,7 @@ population.
 \strong{Note} that the un-logged model requires \code{sigmab} to be in the same
 absolute unit as the provided De values (seconds or Gray).
 
-While the original (logged) version of the mimimum dose
+While the original (logged) version of the minimum dose
 model may be appropriate for most samples (i.e. De distributions), the
 modified (un-logged) version is specially designed for modern-age and young
 samples containing negative, zero or near-zero De estimates (Arnold et al.
@@ -164,13 +164,13 @@ This function supports parallel computing and can be activated by \code{multicor
 By default, the number of available logical CPU cores is determined
 automatically, but can be changed with \code{cores}. The multicore support
 is only available when \code{bootstrap=TRUE} and spawns \code{n} R instances
-for each core to get MAM estimates for each of the N and M boostrap
+for each core to get MAM estimates for each of the N and M bootstrap
 replicates. Note that this option is highly experimental and may or may not
 work for your machine. Also the performance gain increases for larger number
 of bootstrap replicates. Also note that with each additional core and hence
 R instance and depending on the number of bootstrap replicates the memory
-usage can significantly increase. Make sure that memory is always availabe,
-otherwise there will be a massive perfomance hit.
+usage can significantly increase. Make sure that memory is always available,
+otherwise there will be a massive performance hit.
 
 \strong{Likelihood profiles}
 
@@ -294,7 +294,7 @@ summary(bs$poly.fits$poly.three$fitted.values)
 } 
 
 \section{How to cite}{
-Burow, C., 2021. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -35,7 +35,7 @@
 #' \deqn{y = a*x + b}
 #'
 #' - `channel`: the measured
-#' background signal is subtracted channelwise from the measured signal.
+#' background signal is subtracted channel wise from the measured signal.
 #'
 #'
 #' **Start values**
@@ -48,7 +48,7 @@
 #' If no start values (`start_values`) are provided by the user, a cheap guess is made
 #' by using the detrapping values found by Jain et al. (2003) for quartz for a
 #' maximum of 7 components. Based on these values, the pseudo start parameters
-#' xm and Im are recalculated for the given data set. In all cases, the fitting
+#' `xm` and `Im` are recalculated for the given data set. In all cases, the fitting
 #' starts with the ultra-fast component and (depending on `n.components`)
 #' steps through the following values. If no fit could be achieved, an error
 #' plot (for `plot = TRUE`) with the pseudo curve (based on the
@@ -61,8 +61,8 @@
 #'
 #' **(c)**
 #' If no start parameters are provided and
-#' the option `fit.advanced = TRUE` is chosen, an advanced start paramter
-#' estimation is applied using a stochastical attempt. Therefore, the
+#' the option `fit.advanced = TRUE` is chosen, an advanced start parameter
+#' estimation is applied using a stochastic attempt. Therefore, the
 #' recalculated start parameters **(a)** are used to construct a normal
 #' distribution. The start parameters are then sampled randomly from this
 #' distribution. A maximum of 100 attempts will be made. **Note:** This
@@ -70,7 +70,7 @@
 #'
 #' **Goodness of fit**
 #'
-#' The goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
+#' The goodness of the fit is given by a pseudo-R^2 value (pseudo coefficient of
 #' determination). According to Lave (1970), the value is calculated as:
 #'
 #' \deqn{pseudoR^2 = 1 - RSS/TSS}
@@ -81,8 +81,8 @@
 #' **Error of fitted component parameters**
 #'
 #' The 1-sigma error for the components is calculated using
-#' the function [confint]. Due to considerable calculation time, this
-#' option is deactived by default. In addition, the error for the components
+#' the function [stats::confint]. Due to considerable calculation time, this
+#' option is deactivated by default. In addition, the error for the components
 #' can be estimated by using internal R functions like [summary]. See the
 #' [nls] help page for more information.
 #'
@@ -99,11 +99,11 @@
 #' (min = 1, max = 7).
 #'
 #' @param start_values [data.frame] (*optional*):
-#' start parameters for lm and xm data for the fit. If no start values are given,
+#' start parameters for `lm` and `xm` data for the fit. If no start values are given,
 #' an automatic start value estimation is attempted (see details).
 #'
 #' @param input.dataType [character] (*with default*):
-#' alter the plot output depending on the input data: "LM" or "pLM" (pseudo-LM).
+#' alter the plot output depending on the input data: `"LM"` or `"pLM"` (pseudo-LM).
 #' See: [CW2pLM]
 #'
 #' @param fit.method [character] (*with default*):
@@ -118,7 +118,7 @@
 #' additional identifier used as column header for the table output.
 #'
 #' @param LED.power [numeric] (*with default*):
-#' LED power (max.) used forintensity ramping in mW/cm^2.
+#' LED power (max.) used for intensity ramping in mW/cm^2.
 #' **Note:** This value is used for the calculation of the absolute
 #' photoionisation cross section.
 #'
@@ -136,7 +136,7 @@
 #' **Note:** It may take a while and it is not compatible with `fit.method = "LM"`.
 #'
 #' @param fit.calcError [logical] (*with default*):
-#' calculate 1-sigma error range of components using [confint].
+#' calculate 1-sigma error range of components using [stats::confint].
 #'
 #' @param bg.subtraction [character] (*with default*):
 #' specifies method for background subtraction (`polynomial`, `linear`, `channel`,
@@ -163,8 +163,8 @@
 #'
 #' `.. $data` : [data.frame] with fitting results\cr
 #' `.. $fit` : nls ([nls] object)\cr
+#' `.. $component_matrix` : [matrix] with numerical xy-values of the single fitted components with the resolution of the input data
 #' `.. $component.contribution.matrix` : [list] component distribution matrix
-#'
 #'
 #' **`info:`**
 #'
@@ -187,7 +187,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -469,7 +469,7 @@ fit_LMCurve<- function(
   ##automatic start parameter estimation
 
   ##set fit function
-  fit.function<-fit.equation(Im.i=1:n.components,xm.i=1:n.components)
+  fit.function <- fit.equation(Im.i = 1:n.components, xm.i = 1:n.components)
 
   if(missing(start_values)){
 
@@ -891,9 +891,26 @@ fit_LMCurve<- function(
     writeLines("[fit_LMCurve] Fitting Error: Plot without fit produced!")
 
   }
-  ##============================================================================##
-  ##  PLOTTING
-  ##============================================================================##
+
+  # Calculate component curves ----------------------------------------------
+  component_matrix <- NA
+  if(!inherits(fit,"try-error")){
+    component_matrix <- matrix(NA, nrow = nrow(values), ncol = 2 + length(Im))
+    colnames(component_matrix) <- c("TIME", "SUM", paste("COMP_", 1:length(Im)))
+    component_matrix[, 1] <- values[, 1]
+    component_matrix[, 2] <- eval(fit.function)
+
+    ## add single components
+    for(i in 1:length(Im)){
+      component_matrix[, 2 + i] <-
+        exp(0.5) * Im[i] * values[, 1] /
+        xm[i] * exp(-values[, 1] ^ 2 / (2 * xm[i] ^ 2))
+
+    }
+
+  }
+
+  # Plotting ----------------------------------------------------------------
   if(plot){
 
     ##cheat the R check routine
@@ -917,7 +934,7 @@ fit_LMCurve<- function(
     layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
     par(oma=c(1,1,1,1),mar=c(0,4,3,0), cex=cex)
 
-    ##==uppper plot==##
+    ##==upper plot==##
     ##open plot area
     plot(
       NA,
@@ -1047,6 +1064,7 @@ fit_LMCurve<- function(
     data = list(
       data = output.table,
       fit = fit,
+      component_matrix = component_matrix,
       component.contribution.matrix = list(component.contribution.matrix)
     ),
     info = list(call = sys.call())

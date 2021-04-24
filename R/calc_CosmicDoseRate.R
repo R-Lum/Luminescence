@@ -138,7 +138,7 @@
 #' neglects the influence of the soft-component of the cosmic ray flux. For
 #' samples at zero depth and at sea-level the underestimation can be as large
 #' as ~0.1 Gy/ka. In a previous article, Prescott & Hutton (1988) give another
-#' approximation of Barbouti & Rastins equation in the form of
+#' approximation of Barbouti & Rastin's equation in the form of
 #'
 #' \deqn{D = 0.21*exp(-0.070*absorber+0.0005*absorber^2)}
 #'
@@ -149,7 +149,7 @@
 #' As a result, this function employs the equation of Prescott & Hutton (1994)
 #' only for depths > 167 g/cm^2, i.e. only for the hard-component of the cosmic
 #' ray flux. Cosmic dose rate values for depths < 167 g/cm^2 were obtained from
-#' the "AGE" programm (Gruen 2009) and fitted with a 6-degree polynomial curve
+#' the "AGE" program (Gruen 2009) and fitted with a 6-degree polynomial curve
 #' (and hence reproduces the graph shown in Prescott & Hutton 1988). However,
 #' these values assume an average overburden density of 2 g/cm^3.
 #'

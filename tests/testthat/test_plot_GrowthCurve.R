@@ -41,6 +41,37 @@ temp_QDR <-
     NumberIterations.MC = 10
   )
 
+temp_GOK <-
+  plot_GrowthCurve(
+    LxTxData,
+    fit.method = "GOK",
+    output.plot = FALSE,
+    verbose = FALSE,
+    NumberIterations.MC = 10
+  )
+
+temp_LambertW <-
+  plot_GrowthCurve(
+    LxTxData,
+    fit.method = "LambertW",
+    output.plot = FALSE,
+    verbose = FALSE,
+    NumberIterations.MC = 10
+  )
+
+test_that("fail fast", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  ##fit.method
+  expect_error(
+    plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
+    regexp = "[plot_GrowthCurve()] fit method not supported, supported methods are: LIN, QDR, EXP, EXP OR LIN, EXP+LIN, EXP+EXP, GOK, LambertW",
+    fixed = TRUE
+  )
+
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
@@ -59,6 +90,12 @@ test_that("check class and length of output", {
 
   expect_s4_class(temp_QDR, class = "RLum.Results")
     expect_s3_class(temp_QDR$Fit, class = "lm")
+
+  expect_s4_class(temp_GOK, class = "RLum.Results")
+    expect_s3_class(temp_GOK$Fit, class = "nls")
+
+  expect_s4_class(temp_LambertW, class = "RLum.Results")
+    expect_s3_class(temp_LambertW$Fit, class = "nls")
 
 })
 
@@ -121,6 +158,19 @@ test_that("check values from output example", {
 
    }
 
+   expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
+   ##fix for different R versions
+   if(R.version$major > "3"){
+     expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.0001)
+
+   }
+
+   expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
+   ##fix for different R versions
+   if(R.version$major > "3"){
+     expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17662)
+
+   }
 
 })
 
@@ -128,13 +178,25 @@ test_that("check extrapolation", {
   testthat::skip_on_cran()
   local_edition(3)
 
+  set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
-  LIN <- plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN")
-  EXP <- plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP")
-  EXPLIN <- plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")
+  LIN <- expect_s4_class(
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"), "RLum.Results")
+  EXP <- expect_s4_class(
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"), "RLum.Results")
+  EXPLIN <- expect_s4_class(
+    suppressWarnings(
+      plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")), "RLum.Results")
+
+  # GOK <- expect_s4_class(
+  #   plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
+
+  LambertW <- expect_s4_class(
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
 
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
+  expect_equal(round(LambertW$De$De,0),  114)
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)

@@ -28,7 +28,7 @@ emission spectra data. This is in particular useful if you want to further treat
 and apply, e.g., a signal deconvolution.
 }
 \details{
-The intensity of the spectrum is re-calcualted using the following approach to recalulate
+The intensity of the spectrum is re-calculated using the following approach to recalculate
 wavelength and corresponding intensity values
 (e.g., Appendix 4 in Blasse and Grabmeier, 1994; Mooney and Kambhampati, 2013):
 
@@ -46,7 +46,7 @@ For transforming the wavelength axis (x-values) the equation as follow is used
 }
 \note{
 This conversion works solely for emission spectra. In case of absorption spectra only
-the x-axsis has to be converted.
+the x-axis has to be converted.
 }
 \section{Function version}{
  0.1.1
@@ -106,7 +106,7 @@ plot(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. convert_Wavelength2Energy(): Emission Spectra Conversion from Wavelength to Energy Scales. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

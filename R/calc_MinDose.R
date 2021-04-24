@@ -30,7 +30,7 @@
 #' **Note** that the un-logged model requires `sigmab` to be in the same
 #' absolute unit as the provided De values (seconds or Gray).
 #'
-#' While the original (logged) version of the mimimum dose
+#' While the original (logged) version of the minimum dose
 #' model may be appropriate for most samples (i.e. De distributions), the
 #' modified (un-logged) version is specially designed for modern-age and young
 #' samples containing negative, zero or near-zero De estimates (Arnold et al.
@@ -72,13 +72,13 @@
 #' By default, the number of available logical CPU cores is determined
 #' automatically, but can be changed with `cores`. The multicore support
 #' is only available when `bootstrap=TRUE` and spawns `n` R instances
-#' for each core to get MAM estimates for each of the N and M boostrap
+#' for each core to get MAM estimates for each of the N and M bootstrap
 #' replicates. Note that this option is highly experimental and may or may not
 #' work for your machine. Also the performance gain increases for larger number
 #' of bootstrap replicates. Also note that with each additional core and hence
 #' R instance and depending on the number of bootstrap replicates the memory
-#' usage can significantly increase. Make sure that memory is always availabe,
-#' otherwise there will be a massive perfomance hit.
+#' usage can significantly increase. Make sure that memory is always available,
+#' otherwise there will be a massive performance hit.
 #'
 #' **Likelihood profiles**
 #'
@@ -154,7 +154,7 @@
 #' \item{.$data}{[data.frame] original input data}
 #' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
-#' \item{.$mle}{[mle2] object containing the maximum log likelhood functions for all parameters}
+#' \item{.$mle}{[mle2] object containing the maximum log likelihood functions for all parameters}
 #' \item{BIC}{[numeric] BIC score}
 #' \item{.$confint}{[data.frame] confidence intervals for all parameters}
 #' \item{.$profile}{[profile.mle2] the log likelihood profiles}

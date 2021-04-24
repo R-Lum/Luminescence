@@ -18,7 +18,7 @@ The function returns a \linkS4class{Risoe.BINfileData} object.
 }
 \description{
 The functions converts \linkS4class{RLum.Analysis} and \linkS4class{RLum.Data.Curve} objects and a \link{list} of those
-to \linkS4class{Risoe.BINfileData} objects. The funtion intends to provide a minimum of compatiblility
+to \linkS4class{Risoe.BINfileData} objects. The function intends to provide a minimum of compatibility
 between both formats. The created \linkS4class{RLum.Analysis} object can be later exported to a
 BIN-file using the function \link{write_R2BIN}.
 }
@@ -45,7 +45,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. convert_RLum2Risoe.BINfileData(): Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. convert_RLum2Risoe.BINfileData(): Converts RLum.Analysis-objects and RLum.Data.Curve-objects to RLum2Risoe.BINfileData-objects. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

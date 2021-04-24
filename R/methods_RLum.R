@@ -4,16 +4,16 @@
 
 ##CAUTION NOTE:
 ##(1) Please DO NOT access to the S4 objects by using the slots this causes inconsistent
-## behaviour, please use the correspong RLum-methods instead!
+## behaviour, please use the corresponding RLum-methods instead!
 ##
 ##(2) Especially, please DO NOT include S3-methods for which no S4-method is implemented! Especially
 ##for coercing.
 ##
-##(3) Finally, what ever you want to implemnt, check whether a S4-method exists, it should
+##(3) Finally, what ever you want to implement, check whether a S4-method exists, it should
 ##be just passed to this methods, not the opposite, otherwise this will yield in undesired behaviour
 ##
 ##TODO: For this S3 generics so far no proper documentation exists ... we should consider
-##to provide an overview within a separat document, as it becomes otherwise rather
+##to provide an overview within a separate document, as it becomes otherwise rather
 ##complicated for beginners to work with the documentation.
 ##
 
@@ -33,14 +33,14 @@
 #' has been implemented in the package to increase the usability for users new
 #' in R and who are not familiar with the underlying `RLum`-object structure of
 #' the package. The practical outcome is that operations and functions presented
-#' in standard books on R can be used without knowing the specifica of the R
-#' package 'Luminescence'. For examples see the example section.
+#' in standard books on R can be used without knowing the specifics of the R
+#' package `'Luminescence'`. For examples see the example section.
 #'
 #' @param x [RLum-class] or [Risoe.BINfileData-class] (**required**):
-#' input opject
+#' input object
 #'
 #' @param object [RLum-class] (**required**):
-#' input opject
+#' input object
 #'
 #' @param y [integer] (*optional*):
 #' the row index of the matrix, data.frame

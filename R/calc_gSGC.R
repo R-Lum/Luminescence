@@ -9,7 +9,7 @@
 #'
 #'
 #' @param data [data.frame] (**required**):
-#' input data of providing the following columns: *'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'*
+#' input data of providing the following columns: `LnTn`, `LnTn.error`, `Lr1Tr1`, `Lr1Tr1.error`, `Dr1`
 #' **Note:** column names are not required. The function expect the input data in the given order
 #'
 #' @param gSGC.type [character] (*with default*):

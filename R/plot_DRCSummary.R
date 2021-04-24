@@ -1,6 +1,6 @@
 #'Create a Dose-Response Curve Summary Plot
 #'
-#'While analysing OSL SAR or pIRIR data the view on the data is limited usually to one
+#'While analysing OSL SAR or pIRIR-data the view on the data is limited usually to one
 #'dose-response curve (DRC) at the time for one aliquot. This function overcomes this limitation
 #'by plotting all DRC from an [RLum.Results-class] object created by the function [analyse_SAR.CWOSL]
 #'in one single plot.
@@ -12,12 +12,12 @@
 #'
 #'@param source_dose_rate [numeric] (*optional*): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.
 #'
-#'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occuring order. A sequence can
+#'@param sel_curves [numeric] (optional): id of the curves to be plotting in its occurring order. A sequence can
 #'be provided for selecting, e.g., only every 2nd curve from the input object
 #'
 #'@param show_dose_points [logical] (with default): enable or disable plot of dose points in the graph
 #'
-#'@param show_natural [logical] (with default): enable or disable the plot of the natural Lx/Tx values
+#'@param show_natural [logical] (with default): enable or disable the plot of the natural `Lx/Tx` values
 #'
 #'@param n [integer] (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 #'down the plotting process and are usually not needed

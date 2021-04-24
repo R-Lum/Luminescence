@@ -37,7 +37,7 @@
 #' if `profiling = TRUE` only the first two elements are considered
 #'
 #' @param T [numeric] (*with default*):
-#' temperature in deg. C for which the lifetime(s) will be calculted.
+#' temperature in deg. C for which the lifetime(s) will be calculated.
 #' A vector can be provided.
 #'
 #' @param output_unit [character] (*with default*):
@@ -50,12 +50,12 @@
 #' (cf. details and examples section)
 #'
 #' @param profiling_config [list] (*optional*):
-#' allows to set configurate parameters used for the profiling
+#' allows to set configuration parameters used for the profiling
 #' (and only have an effect here). Supported parameters are:
 #'
 #' - `n` (number of MC runs),
-#' - `E.distribution` (distribution used for the resampling for E) and
-#' - `s.distribution` (distribution used for the resampling for s).
+#' - `E.distribution` (distribution used for the re-sampling for E) and
+#' - `s.distribution` (distribution used for the re-sampling for s).
 #'
 #' Currently only the normal distribution is supported
 #' (e.g., `profiling_config = list(E.distribution = "norm")`
@@ -64,7 +64,7 @@
 #' enables/disables verbose mode
 #'
 #' @param plot [logical]:
-#' enables/disables output plot, currenlty only in combination with `profiling = TRUE`.
+#' enables/disables output plot, currently only in combination with `profiling = TRUE`.
 #'
 #' @param ... further arguments that can be passed in combination with the plot output.
 #' Standard plot parameters are supported ([plot.default])
@@ -89,8 +89,8 @@
 #' }
 #'
 #' @note
-#' The profiling is currently based on resampling from a normal distribution, this
-#' distribution assumption might be, however, not valid for given E and s paramters.
+#' The profiling is currently based on re-sampling from a normal distribution, this
+#' distribution assumption might be, however, not valid for given E and s parameters.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -101,7 +101,7 @@
 #'
 #' @references
 #'
-#' Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.
+#' Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. World Scientific.
 #'
 #' @keywords datagen
 #'

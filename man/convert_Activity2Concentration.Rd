@@ -30,7 +30,7 @@ functions such as \link{use_DRAC}.
 \details{
 The conversion from nuclide activity of a sample to nuclide concentration
 is performed using conversion factors that are based on the mass-related
-specific activity of the respective nuclides.
+specific activity of the respective nuclide.
 The factors can be calculated using the equation:
 
 \deqn{
@@ -44,8 +44,8 @@ f = A / 10^6
 where:
 \itemize{
 \item \code{A} - specific activity of the nuclide
-\item \code{N.freq} - natural frequency of the isotop
-\item \code{N.mol.mass} molare mass
+\item \code{N.freq} - natural frequency of the isotope
+\item \code{N.mol.mass} molar mass
 \item \code{n.half.life} half-life of the nuclide
 }
 
@@ -78,7 +78,7 @@ convert_Activity2Concentration(data)
 } 
 
 \section{How to cite}{
-Fuchs, M.C., 2021. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., 2021. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -90,6 +90,6 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 \url{https://www.bmu.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
 }
 \author{
-Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
+Margret C. Fuchs, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 , RLum Developer Team}
 \keyword{IO}

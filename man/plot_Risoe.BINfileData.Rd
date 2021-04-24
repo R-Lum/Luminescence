@@ -50,7 +50,7 @@ transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \co
 \code{CW2pPMi}. See details.}
 
 \item{dose_rate}{\link{numeric} (\emph{optional}):
-dose rate of the irradition source at the measurement date.
+dose rate of the irradiation source at the measurement date.
 If set, the given irradiation dose will be shown in Gy.  See details.}
 
 \item{temp.lab}{\link{character} (\emph{optional}):
@@ -116,7 +116,7 @@ data(ExampleData.BINfileData, envir = environment())
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2021. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2021. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -30,7 +30,7 @@ If the position is not valid \code{NA} is returned.}
 \item{grain}{\link{vector}, \link{numeric} (\emph{optional}):
 grain number from the measurement to limit the converted data set
 (e.g., \code{grain = c(1:48)}). Please be aware that this option may lead to
-unwanted effects, as the output is strictly limited to the choosen grain
+unwanted effects, as the output is strictly limited to the chosen grain
 number for all position numbers}
 
 \item{run}{\link{vector}, \link{numeric} (\emph{optional}):
@@ -99,7 +99,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}

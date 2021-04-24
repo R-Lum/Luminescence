@@ -81,7 +81,7 @@
 #' are:
 #'
 #' \tabular{lll}{
-#' **Parameter** \tab **Type** \tab **Descritpion**\cr
+#' **Parameter** \tab **Type** \tab **Description**\cr
 #' `lower_centralD` \tab [numeric] \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 #' `upper_centralD` \tab [numeric] \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 #' `n.chains` \tab [integer] \tab sets number of parallel chains for the model (default = 3) (cf. [rjags::jags.model])\cr
@@ -96,7 +96,7 @@
 #'
 #' The function provides the option to modify and to define own models that can be used for
 #' the Bayesian calculation. In the case the user wants to modify a model, a new model
-#' can be piped into the funtion via the argument `baSAR_model` as `character`.
+#' can be piped into the function via the argument `baSAR_model` as `character`.
 #' The model has to be provided in the JAGS dialect of the BUGS language (cf. [rjags::jags.model])
 #' and parameter names given with the pre-defined names have to be respected, otherwise the function
 #' will break.
@@ -180,8 +180,8 @@
 #' new selection will add the aliquots to the removed aliquots table.
 #'
 #' @param source_doserate [numeric] **(required)**:
-#' source dose rate of beta-source used for the measuremnt and its uncertainty
-#' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Paramater can be provided
+#' source dose rate of beta-source used for the measurement and its uncertainty
+#' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Parameter can be provided
 #' as `list`, for the case that more than one BIN-file is provided, e.g.,
 #' `source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))`.
 #'
@@ -209,18 +209,18 @@
 #'
 #' @param irradiation_times [numeric] (*optional*): if set this vector replaces all irradiation
 #' times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
-#' Plesae note that if this argument is used, for every(!) single curve
+#' Please note that if this argument is used, for every(!) single curve
 #' in the dataset an irradiation time needs to be set.
 #'
 #' @param sigmab [numeric] (*with default*):
-#' option to set a manual value for the overdispersion (for LnTx and TnTx),
-#' used for the Lx/Tx error calculation. The value should be provided as
+#' option to set a manual value for the overdispersion (for `LnTx` and `TnTx`),
+#' used for the `Lx`/`Tx` error calculation. The value should be provided as
 #' absolute squared count values, cf. [calc_OSLLxTxRatio].
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param sig0 [numeric] (*with default*):
 #' allow adding an extra component of error to the final Lx/Tx error value
-#' (e.g., instrumental errror, see details is [calc_OSLLxTxRatio]).
+#' (e.g., instrumental error, see details is [calc_OSLLxTxRatio]).
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param distribution [character] (*with default*):
@@ -291,7 +291,7 @@
 #'  `$mcmc` \tab `mcmc` \tab [coda::mcmc.list] object including raw output \cr
 #'  `$models` \tab `character` \tab implemented models used in the baSAR-model core \cr
 #'  `$input_object` \tab `data.frame` \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
-#'  `$removed_aliquots` \tab `data.frame` \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed `NULL` is returned
+#'  `$removed_aliquots` \tab `data.frame` \tab table with removed aliquots (e.g., `NaN`, or `Inf` `Lx`/`Tx` values). If nothing was removed `NULL` is returned
 #' }
 #'
 #'**slot:** **`@info`**
@@ -324,7 +324,7 @@
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-#' The underlying Bayesian model based on a contribution by Combes et al., 2015.
+#' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [read_BIN2R], [calc_OSLLxTxRatio], [plot_GrowthCurve],
 #' [readxl::read_excel], [verify_SingleGrainData],
@@ -333,7 +333,7 @@
 #'
 #' @references
 #'
-#' Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
+#' Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 #' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 #'
@@ -349,10 +349,10 @@
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 #' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 #'
-#' Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download
+#' Plummer, M., 2017. JAGS Version 4.3.0 user manual. `https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download`
 #'
 #' @note
-#' **If you provide more than one BIN-file**, it is **strongly** recommanded to provide
+#' **If you provide more than one BIN-file**, it is **strongly** recommended to provide
 #' a `list` with the same number of elements for the following parameters:
 #'
 #' `source_doserate`, `signal.integral`, `signal.integral.Tx`, `background.integral`,

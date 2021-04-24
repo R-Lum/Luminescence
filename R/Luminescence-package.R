@@ -346,7 +346,7 @@ NULL
 #'
 #' \deqn{y = -6*10^-8*x^3+2*10^-5*x^2-0.0025*x+0.2969}
 #'
-#' **values.factor.Altitude**
+#' **`values.factor.Altitude`**
 #'
 #' \tabular{ll}{
 #' Reference: \tab Prescott & Hutton (1994) \cr
@@ -358,7 +358,7 @@ NULL
 #' \deqn{y = -0.026*x^2 + 0.6628*x + 1.0435}
 #'
 #'
-#' **values.par.FJH**
+#' **`values.par.FJH`**
 #'
 #' \tabular{ll}{
 #' Reference: \tab Prescott & Hutton (1994) \cr
@@ -435,7 +435,7 @@ NULL
 #' Lab: \tab Luminescence Laboratory Bayreuth \cr
 #' Lab-Code: \tab BT607 \cr
 #' Location: \tab Saxony/Germany \cr
-#' Material: \tab Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader\cr
+#' Material: \tab Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader\cr
 #' Reference: \tab unpublished
 #' }
 #'
@@ -503,7 +503,7 @@ NULL
 #' Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT607\cr
 #' Location: \tab Saxony/Germany\cr
-#' Material: \tab Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader.\cr
+#' Material: \tab Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader.\cr
 #' Reference: \tab unpublished data }
 #'
 #' **CW_Curve.BosWallinga2012**
@@ -565,7 +565,7 @@ NULL
 
 #' Example data for fit_LMCurve() in the package Luminescence
 #'
-#' Lineraly modulated (LM) measurement data from a quartz sample from Norway
+#' Linearly modulated (LM) measurement data from a quartz sample from Norway
 #' including background measurement. Measurements carried out in the
 #' luminescence laboratory at the University of Bayreuth.
 #'
@@ -573,7 +573,7 @@ NULL
 #'
 #' @references
 #' Fuchs, M., Kreutzer, S., Fischer, M., Sauer, D., Soerensen, R., 2012. OSL and IRSL
-#' dating of raised beach sand deposits along the southeastern coast of Norway.
+#' dating of raised beach sand deposits along the south-eastern coast of Norway.
 #' Quaternary Geochronology, 10, 195-200.
 #'
 #' @source
@@ -582,7 +582,7 @@ NULL
 #' Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT900\cr
 #' Location: \tab Norway\cr
-#' Material: \tab Beach deposit, coarse grain quartz measured on aluminum discs on a Risoe TL/OSL DA-15 reader\cr
+#' Material: \tab Beach deposit, coarse grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader\cr
 #' }
 #'
 #' @examples
@@ -628,7 +628,7 @@ NULL
 
 #' Example Lx and Tx curve data from an artificial OSL measurement
 #'
-#' Lx and Tx data of continous wave (CW-) OSL signal curves.
+#' `Lx` and `Tx` data of continuous wave (CW-) OSL signal curves.
 #'
 #' @format Two [`data.frame`]s containing time and count values.
 #'
@@ -797,7 +797,7 @@ NULL
 #' Lab: \tab Luminescence Laboratory Giessen\cr
 #' Lab-Code: \tab BT753\cr
 #' Location: \tab Dolni Vestonice/Czech Republic\cr
-#' Material: \tab Fine grain polymineral on steel cups on lexsyg rearch reader\cr
+#' Material: \tab Fine grain polymineral on steel cups on lexsyg research reader\cr
 #' Reference: \tab Fuchs et al., 2013 \cr
 #' Spectrum: \tab Integration time 19 s, channel time 20 s\cr
 #' Heating: \tab 1 K/s, up to 500 deg. C
@@ -880,7 +880,7 @@ NULL
 #' Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT998\cr
 #' Location: \tab Rottewitz (Saxony/Germany)\cr
-#' Material: \tab Fine grain quartz measured on aluminum discs on a Risoe TL/OSL DA-15 reader\cr
+#' Material: \tab Fine grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader\cr
 #' Units: \tab Values are given in seconds \cr
 #' Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/- 0.0019 Gy/s\cr
 #' Measurement Date: \tab 2012-01-27
@@ -964,7 +964,7 @@ NULL
 #' \tabular{ll}{
 #' Lab: \tab University of Lausanne \cr
 #' Lab-Code: \tab UNIL/NB123 \cr
-#' Location: \tab Namche Barwa (eastern Himalaya)\cr
+#' Location: \tab Namche Barwa (eastern Himalayas)\cr
 #' Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr
 #' Units: \tab Values are given in seconds \cr
 #' Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s \cr
@@ -1026,28 +1026,28 @@ NULL
 #' **`$sample_1`**
 #'
 #' \tabular{ccc}{
-#' **mu** \tab **sigmaphi** \tab **age** \cr
+#' **mu** \tab **`sigmaphi`** \tab **age** \cr
 #'   0.9 \tab 5e-10 \tab 10000 \cr
 #' }
 #'
 #' **`$sample_2`**
 #'
 #' \tabular{ccccc}{
-#' **mu** \tab **sigmaphi** \tab **age** \tab **Dose rate** \tab **D0** \cr
+#' **mu** \tab **`sigmaphi`** \tab **age** \tab **Dose rate** \tab **D0** \cr
 #'   0.9 \tab 5e-10 \tab 10000 \tab 2.5 \tab 40 \cr
 #' }
 #'
 #' **`$set_1`**
 #'
 #' \tabular{ccc}{
-#' **mu** \tab **sigmaphi** \tab **ages** \cr
+#' **mu** \tab **`sigmaphi`** \tab **ages** \cr
 #'   0.9 \tab 5e-10 \tab 1e3, 1e4, 1e5, 1e6 \cr
 #' }
 #'
 #' **`$set_2`**
 #'
 #' \tabular{ccccc}{
-#' **mu** \tab **sigmaphi** \tab **ages** \tab **Dose rate** \tab **D0** \cr
+#' **mu** \tab **`sigmaphi`** \tab **ages** \tab **Dose rate** \tab **D0** \cr
 #'   0.9 \tab 5e-10 \tab 1e2, 1e3, 1e4, 1e5, 1e6 \tab 1.0 \tab 40 \cr
 #' }
 #'
@@ -1172,7 +1172,7 @@ NULL
 #' Example Al2O3:C Measurement Data
 #'
 #' Measurement data obtained from measuring Al2O3:C chips at the IRAMAT-CRP2A, Université Bordeaux
-#' Montainge in 2017 on a Freiberg Instruments lexsyg SMART reader.
+#' Montaigne in 2017 on a Freiberg Instruments lexsyg SMART reader.
 #' The example data used in particular to allow test of the functions
 #' developed in framework of the work by Kreutzer et al., 2018.
 #'
@@ -1213,7 +1213,7 @@ NULL
 #' Example TR-OSL data
 #'
 #' Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
-#' (origin: Trebgast Valley, Germay, quartz, 90-200 µm, unpublished data).
+#' (origin: Trebgast Valley, Germany, quartz, 90-200 µm, unpublished data).
 #'
 #' @format One [RLum.Data.Curve-class] dataset imported using the function [read_XSYG2R]
 #'
@@ -1280,7 +1280,7 @@ NULL
 #' **Related R function(s):** `read_PSL2R()` \cr
 #' **Reference:** unpublished \cr
 #' **Additional information:** Sample measured at an archaeological site near \cr
-#'  Dormagen-Nievenheim (Germany) during a practical course on Luminesence dating in 2016. \cr
+#'  Dormagen-Nievenheim (Germany) during a practical course on Luminescence dating in 2016. \cr
 #'
 #' *>>QNL84_2_bleached.txt*, *QNL84_2_unbleached.txt<<*
 #'

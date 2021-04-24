@@ -41,9 +41,9 @@
 #'
 #' @section Function version: 0.1.4
 #'
-#' @author Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
-#' Anne Philippe, Universite de Nantes, (France),
-#' Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
+#' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
+#' Anne Philippe, Université de Nantes, (France),
+#' Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [read.table], [graphics::hist]
@@ -61,7 +61,7 @@
 #'
 #' \tabular{lll}{
 #'  **Column** \tab **Type** \tab **Description**\cr
-#'  AVERAGE_DOSE \tab [numeric] \tab the obtained averge dose\cr
+#'  AVERAGE_DOSE \tab [numeric] \tab the obtained average dose\cr
 #'  AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
 #'  SIGMA_D \tab [numeric]\tab sigma \cr
 #'  SIGMA_D.SE \tab [numeric]\tab standard error of the sigma  \cr

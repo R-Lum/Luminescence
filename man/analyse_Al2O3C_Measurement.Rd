@@ -79,7 +79,7 @@ Function returns results numerically and graphically:
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \verb{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
 \verb{$data_table} \tab \code{data.frame} \tab full dose and signal table \cr
-\code{test_parameters} \tab \code{data.frame} \tab results with test paramaters \cr
+\code{test_parameters} \tab \code{data.frame} \tab results with test parameters \cr
 \code{data_TDcorrected} \tab \code{data.frame} \tab travel dosimeter corrected results (only if TD was provided)\cr
 }
 
@@ -145,7 +145,7 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

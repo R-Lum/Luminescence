@@ -22,7 +22,7 @@ Analyse_SAR.OSLdata(
 }
 \arguments{
 \item{input.data}{\linkS4class{Risoe.BINfileData} (\strong{required}):
-input data from a Risoe BIN file, produced by the function \link{read_BIN2R}.}
+input data from a Risø BIN file, produced by the function \link{read_BIN2R}.}
 
 \item{signal.integral}{\link{vector} (\strong{required}):
 channels used for the signal integral, e.g. \code{signal.integral=c(1:2)}}
@@ -96,14 +96,14 @@ Lx/Tx value the function \link{calc_OSLLxTxRatio} is used.
 
 \verb{[recyling ratio]}: calculated for every repeated regeneration dose point.
 
-\verb{[recuperation]}: recuperation rate calculated by comparing the Lx/Tx values of the zero
-regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
+\verb{[recuperation]}: recuperation rate calculated by comparing the \code{Lx/Tx} values of the zero
+regeneration point with the \code{Ln/Tn} value (the \code{Lx/Tx} ratio of the natural
 signal). For methodological background see Aitken and Smith (1988)
 
 \verb{[IRSL/BOSL]}: the integrated counts (\code{signal.integral}) of an
 IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
-regenerated dose point. \strong{Note:} This is not the IR depletation ratio
+regenerated dose point. \strong{Note:} This is not the IR depletion ratio
 described by Duller (2003).
 }
 \note{
@@ -140,7 +140,7 @@ output.SAR
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2021. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2021. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

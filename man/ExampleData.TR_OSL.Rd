@@ -13,7 +13,7 @@ One \linkS4class{RLum.Data.Curve} dataset imported using the function \link{read
 }
 \description{
 Single TR-OSL curve obtained by Schmidt et al. (under review) for quartz sample BT729
-(origin: Trebgast Valley, Germay, quartz, 90-200 µm, unpublished data).
+(origin: Trebgast Valley, Germany, quartz, 90-200 µm, unpublished data).
 }
 \examples{
 

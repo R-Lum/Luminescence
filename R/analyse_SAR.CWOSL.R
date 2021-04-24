@@ -46,11 +46,11 @@
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
-#' Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
+#' Lx/Tx values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx
 #' ratio of the natural signal). For methodological background see Aitken and
 #' Smith (1988).
 #'
-#' `[testdose.error]`: set the allowed error for the testdose, which per
+#' `[testdose.error]`: set the allowed error for the test dose, which per
 #' default should not exceed 10\%. The test dose error is calculated as `Tx_net.error/Tx_net`.
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
@@ -161,7 +161,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.2
+#' @section Function version: 0.9.11
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -1246,8 +1246,13 @@ error.list <- list()
             D01.ERROR = NA,
             D02 = NA,
             D02.ERROR = NA,
+            Dc = NA,
             De.MC = NA,
             Fit = NA,
+            HPDI68_L = NA,
+            HPDI68_U = NA,
+            HPDI95_L = NA,
+            HPDI95_U = NA,
             RC.Status = NA,
             stringsAsFactors = FALSE
           )
@@ -1345,7 +1350,7 @@ error.list <- list()
                                      exceed.max.regpoint.data.frame)
 
 
-        ##add recjection status
+        ##add rejection status
         if (length(grep("FAILED",RejectionCriteria$Status)) > 0) {
           temp.GC <- data.frame(temp.GC, RC.Status = "FAILED", stringsAsFactors = FALSE)
 
@@ -1358,9 +1363,20 @@ error.list <- list()
      ##end onlyLxTxTable
      }else{
        temp.GC <- data.frame(
-         De = NA, De.Error = NA,
-         D01 = NA, D01.ERROR = NA, D02 = NA, D02.ERROR = NA,
-         De.MC = NA, Fit = NA)
+         De = NA,
+         De.Error = NA,
+         D01 = NA,
+         D01.ERROR = NA,
+         D02 = NA,
+         D02.ERROR = NA,
+         Dc = NA,
+         De.MC = NA,
+         Fit = NA,
+         HPDI68_L = NA,
+         HPDI68_U = NA,
+         HPDI95_L = NA,
+         HPDI95_U = NA,
+         RC.Status = NA)
        temp.GC.fit.Formula <- NULL
      }
 

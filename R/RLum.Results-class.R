@@ -81,7 +81,7 @@ setClass(
 #'   `list` \tab `list`\cr
 #' }
 #'
-#' Given that the [list] consits of [RLum.Results-class] objects.
+#' Given that the [list] consists of [RLum.Results-class] objects.
 #'
 #' @md
 #' @name as

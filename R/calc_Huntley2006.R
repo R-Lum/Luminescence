@@ -62,29 +62,29 @@
 #' **Uncertainties**
 #'
 #' Uncertainties are reported at 1 sigma and are assumed to be normally
-#' distributed and are estimated using monte-carlo resamples (`n.MC = 1000`)
-#' of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
+#' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 1000`)
+#' of \eqn{\rho}' and `LxTx` during dose response curve fitting, and of \eqn{\rho}'
 #' in the derivation of (n/N) and (n/N)_SS.
 #'
 #'
-#' **Age calculated from 2\*D0 of the simulated natural DRC**
+#' **Age calculated from 2D0 of the simulated natural DRC**
 #'
 #' In addition to the age calculated from the equivalent dose derived from
 #' `Ln/Tn` projected on the simulated natural dose response curve (DRC), this function
 #' also calculates an age from twice the characteristic saturation dose (`D0`)
 #' of the simulated natural DRC. This can be a useful information for
-#' (over)saturated samples (ie. no intersect of `Ln/Tn` on the natural DRC)
+#' (over)saturated samples (i.e., no intersect of `Ln/Tn` on the natural DRC)
 #' to obtain at least a "minimum age" estimate of the sample. In the console
 #' output this value is denoted by *"Age @2D0 (ka):"*.
 #'
 #' @param data [data.frame] (**required**):
 #' A `data.frame` with one of the following structures:
-#' - A **three column** data frame with numeric values on a) dose (s), b) LxTx and and
-#' c) LxTx error.
+#' - A **three column** data frame with numeric values on a) dose (s), b) `LxTx` and
+#' c) `LxTx` error.
 #' - If a **two column** data frame is provided it is automatically
-#' assumed that errors on LxTx are missing. A third column will be attached
-#' with an arbitrary 5 \% error on the provided LxTx values.
-#' - Can also be a **wide table**, i.e. a [data.frame] with a number of colums divisible by 3
+#' assumed that errors on `LxTx` are missing. A third column will be attached
+#' with an arbitrary 5 \% error on the provided `LxTx` values.
+#' - Can also be a **wide table**, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the aforementioned column structure.
 #'
 #' ```

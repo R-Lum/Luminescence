@@ -165,11 +165,11 @@ the \code{pIRIR225} curves.
 \verb{[recycling.ratio]}: calculated for every repeated regeneration dose point.
 
 \verb{[recuperation.rate]}: recuperation rate calculated by comparing the
-Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
+Lx/Tx values of the zero regeneration point with the \code{Ln/Tn} value (the `Lx/Tx
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).
 
-\verb{[testdose.error]}: set the allowed error for the testdose, which per
+\verb{[testdose.error]}: set the allowed error for the test dose, which per
 default should not exceed 10\\%. The test dose error is calculated as \code{Tx_net.error/Tx_net}.
 
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
@@ -183,7 +183,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.9.2
+ 0.9.11
 }
 
 \examples{
@@ -222,7 +222,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

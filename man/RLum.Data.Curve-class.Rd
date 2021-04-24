@@ -74,7 +74,7 @@ set number of channels used for each bin, e.g. \code{bin_size = 2} means that
 two channels are binned.}
 
 \item{k}{\code{\link{smooth_RLum}}; \link{integer} (\emph{with default}):
-window for the rolling mean; must be odd for rollmedian.
+window for the rolling mean; must be odd for \code{rollmedian}.
 If nothing is set k is set automatically}
 
 \item{fill}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
@@ -82,7 +82,7 @@ a vector defining the left and the right hand data}
 
 \item{align}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
 specifying whether the index of the result should be left- or right-aligned
-or centered (default) compared to the rolling window of observations, allowed
+or centred (default) compared to the rolling window of observations, allowed
 \code{"right"}, \code{"center"} and \code{"left"}}
 
 \item{method}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
@@ -154,7 +154,7 @@ deconstructing the object. For example:\preformatted{set_RLum(class = 'RLum.Data
          recordType = 'never seen before')
 }
 
-would just change the recordType. Missing arguements  the value is taken
+would just change the \code{recordType}. Missing arguments  the value is taken
 from the input object in 'data' (which is already an RLum.Data.Curve object
 in this example)}
 }}
@@ -163,7 +163,7 @@ in this example)}
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
-functions (partyl within \linkS4class{RLum.Analysis} objects),
+functions (partly within \linkS4class{RLum.Analysis} objects),
 namely: \link{Risoe.BINfileData2RLum.Analysis}, \link{read_XSYG2R}
 }
 \section{Create objects from this Class}{
@@ -192,7 +192,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

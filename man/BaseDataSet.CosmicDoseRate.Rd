@@ -48,7 +48,7 @@ For depths between 40-167 g cm^-2:
 
 \deqn{y = -6*10^-8*x^3+2*10^-5*x^2-0.0025*x+0.2969}
 
-\strong{values.factor.Altitude}
+\strong{\code{values.factor.Altitude}}
 
 \tabular{ll}{
 Reference: \tab Prescott & Hutton (1994) \cr
@@ -59,7 +59,7 @@ Fit: \tab 2-degree polynomial in the form of
 
 \deqn{y = -0.026*x^2 + 0.6628*x + 1.0435}
 
-\strong{values.par.FJH}
+\strong{\code{values.par.FJH}}
 
 \tabular{ll}{
 Reference: \tab Prescott & Hutton (1994) \cr

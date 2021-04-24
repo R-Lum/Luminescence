@@ -2,30 +2,30 @@
 #'
 #' The error can be reduced and sample size increased for specific purpose.
 #'
-#' @param data [data.frame] (**required**): 
-#' input values, structure: data (`values[,1]`) and data error (`values [,2]`) 
+#' @param data [data.frame] (**required**):
+#' input values, structure: data (`values[,1]`) and data error (`values [,2]`)
 #' are required
 #'
-#' @param decrease.error [numeric]: 
+#' @param decrease.error [numeric]:
 #' factor by which the error is decreased, ranges between 0 and 1.
 #'
-#' @param increase.data [numeric]: 
-#' factor by which the error is decreased, ranges between 0 and inf.
+#' @param increase.data [numeric]:
+#' factor by which the error is decreased, ranges between 0 and `Inf`.
 #'
 #' @return Returns a [data.frame] with tuned values.
 #'
-#' @note 
+#' @note
 #' You should not use this function to improve your poor data set!
 #'
 #' @section Function version: 0.5.0
 #'
-#' @author 
+#' @author
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @keywords manip
 #'
 #' @examples
-#' 
+#'
 #' ## load example data set
 #' data(ExampleData.DeValues, envir = environment())
 #' x <- ExampleData.DeValues$CA1

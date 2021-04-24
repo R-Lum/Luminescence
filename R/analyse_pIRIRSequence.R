@@ -4,7 +4,7 @@
 #' including curve
 #' fitting on [RLum.Analysis-class] objects.
 #'
-#' @detail To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
+#' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
 #' this function has been written as extended wrapper function for the function
 #' [analyse_SAR.CWOSL], facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
@@ -27,7 +27,7 @@
 #'
 #' @param object [RLum.Analysis-class] or [list] of [RLum.Analysis-class] objects (**required**):
 #' input object containing data for analysis.
-#' If a [list] is provided the functions tries to iteratre over the list.
+#' If a [list] is provided the functions tries to iterate over the list.
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Provide this value as vector for different
@@ -75,7 +75,7 @@
 #' \tabular{lll}{
 #' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
 #' `..$data` : \tab  `data.frame` \tab Table with De values \cr
-#' `..$LnLxTnTx.table` : \tab `data.frame` \tab with the LnLxTnTx values \cr
+#' `..$LnLxTnTx.table` : \tab `data.frame` \tab with the `LnLxTnTx` values \cr
 #' `..$rejection.criteria` : \tab [data.frame] \tab rejection criteria \cr
 #' `..$Formula` : \tab [list] \tab Function used for fitting of the dose response curve \cr
 #' `..$call` : \tab [call] \tab the original function call
@@ -91,8 +91,7 @@
 #'
 #' @section Function version: 0.2.4
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [analyse_SAR.CWOSL], [calc_OSLLxTxRatio], [plot_GrowthCurve],
 #' [RLum.Analysis-class], [RLum.Results-class] [get_RLum]

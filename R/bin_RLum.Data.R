@@ -1,4 +1,4 @@
-#' Channel binning - method dispatchter
+#' Channel binning - method dispatcher
 #'
 #' Function calls the object-specific bin functions for RLum.Data S4 class objects.
 #'
@@ -11,14 +11,13 @@
 #' @param object [RLum.Data-class] (**required**):
 #' S4 object of class `RLum.Data`
 #'
-#' @param ... further arguments passed to the specifc class method
+#' @param ... further arguments passed to the specific class method
 #'
 #' @return An object of the same type as the input object is provided
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5050, CNRS - Université Bordeaux Montaigne
-#' (France)
+#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @note Currently only `RLum.Data` objects of class [RLum.Data.Curve-class] and [RLum.Data.Spectrum-class] are supported!
 #'

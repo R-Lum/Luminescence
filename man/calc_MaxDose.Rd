@@ -52,7 +52,7 @@ Please see \link{calc_MinDose}.
 }
 \description{
 Function to fit the maximum age model to De data. This is a wrapper function
-that calls calc_MinDose() and applies a similiar approach as described in
+that calls \link{calc_MinDose} and applies a similar approach as described in
 Olley et al. (2006).
 }
 \details{
@@ -63,10 +63,10 @@ and its standard error, the three parameter minimum age model of Galbraith
 et al. (1999) is adapted. The measured De values are transformed as follows:
 \enumerate{
 \item convert De values to natural logs
-\item multiply the logged data to creat a mirror image of the De distribution
+\item multiply the logged data to create a mirror image of the De distribution
 \item shift De values along x-axis by the smallest x-value found to obtain only positive values
 \item combine in quadrature the measurement error associated with each De value
-with a relative error specified by sigmab
+with a relative error specified by \code{sigmab}
 \item apply the MAM to these data
 }
 
@@ -96,7 +96,7 @@ calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 } 
 
 \section{How to cite}{
-Burow, C., 2021. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

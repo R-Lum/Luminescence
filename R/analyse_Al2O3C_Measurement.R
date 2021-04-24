@@ -90,7 +90,7 @@
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `data.frame` \tab the estimated equivalent dose \cr
 #'  `$data_table` \tab `data.frame` \tab full dose and signal table \cr
-#'  `test_parameters` \tab `data.frame` \tab results with test paramaters \cr
+#'  `test_parameters` \tab `data.frame` \tab results with test parameters \cr
 #'  `data_TDcorrected` \tab `data.frame` \tab travel dosimeter corrected results (only if TD was provided)\cr
 #' }
 #'
@@ -249,15 +249,18 @@ analyse_Al2O3C_Measurement <- function(
     if(!is.null(travel_dosimeter)){
       ##check data type
       if(!is(travel_dosimeter, "numeric"))
-        stop("[analyse_Al2O3C_Measurement()] Input for `travel_dosimeter` is not numeric!", call. = FALSE)
+        stop("[analyse_Al2O3C_Measurement()] Input for `travel_dosimeter` is not numeric!",
+             call. = FALSE)
 
       ##check whether everything is subtracted from everything ... you never know, users do weird stuff
       if(length(travel_dosimeter) == nrow(results$data))
-        try(stop("[analyse_Al2O3C_Measurement()] You specified every position as travel dosimeter, nothing corrected!", call. = FALSE))
+        try(stop("[analyse_Al2O3C_Measurement()] You specified every position as travel dosimeter, nothing corrected!",
+                 call. = FALSE))
 
       ##check if the position is valid
       if(!any(travel_dosimeter%in%results$data$POSITION))
-        try(stop("[analyse_Al2O3C_Measurement()] Invalid position in 'travel_dosimeter', nothing corrected!", call. = FALSE))
+        try(stop("[analyse_Al2O3C_Measurement()] Invalid position in 'travel_dosimeter', nothing corrected!",
+                 call. = FALSE))
 
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
       ##if only one value is given just take it
@@ -299,7 +302,7 @@ analyse_Al2O3C_Measurement <- function(
 
   }
 
-  # Integretiy check  ---------------------------------------------------------------------------
+  # Integrity check  ---------------------------------------------------------------------------
 
   ##TODO ... do more, push harder
   ##Add sufficient unit tests

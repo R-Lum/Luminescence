@@ -20,7 +20,7 @@ analyse_pIRIRSequence(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \link{list} of \linkS4class{RLum.Analysis} objects (\strong{required}):
 input object containing data for analysis.
-If a \link{list} is provided the functions tries to iteratre over the list.}
+If a \link{list} is provided the functions tries to iterate over the list.}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Provide this value as vector for different
@@ -68,7 +68,7 @@ returned containing the following elements:
 \tabular{lll}{
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
-\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
+\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the \code{LnLxTnTx} values \cr
 \code{..$rejection.criteria} : \tab \link{data.frame} \tab rejection criteria \cr
 \code{..$Formula} : \tab \link{list} \tab Function used for fitting of the dose response curve \cr
 \code{..$call} : \tab \link{call} \tab the original function call
@@ -80,6 +80,28 @@ The output should be accessed using the function \link{get_RLum}.
 The function performs an analysis of post-IR IRSL sequences
 including curve
 fitting on \linkS4class{RLum.Analysis} objects.
+}
+\details{
+To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
+this function has been written as extended wrapper function for the function
+\link{analyse_SAR.CWOSL}, facilitating an entire sequence analysis in
+one run. With this, its functionality is strictly limited by the
+functionality of the function \link{analyse_SAR.CWOSL}.
+
+**Defining the sequence structure **
+
+The argument \code{sequence.structure} expects a shortened pattern of your sequence structure and was
+mainly introduced to ease the use of the function. For example: If your measurement data contains
+the following curves: \code{TL}, \code{IRSL}, \code{IRSL}, \code{TL}, \code{IRSL}, \code{IRSL}, the sequence pattern in \code{sequence.structure}
+becomes \code{c('TL', 'IRSL', 'IRSL')}. The second part of your sequence for one cycle should be
+similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
+have to be removed before using the function.
+
+\strong{If the input is a \code{list}}
+
+If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
+for different sets of parameters for every single input element.
+For further information see \link{analyse_SAR.CWOSL}.
 }
 \note{
 Best graphical output can be achieved by using the function \code{pdf}
@@ -151,7 +173,7 @@ pdf(file = tempfile, height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -169,8 +191,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

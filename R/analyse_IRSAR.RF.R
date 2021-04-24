@@ -241,8 +241,8 @@
 #'  `DE.LOWER` \tab `numeric`\tab 2.5% quantile for De values obtained by MC runs \cr
 #'  `DE.UPPER` \tab `numeric`\tab 97.5% quantile for De values obtained by MC runs  \cr
 #'  `DE.STATUS`  \tab `character`\tab test parameter status\cr
-#'  `RF_NAT.LIM`  \tab `charcter`\tab used RF_nat curve limits \cr
-#'  `RF_REG.LIM` \tab `character`\tab used RF_reg curve limits\cr
+#'  `RF_NAT.LIM`  \tab `character`\tab used `RF_nat` curve limits \cr
+#'  `RF_REG.LIM` \tab `character`\tab used `RF_reg` curve limits\cr
 #'  `POSITION` \tab `integer`\tab (*optional*) position of the curves\cr
 #'  `DATE` \tab `character`\tab (*optional*) measurement date\cr
 #'  `SEQUENCE_NAME` \tab `character`\tab (*optional*) sequence name\cr
@@ -281,7 +281,7 @@
 #'  `De.MC` \tab `numeric` \tab all De values obtained by the MC runs \cr
 #'  `residuals` \tab `numeric` \tab the obtained residuals for each channel of the curve \cr
 #'  `trend.fit` \tab `lm` \tab fitting results produced by the fitting of the residuals \cr
-#'  `RF_nat.slided` \tab `matrix` \tab the slided RF_nat curve \cr
+#'  `RF_nat.slid` \tab `matrix` \tab the slid `RF_nat` curve \cr
 #'  `t_n.id` \tab `numeric` \tab the index of the t_n offset \cr
 #'  `I_n` \tab `numeric` \tab the vertical intensity offset if a vertical slide was applied \cr
 #'  `algorithm_error` \tab `numeric` \tab the vertical sliding suffers from a systematic effect induced by the used
@@ -294,7 +294,7 @@
 #'
 #' **slot:** **`@info`**
 #'
-#' The original function call ([methods::language-class][methods::LanguageClasses]-object)
+#' The original function call ([methods::language-class]-object)
 #'
 #' The output (`data`) should be accessed using the function [get_RLum]
 #'
@@ -1133,8 +1133,8 @@ analyse_IRSAR.RF<- function(
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later
-      RF_nat.slided <- matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + I_n), ncol = 2)
-      t_n <- RF_nat.slided[1,1]
+      RF_nat.slid <- matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + I_n), ncol = 2)
+      t_n <- RF_nat.slid[1,1]
 
       ##the same for the MC runs of the minimum values
       if(!is.null(n.MC)) {
@@ -1207,7 +1207,7 @@ analyse_IRSAR.RF<- function(
             De.MC = De.MC,
             residuals = residuals,
             trend.fit = temp.trend.fit,
-            RF_nat.slided = RF_nat.slided,
+            RF_nat.slid = RF_nat.slid,
             t_n.id = t_n.id,
             I_n = I_n,
             algorithm_error = algorithm_error,
@@ -1232,7 +1232,7 @@ analyse_IRSAR.RF<- function(
     ##write results in variables
     De <- slide$De
     residuals <- slide$residuals
-    RF_nat.slided <-  slide$RF_nat.slided
+    RF_nat.slid <-  slide$RF_nat.slid
     I_n <- slide$I_n
 
     # ERROR ESTIMATION
@@ -1545,7 +1545,7 @@ analyse_IRSAR.RF<- function(
   if (!is.null(TP$curves_bounds)) {
     if(exists("slide")){
       ## add one channel on the top to make sure that it works
-      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
+      TP$curves_bounds$VALUE <- max(RF_nat.slid[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
 
        if (!is.na(TP$curves_bounds$THRESHOLD)){
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
@@ -1923,17 +1923,17 @@ analyse_IRSAR.RF<- function(
 
       ##(1) plot unused points in grey ... unused points are points outside of the set limit
       points(
-        matrix(RF_nat.slided[-(min(RF_nat.lim):max(RF_nat.lim)),1:2], ncol = 2),
+        matrix(RF_nat.slid[-(min(RF_nat.lim):max(RF_nat.lim)),1:2], ncol = 2),
         pch = 21, col = col[19]
       )
 
       ##(2) add used points
-      points(RF_nat.slided[min(RF_nat.lim):max(RF_nat.lim),], pch = 21, col = col[2],
+      points(RF_nat.slid[min(RF_nat.lim):max(RF_nat.lim),], pch = 21, col = col[2],
              bg = col[2])
 
       ##(3) add line to show the connection between the first point and the De
-      lines(x = c(RF_nat.slided[1,1], RF_nat.slided[1,1]),
-            y = c(.Machine$double.xmin,RF_nat.slided[1,2]),
+      lines(x = c(RF_nat.slid[1,1], RF_nat.slid[1,1]),
+            y = c(.Machine$double.xmin,RF_nat.slid[1,2]),
             lty = 2,
             col = col[2]
       )
@@ -1944,7 +1944,7 @@ analyse_IRSAR.RF<- function(
           x0 = 0,
           y0 = ylim[1],
           y1 = ylim[1],
-          x1 = RF_nat.slided[1,1],
+          x1 = RF_nat.slid[1,1],
           arr.type = "triangle",
           arr.length = 0.3 * par()[["cex"]],
           code = 2,
@@ -2090,18 +2090,18 @@ analyse_IRSAR.RF<- function(
 
 
         ##add residual points
-        if (length(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) > length(residuals)) {
+        if (length(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) > length(residuals)) {
           temp.points.diff <-
-            length(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) -
+            length(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1]) -
             length(residuals)
 
-          points(RF_nat.slided[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
+          points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
                  residuals,
                  pch = 20,
                  col = rgb(0, 0, 0, 0.4))
 
         } else{
-          points(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)), 1],
+          points(RF_nat.slid[c(min(RF_nat.lim):max(RF_nat.lim)), 1],
                  residuals,
                  pch = 20,
                  col = rgb(0, 0, 0, 0.4))

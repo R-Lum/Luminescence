@@ -1,6 +1,6 @@
 #'@title Create Regions of Interest (ROI) Graphic
 #'
-#'@decription Create ROI graphic with data extracted from the data imported
+#'@description Create ROI graphic with data extracted from the data imported
 #'via [read_RF2R]. This function is used internally by [analyse_IRSAR.RF] but
 #'might be of use to work with reduced data from spatially resolved measurements.
 #'The plot dimensions mimic the original image dimensions
@@ -32,7 +32,7 @@
 #'
 #'@return An ROI plot and an [RLum.Results-class] object with a matrix containing
 #'the extracted ROI data and a object produced by [stats::dist] containing
-#'the euclidean distance between the ROIS.
+#'the euclidean distance between the ROIs.
 #'
 #'@section Function version: 0.1.0
 #'

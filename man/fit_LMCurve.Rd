@@ -37,11 +37,11 @@ fixed number of components that are to be recognised during fitting
 (min = 1, max = 7).}
 
 \item{start_values}{\link{data.frame} (\emph{optional}):
-start parameters for lm and xm data for the fit. If no start values are given,
+start parameters for \code{lm} and \code{xm} data for the fit. If no start values are given,
 an automatic start value estimation is attempted (see details).}
 
 \item{input.dataType}{\link{character} (\emph{with default}):
-alter the plot output depending on the input data: "LM" or "pLM" (pseudo-LM).
+alter the plot output depending on the input data: \code{"LM"} or \code{"pLM"} (pseudo-LM).
 See: \link{CW2pLM}}
 
 \item{fit.method}{\link{character} (\emph{with default}):
@@ -56,7 +56,7 @@ sample code used for the plot and the optional output table (mtext).}
 additional identifier used as column header for the table output.}
 
 \item{LED.power}{\link{numeric} (\emph{with default}):
-LED power (max.) used forintensity ramping in mW/cm^2.
+LED power (max.) used for intensity ramping in mW/cm^2.
 \strong{Note:} This value is used for the calculation of the absolute
 photoionisation cross section.}
 
@@ -74,7 +74,7 @@ Works only if no start parameters are provided.
 \strong{Note:} It may take a while and it is not compatible with \code{fit.method = "LM"}.}
 
 \item{fit.calcError}{\link{logical} (\emph{with default}):
-calculate 1-sigma error range of components using \link{confint}.}
+calculate 1-sigma error range of components using \link[stats:confint]{stats::confint}.}
 
 \item{bg.subtraction}{\link{character} (\emph{with default}):
 specifies method for background subtraction (\code{polynomial}, \code{linear}, \code{channel},
@@ -101,6 +101,7 @@ Various types of plots are returned. For details see above. Furthermore an
 
 \code{.. $data} : \link{data.frame} with fitting results\cr
 \code{.. $fit} : nls (\link{nls} object)\cr
+\code{.. $component_matrix} : \link{matrix} with numerical xy-values of the single fitted components with the resolution of the input data
 \code{.. $component.contribution.matrix} : \link{list} component distribution matrix
 
 \strong{\verb{info:}}
@@ -150,7 +151,7 @@ and the resulting function is used for background subtraction:
 is used for background subtraction:
 \deqn{y = a*x + b}
 \item \code{channel}: the measured
-background signal is subtracted channelwise from the measured signal.
+background signal is subtracted channel wise from the measured signal.
 }
 
 \strong{Start values}
@@ -163,7 +164,7 @@ parameters. Here, three options are provided:
 If no start values (\code{start_values}) are provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
-xm and Im are recalculated for the given data set. In all cases, the fitting
+\code{xm} and \code{Im} are recalculated for the given data set. In all cases, the fitting
 starts with the ultra-fast component and (depending on \code{n.components})
 steps through the following values. If no fit could be achieved, an error
 plot (for \code{plot = TRUE}) with the pseudo curve (based on the
@@ -176,8 +177,8 @@ fitting approach.
 
 \strong{(c)}
 If no start parameters are provided and
-the option \code{fit.advanced = TRUE} is chosen, an advanced start paramter
-estimation is applied using a stochastical attempt. Therefore, the
+the option \code{fit.advanced = TRUE} is chosen, an advanced start parameter
+estimation is applied using a stochastic attempt. Therefore, the
 recalculated start parameters \strong{(a)} are used to construct a normal
 distribution. The start parameters are then sampled randomly from this
 distribution. A maximum of 100 attempts will be made. \strong{Note:} This
@@ -185,7 +186,7 @@ process may be time consuming.
 
 \strong{Goodness of fit}
 
-The goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
+The goodness of the fit is given by a pseudo-R^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 
 \deqn{pseudoR^2 = 1 - RSS/TSS}
@@ -196,8 +197,8 @@ and \eqn{TSS = Total~Sum~of~Squares}
 \strong{Error of fitted component parameters}
 
 The 1-sigma error for the components is calculated using
-the function \link{confint}. Due to considerable calculation time, this
-option is deactived by default. In addition, the error for the components
+the function \link[stats:confint]{stats::confint}. Due to considerable calculation time, this
+option is deactivated by default. In addition, the error for the components
 can be estimated by using internal R functions like \link{summary}. See the
 \link{nls} help page for more information.
 
@@ -213,7 +214,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{
@@ -242,7 +243,7 @@ fit_LMCurve(values = values.curve,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

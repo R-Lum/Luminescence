@@ -88,22 +88,22 @@ temperature in K.
 The error estimation is done be varying the input parameters using the given uncertainties in
 a Monte Carlo simulation. Errors are assumed to follow a normal distribution.
 
-\strong{start_param} \cr
+\strong{\code{start_param}} \cr
 
 The function allows the injection of own start parameters via the argument \code{start_param}. The
 parameters needs to be provided as names list. The names are the parameters to be optimised.
 Examples: \code{start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)}
 
-\strong{method_control} \cr
+\strong{\code{method_control}} \cr
 
 The following arguments can be provided via \code{method_control}. Please note that arguments provided
-via \code{method_control} are not further tested, i.e., if the function crashs your input was probably
+via \code{method_control} are not further tested, i.e., if the function crashes your input was probably
 wrong.
 
 \tabular{lll}{
 \strong{ARGUMENT} \tab \strong{TYPE} \tab \strong{DESCRIPTION}\cr
 \code{upper} \tab named \link{vector} \tab sets upper fitting boundaries, if provided boundaries for all arguments
-are requried, e.g., \code{c(A = 0, C = 0, W = 0, c = 0)} \cr
+are required, e.g., \code{c(A = 0, C = 0, W = 0, c = 0)} \cr
 \code{lower} \tab names \link{vector} \tab sets lower fitting boundaries (see \code{upper} for details) \cr
 \code{trace}   \tab \link{logical} \tab enables/disables progression trace for \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}\cr
 \code{weights} \tab \link{numeric} \tab option to provide own weights for the fitting, the length of this
@@ -131,7 +131,7 @@ fit_ThermalQuenching(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

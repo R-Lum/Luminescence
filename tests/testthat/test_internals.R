@@ -24,8 +24,12 @@ test_that("Test internals", {
   test <- expect_type(Luminescence:::.calc_HPDI(rnorm(100), plot = TRUE), "double")
   expect_equal(round(sum(test),2), 0.20)
 
+  ##create a case where the value cannot be calculated
+  expect_type(.calc_HPDI(rlnorm(n = 100, meanlog = 10, sdlog = 100)), type = "logical")
+
   # .warningCatcher() ---------------------------------------------------------------------------
-  expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) warning("test")))
+  expect_warning(Luminescence:::.warningCatcher(for(i in 1:5) warning("test")),
+                 regexp = "\\(1\\) test\\: This warning occurred 5 times\\!")
 
   # .smoothing ----------------------------------------------------------------------------------
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))

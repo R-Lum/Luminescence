@@ -22,12 +22,12 @@ calc_Huntley2006(
 \item{data}{\link{data.frame} (\strong{required}):
 A \code{data.frame} with one of the following structures:
 \itemize{
-\item A \strong{three column} data frame with numeric values on a) dose (s), b) LxTx and and
-c) LxTx error.
+\item A \strong{three column} data frame with numeric values on a) dose (s), b) \code{LxTx} and
+c) \code{LxTx} error.
 \item If a \strong{two column} data frame is provided it is automatically
-assumed that errors on LxTx are missing. A third column will be attached
-with an arbitrary 5 \\% error on the provided LxTx values.
-\item Can also be a \strong{wide table}, i.e. a \link{data.frame} with a number of colums divisible by 3
+assumed that errors on \code{LxTx} are missing. A third column will be attached
+with an arbitrary 5 \\% error on the provided \code{LxTx} values.
+\item Can also be a \strong{wide table}, i.e. a \link{data.frame} with a number of columns divisible by 3
 and where each triplet has the aforementioned column structure.
 }\preformatted{                        (optional)
      | dose (s)| LxTx | LxTx error |
@@ -207,17 +207,17 @@ unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al.
 \strong{Uncertainties}
 
 Uncertainties are reported at 1 sigma and are assumed to be normally
-distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
-of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
+distributed and are estimated using Monte-Carlo re-sampling (\code{n.MC = 1000})
+of \eqn{\rho}' and \code{LxTx} during dose response curve fitting, and of \eqn{\rho}'
 in the derivation of (n/N) and (n/N)_SS.
 
-*\emph{Age calculated from 2\\emph{D0 of the simulated natural DRC}}
+\strong{Age calculated from 2D0 of the simulated natural DRC}
 
 In addition to the age calculated from the equivalent dose derived from
 \code{Ln/Tn} projected on the simulated natural dose response curve (DRC), this function
 also calculates an age from twice the characteristic saturation dose (\code{D0})
 of the simulated natural DRC. This can be a useful information for
-(over)saturated samples (ie. no intersect of \code{Ln/Tn} on the natural DRC)
+(over)saturated samples (i.e., no intersect of \code{Ln/Tn} on the natural DRC)
 to obtain at least a "minimum age" estimate of the sample. In the console
 output this value is denoted by \emph{"Age @2D0 (ka):"}.
 }
@@ -276,7 +276,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2021. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., 2021. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

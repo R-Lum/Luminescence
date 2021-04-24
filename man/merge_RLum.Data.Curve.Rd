@@ -30,7 +30,7 @@ Function allows merging of RLum.Data.Curve objects in different ways
 \details{
 This function simply allowing to merge \linkS4class{RLum.Data.Curve}
 objects without touching the objects itself. Merging is always applied on
-the 2nd colum of the data matrix of the object.
+the 2nd column of the data matrix of the object.
 
 \strong{Supported merge operations are \linkS4class{RLum.Data.Curve}}
 
@@ -80,7 +80,7 @@ The row sums of the last objects are subtracted from the first object.
 
 \code{"*"}
 
-The row sums of the last objects are mutliplied with the first object.
+The row sums of the last objects are multiplied with the first object.
 
 \code{"/"}
 
@@ -130,7 +130,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{internal}

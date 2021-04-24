@@ -10,11 +10,11 @@
 #'
 #' The component deconvolution consists of two steps:
 #'
-#' (1) Adaption phase
+#' (1) Adaptation phase
 #'
-#' In the adaption phase the function tries to figure out the optimal and statistically justified
-#' number of signal components following roughly the approach suggestd by Bluszcz & Adamiec (2006). In
-#' contrast to their work, for the optimisation by differential evolution here the package 'DEoptim' is used.
+#' In the adaptation phase the function tries to figure out the optimal and statistically justified
+#' number of signal components following roughly the approach suggested by Bluszcz & Adamiec (2006). In
+#' contrast to their work, for the optimisation by differential evolution here the package `'DEoptim'` is used.
 #'
 #' The function to be optimized has the form:
 #'
@@ -58,13 +58,13 @@
 #' to fit the number of predefined components. If nothing is set, the algorithm will try to find the best number
 #' of components.
 #'
-#' @param method_control [list] (*optonal*): Named to allow a more fine control of the fitting process. See details
+#' @param method_control [list] (*optional*): Named to allow a more fine control of the fitting process. See details
 #' for allowed options.
 #'
 #' @param plot [logical] (*with default*): Enable/disable plot output
 #'
 #' @param plot_simple [logical] (*with default*): Enable/disable reduced plot output. If `TRUE`, no
-#' residual plot is shown, however, plot output can be combined using the standard R layout obtions,
+#' residual plot is shown, however, plot output can be combined using the standard R layout options,
 #' such as `par(mfrow = c(2,2))`.
 #'
 #' @param verbose [logical] (*with default*): Enable/disable terminal feedback
@@ -102,7 +102,7 @@
 #'
 #' Terminal output is only shown of the argument `verbose = TRUE`.
 #'
-#' *(1) Start parameter and component adapation*\cr
+#' *(1) Start parameter and component adaption*\cr
 #' Trave of the parameter adaptation process
 #'
 #' *(2) Fitting results (sorted by ascending tau)*\cr
@@ -115,7 +115,7 @@
 #' the residuals should be not correlated at all. Rough measures are: \cr
 #' D = 0: the residuals are systematically correlated \cr
 #' D = 2: the residuals are randomly distributed \cr
-#' D = 4: the residuals are systematically anticorrelated\cr
+#' D = 4: the residuals are systematically anti-correlated\cr
 #'
 #' You should be suspicious if D differs largely from 2.
 #'
@@ -136,7 +136,7 @@
 #'
 #' @references
 #' Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
-#' Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016\cr
+#' Radiation Measurements 41, 886-891. \doi{10.1016/j.radmeas.2006.05.016}\cr
 #'
 #' Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
 #' Biometrika 37, 409-21. doi:10.2307/2332391
@@ -422,7 +422,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(B) RUN DIFFERENTIAL EVOLUTION TO DETERMINE NUMBER OF COMPONENTS
-  ##prevent collateral demage, so we want a data.frame that has at least 10 rows
+  ##prevent collateral damage, so we want a data.frame that has at least 10 rows
   if(verbose){
       cat("\n[fit_OSLLifeTime()]\n")
       cat("\n(1) Start parameter and component adapation")

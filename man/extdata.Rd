@@ -41,7 +41,7 @@ data from within \strong{R} is as follows:
 \strong{Related R function(s):} \code{read_PSL2R()} \cr
 \strong{Reference:} unpublished \cr
 \strong{Additional information:} Sample measured at an archaeological site near \cr
-Dormagen-Nievenheim (Germany) during a practical course on Luminesence dating in 2016. \cr
+Dormagen-Nievenheim (Germany) during a practical course on Luminescence dating in 2016. \cr
 
 \emph{>>QNL84_2_bleached.txt}, \emph{QNL84_2_unbleached.txt<<}
 

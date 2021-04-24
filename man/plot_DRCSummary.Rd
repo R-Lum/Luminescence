@@ -19,12 +19,12 @@ plot_DRCSummary(
 
 \item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.}
 
-\item{sel_curves}{\link{numeric} (optional): id of the curves to be plotting in its occuring order. A sequence can
+\item{sel_curves}{\link{numeric} (optional): id of the curves to be plotting in its occurring order. A sequence can
 be provided for selecting, e.g., only every 2nd curve from the input object}
 
 \item{show_dose_points}{\link{logical} (with default): enable or disable plot of dose points in the graph}
 
-\item{show_natural}{\link{logical} (with default): enable or disable the plot of the natural Lx/Tx values}
+\item{show_natural}{\link{logical} (with default): enable or disable the plot of the natural \code{Lx/Tx} values}
 
 \item{n}{\link{integer} (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 down the plotting process and are usually not needed}
@@ -53,7 +53,7 @@ Slot: \strong{@info}\cr
 \emph{Note: If the input object is a \link{list} a list of \linkS4class{RLum.Results} objects is returned.}
 }
 \description{
-While analysing OSL SAR or pIRIR data the view on the data is limited usually to one
+While analysing OSL SAR or pIRIR-data the view on the data is limited usually to one
 dose-response curve (DRC) at the time for one aliquot. This function overcomes this limitation
 by plotting all DRC from an \linkS4class{RLum.Results} object created by the function \link{analyse_SAR.CWOSL}
 in one single plot.
@@ -96,6 +96,6 @@ Christoph Burow, University of Cologne
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2021. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 

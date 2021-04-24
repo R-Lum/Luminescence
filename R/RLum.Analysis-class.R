@@ -83,7 +83,7 @@ setClass("RLum.Analysis",
 #'   `list` \tab `list`\cr
 #' }
 #'
-#' Given that the [list] consits of [RLum.Analysis-class] objects.
+#' Given that the [list] consists of [RLum.Analysis-class] objects.
 #'
 #' @md
 #' @name as
@@ -347,7 +347,7 @@ setMethod(
 #'
 #' 1. [list] of [RLum.Data-class] objects or
 #' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
-#' 3. [RLum.Analysis-class] ojects for `drop = FALSE`
+#' 3. [RLum.Analysis-class] objects for `drop = FALSE`
 #'
 #' @md
 #' @export

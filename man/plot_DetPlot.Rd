@@ -102,10 +102,10 @@ Example: \code{legend.pos} for legend position, \code{legend} for legend text.
 \details{
 \strong{method}
 
-The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
+The original method presented by Bailey et al., 2003 shifted the signal integrals and slightly
 extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
 However, here also another method is provided allowing to expand the signal integral by
-consectutively expaning the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
+consecutively expanding the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
 
 Note that in both cases the integral limits are overlap. The finally applied limits are part
 of the function output.
@@ -120,7 +120,7 @@ The entire analysis is based on the used analysis functions, namely
 \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}. However, the integrity
 checks of this function are not that thoughtful as in these functions itself.
 It means, that every sequence should be checked carefully before running long
-calculations using serveral hundreds of channels.
+calculations using several hundreds of channels.
 }
 \section{Function version}{
  0.1.3
@@ -149,7 +149,7 @@ plot_DetPlot(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+NA, NA, , , 2021. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -161,5 +161,5 @@ doi:10.1016/S1350-4487(03)00063-5
 \link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}

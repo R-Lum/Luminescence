@@ -60,7 +60,7 @@
 #' @note
 #' This function has been created to facilitate the plotting of image data
 #' imported by the function [read_SPE2R]. However, so far the
-#' function is not optimized to handle image data > ca. 200 MByte and thus
+#' function is not optimized to handle image data > ca. 200 MB and thus
 #' plotting of such data is extremely slow.
 #'
 #' @section Function version: 0.1

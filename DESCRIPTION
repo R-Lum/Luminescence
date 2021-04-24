@@ -1,16 +1,16 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.10
-Date: 2021-01-03
+Version: 0.9.11
+Date: 2021-04-24
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
-    Margret C. Fuchs [aut],
+    Margret C. Fuchs [aut] (<https://orcid.org/0000-0001-7210-1132>), 
     Christoph Schmidt [aut] (<https://orcid.org/0000-0002-2309-3209>),
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut] (<https://orcid.org/0000-0002-0805-9547>),
-    Norbert Mercier [ctb] (<https://orcid.org/0000-0002-6375-9108>),
+    Norbert Mercier [aut] (<https://orcid.org/0000-0002-6375-9108>),
     Rachel K. Smedley [ctb] (<https://orcid.org/0000-0001-7773-5193>),
     Claire Christophe [ctb],
     Antoine Zink [ctb] (<https://orcid.org/0000-0001-7146-1101>),
@@ -21,17 +21,18 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Svenja Riedesel [aut] (<https://orcid.org/0000-0003-2936-8776>),
     Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
     Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
-    Dirk Mittelstrass [aut],
+    Dirk Mittelstrass [aut] (<https://orcid.org/0000-0002-9567-8791>),
+    Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
     person("Michael", "Dietze", role = c("aut"), comment = c(ORCID = "0000-0001-6063-1726")),
-    person("Margret C.", "Fuchs", role = c("aut")),
+    person("Margret C.", "Fuchs", role = c("aut"), comment = c(ORCID = "0000-0001-7210-1132")),
     person("Christoph", "Schmidt", role = c("aut"), comment = c(ORCID = "0000-0002-2309-3209")),
     person("Manfred", "Fischer", role = c("aut", "trl")),
     person("Johannes", "Friedrich", role = c("aut"), comment = c(ORCID = "0000-0002-0805-9547")),
-    person("Norbert", "Mercier", role = c("ctb"), comment = c(ORCID = "0000-0002-6375-9108")),
+    person("Norbert", "Mercier", role = c("aut"), comment = c(ORCID = "0000-0002-6375-9108")),
     person("Rachel K.", "Smedley", role = c("ctb"), comment = c(ORCID = "0000-0001-7773-5193")),
     person("Claire", "Christophe", role = c("ctb")),
     person("Antoine", "Zink", rol = c("ctb"), comment = c(ORCID = "0000-0001-7146-1101")),
@@ -42,7 +43,8 @@ Authors@R: c(
     person("Svenja", "Riedesel", role = c("aut"), comment = c(ORCID = "0000-0003-2936-8776")),
     person("Martin", "Autzen", role = c("aut"), comment = c(ORCID = "0000-0001-6249-426X")),
     person("Pierre", "Guibert", role = c("ctb"), comment = c(ORCID = "0000-0001-8969-8684")),
-    person("Dirk", "Mittelstrass", role = c("aut")),
+    person("Dirk", "Mittelstrass", role = c("aut"), comment = c(ORCID = "0000-0002-9567-8791")),
+    person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
 Description: A collection of various R functions for the purpose of Luminescence
@@ -53,7 +55,7 @@ Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 3.5.0),
+    R (>= 3.6.0),
     utils,
     magrittr (>= 1.5)
 LinkingTo: Rcpp (>= 1.0.5),
@@ -63,9 +65,10 @@ Imports:
     data.table (>= 1.13.2),
     DEoptim (>= 2.2-5),
     httr (>= 1.4.2),
+    lamW (>= 2.0.0),
     matrixStats (>= 0.57.0),
     methods,
-    minpack.lm (>= 1.2.1),
+    minpack.lm (>= 1.2-1),
     plotrix (>= 3.7),
     raster (>= 3.4-0),
     readxl (>= 1.3.1),
@@ -158,12 +161,14 @@ Collate:
     'calc_ThermalLifetime.R'
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
+    'calc_gSGC_feldspar.R'
     'convert_Activity2Concentration.R'
     'convert_BIN2CSV.R'
     'convert_Concentration2DoseRate.R'
     'convert_Daybreak2CSV.R'
     'convert_PSL2CSV.R'
     'convert_RLum2Risoe.BINfileData.R'
+    'convert_SG2MG.R'
     'convert_Wavelength2Energy.R'
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'

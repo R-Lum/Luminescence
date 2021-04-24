@@ -104,7 +104,7 @@
 #' - `density` ([numeric]): bulk density of each layer in g/cm^-3
 #'
 #' @param conversion_factors [character] (*optional*):
-#' The conversion factors used to calculate the dose rate from sediument
+#' The conversion factors used to calculate the dose rate from sediment
 #' nuclide contents. Valid options are:
 #'
 #' - `"Cresswelletal2018"` (default)

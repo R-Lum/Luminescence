@@ -54,7 +54,7 @@ exclude NA values from the data set prior to any further operations.}
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
 
 \item{z.0}{\link{character} or \link{numeric}:
-User-defined central value, used for centering of data. One out of \code{"mean"},
+User-defined central value, used for centring of data. One out of \code{"mean"},
 \code{"mean.weighted"} and \code{"median"} or a numeric value (not its logarithm).
 Default is \code{"mean.weighted"}.}
 
@@ -62,7 +62,7 @@ Default is \code{"mean.weighted"}.}
 measure of dispersion, used for drawing the scatter polygon. One out of
 \itemize{
 \item \code{"qr"} (quartile range),
-\item \code{"pnn"} (symmetric percentile range with nn the lower percentile, e.g.
+\item \code{"pnn"} (symmetric percentile range with \code{nn} the lower percentile, e.g.
 \item \code{"p05"} depicting the range between 5 and 95 \%),
 \item \code{"sd"} (standard deviation) and
 \item \code{"2sd"} (2 standard deviations),
@@ -70,7 +70,7 @@ measure of dispersion, used for drawing the scatter polygon. One out of
 
 The default is \code{"qr"}. Note that \code{"sd"} and \code{"2sd"} are only meaningful in
 combination with \code{"z.0 = 'mean'"} because the unweighted mean is used to
-center the polygon.}
+centre the polygon.}
 
 \item{plot.ratio}{\link{numeric}:
 Relative space, given to the radial versus the cartesian plot part,
@@ -146,7 +146,7 @@ with \verb{y.axis = FALSE, bar.col = "none"}.}
 
 \item{bar}{\link{numeric} (\emph{with default}):
 option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
-centered at the defined values. By default a bar is drawn according to \code{"z.0"}.
+centred at the defined values. By default a bar is drawn according to \code{"z.0"}.
 To omit the bar set \code{"bar = FALSE"}.}
 
 \item{bar.col}{\link{character} or \link{numeric} (\emph{with default}):
@@ -170,7 +170,7 @@ line type of additional lines}
 labels for the additional lines.}
 
 \item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the grid lines (originating at \verb{[0,0]} and strechting to
+colour of the grid lines (originating at \verb{[0,0]} and stretching to
 the z-scale). To disable grid lines use \code{FALSE}. Default is \code{"grey"}.}
 
 \item{frame}{\link{numeric} (\emph{with default}):
@@ -192,7 +192,7 @@ Optional output of numerical plot parameters. These can be useful to
 reproduce similar plots. Default is \code{TRUE}.}
 
 \item{interactive}{\link{logical} (\emph{with default}):
-create an interactive abanico plot (requires the 'plotly' package)}
+create an interactive abanico plot (requires the \code{'plotly'} package)}
 
 \item{...}{Further plot arguments to pass. \code{xlab} must be a vector of
 length 2, specifying the upper and lower x-axes labels.}
@@ -213,12 +213,12 @@ error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
 Galbraith & Green (1990). The function authors are thankful for the
-thoughtprovocing figure in this article.
+thought provoking figure in this article.
 
 The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
 part of the plot with any other cartesian visualisation method
-(KDE, histogram, PDF and so on). Note that the plot allows dispaying
+(KDE, histogram, PDF and so on). Note that the plot allows displaying
 two measures of distribution. One is the 2-sigma
 bar, which illustrates the spread in value errors, and the other is the
 polygon, which stretches over both parts of the Abanico Plot (polar and
@@ -239,7 +239,7 @@ user-defined numeric values (e.g. from the central age model) can be used if
 this appears appropriate.
 
 The proportion of the polar part and the cartesian part of the Abanico Plot
-can be modfied for display reasons (\code{plot.ratio = 0.75}). By default,
+can be modified for display reasons (\code{plot.ratio = 0.75}). By default,
 the polar part spreads over 75 \\% and leaves 25 \\% for the part that
 shows the KDE graph.
 
@@ -274,7 +274,7 @@ The optional parameter \code{layout} allows to modify the entire plot more
 sophisticated. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
-cf. \code{get_Layout()} or type eg. for the layout type \code{"journal"}
+cf. \code{get_Layout()} or type e.g., for the layout type \code{"journal"}
 \code{get_Layout("journal")}. A layout type can be modified by the user by
 assigning new values to the list object.
 
@@ -469,7 +469,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -487,6 +487,6 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)
 , RLum Developer Team}

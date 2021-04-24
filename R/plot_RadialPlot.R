@@ -49,11 +49,11 @@
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
 #'
 #' @param central.value [numeric]:
-#' User-defined central value, primarily used for horizontal centering
+#' User-defined central value, primarily used for horizontal centring
 #' of the z-axis.
 #'
 #' @param centrality [character] or [numeric] (*with default*):
-#' measure of centrality, used for automatically centering the plot and drawing
+#' measure of centrality, used for automatically centring the plot and drawing
 #' the central line. Can either be one out of
 #' - `"mean"`,
 #' - `"median"`,
@@ -379,7 +379,7 @@ plot_RadialPlot <- function(
   } else {
     De.add <- 0
   }
- 
+
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
 

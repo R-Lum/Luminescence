@@ -23,7 +23,7 @@ contains a list of vectors of the measured data (usually count values).
 Lab: \tab Luminescence Laboratory Bayreuth \cr
 Lab-Code: \tab BT607 \cr
 Location: \tab Saxony/Germany \cr
-Material: \tab Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader\cr
+Material: \tab Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader\cr
 Reference: \tab unpublished
 }
 

@@ -9,7 +9,7 @@
 #' resolution and values are interpolated for the required spectral resolution using
 #' the function [stats::approx][stats::approxfun]
 #'
-#' If the energy calibration differes for both data set `NA` values are produces that
+#' If the energy calibration differs for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
 #' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**):

@@ -17,7 +17,7 @@
 #' intercept
 #'
 #' @param interval [numeric] (**required**):
-#' fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to
+#' fixed interval (e.g. 5 Gy) used for iteration of `Dbar`, from the mean to
 #' Lowest.De used to create Graph.IEU `[Dbar.Fixed vs Z]`
 #'
 #' @param decimal.point [numeric] (*with default*):

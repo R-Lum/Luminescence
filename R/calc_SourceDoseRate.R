@@ -25,11 +25,11 @@
 #'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[4` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 #'
-#' @param measurement.date [character] or [Date] (with default): Date of measurement in "YYYY-MM-DD".
+#' @param measurement.date [character] or [Date] (with default): Date of measurement in `"YYYY-MM-DD"`.
 #' If no value is provided, the date will be set to today. The argument can be provided as vector.
 #'
 #' @param calib.date [character] or [Date] (**required**):
-#' date of source calibration in "YYYY-MM-DD"
+#' date of source calibration in `"YYYY-MM-DD"`
 #'
 #' @param calib.dose.rate [numeric] (**required**):
 #' dose rate at date of calibration in Gy/s or Gy/min
@@ -46,7 +46,7 @@
 #' Gy/s as valid for the function [Second2Gray]
 #'
 #' @param predict [integer] (*with default*):
-#' option allowing to predicit the dose rate of the source over time in days
+#' option allowing to predict the dose rate of the source over time in days
 #' set by the provided value. Starting date is the value set with
 #' `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)` calculates
 #' the source dose rate for the next 100 days.
@@ -75,7 +75,7 @@
 #' for `measurement.date` and `calib.date` is provided. For the source dose rate prediction
 #' the function takes the last value `measurement.date` and predicts from that the the source
 #' source dose rate for the number of days requested,
-#' means: the (multiple) orignal input will be replaced. However, the function
+#' means: the (multiple) original input will be replaced. However, the function
 #' do not change entries for the calibration dates, but mix them up. Therefore,
 #' it is not recommended to use this option when multiple calibration dates (`calib.date`)
 #' are provided.
@@ -84,13 +84,13 @@
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'
 #' @seealso [Second2Gray], [get_RLum], [plot_RLum]
 #'
 #' @references
-#' NNDC, Brookhaven National Laboratory [http://www.nndc.bnl.gov/]()
+#' NNDC, Brookhaven National Laboratory `http://www.nndc.bnl.gov/`
 #'
 #' @keywords manip
 #'

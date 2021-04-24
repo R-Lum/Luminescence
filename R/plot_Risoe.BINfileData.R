@@ -24,66 +24,66 @@
 #'
 #' @param BINfileData [Risoe.BINfileData-class] (**required**):
 #' requires an S4 object returned by the [read_BIN2R] function.
-#' 
-#' @param position [vector] (*optional*): 
-#' option to limit the plotted curves by position 
+#'
+#' @param position [vector] (*optional*):
+#' option to limit the plotted curves by position
 #' (e.g. `position = 1`, `position = c(1,3,5)`).
-#' 
-#' @param run [vector] (*optional*): 
-#' option to limit the plotted curves by run 
+#'
+#' @param run [vector] (*optional*):
+#' option to limit the plotted curves by run
 #' (e.g., `run = 1`, `run = c(1,3,5)`).
-#' 
-#' @param set [vector] (*optional*): 
-#' option to limit the plotted curves by set 
+#'
+#' @param set [vector] (*optional*):
+#' option to limit the plotted curves by set
 #' (e.g., `set = 1`, `set = c(1,3,5)`).
-#' 
-#' @param sorter [character] (*with default*): 
-#' the plot output can be ordered by "POSITION","SET" or "RUN". 
+#'
+#' @param sorter [character] (*with default*):
+#' the plot output can be ordered by "POSITION","SET" or "RUN".
 #' POSITION, SET and RUN are options defined in the Risoe Sequence Editor.
-#' 
-#' @param ltype [character] (*with default*): 
-#' option to limit the plotted curves by the type of luminescence stimulation.  
+#'
+#' @param ltype [character] (*with default*):
+#' option to limit the plotted curves by the type of luminescence stimulation.
 #' Allowed values: `"IRSL"`, `"OSL"`,`"TL"`, `"RIR"`, `"RBR"`
 #' (corresponds to LM-OSL), `"RL"`.  All type of curves are plotted by
 #' default.
-#' 
-#' @param curve.transformation [character] (*optional*): 
-#' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via 
+#'
+#' @param curve.transformation [character] (*optional*):
+#' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 #' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`, `CW2pHMi` and
 #' `CW2pPMi`. See details.
-#' 
-#' @param dose_rate [numeric] (*optional*): 
-#' dose rate of the irradition source at the measurement date. 
+#'
+#' @param dose_rate [numeric] (*optional*):
+#' dose rate of the irradiation source at the measurement date.
 #' If set, the given irradiation dose will be shown in Gy.  See details.
-#' 
-#' @param temp.lab [character] (*optional*): 
+#'
+#' @param temp.lab [character] (*optional*):
 #' option to allow for different temperature units. If no value is set deg. C is chosen.
-#' 
-#' @param cex.global [numeric] (*with default*): 
+#'
+#' @param cex.global [numeric] (*with default*):
 #' global scaling factor.
-#' 
+#'
 #' @param ... further undocumented plot arguments.
-#' 
+#'
 #' @return Returns a plot.
-#' 
-#' @note 
+#'
+#' @note
 #' The function has been successfully tested for the Sequence Editor file
 #' output version 3 and 4.
-#' 
+#'
 #' @section Function version: 0.4.1
-#' 
-#' @author 
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr 
+#'
+#' @author
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
-#' 
-#' @seealso [Risoe.BINfileData-class],[read_BIN2R], [CW2pLM], [CW2pLMi], 
+#'
+#' @seealso [Risoe.BINfileData-class],[read_BIN2R], [CW2pLM], [CW2pLMi],
 #' [CW2pPMi], [CW2pHMi]
-#' 
-#' @references 
+#'
+#' @references
 #' Duller, G., 2007. Analyst. pp. 1-45.
-#' 
+#'
 #' @keywords dplot
-#' 
+#'
 #' @examples
 #'
 #' ##load data

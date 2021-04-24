@@ -67,7 +67,7 @@
 #' f <- function() {
 #'  warning("warning 1")
 #'  warning("warning 1")
-#'  warning("warnigs 2")
+#'  warning("warning 2")
 #'  1:10
 #' }
 #' print(.warningCatcher(f()))
@@ -83,9 +83,11 @@
   results <- withCallingHandlers(
     expr = expr,
     warning = function(c) {
+      temp <- c(get("warning_collector", envir = env), c[[1]])
       assign(x = "warning_collector",
-             value = c,
+             value = temp,
              envir = env)
+      ##TODO should be replaced tryInvokeRestart if R 4.1 was released
       invokeRestart("muffleWarning")
     }
   )
@@ -616,13 +618,16 @@ fancy_scientific <- function(l) {
   m <- cbind(matrix(c(dens$x, dens$y), ncol = 2), dens$y * diff)
   o <- order(m[, 3], decreasing = TRUE)
   m_ind <- which(cumsum(m[o, 3]) <= prob)
-  thres <- min(m[o, 2][m_ind])
+  thres <- suppressWarnings(min(m[o, 2][m_ind]))
 
   ##get peaks
   peaks_id <- which(abs(diff((m[,2] - thres) > 0)) == 1)
 
   ##calculate HPDI
-  HPDI <- matrix(m[peaks_id,1], ncol = 2)
+  HPDI <- matrix(NA, ncol = 2, nrow = 1)
+  if(length(peaks_id != 0))
+    HPDI <- matrix(m[peaks_id,1], ncol = 2)
+
   colnames(HPDI) <- c("lower", "upper")
   attr(HPDI, "Probabilty") <- prob
 
@@ -630,9 +635,11 @@ fancy_scientific <- function(l) {
     xy <- m[m_ind,c(1,2)]
     plot(dens, main = "HPDI (control plot)")
     abline(h = thres, lty = 2)
-    for(i in seq(1,length(peaks_id),2)) {
-      lines(x = m[peaks_id[i]:peaks_id[i + 1], 1],
-            y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
+    if(length(peaks_id != 0)) {
+      for(i in seq(1,length(peaks_id),2)) {
+        lines(x = m[peaks_id[i]:peaks_id[i + 1], 1],
+              y = m[peaks_id[i]:peaks_id[i + 1], 2], col = "red")
+      }
     }
 
   }

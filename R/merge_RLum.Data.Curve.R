@@ -4,7 +4,7 @@
 #'
 #' This function simply allowing to merge [RLum.Data.Curve-class]
 #' objects without touching the objects itself. Merging is always applied on
-#' the 2nd colum of the data matrix of the object.
+#' the 2nd column of the data matrix of the object.
 #'
 #' **Supported merge operations are [RLum.Data.Curve-class]**
 #'
@@ -54,7 +54,7 @@
 #'
 #' `"*"`
 #'
-#' The row sums of the last objects are mutliplied with the first object.
+#' The row sums of the last objects are multiplied with the first object.
 #'
 #' `"/"`
 #'

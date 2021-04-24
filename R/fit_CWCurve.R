@@ -14,7 +14,7 @@
 #' where \eqn{0 < i < 8}
 #'
 #' and \eqn{\lambda} is the decay constant \cr
-#' and \eqn{I0} the intial number of trapped electrons.
+#' and \eqn{I0} the initial number of trapped electrons.
 #'
 #' *(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)*
 #'
@@ -39,8 +39,8 @@
 #' **Error of fitted component parameters**
 #'
 #' The 1-sigma error for the
-#' components is calculated using the function [confint]. Due to
-#' considerable calculation time, this option is deactived by default. In
+#' components is calculated using the function [stats::confint]. Due to
+#' considerable calculation time, this option is deactivated by default. In
 #' addition, the error for the components can be estimated by using internal R
 #' functions like [summary]. See the [nls] help page
 #' for more information.
@@ -66,7 +66,7 @@
 #' traces the fitting process on the terminal.
 #'
 #' @param fit.calcError [logical] (*with default*):
-#' calculate 1-sigma error range of components using [confint]
+#' calculate 1-sigma error range of components using [stats::confint]
 #'
 #' @param LED.power [numeric] (*with default*):
 #' LED power (max.) used for intensity ramping in mW/cm^2.
@@ -82,7 +82,7 @@
 #' global scaling factor.
 #'
 #' @param sample_code [character] (*optional*):
-#' sample code used for the plot and the optional output table (mtext).
+#' sample code used for the plot and the optional output table (`mtext`).
 #'
 #' @param output.path [character] (*optional*):
 #' output path for table output containing the results of the fit. The file
@@ -90,7 +90,7 @@
 #' the values are appended.
 #'
 #' @param output.terminal [logical] (*with default*):
-#' terminal ouput with fitting results.
+#' terminal output with fitting results.
 #'
 #' @param output.terminalAdvanced [logical] (*with default*):
 #' enhanced terminal output. Requires `output.terminal = TRUE`.
@@ -108,7 +108,7 @@
 #'
 #' **table (*optional*)**
 #'
-#' an output table (*.csv) with parameters of the fitted components is
+#' an output table (`*.csv`) with parameters of the fitted components is
 #' provided if the `output.path` is set.
 #'
 #'
@@ -119,7 +119,7 @@
 #'
 #' `fit`:
 #' an `nls` object (`$fit`) for which generic R functions are
-#' provided, e.g. [summary], [confint], [profile]. For more
+#' provided, e.g. [summary], [stats::confint], [profile]. For more
 #' details, see [nls].
 #'
 #' `output.table`:

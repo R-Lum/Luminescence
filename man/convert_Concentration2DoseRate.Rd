@@ -40,17 +40,17 @@ with the factor for beta dose rate being 1.25 and for gamma 1.14.
 \strong{The input data}
 
 \tabular{lll}{
-COLUMN \tab DATATYPE \tab DESCRIPTION\cr
-Mineral \tab \code{character} \tab \code{'FS'} for feldspar, \code{'Q'} for quartz\cr
-K \tab \code{numeric} \tab K nuclide content in \%\cr
-K_SE \tab \code{numeric} \tab error on K nuclide content in \%\cr
-Th \tab \code{numeric} \tab Th nuclide content in ppm\cr
-Th_SE \tab \code{numeric} error on Th nuclide content in ppm\cr
-U \tab \code{numeric} U nuclide content in ppm\cr
-U_SE \tab \code{numeric} \tab error on U nuclide content in ppm\cr
-GrainSize \tab \code{numeric} \tab average grain size in µm\cr
-WaterContent \tab \code{numeric} \tab mean water content in \%\cr
-WaterContent_SE \tab \code{numeric} \tab relative error on water content
+COLUMN \tab DATA TYPE \tab DESCRIPTION\cr
+\code{Mineral} \tab \code{character} \tab \code{'FS'} for feldspar, \code{'Q'} for quartz\cr
+\code{K} \tab \code{numeric} \tab K nuclide content in \%\cr
+\code{K_SE} \tab \code{numeric} \tab error on K nuclide content in \%\cr
+\code{Th} \tab \code{numeric} \tab Th nuclide content in ppm\cr
+\code{Th_SE} \tab \code{numeric} error on Th nuclide content in ppm\cr
+\code{U} \tab \code{numeric} U nuclide content in ppm\cr
+\code{U_SE} \tab \code{numeric} \tab error on U nuclide content in ppm\cr
+\code{GrainSize} \tab \code{numeric} \tab average grain size in µm\cr
+\code{WaterContent} \tab \code{numeric} \tab mean water content in \%\cr
+\code{WaterContent_SE} \tab \code{numeric} \tab relative error on water content
 }
 
 \strong{Water content}
@@ -87,7 +87,7 @@ convert_Concentration2DoseRate(input)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., 2021. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., 2021. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

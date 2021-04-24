@@ -15,11 +15,11 @@ calc_SourceDoseRate(
 )
 }
 \arguments{
-\item{measurement.date}{\link{character} or \link{Date} (with default): Date of measurement in "YYYY-MM-DD".
+\item{measurement.date}{\link{character} or \link{Date} (with default): Date of measurement in \code{"YYYY-MM-DD"}.
 If no value is provided, the date will be set to today. The argument can be provided as vector.}
 
 \item{calib.date}{\link{character} or \link{Date} (\strong{required}):
-date of source calibration in "YYYY-MM-DD"}
+date of source calibration in \code{"YYYY-MM-DD"}}
 
 \item{calib.dose.rate}{\link{numeric} (\strong{required}):
 dose rate at date of calibration in Gy/s or Gy/min}
@@ -36,7 +36,7 @@ specify dose rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is g
 Gy/s as valid for the function \link{Second2Gray}}
 
 \item{predict}{\link{integer} (\emph{with default}):
-option allowing to predicit the dose rate of the source over time in days
+option allowing to predict the dose rate of the source over time in days
 set by the provided value. Starting date is the value set with
 \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
 the source dose rate for the next 100 days.}
@@ -89,7 +89,7 @@ Please be careful when using the option \code{predict}, especially when a multip
 for \code{measurement.date} and \code{calib.date} is provided. For the source dose rate prediction
 the function takes the last value \code{measurement.date} and predicts from that the the source
 source dose rate for the number of days requested,
-means: the (multiple) orignal input will be replaced. However, the function
+means: the (multiple) original input will be replaced. However, the function
 do not change entries for the calibration dates, but mix them up. Therefore,
 it is not recommended to use this option when multiple calibration dates (\code{calib.date})
 are provided.
@@ -137,17 +137,17 @@ xtable::xtable(get_RLum(dose.rate))
 } 
 
 \section{How to cite}{
-Fuchs, M.C., Kreutzer, S., 2021. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., Kreutzer, S., 2021. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-NNDC, Brookhaven National Laboratory \url{http://www.nndc.bnl.gov/}
+NNDC, Brookhaven National Laboratory \verb{http://www.nndc.bnl.gov/}
 }
 \seealso{
 \link{Second2Gray}, \link{get_RLum}, \link{plot_RLum}
 }
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team}
 \keyword{manip}

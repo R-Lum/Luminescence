@@ -2,7 +2,7 @@
 % Please edit documentation in R/bin_RLum.Data.R
 \name{bin_RLum.Data}
 \alias{bin_RLum.Data}
-\title{Channel binning - method dispatchter}
+\title{Channel binning - method dispatcher}
 \usage{
 bin_RLum.Data(object, ...)
 }
@@ -10,7 +10,7 @@ bin_RLum.Data(object, ...)
 \item{object}{\linkS4class{RLum.Data} (\strong{required}):
 S4 object of class \code{RLum.Data}}
 
-\item{...}{further arguments passed to the specifc class method}
+\item{...}{further arguments passed to the specific class method}
 }
 \value{
 An object of the same type as the input object is provided
@@ -55,12 +55,11 @@ plot_RLum(bin_RLum.Data(curve, bin_size = 4))
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5050, CNRS - Université Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. bin_RLum.Data(): Channel binning - method dispatcher. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

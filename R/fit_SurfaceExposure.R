@@ -1,7 +1,7 @@
 #' Nonlinear Least Squares Fit for OSL surface exposure data
 #'
 #' This function determines the (weighted) least-squares estimates of the
-#' parameters of either eq. 1 in *Sohbati et al. (2012a)* or eq. 12 in
+#' parameters of either equation 1 in *Sohbati et al. (2012a)* or equation 12 in
 #' *Sohbati et al. (2012b)* for a given OSL surface exposure data set (**BETA**).
 #'
 #' **Weighted fitting**
@@ -16,11 +16,11 @@
 #' **Dose rate**
 #'
 #' If any of the arguments `Ddot` or `D0` is at its default value (`NULL`),
-#' this function will fit eq. 1 in Sohbati et al. (2012a) to the data. If
+#' this function will fit equation 1 in Sohbati et al. (2012a) to the data. If
 #' the effect of dose rate (i.e., signal saturation) needs to be considered,
 #' numeric values for the dose rate (`Ddot`) (in Gy/ka) and the characteristic
 #' saturation dose (`D0`) (in Gy) must be provided. The function will then fit
-#' eq. 12 in Sohbati et al. (2012b) to the data.
+#' equation 12 in Sohbati et al. (2012b) to the data.
 #'
 #' **NOTE**: Currently, this function does **not** consider the variability
 #' of the dose rate with sample depth (`x`)! In the original equation the dose
@@ -57,7 +57,7 @@
 #' input automatically activates the global fitting procedure (see details).
 #'
 #' @param sigmaphi [numeric] (*optional*):
-#' A numeric value for sigmaphi, i.e. the charge detrapping rate.
+#' A numeric value for `sigmaphi`, i.e. the charge detrapping rate.
 #' Example: `sigmaphi = 5e-10`
 #'
 #' @param mu [numeric] (*optional*):
@@ -98,7 +98,7 @@
 #' @param ... Further parameters passed to [plot].
 #' Custom parameters include:
 #' - `verbose` ([logical]): show or hide console output
-#' - `line_col`: Color of the fitted line
+#' - `line_col`: Colour of the fitted line
 #' - `line_lty`: Type of the fitted line (see `lty` in `?par`)
 #' - `line_lwd`: Line width of the fitted line (see `lwd` in `?par`)
 #'
@@ -148,7 +148,7 @@
 #'
 #' Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 #' Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-#' dating. Journal of Geophysical Research 117, B09202. doi:10.1029/2012JB009383
+#' dating. Journal of Geophysical Research 117, B09202. \doi{10.1029/2012JB009383}
 #'
 #' Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 #' non-terrestrial bodies using optically stimulated luminescence: A new method.
