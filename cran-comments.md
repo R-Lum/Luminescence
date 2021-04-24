@@ -1,12 +1,14 @@
 ## Release summary
 
-This version updates 0.9.9 on CRAN and fixes the R-devel errors that 
-occurred recently after changes in R.
+##TODO
+- Check reverse dependencies
+- Check NEWS another time
+- Write NEWS
+- Update website (pkgdown)
+
+This version updates 0.9.10 on CRAN.
 
 ## Addressed CRAN issues
-
-`Error in xtfrm.default(x) : cannot xtfrm 'x'` found in two 
-files related to one function and fixed.
 
 ## Win-Builder
 
