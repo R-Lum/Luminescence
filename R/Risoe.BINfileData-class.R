@@ -185,7 +185,7 @@ NULL
 #'
 #' The Sequence Editor User Manual - February 2016
 #'
-#' [https://www.nutech.dtu.dk/]()
+#' [https://www.dtu.dk/]()
 #'
 #' @keywords classes
 #'

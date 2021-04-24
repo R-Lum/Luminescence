@@ -228,7 +228,7 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
 
 The Sequence Editor User Manual - February 2016
 
-\url{https://www.nutech.dtu.dk/}
+\url{https://www.dtu.dk/}
 }
 \seealso{
 \link{plot_Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN},

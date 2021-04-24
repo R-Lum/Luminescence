@@ -16,8 +16,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![DOI](https://zenodo.org/badge/23153315.svg)](https://zenodo.org/badge/latestdoi/23153315)
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
 [![CRAN
-checks](https://cranchecks.info/badges/summary/Luminescence)](https://cran.r-project.org/web/checks/check_results_Luminescence.html)
-[![](https://img.shields.io/badge/devel%20version-0.9.11.9000--1-blue.svg)](https://github.com/R-Lum/Luminescence)
+checks](https://cranchecks.info/badges/worst/Luminescence)](https://cran.r-project.org/web/checks/check_results_Luminescence.html)
 
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
@@ -50,7 +49,7 @@ or visit our [R-Luminescence homepage](https://r-luminescence.org).
 #### ii. Install the package
 
 Install any development versions using our
-[RStudio](https://rstudio.com) add-in
+[RStudio](https://www.rstudio.com) add-in
 
 ![](man/figures/README-Screenshot_AddIn.png)
 

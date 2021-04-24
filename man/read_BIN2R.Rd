@@ -107,7 +107,7 @@ The binary data file is parsed byte by byte following the data structure
 published in the Appendices of the Analyst manual p. 42.
 
 For the general BIN/BINX-file structure, the reader is referred to the
-Risø website: \url{https://www.nutech.dtu.dk/}
+Risø website: \url{https://www.dtu.dk}
 }
 \note{
 The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
@@ -135,7 +135,7 @@ Kreutzer, S., Fuchs, M.C., 2021. read_BIN2R(): Import Risø BIN/BINX-files into 
 
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-\url{https://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
+\url{https://www.fysik.dtu.dk/english/research/radphys/research/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
 \link{write_R2BIN}, \linkS4class{Risoe.BINfileData},

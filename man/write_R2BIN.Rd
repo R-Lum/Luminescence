@@ -102,7 +102,7 @@ Kreutzer, S., 2021. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-
 
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-\url{https://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
+\url{https://www.fysik.dtu.dk/english/research/radphys/research/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
 \link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}

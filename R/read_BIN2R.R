@@ -7,7 +7,7 @@
 #' published in the Appendices of the Analyst manual p. 42.
 #'
 #' For the general BIN/BINX-file structure, the reader is referred to the
-#' Risø website: [https://www.nutech.dtu.dk/]()
+#' Risø website: [https://www.dtu.dk]()
 #'
 #' @param file [character] or [list] (**required**): path and file name of the
 #' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
