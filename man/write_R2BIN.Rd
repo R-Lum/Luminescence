@@ -97,12 +97,12 @@ write_R2BIN(CWOSL.SAR.Data, file = temp_file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-86. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-\url{https://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
+\url{https://www.fysik.dtu.dk}
 }
 \seealso{
 \link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}

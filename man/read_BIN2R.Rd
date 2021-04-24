@@ -107,7 +107,7 @@ The binary data file is parsed byte by byte following the data structure
 published in the Appendices of the Analyst manual p. 42.
 
 For the general BIN/BINX-file structure, the reader is referred to the
-Risø website: \url{https://www.nutech.dtu.dk/}
+Risø website: \url{https://www.fysik.dtu.dk}
 }
 \note{
 The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
@@ -130,12 +130,12 @@ version number depends on the used Sequence Editor.
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2021. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11.9000-86. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2021. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-\url{https://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
+\url{https://www.fysik.dtu.dk}
 }
 \seealso{
 \link{write_R2BIN}, \linkS4class{Risoe.BINfileData},
