@@ -48,7 +48,7 @@ our [R-Luminescence homepage](https://r-luminescence.org).
 
 #### ii. Install the package
 
-Install any development versions using our [RStudio](https://rstudio.com) add-in
+Install any development versions using our [RStudio](https://www.rstudio.com) add-in
 
 ![](man/figures/README-Screenshot_AddIn.png)
 

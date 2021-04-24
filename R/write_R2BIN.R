@@ -67,7 +67,7 @@
 #'
 #' @references
 #' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-#' [https://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals]()
+#' [https://www.fysik.dtu.dk/english/research/radphys/research/radiation-instruments/tl_osl_reader/manuals]()
 #'
 #' @keywords IO
 #'
