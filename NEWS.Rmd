@@ -12,22 +12,11 @@ header-includes:
 
 ### New functions
 
-* `calc_EED_Model()` Model incomplete and heterogeneous bleaching of mobile grains after Guibert et al. (2017). Along with the function, a new example data set `ExampleData.MortarData` was added.
-
 * `convert_SG2MG()` Convert single-grain data to multiple-grain data by adding singles from disc. Works 
 only for files created by Risø TL/OSL readers.
 
-* `fit_EmissionSpectra()` Function for luminescence emission spectra deconvolution.
-
 * `calc_gSGC_feldspar()` Function to support the calculation of the equivalent dose using the
 global standardised growth curve (gSGC) for feldspar proposed by Li et al. (2015)
-
-* `combine_Dr_De()` This function allows to model dose rate and equivalent dose distributions 
-to obtain an age from Bayesian modelling using both distributions. In the back a couple of 
-additional functions have been added to support this novel approach. This function requires [JAGS](https://mcmc-jags.sourceforge.io) (supported through `'rjags'`) on your computer along with a 
-couple of other R packages prompted to you when you first try to use this function. 
-
-* `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
 
 ### Bugfixes and changes
 #### `analyse_SAR.CWOSL()`
@@ -54,8 +43,7 @@ negative; fixed.
 
 ### Internals
 * `'lamW'` added as new package dependency. This is needed to support the Lambert W function 
-as in the function `plot_GrowthCurve()`
-* `mclust` added as new package dependency to support the new Bayesian models  
+as in the function `plot_GrowthCurve()`   
 
 ## Changes in version 0.9.10 (2020-12-10)
 

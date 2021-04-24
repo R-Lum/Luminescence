@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.11.9000-86
-Date: 2021-04-20
+Version: 0.9.11.9000-87
+Date: 2021-04-24
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -16,14 +16,13 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Antoine Zink [ctb] (<https://orcid.org/0000-0001-7146-1101>),
     Julie Durcan [ctb] (<https://orcid.org/0000-0001-8724-8022>),
     Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
-    Anne Philippe [aut],
+    Anne Philippe [ctb],
     Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
     Svenja Riedesel [aut] (<https://orcid.org/0000-0003-2936-8776>),
     Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
     Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
     Dirk Mittelstrass [aut] (<https://orcid.org/0000-0002-9567-8791>),
     Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
-    Jean-Michel Galharret [aut],
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
@@ -39,14 +38,13 @@ Authors@R: c(
     person("Antoine", "Zink", rol = c("ctb"), comment = c(ORCID = "0000-0001-7146-1101")),
     person("Julie", "Durcan", role = c("ctb"), comment = c(ORCID = "0000-0001-8724-8022")),
     person("Georgina E.", "King", role = c("ctb", "dtc"), comment = c(ORCID = "0000-0003-1059-8192")),
-    person("Anne", "Philippe", role = c("aut")),
+    person("Anne", "Philippe", role = c("ctb")),
     person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
     person("Svenja", "Riedesel", role = c("aut"), comment = c(ORCID = "0000-0003-2936-8776")),
     person("Martin", "Autzen", role = c("aut"), comment = c(ORCID = "0000-0001-6249-426X")),
     person("Pierre", "Guibert", role = c("ctb"), comment = c(ORCID = "0000-0001-8969-8684")),
     person("Dirk", "Mittelstrass", role = c("aut"), comment = c(ORCID = "0000-0002-9567-8791")),
     person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
-    person("Galharret", "Jean-Michel", role = c("aut")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
 Description: A collection of various R functions for the purpose of Luminescence
@@ -63,7 +61,6 @@ Depends:
 LinkingTo: Rcpp (>= 1.0.5),
     RcppArmadillo (>= 0.10.1.0.0)
 Imports:
-    interp (>= 1.0),
     bbmle (>= 1.0.23),
     data.table (>= 1.13.2),
     DEoptim (>= 2.2-5),
@@ -87,7 +84,6 @@ Suggests:
     rstudioapi (>= 0.13),
     rjags (>= 4-10),
     coda (>= 0.19-4),
-    mclust (>= 5.4.7),
     pander (>= 0.6.3),
     testthat (>= 3.0.0),
     devtools (>= 2.3.2),
@@ -146,7 +142,6 @@ Collate:
     'calc_CobbleDoseRate.R'
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
-    'calc_EED_Model.R'
     'calc_FadingCorr.R'
     'calc_FastRatio.R'
     'calc_FiniteMixture.R'
@@ -167,7 +162,6 @@ Collate:
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
     'calc_gSGC_feldspar.R'
-    'combine_Dr_De.R'
     'convert_Activity2Concentration.R'
     'convert_BIN2CSV.R'
     'convert_Concentration2DoseRate.R'
@@ -179,7 +173,6 @@ Collate:
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
-    'fit_EmissionSpectra.R'
     'fit_LMCurve.R'
     'fit_OSLLifeTimes.R'
     'fit_SurfaceExposure.R'
@@ -207,7 +200,6 @@ Collate:
     'plot_Histogram.R'
     'plot_KDE.R'
     'plot_NRt.R'
-    'plot_OSLAgeSummary.R'
     'plot_RLum.Analysis.R'
     'plot_RLum.Data.Curve.R'
     'plot_RLum.Data.Image.R'
