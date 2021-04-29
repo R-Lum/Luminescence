@@ -1,11 +1,5 @@
 ## Release summary
 
-##TODO
-- Check reverse dependencies
-- Check NEWS another time
-- Write NEWS
-- Update website (pkgdown)
-
 This version updates 0.9.10 on CRAN.
 
 ## Addressed CRAN issues

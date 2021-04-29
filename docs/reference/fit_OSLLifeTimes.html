@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,7 +94,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -161,7 +161,7 @@ of components.</p></td>
     </tr>
     <tr>
       <th>method_control</th>
-      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optonal</em>): Named to allow a more fine control of the fitting process. See details
+      <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>): Named to allow a more fine control of the fitting process. See details
 for allowed options.</p></td>
     </tr>
     <tr>
@@ -171,7 +171,7 @@ for allowed options.</p></td>
     <tr>
       <th>plot_simple</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): Enable/disable reduced plot output. If <code>TRUE</code>, no
-residual plot is shown, however, plot output can be combined using the standard R layout obtions,
+residual plot is shown, however, plot output can be combined using the standard R layout options,
 such as <code><a href='https://rdrr.io/r/graphics/par.html'>par(mfrow = c(2,2))</a></code>.</p></td>
     </tr>
     <tr>
@@ -208,7 +208,7 @@ object is of type <a href='RLum.Analysis-class.html'>RLum.Analysis</a> this argu
 <code>[ TERMINAL OUTPUT ]</code><br />
 ------------------------<br /></p>
 <p>Terminal output is only shown of the argument <code>verbose = TRUE</code>.</p>
-<p><em>(1) Start parameter and component adapation</em><br />
+<p><em>(1) Start parameter and component adaption</em><br />
 Trave of the parameter adaptation process</p>
 <p><em>(2) Fitting results (sorted by ascending tau)</em><br />
 The fitting results sorted by ascending tau value. Please note
@@ -219,7 +219,7 @@ that if you access the <code>nls</code> fitting object, the values are not sorte
 the residuals should be not correlated at all. Rough measures are: <br />
 D = 0: the residuals are systematically correlated <br />
 D = 2: the residuals are randomly distributed <br />
-D = 4: the residuals are systematically anticorrelated<br /></p></li>
+D = 4: the residuals are systematically anti-correlated<br /></p></li>
 </ul>
 
 <p>You should be suspicious if D differs largely from 2.</p>
@@ -236,10 +236,10 @@ only. For the signal deconvolution, a differential evolution optimisation is com
 following the approach by Bluszcz &amp; Adamiec (2006).</p>
 <p><strong>Component deconvolution algorithm</strong></p>
 <p>The component deconvolution consists of two steps:</p>
-<p>(1) Adaption phase</p>
-<p>In the adaption phase the function tries to figure out the optimal and statistically justified
-number of signal components following roughly the approach suggestd by Bluszcz &amp; Adamiec (2006). In
-contrast to their work, for the optimisation by differential evolution here the package 'DEoptim' is used.</p>
+<p>(1) Adaptation phase</p>
+<p>In the adaptation phase the function tries to figure out the optimal and statistically justified
+number of signal components following roughly the approach suggested by Bluszcz &amp; Adamiec (2006). In
+contrast to their work, for the optimisation by differential evolution here the package <code>'DEoptim'</code> is used.</p>
 <p>The function to be optimized has the form:</p>
 <p>$$\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)$$</p>
 <p>with \(w = 1\) for unweighted regression analysis (<code>method_control = list(weights = FALSE)</code>) or
@@ -266,11 +266,12 @@ The default values is <code>TRUE</code></td></tr>
     <p>0.1.5</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Schmidt, C., 2020. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Schmidt, C., 2021. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
-Radiation Measurements 41, 886-891. doi:10.1016/j.radmeas.2006.05.016<br /></p>
+Radiation Measurements 41, 886-891. doi: <a href='https://doi.org/10.1016/j.radmeas.2006.05.016'>10.1016/j.radmeas.2006.05.016</a>
+<br /></p>
 <p>Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
 Biometrika 37, 409-21. doi:10.2307/2332391</p>
 <p><strong>Further reading</strong></p>
@@ -314,7 +315,7 @@ Christoph Schmidt, University of Bayreuth (Germany)
 #&gt; -------------------------------------------------------------------------
 #&gt;           Estimate   Std. Error   t value      Pr(&gt;|t|)
 #&gt; A.1   2.118737e+10 9.710554e+07 218.18915  0.000000e+00
-#&gt; tau.1 8.791461e+01 3.167935e+00  27.75139 1.196541e-143
+#&gt; tau.1 8.791461e+01 3.167935e+00  27.75139 1.196537e-143
 #&gt; -------------------------------------------------------------------------
 #&gt; 
 #&gt; (3) Further information
@@ -348,7 +349,7 @@ object <span class='op'>=</span> <span class='va'>ExampleData.TR_OSL</span><span
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

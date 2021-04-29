@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,7 +94,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -202,18 +202,18 @@ temperature in K.</p>
 <p><strong>Error estimation</strong><br /></p>
 <p>The error estimation is done be varying the input parameters using the given uncertainties in
 a Monte Carlo simulation. Errors are assumed to follow a normal distribution.</p>
-<p><strong>start_param</strong> <br /></p>
+<p><strong><code>start_param</code></strong> <br /></p>
 <p>The function allows the injection of own start parameters via the argument <code>start_param</code>. The
 parameters needs to be provided as names list. The names are the parameters to be optimised.
 Examples: <code>start_param = list(A = 1, C = 1e+5, W = 0.5, c = 0)</code></p>
-<p><strong>method_control</strong> <br /></p>
+<p><strong><code>method_control</code></strong> <br /></p>
 <p>The following arguments can be provided via <code>method_control</code>. Please note that arguments provided
-via <code>method_control</code> are not further tested, i.e., if the function crashs your input was probably
+via <code>method_control</code> are not further tested, i.e., if the function crashes your input was probably
 wrong.</p>
 <table class='table'>
 <tr><td><strong>ARGUMENT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr>
 <tr><td><code>upper</code></td><td>named <a href='https://rdrr.io/r/base/vector.html'>vector</a></td><td>sets upper fitting boundaries, if provided boundaries for all arguments
-are requried, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(A = 0, C = 0, W = 0, c = 0)</a></code></td></tr>
+are required, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(A = 0, C = 0, W = 0, c = 0)</a></code></td></tr>
 <tr><td><code>lower</code></td><td>names <a href='https://rdrr.io/r/base/vector.html'>vector</a></td><td>sets lower fitting boundaries (see <code>upper</code> for details)</td></tr>
 <tr><td><code>trace</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables progression trace for <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a></td></tr>
 <tr><td><code>weights</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>option to provide own weights for the fitting, the length of this
@@ -227,7 +227,7 @@ are applied. The weights are defined by the third column of the input <code>data
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. J. R. astr. Soc. 41, 107–113.</p>
@@ -277,7 +277,7 @@ are applied. The weights are defined by the third column of the input <code>data
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

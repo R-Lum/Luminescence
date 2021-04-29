@@ -74,7 +74,7 @@ for SAR OSL measurements on quartz." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ for SAR OSL measurements on quartz." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -96,7 +96,7 @@ for SAR OSL measurements on quartz." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -146,7 +146,7 @@ for SAR OSL measurements on quartz.</p>
     <tr>
       <th>input.data</th>
       <td><p><a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> (<strong>required</strong>):
-input data from a Risoe BIN file, produced by the function <a href='read_BIN2R.html'>read_BIN2R</a>.</p></td>
+input data from a Risø BIN file, produced by the function <a href='read_BIN2R.html'>read_BIN2R</a>.</p></td>
     </tr>
     <tr>
       <th>signal.integral</th>
@@ -239,13 +239,13 @@ Murray and Wintle (2000) with CW-OSL curves. For the calculation of the
 Lx/Tx value the function <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a> is used.</p>
 <p><strong>Provided rejection criteria</strong></p>
 <p><code>[recyling ratio]</code>: calculated for every repeated regeneration dose point.</p>
-<p><code>[recuperation]</code>: recuperation rate calculated by comparing the Lx/Tx values of the zero
-regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
+<p><code>[recuperation]</code>: recuperation rate calculated by comparing the <code>Lx/Tx</code> values of the zero
+regeneration point with the <code>Ln/Tn</code> value (the <code>Lx/Tx</code> ratio of the natural
 signal). For methodological background see Aitken and Smith (1988)</p>
 <p><code>[IRSL/BOSL]</code>: the integrated counts (<code>signal.integral</code>) of an
 IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
-regenerated dose point. <strong>Note:</strong> This is not the IR depletation ratio
+regenerated dose point. <strong>Note:</strong> This is not the IR depletion ratio
 described by Duller (2003).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -260,7 +260,7 @@ consider using the functions <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL<
     <p>0.2.17</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Fuchs, M.C., 2020. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Fuchs, M.C., 2021. Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -316,7 +316,7 @@ Margret C. Fuchs, HZDR, Freiberg (Germany)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

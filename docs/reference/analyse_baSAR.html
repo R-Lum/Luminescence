@@ -77,7 +77,7 @@ published code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ published code." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@ published code." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -190,8 +190,8 @@ new selection will add the aliquots to the removed aliquots table.</p></td>
     <tr>
       <th>source_doserate</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> <strong>(required)</strong>:
-source dose rate of beta-source used for the measuremnt and its uncertainty
-in Gy/s, e.g., <code>source_doserate = c(0.12, 0.04)</code>. Paramater can be provided
+source dose rate of beta-source used for the measurement and its uncertainty
+in Gy/s, e.g., <code>source_doserate = c(0.12, 0.04)</code>. Parameter can be provided
 as <code>list</code>, for the case that more than one BIN-file is provided, e.g.,
 <code>source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))</code>.</p></td>
     </tr>
@@ -229,14 +229,14 @@ The parameter can be provided as <code>list</code>, see <code>source_doserate</c
       <th>irradiation_times</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>): if set this vector replaces all irradiation
 times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
-Plesae note that if this argument is used, for every(!) single curve
+Please note that if this argument is used, for every(!) single curve
 in the dataset an irradiation time needs to be set.</p></td>
     </tr>
     <tr>
       <th>sigmab</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-option to set a manual value for the overdispersion (for LnTx and TnTx),
-used for the Lx/Tx error calculation. The value should be provided as
+option to set a manual value for the overdispersion (for <code>LnTx</code> and <code>TnTx</code>),
+used for the <code>Lx</code>/<code>Tx</code> error calculation. The value should be provided as
 absolute squared count values, cf. <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>.
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></td>
     </tr>
@@ -244,7 +244,7 @@ The parameter can be provided as <code>list</code>, see <code>source_doserate</c
       <th>sig0</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 allow adding an extra component of error to the final Lx/Tx error value
-(e.g., instrumental errror, see details is <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>).
+(e.g., instrumental error, see details is <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>).
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></td>
     </tr>
     <tr>
@@ -342,7 +342,7 @@ enables or disables verbose mode</p></td>
 <tr><td><code>$mcmc</code></td><td><code>mcmc</code></td><td><a href='https://rdrr.io/pkg/coda/man/mcmc.list.html'>coda::mcmc.list</a> object including raw output</td></tr>
 <tr><td><code>$models</code></td><td><code>character</code></td><td>implemented models used in the baSAR-model core</td></tr>
 <tr><td><code>$input_object</code></td><td><code>data.frame</code></td><td>summarising table (same format as the XLS-file) including, e.g., Lx/Tx values</td></tr>
-<tr><td><code>$removed_aliquots</code></td><td><code>data.frame</code></td><td>table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed <code>NULL</code> is returned</td></tr>
+<tr><td><code>$removed_aliquots</code></td><td><code>data.frame</code></td><td>table with removed aliquots (e.g., <code>NaN</code>, or <code>Inf</code> <code>Lx</code>/<code>Tx</code> values). If nothing was removed <code>NULL</code> is returned</td></tr>
 </table>
 
 
@@ -423,7 +423,7 @@ can be manually excluded based on previous runs.</p>
 <p>These are arguments that can be passed directly to the Bayesian calculation core, supported arguments
 are:</p>
 <table class='table'>
-<tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Descritpion</strong></td></tr>
+<tr><td><strong>Parameter</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr>
 <tr><td><code>lower_centralD</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>sets the lower bound for the expected De range. Change it only if you know what you are doing!</td></tr>
 <tr><td><code>upper_centralD</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>sets the upper bound for the expected De range. Change it only if you know what you are doing!</td></tr>
 <tr><td><code>n.chains</code></td><td><a href='https://rdrr.io/r/base/integer.html'>integer</a></td><td>sets number of parallel chains for the model (default = 3) (cf. <a href='https://rdrr.io/pkg/rjags/man/jags.model.html'>rjags::jags.model</a>)</td></tr>
@@ -438,7 +438,7 @@ Note: only variables present in the model can be monitored.</td></tr>
 <p><strong>User defined models</strong><br /></p>
 <p>The function provides the option to modify and to define own models that can be used for
 the Bayesian calculation. In the case the user wants to modify a model, a new model
-can be piped into the funtion via the argument <code>baSAR_model</code> as <code>character</code>.
+can be piped into the function via the argument <code>baSAR_model</code> as <code>character</code>.
 The model has to be provided in the JAGS dialect of the BUGS language (cf. <a href='https://rdrr.io/pkg/rjags/man/jags.model.html'>rjags::jags.model</a>)
 and parameter names given with the pre-defined names have to be respected, otherwise the function
 will break.</p>
@@ -486,7 +486,7 @@ functions.</p>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><strong>If you provide more than one BIN-file</strong>, it is <strong>strongly</strong> recommanded to provide
+    <p><strong>If you provide more than one BIN-file</strong>, it is <strong>strongly</strong> recommended to provide
 a <code>list</code> with the same number of elements for the following parameters:</p>
 <p><code>source_doserate</code>, <code>signal.integral</code>, <code>signal.integral.Tx</code>, <code>background.integral</code>,
 <code>background.integral.Tx</code>, <code>sigmab</code>, <code>sig0</code>.</p>
@@ -497,10 +497,10 @@ a <code>list</code> with the same number of elements for the following parameter
     <p>0.1.33</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Mercier, N., Kreutzer, S., 2020. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
+    <p>Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001</p>
 <p>Mercier, N., Kreutzer, S., Christophe, C., Guerin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
@@ -511,7 +511,7 @@ in the R package 'Luminescence'. Ancient TL 34, 14-21.</p>
 Bayesian Data Analysis, Third Edition. CRC Press.</p>
 <p>Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X</p>
-<p>Plummer, M., 2017. JAGS Version 4.3.0 user manual. https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download</p>
+<p>Plummer, M., 2017. JAGS Version 4.3.0 user manual. <code>https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='read_BIN2R.html'>read_BIN2R</a>, <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>, <a href='plot_GrowthCurve.html'>plot_GrowthCurve</a>,
@@ -521,7 +521,7 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
 
     <p>Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) <br />
 Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br />
-The underlying Bayesian model based on a contribution by Combes et al., 2015.
+The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -581,7 +581,7 @@ The underlying Bayesian model based on a contribution by Combes et al., 2015.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

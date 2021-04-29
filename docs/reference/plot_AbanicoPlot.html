@@ -74,7 +74,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -96,7 +96,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -184,7 +184,7 @@ Option to display the z-axis in logarithmic scale. Default is <code>TRUE</code>.
     <tr>
       <th>z.0</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a>:
-User-defined central value, used for centering of data. One out of <code>"mean"</code>,
+User-defined central value, used for centring of data. One out of <code>"mean"</code>,
 <code>"mean.weighted"</code> and <code>"median"</code> or a numeric value (not its logarithm).
 Default is <code>"mean.weighted"</code>.</p></td>
     </tr>
@@ -193,7 +193,7 @@ Default is <code>"mean.weighted"</code>.</p></td>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 measure of dispersion, used for drawing the scatter polygon. One out of</p><ul>
 <li><p><code>"qr"</code> (quartile range),</p></li>
-<li><p><code>"pnn"</code> (symmetric percentile range with nn the lower percentile, e.g.</p></li>
+<li><p><code>"pnn"</code> (symmetric percentile range with <code>nn</code> the lower percentile, e.g.</p></li>
 <li><p><code>"p05"</code> depicting the range between 5 and 95 %),</p></li>
 <li><p><code>"sd"</code> (standard deviation) and</p></li>
 <li><p><code>"2sd"</code> (2 standard deviations),</p></li>
@@ -201,7 +201,7 @@ measure of dispersion, used for drawing the scatter polygon. One out of</p><ul>
 
 <p>The default is <code>"qr"</code>. Note that <code>"sd"</code> and <code>"2sd"</code> are only meaningful in
 combination with <code>"z.0 = 'mean'"</code> because the unweighted mean is used to
-center the polygon.</p></td>
+centre the polygon.</p></td>
     </tr>
     <tr>
       <th>plot.ratio</th>
@@ -309,7 +309,7 @@ with <code>y.axis = FALSE, bar.col = "none"</code>.</p></td>
       <th>bar</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
 option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
-centered at the defined values. By default a bar is drawn according to <code>"z.0"</code>.
+centred at the defined values. By default a bar is drawn according to <code>"z.0"</code>.
 To omit the bar set <code>"bar = FALSE"</code>.</p></td>
     </tr>
     <tr>
@@ -347,7 +347,7 @@ labels for the additional lines.</p></td>
     <tr>
       <th>grid.col</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-colour of the grid lines (originating at <code>[0,0]</code> and strechting to
+colour of the grid lines (originating at <code>[0,0]</code> and stretching to
 the z-scale). To disable grid lines use <code>FALSE</code>. Default is <code>"grey"</code>.</p></td>
     </tr>
     <tr>
@@ -376,7 +376,7 @@ reproduce similar plots. Default is <code>TRUE</code>.</p></td>
     <tr>
       <th>interactive</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-create an interactive abanico plot (requires the 'plotly' package)</p></td>
+create an interactive abanico plot (requires the <code>'plotly'</code> package)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -397,11 +397,11 @@ error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
 Galbraith &amp; Green (1990). The function authors are thankful for the
-thoughtprovocing figure in this article.</p>
+thought provoking figure in this article.</p>
 <p>The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
 part of the plot with any other cartesian visualisation method
-(KDE, histogram, PDF and so on). Note that the plot allows dispaying
+(KDE, histogram, PDF and so on). Note that the plot allows displaying
 two measures of distribution. One is the 2-sigma
 bar, which illustrates the spread in value errors, and the other is the
 polygon, which stretches over both parts of the Abanico Plot (polar and
@@ -419,7 +419,7 @@ of centrality (e.g. <code>centrality = "median.weighted"</code>). Also
 user-defined numeric values (e.g. from the central age model) can be used if
 this appears appropriate.</p>
 <p>The proportion of the polar part and the cartesian part of the Abanico Plot
-can be modfied for display reasons (<code>plot.ratio = 0.75</code>). By default,
+can be modified for display reasons (<code>plot.ratio = 0.75</code>). By default,
 the polar part spreads over 75 \<!-- % and leaves 25 \\% for the part that -->
 shows the KDE graph.</p>
 <p>A statistic summary, i.e. a collection of statistic measures of
@@ -450,7 +450,7 @@ with the appropriate keyword using the argument <code>summary.method</code>.</p>
 sophisticated. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
-cf. <code><a href='get_Layout.html'>get_Layout()</a></code> or type eg. for the layout type <code>"journal"</code>
+cf. <code><a href='get_Layout.html'>get_Layout()</a></code> or type e.g., for the layout type <code>"journal"</code>
 <code><a href='get_Layout.html'>get_Layout("journal")</a></code>. A layout type can be modified by the user by
 assigning new values to the list object.</p>
 <p>It is possible for the z-scale to specify where ticks are to be drawn
@@ -462,7 +462,7 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     <p>0.1.11</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S., 2020. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R. &amp; Green, P., 1990. Estimating the component ages
@@ -478,7 +478,7 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Michael Dietze, GFZ Potsdam (Germany)<br />
-Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
+Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br />
 Inspired by a plot introduced by Galbraith &amp; Green (1990)
 , RLum Developer Team</p>
 
@@ -787,7 +787,7 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

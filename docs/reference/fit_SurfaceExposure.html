@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Nonlinear Least Squares Fit for OSL surface exposure data — fit_SurfaceExposure" />
 <meta property="og:description" content="This function determines the (weighted) least-squares estimates of the
-parameters of either eq. 1 in Sohbati et al. (2012a) or eq. 12 in
+parameters of either equation 1 in Sohbati et al. (2012a) or equation 12 in
 Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
 
 
@@ -74,7 +74,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -96,7 +96,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -120,7 +120,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
 
     <div class="ref-description">
     <p>This function determines the (weighted) least-squares estimates of the
-parameters of either eq. 1 in <em>Sohbati et al. (2012a)</em> or eq. 12 in
+parameters of either equation 1 in <em>Sohbati et al. (2012a)</em> or equation 12 in
 <em>Sohbati et al. (2012b)</em> for a given OSL surface exposure data set (<strong>BETA</strong>).</p>
     </div>
 
@@ -164,7 +164,7 @@ input automatically activates the global fitting procedure (see details).</p></t
     <tr>
       <th>sigmaphi</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
-A numeric value for sigmaphi, i.e. the charge detrapping rate.
+A numeric value for <code>sigmaphi</code>, i.e. the charge detrapping rate.
 Example: <code>sigmaphi = 5e-10</code></p></td>
     </tr>
     <tr>
@@ -225,7 +225,7 @@ Flip the coordinate system.</p></td>
       <td><p>Further parameters passed to <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>.
 Custom parameters include:</p><ul>
 <li><p><code>verbose</code> (<a href='https://rdrr.io/r/base/logical.html'>logical</a>): show or hide console output</p></li>
-<li><p><code>line_col</code>: Color of the fitted line</p></li>
+<li><p><code>line_col</code>: Colour of the fitted line</p></li>
 <li><p><code>line_lty</code>: Type of the fitted line (see <code>lty</code> in <code><a href='https://rdrr.io/r/graphics/par.html'>?par</a></code>)</p></li>
 <li><p><code>line_lwd</code>: Line width of the fitted line (see <code>lwd</code> in <code><a href='https://rdrr.io/r/graphics/par.html'>?par</a></code>)</p></li>
 </ul></td>
@@ -268,11 +268,11 @@ is a list of multiple <code>data.frame</code>s, i.e., it is not available for gl
 fitting.</p>
 <p><strong>Dose rate</strong></p>
 <p>If any of the arguments <code>Ddot</code> or <code>D0</code> is at its default value (<code>NULL</code>),
-this function will fit eq. 1 in Sohbati et al. (2012a) to the data. If
+this function will fit equation 1 in Sohbati et al. (2012a) to the data. If
 the effect of dose rate (i.e., signal saturation) needs to be considered,
 numeric values for the dose rate (<code>Ddot</code>) (in Gy/ka) and the characteristic
 saturation dose (<code>D0</code>) (in Gy) must be provided. The function will then fit
-eq. 12 in Sohbati et al. (2012b) to the data.</p>
+equation 12 in Sohbati et al. (2012b) to the data.</p>
 <p><strong>NOTE</strong>: Currently, this function does <strong>not</strong> consider the variability
 of the dose rate with sample depth (<code>x</code>)! In the original equation the dose
 rate <code>D</code> is an arbitrary function of <code>x</code> (term <code><a href='https://rdrr.io/r/stats/deriv.html'>D(x)</a></code>), but here <code>D</code> is assumed
@@ -292,12 +292,12 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2020. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-dating. Journal of Geophysical Research 117, B09202. doi:10.1029/2012JB009383</p>
+dating. Journal of Geophysical Research 117, B09202. doi: <a href='https://doi.org/10.1029/2012JB009383'>10.1029/2012JB009383</a></p>
 <p>Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 non-terrestrial bodies using optically stimulated luminescence: A new method.
 Icarus 221, 160-166.</p>
@@ -462,7 +462,7 @@ Icarus 221, 160-166.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

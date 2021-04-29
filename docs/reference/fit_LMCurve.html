@@ -75,7 +75,7 @@ uses the function nls with the port algorithm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ uses the function nls with the port algorithm." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +97,7 @@ uses the function nls with the port algorithm." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -169,13 +169,13 @@ fixed number of components that are to be recognised during fitting
     <tr>
       <th>start_values</th>
       <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> (<em>optional</em>):
-start parameters for lm and xm data for the fit. If no start values are given,
+start parameters for <code>lm</code> and <code>xm</code> data for the fit. If no start values are given,
 an automatic start value estimation is attempted (see details).</p></td>
     </tr>
     <tr>
       <th>input.dataType</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-alter the plot output depending on the input data: "LM" or "pLM" (pseudo-LM).
+alter the plot output depending on the input data: <code>"LM"</code> or <code>"pLM"</code> (pseudo-LM).
 See: <a href='CW2pLM.html'>CW2pLM</a></p></td>
     </tr>
     <tr>
@@ -198,7 +198,7 @@ additional identifier used as column header for the table output.</p></td>
     <tr>
       <th>LED.power</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-LED power (max.) used forintensity ramping in mW/cm^2.
+LED power (max.) used for intensity ramping in mW/cm^2.
 <strong>Note:</strong> This value is used for the calculation of the absolute
 photoionisation cross section.</p></td>
     </tr>
@@ -224,7 +224,7 @@ Works only if no start parameters are provided.
     <tr>
       <th>fit.calcError</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-calculate 1-sigma error range of components using <a href='https://rdrr.io/r/stats/confint.html'>confint</a>.</p></td>
+calculate 1-sigma error range of components using <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>.</p></td>
     </tr>
     <tr>
       <th>bg.subtraction</th>
@@ -262,6 +262,7 @@ background subtraction.</p></td>
 <p><strong><code>@data:</code></strong></p>
 <p><code>.. $data</code> : <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with fitting results<br />
 <code>.. $fit</code> : nls (<a href='https://rdrr.io/r/stats/nls.html'>nls</a> object)<br />
+<code>.. $component_matrix</code> : <a href='https://rdrr.io/r/base/matrix.html'>matrix</a> with numerical xy-values of the single fitted components with the resolution of the input data
 <code>.. $component.contribution.matrix</code> : <a href='https://rdrr.io/r/base/list.html'>list</a> component distribution matrix</p>
 <p><strong><code>info:</code></strong></p>
 <p><code>.. $call</code> : <a href='https://rdrr.io/r/base/call.html'>call</a> the original function call</p>
@@ -293,7 +294,7 @@ $$y = a*x^4 + b*x^3 + c*x^2 + d*x + e$$</p></li>
 is used for background subtraction:
 $$y = a*x + b$$</p></li>
 <li><p><code>channel</code>: the measured
-background signal is subtracted channelwise from the measured signal.</p></li>
+background signal is subtracted channel wise from the measured signal.</p></li>
 </ul>
 
 <p><strong>Start values</strong></p>
@@ -304,7 +305,7 @@ parameters. Here, three options are provided:</p>
 If no start values (<code>start_values</code>) are provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
-xm and Im are recalculated for the given data set. In all cases, the fitting
+<code>xm</code> and <code>Im</code> are recalculated for the given data set. In all cases, the fitting
 starts with the ultra-fast component and (depending on <code>n.components</code>)
 steps through the following values. If no fit could be achieved, an error
 plot (for <code>plot = TRUE</code>) with the pseudo curve (based on the
@@ -315,22 +316,22 @@ If start values are provided, the function works like a simple <a href='https://
 fitting approach.</p>
 <p><strong>(c)</strong>
 If no start parameters are provided and
-the option <code>fit.advanced = TRUE</code> is chosen, an advanced start paramter
-estimation is applied using a stochastical attempt. Therefore, the
+the option <code>fit.advanced = TRUE</code> is chosen, an advanced start parameter
+estimation is applied using a stochastic attempt. Therefore, the
 recalculated start parameters <strong>(a)</strong> are used to construct a normal
 distribution. The start parameters are then sampled randomly from this
 distribution. A maximum of 100 attempts will be made. <strong>Note:</strong> This
 process may be time consuming.</p>
 <p><strong>Goodness of fit</strong></p>
-<p>The goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
+<p>The goodness of the fit is given by a pseudo-R^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:</p>
 <p>$$pseudoR^2 = 1 - RSS/TSS$$</p>
 <p>where \(RSS = Residual~Sum~of~Squares\)
 and \(TSS = Total~Sum~of~Squares\)</p>
 <p><strong>Error of fitted component parameters</strong></p>
 <p>The 1-sigma error for the components is calculated using
-the function <a href='https://rdrr.io/r/stats/confint.html'>confint</a>. Due to considerable calculation time, this
-option is deactived by default. In addition, the error for the components
+the function <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>. Due to considerable calculation time, this
+option is deactivated by default. In addition, the error for the components
 can be estimated by using internal R functions like <a href='https://rdrr.io/r/base/summary.html'>summary</a>. See the
 <a href='https://rdrr.io/r/stats/nls.html'>nls</a> help page for more information.</p>
 <p><em>For more details on the nonlinear regression in R, see Ritz &amp; Streibig (2008).</em></p>
@@ -344,10 +345,10 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.2</p>
+    <p>0.3.3</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bulur, E., 1996. An Alternative Technique For Optically
@@ -490,7 +491,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

@@ -76,7 +76,7 @@ Water content in the cobble is assumed to be 0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ Water content in the cobble is assumed to be 0." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,7 +98,7 @@ Water content in the cobble is assumed to be 0." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -156,30 +156,30 @@ for each slice of the cobble.</p>
 
     <p><strong>The input table layout</strong></p>
 <table class='table'>
-<tr><td>COLUMN</td><td>DATATYPE</td><td>DESCRIPTION</td></tr>
-<tr><td>Distance</td><td><code>numeric</code></td><td>distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column</td></tr>
-<tr><td>DistanceError</td><td><code>numeric</code></td><td>Error on the distance in mm</td></tr>
-<tr><td>Thickness</td><td><code>numeric</code></td><td>Thickness of each slice in mm</td></tr>
-<tr><td>TicknessError</td><td><code>numeric</code></td><td>uncertainty of the thickness in mm.</td></tr>
-<tr><td>Mineral</td><td><code>character</code></td><td><code>'FS'</code> for feldspar, <code>'Q'</code> for quartz, depending which mineral in the cobble is used for dating</td></tr>
-<tr><td>Cobble_K</td><td><code>numeric</code></td><td>K nuclide content in % of the bulk cobble</td></tr>
-<tr><td>Cobble_K_SE</td><td><code>numeric</code></td><td>error on K nuclide content in % of the bulk cobble</td></tr>
-<tr><td>Cobble_Th</td><td><code>numeric</code></td><td>Th nuclide content in ppm of the bulk cobble</td></tr>
-<tr><td>Cobble_Th_SE</td><td><code>numeric</code></td><td>error on Th nuclide content in ppm of the bulk cobble</td></tr>
-<tr><td>Cobble_U</td><td><code>numeric</code></td><td>U nuclide content in ppm of the bulk cobble</td></tr>
-<tr><td>CobbleU_SE</td><td><code>numeric</code></td><td>error on U nuclide content in ppm of the bulk cobble</td></tr>
-<tr><td>GrainSize</td><td><code>numeric</code></td><td>average grain size in µm of the grains used for dating</td></tr>
-<tr><td>Density</td><td><code>numeric</code></td><td>Density of the cobble. Default is 2.7 g cm^-3</td></tr>
-<tr><td>CobbleDiameter</td><td><code>numeric</code></td><td>Diameter of the cobble in cm.</td></tr>
-<tr><td>Sed_K</td><td><code>numeric</code></td><td>K nuclide content in % of the sediment matrix</td></tr>
-<tr><td>Sed_K_SE</td><td><code>numeric</code></td><td>error on K nuclide content in % of the sediment matrix</td></tr>
-<tr><td>Sed_Th</td><td><code>numeric</code></td><td>Th nuclide content in ppm of the sediment matrix</td></tr>
-<tr><td>Sed_Th_SE</td><td><code>numeric</code></td><td>error on Th nuclide content in ppm of the sediment matrix</td></tr>
-<tr><td>Sed_U</td><td><code>numeric</code></td><td>U nuclide content in ppm of the sediment matrix</td></tr>
-<tr><td>Sed_U_SE</td><td><code>numeric</code></td><td>error on U nuclide content in ppm of the sediment matrix</td></tr>
-<tr><td>GrainSize</td><td><code>numeric</code></td><td>average grain size of the sediment matrix</td></tr>
-<tr><td>WaterContent</td><td><code>numeric</code></td><td>mean water content of the sediment matrix in %</td></tr>
-<tr><td>WaterContent_SE</td><td><code>numeric</code></td><td>relative error on water content</td></tr>
+<tr><td>COLUMN</td><td>DATA TYPE</td><td>DESCRIPTION</td></tr>
+<tr><td><code>Distance</code></td><td><code>numeric</code></td><td>distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column</td></tr>
+<tr><td><code>DistanceError</code></td><td><code>numeric</code></td><td>Error on the distance in mm</td></tr>
+<tr><td><code>Thickness</code></td><td><code>numeric</code></td><td>Thickness of each slice in mm</td></tr>
+<tr><td><code>TicknessError</code></td><td><code>numeric</code></td><td>uncertainty of the thickness in mm.</td></tr>
+<tr><td><code>Mineral</code></td><td><code>character</code></td><td><code>'FS'</code> for feldspar, <code>'Q'</code> for quartz, depending which mineral in the cobble is used for dating</td></tr>
+<tr><td><code>Cobble_K</code></td><td><code>numeric</code></td><td>K nuclide content in % of the bulk cobble</td></tr>
+<tr><td><code>Cobble_K_SE</code></td><td><code>numeric</code></td><td>error on K nuclide content in % of the bulk cobble</td></tr>
+<tr><td><code>Cobble_Th</code></td><td><code>numeric</code></td><td>Th nuclide content in ppm of the bulk cobble</td></tr>
+<tr><td><code>Cobble_Th_SE</code></td><td><code>numeric</code></td><td>error on Th nuclide content in ppm of the bulk cobble</td></tr>
+<tr><td><code>Cobble_U</code></td><td><code>numeric</code></td><td>U nuclide content in ppm of the bulk cobble</td></tr>
+<tr><td><code>CobbleU_SE</code></td><td><code>numeric</code></td><td>error on U nuclide content in ppm of the bulk cobble</td></tr>
+<tr><td><code>GrainSize</code></td><td><code>numeric</code></td><td>average grain size in µm of the grains used for dating</td></tr>
+<tr><td><code>Density</code></td><td><code>numeric</code></td><td>Density of the cobble. Default is 2.7 g cm^-3</td></tr>
+<tr><td><code>CobbleDiameter</code></td><td><code>numeric</code></td><td>Diameter of the cobble in cm.</td></tr>
+<tr><td><code>Sed_K</code></td><td><code>numeric</code></td><td>K nuclide content in % of the sediment matrix</td></tr>
+<tr><td><code>Sed_K_SE</code></td><td><code>numeric</code></td><td>error on K nuclide content in % of the sediment matrix</td></tr>
+<tr><td><code>Sed_Th</code></td><td><code>numeric</code></td><td>Th nuclide content in ppm of the sediment matrix</td></tr>
+<tr><td><code>Sed_Th_SE</code></td><td><code>numeric</code></td><td>error on Th nuclide content in ppm of the sediment matrix</td></tr>
+<tr><td><code>Sed_U</code></td><td><code>numeric</code></td><td>U nuclide content in ppm of the sediment matrix</td></tr>
+<tr><td><code>Sed_U_SE</code></td><td><code>numeric</code></td><td>error on U nuclide content in ppm of the sediment matrix</td></tr>
+<tr><td><code>GrainSize</code></td><td><code>numeric</code></td><td>average grain size of the sediment matrix</td></tr>
+<tr><td><code>WaterContent</code></td><td><code>numeric</code></td><td>mean water content of the sediment matrix in %</td></tr>
+<tr><td><code>WaterContent_SE</code></td><td><code>numeric</code></td><td>relative error on water content</td></tr>
 </table>
 
 
@@ -191,7 +191,7 @@ The water content provided by the user should be calculated according to:</p>
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Riedesel, S., Autzen, M., 2020. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Riedesel, S., Autzen, M., 2021. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Riedesel, S., Autzen, M., 2020. Beta and gamma dose rate attenuation in rocks and sediment.
@@ -231,7 +231,7 @@ Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

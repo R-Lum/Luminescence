@@ -73,7 +73,7 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@ using the protocol according to Erfurt et al. (2003) and beyond." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -242,8 +242,8 @@ Currently supported arguments are <code>main</code>, <code>xlab</code>, <code>yl
 <tr><td><code>DE.LOWER</code></td><td><code>numeric</code></td><td>2.5% quantile for De values obtained by MC runs</td></tr>
 <tr><td><code>DE.UPPER</code></td><td><code>numeric</code></td><td>97.5% quantile for De values obtained by MC runs</td></tr>
 <tr><td><code>DE.STATUS</code></td><td><code>character</code></td><td>test parameter status</td></tr>
-<tr><td><code>RF_NAT.LIM</code></td><td><code>charcter</code></td><td>used RF_nat curve limits</td></tr>
-<tr><td><code>RF_REG.LIM</code></td><td><code>character</code></td><td>used RF_reg curve limits</td></tr>
+<tr><td><code>RF_NAT.LIM</code></td><td><code>character</code></td><td>used <code>RF_nat</code> curve limits</td></tr>
+<tr><td><code>RF_REG.LIM</code></td><td><code>character</code></td><td>used <code>RF_reg</code> curve limits</td></tr>
 <tr><td><code>POSITION</code></td><td><code>integer</code></td><td>(<em>optional</em>) position of the curves</td></tr>
 <tr><td><code>DATE</code></td><td><code>character</code></td><td>(<em>optional</em>) measurement date</td></tr>
 <tr><td><code>SEQUENCE_NAME</code></td><td><code>character</code></td><td>(<em>optional</em>) sequence name</td></tr>
@@ -277,7 +277,7 @@ reported with the summary object data. List elements are:</p>
 <tr><td><code>De.MC</code></td><td><code>numeric</code></td><td>all De values obtained by the MC runs</td></tr>
 <tr><td><code>residuals</code></td><td><code>numeric</code></td><td>the obtained residuals for each channel of the curve</td></tr>
 <tr><td><code>trend.fit</code></td><td><code>lm</code></td><td>fitting results produced by the fitting of the residuals</td></tr>
-<tr><td><code>RF_nat.slided</code></td><td><code>matrix</code></td><td>the slided RF_nat curve</td></tr>
+<tr><td><code>RF_nat.slid</code></td><td><code>matrix</code></td><td>the slid <code>RF_nat</code> curve</td></tr>
 <tr><td><code>t_n.id</code></td><td><code>numeric</code></td><td>the index of the t_n offset</td></tr>
 <tr><td><code>I_n</code></td><td><code>numeric</code></td><td>the vertical intensity offset if a vertical slide was applied</td></tr>
 <tr><td><code>algorithm_error</code></td><td><code>numeric</code></td><td>the vertical sliding suffers from a systematic effect induced by the used
@@ -289,7 +289,7 @@ vertical sliding range. I can be added as systematic error to the final De error
 
 
 <p><strong>slot:</strong> <strong><code>@info</code></strong></p>
-<p>The original function call (methods::language-class-object)</p>
+<p>The original function call (methods::language-object)</p>
 <p>The output (<code>data</code>) should be accessed using the function <a href='get_RLum.html'>get_RLum</a></p>
 <p>------------------------<br />
 <code>[ PLOT OUTPUT ]</code><br />
@@ -427,7 +427,7 @@ findings by Buylaert et al. (2012).</p>
     <p>0.7.8</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
@@ -485,7 +485,7 @@ Measurements 32, 685-690.</p>
 </div><div class='output co'>#&gt;       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #&gt; 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #&gt;   DATE SEQUENCE_NAME                               UID
-#&gt; 1   NA            NA 2020-12-10-06:17.0.18945696670562</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"test_parameters"</span><span class='op'>)</span>
+#&gt; 1   NA            NA 2021-04-29-11:14.0.18945696670562</div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"test_parameters"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #&gt; 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
 #&gt; 2       NA intersection_ratio        NA 5.541736e-03     OK            NA
@@ -496,14 +496,14 @@ Measurements 32, 685-690.</p>
 #&gt; 7       NA               beta        NA 5.418719e-01     OK            NA
 #&gt; 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #&gt;                                 UID
-#&gt; 1 2020-12-10-06:17.0.18945696670562
-#&gt; 2 2020-12-10-06:17.0.18945696670562
-#&gt; 3 2020-12-10-06:17.0.18945696670562
-#&gt; 4 2020-12-10-06:17.0.18945696670562
-#&gt; 5 2020-12-10-06:17.0.18945696670562
-#&gt; 6 2020-12-10-06:17.0.18945696670562
-#&gt; 7 2020-12-10-06:17.0.18945696670562
-#&gt; 8 2020-12-10-06:17.0.18945696670562</div><div class='input'>
+#&gt; 1 2021-04-29-11:14.0.18945696670562
+#&gt; 2 2021-04-29-11:14.0.18945696670562
+#&gt; 3 2021-04-29-11:14.0.18945696670562
+#&gt; 4 2021-04-29-11:14.0.18945696670562
+#&gt; 5 2021-04-29-11:14.0.18945696670562
+#&gt; 6 2021-04-29-11:14.0.18945696670562
+#&gt; 7 2021-04-29-11:14.0.18945696670562
+#&gt; 8 2021-04-29-11:14.0.18945696670562</div><div class='input'>
 <span class='co'>##(2) perform analysis using the method 'SLIDE'</span>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_IRSAR.RF</span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>IRSAR.RF.Data</span>, method <span class='op'>=</span> <span class='st'>"SLIDE"</span>, n.MC <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
@@ -531,7 +531,7 @@ Measurements 32, 685-690.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

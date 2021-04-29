@@ -75,7 +75,7 @@ uses the nls function with the port algorithm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ uses the nls function with the port algorithm." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +97,7 @@ uses the nls function with the port algorithm." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -178,7 +178,7 @@ traces the fitting process on the terminal.</p></td>
     <tr>
       <th>fit.calcError</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-calculate 1-sigma error range of components using <a href='https://rdrr.io/r/stats/confint.html'>confint</a></p></td>
+calculate 1-sigma error range of components using <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a></p></td>
     </tr>
     <tr>
       <th>LED.power</th>
@@ -202,7 +202,7 @@ global scaling factor.</p></td>
     <tr>
       <th>sample_code</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
-sample code used for the plot and the optional output table (mtext).</p></td>
+sample code used for the plot and the optional output table (<code>mtext</code>).</p></td>
     </tr>
     <tr>
       <th>output.path</th>
@@ -214,7 +214,7 @@ the values are appended.</p></td>
     <tr>
       <th>output.terminal</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-terminal ouput with fitting results.</p></td>
+terminal output with fitting results.</p></td>
     </tr>
     <tr>
       <th>output.terminalAdvanced</th>
@@ -238,14 +238,14 @@ returns a plot of the fitted curves.</p></td>
     <p><strong>plot (<em>optional</em>)</strong></p>
 <p>the fitted CW-OSL curves are returned as plot.</p>
 <p><strong>table (<em>optional</em>)</strong></p>
-<p>an output table (*.csv) with parameters of the fitted components is
+<p>an output table (<code>*.csv</code>) with parameters of the fitted components is
 provided if the <code>output.path</code> is set.</p>
 <p><strong>RLum.Results</strong></p>
 <p>Beside the plot and table output options, an <a href='RLum.Results-class.html'>RLum.Results</a> object is
 returned.</p>
 <p><code>fit</code>:
 an <code>nls</code> object (<code>$fit</code>) for which generic R functions are
-provided, e.g. <a href='https://rdrr.io/r/base/summary.html'>summary</a>, <a href='https://rdrr.io/r/stats/confint.html'>confint</a>, <a href='https://rdrr.io/r/stats/profile.html'>profile</a>. For more
+provided, e.g. <a href='https://rdrr.io/r/base/summary.html'>summary</a>, <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>, <a href='https://rdrr.io/r/stats/profile.html'>profile</a>. For more
 details, see <a href='https://rdrr.io/r/stats/nls.html'>nls</a>.</p>
 <p><code>output.table</code>:
 a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> containing the summarised parameters including the error</p>
@@ -282,7 +282,7 @@ sum for this values.</p>
 <p>$$y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) $$</p>
 <p>where \(0 &lt; i &lt; 8\)</p>
 <p>and \(\lambda\) is the decay constant <br />
-and \(I0\) the intial number of trapped electrons.</p>
+and \(I0\) the initial number of trapped electrons.</p>
 <p><em>(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)</em></p>
 <p><strong>Start values</strong></p>
 <p>Start values are estimated automatically by fitting a linear function to the
@@ -296,8 +296,8 @@ determination). According to Lave (1970), the value is calculated as:</p>
 and \(TSS = Total~Sum~of~Squares\)</p>
 <p><strong>Error of fitted component parameters</strong></p>
 <p>The 1-sigma error for the
-components is calculated using the function <a href='https://rdrr.io/r/stats/confint.html'>confint</a>. Due to
-considerable calculation time, this option is deactived by default. In
+components is calculated using the function <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>. Due to
+considerable calculation time, this option is deactivated by default. In
 addition, the error for the components can be estimated by using internal R
 functions like <a href='https://rdrr.io/r/base/summary.html'>summary</a>. See the <a href='https://rdrr.io/r/stats/nls.html'>nls</a> help page
 for more information.</p>
@@ -316,7 +316,7 @@ global minimum rather than a local minimum!</p>
     <p>0.5.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
@@ -369,7 +369,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

@@ -77,7 +77,7 @@ from a mixture of normal distributions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ from a mixture of normal distributions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@ from a mixture of normal distributions." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -195,7 +195,7 @@ parameter of the normal distribution</p></td>
     <tr>
       <th>pdf.colors</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-color coding of the components in the the plot.
+colour coding of the components in the the plot.
 Possible options are <code>"gray"</code>, <code>"colors"</code> and <code>"none"</code></p></td>
     </tr>
     <tr>
@@ -228,12 +228,12 @@ following elements:</p>
 <dt>.$data</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> original input data</p></dd>
 <dt>.$args</dt><dd><p><a href='https://rdrr.io/r/base/list.html'>list</a> used arguments</p></dd>
 <dt>.$call</dt><dd><p><a href='https://rdrr.io/r/base/call.html'>call</a> the function call</p></dd>
-<dt>.$mle</dt><dd><p>covariance matrices of the log likelhoods</p></dd>
+<dt>.$mle</dt><dd><p>covariance matrices of the log likelihoods</p></dd>
 <dt>.$BIC</dt><dd><p>BIC score</p></dd>
 <dt>.$llik</dt><dd><p>maximum log likelihood</p></dd>
 <dt>.$grain.probability</dt><dd><p>probabilities of a grain belonging to a component</p></dd>
 <dt>.$components</dt><dd><p><a href='https://rdrr.io/r/base/matrix.html'>matrix</a> estimates of the de, de error and proportion for each component</p></dd>
-<dt>.$single.comp</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> single componente FFM estimate</p></dd>
+<dt>.$single.comp</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> single component FFM estimate</p></dd>
 
 If a vector for n.components is provided (e.g.  c(2:8)),
 mle and grain.probability are lists containing matrices of the
@@ -249,7 +249,7 @@ The output should be accessed using the function get_RLum
 <li><p>increasing BIC</p></li>
 <li><p>repeated dose estimates</p></li>
 <li><p>covariance matrix not positive definite</p></li>
-<li><p>covariance matrix produces NaNs</p></li>
+<li><p>covariance matrix produces <code>NaN</code></p></li>
 <li><p>convergence problems</p></li>
 </ul>
 
@@ -275,7 +275,7 @@ and maximum log-likelihood estimates for each iteration of k.</p>
     <p>0.4.1</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2020. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R.F. &amp; Green, P.F., 1990. Estimating the component
@@ -515,7 +515,7 @@ Based on a rewritten S script of Rex Galbraith, 2006.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

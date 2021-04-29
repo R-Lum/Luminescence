@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Converting equivalent dose values from seconds (s) to gray (Gy) — Second2Gray • Luminescence</title>
+<title>Converting equivalent dose values from seconds (s) to Gray (Gy) — Second2Gray • Luminescence</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Converting equivalent dose values from seconds (s) to gray (Gy) — Second2Gray" />
-<meta property="og:description" content="Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
+<meta property="og:title" content="Converting equivalent dose values from seconds (s) to Gray (Gy) — Second2Gray" />
+<meta property="og:description" content="Conversion of absorbed radiation dose in seconds (s) to the SI unit Gray
 (Gy) including error propagation. Normally used for equivalent dose data." />
 
 
@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,13 +112,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Converting equivalent dose values from seconds (s) to gray (Gy)</h1>
+    <h1>Converting equivalent dose values from seconds (s) to Gray (Gy)</h1>
     <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/Second2Gray.R'><code>R/Second2Gray.R</code></a></small>
     <div class="hidden name"><code>Second2Gray.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
+    <p>Conversion of absorbed radiation dose in seconds (s) to the SI unit Gray
 (Gy) including error propagation. Normally used for equivalent dose data.</p>
     </div>
 
@@ -136,7 +136,7 @@ are required</p></td>
     <tr>
       <th>dose.rate</th>
       <td><p><a href='RLum.Results-class.html'>RLum.Results</a>, <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>):
-<code>RLum.Results</code> needs to be orginated from the function <a href='calc_SourceDoseRate.html'>calc_SourceDoseRate</a>,
+<code>RLum.Results</code> needs to be originated from the function <a href='calc_SourceDoseRate.html'>calc_SourceDoseRate</a>,
 for <code>vector</code> dose rate in Gy/s and dose rate error in Gy/s</p></td>
     </tr>
     <tr>
@@ -152,10 +152,10 @@ error propagation method used for error calculation (<code>omit</code>, <code>ga
     <p>Returns a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with converted values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Calculation of De values from seconds (s) to gray (Gy)</p>
+    <p>Calculation of De values from seconds (s) to Gray (Gy)</p>
 <p>$$De [Gy] = De [s] * Dose Rate [Gy/s])$$</p>
 <p>Provided calculation error propagation methods for error calculation
-(with 'se' as the standard error and 'DR' of the dose rate of the beta-source):</p>
+(with <code>'se'</code> as the standard error and <code>'DR'</code> of the dose rate of the beta-source):</p>
 <p><strong>(1) <code>omit</code></strong> (default)</p>
 <p>$$se(De) [Gy] = se(De) [s] * DR [Gy/s]$$</p>
 <p>In this case the standard error of the dose rate of the beta-source is
@@ -167,10 +167,10 @@ for the case the (random) standard error of the beta-source calibration is
 be prescriptive.</p>
 <p><strong>(2) <code>gaussian</code></strong> error propagation</p>
 <p>$$se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)$$</p>
-<p>Applicable under the assumption that errors of De and se are uncorrelated.</p>
+<p>Applicable under the assumption that errors of <code>De</code> and <code>se</code> are uncorrelated.</p>
 <p><strong>(3) <code>absolute</code></strong> error propagation</p>
 <p>$$se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])$$</p>
-<p>Applicable under the assumption that errors of De and se are not uncorrelated.</p>
+<p>Applicable under the assumption that errors of <code>De</code> and <code>se</code> are correlated.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>If no or a wrong error propagation method is given, the execution of the function is
@@ -181,7 +181,7 @@ be of the same length as the data frame provided with the argument <code>data</c
     <p>0.6.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M., Fuchs, M.C., 2020. Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., Fuchs, M.C., 2021. Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.</p>
@@ -281,7 +281,7 @@ Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Ge
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

@@ -75,7 +75,7 @@ to a given De distribution — calc_MinDose" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ to a given De distribution — calc_MinDose" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +97,7 @@ to a given De distribution — calc_MinDose" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -228,7 +228,7 @@ following elements:</p>
 <dt>.$data</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> original input data</p></dd>
 <dt>args</dt><dd><p><a href='https://rdrr.io/r/base/list.html'>list</a> used arguments</p></dd>
 <dt>call</dt><dd><p><a href='https://rdrr.io/r/base/call.html'>call</a> the function call</p></dd>
-<dt>.$mle</dt><dd><p>mle2 object containing the maximum log likelhood functions for all parameters</p></dd>
+<dt>.$mle</dt><dd><p>mle2 object containing the maximum log likelihood functions for all parameters</p></dd>
 <dt>BIC</dt><dd><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> BIC score</p></dd>
 <dt>.$confint</dt><dd><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> confidence intervals for all parameters</p></dd>
 <dt>.$profile</dt><dd><p>profile.mle2 the log likelihood profiles</p></dd>
@@ -260,7 +260,7 @@ has essentially the same form as the original version.  <code>gamma</code> and
 population.
 <strong>Note</strong> that the un-logged model requires <code>sigmab</code> to be in the same
 absolute unit as the provided De values (seconds or Gray).</p>
-<p>While the original (logged) version of the mimimum dose
+<p>While the original (logged) version of the minimum dose
 model may be appropriate for most samples (i.e. De distributions), the
 modified (un-logged) version is specially designed for modern-age and young
 samples containing negative, zero or near-zero De estimates (Arnold et al.
@@ -295,13 +295,13 @@ By default, <code>h</code> is calculated as</p>
 By default, the number of available logical CPU cores is determined
 automatically, but can be changed with <code>cores</code>. The multicore support
 is only available when <code>bootstrap=TRUE</code> and spawns <code>n</code> R instances
-for each core to get MAM estimates for each of the N and M boostrap
+for each core to get MAM estimates for each of the N and M bootstrap
 replicates. Note that this option is highly experimental and may or may not
 work for your machine. Also the performance gain increases for larger number
 of bootstrap replicates. Also note that with each additional core and hence
 R instance and depending on the number of bootstrap replicates the memory
-usage can significantly increase. Make sure that memory is always availabe,
-otherwise there will be a massive perfomance hit.</p>
+usage can significantly increase. Make sure that memory is always available,
+otherwise there will be a massive performance hit.</p>
 <p><strong>Likelihood profiles</strong></p>
 <p>The likelihood profiles are generated and plotted by the <code>bbmle</code> package.
 The profile likelihood plots look different to ordinary profile likelihood as</p>
@@ -327,7 +327,7 @@ forwards all internal warning messages.</p>
     <p>0.4.4</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2020. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Arnold, L.J., Roberts, R.G., Galbraith, R.F. &amp; DeLong, S.B.,
@@ -499,7 +499,7 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

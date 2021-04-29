@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,7 +94,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -215,7 +215,7 @@ two channels are binned.</p></td>
     <tr>
       <th>k</th>
       <td><p><code><a href='smooth_RLum.html'>smooth_RLum</a></code>; <a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
-window for the rolling mean; must be odd for rollmedian.
+window for the rolling mean; must be odd for <code>rollmedian</code>.
 If nothing is set k is set automatically</p></td>
     </tr>
     <tr>
@@ -227,7 +227,7 @@ a vector defining the left and the right hand data</p></td>
       <th>align</th>
       <td><p><code><a href='smooth_RLum.html'>smooth_RLum</a></code>; <a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
 specifying whether the index of the result should be left- or right-aligned
-or centered (default) compared to the rolling window of observations, allowed
+or centred (default) compared to the rolling window of observations, allowed
 <code>"right"</code>, <code>"center"</code> and <code>"left"</code></p></td>
     </tr>
     <tr>
@@ -285,7 +285,7 @@ In particular the internal function <code>.smoothing</code> is used.</p></li>
 deconstructing the object. For example:<pre><span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>class <span class='op'>=</span> <span class='st'>'RLum.Data.Curve'</span>,
          data <span class='op'>=</span> <span class='va'>Your.RLum.Data.Curve</span>,
          recordType <span class='op'>=</span> <span class='st'>'never seen before'</span><span class='op'>)</span>
-</pre>would just change the recordType. Missing arguements  the value is taken
+</pre>would just change the <code>recordType</code>. Missing arguments  the value is taken
 from the input object in 'data' (which is already an RLum.Data.Curve object
 in this example)</p></dd>
 
@@ -295,7 +295,7 @@ in this example)</p></dd>
     <p>The class should only contain data for a single curve. For additional
 elements the slot <code>info</code> can be used (e.g. providing additional heating
 ramp curve). Objects from the class <code>RLum.Data.Curve</code> are produced by other
-functions (partyl within <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects),
+functions (partly within <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects),
 namely: <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.Analysis</a>, <a href='read_XSYG2R.html'>read_XSYG2R</a></p>
     <h2 class="hasAnchor" id="create-objects-from-this-class"><a class="anchor" href="#create-objects-from-this-class"></a>Create objects from this Class</h2>
 
@@ -315,7 +315,7 @@ namely: <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.An
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -355,7 +355,7 @@ namely: <a href='Risoe.BINfileData2RLum.Analysis.html'>Risoe.BINfileData2RLum.An
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

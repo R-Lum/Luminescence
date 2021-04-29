@@ -75,7 +75,7 @@ dose_rate for the function Second2Gray." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ dose_rate for the function Second2Gray." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +97,7 @@ dose_rate for the function Second2Gray." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -141,13 +141,13 @@ dose_rate for the function <a href='Second2Gray.html'>Second2Gray</a>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>measurement.date</th>
-      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/Dates.html'>Date</a> (with default): Date of measurement in "YYYY-MM-DD".
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/Dates.html'>Date</a> (with default): Date of measurement in <code>"YYYY-MM-DD"</code>.
 If no value is provided, the date will be set to today. The argument can be provided as vector.</p></td>
     </tr>
     <tr>
       <th>calib.date</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> or <a href='https://rdrr.io/r/base/Dates.html'>Date</a> (<strong>required</strong>):
-date of source calibration in "YYYY-MM-DD"</p></td>
+date of source calibration in <code>"YYYY-MM-DD"</code></p></td>
     </tr>
     <tr>
       <th>calib.dose.rate</th>
@@ -174,7 +174,7 @@ Gy/s as valid for the function <a href='Second2Gray.html'>Second2Gray</a></p></t
     <tr>
       <th>predict</th>
       <td><p><a href='https://rdrr.io/r/base/integer.html'>integer</a> (<em>with default</em>):
-option allowing to predicit the dose rate of the source over time in days
+option allowing to predict the dose rate of the source over time in days
 set by the provided value. Starting date is the value set with
 <code>measurement.date</code>, e.g., <code>calc_SourceDoseRate(..., predict = 100)</code> calculates
 the source dose rate for the next 100 days.</p></td>
@@ -223,7 +223,7 @@ original .BIN file (using e.g., <code>BINfile &lt;- readBIN2R()</code> and the s
 for <code>measurement.date</code> and <code>calib.date</code> is provided. For the source dose rate prediction
 the function takes the last value <code>measurement.date</code> and predicts from that the the source
 source dose rate for the number of days requested,
-means: the (multiple) orignal input will be replaced. However, the function
+means: the (multiple) original input will be replaced. However, the function
 do not change entries for the calibration dates, but mix them up. Therefore,
 it is not recommended to use this option when multiple calibration dates (<code>calib.date</code>)
 are provided.</p>
@@ -232,17 +232,17 @@ are provided.</p>
     <p>0.3.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Fuchs, M.C., Kreutzer, S., 2020. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Fuchs, M.C., Kreutzer, S., 2021. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>NNDC, Brookhaven National Laboratory <a href='http://www.nndc.bnl.gov/'>http://www.nndc.bnl.gov/</a></p>
+    <p>NNDC, Brookhaven National Laboratory <code>http://www.nndc.bnl.gov/</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='Second2Gray.html'>Second2Gray</a>, <a href='get_RLum.html'>get_RLum</a>, <a href='plot_RLum.html'>plot_RLum</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) <br />
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -319,7 +319,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

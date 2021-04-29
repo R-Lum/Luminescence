@@ -74,7 +74,7 @@ fitting on RLum.Analysis objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ fitting on RLum.Analysis objects." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -96,7 +96,7 @@ fitting on RLum.Analysis objects." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -144,7 +144,7 @@ fitting on <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.</p>
       <th>object</th>
       <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> or <a href='https://rdrr.io/r/base/list.html'>list</a> of <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects (<strong>required</strong>):
 input object containing data for analysis.
-If a <a href='https://rdrr.io/r/base/list.html'>list</a> is provided the functions tries to iteratre over the list.</p></td>
+If a <a href='https://rdrr.io/r/base/list.html'>list</a> is provided the functions tries to iterate over the list.</p></td>
     </tr>
     <tr>
       <th>signal.integral.min</th>
@@ -212,7 +212,7 @@ returned containing the following elements:</p>
 <table class='table'>
 <tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr>
 <tr><td><code>..$data</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr>
-<tr><td><code>..$LnLxTnTx.table</code> :</td><td><code>data.frame</code></td><td>with the LnLxTnTx values</td></tr>
+<tr><td><code>..$LnLxTnTx.table</code> :</td><td><code>data.frame</code></td><td>with the <code>LnLxTnTx</code> values</td></tr>
 <tr><td><code>..$rejection.criteria</code> :</td><td><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></td><td>rejection criteria</td></tr>
 <tr><td><code>..$Formula</code> :</td><td><a href='https://rdrr.io/r/base/list.html'>list</a></td><td>Function used for fitting of the dose response curve</td></tr>
 <tr><td><code>..$call</code> :</td><td><a href='https://rdrr.io/r/base/call.html'>call</a></td><td>the original function call</td></tr>
@@ -220,6 +220,24 @@ returned containing the following elements:</p>
 
 
 <p>The output should be accessed using the function <a href='get_RLum.html'>get_RLum</a>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
+this function has been written as extended wrapper function for the function
+<a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>, facilitating an entire sequence analysis in
+one run. With this, its functionality is strictly limited by the
+functionality of the function <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>.</p>
+<p>**Defining the sequence structure **</p>
+<p>The argument <code>sequence.structure</code> expects a shortened pattern of your sequence structure and was
+mainly introduced to ease the use of the function. For example: If your measurement data contains
+the following curves: <code>TL</code>, <code>IRSL</code>, <code>IRSL</code>, <code>TL</code>, <code>IRSL</code>, <code>IRSL</code>, the sequence pattern in <code>sequence.structure</code>
+becomes <code><a href='https://rdrr.io/r/base/c.html'>c('TL', 'IRSL', 'IRSL')</a></code>. The second part of your sequence for one cycle should be
+similar and can be discarded. If this is not the case (e.g., additional hotbleach) such curves
+have to be removed before using the function.</p>
+<p><strong>If the input is a <code>list</code></strong></p>
+<p>If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
+for different sets of parameters for every single input element.
+For further information see <a href='analyse_SAR.CWOSL.html'>analyse_SAR.CWOSL</a>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Best graphical output can be achieved by using the function <code>pdf</code>
@@ -230,7 +248,7 @@ with the following options:</p>
     <p>0.2.4</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
@@ -246,8 +264,7 @@ doi: <a href='https://doi.org/10.1016/j.radmeas.2008.06.002'>10.1016/j.radmeas.2
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a>, <a href='RLum.Results-class.html'>RLum.Results</a> <a href='get_RLum.html'>get_RLum</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -319,7 +336,7 @@ doi: <a href='https://doi.org/10.1016/j.radmeas.2008.06.002'>10.1016/j.radmeas.2
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

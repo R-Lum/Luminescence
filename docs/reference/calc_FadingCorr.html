@@ -75,7 +75,7 @@ including the error for a given g-value according to Huntley &amp;amp; Lamothe (
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ including the error for a given g-value according to Huntley &amp;amp; Lamothe (
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +97,7 @@ including the error for a given g-value according to Huntley &amp;amp; Lamothe (
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -215,10 +215,10 @@ enables or disables terminal output</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>As the g-value sligthly depends on the time between irradiation and the prompt measurement,
+    <p>As the g-value slightly depends on the time between irradiation and the prompt measurement,
 this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
 time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-for the g-value needs to be provided (argument <code>tc.g_value</code> and then the g-value is recalcualted
+for the g-value needs to be provided (argument <code>tc.g_value</code> and then the g-value is recalculated
 to tc of the measurement used for estimating the age applying the following equation:</p>
 <p>$$\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))$$</p>
 <p>where</p>
@@ -238,7 +238,7 @@ calculating the corresponding error.</p>
 <p>If the determined error does not differ from the 9 values calculated previously
 within a precision of (here) 3 digits the calculation is stopped as it is assumed that the error
 is stable. Please note that (a) the duration depends on the input values as well as on
-the provided computation ressources and it may take a while, (b) the length (size) of the output
+the provided computation resources and it may take a while, (b) the length (size) of the output
 vector <code>age.corr.MC</code>, where all the single values produced during the MC runs are stored,
 equals the number of MC runs (here termed observations).</p>
 <p>To avoid an endless loop the calculation is stopped if the number of observations exceeds 10^7.
@@ -258,13 +258,13 @@ case of an SAR measurement tc should be similar, however, if it differs, you hav
 tc value (the one used for estimating the g-value) using the argument <code>tc.g_value</code>.<br /></p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Special thanks to Sebastien Huot for his support and clarification via e-mail.</p>
+    <p>Special thanks to Sébastien Huot for his support and clarification via e-mail.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.4.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
@@ -375,7 +375,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

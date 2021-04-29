@@ -73,7 +73,7 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@ T (in deg. C.) parameters. The function can be used in two operational modes:" /
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -152,7 +152,7 @@ if <code>profiling = TRUE</code> only the first two elements are considered</p><
     <tr>
       <th>T</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-temperature in deg. C for which the lifetime(s) will be calculted.
+temperature in deg. C for which the lifetime(s) will be calculated.
 A vector can be provided.</p></td>
     </tr>
     <tr>
@@ -171,11 +171,11 @@ given E and s parameters and their corresponding standard error
     <tr>
       <th>profiling_config</th>
       <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
-allows to set configurate parameters used for the profiling
+allows to set configuration parameters used for the profiling
 (and only have an effect here). Supported parameters are:</p><ul>
 <li><p><code>n</code> (number of MC runs),</p></li>
-<li><p><code>E.distribution</code> (distribution used for the resampling for E) and</p></li>
-<li><p><code>s.distribution</code> (distribution used for the resampling for s).</p></li>
+<li><p><code>E.distribution</code> (distribution used for the re-sampling for E) and</p></li>
+<li><p><code>s.distribution</code> (distribution used for the re-sampling for s).</p></li>
 </ul>
 
 <p>Currently only the normal distribution is supported
@@ -189,7 +189,7 @@ enables/disables verbose mode</p></td>
     <tr>
       <th>plot</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
-enables/disables output plot, currenlty only in combination with <code>profiling = TRUE</code>.</p></td>
+enables/disables output plot, currently only in combination with <code>profiling = TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -239,17 +239,17 @@ where:
 \(T\) the temperature in K and \(k\) the Boltzmann constant in eV/K (cf. Furetta, 2010).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The profiling is currently based on resampling from a normal distribution, this
-distribution assumption might be, however, not valid for given E and s paramters.</p>
+    <p>The profiling is currently based on re-sampling from a normal distribution, this
+distribution assumption might be, however, not valid for given E and s parameters.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.</p>
+    <p>Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. World Scientific.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/matplot.html'>graphics::matplot</a>, <a href='https://rdrr.io/r/stats/Normal.html'>stats::rnorm</a>, <a href='get_RLum.html'>get_RLum</a></p></div>
@@ -327,7 +327,7 @@ distribution assumption might be, however, not valid for given E and s paramters
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

@@ -73,7 +73,7 @@ RLum.Data.Spectrum S4 class object" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ RLum.Data.Spectrum S4 class object" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,7 +95,7 @@ RLum.Data.Spectrum S4 class object" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/R-Lum/Luminescence/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -222,13 +222,13 @@ especially in case of TL-spectra.</p></td>
       <th>xaxis.energy</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>): enables or disables energy instead of
 wavelength axis. For the conversion the function <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a> is used.</p>
-<p><strong>Note:</strong> This option means not only simnply redrawing the axis,
+<p><strong>Note:</strong> This option means not only simply redrawing the axis,
 instead the spectrum in terms of intensity is recalculated, s. details.</p></td>
     </tr>
     <tr>
       <th>legend.text</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-possiblity to provide own legend text. This argument is only considered for
+possibility to provide own legend text. This argument is only considered for
 plot types providing a legend, e.g. <code>plot.type="transect"</code></p></td>
     </tr>
     <tr>
@@ -260,7 +260,7 @@ to the <code>plot</code> function.</p></td>
 <p>Spectrum is visualised as 3D or 2D plot. Both plot types are based on
 internal R plot functions.</p>
 <p><strong><code>plot.type = "persp"</code></strong></p>
-<p>Arguments that will be passed to <a href='https://rdrr.io/r/graphics/persp.html'>persp</a>:</p><ul>
+<p>Arguments that will be passed to <a href='https://rdrr.io/r/graphics/persp.html'>graphics::persp</a>:</p><ul>
 <li><p><code>shade</code>: default is <code>0.4</code></p></li>
 <li><p><code>phi</code>: default is <code>15</code></p></li>
 <li><p><code>theta</code>: default is <code>-30</code></p></li>
@@ -295,15 +295,15 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
     <p>0.6.2</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>persp</a>,
-<a href='https://rdrr.io/pkg/plotly/man/plot_ly.html'>plotly::plot_ly</a>, <a href='https://rdrr.io/r/graphics/contour.html'>contour</a></p></div>
+    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>graphics::persp</a>,
+<a href='https://docs.ropensci.org/plotly/reference/plot_ly.html'>plotly::plot_ly</a>, <a href='https://rdrr.io/r/graphics/contour.html'>contour</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2020. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Riedesel, S., Autzen, M., Mittelstrass, D., 2020. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.10. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -384,7 +384,7 @@ xaxis.energy <span class='op'>=</span> <span class='cn'>TRUE</span><span class='
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">
