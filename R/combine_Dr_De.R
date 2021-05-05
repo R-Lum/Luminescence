@@ -668,7 +668,7 @@ if(plot){
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
   cdf_De_quantiles <- matrixStats::colQuantiles(cdf_De, probs = c(.025,.975))
   cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
-
+  cdf_dist <- ks.test(cdf_De_mean , cdf_ADr_mean )$statistic
   ## open plot area
   plot(
     NA,
@@ -709,7 +709,8 @@ if(plot){
     "RLum.Results",
     data = list(
       Ages = fit_BCAM$A,
-      outliers_index = out),
+      outliers_index = out,
+     goodness_of_fit = cdf_dist),
     info = list(
       call = sys.call(),
       model_IAM = fit_IAM$model,
