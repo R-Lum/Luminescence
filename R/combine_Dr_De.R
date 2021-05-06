@@ -589,9 +589,9 @@ fit_IAM <- .calc_IndividualAgeModel(
         quiet = method_control$quiet,
         diag = method_control$diag)
     )
-  
+
 # Calculate EDFC -------------------------------------------------
-  ##we have to do this here, otherwise the parameter cdf_dist will 
+  ##we have to do this here, otherwise the parameter cdf_dist will
   ##not be available if the user opts for plot = FALSE
   D_e <- fit_BCAM$D_e
   A2 <- fit_BCAM$A
@@ -612,7 +612,7 @@ fit_IAM <- .calc_IndividualAgeModel(
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
   cdf_De_quantiles <- matrixStats::colQuantiles(cdf_De, probs = c(.025,.975))
   cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
-  cdf_dist <- ks.test(cdf_De_mean , cdf_ADr_mean )$statistic  
+  cdf_dist <- stats::ks.test(cdf_De_mean , cdf_ADr_mean )$statistic
 
 # Plotting ----------------------------------------------------------------
 if(plot){
@@ -668,7 +668,7 @@ if(plot){
     polygon_col = rgb(100, 149, 237, 75, maxColorValue = 255),
     verbose = FALSE
   )
-  
+
   ## open plot area
   plot(
     NA,
