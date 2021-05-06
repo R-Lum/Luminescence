@@ -315,7 +315,7 @@
     progress.bar = method_control$progress.bar
   )
 
-  if(verbose & method_control$quiet) cat("DONE")
+  if(verbose & method_control$quiet) cat("DONE\n")
 
   if(method_control$diag) {
     cat("\n[.calc_BayesianCentralAgeModel()]\n")
@@ -612,7 +612,7 @@ fit_IAM <- .calc_IndividualAgeModel(
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
   cdf_De_quantiles <- matrixStats::colQuantiles(cdf_De, probs = c(.025,.975))
   cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
-  cdf_dist <- stats::ks.test(cdf_De_mean , cdf_ADr_mean )$statistic
+  cdf_dist <- stats::ks.test(cdf_De_mean , cdf_ADr_mean)$statistic
 
 # Plotting ----------------------------------------------------------------
 if(plot){
