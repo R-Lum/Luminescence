@@ -571,7 +571,6 @@ fit_IAM <- .calc_IndividualAgeModel(
 
    }
 
-
 # Bayesian modelling BCAM -------------------------------------------------
   fit_BCAM <- .calc_BayesianCentralAgeModel(
       theta,
@@ -590,6 +589,30 @@ fit_IAM <- .calc_IndividualAgeModel(
         quiet = method_control$quiet,
         diag = method_control$diag)
     )
+  
+# Calculate EDFC -------------------------------------------------
+  ##we have to do this here, otherwise the parameter cdf_dist will 
+  ##not be available if the user opts for plot = FALSE
+  D_e <- fit_BCAM$D_e
+  A2 <- fit_BCAM$A
+
+  t <- seq(min(D_e), max(D_e),length.out = min(1000, round(max(D_e) - min(D_e), 0)))
+
+  ind <- min(5000, length(A2))
+  subsamp <- sample(1:length(A2), ind, replace = FALSE)
+  cdf_De <- matrix(0, nrow = ind, ncol = length(t))
+  cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
+  for (i in 1:ind) {
+    cdf_De[i, ] <- stats::ecdf(D_e[subsamp[i], ])(t)
+    cdf_ADr[i, ] <- stats::ecdf(A2[subsamp[i]] * tildeDr)(t)
+  }
+
+  ## calculate various parameters
+  cdf_De_mean <- matrixStats::colMeans2(cdf_De)
+  cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
+  cdf_De_quantiles <- matrixStats::colQuantiles(cdf_De, probs = c(.025,.975))
+  cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
+  cdf_dist <- ks.test(cdf_De_mean , cdf_ADr_mean )$statistic  
 
 # Plotting ----------------------------------------------------------------
 if(plot){
@@ -645,30 +668,7 @@ if(plot){
     polygon_col = rgb(100, 149, 237, 75, maxColorValue = 255),
     verbose = FALSE
   )
-
-  ##plot ECDF
-  D_e <- fit_BCAM$D_e
-  A2 <- fit_BCAM$A
-
-  t <- seq(
-      min(D_e), max(D_e),
-      length.out = min(1000, round(max(D_e) - min(D_e), 0)))
-
-  ind <- min(5000, length(A2))
-  subsamp <- sample(1:length(A2), ind, replace = FALSE)
-  cdf_De <- matrix(0, nrow = ind, ncol = length(t))
-  cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
-  for (i in 1:ind) {
-    cdf_De[i, ] <- stats::ecdf(D_e[subsamp[i], ])(t)
-    cdf_ADr[i, ] <- stats::ecdf(A2[subsamp[i]] * tildeDr)(t)
-  }
-
-  ## calculate various parameters
-  cdf_De_mean <- matrixStats::colMeans2(cdf_De)
-  cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
-  cdf_De_quantiles <- matrixStats::colQuantiles(cdf_De, probs = c(.025,.975))
-  cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
-
+  
   ## open plot area
   plot(
     NA,
@@ -700,7 +700,7 @@ if(plot){
     legend = c("De", "A * Dr"),
     lty = c(1,2),
     bty = "n",
-    col = c("green", "red"),
+    col = c("red", "green"),
     cex = 0.8)
   }
 
@@ -709,7 +709,8 @@ if(plot){
     "RLum.Results",
     data = list(
       Ages = fit_BCAM$A,
-      outliers_index = out),
+      outliers_index = out,
+      goodness_of_fit = cdf_dist),
     info = list(
       call = sys.call(),
       model_IAM = fit_IAM$model,
