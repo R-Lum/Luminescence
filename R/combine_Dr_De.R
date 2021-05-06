@@ -700,7 +700,7 @@ if(plot){
     legend = c("De", "A * Dr"),
     lty = c(1,2),
     bty = "n",
-    col = c("green", "red"),
+    col = c("red", "green"),
     cex = 0.8)
   }
 
