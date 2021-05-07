@@ -118,7 +118,7 @@
 #' @note Special thanks to Sébastien Huot for his support and clarification via e-mail.
 #'
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -187,6 +187,10 @@ calc_FadingCorr <- function(
   # Integrity checks ---------------------------------------------------------------------------
   stopifnot(!missing(age.faded), !missing(g_value))
 
+  ##check numeric
+  if(!all(is(age.faded, "numeric") && is(g_value, "numeric") && is(tc, "numeric")))
+    stop("[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' need be of type numeric!", call. = FALSE)
+
   ##check input
   if(class(g_value)[1] == "RLum.Results"){
     if(g_value@originator == "analyse_FadingMeasurement"){
@@ -215,8 +219,6 @@ calc_FadingCorr <- function(
   ##============================================================================##
   ##DEFINE FUNCTION
   ##============================================================================##
-
-
   f <- function(x, af,kappa,tc){1-kappa*(log(x/tc)-1) - (af/x)}
 
   ##============================================================================##
@@ -225,11 +227,11 @@ calc_FadingCorr <- function(
 
   ##recalculate the g-value to the given tc ... should be similar
   ##of tc = tc.g_value
-  ##re-calulation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
+  ##re-calculation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
   ##Please note that we take the vector for the g_value here
   k0 <- g_value / 100 / log(10)
   k1 <- k0 / (1 - k0 * log(tc[1]/tc.g_value[1]))
-  g_value <-  100 * k1 * log(10)
+  g_value <- 100 * k1 * log(10)
 
   ##calculate kappa (equation [5] in Huntley and Lamothe, 2001)
   kappa <- g_value / log(10) / 100
@@ -241,15 +243,22 @@ calc_FadingCorr <- function(
 
   ##calculate mean value
   temp <-
-    uniroot(
+    try(suppressWarnings(uniroot(
       f,
       interval = interval,
-      tol = 0.001,
+      tol = 0.0001,
       tc = tc,
+      extendInt = "yes",
       af = age.faded[1],
       kappa = kappa[1],
-      check.conv = FALSE
-    )
+      check.conv = TRUE
+    )), silent = TRUE)
+
+  if(inherits(temp, "try-error")){
+    message("[calc_FadingCorr()] No solution found, return NULL. This usually happens for very large, unrealistic g-values.")
+    return(NULL)
+
+  }
 
   ##--------------------------------------------------------------------------##
   ##Monte Carlo simulation for error estimation
@@ -455,3 +464,4 @@ calc_FadingCorr <- function(
   ))
 
 }
+

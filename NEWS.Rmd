@@ -22,7 +22,11 @@ couple of other R packages prompted to you when you first try to use this functi
 * `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
 
 ### Bugfixes and changes
-* Dummy
+#### `calc_FadingCorr()`
+* If no solution could be found (usually the case for unrealistically large g-values), the function 
+crashed with a non-helpful error message. Now a meaningful message is shown and the function 
+returns `NULL`. 
+* The function did not flag a problem but just crashed for non-numeric input; changed. 
 
 ### Internals
 * `mclust` added as new package dependency to support the new Bayesian models  

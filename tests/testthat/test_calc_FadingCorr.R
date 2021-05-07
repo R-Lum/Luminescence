@@ -12,6 +12,18 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
 
+  ##crash for wrong type
+  expect_error(
+    calc_FadingCorr(age.faded = "test", g_value = "test"),
+    "\\[calc\\_FadingCorr\\(\\)\\] 'age.faded', 'g_value' and 'tc' need be of type numeric\\!")
+
+  ##check message
+  expect_message(calc_FadingCorr(
+    age.faded = c(6.404856, 0.51),
+    g_value = c(17.5,1.42),
+    tc = 462,
+    n.MC = 100), "\\[calc_FadingCorr\\(\\)\\] No solution found, return NULL. This usually happens for very large, unrealistic g-values")
+
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 2)
 
