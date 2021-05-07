@@ -43,7 +43,7 @@ test_that("check values from output example 1", {
 
   results <- get_RLum(temp)
 
-  expect_equal(results$AGE, 0.1168)
+  expect_equal(results$AGE, 0.1169)
   expect_equal(results$AGE.ERROR, 0.0035)
   expect_equal(results$AGE_FADED, 0.1)
   expect_equal(results$AGE_FADED.ERROR, 0)
