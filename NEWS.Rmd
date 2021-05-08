@@ -27,6 +27,7 @@ couple of other R packages prompted to you when you first try to use this functi
 crashed with a non-helpful error message. Now a meaningful message is shown and the function 
 returns `NULL`. 
 * The function did not flag a problem but just crashed for non-numeric input; changed. 
+* The function is now a little bit less forgiving if `tc` was not set.
 
 ### Internals
 * `mclust` added as new package dependency to support the new Bayesian models  
