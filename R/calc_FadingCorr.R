@@ -67,7 +67,7 @@
 #' @param g_value [vector] (**required**):
 #' g-value and error obtained from separate fading measurements (see example).
 #' Alternatively an [RLum.Results-class] object can be provided produced by the function
-#' [analyse_FadingMeasurement], in this case tc is set automatically
+#' [analyse_FadingMeasurement], in this case `tc` is set automatically
 #'
 #' @param tc [numeric] (**required**):
 #' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
@@ -124,7 +124,7 @@
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #'
-#' @seealso [RLum.Results-class], [get_RLum], [uniroot]
+#' @seealso [RLum.Results-class], [analyse_FadingMeasurement], [get_RLum], [uniroot]
 #'
 #'
 #' @references
@@ -181,45 +181,39 @@ calc_FadingCorr <- function(
   verbose = TRUE
 ){
 
-  ##TODO set link after the function analyse_FadingMeasurement was released
-  ## ... this option should be tested as well
-
   # Integrity checks ---------------------------------------------------------------------------
   stopifnot(!missing(age.faded), !missing(g_value))
-
-  ##check numeric
-  if(!all(is(age.faded, "numeric") && is(g_value, "numeric") && is(tc, "numeric")))
-    stop("[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' need be of type numeric!", call. = FALSE)
 
   ##check input
   if(class(g_value)[1] == "RLum.Results"){
     if(g_value@originator == "analyse_FadingMeasurement"){
-
       tc <- get_RLum(g_value)[["TC"]]
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
 
     }else{
-      try(stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!", call. = FALSE))
+      try({
+        stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!",
+             call. = FALSE)
+
+      })
       return(NULL)
-
-
     }
-
-
   }
 
   ##check if tc is still NULL
-  if(is.null(tc)){
-    try(stop("[calc_FadingCorr()] 'tc' needs to be set!", call. = FALSE))
-    return(NULL)
+  if(is.null(tc[1]))
+    stop("[calc_FadingCorr()] 'tc' needs to be set!", call. = FALSE)
 
-  }
-
+  ##check type
+  if(!all(is(age.faded, "numeric") && is(g_value, "numeric") && is(tc, "numeric")))
+    stop("[calc_FadingCorr()] 'age.faded', 'g_value' and 'tc' need be of type numeric!", call. = FALSE)
 
   ##============================================================================##
   ##DEFINE FUNCTION
   ##============================================================================##
-  f <- function(x, af,kappa,tc){1-kappa*(log(x/tc)-1) - (af/x)}
+  f <- function(x, af, kappa, tc) {
+    1 - kappa * (log(x / tc) - 1) - (af / x)
+  }
 
   ##============================================================================##
   ##CALCULATION

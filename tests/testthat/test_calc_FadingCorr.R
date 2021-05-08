@@ -12,9 +12,12 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
 
-  ##crash for wrong type
+  ##trigger some errors
+  expect_error(calc_FadingCorr(age.faded = "test", g_value = "test"),
+    "\\[calc_FadingCorr\\(\\)\\] 'tc' needs to be set!")
+
   expect_error(
-    calc_FadingCorr(age.faded = "test", g_value = "test"),
+    calc_FadingCorr(age.faded = "test", g_value = "test", tc = 200),
     "\\[calc\\_FadingCorr\\(\\)\\] 'age.faded', 'g_value' and 'tc' need be of type numeric\\!")
 
   ##check message
