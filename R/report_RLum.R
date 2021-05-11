@@ -553,7 +553,7 @@ report_RLum <- function(
 
   ## ------------------------------------------------------------------------ ##
   ## CLOSE & RENDER ----
-  on.exit(close(tmp), add = TRUE)
+  on.exit(close(tmp))
 
   rmarkdown::render(file, clean = clean, quiet = quiet)
 
