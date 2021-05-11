@@ -29,6 +29,10 @@ returns `NULL`.
 * The function did not flag a problem but just crashed for non-numeric input; changed. 
 * The function is now a little bit less forgiving if `tc` was not set.
 
+#### `report_RLum()`
+* Due to changes in R, the full report was not always visible or complete; fixed.
+* Now supports report distribution plotting for `calc_AverageDose()` model. 
+
 ### Internals
 * `mclust` added as new package dependency to support the new Bayesian models 
 * `report_RLum()` was a little bit too aggressive when trying to close connections on exit
