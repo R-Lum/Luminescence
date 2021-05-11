@@ -100,7 +100,7 @@
 #' @param ... further arguments passed to or from other methods and to control
 #' the document's structure (see details).
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),
@@ -553,8 +553,8 @@ report_RLum <- function(
 
   ## ------------------------------------------------------------------------ ##
   ## CLOSE & RENDER ----
-  close(tmp)
-  on.exit(closeAllConnections())
+  on.exit(close(tmp), add = TRUE)
+
   rmarkdown::render(file, clean = clean, quiet = quiet)
 
   ## ------------------------------------------------------------------------ ##

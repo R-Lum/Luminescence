@@ -30,7 +30,10 @@ returns `NULL`.
 * The function is now a little bit less forgiving if `tc` was not set.
 
 ### Internals
-* `mclust` added as new package dependency to support the new Bayesian models  
+* `mclust` added as new package dependency to support the new Bayesian models 
+* `report_RLum()` was a little bit too aggressive when trying to close connections on exit
+(CRAN email from 2021-05-11).
+
 
 ## Changes in version 0.9.11 (2021-04-29)
 
