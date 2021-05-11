@@ -22,9 +22,9 @@ jobs:
           - {os: windows-latest, r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
           - {os: macOS-latest,   r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
           - {os: macOS-latest,   r: 'oldrel', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-          - {os: ubuntu-20.04,   r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", http-user-agent: "R/4.2.0 (ubuntu-16.04) R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
-          - {os: ubuntu-20.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-          - {os: ubuntu-20.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: ubuntu-18.04,   r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest", http-user-agent: "R/4.2.0 (ubuntu-16.04) R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
+          - {os: ubuntu-18.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+          - {os: ubuntu-18.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest""}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -62,11 +62,13 @@ jobs:
           while read -r cmd
           do
             eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "18.04"))')
 
       - name: Install jags (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get install jags
+        run: |
+          sudo apt-get install jags
+          sudo apt-get install curl
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
         run: |
