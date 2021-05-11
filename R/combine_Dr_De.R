@@ -461,7 +461,8 @@ combine_Dr_De <- function(
 ) {
 
 # Check input data --------------------------------------------------------
-if (!requireNamespace(c("rjags", "coda", "mclust"), quietly = TRUE)) {
+if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace("mclust"),
+           quietly = TRUE))) {
     stop("[combine_Dr_De()] To use this function you have to first
          install the package 'rjags', 'coda', and 'mclust'.", call. = FALSE)
 }
