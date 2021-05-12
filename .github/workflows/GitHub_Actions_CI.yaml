@@ -69,6 +69,8 @@ jobs:
         run: |
           sudo apt-get install jags
           sudo apt-get install curl
+          sudo apt-get install -y ghostscript
+          sudo apt-get install libgfortran5
 
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
