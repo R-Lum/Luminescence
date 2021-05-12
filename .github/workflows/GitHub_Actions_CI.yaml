@@ -62,7 +62,7 @@ jobs:
           pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
         shell: Rscript {0}
 
-       - name: Install ghostscript (Linux)
+      - name: Install ghostscript (Linux)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y ghostscript
