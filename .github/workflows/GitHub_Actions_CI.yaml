@@ -64,13 +64,11 @@ jobs:
 
       - name: Install ghostscript (Linux)
         if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y ghostscript
+        run: sudo apt-get install -y ghostscript
 
-       - name: Install jags (macOS)
+      - name: Install jags (macOS)
         if: runner.os == 'macOS'
-        run: |
-          brew install jags
+        run: brew install jags
 
       - name: Install dependencies
         run: |
@@ -78,7 +76,6 @@ jobs:
           pak::pkg_install("rcmdcheck")
           remotes::install_cran("covr")
         shell: Rscript {0}
-
 
       - name: Show session info
         run: |
