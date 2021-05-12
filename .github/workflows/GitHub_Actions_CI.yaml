@@ -66,7 +66,6 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y ghostscript
-          sudo apt-get install r-cran-rlang
 
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
@@ -74,6 +73,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          remotes::install_cran("rlang")
           pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("rcmdcheck")
           remotes::install_cran("covr")
