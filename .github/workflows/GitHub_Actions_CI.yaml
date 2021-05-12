@@ -64,7 +64,9 @@ jobs:
 
       - name: Install ghostscript (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y ghostscript
+        run: |
+          sudo apt-get install -y ghostscript
+          sudo apt-get install r-cran-rlang
 
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
