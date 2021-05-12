@@ -19,12 +19,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        #  - {os: windows-latest, r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        #  - {os: macOS-latest,   r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        #  - {os: macOS-latest,   r: 'oldrel', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-        #  - {os: ubuntu-18.04,   r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest", http-user-agent: "R/4.2.0 (ubuntu-16.04) R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
+        - {os: windows-latest, r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
+        - {os: macOS-latest,   r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
+        - {os: macOS-latest,   r: 'oldrel', rspm:  "https://packagemanager.rstudio.com/all/latest"}
+        - {os: ubuntu-20.04,   r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest http-user-agent: "R/4.2.0 (ubuntu-20.04) R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
         - {os: ubuntu-20.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        #  - {os: ubuntu-18.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+        - {os: ubuntu-20.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -62,6 +62,11 @@ jobs:
           pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
         shell: Rscript {0}
 
+       - name: Install jags (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install jags
+
       - name: Install dependencies
         run: |
           pak::local_install_dev_deps(upgrade = TRUE)
@@ -69,10 +74,6 @@ jobs:
           remotes::install_cran("covr")
         shell: Rscript {0}
 
-      - name: Install jags (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          brew install jags
 
       - name: Show session info
         run: |
