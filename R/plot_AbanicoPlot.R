@@ -172,7 +172,7 @@
 #'
 #' @param y.axis [logical]: Option to hide standard y-axis labels and show 0 only.
 #' Useful for data with small scatter. If you want to suppress the y-axis entirely
-#' please use `yaxt == 'n'` (the standard [graphics:par] setting) instead.
+#' please use `yaxt == 'n'` (the standard [graphics::par] setting) instead.
 #'
 #' @param error.bars [logical]:
 #' Option to show De-errors as error bars on De-points. Useful in combination
