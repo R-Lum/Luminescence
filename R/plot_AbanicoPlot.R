@@ -171,7 +171,8 @@
 #' Option to add a boxplot to the dispersion part, default is `FALSE`.
 #'
 #' @param y.axis [logical]:
-#' Option to hide y-axis labels. Useful for data with small scatter.
+#' Option to hide standard y-axis labels and show 0 only.
+#' Useful for data with small scatter.
 #'
 #' @param error.bars [logical]:
 #' Option to show De-errors as error bars on De-points. Useful in combination
@@ -225,20 +226,19 @@
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
-#' @param ... Further plot arguments to pass. `xlab` must be a vector of
-#' length 2, specifying the upper and lower x-axes labels.
+#' @param ... Further plot arguments to pass (see [graphics::plot.default]). Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`, `lty`, `lwd`, `pch`, `col`, `tck`, `tcl`, `at`, `breaks`. `xlab` must be a vector of length two, specifying the upper and lower x-axes labels.
 #'
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.11
+#' @section Function version: 0.1.12
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
-#' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram]
+#' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram], [plot_ViolinPlot]
 #'
 #' @references
 #' Galbraith, R. & Green, P., 1990. Estimating the component ages
