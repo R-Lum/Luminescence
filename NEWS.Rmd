@@ -22,6 +22,13 @@ couple of other R packages prompted to you when you first try to use this functi
 * `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
 
 ### Bugfixes and changes
+#### `plot_AbanicoPlot()`
+* Documentation for the parameter `y.axis` clarified along with a new list of supported
+`...` parameters.
+* Add supported for `graphics::par()` `yaxt` parameter to suppress the y-axis using
+`yaxt == "n"`. Please note that in a such a case a newly added axis via `axis(2)` needs
+to be adjusted otherwise the scale is not correct.
+
 #### `calc_FadingCorr()`
 * If no solution could be found (usually the case for unrealistically large g-values), the function 
 crashed with a non-helpful error message. Now a meaningful message is shown and the function 
