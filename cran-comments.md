@@ -5,8 +5,10 @@ occurred recently after changes in R.
 
 ## Addressed CRAN issues
 
-`Error in xtfrm.default(x) : cannot xtfrm 'x'` found in two 
+* `Error in xtfrm.default(x) : cannot xtfrm 'x'` found in two 
 files related to one function and fixed.
+
+`invalid value 0 for 'digits' argument` + CRAN email from 2021-05-24; fixed.
 
 ## Win-Builder
 
