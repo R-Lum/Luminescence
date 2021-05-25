@@ -58,7 +58,7 @@ test_that("Test internals", {
     "list")
 
   # .matrix_binning() ---------------------------------------------------------------------------
-  m <- matrix(data = c(rep(1:20,each = 20)), ncol = 10, nrow = 20)
+  m <- matrix(data = c(rep(1:20, each = 20)), ncol = 20, nrow = 20)
   rownames(m) <- 1:nrow(m)
   colnames(m) <- 1:ncol(m)
 
