@@ -33,7 +33,7 @@ use local graphical parameters for plotting, e.g. the plot is shown in one colum
 If \code{par.local = FALSE} global parameters are inherited.}
 
 \item{plot.type}{\link{character} (\emph{with default}): plot type, for
-3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
+3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{image}, \code{contour},
 \code{single} or \code{multiple.lines} (along the time or temperature axis)
 or \code{transect} (along the wavelength axis) \cr}
 
@@ -95,9 +95,11 @@ Returns a plot.
 }
 \description{
 The function provides a standardised plot output for spectrum data of an
-RLum.Data.Spectrum S4 class object
-}
-\details{
+\linkS4class{RLum.Data.Spectrum} class object. The purpose of this function is to provide
+easy and straight-forward spectra plotting, not provide a full customised access to
+all plot parameters. If this is wanted, standard R plot functionality should be used
+instead.
+
 \strong{Matrix structure} \cr (cf. \linkS4class{RLum.Data.Spectrum})
 \itemize{
 \item \code{rows} (x-values): wavelengths/channels (\code{xlim}, \code{xlab})
@@ -143,6 +145,14 @@ steps.
 
 All frames plotted in one frame.
 
+'**\code{plot.type = "image"} or `plot.type = "contour" **
+
+These plot types use the R functions \link[graphics:image]{graphics::image} or \link[graphics:contour]{graphics::contour}.
+The advantage is that many plots can be arranged conveniently using standard
+R plot functionality. If \code{plot.type = "image"} a contour is added by default,
+which can be disabled using the argument \code{contour = FALSE} to add own contour
+lines of choice.
+
 \strong{\code{plot.type = "transect"}}
 
 Depending on the selected wavelength/channel range a transect over the
@@ -155,14 +165,15 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 \strong{Further arguments that will be passed (depending on the plot type)}
 
 \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
-\code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} ("single", "multiple.lines", "interactive"),
-\code{col}, \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} ("interactive")
+\code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
+\code{col}, \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
+\code{contour}, \code{contour.col} (\code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.2
+ 0.6.3
 }
 
 \examples{
@@ -170,13 +181,14 @@ Not all additional arguments (\code{...}) will be passed similarly!
 ##load example data
 data(ExampleData.XSYG, envir = environment())
 
-##(1)plot simple spectrum (2D) - contour
-plot_RLum.Data.Spectrum(TL.Spectrum,
-                        plot.type="contour",
-                        xlim = c(310,750),
-                        ylim = c(0,300),
-                        bin.rows=10,
-                        bin.cols = 1)
+##(1)plot simple spectrum (2D) - image
+plot_RLum.Data.Spectrum(
+ TL.Spectrum,
+ plot.type="image",
+ xlim = c(310,750),
+ ylim = c(0,300),
+ bin.rows=10,
+ bin.cols = 1)
 
 ##(2) plot spectrum (3D)
 plot_RLum.Data.Spectrum(
@@ -226,23 +238,18 @@ plot_RLum.Data.Spectrum(
  type = "heatmap",
  showscale = TRUE)
 
- ##(7) alternative using the package fields
- fields::image.plot(get_RLum(TL.Spectrum))
- contour(get_RLum(TL.Spectrum), add = TRUE)
-
 }
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp},
-\link[plotly:plot_ly]{plotly::plot_ly}, \link{contour}
+\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-22. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-26. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
