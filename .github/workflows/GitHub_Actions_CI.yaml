@@ -66,6 +66,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y ghostscript
+          sudo apt-get install -y curl
 
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
