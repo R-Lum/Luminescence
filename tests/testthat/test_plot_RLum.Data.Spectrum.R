@@ -73,7 +73,7 @@ test_that("test pure success of the plotting without warning or error", {
       xaxis.energy = TRUE
     ))
 
-    ##multiple.lines
+    ## plot: multiple.lines ---------
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
@@ -85,7 +85,47 @@ test_that("test pure success of the plotting without warning or error", {
       )
     ))
 
-    ##interactive
+    ## plot: image ------------
+    ### plot_image: standard -------
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "image",
+        xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        bin.cols = 1
+      )
+    ))
+
+    ### plot_image: no contour -------
+   expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "image",
+        xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        bin.cols = 1,
+        contour = FALSE
+      )
+    ))
+
+    ### plot_image: colour changes -------
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "image",
+        xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        bin.cols = 1,
+        col = grDevices::hcl.colors(20),
+        contour.col = "yellow"
+      )
+    ))
+
+    ## plot: interactive ------------
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
@@ -98,7 +138,7 @@ test_that("test pure success of the plotting without warning or error", {
     ))
 
 
-    ##interactive heatmap
+    ## plot: interactive heatmap --------
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
