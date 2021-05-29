@@ -1,6 +1,6 @@
-#' Plot function for an `RLum.Data.Image` S4 class object
+#' @title  Plot function for an `RLum.Data.Image` S4 class object
 #'
-#' The function provides a standardised plot output for image data of an
+#' @description The function provides a standardised plot output for image data of an
 #' `RLum.Data.Image`S4 class object, mainly using the plot functions
 #' provided by the [raster] package.
 #'
@@ -19,8 +19,8 @@
 #'
 #' Arguments that are passed through the function call:
 #'
-#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
-#' `col`
+#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,`zlim`, `col`, `stretch` (`NULL` no
+#' strech)
 #'
 #' **`plot.type = "plotRGB"`**
 #'
@@ -57,13 +57,7 @@
 #'
 #' @return Returns a plot.
 #'
-#' @note
-#' This function has been created to facilitate the plotting of image data
-#' imported by the function [read_SPE2R]. However, so far the
-#' function is not optimized to handle image data > ca. 200 MB and thus
-#' plotting of such data is extremely slow.
-#'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -94,19 +88,22 @@ plot_RLum.Data.Image <- function(
   if(class(object) != "RLum.Data.Image")
     stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image", call. = FALSE)
 
-# Plot settings -----------------------------------------------------------
+  ## extract object
+  object <- object@data
 
-  plot_settings <- modifyList(x = list(
+# Plot settings -----------------------------------------------------------
+plot_settings <- modifyList(x = list(
     main = "RLum.Data.Image",
     axes = TRUE,
     xlab = "Length [px]",
     ylab = "Height [px]",
-    xlim = c(0,dim(get_RLum(object))[2]),
-    ylim = c(0,dim(get_RLum(object))[1]),
+    xlim = c(0,dim(object)[2]),
+    ylim = c(0,dim(object)[1]),
+    zlim = range(c(object@data@min, object@data@max)),
     ext = NULL,
     interpolate = FALSE,
-    strech = "hist",
-    maxpixels = dim(get_RLum(object))[1]*dim(get_RLum(object))[2],
+    stretch = "hist",
+    maxpixels = dim(object)[1]*dim(object)[2],
     alpha = 255,
     colNA = "white",
     col = grDevices::hcl.colors(50, palette = "Inferno"),
@@ -120,7 +117,7 @@ plot_RLum.Data.Image <- function(
   if(plot.type == "plotRGB"){
     ## plot.type: plotRGB -----
     raster::plotRGB(
-      x = object@data,
+      x = object,
       main = plot_settings$main,
       axes = plot_settings$axes,
       xlab = plot_settings$xlab,
@@ -133,22 +130,46 @@ plot_RLum.Data.Image <- function(
       stretch = plot_settings$stretch)
 
   }else if(plot.type == "plot.raster"){
-    ## plot.type: plot.raster -----
-    plot(
-      object@data,
-      main = plot_settings$main,
+    # plot.type: plot.raster -----
+    if(!is.null(plot_settings$stretch)) {
+    object <- raster::stretch(
+      object,
+      minq = .02,
+      maxq = .98,
+      minv = plot_settings$zlim[1],
+      maxv = plot_settings$zlim[2],
+      )
+    }
+
+    if(class(object)[1] != "RasterBrick") object <- raster::brick(object)
+
+    raster::plot(
+      object,
+      main = paste(plot_settings$main, "#", 1:object@data@nlayers),
       xlim = plot_settings$xlim,
       ylim = plot_settings$ylim,
+      zlim = plot_settings$zlim,
       xlab = plot_settings$xlab,
       ylab = plot_settings$ylab,
-      col = plot_settings$col
+      col = plot_settings$col,
+      interpolate = plot_settings$interpolate
     )
 
   }else if(plot.type == "contour"){
     ## plot.type: contour ----
     for(i in 1:raster::nlayers(get_RLum(object))){
+      if(!is.null(plot_settings$stretch)) {
+        object <- raster::stretch(
+          object,
+          minq = .02,
+          maxq = .98,
+          minv = plot_settings$zlim[1],
+          maxv = plot_settings$zlim[2]
+        )
+      }
+
       raster::contour(
-        raster::raster(get_RLum(object), layer = i),
+        raster::raster(object, layer = i),
         main = plot_settings$main,
         xlim = plot_settings$xlim,
         ylim = plot_settings$ylim,
@@ -159,7 +180,7 @@ plot_RLum.Data.Image <- function(
     }
 
   }else{
-    stop("[plot_RLum.Data.Image()] Unknown plot.type.", call. = FALSE)
+    stop("[plot_RLum.Data.Image()] Unknown plot type.", call. = FALSE)
 
   }
 
