@@ -63,7 +63,7 @@
 #' function is not optimized to handle image data > ca. 200 MB and thus
 #' plotting of such data is extremely slow.
 #'
-#' @section Function version: 0.1
+#' @section Function version: 0.1.0
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -89,130 +89,77 @@ plot_RLum.Data.Image <- function(
   ...
 ){
 
-
-  # Integrity check -----------------------------------------------------------
-
+# Integrity check -----------------------------------------------------------
   ##check if object is of class RLum.Data.Image
-  if(class(object) != "RLum.Data.Image"){
+  if(class(object) != "RLum.Data.Image")
+    stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image", call. = FALSE)
 
-    stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image")
+# Plot settings -----------------------------------------------------------
 
-  }
+  plot_settings <- modifyList(x = list(
+    main = "RLum.Data.Image",
+    axes = TRUE,
+    xlab = "Length [px]",
+    ylab = "Height [px]",
+    xlim = c(0,dim(get_RLum(object))[2]),
+    ylim = c(0,dim(get_RLum(object))[1]),
+    ext = NULL,
+    interpolate = FALSE,
+    strech = "hist",
+    maxpixels = dim(get_RLum(object))[1]*dim(get_RLum(object))[2],
+    alpha = 255,
+    colNA = "white",
+    col = grDevices::hcl.colors(50, palette = "Inferno"),
+    cex = 1
+  ), val = list(...), keep.null = TRUE)
 
-  ##deal with addition arguments
-  extraArgs <- list(...)
-
-  ##TODO
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"RLum.Data.Image"}
-
-  axes <- if("axes" %in% names(extraArgs)) {extraArgs$axes} else
-  {TRUE}
-
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-  {"Length [px]"}
-
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {"Height [px]"}
-
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {c(0,dim(get_RLum(object))[2])}
-
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(0,dim(get_RLum(object))[1])}
-
-  ##plotRGB::ext
-  ext <- if("ext" %in% names(extraArgs)) {extraArgs$ext} else
-  {NULL}
-
-  ##plotRGB::interpolate
-  interpolate <- if("interpolate" %in% names(extraArgs)) {extraArgs$interpolate} else
-  {FALSE}
-
-  ##plotRGB::stretch
-  stretch <- if("stretch" %in% names(extraArgs)) {extraArgs$stretch} else
-  {"hist"}
-
-  ##plotRGB::maxpixels
-  maxpixels <- if("maxpixels" %in% names(extraArgs)) {extraArgs$maxpixels} else
-  {dim(get_RLum(object))[1]*dim(get_RLum(object))[2]}
-
-  ##plotRGB::alpha
-  alpha <- if("alpha" %in% names(extraArgs)) {extraArgs$alpha} else
-  {255}
-
-  ##plotRGB::colNA
-  colNA <- if("colNA" %in% names(extraArgs)) {extraArgs$colNA} else
-  {"white"}
-
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
-  {topo.colors(255)}
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {1}
 
   ##par setting for possible combination with plot method for RLum.Analysis objects
-  if(par.local == TRUE){
-
-    par(mfrow=c(1,1), cex = cex)
-
-  }
-
-  ##grep raster
+  if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
 
   if(plot.type == "plotRGB"){
-    ## ==========================================================================#
-    ## standard raster plotRGB (package raster)
-    ## ==========================================================================#
-
+    ## plot.type: plotRGB -----
     raster::plotRGB(
-      get_RLum(object),
-      main = main,
-      axes = TRUE,
-      xlab = xlab,
-      ylab = ylab,
-      ext = ext,
-      interpolate = interpolate,
-      maxpixels = maxpixels,
-      alpha = alpha,
-      colNA = colNA,
-      stretch = stretch)
+      x = object@data,
+      main = plot_settings$main,
+      axes = plot_settings$axes,
+      xlab = plot_settings$xlab,
+      ylab = plot_settings$ylab,
+      ext = plot_settings$ext,
+      interpolate = plot_settings$interpolate,
+      maxpixels = plot_settings$maxpixels,
+      alpha = plot_settings$alpha,
+      colNA = plot_settings$colNA,
+      stretch = plot_settings$stretch)
 
-
-    ## ==========================================================================#
-    ## standard raster plot (package raster)
-    ## ==========================================================================#
   }else if(plot.type == "plot.raster"){
+    ## plot.type: plot.raster -----
+    plot(
+      object@data,
+      main = plot_settings$main,
+      xlim = plot_settings$xlim,
+      ylim = plot_settings$ylim,
+      xlab = plot_settings$xlab,
+      ylab = plot_settings$ylab,
+      col = plot_settings$col
+    )
 
-    plot(get_RLum(object),
-         main = main,
-         xlim = xlim,
-         ylim = ylim,
-         xlab = xlab,
-         ylab = ylab,
-         col = col)
-
-    ## ==========================================================================#
-    ## standard contour (package raster)
-    ## ==========================================================================#
   }else if(plot.type == "contour"){
-
+    ## plot.type: contour ----
     for(i in 1:raster::nlayers(get_RLum(object))){
-
-
-      raster::contour(raster::raster(get_RLum(object), layer = i),
-                      main = main,
-                      xlim = xlim,
-                      ylim = ylim,
-                      xlab = xlab,
-                      ylab = ylab,
-                      col = col)
-
+      raster::contour(
+        raster::raster(get_RLum(object), layer = i),
+        main = plot_settings$main,
+        xlim = plot_settings$xlim,
+        ylim = plot_settings$ylim,
+        xlab = plot_settings$xlab,
+        ylab = plot_settings$ylab,
+        col = plot_settings$col
+      )
     }
 
   }else{
-
-    stop("[plot_RLum.Data.Image()] Unknown plot type.")
+    stop("[plot_RLum.Data.Image()] Unknown plot.type.", call. = FALSE)
 
   }
 
