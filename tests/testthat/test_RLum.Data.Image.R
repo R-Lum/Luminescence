@@ -34,4 +34,13 @@ test_that("check class ", {
   expect_s4_class(as(df, "RLum.Data.Image"), "RLum.Data.Image")
   expect_s3_class(as(ExampleData.RLum.Data.Image, "data.frame"), "data.frame")
 
+  ## to array
+  expect_type(as(ExampleData.RLum.Data.Image, "array"), "integer")
+  expect_s4_class(as(array(1,dim = c(10,10,2)), "RLum.Data.Image"), "RLum.Data.Image")
+
+  ## to list
+  expect_s4_class(as(list(matrix(1, nrow = 10, ncol = 5), matrix(1, nrow = 10, ncol = 5)), "RLum.Data.Image"),
+                  "RLum.Data.Image")
+  expect_type(as(ExampleData.RLum.Data.Image, "list"), "list")
+
 })

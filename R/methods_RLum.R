@@ -369,6 +369,10 @@ as.list.RLum.Data.Curve <- function(x, ...) as(x, "list")
 
 #' @rdname methods_RLum
 #' @export
+as.list.RLum.Data.Image <- function(x, ...) as(x, "list")
+
+#' @rdname methods_RLum
+#' @export
 as.list.RLum.Analysis <- function(x, ...) as(x, "list")
 
 ####################################################################################################
@@ -381,6 +385,10 @@ as.matrix.RLum.Data.Curve <- function(x, ...) as(x, "matrix")
 #' @rdname methods_RLum
 #' @export
 as.matrix.RLum.Data.Spectrum <- function(x, ...) as(x, "matrix")
+
+#' @rdname methods_RLum
+#' @export
+as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
 # for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
 ####################################################################################################

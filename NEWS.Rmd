@@ -31,6 +31,10 @@ returns `NULL`.
 * The function did not flag a problem but just crashed for non-numeric input; changed. 
 * The function is now a little bit less forgiving if `tc` was not set.
 
+#### `RLum.Data.Image-class`
+* Add S4-methods to coerce from and to `list` and `array`
+
+
 #### `plot_AbanicoPlot()`
 * Documentation for the parameter `y.axis` clarified along with a new list of supported
 `...` parameters.
