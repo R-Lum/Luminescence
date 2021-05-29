@@ -40,9 +40,11 @@
 \alias{as.data.frame.Risoe.BINfileData}
 \alias{as.list.RLum.Results}
 \alias{as.list.RLum.Data.Curve}
+\alias{as.list.RLum.Data.Image}
 \alias{as.list.RLum.Analysis}
 \alias{as.matrix.RLum.Data.Curve}
 \alias{as.matrix.RLum.Data.Spectrum}
+\alias{as.matrix.RLum.Data.Image}
 \alias{is.RLum}
 \alias{is.RLum.Data}
 \alias{is.RLum.Data.Curve}
@@ -145,11 +147,15 @@ bin.RLum.Data.Spectrum(x, bin_size.row = 1, bin_size.col = 1, ...)
 
 \method{as.list}{RLum.Data.Curve}(x, ...)
 
+\method{as.list}{RLum.Data.Image}(x, ...)
+
 \method{as.list}{RLum.Analysis}(x, ...)
 
 \method{as.matrix}{RLum.Data.Curve}(x, ...)
 
 \method{as.matrix}{RLum.Data.Spectrum}(x, ...)
+
+\method{as.matrix}{RLum.Data.Image}(x, ...)
 
 is.RLum(x, ...)
 
