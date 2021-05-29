@@ -1,15 +1,15 @@
-#' Import Princeton Instruments (TM) SPE-file into R
+#' @title Import Princeton Instruments (TM) SPE-file into R
 #'
-#' Function imports Princeton Instruments (TM) SPE-files into R environment and
-#' provides `RLum` objects as output.
+#' @decription Function imports Princeton Instruments (TM) SPE-files into R environment and
+#' provides [RLum.Data.Image-class] objects as output.
 #'
-#' Function provides an import routine for the Princeton Instruments SPE format.
-#' Import functionality is based on the file format description provided by
+#' @details Function provides an R only import routine for the Princeton Instruments
+#' SPE format. Import functionality is based on the file format description provided by
 #' Princeton Instruments and a MatLab script written by Carl Hall (s.
 #' references).
 #'
 #' @param file [character] (**required**):
-#' spe-file name (including path), e.g.
+#' SPE-file name (including path), e.g.
 #' - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
 #' - `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`. Additionally internet connections
 #' are supported.
@@ -124,7 +124,7 @@ read_SPE2R <- function(
       if(!httr::http_error(file)){
         if(verbose) cat("OK")
 
-        ##dowload file
+        ##download file
         file_link <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
         download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE}, mode = "wb")
         file <- file_link
@@ -161,8 +161,6 @@ read_SPE2R <- function(
 
   #open connection
   con <- file(file, "rb")
-
-
 
   # read header -------------------------------------------------------------
 
@@ -326,9 +324,7 @@ read_SPE2R <- function(
     }
 
   }else if(datatype == 3){
-
     read.data <- function(n.counts){
-
       readBin(con, what="int", n.counts, size=2, endian="little", signed = FALSE)
 
     }
@@ -340,7 +336,6 @@ read_SPE2R <- function(
     }
 
   }else{
-
     stop("[read_SPE2R()] Unknown 'datatype'.")
 
   }
@@ -427,20 +422,15 @@ read_SPE2R <- function(
 
 
   }else if(output.object == "RLum.Data.Image"){
-
     ##combine to raster
     data.raster.list <- lapply(1:length(data.list), function(x){
-
       if(txtProgressBar==TRUE){
-
         cat(paste("\r Converting to RasterLayer: ", x, "/",length(data.list), sep = ""))
 
       }
-
       raster::raster(t(data.list[[x]]),
              xmn = 0, xmx = max(xdim),
              ymn = 0, ymx = max(ydim))
-
 
     })
 
@@ -457,14 +447,12 @@ read_SPE2R <- function(
       info = temp.info)
 
   }else{
-
     stop("[read_SPE2R()] Chosen 'output.object' not supported. Please check manual!")
 
   }
 
   ##close con
   close(con)
-
 
   ##return values
   return(object)
