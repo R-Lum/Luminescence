@@ -51,3 +51,4 @@ read_TIFF2R <- function(
   set_RLum(class = "RLum.Data.Image", data = raster_brick)
 
 }
+
