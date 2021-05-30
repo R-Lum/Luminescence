@@ -157,7 +157,7 @@ plot_settings <- modifyList(x = list(
 
   }else if(plot.type == "contour"){
     ## plot.type: contour ----
-    for(i in 1:raster::nlayers(get_RLum(object))){
+    for(i in 1:raster::nlayers(object)){
       if(!is.null(plot_settings$stretch)) {
         object <- raster::stretch(
           object,
