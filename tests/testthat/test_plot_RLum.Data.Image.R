@@ -19,7 +19,7 @@ test_that("Test image plotting", {
                                        stretch = NULL))
 
     ## plotRGB ---
-    expect_silent(plot_RLum.Data.Image(image, plot.type = "plotRGB"))
+    expect_silent(suppressWarnings(plot_RLum.Data.Image(image, plot.type = "plotRGB")))
 
     ## contour ---
     expect_silent(plot_RLum.Data.Image(image, plot.type = "contour",
