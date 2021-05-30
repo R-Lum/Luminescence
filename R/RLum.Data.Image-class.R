@@ -100,7 +100,7 @@ setAs("data.frame", "RLum.Data.Image",
 ## to data.frame ----
 setAs("RLum.Data.Image", "data.frame",
         function(from){
-          if(raster::nlayers(from@data) == 0) {
+          if(raster::nlayers(from@data) == 1) {
             as.data.frame(matrix(from@data@data@values[,1], ncol = from@data@ncols))
           } else {
             message("No viable coercion to data.frame, object contains multiple raster layers.")
@@ -123,7 +123,7 @@ setAs("matrix", "RLum.Data.Image",
 ## to matrix ----
 setAs("RLum.Data.Image", "matrix",
       function(from){
-        if(raster::nlayers(from@data) == 0) {
+        if(raster::nlayers(from@data) == 1) {
           matrix(from@data@data@values[,1], ncol = from@data@ncols)
         } else {
          message("No viable coercion to matrix, object contains multiple raster layers. Please convert to array instead.")
