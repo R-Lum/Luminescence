@@ -42,6 +42,10 @@ returns `NULL`.
 `yaxt == "n"`. Please note that in a such a case a newly added axis via `axis(2)` needs
 to be adjusted otherwise the scale is not correct.
 
+#### `plot_Histogramm()`
+* If the input is of `RLum.Results-class` always the first element will be plotted. The function 
+will not search anymore for an element `'data'`
+
 #### `plot_RLum.Data.Image()`
 * Various minor improvements to better support image data plotting + update documentation
 
