@@ -58,10 +58,6 @@ test_that("test pure success of the plotting without warning or error", {
     temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
     expect_silent(plot(temp))
 
-    ##RLum.Data.Image
-    data(ExampleData.RLum.Data.Image, envir = environment())
-    expect_silent(plot(ExampleData.RLum.Data.Image))
-
     ##RLum.Data.Spectrum -------
     data(ExampleData.XSYG, envir = environment())
     expect_silent(plot(TL.Spectrum,
