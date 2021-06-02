@@ -92,7 +92,7 @@
 #' that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 #' strongly recommended to use the argument `cleanup = TRUE` carefully.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #'
 #' @author
@@ -153,7 +153,7 @@ verify_SingleGrainData <- function(
   # Self Call -----------------------------------------------------------------------------------
   if(is(object, "list")){
 
-    results <- lapply(1:length(object), function(x) {
+    results <- .warningCatcher(lapply(1:length(object), function(x) {
       verify_SingleGrainData(
         object = object[[x]],
         threshold = threshold,
@@ -162,7 +162,7 @@ verify_SingleGrainData <- function(
         verbose = verbose,
         plot = plot
       )
-    })
+    }))
 
       ##account for cleanup
       if(cleanup){

@@ -56,6 +56,10 @@ will not search anymore for an element `'data'`
 * Due to changes in R, the full report was not always visible or complete; fixed.
 * Now supports report distribution plotting for `calc_AverageDose()` model. 
 
+#### `verify_SingleGrainData()`
+* The function stops flooding the terminal with the same warning over and over again 
+if run over a list. 
+
 ### Internals
 * `mclust` added as new package dependency to support the new Bayesian models 
 * `tiff` added as new suggested package to support the new function `read_TIFF2R()`
