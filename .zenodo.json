@@ -27,10 +27,10 @@
       "relation": "isVersionOf"
     }
   ],
-  "version": "0.9.12.9000-45",
+  "version": "0.9.12.9000-46",
   "upload_type": "software",
   "keywords": ["Luminescence", "Luminescence dating", "Chronology", "Age models"],
-  "publication_date": "2021-05-30",
+  "publication_date": "2021-06-02",
   "creators": [
     {
       "orcid": "0000-0002-0734-2199",
