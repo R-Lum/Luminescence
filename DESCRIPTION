@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.14.9000-2
+Version: 0.9.14.9000-5
 Date: 2021-06-03
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
@@ -57,7 +57,7 @@ Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 4.0.5),
+    R (>= 4.0),
     utils,
     magrittr (>= 2.0.1)
 LinkingTo: Rcpp (>= 1.0.6),
