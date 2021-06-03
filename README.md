@@ -17,9 +17,6 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://cran.r-project.org/package=Luminescence)
 [![CRAN
 checks](https://cranchecks.info/badges/worst/Luminescence)](https://cran.r-project.org/web/checks/check_results_Luminescence.html)
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-
-======= &gt;&gt;&gt;&gt;&gt;&gt;&gt; dev\_0.9.12
 
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
