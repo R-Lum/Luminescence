@@ -35,7 +35,7 @@
 -   Add supported for `graphics::par()` `yaxt` parameter to suppress the
     y-axis using `yaxt == "n"`. Please note that in a such a case a
     newly added axis via `axis(2)` needs to be adjusted otherwise the
-    scale is not correct. &gt;&gt;&gt;&gt;&gt;&gt;&gt; dev\_0.9.12
+    scale is not correct.
 
 #### `plot_Histogramm()`
 
@@ -85,11 +85,13 @@
     equivalent dose using the global standardised growth curve (gSGC)
     for feldspar proposed by Li et al. (2015)
 
-> > > > > > > dev\_0.9.12 \#\#\# Bugfixes and changes \#\#\#\#
-> > > > > > > `analyse_SAR.CWOSL()` \* The function, applied to a list
-> > > > > > > of `RLum.Analysis` objects, crashed with a merge error
-> > > > > > > under very particular circumstances after throwing a
-> > > > > > > fitting error; fixed (reported by Brice Lebrun).
+### Bugfixes and changes
+
+#### `analyse_SAR.CWOSL()`
+
+-   The function, applied to a list of `RLum.Analysis` objects, crashed
+    with a merge error under very particular circumstances after
+    throwing a fitting error; fixed (reported by Brice Lebrun).
 
 #### `fit_LMCurve()`
 
