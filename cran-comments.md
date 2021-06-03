@@ -23,5 +23,5 @@ files related to one function and fixed.
 
 Reverse depends 3: 
 
-* 2/3 are ok. 
+* 2/3 are OK. 
 * `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
