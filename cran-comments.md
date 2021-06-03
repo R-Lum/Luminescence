@@ -1,6 +1,8 @@
 ## Release summary
 
-This version updates 0.9.11 on CRAN and fixes issues flagged by the CRAN team
+This version updates 0.9.11 on CRAN and fixes issues flagged by the CRAN team.
+This submission addresses a warning flagged for the submission 0.9.12.
+`partial argument match of 'rol' to 'role'`; fixed
 
 ## Addressed CRAN issues
 
