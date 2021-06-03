@@ -53,6 +53,7 @@ test_that("standard check", {
     object = ExampleData.TR_OSL,
     verbose = FALSE,
     plot = TRUE,
+    plot_simple = TRUE,
     log = "x",
     n.components = 1), regexp = "log-scale requires x-values > 0, set min xlim to 0.01!")
 

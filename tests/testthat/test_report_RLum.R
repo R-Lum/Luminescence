@@ -12,7 +12,7 @@ test_that("Test Simple RLum Report", {
   temp <- calc_CommonDose(ExampleData.DeValues$CA1)
 
   # create the standard HTML report
-  expect_null(report_RLum(object = temp, timestamp = FALSE, show_report = FALSE))
-  expect_null(report_RLum(object = temp, timestamp = FALSE, show_report = FALSE, compact = FALSE))
+  testthat::expect_null(report_RLum(object = temp, timestamp = FALSE, show_report = FALSE))
+  testthat::expect_null(report_RLum(object = temp, timestamp = FALSE, show_report = FALSE, compact = FALSE))
 
 })

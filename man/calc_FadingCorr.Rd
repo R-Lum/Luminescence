@@ -24,7 +24,7 @@ uncorrected age with error in ka (see example)}
 \item{g_value}{\link{vector} (\strong{required}):
 g-value and error obtained from separate fading measurements (see example).
 Alternatively an \linkS4class{RLum.Results} object can be provided produced by the function
-\link{analyse_FadingMeasurement}, in this case tc is set automatically}
+\link{analyse_FadingMeasurement}, in this case \code{tc} is set automatically}
 
 \item{tc}{\link{numeric} (\strong{required}):
 time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
@@ -136,7 +136,7 @@ tc value (the one used for estimating the g-value) using the argument \code{tc.g
 Special thanks to Sébastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.3
 }
 
 \examples{
@@ -173,7 +173,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-48. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -182,7 +182,7 @@ in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
+\linkS4class{RLum.Results}, \link{analyse_FadingMeasurement}, \link{get_RLum}, \link{uniroot}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)

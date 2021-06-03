@@ -30,12 +30,12 @@ NULL
 #' @section Objects from the class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
-#' @section Class version: 0.4.2
+#' @section Class version: 0.4.3
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R]
+#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R], [read_TIFF2R]
 #'
 #' @keywords classes
 #'
@@ -86,6 +86,8 @@ setClass(
 #'
 #' @md
 #' @name as
+
+## from data.frame ----
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
         new(to,
@@ -95,14 +97,20 @@ setAs("data.frame", "RLum.Data.Image",
             info = list())
       })
 
+## to data.frame ----
 setAs("RLum.Data.Image", "data.frame",
         function(from){
-          as.data.frame(matrix(from@data@data@values[,1], ncol = from@data@ncols))
+          if(raster::nlayers(from@data) == 1) {
+            as.data.frame(matrix(from@data@data@values[,1], ncol = from@data@ncols))
+          } else {
+            message("No viable coercion to data.frame, object contains multiple raster layers.")
+
+          }
         })
 
 
-##MATRIX
-##COERCE RLum.Data.Image >> matrix AND matrix >> RLum.Data.Image
+
+## from matrix   ----
 setAs("matrix", "RLum.Data.Image",
       function(from,to){
         new(to,
@@ -112,12 +120,66 @@ setAs("matrix", "RLum.Data.Image",
             info = list())
       })
 
+## to matrix ----
 setAs("RLum.Data.Image", "matrix",
       function(from){
-        matrix(from@data@data@values[,1], ncol = from@data@ncols)
+        if(raster::nlayers(from@data) == 1) {
+          matrix(from@data@data@values[,1], ncol = from@data@ncols)
+        } else {
+         message("No viable coercion to matrix, object contains multiple raster layers. Please convert to array instead.")
+
+        }
+      })
+
+## to array ----
+setAs("RLum.Data.Image", "array",
+      function(from){
+          array(unlist(lapply(1:raster::nlayers(from@data),
+                          function(x) from@data[[x]]@data@values)),
+            dim = c(from@data@nrows, from@data@ncols, raster::nlayers(from@data)))
+
+      })
+
+## from array ----
+setAs("array", "RLum.Data.Image",
+      function(from, to){
+        from <- lapply(1:dim(from)[3], function(x) from[,,x])
+
+        raster_brick <- raster::brick(lapply(from, function(x){
+          raster::raster(x, xmx = nrow(x), ymx = ncol(x))
+        }))
+
+        new(to,
+            recordType = "unkown curve type",
+            curveType = "NA",
+            data = raster_brick,
+            info = list())
+
       })
 
 
+## to list ----
+setAs("RLum.Data.Image", "list",
+      function(from){
+       lapply(1:raster::nlayers(from@data), function(x) {
+         matrix(from@data[[x]]@data@values, ncol = from@data[[x]]@ncols)})
+
+    })
+
+## from list ----
+setAs("list", "RLum.Data.Image",
+      function(from, to){
+        raster_brick <- raster::brick(lapply(from, function(x){
+          raster::raster(x, xmx = nrow(x), ymx = ncol(x))
+        }))
+
+        new(to,
+            recordType = "unkown curve type",
+            curveType = "NA",
+            data = raster_brick,
+            info = list())
+
+      })
 
 # show() --------------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Image
@@ -322,3 +384,4 @@ setMethod("names_RLum",
             names(object@info)
 
           })
+

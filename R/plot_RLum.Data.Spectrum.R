@@ -1,7 +1,10 @@
-#' Plot function for an RLum.Data.Spectrum S4 class object
+#' @title Plot function for an RLum.Data.Spectrum S4 class object
 #'
-#' The function provides a standardised plot output for spectrum data of an
-#' RLum.Data.Spectrum S4 class object
+#' @description  The function provides a standardised plot output for spectrum data of an
+#' [RLum.Data.Spectrum-class] class object. The purpose of this function is to provide
+#' easy and straight-forward spectra plotting, not provide a full customised access to
+#' all plot parameters. If this is wanted, standard R plot functionality should be used
+#' instead.
 #'
 #' **Matrix structure** \cr (cf. [RLum.Data.Spectrum-class])
 #'
@@ -45,6 +48,14 @@
 #'
 #' All frames plotted in one frame.
 #'
+#' '**`plot.type = "image"` or `plot.type = "contour" **
+#'
+#' These plot types use the R functions [graphics::image] or [graphics::contour].
+#' The advantage is that many plots can be arranged conveniently using standard
+#' R plot functionality. If `plot.type = "image"` a contour is added by default,
+#' which can be disabled using the argument `contour = FALSE` to add own contour
+#' lines of choice.
+#'
 #'**`plot.type = "transect"`**
 #'
 #' Depending on the selected wavelength/channel range a transect over the
@@ -57,8 +68,9 @@
 #' **Further arguments that will be passed (depending on the plot type)**
 #'
 #' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
-#' `zlim`, `main`, `mtext`, `pch`, `type` ("single", "multiple.lines", "interactive"),
-#' `col`, `border`, `box` `lwd`, `bty`, `showscale` ("interactive")
+#' `zlim`, `main`, `mtext`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
+#' `col`, `border`, `box` `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
+#' `contour`, `contour.col` (`"image"`)
 #'
 #' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
 #' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count
@@ -69,8 +81,9 @@
 #' @param par.local [logical] (*with default*):
 #' use local graphical parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If `par.local = FALSE` global parameters are inherited.
+#'
 #' @param plot.type [character] (*with default*): plot type, for
-#' 3D-plot use `persp`, or `interactive`, for a 2D-plot `contour`,
+#' 3D-plot use `persp`, or `interactive`, for a 2D-plot `image`, `contour`,
 #' `single` or `multiple.lines` (along the time or temperature axis)
 #' or `transect` (along the wavelength axis) \cr
 #'
@@ -131,13 +144,12 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.2
+#' @section Function version: 0.6.3
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [graphics::persp],
-#' [plotly::plot_ly], [contour]
+#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
 #'
 #' @keywords aplot
 #'
@@ -146,13 +158,14 @@
 #' ##load example data
 #' data(ExampleData.XSYG, envir = environment())
 #'
-#' ##(1)plot simple spectrum (2D) - contour
-#' plot_RLum.Data.Spectrum(TL.Spectrum,
-#'                         plot.type="contour",
-#'                         xlim = c(310,750),
-#'                         ylim = c(0,300),
-#'                         bin.rows=10,
-#'                         bin.cols = 1)
+#' ##(1)plot simple spectrum (2D) - image
+#' plot_RLum.Data.Spectrum(
+#'  TL.Spectrum,
+#'  plot.type="image",
+#'  xlim = c(310,750),
+#'  ylim = c(0,300),
+#'  bin.rows=10,
+#'  bin.cols = 1)
 #'
 #' ##(2) plot spectrum (3D)
 #' plot_RLum.Data.Spectrum(
@@ -201,10 +214,6 @@
 #'  bin.cols = 1,
 #'  type = "heatmap",
 #'  showscale = TRUE)
-#'
-#'  ##(7) alternative using the package fields
-#'  fields::image.plot(get_RLum(TL.Spectrum))
-#'  contour(get_RLum(TL.Spectrum), add = TRUE)
 #'
 #' }
 #'
@@ -571,7 +580,6 @@ plot_RLum.Data.Spectrum <- function(
 
   # set color values --------------------------------------------------------
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
-
     if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
 
       ##make different colour palette for energy values
@@ -725,8 +733,7 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   if(plot.type == "persp" && ncol(temp.xyz) > 1){
-    ## ==========================================================================#
-    ##perspective plot
+    ## Plot: perspective plot ----
     ## ==========================================================================#
     persp(x, y, temp.xyz,
           shade = shade,
@@ -793,8 +800,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
   }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {
-    ## ==========================================================================#
-    ##contour plot
+    ## Plot: contour plot ----
     ## ==========================================================================#
     contour(x,y,temp.xyz,
             xlab = xlab,
@@ -806,21 +812,34 @@ plot_RLum.Data.Spectrum <- function(
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
+  }else if(plot.type == "image" && ncol(temp.xyz) > 1) {
+    ## Plot: image plot ----
+    ## ==========================================================================#
+    graphics::image(x,y,temp.xyz,
+            xlab = xlab,
+            ylab = ylab,
+            main = main,
+            col = if(is.null(list(...)$col)) grDevices::hcl.colors(50, palette = "Inferno") else
+              list(...)$col
+    )
+
+    if(is.null(list(...)$contour) || list(...)$contour != FALSE) {
+      contour(x, y, temp.xyz,
+              col = if(is.null(list(...)$contour.col)) rgb(1,1,1,0.8) else list(...)$contour.col,
+              add = TRUE)
+    }
+
+    ##plot additional mtext
+    mtext(mtext, side = 3, cex = cex*0.8)
 
   } else if(plot.type == "single") {
-    ## ==========================================================================#
-    ## single plot
+    ## Plot: single plot ----
     ## ==========================================================================#
 
     col.rug <- col
-
-    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else
-    {"black"}
-
-
+    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else {"black"}
 
     for(i in 1:length(y)){
-
       if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
 
       plot(x, temp.xyz[,i],
@@ -856,12 +875,10 @@ plot_RLum.Data.Spectrum <- function(
 
 
   }else if(plot.type == "multiple.lines" && ncol(temp.xyz) > 1) {
-    ## ========================================================================#
-    ## multiple.lines plot
+    ## Plot: multiple.lines ----
     ## ========================================================================#
 
     col.rug <- col
-
     col<- if("col" %in% names(extraArgs)) {extraArgs$col} else
     {"black"}
 
@@ -928,8 +945,7 @@ plot_RLum.Data.Spectrum <- function(
     rm(par.default)
 
   }else if(plot.type == "transect" && ncol(temp.xyz) > 1) {
-    ## ========================================================================#
-    ## transect plot
+    ## Plot: transect plot ----
     ## ========================================================================#
 
     ##sum up rows (column sum)

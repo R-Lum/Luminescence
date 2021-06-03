@@ -329,7 +329,7 @@ plot_DetPlot <- function(
     }
 
 
-    ##TodDo:color failed points red
+    ##ToDo:color failed points red
     ##plot points and error bars
     points(df_final[, c("df_x", "De")], pch = plot.settings$pch)
     segments(

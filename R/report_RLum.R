@@ -100,7 +100,7 @@
 #' @param ... further arguments passed to or from other methods and to control
 #' the document's structure (see details).
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),
@@ -270,7 +270,7 @@ report_RLum <- function(
 
   # Create and open the file
   file.create(file)
-  tmp <- file(file, open = "w")
+  tmp <- file(file, open = "wt", blocking = TRUE)
 
   # save RDS file
   saveRDS(object, file.rds)
@@ -355,14 +355,14 @@ report_RLum <- function(
 
   }#EndOf::Header
 
+
   # OBJECT ----
   if (structure$main) {
     for (i in 1:nrow(elements)) {
-
       # SKIP ELEMENT?
       # hide @.pid and @.uid if this is a shortened report (default)
       if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
-        next
+        next();
 
 
       # HEADER
@@ -440,19 +440,18 @@ report_RLum <- function(
         if (options$short_table) {
           if (is.matrix(table) || is.data.frame(table)) {
             if (nrow(table) > 15) {
+              text <- pander::pander_return(
+                rbind(head(table, 5), tail(table, 5)),
+                caption = "shortened (only first and last five rows shown)")
 
-              writeLines(pander::pander_return(rbind(head(table, 5),
-                                                     tail(table, 5)),
-                                               caption = "shortened (only first and last five rows shown)"), tmp)
+              writeLines(text, tmp)
               next
-
             }
           }
         }
 
         # write table using pander and end each table with a horizontal line
-        writeLines(pander::pander_return(table),
-                   tmp)
+        writeLines(pander::pander_return(table), tmp)
         writeLines("\n\n<hr>", tmp)
 
       }
@@ -526,9 +525,9 @@ report_RLum <- function(
         tmp)
 
       if (inherits(object, "RLum.Results")) {
-
         # AGE MODELS ----
-        models <- c("calc_CommonDose",
+        models <- c("calc_AverageDose",
+                    "calc_CommonDose",
                     "calc_CentralDose",
                     "calc_FiniteMixture",
                     "calc_MinDose",
@@ -551,10 +550,9 @@ report_RLum <- function(
     }
   }#EndOf::Plot
 
+  close(tmp)
   ## ------------------------------------------------------------------------ ##
   ## CLOSE & RENDER ----
-  close(tmp)
-  on.exit(closeAllConnections())
   rmarkdown::render(file, clean = clean, quiet = quiet)
 
   ## ------------------------------------------------------------------------ ##

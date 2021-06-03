@@ -27,8 +27,7 @@ Returns a plot.
 The function provides a standardised plot output for image data of an
 \code{RLum.Data.Image}S4 class object, mainly using the plot functions
 provided by the \link{raster} package.
-}
-\details{
+
 \strong{Details on the plot functions}
 
 Image is visualised as 2D plot using generic plot types provided by other
@@ -44,8 +43,8 @@ raster brick one plot is produced.
 
 Arguments that are passed through the function call:
 
-\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
-\code{col}
+\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},\code{zlim}, \code{col}, \code{stretch} (\code{NULL} no
+strech)
 
 \strong{\code{plot.type = "plotRGB"}}
 
@@ -67,14 +66,8 @@ plot is produced. Arguments that are passed through the function call:\cr
 \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
 \code{col}
 }
-\note{
-This function has been created to facilitate the plotting of image data
-imported by the function \link{read_SPE2R}. However, so far the
-function is not optimized to handle image data > ca. 200 MB and thus
-plotting of such data is extremely slow.
-}
 \section{Function version}{
- 0.1
+ 0.1.1
 }
 
 \examples{
@@ -94,7 +87,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-48. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

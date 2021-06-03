@@ -77,7 +77,7 @@
 #'
 #' @note The input data is not restricted to a special type.
 #'
-#' @section Function version: 0.4.4
+#' @section Function version: 0.4.5
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -138,8 +138,8 @@ plot_Histogram <- function(
                "'data.frame' nor 'RLum.Results'"))
   } else {
 
-    if(is(data, "RLum.Results") == TRUE) {
-      data <- get_RLum(data, "data")[,1:2]
+    if(is(data, "RLum.Results")) {
+      data <- get_RLum(data)[,1:2]
     }
   }
 

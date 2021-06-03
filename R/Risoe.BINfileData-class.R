@@ -181,11 +181,11 @@ NULL
 #' [merge_Risoe.BINfileData], [Risoe.BINfileData2RLum.Analysis]
 #'
 #' @references
-#' Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
+#' Risø DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risø DTU, 2016.
 #'
 #' The Sequence Editor User Manual - February 2016
 #'
-#' [https://www.dtu.dk/]()
+#' [https://www.fysik.dtu.dk]()
 #'
 #' @keywords classes
 #'

@@ -1,8 +1,13 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
+<<<<<<< HEAD
 Version: 0.9.11
 Date: 2021-04-29
+=======
+Version: 0.9.12.9000-48
+Date: 2021-06-03
+>>>>>>> dev_0.9.12
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -16,7 +21,11 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Antoine Zink [ctb] (<https://orcid.org/0000-0001-7146-1101>),
     Julie Durcan [ctb] (<https://orcid.org/0000-0001-8724-8022>),
     Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
+<<<<<<< HEAD
     Anne Philippe [ctb],
+=======
+    Anne Philippe [aut] (<https://orcid.org/0000-0002-5331-5087>),
+>>>>>>> dev_0.9.12
     Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
     Svenja Riedesel [aut] (<https://orcid.org/0000-0003-2936-8776>),
     Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
@@ -38,7 +47,11 @@ Authors@R: c(
     person("Antoine", "Zink", rol = c("ctb"), comment = c(ORCID = "0000-0001-7146-1101")),
     person("Julie", "Durcan", role = c("ctb"), comment = c(ORCID = "0000-0001-8724-8022")),
     person("Georgina E.", "King", role = c("ctb", "dtc"), comment = c(ORCID = "0000-0003-1059-8192")),
+<<<<<<< HEAD
     person("Anne", "Philippe", role = c("ctb")),
+=======
+    person("Anne", "Philippe", role = c("aut"), comment = c(ORCID = "0000-0002-5331-5087")),
+>>>>>>> dev_0.9.12
     person("Guillaume", "Guerin", role = c("ctb"), comment = c(ORCID = "0000-0001-6298-5579")),
     person("Svenja", "Riedesel", role = c("aut"), comment = c(ORCID = "0000-0003-2936-8776")),
     person("Martin", "Autzen", role = c("aut"), comment = c(ORCID = "0000-0001-6249-426X")),
@@ -86,6 +99,7 @@ Suggests:
     coda (>= 0.19-4),
     pander (>= 0.6.3),
     testthat (>= 3.0.0),
+    tiff (>= 0.1),
     devtools (>= 2.3.2),
     R.rsp (>= 0.44.0)
 VignetteBuilder: R.rsp
@@ -215,6 +229,7 @@ Collate:
     'read_PSL2R.R'
     'read_RF2R.R'
     'read_SPE2R.R'
+    'read_TIFF2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'
     'scale_GammaDose.R'

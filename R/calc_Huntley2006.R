@@ -844,12 +844,12 @@ calc_Huntley2006 <- function(data,
         bquote(log[10]~(rho~"'") == .(format(log10(rhop[1]), digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(rhop[2] / (rhop[1] * log(10, base = exp(1))), digits = 2, nsmall = 2)), 2)) ),
         bquote(bgroup("(", frac(n, N), ")") == .(format(nN, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN.error, digits = 2, nsmall = 2)), 2)) ),
         bquote(bgroup("(", frac(n, N), ")")[SS] == .(format(nN_SS, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(nN_SS.error, digits = 2, nsmall = 2)), 2)) ),
-        bquote(D["E,sim"] == .(format(De.sim, digits = 0, nsmall = 0)) %+-% .(format(De.error.sim, digits = 0, nsmall = 0)) ~ Gy),
-        bquote(D["0,sim"] == .(format(D0.sim.Gy, digits = 0, nsmall = 0)) %+-% .(format(D0.sim.Gy.error, digits = 0, nsmall = 0)) ~ Gy),
-        bquote(Age["sim"] == .(format(Age.sim, digits = 0, nsmall = 0)) %+-% .(format(Age.sim.error, digits = 0, nsmall = 0)) ~ ka)
+        bquote(D["E,sim"] == .(format(De.sim, digits = 1, nsmall = 0)) %+-% .(format(De.error.sim, digits = 1, nsmall = 0)) ~ Gy),
+        bquote(D["0,sim"] == .(format(D0.sim.Gy, digits = 1, nsmall = 0)) %+-% .(format(D0.sim.Gy.error, digits = 1, nsmall = 0)) ~ Gy),
+        bquote(Age["sim"] == .(format(Age.sim, digits = 1, nsmall = 0)) %+-% .(format(Age.sim.error, digits = 1, nsmall = 0)) ~ ka)
       )
 
-      # each of the labels is positioned at 1/10 of the availalbe y-axis space
+      # each of the labels is positioned at 1/10 of the available y-axis space
       ypos <- seq(range(axTicks(2))[2], range(axTicks(2))[1], length.out = 10)[1:length(labels.text)]
 
       # allow overprinting

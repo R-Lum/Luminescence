@@ -170,8 +170,9 @@
 #' @param boxplot [logical]:
 #' Option to add a boxplot to the dispersion part, default is `FALSE`.
 #'
-#' @param y.axis [logical]:
-#' Option to hide y-axis labels. Useful for data with small scatter.
+#' @param y.axis [logical]: Option to hide standard y-axis labels and show 0 only.
+#' Useful for data with small scatter. If you want to suppress the y-axis entirely
+#' please use `yaxt == 'n'` (the standard [graphics::par] setting) instead.
 #'
 #' @param error.bars [logical]:
 #' Option to show De-errors as error bars on De-points. Useful in combination
@@ -225,20 +226,19 @@
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
-#' @param ... Further plot arguments to pass. `xlab` must be a vector of
-#' length 2, specifying the upper and lower x-axes labels.
+#' @param ... Further plot arguments to pass (see [graphics::plot.default]). Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`, `lty`, `lwd`, `pch`, `col`, `tck`, `tcl`, `at`, `breaks`. `xlab` must be a vector of length two, specifying the upper and lower x-axes labels.
 #'
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.11
+#' @section Function version: 0.1.12
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
-#' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram]
+#' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram], [plot_ViolinPlot]
 #'
 #' @references
 #' Galbraith, R. & Green, P., 1990. Estimating the component ages
@@ -2301,34 +2301,56 @@ plot_AbanicoPlot <- function(
          cex.axis = layout$abanico$font.size$xlab2/12)
 
     ## plot y-axis
-    if(y.axis == TRUE) {
-      char.height <- par()$cxy[2]
-      tick.space <- axisTicks(usr = limits.y, log = FALSE)
-      tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
-      if(tick.space < char.height * 1.7) {
-        axis(side = 2,
-             tcl = -layout$abanico$dimension$ytcl / 200,
-             lwd = 1,
-             lwd.ticks = 1,
-             at = c(-2, 2),
-             labels = c("", ""),
-             las = 1,
-             col = layout$abanico$colour$ytck)
+    if(is.null(extraArgs$yaxt) || extraArgs$yaxt != "n"){
+      if(y.axis) {
+        char.height <- par()$cxy[2]
+        tick.space <- axisTicks(usr = limits.y, log = FALSE)
+        tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
+        if(tick.space < char.height * 1.7) {
+          axis(side = 2,
+               tcl = -layout$abanico$dimension$ytcl / 200,
+               lwd = 1,
+               lwd.ticks = 1,
+               at = c(-2, 2),
+               labels = c("", ""),
+               las = 1,
+               col = layout$abanico$colour$ytck)
 
-        axis(side = 2,
-             at = 0,
-             tcl = 0,
-             line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-             labels = paste("\u00B1", "2"),
-             las = 1,
-             family = layout$abanico$font.type$ytck,
-             font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                            layout$abanico$font.deco$ytck],
-             col.axis = layout$abanico$colour$ytck,
-             cex.axis = layout$abanico$font.size$ylab/12)
+          axis(side = 2,
+               at = 0,
+               tcl = 0,
+               line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
+               labels = paste("\u00B1", "2"),
+               las = 1,
+               family = layout$abanico$font.type$ytck,
+               font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                              layout$abanico$font.deco$ytck],
+               col.axis = layout$abanico$colour$ytck,
+               cex.axis = layout$abanico$font.size$ylab/12)
+        } else {
+          axis(side = 2,
+               at = seq(-2, 2, by = 2),
+               col = layout$abanico$colour$ytck,
+               col.axis = layout$abanico$colour$ytck,
+               labels = NA,
+               las = 1,
+               tcl = -layout$abanico$dimension$ytcl / 200,
+               cex = cex)
+          axis(side = 2,
+               at = seq(-2, 2, by = 2),
+               line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
+               lwd = 0,
+               las = 1,
+               col = layout$abanico$colour$ytck,
+               family = layout$abanico$font.type$ytck,
+               font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                              layout$abanico$font.deco$ytck],
+               col.axis = layout$abanico$colour$ytck,
+               cex.axis = layout$abanico$font.size$ylab/12)
+        }
       } else {
         axis(side = 2,
-             at = seq(-2, 2, by = 2),
+             at = 0,
              col = layout$abanico$colour$ytck,
              col.axis = layout$abanico$colour$ytck,
              labels = NA,
@@ -2336,7 +2358,7 @@ plot_AbanicoPlot <- function(
              tcl = -layout$abanico$dimension$ytcl / 200,
              cex = cex)
         axis(side = 2,
-             at = seq(-2, 2, by = 2),
+             at = 0,
              line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
              lwd = 0,
              las = 1,
@@ -2347,26 +2369,6 @@ plot_AbanicoPlot <- function(
              col.axis = layout$abanico$colour$ytck,
              cex.axis = layout$abanico$font.size$ylab/12)
       }
-    } else {
-      axis(side = 2,
-           at = 0,
-           col = layout$abanico$colour$ytck,
-           col.axis = layout$abanico$colour$ytck,
-           labels = NA,
-           las = 1,
-           tcl = -layout$abanico$dimension$ytcl / 200,
-           cex = cex)
-      axis(side = 2,
-           at = 0,
-           line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
-           lwd = 0,
-           las = 1,
-           col = layout$abanico$colour$ytck,
-           family = layout$abanico$font.type$ytck,
-           font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$ytck],
-           col.axis = layout$abanico$colour$ytck,
-           cex.axis = layout$abanico$font.size$ylab/12)
     }
 
     ## plot minor z-ticks

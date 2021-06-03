@@ -34,4 +34,17 @@ test_that("check class ", {
   expect_s4_class(as(df, "RLum.Data.Image"), "RLum.Data.Image")
   expect_s3_class(as(ExampleData.RLum.Data.Image, "data.frame"), "data.frame")
 
+  ## to and from array
+  expect_type(as(ExampleData.RLum.Data.Image, "array"), "integer")
+  from_array <- expect_s4_class(as(array(1,dim = c(10,10,2)), "RLum.Data.Image"), "RLum.Data.Image")
+
+  ## to and from list
+  expect_s4_class(as(list(matrix(1, nrow = 10, ncol = 5), matrix(1, nrow = 10, ncol = 5)), "RLum.Data.Image"),
+                  "RLum.Data.Image")
+  expect_type(as(ExampleData.RLum.Data.Image, "list"), "list")
+
+  ## check edge cases
+  expect_message(as(from_array, "matrix"), "No viable coercion to matrix, object contains multiple raster layers. Please convert to array instead.")
+  expect_message(as(from_array, "data.frame"), "No viable coercion to data.frame, object contains multiple raster layers.")
+
 })

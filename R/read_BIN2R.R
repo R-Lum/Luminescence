@@ -7,7 +7,7 @@
 #' published in the Appendices of the Analyst manual p. 42.
 #'
 #' For the general BIN/BINX-file structure, the reader is referred to the
-#' Risø website: [https://www.dtu.dk]()
+#' Risø website: [https://www.fysik.dtu.dk]()
 #'
 #' @param file [character] or [list] (**required**): path and file name of the
 #' BIN/BINX file (URLs are supported). If input is a `list` it should comprise
@@ -107,7 +107,7 @@
 #'
 #' @references
 #' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-#' [https://www.fysik.dtu.dk/english/research/radphys/research/radiation-instruments/tl_osl_reader/manuals]()
+#' [https://www.fysik.dtu.dk]()
 #'
 #'
 #' @keywords IO

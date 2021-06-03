@@ -12,6 +12,21 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
 
+  ##trigger some errors
+  expect_error(calc_FadingCorr(age.faded = "test", g_value = "test"),
+    "\\[calc_FadingCorr\\(\\)\\] 'tc' needs to be set!")
+
+  expect_error(
+    calc_FadingCorr(age.faded = "test", g_value = "test", tc = 200),
+    "\\[calc\\_FadingCorr\\(\\)\\] 'age.faded', 'g_value' and 'tc' need be of type numeric\\!")
+
+  ##check message
+  expect_message(calc_FadingCorr(
+    age.faded = c(6.404856, 0.51),
+    g_value = c(17.5,1.42),
+    tc = 462,
+    n.MC = 100), "\\[calc_FadingCorr\\(\\)\\] No solution found, return NULL. This usually happens for very large, unrealistic g-values")
+
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 2)
 
@@ -31,7 +46,7 @@ test_that("check values from output example 1", {
 
   results <- get_RLum(temp)
 
-  expect_equal(results$AGE, 0.1168)
+  expect_equal(results$AGE, 0.1169)
   expect_equal(results$AGE.ERROR, 0.0035)
   expect_equal(results$AGE_FADED, 0.1)
   expect_equal(results$AGE_FADED.ERROR, 0)

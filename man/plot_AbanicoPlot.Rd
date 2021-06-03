@@ -137,8 +137,9 @@ space in the dispersion part, a square indicates this.}
 \item{boxplot}{\link{logical}:
 Option to add a boxplot to the dispersion part, default is \code{FALSE}.}
 
-\item{y.axis}{\link{logical}:
-Option to hide y-axis labels. Useful for data with small scatter.}
+\item{y.axis}{\link{logical}: Option to hide standard y-axis labels and show 0 only.
+Useful for data with small scatter. If you want to suppress the y-axis entirely
+please use \code{yaxt == 'n'} (the standard \link[graphics:par]{graphics::par} setting) instead.}
 
 \item{error.bars}{\link{logical}:
 Option to show De-errors as error bars on De-points. Useful in combination
@@ -194,8 +195,7 @@ reproduce similar plots. Default is \code{TRUE}.}
 \item{interactive}{\link{logical} (\emph{with default}):
 create an interactive abanico plot (requires the \code{'plotly'} package)}
 
-\item{...}{Further plot arguments to pass. \code{xlab} must be a vector of
-length 2, specifying the upper and lower x-axes labels.}
+\item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}). Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex}, \code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tck}, \code{tcl}, \code{at}, \code{breaks}. \code{xlab} must be a vector of length two, specifying the upper and lower x-axes labels.}
 }
 \value{
 returns a plot object and, optionally, a list with plot calculus data.
@@ -284,7 +284,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.11
+ 0.1.12
 }
 
 \examples{
@@ -469,7 +469,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.12.9000-48. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -483,7 +483,7 @@ The abanico plot: visualising chronometric data with individual standard errors.
 Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \seealso{
-\link{plot_RadialPlot}, \link{plot_KDE}, \link{plot_Histogram}
+\link{plot_RadialPlot}, \link{plot_KDE}, \link{plot_Histogram}, \link{plot_ViolinPlot}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
