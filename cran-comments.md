@@ -1,11 +1,5 @@
 ## Release summary
 
-<<<<<<< HEAD
-This version updates 0.9.10 on CRAN.
-
-## Addressed CRAN issues
-
-=======
 This version updates 0.9.11 on CRAN and fixes issues flagged by the CRAN team
 
 ## Addressed CRAN issues
@@ -17,7 +11,6 @@ files related to one function and fixed.
 
 * `closeAllConnections()` issue flagged by CRAN email from 2021-05-11; fixed.
 
->>>>>>> dev_0.9.12
 ## Win-Builder
 
 0 errors | 0 warnings | 0 note

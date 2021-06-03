@@ -11,9 +11,6 @@ header-includes:
 ### New functions
 * `read_TIFF2R()` Wrapper function to import TIF/TIFF files and TIFF image stack data
 
-<<<<<<< HEAD
-* `convert_SG2MG()` Convert single-grain data to multiple-grain data by adding curve signals from one disc. Works only for files created by Risø TL/OSL readers.
-=======
 ### Bugfixes and changes
 #### `calc_FadingCorr()`
 * If no solution could be found (usually the case for unrealistically large g-values), the function 
@@ -47,8 +44,6 @@ will not search anymore for an element `'data'`
 * Due to changes in R, the full report was not always visible or complete; fixed.
 * Now supports report distribution plotting for `calc_AverageDose()` model. 
 
-<<<<<<< HEAD
-=======
 #### `verify_SingleGrainData()`
 * The function stops flooding the terminal with the same warning over and over again 
 if run over a list. 
