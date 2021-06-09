@@ -164,7 +164,7 @@ verify_SingleGrainData <- function(
         cleanup_level = cleanup_level,
         verbose = verbose,
         plot = plot,
-        main = paste0("Record #",i)
+        main = paste0("Record #",x)
       )
     }))
 

@@ -24,7 +24,9 @@ couple of other R packages prompted to you when you first try to use this functi
 * `fit_EmissionSpectra()` Function for luminescence emission spectra deconvolution.
 
 ### Bugfixes and changes
-#### Dummy
+#### `verify_SingleGrainData()`
+* Improve terminal and plot output
+* Add minimal support for `...` to control plot output if wanted
 
 ### Internals
 * `mclust` added as new package dependency to support the new Bayesian models 
