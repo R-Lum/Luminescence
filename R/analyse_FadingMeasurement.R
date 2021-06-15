@@ -108,7 +108,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.16
+#' @section Function version: 0.1.17
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -226,26 +226,24 @@ analyse_FadingMeasurement <- function(
     if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
        unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
 
-      irradiation_times <- extract_IrradiationTimes(object = object)
+      ## extract irradiation times
+      irradiation_times <- extract_IrradiationTimes(object)
 
-      ##reduce irradiation times ... extract curve data
+      ## get TIMESINCEIRR
       TIMESINCEIRR <- unlist(lapply(irradiation_times, function(x) {
+        x@data$irr.times[["TIMESINCEIRR"]][!grepl(pattern = "irradiation",
+                                             x = x@data$irr.times[["STEP"]],
+                                             fixed = TRUE)]
+      }))
 
-        ##get time since irradiation
-        temp_TIMESINCEIRR <-
-          x$irr.times[["TIMESINCEIRR"]][!grepl(pattern = "irradiation",
-                                               x = x$irr.times[["STEP"]],
-                                               fixed = TRUE)]
-
-        ##subtract half irradiation time
-        temp_IRR_TIME <-
-          x$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
-                                           x = x$irr.times[["STEP"]],
+      ## get irradiation times
+      irradiation_times <- unlist(lapply(irradiation_times, function(x) {
+          x@data$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
+                                           x = x@data$irr.times[["STEP"]],
                                            fixed = TRUE)]
 
-         return(temp_IRR_TIME)
-
       }))
+
 
       ##clean object by removing the irradiation step ... and yes, we drop!
       object_clean <- unlist(get_RLum(object, curveType = "measured"))
