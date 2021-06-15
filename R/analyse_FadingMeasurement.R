@@ -49,13 +49,11 @@
 #' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`.
 #' Other input is ignored
 #'
-#' @param signal.integral [vector] (**required**):
-#' vector with the limits for the signal integral.
-#' Not required if a `data.frame` with LxTx values are provided.
+#' @param signal.integral [vector] (**required**): vector with channels for the signal integral
+#' (e.g., `c(1:10)`). Not required if a `data.frame` with `LxTx` values is provided.
 #'
-#' @param background.integral [vector] (**required**):
-#' vector with the bounds for the background integral.
-#' Not required if a `data.frame` with LxTx values are provided.
+#' @param background.integral [vector] (**required**): vector with channels for the background integral
+#' (e.g., `c(90:100)`). Not required if a `data.frame` with `LxTx` values is provided.
 #'
 #' @param t_star [character] (*with default*):
 #' method for calculating the time elapsed since irradiation. Options are:
