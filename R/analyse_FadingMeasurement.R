@@ -700,7 +700,7 @@ analyse_FadingMeasurement <- function(
             set_RLum(class = "RLum.Analysis", records = object_clean),
             combine = TRUE,
             col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
+              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             )),
             plot.single = TRUE,
             legend.text = c(paste(irradiation_times.unique, "s"), "others"),
@@ -843,7 +843,7 @@ analyse_FadingMeasurement <- function(
             side = 1,
             at = axTicks(side = 1),
             labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
-                                                digits = 0,
+                                                digits = 1,
                                                 decimal.mark = "",
                                                 scientific = TRUE)))
 
