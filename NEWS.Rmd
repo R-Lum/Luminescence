@@ -26,6 +26,7 @@ couple of other R packages prompted to you when you first try to use this functi
 ### Bugfixes and changes
 #### `analyse_FadingMeasurement()`
 * Apparently the function never worked as intended for `XSYG` files; fixed. 
+To prevent further problems, a test was added that actually monitors this functionality.
 
 #### `verify_SingleGrainData()`
 * Improve terminal and plot output
