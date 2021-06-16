@@ -37,7 +37,7 @@
 #' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
 #' @param cleanup_level [character] (*with default*):
-#' selects the level for the cleanup of the input data sets.
+#' selects the level for the clean-up of the input data sets.
 #' Two options are allowed: `"curve"` or `"aliquot"`:
 #'
 #' - If  `"curve"` is selected every single curve marked as `invalid` is removed.
@@ -50,6 +50,9 @@
 #'
 #' @param plot [logical] (*with default*):
 #' enables or disables the graphical feedback
+#'
+#' @param ... further parameters to control the plot output; if selected.
+#' Supported arguments `main`, `ylim`
 #'
 #' @return
 #' The function returns
@@ -92,7 +95,7 @@
 #' that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 #' strongly recommended to use the argument `cleanup = TRUE` carefully.
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.2.3
 #'
 #'
 #' @author
@@ -141,7 +144,8 @@ verify_SingleGrainData <- function(
   cleanup = FALSE,
   cleanup_level = 'aliquot',
   verbose = TRUE,
-  plot = FALSE
+  plot = FALSE,
+  ...
 ){
 
 
@@ -152,7 +156,6 @@ verify_SingleGrainData <- function(
 
   # Self Call -----------------------------------------------------------------------------------
   if(is(object, "list")){
-
     results <- .warningCatcher(lapply(1:length(object), function(x) {
       verify_SingleGrainData(
         object = object[[x]],
@@ -160,7 +163,8 @@ verify_SingleGrainData <- function(
         cleanup = cleanup,
         cleanup_level = cleanup_level,
         verbose = verbose,
-        plot = plot
+        plot = plot,
+        main = paste0("Record #",x)
       )
     }))
 
@@ -242,7 +246,7 @@ verify_SingleGrainData <- function(
         selection_id <- paste(selection_id, collapse = ", ")
         if(verbose){
           cat(paste0("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
-          cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.")
+          cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
 
         }
 
@@ -388,7 +392,7 @@ verify_SingleGrainData <- function(
       if(verbose){
         selection_id_text <- paste(selection_id, collapse = ", ")
         cat(paste0("\n[verify_SingleGrainData()] RLum.Analysis object reduced to records: ",
-                   selection_id_text))
+                   selection_id_text), "\n")
 
       }
 
@@ -423,7 +427,7 @@ verify_SingleGrainData <- function(
 
     }else{
       if(any(is.na(selection_id))){
-        warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!",
+        warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!",
                 call. = FALSE)
 
       }
@@ -447,17 +451,26 @@ verify_SingleGrainData <- function(
 
   # Plot ----------------------------------------------------------------------------------------
   if(plot){
+    ##set plot settings
+    plot_settings <-
+      modifyList(x = list(
+        main = "Record selection",
+        ylim = range(c(selection[["RATIO"]], threshold * 1.1))
+        ),
+        val = list(...))
+
+
 
     ##plot area
     plot(
       NA,
       NA,
       xlim = c(1,nrow(selection)),
-      ylim = range(selection[["RATIO"]]),
+      ylim = plot_settings$ylim,
       log = "y",
       xlab = "Record index",
       ylab = "Calculated ratio [a.u.]",
-      main = "Record selection"
+      main = plot_settings$main
     )
 
     ##plot points above the threshold

@@ -79,7 +79,11 @@ Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Burow, C., 2021. read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.13. https://CRAN.R-project.org/package=Luminescence
+=======
+Burow, C., 2021. read_PSL2R(): Import PSL files to R. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-12. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_combine_Dr_De
 }
 
 \keyword{IO}

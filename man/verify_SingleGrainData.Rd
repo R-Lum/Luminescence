@@ -11,7 +11,8 @@ verify_SingleGrainData(
   cleanup = FALSE,
   cleanup_level = "aliquot",
   verbose = TRUE,
-  plot = FALSE
+  plot = FALSE,
+  ...
 )
 }
 \arguments{
@@ -28,7 +29,7 @@ automatically removed. Output is an object as same type as the input, i.e.
 either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 
 \item{cleanup_level}{\link{character} (\emph{with default}):
-selects the level for the cleanup of the input data sets.
+selects the level for the clean-up of the input data sets.
 Two options are allowed: \code{"curve"} or \code{"aliquot"}:
 \itemize{
 \item If  \code{"curve"} is selected every single curve marked as \code{invalid} is removed.
@@ -42,6 +43,9 @@ enables or disables the terminal feedback}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enables or disables the graphical feedback}
+
+\item{...}{further parameters to control the plot output; if selected.
+Supported arguments \code{main}, \code{ylim}}
 }
 \value{
 The function returns
@@ -110,7 +114,7 @@ that Reg0 curves within a SAR cycle are removed as well. Therefore it is
 strongly recommended to use the argument \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.2
+ 0.2.3
 }
 
 \examples{
@@ -152,7 +156,11 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
+<<<<<<< HEAD
 Kreutzer, S., 2021. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.13. https://CRAN.R-project.org/package=Luminescence
+=======
+Kreutzer, S., 2021. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-12. https://CRAN.R-project.org/package=Luminescence
+>>>>>>> dev_combine_Dr_De
 }
 
 \keyword{datagen}
