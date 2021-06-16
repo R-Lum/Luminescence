@@ -21,8 +21,6 @@ couple of other R packages prompted to you when you first try to use this functi
 
 * `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
 
-* `fit_EmissionSpectra()` Function for luminescence emission spectra deconvolution.
-
 ### Bugfixes and changes
 #### `analyse_FadingMeasurement()`
 * Apparently the function never worked as intended for `XSYG` files; fixed. 
