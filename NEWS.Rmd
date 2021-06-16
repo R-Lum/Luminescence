@@ -8,25 +8,615 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-** This package version requires at least R >= 4.0.5 **
-
 ### New functions
-* `combine_Dr_De()` This function allows to model dose rate and equivalent dose distributions 
-to obtain an age from Bayesian modelling using both distributions. In the back a couple of 
-additional functions have been added to support this novel approach. This function requires [JAGS](https://mcmc-jags.sourceforge.io) (supported through `'rjags'`) on your computer along with a 
-couple of other R packages prompted to you when you first try to use this function. 
-
-* `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
-
+* `read_TIFF2R()` Wrapper function to import TIF/TIFF files and TIFF image stack data
 
 ### Bugfixes and changes
-#### `analyse_FadingMeasurement()`
-* Apparently the function never worked as intended for `XSYG` files; fixed. 
-To prevent further problems, a test was added that monitors this functionality.
+#### `calc_FadingCorr()`
+* If no solution could be found (usually the case for unrealistically large g-values), the function 
+crashed with a non-helpful error message. Now a meaningful message is shown and the function 
+returns `NULL`. 
+* The function did not flag a problem but just crashed for non-numeric input; changed. 
+* The function is now a little bit less forgiving if `tc` was not set.
+
+#### `RLum.Data.Image-class`
+* Add S4-methods to coerce from and to `list` and `array`
+
+#### `plot_AbanicoPlot()`
+* Documentation for the parameter `y.axis` clarified along with a new list of supported
+`...` parameters.
+* Add supported for `graphics::par()` `yaxt` parameter to suppress the y-axis using
+`yaxt == "n"`. Please note that in a such a case a newly added axis via `axis(2)` needs
+to be adjusted otherwise the scale is not correct.
+
+#### `plot_Histogramm()`
+* If the input is of `RLum.Results-class` always the first element will be plotted. The function 
+will not search anymore for an element `'data'`
+
+#### `plot_RLum.Data.Image()`
+* Various minor improvements to better support image data plotting + update documentation
+
+#### `plot_RLum.Data.Spectrum()`
+* Plot type `"image"` added based on `graphics::image()` added. 
+
+#### `report_RLum()`
+* Due to changes in R, the full report was not always visible or complete; fixed.
+* Now supports report distribution plotting for `calc_AverageDose()` model. 
 
 #### `verify_SingleGrainData()`
-* Improve terminal and plot output
-* Add minimal support for `...` to control plot output if wanted
+* The function stops flooding the terminal with the same warning over and over again 
+if run over a list. 
 
 ### Internals
-* `mclust` added as new package dependency to support the new Bayesian models 
+* `tiff` added as new suggested package to support the new function `read_TIFF2R()`
+* `report_RLum()` was a little bit too aggressive when trying to close connections on exit
+(CRAN email from 2021-05-11).
+
+
+## Changes in version 0.9.11 (2021-04-29)
+
+**This package version requires R (>= 3.6.0).**
+
+### New functions
+
+* `convert_SG2MG()` Convert single-grain data to multiple-grain data by adding curve signals from one disc. Works only for files created by Risø TL/OSL readers.
+
+* `calc_gSGC_feldspar()` Function to support the calculation of the equivalent dose using the
+global standardised growth curve (gSGC) for feldspar proposed by Li et al. (2015)
+
+### Bugfixes and changes
+#### `analyse_SAR.CWOSL()`
+* The function, applied to a list of `RLum.Analysis` objects, crashed with a merge error under
+very particular circumstances after throwing a fitting error; fixed (reported by Brice Lebrun).
+
+#### `fit_LMCurve()`
+* The function additionally returns a `component_matrix` (if the fitting was successful). 
+The matrix contains xy-values obtained from the fitting with the resolution of the input data.
+
+#### `plot_GrowthCurve()`
+* The quality index for the comparison of the $D_{e}$ and the $D_{e}$ estimated from the 
+Monte-Carlo yielded > 100% if `mode = 'extrapolation'`; spooky and fixed. 
+* The function caused a crash in `analyse_SAR.CWOSL()` for very small $D_{e}$ error values and returned 
+a user unfriendly error message (`Error in temp.GC[, 2]/temp.GC[, 1]`). This was caused by 
+an unintentional type conversion to a `character` for very small values (#103, thanks to @IMHarly for spotting).
+* Add support for the Lambert W dose-response curve fitting as suggested by Pagonis et al. (2020)
+(thanks to @vpagonis for developing the math)
+* Minor tweaks to improve the graphical output and avoid various errors 
+
+#### `read_BIN2R()`
+* Only for BIN/BINX-file version 3 and 4: if the numbers of runs exceeded 128, the number became
+negative; fixed. 
+
+### Internals
+* `'lamW'` added as new package dependency. This is needed to support the Lambert W function 
+as in the function `plot_GrowthCurve()`   
+
+## Changes in version 0.9.10 (2020-12-10)
+
+### Bugfixes and changes
+
+#### `analyse_SAR.CWOSLOSL()`
+* The recent changes in 0.9.9 improving the self-call had unwanted side effects 
+if the input parameters were itself objects. For example: `signal.integral.min = setting`
+led to a `missing parameter` error; fixed (thanks to Thomas Kolb for reporting). 
+
+* **Note**: While investigating the previous bug, it turned out that some users
+provide rejection criteria as *unnamed* list, albeit the manual says that is 
+has to be a *named* list. 
+
+#### `calc_FuchsLang2001()`
+* The function caused a fatal error on the CRAN R-devel resources after recent
+changes in R and did not work anymore on R-devel. This is fixed now and has no 
+user visible effects.
+* Minor code polish and better test coverage.
+
+## Changes in version 0.9.9 (2020-11-29)
+
+### New functions 
+
+* `calc_OSLLxTxDecomposed()` Calculate `Lx/Tx` ratio for decomposed CW-OSL signal components
+by Dirk Mittelstrass
+
+### Bugfixes and changes
+
+#### `analyse_SAR.CWOSLOSL()`
+* The default value for `rejection.criteria` is now `list()` instead of `NULL`. As before, 
+the default value means that internally set rejection criteria are applied and hence 
+this change should not affect the behaviour of the function, but it allowed us to 
+greatly simplify the underlying code. 
+* The function did not check correctly for all record types, under particular circumstances, 
+some of the non-support curves could slip through; corrected.
+* If the input records were not of type `OSL`, `IRSL` or `POSL` the function was supposed
+to return `NULL` but crashed instead; fixed.
+* As implemented by `calc_OSLLxTxRatio()` the function now supports `NA` values for the 
+integrals. If set, sum curves are taken for the calculation. This option enables a bunch of new
+possibilities to test more experimental protocols without modifying the function.
+* Following the `NA` support, all integral arguments are now preset to `NA`. To avoid
+user errors, a warning is thrown each time the function runs with integral limits set to `NA`.
+* The identification of the allowed curves was further improved to cover cases 
+where users may want to provide experimental OSL curves. Allowed are combinations 
+where `OSL` is combined with additional letters `[a-zA-Z]`. Everything else is, as before, ignored. 
+* The function now supports the input from the upcoming R package `'OSLdecomposition'` by
+Dirk Mittelstrass and hence gained a new argument called `OSL.component`.
+* In particular circumstances, when no TL-curves were detected as preheat, the 
+function crashed; fixed (flagged by Dirk Mittelstrass).
+
+#### `calc_OSLLxTxRatio()`
+* The function now supports `NA` as input for the `signal.integral` and/or `background.integral`. If
+set to `NA` the sum of the count values is used. This is useful if the users wants to process
+component data that were already extracted and do not need integral limits. 
+* The output of the function is not anymore invisible. This should have
+no further effect. 
+
+#### `plot_GrowthCurve()` 
+* Users sometimes complained about large uncertainties produced by the Monte-Carlo
+runs to estimate the error on the $D_{e}$, which returns the standard deviation of
+the MC runs. Large standard deviations are a result of large individual 
+uncertainties (e.g., noisy data) provided as input. The function now returns, experimentally, 
+estimates of the highest probability density intervals as an alternative. Beyond
+we may recall that the results of the MC runs are always returned as a separate
+object by the function. Means, users ca run any statistic of choice to best
+estimate the uncertainties on the $D_{e}$.
+
+
+#### `read_Daybreak()`
+* The function threw a lot of warnings for the `*.DAT` after `R >= 4.0.0` 
+started to be more strict about embedded null bytes within a character. The code
+was updated to a newer version and no further warnings are shown.
+* Under particular circumstances the function left open connections behind; fixed.
+
+### Internals
+* The automated tests now use consistently `testthat` >= 3.0.0. Naturally this 
+has no user visible effect, however, we found a couple of minor bugs while
+updating the tests. 
+
+## Changes in version 0.9.8 (2020-11-16)
+
+### Important user affecting changes
+* The version requires R (>= 3.5.0)
+* We removed a few of our vignettes from the package. They are now 
+available on https://r-luminescence.org/tutorials/
+
+### New functions 
+
+* `read_RF2R()` Add support for importing spatially resolved RF measurement results.
+
+* `plot_ROI()` Visualisation of ROI data imported by `read_RF2R()`. 
+
+* `convert_Concentration2DoseRate()` by Svenja Riedesel 
+and Martin Autzen. This function converts radionuclide concentrations (K in %, Th and U in ppm) 
+into dose rates (Gy/ka). Beta dose rates are also attenuated for the grain size. 
+Beta and gamma dose rates are corrected for the water content. 
+
+* `calc_CobbleDoseRate()` by Svenja Riedesel and Martin Autzen. The function 
+calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
+
+### Datasets
+* `ExampleData.CobbleDate` new example dataset to be used in conjunction with the 
+function `calc_CobbleDoseRate()`. Contributed by Svenja Riedesel and Martin Autzen.
+
+* `BaseDateSet.Conversion`, `Cresswelletal2019` was changed to `Cresswelletal2018`. 
+The corresponding function `scale_GammaDose()` was updated.
+
+* `BaseDateSet.GrainSizeAttenuation.rda`: Grain size correction data for beta-dose 
+rates published by Guérin et al. (2012). Dataset contributed by Svenja Riedesel and Martin Autzen.
+
+### Bugfixes and changes
+
+#### `analyse_SAR.CWOSLOSL()`
+* The function gained a new argument `plot_onePage`. If set to `TRUE`, the plot output is gathered 
+in one single plot window instead of three.
+* If the user decided for odd reasons to mix preheat steps recorded as TL (signal recorded) and simple 
+preheat (no signal recorded) the function stopped with an uncontrolled error. Now the function 
+is more flexible. However, this comes at a cost, e.g., if the user accidentally swaps 
+the sequence order (such as OSL-TL, instead of TL-OSL) this may remain unnoticed.
+* For zero count data (e.g., observed in single grain curves), the function crashed with a non-indicative 
+error message because `NaN` are usually produced if the recycling ratio is calculated; fixed (thanks to 
+Brice Lebrun for reporting the issue).
+
+#### `analyse_FadingMeasurements()`
+* Typo correction in the manual and a better documentation of supported `...` arguments
+* The `ylim` argument can now be used to control the `'signal fading'` plot output.
+* While the x-axis of the fading curve output was correct, it probably caused too
+much confusion, and now the values are shown with superscripts, e.g., `10^0, 10^1` etc.
+If the number of data points is too small, the function will fall back to the old representation.
+* The function did not work properly for less than five data points and stopped with 
+`Error in rep(rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5)` (thanks to Annette Kadereit for flagging this issue)
+* The function now shows also the normalised log-values under the time-scale (#97)
+* As it turned out, `t_star` did not work if the input was produced by `read_BIN2R()`; fixed along with (#97)
+* `t_star` now can be a function, e.g., `function(x) x+100`, which would add a constant value to all 
+`TIMESINCEIRR` values (#97).
+
+#### `analyse_IRSAR.RF()`
+* The function learned to recognise input from `read_RF2R` and changes the header
+labelling accordingly.
+* An edge case crash that might occur in combination with the vertical sliding has be 
+sanitized.
+* The text progress bar was not closed correctly, this could lead to artefacts in the 
+terminal output; fixed.
+* The internal C++ function used for the curve sliding now uses Armadillo vectors 
+via `RcppArmadillo`. Depending on the platform this gives a performance plus free 
+house by at least 50%. However, it comes at the cost of a reduced maximum vertical 
+sliding range of 1e+07 (before 1e+08).
+
+
+#### `plot_RLum.Data.Curve()` 
+* The argument `norm` now supports the options `"max"` for a normalisation to 
+the highest point (the default), `"min"` for a normalisation to the lowest point and `huot` 
+for a normalisation suggested by Sébastien Huot (#87) via GitHub
+
+#### `plot_RLum.Analysis()`
+* The argument `norm` now supports the options `"max"` for a normalisation to 
+the highest point (the default), `"min"` for a normalisation to the lowest point and `huot` 
+for a normalisation suggested by Sébastien Huot (#87) via GitHub. Please note that 
+`norm` only works if `combine = TRUE`. 
+
+#### `report_RLum()`
+* Function complained about missing header; fixed.
+* Function threw warnings `Duplicate identifier 'root'`; fixed.
+
+#### `read_SPE2R()`
+* The function threw a warning about truncated strings; the warning was not relevant
+and is no suppressed. 
+
+#### `verify_SingleGrainData()` 
+* The function did not always return a plot: Fixed. 
+
+### Internals
+
+* `Risoe.BINfileData-class` objects got a `as.data.frame()` S3-method to allow a direct 
+conversion into a single data.frames. Count values are added in columns for each record (thanks to Annette Kadereit for the idea).
+
+* `structure_RLum()` for `RLum.Analysis-class` recycled rows in the output `data.frame` if objects had more than one parent id (`.pid`). This led to 
+odd behaviour if functions expected (correctly) that the number
+of entries in the `data.frame` returned by `structure_RLum()`, cannot not have more rows than number of records in the object. This could happen, e.g., after merging `RLum.Data.Curve-class` objects. ow multiple `.pid` entries still create only one string and the number of rows matches the number of records in the object.
+
+## Changes in version 0.9.7 (2020-01-04)
+
+### Bugfixes and changes
+
+#### `analyse_Al2O3C_Measurements()`
+* Supplementary argument `main` never worked; fixed.
+* New supplementary argument `title` which allows to pass further names of 
+a sample to the plot output. 
+
+#### `plot_AbanicoPlot()`
+
+* The plot now can handle negative values, fixed in combination with #88 (reported by Sébastien 
+Huot)
+
+#### `plot_RadialPlot()`
+
+* Fix display problem when `log.z = FALSE` combined with negative values (#88, reported
+by Sébastien Huot)
+
+#### `read_BIN2R()` 
+* Due to a typo, some bytes were read in the wrong order (big-endian instead of little-endian). While the fix does not affect the behaviour of the function, the non-fixed function would have soon crashed on CRAN servers. A big thanks to Tomas Kalibera from the CRAN team for his support and for pointing out this issue.
+
+#### `internal_as.latex.table()`
+
+* The function gained a new argument `rm.zero` which is preset to `TRUE`. If set, all columns containing
+zero values only are removed. The new argument enables a better fine tuning of the latex output.
+
+## Changes in version 0.9.6 (2019-12-05)
+
+### Bugfixes and changes
+
+#### `analyse_SAR_CWOSL()`
+* Setting the argument `plot.single = TRUE` does not any longer interferes with the global par settings 
+for the rejection criteria plot.
+
+#### `fit_OSLLifeTimes()`
+* The function gained a new argument `plot_simple` to produce plots without residuals that can be combined
+using standard R layout plot functionality, e.g., `par(mfrow = c(2,1))`. 
+* Function now handles the `log = "x"`, `log = "y"` and `log = "xy"` options better.
+* In the self-call mode (input is `RLum.Analysis-class` object), all `...` objects are supported 
+as `list` and get recycled if the list does not equal the number of objects
+
+#### `plot_GrowthCurve()`
+
+* The y-axis labelling of the test-dose response plot finally shows what was done since the beginning: 
+the Tx values are normalised by the Tn values, i.e. Tn/Tx and not Tn/Tx. Thanks to Andrea Junge for spotting this flaw. 
+
+### `read_XSYG2R()` 
+
+* The function now supports the temperature recalculation of TL curves even they consist of only 
+a single point value.
+
+### Internals
+* Changes in the development version of R caused error messages on CRAN and would have stopped
+the package from function properly in the future. This was corrected; the changes do not have any
+user-visible effect. 
+* The internal function for the DRAC output `.as.latex.table()` gained a new argument `tabular_only` which gives a little bit more flexibility at hand of the output the DRAC is combined with LaTeX.
+
+
+## Changes in version 0.9.4/0.9.5 (2019-09-20/2019-09-21)
+
+### Important user visible changes
+
+1. **`plot_KDE()`** wrong error bars
+As it turned out, unfortunately, the error bars produced by `plot_KDE()` had been wrong since 2014. The input error values (2nd column in the data.frame) had been, for reasons we cannot recall anymore, divided by two leading to an improved visualisation of uncertainties. A big thank goes to Andrea Junge (#93) who made us aware of this bug. 
+
+2. **The way the x-axis channels from BIN/BINX-files are generated changed**
+So far, during the file import, minimum and maximum values were taken, and channels were distributed equally according to the number of available data points. Thanks to Sébastien Huot for a constructive discussion. 
+
+  * Example old behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel was set at 0 s, the last channel
+  to at 40 s. Thus, the width of each channel was 0.404 s. 
+
+  * Example new behaviour: For an OSL curve recorded over 40 s with 100 channels, the first channel is set to 0.4 s, 
+  the last channel to at 40 s. Thus, the width of each channel is 0.4 s. 
+  
+  * In other words, the first channel does not start anymore at 0 s, as it is the case, e.g., in the *Analyst*. 
+  
+
+**Please note that these changes will impact your analysis results!**
+
+### Difference between version 0.9.4 and 0.9.5
+
+Non-used dependency to  `'interp'` removed.
+
+### Bugfixes and changes
+
+#### `analyse_SAR.CWOSL()` 
+
+* The automated curve type recognition introduced with the last release broke the vignette of the R package `'RLum.Model'`; 
+now refactored code prevent other people's code from breaking. 
+
+#### `calc_CentralDose()`
+
+* The function does not crash anymore with an odd error if `NA` values are provided (#82 
+reported by Sébastien Huot).
+* The function gained a new argument `na.rm` which is set to `FALSE` by default.
+
+#### `plot_DetPlot()`
+
+* The argument `analyse_function.control` now understands the arguments `fit.method` and `fit.force_through_origin`. 
+
+#### `calc_MinDose()`
+
+* The final parameter estimates and their confidence intervals in the console output are now always reported in their absolute values, independent of whether the logged or non-logged model was used (#84 suggested by Sébastien Huot). This is a purely cosmetic change, and no changes to the calculations were made.
+* The values in the profile log-likelihood plots are now always given in their absolute values, independent of whether the logged or non-logged model was used (#84 suggested by Sébastien Huot). This is a purely cosmetic change, and no changes to the calculations were made. The output object still returns the original profile objects with the logged values.
+* Improved handling of values close to zero if `bootstrap = TRUE` (#91, reported by Andrea Junge).
+
+#### `plot_GrowthCurve()`
+
+* Remove rounding from numerical output values (#81 suggested by Sébastien Huot); this affects all subsequent functions. However, terminal and graphical output do not change. 
+
+#### Internals 
+
+* The package `data/datalist` file listing the example data shipped with the package was not correct 
+(#85, CRAN comment); now corrected.
+
+## Changes in version 0.9.3 (2019-07-31)
+
+* This version takes care of a CRAN note complaining about a non-used package
+declared in the Import fields.
+
+## Changes in version 0.9.2 (2019-07-30)
+
+* This version fixes an URL problem discovered by the CRAN pre-check
+
+## Changes in version 0.9.1 (2019-07-30)
+
+### Removed functions
+
+* `model_LuminescenceSignals()`: This wrapper function for the R package `'RLumModel'` was removed due to changes on CRAN inflicting a warning because the object is masked from `'package:Luminescence'` each time `'RLumModel'` was loaded. In `'Luminescence'` the function had no real scope, but provided a place holder to point the users on the existence of the package `'RLumModel'`. 
+
+### Bugfixes and changes
+
+#### `apply_EfficiencyCorrection()`
+
+* The function now supports `RLum.Analysis` objects as input
+* All allowed input objects can now be provided as `list` (self-call support)
+* Minor code polish
+
+#### `analyse_baSAR()` 
+
+* The manual stated that `RLum.Analysis-class` are supported, but actually this is not true, 
+it supports a list of `RLum.Analysis` objects only.
+* Some minor manual corrections.
+
+#### `analyse_SAR.CWOLS()` 
+
+* Add support for `POSL` data,before the function crashed (reported by Alice Versendaal). 
+`POSL` curves had been not listed as supported curve types though. 
+* Improve dataset recognition (`OSL`, `IRSL`, `POSL`).
+
+#### `calc_Lamothe2003()` 
+
+* The documentation wrongly stated that an input `data.frame` should have the columns `dose`, `De` and 
+`De error`, indeed `dose`, `LxTx` and `LxTx error` are expected (spotted by Jeong-Heon Choi)
+
+#### `calc_TLLxTxRatio()` 
+
+* The `LxTx.Error` is no longer negative, even if the subtraction lead to negative count values (#78, reported
+by Sébastien Huot)
+
+
+#### `calc_SourceDoseRate()`
+
+* The function learned about the half-life of Cs-137
+
+#### `fit_OSLLifeTimes()`
+
+* `0` count values crashed the function for obvious reasons (`a / 0 = Inf`), this can happen in 
+particular for artificial datasets. Now, if `0` is detected, count values are increased by `0.1`
+(reported by Dirk Mittelstrass)
+
+#### `plot_AbanicoPlot()`
+
+* If `summary = "se.abs"` was chosen, the abanico plot showed `se.rel` instead; corrected (reported
+by Maryam Heydari)
+
+#### `plot_DRTResults()` 
+
+* Correct documentation, where it was erroneously implicated that the `...` argument pipes 
+all arguments,
+* add support for argument `las`.
+
+#### `plot_GrowthCurve()`
+
+* If the dose points included `NA` values the function crashed unexpectedly.  
+
+
+#### S4-classes and methods
+* `RLum.Analysis-class`
+  * Code polish (no visible changes)
+
+* `RLum.Data.Curve-class`
+  * Code polish and clarifying the documentation
+
+* `RLum.Data.Image-class` 
+  * Conversion methods to a `matrix` and from and to `data.frame` never worked as intended.
+  * Code housekeeping
+
+#### Internals 
+
+* The `DESCRIPTION` file contained the string "[upcoming]". This was a left-over from the development
+version and is now removed. 
+* Version numbering is now again more R canonical consisting only of three numbers (`stable.major.minor`). 
+Development versions are only indicated by `.9000` in the version number. Numbers after `9000` 
+(e.g., `9000-1`) indicate build numbers. Both is used for GitHub build versions only. 
+
+* The file name `RisoeBINfileData-class.R` was changed to `Risoe.BINfileData-class.R` for 
+consistency reasons, however, this has no further visible effect (#76, spotted by Sébastien 
+Huot)
+
+## Changes in version 0.9.0.110 (2019-04-21)
+
+`'Luminescence'` 0.9.X releases will be the last versions supporting **R** < 3.5.0.
+
+### Important R related changes (R >= 3.6.0)
+
+The behaviour of the base R function `sample()` was changed / corrected (see news on 
+https://www.r-project.org for details). This function is used heavily within functions by 
+`'Luminescence'` (e.g., `plot_GrowthCurve()`). That being said, it means that old data re-analysed by `'Luminescence'` 
+using R versions >= 3.6.0 will not give the same results. Differences are small, however, they may significant. 
+If you want to reproduce your data, we recommend to use one of our [Docker images](https://github.com/R-Lum/RLumDocker) 
+which include the R version from the package release date. 
+
+### New functions
+
+* `convert_Wavelength2Energy()` Smooth and quick emission spectra conversion from wavelength to energy scales
+* `fit_OSLLifeTimes()` Fit and deconvolution of OSL lifetimes using off-time measurements,
+i.e. after the stimulation was switched off.
+* `plot_DRCSummary()` Summarise all dose-response curves from your SAR OSL 
+analysis in one single plot.
+* `scale_GammaDose()` Scale the gamma dose rate considering layer-to-layer variations
+in soil radioactivity. Contributed by S. Riedesel and M. Autzen.
+* `fit_ThermalQuenching()` Provide an easy option to fit thermal quenching data and      determine the activation energy.
+
+### Bugfixes and changes
+
+#### `apply_CosmicRayRemoval()`
+* Thanks to black magic, this function now runs also over a list of `RLum.Data.Spectrum` objects and 
+and `RLum.Analysis` objects (also nested in a list)
+
+#### `apply_EfficiencyCorrection()`
+* The function produced a warning ("collapsing to unique `x` values") on R-devel; fixed.
+
+#### `analyse_SAR.CWOSL()` 
+* If the function was used in a self-call mode (object of type `list`), the arguments contrary 
+to what is written in the manual, the arguments such as `signal.integral.min` had not been expanded
+properly; no one complained, however, corrected. 
+* The argument `main` no also supports the input `list` in the self-call mode.
+
+#### `analyse_SAR.TL()`
+* The plot legend was not correct, if no dose points had been provided; fixed
+* The function returned a confusion warning; fixed.
+* If background signals are provided, now the background subtracted 
+signal is shown automatically instead of the uncorrected curves (suggestion by Tilmann Wolpert)
+* The function now supports a list of `RLum.Analysis` objects as input
+* The plot settings were sufficiently reset; fixed. 
+* Code polish
+
+#### `analyse_FadingMeasurements()`
+* Enable support for data imported from a BIN/BINX-file
+* If the g-value is negative, now it also returns a negative g-value; before always the absolute
+values was taken, which was not meaningful
+* If rho was negative, the log10 value could not be calculated, this caused an unwanted warning; 
+now suppressed
+* It showed a warning on R-devel due to changes in `stats::approx()`; fixed
+* Records with negative `time since irradiation` are now automatically removed (thanks to input by Sébastien Huot)
+* Function is now more relaxed when odd data a provided and it is less talkative
+
+#### `calc_Huntley2006()`
+* The function now checks if rho (`rhop`) is a sensible non-zero positive value and,
+if otherwise, stops with a more meaningful error message. (Issue \#74)
+* Now the function is a little bit less talkative if extreme dataset are provided as input
+
+#### `read_BIN2R()`
+* Add support for missing BINX-file version 5 (pointed out by Harrison Gray)
+* In the auto-file recognition (only a path instead of a file is provided), sometimes the found BIN/BINX-files were imported twice. The corresponding code was simplified to avoid such errors in future
+* Sometimes the time stamp is invalid since it is missing a leading `0`. For BINX-files >= version 6 such timestamps
+now get corrected during the import
+
+#### `read_XSYG2R()`
+* The function failed for R-devel importing spectrometer data (`approx(..., ties = -2)`); fixed.
+
+#### `plot_GrowthCurve()`
+* The function crashed with `Error in data.MC[, i] : incorrect number of dimensions` under very particular 
+circumstances (reported by Alice Versendaal). This was due to unwanted internal object conversion; fixed.
+
+#### `plot_RLum.Data.Spectrum()`
+* The wavelength to energy scale conversion was not correct. This was corrected and internally, 
+the function now calls consistently the new function `convert_Wavelength2Enegy()` (the corresponding 
+code and documentation have been updated or removed).  
+* The function gained a new argument `norm` for normalising the data to the highest or the lowest count value.
+* The function gained a new argument `bg.spectrum` allow to pass a background spectrum that can be used for the subtraction
+* The function returned a warning if a single matrix was used but `plot.type` was already set to `single`; fixed.
+* Wrong settings in `bg.channels` crashed the function. Now it auto-corrects the wrong values.
+* Channel binning now consistently calls the internal function `Luminescence:::.matrix_binning()`, which is more
+efficient cleaner than the code used before
+* The function now longer crashes for `plot.type = 'persp'` if `'xaxis.energy = TRUE`. 
+* The colour picking option was not always working; fixed.
+* Warnings are formatted more nicely.
+
+#### `verify_SingeGrainData()`
+* The function crashed for crazy datasets; fixed
+* Cleaning-up `RLum.Analysis-class` objects did not worked; fixed
+
+#### `write_RLum2CSV()`
+* The function gained a new argument `compact` which is set `TRUE` be default, and keeps 
+the element output as simple as possible, which is in particular helpful for `RLum.Results` objects
+* The function now behaves more friendly to `RLum.Results` objects, before the output was hard
+to understand.
+
+#### `write_RLum2BIN()`
+* The export failed if the time stamp was invalid (`NA`); now `NA` values are consistently 
+replaced by `000000` (other values are not possible, otherwise the re-import of such file would fail)
+(reported by Alice Versendaal via email, 2019-03-06)
+
+### Changes in S4-objects and methods
+#### `get_RLum`
+* The method working on `list` elements got a new argument `class` to remove unwanted `RLum` objects
+in from list of `RLum` objects
+
+#### `RLum.Analysis-class`
+* The show-method crashed under very rare circumstances if inconsistent objects had been combined; fixed.
+
+#### `RLum.Data.Spectrum-class` 
+* Support added for `bin_RLum.Data()`
+
+### New example datasets
+
+* `ExampleData.TR_OSL` provides a single fast-pulsing OSL curve that can be used to test 
+the function `fit_OSLLifeTimes()`.
+
+### Internals
+
+* Package news are now provided as markdown document (NEWS.md) which is supported
+by CRAN
+* The package version numbering scheme has been modified to simplify the 
+distinction between different developer versions. While relevant numbers
+for CRAN remain X.X.X, which reads `stable.major.minor` version, a 4th number
+indicates the running package build number, e.g., 0.9.0.7.
+* New internal function `Luminescence:::.matrix_binning()` to get the matrix (and curve) binning 
+consistent; so far used only by the the `bin_RLum.Data()` method for `RLum.Data.Spectrum-class`
+* Vignette S4-class object structure updated
+* Internal changes to address changes in R-devel checking logical arguments with length 
+more than one (e.g., `if(is.na(x))` returned an error if `x` was not a vector of length 1)
+* `src/Makevars` file removed to prevent unconditional stripping in response to a recent CRAN request; in return
+the installation size of the package increased in size on some platforms.
+
+

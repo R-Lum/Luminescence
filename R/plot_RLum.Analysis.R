@@ -235,7 +235,7 @@ plot_RLum.Analysis <- function(
   # Plotting ------------------------------------------------------------------
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  ## (1) NORMAL (combine == FALSE) --------
+  ##(1) NORMAL (combine == FALSE)
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   if(!combine || length(object@records) == 1){
 
@@ -460,7 +460,7 @@ plot_RLum.Analysis <- function(
   }else{
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## (2) NORMAL (combine == TRUE) ---------
+    ##(2) NORMAL (combine == TRUE)
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##(1) check RLum objects in the set
     object.list <- object@records
@@ -730,10 +730,12 @@ plot_RLum.Analysis <- function(
       ## ...?Why using matplot is a bad idea: The channel resolution might be different
       for (n in 1:length(temp.data.list)) {
 
+
         ##smooth
         ##Why here again ... because the call differs from the one before, where the argument
         ##is passed to plot_RLum.Data.Curve()
         if(plot.settings$smooth[[k]]){
+
           k_factor <- ceiling(length(temp.data.list[[n]][, 2])/100)
           temp.data.list[[n]][, 2] <- zoo::rollmean(temp.data.list[[n]][, 2],
                                             k = k_factor, fill = NA)
