@@ -57,11 +57,7 @@ calc_HomogeneityTest(df)
 } 
 
 \section{How to cite}{
-<<<<<<< HEAD
-Burow, C., Kreutzer, S., 2021. calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.13. https://CRAN.R-project.org/package=Luminescence
-=======
-Burow, C., Kreutzer, S., 2021. calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-12. https://CRAN.R-project.org/package=Luminescence
->>>>>>> dev_combine_Dr_De
+Burow, C., Kreutzer, S., 2021. calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-13. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
