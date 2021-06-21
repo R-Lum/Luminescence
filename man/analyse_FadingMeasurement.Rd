@@ -43,8 +43,9 @@ Other input is ignored}
 (e.g., \code{c(90:100)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
 
 \item{t_star}{\link{character} (\emph{with default}):
-method for calculating the time elapsed since irradiation. Options are:
-\code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+method for calculating the time elapsed since irradiation if input is not a \code{.data.frame}.
+Options are: \code{'half'} (the default), which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003),
+\verb{'half_complex}, which uses the long equation in Auclair et al. 2003, and
 and \code{'end'}, which takes the time between irradiation and the measurement step.
 Default is \code{'half'}. Alternatively, \code{t_star} can be a function with one parameter which
 works on \code{t1}.\cr
@@ -119,14 +120,14 @@ procedure as for the g-value is applied (see above).
 
 \strong{Multiple aliquots & Lx/Tx normalisation}
 
-Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+Be aware that this function will always normalise all \code{Lx/Tx} values by the \code{Lx/Tx} value of the
 prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+inter-aliquot variations in \code{Lx/Tx} values. If deemed necessary to normalise the \code{Lx/Tx} values
 of each aliquot by its individual prompt measurement please do so \strong{before} running
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.17
+ 0.1.19
 }
 
 \examples{
@@ -155,7 +156,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

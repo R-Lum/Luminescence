@@ -11,6 +11,7 @@ plot_RLum.Analysis(
   ncols,
   abline = NULL,
   combine = FALSE,
+  records_max = NULL,
   curve.transformation,
   plot.single = FALSE,
   ...
@@ -42,6 +43,11 @@ the first and a vertical line at 100 to the 2nd plot.}
 
 \item{combine}{\link{logical} (\emph{with default}):
 allows to combine all \linkS4class{RLum.Data.Curve} objects in one single plot.}
+
+\item{records_max}{\link{numeric} (\emph{optional}): limits number of records
+shown if \code{combine = TRUE}. Shown are always the first and the last curve,
+the other number of curves to be shown a distributed evenly, this may result
+in less number of curves plotted as specified.}
 
 \item{curve.transformation}{\link{character} (\emph{optional}):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
@@ -93,7 +99,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.12
+ 0.3.13
 }
 
 \examples{
@@ -133,7 +139,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
