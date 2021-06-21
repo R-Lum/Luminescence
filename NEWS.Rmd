@@ -26,6 +26,12 @@ To prevent further problems, a test was added that monitors this functionality.
 from Auclair et al. (2003). The difference is of theoretical nature, however, now 
 the two values can be compared.
 
+#### `plot_RLum.Analysis()`
+* The function gained a new argument `records_max` enabling only a limited number of curves
+to be shown in the mode `combe = TRUE`. This avoids that a large number of curves become indistinguishable. 
+The first and the last curve are always shown, all other curves are shown following an evenly distributed index 
+interval. 
+
 #### `verify_SingleGrainData()`
 * Improve terminal and plot output
 * Add minimal support for `...` to control plot output if wanted
