@@ -618,7 +618,7 @@ analyse_FadingMeasurement <- function(
 
     }
 
-
+    ## plot Lx-curves -----
     if (!is.null(object)) {
       if (length(structure) == 2) {
 
@@ -654,6 +654,7 @@ analyse_FadingMeasurement <- function(
           )
         }
 
+        # plot Tx-curves ----
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 2 %in% plot.single)) {
           plot_RLum(
@@ -795,7 +796,7 @@ analyse_FadingMeasurement <- function(
       }
     }
 
-    ##(2) Fading plot
+    ## plot fading ----
     if (is(plot.single, "logical") ||
         (is(plot.single, "numeric") & 3 %in% plot.single)) {
 
@@ -883,7 +884,7 @@ analyse_FadingMeasurement <- function(
 
         ##add curves
         x <- NA
-        for (i in 1:n.MC) {
+        for (i in seq(1, n.MC, length.out = 50)) {
           curve(fit_matrix[2, i] * x + fit_matrix[1, i],
                 col = rgb(0, 0.2, 0.4, 0.2),
                 add = TRUE)
