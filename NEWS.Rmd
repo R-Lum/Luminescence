@@ -22,6 +22,9 @@ couple of other R packages prompted to you when you first try to use this functi
 #### `analyse_FadingMeasurement()`
 * Apparently the function never worked as intended for `XSYG` files; fixed. 
 To prevent further problems, a test was added that monitors this functionality.
+* The parameter `t_star` now supports `half_complex`, which uses the long equation
+from Auclair et al. (2003). The difference is of theoretical nature, however, now 
+the two values can be compared.
 
 #### `verify_SingleGrainData()`
 * Improve terminal and plot output

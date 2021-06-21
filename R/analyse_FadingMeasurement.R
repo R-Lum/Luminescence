@@ -1,10 +1,12 @@
-#' Analyse fading measurements and returns the fading rate per decade (g-value)
+#' @title Analyse fading measurements and returns the fading rate per decade (g-value)
 #'
+#' @description
 #' The function analysis fading measurements and returns a fading rate including an error estimation.
 #' The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
 #' Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
 #' Kars et al. (2008).
 #'
+#' @details
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
 #' can be passed to the function [calc_FadingCorr].
@@ -25,9 +27,9 @@
 #'
 #' **Multiple aliquots & Lx/Tx normalisation**
 #'
-#' Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+#' Be aware that this function will always normalise all `Lx/Tx` values by the `Lx/Tx` value of the
 #' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-#' inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+#' inter-aliquot variations in `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
 #' of each aliquot by its individual prompt measurement please do so **before** running
 #' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
 #'
@@ -56,8 +58,9 @@
 #' (e.g., `c(90:100)`). Not required if a `data.frame` with `LxTx` values is provided.
 #'
 #' @param t_star [character] (*with default*):
-#' method for calculating the time elapsed since irradiation. Options are:
-#' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+#' method for calculating the time elapsed since irradiation if input is not a `.data.frame`.
+#' Options are: `'half'` (the default), which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003),
+#' `'half_complex`, which uses the long equation in Auclair et al. 2003, and
 #' and `'end'`, which takes the time between irradiation and the measurement step.
 #' Default is `'half'`. Alternatively, `t_star` can be a function with one parameter which
 #' works on `t1`.\cr
@@ -105,12 +108,10 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#'
-#' @section Function version: 0.1.17
+#' @section Function version: 0.1.18
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
-#'
 #'
 #' @keywords datagen
 #'
@@ -311,20 +312,28 @@ analyse_FadingMeasurement <- function(
     t1 <- TIMESINCEIRR
     t2 <- TIMESINCEIRR + irradiation_times
 
+    ## set t_star ----
     if(is(t_star, "function")){
       t_star <- t_star(t1)
 
     } else {
       if(t_star == "half"){
-        ##calculate t_star
+        ##calculate t_star using the simplified equation in Auclair et al. (2003)
         t_star <- t1 + (t2 - t1)/2
+
+      } else if(t_star == "half_complex"){
+        ## calculate t_star after the full equation Auclair et al. (2003)
+        ## t0 is an arbitrary constant, we are setting that to 1
+        t_star <-
+          10 * exp((t2 * log10(t2) - t1 * log10(t1) - (t2 - t1) * log10(exp(1))) /
+                     (t2 - t1))
 
       }else if (t_star == "end"){
         ##set t_start as t_1 (so after the end of irradiation)
         t_star <- t1
 
       }else{
-        stop("[analyse_FadingMeasurement()] Invalid value for t_star.", call. = FALSE)
+        stop("[analyse_FadingMeasurement()] Invalid input for t_star.", call. = FALSE)
 
       }
     }
@@ -381,7 +390,6 @@ analyse_FadingMeasurement <- function(
     })))$LxTx.table
 
   }
-
 
   ##create unique identifier
   uid <- create_UID()
@@ -503,6 +511,7 @@ analyse_FadingMeasurement <- function(
   )
 
 
+  ## calc g-value -----
   fit <-
     try(stats::lm(y ~ x,
               data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
@@ -542,6 +551,7 @@ analyse_FadingMeasurement <- function(
 
   ##normalise the g-value to 2-days using the equation provided by Sébastien Huot via e-mail
   ##this means the data is extended
+  ## calc g2-value days ----
   k0 <- g_value[,c("FIT", "SD")] / 100 / log(10)
   k1 <- k0 / (1 - k0 * log(172800/tc))
   g_value_2days <-  100 * k1 * log(10)

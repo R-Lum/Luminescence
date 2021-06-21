@@ -19,7 +19,7 @@ test_that("general test", {
     verbose = TRUE,
     n.MC = 10), class = "RLum.Results")
 
-  ##not plot not verbose
+  ##no plot not verbose
   expect_s4_class(analyse_FadingMeasurement(
     fading_data,
     plot = FALSE,
@@ -78,5 +78,32 @@ test_that("test XSYG file fading data", {
     structure = "Lx"
   ), "RLum.Results")
 
+  ## check various for t_star
+  ## stop t_star
+  expect_error(analyse_FadingMeasurement(
+    object,
+    signal.integral = 1:2,
+    t_star = "error",
+    background.integral = 10:40,
+    structure = "Lx"
+  ), "\\[analyse_FadingMeasurement\\(\\)\\] Invalid input for t_star.")
+
+  expect_s4_class(analyse_FadingMeasurement(
+    object,
+    signal.integral = 1:2,
+    t_star = "half_complex",
+    background.integral = 10:40,
+    structure = "Lx",
+    plot = FALSE
+  ), "RLum.Results")
+
+  expect_s4_class(analyse_FadingMeasurement(
+    object,
+    signal.integral = 1:2,
+    t_star = "end",
+    background.integral = 10:40,
+    structure = "Lx",
+    plot = FALSE
+  ), "RLum.Results")
 
 })
