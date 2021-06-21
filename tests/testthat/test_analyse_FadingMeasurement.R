@@ -107,3 +107,4 @@ test_that("test XSYG file fading data", {
   ), "RLum.Results")
 
 })
+

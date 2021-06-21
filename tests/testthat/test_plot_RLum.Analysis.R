@@ -58,7 +58,7 @@ test_that("Test the basic plot functionality", {
     subset = list(recordType = "TL"),
     combine = TRUE,
     norm = TRUE,
-    reords_max = 5,
+    records_max = 5,
     abline = list(v = c(110))
   ))
 

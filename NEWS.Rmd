@@ -25,6 +25,8 @@ To prevent further problems, a test was added that monitors this functionality.
 * The parameter `t_star` now supports `half_complex`, which uses the long equation
 from Auclair et al. (2003). The difference is of theoretical nature, however, now 
 the two values can be compared.
+* The plotting speed was improved by limiting the number of shine-down curves to a maximum
+of ten. Likewise, only up to 50 regression lines from the MC runs are shown.
 
 #### `plot_RLum.Analysis()`
 * The function gained a new argument `records_max` enabling only a limited number of curves

@@ -108,7 +108,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.18
+#' @section Function version: 0.1.19
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -630,9 +630,9 @@ analyse_FadingMeasurement <- function(
             col = c(col[1:5], rep(
               rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             )),
+            records_max = 10,
             plot.single = TRUE,
-            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
             xlab = plot_settings$xlab,
             xlim = plot_settings$xlim,
             log = plot_settings$log,
@@ -660,12 +660,9 @@ analyse_FadingMeasurement <- function(
           plot_RLum(
             set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
             combine = TRUE,
-            col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
-            )),
+            records_max = 10,
             plot.single = TRUE,
-            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.text = paste(round(irradiation_times.unique, 1), "s"),
             xlab = plot_settings$xlab,
             log = plot_settings$log,
             legend.pos = "outside",
@@ -710,12 +707,9 @@ analyse_FadingMeasurement <- function(
           plot_RLum(
             set_RLum(class = "RLum.Analysis", records = object_clean),
             combine = TRUE,
-            col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
-            )),
+            records_max = 10,
             plot.single = TRUE,
-            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
             legend.pos = "outside",
             xlab = plot_settings$xlab,
             log = plot_settings$log,
