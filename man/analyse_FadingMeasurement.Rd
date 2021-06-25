@@ -24,6 +24,7 @@ objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \link{data.frame} with a number of columns divisible by 3
 and where each triplet has the before mentioned column structure.
+
 \strong{Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 only IRSL curves representing Lx (and Tx)}
 
@@ -43,12 +44,11 @@ Other input is ignored}
 (e.g., \code{c(90:100)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
 
 \item{t_star}{\link{character} (\emph{with default}):
-method for calculating the time elapsed since irradiation if input is not a \code{.data.frame}.
-Options are: \code{'half'} (the default), which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003),
-\verb{'half_complex}, which uses the long equation in Auclair et al. 2003, and
+method for calculating the time elapsed since irradiation if input is \strong{not} a \code{data.frame}.
+Options are: \code{'half'} (the default), \verb{'half_complex}, which uses the long equation in Auclair et al. 2003, and
 and \code{'end'}, which takes the time between irradiation and the measurement step.
-Default is \code{'half'}. Alternatively, \code{t_star} can be a function with one parameter which
-works on \code{t1}.\cr
+Alternatively, \code{t_star} can be a function with one parameter which works on \code{t1}.
+For more information see details. \cr
 
 \emph{\code{t_star} has no effect if the input is a \link{data.frame}, because this input comes
 without irradiation times.}}
@@ -111,6 +111,27 @@ error estimation all input values, except \code{tc}, as the precision can be con
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation.
 
+\strong{The options for \code{t_star}}
+
+\itemize{
+\item{\code{t_star = "half"} (the default)}{ The calculation follows the simplified
+version in Auclair et al. (2003), which reads
+\deqn{t_{star} := t_1 + (t_2 - t_1)/2}}
+\item{\code{t_star = "half_complex"}}{ This option applies the complex function shown in Auclair et al. (2003),
+which is derived from Aitken (1985) appendix F, equations 9 and 11.
+It reads \deqn{t_{star} = 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/t_2 - t_1]}}
+where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 0.
+Please note that the equation in Auclair et al. (2003) is incorrect
+insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
+Here we use the correct version (base 10).
+\item{\code{t_star = "end"}}{ This option uses the simplest possible form for \code{t_star} which is the time since
+irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)}
+\item{\verb{t_star = <function>}}{ This last option allows you to provide an R function object that works on t1 and
+gives you all possible freedom. For instance, you may want to define the following
+function \code{fun <- function(x) {x^2}}, this would square all values of t1, because internally
+it calls \code{fun(t1)}. The name of the function does not matter.}
+}
+
 \strong{Density of recombination centres}
 
 The density of recombination centres, expressed by the dimensionless variable rho', is estimated
@@ -156,10 +177,13 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
+Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
+Academic Press, London, Orlando.
+
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
 SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
 

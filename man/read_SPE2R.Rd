@@ -59,7 +59,8 @@ meaning that the same results can be obtained by using the function
 \link{get_RLum} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
-Import Princeton Instruments (TM) SPE-file into R
+Function imports Princeton Instruments (TM) SPE-files into R environment and
+provides \linkS4class{RLum.Data.Image} objects as output.
 }
 \details{
 Function provides an R only import routine for the Princeton Instruments
@@ -106,7 +107,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
