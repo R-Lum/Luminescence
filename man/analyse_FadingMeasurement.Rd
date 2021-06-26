@@ -119,8 +119,8 @@ version in Auclair et al. (2003), which reads
 \deqn{t_{star} := t_1 + (t_2 - t_1)/2}}
 \item{\code{t_star = "half_complex"}}{ This option applies the complex function shown in Auclair et al. (2003),
 which is derived from Aitken (1985) appendix F, equations 9 and 11.
-It reads \deqn{t_{star} = 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/t_2 - t_1]}}
-where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 0.
+It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}}
+where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 1.
 Please note that the equation in Auclair et al. (2003) is incorrect
 insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
 Here we use the correct version (base 10).
@@ -177,7 +177,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-24. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-26. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
