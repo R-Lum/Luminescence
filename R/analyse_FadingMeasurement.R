@@ -466,6 +466,9 @@ analyse_FadingMeasurement <- function(
 
 
   # Fitting -------------------------------------------------------------------------------------
+  ##prevent that n.MC can became smaller than 2
+  n.MC <- max(c(n.MC[1],2))
+
   ##we need to fit the data to get the g_value
 
   ##sample for monte carlo runs
@@ -650,7 +653,8 @@ analyse_FadingMeasurement <- function(
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 1 %in% plot.single)) {
           plot_RLum(
-            set_RLum(class = "RLum.Analysis", records = object_clean[seq(1, length(object_clean), by = 2)]),
+            set_RLum(class = "RLum.Analysis",
+                     records = object_clean[seq(1, length(object_clean), by = 2)]),
             combine = TRUE,
             col = c(col[1:5], rep(
               rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
@@ -668,12 +672,14 @@ analyse_FadingMeasurement <- function(
 
           ##add integration limits
           abline(
-            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "green"
           )
           abline(
-            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "red"
           )
@@ -683,7 +689,8 @@ analyse_FadingMeasurement <- function(
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 2 %in% plot.single)) {
           plot_RLum(
-            set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
+            set_RLum(class = "RLum.Analysis",
+                     records = object_clean[seq(2, length(object_clean), by = 2)]),
             combine = TRUE,
             records_max = 10,
             plot.single = TRUE,
@@ -698,12 +705,14 @@ analyse_FadingMeasurement <- function(
           if (is.null(list(...)$signal.integral.Tx)) {
             ##add integration limits
             abline(
-              v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "green"
             )
             abline(
-              v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "red"
             )
@@ -711,12 +720,16 @@ analyse_FadingMeasurement <- function(
           } else{
             ##add integration limits
             abline(
-              v = range(list(...)$signal.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(list(...)$signal.integral.Tx) *
+                max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "green"
             )
             abline(
-              v = range(list(...)$background.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(list(...)$background.integral.Tx) *
+                max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "red"
             )
@@ -744,12 +757,14 @@ analyse_FadingMeasurement <- function(
 
           ##add integration limits
           abline(
-            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "green"
           )
           abline(
-            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "red"
           )
@@ -901,14 +916,19 @@ analyse_FadingMeasurement <- function(
           cex = par()$cex * 0.9
         )
 
-        ##add curves
-        x <- NA
-        for (i in seq(1, n.MC, length.out = 50)) {
-          curve(fit_matrix[2, i] * x + fit_matrix[1, i],
-                col = rgb(0, 0.2, 0.4, 0.2),
-                add = TRUE)
+        ##add MC error polygon
+        x_range <- range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE)
+          x <- seq(x_range[1], x_range[2], length.out = 50)
+          m <- matrixStats::rowRanges(vapply(1:n.MC, function(i){
+            fit_matrix[2, i] * x + fit_matrix[1, i]
 
-        }
+          }, numeric(length(x))))
+          polygon(
+            x = c(x, rev(x)),
+            y = c(m[, 2], rev(m[, 1])),
+            col = rgb(0, 0, 0, 0.2),
+            border = NA
+          )
 
         ##add master curve in red
         curve(
