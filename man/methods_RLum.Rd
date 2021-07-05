@@ -220,7 +220,7 @@ input object}
 \item{subset}{\verb{[subset]} \link{expression} (\strong{required}):
 logical expression indicating elements or rows to keep, this function works
 in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
-of the object structure}
+of the object structure. Works also on \linkS4class{RLum.Analysis} objects.}
 
 \item{records.rm}{\link{subset} \link{logical} (\emph{with default}):
 remove records from data set, can be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
@@ -233,7 +233,7 @@ logical. If TRUE, setting row names and converting column names
 (to syntactic names: see make.names) is optional (see \link[base:as.data.frame]{base::as.data.frame})}
 
 \item{recursive}{\link{logical} (\emph{with default}):
-enables or disables further subsetting (\code{unlist})}
+enables or disables further sub-setting (\code{unlist})}
 
 \item{z}{\link{integer} (\emph{optional}):
 the column index of the matrix, data.frame}

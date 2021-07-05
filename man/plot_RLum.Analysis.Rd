@@ -63,7 +63,7 @@ the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 \code{norm} (see \link{plot_RLum.Data.Curve}), \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}, ...
 
-and for \code{combine = TRUE} also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos}
+and for \code{combine = TRUE} also: \code{sub_title}, \code{legend}, \code{legend.text}, \code{legend.pos}
 (typical plus 'outside'), \code{legend.col}, \code{smooth}.
 
 All arguments can be provided as \code{vector} or \code{list} to gain in full control
@@ -139,7 +139,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-30. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-33. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
