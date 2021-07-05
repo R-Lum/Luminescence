@@ -34,6 +34,9 @@ lines.
 to be shown in the mode `combine = TRUE`. This avoids that a large number of curves become indistinguishable. 
 The first and the last curve are always shown, all other curves are shown following an evenly distributed index 
 interval. 
+* The `...` argument `sub` (sub title of the plot) for `combine = TRUE` did not work properly due the R's partial matching
+of arguments that conflicted with the argument `subset`. The argument `sub` was now renamed to 
+`sub_title` to prevent this error from happening and support again sub titles. 
 
 #### `verify_SingleGrainData()`
 * Improve terminal and plot output

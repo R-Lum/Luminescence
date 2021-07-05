@@ -66,7 +66,7 @@
 #' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
 #' `norm` (see [plot_RLum.Data.Curve]), `xlim`,`ylim`, `xlab`, `ylab`, ...
 #'
-#' and for `combine = TRUE` also: `sub`, `legend`, `legend.text`, `legend.pos`
+#' and for `combine = TRUE` also: `sub_title`, `legend`, `legend.text`, `legend.pos`
 #' (typical plus 'outside'), `legend.col`, `smooth`.
 #'
 #' All arguments can be provided as `vector` or `list` to gain in full control
@@ -164,7 +164,7 @@ plot_RLum.Analysis <- function(
     pch = 1,
     col = "auto",
     norm = FALSE,
-    sub = NULL,
+    sub_title = NULL,
     cex = 1,
     legend = TRUE,
     legend.text = NULL,
@@ -745,7 +745,7 @@ plot_RLum.Analysis <- function(
         xlab = xlab,
         ylab = ylab,
         log = plot.settings$log[[k]],
-        sub = plot.settings$sub[[k]]
+        sub = plot.settings$sub_title[[k]]
       )
 
       ##plot single curve values

@@ -58,6 +58,7 @@ test_that("Test the basic plot functionality", {
     subset = list(recordType = "TL"),
     combine = TRUE,
     norm = TRUE,
+    sub_title = "(5 K/s)",
     records_max = 5,
     abline = list(v = c(110))
   ))
