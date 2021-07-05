@@ -391,7 +391,8 @@ setMethod("get_RLum",
                 enclos = env
               ),
               error = function(e) {
-                stop("[get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "), call. = FALSE)
+                stop("[get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "),
+                     call. = FALSE)
               })
 
               if (all(is.na(sel)))
@@ -401,7 +402,8 @@ setMethod("get_RLum",
                 object@records <- object@records[sel]
                 return(object)
               } else {
-                tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) }, names(envir), envir)
+                tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) },
+                              names(envir), envir)
                 message("\n [get_RLum()] Invalid value, please refer to unique options given above.")
                 return(NULL)
               }
