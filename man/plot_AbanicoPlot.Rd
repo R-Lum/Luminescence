@@ -36,7 +36,6 @@ plot_AbanicoPlot(
   grid.col,
   frame = 1,
   bw = "SJ",
-  output = TRUE,
   interactive = FALSE,
   ...
 )
@@ -188,10 +187,6 @@ Default is \code{1}.}
 \item{bw}{\link{character} (\emph{with default}):
 bin-width for KDE, choose a numeric value for manual setting.}
 
-\item{output}{\link{logical}:
-Optional output of numerical plot parameters. These can be useful to
-reproduce similar plots. Default is \code{TRUE}.}
-
 \item{interactive}{\link{logical} (\emph{with default}):
 create an interactive abanico plot (requires the \code{'plotly'} package)}
 
@@ -284,7 +279,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.12
+ 0.1.14
 }
 
 \examples{
@@ -469,7 +464,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-33. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-36. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

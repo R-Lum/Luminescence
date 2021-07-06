@@ -227,7 +227,7 @@
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.12
+#' @section Function version: 0.1.14
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -460,7 +460,6 @@ plot_AbanicoPlot <- function(
   grid.col,
   frame = 1,
   bw = "SJ",
-  output = TRUE,
   interactive = FALSE,
   ...
 ) {
@@ -2013,8 +2012,10 @@ plot_AbanicoPlot <- function(
   } else {shift.lines <- 1}
 
   ## extract original plot parameters
-  par(bg = layout$abanico$colour$background)
   bg.original <- par()$bg
+  on.exit(par(bg = bg.original), add = TRUE)
+  par(bg = layout$abanico$colour$background)
+
 
   if(rotate == FALSE) {
     ## setup plot area

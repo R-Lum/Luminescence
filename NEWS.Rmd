@@ -22,7 +22,9 @@ couple of other R packages prompted to you when you first try to use this functi
 #### `plot_AbanicoPlot()`
 * The function lost the parameter `output` (default `TRUE`), which was superfluous because
 the output was calculated regardless this option. Now the output is always returned, but invisible 
-on the terminal. 
+on the terminal. This has no user-visible effect and does not break old code.
+* The function had a long-standing nasty bug that caused overplotting if the function was called repeatedly  
+with par settings different from the default `par(mfrow = c(1,1))`; fixed. 
 
 #### `analyse_FadingMeasurement()`
 * Apparently the function never worked as intended for `XSYG` files; fixed. 
