@@ -19,6 +19,11 @@ couple of other R packages prompted to you when you first try to use this functi
 * `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
 
 ### Bugfixes and changes
+#### `plot_AbanicoPlot()`
+* The function lost the parameter `output` (default `TRUE`), which was superfluous because
+the output was calculated regardless this option. Now the output is always returned, but invisible 
+on the terminal. 
+
 #### `analyse_FadingMeasurement()`
 * Apparently the function never worked as intended for `XSYG` files; fixed. 
 To prevent further problems, a test was added that monitors this functionality.

@@ -219,10 +219,6 @@
 #' @param bw [character] (*with default*):
 #' bin-width for KDE, choose a numeric value for manual setting.
 #'
-#' @param output [logical]:
-#' Optional output of numerical plot parameters. These can be useful to
-#' reproduce similar plots. Default is `TRUE`.
-#'
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
@@ -3740,7 +3736,5 @@ plot_AbanicoPlot <- function(
   par(cex = cex_old)
 
   ## create and return numeric output
-  if(output == TRUE) {
-    return(invisible(plot.output))
-  }
+  invisible(plot.output)
 }
