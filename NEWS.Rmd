@@ -10,6 +10,14 @@ header-includes:
 
 **This package version requires at least R >= 4.0.5**
 
+### New functions
+* `combine_Dr_De()` This function allows to model dose rate and equivalent dose distributions 
+to obtain an age from Bayesian modelling using both distributions. In the back a couple of 
+additional functions have been added to support this novel approach. This function requires [JAGS](https://mcmc-jags.sourceforge.io) (supported through `'rjags'`) on your computer along with a 
+couple of other R packages prompted to you when you first try to use this function. 
+
+* `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_Dr_Dr()`, however, it can be used as stand-alone plot.
+
 ### Bugfixes and changes
 #### `plot_AbanicoPlot()`
 * The function lost the parameter `output` (default `TRUE`), which was superfluous because
@@ -43,3 +51,6 @@ of arguments that conflicted with the argument `subset`. The argument `sub` was 
 #### `verify_SingleGrainData()`
 * Improve terminal and plot output
 * Add minimal support for `...` to control plot output if wanted
+
+### Internals
+* `mclust` added as new package dependency to support the new Bayesian models 
