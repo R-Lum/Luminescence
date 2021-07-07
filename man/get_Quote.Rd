@@ -34,6 +34,6 @@ Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Sci
 , RLum Developer Team} 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. get_Quote(): Function to return essential quotes. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-38. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2021. get_Quote(): Function to return essential quotes. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-39. https://CRAN.R-project.org/package=Luminescence
 }
 
