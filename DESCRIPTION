@@ -23,7 +23,6 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
     Dirk Mittelstrass [aut] (<https://orcid.org/0000-0002-9567-8791>),
     Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
-    Jean-Michel Galharret [aut] (<https://orcid.org/0000-0003-2219-8727>),
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
