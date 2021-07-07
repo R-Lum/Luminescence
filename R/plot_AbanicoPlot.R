@@ -227,7 +227,7 @@
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.14
+#' @section Function version: 0.1.15
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -2615,7 +2615,8 @@ plot_AbanicoPlot <- function(
                                                    par()$cxy[1] * 0.4)) {
             dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
             dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
-            pch.dots <- c(rep(20, length(dots.x.i) - 1), 15)
+            pch.dots <- c(rep(20, max(length(dots.x.i) - 1),1), 15)
+
           } else {
             pch.dots <- rep(20, length(dots.x.i))
           }
@@ -3739,3 +3740,4 @@ plot_AbanicoPlot <- function(
   ## create and return numeric output
   invisible(plot.output)
 }
+
