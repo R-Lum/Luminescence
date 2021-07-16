@@ -72,7 +72,7 @@ plot_RLum.Results<- function(
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
   ##============================================================================##
   par.old <- par(no.readonly = TRUE)
-  on.exit(par(par.old))
+  on.exit(suppressWarnings(par(par.old)))
 
   ##============================================================================##
   ## ... ARGUMENTS
