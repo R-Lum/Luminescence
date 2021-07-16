@@ -99,7 +99,7 @@ coerce to the next possible layer (which are \code{RLum.Data}-objects),
 \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
 
 \item{recursive}{\code{\link{get_RLum}}: \link{logical} (\emph{with default}):
-if \code{TRUE} (the default) and the result of the 'get_RLum' request is a single
+if \code{TRUE} (the default) and the result of the \code{get_RLum()} request is a single
 object this object will be unlisted, means only the object itself and no
 list containing exactly one object is returned. Mostly this makes things
 easier, however, if this method is used within a loop this might be undesired.}
@@ -230,7 +230,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-40. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

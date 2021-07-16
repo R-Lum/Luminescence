@@ -60,10 +60,10 @@ Possible options are \code{"gray"}, \code{"colors"} and \code{"none"}}
 manually set the max density value for proper scaling of the x-axis of the first plot}
 
 \item{plot.proportions}{\link{logical} (\emph{with default}):
-plot barplot showing the proportions of components}
+plot \link[graphics:barplot]{graphics::barplot} showing the proportions of components if
+\code{n.components} a vector with a length > 1 (e.g., \code{n.components = c(2:3)})}
 
-\item{plot}{\link{logical} (\emph{with default}):
-plot output}
+\item{plot}{\link{logical} (\emph{with default}):  plot output}
 
 \item{...}{further arguments to pass. See details for their usage.}
 }
@@ -123,12 +123,12 @@ The standard deviation (sigma) of the normal distributions is by default
 determined by a common \code{sigmab} (see \code{pdf.sigma}). For
 \code{pdf.sigma = "se"} the standard error of each component is taken
 instead.\cr
-The stacked barplot shows the proportion of each component (in
+The stacked \link[graphics:barplot]{graphics::barplot} shows the proportion of each component (in
 per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4.1
+ 0.4.2
 }
 
 \examples{
@@ -161,7 +161,7 @@ get_RLum(object = FMM, data.object = "components")
 } 
 
 \section{How to cite}{
-Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-40. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
