@@ -219,10 +219,6 @@
 #' @param bw [character] (*with default*):
 #' bin-width for KDE, choose a numeric value for manual setting.
 #'
-#' @param output [logical]:
-#' Optional output of numerical plot parameters. These can be useful to
-#' reproduce similar plots. Default is `TRUE`.
-#'
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
@@ -231,7 +227,7 @@
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.12
+#' @section Function version: 0.1.15
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -464,7 +460,6 @@ plot_AbanicoPlot <- function(
   grid.col,
   frame = 1,
   bw = "SJ",
-  output = TRUE,
   interactive = FALSE,
   ...
 ) {
@@ -2017,8 +2012,10 @@ plot_AbanicoPlot <- function(
   } else {shift.lines <- 1}
 
   ## extract original plot parameters
-  par(bg = layout$abanico$colour$background)
   bg.original <- par()$bg
+  on.exit(par(bg = bg.original), add = TRUE)
+  par(bg = layout$abanico$colour$background)
+
 
   if(rotate == FALSE) {
     ## setup plot area
@@ -2618,7 +2615,8 @@ plot_AbanicoPlot <- function(
                                                    par()$cxy[1] * 0.4)) {
             dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
             dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
-            pch.dots <- c(rep(20, length(dots.x.i) - 1), 15)
+            pch.dots <- c(rep(20, max(length(dots.x.i) - 1),1), 15)
+
           } else {
             pch.dots <- rep(20, length(dots.x.i))
           }
@@ -3740,7 +3738,6 @@ plot_AbanicoPlot <- function(
   par(cex = cex_old)
 
   ## create and return numeric output
-  if(output == TRUE) {
-    return(invisible(plot.output))
-  }
+  invisible(plot.output)
 }
+

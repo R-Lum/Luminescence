@@ -1,12 +1,12 @@
-#' Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
+#' @title Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
 #' distribution
 #'
-#' This function fits a k-component mixture to a De distribution with differing
+#' @description  This function fits a k-component mixture to a De distribution with differing
 #' known standard errors. Parameters (doses and mixing proportions) are
 #' estimated by maximum likelihood assuming that the log dose estimates are
 #' from a mixture of normal distributions.
 #'
-#' This model uses the maximum likelihood and Bayesian Information Criterion
+#' @details This model uses the maximum likelihood and Bayesian Information Criterion
 #' (BIC) approaches.
 #'
 #' Indications of overfitting are:
@@ -32,7 +32,7 @@
 #' determined by a common `sigmab` (see `pdf.sigma`). For
 #' `pdf.sigma = "se"` the standard error of each component is taken
 #' instead.\cr
-#' The stacked barplot shows the proportion of each component (in
+#' The stacked [graphics::barplot] shows the proportion of each component (in
 #' per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 #' and maximum log-likelihood estimates for each iteration of k.
 #'
@@ -75,10 +75,10 @@
 #' manually set the max density value for proper scaling of the x-axis of the first plot
 #'
 #' @param plot.proportions [logical] (*with default*):
-#' plot barplot showing the proportions of components
+#' plot [graphics::barplot] showing the proportions of components if
+#' `n.components` a vector with a length > 1 (e.g., `n.components = c(2:3)`)
 #'
-#' @param plot [logical] (*with default*):
-#' plot output
+#' @param plot [logical] (*with default*):  plot output
 #'
 #' @param ... further arguments to pass. See details for their usage.
 #'
@@ -104,7 +104,7 @@
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -196,10 +196,9 @@ calc_FiniteMixture <- function(
   ...
 ){
 
-  ##============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##============================================================================##
 
+  ## CONSISTENCY CHECK OF INPUT DATA --------
+  ##============================================================================##
   if(missing(data)==FALSE){
 
     if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
@@ -233,10 +232,8 @@ calc_FiniteMixture <- function(
     }
   }
 
+  ## ... ARGUMENTS ------------
   ##============================================================================##
-  ## ... ARGUMENTS
-  ##============================================================================##
-
   extraArgs <- list(...)
 
   ## console output
@@ -449,16 +446,13 @@ calc_FiniteMixture <- function(
     BIC.lowest<- n.components[which.min(BIC.n)]
   }
 
+  ## OUTPUT ---------
   ##============================================================================##
-  ## OUTPUT
-  ##============================================================================##
-
-  if(verbose==TRUE) {
+  if(verbose) {
 
     ## HEADER (always printed)
     cat("\n [calc_FiniteMixture]")
 
-    ##----------------------------------------------------------------------------
     ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
 
     if(length(n.components) == 1) {
@@ -565,8 +559,7 @@ calc_FiniteMixture <- function(
     }#EndOf::Output for length(n.components) > 1
   }
 
-  ##============================================================================##
-  ## RETURN VALUES
+  ## RETURN VALUES --------
   ##============================================================================##
 
   # .@data$meta
@@ -614,7 +607,7 @@ calc_FiniteMixture <- function(
             " or the the model parameters need to be adjusted (e.g. 'sigmab')", call. = FALSE)
 
   ##=========##
-  ## PLOTTING
+  ## PLOTTING -----------
   if(plot && !anyNA(unlist(summary)))
     try(do.call(plot_RLum.Results, c(list(newRLumResults.calc_FiniteMixture), as.list(sys.call())[-c(1,2)])))
 

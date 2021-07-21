@@ -63,13 +63,13 @@
 #' @param subset `[subset]` [expression] (**required**):
 #' logical expression indicating elements or rows to keep, this function works
 #' in [Risoe.BINfileData-class] objects like [subset.data.frame], but takes care
-#' of the object structure
+#' of the object structure. Works also on [RLum.Analysis-class] objects.
 #'
 #' @param row.names [logical] (*with default*):
 #' enables or disables row names (`as.data.frame`)
 #'
 #' @param recursive [logical] (*with default*):
-#' enables or disables further subsetting (`unlist`)
+#' enables or disables further sub-setting (`unlist`)
 #'
 #' @param optional [logical] (*with default*):
 #' logical. If TRUE, setting row names and converting column names

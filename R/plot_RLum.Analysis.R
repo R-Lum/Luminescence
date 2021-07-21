@@ -47,6 +47,11 @@
 #' @param combine [logical] (*with default*):
 #' allows to combine all [RLum.Data.Curve-class] objects in one single plot.
 #'
+#' @param records_max [numeric] (*optional*): limits number of records
+#' shown if `combine = TRUE`. Shown are always the first and the last curve,
+#' the other number of curves to be shown a distributed evenly, this may result
+#' in less number of curves plotted as specified.
+#'
 #' @param curve.transformation [character] (*optional*):
 #' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 #' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`,
@@ -61,7 +66,7 @@
 #' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
 #' `norm` (see [plot_RLum.Data.Curve]), `xlim`,`ylim`, `xlab`, `ylab`, ...
 #'
-#' and for `combine = TRUE` also: `sub`, `legend`, `legend.text`, `legend.pos`
+#' and for `combine = TRUE` also: `sub_title`, `legend`, `legend.text`, `legend.pos`
 #' (typical plus 'outside'), `legend.col`, `smooth`.
 #'
 #' All arguments can be provided as `vector` or `list` to gain in full control
@@ -74,7 +79,7 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.12
+#' @section Function version: 0.3.13
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -120,6 +125,7 @@ plot_RLum.Analysis <- function(
   ncols,
   abline = NULL,
   combine = FALSE,
+  records_max = NULL,
   curve.transformation,
   plot.single = FALSE,
   ...
@@ -158,7 +164,7 @@ plot_RLum.Analysis <- function(
     pch = 1,
     col = "auto",
     norm = FALSE,
-    sub = NULL,
+    sub_title = NULL,
     cex = 1,
     legend = TRUE,
     legend.text = NULL,
@@ -474,6 +480,7 @@ plot_RLum.Analysis <- function(
 
     })
 
+
     ##account for different curve types, combine similar
     temp.object.structure  <- structure_RLum(object)
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
@@ -488,7 +495,7 @@ plot_RLum.Analysis <- function(
       }
 
 
-      ##this 2nd par request is needed as seeting mfrow resets the par settings ... this might
+      ##this 2nd par request is needed as setting mfrow resets the par settings ... this might
       ##not be wanted
       par(cex = plot.settings$cex[1])
 
@@ -540,6 +547,15 @@ plot_RLum.Analysis <- function(
       ##now get the real list object (note the argument recursive = FALSE)
       object.list <-
         get_RLum(object, recordType = temp.recordType[k], recursive = FALSE)
+
+      ## limit number of records shown ... show always first and last;
+      ## distribute the rest
+      if(!is.null(records_max) && records_max[1] > 2){
+        records_max <- records_max[1] - (length(object.list) %% records_max[1])
+        records_show <- ceiling(seq(1, length(object.list), length.out = records_max))
+        object.list[(1:length(object.list))[-records_show]] <- NULL
+
+      }
 
       ##prevent problems for non set argument
       if (missing(curve.transformation)) {
@@ -687,7 +703,13 @@ plot_RLum.Analysis <- function(
         plot.settings$legend.text[[k]]
 
       }else{
-        paste("Curve", 1:length(object.list))
+        if(!is.null(records_max) && records_max[1] > 2) {
+          paste("Curve", records_show)
+
+        } else {
+          paste("Curve", 1:length(object.list))
+
+        }
 
       }
 
@@ -723,7 +745,7 @@ plot_RLum.Analysis <- function(
         xlab = xlab,
         ylab = ylab,
         log = plot.settings$log[[k]],
-        sub = plot.settings$sub[[k]]
+        sub = plot.settings$sub_title[[k]]
       )
 
       ##plot single curve values
@@ -835,3 +857,4 @@ plot_RLum.Analysis <- function(
   }
 
 }
+

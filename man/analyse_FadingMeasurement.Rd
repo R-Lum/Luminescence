@@ -24,6 +24,7 @@ objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \link{data.frame} with a number of columns divisible by 3
 and where each triplet has the before mentioned column structure.
+
 \strong{Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 only IRSL curves representing Lx (and Tx)}
 
@@ -36,20 +37,18 @@ in a loop.}}
 sets the structure of the measurement data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}.
 Other input is ignored}
 
-\item{signal.integral}{\link{vector} (\strong{required}):
-vector with the limits for the signal integral.
-Not required if a \code{data.frame} with LxTx values are provided.}
+\item{signal.integral}{\link{vector} (\strong{required}): vector with channels for the signal integral
+(e.g., \code{c(1:10)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
 
-\item{background.integral}{\link{vector} (\strong{required}):
-vector with the bounds for the background integral.
-Not required if a \code{data.frame} with LxTx values are provided.}
+\item{background.integral}{\link{vector} (\strong{required}): vector with channels for the background integral
+(e.g., \code{c(90:100)}). Not required if a \code{data.frame} with \code{LxTx} values is provided.}
 
 \item{t_star}{\link{character} (\emph{with default}):
-method for calculating the time elapsed since irradiation. Options are:
-\code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+method for calculating the time elapsed since irradiation if input is \strong{not} a \code{data.frame}.
+Options are: \code{'half'} (the default), \verb{'half_complex}, which uses the long equation in Auclair et al. 2003, and
 and \code{'end'}, which takes the time between irradiation and the measurement step.
-Default is \code{'half'}. Alternatively, \code{t_star} can be a function with one parameter which
-works on \code{t1}.\cr
+Alternatively, \code{t_star} can be a function with one parameter which works on \code{t1}.
+For more information see details. \cr
 
 \emph{\code{t_star} has no effect if the input is a \link{data.frame}, because this input comes
 without irradiation times.}}
@@ -112,6 +111,27 @@ error estimation all input values, except \code{tc}, as the precision can be con
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation.
 
+\strong{The options for \code{t_star}}
+
+\itemize{
+\item{\code{t_star = "half"} (the default)}{ The calculation follows the simplified
+version in Auclair et al. (2003), which reads
+\deqn{t_{star} := t_1 + (t_2 - t_1)/2}}
+\item{\code{t_star = "half_complex"}}{ This option applies the complex function shown in Auclair et al. (2003),
+which is derived from Aitken (1985) appendix F, equations 9 and 11.
+It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}}
+where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 1.
+Please note that the equation in Auclair et al. (2003) is incorrect
+insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
+Here we use the correct version (base 10).
+\item{\code{t_star = "end"}}{ This option uses the simplest possible form for \code{t_star} which is the time since
+irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)}
+\item{\verb{t_star = <function>}}{ This last option allows you to provide an R function object that works on t1 and
+gives you all possible freedom. For instance, you may want to define the following
+function \code{fun <- function(x) {x^2}}, this would square all values of t1, because internally
+it calls \code{fun(t1)}. The name of the function does not matter.}
+}
+
 \strong{Density of recombination centres}
 
 The density of recombination centres, expressed by the dimensionless variable rho', is estimated
@@ -121,14 +141,14 @@ procedure as for the g-value is applied (see above).
 
 \strong{Multiple aliquots & Lx/Tx normalisation}
 
-Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+Be aware that this function will always normalise all \code{Lx/Tx} values by the \code{Lx/Tx} value of the
 prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+inter-aliquot variations in \code{Lx/Tx} values. If deemed necessary to normalise the \code{Lx/Tx} values
 of each aliquot by its individual prompt measurement please do so \strong{before} running
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
 }
 \section{Function version}{
- 0.1.16
+ 0.1.19
 }
 
 \examples{
@@ -157,10 +177,13 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.13. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
+Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
+Academic Press, London, Orlando.
+
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
 SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
 

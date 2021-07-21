@@ -1,6 +1,6 @@
 #' @title Import Princeton Instruments (TM) SPE-file into R
 #'
-#' @decription Function imports Princeton Instruments (TM) SPE-files into R environment and
+#' @description Function imports Princeton Instruments (TM) SPE-files into R environment and
 #' provides [RLum.Data.Image-class] objects as output.
 #'
 #' @details Function provides an R only import routine for the Princeton Instruments

@@ -1,10 +1,12 @@
-#' Analyse fading measurements and returns the fading rate per decade (g-value)
+#' @title Analyse fading measurements and returns the fading rate per decade (g-value)
 #'
+#' @description
 #' The function analysis fading measurements and returns a fading rate including an error estimation.
 #' The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
 #' Lamothe (2001). Additionally, the density of recombination centres (rho') is estimated after
 #' Kars et al. (2008).
 #'
+#' @details
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
 #' can be passed to the function [calc_FadingCorr].
@@ -16,6 +18,27 @@
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
 #' for each value with the value as the mean and the provided uncertainty as standard deviation.
 #'
+#' **The options for `t_star`**
+#'
+#' \itemize{
+#'  \item{`t_star = "half"` (the default)}{ The calculation follows the simplified
+#'  version in Auclair et al. (2003), which reads
+#'  \deqn{t_{star} := t_1 + (t_2 - t_1)/2}}
+#'  \item{`t_star = "half_complex"`}{ This option applies the complex function shown in Auclair et al. (2003),
+#'  which is derived from Aitken (1985) appendix F, equations 9 and 11.
+#'  It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}}
+#'  where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 1.
+#'  Please note that the equation in Auclair et al. (2003) is incorrect
+#'  insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
+#'  Here we use the correct version (base 10).
+#'  \item{`t_star = "end"`}{ This option uses the simplest possible form for `t_star` which is the time since
+#'  irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)}
+#'  \item{`t_star = <function>`}{ This last option allows you to provide an R function object that works on t1 and
+#'  gives you all possible freedom. For instance, you may want to define the following
+#'  function `fun <- function(x) {x^2}`, this would square all values of t1, because internally
+#'  it calls `fun(t1)`. The name of the function does not matter.}
+#' }
+#'
 #' **Density of recombination centres**
 #'
 #' The density of recombination centres, expressed by the dimensionless variable rho', is estimated
@@ -25,9 +48,9 @@
 #'
 #' **Multiple aliquots & Lx/Tx normalisation**
 #'
-#' Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+#' Be aware that this function will always normalise all `Lx/Tx` values by the `Lx/Tx` value of the
 #' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-#' inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+#' inter-aliquot variations in `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
 #' of each aliquot by its individual prompt measurement please do so **before** running
 #' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
 #'
@@ -37,6 +60,7 @@
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of columns divisible by 3
 #' and where each triplet has the before mentioned column structure.
+#'
 #' **Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 #' only IRSL curves representing Lx (and Tx)**
 #'
@@ -49,20 +73,18 @@
 #' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`.
 #' Other input is ignored
 #'
-#' @param signal.integral [vector] (**required**):
-#' vector with the limits for the signal integral.
-#' Not required if a `data.frame` with LxTx values are provided.
+#' @param signal.integral [vector] (**required**): vector with channels for the signal integral
+#' (e.g., `c(1:10)`). Not required if a `data.frame` with `LxTx` values is provided.
 #'
-#' @param background.integral [vector] (**required**):
-#' vector with the bounds for the background integral.
-#' Not required if a `data.frame` with LxTx values are provided.
+#' @param background.integral [vector] (**required**): vector with channels for the background integral
+#' (e.g., `c(90:100)`). Not required if a `data.frame` with `LxTx` values is provided.
 #'
 #' @param t_star [character] (*with default*):
-#' method for calculating the time elapsed since irradiation. Options are:
-#' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+#' method for calculating the time elapsed since irradiation if input is **not** a `data.frame`.
+#' Options are: `'half'` (the default), `'half_complex`, which uses the long equation in Auclair et al. 2003, and
 #' and `'end'`, which takes the time between irradiation and the measurement step.
-#' Default is `'half'`. Alternatively, `t_star` can be a function with one parameter which
-#' works on `t1`.\cr
+#' Alternatively, `t_star` can be a function with one parameter which works on `t1`.
+#' For more information see details. \cr
 #'
 #' *`t_star` has no effect if the input is a [data.frame], because this input comes
 #' without irradiation times.*
@@ -107,16 +129,17 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#'
-#' @section Function version: 0.1.16
+#' @section Function version: 0.1.19
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#'
 #' @keywords datagen
 #'
 #' @references
+#'
+#' Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
+#' Academic Press, London, Orlando.
 #'
 #' Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
 #' SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
@@ -226,26 +249,24 @@ analyse_FadingMeasurement <- function(
     if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
        unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
 
-      irradiation_times <- extract_IrradiationTimes(object = object)
+      ## extract irradiation times
+      irradiation_times <- extract_IrradiationTimes(object)
 
-      ##reduce irradiation times ... extract curve data
+      ## get TIMESINCEIRR
       TIMESINCEIRR <- unlist(lapply(irradiation_times, function(x) {
+        x@data$irr.times[["TIMESINCEIRR"]][!grepl(pattern = "irradiation",
+                                             x = x@data$irr.times[["STEP"]],
+                                             fixed = TRUE)]
+      }))
 
-        ##get time since irradiation
-        temp_TIMESINCEIRR <-
-          x$irr.times[["TIMESINCEIRR"]][!grepl(pattern = "irradiation",
-                                               x = x$irr.times[["STEP"]],
-                                               fixed = TRUE)]
-
-        ##subtract half irradiation time
-        temp_IRR_TIME <-
-          x$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
-                                           x = x$irr.times[["STEP"]],
+      ## get irradiation times
+      irradiation_times <- unlist(lapply(irradiation_times, function(x) {
+          x@data$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
+                                           x = x@data$irr.times[["STEP"]],
                                            fixed = TRUE)]
 
-         return(temp_IRR_TIME)
-
       }))
+
 
       ##clean object by removing the irradiation step ... and yes, we drop!
       object_clean <- unlist(get_RLum(object, curveType = "measured"))
@@ -315,20 +336,29 @@ analyse_FadingMeasurement <- function(
     t1 <- TIMESINCEIRR
     t2 <- TIMESINCEIRR + irradiation_times
 
+    ## set t_star ----
     if(is(t_star, "function")){
       t_star <- t_star(t1)
 
     } else {
       if(t_star == "half"){
-        ##calculate t_star
+        ##calculate t_star using the simplified equation in Auclair et al. (2003)
         t_star <- t1 + (t2 - t1)/2
+
+      } else if(t_star == "half_complex"){
+        # calculate t_star after the full equation Auclair et al. (2003)
+        # t0 is an arbitrary constant, we are setting that to 1
+        t0 <- 1
+        t_star <- t0 * 10^((t2 * log10(t2/t0) - t1 * log10(t1/t0) - (t2 - t1) * log10(exp(1))) /
+                     (t2 - t1))
+
 
       }else if (t_star == "end"){
         ##set t_start as t_1 (so after the end of irradiation)
         t_star <- t1
 
       }else{
-        stop("[analyse_FadingMeasurement()] Invalid value for t_star.", call. = FALSE)
+        stop("[analyse_FadingMeasurement()] Invalid input for t_star.", call. = FALSE)
 
       }
     }
@@ -386,7 +416,6 @@ analyse_FadingMeasurement <- function(
 
   }
 
-
   ##create unique identifier
   uid <- create_UID()
 
@@ -437,6 +466,9 @@ analyse_FadingMeasurement <- function(
 
 
   # Fitting -------------------------------------------------------------------------------------
+  ##prevent that n.MC can became smaller than 2
+  n.MC <- max(c(n.MC[1],2))
+
   ##we need to fit the data to get the g_value
 
   ##sample for monte carlo runs
@@ -507,6 +539,7 @@ analyse_FadingMeasurement <- function(
   )
 
 
+  ## calc g-value -----
   fit <-
     try(stats::lm(y ~ x,
               data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
@@ -546,6 +579,7 @@ analyse_FadingMeasurement <- function(
 
   ##normalise the g-value to 2-days using the equation provided by Sébastien Huot via e-mail
   ##this means the data is extended
+  ## calc g2-value days ----
   k0 <- g_value[,c("FIT", "SD")] / 100 / log(10)
   k1 <- k0 / (1 - k0 * log(172800/tc))
   g_value_2days <-  100 * k1 * log(10)
@@ -612,21 +646,22 @@ analyse_FadingMeasurement <- function(
 
     }
 
-
+    ## plot Lx-curves -----
     if (!is.null(object)) {
       if (length(structure) == 2) {
 
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 1 %in% plot.single)) {
           plot_RLum(
-            set_RLum(class = "RLum.Analysis", records = object_clean[seq(1, length(object_clean), by = 2)]),
+            set_RLum(class = "RLum.Analysis",
+                     records = object_clean[seq(1, length(object_clean), by = 2)]),
             combine = TRUE,
             col = c(col[1:5], rep(
               rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
             )),
+            records_max = 10,
             plot.single = TRUE,
-            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
             xlab = plot_settings$xlab,
             xlim = plot_settings$xlim,
             log = plot_settings$log,
@@ -637,28 +672,29 @@ analyse_FadingMeasurement <- function(
 
           ##add integration limits
           abline(
-            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "green"
           )
           abline(
-            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "red"
           )
         }
 
+        # plot Tx-curves ----
         if (is(plot.single, "logical") ||
             (is(plot.single, "numeric") & 2 %in% plot.single)) {
           plot_RLum(
-            set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
+            set_RLum(class = "RLum.Analysis",
+                     records = object_clean[seq(2, length(object_clean), by = 2)]),
             combine = TRUE,
-            col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), abs(length(TIMESINCEIRR) - 5)
-            )),
+            records_max = 10,
             plot.single = TRUE,
-            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.text = paste(round(irradiation_times.unique, 1), "s"),
             xlab = plot_settings$xlab,
             log = plot_settings$log,
             legend.pos = "outside",
@@ -669,12 +705,14 @@ analyse_FadingMeasurement <- function(
           if (is.null(list(...)$signal.integral.Tx)) {
             ##add integration limits
             abline(
-              v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "green"
             )
             abline(
-              v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "red"
             )
@@ -682,12 +720,16 @@ analyse_FadingMeasurement <- function(
           } else{
             ##add integration limits
             abline(
-              v = range(list(...)$signal.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(list(...)$signal.integral.Tx) *
+                max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "green"
             )
             abline(
-              v = range(list(...)$background.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              v = range(list(...)$background.integral.Tx) *
+                max(as.matrix(object_clean[[1]][, 1])) /
+                nrow(as.matrix(object_clean[[1]])),
               lty = 2,
               col = "red"
             )
@@ -703,12 +745,9 @@ analyse_FadingMeasurement <- function(
           plot_RLum(
             set_RLum(class = "RLum.Analysis", records = object_clean),
             combine = TRUE,
-            col = c(col[1:5], rep(
-              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
-            )),
+            records_max = 10,
             plot.single = TRUE,
-            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.text = c(paste(round(irradiation_times.unique, 1), "s")),
             legend.pos = "outside",
             xlab = plot_settings$xlab,
             log = plot_settings$log,
@@ -718,12 +757,14 @@ analyse_FadingMeasurement <- function(
 
           ##add integration limits
           abline(
-            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "green"
           )
           abline(
-            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
+              nrow(as.matrix(object_clean[[1]])),
             lty = 2,
             col = "red"
           )
@@ -789,7 +830,7 @@ analyse_FadingMeasurement <- function(
       }
     }
 
-    ##(2) Fading plot
+    ## plot fading ----
     if (is(plot.single, "logical") ||
         (is(plot.single, "numeric") & 3 %in% plot.single)) {
 
@@ -847,7 +888,7 @@ analyse_FadingMeasurement <- function(
             side = 1,
             at = axTicks(side = 1),
             labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
-                                                digits = 0,
+                                                digits = 1,
                                                 decimal.mark = "",
                                                 scientific = TRUE)))
 
@@ -875,14 +916,19 @@ analyse_FadingMeasurement <- function(
           cex = par()$cex * 0.9
         )
 
-        ##add curves
-        x <- NA
-        for (i in 1:n.MC) {
-          curve(fit_matrix[2, i] * x + fit_matrix[1, i],
-                col = rgb(0, 0.2, 0.4, 0.2),
-                add = TRUE)
+        ##add MC error polygon
+        x_range <- range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]], na.rm = TRUE)
+          x <- seq(x_range[1], x_range[2], length.out = 50)
+          m <- matrixStats::rowRanges(vapply(1:n.MC, function(i){
+            fit_matrix[2, i] * x + fit_matrix[1, i]
 
-        }
+          }, numeric(length(x))))
+          polygon(
+            x = c(x, rev(x)),
+            y = c(m[, 2], rev(m[, 1])),
+            col = rgb(0, 0, 0, 0.2),
+            border = NA
+          )
 
         ##add master curve in red
         curve(

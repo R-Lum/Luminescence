@@ -113,11 +113,10 @@ setMethod("show",
           signature(object = "RLum.Analysis"),
           function(object){
 
-
             ##print
             cat("\n [RLum.Analysis-class]")
 
-            ##show slot originator, for compatibily reasons with old example data, here
+            ##show slot originator, for compatibly reasons with old example data, here
             ##a check
             if(.hasSlot(object, "originator")){cat("\n\t originator:", paste0(object@originator,"()"))}
 
@@ -127,13 +126,11 @@ setMethod("show",
 
             #skip this part if nothing is included in the object
             if(length(object@records) > 0){
-
               ##get object class types
               temp <- vapply(object@records, function(x){
-                is(x)[1]
+                class(x)[1]
 
               }, FUN.VALUE = vector(mode = "character", length = 1))
-
 
               ##print object class types
               lapply(1:length(table(temp)), function(x){
@@ -143,9 +140,9 @@ setMethod("show",
 
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
-                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 7)
+                if(getOption("width")<=50) temp.width <- 4 else temp.width  <- 7
 
-                ##set linebreak variable
+                ##set line break variable
                 linebreak <- FALSE
                 env <- environment()
 
@@ -156,7 +153,6 @@ setMethod("show",
                       if (i %% temp.width == 0 & i != length(object@records)) {
                         assign(x = "linebreak", value = TRUE, envir = env)
                       }
-
 
                       ##FIRST
                       first <-  paste0("#", i, " ", object@records[[i]]@recordType)
@@ -170,15 +166,14 @@ setMethod("show",
                         last <- " <> "
 
                       }else {
-                        if(i == length(object@records)){
+                        last <- " | "
+                        if (i == length(object@records)) {
                           last <- ""
 
-                        }else if (linebreak){
+                        } else if (linebreak) {
                           last <- "\n\t .. .. : "
                           assign(x = "linebreak", value = FALSE, envir = env)
 
-                        }else{
-                          last <- " | "
                         }
 
                       }
@@ -191,9 +186,12 @@ setMethod("show",
 
               }, FUN.VALUE = vector(mode = "character", length = 1))
 
-                 ##print on screen, differentiate between records with many curves or just one
+                 ##print on screen, differentiate between records with many
+                 ##curves or just one
                  if(any(grepl(terminal_output, pattern = "<>", fixed = TRUE))){
-                   cat("\n\t .. .. : ", gsub(pattern = "|", replacement = "\n\t .. .. :", x = terminal_output, fixed = TRUE), sep = "")
+                   cat("\n\t .. .. : ",
+                       gsub(pattern = "|", replacement = "\n\t .. .. :",
+                            x = terminal_output, fixed = TRUE), sep = "")
 
                  } else{
                    cat("\n\t .. .. : ", terminal_output, sep = "")
@@ -318,7 +316,7 @@ setMethod(
 #' return a numeric vector with the index of each element in the RLum.Analysis object.
 #'
 #' @param recursive [`get_RLum`]: [logical] (*with default*):
-#' if `TRUE` (the default) and the result of the 'get_RLum' request is a single
+#' if `TRUE` (the default) and the result of the `get_RLum()` request is a single
 #' object this object will be unlisted, means only the object itself and no
 #' list containing exactly one object is returned. Mostly this makes things
 #' easier, however, if this method is used within a loop this might be undesired.
@@ -391,7 +389,8 @@ setMethod("get_RLum",
                 enclos = env
               ),
               error = function(e) {
-                stop("[get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "), call. = FALSE)
+                stop("[get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "),
+                     call. = FALSE)
               })
 
               if (all(is.na(sel)))
@@ -401,7 +400,8 @@ setMethod("get_RLum",
                 object@records <- object@records[sel]
                 return(object)
               } else {
-                tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) }, names(envir), envir)
+                tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) },
+                              names(envir), envir)
                 message("\n [get_RLum()] Invalid value, please refer to unique options given above.")
                 return(NULL)
               }

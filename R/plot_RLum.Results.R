@@ -72,7 +72,7 @@ plot_RLum.Results<- function(
   ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
   ##============================================================================##
   par.old <- par(no.readonly = TRUE)
-  on.exit(par(par.old))
+  on.exit(suppressWarnings(par(par.old)))
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -365,7 +365,6 @@ plot_RLum.Results<- function(
 
 
       if (any(is.na(c(mean, sd)))) {
-
         warning("Unable to plot the MAM single estimate (NA value).", call. = FALSE)
 
       } else {
@@ -579,11 +578,9 @@ plot_RLum.Results<- function(
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 4: Finite Mixture Model
-
+  ## CASE 4: Finite Mixture Model --------
   if(object@originator == "calc_FiniteMixture") {
-    if(length(object@data$args$n.components) > 1L) {
-
+    if(length(object@data$args$n.components) > 1) {
       ##deal with addition arguments
       extraArgs <- list(...)
 
@@ -594,17 +591,17 @@ plot_RLum.Results<- function(
       pdf.sigma<- if("pdf.sigma" %in% names(extraArgs)) {extraArgs$pdf.sigma} else {"sigmab"}
 
       # extract relevant data from object
-      n.components<- object@data$args$n.components
-      comp.n<- object@data$components
-      sigmab<- object@data$args$sigmab
-      BIC.n<- object@data$BIC$BIC
-      LLIK.n<- object@data$llik$llik
+      n.components <- object@data$args$n.components
+      comp.n <- object@data$components
+      sigmab <- object@data$args$sigmab
+      BIC.n <- object@data$BIC$BIC
+      LLIK.n <- object@data$llik$llik
 
       # save previous plot parameter and set new ones
       .pardefault<- par(no.readonly = TRUE)
 
       ## DEVICE AND PLOT LAYOUT
-      n.plots<- length(n.components) #number of PDF plots in plotarea #1
+      n.plots<- length(n.components) #number of PDF plots in plot area #1
       seq.vertical.plots<- seq(from = 1, to = n.plots, by = 1) #indices
       ID.plot.two<- n.plots+if(plot.proportions==TRUE){1}else{0} #ID of second plot area
       ID.plot.three<- n.plots+if(plot.proportions==TRUE){2}else{1} #ID of third plot area
@@ -633,7 +630,7 @@ plot_RLum.Results<- function(
       # general plot parameters (global scaling, allow overplotting)
       par(cex = 0.8, xpd = NA)
 
-      # define color palette for prettier output
+      # define colour palette for prettier output
       if(pdf.colors == "colors") {
         col.n<- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
                   "burlywood4", "magenta4", "mediumpurple3", "brown4","grey",
@@ -654,7 +651,6 @@ plot_RLum.Results<- function(
 
       ## create empty plot without x-axis
       for(i in 1:n.plots) {
-
         pos.n<- seq(from = 1, to = n.components[i]*3, by = 3)
 
         # set margins (bottom, left, top, right)
@@ -683,17 +679,16 @@ plot_RLum.Results<- function(
         sapply.storage<- list()
 
         ## NORMAL DISTR. OF EACH COMPONENT
-        options(warn=-1) #supress warnings for NA values
+        options(warn=-1) #suppress warnings for NA values
 
         # LOOP - iterate over number of components
         for(j in 1:max(n.components)) {
-
           # draw random values of the ND to check for NA values
           comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
                                  mean = comp.n[pos.n[j],i],
                                  sd = comp.n[pos.n[j]+1,i]))
 
-          # proceed if no NA values occured
+          # proceed if no NA values occurred
           if(length(comp.nd.n)!=0) {
 
             # weight - proportion of the component
@@ -722,7 +717,6 @@ plot_RLum.Results<- function(
               dens.max<-max(sapply(0:max.dose, fooY))
             }##EndOfIf::first cycle settings
 
-
             # override y-axis scaling if weights are used
             if(pdf.weight==TRUE){
               sapply.temp<- list()
@@ -733,7 +727,7 @@ plot_RLum.Results<- function(
                                        mean = comp.n[pos.n[b],i],
                                        sd = comp.n[pos.n[b]+1,i]))
 
-                # proceed if no NA values occured
+                # proceed if no NA values occurred
                 if(length(comp.nd.n)!=0) {
 
                   # weight - proportion of the component
@@ -780,7 +774,7 @@ plot_RLum.Results<- function(
                  xaxs="i", yaxs="i",
                  ann=FALSE, xpd = FALSE)
 
-            # draw colored polygons under curve
+            # draw coloured polygons under curve
             polygon(x=c(min(sapply), sapply,  min(sapply)),
                     y=c(0, 0:max.dose,  0),
                     col = adjustcolor(col.n[j], alpha.f = 0.66),
@@ -792,7 +786,7 @@ plot_RLum.Results<- function(
         #turn warnings on again
         options(warn=0)
 
-        # Add sum of gaussians curve
+        # Add sum of Gaussian curve
         par(new = TRUE)
 
         plot(Reduce('+', sapply.storage),1:length(sapply)-1,
@@ -951,6 +945,7 @@ plot_RLum.Results<- function(
       ## restore previous plot parameters
       par(.pardefault)
     }
+
   }##EndOf::Case 4 - Finite Mixture Model
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
