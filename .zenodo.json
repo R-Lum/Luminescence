@@ -18,12 +18,6 @@
     {
       "scheme": "doi",
       "identifier": "10.5281/zenodo.596252",
-      "relation": "isReferencedBy",
-      "resource_type": "software"
-    },
-    {
-      "scheme": "doi",
-      "identifier": "10.5281/zenodo.596252",
       "relation": "isVersionOf"
     }
   ],
