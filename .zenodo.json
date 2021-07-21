@@ -14,17 +14,6 @@
       "identifier": "https://github.com/R-Lum/Luminescence/tree/master",
       "relation": "isDerivedFrom",
       "resource_type": "software"
-    },
-    {
-      "scheme": "doi",
-      "identifier": "10.5281/zenodo.596252",
-      "relation": "isReferencedBy",
-      "resource_type": "software"
-    },
-    {
-      "scheme": "doi",
-      "identifier": "10.5281/zenodo.596252",
-      "relation": "isVersionOf"
     }
   ],
   "version": "0.9.15.9000-1",
