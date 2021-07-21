@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.10",
+  "version": "0.9.14",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2020-12-09 r79601)",
+  "runtimePlatform": "R Under development (unstable) (2021-06-12 r80490)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -46,7 +46,8 @@
     {
       "@type": "Person",
       "givenName": "Margret C.",
-      "familyName": "Fuchs"
+      "familyName": "Fuchs",
+      "@id": "https://orcid.org/0000-0001-7210-1132"
     },
     {
       "@type": "Person",
@@ -67,6 +68,18 @@
     },
     {
       "@type": "Person",
+      "givenName": "Norbert",
+      "familyName": "Mercier",
+      "@id": "https://orcid.org/0000-0002-6375-9108"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Anne",
+      "familyName": "Philippe",
+      "@id": "https://orcid.org/0000-0002-5331-5087"
+    },
+    {
+      "@type": "Person",
       "givenName": "Svenja",
       "familyName": "Riedesel",
       "@id": "https://orcid.org/0000-0003-2936-8776"
@@ -80,16 +93,17 @@
     {
       "@type": "Person",
       "givenName": "Dirk",
-      "familyName": "Mittelstrass"
+      "familyName": "Mittelstrass",
+      "@id": "https://orcid.org/0000-0002-9567-8791"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Harrison J.",
+      "familyName": "Gray",
+      "@id": "https://orcid.org/0000-0002-4555-7473"
     }
   ],
   "contributor": [
-    {
-      "@type": "Person",
-      "givenName": "Norbert",
-      "familyName": "Mercier",
-      "@id": "https://orcid.org/0000-0002-6375-9108"
-    },
     {
       "@type": "Person",
       "givenName": "Rachel K.",
@@ -118,11 +132,6 @@
       "givenName": "Georgina E.",
       "familyName": "King",
       "@id": "https://orcid.org/0000-0003-1059-8192"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Anne",
-      "familyName": "Philippe"
     },
     {
       "@type": "Person",
@@ -221,7 +230,7 @@
       "@type": "SoftwareApplication",
       "identifier": "plotly",
       "name": "plotly",
-      "version": ">= 4.9.2",
+      "version": ">= 4.9.3",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -234,7 +243,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
-      "version": ">= 2.5",
+      "version": ">= 2.8",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -299,7 +308,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 3.0.0",
+      "version": ">= 3.0.2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -310,9 +319,22 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "tiff",
+      "name": "tiff",
+      "version": ">= 0.1-8",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tiff"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "devtools",
       "name": "devtools",
-      "version": ">= 2.3.2",
+      "version": ">= 2.4.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -340,7 +362,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.5.0"
+      "version": ">= 4.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -351,7 +373,7 @@
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
-      "version": ">= 1.5",
+      "version": ">= 2.0.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -377,7 +399,7 @@
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
-      "version": ">= 1.13.2",
+      "version": ">= 1.14.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -390,7 +412,7 @@
       "@type": "SoftwareApplication",
       "identifier": "DEoptim",
       "name": "DEoptim",
-      "version": ">= 2.2-5",
+      "version": ">= 2.2-6",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -414,9 +436,22 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "lamW",
+      "name": "lamW",
+      "version": ">= 2.1.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lamW"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "matrixStats",
       "name": "matrixStats",
-      "version": ">= 0.57.0",
+      "version": ">= 0.59.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -434,7 +469,7 @@
       "@type": "SoftwareApplication",
       "identifier": "minpack.lm",
       "name": "minpack.lm",
-      "version": ">= 1.2.1",
+      "version": ">= 1.2-1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -447,7 +482,7 @@
       "@type": "SoftwareApplication",
       "identifier": "plotrix",
       "name": "plotrix",
-      "version": ">= 3.7",
+      "version": ">= 3.8-1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -460,7 +495,7 @@
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
-      "version": ">= 3.4-0",
+      "version": ">= 3.4-10",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -486,7 +521,7 @@
       "@type": "SoftwareApplication",
       "identifier": "shape",
       "name": "shape",
-      "version": ">= 1.4.5",
+      "version": ">= 1.4.6",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -527,7 +562,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zoo"
     }
   ],
-  "contIntegration": ["https://ci.appveyor.com/project/tzerk/luminescence/branch/master", "https://codecov.io/github/R-Lum/Luminescence?branch=master"],
+  "contIntegration": "https://codecov.io/github/R-Lum/Luminescence?branch=master",
   "developmentStatus": "https://www.repostatus.org/#active",
   "citation": [
     {
