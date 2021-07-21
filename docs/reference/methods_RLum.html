@@ -76,7 +76,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -240,6 +240,9 @@ as.list(x, ...)
 # S3 method for RLum.Data.Curve
 as.list(x, ...)
 
+# S3 method for RLum.Data.Image
+as.list(x, ...)
+
 # S3 method for RLum.Analysis
 as.list(x, ...)
 
@@ -247,6 +250,9 @@ as.list(x, ...)
 as.matrix(x, ...)
 
 # S3 method for RLum.Data.Spectrum
+as.matrix(x, ...)
+
+# S3 method for RLum.Data.Image
 as.matrix(x, ...)
 
 is.RLum(x, ...)
@@ -341,7 +347,7 @@ input object</p></td>
       <td><p><code>[subset]</code> <a href='https://rdrr.io/r/base/expression.html'>expression</a> (<strong>required</strong>):
 logical expression indicating elements or rows to keep, this function works
 in <a href='Risoe.BINfileData-class.html'>Risoe.BINfileData</a> objects like <a href='https://rdrr.io/r/base/subset.html'>subset.data.frame</a>, but takes care
-of the object structure</p></td>
+of the object structure. Works also on <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects.</p></td>
     </tr>
     <tr>
       <th>records.rm</th>
@@ -362,7 +368,7 @@ logical. If TRUE, setting row names and converting column names
     <tr>
       <th>recursive</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-enables or disables further subsetting (<code>unlist</code>)</p></td>
+enables or disables further sub-setting (<code>unlist</code>)</p></td>
     </tr>
     <tr>
       <th>z</th>
@@ -479,7 +485,7 @@ surrogates for existing functions in the package.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

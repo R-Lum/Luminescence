@@ -42,7 +42,32 @@
 <meta property="og:title" content="Plot function for an RLum.Data.Image S4 class object — plot_RLum.Data.Image" />
 <meta property="og:description" content="The function provides a standardised plot output for image data of an
 RLum.Data.ImageS4 class object, mainly using the plot functions
-provided by the raster package." />
+provided by the raster package.
+Details on the plot functions
+Image is visualised as 2D plot using generic plot types provided by other
+packages.
+Supported plot types:
+plot.type = &quot;plot.raster&quot;
+Uses the standard plot function for raster data from the package
+raster::raster: raster::plot. For each raster layer in a
+raster brick one plot is produced.
+Arguments that are passed through the function call:
+main,axes, xlab, ylab, xlim, ylim,zlim, col, stretch (NULL no
+strech)
+plot.type = &quot;plotRGB&quot;
+Uses the function raster::plotRGB from the
+raster::raster package. Only one image plot is produced as all layers
+in a brick a combined.  This plot type is useful to see whether any signal
+is recorded by the camera.
+Arguments that are passed through the function call:
+main,axes, xlab, ylab, ext, interpolate, maxpixels,
+alpha, colNA, stretch
+plot.type = &quot;contour&quot;
+Uses the function contour plot function from the raster
+function (raster::contour). For each raster layer one contour
+plot is produced. Arguments that are passed through the function call:
+main,axes, xlab, ylab, xlim, ylim,
+col" />
 
 
 
@@ -74,7 +99,7 @@ provided by the raster package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -122,6 +147,31 @@ provided by the raster package." />
     <p>The function provides a standardised plot output for image data of an
 <code>RLum.Data.Image</code>S4 class object, mainly using the plot functions
 provided by the raster package.</p>
+<p><strong>Details on the plot functions</strong></p>
+<p>Image is visualised as 2D plot using generic plot types provided by other
+packages.</p>
+<p>Supported plot types:</p>
+<p><strong><code>plot.type = "plot.raster"</code></strong></p>
+<p>Uses the standard plot function for raster data from the package
+<a href='https://rdrr.io/pkg/raster/man/raster.html'>raster::raster</a>: <a href='https://rdrr.io/pkg/raster/man/plot.html'>raster::plot</a>. For each raster layer in a
+raster brick one plot is produced.</p>
+<p>Arguments that are passed through the function call:</p>
+<p><code>main</code>,<code>axes</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>,<code>zlim</code>, <code>col</code>, <code>stretch</code> (<code>NULL</code> no
+strech)</p>
+<p><strong><code>plot.type = "plotRGB"</code></strong></p>
+<p>Uses the function <a href='https://rdrr.io/pkg/raster/man/plotRGB.html'>raster::plotRGB</a> from the
+<a href='https://rdrr.io/pkg/raster/man/raster.html'>raster::raster</a> package. Only one image plot is produced as all layers
+in a brick a combined.  This plot type is useful to see whether any signal
+is recorded by the camera.<br />
+Arguments that are passed through the function call:</p>
+<p><code>main</code>,<code>axes</code>, <code>xlab</code>, <code>ylab</code>, <code>ext</code>, <code>interpolate</code>, <code>maxpixels</code>,
+<code>alpha</code>, <code>colNA</code>, <code>stretch</code></p>
+<p><strong><code>plot.type = "contour"</code></strong></p>
+<p>Uses the function contour plot function from the raster
+function (<a href='https://rdrr.io/pkg/raster/man/contour.html'>raster::contour</a>). For each raster layer one contour
+plot is produced. Arguments that are passed through the function call:<br /></p>
+<p><code>main</code>,<code>axes</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>,
+<code>col</code></p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_RLum.Data.Image</span><span class='op'>(</span><span class='va'>object</span>, par.local <span class='op'>=</span> <span class='cn'>TRUE</span>, plot.type <span class='op'>=</span> <span class='st'>"plot.raster"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -155,42 +205,9 @@ to the specific plot functions.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a plot.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><strong>Details on the plot functions</strong></p>
-<p>Image is visualised as 2D plot using generic plot types provided by other
-packages.</p>
-<p>Supported plot types:</p>
-<p><strong><code>plot.type = "plot.raster"</code></strong></p>
-<p>Uses the standard plot function for raster data from the package
-<a href='https://rdrr.io/pkg/raster/man/raster.html'>raster::raster</a>: <a href='https://rdrr.io/pkg/raster/man/plot.html'>raster::plot</a>. For each raster layer in a
-raster brick one plot is produced.</p>
-<p>Arguments that are passed through the function call:</p>
-<p><code>main</code>,<code>axes</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>,
-<code>col</code></p>
-<p><strong><code>plot.type = "plotRGB"</code></strong></p>
-<p>Uses the function <a href='https://rdrr.io/pkg/raster/man/plotRGB.html'>raster::plotRGB</a> from the
-<a href='https://rdrr.io/pkg/raster/man/raster.html'>raster::raster</a> package. Only one image plot is produced as all layers
-in a brick a combined.  This plot type is useful to see whether any signal
-is recorded by the camera.<br />
-Arguments that are passed through the function call:</p>
-<p><code>main</code>,<code>axes</code>, <code>xlab</code>, <code>ylab</code>, <code>ext</code>, <code>interpolate</code>, <code>maxpixels</code>,
-<code>alpha</code>, <code>colNA</code>, <code>stretch</code></p>
-<p><strong><code>plot.type = "contour"</code></strong></p>
-<p>Uses the function contour plot function from the raster
-function (<a href='https://rdrr.io/pkg/raster/man/contour.html'>raster::contour</a>). For each raster layer one contour
-plot is produced. Arguments that are passed through the function call:<br /></p>
-<p><code>main</code>,<code>axes</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>,
-<code>col</code></p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>This function has been created to facilitate the plotting of image data
-imported by the function <a href='read_SPE2R.html'>read_SPE2R</a>. However, so far the
-function is not optimized to handle image data &gt; ca. 200 MB and thus
-plotting of such data is extremely slow.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1</p>
+    <p>0.1.1</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='RLum.Data.Image-class.html'>RLum.Data.Image</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/pkg/raster/man/raster.html'>raster::raster</a></p></div>
@@ -200,7 +217,7 @@ plotting of such data is extremely slow.</p>
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -222,7 +239,7 @@ plotting of such data is extremely slow.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

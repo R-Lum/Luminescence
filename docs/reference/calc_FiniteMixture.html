@@ -77,7 +77,7 @@ from a mixture of normal distributions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -206,12 +206,12 @@ manually set the max density value for proper scaling of the x-axis of the first
     <tr>
       <th>plot.proportions</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-plot barplot showing the proportions of components</p></td>
+plot <a href='https://rdrr.io/r/graphics/barplot.html'>graphics::barplot</a> showing the proportions of components if
+<code>n.components</code> a vector with a length &gt; 1 (e.g., <code>n.components = c(2:3)</code>)</p></td>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
-plot output</p></td>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):  plot output</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -267,15 +267,15 @@ The standard deviation (sigma) of the normal distributions is by default
 determined by a common <code>sigmab</code> (see <code>pdf.sigma</code>). For
 <code>pdf.sigma = "se"</code> the standard error of each component is taken
 instead.<br />
-The stacked barplot shows the proportion of each component (in
+The stacked <a href='https://rdrr.io/r/graphics/barplot.html'>graphics::barplot</a> shows the proportion of each component (in
 per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.4.1</p>
+    <p>0.4.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R.F. &amp; Green, P.F., 1990. Estimating the component
@@ -515,7 +515,7 @@ Based on a rewritten S script of Rex Galbraith, 2006.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

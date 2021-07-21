@@ -73,7 +73,7 @@ RLum.Analysis S4 class object" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -129,6 +129,7 @@ RLum.Analysis S4 class object</p>
   <span class='va'>ncols</span>,
   abline <span class='op'>=</span> <span class='cn'>NULL</span>,
   combine <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  records_max <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>curve.transformation</span>,
   plot.single <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
@@ -176,6 +177,13 @@ the first and a vertical line at 100 to the 2nd plot.</p></td>
 allows to combine all <a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a> objects in one single plot.</p></td>
     </tr>
     <tr>
+      <th>records_max</th>
+      <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>): limits number of records
+shown if <code>combine = TRUE</code>. Shown are always the first and the last curve,
+the other number of curves to be shown a distributed evenly, this may result
+in less number of curves plotted as specified.</p></td>
+    </tr>
+    <tr>
       <th>curve.transformation</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>optional</em>):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
@@ -193,7 +201,7 @@ global par settings are considered, normally this should end in one plot per pag
 the <code>plot</code> function.</p>
 <p>Supported arguments: <code>main</code>, <code>mtext</code>, <code>log</code>, <code>lwd</code>, <code>lty</code> <code>type</code>, <code>pch</code>, <code>col</code>,
 <code>norm</code> (see <a href='plot_RLum.Data.Curve.html'>plot_RLum.Data.Curve</a>), <code>xlim</code>,<code>ylim</code>, <code>xlab</code>, <code>ylab</code>, ...</p>
-<p>and for <code>combine = TRUE</code> also: <code>sub</code>, <code>legend</code>, <code>legend.text</code>, <code>legend.pos</code>
+<p>and for <code>combine = TRUE</code> also: <code>sub_title</code>, <code>legend</code>, <code>legend.text</code>, <code>legend.pos</code>
 (typical plus 'outside'), <code>legend.col</code>, <code>smooth</code>.</p>
 <p>All arguments can be provided as <code>vector</code> or <code>list</code> to gain in full control
 of all plot settings.</p></td>
@@ -224,7 +232,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.3.12</p>
+    <p>0.3.13</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='plot_RLum.Data.Curve.html'>plot_RLum.Data.Curve</a></p></div>
@@ -234,7 +242,7 @@ plot, if you want to have more control, extract the objects and plot them indivi
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -276,7 +284,7 @@ abline <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/bas
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

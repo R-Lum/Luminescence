@@ -74,7 +74,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -156,7 +156,6 @@ kernel density estimate, histogram and/or dot plot of the dose values.</p>
   <span class='va'>grid.col</span>,
   frame <span class='op'>=</span> <span class='fl'>1</span>,
   bw <span class='op'>=</span> <span class='st'>"SJ"</span>,
-  output <span class='op'>=</span> <span class='cn'>TRUE</span>,
   interactive <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -296,8 +295,9 @@ Option to add a boxplot to the dispersion part, default is <code>FALSE</code>.</
     </tr>
     <tr>
       <th>y.axis</th>
-      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
-Option to hide y-axis labels. Useful for data with small scatter.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>: Option to hide standard y-axis labels and show 0 only.
+Useful for data with small scatter. If you want to suppress the y-axis entirely
+please use <code>yaxt == 'n'</code> (the standard <a href='https://rdrr.io/r/graphics/par.html'>graphics::par</a> setting) instead.</p></td>
     </tr>
     <tr>
       <th>error.bars</th>
@@ -368,20 +368,13 @@ option to modify the plot frame type. Can be one out of</p><ul>
 bin-width for KDE, choose a numeric value for manual setting.</p></td>
     </tr>
     <tr>
-      <th>output</th>
-      <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a>:
-Optional output of numerical plot parameters. These can be useful to
-reproduce similar plots. Default is <code>TRUE</code>.</p></td>
-    </tr>
-    <tr>
       <th>interactive</th>
       <td><p><a href='https://rdrr.io/r/base/logical.html'>logical</a> (<em>with default</em>):
 create an interactive abanico plot (requires the <code>'plotly'</code> package)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further plot arguments to pass. <code>xlab</code> must be a vector of
-length 2, specifying the upper and lower x-axes labels.</p></td>
+      <td><p>Further plot arguments to pass (see <a href='https://rdrr.io/r/graphics/plot.default.html'>graphics::plot.default</a>). Supported are: <code>main</code>, <code>sub</code>, <code>ylab</code>, <code>xlab</code>, <code>zlab</code>, <code>zlim</code>, <code>ylim</code>, <code>cex</code>, <code>lty</code>, <code>lwd</code>, <code>pch</code>, <code>col</code>, <code>tck</code>, <code>tcl</code>, <code>at</code>, <code>breaks</code>. <code>xlab</code> must be a vector of length two, specifying the upper and lower x-axes labels.</p></td>
     </tr>
     </table>
 
@@ -459,10 +452,10 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
 <code>zlim</code>-definition.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.11</p>
+    <p>0.1.15</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R. &amp; Green, P., 1990. Estimating the component ages
@@ -474,7 +467,7 @@ The abanico plot: visualising chronometric data with individual standard errors.
 Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='plot_RadialPlot.html'>plot_RadialPlot</a>, <a href='plot_KDE.html'>plot_KDE</a>, <a href='plot_Histogram.html'>plot_Histogram</a></p></div>
+    <div class='dont-index'><p><a href='plot_RadialPlot.html'>plot_RadialPlot</a>, <a href='plot_KDE.html'>plot_KDE</a>, <a href='plot_Histogram.html'>plot_Histogram</a>, <a href='plot_ViolinPlot.html'>plot_ViolinPlot</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Michael Dietze, GFZ Potsdam (Germany)<br />
@@ -787,7 +780,7 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

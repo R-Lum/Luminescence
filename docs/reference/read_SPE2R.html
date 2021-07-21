@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Import Princeton Instruments (TM) SPE-file into R — read_SPE2R" />
 <meta property="og:description" content="Function imports Princeton Instruments (TM) SPE-files into R environment and
-provides RLum objects as output." />
+provides RLum.Data.Image objects as output." />
 
 
 
@@ -73,7 +73,7 @@ provides RLum objects as output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@ provides RLum objects as output." />
 
     <div class="ref-description">
     <p>Function imports Princeton Instruments (TM) SPE-files into R environment and
-provides <code>RLum</code> objects as output.</p>
+provides <a href='RLum.Data.Image-class.html'>RLum.Data.Image</a> objects as output.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_SPE2R</span><span class='op'>(</span>
@@ -136,7 +136,7 @@ provides <code>RLum</code> objects as output.</p>
     <tr>
       <th>file</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<strong>required</strong>):
-spe-file name (including path), e.g.</p><ul>
+SPE-file name (including path), e.g.</p><ul>
 <li><p><code>[WIN]</code>: <code>read_SPE2R("C:/Desktop/test.spe")</code></p></li>
 <li><p><code>[MAC/LINUX]</code>: <code>readSPER("/User/test/Desktop/test.spe")</code>. Additionally internet connections
 are supported.</p></li>
@@ -184,8 +184,8 @@ meaning that the same results can be obtained by using the function
 <a href='get_RLum.html'>get_RLum</a> on an <code>RLum.Data.Spectrum</code> or <code>RLum.Data.Image</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Function provides an import routine for the Princeton Instruments SPE format.
-Import functionality is based on the file format description provided by
+    <p>Function provides an R only import routine for the Princeton Instruments
+SPE format. Import functionality is based on the file format description provided by
 Princeton Instruments and a MatLab script written by Carl Hall (s.
 references).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -198,7 +198,7 @@ references).</p>
     <p>0.1.3</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
@@ -250,7 +250,7 @@ Format Specification, Version 1.A (for document URL please use an internet searc
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

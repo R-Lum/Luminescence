@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smoothing of data — smooth_RLum • Luminescence</title>
+<title>Import TIFF Image Data into R — read_TIFF2R • Luminescence</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Smoothing of data — smooth_RLum" />
-<meta property="og:description" content="Function calls the object-specific smooth functions for provided RLum S4-class objects." />
+<meta property="og:title" content="Import TIFF Image Data into R — read_TIFF2R" />
+<meta property="og:description" content="Simple wrapper around [tiff::readTIFF] to import TIFF images
+and TIFF image stacks to be further processed within the package 'Luminescence'" />
 
 
 
@@ -111,86 +112,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Smoothing of data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/smooth_RLum.R'><code>R/smooth_RLum.R</code></a></small>
-    <div class="hidden name"><code>smooth_RLum.Rd</code></div>
+    <h1>Import TIFF Image Data into R</h1>
+    <small class="dont-index">Source: <a href='https://github.com/R-Lum/Luminescence/blob/master/R/read_TIFF2R.R'><code>R/read_TIFF2R.R</code></a></small>
+    <div class="hidden name"><code>read_TIFF2R.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function calls the object-specific smooth functions for provided RLum S4-class objects.</p>
+    <p>Simple wrapper around [tiff::readTIFF] to import TIFF images
+and TIFF image stacks to be further processed within the package 'Luminescence'</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_RLum</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S4 method for list</span>
-<span class='fu'>smooth_RLum</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_TIFF2R</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p><a href='RLum-class.html'>RLum</a> (<strong>required</strong>):
-S4 object of class <code>RLum</code></p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>further arguments passed to the specific class method</p></td>
+      <th>file</th>
+      <td><p>[character] (**required**): file name</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of the same type as the input object is provided</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The function provides a generalised access point for specific
-<a href='RLum-class.html'>RLum</a> objects.<br />
-Depending on the input object, the corresponding function will be selected.
-Allowed arguments can be found in the documentations of the corresponding
-<a href='RLum-class.html'>RLum</a> class. The smoothing is based on an internal function
-called <code>.smoothing</code>.</p>
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
-
-    
-<ul>
-<li><p><code>smooth_RLum,list-method</code>: Returns a list of <a href='RLum-class.html'>RLum</a> objects that had been passed to smooth_RLum</p></li>
-</ul>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Currently only <code>RLum</code> objects of class <code>RLum.Data.Curve</code> and <code>RLum.Analysis</code>
-(with curve data) are supported!</p>
+    <p>[RLum.Image.Data-class] object</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='RLum.Data.Curve-class.html'>RLum.Data.Curve</a>, <a href='RLum.Analysis-class.html'>RLum.Analysis</a></p></div>
+    <div class='dont-index'><p>[tiff::readTIFF], [RLum.Data.Image-class], [raster::raster]</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. read_TIFF2R(): Import TIFF Image Data into R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>image</span> <span class='op'>&lt;-</span> <span class='fu'>read_TIFF2R</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>
 
-<span class='co'>##create RLum.Data.Curve object from this example</span>
-<span class='va'>curve</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>
-      class <span class='op'>=</span> <span class='st'>"RLum.Data.Curve"</span>,
-      recordType <span class='op'>=</span> <span class='st'>"OSL"</span>,
-      data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span>
-  <span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='co'>##plot data without and with smoothing</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>curve</span><span class='op'>)</span>
-</div><div class='img'><img src='smooth_RLum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='fu'>smooth_RLum</span><span class='op'>(</span><span class='va'>curve</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='smooth_RLum-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

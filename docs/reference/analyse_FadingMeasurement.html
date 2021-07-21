@@ -75,7 +75,7 @@ Kars et al. (2008)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -149,8 +149,8 @@ input object with the measurement data. Alternatively, a <a href='https://rdrr.i
 objects or a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> with a number of columns divisible by 3
-and where each triplet has the before mentioned column structure.
-<strong>Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
+and where each triplet has the before mentioned column structure.</p>
+<p><strong>Please note: The input object should solely consists of the curve needed for the data analysis, i.e.
 only IRSL curves representing Lx (and Tx)</strong></p>
 <p>If data from multiple aliquots are provided please <strong>see the details below</strong> with regard to
 Lx/Tx normalisation. <strong>The function assumes that all your measurements are related to
@@ -165,24 +165,22 @@ Other input is ignored</p></td>
     </tr>
     <tr>
       <th>signal.integral</th>
-      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
-vector with the limits for the signal integral.
-Not required if a <code>data.frame</code> with LxTx values are provided.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>): vector with channels for the signal integral
+(e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(1:10)</a></code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></td>
     </tr>
     <tr>
       <th>background.integral</th>
-      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
-vector with the bounds for the background integral.
-Not required if a <code>data.frame</code> with LxTx values are provided.</p></td>
+      <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>): vector with channels for the background integral
+(e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(90:100)</a></code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></td>
     </tr>
     <tr>
       <th>t_star</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>):
-method for calculating the time elapsed since irradiation. Options are:
-<code>'half'</code>, which is \(t_star := t_1 + (t_2 - t_1)/2\) (Auclair et al., 2003)
+method for calculating the time elapsed since irradiation if input is <strong>not</strong> a <code>data.frame</code>.
+Options are: <code>'half'</code> (the default), <code>'half_complex</code>, which uses the long equation in Auclair et al. 2003, and
 and <code>'end'</code>, which takes the time between irradiation and the measurement step.
-Default is <code>'half'</code>. Alternatively, <code>t_star</code> can be a function with one parameter which
-works on <code>t1</code>.<br /></p>
+Alternatively, <code>t_star</code> can be a function with one parameter which works on <code>t1</code>.
+For more information see details. <br /></p>
 <p><em><code>t_star</code> has no effect if the input is a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a>, because this input comes
 without irradiation times.</em></p></td>
     </tr>
@@ -248,26 +246,48 @@ can be passed to the function <a href='calc_FadingCorr.html'>calc_FadingCorr</a>
 error estimation all input values, except <code>tc</code>, as the precision can be considered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation.</p>
+<p><strong>The options for <code>t_star</code></strong></p>
+<ul>
+<li><p><code>t_star = "half"</code> (the default) The calculation follows the simplified
+version in Auclair et al. (2003), which reads
+$$t_{star} := t_1 + (t_2 - t_1)/2$$</p></li>
+<li><p><code>t_star = "half_complex"</code> This option applies the complex function shown in Auclair et al. (2003),
+which is derived from Aitken (1985) appendix F, equations 9 and 11.
+It reads $$t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]$$
+where 0.43 = \(1/ln(10)\). t0, which is an arbitrary constant, is set to 1.
+Please note that the equation in Auclair et al. (2003) is incorrect
+insofar that it reads \(10exp(...)\), where the base should be 10 and not the Euler's number.
+Here we use the correct version (base 10).</p></li>
+<li><p><code>t_star = "end"</code> This option uses the simplest possible form for <code>t_star</code> which is the time since
+irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)</p></li>
+<li><p><code>t_star = &lt;function&gt;</code> This last option allows you to provide an R function object that works on t1 and
+gives you all possible freedom. For instance, you may want to define the following
+function <code>fun &lt;- function(x) {x^2}</code>, this would square all values of t1, because internally
+it calls <code>fun(t1)</code>. The name of the function does not matter.</p></li>
+</ul>
+
 <p><strong>Density of recombination centres</strong></p>
 <p>The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
 <a href='https://rdrr.io/r/stats/nls.html'>stats::nls</a> is used without applying weights. For the error estimation the same
 procedure as for the g-value is applied (see above).</p>
 <p><strong>Multiple aliquots &amp; Lx/Tx normalisation</strong></p>
-<p>Be aware that this function will always normalise all Lx/Tx values by the Lx/Tx value of the
+<p>Be aware that this function will always normalise all <code>Lx/Tx</code> values by the <code>Lx/Tx</code> value of the
 prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-inter-aliquot variations in Lx/Tx values. If deemed necessary to normalise the Lx/Tx values
+inter-aliquot variations in <code>Lx/Tx</code> values. If deemed necessary to normalise the <code>Lx/Tx</code> values
 of each aliquot by its individual prompt measurement please do so <strong>before</strong> running
 analyse_FadingMeasurement and provide the already normalised values for <code>object</code> instead.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.1.16</p>
+    <p>0.1.19</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Burow, C., 2021. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.19. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
+    <p>Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
+Academic Press, London, Orlando.</p>
+<p>Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi: <a href='https://doi.org/10.1016/S1350-4487(03)00018-0'>10.1016/S1350-4487(03)00018-0</a></p>
 <p>Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
@@ -334,7 +354,7 @@ n.MC <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</spa
 #&gt;  observations: 		10
 #&gt;  ----------------------------------------------
 #&gt;  Age (faded):		100 ka ± 2 ka
-#&gt;  Age (corr.):		203.0811 ka ± 13.4105 ka
+#&gt;  Age (corr.):		203.0812 ka ± 13.4105 ka
 #&gt;  ---------------------------------------------- </div><div class='input'>
 
 </div></pre>
@@ -349,7 +369,7 @@ n.MC <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</spa
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">

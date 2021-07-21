@@ -41,7 +41,61 @@
 
 <meta property="og:title" content="Plot function for an RLum.Data.Spectrum S4 class object — plot_RLum.Data.Spectrum" />
 <meta property="og:description" content="The function provides a standardised plot output for spectrum data of an
-RLum.Data.Spectrum S4 class object" />
+RLum.Data.Spectrum class object. The purpose of this function is to provide
+easy and straight-forward spectra plotting, not provide a full customised access to
+all plot parameters. If this is wanted, standard R plot functionality should be used
+instead.
+Matrix structure  (cf. RLum.Data.Spectrum)
+rows (x-values): wavelengths/channels (xlim, xlab)
+columns (y-values): time/temperature (ylim, ylab)
+cells (z-values): count values (zlim, zlab)
+
+
+Note: This nomenclature is valid for all plot types of this function!
+Nomenclature for value limiting
+xlim: Limits values along the wavelength axis
+ylim: Limits values along the time/temperature axis
+zlim: Limits values along the count value axis
+
+
+Details on the plot functions
+Spectrum is visualised as 3D or 2D plot. Both plot types are based on
+internal R plot functions.
+plot.type = &quot;persp&quot;
+Arguments that will be passed to graphics::persp:
+shade: default is 0.4
+phi: default is 15
+theta: default is -30
+expand: default is 1
+ticktype: default is detailed, r: default is 10
+
+
+Note: Further parameters can be adjusted via par. For example
+to set the background transparent and reduce the thickness of the lines use:
+par(bg = NA, lwd = 0.7) previous the function call.
+plot.type = &quot;single&quot;
+Per frame a single curve is returned. Frames are time or temperature
+steps.
+plot.type = &quot;multiple.lines&quot;
+All frames plotted in one frame.
+'**plot.type = &quot;image&quot; or `plot.type = &quot;contour&quot; **
+These plot types use the R functions graphics::image or graphics::contour.
+The advantage is that many plots can be arranged conveniently using standard
+R plot functionality. If plot.type = &quot;image&quot; a contour is added by default,
+which can be disabled using the argument contour = FALSE to add own contour
+lines of choice.
+plot.type = &quot;transect&quot;
+Depending on the selected wavelength/channel range a transect over the
+time/temperature (y-axis) will be plotted along the wavelength/channels
+(x-axis). If the range contains more than one channel, values (z-values) are
+summed up. To select a transect use the xlim argument, e.g.
+xlim = c(300,310) plot along the summed up count values of channel
+300 to 310.
+Further arguments that will be passed (depending on the plot type)
+xlab, ylab, zlab, xlim, ylim,
+zlim, main, mtext, pch, type (&quot;single&quot;, &quot;multiple.lines&quot;, &quot;interactive&quot;),
+col, border, box lwd, bty, showscale (&quot;interactive&quot;, &quot;image&quot;)
+contour, contour.col (&quot;image&quot;)" />
 
 
 
@@ -73,7 +127,7 @@ RLum.Data.Spectrum S4 class object" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
       </span>
     </div>
 
@@ -119,7 +173,61 @@ RLum.Data.Spectrum S4 class object" />
 
     <div class="ref-description">
     <p>The function provides a standardised plot output for spectrum data of an
-RLum.Data.Spectrum S4 class object</p>
+<a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a> class object. The purpose of this function is to provide
+easy and straight-forward spectra plotting, not provide a full customised access to
+all plot parameters. If this is wanted, standard R plot functionality should be used
+instead.</p>
+<p><strong>Matrix structure</strong> <br /> (cf. <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>)</p><ul>
+<li><p><code>rows</code> (x-values): wavelengths/channels (<code>xlim</code>, <code>xlab</code>)</p></li>
+<li><p><code>columns</code> (y-values): time/temperature (<code>ylim</code>, <code>ylab</code>)</p></li>
+<li><p><code>cells</code> (z-values): count values (<code>zlim</code>, <code>zlab</code>)</p></li>
+</ul>
+
+<p><em>Note: This nomenclature is valid for all plot types of this function!</em></p>
+<p><strong>Nomenclature for value limiting</strong></p><ul>
+<li><p><code>xlim</code>: Limits values along the wavelength axis</p></li>
+<li><p><code>ylim</code>: Limits values along the time/temperature axis</p></li>
+<li><p><code>zlim</code>: Limits values along the count value axis</p></li>
+</ul>
+
+<p><strong>Details on the plot functions</strong></p>
+<p>Spectrum is visualised as 3D or 2D plot. Both plot types are based on
+internal R plot functions.</p>
+<p><strong><code>plot.type = "persp"</code></strong></p>
+<p>Arguments that will be passed to <a href='https://rdrr.io/r/graphics/persp.html'>graphics::persp</a>:</p><ul>
+<li><p><code>shade</code>: default is <code>0.4</code></p></li>
+<li><p><code>phi</code>: default is <code>15</code></p></li>
+<li><p><code>theta</code>: default is <code>-30</code></p></li>
+<li><p><code>expand</code>: default is <code>1</code></p></li>
+<li><p><code>ticktype</code>: default is <code>detailed</code>, <code>r</code>: default is <code>10</code></p></li>
+</ul>
+
+<p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
+to set the background transparent and reduce the thickness of the lines use:
+<code><a href='https://rdrr.io/r/graphics/par.html'>par(bg = NA, lwd = 0.7)</a></code> previous the function call.</p>
+<p><strong><code>plot.type = "single"</code></strong></p>
+<p>Per frame a single curve is returned. Frames are time or temperature
+steps.</p>
+<p><strong><code>plot.type = "multiple.lines"</code></strong></p>
+<p>All frames plotted in one frame.</p>
+<p>'**<code>plot.type = "image"</code> or `plot.type = "contour" **</p>
+<p>These plot types use the R functions <a href='https://rdrr.io/r/graphics/image.html'>graphics::image</a> or <a href='https://rdrr.io/r/graphics/contour.html'>graphics::contour</a>.
+The advantage is that many plots can be arranged conveniently using standard
+R plot functionality. If <code>plot.type = "image"</code> a contour is added by default,
+which can be disabled using the argument <code>contour = FALSE</code> to add own contour
+lines of choice.</p>
+<p><strong><code>plot.type = "transect"</code></strong></p>
+<p>Depending on the selected wavelength/channel range a transect over the
+time/temperature (y-axis) will be plotted along the wavelength/channels
+(x-axis). If the range contains more than one channel, values (z-values) are
+summed up. To select a transect use the <code>xlim</code> argument, e.g.
+<code>xlim = c(300,310)</code> plot along the summed up count values of channel
+300 to 310.</p>
+<p><strong>Further arguments that will be passed (depending on the plot type)</strong></p>
+<p><code>xlab</code>, <code>ylab</code>, <code>zlab</code>, <code>xlim</code>, <code>ylim</code>,
+<code>zlim</code>, <code>main</code>, <code>mtext</code>, <code>pch</code>, <code>type</code> (<code>"single"</code>, <code>"multiple.lines"</code>, <code>"interactive"</code>),
+<code>col</code>, <code>border</code>, <code>box</code> <code>lwd</code>, <code>bty</code>, <code>showscale</code> (<code>"interactive"</code>, <code>"image"</code>)
+<code>contour</code>, <code>contour.col</code> (<code>"image"</code>)</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span>
@@ -159,7 +267,7 @@ If <code>par.local = FALSE</code> global parameters are inherited.</p></td>
     <tr>
       <th>plot.type</th>
       <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> (<em>with default</em>): plot type, for
-3D-plot use <code>persp</code>, or <code>interactive</code>, for a 2D-plot <code>contour</code>,
+3D-plot use <code>persp</code>, or <code>interactive</code>, for a 2D-plot <code>image</code>, <code>contour</code>,
 <code>single</code> or <code>multiple.lines</code> (along the time or temperature axis)
 or <code>transect</code> (along the wavelength axis) <br /></p></td>
     </tr>
@@ -241,82 +349,36 @@ to the <code>plot</code> function.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a plot.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><strong>Matrix structure</strong> <br /> (cf. <a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>)</p><ul>
-<li><p><code>rows</code> (x-values): wavelengths/channels (<code>xlim</code>, <code>xlab</code>)</p></li>
-<li><p><code>columns</code> (y-values): time/temperature (<code>ylim</code>, <code>ylab</code>)</p></li>
-<li><p><code>cells</code> (z-values): count values (<code>zlim</code>, <code>zlab</code>)</p></li>
-</ul>
-
-<p><em>Note: This nomenclature is valid for all plot types of this function!</em></p>
-<p><strong>Nomenclature for value limiting</strong></p><ul>
-<li><p><code>xlim</code>: Limits values along the wavelength axis</p></li>
-<li><p><code>ylim</code>: Limits values along the time/temperature axis</p></li>
-<li><p><code>zlim</code>: Limits values along the count value axis</p></li>
-</ul>
-
-<p><strong>Details on the plot functions</strong></p>
-<p>Spectrum is visualised as 3D or 2D plot. Both plot types are based on
-internal R plot functions.</p>
-<p><strong><code>plot.type = "persp"</code></strong></p>
-<p>Arguments that will be passed to <a href='https://rdrr.io/r/graphics/persp.html'>graphics::persp</a>:</p><ul>
-<li><p><code>shade</code>: default is <code>0.4</code></p></li>
-<li><p><code>phi</code>: default is <code>15</code></p></li>
-<li><p><code>theta</code>: default is <code>-30</code></p></li>
-<li><p><code>expand</code>: default is <code>1</code></p></li>
-<li><p><code>ticktype</code>: default is <code>detailed</code>, <code>r</code>: default is <code>10</code></p></li>
-</ul>
-
-<p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
-to set the background transparent and reduce the thickness of the lines use:
-<code><a href='https://rdrr.io/r/graphics/par.html'>par(bg = NA, lwd = 0.7)</a></code> previous the function call.</p>
-<p><strong><code>plot.type = "single"</code></strong></p>
-<p>Per frame a single curve is returned. Frames are time or temperature
-steps.</p>
-<p><strong><code>plot.type = "multiple.lines"</code></strong></p>
-<p>All frames plotted in one frame.</p>
-<p><strong><code>plot.type = "transect"</code></strong></p>
-<p>Depending on the selected wavelength/channel range a transect over the
-time/temperature (y-axis) will be plotted along the wavelength/channels
-(x-axis). If the range contains more than one channel, values (z-values) are
-summed up. To select a transect use the <code>xlim</code> argument, e.g.
-<code>xlim = c(300,310)</code> plot along the summed up count values of channel
-300 to 310.</p>
-<p><strong>Further arguments that will be passed (depending on the plot type)</strong></p>
-<p><code>xlab</code>, <code>ylab</code>, <code>zlab</code>, <code>xlim</code>, <code>ylim</code>,
-<code>zlim</code>, <code>main</code>, <code>mtext</code>, <code>pch</code>, <code>type</code> ("single", "multiple.lines", "interactive"),
-<code>col</code>, <code>border</code>, <code>box</code> <code>lwd</code>, <code>bty</code>, <code>showscale</code> ("interactive")</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Not all additional arguments (<code>...</code>) will be passed similarly!</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.6.2</p>
+    <p>0.6.3</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>graphics::persp</a>,
-<a href='https://docs.ropensci.org/plotly/reference/plot_ly.html'>plotly::plot_ly</a>, <a href='https://rdrr.io/r/graphics/contour.html'>contour</a></p></div>
+    <div class='dont-index'><p><a href='RLum.Data.Spectrum-class.html'>RLum.Data.Spectrum</a>, <a href='convert_Wavelength2Energy.html'>convert_Wavelength2Energy</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='plot_RLum.html'>plot_RLum</a>, <a href='https://rdrr.io/r/graphics/persp.html'>graphics::persp</a>, <a href='https://docs.ropensci.org/plotly/reference/plot_ly.html'>plotly::plot_ly</a>, <a href='https://rdrr.io/r/graphics/contour.html'>graphics::contour</a>, <a href='https://rdrr.io/r/graphics/image.html'>graphics::image</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.11. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>##load example data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>##(1)plot simple spectrum (2D) - contour</span>
-<span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span><span class='va'>TL.Spectrum</span>,
-                        plot.type<span class='op'>=</span><span class='st'>"contour"</span>,
-                        xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
-                        ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>,
-                        bin.rows<span class='op'>=</span><span class='fl'>10</span>,
-                        bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'>##(1)plot simple spectrum (2D) - image</span>
+<span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span>
+ <span class='va'>TL.Spectrum</span>,
+ plot.type<span class='op'>=</span><span class='st'>"image"</span>,
+ xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
+ ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>,
+ bin.rows<span class='op'>=</span><span class='fl'>10</span>,
+ bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='plot_RLum.Data.Spectrum-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>##(2) plot spectrum (3D)</span>
 <span class='fu'>plot_RLum.Data.Spectrum</span><span class='op'>(</span>
@@ -366,10 +428,6 @@ xaxis.energy <span class='op'>=</span> <span class='cn'>TRUE</span><span class='
  type <span class='op'>=</span> <span class='st'>"heatmap"</span>,
  showscale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
- <span class='co'>##(7) alternative using the package fields</span>
- <span class='fu'>fields</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></span><span class='op'>(</span><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span><span class='op'>)</span><span class='op'>)</span>
- <span class='fu'><a href='https://rdrr.io/r/graphics/contour.html'>contour</a></span><span class='op'>(</span><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span><span class='op'>)</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
 <span class='op'>}</span>
 
 </div></pre>
@@ -384,7 +442,7 @@ xaxis.energy <span class='op'>=</span> <span class='cn'>TRUE</span><span class='
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
 </div>
 
 <div class="pkgdown">
