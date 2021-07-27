@@ -11,4 +11,7 @@ header-includes:
 **This package version requires at least R >= 4.0.5**
 
 ### Bugfixes and changes
-* Dummy
+
+#### `plot_GrowthCurve()`
+* The function crashed if `fit.method = "LambertW"` and the `Ln/Tn` largely 
+exceeded the highest `Lx/Tx` point; fixed.

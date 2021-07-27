@@ -193,7 +193,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.2
+#' @section Function version: 1.11.3
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -1581,7 +1581,6 @@ plot_GrowthCurve <- function(
 
         #get parameters out of it including error handling
         if (class(fit.MC)=="try-error") {
-
           x.natural[i]<-NA
 
         }else {
@@ -1904,7 +1903,7 @@ plot_GrowthCurve <- function(
 
               # calculate x.natural for error calculation
               if(mode == "interpolation"){
-                x.natural[i]<-try(
+                try <- try(
                 {suppressWarnings(stats::uniroot(
                   f = function(x, R, Dc, N, Dint, LnTn) {
                     fit.functionLambertW(R, Dc, N, Dint, x) - LnTn},
@@ -1938,13 +1937,11 @@ plot_GrowthCurve <- function(
                     N = var.N[i],
                     Dint = var.Dint[i])$minimum),
                     silent = TRUE)
-
                 }
+              }##endif extrapolation
 
-                if(!inherits(try, "try-error"))
-                  x.natural[i] <- try
-
-              }
+              if(!inherits(try, "try-error"))
+                x.natural[i] <- try
 
             }
 
