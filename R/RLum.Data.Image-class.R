@@ -86,7 +86,6 @@ setClass(
 #'
 #' @md
 #' @name as
-
 ## from data.frame ----
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
@@ -107,7 +106,6 @@ setAs("RLum.Data.Image", "data.frame",
 
           }
         })
-
 
 
 ## from matrix   ----
