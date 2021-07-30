@@ -75,9 +75,9 @@ jobs:
       - name: Install jags (Windows)
         if: runner.os == 'windows'
         run: |
-          ps Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/master/Luminescence.CIscripts/AppVeyor_Script.ps1 -OutFile "..\AppVeyor_Script.ps1"
-          ps Import-Module '..\AppVeyor_Script.ps1'
-          ps InstallJAGS
+           Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/master/Luminescence.CIscripts/AppVeyor_Script.ps1 -OutFile "AppVeyor_Script.ps1"
+           Import-Module 'AppVeyor_Script.ps1'
+           ./AppVeyor_Script.ps1
 
       - name: Install dependencies
         run: |
