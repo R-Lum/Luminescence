@@ -16,7 +16,7 @@ if ((Test-Path "C:\projects\JAGS-4.3.0.exe")) {
     Start-Process -FilePath "C:\projects\JAGS-4.3.0.exe" -ArgumentList "/S" -NoNewWindow -Wait
 
   } Else {
-    Start-Process -FilePath "C:\Program Files\Git\mingw64\bin\curl.exe" -ArgumentList "-s -o 'C:\projects\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'"
+    Start-FileDownload 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe' -FileName 'C:\projects\JAGS-4.3.0.exe'
     Start-Process -FilePath "C:\projects\JAGS-4.3.0.exe" -ArgumentList "/S" -NoNewWindow -Wait
   }
 
