@@ -75,8 +75,8 @@ jobs:
       - name: Install jags (Windows)
         if: runner.os == 'windows'
         run: |
-           curl -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
-           ps Start-Process -FilePath "C:\JAGS-4.3.0.exe" -ArgumentList "/S" -NoNewWindow -Wait
+           curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
+           C:\JAGS-4.3.0.exe /S
 
       - name: Install dependencies
         run: |
