@@ -75,6 +75,8 @@ jobs:
       - name: Install jags (Windows)
         if: runner.os == 'windows'
         run: |
+           Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "C:\appveyor-tool.ps1"
+           Import-Module 'C:\appveyor-tool.ps1'
            Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/master/Luminescence.CIscripts/AppVeyor_Script.ps1 -OutFile "C:\AppVeyor_Script.ps1"
            Import-Module 'C:\AppVeyor_Script.ps1'
            InstallJAGS
