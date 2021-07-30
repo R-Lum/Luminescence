@@ -75,9 +75,8 @@ jobs:
       - name: Install jags (Windows)
         if: runner.os == 'windows'
         run: |
-           Invoke-WebRequest https://raw.githubusercontent.com/R-Lum/Luminescence/master/Luminescence.CIscripts/AppVeyor_Script.ps1 -OutFile "C:\AppVeyor_Script.ps1"
-           Import-Module 'C:\AppVeyor_Script.ps1'
-           InstallJAGS
+           curl -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
+           ps Start-Process -FilePath "C:\JAGS-4.3.0.exe" -ArgumentList "/S" -NoNewWindow -Wait
 
       - name: Install dependencies
         run: |
