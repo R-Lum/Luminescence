@@ -12,6 +12,13 @@ header-includes:
 
 ### Bugfixes and changes
 
+#### `plot_AbanicoPlot()`
+* If the input was of type `data.frame` the function struggled if the `data.frame` 
+had more than two columns. While this was clearly indicated in the documentation, 
+the behaviour was annoying, because it made always an extra sub-setting necessary 
+when working with `data.frame`s comprising more than two columns. Now the function discards
+all other columns except for the first two if the input is a `data.frame`.
+
 #### `plot_GrowthCurve()`
 * The function crashed if `fit.method = "LambertW"` and the `Ln/Tn` largely 
 exceeded the highest `Lx/Tx` point; fixed.

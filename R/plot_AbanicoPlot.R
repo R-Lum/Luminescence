@@ -15,12 +15,12 @@
 #'
 #' The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 #' line here, which actually is the basis for combining this polar (radial)
-#' part of the plot with any other cartesian visualisation method
+#' part of the plot with any other Cartesian visualisation method
 #' (KDE, histogram, PDF and so on). Note that the plot allows displaying
 #' two measures of distribution. One is the 2-sigma
 #' bar, which illustrates the spread in value errors, and the other is the
 #' polygon, which stretches over both parts of the Abanico Plot (polar and
-#' cartesian) and illustrates the actual spread in the values themselves.
+#' Cartesian) and illustrates the actual spread in the values themselves.
 #'
 #' Since the 2-sigma-bar is a polygon, it can be (and is) filled with shaded
 #' lines. To change density (lines per inch, default is 15) and angle (default
@@ -227,7 +227,7 @@
 #' @return
 #' returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.15
+#' @section Function version: 0.1.16
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -477,9 +477,10 @@ plot_AbanicoPlot <- function(
       stop(paste("[plot_AbanicoPlot()] Input data format is neither",
                  "'data.frame' nor 'RLum.Results'"))
     } else {
-      if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]], "data")[,c(1:2)]
-      }
+      if(is(data[[i]], "RLum.Results"))
+        data[[i]] <- get_RLum(data[[i]], "data")
+
+      data[[i]] <- data[[i]][,c(1:2)]
     }
   }
 
@@ -504,7 +505,6 @@ plot_AbanicoPlot <- function(
   ##(1)
   ##check if there is still data left in the entire set
   if(all(sapply(data, nrow) == 0)){
-
     try(stop("[plot_AbanicoPlot()] Nothing plotted, your data set is empty!", call. = FALSE))
     return(NULL)
 
