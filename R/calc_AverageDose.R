@@ -39,7 +39,7 @@
 #'
 #' Further supported arguments: `mtext` ([character]), `rug` (`TRUE/FALSE`).
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
 #' Anne Philippe, Université de Nantes, (France),
@@ -463,9 +463,11 @@ calc_AverageDose <- function(
 
 
   ##get change par setting and reset on exit
-  par.default <- par()$mfrow
-  on.exit(par(mfrow = par.default))
-  par(mfrow = c(1,3))
+  if(plot) {
+    par.default <- par()$mfrow
+    on.exit(par(mfrow = par.default))
+    par(mfrow = c(1,3))
+  }
 
   ##Produce plots
   ##(1) - histogram of the observed equivalent dose

@@ -12,6 +12,9 @@ header-includes:
 
 ### Bugfixes and changes
 
+#### `calc_AverageDose()`
+* The function aggressively reset plot areas also in cases nothing was plotted; fixed. 
+
 #### `plot_AbanicoPlot()`
 * If the input was of type `data.frame` the function struggled if the `data.frame` 
 had more than two columns. While this was clearly indicated in the documentation, 
