@@ -129,7 +129,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.19
+#' @section Function version: 0.1.20
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -671,18 +671,12 @@ analyse_FadingMeasurement <- function(
           )
 
           ##add integration limits
-          abline(
-            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
-              nrow(as.matrix(object_clean[[1]])),
-            lty = 2,
-            col = "green"
-          )
-          abline(
-            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
-              nrow(as.matrix(object_clean[[1]])),
-            lty = 2,
-            col = "red"
-          )
+          abline(v = c(
+            object_clean[[1]][range(signal.integral), 1],
+            object_clean[[1]][range(background.integral), 1]),
+            lty = c(2,2,2,2),
+            col = c("green", "green", "red", "red"))
+
         }
 
         # plot Tx-curves ----
@@ -704,18 +698,11 @@ analyse_FadingMeasurement <- function(
 
           if (is.null(list(...)$signal.integral.Tx)) {
             ##add integration limits
-            abline(
-              v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) /
-                nrow(as.matrix(object_clean[[1]])),
-              lty = 2,
-              col = "green"
-            )
-            abline(
-              v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) /
-                nrow(as.matrix(object_clean[[1]])),
-              lty = 2,
-              col = "red"
-            )
+            abline(v = c(
+              object_clean[[1]][range(signal.integral), 1],
+              object_clean[[1]][range(background.integral), 1]),
+              lty = c(2,2,2,2),
+              col = c("green", "green", "red", "red"))
 
           } else{
             ##add integration limits

@@ -12,6 +12,10 @@ header-includes:
 
 ### Bugfixes and changes
 
+#### `analyse_FadingMeasurement()`
+* Minor graphical issue in the plot output: if the shine-down curve did not start 
+at 0 s, the integration limits were drawn incorrectly (the calculation was ok, though); fixed. 
+
 #### `calc_AverageDose()`
 * The function aggressively reset plot areas also in cases nothing was plotted; fixed. 
 
