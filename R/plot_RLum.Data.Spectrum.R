@@ -806,6 +806,7 @@ plot_RLum.Data.Spectrum <- function(
             xlab = xlab,
             ylab = ylab,
             main = main,
+            labcex = 0.6 * cex,
             col = "black"
     )
 
@@ -826,6 +827,7 @@ plot_RLum.Data.Spectrum <- function(
     if(is.null(list(...)$contour) || list(...)$contour != FALSE) {
       contour(x, y, temp.xyz,
               col = if(is.null(list(...)$contour.col)) rgb(1,1,1,0.8) else list(...)$contour.col,
+              labcex = 0.6 * cex,
               add = TRUE)
     }
 

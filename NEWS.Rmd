@@ -33,3 +33,8 @@ all other columns except for the first two if the input is a `data.frame`.
 #### `plot_GrowthCurve()`
 * The function crashed if `fit.method = "LambertW"` and the `Ln/Tn` largely 
 exceeded the highest `Lx/Tx` point; fixed.
+
+#### `plot_RLum.Data.Spectrum()`
+* For `plot.type = "image"` the labels for the contour did not scale for changed 
+`cex` settings; fixed.
+
