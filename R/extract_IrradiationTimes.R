@@ -94,7 +94,7 @@
 #' ([read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -181,14 +181,11 @@ extract_IrradiationTimes <- function(
 
   }
 
-
-
-  # Integrity tests -----------------------------------------------------------------------------
+# Integrity tests -----------------------------------------------------------------------------
 
   ##check whether an character or an RLum.Analysis object is provided
   if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
-
-    stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.")
+    stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.", call. = FALSE)
 
   }else if(is(object)[1] == "character"){
 
@@ -198,8 +195,7 @@ extract_IrradiationTimes <- function(
     ##XSYG
     ##check if file exists
     if(file.exists(file.XSYG) == FALSE){
-
-      stop("[extract_IrradiationTimes()] Wrong XSYG file name or file does not exsits!")
+      stop("[extract_IrradiationTimes()] Wrong XSYG file name or file does not exsits!", call. = FALSE)
 
     }
 
@@ -207,7 +203,7 @@ extract_IrradiationTimes <- function(
     if(tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "xsyg" &
          tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "XSYG" ){
 
-      stop("[extract_IrradiationTimes()] File is not of type 'XSYG'!")
+      stop("[extract_IrradiationTimes()] File is not of type 'XSYG'!", call. = FALSE)
 
     }
 
@@ -231,7 +227,6 @@ extract_IrradiationTimes <- function(
     }
 
     # Settings and import XSYG --------------------------------------------------------------------
-
     temp.XSYG <- read_XSYG2R(file.XSYG, txtProgressBar = txtProgressBar)
 
     if(!missing(file.BINX)){
@@ -244,9 +239,8 @@ extract_IrradiationTimes <- function(
     ##set list
     temp.sequence.list <- list()
 
-    ##select all analysis objects and combinde them
+    ##select all analysis objects and combine them
     for(i in 1:length(temp.XSYG)){
-
       ##select sequence and reduce the data set to really wanted values
       temp.sequence.list[[i]] <- get_RLum(temp.XSYG[[i]]$Sequence.Object,
                                                    recordType = recordType,
@@ -258,10 +252,7 @@ extract_IrradiationTimes <- function(
 
     }
 
-
-
   }else{
-
     ##now we assume a single RLum.Analysis object
     ##select sequence and reduce the data set to really wanted values, note that no
     ##record selection was made!
@@ -269,46 +260,29 @@ extract_IrradiationTimes <- function(
 
   }
 
-
-
-
-
   ##merge objects
   if(length(temp.sequence.list)>1){
-
     temp.sequence <- merge_RLum(temp.sequence.list)
 
   }else{
-
     temp.sequence <- temp.sequence.list[[1]]
 
   }
 
-
-  # Grep relevant information -------------------------------------------------------------------
-
+# Grep relevant information -------------------------------------------------------------------
   ##Sequence STEP
-  STEP <- vapply(X = 1:length_RLum(temp.sequence), FUN = function(x){
-    get_RLum(temp.sequence, record.id = x)@recordType
-
-  }, FUN.VALUE = vector(mode = "character", length = 1))
+  STEP <- names_RLum(temp.sequence)
 
   #START time of each step
-  temp.START <- unname(vapply(X = 1:length_RLum(temp.sequence), FUN = function(x){
-    get_RLum(get_RLum(temp.sequence, record.id = x), info.object = c("startDate"))
-
-  }, FUN.VALUE = vector(mode = "character", length = 1)))
-
+  temp.START <- vapply(temp.sequence, function(x){
+    get_RLum(x, info.object = c("startDate"))
+  }, character(1))
 
   ##DURATION of each STEP
-  DURATION.STEP <- vapply(X = 1:length_RLum(temp.sequence), FUN = function(x){
-   # get_RLum(get_RLum(temp.sequence, record.id = x), info.object = c("endDate"))
-    max(get_RLum(get_RLum(temp.sequence, record.id = x))[,1])
-   #print(get_RLum(temp.sequence, record.id = x))
+  DURATION.STEP <- vapply(temp.sequence, function(x){
+    max(get_RLum(x)[,1])
+  }, numeric(1))
 
-  }, FUN.VALUE = vector(mode = "numeric", length = 1))
-
-  #print(DURATION.STEP)
 
   ##a little bit reformatting.
   START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
@@ -318,7 +292,6 @@ extract_IrradiationTimes <- function(
 
   ##add position number so far an XSYG file was the input
   if(exists("file.XSYG")){
-
     POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
   }else if(!inherits(try(
@@ -326,52 +299,30 @@ extract_IrradiationTimes <- function(
       get_RLum(temp.sequence, record.id = 1), info.object = "position"),
     silent = TRUE), "try-error")){
 
-    ##DURATION of each STEP
-    POSITION <- unname(sapply(1:length_RLum(temp.sequence), function(x){
-
-      get_RLum(get_RLum(temp.sequence, record.id = x),info.object = "position")
-
-    }))
+    ##POSITION of each STEP
+    POSITION <- vapply(temp.sequence, function(x){
+      get_RLum(x, info.object = c("position"))
+    }, numeric(1))
 
   }else{
-
     POSITION <- NA
 
   }
 
-
   ##Combine the results
   temp.results <- data.frame(POSITION,STEP,START,DURATION.STEP,END)
 
-
   # Calculate irradiation duration ------------------------------------------------------------
-
-  ##set objects
-  time.irr.duration <- NA
-
-  IRR_TIME <- unlist(sapply(1:nrow(temp.results), function(x){
-
-    if(temp.results[x,"STEP"] == "irradiation (NA)"){
-
-      time.irr.duration <<- temp.results[x,"DURATION.STEP"]
-      return(0)
-
-    }else{
-
-      if(is.na(time.irr.duration)){
-
-        return(0)
-
-      }else{
-
-        return(time.irr.duration)
-
-      }
-
+  IRR_TIME <- numeric(length = nrow(temp.results))
+  temp_last <- 0
+  for(i in 1:nrow(temp.results)){
+    if(grepl("irradiation", temp.results[["STEP"]][i])) {
+      temp_last <- temp.results[["DURATION.STEP"]][i]
+      next()
     }
 
-  }))
-
+    IRR_TIME[i] <- temp_last
+  }
 
   # Calculate time since irradiation ------------------------------------------------------------
 
@@ -379,41 +330,29 @@ extract_IrradiationTimes <- function(
   time.irr.end <- NA
 
   TIMESINCEIRR <- unlist(sapply(1:nrow(temp.results), function(x){
-
-    if(temp.results[x,"STEP"] == "irradiation (NA)"){
-
+    if(grepl("irradiation", temp.results[x,"STEP"])){
       time.irr.end<<-temp.results[x,"END"]
       return(-1)
 
     }else{
-
       if(is.na(time.irr.end)){
-
         return(-1)
 
       }else{
-
         return(difftime(temp.results[x,"START"],time.irr.end, units = "secs"))
 
       }
-
     }
 
   }))
 
-
-
   # Calculate time since last step --------------------------------------------------------------
-
-
   TIMESINCELAST.STEP <- unlist(sapply(1:nrow(temp.results), function(x){
-
     if(x == 1){
       return(0)
     }else{
       return(difftime(temp.results[x,"START"],temp.results[x-1, "END"], units = "secs"))
     }
-
 
   }))
 
@@ -425,7 +364,6 @@ extract_IrradiationTimes <- function(
 
   # Write BINX-file if wanted -------------------------------------------------------------------
   if(!missing(file.BINX)){
-
     ##(1) remove all irradiation steps as there is no record in the BINX file and update information
     results.BINX <- results[-which(results[,"STEP"] == "irradiation (NA)"),]
 
@@ -433,7 +371,7 @@ extract_IrradiationTimes <- function(
     temp.BINX@METADATA[["IRR_TIME"]] <- results.BINX[["IRR_TIME"]]
 
     ##(1b) update information on the time since irradiation by using the Risoe definition of thi
-    ##paramter, to make the file compatible to the Analyst
+    ##parameter, to make the file compatible to the Analyst
     temp.BINX@METADATA[["TIMESINCEIRR"]] <- results.BINX[["IRR_TIME"]] + results.BINX[["TIMESINCEIRR"]]
 
     ##(2) compare entries in the BINX-file with the entries in the table to make sure
@@ -465,4 +403,3 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
-
