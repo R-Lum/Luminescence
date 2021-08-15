@@ -14,7 +14,11 @@ header-includes:
 
 #### `analyse_FadingMeasurement()`
 * Minor graphical issue in the plot output: if the shine-down curve did not start 
-at 0 s, the integration limits were drawn incorrectly (the calculation was ok, though); fixed. 
+at 0 s, the integration limits were drawn incorrectly (the calculation was , though); fixed. 
+
+#### `analyse_SAR.CWOSL()` 
+* The extraction of irradiation times, if irradiation curves were 
+provided (e.g., usually part of XSYG files), did not work reliably; fixed.
 
 #### `calc_AverageDose()`
 * The function aggressively reset plot areas also in cases nothing was plotted; fixed. 

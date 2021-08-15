@@ -11,6 +11,17 @@
 #' `background.count.distribution` and `sigmab`, which will be passed to the function
 #' [calc_OSLLxTxRatio].
 #'
+#' **What is part of a SAR sequence?**
+#'
+#' The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
+#' A SAR sequence is basically a set of $L_{x}/T_{x}$ curves. Hence, every 2nd curve
+#' is considered a shine-down curve related to the test dose. It also means that the number of
+#' curves for $L_{x}$ has to be equal to the number of $T_{x}$ curves, and that
+#' hotbleach curves **do not** belong into a SAR sequence; at least not for the analysis.
+#' Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
+#' irradiation curves. The later one indicates the duration of the irradiation, the
+#' dose and test dose points, e.g., as part of XSYG files.
+#'
 #' **Argument `object` is of type `list`**
 #'
 #' If the argument `object` is of type [list] containing **only**
@@ -56,9 +67,23 @@
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
 #'
+#' **Irradiation times**
+#'
+#' The function makes two attempts to extra irradiation data (dose points)
+#' automatically from the input object, if the argument `dose.points` was not
+#' set (aka set to `NULL`).
+#'
+#' 1. It searches in every curve for an info object called `IRR_TIME`. If this was set, any value
+#' set here is taken as dose point.
+#'
+#' 2. If the object contains curves of type `irradiation`, the function tries to
+#' use this information to assign these values to the curves. However, the function
+#' does **not** overwrite values preset in `IRR_TIME`.
+#'
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
-#' [RLum.Analysis-class] objects can be provided.
+#' [RLum.Analysis-class] objects can be provided. The object should contain **only** curves
+#' considered part of the SAR protocol (see Details.)
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
@@ -111,8 +136,8 @@
 #' the RC.Status becomes always `'OK'`
 #'
 #' @param dose.points [numeric] (*optional*):
-#' a numeric vector containing the dose points values Using this argument
-#' overwrites dose point values in the signal curves. Can be a [list] of
+#' a numeric vector containing the dose points values. Using this argument
+#' overwrites dose point values extracted from other data. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
 #'
 #' @param mtext.outer [character] (*optional*):
@@ -161,7 +186,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.11
+#' @section Function version: 0.9.13
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -407,21 +432,21 @@ error.list <- list()
 
   })
 
-  ##problem: FI lexsyg devices provide irradiation information in a separate curve
-  if("irradiation"%in%temp.ltype){
-
+  ##FI lexsyg devices provide irradiation information in a separate curve
+  if(any("irradiation" %in% temp.ltype)){
     ##grep irradiation times
-    temp.irradiation <- structure_RLum(object)
-    temp.irradiation <- temp.irradiation[
-      temp.irradiation$recordType == "irradiation", "x.max"]
+    temp.irradiation <- extract_IrradiationTimes(object)@data$irr.times[["IRR_TIME"]]
 
-    ##remove every 2nd entry (test dose) and add "0" dose for natural signal
-    temp.Dose <- c(0,temp.irradiation)
+    ##write this into the records
+    for(i in 1:length(object@records)){
+      if(is.null(object@records[[i]]@info$IRR_TIME))
+        object@records[[i]]@info <- c(object@records[[i]]@info, IRR_TIME = temp.irradiation[i])
 
-    ##remove irradiation entries from file
-    object <- set_RLum(class = "RLum.Analysis",
-               records = get_RLum(object, recordType = c(CWcurve.type, "TL")),
-               protocol = "SAR")
+
+    }
+
+    ## remove irradiation curves
+    object <- get_RLum(object, record.id = c(!temp.ltype %in% "irradiation"), drop = FALSE)
 
   }
 
@@ -558,24 +583,17 @@ error.list <- list()
             background.count.distribution = background.count.distribution,
             sigmab = sigmab,
             sig0 = sig0))
+
       }
 
         ##grep dose
-        if (exists("temp.irradiation") == FALSE) {
-          temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
+        temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
 
           ##for the case that no information on the dose can be found
-          if (is.null(temp.Dose)) {
-            temp.Dose <- NA
-          }
+          if (is.null(temp.Dose)) temp.Dose <- NA
 
-          temp.LnLxTnTx <-
-            cbind(Dose = temp.Dose, temp.LnLxTnTx)
+          temp.LnLxTnTx <- cbind(Dose = temp.Dose, temp.LnLxTnTx)
 
-        }else{
-          temp.LnLxTnTx <- cbind(Dose = temp.Dose[x], temp.LnLxTnTx)
-
-        }
       }), silent = TRUE)
 
     ##this is basically for the OSL.component case to avoid that everything
