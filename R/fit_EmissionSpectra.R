@@ -162,19 +162,18 @@ fit_EmissionSpectra <- function(
 ){
 
   ##TODO: Allow semi-automated start parameter estimation
-  ##TODO: Find a way to get a significant number of compoents
+  ##TODO: Find a way to get a significant number of components
 
-  ## This function works only on a list of matricies, so what ever we do here, we have to
+  ## This function works only on a list of matrices, so what ever we do here, we have to
   ## create a list of data treat, frame controls the number of frames analysed
 
-  ##input RLum.Data.Spectrum
+  ##input RLum.Data.Spectrum ... make list either way
   if(class(object)[1] == "RLum.Data.Spectrum")
     object <- list(object)
 
   ##stop, mixed input is not allowed
   if(class(object)[1] == "list" && length(unique(sapply(object, class))) != 1)
-    stop("[fit_EmissionSpectra()] List elements of different class detected!", call. = FALSE)
-
+     stop("[fit_EmissionSpectra()] List elements of different class detected!", call. = FALSE)
 
   ##deal with RLum.Data.Spectrum lists
   if(class(object)[1] == "list" && all(sapply(object, class) == "RLum.Data.Spectrum")){
@@ -350,7 +349,7 @@ fit_EmissionSpectra <- function(
   ), val = method_control)
 
 
-  ##initialse objects
+  ##initialise objects
   success_counter <- 0
   run <- 0
   fit <- list()
@@ -365,7 +364,7 @@ fit_EmissionSpectra <- function(
 
     ##try to find start parameters
     ##identify peaks
-    id_peaks <- .peaks(m[,2], sample(25:(nrow(m) - 1), 1))
+    id_peaks <- .peaks(m[,2], sample(15:(nrow(m) - 1), 1))
 
       ##make sure that we do not end up in an endless loop
       if(length(id_peaks) == 0){
@@ -471,7 +470,7 @@ fit_EmissionSpectra <- function(
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
     cat("-------------------------------------------------------------------------")
-    cat(paste0("\nSE: standard error | SSR: ",min(best_fit)))
+    cat(paste0("\nSE: standard error | SSR: ",format(min(best_fit), scientific=TRUE)))
     cat("\n(use output in $fit for a more detailed analysis)\n\n")
 
   }
@@ -569,7 +568,7 @@ fit_EmissionSpectra <- function(
     c <- 299792458e+09 #nm/s
     axis(
       side = 1,
-      labels = paste("(",round((h * c) / axTicks(side = 3), 0), "nm)"),
+      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), "nm)"),
       at = axTicks(side = 3),
       cex.axis = .7,
       line = .8,
@@ -613,4 +612,4 @@ fit_EmissionSpectra <- function(
 
 }
 
-fit_EmissionSpectra(object_sel, frame = 1, log = "y")
+fit_EmissionSpectra(object_sel, frame = 1, log = "")
