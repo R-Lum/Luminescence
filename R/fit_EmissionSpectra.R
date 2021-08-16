@@ -168,16 +168,16 @@ fit_EmissionSpectra <- function(
   ## create a list of data treat, frame controls the number of frames analysed
 
   ##input RLum.Data.Spectrum
-  if(class(object) == "RLum.Data.Spectrum")
+  if(class(object)[1] == "RLum.Data.Spectrum")
     object <- list(object)
 
   ##stop, mixed input is not allowed
-  if(class(object) == "list" && length(unique(sapply(object, class))) != 1)
+  if(class(object)[1] == "list" && length(unique(sapply(object, class))) != 1)
     stop("[fit_EmissionSpectra()] List elements of different class detected!", call. = FALSE)
 
 
   ##deal with RLum.Data.Spectrum lists
-  if(class(object) == "list" && all(sapply(object, class) == "RLum.Data.Spectrum")){
+  if(class(object)[1] == "list" && all(sapply(object, class) == "RLum.Data.Spectrum")){
     temp <- lapply(object, function(o){
       ##get x-axis
       x <- as.numeric(rownames(o@data))
@@ -215,7 +215,7 @@ fit_EmissionSpectra <- function(
   }
 
   ##handle a single matrix that may have different columns
-  if(class(object) == "matrix" && ncol(object) > 2){
+  if(class(object)[1] == "matrix" && ncol(object) > 2){
     rownames(object) <- NULL
 
     ##set frame
@@ -242,7 +242,7 @@ fit_EmissionSpectra <- function(
   ##now treat different lists, the aim is to have a list of 2-column matricies
   ##we have two types of lists,
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object) == "list"){
+  if(class(object)[1] == "list"){
     ##get argument list
     args_list <- list(...)
 
@@ -278,7 +278,7 @@ fit_EmissionSpectra <- function(
 
   # Start main core -----------------------------------------------------------------------------
   ##backstop, from here we allow only a matrix
-  if(class(object) != "matrix")
+  if(class(object)[1] != "matrix")
     stop("[fit_EmissionSpectra()] Input not supported, please read the manual!",call. = FALSE)
 
   ##extract matrix for everything below
@@ -400,7 +400,7 @@ fit_EmissionSpectra <- function(
     ), silent = TRUE)
 
     ##handle output
-    if (class(fit_try) != "try-error") {
+    if (class(fit_try)[1] != "try-error") {
       success_counter <- success_counter + 1
       fit[[success_counter]] <- fit_try
       if (verbose) cat("\r>> Searching components ... \t\t\t[/]")
@@ -438,7 +438,7 @@ fit_EmissionSpectra <- function(
 
   # Extract values ------------------------------------------------------------------------------
   ##extract components
-  if(!is.na(fit) && class(fit) == "nls"){
+  if(!is.na(fit) && class(fit)[1] == "nls"){
     ##extract values we need only
     m_coef <- summary(fit)$coefficients
     m_coef <- matrix(
@@ -499,7 +499,7 @@ fit_EmissionSpectra <- function(
     ), val = list(...))
 
 
-    if(!is.na(fit) && class(fit) != "try-error"){
+    if(!is.na(fit) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
     on.exit(close.screen(all.screens = TRUE))
 
@@ -616,3 +616,4 @@ fit_EmissionSpectra <- function(
 
 }
 
+fit_EmissionSpectra(object_sel, frame = 1, log = "y")
