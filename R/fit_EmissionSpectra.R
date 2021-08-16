@@ -239,7 +239,7 @@ fit_EmissionSpectra <- function(
     rm(temp)
   }
 
-  ##now treat different lists, the aim is to have a list of 2-column matricies
+  ##now treat different lists, the aim is to have a list of 2-column matrices
   ##we have two types of lists,
   # Self-call -----------------------------------------------------------------------------------
   if(class(object)[1] == "list"){
@@ -258,14 +258,13 @@ fit_EmissionSpectra <- function(
 
     ##run over the list
     results <- lapply(1:length(object), function(o){
-      fit_EmissionSpectra(
+      do.call(fit_EmissionSpectra, args = c(list(
         object = object[[o]],
         sub_negative = sub_negative,
         method_control = method_control,
         frame = mtext[[o]],
-        mtext = mtext[[o]],
-        ... = args_list
-
+        mtext = mtext[[o]]),
+        args_list)
       )
 
     })
@@ -479,7 +478,6 @@ fit_EmissionSpectra <- function(
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
-
     ##get colour values
     col <- get("col", pos = .LuminescenceEnv)[-1]
 
@@ -497,7 +495,6 @@ fit_EmissionSpectra <- function(
       legend.text = c("sum", paste0("c",1:length(mu),": ", round(mu,2), " eV"))
 
     ), val = list(...))
-
 
     if(!is.na(fit) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
