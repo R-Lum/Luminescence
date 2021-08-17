@@ -45,8 +45,9 @@
 #'
 #'\tabular{llll}{
 #' **Parameter** \tab **Type** \tab **Default** \tab **Description**\cr
-#' `max.runs` \tab [integer] \tab `1000` \tab maximum allowed search iterations, if exceed
+#' `max.runs` \tab [integer] \tab `10000` \tab maximum allowed search iterations, if exceed
 #' the searching stops \cr
+#' `graining` \tab [numeric] \tab `15` \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
 #' `trace` \tab [logical] \tab `FALSE` \tab enables/disables the tracing of the minimisation routine
 #'
 #'}
@@ -56,8 +57,9 @@
 #'
 #'@param frame [numeric] (*optional*): defines the frame to be analysed
 #'
-#'@param start_parameters (*optional*): allows to provide own start parameters for a
-#'semi-automated procedure. ##TODO
+#'@param start_parameters [numeric] (*optional*): allows to provide own start parameters for a
+#'semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
+#'value from the automated peak finding algorithm (in ascending order).
 #'
 #'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
 #'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
@@ -190,7 +192,7 @@ fit_EmissionSpectra <- function(
         if(max(frame) > ncol(o@data)|| min(frame) < 1){
           stop(
             paste0(
-              "[fit_EmissionSpectra()] 'frame' invalid.Allowed range min: 1 and max:",ncol(o@data)),
+              "[fit_EmissionSpectra()] 'frame' invalid. Allowed range min: 1 and max: ",ncol(o@data)),
             call. = FALSE)
 
         }
@@ -309,7 +311,7 @@ fit_EmissionSpectra <- function(
   }
 
   # set data.frame ------------------------------------------------------------------------------
-  df <- data.frame(x = m[,1], y = m[,2]/max(m[,2]))
+  df <- data.frame(x = m[,1], y = m[,2]/max(m[,2])) ##normalise values, it is just easier
 
   # Settings ------------------------------------------------------------------------------------
   ##create peak finding function ... this helps to get good start parameters
@@ -322,8 +324,8 @@ fit_EmissionSpectra <- function(
     ##the part `ceiling(...)` scales the entire algorithm
     v <- max.col(z, ties.method = "first") == ceiling(10^(3 - log10(nrow(m)))) + s
     result <- c(rep(FALSE, s), v)
-    result <- result[1:(length(result) - s)]
-    which(result)
+    which(result[1:(length(result) - s)])
+
   }
 
   ##set fit function
@@ -339,15 +341,14 @@ fit_EmissionSpectra <- function(
 
   }
 
-  # Fitting -------------------------------------------------------------------------------------
+# Fitting -------------------------------------------------------------------------------------
 
-  #set method parameters
+  ## method_control --------
   method_control <- modifyList(x = list(
-    max.runs = 1000,
+    max.runs = 10000,
+    graining = 15,
     trace = FALSE
-
   ), val = method_control)
-
 
   ##initialise objects
   success_counter <- 0
@@ -357,13 +358,19 @@ fit_EmissionSpectra <- function(
   C <- NA
   sigma <- NA
 
-  ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+  ## (WHILE LOOP START) -------
   ##run iterations
-  while(success_counter < 100 && run < method_control$max.runs){
-
+  while(success_counter < 1000 && run < method_control$max.runs){
     ##try to find start parameters
+    ##check graining parameter
+    if(method_control$graining >= nrow(m))
+      stop(paste0(
+        "[fit_EmissionSpectra()] method_control$graining cannot be larger than available channels (",
+        nrow(m) ,")!"),
+           call. = FALSE)
+
     ##identify peaks
-    id_peaks <- .peaks(m[,2], sample(15:(nrow(m) - 1), 1))
+    id_peaks <- .peaks(m[,2], sample(method_control$graining[1]:(nrow(m) - 1), 1))
 
       ##make sure that we do not end up in an endless loop
       if(length(id_peaks) == 0){
@@ -372,9 +379,12 @@ fit_EmissionSpectra <- function(
         next()
       }
 
-    ##set start parameters for fitting
-    ##TODO: maybe we allow manual start parameters, but better would be a semi-automated solution
+    ## set start parameters for fitting --------
     mu <- m[id_peaks,1]
+
+    if(!is.null(start_parameters))
+      mu <- c(sort(start_parameters), mu[-c(1:length(start_parameters))])
+
     sigma <- rep(sample(0.01:10,1),length(mu))
     C <- rep(max(df[[2]])/2, length(mu))
 
@@ -566,21 +576,34 @@ fit_EmissionSpectra <- function(
       )
     }
 
-    ##SCREEN 2 -----
+    ## SCREEN 2 -----
     screen(2)
     par(mar = c(4, 4, 0, 4))
-    plot(
-      x = df[[1]],
-      y = residuals(fit),
+    plot(NA, NA,
+      ylim = range(residuals(fit)),
       xlab = plot_settings$xlab,
       type = "b",
       pch = 20,
       yaxt = "n",
       xlim = plot_settings$xlim,
-      ylab = "Res.",
+      ylab = "",
       col = rgb(0,0,0,.6),
       log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
     )
+
+    ## add one axis label
+    axis(side = 2, at = 0, labels = 0)
+
+    ## add ± 5 line
+    polygon(x = c(df[[1]], rev(df[[1]])),
+            y = c(df[[2]] * 1.1 - df[[2]], rev(df[[2]] * 0.9 - df[[2]])),
+            border = FALSE, col = rgb(0.8,0.8,0.8))
+
+    ## add points
+    points(df[[1]],residuals(fit), pch = 20, col = rgb(0,0,0,0.3))
+
+    ## add zero line
+    abline(h = 0, lty = 2)
 
     ##add wavelength axis
     h <- 4.135667662e-15 #eV * s
@@ -617,7 +640,6 @@ fit_EmissionSpectra <- function(
    }
   }##if plot
 
-
   # Output --------------------------------------------------------------------------------------
   results <- set_RLum(
     class = "RLum.Results",
@@ -631,4 +653,9 @@ fit_EmissionSpectra <- function(
 
 }
 
-fit_EmissionSpectra(object_sel, frame = 1, log = "")
+fit_EmissionSpectra(
+  object_sel,
+  frame = 45,
+  log = "",
+  method_control = list(max.runs = 100)
+)
