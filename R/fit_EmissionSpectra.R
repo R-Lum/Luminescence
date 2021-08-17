@@ -548,10 +548,10 @@ fit_EmissionSpectra <- function(
       log = plot_settings$log
     )
 
-    ## add axis ensure 0, not 0.0
+    ## add axis normalised
     axis(side = 2,
          at = axTicks(side = 2),
-         labels = c(0, axTicks(2)[-1]))
+         labels = c(axTicks(2)))
 
     ## add axis with real count vales
     axis(
