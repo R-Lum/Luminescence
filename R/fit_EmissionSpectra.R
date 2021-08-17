@@ -676,13 +676,3 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
-
-
-fit_EmissionSpectra(
-  object = TL.Spectrum,
-  frame = 5, main = "TL spectrum",
-  n_components = 3,
-  start_parameters = c(2.17),
-  plot = FALSE,
-  verbose = FALSE,
-  method_control = list(max.runs = 100))
