@@ -309,7 +309,7 @@ fit_EmissionSpectra <- function(
   }
 
   # set data.frame ------------------------------------------------------------------------------
-  df <- data.frame(x = m[,1], y = m[,2])
+  df <- data.frame(x = m[,1], y = m[,2]/max(m[,2]))
 
   # Settings ------------------------------------------------------------------------------------
   ##create peak finding function ... this helps to get good start parameters
@@ -356,7 +356,6 @@ fit_EmissionSpectra <- function(
   mu <- NA
   C <- NA
   sigma <- NA
-
 
   ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
   ##run iterations
@@ -504,7 +503,7 @@ fit_EmissionSpectra <- function(
       c(0.1,1,0.32, 0.98),
       c(0.1,1,0.1, 0.315)))
 
-    ##SCREEN 1 ========================
+    ##SCREEN 1 ----------
     screen(1)
     par(mar = c(0, 4, 3, 4))
     plot(
@@ -517,7 +516,27 @@ fit_EmissionSpectra <- function(
       main = plot_settings$main,
       col = rgb(0, 0, 0, .6),
       xaxt = "n",
+      yaxt = "n",
       log = plot_settings$log
+    )
+
+    ## add axis ensure 0, not 0.0
+    axis(side = 2,
+         at = axTicks(side = 2),
+         labels = c(0, axTicks(2)[-1]))
+
+    ## add axis with real count vales
+    axis(
+      side = 2,
+      axTicks(side = 2)[-1],
+      labels = format(
+        max(m[, 2]) * axTicks(side = 2)[-1],
+        digit = 1,
+        scientific = TRUE
+      ),
+      line = 0.8,
+      cex.axis = 0.7,
+      tick = FALSE
     )
 
     ##plot sum curve
@@ -547,7 +566,7 @@ fit_EmissionSpectra <- function(
       )
     }
 
-    ##SCREEN 2 ========================
+    ##SCREEN 2 -----
     screen(2)
     par(mar = c(4, 4, 0, 4))
     plot(
@@ -558,7 +577,7 @@ fit_EmissionSpectra <- function(
       pch = 20,
       yaxt = "n",
       xlim = plot_settings$xlim,
-      ylab = "\u03B5",
+      ylab = "Res.",
       col = rgb(0,0,0,.6),
       log = ifelse(grepl(plot_settings$log[1], pattern = "x", fixed = TRUE), "x", "")
     )
