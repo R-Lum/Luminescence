@@ -7,6 +7,7 @@
 fit_EmissionSpectra(
   object,
   frame = NULL,
+  n_components = NULL,
   start_parameters = NULL,
   sub_negative = 0,
   input_scale = NULL,
@@ -22,8 +23,13 @@ object. Please note that an energy spectrum is expected}
 
 \item{frame}{\link{numeric} (\emph{optional}): defines the frame to be analysed}
 
-\item{start_parameters}{(\emph{optional}): allows to provide own start parameters for a
-semi-automated procedure. ##TODO}
+\item{n_components}{\link{numeric} (\emph{optional}): allows a number of the aimed number of
+components. However, it defines rather a maximum than than a minimum. Can be combined with
+other parameters.}
+
+\item{start_parameters}{\link{numeric} (\emph{optional}): allows to provide own start parameters for a
+semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
+value from the automated peak finding algorithm (in ascending order).}
 
 \item{sub_negative}{\link{numeric} (\emph{with default}): substitute negative values in the input object
 by the number provided here (default: \code{0}). Can be set to \code{NULL}, i.e. negative values are kept.}
@@ -55,29 +61,32 @@ automatically.}
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \verb{$data} \tab \code{matrix} \tab the final fit matrix \cr
-\verb{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
+\verb{$fit} \tab \code{nls} \tab the fit object returned by \link[minpack.lm:nls.lm]{minpack.lm::nls.lm} \cr
+\verb{$fit_info} \tab \code{list} \tab a few additional parameters that can be used to asses the quality
+of the fit
 }
 
 \strong{slot:} \strong{\verb{@info}}
 
 The original function call
 
-------------------------\cr
+-----------------------------------\cr
 \verb{[ TERMINAL OUTPUT ]}   \cr
-------------------------\cr
+-----------------------------------\cr
 
 The terminal output provides brief information on the
 deconvolution process and the obtained results.
 Terminal output is only shown of the argument \code{verbose = TRUE}.
 
-------------------------\cr
+-----------------------------------\cr
 \verb{[ PLOT OUTPUT ]}      \cr
-------------------------\cr
+-----------------------------------\cr
 
 The function returns a plot showing the raw signal with the
 detected components. If the fitting failed, a basic plot is returned
 showing the raw data and indicating the peaks detected for the start
-parameter estimation.
+parameter estimation. The grey band in the residual plot indicates the
+10\% deviation from 0 (means no residual).
 }
 \description{
 Luminescence spectra deconvolution on \linkS4class{RLum.Data.Spectrum} and \link{matrix} objects
@@ -114,23 +123,23 @@ For the use in this context, the algorithm has been further modified to scale on
 input data resolution (cf. source code).\cr
 
 The start parameter estimation uses random sampling from a range of meaningful parameters
-and repeats the fitting until 100 successful fits have been produced or the set \code{max.runs} value
+and repeats the fitting until 1000 successful fits have been produced or the set \code{max.runs} value
 is exceeded.
 
-Currently the best fit is the one with the lowest number for squared residuals.
+Currently the best fit is the one with the lowest number for squared residuals, but
+other parameters are returned as well. If a series of curves needs to be analysed,
+it is recommended to make few trial runs, then fix the number of components and
+run  at least 10,000 iterations (parameter \code{method_control = list(max.runs = 10000)}).
 
 \strong{Supported \code{method_control} settings}
 
 \tabular{llll}{
 \strong{Parameter} \tab \strong{Type} \tab \strong{Default} \tab \strong{Description}\cr
-\code{max.runs} \tab \link{integer} \tab \code{1000} \tab maximum allowed search iterations, if exceed
+\code{max.runs} \tab \link{integer} \tab \code{10000} \tab maximum allowed search iterations, if exceed
 the searching stops \cr
+\code{graining} \tab \link{numeric} \tab \code{15} \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
 \code{trace} \tab \link{logical} \tab \code{FALSE} \tab enables/disables the tracing of the minimisation routine
-
 }
-}
-\note{
-Beta version, not recommended for productive usage
 }
 \section{Function version}{
  0.1.0
@@ -139,7 +148,6 @@ Beta version, not recommended for productive usage
 \examples{
 
 ##deconvolution of a TL spectrum
-##TODO should be modified ...
 \dontrun{
 
 ##load example data
@@ -156,14 +164,6 @@ results <- fit_EmissionSpectra(
 
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-13. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-##TODO
 }
 \seealso{
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Results}, \link{plot_RLum},
@@ -171,5 +171,10 @@ Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvo
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14.9000-15. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{datagen}
