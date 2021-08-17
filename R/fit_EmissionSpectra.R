@@ -35,11 +35,13 @@
 #'input data resolution (cf. source code).\cr
 #'
 #'The start parameter estimation uses random sampling from a range of meaningful parameters
-#'and repeats the fitting until 100 successful fits have been produced or the set `max.runs` value
+#'and repeats the fitting until 1000 successful fits have been produced or the set `max.runs` value
 #'is exceeded.
 #'
-#'Currently the best fit is the one with the lowest number for squared residuals.
-#'
+#'Currently the best fit is the one with the lowest number for squared residuals, but
+#'other parameters are returned as well. If a series of curves needs to be analysed,
+#'it is recommended to make few trial runs, then fix the number of components and
+#'run  at least 10,000 iterations (parameter `method_control = list(max.runs = 10000)`).
 #'
 #'**Supported `method_control` settings**
 #'
@@ -49,7 +51,6 @@
 #' the searching stops \cr
 #' `graining` \tab [numeric] \tab `15` \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
 #' `trace` \tab [logical] \tab `FALSE` \tab enables/disables the tracing of the minimisation routine
-#'
 #'}
 #'
 #'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
@@ -60,6 +61,10 @@
 #'@param start_parameters [numeric] (*optional*): allows to provide own start parameters for a
 #'semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
 #'value from the automated peak finding algorithm (in ascending order).
+#'
+#'@param n_components [numeric] (*optional*): allows a number of the aimed number of
+#'components. However, it defines rather a maximum than than a minimum. Can be combined with
+#'other parameters.
 #'
 #'@param input_scale [character] (*optional*): defines whether your x-values define wavelength or
 #'energy values. For the analysis an energy scale is expected, allowed values are `'wavelength'` and
@@ -91,7 +96,9 @@
 #' \tabular{lll}{
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `matrix` \tab the final fit matrix \cr
-#'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm]
+#'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm] \cr
+#'  `$fit_info` \tab `list` \tab a few additional parameters that can be used to asses the quality
+#'  of the fit
 #' }
 #'
 #'
@@ -99,24 +106,23 @@
 #'
 #' The original function call
 #'
-#' ------------------------\cr
+#' -----------------------------------\cr
 #' `[ TERMINAL OUTPUT ]`   \cr
-#' ------------------------\cr
+#' -----------------------------------\cr
 #'
 #' The terminal output provides brief information on the
 #' deconvolution process and the obtained results.
 #' Terminal output is only shown of the argument `verbose = TRUE`.
 #'
-#' ------------------------\cr
+#' -----------------------------------\cr
 #' `[ PLOT OUTPUT ]`      \cr
-#' ------------------------\cr
+#' -----------------------------------\cr
 #'
 #' The function returns a plot showing the raw signal with the
 #' detected components. If the fitting failed, a basic plot is returned
 #' showing the raw data and indicating the peaks detected for the start
-#' parameter estimation.
-#'
-#'@note Beta version, not recommended for productive usage
+#' parameter estimation. The grey band in the residual plot indicates the
+#' 10% deviation from 0 (means no residual).
 #'
 #'@section Function version: 0.1.0
 #'
@@ -127,12 +133,9 @@
 #'
 #'@keywords datagen
 #'
-#'@references ##TODO
-#'
 #'@examples
 #'
 #' ##deconvolution of a TL spectrum
-#' ##TODO should be modified ...
 #' \dontrun{
 #'
 #' ##load example data
@@ -154,6 +157,7 @@
 fit_EmissionSpectra <- function(
   object,
   frame = NULL,
+  n_components = NULL,
   start_parameters = NULL,
   sub_negative = 0,
   input_scale = NULL,
@@ -261,9 +265,11 @@ fit_EmissionSpectra <- function(
     results <- lapply(1:length(object), function(o){
       do.call(fit_EmissionSpectra, args = c(list(
         object = object[[o]],
+        start_parameters = start_parameters,
+        n_components = n_components,
         sub_negative = sub_negative,
         method_control = method_control,
-        frame = mtext[[o]],
+        frame = frame,
         mtext = mtext[[o]]),
         args_list)
       )
@@ -290,11 +296,11 @@ fit_EmissionSpectra <- function(
 
   ##output
   if(verbose){
-    cat("\n[fit_EmissionSpectra()]\n\n")
+    cat("\n[fit_EmissionSpectra()]\n")
     cat("\n>> Treating dataset >>",frame,"<<\n")
 
   }
-  ##chech the scale
+  ##check the scale
   if(is.null(input_scale)){
     ##values above 30 are unlikely, means its likely that we have a wavelength scale
     if(max(m[,1]) > 30){
@@ -342,7 +348,6 @@ fit_EmissionSpectra <- function(
   }
 
 # Fitting -------------------------------------------------------------------------------------
-
   ## method_control --------
   method_control <- modifyList(x = list(
     max.runs = 10000,
@@ -354,9 +359,8 @@ fit_EmissionSpectra <- function(
   success_counter <- 0
   run <- 0
   fit <- list()
-  mu <- NA
-  C <- NA
-  sigma <- NA
+  mu <- C <- sigma <- NA
+  R2 <- SSR <- SST <- R2adj <- NA
 
   ## (WHILE LOOP START) -------
   ##run iterations
@@ -384,6 +388,10 @@ fit_EmissionSpectra <- function(
 
     if(!is.null(start_parameters))
       mu <- c(sort(start_parameters), mu[-c(1:length(start_parameters))])
+
+    ## limit the number of components
+    if(!is.null(n_components[1]))
+      mu <- mu[seq(1,length(mu), length.out = n_components[1])]
 
     sigma <- rep(sample(0.01:10,1),length(mu))
     C <- rep(max(df[[2]])/2, length(mu))
@@ -420,7 +428,7 @@ fit_EmissionSpectra <- function(
     run <- run + 1
 
   }
-  ## ++++++++++++++++++++++++++++ (LOOP) +++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+
 
   ## handle the output
   if(length(fit) == 0){
@@ -437,6 +445,16 @@ fit_EmissionSpectra <- function(
     ##obtain the fit with the best fit
     best_fit <- vapply(fit, function(x) sum(residuals(x) ^ 2), numeric(1))
     fit <- fit[[which.min(best_fit)]]
+
+    ## more parameters
+    SSR <- min(best_fit)
+    SST <- sum((df[[2]] - mean(df[[2]]))^2)
+    R2 <- 1 - SSR/SST
+    R2adj <- ((1 - R2) * (nrow(df) - 1)) /
+      (nrow(df) - length(coef(fit)) - 1)
+
+    print(R2adj)
+
 
   }else{
     fit <- NA
@@ -479,8 +497,9 @@ fit_EmissionSpectra <- function(
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
     cat("-------------------------------------------------------------------------")
-    cat(paste0("\nSE: standard error | SSR: ",format(min(best_fit), scientific=TRUE)))
-    cat("\n(use output in $fit for a more detailed analysis)\n\n")
+    cat(paste0("\nSE: standard error | SSR: ", format(min(best_fit), scientific=TRUE, digits = 4),
+               "| R^2: ", round(R2,3), " | R^2_adj: ", round(R2adj,4)))
+    cat("\n(use the output in $fit for a more detailed analysis)\n\n")
 
   }
 
@@ -644,7 +663,13 @@ fit_EmissionSpectra <- function(
   results <- set_RLum(
     class = "RLum.Results",
     data = list(data = m_coef,
-                fit = fit),
+                fit = fit,
+                fit_info = list(
+                  SSR = SSR,
+                  SST = SST,
+                  R2 = R2,
+                  R2adj = R2adj)
+                ),
     info = list(call = sys.call())
   )
 
@@ -652,10 +677,3 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
-
-fit_EmissionSpectra(
-  object_sel,
-  frame = 45,
-  log = "",
-  method_control = list(max.runs = 100)
-)
