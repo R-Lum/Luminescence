@@ -33,9 +33,22 @@ test_that("standard check", {
   results <- expect_s4_class(fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5, main = "TL spectrum",
+    n_components = 3,
+    start_parameters = c(2.17),
     method_control = list(max.runs = 100)), "RLum.Results")
 
+  # silent mode -------
+  expect_silent(fit_EmissionSpectra(
+    object = TL.Spectrum,
+    frame = 5, main = "TL spectrum",
+    plot = FALSE,
+    verbose = FALSE,
+    method_control = list(max.runs = 10)))
 
+ # regression test ----
+ expect_length(results, 3)
+ expect_s3_class(results$fit[[1]], "nls")
+ expect_type(results$data, "double")
 
 })
 

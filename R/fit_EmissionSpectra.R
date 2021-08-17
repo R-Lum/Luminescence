@@ -167,9 +167,8 @@ fit_EmissionSpectra <- function(
   ...
 ){
 
-  ##TODO: Allow semi-automated start parameter estimation
-  ##TODO: Find a way to get a significant number of components
 
+  ##TODO: Find a way to get a significant number of components
   ## This function works only on a list of matrices, so what ever we do here, we have to
   ## create a list of data treat, frame controls the number of frames analysed
 
@@ -271,6 +270,8 @@ fit_EmissionSpectra <- function(
         method_control = method_control,
         frame = frame,
         mtext = mtext[[o]]),
+        verbose = verbose,
+        plot = plot,
         args_list)
       )
 
@@ -298,8 +299,8 @@ fit_EmissionSpectra <- function(
   if(verbose){
     cat("\n[fit_EmissionSpectra()]\n")
     cat("\n>> Treating dataset >>",frame,"<<\n")
-
   }
+
   ##check the scale
   if(is.null(input_scale)){
     ##values above 30 are unlikely, means its likely that we have a wavelength scale
@@ -452,8 +453,6 @@ fit_EmissionSpectra <- function(
     R2 <- 1 - SSR/SST
     R2adj <- ((1 - R2) * (nrow(df) - 1)) /
       (nrow(df) - length(coef(fit)) - 1)
-
-    print(R2adj)
 
 
   }else{
@@ -677,3 +676,13 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
+
+
+fit_EmissionSpectra(
+  object = TL.Spectrum,
+  frame = 5, main = "TL spectrum",
+  n_components = 3,
+  start_parameters = c(2.17),
+  plot = FALSE,
+  verbose = FALSE,
+  method_control = list(max.runs = 100))
