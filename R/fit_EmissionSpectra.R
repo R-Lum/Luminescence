@@ -12,7 +12,7 @@
 #'Gaussian components:
 #'
 #''\deqn{
-#'y = \Sigma  Ci * 1/(\sigma_{i} * \sqrt(2 * \pi)) * exp(1/2 * ((x - \mu_{i})/\sigma_{i}))^2)
+#'y = \Sigma  Ci * 1/(\sigma_{i} * \sqrt(2 * \pi)) * exp(-1/2 * ((x - \mu_{i})/\sigma_{i}))^2)
 #'}
 #'
 #'with the parameters \eqn{\sigma} (peak width) and \eqn{\mu} (peak centre) and \eqn{C}
