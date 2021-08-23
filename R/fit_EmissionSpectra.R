@@ -501,7 +501,7 @@ fit_EmissionSpectra <- function(
   }
 
   # Terminal output -----------------------------------------------------------------------------
-  if(verbose && !is.na(m_coef)){
+  if(verbose && !is.na(m_coef[1])){
     cat(paste0("\n\n>> Fitting results (",length(mu), " component model):\n"))
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
