@@ -12,11 +12,19 @@
     start parameter estimation. The function was around quite some time
     but was finalised only recently.
 
-## Changes in version 0.9.15.9000-32 (2021-08-23)
+## Changes in version 0.9.15.9000-33 (2021-08-23)
 
 **This package version requires at least R \>= 4.0.5**
 
 ### Bugfixes and changes
+
+#### General
+
+-   We removed `'magrittr'` from the dependency. It was never used
+    within the package but loaded for convenience reasons to smooth the
+    data analysis. However, since R >=4.1 a native pipe operator (`|>`)
+    became available and `'magrittr'` is no longer needed (but can be
+    still loaded by the user via `library(magrittr)` if needed).
 
 #### `analyse_FadingMeasurement()`
 
