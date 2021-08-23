@@ -472,7 +472,7 @@ fit_EmissionSpectra <- function(
 
   # Extract values ------------------------------------------------------------------------------
   ##extract components
-  if(!is.na(fit) && class(fit)[1] == "nls"){
+  if(!is.na(fit[1]) && is(fit, "nls")){
     ##extract values we need only
     m_coef <- summary(fit)$coefficients
     m_coef <- matrix(
@@ -532,7 +532,7 @@ fit_EmissionSpectra <- function(
 
     ), val = list(...))
 
-    if(!is.na(fit) && class(fit)[1] != "try-error"){
+    if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
     on.exit(close.screen(all.screens = TRUE))
 
