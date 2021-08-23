@@ -17,6 +17,11 @@ time but was finalised only recently.
 
 ### Bugfixes and changes
 
+#### General
+* We removed all `'magrittr'` from the dependency. It was never used within the 
+package but loaded for convenience reasons to smooth the data analysis.
+However, since R >=4.1 a native pipe operator (`|>`) became available.
+
 #### `analyse_FadingMeasurement()`
 * Minor graphical issue in the plot output: if the shine-down curve did not start 
 at 0 s, the integration limits were drawn incorrectly (the calculation was , though); fixed. 

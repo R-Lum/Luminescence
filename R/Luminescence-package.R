@@ -98,7 +98,7 @@
 #'
 #' @keywords package
 #'
-#' @import utils methods data.table magrittr
+#' @import utils methods data.table
 #'
 #' @importFrom raster nlayers raster contour plot plotRGB brick
 #' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid close.screen screen split.screen
