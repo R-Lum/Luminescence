@@ -135,14 +135,22 @@
 #'
 #'@examples
 #'
+#'##load example data
+#'data(ExampleData.XSYG, envir = environment())
+#'
+#'##subtract background
+#'TL.Spectrum@@data <- TL.Spectrum@@data[] - TL.Spectrum@@data[,15]
+#'
+#'results <- fit_EmissionSpectra(
+#'  object = TL.Spectrum,
+#'  frame = 5,
+#'  method_control = list(max.runs = 10)
+#' )
+#'
 #' ##deconvolution of a TL spectrum
 #' \dontrun{
 #'
 #' ##load example data
-#' data(ExampleData.XSYG, envir = environment())
-#'
-#' ##subtract background
-#' TL.Spectrum@@data <- TL.Spectrum@@data[] - TL.Spectrum@@data[,15]
 #'
 #' ##replace 0 values
 #' results <- fit_EmissionSpectra(
@@ -274,8 +282,7 @@ fit_EmissionSpectra <- function(
           mtext = mtext[[o]]),
         verbose = verbose,
         plot = plot,
-        args_list),
-        quote = TRUE
+        args_list)
       )
 
     })

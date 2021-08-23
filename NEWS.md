@@ -12,7 +12,7 @@
     start parameter estimation. The function was around quite some time
     but was finalised only recently.
 
-## Changes in version 0.9.15.9000-22 (2021-08-23)
+## Changes in version 0.9.15.9000-25 (2021-08-23)
 
 **This package version requires at least R \>= 4.0.5**
 
