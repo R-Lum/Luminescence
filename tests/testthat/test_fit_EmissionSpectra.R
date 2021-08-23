@@ -30,14 +30,16 @@ test_that("standard check", {
 
   # plain run -------
   set.seed(1235)
-  results <- expect_s4_class(fit_EmissionSpectra(
+  results <- fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5,
     main = "TL spectrum",
     n_components = 3,
-    plot = FALSE,
+    plot = TRUE,
     start_parameters = c(2.17),
-    method_control = list(max.runs = 100)), "RLum.Results")
+    method_control = list(max.runs = 100))
+
+  expect_s4_class(results, "RLum.Results")
 
   # silent mode -------
   expect_silent(fit_EmissionSpectra(
