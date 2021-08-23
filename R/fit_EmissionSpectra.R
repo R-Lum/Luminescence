@@ -106,17 +106,17 @@
 #'
 #' The original function call
 #'
-#' -----------------------------------\cr
+#' ---------------------------------\cr
 #' `[ TERMINAL OUTPUT ]`   \cr
-#' -----------------------------------\cr
+#' ---------------------------------\cr
 #'
 #' The terminal output provides brief information on the
 #' deconvolution process and the obtained results.
 #' Terminal output is only shown of the argument `verbose = TRUE`.
 #'
-#' -----------------------------------\cr
+#' ---------------------------\cr
 #' `[ PLOT OUTPUT ]`      \cr
-#' -----------------------------------\cr
+#' ---------------------------\cr
 #'
 #' The function returns a plot showing the raw signal with the
 #' detected components. If the fitting failed, a basic plot is returned
