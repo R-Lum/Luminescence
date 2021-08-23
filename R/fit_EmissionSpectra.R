@@ -210,10 +210,11 @@ fit_EmissionSpectra <- function(
     })
 
     ##set object name
-    names(temp) <- paste0("ALQ: ", 1:length(temp))
+    names(temp) <- paste0("ALQ: ", 1:length(temp), " ")
 
     ##unlist, now we have what we want
     object <- unlist(temp, use.names = TRUE, recursive = FALSE)
+    names(object) <- gsub(" .", names(object), replacement = " | ", fixed = TRUE)
     rm(temp)
 
   }
@@ -224,7 +225,7 @@ fit_EmissionSpectra <- function(
 
     ##set frame
     if(is.null(frame)){
-      frame <- 1:(ncol(object) -1)
+      frame <- 1:(ncol(object) - 1)
 
     }else{
       if(max(frame) > (ncol(object)-1) || min(frame) < 1){
@@ -262,17 +263,19 @@ fit_EmissionSpectra <- function(
 
     ##run over the list
     results <- lapply(1:length(object), function(o){
-      do.call(fit_EmissionSpectra, args = c(list(
-        object = object[[o]],
-        start_parameters = start_parameters,
-        n_components = n_components,
-        sub_negative = sub_negative,
-        method_control = method_control,
-        frame = frame,
-        mtext = mtext[[o]]),
+      do.call(fit_EmissionSpectra, args = c(
+        list(
+          object = object[[o]],
+          start_parameters = start_parameters,
+          n_components = n_components,
+          sub_negative = sub_negative,
+          method_control = method_control,
+          frame = frame,
+          mtext = mtext[[o]]),
         verbose = verbose,
         plot = plot,
-        args_list)
+        args_list),
+        quote = TRUE
       )
 
     })
