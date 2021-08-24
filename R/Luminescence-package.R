@@ -5,7 +5,7 @@
 #' \emph{R Luminescence Developer Team}
 #' }
 #'
-#' A collection of various R functions for the purpose of Luminescence dating
+#' A collection of various R functions for the purpose of luminescence dating
 #' data analysis. This includes, amongst others, data import, export,
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.
@@ -24,10 +24,8 @@
 #'
 #' **Support contact**
 #'
-#' \email{developers@@r-luminescence.org}
-#'
-#' We may further encourage the usage of our support forum. For this please
-#' visit our project website (link below).
+#' - \email{developers@@r-luminescence.org}
+#' - [https://github.com/R-Lum/Luminescence/discussions]()
 #'
 #' **Bug reporting**
 #'
