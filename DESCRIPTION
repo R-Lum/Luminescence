@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.14
-Date: 2021-07-21
+Version: 0.9.15
+Date: 2021-08-24
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -56,17 +56,16 @@ License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 4.0),
-    utils,
-    magrittr (>= 2.0.1)
-LinkingTo: Rcpp (>= 1.0.6),
-    RcppArmadillo (>= 0.10.5.0.0)
+    utils
+LinkingTo: Rcpp (>= 1.0.7),
+    RcppArmadillo (>= 0.10.6.0.0)
 Imports:
-    bbmle (>= 1.0.23),
+    bbmle (>= 1.0.24),
     data.table (>= 1.14.0),
     DEoptim (>= 2.2-6),
     httr (>= 1.4.2),
     lamW (>= 2.1.0),
-    matrixStats (>= 0.59.0),
+    matrixStats (>= 0.60.0),
     methods,
     minpack.lm (>= 1.2-1),
     plotrix (>= 3.8-1),
@@ -80,7 +79,7 @@ Suggests:
     spelling (>= 2.2),
     RLumShiny (>= 0.2.2),
     plotly (>= 4.9.3),
-    rmarkdown (>= 2.8),
+    rmarkdown (>= 2.10),
     rstudioapi (>= 0.13),
     rjags (>= 4-10),
     coda (>= 0.19-4),
@@ -174,6 +173,7 @@ Collate:
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
+    'fit_EmissionSpectra.R'
     'fit_LMCurve.R'
     'fit_OSLLifeTimes.R'
     'fit_SurfaceExposure.R'

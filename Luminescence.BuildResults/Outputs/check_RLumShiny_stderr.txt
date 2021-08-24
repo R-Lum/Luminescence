@@ -1,0 +1,6 @@
+
+See
+  ‘/Users/kreutzer/GitHub/Luminescence/Luminescence.BuildResults/RLumShiny.Rcheck/00check.log’
+for details.
+
+

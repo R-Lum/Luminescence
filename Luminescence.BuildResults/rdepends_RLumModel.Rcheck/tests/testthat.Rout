@@ -1,0 +1,32 @@
+
+R Under development (unstable) (2021-08-22 r80810) -- "Unsuffered Consequences"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(RLumModel)
+Loading required package: Luminescence
+Welcome to the R package Luminescence version 0.9.15 [Built: 2021-08-24 08:44:55 UTC]
+The answer to life, the universe and everything: 'get_rightAnswer()'
+> 
+> test_check("RLumModel")
+══ Skipped tests ═══════════════════════════════════════════════════════════════
+• On CRAN (46)
+
+[ FAIL 0 | WARN 0 | SKIP 46 | PASS 0 ]
+> 
+> proc.time()
+   user  system elapsed 
+  1.652   0.128   1.783 

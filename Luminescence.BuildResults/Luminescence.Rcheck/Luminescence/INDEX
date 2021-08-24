@@ -1,0 +1,253 @@
+Analyse_SAR.OSLdata     Analyse SAR CW-OSL measurements.
+BaseDataSet.ConversionFactors
+                        Base data set of dose-rate conversion factors
+BaseDataSet.CosmicDoseRate
+                        Base data set for cosmic dose rate calculation
+BaseDataSet.FractionalGammaDose
+                        Base data set of fractional gamma-dose values
+BaseDataSet.GrainSizeAttenuation
+                        Base dataset for grain size attenuation data by
+                        Guérin et al. (2012)
+CW2pHMi                 Transform a CW-OSL curve into a pHM-OSL curve
+                        via interpolation under hyperbolic modulation
+                        conditions
+CW2pLM                  Transform a CW-OSL curve into a pLM-OSL curve
+CW2pLMi                 Transform a CW-OSL curve into a pLM-OSL curve
+                        via interpolation under linear modulation
+                        conditions
+CW2pPMi                 Transform a CW-OSL curve into a pPM-OSL curve
+                        via interpolation under parabolic modulation
+                        conditions
+ExampleData.Al2O3C      Example Al2O3:C Measurement Data
+ExampleData.BINfileData
+                        Example data from a SAR OSL and SAR TL
+                        measurement for the package Luminescence
+ExampleData.CW_OSL_Curve
+                        Example CW-OSL curve data for the package
+                        Luminescence
+ExampleData.CobbleData
+                        Example data for calc_CobbleDoseRate()
+ExampleData.DeValues    Example De data sets for the package
+                        Luminescence
+ExampleData.Fading      Example data for feldspar fading measurements
+ExampleData.FittingLM   Example data for fit_LMCurve() in the package
+                        Luminescence
+ExampleData.LxTxData    Example Lx/Tx data from CW-OSL SAR measurement
+ExampleData.LxTxOSLData
+                        Example Lx and Tx curve data from an artificial
+                        OSL measurement
+ExampleData.MortarData
+                        Example equivalent dose data from mortar
+                        samples
+ExampleData.RLum.Analysis
+                        Example data as RLum.Analysis objects
+ExampleData.RLum.Data.Image
+                        Example data as RLum.Data.Image objects
+ExampleData.ScaleGammaDose
+                        Example data for scale_GammaDose()
+ExampleData.SurfaceExposure
+                        Example OSL surface exposure dating data
+ExampleData.TR_OSL      Example TR-OSL data
+ExampleData.XSYG        Example data for a SAR OSL measurement and a TL
+                        spectrum using a lexsyg reader
+ExampleData.portableOSL
+                        Example portable OSL curve data for the package
+                        Luminescence
+GitHub-API              GitHub API
+Luminescence-package    Comprehensive Luminescence Dating Data Analysis
+PSL2Risoe.BINfileData   Convert portable OSL data to an
+                        Risoe.BINfileData object
+RLum-class              Class '"RLum"'
+Risoe.BINfileData2RLum.Analysis
+                        Convert Risoe.BINfileData object to an
+                        RLum.Analysis object
+Second2Gray             Converting equivalent dose values from seconds
+                        (s) to Gray (Gy)
+analyse_Al2O3C_CrossTalk
+                        Al2O3:C Reader Cross Talk Analysis
+analyse_Al2O3C_ITC      Al2O3 Irradiation Time Correction Analysis
+analyse_Al2O3C_Measurement
+                        Al2O3:C Passive Dosimeter Measurement Analysis
+analyse_FadingMeasurement
+                        Analyse fading measurements and returns the
+                        fading rate per decade (g-value)
+analyse_IRSAR.RF        Analyse IRSAR RF measurements
+analyse_SAR.CWOSL       Analyse SAR CW-OSL measurements
+analyse_SAR.TL          Analyse SAR TL measurements
+analyse_baSAR           Bayesian models (baSAR) applied on luminescence
+                        data
+analyse_pIRIRSequence   Analyse post-IR IRSL measurement sequences
+analyse_portableOSL     Analyse portable CW-OSL measurements
+app_RLum                Run Luminescence shiny apps (wrapper)
+apply_CosmicRayRemoval
+                        Function to remove cosmic rays from an
+                        RLum.Data.Spectrum S4 class object
+apply_EfficiencyCorrection
+                        Function to apply spectral efficiency
+                        correction to RLum.Data.Spectrum S4 class
+                        objects
+as                      as() - RLum-object coercion
+bin_RLum.Data           Channel binning - method dispatcher
+calc_AliquotSize        Estimate the amount of grains on an aliquot
+calc_AverageDose        Calculate the Average Dose and the dose rate
+                        dispersion
+calc_CentralDose        Apply the central age model (CAM) after
+                        Galbraith et al. (1999) to a given De
+                        distribution
+calc_CobbleDoseRate     Calculate dose rate of slices in a spherical
+                        cobble
+calc_CommonDose         Apply the (un-)logged common age model after
+                        Galbraith et al. (1999) to a given De
+                        distribution
+calc_CosmicDoseRate     Calculate the cosmic dose rate
+calc_FadingCorr         Apply a fading correction according to Huntley
+                        & Lamothe (2001) for a given g-value and a
+                        given tc
+calc_FastRatio          Calculate the Fast Ratio for CW-OSL curves
+calc_FiniteMixture      Apply the finite mixture model (FMM) after
+                        Galbraith (2005) to a given De distribution
+calc_FuchsLang2001      Apply the model after Fuchs & Lang (2001) to a
+                        given De distribution.
+calc_HomogeneityTest    Apply a simple homogeneity test after Galbraith
+                        (2003)
+calc_Huntley2006        Apply the Huntley (2006) model
+calc_IEU                Apply the internal-external-uncertainty (IEU)
+                        model after Thomsen et al. (2007) to a given De
+                        distribution
+calc_Kars2008           Apply the Kars et al. (2008) model (deprecated)
+calc_Lamothe2003        Apply fading correction after Lamothe et al.,
+                        2003
+calc_MaxDose            Apply the maximum age model to a given De
+                        distribution
+calc_MinDose            Apply the (un-)logged minimum age model (MAM)
+                        after Galbraith et al. (1999) to a given De
+                        distribution
+calc_OSLLxTxDecomposed
+                        Calculate Lx/Tx ratio for decomposed CW-OSL
+                        signal components
+calc_OSLLxTxRatio       Calculate 'Lx/Tx' ratio for CW-OSL curves
+calc_SourceDoseRate     Calculation of the source dose rate via the
+                        date of measurement
+calc_Statistics         Function to calculate statistic measures
+calc_TLLxTxRatio        Calculate the Lx/Tx ratio for a given set of TL
+                        curves -beta version-
+calc_ThermalLifetime    Calculates the Thermal Lifetime using the
+                        Arrhenius equation
+calc_WodaFuchs2008      Obtain the equivalent dose using the approach
+                        by Woda and Fuchs 2008
+calc_gSGC               Calculate De value based on the gSGC by Li et
+                        al., 2015
+calc_gSGC_feldspar      Calculate Global Standardised Growth Curve
+                        (gSGC) for Feldspar MET-pIRIR
+convert_Activity2Concentration
+                        Convert Nuclide Activities to Concentrations
+                        and Vice Versa
+convert_BIN2CSV         Export Risoe BIN-file(s) to CSV-files
+convert_Concentration2DoseRate
+                        Dose-rate conversion function
+convert_Daybreak2CSV    Export measurement data produced by a Daybreak
+                        luminescence reader to CSV-files
+convert_PSL2CSV         Export PSL-file(s) to CSV-files
+convert_RLum2Risoe.BINfileData
+                        Converts RLum.Analysis-objects and
+                        RLum.Data.Curve-objects to
+                        RLum2Risoe.BINfileData-objects
+convert_SG2MG           Converts Single-Grain Data to Multiple-Grain
+                        Data
+convert_Wavelength2Energy
+                        Emission Spectra Conversion from Wavelength to
+                        Energy Scales
+convert_XSYG2CSV        Export XSYG-file(s) to CSV-files
+extdata                 Collection of External Data
+extract_IrradiationTimes
+                        Extract Irradiation Times from an XSYG-file
+fit_CWCurve             Nonlinear Least Squares Fit for CW-OSL curves
+                        -beta version-
+fit_EmissionSpectra     Luminescence Emission Spectra Deconvolution
+fit_LMCurve             Nonlinear Least Squares Fit for LM-OSL curves
+fit_OSLLifeTimes        Fitting and Deconvolution of OSL Lifetime
+                        Components
+fit_SurfaceExposure     Nonlinear Least Squares Fit for OSL surface
+                        exposure data
+fit_ThermalQuenching    Fitting Thermal Quenching Data
+get_Layout              Collection of layout definitions
+get_Quote               Function to return essential quotes
+get_RLum                General accessors function for RLum S4 class
+                        objects
+get_Risoe.BINfileData   General accessor function for RLum S4 class
+                        objects
+get_rightAnswer         Function to get the right answer
+install_DevelopmentVersion
+                        Attempts to install the development version of
+                        the 'Luminescence' package
+length_RLum             General accessor function for RLum S4 class
+                        objects
+merge_RLum              General merge function for RLum S4 class
+                        objects
+merge_Risoe.BINfileData
+                        Merge Risoe.BINfileData objects or Risoe
+                        BIN-files
+names_RLum              S4-names function for RLum S4 class objects
+plot_AbanicoPlot        Function to create an Abanico Plot.
+plot_DRCSummary         Create a Dose-Response Curve Summary Plot
+plot_DRTResults         Visualise dose recovery test results
+plot_DetPlot            Create De(t) plot
+plot_FilterCombinations
+                        Plot filter combinations along with the
+                        (optional) net transmission window
+plot_GrowthCurve        Fit and plot a growth curve for luminescence
+                        data (Lx/Tx against dose)
+plot_Histogram          Plot a histogram with separate error plot
+plot_KDE                Plot kernel density estimate with statistics
+plot_NRt                Visualise natural/regenerated signal ratios
+plot_RLum               General plot function for RLum S4 class objects
+plot_RLum.Analysis      Plot function for an RLum.Analysis S4 class
+                        object
+plot_RLum.Data.Curve    Plot function for an RLum.Data.Curve S4 class
+                        object
+plot_RLum.Data.Image    Plot function for an 'RLum.Data.Image' S4 class
+                        object
+plot_RLum.Data.Spectrum
+                        Plot function for an RLum.Data.Spectrum S4
+                        class object
+plot_RLum.Results       Plot function for an RLum.Results S4 class
+                        object
+plot_ROI                Create Regions of Interest (ROI) Graphic
+plot_RadialPlot         Function to create a Radial Plot
+plot_Risoe.BINfileData
+                        Plot single luminescence curves from a BIN file
+                        object
+plot_ViolinPlot         Create a violin plot
+read_BIN2R              Import Risø BIN/BINX-files into R
+read_Daybreak2R         Import measurement data produced by a Daybreak
+                        TL/OSL reader into R
+read_PSL2R              Import PSL files to R
+read_RF2R               Import RF-files to R
+read_SPE2R              Import Princeton Instruments (TM) SPE-file into
+                        R
+read_TIFF2R             Import TIFF Image Data into R
+read_XSYG2R             Import XSYG files to R
+replicate_RLum          General replication function for RLum S4 class
+                        objects
+report_RLum             Create a HTML-report for (RLum) objects
+sTeve                   sTeve - sophisticated tool for efficient data
+                        validation and evaluation
+scale_GammaDose         Calculate the gamma dose deposited within a
+                        sample taking layer-to-layer variations in
+                        radioactivity into account (according to
+                        Aitken, 1985)
+set_RLum                General set function for RLum S4 class objects
+set_Risoe.BINfileData   General accessor function for RLum S4 class
+                        objects
+smooth_RLum             Smoothing of data
+structure_RLum          General structure function for RLum S4 class
+                        objects
+template_DRAC           Create a DRAC input data template (v1.2)
+tune_Data               Tune data for experimental purpose
+use_DRAC                Use DRAC to calculate dose rate data
+verify_SingleGrainData
+                        Verify single grain data sets and check for
+                        invalid grains, i.e. zero-light level grains
+write_R2BIN             Export Risoe.BINfileData into Risø
+                        BIN/BINX-file
+write_RLum2CSV          Export RLum-objects to CSV

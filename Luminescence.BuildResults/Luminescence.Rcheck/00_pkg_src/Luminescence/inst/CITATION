@@ -1,0 +1,84 @@
+citHeader("To cite the R package 'Luminescence' please use the first two entries, and apply the rest if applicable:")
+citation(auto = meta)
+
+	 bibentry(bibtype = "Article",
+			  title = "Introducing an R package for luminescence dating analysis",
+				author = "Sebastian Kreutzer, Christoph Schmidt, Margret C. Fuchs, Michael Dietze, Manfred Fischer, Markus Fuchs",
+				year = "2012",
+				journal = "Ancient TL",
+				volume = "30",
+				number = "1",
+				pages = "1-8")
+
+	 bibentry(bibtype = "Article",
+			  title = "A practical guide to the R package Luminescence",
+				author = "Michael Dietze, Sebastian Kreutzer, Margret C. Fuchs, Christoph Burow, Manfred Fischer, Christoph Schmidt",
+				year = "2013",
+				journal = "Ancient TL",
+				volume = "31",
+				number = "1",
+				pages = "11-18")
+
+	  bibentry(bibtype = "Article",
+			  title = "Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'",
+				author = "Margret C. Fuchs, Sebastian Kreutzer, Christoph Burow, Michael Dietze, Manfred Fischer,
+				Christoph Schmidt, Markus Fuchs",
+				year = "2015",
+				journal = "Quaternary International",
+				volume = "362",
+				pages = "8-13",
+				doi = "10.1016/j.quaint.2014.06.034")
+
+		bibentry(bibtype = "Article",
+		    title = "A new R function for the Internal External Uncertainty (IEU) model",
+		    author = "Rachel K Smedley",
+        journal = "Ancient TL",
+        year = "2015",
+        volume = "33",
+        number = "1",
+        pages = "16-21")
+
+		bibentry(bibtype = "Article",
+			  title = "The abanico plot: visualising chronometric data with individual standard errors",
+				author = "Michael Dietze, Sebastian Kreutzer, Christoph Burow, Margret C. Fuchs, Manfred Fischer, Christoph Schmidt",
+				year = "2016",
+				journal = "Quaternary Geochronology",
+				volume = "31",
+				pages = "12-18",
+				doi = "10.1016/j.quageo.2015.09.003")
+
+		bibentry(bibtype = "Article",
+			  title = "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'",
+				author = "Norbert Mercier and Sebastian Kreutzer and Claire Christophe and Guillaume
+				Guerin and Pierre Guibert and Christelle Lahaye and Philippe Lanos and Anne Philippe and Chantal Tribolo",
+				year = "2016",
+				journal = "Ancient TL",
+				volume = "34",
+				number = "2",
+				pages = "14-21")
+
+		bibentry(bibtype = "Article",
+			  title = "Software in the context of luminescence dating: status, concepts and suggestions exemplified by the R package 'Luminescence'",
+				author = "Sebastian Kreutzer and Christoph Burow and Michael Dietze and Margret C. Fuchs and Manfred Fischer and Christoph Schmidt",
+				year = "2017",
+				journal = "Ancient TL",
+				volume = "35",
+				number = "2",
+				pages = "1-11")
+
+		bibentry(bibtype = "Article",
+			  title = "Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips",
+				author = "Sebastian Kreutzer and Loic Martin and Guillaume Guerin and Chantal Tribolo and Pierre Selva and Norbert Mercier",
+				year = "2018",
+				journal = "Geochronometria",
+				volume = "45",
+				pages = "56-67")
+
+		bibentry(bibtype = "Article",
+			  title = "Age determination using feldspar: Evaluating fading-correction model performance",
+				author = "Georgina E.King and Christoph Burow and Helen M.Roberts and Nicholas J.G.Pearce",
+				year = "2018",
+				journal = "Radiation Measurements",
+				volume = "119",
+				pages = "58-73",
+				doi = "10.1016/j.radmeas.2018.07.013")

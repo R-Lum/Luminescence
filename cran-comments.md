@@ -1,6 +1,8 @@
 ## Release summary
 
-This version updates 0.9.13 on CRAN
+This version updates 0.9.14 on CRAN.
+
+## Addressed CRAN issues
 
 ## Win-Builder
 
