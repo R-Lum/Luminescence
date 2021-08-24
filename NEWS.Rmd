@@ -19,14 +19,14 @@ time but was finalised only recently.
 
 #### General
 * We removed `'magrittr'` from the dependency. It was never used within the 
-package but loaded for convenience reasons to smooth the data analysis.
-However, since R >=4.1 a native pipe operator (`|>`) became available and 
-`'magrittr'` is no longer needed (but can be still loaded by the user via `library(magrittr)`
+package or required for examples, but loaded for convenience reasons to smooth the data analysis.
+However, with R >=4.1, a native pipe operator (`|>`) became available and 
+`'magrittr'` is no longer needed (but can still be loaded by the user via `library(magrittr)`
 if needed).
 
 #### `analyse_FadingMeasurement()`
 * Minor graphical issue in the plot output: if the shine-down curve did not start 
-at 0 s, the integration limits were drawn incorrectly (the calculation was , though); fixed. 
+at 0 s, the integration limits were drawn incorrectly (the calculation was correct, though); fixed. 
 
 #### `analyse_SAR.CWOSL()` 
 * The extraction of irradiation times, if irradiation curves were 
