@@ -12,7 +12,7 @@
     start parameter estimation. The function was around quite some time
     but was finalised only recently.
 
-## Changes in version 0.9.15.9000-33 (2021-08-23)
+## Changes in version 0.9.15.9000-34 (2021-08-24)
 
 **This package version requires at least R \>= 4.0.5**
 
@@ -21,16 +21,17 @@
 #### General
 
 -   We removed `'magrittr'` from the dependency. It was never used
-    within the package but loaded for convenience reasons to smooth the
-    data analysis. However, since R >=4.1 a native pipe operator (`|>`)
-    became available and `'magrittr'` is no longer needed (but can be
-    still loaded by the user via `library(magrittr)` if needed).
+    within the package or required for examples, but loaded for
+    convenience reasons to smooth the data analysis. However, with
+    R >=4.1, a native pipe operator (`|>`) became available and
+    `'magrittr'` is no longer needed (but can still be loaded by the
+    user via `library(magrittr)` if needed).
 
 #### `analyse_FadingMeasurement()`
 
 -   Minor graphical issue in the plot output: if the shine-down curve
     did not start at 0 s, the integration limits were drawn incorrectly
-    (the calculation was , though); fixed.
+    (the calculation was correct, though); fixed.
 
 #### `analyse_SAR.CWOSL()`
 

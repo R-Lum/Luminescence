@@ -12,7 +12,7 @@
 }
 }
 \details{
-A collection of various R functions for the purpose of Luminescence dating
+A collection of various R functions for the purpose of luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
@@ -22,11 +22,10 @@ plotting of equivalent dose distributions.
 Markus Fuchs, Justus-Liebig-University Giessen, Germany
 
 \strong{Support contact}
-
-\email{developers@r-luminescence.org}
-
-We may further encourage the usage of our support forum. For this please
-visit our project website (link below).
+\itemize{
+\item \email{developers@r-luminescence.org}
+\item \url{https://github.com/R-Lum/Luminescence/discussions}
+}
 
 \strong{Bug reporting}
 \itemize{
