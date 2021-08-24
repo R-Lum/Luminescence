@@ -1,0 +1,4 @@
+  Running ‘spelling.R’
+  Running ‘testthat.R’
+
+

@@ -1,0 +1,84 @@
+.custom-modal {
+ padding-left: 10px;
+ padding-top: 10px;
+ padding-bottom: 10px;
+ padding-right: 10px;
+ line-height: 200%;
+ background-color: #fff;
+ overflow: visible;
+ position: absolute;
+ z-index: 999;
+ border-radius: 10px;
+ border-style: solid;
+ border-color: #428bca;
+}
+
+.h {
+ font-size: 11px;
+ margin: 0 0 0px;
+}
+
+h5 {
+ color: #428bca;
+ font-family:"Lucida Console", Monaco, monospace;
+}
+
+h6 {
+ font-size: 16px;
+ color: #428bca;
+ font-family:"Lucida Console", Monaco, monospace;
+}
+
+.tooltip-inner {
+  max-width: 450px;
+}
+
+#gmap {
+ border-style: solid;
+ border-width: 2px;
+ border-color: #428bca;
+ margin-top: 40px;
+}
+
+.control-label, .selectize-dropdown, .item, .uneditable-input, .sorting, .odd, .even, .dataTables-info, .fa, .fa-refresh  {
+ font-size: 11px;
+}
+
+.selectize-input {
+ padding: 0px 10px;
+ min-height: 20px;
+}
+
+.label, .badge {
+	font-size: 14px;
+	padding: 4px 20px;
+	margin: 10px;
+	line-height: 36px;
+}
+
+.label-info, .badge-info {
+background-color: #428bca;
+}
+
+input[type="text"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input{
+	display:inline-block;
+	height:18px;
+	padding:0px 0px 0px 7px;
+	margin-bottom:10px;
+	font-size: 11px;
+	line-height: 1.5;
+	color:#555;
+	vertical-align:middle;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px
+	}
+
+input,textarea,.uneditable-input{
+	width: auto;
+	}
+
+.well {
+ padding: 5px 19px;
+}
+

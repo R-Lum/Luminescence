@@ -1,0 +1,116 @@
+RLumShiny 0.2.2 (Release date: 2019-01-11)
+==============
+
+* PREVIEW: New application that scales the gamma dose rate considering layer-to-layer
+  variations in soil radioactivity. Base function: `Luminescence::scale_GammaDose()`.
+  Keyword for `app_RLum()`: 'scalegamma'.
+  
+  NOTE: This application will only start if the development version 0.9.x of the
+  R package `Luminescence` is installed as the function `scale_GammaDose()` is
+  still under development.
+
+* New application to support the new R package `RCarb`. Base function `RCarb::model_DoseRate()`.
+  Keyword for `app_RLum()`: 'RCarb'
+
+* Removed and updated deprecated links from the "About"-tab in all applications.
+
+
+
+RLumShiny 0.2.1 (Release date: 2018-06-18)
+==============
+
+* New application that compares the OSL/IRSL stimulation power of measurements
+  performed on Freiberg Instruments lexsyg devices to check the stability
+  of the stimulation power (Contributed by Sebastian Kreutzer).
+  Keyword for `app_RLum()`: 'teststimulationpower'.
+
+* New application to calculate the fast ratio of CW-OSL curves after Durcan
+  and Duller (2011). Base function: `Luminescence::calc_FastRatio()`.
+  Keyword for `app_RLum()`: 'fastratio'.
+
+* New application to estimate the g-value from a table of Lx/Tx values with
+  corresponding waiting times since irradiation and to apply a fading
+  after Huntley & Lamothe (2001).
+  Base functions: `Luminescence::analyse_FadingMeasurement()`,
+  `Luminescence::calc_FadingCorr()`.
+  Keyword for `app_RLum()`: 'fading'.
+
+* New application to fit eq. 1 of Sohbati et al. (2012a) or eq. 12 of
+  Sohbati et al. (2012b) to OSL surface exposure data.
+  Base function: `Luminescence::fit_SurfaceExposure()`.
+  Keyword for `app_RLum()`: 'surfaceexposure'.
+
+* Output panel showing the R code to reproduce the plot/calculation is now
+  properly responsive and updates as soon as input widgets change.
+
+* Internal: server logic of most applications simplified.
+
+* Several minor bugfixes.
+
+RLumShiny 0.2.0 (Release date: 2017-06-26)
+==============
+
+* Major overhaul of the data input panel for most applications. Uploaded text
+  files are now imported via 'data.table::fread()', which automatically
+  detects the delimiter and potential headers. Hence, all widgets related to
+  data import are no longer required and were removed (#14).
+
+* The input data can now be directly manipulated in the newly added spreadsheet(s)
+  in the data input panels. The spreadsheets also allow copy and pasting of data,
+  so uploading a file is no longer the only way to provide user data (#12).
+
+* New Dashboard addin added. The dashboard provides access to all available
+  applications in the package and can be accessed either (i) through the
+  addin dropdown menu in the RStudio IDE or (ii) by running 'app_RLum()' without
+  any keyword.
+
+* Implemented newest shiny feature (v0.14) to bookmark the current app state.
+  All apps now include a bookmark button, which returns a URL query string that
+  can be used to restore the app's state at any later time.
+
+* New application to plot filter combinations along with the optional
+  net transmission. Base function: `Luminescence::plot_FilterCombinations()`.
+  Keyword for `app_RLum()`: 'filter'. External contribution by Urs Tilmann
+  Wolpert (Justus-Liebig-University Giessen) and Sebastian Kreutzer
+  (Universite Bordeaux Montaigne).
+
+* New package dependencies: 'shinydashboard', 'rhandsontable', 'data.table', 'readxl'
+
+* transformCW-app:
+    + the plot now also shows the CW-OSL data curve
+    + improved error handling
+
+* Internal: R dcoumentation re-written in Markdown using 'roxygen2 >=6.0.0'
+
+* Several minor bugfixes.
+
+RLumShiny 0.1.1 (Release date: 2016-07-20)
+==============
+
+* New application to transform CW OSL curves (keyword 'transformCW') using the
+  functions 'CW2pHMi', 'CW2pLM', 'CW2pLMi' and 'CW2pPMi' of the R package
+  'Luminescence'.
+
+* Removed UI elements that used now deprecated function arguments.
+
+* Added new UI elements for arguments added to functions after version 0.4.2 of
+  the 'Luminescence' package.
+
+* Removed the database feature in the abanico plot application.
+
+* Removed dependencies on 'digest' and 'RCurl'.
+
+* Removed all 'Exit' buttons.
+
+* Code output to reproduce the plots is now generated dynamically and should
+  be more reliable.
+
+* R Luminescence Package Team now properly mentioned as contributors.
+
+* Fixed many typos.
+
+
+RLumShiny 0.1.0 (Release date: 2015-03-31)
+==============
+
+* Initial release

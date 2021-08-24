@@ -1,0 +1,140 @@
+
+R Under development (unstable) (2021-08-22 r80810) -- "Unsuffered Consequences"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(Luminescence)
+Welcome to the R package Luminescence version 0.9.15 [Built: 2021-08-24 08:46:04 UTC]
+A new pIRIR derivative: '20,000 miles below the sea.'
+> 
+> test_check("Luminescence")
+
+
+ [calc_CosmicDoseRate]
+
+ ---------------------------------------------------------
+ depth (m)              : 2.78
+ density (g cm^-3)      : 1.7
+ latitude (N deg.)      : 38.06451
+ longitude (E deg.)     : 1.49646
+ altitude (m)           : 364
+ ---------------------------------------------------------
+ total absorber (g cm^-2)       : 472.6
+
+ cosmic dose rate (Gy ka^-1)    : 0.1518
+  [@sea-level & 55 deg. N G.lat]
+
+ geomagnetic latitude (deg.)    : 41.1
+
+ cosmic dose rate (Gy ka^-1)    : 0.161 +- 0.0161
+  [corrected]                 
+ ---------------------------------------------------------
+
+
+ [calc_HomogeneityTest()]
+
+ ---------------------------------
+ n:                  7
+ ---------------------------------
+ mu:                 3.7727
+ G-value:            19.2505
+ Degrees of freedom: 6
+ P-value:            0.0038
+ ---------------------------------
+
+
+[fit_CWCurve()]
+
+Fitting was finally done using a 3-component function (max=4):
+------------------------------------------------------------------------------
+y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x) + I0.3 * lambda.3 * exp(-lambda.3 * x)
+
+         I0 I0.error     lambda lambda.error           cs cs.rel
+c1 2387.617       NA 4.59053972           NA 5.389396e-17 1.0000
+c2 1053.491       NA 1.95936444           NA 2.300337e-17 0.4268
+c3 2816.630       NA 0.02054734           NA 2.412303e-19 0.0045
+------------------------------------------------------------------------------
+pseudo-R^2 = 0.9995
+[fit_LMCurve] >> Background subtracted (method="polynomial")!
+
+[fit_LMCurve()]
+
+Fitting was done using a 3-component function:
+
+       xm1        xm2        xm3        Im1        Im2        Im3 
+  49.00643  204.40082 1591.66448  169.44002   23.00741  405.46171 
+
+(equation used for fitting according Kitis & Pagonis, 2008)
+------------------------------------------------------------------------------
+(1) Corresponding values according the equation in Bulur, 1996 for b and n0:
+
+b1 = 1.665536e+00 +/- NA
+n01 = 1.36904e+04 +/- NA
+
+b2 = 9.574028e-02 +/- NA
+n02 = 7.753496e+03 +/- NA
+
+b3 = 1.578908e-03 +/- NA
+n03 = 1.064017e+06 +/- NA
+
+cs from component.1 = 1.955e-17 cm^2	 >> relative: 1
+cs from component.2 = 1.124e-18 cm^2	 >> relative: 0.0575
+cs from component.3 = 1.854e-20 cm^2	 >> relative: 9e-04
+
+(stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)
+(errors quoted as 1-sigma uncertainties)
+------------------------------------------------------------------------------
+
+pseudo-R^2 = 0.9437
+[fit_LMCurve] >> Background subtracted (method="polynomial")!
+
+[fit_LMCurve()]
+
+Fitting was done using a 3-component function:
+
+      xm.1       xm.2       xm.3       Im.1       Im.2       Im.3 
+  49.00509  204.34969 1591.66300  169.43653   23.01176  405.46223 
+
+(equation used for fitting according Kitis & Pagonis, 2008)
+------------------------------------------------------------------------------
+(1) Corresponding values according the equation in Bulur, 1996 for b and n0:
+
+b1 = 1.665626e+00 +/- NA
+n01 = 1.368975e+04 +/- NA
+
+b2 = 9.57882e-02 +/- NA
+n02 = 7.753022e+03 +/- NA
+
+b3 = 1.578911e-03 +/- NA
+n03 = 1.064017e+06 +/- NA
+
+cs from component.1 = 1.955e-17 cm^2	 >> relative: 1
+cs from component.2 = 1.125e-18 cm^2	 >> relative: 0.0575
+cs from component.3 = 1.854e-20 cm^2	 >> relative: 9e-04
+
+(stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)
+(errors quoted as 1-sigma uncertainties)
+------------------------------------------------------------------------------
+
+pseudo-R^2 = 0.9437
+══ Skipped tests ═══════════════════════════════════════════════════════════════
+• On CRAN (182)
+
+[ FAIL 0 | WARN 0 | SKIP 182 | PASS 16 ]
+> 
+> proc.time()
+   user  system elapsed 
+ 10.529   1.011   9.329 

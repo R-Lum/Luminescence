@@ -1,0 +1,923 @@
+Hmm ... looks like a package
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-07-12>
+(./Rd2.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/02/12 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/latin1.def))
+Writing index file Rd2.idx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file Rd2.aux.
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/utf8.def) [1{/usr/local/texl
+ive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (31.03044pt too wide) in alignment at lines 117--117
+ [] [] [] 
+[2] [3]
+Overfull \hbox (0.69946pt too wide) in paragraph at lines 205--210
+[]\T1/ptm/m/n/10 Other in-put.elements: [][]\T1/zi4/m/n/10 animationOptions[][]
+[]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 sliderInput[][][]\T1/ptm/m/n/10 ; [][]\T1
+/zi4/m/n/10 checkboxGroupInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 checkbo
+xInput[][][]\T1/ptm/m/n/10 ;
+
+Overfull \hbox (36.56036pt too wide) in paragraph at lines 205--210
+[][]\T1/zi4/m/n/10 dateInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 dateRange
+Input[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 fileInput[][][]\T1/ptm/m/n/10 ; 
+[][]\T1/zi4/m/n/10 numericInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 passwo
+rdInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 radioButtons[][][]\T1/ptm/m/n/
+10 ; [][]\T1/zi4/m/n/10 selectInput[][][]\T1/ptm/m/n/10 ,
+[4] [5] (/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Overfull \hbox (7.35785pt too wide) in paragraph at lines 336--338
+[][][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 (\T1/ptm/m/it/10 op-tional\
+T1/ptm/m/n/10 ): At-tach tooltip to all el-e-ments with at-tribute \T1/zi4/m/n/
+10 attr=\TS1/zi4/m/n/10 '\T1/zi4/m/n/10 refId\TS1/zi4/m/n/10 '\T1/ptm/m/n/10 . 
+
+[6]
+No file Rd2.ind.
+[7]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.numeric} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.textInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.submitButton} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectizeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.radioButtons} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.passwordInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numericInput} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.fileInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateRangeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxGroupInput} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.sliderInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.animationOptions} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RCarb::model.Rul.DoseRate} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RLum} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FadingCorr} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.analyse.Rul.FadingMeasurement} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FastRatio} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.FilterCombinations} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pPMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLM} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pHMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.CosmicDoseRate} has been referenced bu
+t does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.DRTResults} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RadialPlot} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.KDE} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.Histogram} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.AbanicoPlot} has been referenced but d
+oes not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.runApp} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/us
+r/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
+/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/
+2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on Rd2.pdf (7 pages, 100695 bytes).
+Transcript written on Rd2.log.
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-07-12>
+(./Rd2.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/02/12 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/latin1.def))
+Writing index file Rd2.idx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty))
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.out)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.out)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.toc [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/p
+dftex.map}]) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (31.03044pt too wide) in alignment at lines 117--117
+ [] [] [] 
+[2] [3]
+Overfull \hbox (0.69946pt too wide) in paragraph at lines 205--210
+[]\T1/ptm/m/n/10 Other in-put.elements: [][]\T1/zi4/m/n/10 animationOptions[][]
+[]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 sliderInput[][][]\T1/ptm/m/n/10 ; [][]\T1
+/zi4/m/n/10 checkboxGroupInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 checkbo
+xInput[][][]\T1/ptm/m/n/10 ;
+
+Overfull \hbox (36.56036pt too wide) in paragraph at lines 205--210
+[][]\T1/zi4/m/n/10 dateInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 dateRange
+Input[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 fileInput[][][]\T1/ptm/m/n/10 ; 
+[][]\T1/zi4/m/n/10 numericInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 passwo
+rdInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 radioButtons[][][]\T1/ptm/m/n/
+10 ; [][]\T1/zi4/m/n/10 selectInput[][][]\T1/ptm/m/n/10 ,
+[4] [5] (/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Overfull \hbox (7.35785pt too wide) in paragraph at lines 336--338
+[][][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 (\T1/ptm/m/it/10 op-tional\
+T1/ptm/m/n/10 ): At-tach tooltip to all el-e-ments with at-tribute \T1/zi4/m/n/
+10 attr=\TS1/zi4/m/n/10 '\T1/zi4/m/n/10 refId\TS1/zi4/m/n/10 '\T1/ptm/m/n/10 . 
+
+[6]
+No file Rd2.ind.
+[7]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux) )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.numeric} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.textInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.submitButton} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectizeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.radioButtons} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.passwordInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numericInput} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.fileInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateRangeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxGroupInput} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.sliderInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.animationOptions} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RCarb::model.Rul.DoseRate} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RLum} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FadingCorr} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.analyse.Rul.FadingMeasurement} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FastRatio} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.FilterCombinations} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pPMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLM} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pHMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.CosmicDoseRate} has been referenced bu
+t does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.DRTResults} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RadialPlot} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.KDE} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.Histogram} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.AbanicoPlot} has been referenced but d
+oes not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.runApp} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/us
+r/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
+/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/
+2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on Rd2.pdf (7 pages, 101513 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2021] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (69 entries accepted, 0 rejected).
+Sorting entries....done (461 comparisons).
+Generating output file Rd2.ind....done (82 lines written, 1 warning).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-07-12>
+(./Rd2.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/02/12 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/latin1.def))
+Writing index file Rd2.idx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty))
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.out)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.out)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.toc [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/p
+dftex.map}]) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (31.03044pt too wide) in alignment at lines 117--117
+ [] [] [] 
+[2] [3]
+Overfull \hbox (0.69946pt too wide) in paragraph at lines 205--210
+[]\T1/ptm/m/n/10 Other in-put.elements: [][]\T1/zi4/m/n/10 animationOptions[][]
+[]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 sliderInput[][][]\T1/ptm/m/n/10 ; [][]\T1
+/zi4/m/n/10 checkboxGroupInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 checkbo
+xInput[][][]\T1/ptm/m/n/10 ;
+
+Overfull \hbox (36.56036pt too wide) in paragraph at lines 205--210
+[][]\T1/zi4/m/n/10 dateInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 dateRange
+Input[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 fileInput[][][]\T1/ptm/m/n/10 ; 
+[][]\T1/zi4/m/n/10 numericInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 passwo
+rdInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 radioButtons[][][]\T1/ptm/m/n/
+10 ; [][]\T1/zi4/m/n/10 selectInput[][][]\T1/ptm/m/n/10 ,
+[4] [5] (/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Overfull \hbox (7.35785pt too wide) in paragraph at lines 336--338
+[][][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 (\T1/ptm/m/it/10 op-tional\
+T1/ptm/m/n/10 ): At-tach tooltip to all el-e-ments with at-tribute \T1/zi4/m/n/
+10 attr=\TS1/zi4/m/n/10 '\T1/zi4/m/n/10 refId\TS1/zi4/m/n/10 '\T1/ptm/m/n/10 . 
+
+[6]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.ind [7] [8])
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.numeric} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.textInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.submitButton} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectizeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.radioButtons} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.passwordInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numericInput} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.fileInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateRangeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxGroupInput} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.sliderInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.animationOptions} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RCarb::model.Rul.DoseRate} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RLum} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FadingCorr} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.analyse.Rul.FadingMeasurement} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FastRatio} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.FilterCombinations} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pPMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLM} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pHMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.CosmicDoseRate} has been referenced bu
+t does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.DRTResults} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RadialPlot} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.KDE} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.Histogram} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.AbanicoPlot} has been referenced but d
+oes not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.runApp} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/us
+r/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
+/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/
+2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on Rd2.pdf (8 pages, 104554 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2021] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (69 entries accepted, 0 rejected).
+Sorting entries....done (461 comparisons).
+Generating output file Rd2.ind....done (82 lines written, 1 warning).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-07-12>
+(./Rd2.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/02/12 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/latin1.def))
+Writing index file Rd2.idx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty))
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.out)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.out)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.toc [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/p
+dftex.map}]) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/utf8.def)
+[2]
+Overfull \hbox (31.03044pt too wide) in alignment at lines 117--117
+ [] [] [] 
+[3]
+Overfull \hbox (0.69946pt too wide) in paragraph at lines 205--210
+[]\T1/ptm/m/n/10 Other in-put.elements: [][]\T1/zi4/m/n/10 animationOptions[][]
+[]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 sliderInput[][][]\T1/ptm/m/n/10 ; [][]\T1
+/zi4/m/n/10 checkboxGroupInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 checkbo
+xInput[][][]\T1/ptm/m/n/10 ;
+
+Overfull \hbox (36.56036pt too wide) in paragraph at lines 205--210
+[][]\T1/zi4/m/n/10 dateInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 dateRange
+Input[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 fileInput[][][]\T1/ptm/m/n/10 ; 
+[][]\T1/zi4/m/n/10 numericInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 passwo
+rdInput[][][]\T1/ptm/m/n/10 ; [][]\T1/zi4/m/n/10 radioButtons[][][]\T1/ptm/m/n/
+10 ; [][]\T1/zi4/m/n/10 selectInput[][][]\T1/ptm/m/n/10 ,
+[4] [5] (/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Overfull \hbox (7.35785pt too wide) in paragraph at lines 336--338
+[][][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 (\T1/ptm/m/it/10 op-tional\
+T1/ptm/m/n/10 ): At-tach tooltip to all el-e-ments with at-tribute \T1/zi4/m/n/
+10 attr=\TS1/zi4/m/n/10 '\T1/zi4/m/n/10 refId\TS1/zi4/m/n/10 '\T1/ptm/m/n/10 . 
+
+[6]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.ind [7] [8])
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpEUmQUw/Rd2pdfa5dd
+4c4448b5/Rd2.aux) )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.numeric} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.textInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.submitButton} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectizeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.selectInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.radioButtons} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.passwordInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numericInput} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.fileInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateRangeInput} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.dateInput} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxInput} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.checkboxGroupInput} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.sliderInput} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.animationOptions} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RCarb::model.Rul.DoseRate} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RLum} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FadingCorr} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.analyse.Rul.FadingMeasurement} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.FastRatio} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.FilterCombinations} has been reference
+d but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pPMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pLM} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.CW2pHMi} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.calc.Rul.CosmicDoseRate} has been referenced bu
+t does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.DRTResults} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.RadialPlot} has been referenced but do
+es not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.KDE} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.Histogram} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.plot.Rul.AbanicoPlot} has been referenced but d
+oes not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.runApp} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/us
+r/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
+/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/
+2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on Rd2.pdf (8 pages, 105366 bytes).
+Transcript written on Rd2.log.
+Saving output to ‘RLumShiny-manual.pdf’ ...
+Done
+You may want to clean up by 'rm -Rf /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//RtmpEUmQUw/Rd2pdfa5dd4c4448b5'

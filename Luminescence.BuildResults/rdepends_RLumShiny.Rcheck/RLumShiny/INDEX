@@ -1,0 +1,7 @@
+RLumShiny-package       Shiny Applications for the R Package
+                        Luminescence
+RLumShinyAddin          RLumShiny Dashboard Addin
+app_RLum                Run Luminescence shiny apps
+jscolorInput            Create a JSColor picker input widget
+popover                 Create a bootstrap button with popover
+tooltip                 Create a bootstrap tooltip
