@@ -73,7 +73,7 @@ RLum.Analysis object including growth curve fitting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
       </span>
     </div>
 
@@ -146,7 +146,8 @@ RLum.Analysis object including growth curve fitting." />
       <th>object</th>
       <td><p><a href='RLum.Analysis-class.html'>RLum.Analysis</a> (<strong>required</strong>):
 input object containing data for analysis, alternatively a <a href='https://rdrr.io/r/base/list.html'>list</a> of
-<a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects can be provided.</p></td>
+<a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects can be provided. The object should contain <strong>only</strong> curves
+considered part of the SAR protocol (see Details.)</p></td>
     </tr>
     <tr>
       <th>signal.integral.min</th>
@@ -210,8 +211,8 @@ the RC.Status becomes always <code>'OK'</code></p></td>
     <tr>
       <th>dose.points</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
-a numeric vector containing the dose points values Using this argument
-overwrites dose point values in the signal curves. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of
+a numeric vector containing the dose points values. Using this argument
+overwrites dose point values extracted from other data. Can be a <a href='https://rdrr.io/r/base/list.html'>list</a> of
 <a href='https://rdrr.io/r/base/numeric.html'>numeric</a> vectors, if <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a></p></td>
     </tr>
     <tr>
@@ -275,6 +276,15 @@ calculation of the <code>Lx/Tx</code> value the function <a href='calc_OSLLxTxRa
 used. For <strong>changing the way the Lx/Tx error is calculated</strong> use the argument
 <code>background.count.distribution</code> and <code>sigmab</code>, which will be passed to the function
 <a href='calc_OSLLxTxRatio.html'>calc_OSLLxTxRatio</a>.</p>
+<p><strong>What is part of a SAR sequence?</strong></p>
+<p>The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
+A SAR sequence is basically a set of $L_x/T_x$ curves. Hence, every 2nd curve
+is considered a shine-down curve related to the test dose. It also means that the number of
+curves for $L_x$ has to be equal to the number of $T_x$ curves, and that
+hotbleach curves <strong>do not</strong> belong into a SAR sequence; at least not for the analysis.
+Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
+irradiation curves. The later one indicates the duration of the irradiation, the
+dose and test dose points, e.g., as part of XSYG files.</p>
 <p><strong>Argument <code>object</code> is of type <code>list</code></strong></p>
 <p>If the argument <code>object</code> is of type <a href='https://rdrr.io/r/base/list.html'>list</a> containing <strong>only</strong>
 <a href='RLum.Analysis-class.html'>RLum.Analysis</a> objects, the function re-calls itself as often as elements
@@ -309,6 +319,17 @@ Smith (1988).</p>
 default should not exceed 10\<!-- %. The test dose error is calculated as \code{Tx_net.error/Tx_net}. --></p>
 <p><code>[palaeodose.error]</code>: set the allowed error for the De value, which per
 default should not exceed 10\<!-- %. --></p>
+<p><strong>Irradiation times</strong></p>
+<p>The function makes two attempts to extra irradiation data (dose points)
+automatically from the input object, if the argument <code>dose.points</code> was not
+set (aka set to <code>NULL</code>).</p><ol>
+<li><p>It searches in every curve for an info object called <code>IRR_TIME</code>. If this was set, any value
+set here is taken as dose point.</p></li>
+<li><p>If the object contains curves of type <code>irradiation</code>, the function tries to
+use this information to assign these values to the curves. However, the function
+does <strong>not</strong> overwrite values preset in <code>IRR_TIME</code>.</p></li>
+</ol>
+
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function must not be mixed up with the function
@@ -317,10 +338,10 @@ default should not exceed 10\<!-- %. --></p>
 <p><strong>The function currently does support only 'OSL', 'IRSL' and 'POSL' data!</strong></p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.9.11</p>
+    <p>0.9.13</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
@@ -378,7 +399,7 @@ rejection.criteria <span class='op'>=</span> <span class='fu'><a href='https://r
 #&gt;   HPDI68_U HPDI95_L HPDI95_U RC.Status signal.range background.range
 #&gt; 1 1709.013 1570.493 1761.183        OK        1 : 2       900 : 1000
 #&gt;   signal.range.Tx background.range.Tx                                UID
-#&gt; 1         NA : NA             NA : NA 2021-07-21-12:40.0.878804486710578</div><div class='input'>
+#&gt; 1         NA : NA             NA : NA 2021-08-24-04:03.0.878804486710578</div><div class='input'>
 <span class='co'>##show LnTnLxTx table</span>
 <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"LnLxTnTx.table"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      Name Repeated Dose  LnLx   LnLx.BG TnTx   TnTx.BG    Net_LnLx
@@ -398,13 +419,13 @@ rejection.criteria <span class='op'>=</span> <span class='fu'><a href='https://r
 #&gt; 6       97.54912 5732.396       77.37976 1.61426805 0.027647946
 #&gt; 7       14.86509 5989.356       78.87190 0.01629624 0.002491179
 #&gt;                                  UID
-#&gt; 1 2021-07-21-12:40.0.878804486710578
-#&gt; 2 2021-07-21-12:40.0.878804486710578
-#&gt; 3 2021-07-21-12:40.0.878804486710578
-#&gt; 4 2021-07-21-12:40.0.878804486710578
-#&gt; 5 2021-07-21-12:40.0.878804486710578
-#&gt; 6 2021-07-21-12:40.0.878804486710578
-#&gt; 7 2021-07-21-12:40.0.878804486710578</div><div class='input'>
+#&gt; 1 2021-08-24-04:03.0.878804486710578
+#&gt; 2 2021-08-24-04:03.0.878804486710578
+#&gt; 3 2021-08-24-04:03.0.878804486710578
+#&gt; 4 2021-08-24-04:03.0.878804486710578
+#&gt; 5 2021-08-24-04:03.0.878804486710578
+#&gt; 6 2021-08-24-04:03.0.878804486710578
+#&gt; 7 2021-08-24-04:03.0.878804486710578</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

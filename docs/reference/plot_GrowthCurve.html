@@ -74,7 +74,7 @@ extrapolation to calculate the equivalent dose." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
       </span>
     </div>
 
@@ -355,10 +355,10 @@ Each error estimation is done with the function of the chosen fitting method.</p
 <code>mtext = ""</code>. To plot any other subtitle text, use <code>mtext</code>.</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>1.11.2</p>
+    <p>1.11.3</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M., 2021. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., 2021. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.</p>
@@ -383,10 +383,10 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.LxTxData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>temp</span> <span class='op'>&lt;-</span> <span class='fu'>plot_GrowthCurve</span><span class='op'>(</span><span class='va'>LxTxData</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</div><div class='img'><img src='plot_GrowthCurve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>temp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc  De.MC Fit HPDI68_L
-#&gt; lower 1737.881 62.69638 1766.074   79.8632  NA        NA NA 1739.2 EXP 1673.503
-#&gt;       HPDI68_U HPDI95_L HPDI95_U
-#&gt; lower 1803.836 1609.667 1866.786</div><div class='input'>
+</div><div class='output co'>#&gt;             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc    De.MC Fit
+#&gt; lower 1737.881  62.1215 1766.074  95.77067  NA        NA NA 1741.546 EXP
+#&gt;       HPDI68_L HPDI68_U HPDI95_L HPDI95_U
+#&gt; lower 1671.215 1798.685 1614.295 1867.631</div><div class='input'>
 <span class='co'>##(1b) horizontal plot arrangement</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/layout.html'>layout</a></span><span class='op'>(</span>mat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>plot_GrowthCurve</span><span class='op'>(</span><span class='va'>LxTxData</span>, output.plotExtended.single <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -458,7 +458,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class='co'>#as alternative error estimation</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>$</span><span class='va'>Fit</span>, level <span class='op'>=</span> <span class='fl'>0.68</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Waiting for profiling to be done...</span></div><div class='output co'>#&gt;           16%         84%
-#&gt; a 140543.3023 146731.8470
+#&gt; a 140543.3024 146731.8471
 #&gt; b    374.0861    425.5679
 #&gt; c    116.3499    133.3474</div><div class='input'>
 
