@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.14",
+  "version": "0.9.15",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2021-06-12 r80490)",
+  "runtimePlatform": "R Under development (unstable) (2021-08-22 r80810)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -243,7 +243,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
-      "version": ">= 2.8",
+      "version": ">= 2.10",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -371,22 +371,9 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "magrittr",
-      "name": "magrittr",
-      "version": ">= 2.0.1",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=magrittr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "bbmle",
       "name": "bbmle",
-      "version": ">= 1.0.23",
+      "version": ">= 1.0.24",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -451,7 +438,7 @@
       "@type": "SoftwareApplication",
       "identifier": "matrixStats",
       "name": "matrixStats",
-      "version": ">= 0.59.0",
+      "version": ">= 0.60.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",

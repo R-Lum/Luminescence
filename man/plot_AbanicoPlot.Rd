@@ -212,12 +212,12 @@ thought provoking figure in this article.
 
 The semi circle (z-axis) of the classic Radial Plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
-part of the plot with any other cartesian visualisation method
+part of the plot with any other Cartesian visualisation method
 (KDE, histogram, PDF and so on). Note that the plot allows displaying
 two measures of distribution. One is the 2-sigma
 bar, which illustrates the spread in value errors, and the other is the
 polygon, which stretches over both parts of the Abanico Plot (polar and
-cartesian) and illustrates the actual spread in the values themselves.
+Cartesian) and illustrates the actual spread in the values themselves.
 
 Since the 2-sigma-bar is a polygon, it can be (and is) filled with shaded
 lines. To change density (lines per inch, default is 15) and angle (default
@@ -279,7 +279,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.15
+ 0.1.16
 }
 
 \examples{
@@ -464,7 +464,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

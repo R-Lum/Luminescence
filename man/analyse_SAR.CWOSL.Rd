@@ -24,7 +24,8 @@ analyse_SAR.CWOSL(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 input object containing data for analysis, alternatively a \link{list} of
-\linkS4class{RLum.Analysis} objects can be provided.}
+\linkS4class{RLum.Analysis} objects can be provided. The object should contain \strong{only} curves
+considered part of the SAR protocol (see Details.)}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
@@ -75,8 +76,8 @@ Every criterion can be set to \code{NA}. In this value are calculated, but not c
 the RC.Status becomes always \code{'OK'}}
 
 \item{dose.points}{\link{numeric} (\emph{optional}):
-a numeric vector containing the dose points values Using this argument
-overwrites dose point values in the signal curves. Can be a \link{list} of
+a numeric vector containing the dose points values. Using this argument
+overwrites dose point values extracted from other data. Can be a \link{list} of
 \link{numeric} vectors, if \code{object} is of type \link{list}}
 
 \item{mtext.outer}{\link{character} (\emph{optional}):
@@ -130,6 +131,17 @@ used. For \strong{changing the way the Lx/Tx error is calculated} use the argume
 \code{background.count.distribution} and \code{sigmab}, which will be passed to the function
 \link{calc_OSLLxTxRatio}.
 
+\strong{What is part of a SAR sequence?}
+
+The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
+A SAR sequence is basically a set of $L_{x}/T_{x}$ curves. Hence, every 2nd curve
+is considered a shine-down curve related to the test dose. It also means that the number of
+curves for $L_{x}$ has to be equal to the number of $T_{x}$ curves, and that
+hotbleach curves \strong{do not} belong into a SAR sequence; at least not for the analysis.
+Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
+irradiation curves. The later one indicates the duration of the irradiation, the
+dose and test dose points, e.g., as part of XSYG files.
+
 \strong{Argument \code{object} is of type \code{list}}
 
 If the argument \code{object} is of type \link{list} containing \strong{only}
@@ -174,6 +186,19 @@ default should not exceed 10\\%. The test dose error is calculated as \code{Tx_n
 
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\\%.
+
+\strong{Irradiation times}
+
+The function makes two attempts to extra irradiation data (dose points)
+automatically from the input object, if the argument \code{dose.points} was not
+set (aka set to \code{NULL}).
+\enumerate{
+\item It searches in every curve for an info object called \code{IRR_TIME}. If this was set, any value
+set here is taken as dose point.
+\item If the object contains curves of type \code{irradiation}, the function tries to
+use this information to assign these values to the curves. However, the function
+does \strong{not} overwrite values preset in \code{IRR_TIME}.
+}
 }
 \note{
 This function must not be mixed up with the function
@@ -183,7 +208,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.9.11
+ 0.9.13
 }
 
 \examples{
@@ -222,7 +247,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.14. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
