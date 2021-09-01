@@ -91,7 +91,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
 #'
-#' @section Function version: 0.16.2
+#' @section Function version: 0.16.4
 #'
 #'
 #' @author
@@ -330,11 +330,11 @@ read_BIN2R <- function(
   ##check if file is a BIN or BINX file
   if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%sub(pattern = "%20", replacement = "", x = tail(
     unlist(strsplit(file, split = "\\.")), n = 1), fixed = TRUE)))){
-
     try(
       stop(
         paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"),
         call. = FALSE))
+    con <- NULL
     return(NULL)
 
   }
@@ -354,16 +354,21 @@ read_BIN2R <- function(
   # Short file parsing to get number of records -------------------------------------------------
 
   #open connection
-  con<-file(file, "rb")
+  con <- file(file, "rb")
 
   ##get information about file size
   file.size <- file.info(file)
+
+  ##skip if zero-byte
+  if(file.size$size == 0){
+    message(paste0("[read_BIN2R()] ", basename(file)," is a zero-byte file, skipped!"))
+    return(NULL)
+  }
 
   ##read data up to the end of con
 
   ##set ID
   temp.ID <- 0
-
 
   ##start for BIN-file check up
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
@@ -656,9 +661,9 @@ read_BIN2R <- function(
   ##output
   if(verbose){cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)}
 
-  ##set progressbar
+  ##set progress bar
   if(txtProgressBar & verbose){
-    pb<-txtProgressBar(min=0,max=file.size$size, char="=", style=3)
+    pb <- txtProgressBar(min=0 ,max = file.size$size, char="=", style=3)
   }
 
   ##read data up to the end of con
