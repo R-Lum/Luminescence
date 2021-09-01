@@ -52,6 +52,10 @@ test_that("test the import of various BIN-file versions", {
 
    }
 
-
+   ## check for broken files
+   t <- tempfile(pattern = "zero", fileext = ".binx")
+   write(raw(), t)
+   expect_error(read_BIN2R(t), regexp = "\\[read\\_BIN2R\\(\\)\\] Found BIN\\/BINX-format version \\(0a\\) is not supported or the BIN/BINX-file is broken")
+   file.remove(t)
 
 })
