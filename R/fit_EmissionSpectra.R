@@ -3,6 +3,9 @@
 #'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
 #'on an **energy scale**. The function is optimised for emission spectra typically
 #'obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
+#'The function is not prepared to deconvolve TL curves (counts against temperature;
+#'no wavelength scale). If you are interested in such analysis, please check, e.g.,
+#'the package `'tgcd'`.
 #'
 #'@details
 #'
