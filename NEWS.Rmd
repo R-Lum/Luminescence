@@ -12,6 +12,9 @@ header-includes:
 
 ### Bugfixes and changes
 
+#### `analyse_SAR.CWOSL()` 
+* If all dose points were 0, the function crashed; fixed.
+
 #### `read_BIN2R()`
 * The function crashed if it was run in a loop and encountered non-supported files; fixed.
 * The function does not crash anymore for zero-byte files but skips the import, returns a message and `NULL`.
