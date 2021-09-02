@@ -129,7 +129,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.20
+#' @section Function version: 0.1.21
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -1018,11 +1018,20 @@ analyse_FadingMeasurement <- function(
   ##set data.frame
   if(all(is.na(g_value))){
     fading_results <- data.frame(
-      g_value = NA,
+      FIT = NA,
+      MEAN = NA,
+      SD = NA,
+      Q_0.025 = NA,
+      Q_0.16 = NA,
+      Q_0.84 = NA,
+      Q_0.975 = NA,
       TC = NA,
       G_VALUE_2DAYS = NA,
       G_VALUE_2DAYS.ERROR = NA,
-      T_0.5 = NA,
+      T_0.5_INTERPOLATED = NA,
+      T_0.5_PREDICTED = NA,
+      T_0.5_PREDICTED.LOWER = NA,
+      T_0.5_PREDICTED.UPPER =  NA,
       UID = uid,
       stringsAsFactors = FALSE
     )

@@ -12,6 +12,10 @@ header-includes:
 
 ### Bugfixes and changes
 
+#### `analyse_FadingMeasurement()` 
+* If run in a loop (e.g., with `lapply()`), merging of the results with `merge_RLum()` failed, 
+because the returned objects were not always strictly identical; fixed. 
+
 #### `analyse_SAR.CWOSL()` 
 * If all dose points were 0, the function crashed; fixed.
 
