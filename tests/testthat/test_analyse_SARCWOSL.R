@@ -338,7 +338,7 @@ test_that("advance tests run", {
     class = "RLum.Results"
   )
 
-  ##test rejection criteria list in list + test unknow argument
+  ##test rejection criteria list in list + test unknown argument
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[1:2],
