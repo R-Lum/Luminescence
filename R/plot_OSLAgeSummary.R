@@ -2,10 +2,10 @@
 #'
 #'@description A graphical summary of the statistical inference of an OSL age
 #'
-#'@details The function is called automatically by [combine_Dr_De]
+#'@details The function is called automatically by [combine_De_Dr]
 #'
 #'@param object [RLum.Results-class], [numeric] (**required**): an object produced
-#' by [combine_Dr_De]. Alternatively, a [numeric] vector of a parameter from an MCMC process
+#' by [combine_De_Dr]. Alternatively, a [numeric] vector of a parameter from an MCMC process
 #'
 #'@param level [numeric] (*with default*): probability of shown credible interval
 #'
@@ -26,7 +26,7 @@
 #'
 #'@section Function version: 0.1.0
 #'
-#'@seealso [combine_Dr_De], [plot.default], [rjags::rjags]
+#'@seealso [combine_De_Dr], [plot.default], [rjags::rjags]
 #'
 #'@keywords hplot dplot
 #'
@@ -50,7 +50,7 @@ plot_OSLAgeSummary <- function(
      object@originator %in% c(".calc_BayesianCentralAgeModel", ".calc_IndividualAgeModel"))
     object <- get_RLum(object, data.object = "A")
 
-  if(is(object, "RLum.Results") && object@originator == "combine_Dr_De")
+  if(is(object, "RLum.Results") && object@originator == "combine_De_Dr")
     object <- get_RLum(object, data.object = "Ages")
 
 

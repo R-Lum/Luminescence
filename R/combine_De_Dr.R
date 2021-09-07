@@ -23,11 +23,11 @@
 #'
 #'@param verbose [logical] (*with default*): enable/disable terminal feedback
 #'
-#'@return An [RLum.Results-class] object to be used in [combine_Dr_De]
+#'@return An [RLum.Results-class] object to be used in [combine_De_Dr]
 #'
 #'@section Function version: 0.1.0
 #'
-#'@note The function is intended to be called by [combine_Dr_De], however, for
+#'@note The function is intended to be called by [combine_De_Dr], however, for
 #' reasons of transparency
 #'
 #'@author Anne Philippe, Université de Nantes (France),
@@ -429,7 +429,7 @@
 #'
 #'## run modelling
 #'## note: modify parameters for more realistic results
-#'results <- combine_Dr_De(
+#'results <- combine_De_Dr(
 #' Dr = Dr,
 #' int_OD = 0.1,
 #' De,
@@ -445,7 +445,7 @@
 #'
 #'@md
 #'@export
-combine_Dr_De <- function(
+combine_De_Dr <- function(
   Dr,
   int_OD,
   De,
@@ -463,13 +463,13 @@ combine_Dr_De <- function(
 # Check input data --------------------------------------------------------
 if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace("mclust"),
            quietly = TRUE))) {
-    stop("[combine_Dr_De()] To use this function you have to first
+    stop("[combine_De_Dr()] To use this function you have to first
          install the package 'rjags', 'coda', and 'mclust'.", call. = FALSE)
 }
 
 # Integrity checks --------------------------------------------------------
  if(length(De) != length(s))
-   stop("[combine_Dr_De()] 'De' and 's' are not of similar length!", call. = FALSE)
+   stop("[combine_De_Dr()] 'De' and 's' are not of similar length!", call. = FALSE)
 
 # Prepare data ------------------------------------------------------------
   ## we have to fetch the function otherwise
@@ -506,7 +506,7 @@ if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace
     val = method_control)
 
 # Bayesian Modelling IAM --------------------------------------------------
-if(verbose)  cat("\n[combine_Dr_De()]")
+if(verbose)  cat("\n[combine_De_Dr()]")
 
 fit_IAM <- .calc_IndividualAgeModel(
       theta = theta,
