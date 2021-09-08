@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.16.9000-10
-Date: 2021-09-02
+Version: 0.9.16.9000-12
+Date: 2021-09-08
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -228,4 +228,4 @@ Collate:
     'write_R2BIN.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
