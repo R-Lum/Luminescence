@@ -23,3 +23,6 @@ because the returned objects were not always strictly identical; fixed.
 * The function crashed if it was run in a loop and encountered non-supported files; fixed.
 * The function does not crash anymore for zero-byte files but skips the import, returns a message and `NULL`.
 * For BINX files created using and EM-CCD camera the function created, under particular circumstances, invalid records that could not be further transformed; fixed (thanks to  Anna-Maartje de Boer for reporting).
+
+#### `plot_RadialPlot()`
+* The function does not mess anymore with the `par()` settings of other subsequent plots

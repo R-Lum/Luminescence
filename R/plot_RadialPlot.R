@@ -125,7 +125,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.5
+#' @section Function version: 0.5.6
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -1345,17 +1345,20 @@ label.text[[1]] <- NULL
   ## Generate plot ------------------------------------------------------------
 
   ## check if plotting is enabled
-  if(show == TRUE) {
+  if(show) {
 
-    ## determine number of subheader lines to shif the plot
+    ## determine number of subheader lines to shift the plot
     if(length(summary) > 0 & summary.pos[1] == "sub") {
       shift.lines <- length(data) + 1
     } else {shift.lines <- 1}
 
     ## setup plot area
-    par(mar = c(4, 4, shift.lines + 1.5, 7),
+    default <- par(mar = c(4, 4, shift.lines + 1.5, 7),
         xpd = TRUE,
         cex = cex)
+
+    ## reset on exit
+    on.exit(par(default))
 
     ## create empty plot
     plot(NA,
