@@ -74,7 +74,7 @@
   DATA <- object@DATA
 
   # grep id of record -------------------------------------------------------
-  ##if id is set, no input for pos and rund is nescessary
+  ##if id is set, no input for pos and run is necessary
   if (missing(id)) {
     id <- METADATA[METADATA[["POSITION"]] == pos &
                      METADATA[["SET"]] == set &
@@ -82,7 +82,6 @@
                    "ID"]
 
   }
-
 
   ##grep info elements
   info <- lapply(1:length(names(METADATA)), function(x){METADATA[[x]][id]})
