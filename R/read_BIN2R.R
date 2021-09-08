@@ -91,7 +91,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
 #'
-#' @section Function version: 0.16.4
+#' @section Function version: 0.16.5
 #'
 #'
 #' @author
@@ -639,7 +639,7 @@ read_BIN2R <- function(
 
 
   #set variable for DPOINTS handling
-  results.DATA<-list()
+  results.DATA <- list()
 
   ##set list for RESERVED values
   results.RESERVED <- rep(list(list()), n.length)
@@ -673,9 +673,8 @@ read_BIN2R <- function(
 
 
   # LOOP --------------------------------------------------------------------
-
   ##start loop for import BIN data
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
+  while(length(temp.VERSION <- readBin(con, what="raw", 1, size=1, endian="little"))>0) {
 
     ##force version number
     if(!is.null(forced.VersionNumber)){
@@ -688,16 +687,13 @@ read_BIN2R <- function(
       ##show error message
       error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
-      stop(error.text)
+      stop(error.text, call. = FALSE)
 
     }
 
     ##print record ID for debugging purposes
     if(verbose){
       if(show.record.number == TRUE){
-
-
-
         cat(temp.ID,",", sep = "")
         if(temp.ID%%10==0){
           cat("\n")
@@ -707,7 +703,7 @@ read_BIN2R <- function(
 
 
     #empty byte position
-    EMPTY<-readBin(con, what="raw", 1, size=1, endian="little")
+    EMPTY <- readBin(con, what="raw", 1, size=1, endian="little")
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
@@ -726,24 +722,32 @@ read_BIN2R <- function(
       if(temp.VERSION == 08){
         temp.RECTYPE <- readBin(con, what="int", 1, size=1, endian="little", signed = FALSE)
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1){
-          ##jump to the next record by stepping the record length minus the alread read bytes
+          ##jump to the next record by stepping the record length minus the already read bytes
           STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
 
           if(temp.RECTYPE == 128){
-            warning(paste0("[read_BIN2R()] ROI definition in data set #",temp.ID+1, "detected, but currently not supported, record skipped!", call. = FALSE))
+            warning(paste0("[read_BIN2R()] ROI definition in data set #",temp.ID+1, " detected, but currently not supported, record skipped!"), call. = FALSE)
 
           }else{
             if(!ignore.RECTYPE){
-              stop(paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"! Check your BIN-file!"), call. = FALSE)
+              stop(
+                paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"!
+                       Check your BIN/BINX file!"), call. = FALSE)
 
             }else{
-              if(verbose) cat(paste0("\n[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,", record skipped!"))
-              temp.ID <- temp.ID + 1
+              if(verbose)
+                cat(paste0("\n[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,", record skipped!"))
+
             }
 
           }
 
-          next
+          ## update and jump to next record, to avoid further trouble
+          ## we set the VERSION to NA and remove it later, otherwise we
+          ## break expected functionality
+          temp.ID <- temp.ID + 1
+          results.METADATA[temp.ID,`:=` (VERSION = NA)]
+          next()
         }
       }
 
@@ -846,9 +850,9 @@ read_BIN2R <- function(
       DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
 
       ##date size corrections for wrong date formats; set n to 6 for all values
-      ##accoording the handbook of Geoff Duller, 2007
+      ##according the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
-      temp.DATE<-readChar(con, DATE_SIZE, useBytes=TRUE)
+      temp.DATE <- readChar(con, DATE_SIZE, useBytes = TRUE)
 
 
       ##(4) Analysis
@@ -1241,7 +1245,7 @@ read_BIN2R <- function(
 
 
     }else{
-      stop("[read_BIN2R()] Unsupported BIN/BINX-file version.")
+      stop("[read_BIN2R()] Unsupported BIN/BINX-file version.", call. = FALSE)
 
     }
 
@@ -1250,7 +1254,7 @@ read_BIN2R <- function(
     ## ==========================================================================#
 
     #SET UNIQUE ID
-    temp.ID <- temp.ID+1
+    temp.ID <- temp.ID + 1
 
      ##update progress bar
     if(txtProgressBar & verbose){
@@ -1373,6 +1377,9 @@ read_BIN2R <- function(
   ##close
   if(txtProgressBar & verbose){close(pb)}
 
+  ## remove NA values created by skipping records
+  results.METADATA <- na.omit(results.METADATA, cols = "VERSION")
+
   ##output
   if(verbose){cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))}
 
@@ -1407,7 +1414,7 @@ read_BIN2R <- function(
 
   ##check for position that have no data at all (error during the measurement)
   if(zero_data.rm){
-    zero_data.check <- which(sapply(results.DATA, length) == 0)
+    zero_data.check <- which(vapply(results.DATA, length, numeric(1)) == 0)
 
     ##remove records if there is something to remove
     if(length(zero_data.check) != 0){
@@ -1422,7 +1429,7 @@ read_BIN2R <- function(
           "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed: ",
           paste(zero_data.check, collapse = ", "),
           ". \n\n >> Record index re-calculated."
-        )
+        ), call. = FALSE
       )
 
     }
