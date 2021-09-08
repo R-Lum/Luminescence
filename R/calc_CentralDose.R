@@ -47,7 +47,7 @@
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @section Function version: 1.4.0
+#' @section Function version: 1.4.1
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -245,13 +245,13 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
     cat(paste("\n n:                      ", n))
     cat(paste("\n log:                    ", log))
     cat(paste("\n----------- dose estimate ------------"))
-    cat(paste("\n central dose [Gy]:      ", format(out.delta, digits = 2, nsmall = 2)))
-    cat(paste("\n SE [Gy]:                ", format(out.delta * out.sedelta/100,
+    cat(paste("\n abs. central dose:      ", format(out.delta, digits = 2, nsmall = 2)))
+    cat(paste("\n abs. SE:                ", format(out.delta * out.sedelta/100,
                                                    digits = 2, nsmall = 2)))
     cat(paste("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2)))
     cat(paste("\n----------- overdispersion -----------"))
-    cat(paste("\n OD [Gy]:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
-    cat(paste("\n SE [Gy]:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
+    cat(paste("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
+    cat(paste("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
     cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
     cat(paste("\n SE [%]:                 ", if (class(sig) != "try-error") {
       format(out.sesigma * 100, digits = 2, nsmall = 2)
@@ -272,9 +272,14 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
 
   if(!log)  sig <- sig / delta
 
-
-  summary <- data.frame(de = out.delta, de_err = out.delta * out.sedelta / 100,
-                        OD = out.sigma, OD_err = out.sesigma * 100, Lmax = Lmax)
+  summary <- data.frame(
+    de = out.delta,
+    de_err = out.delta * out.sedelta / 100,
+    OD = ifelse(log, sigma * out.delta, sigma),
+    OD_err = ifelse(log, sesigma * out.delta, sesigma),
+    rel_OD = out.sigma,
+    rel_OD_err = out.sesigma * 100,
+    Lmax = Lmax)
 
   args <- list(log = log, sigmab = sigmab)
 

@@ -19,6 +19,15 @@ because the returned objects were not always strictly identical; fixed.
 #### `analyse_SAR.CWOSL()` 
 * If all dose points were 0, the function crashed; fixed.
 
+#### `calc_CentralDose()` 
+* The output in element `output$summary` was confusing for `log = FALSE`. While 
+the terminal output was correct, no differentiation was made between absolute
+and relative values in the output object depending on the `log` mode. 
+Now two more columns were added to report the overdispersion always in absolute units
+and relative (thanks to Li Bo for reporting this problem).
+* No claim on the unit (e.g., Gy or s) is anymore made in terminal output; since
+we do not determine this information. Instead now 'abs.' for absolute is used.
+
 #### `read_BIN2R()`
 * The function crashed if it was run in a loop and encountered non-supported files; fixed.
 * The function does not crash anymore for zero-byte files but skips the import, returns a message and `NULL`.

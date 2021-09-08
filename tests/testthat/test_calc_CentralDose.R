@@ -36,12 +36,15 @@ test_that("standard and output", {
 test_that("check summary output", {
   testthat::skip_on_cran()
   local_edition(3)
+
   results <- get_RLum(temp)
 
   expect_equal(round(results$de, digits = 5), 65.70929)
   expect_equal(round(results$de_err, digits = 6), 3.053443)
-  expect_equal(round(results$OD, digits = 5), 34.69061)
-  expect_equal(round(results$OD_err, digits = 6), 3.458774)
+  expect_equal(round(results$OD, digits = 5), 22.79495)
+  expect_equal(round(results$OD_err, digits = 6), 2.272736)
+  expect_equal(round(results$rel_OD, digits = 5), 34.69061)
+  expect_equal(round(results$rel_OD_err, digits = 6), 3.458774)
   expect_equal(round(results$Lmax, digits = 5), 31.85046)
 })
 
