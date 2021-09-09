@@ -368,13 +368,13 @@
 #' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE`
 #'}
 #'
-#'@param Dr [numeric] (**required**): a dose rate sample
-#'
-#'@param int_OD [numeric] (**required**): the intrinsic overdispersion, typically the standard deviation characterizing a dose-recovery test distribution
-#'
 #'@param De [numeric] (**required**): a equivalent dose sample
 #'
 #'@param s [numeric] (**required**): a vector of measurement errors on the equivalent dose
+#'
+#'@param Dr [numeric] (**required**): a dose rate sample
+#'
+#'@param int_OD [numeric] (**required**): the intrinsic overdispersion, typically the standard deviation characterizing a dose-recovery test distribution
 #'
 #'@param Age_range [numeric] (**required**): the age range to be investigated
 #'
@@ -447,10 +447,10 @@
 #'@md
 #'@export
 combine_De_Dr <- function(
-  Dr,
-  int_OD,
   De,
   s,
+  Dr,
+  int_OD,
   Age_range,
   outlier_threshold = .05,
   outlier_method = "default",
