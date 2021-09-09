@@ -136,7 +136,7 @@
   }
 
   ## run model
-  if(verbose) cat("\n(1) Running Bayesian modelling Individual Age Model ... ")
+  if(verbose) cat("\n(1) Running Bayesian modelling 'Individual Age Model' ... ")
 
   jags <- rjags::jags.model(
     file = model,
@@ -290,7 +290,7 @@
   }
 
   ## run modelling
-  if(verbose) cat("\n(2) Running Bayesian modelling Bayesian Central Age Model ... ")
+  if(verbose) cat("\n(2) Running Bayesian modelling 'Bayesian Central Age Model' ... ")
 
   jags2 <- rjags::jags.model(
     file = model,
@@ -506,7 +506,7 @@ if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace
     val = method_control)
 
 # Bayesian Modelling IAM --------------------------------------------------
-if(verbose)  cat("\n[combine_De_Dr()]")
+if(verbose)  cat("\n[combine_De_Dr()]\n")
 
 fit_IAM <- .calc_IndividualAgeModel(
       theta = theta,
@@ -620,9 +620,9 @@ fit_IAM <- .calc_IndividualAgeModel(
 if(plot){
   ##make sure we reset plots
   if(par_local) {
-    old.par <- par(no.readonly = TRUE)
+    old.par <- par(mfrow = c(1, 2))
     on.exit(par(old.par))
-    par(mfrow = c(1, 2))
+
   }
 
   if(outlier_analysis_plot){
@@ -660,7 +660,6 @@ if(plot){
       text(0.5, 0.5, "No outlier detected!")
 
     }
-
   }
 
   ##plot age summary
