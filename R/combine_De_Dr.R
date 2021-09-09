@@ -345,7 +345,18 @@
 #'@details
 #'
 #'**Outlier detection**
-#'#TODO
+#'
+#'Two different outlier detection methods are implemented (full details are given
+#'in the cited literature).
+#'
+#'1. The *default* and recommend method, uses quantiles to compare prior and
+#'posterior distributions of the individual variances of the equivalent doses.
+#'If the corresponding quantile in the corresponding posterior distribution is larger
+#'than the quantile in the prior distribution, the value is marked
+#'as outlier.
+#'
+#'2. The alternative method employs the method suggested by Rousseeuw and Croux (1993)
+#'using the absolute median distance.
 #'
 #'**Parameters available for `method_control`**
 #'
@@ -374,9 +385,12 @@
 #'
 #'@param Dr [numeric] (**required**): a dose rate sample
 #'
-#'@param int_OD [numeric] (**required**): the intrinsic overdispersion, typically the standard deviation characterizing a dose-recovery test distribution
+#'@param int_OD [numeric] (**required**): the intrinsic overdispersion, typically the standard deviation
+#'characterizing a dose-recovery test distribution
 #'
-#'@param Age_range [numeric] (**required**): the age range to be investigated
+#'@param Age_range [numeric] (*with default*): the age range to be investigated by the algorithm, the larger
+#'the value the more iterations are needed and the longer it takes. Should not be set too narrow, cut
+#'the algorithm some slack.
 #'
 #'@param outlier_threshold [numeric] (*with default*): the required significance level used
 #'for the outlier detection. If set to `1`, no outliers are removed. If
@@ -412,6 +426,14 @@
 #' `.. $model_BCAM`: the BUGS model used to calculate the Bayesian Central Age\cr
 #'
 #'@references ##will follow
+#'
+#'**Further reading**
+#'
+#'Rousseeuw, P.J., Croux, C., 1993. Alternatives to the median absolute deviation.
+#'Journal of the American Statistical Association 88, 1273–1283. \doi{10.2307/2291267}
+#'
+#'Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and outlier detection in chemometrics.
+#'Critical Reviews in Analytical Chemistry 36, 221–242. \doi{10.1080/10408340600969403}
 #'
 #'@author Anne Philippe, Université de Nantes (France),
 #'Jean-Michel Galharret, Université de Nantes (France),
@@ -451,7 +473,7 @@ combine_De_Dr <- function(
   s,
   Dr,
   int_OD,
-  Age_range,
+  Age_range = c(1,300),
   outlier_threshold = .05,
   outlier_method = "default",
   outlier_analysis_plot = FALSE,
@@ -516,7 +538,7 @@ fit_IAM <- .calc_IndividualAgeModel(
       De = De,
       s = s,
       sig0 = sig0,
-      Age_range = Age_range,
+      Age_range = Age_range[1:2],
       method_control = list(
           variable.names = method_control$variable.names_IAM,
           n.chains = method_control$n.chains,
