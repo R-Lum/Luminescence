@@ -24,8 +24,8 @@ because the returned objects were not always strictly identical; fixed.
 the terminal output was correct, no differentiation was made between absolute
 and relative values in the output object depending on the `log` mode. 
 Now two more columns were added to report the overdispersion always in absolute units
-and relative (thanks to Li Bo for reporting this problem).
-* No claim on the unit (e.g., Gy or s) is anymore made in terminal output; since
+(whatever that may be) and relative (thanks to Li Bo for reporting this problem).
+* No claim on the unit (e.g., Gy or s) is anymore made in the terminal output because
 we do not determine this information. Instead now 'abs.' for absolute is used.
 
 #### `read_BIN2R()`
