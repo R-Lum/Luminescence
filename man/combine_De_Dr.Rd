@@ -5,11 +5,11 @@
 \title{Combine Dose Rate and Equivalent Dose Distribution}
 \usage{
 combine_De_Dr(
-  Dr,
-  int_OD,
   De,
   s,
-  Age_range,
+  Dr,
+  int_OD,
+  Age_range = c(1, 300),
   outlier_threshold = 0.05,
   outlier_method = "default",
   outlier_analysis_plot = FALSE,
@@ -20,15 +20,18 @@ combine_De_Dr(
 )
 }
 \arguments{
-\item{Dr}{\link{numeric} (\strong{required}): a dose rate sample}
-
-\item{int_OD}{\link{numeric} (\strong{required}): the intrinsic overdispersion, typically the standard deviation characterizing a dose-recovery test distribution}
-
 \item{De}{\link{numeric} (\strong{required}): a equivalent dose sample}
 
 \item{s}{\link{numeric} (\strong{required}): a vector of measurement errors on the equivalent dose}
 
-\item{Age_range}{\link{numeric} (\strong{required}): the age range to be investigated}
+\item{Dr}{\link{numeric} (\strong{required}): a dose rate sample}
+
+\item{int_OD}{\link{numeric} (\strong{required}): the intrinsic overdispersion, typically the standard deviation
+characterizing a dose-recovery test distribution}
+
+\item{Age_range}{\link{numeric} (\emph{with default}): the age range to be investigated by the algorithm, the larger
+the value the more iterations are needed and the longer it takes. Should not be set too narrow, cut
+the algorithm some slack.}
 
 \item{outlier_threshold}{\link{numeric} (\emph{with default}): the required significance level used
 for the outlier detection. If set to \code{1}, no outliers are removed. If
@@ -57,6 +60,7 @@ object with the following slots:
 \verb{@data}\cr
 \code{.. $Ages}: a \link{numeric} vector with the modelled \cr
 \code{.. $outliers_index}: the index with the detected outliers\cr
+\code{.. $goodness_of_fit}: goodness of the fit in terms of the cdf distance\cr
 
 \verb{@info}\cr
 \code{.. $call}: the original function call\cr
@@ -70,7 +74,18 @@ dose sample.
 }
 \details{
 \strong{Outlier detection}
-#TODO
+
+Two different outlier detection methods are implemented (full details are given
+in the cited literature).
+\enumerate{
+\item The \emph{default} and recommend method, uses quantiles to compare prior and
+posterior distributions of the individual variances of the equivalent doses.
+If the corresponding quantile in the corresponding posterior distribution is larger
+than the quantile in the prior distribution, the value is marked
+as outlier.
+\item The alternative method employs the method suggested by Rousseeuw and Croux (1993)
+using the absolute median distance.
+}
 
 \strong{Parameters available for \code{method_control}}
 
@@ -100,7 +115,7 @@ Note: \code{method_control} expects a \strong{named} list of parameters
 \examples{
 ## set parameters
 Dr <- stats::rlnorm (1000, 0, 0.3)
-De <-  50*sample(Dr, 50, replace = TRUE)
+De <- 50*sample(Dr, 50, replace = TRUE)
 s <- stats::rnorm(50, 10, 2)
 
 ## run modelling
@@ -122,11 +137,19 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-17. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-18. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 ##will follow
+
+\strong{Further reading}
+
+Rousseeuw, P.J., Croux, C., 1993. Alternatives to the median absolute deviation.
+Journal of the American Statistical Association 88, 1273–1283. \doi{10.2307/2291267}
+
+Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and outlier detection in chemometrics.
+Critical Reviews in Analytical Chemistry 36, 221–242. \doi{10.1080/10408340600969403}
 }
 \author{
 Anne Philippe, Université de Nantes (France),
