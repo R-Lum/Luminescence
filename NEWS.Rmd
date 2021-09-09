@@ -43,3 +43,7 @@ we do not determine this information. Instead now 'abs.' for absolute is used.
 
 #### `plot_RadialPlot()`
 * The function does not mess anymore with the `par()` settings of other subsequent plots
+
+
+### Internals
+* New dependency to the package `'mclust'` required by the two new functions
