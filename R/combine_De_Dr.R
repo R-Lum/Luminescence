@@ -404,6 +404,7 @@
 #' `@data`\cr
 #' `.. $Ages`: a [numeric] vector with the modelled \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
+#' `.. $goodness_of_fit`: goodness of the fit in terms of the cdf distance\cr
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
@@ -424,7 +425,7 @@
 #'@examples
 #'## set parameters
 #' Dr <- stats::rlnorm (1000, 0, 0.3)
-#' De <-  50*sample(Dr, 50, replace = TRUE)
+#' De <- 50*sample(Dr, 50, replace = TRUE)
 #' s <- stats::rnorm(50, 10, 2)
 #'
 #'## run modelling
@@ -548,7 +549,6 @@ fit_IAM <- .calc_IndividualAgeModel(
   }
 
   ##age <- matrixStats::colMedians(fit_IAM$a) ##TODO has no use
-
   if(verbose){
     if (length(out) > 0) {
       cat(
