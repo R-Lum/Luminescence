@@ -410,7 +410,7 @@
 #' `.. $model_IAM`: the BUGS model used to derive the individual age\cr
 #' `.. $model_BCAM`: the BUGS model used to calculate the Bayesian Central Age\cr
 #'
-#'@references ##TODO
+#'@references ##will follow
 #'
 #'@author Anne Philippe, Université de Nantes (France),
 #'Jean-Michel Galharret, Université de Nantes (France),
