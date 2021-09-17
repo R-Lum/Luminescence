@@ -75,7 +75,8 @@ get_Quote <- function(
     c("Luminescence data to Bayesian process", "Don't you ever touch me again."),
     c("Quartz grain to heating plate", "Go ahead, I need a phase change."),
     c("Photon to electron", "I am in charge!"),
-    c("You cannot spell 'data analysis' without 'daily satan'")
+    c("You cannot spell 'data analysis' without 'daily satan'"),
+    c("Bright grain to dim grain", "Don't you get it?")
     )
 
   ## Check input data
