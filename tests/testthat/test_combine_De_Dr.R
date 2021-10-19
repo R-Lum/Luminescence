@@ -1,4 +1,4 @@
-test_that("Test combine_Dr_De", {
+test_that("Test combine_De_Dr", {
   testthat::skip_on_cran()
   local_edition(3)
 
@@ -12,14 +12,14 @@ test_that("Test combine_Dr_De", {
   set.seed(1276)
 
   ## break function
-  expect_error(combine_Dr_De(
+  expect_error(combine_De_Dr(
     Dr = Dr,
     int_OD = 0.1,
     De,
-    s[-1]), "\\[combine_Dr_De\\(\\)\\] \\'De\\' and \\'s\\' are not of similar length!")
+    s[-1]), "\\[combine_De_Dr\\(\\)\\] \\'De\\' and \\'s\\' are not of similar length!")
 
   ## simple run with standard settings
-  results <- expect_s4_class(combine_Dr_De(
+  results <- expect_s4_class(combine_De_Dr(
     Dr = Dr,
     int_OD = 0.1,
     De,
@@ -31,7 +31,7 @@ test_that("Test combine_Dr_De", {
 
   ## run the same with different par settings
   par(mfrow = c(2,2))
-  results <- expect_s4_class(combine_Dr_De(
+  results <- expect_s4_class(combine_De_Dr(
     Dr = Dr,
     int_OD = 0.1,
     De,
