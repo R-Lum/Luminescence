@@ -419,6 +419,8 @@
 #' `.. $Ages`: a [numeric] vector with the modelled \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
 #' `.. $goodness_of_fit`: goodness of the fit in terms of the cdf distance\cr
+#' `.. $cdf_ADr_mean` : empirical cumulative density distribution A * Dr (mean)\cr
+#' `.. $cdf_De_mean` : empirical cumulative density distribution modelled De (mean)
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
@@ -736,7 +738,9 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      goodness_of_fit = cdf_dist),
+      goodness_of_fit = cdf_dist,
+      cdf_De_mean = cdf_De_mean,
+      cdf_ADr_mean =  cdf_ADr_mean),
     info = list(
       call = sys.call(),
       model_IAM = fit_IAM$model,
