@@ -12,7 +12,7 @@
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom), Dirk Mittelstraß, TU Dresden (Germany), Jakob Wallinga (Wageningen University, Netherlands)
+#' @author Quote credits: Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom), Dirk Mittelstraß, TU Dresden (Germany), Jakob Wallinga (Wageningen University, Netherlands)
 #'
 #' @examples
 #'
