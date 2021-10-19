@@ -703,28 +703,30 @@ if(plot){
     xlab = "Dose [Gy]",
     main= "ECDF")
 
-  ##add polygon for De
-  polygon(
-    x = c(t, rev(t)),
-    y = c(cdf_De_quantiles[,1], rev(cdf_De_quantiles[,2])),
-    col = rgb(1,0,0,0.3), lty = 0)
-
   ##add polygon for A * Dr
   polygon(
     x = c(t, rev(t)),
     y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
+    col = rgb(1,0,0,0.3), lty = 0)
+
+  ##add polygon for De
+  polygon(
+    x = c(t, rev(t)),
+    y = c(cdf_De_quantiles[,1], rev(cdf_De_quantiles[,2])),
     col = rgb(0,1,0,0.3), lty = 0)
 
+
   ##add mean lines
-  lines(t, cdf_De_mean, col = "red", lty = 1)
-  lines(t, cdf_ADr_mean, col = "green", lty = 2)
+  lines(t, cdf_ADr_mean, col = "red", lty = 1)
+  lines(t, cdf_De_mean, col = "darkgreen", lty = 2)
+
 
   legend(
     "bottomright",
-    legend = c("De", "A * Dr"),
+    legend = c("A * Dr", "De"),
     lty = c(1,2),
     bty = "n",
-    col = c("red", "green"),
+    col = c("red", "darkgreen"),
     cex = 0.8)
   }
 
