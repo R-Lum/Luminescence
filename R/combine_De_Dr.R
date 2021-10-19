@@ -688,6 +688,7 @@ if(plot){
   plot_OSLAgeSummary(
     object = fit_BCAM,
     level = 0.68,
+    rug = FALSE,
     polygon_col = rgb(100, 149, 237, 75, maxColorValue = 255),
     verbose = FALSE
   )
