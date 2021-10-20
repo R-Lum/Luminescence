@@ -399,7 +399,7 @@ read_BIN2R <- function(
 
       }else{
         ##show error message
-        error.text <- paste("[read_BIN2R()] Found BIN/BINX-format version (",temp.VERSION,") is not supported or the BIN/BINX-file is broken.! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        error.text <- paste("[read_BIN2R()] Found BIN/BINX-format version (",temp.VERSION,") is not supported or the BIN/BINX-file is broken! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
         ##show error
         stop(error.text, call. = FALSE)
