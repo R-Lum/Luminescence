@@ -537,7 +537,7 @@ fit_EmissionSpectra <- function(
 
     if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
-    on.exit(close.screen(all.screens = TRUE))
+    on.exit(close.screen(n = c(1,2)))
 
     ##set split screen settings
     split.screen(rbind(
