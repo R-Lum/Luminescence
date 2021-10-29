@@ -193,7 +193,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.3
+#' @section Function version: 1.11.4
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -377,7 +377,7 @@ plot_GrowthCurve <- function(
     if (n.NA == 1) {
       warning("[plot_GrowthCurve()] 1 NA value excluded.", call. = FALSE)
     } else if (n.NA > 1) {
-      warning(paste(" [plot_GrowthCurve()]", n.NA, "NA values excluded."), call. = FALSE)
+      warning(paste("[plot_GrowthCurve()]", n.NA, "NA values excluded."), call. = FALSE)
     }
 
     sample <- na.exclude(sample)
@@ -440,19 +440,13 @@ plot_GrowthCurve <- function(
   if(fit.weights){
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
-    if(is.na(fit.weights[1])){
-      fit.weights <- NA
-      warning("[plot_GrowthCurve()] 'fit.weights' set to NA since the error column is invalid or 0.", call. = FALSE)
+    if(any(is.na(fit.weights))){
+      fit.weights <- 1
+      warning("[plot_GrowthCurve()] 'fit.weights' ignored since the error column is invalid or 0.", call. = FALSE)
 
     }
-
   }else{
-    if(sum(y.Error) == 0) {
-      fit.weights <- NA
-
-    } else {
-      fit.weights <- rep(1, length(abs(y.Error)))
-    }
+      fit.weights <- rep(1, length(y.Error))
 
   }
 

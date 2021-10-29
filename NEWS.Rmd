@@ -44,6 +44,10 @@ we do not determine this information. Instead now 'abs.' for absolute is used.
 #### `plot_RadialPlot()`
 * The function does not mess anymore with the `par()` settings of other subsequent plots
 
+#### `plot_GrowthCurve()`
+* The function crashed in combination with `analyse_SAR.CWOSL(...,fit.weights = TRUE)` for 
+unfortunate Lx/Tx error values (means, `Inf`) caused by noise-like OSL data; fixed. 
+Thanks to Frederik Baumgarten for reporting the issue. 
 
 ### Internals
 * New dependency to the package `'mclust'` required by the two new functions.
