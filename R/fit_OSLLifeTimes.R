@@ -419,7 +419,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
   if(!is.null(method_control_setting$seed))
     set.seed(method_control_setting$seed)
 
-
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(B) RUN DIFFERENTIAL EVOLUTION TO DETERMINE NUMBER OF COMPONENTS
   ##prevent collateral damage, so we want a data.frame that has at least 10 rows
@@ -449,7 +448,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
       ##set function
       ##Personal reminder:
       ##Why this function is not written in C++ ... because it adds basically nothing
-      ##in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot changed
+      ##in terms of speed ~ 10 µs faster, but needed to be compiled and thus cannot be changed
       ##directly in the code
       fn <- function(x, tp = set_tp, n = set_n, c = set_c, t = set_t, term = formula_string){
          eval(formula_string)
@@ -531,7 +530,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
         m <- m - 2
 
       }
-
     }
 
     A <- start_parameters[seq(1,length(start_parameters), by = 2)]
@@ -576,8 +574,6 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
       trace = method_control_setting$nlsLM.trace,
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = FALSE)
-
-
 
 # Post-processing -----------------------------------------------------------------------------
 
@@ -651,8 +647,6 @@ if(verbose){
 
 }
 
-
-
 # Plotting ------------------------------------------------------------------------------------
 if(plot) {
 
@@ -692,7 +686,7 @@ if(plot) {
     }
 
 
-  ##plot if the fitting was a sucess
+  ##plot if the fitting was a success
   if (class(fit)[1] != 'try-error') {
 
     if(!plot_simple){
@@ -790,7 +784,6 @@ if(plot) {
   }
 
 }#if plot
-
 
 # Return --------------------------------------------------------------------------------------
 
