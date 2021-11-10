@@ -836,13 +836,10 @@ if(centrality[1] == "mean") {
     limits.z
   }
 
-  ellipse.values <- seq(from = min(c(tick.values.major,
-                                     tick.values.minor,
-                                     user.limits[2])),
-                        to = max(c(tick.values.major,
-                                   tick.values.minor,
-                                   user.limits[2])),
-                        length.out = 500)
+  ellipse.values <- seq(
+    from = min(c(tick.values.major, tick.values.minor, user.limits[2])),
+    to = max(c(tick.values.major,tick.values.minor, user.limits[2])),
+    length.out = 500)
   ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
   ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
   ellipse <- cbind(ellipse.x, ellipse.y)
