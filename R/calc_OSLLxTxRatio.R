@@ -158,8 +158,11 @@
 #' data(ExampleData.LxTxOSLData, envir = environment())
 #'
 #' ##calculate Lx/Tx ratio
-#' results <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral = c(1:2),
-#'                              background.integral = c(85:100))
+#' results <- calc_OSLLxTxRatio(
+#'  Lx.data = Lx.data,
+#'  Tx.data = Tx.data,
+#'  signal.integral = c(1:2),
+#'  background.integral = c(85:100))
 #'
 #' ##get results object
 #' get_RLum(results)
