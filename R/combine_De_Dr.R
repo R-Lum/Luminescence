@@ -619,26 +619,27 @@ fit_IAM <- .calc_IndividualAgeModel(
   ##we have to do this here, otherwise the parameter cdf_dist will
   ##not be available if the user opts for plot = FALSE
   D_e <- fit_BCAM$D_e
+  h <- density(De1)$bw
+  h1 <- density(De)$bw
+ 
   A2 <- fit_BCAM$A
 
   t <- seq(min(D_e), max(D_e),length.out = min(1000, round(max(D_e) - min(D_e), 0)))
 
   ind <- min(5000, length(A2))
   subsamp <- sample(1:length(A2), ind, replace = FALSE)
-  cdf_De <- matrix(0, nrow = ind, ncol = length(t))
-  cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
+   cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
+   De2<-rnorm(length(subsamp),sample(De1,size=length(subsamp),replace=TRUE),h)
+   De3<-rnorm(length(subsamp),sample(De,size=length(subsamp),replace=TRUE),h1)
+   
   for (i in 1:ind) {
-    cdf_De[i, ] <- stats::ecdf(D_e[subsamp[i], ])(t)
     cdf_ADr[i, ] <- stats::ecdf(A2[subsamp[i]] * tildeDr)(t)
   }
 
   ## calculate various parameters
-  cdf_De_mean <- matrixStats::colMeans2(cdf_De)
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
-  cdf_De_quantiles <- matrixStats::colQuantiles(cdf_De, probs = c(.025,.975))
-  cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
-  cdf_dist <- suppressWarnings(#to silence tie warning
-    stats::ks.test(cdf_De_mean , cdf_ADr_mean)$statistic)
+  ##cdf_dist <- suppressWarnings(#to silence tie warning
+  ##  stats::ks.test(cdf_De_mean , cdf_ADr_mean)$statistic)
 
 # Plotting ----------------------------------------------------------------
 if(plot){
@@ -705,31 +706,45 @@ if(plot){
     xlab = "Dose [Gy]",
     main= "ECDF")
 
-  ##add polygon for A * Dr
-  polygon(
-    x = c(t, rev(t)),
-    y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
-    col = rgb(1,0,0,0.3), lty = 0)
-
-  ##add polygon for De
-  polygon(
-    x = c(t, rev(t)),
-    y = c(cdf_De_quantiles[,1], rev(cdf_De_quantiles[,2])),
-    col = rgb(0,1,0,0.3), lty = 0)
-
-
   ##add mean lines
-  lines(t, cdf_ADr_mean, col = "red", lty = 1)
-  lines(t, cdf_De_mean, col = "darkgreen", lty = 2)
-
+ 
+    lines(t,ecdf(De2)(t),type="l",col=3,lty=2,lwd=2) 
+    lines(t,ecdf(De3)(t),type="l",col=4,lty=3,lwd=2)
+    lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd= 2)
 
   legend(
     "bottomright",
-    legend = c("A * Dr", "De"),
-    lty = c(1,2),
+    legend = c("A * Dr", "De without outliers"," initial De"),
+    lty = c(1,2,3),
     bty = "n",
-    col = c("red", "darkgreen"),
+    col = c(2,3,4),
     cex = 0.8)
+
+  ##add polygon for A * Dr
+  ## polygon(
+  ##  x = c(t, rev(t)),
+  ##  y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
+  ##  col = rgb(1,0,0,0.3), lty = 0)
+
+  ##add polygon for De
+  ## polygon(
+  ##  x = c(t, rev(t)),
+  ##  y = c(cdf_De_quantiles[,1], rev(cdf_De_quantiles[,2])),
+  ##  col = rgb(0,1,0,0.3), lty = 0)
+
+
+  ##add mean lines
+  ## lines(t, cdf_ADr_mean, col = "red", lty = 1)
+  ## lines(t, cdf_De_mean, col = "darkgreen", lty = 2)
+
+
+  ## legend(
+  ##  "bottomright",
+  ##  legend = c("A * Dr", "De"),
+  ##  lty = c(1,2),
+  ##  bty = "n",
+  ##  col = c("red", "darkgreen"),
+  ## cex = 0.8)
   }
 
 # Return results ----------------------------------------------------------
@@ -738,8 +753,8 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      goodness_of_fit = cdf_dist,
-      cdf_De_mean = cdf_De_mean,
+      #goodness_of_fit = cdf_dist,
+      #cdf_De_mean = cdf_De_mean,
       cdf_ADr_mean =  cdf_ADr_mean),
     info = list(
       call = sys.call(),
