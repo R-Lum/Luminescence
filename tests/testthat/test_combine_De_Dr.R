@@ -45,12 +45,9 @@ test_that("Test combine_De_Dr", {
 
 
   ## check the length of the output
-  expect_length(results, 5)
+  expect_length(results, 3)
 
   ## try to plot the results again
   plot_OSLAgeSummary(results)
-
-
-
 
 })

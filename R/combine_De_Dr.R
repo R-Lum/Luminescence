@@ -418,16 +418,14 @@
 #' `@data`\cr
 #' `.. $Ages`: a [numeric] vector with the modelled \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
-#' `.. $goodness_of_fit`: goodness of the fit in terms of the cdf distance\cr
 #' `.. $cdf_ADr_mean` : empirical cumulative density distribution A * Dr (mean)\cr
-#' `.. $cdf_De_mean` : empirical cumulative density distribution modelled De (mean)
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
 #' `.. $model_IAM`: the BUGS model used to derive the individual age\cr
 #' `.. $model_BCAM`: the BUGS model used to calculate the Bayesian Central Age\cr
 #'
-#'@references ##will follow
+#'@references ##more will follow
 #'
 #'**Further reading**
 #'
@@ -616,30 +614,30 @@ fit_IAM <- .calc_IndividualAgeModel(
     )
 
 # Calculate EDFC -------------------------------------------------
-  ##we have to do this here, otherwise the parameter cdf_dist will
-  ##not be available if the user opts for plot = FALSE
   D_e <- fit_BCAM$D_e
   h <- density(De1)$bw
   h1 <- density(De)$bw
- 
+
   A2 <- fit_BCAM$A
 
-  t <- seq(min(D_e), max(D_e),length.out = min(1000, round(max(D_e) - min(D_e), 0)))
+  t <- seq(min(D_e), max(D_e), length.out = min(1000, round(max(D_e) - min(D_e), 0)))
 
   ind <- min(5000, length(A2))
   subsamp <- sample(1:length(A2), ind, replace = FALSE)
-   cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
-   De2<-rnorm(length(subsamp),sample(De1,size=length(subsamp),replace=TRUE),h)
-   De3<-rnorm(length(subsamp),sample(De,size=length(subsamp),replace=TRUE),h1)
-   
-  for (i in 1:ind) {
+  cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
+
+  ## De without outliers -> De2
+  ## De initial -> De3
+  De2 <-
+    rnorm(length(subsamp), sample(De1, size = length(subsamp), replace = TRUE), h)
+  De3 <-
+    rnorm(length(subsamp), sample(De, size = length(subsamp), replace = TRUE), h1)
+
+  for (i in 1:ind)
     cdf_ADr[i, ] <- stats::ecdf(A2[subsamp[i]] * tildeDr)(t)
-  }
 
   ## calculate various parameters
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
-  ##cdf_dist <- suppressWarnings(#to silence tie warning
-  ##  stats::ks.test(cdf_De_mean , cdf_ADr_mean)$statistic)
 
 # Plotting ----------------------------------------------------------------
 if(plot){
@@ -697,9 +695,7 @@ if(plot){
   )
 
   ## open plot area
-  plot(
-    NA,
-    NA,
+  plot(NA,
     xlim = range(t),
     ylim = c(0, 1),
     ylab = "ecdf (mean)",
@@ -707,44 +703,20 @@ if(plot){
     main= "ECDF")
 
   ##add mean lines
- 
-    lines(t,ecdf(De2)(t),type="l",col=3,lty=2,lwd=2) 
-    lines(t,ecdf(De3)(t),type="l",col=4,lty=3,lwd=2)
-    lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd= 2)
+  lines(t, stats::ecdf(De2)(t), type = "l", col = 3, lty = 2, lwd = 2)
+  lines(t, stats::ecdf(De3)(t), type = "l", col = 4, lty = 3, lwd = 2)
+  lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd = 2)
 
   legend(
     "bottomright",
-    legend = c("A * Dr", "De without outliers"," initial De"),
+    legend = c(
+      expression(A %*% Dr),
+      expression(paste(D[e], " no outliers")),
+      expression(paste(D[e], " initial"))),
     lty = c(1,2,3),
     bty = "n",
     col = c(2,3,4),
     cex = 0.8)
-
-  ##add polygon for A * Dr
-  ## polygon(
-  ##  x = c(t, rev(t)),
-  ##  y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
-  ##  col = rgb(1,0,0,0.3), lty = 0)
-
-  ##add polygon for De
-  ## polygon(
-  ##  x = c(t, rev(t)),
-  ##  y = c(cdf_De_quantiles[,1], rev(cdf_De_quantiles[,2])),
-  ##  col = rgb(0,1,0,0.3), lty = 0)
-
-
-  ##add mean lines
-  ## lines(t, cdf_ADr_mean, col = "red", lty = 1)
-  ## lines(t, cdf_De_mean, col = "darkgreen", lty = 2)
-
-
-  ## legend(
-  ##  "bottomright",
-  ##  legend = c("A * Dr", "De"),
-  ##  lty = c(1,2),
-  ##  bty = "n",
-  ##  col = c("red", "darkgreen"),
-  ## cex = 0.8)
   }
 
 # Return results ----------------------------------------------------------
@@ -753,8 +725,6 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      #goodness_of_fit = cdf_dist,
-      #cdf_De_mean = cdf_De_mean,
       cdf_ADr_mean =  cdf_ADr_mean),
     info = list(
       call = sys.call(),
