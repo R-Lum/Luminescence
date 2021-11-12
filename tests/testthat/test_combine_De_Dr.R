@@ -43,7 +43,6 @@ test_that("Test combine_De_Dr", {
                           n.chains = 1)), "RLum.Results")
 
 
-
   ## check the length of the output
   expect_length(results, 3)
 
