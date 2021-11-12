@@ -753,8 +753,8 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      goodness_of_fit = cdf_dist,
-      cdf_De_mean = cdf_De_mean,
+      #goodness_of_fit = cdf_dist,
+      #cdf_De_mean = cdf_De_mean,
       cdf_ADr_mean =  cdf_ADr_mean),
     info = list(
       call = sys.call(),
