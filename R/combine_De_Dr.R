@@ -419,6 +419,8 @@
 #' `.. $Ages`: a [numeric] vector with the modelled \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
 #' `.. $cdf_ADr_mean` : empirical cumulative density distribution A * Dr (mean)\cr
+#' `.. $cdf_De_no_outlier` : empirical cumulative density distribution of the De with no outliers\cr
+#' #' `.. $cdf_De_inital` : empirical cumulative density distribution of the initial De\cr
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
@@ -637,6 +639,10 @@ fit_IAM <- .calc_IndividualAgeModel(
   De3 <-
     rnorm(length(subsamp), sample(De, size = length(subsamp), replace = TRUE), h1)
 
+  ## calculate ecdf
+  cdf_De_no_outlier<- stats::ecdf(De2)(t)
+  cdf_De_initial <- stats::ecdf(De3)(t)
+
   for (i in 1:ind)
     cdf_ADr[i, ] <- stats::ecdf(A2[subsamp[i]] * tildeDr)(t)
 
@@ -707,8 +713,8 @@ if(plot){
     main= "ECDF")
 
   ##add mean lines
-  lines(t, stats::ecdf(De2)(t), type = "l", col = 3, lty = 2, lwd = 2)
-  lines(t, stats::ecdf(De3)(t), type = "l", col = 4, lty = 3, lwd = 2)
+  lines(t, cdf_De_no_outlier, type = "l", col = 3, lty = 2, lwd = 2)
+  lines(t, cdf_De_initial, type = "l", col = 4, lty = 3, lwd = 2)
   lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd = 2)
 
   legend(
@@ -729,7 +735,9 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      cdf_ADr_mean =  cdf_ADr_mean),
+      cdf_ADr_mean =  cdf_ADr_mean,
+      cdf_De_no_outlier = cdf_De_no_outlier,
+      cdf_De_initial = cdf_De_initial),
     info = list(
       call = sys.call(),
       model_IAM = fit_IAM$model,
