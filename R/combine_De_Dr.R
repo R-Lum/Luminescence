@@ -425,7 +425,11 @@
 #' `.. $model_IAM`: the BUGS model used to derive the individual age\cr
 #' `.. $model_BCAM`: the BUGS model used to calculate the Bayesian Central Age\cr
 #'
-#'@references ##more will follow
+#'@references
+#'
+#'Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of outliers with
+#'a Bayesian hierarchical model: application to the single-grain luminescence dating method.
+#'Electronic Journal of Applied Statistics
 #'
 #'**Further reading**
 #'
