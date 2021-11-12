@@ -61,6 +61,8 @@ object with the following slots:
 \code{.. $Ages}: a \link{numeric} vector with the modelled \cr
 \code{.. $outliers_index}: the index with the detected outliers\cr
 \code{.. $cdf_ADr_mean} : empirical cumulative density distribution A * Dr (mean)\cr
+\code{.. $cdf_De_no_outlier} : empirical cumulative density distribution of the De with no outliers\cr
+#' \code{.. $cdf_De_inital} : empirical cumulative density distribution of the initial De\cr
 
 \verb{@info}\cr
 \code{.. $call}: the original function call\cr
@@ -137,11 +139,13 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-26. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-27. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-##more will follow
+Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of outliers with
+a Bayesian hierarchical model: application to the single-grain luminescence dating method.
+Electronic Journal of Applied Statistics
 
 \strong{Further reading}
 
