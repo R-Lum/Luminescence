@@ -618,8 +618,9 @@ fit_IAM <- .calc_IndividualAgeModel(
 # Calculate EDFC -------------------------------------------------
   ##we have to do this here, otherwise the parameter cdf_dist will
   ##not be available if the user opts for plot = FALSE
-  h<-density(De1)$bw
-  h1<-density(De)$bw
+  D_e <- fit_BCAM$D_e
+  h <- density(De1)$bw
+  h1 <- density(De)$bw
  
   A2 <- fit_BCAM$A
 
