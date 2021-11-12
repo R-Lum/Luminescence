@@ -7,7 +7,8 @@ test_that("Various function test", {
     OSL.SARMeasurement$Sequence.Object, recordType = "OSL (UVVIS)", drop = FALSE)
 
   ##initial
-  output <- expect_warning(verify_SingleGrainData(object))
+  expect_warning(verify_SingleGrainData(object))
+  output <- suppressWarnings(verify_SingleGrainData(object))
 
   ##return value
   expect_s4_class(output, "RLum.Results")

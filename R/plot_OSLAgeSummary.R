@@ -128,6 +128,7 @@ plot_OSLAgeSummary <- function(
     y = c(density_A$y[xy_id], rep(0, length(density_A$y[xy_id]))),
     col = "black",
     lwd = 0.5,
+    border = TRUE,
     density = plot_settings$polygon_density
   )
 

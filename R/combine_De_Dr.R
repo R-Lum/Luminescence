@@ -419,6 +419,8 @@
 #' `.. $Ages`: a [numeric] vector with the modelled \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
 #' `.. $goodness_of_fit`: goodness of the fit in terms of the cdf distance\cr
+#' `.. $cdf_ADr_mean` : empirical cumulative density distribution A * Dr (mean)\cr
+#' `.. $cdf_De_mean` : empirical cumulative density distribution modelled De (mean)
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
@@ -688,6 +690,7 @@ if(plot){
   plot_OSLAgeSummary(
     object = fit_BCAM,
     level = 0.68,
+    rug = FALSE,
     polygon_col = rgb(100, 149, 237, 75, maxColorValue = 255),
     verbose = FALSE
   )
@@ -702,7 +705,6 @@ if(plot){
     xlab = "Dose [Gy]",
     main= "ECDF")
 
- 
   ##add mean lines
  
     lines(t,ecdf(De2)(t),type="l",col=3,lty=2,lwd=2) 
@@ -716,6 +718,32 @@ if(plot){
     bty = "n",
     col = c(2,3,4),
     cex = 0.8)
+
+  ##add polygon for A * Dr
+  ## polygon(
+  ##  x = c(t, rev(t)),
+  ##  y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
+  ##  col = rgb(1,0,0,0.3), lty = 0)
+
+  ##add polygon for De
+  ## polygon(
+  ##  x = c(t, rev(t)),
+  ##  y = c(cdf_De_quantiles[,1], rev(cdf_De_quantiles[,2])),
+  ##  col = rgb(0,1,0,0.3), lty = 0)
+
+
+  ##add mean lines
+  ## lines(t, cdf_ADr_mean, col = "red", lty = 1)
+  ## lines(t, cdf_De_mean, col = "darkgreen", lty = 2)
+
+
+  ## legend(
+  ##  "bottomright",
+  ##  legend = c("A * Dr", "De"),
+  ##  lty = c(1,2),
+  ##  bty = "n",
+  ##  col = c("red", "darkgreen"),
+  ## cex = 0.8)
   }
 
 # Return results ----------------------------------------------------------
@@ -724,7 +752,9 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      goodness_of_fit = cdf_dist),
+      goodness_of_fit = cdf_dist,
+      cdf_De_mean = cdf_De_mean,
+      cdf_ADr_mean =  cdf_ADr_mean),
     info = list(
       call = sys.call(),
       model_IAM = fit_IAM$model,
