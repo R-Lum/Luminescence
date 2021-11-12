@@ -89,7 +89,7 @@ plot_OSLAgeSummary <- function(
     col = "black",
     polygon_col = rgb(1,0,0,0.3),
     polygon_density = 20,
-    rug = TRUE
+    rug = FALSE
 
   ), val = list(...))
 
