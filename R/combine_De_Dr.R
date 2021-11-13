@@ -120,7 +120,8 @@
       thin = 1,
       progress.bar = if(verbose) "text" else "none",
       quiet = if(verbose) FALSE else TRUE,
-      diag = if(verbose) TRUE else FALSE
+      diag = if(verbose) TRUE else FALSE,
+      return_mcmc = FALSE
     ),
     val = method_control)
 
@@ -166,6 +167,7 @@
   if(method_control$diag) {
     cat("\n[.calc_IndividualAgeModel()]\n")
     print(coda::gelman.diag(samp))
+
   }
 
   # Return ------------------------------------------------------------------
@@ -175,7 +177,8 @@
       A = unlist(samp[, "A"]),
       a = do.call(rbind, samp[, 2:(nobs + 1)]),
       sig_a = do.call(rbind, samp[, (2 + nobs):(2 * nobs + 1)]),
-      model = paste(jags$model(), "")),
+      model = paste(jags$model(), ""),
+      mcmc_IAM = if(method_control$return_mcmc) samp else NULL),
     info = list(call = sys.call())
   ))
 }
@@ -262,7 +265,8 @@
       thin = 1,
       progress.bar = if(verbose) "text" else "none",
       quiet = if(verbose) FALSE else TRUE,
-      diag = if(verbose) TRUE else FALSE
+      diag = if(verbose) TRUE else FALSE,
+      return_mcmc = FALSE
     ),
     val = method_control)
 
@@ -320,8 +324,8 @@
   if(method_control$diag) {
     cat("\n[.calc_BayesianCentralAgeModel()]\n")
     print(coda::gelman.diag(samp2))
-  }
 
+  }
 
   # Return ------------------------------------------------------------------
   return(set_RLum(
@@ -329,8 +333,8 @@
     data = list(
       A = unlist(samp2[, "A"]),
       D_e = do.call(rbind, samp2[, -1]),
-      model = paste(jags2$model(), "")
-    ),
+      model = paste(jags2$model(), ""),
+      mcmc_BCAM = if(method_control$return_mcmc) samp2 else NULL),
     info = list(call = sys.call())
   ))
 
@@ -373,7 +377,7 @@
 #' `n.adapt` \tab [integer] \tab `1000` \tab number of iterations for the adaptation\cr
 #' `n.iter` \tab [integer] \tab `5000` \tab number of iterations to monitor cf. [rjags::coda.samples]\cr
 #' `thin` \tab [numeric] \tab `1` \tab thinning interval for the monitoring cf. [rjags::coda.samples]\cr
-#' `diag` \tab [logical] \tab `FALSE` \tab additional terminal output for convergence diagnostic.
+#' `diag` \tab [logical] \tab `FALSE` \tab additional terminal convergence diagnostic.
 #' `FALSE` if `verbose = FALSE`\cr
 #' `progress.bar` \tab [logical] \tab `FALSE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
 #' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE`
@@ -423,6 +427,8 @@
 #' `.. $cdf_ADr_quantiles` : empirical cumulative density distribution A * Dr (quantiles .025,.975)\cr
 #' `.. $cdf_De_no_outlier` : empirical cumulative density distribution of the De with no outliers\cr
 #' `.. $cdf_De_initial` : empirical cumulative density distribution of the initial De\cr
+#' `.. $mcmc_IAM` : the MCMC list of the Individual Age Model, only of `method_control = list(return_mcmc = TRUE)` otherwise `NULL`\cr
+#' `.. $mcmc_BCAM` : the MCMC list of the Bayesian Central Age Model, only of `method_control = list(return_mcmc = TRUE)` otherwise `NULL`\cr
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
@@ -534,7 +540,8 @@ if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace
       thin = 1,
       progress.bar = "none",
       quiet = TRUE,
-      diag = FALSE
+      diag = FALSE,
+      return_mcmc = FALSE
     ),
     val = method_control)
 
@@ -557,7 +564,8 @@ fit_IAM <- .calc_IndividualAgeModel(
           thin = method_control$thin,
           progress.bar = method_control$progress.bar,
           quiet = method_control$quiet,
-          diag = method_control$diag)
+          diag = method_control$diag,
+          return_mcmc = method_control$return_mcmc)
       )
 
 # Outlier detection -------------------------------------------------------
@@ -621,7 +629,8 @@ fit_IAM <- .calc_IndividualAgeModel(
         thin = method_control$thin,
         progress.bar = method_control$progress.bar,
         quiet = method_control$quiet,
-        diag = method_control$diag)
+        diag = method_control$diag,
+        return_mcmc = method_control$return_mcmc)
     )
 
 # Calculate EDFC -------------------------------------------------
@@ -778,7 +787,10 @@ if(plot){
       cdf_ADr_mean = cdf_ADr_mean,
       cdf_ADr_quantiles = cdf_ADr_quantiles,
       cdf_De_no_outlier = cdf_De_no_outlier,
-      cdf_De_initial = cdf_De_initial),
+      cdf_De_initial = cdf_De_initial,
+      mcmc_IAM = fit_IAM$mcmc_IAM,
+      mcmc_BCAM = fit_BCAM$mcmc_BCAM
+      ),
     info = list(
       call = sys.call(),
       model_IAM = fit_IAM$model,

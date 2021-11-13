@@ -29,6 +29,10 @@ test_that("Test combine_De_Dr", {
     method_control = list(n.iter = 100,
                           n.chains = 1)), "RLum.Results")
 
+  ## check whether mcmc is NULL
+  expect_null(results$mcmc_IAM)
+  expect_null(results$mcmc_BCAM)
+
   ## run the same with different par settings
   par(mfrow = c(2,2))
   results <- expect_s4_class(combine_De_Dr(
@@ -39,12 +43,19 @@ test_that("Test combine_De_Dr", {
     outlier_analysis_plot = TRUE,
     par_local = FALSE,
     Age_range = c(0, 100),
-    method_control = list(n.iter = 100,
-                          n.chains = 1)), "RLum.Results")
+    method_control = list(
+      n.iter = 100,
+      n.chains = 1,
+      return_mcmc = TRUE
+      )), "RLum.Results")
 
 
   ## check the length of the output
-  expect_length(results, 7)
+  expect_length(results, 9)
+
+  ## check whether we have the MCMC plots
+  expect_s3_class(results$mcmc_IAM, "mcmc.list")
+  expect_s3_class(results$mcmc_BCAM, "mcmc.list")
 
   ## try to plot the results again
   plot_OSLAgeSummary(results)
