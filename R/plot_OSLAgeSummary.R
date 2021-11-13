@@ -152,7 +152,7 @@ plot_OSLAgeSummary <- function(
     data = list(
       Estimate = Bayes_est_mean,
       Credible_Interval = CI,
-      Confidence_level = level),
+      level = level),
   info = list(call = sys.call())))
 
 }
