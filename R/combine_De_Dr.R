@@ -136,7 +136,7 @@
   }
 
   ## run model
-  if(verbose) cat("\n(1) Running Bayesian modelling 'Individual Age Model' ... ")
+  if(verbose) cat("(1) Running Bayesian modelling 'Individual Age Model' ... ")
 
   jags <- rjags::jags.model(
     file = model,
@@ -353,7 +353,7 @@
 #'posterior distributions of the individual variances of the equivalent doses.
 #'If the corresponding quantile in the corresponding posterior distribution is larger
 #'than the quantile in the prior distribution, the value is marked
-#'as outlier.
+#'as outlier (cf. Galharret et al., preprint)
 #'
 #'2. The alternative method employs the method suggested by Rousseeuw and Croux (1993)
 #'using the absolute median distance.
@@ -416,7 +416,8 @@
 #'object with the following slots:
 #'
 #' `@data`\cr
-#' `.. $Ages`: a [numeric] vector with the modelled \cr
+#' `.. $Ages`: a [numeric] vector with the modelled ages to be further analysed or visualised\cr
+#' `.. $Ages_stats`: a [data.frame] with sum HPD, CI 68% and CI 95% for the ages \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
 #' `.. $cdf_ADr_mean` : empirical cumulative density distribution A * Dr (mean)\cr
 #' `.. $cdf_ADr_quantiles` : empirical cumulative density distribution A * Dr (quantiles .025,.975)\cr
@@ -447,9 +448,11 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
+#'@seealso [plot_OSLAgeSummary], [rjags::rjags], [mclust-package]
+#'
 #'@section Function version: 0.1.0
 #'
-#'@keywords dplot distribution 	datagen
+#'@keywords dplot distribution datagen
 #'
 #'@examples
 #'## set parameters
@@ -654,6 +657,23 @@ fit_IAM <- .calc_IndividualAgeModel(
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
   cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
 
+  ## further values to ease the interpretation
+  d <- density(fit_BCAM$A)
+  HPD <- d$x[which.max(d$y)[1]]
+  CI_68 <- .calc_HPDI(fit_BCAM$A, prob = 0.68)
+  CI_95 <- .calc_HPDI(fit_BCAM$A, prob = 0.95)
+
+# Additional terminal output ----------------------------------------------
+if(verbose){
+  cat("(3) Age results (presumably in ka) \n")
+  cat("    ------------------------------\n")
+  cat("    Age (HPD)   : ", format(round(HPD,2), nsmall = 2), "\n")
+  cat("    Age (CI 68%): ", paste(format(round(range(CI_68),2), nsmall =2), collapse = " : "), "\n")
+  cat("    Age (CI 95%): ", paste(format(round(range(CI_95),2), nsmall =2), collapse = " : "), "\n")
+  cat("    ------------------------------\n")
+
+}
+
 # Plotting ----------------------------------------------------------------
 if(plot){
   ##make sure we reset plots
@@ -741,13 +761,19 @@ if(plot){
     bty = "n",
     col = c(2,3,4),
     cex = 0.8)
-  }
+}
 
 # Return results ----------------------------------------------------------
   return(set_RLum(
     "RLum.Results",
     data = list(
       Ages = fit_BCAM$A,
+      Ages_stats = data.frame(
+        HPD = HPD,
+        CI_68_lower = CI_68[1],
+        CI_68_upper = CI_68[2],
+        CI_95_lower = CI_95[1],
+        CI_95_upper = CI_95[2]),
       outliers_index = out,
       cdf_ADr_mean = cdf_ADr_mean,
       cdf_ADr_quantiles = cdf_ADr_quantiles,
