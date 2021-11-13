@@ -463,11 +463,11 @@
 #'## run modelling
 #'## note: modify parameters for more realistic results
 #'results <- combine_De_Dr(
-#' Dr = Dr,
-#' int_OD = 0.1,
-#' De,
-#' s,
-#' Age_range = c(0,100),
+#'  Dr = Dr,
+#'  int_OD = 0.1,
+#'  De,
+#'  s,
+#'  Age_range = c(0,100),
 #'  method_control = list(
 #'   n.iter = 100,
 #'   n.chains = 1))
