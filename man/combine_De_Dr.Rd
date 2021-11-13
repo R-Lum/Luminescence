@@ -65,6 +65,8 @@ object with the following slots:
 \code{.. $cdf_ADr_quantiles} : empirical cumulative density distribution A * Dr (quantiles .025,.975)\cr
 \code{.. $cdf_De_no_outlier} : empirical cumulative density distribution of the De with no outliers\cr
 \code{.. $cdf_De_initial} : empirical cumulative density distribution of the initial De\cr
+\code{.. $mcmc_IAM} : the MCMC list of the Individual Age Model, only of \code{method_control = list(return_mcmc = TRUE)} otherwise \code{NULL}\cr
+\code{.. $mcmc_BCAM} : the MCMC list of the Bayesian Central Age Model, only of \code{method_control = list(return_mcmc = TRUE)} otherwise \code{NULL}\cr
 
 \verb{@info}\cr
 \code{.. $call}: the original function call\cr
@@ -106,7 +108,7 @@ Note: \code{method_control} expects a \strong{named} list of parameters
 \code{n.adapt} \tab \link{integer} \tab \code{1000} \tab number of iterations for the adaptation\cr
 \code{n.iter} \tab \link{integer} \tab \code{5000} \tab number of iterations to monitor cf. \link[rjags:coda.samples]{rjags::coda.samples}\cr
 \code{thin} \tab \link{numeric} \tab \code{1} \tab thinning interval for the monitoring cf. \link[rjags:coda.samples]{rjags::coda.samples}\cr
-\code{diag} \tab \link{logical} \tab \code{FALSE} \tab additional terminal output for convergence diagnostic.
+\code{diag} \tab \link{logical} \tab \code{FALSE} \tab additional terminal convergence diagnostic.
 \code{FALSE} if \code{verbose = FALSE}\cr
 \code{progress.bar} \tab \link{logical} \tab \code{FALSE} \tab enable/disable progress bar. \code{FALSE} if \code{verbose = FALSE}\cr
 \code{quiet} \tab \link{logical} \tab \code{TRUE} \tab silence terminal output. Set to \code{TRUE} if \code{verbose = FALSE}
@@ -141,7 +143,7 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-31. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
