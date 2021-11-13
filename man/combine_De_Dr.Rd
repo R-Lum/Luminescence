@@ -58,11 +58,13 @@ The function returns a plot if \code{plot = TRUE} and an \linkS4class{RLum.Resul
 object with the following slots:
 
 \verb{@data}\cr
-\code{.. $Ages}: a \link{numeric} vector with the modelled \cr
+\code{.. $Ages}: a \link{numeric} vector with the modelled ages to be further analysed or visualised\cr
+\code{.. $Ages_stats}: a \link{data.frame} with sum HPD, CI 68\% and CI 95\% for the ages \cr
 \code{.. $outliers_index}: the index with the detected outliers\cr
 \code{.. $cdf_ADr_mean} : empirical cumulative density distribution A * Dr (mean)\cr
+\code{.. $cdf_ADr_quantiles} : empirical cumulative density distribution A * Dr (quantiles .025,.975)\cr
 \code{.. $cdf_De_no_outlier} : empirical cumulative density distribution of the De with no outliers\cr
-#' \code{.. $cdf_De_inital} : empirical cumulative density distribution of the initial De\cr
+\code{.. $cdf_De_initial} : empirical cumulative density distribution of the initial De\cr
 
 \verb{@info}\cr
 \code{.. $call}: the original function call\cr
@@ -84,7 +86,7 @@ in the cited literature).
 posterior distributions of the individual variances of the equivalent doses.
 If the corresponding quantile in the corresponding posterior distribution is larger
 than the quantile in the prior distribution, the value is marked
-as outlier.
+as outlier (cf. Galharret et al., preprint)
 \item The alternative method employs the method suggested by Rousseeuw and Croux (1993)
 using the absolute median distance.
 }
@@ -123,11 +125,11 @@ s <- stats::rnorm(50, 10, 2)
 ## run modelling
 ## note: modify parameters for more realistic results
 results <- combine_De_Dr(
-Dr = Dr,
-int_OD = 0.1,
-De,
-s,
-Age_range = c(0,100),
+ Dr = Dr,
+ int_OD = 0.1,
+ De,
+ s,
+ Age_range = c(0,100),
  method_control = list(
   n.iter = 100,
   n.chains = 1))
@@ -139,7 +141,7 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-27. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-30. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -154,6 +156,9 @@ Journal of the American Statistical Association 88, 1273–1283. \doi{10.2307/22
 
 Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and outlier detection in chemometrics.
 Critical Reviews in Analytical Chemistry 36, 221–242. \doi{10.1080/10408340600969403}
+}
+\seealso{
+\link{plot_OSLAgeSummary}, \link[rjags:rjags-package]{rjags::rjags}, \link{mclust-package}
 }
 \author{
 Anne Philippe, Université de Nantes (France),

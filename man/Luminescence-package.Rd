@@ -4,19 +4,18 @@
 \name{Luminescence-package}
 \alias{Luminescence-package}
 \alias{Luminescence}
-\title{Comprehensive Luminescence Dating Data Analysis}
-\description{
+\title{Comprehensive Luminescence Dating Data Analysis\cr
+
 \if{html}{
-\figure{Luminescence_logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
-\emph{R Luminescence Developer Team}
-}
-}
-\details{
+\figure{Luminescence_logo.png}{options: width="75px" alt="r-luminescence.org"}
+}}
+\description{
 A collection of various R functions for the purpose of luminescence dating
 data analysis. This includes, amongst others, data import, export,
 application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
-
+}
+\details{
 \strong{Supervisor of the initial version in 2012}
 
 Markus Fuchs, Justus-Liebig-University Giessen, Germany
