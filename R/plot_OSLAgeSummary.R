@@ -63,15 +63,16 @@ plot_OSLAgeSummary <- function(
   A <- as.matrix(object, ncol = 1)
 
 # Run calculations --------------------------------------------------------
-  ## use our internal function instead of Archaephase to avoid the depency hell
+  ## use our internal function instead of Archaeophase to avoid the decency hell
   CI <- round(.calc_HPDI(A, prob = level[1]), digits[1])
-  Bayes_est <- round(mean(A), digits = digits)
+  Bayes_est_mean <- round(mean(A), digits = digits)
+  Bayes_est_sd <- round(sd(A), digits = digits)
 
 # Terminal output ---------------------------------------------------------
   if(verbose){
     cat("\n[plot_OSLAgeSummary()]\n")
     cat(paste0(" Credible Interval (", level * 100 ),"%): ",paste(CI[1,], collapse = " : "), "\n")
-    cat(paste0(" Bayes estimate (posterior mean): ", Bayes_est[1]),"\n")
+    cat(paste0(" Bayes estimate (posterior mean \u00b1 sd): ", Bayes_est_mean[1], " \u00b1 ", Bayes_est_sd[1]),"\n")
 
   }
 
@@ -149,7 +150,7 @@ plot_OSLAgeSummary <- function(
 # Return ------------------------------------------------------------------
   return(set_RLum("RLum.Results",
     data = list(
-      Estimate = Bayes_est,
+      Estimate = Bayes_est_mean,
       Credible_Interval = CI,
       Confidence_level = level),
   info = list(call = sys.call())))
