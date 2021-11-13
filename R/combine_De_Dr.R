@@ -419,8 +419,9 @@
 #' `.. $Ages`: a [numeric] vector with the modelled \cr
 #' `.. $outliers_index`: the index with the detected outliers\cr
 #' `.. $cdf_ADr_mean` : empirical cumulative density distribution A * Dr (mean)\cr
+#' `.. $cdf_ADr_quantiles` : empirical cumulative density distribution A * Dr (quantiles .025,.975)\cr
 #' `.. $cdf_De_no_outlier` : empirical cumulative density distribution of the De with no outliers\cr
-#' #' `.. $cdf_De_inital` : empirical cumulative density distribution of the initial De\cr
+#' `.. $cdf_De_initial` : empirical cumulative density distribution of the initial De\cr
 #'
 #' `@info`\cr
 #' `.. $call`: the original function call\cr
@@ -557,8 +558,10 @@ fit_IAM <- .calc_IndividualAgeModel(
       )
 
 # Outlier detection -------------------------------------------------------
+  ## set threshold for outliers
   alpha <- outlier_threshold[1]
 
+  ## apply method ... default is method develop by Jean-Michel and Anne
   if(outlier_method == "RousseeuwCroux1993") {
     ## calculate the median of the sig_a
     xj <- log(matrixStats::colMedians(fit_IAM$sig_a))
@@ -576,7 +579,7 @@ fit_IAM <- .calc_IndividualAgeModel(
     out <- sort(which(test > alpha))
   }
 
-  ##age <- matrixStats::colMedians(fit_IAM$a) ##TODO has no use
+  ##some terminal output
   if(verbose){
     if (length(out) > 0) {
       cat(
@@ -589,15 +592,14 @@ fit_IAM <- .calc_IndividualAgeModel(
     }
   }
 
-# Central age estimation ---------------------------------------------------
-   if (length(out) == 0) {
+  ## apply the removal
+  if (length(out) == 0) {
       De1 <- De
       s1 <- s
 
    } else {
       De1 <- De[-out]
       s1 <- s[-out]
-
    }
 
 # Bayesian modelling BCAM -------------------------------------------------
@@ -620,11 +622,13 @@ fit_IAM <- .calc_IndividualAgeModel(
     )
 
 # Calculate EDFC -------------------------------------------------
+  ## calculate various parameters
   D_e <- fit_BCAM$D_e
-  h <- density(De1)$bw
-  h1 <- density(De)$bw
-
   A2 <- fit_BCAM$A
+
+  ## calculate bandwidths
+  h <- density(De)$bw
+  h1 <- density(De1)$bw
 
   t <- seq(min(D_e), max(D_e), length.out = min(1000, round(max(D_e) - min(D_e), 0)))
 
@@ -632,12 +636,12 @@ fit_IAM <- .calc_IndividualAgeModel(
   subsamp <- sample(1:length(A2), ind, replace = FALSE)
   cdf_ADr <- matrix(0, nrow = ind, ncol = length(t))
 
-  ## De without outliers -> De2
-  ## De initial -> De3
+  ## De distribution re-sampled without outliers -> De2
+  ## De distribution re-sampled initial -> De3
   De2 <-
-    rnorm(length(subsamp), sample(De1, size = length(subsamp), replace = TRUE), h)
+    rnorm(length(subsamp), sample(De1, size = length(subsamp), replace = TRUE), h1)
   De3 <-
-    rnorm(length(subsamp), sample(De, size = length(subsamp), replace = TRUE), h1)
+    rnorm(length(subsamp), sample(De, size = length(subsamp), replace = TRUE), h)
 
   ## calculate ecdf
   cdf_De_no_outlier<- stats::ecdf(De2)(t)
@@ -646,8 +650,9 @@ fit_IAM <- .calc_IndividualAgeModel(
   for (i in 1:ind)
     cdf_ADr[i, ] <- stats::ecdf(A2[subsamp[i]] * tildeDr)(t)
 
-  ## calculate various parameters
+  ## calculate mean value and quantiles for the ecdf A * Dr
   cdf_ADr_mean <- matrixStats::colMeans2(cdf_ADr)
+  cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(.025,.975))
 
 # Plotting ----------------------------------------------------------------
 if(plot){
@@ -668,7 +673,9 @@ if(plot){
             ) - 1) + 2),
     main = "Outlier detection",
     xaxt = "n",
-    xlab = "Index of sig_a")
+    xlab = expression(paste("Index of ", sigma[a])))
+
+    ## add axis
     axis(side = 1, at = 1:length(De), labels = 1:length(De), )
     mtext(
       text = paste0(length(out), "/", N, " (", round(length(out) / N * 100, 1), "%)"),
@@ -712,10 +719,17 @@ if(plot){
     xlab = "Dose [Gy]",
     main= "ECDF")
 
-  ##add mean lines
+  ## add quantile range (only for A * Dr)
+  polygon(
+   x = c(t, rev(t)),
+   y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
+   col = rgb(1,0,0,0.2), lty = 0)
+
+  ##add mean lines for the ecdfs
+  lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd = 2)
   lines(t, cdf_De_no_outlier, type = "l", col = 3, lty = 2, lwd = 2)
   lines(t, cdf_De_initial, type = "l", col = 4, lty = 3, lwd = 2)
-  lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd = 2)
+
 
   legend(
     "bottomright",
@@ -735,7 +749,8 @@ if(plot){
     data = list(
       Ages = fit_BCAM$A,
       outliers_index = out,
-      cdf_ADr_mean =  cdf_ADr_mean,
+      cdf_ADr_mean = cdf_ADr_mean,
+      cdf_ADr_quantiles = cdf_ADr_quantiles,
       cdf_De_no_outlier = cdf_De_no_outlier,
       cdf_De_initial = cdf_De_initial),
     info = list(
