@@ -667,9 +667,9 @@ fit_IAM <- .calc_IndividualAgeModel(
 if(verbose){
   cat("(3) Age results (presumably in ka) \n")
   cat("    ------------------------------\n")
-  cat("    Age (HPD)   : ", format(round(HPD,2), nsmall = 2), "\n")
-  cat("    Age (CI 68%): ", paste(format(round(range(CI_68),2), nsmall =2), collapse = " : "), "\n")
-  cat("    Age (CI 95%): ", paste(format(round(range(CI_95),2), nsmall =2), collapse = " : "), "\n")
+  cat("    Age (HPD)   :\t", format(round(HPD,2), nsmall = 2), "\n")
+  cat("    Age (CI 68%):\t", paste(format(round(range(CI_68),2), nsmall =2), collapse = " : "), "\n")
+  cat("    Age (CI 95%):\t", paste(format(round(range(CI_95),2), nsmall =2), collapse = " : "), "\n")
   cat("    ------------------------------\n")
 
 }
