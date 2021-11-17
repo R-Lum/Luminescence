@@ -416,6 +416,9 @@
 #'
 #'@param plot [logical] (*with default*): enable/disable plot output
 #'
+#'@param ... a few further arguments to fine-tune the plot output such as
+#'`cdf_ADr_quantiles` (`TRUE`/`FALSE`), `legend.pos`, `legend` (`TRUE`/`FALSE`)
+#'
 #'@return The function returns a plot if `plot = TRUE` and an [RLum.Results-class]
 #'object with the following slots:
 #'
@@ -496,7 +499,8 @@ combine_De_Dr <- function(
   method_control = list(),
   par_local = TRUE,
   verbose = TRUE,
-  plot = TRUE
+  plot = TRUE,
+  ...
 ) {
 
 # Check input data --------------------------------------------------------
@@ -685,6 +689,13 @@ if(verbose){
 
 # Plotting ----------------------------------------------------------------
 if(plot){
+  ##check incoming plot settings
+  plot_settings <- modifyList(x = list(
+    cdf_ADr_quantiles = FALSE,
+    legend = TRUE,
+    legend.pos = "bottomright"
+  ), list(...))
+
   ##make sure we reset plots
   if(par_local) {
     old.par <- par(mfrow = c(1, 2))
@@ -749,27 +760,30 @@ if(plot){
     main= "ECDF")
 
   ## add quantile range (only for A * Dr)
-  polygon(
-   x = c(t, rev(t)),
-   y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
-   col = rgb(1,0,0,0.2), lty = 0)
+  if(plot_settings$cdf_ADr_quantiles){
+    polygon(
+     x = c(t, rev(t)),
+     y = c(cdf_ADr_quantiles[,1], rev(cdf_ADr_quantiles[,2])),
+     col = rgb(1,0,0,0.2), lty = 0)
+  }
 
   ##add mean lines for the ecdfs
   lines(t, cdf_ADr_mean, col = 2, lty = 1, lwd = 2)
   lines(t, cdf_De_no_outlier, type = "l", col = 3, lty = 2, lwd = 2)
   lines(t, cdf_De_initial, type = "l", col = 4, lty = 3, lwd = 2)
 
-
-  legend(
-    "bottomright",
-    legend = c(
-      expression(A %*% Dr),
-      expression(paste(D[e], " no outliers")),
-      expression(paste(D[e], " initial"))),
-    lty = c(1,2,3),
-    bty = "n",
-    col = c(2,3,4),
-    cex = 0.8)
+  if(plot_settings$legend){
+    legend(
+      plot_settings$legend.pos,
+      legend = c(
+        expression(A %*% Dr),
+        expression(paste(D[e], " no outliers")),
+        expression(paste(D[e], " initial"))),
+      lty = c(1,2,3),
+      bty = "n",
+      col = c(2,3,4),
+      cex = 0.8)
+  }
 }
 
 # Return results ----------------------------------------------------------

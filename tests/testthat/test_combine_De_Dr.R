@@ -26,6 +26,9 @@ test_that("Test combine_De_Dr", {
     s,
     outlier_analysis_plot = TRUE,
     Age_range = c(0, 100),
+    cdf_ADr_quantiles = FALSE,
+    legend.pos = "topright",
+    legend = TRUE,
     method_control = list(n.iter = 100,
                           n.chains = 1)), "RLum.Results")
 
