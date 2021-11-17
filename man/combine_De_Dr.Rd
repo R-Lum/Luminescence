@@ -115,7 +115,8 @@ Note: \code{method_control} expects a \strong{named} list of parameters
 \code{diag} \tab \link{logical} \tab \code{FALSE} \tab additional terminal convergence diagnostic.
 \code{FALSE} if \code{verbose = FALSE}\cr
 \code{progress.bar} \tab \link{logical} \tab \code{FALSE} \tab enable/disable progress bar. \code{FALSE} if \code{verbose = FALSE}\cr
-\code{quiet} \tab \link{logical} \tab \code{TRUE} \tab silence terminal output. Set to \code{TRUE} if \code{verbose = FALSE}
+\code{quiet} \tab \link{logical} \tab \code{TRUE} \tab silence terminal output. Set to \code{TRUE} if \code{verbose = FALSE}\cr
+\code{return_mcmc}\tab \link{logical} \tab \code{FALSE} \tab return additional MCMC diagnostic information\cr
 }
 }
 \section{Function version}{
@@ -147,7 +148,7 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-34. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-36. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
