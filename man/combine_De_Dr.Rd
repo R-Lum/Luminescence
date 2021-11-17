@@ -16,7 +16,8 @@ combine_De_Dr(
   method_control = list(),
   par_local = TRUE,
   verbose = TRUE,
-  plot = TRUE
+  plot = TRUE,
+  ...
 )
 }
 \arguments{
@@ -52,6 +53,9 @@ own \link[graphics:par]{graphics::par} settings (which will end in two plots nex
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable terminal feedback}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
+
+\item{...}{a few further arguments to fine-tune the plot output such as
+\code{cdf_ADr_quantiles} (\code{TRUE}/\code{FALSE}), \code{legend.pos}, \code{legend} (\code{TRUE}/\code{FALSE})}
 }
 \value{
 The function returns a plot if \code{plot = TRUE} and an \linkS4class{RLum.Results}
@@ -143,7 +147,7 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-32. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-34. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
