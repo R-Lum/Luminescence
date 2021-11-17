@@ -380,7 +380,8 @@
 #' `diag` \tab [logical] \tab `FALSE` \tab additional terminal convergence diagnostic.
 #' `FALSE` if `verbose = FALSE`\cr
 #' `progress.bar` \tab [logical] \tab `FALSE` \tab enable/disable progress bar. `FALSE` if `verbose = FALSE`\cr
-#' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE`
+#' `quiet` \tab [logical] \tab `TRUE` \tab silence terminal output. Set to `TRUE` if `verbose = FALSE`\cr
+#' `return_mcmc`\tab [logical] \tab `FALSE` \tab return additional MCMC diagnostic information\cr
 #'}
 #'
 #'@param De [numeric] (**required**): a equivalent dose sample
@@ -560,6 +561,7 @@ fit_IAM <- .calc_IndividualAgeModel(
       s = s,
       sig0 = sig0,
       Age_range = Age_range[1:2],
+      verbose = verbose,
       method_control = list(
           variable.names = method_control$variable.names_IAM,
           n.chains = method_control$n.chains,
@@ -625,6 +627,7 @@ fit_IAM <- .calc_IndividualAgeModel(
       De = De1,
       s = s1,
       Age_range = Age_range,
+      verbose = verbose,
       method_control = list(
         variable.names = method_control$variable.names_BCAM,
         n.chains = method_control$n.chains,
