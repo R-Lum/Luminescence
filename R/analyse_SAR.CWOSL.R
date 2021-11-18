@@ -186,7 +186,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.13
+#' @section Function version: 0.9.14
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom)
@@ -655,9 +655,10 @@ error.list <- list()
     ##how many dose points do we have with 0?
     non.temp.zero.dose.number <- nrow(temp.DoseName[temp.DoseName[, "Dose"] != 0,])
 
-    temp.DoseName[temp.DoseName[,"Name"] != "Natural" &
-                    temp.DoseName[,"Name"] != "R0","Name"] <- paste("R",c(1:non.temp.zero.dose.number),sep =
-                                                                      "")
+    if(length(non.temp.zero.dose.number) > 0){
+    temp.DoseName[temp.DoseName[,"Name"] != "Natural" & temp.DoseName[,"Name"] != "R0","Name"] <-
+      paste0("R",c(1:non.temp.zero.dose.number))
+    }
 
     ##find duplicated doses (including 0 dose - which means the Natural)
     temp.DoseDuplicated <- duplicated(temp.DoseName[,"Dose"])

@@ -93,11 +93,11 @@ Risoe.BINfileData2RLum.Analysis<- function(
   # Integrity Check ---------------------------------------------------------
 
   if (!is(object,"Risoe.BINfileData")){
-    stop("[Risoe.BINfileData2RLum.Analysis()] Input object is not of type 'Risoe.BINfileData'.")
+    stop("[Risoe.BINfileData2RLum.Analysis()] Input object is not of type 'Risoe.BINfileData'.", call. = FALSE)
   }
 
   if (!is.null(pos) && !is(pos,"numeric")){
-    stop("[Risoe.BINfileData2RLum.Analysis()] Argument 'pos' has to be of type numeric.")
+    stop("[Risoe.BINfileData2RLum.Analysis()] Argument 'pos' has to be of type numeric.", call. = FALSE)
   }
 
   if (is.null(pos)) {
@@ -126,13 +126,11 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     ##grain
     if (is.null(grain)) {
-      grain <- unique(object@METADATA[,"GRAIN"])
+      grain <- unique(object@METADATA[["GRAIN"]])
 
     }else{
-
-      grain.valid <- unique(object@METADATA[,"GRAIN"])
+      grain.valid <- unique(object@METADATA[["GRAIN"]])
       if(length(setdiff(grain, grain.valid)) > 0){
-
         warning(paste0("[Risoe.BINfileData2RLum.Analysis()] Invalid grain number skipped: ",
                        paste(setdiff(grain, grain.valid), collapse = ", ")), call. = FALSE)
 
@@ -230,9 +228,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     }
 
-
     # Select values and convert them-----------------------------------------------------------
-
     ##set progressbar to false if only one position is provided
     if(txtProgressBar & length(pos)<2){
       txtProgressBar <- FALSE
@@ -247,7 +243,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     ##set progress bar
     if(txtProgressBar){
-      pb<-txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
+      pb <- txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
     }
 
     object <- lapply(pos, function(pos){

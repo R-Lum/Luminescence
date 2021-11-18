@@ -8,45 +8,46 @@ header-includes:
 
 ## Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-**This package version requires at least R >= 4.0.5**
+**This package version requires R >= 4.0.5**
 
-## New functions
-* `fit_EmissionSpectra()`: this new functions allows you to fit luminescence emission spectra (e.g., 
-TL, RF) with a semi-automated start parameter estimation. The function was around quite some 
-time but was finalised only recently. 
+### New functions
+* `combine_Dr_De()` This function allows to model dose rate and equivalent dose distributions 
+to obtain an age from Bayesian modelling using both distributions. In the back a couple of 
+additional functions have been added to support this novel approach. This function requires [JAGS](https://mcmc-jags.sourceforge.io) (supported through `'rjags'`) on your computer along with a 
+couple of other R packages prompted to you when you first try to use this function. 
+
+* `plot_OSLAgeSummary()` Posterior distribution plot of ages. This function is used by `combine_De_Dr()`, however, it can be used as stand-alone plot.
 
 ### Bugfixes and changes
 
-#### General
-* We removed `'magrittr'` from the dependency. It was never used within the 
-package or required for examples, but loaded for convenience reasons to smooth the data analysis.
-However, with R >=4.1, a native pipe operator (`|>`) became available and 
-`'magrittr'` is no longer needed (but can still be loaded by the user via `library(magrittr)`
-if needed).
-
-#### `analyse_FadingMeasurement()`
-* Minor graphical issue in the plot output: if the shine-down curve did not start 
-at 0 s, the integration limits were drawn incorrectly (the calculation was correct, though); fixed. 
+#### `analyse_FadingMeasurement()` 
+* If run in a loop (e.g., with `lapply()`), merging of the results with `merge_RLum()` failed, 
+because the returned objects were not always strictly identical; fixed. 
 
 #### `analyse_SAR.CWOSL()` 
-* The extraction of irradiation times, if irradiation curves were 
-provided (e.g., usually part of XSYG files), did not work reliably; fixed.
+* If all dose points were 0, the function crashed; fixed.
 
-#### `calc_AverageDose()`
-* The function aggressively reset plot areas also in cases nothing was plotted; fixed. 
+#### `calc_CentralDose()` 
+* The output in element `output$summary` was confusing for `log = FALSE`. While 
+the terminal output was correct, no differentiation was made between absolute
+and relative values in the output object depending on the `log` mode. 
+Now two more columns were added to report the overdispersion always in absolute units
+(whatever that may be) and relative (thanks to Li Bo for reporting this problem).
+* No claim on the unit (e.g., Gy or s) is anymore made in the terminal output because
+we do not determine this information. Instead now 'abs.' for absolute is used.
 
-#### `plot_AbanicoPlot()`
-* If the input was of type `data.frame` the function struggled if the `data.frame` 
-had more than two columns. While this was clearly indicated in the documentation, 
-the behaviour was annoying, because it made always an extra sub-setting necessary 
-when working with `data.frame`s comprising more than two columns. Now the function discards
-all other columns except for the first two if the input is a `data.frame`.
+#### `read_BIN2R()`
+* The function crashed if it was run in a loop and encountered non-supported files; fixed.
+* The function does not crash anymore for zero-byte files but skips the import, returns a message and `NULL`.
+* For BINX files created using and EM-CCD camera the function created, under particular circumstances, invalid records that could not be further transformed; fixed (thanks to  Anna-Maartje de Boer for reporting).
+
+#### `plot_RadialPlot()`
+* The function does not mess anymore with the `par()` settings of other subsequent plots
 
 #### `plot_GrowthCurve()`
-* The function crashed if `fit.method = "LambertW"` and the `Ln/Tn` largely 
-exceeded the highest `Lx/Tx` point; fixed.
+* The function crashed in combination with `analyse_SAR.CWOSL(...,fit.weights = TRUE)` for 
+unfortunate Lx/Tx error values (means, `Inf`) caused by noise-like OSL data; fixed. 
+Thanks to Frederik Baumgarten for reporting the issue. 
 
-#### `plot_RLum.Data.Spectrum()`
-* For `plot.type = "image"` the labels for the contour did not scale for changed 
-`cex` settings; fixed.
-
+### Internals
+* New dependency to the package `'mclust'` required by the two new functions.

@@ -1,11 +1,11 @@
-#' Comprehensive Luminescence Dating Data Analysis
+#' @title Comprehensive Luminescence Dating Data Analysis\cr
+#'
 #'
 #' \if{html}{
-#' \figure{Luminescence_logo.png}{options: width="50px" alt="r-luminescence.org"}\cr
-#' \emph{R Luminescence Developer Team}
+#' \figure{Luminescence_logo.png}{options: width="75px" alt="r-luminescence.org"}
 #' }
 #'
-#' A collection of various R functions for the purpose of luminescence dating
+#' @description A collection of various R functions for the purpose of luminescence dating
 #' data analysis. This includes, amongst others, data import, export,
 #' application of age models, curve deconvolution, sequence analysis and
 #' plotting of equivalent dose distributions.

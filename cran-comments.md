@@ -1,6 +1,6 @@
 ## Release summary
 
-This version updates 0.9.14 on CRAN.
+This version updates 0.9.15 on CRAN.
 
 ## Addressed CRAN issues
 
@@ -16,5 +16,5 @@ This version updates 0.9.14 on CRAN.
 
 Reverse depends 3: 
 
-* 2/3 are OK. 
+* 2/3 are ok. 
 * `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'

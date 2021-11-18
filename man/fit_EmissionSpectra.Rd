@@ -92,6 +92,9 @@ parameter estimation. The grey band in the residual plot indicates the
 Luminescence spectra deconvolution on \linkS4class{RLum.Data.Spectrum} and \link{matrix} objects
 on an \strong{energy scale}. The function is optimised for emission spectra typically
 obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
+The function is not prepared to deconvolve TL curves (counts against temperature;
+no wavelength scale). If you are interested in such analysis, please check, e.g.,
+the package \code{'tgcd'}.
 }
 \details{
 \strong{Used equation}
@@ -182,7 +185,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

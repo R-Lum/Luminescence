@@ -157,8 +157,11 @@ own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 data(ExampleData.LxTxOSLData, envir = environment())
 
 ##calculate Lx/Tx ratio
-results <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral = c(1:2),
-                             background.integral = c(85:100))
+results <- calc_OSLLxTxRatio(
+ Lx.data = Lx.data,
+ Tx.data = Tx.data,
+ signal.integral = c(1:2),
+ background.integral = c(85:100))
 
 ##get results object
 get_RLum(results)
@@ -166,7 +169,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2021. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

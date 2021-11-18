@@ -20,7 +20,7 @@
 #' Arguments that are passed through the function call:
 #'
 #' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,`zlim`, `col`, `stretch` (`NULL` no
-#' strech)
+#' stretch)
 #'
 #' **`plot.type = "plotRGB"`**
 #'

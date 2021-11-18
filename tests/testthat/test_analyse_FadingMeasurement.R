@@ -26,6 +26,20 @@ test_that("general test", {
     verbose = FALSE,
     n.MC = 10), class = "RLum.Results")
 
+  ## test merging of objects if combined in a list
+  ## this crashed before and was fixed
+  expect_s4_class(merge_RLum(
+    list(analyse_FadingMeasurement(
+      fading_data[1,],
+      plot = FALSE,
+      verbose = FALSE,
+      n.MC = 10),
+    analyse_FadingMeasurement(
+      fading_data[1:10,],
+      plot = FALSE,
+      verbose = FALSE,
+      n.MC = 10))), "RLum.Results")
+
 })
 
 test_that("test XSYG file fading data", {

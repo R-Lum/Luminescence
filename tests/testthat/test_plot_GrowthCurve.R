@@ -72,6 +72,24 @@ test_that("fail fast", {
 
 })
 
+test_that("check weird LxTx values", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  ##set LxTx
+  LxTx <- structure(list(
+    Dose = c(0, 250, 500, 750, 1000, 1500, 0, 500, 500),
+    LxTx = c(1, Inf, 0, -Inf, Inf, 0, Inf, -0.25, 2),
+    LxTx.Error = c(1.58133646008685, Inf, 0, Inf, Inf, 0, Inf, 1.41146256149428, 3.16267292017369)),
+    class = "data.frame", row.names = c(NA, -9L))
+
+  ##fit
+  expect_warning(Luminescence:::.warningCatcher(
+    plot_GrowthCurve(sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")])))
+
+})
+
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)

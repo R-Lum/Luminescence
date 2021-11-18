@@ -3,6 +3,9 @@
 #'@description Luminescence spectra deconvolution on [RLum.Data.Spectrum-class] and [matrix] objects
 #'on an **energy scale**. The function is optimised for emission spectra typically
 #'obtained in the context of TL, OSL and RF measurements detected between 200 and 1000 nm.
+#'The function is not prepared to deconvolve TL curves (counts against temperature;
+#'no wavelength scale). If you are interested in such analysis, please check, e.g.,
+#'the package `'tgcd'`.
 #'
 #'@details
 #'
@@ -534,7 +537,7 @@ fit_EmissionSpectra <- function(
 
     if(!is.na(fit[1]) && class(fit)[1] != "try-error"){
     ##make sure that the screen closes if something is wrong
-    on.exit(close.screen(all.screens = TRUE))
+    on.exit(close.screen(n = c(1,2)))
 
     ##set split screen settings
     split.screen(rbind(
