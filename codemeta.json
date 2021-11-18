@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2021-08-22 r80810)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -101,6 +101,12 @@
       "givenName": "Harrison J.",
       "familyName": "Gray",
       "@id": "https://orcid.org/0000-0002-4555-7473"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jean-Michel",
+      "familyName": "Galharret",
+      "@id": "https://orcid.org/0000-0003-2219-8727"
     }
   ],
   "contributor": [
@@ -464,6 +470,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=minpack.lm"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "mclust",
+      "name": "mclust",
+      "version": ">= 5.4.7",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=mclust"
     },
     {
       "@type": "SoftwareApplication",
