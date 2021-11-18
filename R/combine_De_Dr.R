@@ -441,6 +441,10 @@
 #'
 #'@references
 #'
+#'Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., preprint.
+#'Luminescence age calculation through Bayesian convolution of equivalent dose and
+#'dose-rate distributions: the De_Dr model. Geochronology, 1-22.
+#'
 #'Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of outliers with
 #'a Bayesian hierarchical model: application to the single-grain luminescence dating method.
 #'Electronic Journal of Applied Statistics
