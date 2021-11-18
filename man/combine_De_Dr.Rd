@@ -148,10 +148,14 @@ writeLines(results@info$model_BCAM)
 } 
 
 \section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16.9000-36. https://CRAN.R-project.org/package=Luminescence
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2021. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
+Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., preprint.
+Luminescence age calculation through Bayesian convolution of equivalent dose and
+dose-rate distributions: the De_Dr model. Geochronology, 1-22.
+
 Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of outliers with
 a Bayesian hierarchical model: application to the single-grain luminescence dating method.
 Electronic Journal of Applied Statistics
