@@ -70,7 +70,7 @@ jobs:
 
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
-        run: brew install jags gdal
+        run: brew install jags gdal proj
 
       - name: Install jags (Windows)
         if: runner.os == 'windows'
