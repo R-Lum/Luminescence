@@ -60,19 +60,19 @@ Depends:
     R (>= 4.0),
     utils
 LinkingTo: Rcpp (>= 1.0.7),
-    RcppArmadillo (>= 0.10.6.0.0)
+    RcppArmadillo (>= 0.10.7.0.0)
 Imports:
     bbmle (>= 1.0.24),
     data.table (>= 1.14.0),
     DEoptim (>= 2.2-6),
     httr (>= 1.4.2),
     lamW (>= 2.1.0),
-    matrixStats (>= 0.60.0),
+    matrixStats (>= 0.61.0),
     methods,
     minpack.lm (>= 1.2-1),
     mclust (>= 5.4.7),
     plotrix (>= 3.8-1),
-    raster (>= 3.4-10),
+    raster (>= 3.5-2),
     readxl (>= 1.3.1),
     shape (>= 1.4.6),
     parallel,
@@ -80,16 +80,16 @@ Imports:
     zoo (>= 1.8)
 Suggests:
     spelling (>= 2.2),
-    RLumShiny (>= 0.2.2),
-    plotly (>= 4.9.3),
-    rmarkdown (>= 2.10),
+    RLumShiny (>= 0.2.3),
+    plotly (>= 4.10.0),
+    rmarkdown (>= 2.11),
     rstudioapi (>= 0.13),
-    rjags (>= 4-10),
+    rjags (>= 4-12),
     coda (>= 0.19-4),
-    pander (>= 0.6.3),
-    testthat (>= 3.0.2),
-    tiff (>= 0.1-8),
-    devtools (>= 2.4.1),
+    pander (>= 0.6.4),
+    testthat (>= 3.1.0),
+    tiff (>= 0.1-10),
+    devtools (>= 2.4.2),
     R.rsp (>= 0.44.0)
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence
