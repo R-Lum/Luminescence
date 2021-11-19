@@ -1,8 +1,8 @@
-#' Function to create a Radial Plot
+#' @title Function to create a Radial Plot
 #'
-#' A Galbraith's radial plot is produced on a logarithmic or a linear scale.
+#' @description A Galbraith's radial plot is produced on a logarithmic or a linear scale.
 #'
-#' Details and the theoretical background of the radial plot are given in the
+#' @details Details and the theoretical background of the radial plot are given in the
 #' cited literature. This function is based on an S script of Rex Galbraith. To
 #' reduce the manual adjustments, the function has been rewritten. Thanks to
 #' Rex Galbraith for useful comments on this function. \cr
@@ -132,7 +132,7 @@
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
-#' @seealso [plot], [plot_KDE], [plot_Histogram]
+#' @seealso [plot], [plot_KDE], [plot_Histogram], [plot_AbanicoPlot]
 #'
 #' @references
 #' Galbraith, R.F., 1988. Graphical Display of Estimates Having
@@ -164,73 +164,84 @@
 #'
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
-#' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#' ExampleData.DeValues <- Second2Gray(
+#'   ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
 #' ## plot the example data straightforward
 #' plot_RadialPlot(data = ExampleData.DeValues)
 #'
 #' ## now with linear z-scale
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 log.z = FALSE)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   log.z = FALSE)
 #'
 #' ## now with output of the plot parameters
-#' plot1 <- plot_RadialPlot(data = ExampleData.DeValues,
-#'                          log.z = FALSE,
-#'                          output = TRUE)
+#' plot1 <- plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   log.z = FALSE,
+#'   output = TRUE)
 #' plot1
 #' plot1$zlim
 #'
 #' ## now with adjusted z-scale limits
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                log.z = FALSE,
-#'                zlim = c(100, 200))
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   log.z = FALSE,
+#'   zlim = c(100, 200))
 #'
 #' ## now the two plots with serious but seasonally changing fun
 #' #plot_RadialPlot(data = data.3, fun = TRUE)
 #'
 #' ## now with user-defined central value, in log-scale again
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 central.value = 150)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   central.value = 150)
 #'
 #' ## now with a rug, indicating individual De values at the z-scale
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 rug = TRUE)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   rug = TRUE)
 #'
 #' ## now with legend, colour, different points and smaller scale
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 legend.text = "Sample 1",
-#'                 col = "tomato4",
-#'                 bar.col = "peachpuff",
-#'                 pch = "R",
-#'                 cex = 0.8)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   legend.text = "Sample 1",
+#'   col = "tomato4",
+#'   bar.col = "peachpuff",
+#'   pch = "R",
+#'   cex = 0.8)
 #'
 #' ## now without 2-sigma bar, y-axis, grid lines and central value line
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 bar.col = "none",
-#'                 grid.col = "none",
-#'                 y.ticks = FALSE,
-#'                 lwd = 0)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   bar.col = "none",
+#'   grid.col = "none",
+#'   y.ticks = FALSE,
+#'   lwd = 0)
 #'
 #' ## now with user-defined axes labels
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 xlab = c("Data error (%)",
-#'                          "Data precision"),
-#'                 ylab = "Scatter",
-#'                 zlab = "Equivalent dose [Gy]")
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   xlab = c("Data error (%)", "Data precision"),
+#'   ylab = "Scatter",
+#'   zlab = "Equivalent dose [Gy]")
 #'
 #' ## now with minimum, maximum and median value indicated
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 central.value = 150,
-#'                 stats = c("min", "max", "median"))
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   central.value = 150,
+#'   stats = c("min", "max", "median"))
 #'
 #' ## now with a brief statistical summary
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 summary = c("n", "in.2s"))
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   summary = c("n", "in.2s"))
 #'
 #' ## now with another statistical summary as subheader
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 summary = c("mean.weighted", "median"),
-#'                 summary.pos = "sub")
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   summary = c("mean.weighted", "median"),
+#'   summary.pos = "sub")
 #'
 #' ## now the data set is split into sub-groups, one is manipulated
 #' data.1 <- ExampleData.DeValues[1:15,]
@@ -243,13 +254,14 @@
 #' plot_RadialPlot(data = data.3)
 #'
 #' ## now with some graphical modification
-#' plot_RadialPlot(data = data.3,
-#'                 col = c("darkblue", "darkgreen"),
-#'                 bar.col = c("lightblue", "lightgreen"),
-#'                 pch = c(2, 6),
-#'                 summary = c("n", "in.2s"),
-#'                 summary.pos = "sub",
-#'                 legend = c("Sample 1", "Sample 2"))
+#' plot_RadialPlot(
+#'   data = data.3,
+#'   col = c("darkblue", "darkgreen"),
+#'   bar.col = c("lightblue", "lightgreen"),
+#'   pch = c(2, 6),
+#'   summary = c("n", "in.2s"),
+#'   summary.pos = "sub",
+#'   legend = c("Sample 1", "Sample 2"))
 #'
 #' @md
 #' @export
@@ -1625,3 +1637,10 @@ label.text[[1]] <- NULL
   }
 
 }
+
+plot_RadialPlot(
+  data.frame(x = rnorm(20, 0, 1), y = runif(20, 0.1, 0.5)),
+  line = 0.2,
+  log.z = FALSE,
+  plot.ratio = 0.3,
+  zlim = c(-1, 6))
