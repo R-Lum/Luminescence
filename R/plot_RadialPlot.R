@@ -125,7 +125,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.6
+#' @section Function version: 0.5.7
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -375,7 +375,6 @@ plot_RadialPlot <- function(
   if(min(De.global) < 0) {
 
     if("zlim" %in% names(extraArgs)) {
-
       De.add <- abs(extraArgs$zlim[1])
     } else {
 
@@ -384,7 +383,6 @@ plot_RadialPlot <- function(
 
       ## optionally readjust delta De for extreme values
       if(De.add <= abs(min(De.global))) {
-
         De.add <- De.add * 10
       }
     }
@@ -415,6 +413,7 @@ plot_RadialPlot <- function(
     z.span <- ifelse(z.span > 1, 0.9, z.span)
     limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
+
   }
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
@@ -539,14 +538,9 @@ plot_RadialPlot <- function(
   }
 
   ## create column names
-  colnames(data.global) <- c("De",
-                             "error",
-                             "z",
-                             "se",
-                             "z.central",
-                             "precision",
-                             "std.estimate",
-                             "std.estimate.plot")
+  colnames(data.global) <- c(
+    "De", "error", "z", "se", "z.central", "precision", "std.estimate",
+    "std.estimate.plot")
 
 ## calculate global central value
 if(centrality[1] == "mean") {
@@ -665,6 +659,7 @@ if(centrality[1] == "mean") {
     z.span <- ifelse(z.span > 1, 0.9, z.span)
     limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
                   (1.1 + z.span) * max(data.global[[1]]))
+
   }
 
   if("xlim" %in% names(extraArgs)) {
@@ -741,8 +736,8 @@ if(centrality[1] == "mean") {
   ## define auxiliary plot parameters -----------------------------------------
 
   ## optionally adjust plot ratio
-  if(missing(plot.ratio) == TRUE) {
-    if(log.z == TRUE) {
+  if(missing(plot.ratio)) {
+    if(log.z) {
       plot.ratio <- 1 /  (1 * ((max(data.global[,6]) - min(data.global[,6])) /
         (max(data.global[,7]) - min(data.global[,7]))))
     } else {
@@ -750,14 +745,15 @@ if(centrality[1] == "mean") {
     }
   }
 
-  if(plot.ratio > 10^6) {plot.ratio <- 10^6}
+  ##limit plot ratio
+  plot.ratio <- min(c(1e+06, plot.ratio))
 
   ## calculate conversion factor for plot coordinates
   f <- (max(data.global[,6]) - min(data.global[,6])) /
        (max(data.global[,7]) - min(data.global[,7])) * plot.ratio
 
   ## calculate major and minor z-tick values
-  tick.values.major <- signif(pretty(limits.z, n = 5), 3)
+  tick.values.major <- signif(c(limits.z, pretty(limits.z, n = 5)))
   tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
 
   tick.values.major <- tick.values.major[tick.values.major >=
@@ -785,14 +781,14 @@ if(centrality[1] == "mean") {
   ## calculate major z-tick coordinates
   tick.x1.major <- r / sqrt(1 + f^2 * (
     tick.values.major - z.central.global)^2)
+
   tick.y1.major <- (tick.values.major - z.central.global) * tick.x1.major
   tick.x2.major <- (1 + 0.015 * cex) * r / sqrt(
     1 + f^2 * (tick.values.major - z.central.global)^2)
   tick.y2.major <- (tick.values.major - z.central.global) * tick.x2.major
-  ticks.major <- cbind(tick.x1.major,
-                       tick.x2.major,
-                       tick.y1.major,
-                       tick.y2.major)
+  ticks.major <- cbind(0,
+    tick.x1.major, tick.x2.major, tick.y1.major, tick.y2.major)
+
 
   ## calculate minor z-tick coordinates
   tick.x1.minor <- r / sqrt(1 + f^2 * (
@@ -812,10 +808,12 @@ if(centrality[1] == "mean") {
   label.y <- (tick.values.major - z.central.global) * tick.x2.major
 
   ## create z-axes labels
-  if(log.z == TRUE) {
+  if(log.z) {
     label.z.text <- signif(exp(tick.values.major), 3)
+
   } else {
     label.z.text <- signif(tick.values.major, 3)
+
   }
 
   ## subtract De.add from label values
@@ -842,14 +840,10 @@ if(centrality[1] == "mean") {
   }
 
   ## calculate node coordinates for semi-circle
-  user.limits <- if(log.z == TRUE) {
-    log(limits.z)
-  } else{
-    limits.z
-  }
+  user.limits <- if(log.z) log(limits.z) else limits.z
 
   ellipse.values <- seq(
-    from = min(c(tick.values.major, tick.values.minor, user.limits[2])),
+    from = min(c(tick.values.major, tick.values.minor, user.limits[1])),
     to = max(c(tick.values.major,tick.values.minor, user.limits[2])),
     length.out = 500)
   ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
@@ -913,24 +907,10 @@ if(centrality[1] == "mean") {
 
   ## calculate and paste statistical summary
   De.stats <- matrix(nrow = length(data), ncol = 18)
-  colnames(De.stats) <- c("n",
-                          "mean",
-                          "mean.weighted",
-                          "median",
-                          "median.weighted",
-                          "kde.max",
-                          "sd.abs",
-                          "sd.rel",
-                          "se.abs",
-                          "se.rel",
-                          "q25",
-                          "q75",
-                          "skewness",
-                          "kurtosis",
-                          "sd.abs.weighted",
-                          "sd.rel.weighted",
-                          "se.abs.weighted",
-                          "se.rel.weighted")
+  colnames(De.stats) <- c("n", "mean", "mean.weighted", "median", "median.weighted",
+    "kde.max", "sd.abs", "sd.rel", "se.abs", "se.rel", "q25", "q75", "skewness",
+    "kurtosis", "sd.abs.weighted", "sd.rel.weighted", "se.abs.weighted",
+    "se.rel.weighted")
 
   for(i in 1:length(data)) {
     data_to_stats <- data[[i]]
@@ -961,11 +941,10 @@ if(centrality[1] == "mean") {
                               to = limits.z[2]),
                       silent = TRUE)
 
-    if(class(De.density) == "try-error") {
-
+    if(class(De.density)[1] == "try-error") {
       De.stats[i,6] <- NA
-    } else {
 
+    } else {
       De.stats[i,6] <- De.density$x[which.max(De.density$y)]
     }
   }
@@ -1303,9 +1282,8 @@ label.text[[1]] <- NULL
   }
 
   ## calculate line coordinates and further parameters
-  if(missing(line) == FALSE) {
-
-    line = line + De.add
+  if(!missing(line)) {
+    #line = line + De.add
 
     if(log.z == TRUE) {line <- log(line)}
 
@@ -1637,10 +1615,3 @@ label.text[[1]] <- NULL
   }
 
 }
-
-plot_RadialPlot(
-  data.frame(x = rnorm(20, 0, 1), y = runif(20, 0.1, 0.5)),
-  line = 0.2,
-  log.z = FALSE,
-  plot.ratio = 0.3,
-  zlim = c(-1, 6))

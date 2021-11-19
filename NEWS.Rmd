@@ -12,4 +12,7 @@ header-includes:
 
 ### Bugfixes and changes
 
-* Dummy
+#### `plot_RadioPlot()`
+* An additional line, e.g., `plot_RadialPlot(...,line = 1)` was not always drawn where the user expected it to be seen; fixed (#106, reported by Li Bo)
+* The radial z-scale did not always extend to the limits of the data, even if limits for the z-scale were set, leading to an odd graphical offset and unsuitable plots; fixed (reported by Christina Neudorf)
+* The plot now always draws the lower limit of the z-scale. 
