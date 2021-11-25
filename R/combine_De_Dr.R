@@ -476,6 +476,7 @@
 #'
 #'## run modelling
 #'## note: modify parameters for more realistic results
+#'\dontrun{
 #'results <- combine_De_Dr(
 #'  Dr = Dr,
 #'  int_OD = 0.1,
@@ -489,6 +490,7 @@
 #'## show models used
 #'writeLines(results@info$model_IAM)
 #'writeLines(results@info$model_BCAM)
+#'}
 #'
 #'@md
 #'@export
