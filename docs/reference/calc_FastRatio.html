@@ -73,7 +73,7 @@ aliquot curves after Durcan &amp;amp; Duller (2011)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -184,7 +184,7 @@ An integer specifying the channel for L2.</p></td>
       <th>Ch_L3</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>optional</em>):
 A vector of length 2 with integer values specifying the start and end channels for L3
-(e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(40, 50)</a></code>).</p></td>
+(e.g., <code>c(40, 50)</code>).</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -201,7 +201,7 @@ Used to define the location of L3 (end).</p></td>
     <tr>
       <th>dead.channels</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<em>with default</em>):
-Vector of length 2 in the form of <code><a href='https://rdrr.io/r/base/c.html'>c(x, y)</a></code>.
+Vector of length 2 in the form of <code>c(x, y)</code>.
 Channels that do not contain OSL data, i.e. at the start or end of measurement.</p></td>
     </tr>
     <tr>
@@ -248,7 +248,7 @@ and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\).</p>
     <p>0.1.1</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>King, G.E., Durcan, J., Burow, C., 2021. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>King, G.E., Durcan, J., Burow, C., 2021. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Durcan, J.A. &amp; Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
@@ -272,54 +272,57 @@ Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load example CW-OSL curve</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.CW_OSL_Curve"</span><span class='op'>)</span>
-
-<span class='co'># calculate the fast ratio w/o further adjustments</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FastRatio</span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; [calc_FastRatio()]
-#&gt; 
-#&gt;  -------------------------------
-#&gt;  Fast Ratio		: 405.12
-#&gt;   ˪ Absolute error	: 119.74
-#&gt;   ˪ Relative error (%)	: 29.56
-#&gt;  Channels		: 1000
-#&gt;  Channel width (s)	: 0.04
-#&gt;  Dead channels start	: 0
-#&gt;  Dead channels end	: 0
-#&gt;  Sigma Fast		: 2.6e-17
-#&gt;  Sigma Medium		: 4.3e-18
-#&gt;  I0			: 7.2e+16
-#&gt;  Stim. power (mW/cm^2)	: 30.60
-#&gt;  Wavelength (nm)	: 470.00
-#&gt;  -
-#&gt;  Time L1 (s)		: 0.00
-#&gt;  Time L2 (s)		: 2.45
-#&gt;  Time L3 start (s)	: 14.86
-#&gt;  Time L3 end (s)	: 22.29
-#&gt;  -
-#&gt;  Channel L1		: 1
-#&gt;  Channel L2		: 62
-#&gt;  Channel L3 start	: 373
-#&gt;  Channel L3 end		: 558
-#&gt;  -
-#&gt;  Counts L1		: 11111
-#&gt;  Counts L2		: 65
-#&gt;  Counts L3		: 37.67
-#&gt;  -------------------------------
-#&gt; </div><div class='img'><img src='calc_FastRatio-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># show the summary table</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width
-#&gt; 1    405.122      119.7442       29.55756     1000          0.04
-#&gt;   dead.channels.start dead.channels.end  sigmaF   sigmaM           I0
-#&gt; 1                   0                 0 2.6e-17 4.28e-18 7.240067e+16
-#&gt;   stimulation.power wavelength t_L1     t_L2 t_L3_start t_L3_end Ch_L1 Ch_L2
-#&gt; 1              30.6        470    0 2.446413   14.86139 22.29208     1    62
-#&gt;   Ch_L3_start Ch_L3_end Cts_L1 Cts_L2   Cts_L3
-#&gt; 1         373       558  11111     65 37.66667</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># load example CW-OSL curve</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.CW_OSL_Curve"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate the fast ratio w/o further adjustments</span></span>
+<span class='r-in'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FastRatio</span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [calc_FastRatio()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fast Ratio		: 405.12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ˪ Absolute error	: 119.74</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ˪ Relative error (%)	: 29.56</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Channels		: 1000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Channel width (s)	: 0.04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Dead channels start	: 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Dead channels end	: 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Sigma Fast		: 2.6e-17</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Sigma Medium		: 4.3e-18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  I0			: 7.2e+16</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Stim. power (mW/cm^2)	: 30.60</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Wavelength (nm)	: 470.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Time L1 (s)		: 0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Time L2 (s)		: 2.45</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Time L3 start (s)	: 14.86</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Time L3 end (s)	: 22.29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Channel L1		: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Channel L2		: 62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Channel L3 start	: 373</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Channel L3 end		: 558</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Counts L1		: 11111</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Counts L2		: 65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Counts L3		: 37.67</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='calc_FastRatio-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show the summary table</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    405.122      119.7442       29.55756     1000          0.04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   dead.channels.start dead.channels.end  sigmaF   sigmaM           I0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                   0                 0 2.6e-17 4.28e-18 7.240067e+16</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   stimulation.power wavelength t_L1     t_L2 t_L3_start t_L3_end Ch_L1 Ch_L2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1              30.6        470    0 2.446413   14.86139 22.29208     1    62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Ch_L3_start Ch_L3_end Cts_L1 Cts_L2   Cts_L3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1         373       558  11111     65 37.66667</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -331,7 +334,7 @@ Christoph Burow, University of Cologne (Germany)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

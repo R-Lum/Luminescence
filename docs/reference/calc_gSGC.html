@@ -73,7 +73,7 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@ presented function parameters for two dose ranges: <code>"0-450"</code> and <cod
       <th>gSGC.parameters</th>
       <td><p><a href='https://rdrr.io/r/base/list.html'>list</a> (<em>optional</em>):
 option to provide own function parameters used for fitting as named list.
-Nomenclature follows Li et al., 2015, i.e. <code><a href='https://rdrr.io/r/base/list.html'>list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)</a></code>,
+Nomenclature follows Li et al., 2015, i.e. <code>list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)</code>,
 range requires a vector for the range the function is considered as valid, e.g. <code>range = c(0,250)</code><br />
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 <code>gSGC.type</code> will be without effect</p></td>
@@ -200,7 +200,7 @@ Large values for <code>n.MC</code> will significantly increase the computation t
     <p>0.1.1</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
@@ -215,27 +215,30 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_gSGC</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-LnTn <span class='op'>=</span>  <span class='fl'>2.361</span>, LnTn.error <span class='op'>=</span> <span class='fl'>0.087</span>,
-Lr1Tr1 <span class='op'>=</span> <span class='fl'>2.744</span>, Lr1Tr1.error <span class='op'>=</span> <span class='fl'>0.091</span>,
-Dr1 <span class='op'>=</span> <span class='fl'>34.4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='calc_gSGC-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; [calc_gSGC()]
-#&gt;  Corresponding De based on the gSGC
-#&gt; 
-#&gt;  Ln/Tn:		 2.361 ± 0.087
-#&gt;  Lr1/Tr1:	 2.744 ± 0.091
-#&gt;  Dr1:		 34.4
-#&gt;  f(D):		 0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791
-#&gt;  n.MC:		 100
-#&gt;  ------------------------------ 
-#&gt;  De:		28.43 ± 1.92
-#&gt;  ------------------------------ </div><div class='input'>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"De"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         DE DE.ERROR       ETA
-#&gt; 1 28.42881 1.919112 0.1325632</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_gSGC</span><span class='op'>(</span>data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>LnTn <span class='op'>=</span>  <span class='fl'>2.361</span>, LnTn.error <span class='op'>=</span> <span class='fl'>0.087</span>,</span>
+<span class='r-in'>Lr1Tr1 <span class='op'>=</span> <span class='fl'>2.744</span>, Lr1Tr1.error <span class='op'>=</span> <span class='fl'>0.091</span>,</span>
+<span class='r-in'>Dr1 <span class='op'>=</span> <span class='fl'>34.4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='calc_gSGC-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [calc_gSGC()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Corresponding De based on the gSGC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Ln/Tn:		 2.361 ± 0.087</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Lr1/Tr1:	 2.744 ± 0.091</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Dr1:		 34.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  f(D):		 0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n.MC:		 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ------------------------------ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  De:		28.43 ± 1.92</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ------------------------------ </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, data.object <span class='op'>=</span> <span class='st'>"De"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         DE DE.ERROR       ETA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 28.42881 1.919112 0.1325632</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -247,7 +250,7 @@ Dr1 <span class='op'>=</span> <span class='fl'>34.4</span><span class='op'>)</sp
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

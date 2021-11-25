@@ -76,7 +76,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -125,7 +125,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object." />
 This document summarises all implemented S3-generics. The name of the function
 is given before the first dot, after the dot the name of the object that is
 supported by this method is given, e.g. <code>plot.RLum.Data.Curve</code> can be called
-by <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot(object, ...)</a></code>, where <code>object</code> is the <code>RLum.Data.Curve</code> object.</p>
+by <code>plot(object, ...)</code>, where <code>object</code> is the <code>RLum.Data.Curve</code> object.</p>
     </div>
 
     <pre class="usage"># S3 method for list
@@ -411,69 +411,75 @@ package <code>'Luminescence'</code>. For examples see the example section.</p>
 surrogates for existing functions in the package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.RLum.Analysis</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='co'>##combine curve is various ways</span>
-<span class='va'>curve1</span> <span class='op'>&lt;-</span> <span class='va'>IRSAR.RF.Data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-<span class='va'>curve2</span> <span class='op'>&lt;-</span>  <span class='va'>IRSAR.RF.Data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-<span class='va'>curve1</span> <span class='op'>+</span> <span class='va'>curve2</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Data.Curve-class]
-#&gt; 	 recordType: RF
-#&gt; 	 curveType: merged
-#&gt; 	 measured values: 5
-#&gt; 	 .. range of x-values: 0.1747448 6.311132
-#&gt; 	 .. range of y-values: 2846.3 2875.6 
-#&gt; 	 additional info elements: 0</div><div class='input'><span class='va'>curve1</span> <span class='op'>-</span> <span class='va'>curve2</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Data.Curve-class]
-#&gt; 	 recordType: RF
-#&gt; 	 curveType: merged
-#&gt; 	 measured values: 5
-#&gt; 	 .. range of x-values: 0.1747448 6.311132
-#&gt; 	 .. range of y-values: 0 0 
-#&gt; 	 additional info elements: 0</div><div class='input'><span class='va'>curve1</span> <span class='op'>/</span> <span class='va'>curve2</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 0 'inf' values have been replaced by 0 in the matrix.</span></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Data.Curve-class]
-#&gt; 	 recordType: RF
-#&gt; 	 curveType: merged
-#&gt; 	 measured values: 5
-#&gt; 	 .. range of x-values: 0.1747448 6.311132
-#&gt; 	 .. range of y-values: 1 1 
-#&gt; 	 additional info elements: 0</div><div class='input'><span class='va'>curve1</span> <span class='op'>*</span> <span class='va'>curve2</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Data.Curve-class]
-#&gt; 	 recordType: RF
-#&gt; 	 curveType: merged
-#&gt; 	 measured values: 5
-#&gt; 	 .. range of x-values: 0.1747448 6.311132
-#&gt; 	 .. range of y-values: 2025356 2067269 
-#&gt; 	 additional info elements: 0</div><div class='input'>
-
-<span class='co'>##`$` access curves</span>
-<span class='va'>IRSAR.RF.Data</span><span class='op'>$</span><span class='va'>RF</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; 
-#&gt;  [RLum.Data.Curve-class]
-#&gt; 	 recordType: RF
-#&gt; 	 curveType: NA
-#&gt; 	 measured values: 5
-#&gt; 	 .. range of x-values: 0.1747448 6.311132
-#&gt; 	 .. range of y-values: 1423.15 1437.8 
-#&gt; 	 additional info elements: 0
-#&gt; [[2]]
-#&gt; 
-#&gt;  [RLum.Data.Curve-class]
-#&gt; 	 recordType: RF
-#&gt; 	 curveType: NA
-#&gt; 	 measured values: 524
-#&gt; 	 .. range of x-values: 0.3768403 715.4821
-#&gt; 	 .. range of y-values: 1379.947 2103.4 
-#&gt; 	 additional info elements: 0</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.RLum.Analysis</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##combine curve is various ways</span></span>
+<span class='r-in'><span class='va'>curve1</span> <span class='op'>&lt;-</span> <span class='va'>IRSAR.RF.Data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>curve2</span> <span class='op'>&lt;-</span>  <span class='va'>IRSAR.RF.Data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span></span>
+<span class='r-in'><span class='va'>curve1</span> <span class='op'>+</span> <span class='va'>curve2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Curve-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: RF</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: merged</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 measured values: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of y-values: 2846.3 2875.6 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 0</span>
+<span class='r-in'><span class='va'>curve1</span> <span class='op'>-</span> <span class='va'>curve2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Curve-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: RF</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: merged</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 measured values: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of y-values: 0 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 0</span>
+<span class='r-in'><span class='va'>curve1</span> <span class='op'>/</span> <span class='va'>curve2</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>0 'inf' values have been replaced by 0 in the matrix.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Curve-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: RF</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: merged</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 measured values: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of y-values: 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 0</span>
+<span class='r-in'><span class='va'>curve1</span> <span class='op'>*</span> <span class='va'>curve2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Curve-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: RF</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: merged</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 measured values: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of y-values: 2025356 2067269 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 0</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##`$` access curves</span></span>
+<span class='r-in'><span class='va'>IRSAR.RF.Data</span><span class='op'>$</span><span class='va'>RF</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Curve-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: RF</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 measured values: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of y-values: 1423.15 1437.8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Curve-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: RF</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 measured values: 524</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of x-values: 0.3768403 715.4821</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. range of y-values: 1379.947 2103.4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 0</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -485,7 +491,7 @@ surrogates for existing functions in the package.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

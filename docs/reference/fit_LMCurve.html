@@ -75,7 +75,7 @@ uses the function nls with the port algorithm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -267,7 +267,7 @@ background subtraction.</p></td>
 <p><strong><code>info:</code></strong></p>
 <p><code>.. $call</code> : <a href='https://rdrr.io/r/base/call.html'>call</a> the original function call</p>
 <p>Matrix structure for the distribution matrix:</p>
-<p>Column 1 and 2: time and <code><a href='https://rdrr.io/r/base/rev.html'>rev(time)</a></code> values<br />
+<p>Column 1 and 2: time and <code>rev(time)</code> values<br />
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns <code>cont.</code> provide information on
 the relative component contribution for each time interval including the row
@@ -348,7 +348,7 @@ manual start values is highly recommended.</p>
     <p>0.3.3</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bulur, E., 1996. An Alternative Technique For Optically
@@ -373,113 +373,121 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##(1) fit LM data without background subtraction</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>, n.components <span class='op'>=</span> <span class='fl'>3</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; [fit_LMCurve()]
-#&gt; 
-#&gt; Fitting was done using a 3-component function:
-#&gt; 
-#&gt;        xm1        xm2        xm3        Im1        Im2        Im3 
-#&gt;   56.18289 1449.72461 7878.25114  202.76634  367.30226  639.21354 
-#&gt; 
-#&gt; (equation used for fitting according Kitis &amp; Pagonis, 2008)
-#&gt; ------------------------------------------------------------------------------
-#&gt; (1) Corresponding values according the equation in Bulur, 1996 for b and n0:
-#&gt; 
-#&gt; b1 = 1.267219e+00 +/- NA
-#&gt; n01 = 1.878223e+04 +/- NA
-#&gt; 
-#&gt; b2 = 1.90322e-03 +/- NA
-#&gt; n02 = 8.779229e+05 +/- NA
-#&gt; 
-#&gt; b3 = 6.444665e-05 +/- NA
-#&gt; n03 = 8.30277e+06 +/- NA
-#&gt; 
-#&gt; cs from component.1 = 1.488e-17 cm^2	 &gt;&gt; relative: 1
-#&gt; cs from component.2 = 2.234e-20 cm^2	 &gt;&gt; relative: 0.0015
-#&gt; cs from component.3 = 7.566e-22 cm^2	 &gt;&gt; relative: 1e-04
-#&gt; 
-#&gt; (stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)
-#&gt; (errors quoted as 1-sigma uncertainties)
-#&gt; ------------------------------------------------------------------------------
-#&gt; 
-#&gt; pseudo-R^2 = 0.9557</div><div class='img'><img src='fit_LMCurve-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##(2) fit LM data with background subtraction and export as JPEG</span>
-<span class='co'>## -alter file path for your preferred system</span>
-<span class='co'>##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,</span>
-<span class='co'>## height = 3000, width = 3000, res = 300)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>, values.bg <span class='op'>=</span> <span class='va'>values.curveBG</span>,
-            n.components <span class='op'>=</span> <span class='fl'>2</span>, log <span class='op'>=</span> <span class='st'>"x"</span>, plot.BG <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</div><div class='img'><img src='fit_LMCurve-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; [fit_LMCurve()]
-#&gt; 
-#&gt; Fitting was done using a 2-component function:
-#&gt; 
-#&gt;        xm1        xm2        Im1        Im2 
-#&gt;   53.32071 1587.57201  176.74408  406.89925 
-#&gt; 
-#&gt; (equation used for fitting according Kitis &amp; Pagonis, 2008)
-#&gt; ------------------------------------------------------------------------------
-#&gt; (1) Corresponding values according the equation in Bulur, 1996 for b and n0:
-#&gt; 
-#&gt; b1 = 1.406916e+00 +/- NA
-#&gt; n01 = 1.553775e+04 +/- NA
-#&gt; 
-#&gt; b2 = 1.587059e-03 +/- NA
-#&gt; n02 = 1.065044e+06 +/- NA
-#&gt; 
-#&gt; cs from component.1 = 1.652e-17 cm^2	 &gt;&gt; relative: 1
-#&gt; cs from component.2 = 1.863e-20 cm^2	 &gt;&gt; relative: 0.0011
-#&gt; 
-#&gt; (stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)
-#&gt; (errors quoted as 1-sigma uncertainties)
-#&gt; ------------------------------------------------------------------------------
-#&gt; 
-#&gt; pseudo-R^2 = 0.9417</div><div class='img'><img src='fit_LMCurve-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>##dev.off()</span>
-
-<span class='co'>##(3) fit LM data with manual start parameters</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>,
-            values.bg <span class='op'>=</span> <span class='va'>values.curveBG</span>,
-            n.components <span class='op'>=</span> <span class='fl'>3</span>,
-            log <span class='op'>=</span> <span class='st'>"x"</span>,
-            start_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Im <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>170</span>,<span class='fl'>25</span>,<span class='fl'>400</span><span class='op'>)</span>, xm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>56</span>,<span class='fl'>200</span>,<span class='fl'>1500</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!
-#&gt; 
-#&gt; [fit_LMCurve()]
-#&gt; 
-#&gt; Fitting was done using a 3-component function:
-#&gt; 
-#&gt;        xm1        xm2        xm3        Im1        Im2        Im3 
-#&gt;   49.00643  204.40082 1591.66448  169.44002   23.00741  405.46171 
-#&gt; 
-#&gt; (equation used for fitting according Kitis &amp; Pagonis, 2008)
-#&gt; ------------------------------------------------------------------------------
-#&gt; (1) Corresponding values according the equation in Bulur, 1996 for b and n0:
-#&gt; 
-#&gt; b1 = 1.665536e+00 +/- NA
-#&gt; n01 = 1.36904e+04 +/- NA
-#&gt; 
-#&gt; b2 = 9.574028e-02 +/- NA
-#&gt; n02 = 7.753496e+03 +/- NA
-#&gt; 
-#&gt; b3 = 1.578908e-03 +/- NA
-#&gt; n03 = 1.064017e+06 +/- NA
-#&gt; 
-#&gt; cs from component.1 = 1.955e-17 cm^2	 &gt;&gt; relative: 1
-#&gt; cs from component.2 = 1.124e-18 cm^2	 &gt;&gt; relative: 0.0575
-#&gt; cs from component.3 = 1.854e-20 cm^2	 &gt;&gt; relative: 9e-04
-#&gt; 
-#&gt; (stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)
-#&gt; (errors quoted as 1-sigma uncertainties)
-#&gt; ------------------------------------------------------------------------------
-#&gt; 
-#&gt; pseudo-R^2 = 0.9437</div><div class='img'><img src='fit_LMCurve-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##(1) fit LM data without background subtraction</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>, n.components <span class='op'>=</span> <span class='fl'>3</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_LMCurve()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fitting was done using a 3-component function:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        xm1        xm2        xm3        Im1        Im2        Im3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   56.18289 1449.72461 7878.25114  202.76634  367.30226  639.21354 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (equation used for fitting according Kitis &amp; Pagonis, 2008)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (1) Corresponding values according the equation in Bulur, 1996 for b and n0:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b1 = 1.267219e+00 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n01 = 1.878223e+04 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b2 = 1.90322e-03 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n02 = 8.779229e+05 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b3 = 6.444665e-05 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n03 = 8.30277e+06 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.1 = 1.488e-17 cm^2	 &gt;&gt; relative: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.2 = 2.234e-20 cm^2	 &gt;&gt; relative: 0.0015</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.3 = 7.566e-22 cm^2	 &gt;&gt; relative: 1e-04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (errors quoted as 1-sigma uncertainties)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> pseudo-R^2 = 0.9557</span>
+<span class='r-plt img'><img src='fit_LMCurve-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2) fit LM data with background subtraction and export as JPEG</span></span>
+<span class='r-in'><span class='co'>## -alter file path for your preferred system</span></span>
+<span class='r-in'><span class='co'>##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,</span></span>
+<span class='r-in'><span class='co'>## height = 3000, width = 3000, res = 300)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>, values.bg <span class='op'>=</span> <span class='va'>values.curveBG</span>,</span>
+<span class='r-in'>            n.components <span class='op'>=</span> <span class='fl'>2</span>, log <span class='op'>=</span> <span class='st'>"x"</span>, plot.BG <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</span>
+<span class='r-plt img'><img src='fit_LMCurve-2.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_LMCurve()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fitting was done using a 2-component function:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        xm1        xm2        Im1        Im2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   53.32071 1587.57201  176.74408  406.89925 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (equation used for fitting according Kitis &amp; Pagonis, 2008)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (1) Corresponding values according the equation in Bulur, 1996 for b and n0:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b1 = 1.406916e+00 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n01 = 1.553775e+04 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b2 = 1.587059e-03 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n02 = 1.065044e+06 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.1 = 1.652e-17 cm^2	 &gt;&gt; relative: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.2 = 1.863e-20 cm^2	 &gt;&gt; relative: 0.0011</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (errors quoted as 1-sigma uncertainties)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> pseudo-R^2 = 0.9417</span>
+<span class='r-plt img'><img src='fit_LMCurve-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'>##dev.off()</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(3) fit LM data with manual start parameters</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.FittingLM</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>fit_LMCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>values.curve</span>,</span>
+<span class='r-in'>            values.bg <span class='op'>=</span> <span class='va'>values.curveBG</span>,</span>
+<span class='r-in'>            n.components <span class='op'>=</span> <span class='fl'>3</span>,</span>
+<span class='r-in'>            log <span class='op'>=</span> <span class='st'>"x"</span>,</span>
+<span class='r-in'>            start_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Im <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>170</span>,<span class='fl'>25</span>,<span class='fl'>400</span><span class='op'>)</span>, xm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>56</span>,<span class='fl'>200</span>,<span class='fl'>1500</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_LMCurve] &gt;&gt; Background subtracted (method="polynomial")!</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_LMCurve()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fitting was done using a 3-component function:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        xm1        xm2        xm3        Im1        Im2        Im3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   49.00643  204.40082 1591.66448  169.44002   23.00741  405.46171 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (equation used for fitting according Kitis &amp; Pagonis, 2008)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (1) Corresponding values according the equation in Bulur, 1996 for b and n0:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b1 = 1.665536e+00 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n01 = 1.36904e+04 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b2 = 9.574028e-02 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n02 = 7.753496e+03 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> b3 = 1.578908e-03 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> n03 = 1.064017e+06 +/- NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.1 = 1.955e-17 cm^2	 &gt;&gt; relative: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.2 = 1.124e-18 cm^2	 &gt;&gt; relative: 0.0575</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cs from component.3 = 1.854e-20 cm^2	 &gt;&gt; relative: 9e-04</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (stimulation intensity value used for calculation: 8.517726e+16 1/s 1/cm^2)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (errors quoted as 1-sigma uncertainties)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> pseudo-R^2 = 0.9437</span>
+<span class='r-plt img'><img src='fit_LMCurve-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -491,7 +499,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

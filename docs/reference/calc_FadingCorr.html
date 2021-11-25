@@ -75,7 +75,7 @@ including the error for a given g-value according to Huntley &amp;amp; Lamothe (
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -264,7 +264,7 @@ tc value (the one used for estimating the g-value) using the argument <code>tc.g
     <p>0.4.3</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
@@ -279,91 +279,95 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##run the examples given in the appendix of Huntley and Lamothe, 2001</span>
-
-<span class='co'>##(1) faded age: 100 a</span>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FadingCorr</span><span class='op'>(</span>
-   age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,<span class='fl'>0</span><span class='op'>)</span>,
-   g_value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,
-   tc <span class='op'>=</span> <span class='fl'>2592000</span>,
-   tc.g_value <span class='op'>=</span> <span class='fl'>172800</span>,
-   n.MC <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; [calc_FadingCorr()]
-#&gt; 
-#&gt;  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)
-#&gt;  &gt;&gt; g-value re-calculated for the given tc
-#&gt; 
-#&gt;  .. used g-value:	5.312 ± 1.012 %/decade
-#&gt;  .. used tc:		8.214e-05 ka
-#&gt;  .. used kappa:		0.0231 ± 0.0044
-#&gt;  ----------------------------------------------
-#&gt;  seed: 			NA
-#&gt;  n.MC: 			100
-#&gt;  observations: 		100
-#&gt;  ----------------------------------------------
-#&gt;  Age (faded):		0.1 ka ± 0 ka
-#&gt;  Age (corr.):		0.1169 ka ± 0.0042 ka
-#&gt;  ---------------------------------------------- </div><div class='input'>
-<span class='co'>##(2) faded age: 1 ka</span>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FadingCorr</span><span class='op'>(</span>
-   age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>,
-   g_value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,
-   tc <span class='op'>=</span> <span class='fl'>2592000</span>,
-   tc.g_value <span class='op'>=</span> <span class='fl'>172800</span>,
-   n.MC <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; [calc_FadingCorr()]
-#&gt; 
-#&gt;  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)
-#&gt;  &gt;&gt; g-value re-calculated for the given tc
-#&gt; 
-#&gt;  .. used g-value:	5.312 ± 1.012 %/decade
-#&gt;  .. used tc:		8.214e-05 ka
-#&gt;  .. used kappa:		0.0231 ± 0.0044
-#&gt;  ----------------------------------------------
-#&gt;  seed: 			NA
-#&gt;  n.MC: 			100
-#&gt;  observations: 		100
-#&gt;  ----------------------------------------------
-#&gt;  Age (faded):		1 ka ± 0 ka
-#&gt;  Age (corr.):		1.2486 ka ± 0.0653 ka
-#&gt;  ---------------------------------------------- </div><div class='input'>
-<span class='co'>##(3) faded age: 10.0 ka</span>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FadingCorr</span><span class='op'>(</span>
-   age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>0</span><span class='op'>)</span>,
-   g_value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,
-   tc <span class='op'>=</span> <span class='fl'>2592000</span>,
-   tc.g_value <span class='op'>=</span> <span class='fl'>172800</span>,
-   n.MC <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; [calc_FadingCorr()]
-#&gt; 
-#&gt;  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)
-#&gt;  &gt;&gt; g-value re-calculated for the given tc
-#&gt; 
-#&gt;  .. used g-value:	5.312 ± 1.012 %/decade
-#&gt;  .. used tc:		8.214e-05 ka
-#&gt;  .. used kappa:		0.0231 ± 0.0044
-#&gt;  ----------------------------------------------
-#&gt;  seed: 			NA
-#&gt;  n.MC: 			100
-#&gt;  observations: 		100
-#&gt;  ----------------------------------------------
-#&gt;  Age (faded):		10 ka ± 0 ka
-#&gt;  Age (corr.):		13.402 ka ± 0.8076 ka
-#&gt;  ---------------------------------------------- </div><div class='input'>
-<span class='co'>##access the last output</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      AGE AGE.ERROR AGE_FADED AGE_FADED.ERROR  G_VALUE G_VALUE.ERROR      KAPPA
-#&gt; 1 13.402    0.8076        10               0 5.312393      1.011901 0.02307143
-#&gt;   KAPPA.ERROR           TC   TC.G_VALUE n.MC OBSERVATIONS SEED
-#&gt; 1  0.00439463 8.213721e-05 5.475814e-06  100          100   NA</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##run the examples given in the appendix of Huntley and Lamothe, 2001</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(1) faded age: 100 a</span></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FadingCorr</span><span class='op'>(</span></span>
+<span class='r-in'>   age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>,<span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>   g_value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,</span>
+<span class='r-in'>   tc <span class='op'>=</span> <span class='fl'>2592000</span>,</span>
+<span class='r-in'>   tc.g_value <span class='op'>=</span> <span class='fl'>172800</span>,</span>
+<span class='r-in'>   n.MC <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [calc_FadingCorr()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; g-value re-calculated for the given tc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used g-value:	5.312 ± 1.012 %/decade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used tc:		8.214e-05 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used kappa:		0.0231 ± 0.0044</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  seed: 			NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n.MC: 			100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  observations: 		100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (faded):		0.1 ka ± 0 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (corr.):		0.1169 ka ± 0.0042 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------- </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2) faded age: 1 ka</span></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FadingCorr</span><span class='op'>(</span></span>
+<span class='r-in'>   age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>   g_value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,</span>
+<span class='r-in'>   tc <span class='op'>=</span> <span class='fl'>2592000</span>,</span>
+<span class='r-in'>   tc.g_value <span class='op'>=</span> <span class='fl'>172800</span>,</span>
+<span class='r-in'>   n.MC <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [calc_FadingCorr()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; g-value re-calculated for the given tc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used g-value:	5.312 ± 1.012 %/decade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used tc:		8.214e-05 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used kappa:		0.0231 ± 0.0044</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  seed: 			NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n.MC: 			100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  observations: 		100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (faded):		1 ka ± 0 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (corr.):		1.2486 ka ± 0.0653 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------- </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(3) faded age: 10.0 ka</span></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>calc_FadingCorr</span><span class='op'>(</span></span>
+<span class='r-in'>   age.faded <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>   g_value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>1.0</span><span class='op'>)</span>,</span>
+<span class='r-in'>   tc <span class='op'>=</span> <span class='fl'>2592000</span>,</span>
+<span class='r-in'>   tc.g_value <span class='op'>=</span> <span class='fl'>172800</span>,</span>
+<span class='r-in'>   n.MC <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [calc_FadingCorr()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; g-value re-calculated for the given tc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used g-value:	5.312 ± 1.012 %/decade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used tc:		8.214e-05 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used kappa:		0.0231 ± 0.0044</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  seed: 			NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n.MC: 			100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  observations: 		100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (faded):		10 ka ± 0 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (corr.):		13.402 ka ± 0.8076 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------- </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##access the last output</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      AGE AGE.ERROR AGE_FADED AGE_FADED.ERROR  G_VALUE G_VALUE.ERROR      KAPPA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 13.402    0.8076        10               0 5.312393      1.011901 0.02307143</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   KAPPA.ERROR           TC   TC.G_VALUE n.MC OBSERVATIONS SEED</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.00439463 8.213721e-05 5.475814e-06  100          100   NA</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -375,7 +379,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@ be of the same length as the data frame provided with the argument <code>data</c
     <p>0.6.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M., Fuchs, M.C., 2021. Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., Fuchs, M.C., 2021. Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.</p>
@@ -196,80 +196,82 @@ Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Ge
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##(A) for known source dose rate at date of measurement</span>
-<span class='co'>## - load De data from the example data help file</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'>## - convert De(s) to De(Gy)</span>
-<span class='fu'>Second2Gray</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0438</span>,<span class='fl'>0.0019</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        De De.error
-#&gt; 1  151.48    5.334
-#&gt; 2  152.08    5.144
-#&gt; 3  165.80    6.805
-#&gt; 4  136.15    4.608
-#&gt; 5  144.42    4.642
-#&gt; 6  123.44    4.471
-#&gt; 7  123.64    4.227
-#&gt; 8  127.07    4.396
-#&gt; 9  125.06    4.630
-#&gt; 10 124.45    4.256
-#&gt; 11 118.60    4.049
-#&gt; 12 128.08    4.408
-#&gt; 13 110.78    3.701
-#&gt; 14 121.02    4.187
-#&gt; 15 124.09    4.129
-#&gt; 16 124.70    4.043
-#&gt; 17 123.68    4.262
-#&gt; 18 126.34    4.228
-#&gt; 19 128.59    4.254
-#&gt; 20 131.46    4.448
-#&gt; 21 127.77    4.330
-#&gt; 22 131.05    5.023
-#&gt; 23 126.34    4.317
-#&gt; 24 115.49    3.479
-#&gt; 25 119.58    3.815</div><div class='input'>
-
-
-
-
-<span class='co'>##(B) for source dose rate calibration data</span>
-<span class='co'>## - calculate source dose rate first</span>
-<span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='calc_SourceDoseRate.html'>calc_SourceDoseRate</a></span><span class='op'>(</span>measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,
-                                  calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,
-                                  calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,
-                                  calib.error <span class='op'>=</span> <span class='fl'>0.0019</span><span class='op'>)</span>
-<span class='co'># read example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># apply dose.rate to convert De(s) to De(Gy)</span>
-<span class='fu'>Second2Gray</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='va'>dose.rate</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        De De.error
-#&gt; 1  162.37    5.717
-#&gt; 2  163.02    5.514
-#&gt; 3  177.72    7.294
-#&gt; 4  145.94    4.939
-#&gt; 5  154.81    4.976
-#&gt; 6  132.32    4.792
-#&gt; 7  132.54    4.531
-#&gt; 8  136.21    4.712
-#&gt; 9  134.05    4.963
-#&gt; 10 133.40    4.562
-#&gt; 11 127.13    4.340
-#&gt; 12 137.29    4.725
-#&gt; 13 118.75    3.967
-#&gt; 14 129.72    4.488
-#&gt; 15 133.01    4.426
-#&gt; 16 133.67    4.334
-#&gt; 17 132.57    4.568
-#&gt; 18 135.43    4.532
-#&gt; 19 137.84    4.560
-#&gt; 20 140.91    4.768
-#&gt; 21 136.96    4.641
-#&gt; 22 140.47    5.384
-#&gt; 23 135.43    4.628
-#&gt; 24 123.79    3.729
-#&gt; 25 128.18    4.090</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##(A) for known source dose rate at date of measurement</span></span>
+<span class='r-in'><span class='co'>## - load De data from the example data help file</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## - convert De(s) to De(Gy)</span></span>
+<span class='r-in'><span class='fu'>Second2Gray</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0438</span>,<span class='fl'>0.0019</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        De De.error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  151.48    5.334</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  152.08    5.144</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  165.80    6.805</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  136.15    4.608</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  144.42    4.642</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  123.44    4.471</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  123.64    4.227</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  127.07    4.396</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  125.06    4.630</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 124.45    4.256</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 118.60    4.049</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 128.08    4.408</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 110.78    3.701</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 121.02    4.187</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 124.09    4.129</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 124.70    4.043</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 123.68    4.262</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 126.34    4.228</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 128.59    4.254</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 131.46    4.448</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 127.77    4.330</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 131.05    5.023</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 126.34    4.317</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 115.49    3.479</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 119.58    3.815</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(B) for source dose rate calibration data</span></span>
+<span class='r-in'><span class='co'>## - calculate source dose rate first</span></span>
+<span class='r-in'><span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='calc_SourceDoseRate.html'>calc_SourceDoseRate</a></span><span class='op'>(</span>measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,</span>
+<span class='r-in'>                                  calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,</span>
+<span class='r-in'>                                  calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,</span>
+<span class='r-in'>                                  calib.error <span class='op'>=</span> <span class='fl'>0.0019</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># read example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># apply dose.rate to convert De(s) to De(Gy)</span></span>
+<span class='r-in'><span class='fu'>Second2Gray</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='va'>dose.rate</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        De De.error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  162.37    5.717</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  163.02    5.514</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  177.72    7.294</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  145.94    4.939</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  154.81    4.976</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  132.32    4.792</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  132.54    4.531</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  136.21    4.712</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  134.05    4.963</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 133.40    4.562</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 127.13    4.340</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 137.29    4.725</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 118.75    3.967</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 129.72    4.488</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 133.01    4.426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 133.67    4.334</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 132.57    4.568</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 135.43    4.532</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 137.84    4.560</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 140.91    4.768</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 136.96    4.641</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 140.47    5.384</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 135.43    4.628</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 123.79    3.729</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 128.18    4.090</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -281,7 +283,7 @@ Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Ge
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

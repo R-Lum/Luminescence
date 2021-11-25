@@ -76,7 +76,7 @@ for sigma." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -192,10 +192,10 @@ be found in the appendix of Galbraith &amp; Laslett (1993, 468-470) and
 Galbraith &amp; Roberts (2012, 15)</p>
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>1.4.0</p>
+    <p>1.4.1</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R.F. &amp; Laslett, G.M., 1993. Statistical models for
@@ -231,30 +231,32 @@ Based on a rewritten S script of Rex Galbraith, 2010
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##apply the central dose model</span>
-<span class='fu'>calc_CentralDose</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [calc_CentralDose]
-#&gt; 
-#&gt; ----------- meta data ----------------
-#&gt;  n:                       62
-#&gt;  log:                     TRUE
-#&gt; ----------- dose estimate ------------
-#&gt;  central dose [Gy]:       65.71
-#&gt;  SE [Gy]:                 3.05
-#&gt;  rel. SE [%]:             4.65
-#&gt; ----------- overdispersion -----------
-#&gt;  OD [Gy]:                 22.79
-#&gt;  SE [Gy]:                 2.27
-#&gt;  OD [%]:                  34.69
-#&gt;  SE [%]:                  3.46
-#&gt; -------------------------------------
-#&gt; </div><div class='img'><img src='calc_CentralDose-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##apply the central dose model</span></span>
+<span class='r-in'><span class='fu'>calc_CentralDose</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CentralDose]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- meta data ----------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n:                       62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  log:                     TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- dose estimate ------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. central dose:       65.71</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. SE:                 3.05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  rel. SE [%]:             4.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- overdispersion -----------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. OD:                 22.79</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. SE:                 2.27</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  OD [%]:                  34.69</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  SE [%]:                  3.46</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='calc_CentralDose-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -266,7 +268,7 @@ Based on a rewritten S script of Rex Galbraith, 2010
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

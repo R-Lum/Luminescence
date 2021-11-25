@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@
       <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>):
 for <code>data.frame</code> two columns: De (<code>data[,1]</code>) and De error (<code>data[,2]</code>).
 To plot several data sets in one plot, the data sets must be provided as
-<code>list</code>, e.g. <code><a href='https://rdrr.io/r/base/list.html'>list(data.1, data.2)</a></code>.</p></td>
+<code>list</code>, e.g. <code>list(data.1, data.2)</code>.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -320,10 +320,10 @@ one or more of the following keywords:</p><ul>
 
     <h2 class="hasAnchor" id="function-version"><a class="anchor" href="#function-version"></a>Function version</h2>
 
-    <p>0.5.5</p>
+    <p>0.5.6</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S., 2021. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S., 2021. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R.F., 1988. Graphical Display of Estimates Having
@@ -355,243 +355,258 @@ Based on a rewritten S script of Rex Galbraith, 2010
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ExampleData.DeValues</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0438</span>,<span class='fl'>0.0019</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## plot the example data straightforward</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with linear z-scale</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                log.z <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='co'>## now with output of the plot parameters</span>
-<span class='va'>plot1</span> <span class='op'>&lt;-</span> <span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                         log.z <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                         output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>plot1</span>
-</div><div class='output co'>#&gt; $data
-#&gt; $data[[1]]
-#&gt;        De error      z    se z.central precision std.estimate std.estimate.plot
-#&gt; 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168        4.61813168
-#&gt; 2  152.08 5.144 152.08 5.144  126.8469 0.1944012   4.90534883        4.90534883
-#&gt; 3  165.80 6.805 165.80 6.805  126.8469 0.1469508   5.72419021        5.72419021
-#&gt; 4  136.15 4.608 136.15 4.608  126.8469 0.2170139   2.01890503        2.01890503
-#&gt; 5  144.42 4.642 144.42 4.642  126.8469 0.2154244   3.78567738        3.78567738
-#&gt; 6  123.44 4.471 123.44 4.471  126.8469 0.2236636  -0.76199634       -0.76199634
-#&gt; 7  123.64 4.227 123.64 4.227  126.8469 0.2365744  -0.75866705       -0.75866705
-#&gt; 8  127.07 4.396 127.07 4.396  126.8469 0.2274795   0.05075395        0.05075395
-#&gt; 9  125.06 4.630 125.06 4.630  126.8469 0.2159827  -0.38593642       -0.38593642
-#&gt; 10 124.45 4.256 124.45 4.256  126.8469 0.2349624  -0.56317801       -0.56317801
-#&gt; 11 118.60 4.049 118.60 4.049  126.8469 0.2469746  -2.03677096       -2.03677096
-#&gt; 12 128.08 4.408 128.08 4.408  126.8469 0.2268603   0.27974464        0.27974464
-#&gt; 13 110.78 3.701 110.78 3.701  126.8469 0.2701972  -4.34122821       -4.34122821
-#&gt; 14 121.02 4.187 121.02 4.187  126.8469 0.2388345  -1.39166124       -1.39166124
-#&gt; 15 124.09 4.129 124.09 4.129  126.8469 0.2421894  -0.66768845       -0.66768845
-#&gt; 16 124.70 4.043 124.70 4.043  126.8469 0.2473411  -0.53101302       -0.53101302
-#&gt; 17 123.68 4.262 123.68 4.262  126.8469 0.2346316  -0.74305153       -0.74305153
-#&gt; 18 126.34 4.228 126.34 4.228  126.8469 0.2365184  -0.11988780       -0.11988780
-#&gt; 19 128.59 4.254 128.59 4.254  126.8469 0.2350729   0.40975890        0.40975890
-#&gt; 20 131.46 4.448 131.46 4.448  126.8469 0.2248201   1.03712104        1.03712104
-#&gt; 21 127.77 4.330 127.77 4.330  126.8469 0.2309469   0.21319039        0.21319039
-#&gt; 22 131.05 5.023 131.05 5.023  126.8469 0.1990842   0.83677372        0.83677372
-#&gt; 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617       -0.11741617
-#&gt; 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093       -3.26441093
-#&gt; 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930       -1.90481930
-#&gt; 
-#&gt; 
-#&gt; $data.global
-#&gt;        De error      z    se z.central precision std.estimate std.estimate.plot
-#&gt; 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168        4.61813168
-#&gt; 2  152.08 5.144 152.08 5.144  126.8469 0.1944012   4.90534883        4.90534883
-#&gt; 3  165.80 6.805 165.80 6.805  126.8469 0.1469508   5.72419021        5.72419021
-#&gt; 4  136.15 4.608 136.15 4.608  126.8469 0.2170139   2.01890503        2.01890503
-#&gt; 5  144.42 4.642 144.42 4.642  126.8469 0.2154244   3.78567738        3.78567738
-#&gt; 6  123.44 4.471 123.44 4.471  126.8469 0.2236636  -0.76199634       -0.76199634
-#&gt; 7  123.64 4.227 123.64 4.227  126.8469 0.2365744  -0.75866705       -0.75866705
-#&gt; 8  127.07 4.396 127.07 4.396  126.8469 0.2274795   0.05075395        0.05075395
-#&gt; 9  125.06 4.630 125.06 4.630  126.8469 0.2159827  -0.38593642       -0.38593642
-#&gt; 10 124.45 4.256 124.45 4.256  126.8469 0.2349624  -0.56317801       -0.56317801
-#&gt; 11 118.60 4.049 118.60 4.049  126.8469 0.2469746  -2.03677096       -2.03677096
-#&gt; 12 128.08 4.408 128.08 4.408  126.8469 0.2268603   0.27974464        0.27974464
-#&gt; 13 110.78 3.701 110.78 3.701  126.8469 0.2701972  -4.34122821       -4.34122821
-#&gt; 14 121.02 4.187 121.02 4.187  126.8469 0.2388345  -1.39166124       -1.39166124
-#&gt; 15 124.09 4.129 124.09 4.129  126.8469 0.2421894  -0.66768845       -0.66768845
-#&gt; 16 124.70 4.043 124.70 4.043  126.8469 0.2473411  -0.53101302       -0.53101302
-#&gt; 17 123.68 4.262 123.68 4.262  126.8469 0.2346316  -0.74305153       -0.74305153
-#&gt; 18 126.34 4.228 126.34 4.228  126.8469 0.2365184  -0.11988780       -0.11988780
-#&gt; 19 128.59 4.254 128.59 4.254  126.8469 0.2350729   0.40975890        0.40975890
-#&gt; 20 131.46 4.448 131.46 4.448  126.8469 0.2248201   1.03712104        1.03712104
-#&gt; 21 127.77 4.330 127.77 4.330  126.8469 0.2309469   0.21319039        0.21319039
-#&gt; 22 131.05 5.023 131.05 5.023  126.8469 0.1990842   0.83677372        0.83677372
-#&gt; 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617       -0.11741617
-#&gt; 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093       -3.26441093
-#&gt; 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930       -1.90481930
-#&gt;    NA
-#&gt; 1   1
-#&gt; 2   1
-#&gt; 3   1
-#&gt; 4   1
-#&gt; 5   1
-#&gt; 6   1
-#&gt; 7   1
-#&gt; 8   1
-#&gt; 9   1
-#&gt; 10  1
-#&gt; 11  1
-#&gt; 12  1
-#&gt; 13  1
-#&gt; 14  1
-#&gt; 15  1
-#&gt; 16  1
-#&gt; 17  1
-#&gt; 18  1
-#&gt; 19  1
-#&gt; 20  1
-#&gt; 21  1
-#&gt; 22  1
-#&gt; 23  1
-#&gt; 24  1
-#&gt; 25  1
-#&gt; 
-#&gt; $xlim
-#&gt; [1] 0.0000000 0.2874389
-#&gt; 
-#&gt; $ylim
-#&gt; [1] -16.39541  20.48846
-#&gt; 
-#&gt; $zlim
-#&gt; [1]  93.89862 191.06569
-#&gt; 
-#&gt; $r
-#&gt; [1] 0.3043386
-#&gt; 
-#&gt; $plot.ratio
-#&gt; [1] 0.8181818
-#&gt; 
-#&gt; $ticks.major
-#&gt;      tick.x1.major tick.x2.major tick.y1.major tick.y2.major
-#&gt; [1,]     0.2909708     0.2953353     -7.811659     -7.928834
-#&gt; [2,]     0.3034125     0.3079637     -2.077431     -2.108592
-#&gt; [3,]     0.3009624     0.3054768      3.958593      4.017971
-#&gt; [4,]     0.2846227     0.2888920      9.436128      9.577670
-#&gt; [5,]     0.2601617     0.2640641     13.828402     14.035828
-#&gt; 
-#&gt; $ticks.minor
-#&gt;       tick.x1.minor tick.x2.minor tick.y1.minor tick.y2.minor
-#&gt;  [1,]     0.2860110     0.2880130    -9.1085584    -9.1723183
-#&gt;  [2,]     0.2909708     0.2930076    -7.8116592    -7.8663408
-#&gt;  [3,]     0.2952874     0.2973544    -6.4511101    -6.4962679
-#&gt;  [4,]     0.2988580     0.3009500    -5.0348264    -5.0700701
-#&gt;  [5,]     0.3015911     0.3037022    -3.5729147    -3.5979251
-#&gt;  [6,]     0.3034125     0.3055364    -2.0774306    -2.0919726
-#&gt;  [7,]     0.3042709     0.3064008    -0.5619535    -0.5658872
-#&gt;  [8,]     0.3041414     0.3062704     0.9589928     0.9657057
-#&gt;  [9,]     0.3030279     0.3051491     2.4706214     2.4879158
-#&gt; [10,]     0.3009624     0.3030691     3.9585925     3.9863027
-#&gt; [11,]     0.2980026     0.3000886     5.4096745     5.4475422
-#&gt; [12,]     0.2942277     0.2962873     6.8122870     6.8599730
-#&gt; [13,]     0.2897328     0.2917609     8.1568798     8.2139780
-#&gt; [14,]     0.2846227     0.2866150     9.4361279     9.5021808
-#&gt; [15,]     0.2790061     0.2809591    10.6449512    10.7194659
-#&gt; [16,]     0.2729905     0.2749014    11.7803885    11.8628512
-#&gt; [17,]     0.2666778     0.2685445    12.8413657    12.9312553
-#&gt; [18,]     0.2601617     0.2619828    13.8284022    13.9252010
-#&gt; [19,]     0.2535254     0.2553001    14.7432926    14.8464957
-#&gt; [20,]     0.2468413     0.2485692    15.5887963    15.6979178
-#&gt; 
-#&gt; $labels
-#&gt;        label.x   label.y label.z.text
-#&gt; [1,] 0.2996999 -7.928834          100
-#&gt; [2,] 0.3125149 -2.108592          120
-#&gt; [3,] 0.3099912  4.017971          140
-#&gt; [4,] 0.2931614  9.577670          160
-#&gt; [5,] 0.2679665 14.035828          180
-#&gt; 
-#&gt; $polygons
-#&gt;      [,1] [,2]      [,3]      [,4] [,5] [,6] [,7] [,8]
-#&gt; [1,]    0    0 0.2874389 0.2874389   -2    2    2   -2
-#&gt; 
-#&gt; $ellipse.lims
-#&gt;            [,1]       [,2]
-#&gt; [1,]  0.2454165  0.3043384
-#&gt; [2,] -9.1085584 15.7603529
-#&gt; </div><div class='input'><span class='va'>plot1</span><span class='op'>$</span><span class='va'>zlim</span>
-</div><div class='output co'>#&gt; [1]  93.89862 191.06569</div><div class='input'>
-<span class='co'>## now with adjusted z-scale limits</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-               log.z <span class='op'>=</span> <span class='cn'>FALSE</span>,
-               zlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now the two plots with serious but seasonally changing fun</span>
-<span class='co'>#plot_RadialPlot(data = data.3, fun = TRUE)</span>
-
-<span class='co'>## now with user-defined central value, in log-scale again</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                central.value <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a rug, indicating individual De values at the z-scale</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                rug <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with legend, colour, different points and smaller scale</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                legend.text <span class='op'>=</span> <span class='st'>"Sample 1"</span>,
-                col <span class='op'>=</span> <span class='st'>"tomato4"</span>,
-                bar.col <span class='op'>=</span> <span class='st'>"peachpuff"</span>,
-                pch <span class='op'>=</span> <span class='st'>"R"</span>,
-                cex <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now without 2-sigma bar, y-axis, grid lines and central value line</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                bar.col <span class='op'>=</span> <span class='st'>"none"</span>,
-                grid.col <span class='op'>=</span> <span class='st'>"none"</span>,
-                y.ticks <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                lwd <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with user-defined axes labels</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Data error (%)"</span>,
-                         <span class='st'>"Data precision"</span><span class='op'>)</span>,
-                ylab <span class='op'>=</span> <span class='st'>"Scatter"</span>,
-                zlab <span class='op'>=</span> <span class='st'>"Equivalent dose [Gy]"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with minimum, maximum and median value indicated</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                central.value <span class='op'>=</span> <span class='fl'>150</span>,
-                stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a brief statistical summary</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with another statistical summary as subheader</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span><span class='op'>)</span>,
-                summary.pos <span class='op'>=</span> <span class='st'>"sub"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now the data set is split into sub-groups, one is manipulated</span>
-<span class='va'>data.1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>,<span class='op'>]</span>
-<span class='va'>data.2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>25</span>,<span class='op'>]</span> <span class='op'>*</span> <span class='fl'>1.3</span>
-
-<span class='co'>## now a common dataset is created from the two subgroups</span>
-<span class='va'>data.3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>data.1</span>, <span class='va'>data.2</span><span class='op'>)</span>
-
-<span class='co'>## now the two data sets are plotted in one plot</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with some graphical modification</span>
-<span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,
-                col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"darkblue"</span>, <span class='st'>"darkgreen"</span><span class='op'>)</span>,
-                bar.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightblue"</span>, <span class='st'>"lightgreen"</span><span class='op'>)</span>,
-                pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>6</span><span class='op'>)</span>,
-                summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span>,
-                summary.pos <span class='op'>=</span> <span class='st'>"sub"</span>,
-                legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sample 1"</span>, <span class='st'>"Sample 2"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_RadialPlot-13.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ExampleData.DeValues</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.0438</span>,<span class='fl'>0.0019</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## plot the example data straightforward</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with linear z-scale</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                log.z <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with output of the plot parameters</span></span>
+<span class='r-in'><span class='va'>plot1</span> <span class='op'>&lt;-</span> <span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                         log.z <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                         output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>plot1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data[[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        De error      z    se z.central precision std.estimate std.estimate.plot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168        4.61813168</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  152.08 5.144 152.08 5.144  126.8469 0.1944012   4.90534883        4.90534883</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  165.80 6.805 165.80 6.805  126.8469 0.1469508   5.72419021        5.72419021</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  136.15 4.608 136.15 4.608  126.8469 0.2170139   2.01890503        2.01890503</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  144.42 4.642 144.42 4.642  126.8469 0.2154244   3.78567738        3.78567738</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  123.44 4.471 123.44 4.471  126.8469 0.2236636  -0.76199634       -0.76199634</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  123.64 4.227 123.64 4.227  126.8469 0.2365744  -0.75866705       -0.75866705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  127.07 4.396 127.07 4.396  126.8469 0.2274795   0.05075395        0.05075395</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  125.06 4.630 125.06 4.630  126.8469 0.2159827  -0.38593642       -0.38593642</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 124.45 4.256 124.45 4.256  126.8469 0.2349624  -0.56317801       -0.56317801</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 118.60 4.049 118.60 4.049  126.8469 0.2469746  -2.03677096       -2.03677096</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 128.08 4.408 128.08 4.408  126.8469 0.2268603   0.27974464        0.27974464</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 110.78 3.701 110.78 3.701  126.8469 0.2701972  -4.34122821       -4.34122821</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 121.02 4.187 121.02 4.187  126.8469 0.2388345  -1.39166124       -1.39166124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 124.09 4.129 124.09 4.129  126.8469 0.2421894  -0.66768845       -0.66768845</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 124.70 4.043 124.70 4.043  126.8469 0.2473411  -0.53101302       -0.53101302</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 123.68 4.262 123.68 4.262  126.8469 0.2346316  -0.74305153       -0.74305153</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 126.34 4.228 126.34 4.228  126.8469 0.2365184  -0.11988780       -0.11988780</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 128.59 4.254 128.59 4.254  126.8469 0.2350729   0.40975890        0.40975890</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 131.46 4.448 131.46 4.448  126.8469 0.2248201   1.03712104        1.03712104</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 127.77 4.330 127.77 4.330  126.8469 0.2309469   0.21319039        0.21319039</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 131.05 5.023 131.05 5.023  126.8469 0.1990842   0.83677372        0.83677372</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617       -0.11741617</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093       -3.26441093</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930       -1.90481930</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $data.global</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        De error      z    se z.central precision std.estimate std.estimate.plot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  151.48 5.334 151.48 5.334  126.8469 0.1874766   4.61813168        4.61813168</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  152.08 5.144 152.08 5.144  126.8469 0.1944012   4.90534883        4.90534883</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  165.80 6.805 165.80 6.805  126.8469 0.1469508   5.72419021        5.72419021</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  136.15 4.608 136.15 4.608  126.8469 0.2170139   2.01890503        2.01890503</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  144.42 4.642 144.42 4.642  126.8469 0.2154244   3.78567738        3.78567738</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  123.44 4.471 123.44 4.471  126.8469 0.2236636  -0.76199634       -0.76199634</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  123.64 4.227 123.64 4.227  126.8469 0.2365744  -0.75866705       -0.75866705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  127.07 4.396 127.07 4.396  126.8469 0.2274795   0.05075395        0.05075395</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  125.06 4.630 125.06 4.630  126.8469 0.2159827  -0.38593642       -0.38593642</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 124.45 4.256 124.45 4.256  126.8469 0.2349624  -0.56317801       -0.56317801</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 118.60 4.049 118.60 4.049  126.8469 0.2469746  -2.03677096       -2.03677096</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 128.08 4.408 128.08 4.408  126.8469 0.2268603   0.27974464        0.27974464</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 110.78 3.701 110.78 3.701  126.8469 0.2701972  -4.34122821       -4.34122821</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 121.02 4.187 121.02 4.187  126.8469 0.2388345  -1.39166124       -1.39166124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 124.09 4.129 124.09 4.129  126.8469 0.2421894  -0.66768845       -0.66768845</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 124.70 4.043 124.70 4.043  126.8469 0.2473411  -0.53101302       -0.53101302</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 123.68 4.262 123.68 4.262  126.8469 0.2346316  -0.74305153       -0.74305153</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 126.34 4.228 126.34 4.228  126.8469 0.2365184  -0.11988780       -0.11988780</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 128.59 4.254 128.59 4.254  126.8469 0.2350729   0.40975890        0.40975890</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 131.46 4.448 131.46 4.448  126.8469 0.2248201   1.03712104        1.03712104</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 127.77 4.330 127.77 4.330  126.8469 0.2309469   0.21319039        0.21319039</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 131.05 5.023 131.05 5.023  126.8469 0.1990842   0.83677372        0.83677372</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 126.34 4.317 126.34 4.317  126.8469 0.2316423  -0.11741617       -0.11741617</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 115.49 3.479 115.49 3.479  126.8469 0.2874389  -3.26441093       -3.26441093</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 119.58 3.815 119.58 3.815  126.8469 0.2621232  -1.90481930       -1.90481930</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xlim</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.0000000 0.2874389</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ylim</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -16.89313  20.48846</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $zlim</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  93.89862 191.06569</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $r</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.3043386</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $plot.ratio</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.8181818</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ticks.major</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        tick.x1.major tick.x2.major tick.y1.major tick.y2.major</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0     0.2909708     0.2953353     -7.811659     -7.928834</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0     0.3034125     0.3079637     -2.077431     -2.108592</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0     0.3009624     0.3054768      3.958593      4.017971</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0     0.2846227     0.2888920      9.436128      9.577670</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0     0.2601617     0.2640641     13.828402     14.035828</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ticks.minor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       tick.x1.minor tick.x2.minor tick.y1.minor tick.y2.minor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,]     0.2860110     0.2880130    -9.1085584    -9.1723183</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,]     0.2909708     0.2930076    -7.8116592    -7.8663408</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,]     0.2952874     0.2973544    -6.4511101    -6.4962679</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,]     0.2988580     0.3009500    -5.0348264    -5.0700701</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,]     0.3015911     0.3037022    -3.5729147    -3.5979251</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,]     0.3034125     0.3055364    -2.0774306    -2.0919726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,]     0.3042709     0.3064008    -0.5619535    -0.5658872</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,]     0.3041414     0.3062704     0.9589928     0.9657057</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,]     0.3030279     0.3051491     2.4706214     2.4879158</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,]     0.3009624     0.3030691     3.9585925     3.9863027</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,]     0.2980026     0.3000886     5.4096745     5.4475422</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,]     0.2942277     0.2962873     6.8122870     6.8599730</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,]     0.2897328     0.2917609     8.1568798     8.2139780</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,]     0.2846227     0.2866150     9.4361279     9.5021808</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,]     0.2790061     0.2809591    10.6449512    10.7194659</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,]     0.2729905     0.2749014    11.7803885    11.8628512</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,]     0.2666778     0.2685445    12.8413657    12.9312553</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,]     0.2601617     0.2619828    13.8284022    13.9252010</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,]     0.2535254     0.2553001    14.7432926    14.8464957</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,]     0.2468413     0.2485692    15.5887963    15.6979178</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $labels</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        label.x   label.y label.z.text</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.2996999 -7.928834          100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.3125149 -2.108592          120</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.3099912  4.017971          140</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.2931614  9.577670          160</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.2679665 14.035828          180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $polygons</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      [,1] [,2]      [,3]      [,4] [,5] [,6] [,7] [,8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]    0    0 0.2874389 0.2874389   -2    2    2   -2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ellipse.lims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            [,1]       [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]  0.2454165  0.3043385</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] -9.3850740 15.7603529</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='va'>plot1</span><span class='op'>$</span><span class='va'>zlim</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  93.89862 191.06569</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with adjusted z-scale limits</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>               log.z <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>               zlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now the two plots with serious but seasonally changing fun</span></span>
+<span class='r-in'><span class='co'>#plot_RadialPlot(data = data.3, fun = TRUE)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with user-defined central value, in log-scale again</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                central.value <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a rug, indicating individual De values at the z-scale</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                rug <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with legend, colour, different points and smaller scale</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                legend.text <span class='op'>=</span> <span class='st'>"Sample 1"</span>,</span>
+<span class='r-in'>                col <span class='op'>=</span> <span class='st'>"tomato4"</span>,</span>
+<span class='r-in'>                bar.col <span class='op'>=</span> <span class='st'>"peachpuff"</span>,</span>
+<span class='r-in'>                pch <span class='op'>=</span> <span class='st'>"R"</span>,</span>
+<span class='r-in'>                cex <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now without 2-sigma bar, y-axis, grid lines and central value line</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                bar.col <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span class='r-in'>                grid.col <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span class='r-in'>                y.ticks <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                lwd <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with user-defined axes labels</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Data error (%)"</span>,</span>
+<span class='r-in'>                         <span class='st'>"Data precision"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                ylab <span class='op'>=</span> <span class='st'>"Scatter"</span>,</span>
+<span class='r-in'>                zlab <span class='op'>=</span> <span class='st'>"Equivalent dose [Gy]"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with minimum, maximum and median value indicated</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                central.value <span class='op'>=</span> <span class='fl'>150</span>,</span>
+<span class='r-in'>                stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a brief statistical summary</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with another statistical summary as subheader</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                summary.pos <span class='op'>=</span> <span class='st'>"sub"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now the data set is split into sub-groups, one is manipulated</span></span>
+<span class='r-in'><span class='va'>data.1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>,<span class='op'>]</span></span>
+<span class='r-in'><span class='va'>data.2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>25</span>,<span class='op'>]</span> <span class='op'>*</span> <span class='fl'>1.3</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now a common dataset is created from the two subgroups</span></span>
+<span class='r-in'><span class='va'>data.3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>data.1</span>, <span class='va'>data.2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now the two data sets are plotted in one plot</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with some graphical modification</span></span>
+<span class='r-in'><span class='fu'>plot_RadialPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,</span>
+<span class='r-in'>                col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"darkblue"</span>, <span class='st'>"darkgreen"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                bar.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightblue"</span>, <span class='st'>"lightgreen"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>6</span><span class='op'>)</span>,</span>
+<span class='r-in'>                summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                summary.pos <span class='op'>=</span> <span class='st'>"sub"</span>,</span>
+<span class='r-in'>                legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sample 1"</span>, <span class='st'>"Sample 2"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_RadialPlot-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -603,7 +618,7 @@ Based on a rewritten S script of Rex Galbraith, 2010
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

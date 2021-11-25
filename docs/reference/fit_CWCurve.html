@@ -75,7 +75,7 @@ uses the nls function with the port algorithm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -253,7 +253,7 @@ a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> containing the
 <a href='https://rdrr.io/r/base/matrix.html'>matrix</a> containing the values for the component to sum contribution plot
 (<code>$component.contribution.matrix</code>).</p>
 <p>Matrix structure:<br />
-Column 1 and 2: time and <code><a href='https://rdrr.io/r/base/rev.html'>rev(time)</a></code> values <br />
+Column 1 and 2: time and <code>rev(time)</code> values <br />
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns <code>cont.</code> provide information on
 the relative component contribution for each time interval including the row
@@ -270,7 +270,7 @@ a <a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> containing the
 <code>component.contribution.matrix</code>: <a href='https://rdrr.io/r/base/matrix.html'>matrix</a> containing the values
 for the component to sum contribution plot (<code>$component.contribution.matrix</code>).<br /></p>
 <p>Matrix structure:<br />
-Column 1 and 2: time and <code><a href='https://rdrr.io/r/base/rev.html'>rev(time)</a></code> values<br />
+Column 1 and 2: time and <code>rev(time)</code> values<br />
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns <code>cont.</code> provide information on
 the relative component contribution for each time interval including the row
@@ -316,7 +316,7 @@ global minimum rather than a local minimum!</p>
     <p>0.5.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
@@ -335,29 +335,31 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##fit data</span>
-<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'>fit_CWCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>ExampleData.CW_OSL_Curve</span>,
-                   main <span class='op'>=</span> <span class='st'>"CW Curve Fit"</span>,
-                   n.components.max <span class='op'>=</span> <span class='fl'>4</span>,
-                   log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; [fit_CWCurve()]
-#&gt; 
-#&gt; Fitting was finally done using a 3-component function (max=4):
-#&gt; ------------------------------------------------------------------------------
-#&gt; y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x) + I0.3 * lambda.3 * exp(-lambda.3 * x)
-#&gt; 
-#&gt;          I0 I0.error     lambda lambda.error           cs cs.rel
-#&gt; c1 2387.617       NA 4.59053972           NA 5.389396e-17 1.0000
-#&gt; c2 1053.491       NA 1.95936444           NA 2.300337e-17 0.4268
-#&gt; c3 2816.630       NA 0.02054734           NA 2.412303e-19 0.0045
-#&gt; ------------------------------------------------------------------------------
-#&gt; pseudo-R^2 = 0.9995</div><div class='img'><img src='fit_CWCurve-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##fit data</span></span>
+<span class='r-in'><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'>fit_CWCurve</span><span class='op'>(</span>values <span class='op'>=</span> <span class='va'>ExampleData.CW_OSL_Curve</span>,</span>
+<span class='r-in'>                   main <span class='op'>=</span> <span class='st'>"CW Curve Fit"</span>,</span>
+<span class='r-in'>                   n.components.max <span class='op'>=</span> <span class='fl'>4</span>,</span>
+<span class='r-in'>                   log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_CWCurve()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Fitting was finally done using a 3-component function (max=4):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x) + I0.3 * lambda.3 * exp(-lambda.3 * x)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          I0 I0.error     lambda lambda.error           cs cs.rel</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1 2387.617       NA 4.59053972           NA 5.389396e-17 1.0000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2 1053.491       NA 1.95936444           NA 2.300337e-17 0.4268</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3 2816.630       NA 0.02054734           NA 2.412303e-19 0.0045</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ------------------------------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> pseudo-R^2 = 0.9995</span>
+<span class='r-plt img'><img src='fit_CWCurve-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -369,7 +371,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

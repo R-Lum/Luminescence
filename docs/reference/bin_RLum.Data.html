@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -161,27 +161,30 @@ Allowed arguments can be found in the documentations of the corresponding
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. bin_RLum.Data(): Channel binning - method dispatcher. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. bin_RLum.Data(): Channel binning - method dispatcher. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##create RLum.Data.Curve object from this example</span>
-<span class='va'>curve</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>
-      class <span class='op'>=</span> <span class='st'>"RLum.Data.Curve"</span>,
-      recordType <span class='op'>=</span> <span class='st'>"OSL"</span>,
-      data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span>
-  <span class='op'>)</span>
-
-<span class='co'>##plot data without and with 2 and 4 channel binning</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>curve</span><span class='op'>)</span>
-</div><div class='img'><img src='bin_RLum.Data-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='fu'>bin_RLum.Data</span><span class='op'>(</span><span class='va'>curve</span>, bin_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='bin_RLum.Data-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='fu'>bin_RLum.Data</span><span class='op'>(</span><span class='va'>curve</span>, bin_size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='bin_RLum.Data-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##create RLum.Data.Curve object from this example</span></span>
+<span class='r-in'><span class='va'>curve</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'>  <span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span></span>
+<span class='r-in'>      class <span class='op'>=</span> <span class='st'>"RLum.Data.Curve"</span>,</span>
+<span class='r-in'>      recordType <span class='op'>=</span> <span class='st'>"OSL"</span>,</span>
+<span class='r-in'>      data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot data without and with 2 and 4 channel binning</span></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>curve</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='bin_RLum.Data-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='fu'>bin_RLum.Data</span><span class='op'>(</span><span class='va'>curve</span>, bin_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='bin_RLum.Data-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='fu'>bin_RLum.Data</span><span class='op'>(</span><span class='va'>curve</span>, bin_size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='bin_RLum.Data-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -193,7 +196,7 @@ Allowed arguments can be found in the documentations of the corresponding
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

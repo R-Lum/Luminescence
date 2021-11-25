@@ -77,7 +77,7 @@ from a mixture of normal distributions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@ overdispersion in the data should the sample be well-bleached
     <tr>
       <th>n.components</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>):
-number of components to be fitted. If a vector is provided (e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(2:8)</a></code>) the
+number of components to be fitted. If a vector is provided (e.g. <code>c(2:8)</code>) the
 finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
 statistical evaluation of the model performance (BIC score and maximum
 log-likelihood) is provided.</p></td>
@@ -176,7 +176,7 @@ prints the estimated probabilities of which component each grain is in</p></td>
       <th>dose.scale</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a>:
 manually set the scaling of the y-axis of the first plot with a vector
-in the form of <code><a href='https://rdrr.io/r/base/c.html'>c(min, max)</a></code></p></td>
+in the form of <code>c(min, max)</code></p></td>
     </tr>
     <tr>
       <th>pdf.weight</th>
@@ -254,7 +254,7 @@ The output should be accessed using the function get_RLum
 </ul>
 
 <p><strong>Plot</strong></p>
-<p>If a vector (<code><a href='https://rdrr.io/r/base/c.html'>c(k.min:k.max)</a></code>) is provided
+<p>If a vector (<code>c(k.min:k.max)</code>) is provided
 for <code>n.components</code> a plot is generated showing the the k components
 equivalent doses as normal distributions. By default <code>pdf.weight</code> is
 set to <code>FALSE</code>, so that the area under each normal distribution is
@@ -275,7 +275,7 @@ and maximum log-likelihood estimates for each iteration of k.</p>
     <p>0.4.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R.F. &amp; Green, P.F., 1990. Estimating the component
@@ -316,194 +316,199 @@ Based on a rewritten S script of Rex Galbraith, 2006.
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## (1) apply the finite mixture model</span>
-<span class='co'>## NOTE: the data set is not suitable for the finite mixture model,</span>
-<span class='co'>## which is why a very small sigmab is necessary</span>
-<span class='fu'>calc_FiniteMixture</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span>,
-                   sigmab <span class='op'>=</span> <span class='fl'>0.2</span>, n.components <span class='op'>=</span> <span class='fl'>2</span>,
-                   grain.probability <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [calc_FiniteMixture]
-#&gt; 
-#&gt; --- covariance matrix of mle's ---
-#&gt; 
-#&gt;          [,1]     [,2]     [,3]
-#&gt; [1,] 0.002144 0.001821 0.000283
-#&gt; [2,] 0.001821 0.013319 0.000877
-#&gt; [3,] 0.000283 0.000877 0.001118
-#&gt; 
-#&gt; ----------- meta data ------------
-#&gt;  n:                     62
-#&gt;  sigmab:                0.2
-#&gt;  number of components:  2
-#&gt;  llik:                  -20.3938
-#&gt;  BIC:                    53.169
-#&gt; 
-#&gt; ----------- components -----------
-#&gt; 
-#&gt;                 comp1   comp2
-#&gt;                              
-#&gt; dose (Gy)     31.5299 72.0333
-#&gt; rse(dose)      0.1154  0.0334
-#&gt; se(dose)(Gy)   3.6387  2.4082
-#&gt;                              
-#&gt; proportion     0.1096  0.8904
-#&gt; 
-#&gt; -------- grain probability -------
-#&gt; 
-#&gt;       [,1] [,2]
-#&gt;  [1,] 1.00 0.00
-#&gt;  [2,] 1.00 0.00
-#&gt;  [3,] 1.00 0.00
-#&gt;  [4,] 0.99 0.01
-#&gt;  [5,] 0.94 0.06
-#&gt;  [6,] 0.91 0.09
-#&gt;  [7,] 0.29 0.71
-#&gt;  [8,] 0.13 0.87
-#&gt;  [9,] 0.11 0.89
-#&gt; [10,] 0.10 0.90
-#&gt; [11,] 0.09 0.91
-#&gt; [12,] 0.06 0.94
-#&gt; [13,] 0.04 0.96
-#&gt; [14,] 0.03 0.97
-#&gt; [15,] 0.04 0.96
-#&gt; [16,] 0.02 0.98
-#&gt; [17,] 0.01 0.99
-#&gt; [18,] 0.01 0.99
-#&gt; [19,] 0.01 0.99
-#&gt; [20,] 0.00 1.00
-#&gt; [21,] 0.00 1.00
-#&gt; [22,] 0.00 1.00
-#&gt; [23,] 0.00 1.00
-#&gt; [24,] 0.00 1.00
-#&gt; [25,] 0.00 1.00
-#&gt; [26,] 0.00 1.00
-#&gt; [27,] 0.00 1.00
-#&gt; [28,] 0.00 1.00
-#&gt; [29,] 0.00 1.00
-#&gt; [30,] 0.00 1.00
-#&gt; [31,] 0.00 1.00
-#&gt; [32,] 0.00 1.00
-#&gt; [33,] 0.00 1.00
-#&gt; [34,] 0.00 1.00
-#&gt; [35,] 0.00 1.00
-#&gt; [36,] 0.00 1.00
-#&gt; [37,] 0.00 1.00
-#&gt; [38,] 0.00 1.00
-#&gt; [39,] 0.00 1.00
-#&gt; [40,] 0.00 1.00
-#&gt; [41,] 0.00 1.00
-#&gt; [42,] 0.00 1.00
-#&gt; [43,] 0.00 1.00
-#&gt; [44,] 0.00 1.00
-#&gt; [45,] 0.00 1.00
-#&gt; [46,] 0.00 1.00
-#&gt; [47,] 0.00 1.00
-#&gt; [48,] 0.00 1.00
-#&gt; [49,] 0.00 1.00
-#&gt; [50,] 0.00 1.00
-#&gt; [51,] 0.00 1.00
-#&gt; [52,] 0.00 1.00
-#&gt; [53,] 0.00 1.00
-#&gt; [54,] 0.00 1.00
-#&gt; [55,] 0.00 1.00
-#&gt; [56,] 0.00 1.00
-#&gt; [57,] 0.00 1.00
-#&gt; [58,] 0.00 1.00
-#&gt; [59,] 0.00 1.00
-#&gt; [60,] 0.00 1.00
-#&gt; [61,] 0.00 1.00
-#&gt; [62,] 0.00 1.00
-#&gt; 
-#&gt; -------- single component --------
-#&gt;  mu:                     65.2273
-#&gt;  sigmab:                 0.2
-#&gt;  llik:                   -44.96
-#&gt;  BIC:                    94.047
-#&gt; ----------------------------------
-#&gt; </div><div class='input'>
-<span class='co'>## (2) repeat the finite mixture model for 2, 3 and 4 maximum number of fitted</span>
-<span class='co'>## components and save results</span>
-<span class='co'>## NOTE: The following example is computationally intensive. Please un-comment</span>
-<span class='co'>## the following lines to make the example work.</span>
-<span class='va'>FMM</span><span class='op'>&lt;-</span> <span class='fu'>calc_FiniteMixture</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span>,
-                         sigmab <span class='op'>=</span> <span class='fl'>0.2</span>, n.components <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>,
-                         pdf.weight <span class='op'>=</span> <span class='cn'>TRUE</span>, dose.scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [calc_FiniteMixture]
-#&gt; 
-#&gt; ----------- meta data ------------
-#&gt;  n:                     62
-#&gt;  sigmab:                0.2
-#&gt;  number of components:  2-4
-#&gt; 
-#&gt; -------- single component --------
-#&gt;  mu:                     65.2273
-#&gt;  sigmab:                 0.2
-#&gt;  llik:                   -44.96
-#&gt;  BIC:                    94.047
-#&gt; 
-#&gt; ----------- k components -----------
-#&gt;             2     3     4
-#&gt; c1_dose 31.53 29.91 29.91
-#&gt; c1_se    3.64  3.97  4.32
-#&gt; c1_prop  0.11  0.09  0.09
-#&gt; c2_dose 72.03 56.65 56.65
-#&gt; c2_se    2.41 13.05 33.17
-#&gt; c2_prop  0.89  0.25  0.07
-#&gt; c3_dose  &lt;NA&gt; 77.49 56.65
-#&gt; c3_se    &lt;NA&gt;  6.37 21.31
-#&gt; c3_prop  &lt;NA&gt;  0.66  0.18
-#&gt; c4_dose  &lt;NA&gt;  &lt;NA&gt; 77.49
-#&gt; c4_se    &lt;NA&gt;  &lt;NA&gt;  7.68
-#&gt; c4_prop  &lt;NA&gt;  &lt;NA&gt;  0.66
-#&gt; 
-#&gt; ----------- statistical criteria -----------
-#&gt;            2       3       4
-#&gt; BIC   53.169  59.719  67.973
-#&gt; llik -20.394 -19.542 -19.542
-#&gt; 
-#&gt;  Lowest BIC score for k = 2
-#&gt;  No significant increase in maximum log likelihood estimates. 
-#&gt; </div><div class='input'>
-<span class='co'>## show structure of the results</span>
-<span class='va'>FMM</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: calc_FiniteMixture()
-#&gt; 	 data: 10
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 .. $mle : list
-#&gt; 	 .. $BIC : data.frame
-#&gt; 	 .. $llik : data.frame
-#&gt; 	 .. $grain.probability : list
-#&gt; 	 .. $components : matrix
-#&gt; 	 .. $single.comp : data.frame
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-<span class='co'>## show the results on equivalent dose, standard error and proportion of</span>
-<span class='co'>## fitted components</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>FMM</span>, data.object <span class='op'>=</span> <span class='st'>"components"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             2     3     4
-#&gt; c1_dose 31.53 29.91 29.91
-#&gt; c1_se    3.64  3.97  4.32
-#&gt; c1_prop  0.11  0.09  0.09
-#&gt; c2_dose 72.03 56.65 56.65
-#&gt; c2_se    2.41 13.05 33.17
-#&gt; c2_prop  0.89  0.25  0.07
-#&gt; c3_dose    NA 77.49 56.65
-#&gt; c3_se      NA  6.37 21.31
-#&gt; c3_prop    NA  0.66  0.18
-#&gt; c4_dose    NA    NA 77.49
-#&gt; c4_se      NA    NA  7.68
-#&gt; c4_prop    NA    NA  0.66</div><div class='input'>
-</div><div class='img'><img src='calc_FiniteMixture-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## (1) apply the finite mixture model</span></span>
+<span class='r-in'><span class='co'>## NOTE: the data set is not suitable for the finite mixture model,</span></span>
+<span class='r-in'><span class='co'>## which is why a very small sigmab is necessary</span></span>
+<span class='r-in'><span class='fu'>calc_FiniteMixture</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span>,</span>
+<span class='r-in'>                   sigmab <span class='op'>=</span> <span class='fl'>0.2</span>, n.components <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>                   grain.probability <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_FiniteMixture]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> --- covariance matrix of mle's ---</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          [,1]     [,2]     [,3]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.002144 0.001821 0.000283</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.001821 0.013319 0.000877</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.000283 0.000877 0.001118</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- meta data ------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n:                     62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmab:                0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  number of components:  2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  llik:                  -20.3938</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  BIC:                    53.169</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- components -----------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 comp1   comp2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dose (Gy)     31.5299 72.0333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> rse(dose)      0.1154  0.0334</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> se(dose)(Gy)   3.6387  2.4082</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> proportion     0.1096  0.8904</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------- grain probability -------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       [,1] [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] 1.00 0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] 1.00 0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] 1.00 0.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] 0.99 0.01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] 0.94 0.06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] 0.91 0.09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] 0.29 0.71</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] 0.13 0.87</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] 0.11 0.89</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] 0.10 0.90</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] 0.09 0.91</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] 0.06 0.94</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] 0.04 0.96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] 0.03 0.97</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] 0.04 0.96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] 0.02 0.98</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] 0.01 0.99</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] 0.01 0.99</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] 0.01 0.99</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [36,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [37,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [38,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [39,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [40,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [41,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [42,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [43,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [44,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [45,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [46,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [47,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [48,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [49,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [50,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [51,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [52,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [53,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [54,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [55,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [56,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [57,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [58,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [59,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [60,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [61,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [62,] 0.00 1.00</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------- single component --------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:                     65.2273</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmab:                 0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  llik:                   -44.96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  BIC:                    94.047</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## (2) repeat the finite mixture model for 2, 3 and 4 maximum number of fitted</span></span>
+<span class='r-in'><span class='co'>## components and save results</span></span>
+<span class='r-in'><span class='co'>## NOTE: The following example is computationally intensive. Please un-comment</span></span>
+<span class='r-in'><span class='co'>## the following lines to make the example work.</span></span>
+<span class='r-in'><span class='va'>FMM</span><span class='op'>&lt;-</span> <span class='fu'>calc_FiniteMixture</span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span>,</span>
+<span class='r-in'>                         sigmab <span class='op'>=</span> <span class='fl'>0.2</span>, n.components <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         pdf.weight <span class='op'>=</span> <span class='cn'>TRUE</span>, dose.scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_FiniteMixture]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- meta data ------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n:                     62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmab:                0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  number of components:  2-4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------- single component --------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:                     65.2273</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmab:                 0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  llik:                   -44.96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  BIC:                    94.047</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- k components -----------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             2     3     4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1_dose 31.53 29.91 29.91</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1_se    3.64  3.97  4.32</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1_prop  0.11  0.09  0.09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2_dose 72.03 56.65 56.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2_se    2.41 13.05 33.17</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2_prop  0.89  0.25  0.07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3_dose  &lt;NA&gt; 77.49 56.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3_se    &lt;NA&gt;  6.37 21.31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3_prop  &lt;NA&gt;  0.66  0.18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c4_dose  &lt;NA&gt;  &lt;NA&gt; 77.49</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c4_se    &lt;NA&gt;  &lt;NA&gt;  7.68</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c4_prop  &lt;NA&gt;  &lt;NA&gt;  0.66</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- statistical criteria -----------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            2       3       4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> BIC   53.169  59.719  67.973</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> llik -20.394 -19.542 -19.542</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Lowest BIC score for k = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  No significant increase in maximum log likelihood estimates. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## show structure of the results</span></span>
+<span class='r-in'><span class='va'>FMM</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: calc_FiniteMixture()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $summary : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $args : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $call : call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $mle : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $BIC : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $llik : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $grain.probability : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $components : matrix</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $single.comp : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## show the results on equivalent dose, standard error and proportion of</span></span>
+<span class='r-in'><span class='co'>## fitted components</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>FMM</span>, data.object <span class='op'>=</span> <span class='st'>"components"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             2     3     4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1_dose 31.53 29.91 29.91</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1_se    3.64  3.97  4.32</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c1_prop  0.11  0.09  0.09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2_dose 72.03 56.65 56.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2_se    2.41 13.05 33.17</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c2_prop  0.89  0.25  0.07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3_dose    NA 77.49 56.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3_se      NA  6.37 21.31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c3_prop    NA  0.66  0.18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c4_dose    NA    NA 77.49</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c4_se      NA    NA  7.68</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> c4_prop    NA    NA  0.66</span>
+<span class='r-in'></span>
+<span class='r-plt img'><img src='calc_FiniteMixture-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -515,7 +520,7 @@ Based on a rewritten S script of Rex Galbraith, 2006.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

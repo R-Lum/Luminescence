@@ -75,7 +75,7 @@ dose_rate for the function Second2Gray." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -232,7 +232,7 @@ are provided.</p>
     <p>0.3.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Fuchs, M.C., Kreutzer, S., 2021. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Fuchs, M.C., Kreutzer, S., 2021. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>NNDC, Brookhaven National Laboratory <code>http://www.nndc.bnl.gov/</code></p>
@@ -246,68 +246,71 @@ Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (Unit
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'>##(1) Simple function usage</span>
-<span class='co'>##Basic calculation of the dose rate for a specific date</span>
-<span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'>calc_SourceDoseRate</span><span class='op'>(</span>measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,
-                                  calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,
-                                  calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,
-                                  calib.error <span class='op'>=</span> <span class='fl'>0.0019</span><span class='op'>)</span>
-
-<span class='co'>##show results</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    dose.rate dose.rate.error       date
-#&gt; 1 0.04695031     0.002036657 2012-01-27</div><div class='input'>
-<span class='co'>##(2) Usage in combination with another function (e.g., Second2Gray() )</span>
-<span class='co'>## load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## use the calculated variable dose.rate as input argument</span>
-<span class='co'>## to convert De(s) to De(Gy)</span>
-<span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='va'>dose.rate</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        De De.error
-#&gt; 1  162.37    5.717
-#&gt; 2  163.02    5.514
-#&gt; 3  177.72    7.294
-#&gt; 4  145.94    4.939
-#&gt; 5  154.81    4.976
-#&gt; 6  132.32    4.792
-#&gt; 7  132.54    4.531
-#&gt; 8  136.21    4.712
-#&gt; 9  134.05    4.963
-#&gt; 10 133.40    4.562
-#&gt; 11 127.13    4.340
-#&gt; 12 137.29    4.725
-#&gt; 13 118.75    3.967
-#&gt; 14 129.72    4.488
-#&gt; 15 133.01    4.426
-#&gt; 16 133.67    4.334
-#&gt; 17 132.57    4.568
-#&gt; 18 135.43    4.532
-#&gt; 19 137.84    4.560
-#&gt; 20 140.91    4.768
-#&gt; 21 136.96    4.641
-#&gt; 22 140.47    5.384
-#&gt; 23 135.43    4.628
-#&gt; 24 123.79    3.729
-#&gt; 25 128.18    4.090</div><div class='input'>
-<span class='co'>##(3) source rate prediction and plotting</span>
-<span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'>calc_SourceDoseRate</span><span class='op'>(</span>measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,
-                                  calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,
-                                  calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,
-                                  calib.error <span class='op'>=</span> <span class='fl'>0.0019</span>,
-                                  predict <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span>
-</div><div class='img'><img src='calc_SourceDoseRate-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'>##(4) export output to a LaTeX table (example using the package 'xtable')</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>xtable</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span><span class='op'>(</span><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(1) Simple function usage</span></span>
+<span class='r-in'><span class='co'>##Basic calculation of the dose rate for a specific date</span></span>
+<span class='r-in'><span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'>calc_SourceDoseRate</span><span class='op'>(</span>measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,</span>
+<span class='r-in'>                                  calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,</span>
+<span class='r-in'>                                  calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,</span>
+<span class='r-in'>                                  calib.error <span class='op'>=</span> <span class='fl'>0.0019</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##show results</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    dose.rate dose.rate.error       date</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.04695031     0.002036657 2012-01-27</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2) Usage in combination with another function (e.g., Second2Gray() )</span></span>
+<span class='r-in'><span class='co'>## load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## use the calculated variable dose.rate as input argument</span></span>
+<span class='r-in'><span class='co'>## to convert De(s) to De(Gy)</span></span>
+<span class='r-in'><span class='fu'><a href='Second2Gray.html'>Second2Gray</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>BT998</span>, <span class='va'>dose.rate</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        De De.error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  162.37    5.717</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  163.02    5.514</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  177.72    7.294</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  145.94    4.939</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  154.81    4.976</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  132.32    4.792</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  132.54    4.531</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  136.21    4.712</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  134.05    4.963</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 133.40    4.562</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 127.13    4.340</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 137.29    4.725</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 118.75    3.967</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 129.72    4.488</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 133.01    4.426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 133.67    4.334</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 132.57    4.568</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 135.43    4.532</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 137.84    4.560</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 140.91    4.768</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 136.96    4.641</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 140.47    5.384</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 135.43    4.628</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 123.79    3.729</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 128.18    4.090</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(3) source rate prediction and plotting</span></span>
+<span class='r-in'><span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'>calc_SourceDoseRate</span><span class='op'>(</span>measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,</span>
+<span class='r-in'>                                  calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,</span>
+<span class='r-in'>                                  calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,</span>
+<span class='r-in'>                                  calib.error <span class='op'>=</span> <span class='fl'>0.0019</span>,</span>
+<span class='r-in'>                                  predict <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='calc_SourceDoseRate-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(4) export output to a LaTeX table (example using the package 'xtable')</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>xtable</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xtable/man/xtable.html'>xtable</a></span><span class='op'>(</span><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -319,7 +322,7 @@ Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (Unit
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

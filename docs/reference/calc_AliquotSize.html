@@ -73,7 +73,7 @@ density of an aliquot is computed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ density of an aliquot is computed.</p>
       <th>grain.size</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>):
 mean grain size (microns) or a range of grain sizes from which the
-mean grain size is computed (e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(100,200)</a></code>).</p></td>
+mean grain size is computed (e.g. <code>c(100,200)</code>).</p></td>
     </tr>
     <tr>
       <th>sample.diameter</th>
@@ -245,7 +245,7 @@ boxplot together with a statistical summary.</p>
     <p>0.31</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
@@ -269,43 +269,46 @@ European Journal of Operational Research 210, 474-481.</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## Estimate the amount of grains on a small aliquot</span>
-<span class='fu'>calc_AliquotSize</span><span class='op'>(</span>grain.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>150</span><span class='op'>)</span>, sample.diameter <span class='op'>=</span> <span class='fl'>1</span>, MC.iter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [calc_AliquotSize]
-#&gt; 
-#&gt;  ---------------------------------------------------------
-#&gt;  mean grain size (microns)  : 125
-#&gt;  sample diameter (mm)       : 1
-#&gt;  packing density            : 0.65
-#&gt;  number of grains           : 42
-#&gt; 
-#&gt;  --------------- Monte Carlo Estimates -------------------
-#&gt;  number of iterations (n)     : 100
-#&gt;  median                       : 40
-#&gt;  mean                         : 42
-#&gt;  standard deviation (mean)    : 20
-#&gt;  standard error (mean)        : 2
-#&gt;  95% CI from t-test (mean)    : 38 - 46
-#&gt;  standard error from CI (mean): 2
-#&gt;  ---------------------------------------------------------</div><div class='img'><img src='calc_AliquotSize-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Calculate the mean packing density of large aliquots</span>
-<span class='fu'>calc_AliquotSize</span><span class='op'>(</span>grain.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>200</span><span class='op'>)</span>, sample.diameter <span class='op'>=</span> <span class='fl'>8</span>,
-                 grains.counted <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2525</span>,<span class='fl'>2312</span>,<span class='fl'>2880</span><span class='op'>)</span>, MC.iter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; Monte Carlo simulation is only available for estimating the amount of grains on the sample disc. Automatically set to FALSE.
-#&gt; 
-#&gt;  [calc_AliquotSize]
-#&gt; 
-#&gt;  ---------------------------------------------------------
-#&gt;  mean grain size (microns)  : 150
-#&gt;  sample diameter (mm)       : 8
-#&gt;  mean counted grains        : 2572
-#&gt;  mean packing density       : 0.904
-#&gt;  standard deviation         : 0.101
-#&gt;  ---------------------------------------------------------</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## Estimate the amount of grains on a small aliquot</span></span>
+<span class='r-in'><span class='fu'>calc_AliquotSize</span><span class='op'>(</span>grain.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>150</span><span class='op'>)</span>, sample.diameter <span class='op'>=</span> <span class='fl'>1</span>, MC.iter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_AliquotSize]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mean grain size (microns)  : 125</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sample diameter (mm)       : 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  packing density            : 0.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  number of grains           : 42</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------- Monte Carlo Estimates -------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  number of iterations (n)     : 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  median                       : 40</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mean                         : 42</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  standard deviation (mean)    : 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  standard error (mean)        : 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  95% CI from t-test (mean)    : 38 - 46</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  standard error from CI (mean): 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-plt img'><img src='calc_AliquotSize-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Calculate the mean packing density of large aliquots</span></span>
+<span class='r-in'><span class='fu'>calc_AliquotSize</span><span class='op'>(</span>grain.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>200</span><span class='op'>)</span>, sample.diameter <span class='op'>=</span> <span class='fl'>8</span>,</span>
+<span class='r-in'>                 grains.counted <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2525</span>,<span class='fl'>2312</span>,<span class='fl'>2880</span><span class='op'>)</span>, MC.iter <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Monte Carlo simulation is only available for estimating the amount of grains on the sample disc. Automatically set to FALSE.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_AliquotSize]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mean grain size (microns)  : 150</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sample diameter (mm)       : 8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mean counted grains        : 2572</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mean packing density       : 0.904</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  standard deviation         : 0.101</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -317,7 +320,7 @@ European Journal of Operational Research 210, 474-481.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

@@ -75,7 +75,7 @@ from single grain data measurements." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -240,162 +240,164 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##01 - basic example I</span>
-<span class='co'>##just show how to apply the function</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##verify and get data.frame out of it</span>
-<span class='fu'>verify_SingleGrainData</span><span class='op'>(</span><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>selection_full</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: [verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!</span></div><div class='output co'>#&gt;     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID
-#&gt; 1         NA    NA  23.66271 2.572619e+02   10.872037        10  TRUE
-#&gt; 2         NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 3         NA    NA 146.85632 4.982419e+03   33.927165        10  TRUE
-#&gt; 4         NA    NA  23.20000 4.901230e+03  211.259934        10  TRUE
-#&gt; 5         NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 6         NA    NA 107.87043 7.125950e+02    6.606027        10 FALSE
-#&gt; 7         NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 8         NA    NA  27.06067 3.495743e+02   12.918172        10  TRUE
-#&gt; 9         NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 10        NA    NA 111.65882 2.120132e+04  189.875911        10  TRUE
-#&gt; 11        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 12        NA    NA  94.00808 1.421120e+03   15.117001        10  TRUE
-#&gt; 13        NA    NA  14.78800 1.018989e+02    6.890645        10 FALSE
-#&gt; 14        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 15        NA    NA 107.90087 7.100111e+02    6.580216        10 FALSE
-#&gt; 16        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 17        NA    NA  26.88278 3.521022e+02   13.097686        10  TRUE
-#&gt; 18        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 19        NA    NA 203.04576 1.440995e+05  709.689721        10  TRUE
-#&gt; 20        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 21        NA    NA 147.35434 4.941044e+03   33.531721        10  TRUE
-#&gt; 22        NA    NA  18.48800 1.309212e+03   70.814165        10  TRUE
-#&gt; 23        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 24        NA    NA 107.37241 7.180268e+02    6.687256        10 FALSE
-#&gt; 25        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 26        NA    NA  26.53464 3.569946e+02   13.453909        10  TRUE
-#&gt; 27        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 28        NA    NA 149.22647 4.077393e+04  273.235223        10  TRUE
-#&gt; 29        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 30        NA    NA  93.65100 1.425739e+03   15.223959        10  TRUE
-#&gt; 31        NA    NA  15.43400 1.468754e+02    9.516353        10 FALSE
-#&gt; 32        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 33        NA    NA 107.74087 7.151408e+02    6.637600        10 FALSE
-#&gt; 34        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 35        NA    NA  26.88278 3.521553e+02   13.099660        10  TRUE
-#&gt; 36        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 37        NA    NA 437.18390 7.404312e+05 1693.637907        10  TRUE
-#&gt; 38        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 39        NA    NA 146.74713 4.976541e+03   33.912357        10  TRUE
-#&gt; 40        NA    NA  26.99200 8.015916e+03  296.973761        10  TRUE
-#&gt; 41        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 42        NA    NA 107.87652 7.046340e+02    6.531857        10 FALSE
-#&gt; 43        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 44        NA    NA  26.88079 3.520762e+02   13.097687        10  TRUE
-#&gt; 45        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 46        NA    NA 183.18088 6.418055e+04  350.367102        10  TRUE
-#&gt; 47        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 48        NA    NA  94.05556 1.416457e+03   15.059791        10  TRUE
-#&gt; 49        NA    NA  16.43000 2.741815e+02   16.687855        10  TRUE
-#&gt; 50        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 51        NA    NA 108.64071 6.910736e+02    6.361093        10 FALSE
-#&gt; 52        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 53        NA    NA  27.62109 3.416066e+02   12.367601        10  TRUE
-#&gt; 54        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 55        NA    NA 693.53644 1.868981e+06 2694.856789        10  TRUE
-#&gt; 56        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 57        NA    NA 146.77471 4.985033e+03   33.963838        10  TRUE
-#&gt; 58        NA    NA  41.61400 3.277204e+04  787.524417        10  TRUE
-#&gt; 59        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 60        NA    NA 107.84087 7.062001e+02    6.548538        10 FALSE
-#&gt; 61        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 62        NA    NA  26.89205 3.523737e+02   13.103264        10  TRUE
-#&gt; 63        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 64        NA    NA 229.96912 1.033205e+05  449.279678        10  TRUE
-#&gt; 65        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 66        NA    NA  94.09293 1.419207e+03   15.083033        10  TRUE
-#&gt; 67        NA    NA  17.54000 4.446938e+02   25.353124        10  TRUE
-#&gt; 68        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 69        NA    NA 107.82348 7.152073e+02    6.633131        10 FALSE
-#&gt; 70        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 71        NA    NA  26.88212 3.521107e+02   13.098323        10  TRUE
-#&gt; 72        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 73        NA    NA 919.37203 3.298185e+06 3587.432532        10  TRUE
-#&gt; 74        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 75        NA    NA 146.25829 4.992561e+03   34.135236        10  TRUE
-#&gt; 76        NA    NA  55.33200 7.126496e+04 1287.951921        10  TRUE
-#&gt; 77        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 78        NA    NA 107.44397 7.226060e+02    6.725422        10 FALSE
-#&gt; 79        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 80        NA    NA  26.70197 3.544455e+02   13.274131        10  TRUE
-#&gt; 81        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 82        NA    NA 278.14412 1.553639e+05  558.573294        10  TRUE
-#&gt; 83        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 84        NA    NA  94.03131 1.419523e+03   15.096277        10  TRUE
-#&gt; 85        NA    NA  20.75400 7.620376e+02   36.717624        10  TRUE
-#&gt; 86        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 87        NA    NA 108.72566 6.921674e+02    6.366182        10 FALSE
-#&gt; 88        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 89        NA    NA  27.60612 3.412339e+02   12.360804        10  TRUE
-#&gt; 90        NA    NA  15.83136 4.363311e+01    2.756120        10 FALSE
-#&gt; 91        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 92        NA    NA 146.50230 4.921485e+03   33.593229        10  TRUE
-#&gt; 93        NA    NA  13.75400 2.191331e+01    1.593232        10 FALSE
-#&gt; 94        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 95        NA    NA 108.25351 6.988567e+02    6.455741        10 FALSE
-#&gt; 96        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 97        NA    NA  27.23758 3.468351e+02   12.733694        10  TRUE
-#&gt; 98        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 99        NA    NA 296.30735 1.763985e+05  595.322619        10  TRUE
-#&gt; 100       NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 101       NA    NA  93.99192 1.420900e+03   15.117255        10  TRUE
-#&gt; 102       NA    NA  19.43600 8.624027e+02   44.371409        10  TRUE
-#&gt; 103       NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 104       NA    NA 107.82174 7.110169e+02    6.594375        10 FALSE
-#&gt; 105       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 106       NA    NA  26.88344 3.521723e+02   13.099971        10  TRUE
-#&gt; 107       NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 108       NA    NA 532.60085 1.130401e+06 2122.416765        10  TRUE
-#&gt; 109       NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE
-#&gt; 110       NA    NA 146.72471 4.962003e+03   33.818454        10  TRUE
-#&gt; 111       NA    NA  27.52000 7.629970e+03  277.251800        10  TRUE
-#&gt; 112       NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 113       NA    NA 107.92696 7.062523e+02    6.543799        10 FALSE
-#&gt; 114       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 115       NA    NA  26.87815 3.520057e+02   13.096354        10  TRUE
-#&gt; 116       NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 117       NA    NA 302.94412 1.862969e+05  614.954596        10  TRUE
-#&gt; 118       NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE
-#&gt; 119       NA    NA  94.41327 1.419383e+03   15.033721        10  TRUE
-#&gt; 120       NA    NA  20.19800 8.579387e+02   42.476417        10  TRUE
-#&gt; 121       NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE
-#&gt; 122       NA    NA 108.15702 6.957128e+02    6.432433        10 FALSE
-#&gt; 123       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE
-#&gt; 124       NA    NA  27.24765 3.470933e+02   12.738468        10  TRUE</div><div class='input'>
-<span class='co'>##02 - basic example II</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>id</span> <span class='op'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,
-cleanup_level <span class='op'>=</span> <span class='st'>"aliquot"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>selection_id</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>##03 - advanced example I</span>
-<span class='co'>##importing and exporting a BIN-file</span>
-
-<span class='co'>##select and import file</span>
-<span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_BIN2R.html'>read_BIN2R</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>
-
-<span class='co'>##remove invalid aliquots(!)</span>
-<span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span><span class='op'>(</span><span class='va'>object</span>, cleanup <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='co'>##export to new BIN-file</span>
-<span class='fu'><a href='write_R2BIN.html'>write_R2BIN</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>,<span class='st'>"/"</span>, <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>, <span class='st'>"_CLEANED.BIN"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##01 - basic example I</span></span>
+<span class='r-in'><span class='co'>##just show how to apply the function</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##verify and get data.frame out of it</span></span>
+<span class='r-in'><span class='fu'>verify_SingleGrainData</span><span class='op'>(</span><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>selection_full</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1         NA    NA  23.66271 2.572619e+02   10.872037        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2         NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3         NA    NA 146.85632 4.982419e+03   33.927165        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4         NA    NA  23.20000 4.901230e+03  211.259934        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5         NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6         NA    NA 107.87043 7.125950e+02    6.606027        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7         NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8         NA    NA  27.06067 3.495743e+02   12.918172        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9         NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10        NA    NA 111.65882 2.120132e+04  189.875911        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12        NA    NA  94.00808 1.421120e+03   15.117001        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13        NA    NA  14.78800 1.018989e+02    6.890645        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15        NA    NA 107.90087 7.100111e+02    6.580216        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17        NA    NA  26.88278 3.521022e+02   13.097686        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19        NA    NA 203.04576 1.440995e+05  709.689721        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21        NA    NA 147.35434 4.941044e+03   33.531721        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22        NA    NA  18.48800 1.309212e+03   70.814165        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24        NA    NA 107.37241 7.180268e+02    6.687256        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26        NA    NA  26.53464 3.569946e+02   13.453909        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28        NA    NA 149.22647 4.077393e+04  273.235223        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30        NA    NA  93.65100 1.425739e+03   15.223959        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31        NA    NA  15.43400 1.468754e+02    9.516353        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33        NA    NA 107.74087 7.151408e+02    6.637600        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35        NA    NA  26.88278 3.521553e+02   13.099660        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 37        NA    NA 437.18390 7.404312e+05 1693.637907        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 38        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 39        NA    NA 146.74713 4.976541e+03   33.912357        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 40        NA    NA  26.99200 8.015916e+03  296.973761        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 41        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 42        NA    NA 107.87652 7.046340e+02    6.531857        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 43        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 44        NA    NA  26.88079 3.520762e+02   13.097687        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 45        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 46        NA    NA 183.18088 6.418055e+04  350.367102        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 47        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 48        NA    NA  94.05556 1.416457e+03   15.059791        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 49        NA    NA  16.43000 2.741815e+02   16.687855        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 50        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 51        NA    NA 108.64071 6.910736e+02    6.361093        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 52        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 53        NA    NA  27.62109 3.416066e+02   12.367601        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 54        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 55        NA    NA 693.53644 1.868981e+06 2694.856789        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 56        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 57        NA    NA 146.77471 4.985033e+03   33.963838        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 58        NA    NA  41.61400 3.277204e+04  787.524417        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 59        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 60        NA    NA 107.84087 7.062001e+02    6.548538        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 61        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 62        NA    NA  26.89205 3.523737e+02   13.103264        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 63        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 64        NA    NA 229.96912 1.033205e+05  449.279678        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 65        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 66        NA    NA  94.09293 1.419207e+03   15.083033        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 67        NA    NA  17.54000 4.446938e+02   25.353124        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 68        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 69        NA    NA 107.82348 7.152073e+02    6.633131        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 70        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 71        NA    NA  26.88212 3.521107e+02   13.098323        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 72        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 73        NA    NA 919.37203 3.298185e+06 3587.432532        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 74        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 75        NA    NA 146.25829 4.992561e+03   34.135236        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 76        NA    NA  55.33200 7.126496e+04 1287.951921        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 77        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 78        NA    NA 107.44397 7.226060e+02    6.725422        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 79        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 80        NA    NA  26.70197 3.544455e+02   13.274131        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 81        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 82        NA    NA 278.14412 1.553639e+05  558.573294        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 83        NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 84        NA    NA  94.03131 1.419523e+03   15.096277        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 85        NA    NA  20.75400 7.620376e+02   36.717624        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 86        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 87        NA    NA 108.72566 6.921674e+02    6.366182        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 88        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 89        NA    NA  27.60612 3.412339e+02   12.360804        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 90        NA    NA  15.83136 4.363311e+01    2.756120        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 91        NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 92        NA    NA 146.50230 4.921485e+03   33.593229        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 93        NA    NA  13.75400 2.191331e+01    1.593232        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 94        NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 95        NA    NA 108.25351 6.988567e+02    6.455741        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 96        NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 97        NA    NA  27.23758 3.468351e+02   12.733694        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 98        NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 99        NA    NA 296.30735 1.763985e+05  595.322619        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 100       NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 101       NA    NA  93.99192 1.420900e+03   15.117255        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 102       NA    NA  19.43600 8.624027e+02   44.371409        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 103       NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 104       NA    NA 107.82174 7.110169e+02    6.594375        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 105       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 106       NA    NA  26.88344 3.521723e+02   13.099971        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 107       NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 108       NA    NA 532.60085 1.130401e+06 2122.416765        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 109       NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 110       NA    NA 146.72471 4.962003e+03   33.818454        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 111       NA    NA  27.52000 7.629970e+03  277.251800        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 112       NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 113       NA    NA 107.92696 7.062523e+02    6.543799        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 114       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 115       NA    NA  26.87815 3.520057e+02   13.096354        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 116       NA    NA   1.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 117       NA    NA 302.94412 1.862969e+05  614.954596        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 118       NA    NA  76.25000 3.389583e+03   44.453552        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 119       NA    NA  94.41327 1.419383e+03   15.033721        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 120       NA    NA  20.19800 8.579387e+02   42.476417        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 121       NA    NA  79.00000 1.967500e+03   24.905063        10  TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 122       NA    NA 108.15702 6.957128e+02    6.432433        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 123       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 124       NA    NA  27.24765 3.470933e+02   12.738468        10  TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##02 - basic example II</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>id</span> <span class='op'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span><span class='op'>(</span>object <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,</span>
+<span class='r-in'>cleanup_level <span class='op'>=</span> <span class='st'>"aliquot"</span><span class='op'>)</span><span class='op'>$</span><span class='va'>selection_id</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'>##03 - advanced example I</span></span>
+<span class='r-in'><span class='co'>##importing and exporting a BIN-file</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##select and import file</span></span>
+<span class='r-in'><span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_BIN2R.html'>read_BIN2R</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##remove invalid aliquots(!)</span></span>
+<span class='r-in'><span class='va'>object</span> <span class='op'>&lt;-</span> <span class='fu'>verify_SingleGrainData</span><span class='op'>(</span><span class='va'>object</span>, cleanup <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##export to new BIN-file</span></span>
+<span class='r-in'><span class='fu'><a href='write_R2BIN.html'>write_R2BIN</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>,<span class='st'>"/"</span>, <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span>, <span class='st'>"_CLEANED.BIN"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -407,7 +409,7 @@ cleanup_level <span class='op'>=</span> <span class='st'>"aliquot"</span><span c
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

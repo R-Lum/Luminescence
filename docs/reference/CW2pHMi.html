@@ -77,7 +77,7 @@ Wallinga (2012)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -182,24 +182,24 @@ Calculate t' which is the transformed time:
 $$t' = t-(1/\delta)*log(1+\delta*t)$$</p>
 <p>(3)
 Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
-for the transformed time (t'). Values beyond <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code> and <code><a href='https://rdrr.io/r/base/Extremes.html'>max(t)</a></code>
+for the transformed time (t'). Values beyond <code>min(t)</code> and <code>max(t)</code>
 produce <code>NA</code> values.</p>
 <p>(4)
-Select all values for t' &lt; <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code>, i.e. values beyond the time
+Select all values for t' &lt; <code>min(t)</code>, i.e. values beyond the time
 resolution of t. Select the first two values of the transformed data set
 which contain no <code>NA</code> values and use these values for a linear fit
 using <a href='https://rdrr.io/r/stats/lm.html'>lm</a>.</p>
 <p>(5)
-Extrapolate values for t' &lt; <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code> based on the previously
+Extrapolate values for t' &lt; <code>min(t)</code> based on the previously
 obtained fit parameters.</p>
 <p>(6)
 Transform values using
 $$pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')$$
 $$c = (1+\delta*P)/\delta*P$$
 $$P = length(stimulation~period)$$</p>
-<p>(7) Combine all values and truncate all values for t' &gt; <code><a href='https://rdrr.io/r/base/Extremes.html'>max(t)</a></code></p>
+<p>(7) Combine all values and truncate all values for t' &gt; <code>max(t)</code></p>
 <p><strong>NOTE:</strong>
-The number of values for t' &lt; <code><a href='https://rdrr.io/r/base/Extremes.html'>min(t)</a></code> depends on the stimulation rate
+The number of values for t' &lt; <code>min(t)</code> depends on the stimulation rate
 parameter <code>delta</code>. To avoid the production of too many artificial data
 at the raising tail of the determined pHM curve, it is recommended to use
 the automatic estimation routine for <code>delta</code>, i.e. provide no value for
@@ -220,7 +220,7 @@ In every case a warning message is shown.</p>
     <p>0.2.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bos, A.J.J. &amp; Wallinga, J., 2012. How to visualize quartz OSL
@@ -243,81 +243,88 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##(1) - simple transformation</span>
-
-<span class='co'>##load CW-OSL curve data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##transform values</span>
-<span class='va'>values.transformed</span><span class='op'>&lt;-</span><span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span>
-
-<span class='co'>##plot</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>values.transformed</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>values.transformed</span><span class='op'>$</span><span class='va'>y.t</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='img'><img src='CW2pHMi-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##(2) - load CW-OSL curve from BIN-file and plot transformed values</span>
-
-<span class='co'>##load BINfile</span>
-<span class='co'>#BINfileData&lt;-readBIN2R("[path to BIN-file]")</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##grep first CW-OSL curve from ALQ 1</span>
-<span class='va'>curve.ID</span><span class='op'>&lt;-</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"LTYPE"</span><span class='op'>]</span><span class='op'>==</span><span class='st'>"OSL"</span> <span class='op'>&amp;</span>
-                                    <span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"POSITION"</span><span class='op'>]</span><span class='op'>==</span><span class='fl'>1</span>
-                                  ,<span class='st'>"ID"</span><span class='op'>]</span>
-
-<span class='va'>curve.HIGH</span><span class='op'>&lt;-</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"ID"</span><span class='op'>]</span><span class='op'>==</span><span class='va'>curve.ID</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
-                                    ,<span class='st'>"HIGH"</span><span class='op'>]</span>
-
-<span class='va'>curve.NPOINTS</span><span class='op'>&lt;-</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"ID"</span><span class='op'>]</span><span class='op'>==</span><span class='va'>curve.ID</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
-                                       ,<span class='st'>"NPOINTS"</span><span class='op'>]</span>
-
-<span class='co'>##combine curve to data set</span>
-
-<span class='va'>curve</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>curve.HIGH</span><span class='op'>/</span><span class='va'>curve.NPOINTS</span>,<span class='va'>curve.HIGH</span>,
-                          by <span class='op'>=</span> <span class='va'>curve.HIGH</span><span class='op'>/</span><span class='va'>curve.NPOINTS</span><span class='op'>)</span>,
-                  y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>DATA</span><span class='op'>[</span><span class='va'>curve.ID</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='co'>##transform values</span>
-
-<span class='va'>curve.transformed</span> <span class='op'>&lt;-</span> <span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>curve</span><span class='op'>)</span>
-
-<span class='co'>##plot curve</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>curve.transformed</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>curve.transformed</span><span class='op'>$</span><span class='va'>y.t</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span>
-</div><div class='img'><img src='CW2pHMi-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'>##(3) - produce Fig. 4 from Bos &amp; Wallinga (2012)</span>
-
-<span class='co'>##load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>values</span> <span class='op'>&lt;-</span> <span class='va'>CW_Curve.BosWallinga2012</span>
-
-<span class='co'>##open plot area</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>,
-     xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.001</span>,<span class='fl'>10</span><span class='op'>)</span>,
-     ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>8000</span><span class='op'>)</span>,
-     ylab<span class='op'>=</span><span class='st'>"pseudo OSL (cts/0.01 s)"</span>,
-     xlab<span class='op'>=</span><span class='st'>"t [s]"</span>,
-     log<span class='op'>=</span><span class='st'>"x"</span>,
-     main<span class='op'>=</span><span class='st'>"Fig. 4 - Bos &amp; Wallinga (2012)"</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='va'>values.t</span><span class='op'>&lt;-</span><span class='fu'><a href='CW2pLMi.html'>CW2pLMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>20</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>values.t</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='fu'><a href='CW2pLMi.html'>CW2pLMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,
-      col<span class='op'>=</span><span class='st'>"red"</span> ,lwd<span class='op'>=</span><span class='fl'>1.3</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='fl'>0.03</span>,<span class='fl'>4500</span>,<span class='st'>"LM"</span>, col<span class='op'>=</span><span class='st'>"red"</span> ,cex<span class='op'>=</span><span class='fl'>.8</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='va'>values.t</span><span class='op'>&lt;-</span><span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>values</span>, delta<span class='op'>=</span><span class='fl'>40</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>values.t</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>values</span>, delta<span class='op'>=</span><span class='fl'>40</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,
-      col<span class='op'>=</span><span class='st'>"black"</span>, lwd<span class='op'>=</span><span class='fl'>1.3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 56  values have been found and replaced the mean of the nearest values.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='fl'>0.005</span>,<span class='fl'>3000</span>,<span class='st'>"HM"</span>, cex<span class='op'>=</span><span class='fl'>.8</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='va'>values.t</span><span class='op'>&lt;-</span><span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>values.t</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,
-      col<span class='op'>=</span><span class='st'>"blue"</span>, lwd<span class='op'>=</span><span class='fl'>1.3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='fl'>0.5</span>,<span class='fl'>6500</span>,<span class='st'>"PM"</span>, col<span class='op'>=</span><span class='st'>"blue"</span> ,cex<span class='op'>=</span><span class='fl'>.8</span><span class='op'>)</span>
-</div><div class='img'><img src='CW2pHMi-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##(1) - simple transformation</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##load CW-OSL curve data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##transform values</span></span>
+<span class='r-in'><span class='va'>values.transformed</span><span class='op'>&lt;-</span><span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>values.transformed</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>values.transformed</span><span class='op'>$</span><span class='va'>y.t</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='CW2pHMi-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2) - load CW-OSL curve from BIN-file and plot transformed values</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##load BINfile</span></span>
+<span class='r-in'><span class='co'>#BINfileData&lt;-readBIN2R("[path to BIN-file]")</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##grep first CW-OSL curve from ALQ 1</span></span>
+<span class='r-in'><span class='va'>curve.ID</span><span class='op'>&lt;-</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"LTYPE"</span><span class='op'>]</span><span class='op'>==</span><span class='st'>"OSL"</span> <span class='op'>&amp;</span></span>
+<span class='r-in'>                                    <span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"POSITION"</span><span class='op'>]</span><span class='op'>==</span><span class='fl'>1</span></span>
+<span class='r-in'>                                  ,<span class='st'>"ID"</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>curve.HIGH</span><span class='op'>&lt;-</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"ID"</span><span class='op'>]</span><span class='op'>==</span><span class='va'>curve.ID</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span class='r-in'>                                    ,<span class='st'>"HIGH"</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>curve.NPOINTS</span><span class='op'>&lt;-</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>METADATA</span><span class='op'>[</span>,<span class='st'>"ID"</span><span class='op'>]</span><span class='op'>==</span><span class='va'>curve.ID</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span class='r-in'>                                       ,<span class='st'>"NPOINTS"</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##combine curve to data set</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>curve</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>curve.HIGH</span><span class='op'>/</span><span class='va'>curve.NPOINTS</span>,<span class='va'>curve.HIGH</span>,</span>
+<span class='r-in'>                          by <span class='op'>=</span> <span class='va'>curve.HIGH</span><span class='op'>/</span><span class='va'>curve.NPOINTS</span><span class='op'>)</span>,</span>
+<span class='r-in'>                  y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='va'>CWOSL.SAR.Data</span><span class='op'>@</span><span class='va'>DATA</span><span class='op'>[</span><span class='va'>curve.ID</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##transform values</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>curve.transformed</span> <span class='op'>&lt;-</span> <span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>curve</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot curve</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>curve.transformed</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>curve.transformed</span><span class='op'>$</span><span class='va'>y.t</span>, log <span class='op'>=</span> <span class='st'>"x"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='CW2pHMi-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(3) - produce Fig. 4 from Bos &amp; Wallinga (2012)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.CW_OSL_Curve</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>values</span> <span class='op'>&lt;-</span> <span class='va'>CW_Curve.BosWallinga2012</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##open plot area</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>,</span>
+<span class='r-in'>     xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.001</span>,<span class='fl'>10</span><span class='op'>)</span>,</span>
+<span class='r-in'>     ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>8000</span><span class='op'>)</span>,</span>
+<span class='r-in'>     ylab<span class='op'>=</span><span class='st'>"pseudo OSL (cts/0.01 s)"</span>,</span>
+<span class='r-in'>     xlab<span class='op'>=</span><span class='st'>"t [s]"</span>,</span>
+<span class='r-in'>     log<span class='op'>=</span><span class='st'>"x"</span>,</span>
+<span class='r-in'>     main<span class='op'>=</span><span class='st'>"Fig. 4 - Bos &amp; Wallinga (2012)"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>values.t</span><span class='op'>&lt;-</span><span class='fu'><a href='CW2pLMi.html'>CW2pLMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>20</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>values.t</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='fu'><a href='CW2pLMi.html'>CW2pLMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,</span>
+<span class='r-in'>      col<span class='op'>=</span><span class='st'>"red"</span> ,lwd<span class='op'>=</span><span class='fl'>1.3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='fl'>0.03</span>,<span class='fl'>4500</span>,<span class='st'>"LM"</span>, col<span class='op'>=</span><span class='st'>"red"</span> ,cex<span class='op'>=</span><span class='fl'>.8</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>values.t</span><span class='op'>&lt;-</span><span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>values</span>, delta<span class='op'>=</span><span class='fl'>40</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>56  values have been found and replaced the mean of the nearest values.</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>values.t</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='fu'>CW2pHMi</span><span class='op'>(</span><span class='va'>values</span>, delta<span class='op'>=</span><span class='fl'>40</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,</span>
+<span class='r-in'>      col<span class='op'>=</span><span class='st'>"black"</span>, lwd<span class='op'>=</span><span class='fl'>1.3</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>56  values have been found and replaced the mean of the nearest values.</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='fl'>0.005</span>,<span class='fl'>3000</span>,<span class='st'>"HM"</span>, cex<span class='op'>=</span><span class='fl'>.8</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>values.t</span><span class='op'>&lt;-</span><span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>values.t</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='fu'><a href='CW2pPMi.html'>CW2pPMi</a></span><span class='op'>(</span><span class='va'>values</span>, P<span class='op'>=</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span>,</span>
+<span class='r-in'>      col<span class='op'>=</span><span class='st'>"blue"</span>, lwd<span class='op'>=</span><span class='fl'>1.3</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='fl'>0.5</span>,<span class='fl'>6500</span>,<span class='st'>"PM"</span>, col<span class='op'>=</span><span class='st'>"blue"</span> ,cex<span class='op'>=</span><span class='fl'>.8</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='CW2pHMi-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -329,7 +336,7 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

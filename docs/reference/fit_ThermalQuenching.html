@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -213,7 +213,7 @@ wrong.</p>
 <table class='table'>
 <tr><td><strong>ARGUMENT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr>
 <tr><td><code>upper</code></td><td>named <a href='https://rdrr.io/r/base/vector.html'>vector</a></td><td>sets upper fitting boundaries, if provided boundaries for all arguments
-are required, e.g., <code><a href='https://rdrr.io/r/base/c.html'>c(A = 0, C = 0, W = 0, c = 0)</a></code></td></tr>
+are required, e.g., <code>c(A = 0, C = 0, W = 0, c = 0)</code></td></tr>
 <tr><td><code>lower</code></td><td>names <a href='https://rdrr.io/r/base/vector.html'>vector</a></td><td>sets lower fitting boundaries (see <code>upper</code> for details)</td></tr>
 <tr><td><code>trace</code></td><td><a href='https://rdrr.io/r/base/logical.html'>logical</a></td><td>enables/disables progression trace for <a href='https://rdrr.io/pkg/minpack.lm/man/nlsLM.html'>minpack.lm::nlsLM</a></td></tr>
 <tr><td><code>weights</code></td><td><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></td><td>option to provide own weights for the fitting, the length of this
@@ -227,7 +227,7 @@ are applied. The weights are defined by the third column of the input <code>data
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Wintle, A.G., 1975. Thermal Quenching of Thermoluminescence in Quartz. Geophys. J. R. astr. Soc. 41, 107–113.</p>
@@ -240,32 +240,35 @@ are applied. The weights are defined by the third column of the input <code>data
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##create short example dataset</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  T <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>40</span>, <span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span>, <span class='fl'>90</span>, <span class='fl'>100</span>, <span class='fl'>110</span><span class='op'>)</span>,
-  V <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.06</span>, <span class='fl'>0.058</span>, <span class='fl'>0.052</span>, <span class='fl'>0.051</span>, <span class='fl'>0.041</span>, <span class='fl'>0.034</span>, <span class='fl'>0.035</span>, <span class='fl'>0.033</span>, <span class='fl'>0.032</span><span class='op'>)</span>,
-  V_X <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.012</span>, <span class='fl'>0.009</span>, <span class='fl'>0.008</span>, <span class='fl'>0.008</span>, <span class='fl'>0.007</span>, <span class='fl'>0.006</span>, <span class='fl'>0.005</span>, <span class='fl'>0.005</span>, <span class='fl'>0.004</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##fit</span>
-<span class='fu'>fit_ThermalQuenching</span><span class='op'>(</span>
- data <span class='op'>=</span> <span class='va'>data</span>,
- n.MC <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; [fit_ThermalQuenching()]
-#&gt; 
-#&gt;  A =  0.02831547  ±  NA 
-#&gt;  C =  8.67841e+14  ±  NA 
-#&gt;  W =  0.9986941  ±  NA  eV
-#&gt;  c =  0.0315122  ±  NA 
-#&gt;  --------------------------------</div><div class='img'><img src='fit_ThermalQuenching-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_ThermalQuenching()
-#&gt; 	 data: 2
-#&gt;  	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 additional info elements:  1 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##create short example dataset</span></span>
+<span class='r-in'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>  T <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>40</span>, <span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span>, <span class='fl'>90</span>, <span class='fl'>100</span>, <span class='fl'>110</span><span class='op'>)</span>,</span>
+<span class='r-in'>  V <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.06</span>, <span class='fl'>0.058</span>, <span class='fl'>0.052</span>, <span class='fl'>0.051</span>, <span class='fl'>0.041</span>, <span class='fl'>0.034</span>, <span class='fl'>0.035</span>, <span class='fl'>0.033</span>, <span class='fl'>0.032</span><span class='op'>)</span>,</span>
+<span class='r-in'>  V_X <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.012</span>, <span class='fl'>0.009</span>, <span class='fl'>0.008</span>, <span class='fl'>0.008</span>, <span class='fl'>0.007</span>, <span class='fl'>0.006</span>, <span class='fl'>0.005</span>, <span class='fl'>0.005</span>, <span class='fl'>0.004</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##fit</span></span>
+<span class='r-in'><span class='fu'>fit_ThermalQuenching</span><span class='op'>(</span></span>
+<span class='r-in'> data <span class='op'>=</span> <span class='va'>data</span>,</span>
+<span class='r-in'> n.MC <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [fit_ThermalQuenching()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  A =  0.02831547  ±  NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  C =  8.67841e+14  ±  NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  W =  0.9986941  ±  NA  eV</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  c =  0.0315122  ±  NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------------------</span>
+<span class='r-plt img'><img src='fit_ThermalQuenching-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: fit_ThermalQuenching()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $fit : nls</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  1 </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -277,7 +280,7 @@ are applied. The weights are defined by the third column of the input <code>data
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

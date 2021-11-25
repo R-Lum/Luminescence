@@ -73,7 +73,7 @@ an Risoe.BINfileData object (BETA)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -161,59 +161,75 @@ The <code>Risoe.BINfileData</code> can be used to write a Risoe BIN file via
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. PSL2Risoe.BINfileData(): Convert portable OSL data to an Risoe.BINfileData object. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. PSL2Risoe.BINfileData(): Convert portable OSL data to an Risoe.BINfileData object. Function version 0.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># (1) load and plot example data set</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.portableOSL"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>ExampleData.portableOSL</span><span class='op'>)</span>
-</div><div class='img'><img src='PSL2Risoe.BINfileData-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-3.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-4.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-5.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-6.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-7.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-8.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-9.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-10.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-11.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-12.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-13.png' alt='' width='700' height='433' /></div><div class='img'><img src='PSL2Risoe.BINfileData-14.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># (2) merge all RLum.Analysis objects into one</span>
-<span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_RLum.html'>merge_RLum</a></span><span class='op'>(</span><span class='va'>ExampleData.portableOSL</span><span class='op'>)</span>
-<span class='va'>merged</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Analysis-class]
-#&gt; 	 originator: merge_RLum.Analysis()
-#&gt; 	 protocol: portable OSL
-#&gt; 	 additional info elements:  196
-#&gt; 	 number of records: 70
-#&gt; 	 .. : RLum.Data.Curve : 70
-#&gt; 	 .. .. : #1 USER | #2 IRSL | #3 USER | #4 OSL | #5 USER | #6 USER | #7 IRSL
-#&gt; 	 .. .. : #8 USER | #9 OSL | #10 USER | #11 USER | #12 IRSL | #13 USER | #14 OSL
-#&gt; 	 .. .. : #15 USER | #16 USER | #17 IRSL | #18 USER | #19 OSL | #20 USER | #21 USER
-#&gt; 	 .. .. : #22 IRSL | #23 USER | #24 OSL | #25 USER | #26 USER | #27 IRSL | #28 USER
-#&gt; 	 .. .. : #29 OSL | #30 USER | #31 USER | #32 IRSL | #33 USER | #34 OSL | #35 USER
-#&gt; 	 .. .. : #36 USER | #37 IRSL | #38 USER | #39 OSL | #40 USER | #41 USER | #42 IRSL
-#&gt; 	 .. .. : #43 USER | #44 OSL | #45 USER | #46 USER | #47 IRSL | #48 USER | #49 OSL
-#&gt; 	 .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER
-#&gt; 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER
-#&gt; 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</div><div class='input'>
-<span class='co'># (3) convert to RisoeBINfile object</span>
-<span class='va'>bin</span> <span class='op'>&lt;-</span> <span class='fu'>PSL2Risoe.BINfileData</span><span class='op'>(</span><span class='va'>merged</span><span class='op'>)</span>
-<span class='va'>bin</span>
-</div><div class='output co'>#&gt; 
-#&gt; [Risoe.BINfileData object]
-#&gt; 
-#&gt; 	BIN/BINX version      7
-#&gt; 	File name:            Praktikum2016
-#&gt; 	Object date:          190516
-#&gt; 	User:                 RLum
-#&gt; 	System ID:            0 (unknown)
-#&gt; 	Overall records:      70
-#&gt; 	Records type:         IRSL	(n = 14)
-#&gt; 	                      OSL	(n = 14)
-#&gt; 	                      USER	(n = 42)
-#&gt; 	Position range:       1 : 1
-#&gt; 	Grain range:          0 : 0
-#&gt; 	Run range:            1 : 70
-#&gt; 	Set range:            1 : 1</div><div class='input'>
-<span class='co'># (4) write Risoe BIN file</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='write_R2BIN.html'>write_R2BIN</a></span><span class='op'>(</span><span class='va'>bin</span>, <span class='st'>"~/portableOSL.binx"</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># (1) load and plot example data set</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.portableOSL"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>ExampleData.portableOSL</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-1.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-2.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-3.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-4.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-5.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-6.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-7.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-8.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-9.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-10.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-11.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-12.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-13.png' alt='' width='700' height='433' /></span>
+<span class='r-plt img'><img src='PSL2Risoe.BINfileData-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># (2) merge all RLum.Analysis objects into one</span></span>
+<span class='r-in'><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_RLum.html'>merge_RLum</a></span><span class='op'>(</span><span class='va'>ExampleData.portableOSL</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>merged</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Analysis-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: merge_RLum.Analysis()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 protocol: portable OSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  196</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 number of records: 70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. : RLum.Data.Curve : 70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #1 USER | #2 IRSL | #3 USER | #4 OSL | #5 USER | #6 USER | #7 IRSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #8 USER | #9 OSL | #10 USER | #11 USER | #12 IRSL | #13 USER | #14 OSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #15 USER | #16 USER | #17 IRSL | #18 USER | #19 OSL | #20 USER | #21 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #22 IRSL | #23 USER | #24 OSL | #25 USER | #26 USER | #27 IRSL | #28 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #29 OSL | #30 USER | #31 USER | #32 IRSL | #33 USER | #34 OSL | #35 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #36 USER | #37 IRSL | #38 USER | #39 OSL | #40 USER | #41 USER | #42 IRSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #43 USER | #44 OSL | #45 USER | #46 USER | #47 IRSL | #48 USER | #49 OSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># (3) convert to RisoeBINfile object</span></span>
+<span class='r-in'><span class='va'>bin</span> <span class='op'>&lt;-</span> <span class='fu'>PSL2Risoe.BINfileData</span><span class='op'>(</span><span class='va'>merged</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bin</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [Risoe.BINfileData object]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	BIN/BINX version      7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	File name:            Praktikum2016</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Object date:          190516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	User:                 RLum</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	System ID:            0 (unknown)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Overall records:      70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Records type:         IRSL	(n = 14)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	                      OSL	(n = 14)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	                      USER	(n = 42)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Position range:       1 : 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Grain range:          0 : 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Run range:            1 : 70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Set range:            1 : 1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># (4) write Risoe BIN file</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'><a href='write_R2BIN.html'>write_R2BIN</a></span><span class='op'>(</span><span class='va'>bin</span>, <span class='st'>"~/portableOSL.binx"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -225,7 +241,7 @@ The <code>Risoe.BINfileData</code> can be used to write a Risoe BIN file via
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

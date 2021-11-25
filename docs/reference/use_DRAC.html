@@ -74,7 +74,7 @@ results are re-imported into R." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -184,7 +184,7 @@ The output should be accessed using the function get_RLum.
     <p>0.1.3</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., Dietze, M., Burow, C., 2021. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., Burow, C., 2021. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
@@ -197,56 +197,77 @@ Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## (1) Method using the DRAC spreadsheet</span>
-
-<span class='va'>file</span> <span class='op'>&lt;-</span>  <span class='st'>"/PATH/TO/DRAC_Input_Template.csv"</span>
-
-<span class='co'># send the actual IO template spreadsheet to DRAC</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>use_DRAC</span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>file</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-
-
-<span class='co'>## (2) Method using an R template object</span>
-
-<span class='co'># Create a template</span>
-<span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='template_DRAC.html'>template_DRAC</a></span><span class='op'>(</span>preset <span class='op'>=</span> <span class='st'>"DRAC-example_quartz"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'>	 This function returns a DRAC input template to be used in </span></div><div class='output co'>#&gt; <span class='message'>	 conjunction with the use_DRAC() function.  </span></div><div class='output co'>#&gt; <span class='message'>	 The template was reproduced with great care, but we do not</span></div><div class='output co'>#&gt; <span class='message'>	 take any responsibility and we are not liable for any </span></div><div class='output co'>#&gt; <span class='message'>	 mistakes or unforeseen misbehaviour.</span></div><div class='output co'>#&gt; <span class='message'>	 Note that this template is only compatible with DRAC</span></div><div class='output co'>#&gt; <span class='message'>	 version 1.1. Before using this template make sure that</span></div><div class='output co'>#&gt; <span class='message'>	 this is the correct version, otherwise expect unspecified</span></div><div class='output co'>#&gt; <span class='message'>	 errors.</span></div><div class='output co'>#&gt; <span class='message'>	 Please ensure you cite the use of DRAC in your work,</span></div><div class='output co'>#&gt; <span class='message'>	 published or otherwise. Please cite the website name and</span></div><div class='output co'>#&gt; <span class='message'>	 version (e.g. DRAC v1.1) and the accompanying journal</span></div><div class='output co'>#&gt; <span class='message'>	 article:</span></div><div class='output co'>#&gt; <span class='message'>	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span></div><div class='output co'>#&gt; <span class='message'>	 DRAC: Dose rate and age calculation for trapped charge</span></div><div class='output co'>#&gt; <span class='message'>	 dating. Quaternary Geochronology 28, 54-61. </span></div><div class='output co'>#&gt; <span class='message'>	 Set 'notification = FALSE' to hide this message. </span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
-<span class='co'># Fill the template with values</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Project ID`</span> <span class='op'>&lt;-</span> <span class='st'>"DRAC-Example"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Sample ID`</span> <span class='op'>&lt;-</span> <span class='st'>"Quartz"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Conversion factors`</span> <span class='op'>&lt;-</span> <span class='st'>"AdamiecAitken1998"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`External U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>3.4</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.51</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`External Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>14.47</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.69</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`External K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.2</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.14</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate external Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate internal Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Scale gammadoserate at shallow depths?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size min (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>90</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size max (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>125</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Water content ((wet weight - dry weight)/dry weight) %`</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errWater content %`</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Depth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>2.2</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errDepth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.22</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Overburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.8</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errOverburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.1</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Latitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>30.0000</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Longitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>70.0000</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Altitude (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>150</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`De (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>20</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errDe (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.2</span>
-
-<span class='co'># use DRAC</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'>use_DRAC</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## (1) Method using the DRAC spreadsheet</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>file</span> <span class='op'>&lt;-</span>  <span class='st'>"/PATH/TO/DRAC_Input_Template.csv"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># send the actual IO template spreadsheet to DRAC</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>use_DRAC</span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>file</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## (2) Method using an R template object</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create a template</span></span>
+<span class='r-in'><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'><a href='template_DRAC.html'>template_DRAC</a></span><span class='op'>(</span>preset <span class='op'>=</span> <span class='st'>"DRAC-example_quartz"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	-------------------- IMPORTANT NOTE ------------------------</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 This function returns a DRAC input template to be used in </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 conjunction with the use_DRAC() function.  </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 The template was reproduced with great care, but we do not</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 take any responsibility and we are not liable for any </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 mistakes or unforeseen misbehaviour.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Note that this template is only compatible with DRAC</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 version 1.1. Before using this template make sure that</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 this is the correct version, otherwise expect unspecified</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 errors.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Please ensure you cite the use of DRAC in your work,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 published or otherwise. Please cite the website name and</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 version (e.g. DRAC v1.1) and the accompanying journal</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 article:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 DRAC: Dose rate and age calculation for trapped charge</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 dating. Quaternary Geochronology 28, 54-61. </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Set 'notification = FALSE' to hide this message. </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	-------------------- IMPORTANT NOTE ------------------------</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Fill the template with values</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Project ID`</span> <span class='op'>&lt;-</span> <span class='st'>"DRAC-Example"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Sample ID`</span> <span class='op'>&lt;-</span> <span class='st'>"Quartz"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Conversion factors`</span> <span class='op'>&lt;-</span> <span class='st'>"AdamiecAitken1998"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`External U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>3.4</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.51</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`External Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>14.47</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.69</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`External K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.2</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.14</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate external Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate internal Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Scale gammadoserate at shallow depths?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size min (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>90</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size max (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>125</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Water content ((wet weight - dry weight)/dry weight) %`</span> <span class='op'>&lt;-</span> <span class='fl'>5</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errWater content %`</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Depth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>2.2</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errDepth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.22</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Overburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.8</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errOverburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.1</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Latitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>30.0000</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Longitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>70.0000</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Altitude (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>150</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`De (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>20</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errDe (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.2</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use DRAC</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'>use_DRAC</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -258,7 +279,7 @@ Christoph Burow, University of Cologne (Germany)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

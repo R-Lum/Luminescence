@@ -74,7 +74,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -275,7 +275,7 @@ saturation dose (<code>D0</code>) (in Gy) must be provided. The function will th
 equation 12 in Sohbati et al. (2012b) to the data.</p>
 <p><strong>NOTE</strong>: Currently, this function does <strong>not</strong> consider the variability
 of the dose rate with sample depth (<code>x</code>)! In the original equation the dose
-rate <code>D</code> is an arbitrary function of <code>x</code> (term <code><a href='https://rdrr.io/r/stats/deriv.html'>D(x)</a></code>), but here <code>D</code> is assumed
+rate <code>D</code> is an arbitrary function of <code>x</code> (term <code>D(x)</code>), but here <code>D</code> is assumed
 constant.</p>
 <p><strong>Global fitting</strong></p>
 <p>If <code>data</code> is <a href='https://rdrr.io/r/base/list.html'>list</a> of multiple <code>data.frame</code>s, each representing a separate
@@ -292,7 +292,7 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
@@ -310,147 +310,165 @@ Icarus 221, 160-166.</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## Load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.SurfaceExposure"</span><span class='op'>)</span>
-
-<span class='co'>## Example 1 - Single sample</span>
-<span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10</span>
-<span class='va'>sample_1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>sample_1</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sample_1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   depth   intensity      error
-#&gt; 1   0.0  0.05487370 0.08018774
-#&gt; 2   0.1 -0.06055516 0.17745452
-#&gt; 3   0.2  0.09560277 0.12385804
-#&gt; 4   0.3 -0.05973453 0.05593426
-#&gt; 5   0.4 -0.02775111 0.19830218
-#&gt; 6   0.5  0.04852239 0.06168570</div><div class='input'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>sample_1</span>, mu <span class='op'>=</span> <span class='fl'>0.9</span>, sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span><span class='op'>)</span>
-</div><div class='img'><img src='fit_SurfaceExposure-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9890 ± 369
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        age age_error sigmaphi sigmaphi_error  mu mu_error
-#&gt; 1 9892.724  369.0066    5e-10             NA 0.9       NA</div><div class='input'>
-
-<span class='co'>## Example 2 - Single sample and considering dose rate</span>
-<span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,</span>
-<span class='co'># dose rate = 2.5 Gy/ka, D0 = 40 Gy</span>
-<span class='va'>sample_2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>sample_2</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sample_2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   depth   intensity      error
-#&gt; 1   0.0  0.05881908 0.08018774
-#&gt; 2   0.1 -0.05623983 0.17745452
-#&gt; 3   0.2  0.10032258 0.12385804
-#&gt; 4   0.3 -0.05457253 0.05593426
-#&gt; 5   0.4 -0.02210573 0.19830218
-#&gt; 6   0.5  0.05469614 0.06168570</div><div class='input'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>sample_2</span>, mu <span class='op'>=</span> <span class='fl'>0.9</span>, sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span>,
-                               Ddot <span class='op'>=</span> <span class='fl'>2.5</span>, D0 <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span>
-</div><div class='img'><img src='fit_SurfaceExposure-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9800 ± 675
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        age age_error sigmaphi sigmaphi_error  mu mu_error
-#&gt; 1 9803.492  674.8362    5e-10             NA 0.9       NA</div><div class='input'>
-
-<span class='co'>## Example 3 - Multiple samples (global fit) to better constrain 'mu'</span>
-<span class='co'># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span>
-<span class='va'>set_1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>set_1</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>set_1</span>, max.level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 4
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] 0.0274 -0.0303 0.0478 -0.0298 -0.0134 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] 0.00714 -0.04511 0.04804 0.04145 0.0266 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.0284 0.00732 -0.04984 0.02182 -0.02349 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</div><div class='input'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>set_1</span>, age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span>,
-                               sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.901 ± 0.00161
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = 0.901)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='fit_SurfaceExposure-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     age age_error sigmaphi sigmaphi_error        mu    mu_error
-#&gt; 1 1e+03        NA    5e-10             NA 0.9009518 0.001612271
-#&gt; 2 1e+04        NA    5e-10             NA 0.9009518 0.001612271
-#&gt; 3 1e+05        NA    5e-10             NA 0.9009518 0.001612271
-#&gt; 4 1e+06        NA    5e-10             NA 0.9009518 0.001612271</div><div class='input'>
-
-<span class='co'>## Example 4 - Multiple samples (global fit) and considering dose rate</span>
-<span class='co'># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span>
-<span class='co'># dose rate = 1.0 Ga/ka, D0 = 40 Gy</span>
-<span class='va'>set_2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>set_2</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>set_2</span>, max.level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 5
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] 0.235 0.238 0.381 0.369 0.451 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] 0.00872 -0.04321 0.05032 0.04426 0.03029 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.02682 0.00921 -0.04757 0.02453 -0.02024 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.0106 -0.0171 0.0381 -0.0287 -0.0422 ...
-#&gt;  $ :'data.frame':	76 obs. of  2 variables:
-#&gt;   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...
-#&gt;   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</div><div class='input'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>set_2</span>, age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span>,
-                               sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span>, Ddot <span class='op'>=</span> <span class='fl'>1</span>, D0 <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.899 ± 0.00232
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	100, 1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = 0.899)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='fit_SurfaceExposure-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     age age_error sigmaphi sigmaphi_error       mu    mu_error
-#&gt; 1 1e+02        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 2 1e+03        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 3 1e+04        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 4 1e+05        NA    5e-10             NA 0.898662 0.002323752
-#&gt; 5 1e+06        NA    5e-10             NA 0.898662 0.002323752</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## Load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.SurfaceExposure"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Example 1 - Single sample</span></span>
+<span class='r-in'><span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10</span></span>
+<span class='r-in'><span class='va'>sample_1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>sample_1</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sample_1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   depth   intensity      error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   0.0  0.05487370 0.08018774</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   0.1 -0.06055516 0.17745452</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   0.2  0.09560277 0.12385804</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   0.3 -0.05973453 0.05593426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   0.4 -0.02775111 0.19830218</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   0.5  0.04852239 0.06168570</span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>sample_1</span>, mu <span class='op'>=</span> <span class='fl'>0.9</span>, sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='fit_SurfaceExposure-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	9890 ± 369</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 9892.724  369.0066    5e-10             NA 0.9       NA</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Example 2 - Single sample and considering dose rate</span></span>
+<span class='r-in'><span class='co'># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,</span></span>
+<span class='r-in'><span class='co'># dose rate = 2.5 Gy/ka, D0 = 40 Gy</span></span>
+<span class='r-in'><span class='va'>sample_2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>sample_2</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sample_2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   depth   intensity      error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   0.0  0.05881908 0.08018774</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   0.1 -0.05623983 0.17745452</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   0.2  0.10032258 0.12385804</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   0.3 -0.05457253 0.05593426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   0.4 -0.02210573 0.19830218</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   0.5  0.05469614 0.06168570</span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>sample_2</span>, mu <span class='op'>=</span> <span class='fl'>0.9</span>, sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span>,</span>
+<span class='r-in'>                               Ddot <span class='op'>=</span> <span class='fl'>2.5</span>, D0 <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='fit_SurfaceExposure-2.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	9800 ± 675</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 9803.492  674.8362    5e-10             NA 0.9       NA</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Example 3 - Multiple samples (global fit) to better constrain 'mu'</span></span>
+<span class='r-in'><span class='co'># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span></span>
+<span class='r-in'><span class='va'>set_1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>set_1</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>set_1</span>, max.level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] 0.0274 -0.0303 0.0478 -0.0298 -0.0134 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] 0.00714 -0.04511 0.04804 0.04145 0.0266 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] -0.0284 0.00732 -0.04984 0.02182 -0.02349 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>set_1</span>, age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span>,</span>
+<span class='r-in'>                               sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Shared estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.901 ± 0.00161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	1000, 10000, 1e+05, 1e+06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> To apply the estimated parameters to a sample of unknown age run:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = 0.901)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='fit_SurfaceExposure-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     age age_error sigmaphi sigmaphi_error        mu    mu_error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1e+03        NA    5e-10             NA 0.9009518 0.001612271</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 1e+04        NA    5e-10             NA 0.9009518 0.001612271</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 1e+05        NA    5e-10             NA 0.9009518 0.001612271</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 1e+06        NA    5e-10             NA 0.9009518 0.001612271</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Example 4 - Multiple samples (global fit) and considering dose rate</span></span>
+<span class='r-in'><span class='co'># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span></span>
+<span class='r-in'><span class='co'># dose rate = 1.0 Ga/ka, D0 = 40 Gy</span></span>
+<span class='r-in'><span class='va'>set_2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.SurfaceExposure</span><span class='op'>$</span><span class='va'>set_2</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>set_2</span>, max.level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] 0.235 0.238 0.381 0.369 0.451 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] 0.00872 -0.04321 0.05032 0.04426 0.03029 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] -0.02682 0.00921 -0.04757 0.02453 -0.02024 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] -0.0106 -0.0171 0.0381 -0.0287 -0.0422 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>fit_SurfaceExposure</span><span class='op'>(</span><span class='va'>set_2</span>, age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span>,</span>
+<span class='r-in'>                               sigmaphi <span class='op'>=</span> <span class='fl'>5e-10</span>, Ddot <span class='op'>=</span> <span class='fl'>1</span>, D0 <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Shared estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.899 ± 0.00232</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	100, 1000, 10000, 1e+05, 1e+06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> To apply the estimated parameters to a sample of unknown age run:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = 0.899)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='fit_SurfaceExposure-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     age age_error sigmaphi sigmaphi_error       mu    mu_error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1e+02        NA    5e-10             NA 0.898662 0.002323752</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 1e+03        NA    5e-10             NA 0.898662 0.002323752</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 1e+04        NA    5e-10             NA 0.898662 0.002323752</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 1e+05        NA    5e-10             NA 0.898662 0.002323752</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 1e+06        NA    5e-10             NA 0.898662 0.002323752</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -462,7 +480,7 @@ Icarus 221, 160-166.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

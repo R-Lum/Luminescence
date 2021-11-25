@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -253,73 +253,79 @@ method <code>get_RLum</code>.</p>
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Kreutzer, S., 2021. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2021. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>showClass</span><span class='op'>(</span><span class='st'>"RLum.Results"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Class "RLum.Results" [package "Luminescence"]
-#&gt; 
-#&gt; Slots:
-#&gt;                                                              
-#&gt; Name:        data originator       info       .uid       .pid
-#&gt; Class:       list  character       list  character  character
-#&gt; 
-#&gt; Extends: "RLum"</div><div class='input'>
-<span class='co'>##create an empty object from this class</span>
-<span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>class <span class='op'>=</span> <span class='st'>"RLum.Results"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: eval()
-#&gt; 	 data: 0
-#&gt;  	 .. $ : list
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-<span class='co'>##use another function to show how it works</span>
-
-<span class='co'>##Basic calculation of the dose rate for a specific date</span>
- <span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='calc_SourceDoseRate.html'>calc_SourceDoseRate</a></span><span class='op'>(</span>
-   measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,
-   calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,
-   calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,
-   calib.error <span class='op'>=</span> <span class='fl'>0.0019</span><span class='op'>)</span>
-
-<span class='co'>##show object</span>
-<span class='va'>dose.rate</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: calc_SourceDoseRate()
-#&gt; 	 data: 3
-#&gt;  	 .. $dose.rate : data.frame
-#&gt; 	 .. $parameters : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-<span class='co'>##get results</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    dose.rate dose.rate.error       date
-#&gt; 1 0.04695031     0.002036657 2012-01-27</div><div class='input'>
-<span class='co'>##get parameters used for the calcualtion from the same object</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span>, data.object <span class='op'>=</span> <span class='st'>"parameters"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $source.type
-#&gt; [1] "Sr-90"
-#&gt; 
-#&gt; $halflife
-#&gt; [1] 28.9
-#&gt; 
-#&gt; $dose.rate.unit
-#&gt; [1] "Gy/s"
-#&gt; </div><div class='input'>
-<span class='co'>##alternatively objects can be accessed using S3 generics, such as</span>
-<span class='va'>dose.rate</span><span class='op'>$</span><span class='va'>parameters</span>
-</div><div class='output co'>#&gt; $source.type
-#&gt; [1] "Sr-90"
-#&gt; 
-#&gt; $halflife
-#&gt; [1] 28.9
-#&gt; 
-#&gt; $dose.rate.unit
-#&gt; [1] "Gy/s"
-#&gt; </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='fu'>showClass</span><span class='op'>(</span><span class='st'>"RLum.Results"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Class "RLum.Results" [package "Luminescence"]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Slots:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name:        data originator       info       .uid       .pid</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Class:       list  character       list  character  character</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Extends: "RLum"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##create an empty object from this class</span></span>
+<span class='r-in'><span class='fu'><a href='set_RLum.html'>set_RLum</a></span><span class='op'>(</span>class <span class='op'>=</span> <span class='st'>"RLum.Results"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: eval()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $ : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##use another function to show how it works</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##Basic calculation of the dose rate for a specific date</span></span>
+<span class='r-in'> <span class='va'>dose.rate</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='calc_SourceDoseRate.html'>calc_SourceDoseRate</a></span><span class='op'>(</span></span>
+<span class='r-in'>   measurement.date <span class='op'>=</span> <span class='st'>"2012-01-27"</span>,</span>
+<span class='r-in'>   calib.date <span class='op'>=</span> <span class='st'>"2014-12-19"</span>,</span>
+<span class='r-in'>   calib.dose.rate <span class='op'>=</span> <span class='fl'>0.0438</span>,</span>
+<span class='r-in'>   calib.error <span class='op'>=</span> <span class='fl'>0.0019</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##show object</span></span>
+<span class='r-in'><span class='va'>dose.rate</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: calc_SourceDoseRate()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $dose.rate : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $parameters : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $call : call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##get results</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    dose.rate dose.rate.error       date</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.04695031     0.002036657 2012-01-27</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##get parameters used for the calcualtion from the same object</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>dose.rate</span>, data.object <span class='op'>=</span> <span class='st'>"parameters"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $source.type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Sr-90"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $halflife</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 28.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $dose.rate.unit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Gy/s"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##alternatively objects can be accessed using S3 generics, such as</span></span>
+<span class='r-in'><span class='va'>dose.rate</span><span class='op'>$</span><span class='va'>parameters</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $source.type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Sr-90"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $halflife</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 28.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $dose.rate.unit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Gy/s"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -331,7 +337,7 @@ method <code>get_RLum</code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

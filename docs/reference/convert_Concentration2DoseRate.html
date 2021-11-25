@@ -83,7 +83,7 @@ with the factor for beta dose rate being 1.25 and for gamma 1.14." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@ The water content provided by the user should be calculated according to:</p>
     <p>0.1.0</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Riedesel, S., Autzen, M., 2021. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Riedesel, S., Autzen, M., 2021. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update. Ancient TL 16, 37-46.</p>
@@ -212,32 +212,34 @@ Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## create input template</span>
-<span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>convert_Concentration2DoseRate</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>[convert_Concentration2DoseRate()] Input template returned. Please fill this data.frame and use it as input to the function!</span></div><div class='input'>
-<span class='co'>## fill input</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>Mineral</span> <span class='op'>&lt;-</span> <span class='st'>"FS"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>K</span> <span class='op'>&lt;-</span> <span class='fl'>2.13</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>K_SE</span> <span class='op'>&lt;-</span> <span class='fl'>0.07</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>Th</span> <span class='op'>&lt;-</span> <span class='fl'>9.76</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>Th_SE</span> <span class='op'>&lt;-</span> <span class='fl'>0.32</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>U</span> <span class='op'>&lt;-</span> <span class='fl'>2.24</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>U_SE</span> <span class='op'>&lt;-</span> <span class='fl'>0.12</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>GrainSize</span> <span class='op'>&lt;-</span> <span class='fl'>200</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>WaterContent</span> <span class='op'>&lt;-</span> <span class='fl'>30</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>WaterContent_SE</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
-
-<span class='co'>## convert</span>
-<span class='fu'>convert_Concentration2DoseRate</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: convert_Concentration2DoseRate()
-#&gt; 	 data: 2
-#&gt;  	 .. $InfDRG : matrix
-#&gt; 	 .. $input_data : data.frame
-#&gt; 	 additional info elements:  1 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## create input template</span></span>
+<span class='r-in'><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>convert_Concentration2DoseRate</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> [convert_Concentration2DoseRate()] Input template returned. Please fill this data.frame and use it as input to the function!</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## fill input</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>Mineral</span> <span class='op'>&lt;-</span> <span class='st'>"FS"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>K</span> <span class='op'>&lt;-</span> <span class='fl'>2.13</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>K_SE</span> <span class='op'>&lt;-</span> <span class='fl'>0.07</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>Th</span> <span class='op'>&lt;-</span> <span class='fl'>9.76</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>Th_SE</span> <span class='op'>&lt;-</span> <span class='fl'>0.32</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>U</span> <span class='op'>&lt;-</span> <span class='fl'>2.24</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>U_SE</span> <span class='op'>&lt;-</span> <span class='fl'>0.12</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>GrainSize</span> <span class='op'>&lt;-</span> <span class='fl'>200</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>WaterContent</span> <span class='op'>&lt;-</span> <span class='fl'>30</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>WaterContent_SE</span> <span class='op'>&lt;-</span> <span class='fl'>5</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## convert</span></span>
+<span class='r-in'><span class='fu'>convert_Concentration2DoseRate</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: convert_Concentration2DoseRate()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $InfDRG : matrix</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $input_data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  1 </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -249,7 +251,7 @@ Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

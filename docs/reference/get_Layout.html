@@ -73,7 +73,7 @@ plotting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -156,286 +156,290 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., 2021. get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., 2021. get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## read example data set</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## show structure of the default layout definition</span>
-<span class='va'>layout.default</span> <span class='op'>&lt;-</span> <span class='fu'>get_Layout</span><span class='op'>(</span>layout <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>layout.default</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 2
-#&gt;  $ abanico:List of 5
-#&gt;   ..$ font.type:List of 14
-#&gt;   .. ..$ main   : chr ""
-#&gt;   .. ..$ xlab1  : chr ""
-#&gt;   .. ..$ xlab2  : chr ""
-#&gt;   .. ..$ ylab   : chr ""
-#&gt;   .. ..$ zlab   : chr ""
-#&gt;   .. ..$ xtck1  : chr ""
-#&gt;   .. ..$ xtck2  : chr ""
-#&gt;   .. ..$ xtck3  : chr ""
-#&gt;   .. ..$ ytck   : chr ""
-#&gt;   .. ..$ ztck   : chr ""
-#&gt;   .. ..$ mtext  : chr ""
-#&gt;   .. ..$ summary: chr ""
-#&gt;   .. ..$ stats  : chr ""
-#&gt;   .. ..$ legend : chr ""
-#&gt;   ..$ font.size:List of 15
-#&gt;   .. ..$ main   : num 12
-#&gt;   .. ..$ xlab1  : num 12
-#&gt;   .. ..$ xlab2  : num 12
-#&gt;   .. ..$ xlab3  : num 12
-#&gt;   .. ..$ ylab   : num 12
-#&gt;   .. ..$ zlab   : num 12
-#&gt;   .. ..$ xtck1  : num 12
-#&gt;   .. ..$ xtck2  : num 12
-#&gt;   .. ..$ xtck3  : num 12
-#&gt;   .. ..$ ytck   : num 12
-#&gt;   .. ..$ ztck   : num 12
-#&gt;   .. ..$ mtext  : num 10
-#&gt;   .. ..$ summary: num 10
-#&gt;   .. ..$ stats  : num 10
-#&gt;   .. ..$ legend : num 10
-#&gt;   ..$ font.deco:List of 15
-#&gt;   .. ..$ main   : chr "bold"
-#&gt;   .. ..$ xlab1  : chr "normal"
-#&gt;   .. ..$ xlab2  : chr "normal"
-#&gt;   .. ..$ xlab3  : chr "normal"
-#&gt;   .. ..$ ylab   : chr "normal"
-#&gt;   .. ..$ zlab   : chr "normal"
-#&gt;   .. ..$ xtck1  : chr "normal"
-#&gt;   .. ..$ xtck2  : chr "normal"
-#&gt;   .. ..$ xtck3  : chr "normal"
-#&gt;   .. ..$ ytck   : chr "normal"
-#&gt;   .. ..$ ztck   : chr "normal"
-#&gt;   .. ..$ mtext  : chr "normal"
-#&gt;   .. ..$ summary: chr "normal"
-#&gt;   .. ..$ stats  : chr "normal"
-#&gt;   .. ..$ legend : chr "normal"
-#&gt;   ..$ colour   :List of 29
-#&gt;   .. ..$ main      : num 1
-#&gt;   .. ..$ xlab1     : num 1
-#&gt;   .. ..$ xlab2     : num 1
-#&gt;   .. ..$ xlab3     : num 1
-#&gt;   .. ..$ ylab      : num 1
-#&gt;   .. ..$ zlab      : num 1
-#&gt;   .. ..$ xtck1     : num 1
-#&gt;   .. ..$ xtck2     : num 1
-#&gt;   .. ..$ xtck3     : num 1
-#&gt;   .. ..$ ytck      : num 1
-#&gt;   .. ..$ ztck      : num 1
-#&gt;   .. ..$ mtext     : num 1
-#&gt;   .. ..$ summary   : num 1
-#&gt;   .. ..$ stats     : num 1
-#&gt;   .. ..$ legend    : num 1
-#&gt;   .. ..$ centrality: num 1
-#&gt;   .. ..$ value.dot : num 1
-#&gt;   .. ..$ value.bar : num 1
-#&gt;   .. ..$ value.rug : num 1
-#&gt;   .. ..$ poly.line : logi NA
-#&gt;   .. ..$ poly.fill : chr "#BFBFBF99"
-#&gt;   .. ..$ bar.line  : logi NA
-#&gt;   .. ..$ bar.fill  : chr "grey60"
-#&gt;   .. ..$ kde.line  : num 1
-#&gt;   .. ..$ kde.fill  : logi NA
-#&gt;   .. ..$ grid.major: chr "grey80"
-#&gt;   .. ..$ grid.minor: chr "none"
-#&gt;   .. ..$ border    : num 1
-#&gt;   .. ..$ background: logi NA
-#&gt;   ..$ dimension:List of 22
-#&gt;   .. ..$ figure.width : chr "auto"
-#&gt;   .. ..$ figure.height: chr "auto"
-#&gt;   .. ..$ margin       : num [1:4] 10 10 10 10
-#&gt;   .. ..$ main.line    : num 100
-#&gt;   .. ..$ xlab1.line   : num 90
-#&gt;   .. ..$ xlab2.line   : num 90
-#&gt;   .. ..$ xlab3.line   : num 90
-#&gt;   .. ..$ ylab.line    : num 100
-#&gt;   .. ..$ zlab.line    : num 70
-#&gt;   .. ..$ xtck1.line   : num 100
-#&gt;   .. ..$ xtck2.line   : num 100
-#&gt;   .. ..$ xtck3.line   : num 100
-#&gt;   .. ..$ ytck.line    : num 100
-#&gt;   .. ..$ ztck.line    : num 100
-#&gt;   .. ..$ xtcl1        : num 100
-#&gt;   .. ..$ xtcl2        : num 100
-#&gt;   .. ..$ xtcl3        : num 100
-#&gt;   .. ..$ ytcl         : num 100
-#&gt;   .. ..$ ztcl         : num 100
-#&gt;   .. ..$ rugl         : num 100
-#&gt;   .. ..$ mtext        : num 100
-#&gt;   .. ..$ summary.line : num 100
-#&gt;  $ kde    :List of 5
-#&gt;   ..$ font.type:List of 9
-#&gt;   .. ..$ main  : chr ""
-#&gt;   .. ..$ xlab  : chr ""
-#&gt;   .. ..$ ylab1 : chr ""
-#&gt;   .. ..$ ylab2 : chr ""
-#&gt;   .. ..$ xtck  : chr ""
-#&gt;   .. ..$ ytck1 : chr ""
-#&gt;   .. ..$ ytck2 : chr ""
-#&gt;   .. ..$ stats : chr ""
-#&gt;   .. ..$ legend: chr ""
-#&gt;   ..$ font.size:List of 9
-#&gt;   .. ..$ main  : num 14
-#&gt;   .. ..$ xlab  : num 12
-#&gt;   .. ..$ ylab1 : num 12
-#&gt;   .. ..$ ylab2 : num 12
-#&gt;   .. ..$ xtck  : num 12
-#&gt;   .. ..$ ytck1 : num 12
-#&gt;   .. ..$ ytck2 : num 12
-#&gt;   .. ..$ stats : num 12
-#&gt;   .. ..$ legend: num 12
-#&gt;   ..$ font.deco:List of 9
-#&gt;   .. ..$ main  : chr "bold"
-#&gt;   .. ..$ xlab  : chr "normal"
-#&gt;   .. ..$ ylab1 : chr "normal"
-#&gt;   .. ..$ ylab2 : chr "normal"
-#&gt;   .. ..$ xtck  : chr "normal"
-#&gt;   .. ..$ ytck1 : chr "normal"
-#&gt;   .. ..$ ytck2 : chr "normal"
-#&gt;   .. ..$ stats : chr "normal"
-#&gt;   .. ..$ legend: chr "normal"
-#&gt;   ..$ colour   :List of 20
-#&gt;   .. ..$ main        : num 1
-#&gt;   .. ..$ xlab        : num 1
-#&gt;   .. ..$ ylab1       : num 1
-#&gt;   .. ..$ ylab2       : num 1
-#&gt;   .. ..$ xtck        : num 1
-#&gt;   .. ..$ ytck1       : num 1
-#&gt;   .. ..$ ytck2       : num 1
-#&gt;   .. ..$ box         : num 1
-#&gt;   .. ..$ mtext       : num 2
-#&gt;   .. ..$ stats       : num 1
-#&gt;   .. ..$ kde.line    : num 1
-#&gt;   .. ..$ kde.fill    : NULL
-#&gt;   .. ..$ value.dot   : num 1
-#&gt;   .. ..$ value.bar   : num 1
-#&gt;   .. ..$ value.rug   : num 1
-#&gt;   .. ..$ boxplot.line: num 1
-#&gt;   .. ..$ boxplot.fill: NULL
-#&gt;   .. ..$ mean.point  : num 1
-#&gt;   .. ..$ sd.line     : num 1
-#&gt;   .. ..$ background  : NULL
-#&gt;   ..$ dimension:List of 14
-#&gt;   .. ..$ figure.width : chr "auto"
-#&gt;   .. ..$ figure.height: chr "auto"
-#&gt;   .. ..$ margin       : num [1:4] 10 10 10 10
-#&gt;   .. ..$ main.line    : num 100
-#&gt;   .. ..$ xlab.line    : num 100
-#&gt;   .. ..$ ylab1.line   : num 100
-#&gt;   .. ..$ ylab2.line   : num 100
-#&gt;   .. ..$ xtck.line    : num 100
-#&gt;   .. ..$ ytck1.line   : num 100
-#&gt;   .. ..$ ytck2.line   : num 100
-#&gt;   .. ..$ xtcl         : num 100
-#&gt;   .. ..$ ytcl1        : num 100
-#&gt;   .. ..$ ytcl2        : num 100
-#&gt;   .. ..$ stats.line   : num 100</div><div class='input'>
-<span class='co'>## show colour definitions for Abanico plot, only</span>
-<span class='va'>layout.default</span><span class='op'>$</span><span class='va'>abanico</span><span class='op'>$</span><span class='va'>colour</span>
-</div><div class='output co'>#&gt; $main
-#&gt; [1] 1
-#&gt; 
-#&gt; $xlab1
-#&gt; [1] 1
-#&gt; 
-#&gt; $xlab2
-#&gt; [1] 1
-#&gt; 
-#&gt; $xlab3
-#&gt; [1] 1
-#&gt; 
-#&gt; $ylab
-#&gt; [1] 1
-#&gt; 
-#&gt; $zlab
-#&gt; [1] 1
-#&gt; 
-#&gt; $xtck1
-#&gt; [1] 1
-#&gt; 
-#&gt; $xtck2
-#&gt; [1] 1
-#&gt; 
-#&gt; $xtck3
-#&gt; [1] 1
-#&gt; 
-#&gt; $ytck
-#&gt; [1] 1
-#&gt; 
-#&gt; $ztck
-#&gt; [1] 1
-#&gt; 
-#&gt; $mtext
-#&gt; [1] 1
-#&gt; 
-#&gt; $summary
-#&gt; [1] 1
-#&gt; 
-#&gt; $stats
-#&gt; [1] 1
-#&gt; 
-#&gt; $legend
-#&gt; [1] 1
-#&gt; 
-#&gt; $centrality
-#&gt; [1] 1
-#&gt; 
-#&gt; $value.dot
-#&gt; [1] 1
-#&gt; 
-#&gt; $value.bar
-#&gt; [1] 1
-#&gt; 
-#&gt; $value.rug
-#&gt; [1] 1
-#&gt; 
-#&gt; $poly.line
-#&gt; [1] NA
-#&gt; 
-#&gt; $poly.fill
-#&gt; [1] "#BFBFBF99"
-#&gt; 
-#&gt; $bar.line
-#&gt; [1] NA
-#&gt; 
-#&gt; $bar.fill
-#&gt; [1] "grey60"
-#&gt; 
-#&gt; $kde.line
-#&gt; [1] 1
-#&gt; 
-#&gt; $kde.fill
-#&gt; [1] NA
-#&gt; 
-#&gt; $grid.major
-#&gt; [1] "grey80"
-#&gt; 
-#&gt; $grid.minor
-#&gt; [1] "none"
-#&gt; 
-#&gt; $border
-#&gt; [1] 1
-#&gt; 
-#&gt; $background
-#&gt; [1] NA
-#&gt; </div><div class='input'>
-<span class='co'>## set Abanico plot title colour to orange</span>
-<span class='va'>layout.default</span><span class='op'>$</span><span class='va'>abanico</span><span class='op'>$</span><span class='va'>colour</span><span class='op'>$</span><span class='va'>main</span> <span class='op'>&lt;-</span> <span class='st'>"orange"</span>
-
-<span class='co'>## create Abanico plot with modofied layout definition</span>
-<span class='fu'><a href='plot_AbanicoPlot.html'>plot_AbanicoPlot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 layout <span class='op'>=</span> <span class='va'>layout.default</span><span class='op'>)</span>
-</div><div class='img'><img src='get_Layout-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## create Abanico plot with predefined layout "journal"</span>
-<span class='fu'><a href='plot_AbanicoPlot.html'>plot_AbanicoPlot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 layout <span class='op'>=</span> <span class='st'>"journal"</span><span class='op'>)</span>
-</div><div class='img'><img src='get_Layout-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## read example data set</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## show structure of the default layout definition</span></span>
+<span class='r-in'><span class='va'>layout.default</span> <span class='op'>&lt;-</span> <span class='fu'>get_Layout</span><span class='op'>(</span>layout <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>layout.default</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ abanico:List of 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.type:List of 14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main   : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab1  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab2  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab   : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ zlab   : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck1  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck2  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck3  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck   : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ztck   : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mtext  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ summary: chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.size:List of 15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main   : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab1  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab2  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab3  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab   : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ zlab   : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck1  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck2  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck3  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck   : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ztck   : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mtext  : num 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ summary: num 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats  : num 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend : num 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.deco:List of 15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main   : chr "bold"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab1  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab2  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab3  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab   : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ zlab   : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck1  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck2  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck3  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck   : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ztck   : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mtext  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ summary: chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ colour   :List of 29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab1     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab2     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab3     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ zlab      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck1     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck2     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck3     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ztck      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mtext     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ summary   : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend    : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ centrality: num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ value.dot : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ value.bar : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ value.rug : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ poly.line : logi NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ poly.fill : chr "#BFBFBF99"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ bar.line  : logi NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ bar.fill  : chr "grey60"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ kde.line  : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ kde.fill  : logi NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ grid.major: chr "grey80"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ grid.minor: chr "none"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ border    : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ background: logi NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ dimension:List of 22</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ figure.width : chr "auto"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ figure.height: chr "auto"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ margin       : num [1:4] 10 10 10 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab1.line   : num 90</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab2.line   : num 90</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab3.line   : num 90</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ zlab.line    : num 70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck1.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck2.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck3.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ztck.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtcl1        : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtcl2        : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtcl3        : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytcl         : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ztcl         : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ rugl         : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mtext        : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ summary.line : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ kde    :List of 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.type:List of 9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab1 : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab2 : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck  : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck1 : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck2 : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend: chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.size:List of 9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main  : num 14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab1 : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab2 : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck  : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck1 : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck2 : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats : num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend: num 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.deco:List of 9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main  : chr "bold"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab1 : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab2 : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck  : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck1 : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck2 : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats : chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ legend: chr "normal"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ colour   :List of 20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main        : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab        : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab1       : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab2       : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck        : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck1       : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck2       : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ box         : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mtext       : num 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats       : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ kde.line    : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ kde.fill    : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ value.dot   : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ value.bar   : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ value.rug   : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ boxplot.line: num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ boxplot.fill: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ mean.point  : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ sd.line     : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ background  : NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ dimension:List of 14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ figure.width : chr "auto"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ figure.height: chr "auto"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ margin       : num [1:4] 10 10 10 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ main.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xlab.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab1.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ylab2.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtck.line    : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck1.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytck2.line   : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ xtcl         : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytcl1        : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ ytcl2        : num 100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ stats.line   : num 100</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## show colour definitions for Abanico plot, only</span></span>
+<span class='r-in'><span class='va'>layout.default</span><span class='op'>$</span><span class='va'>abanico</span><span class='op'>$</span><span class='va'>colour</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $main</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xlab1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xlab2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xlab3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ylab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $zlab</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xtck1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xtck2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $xtck3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ytck</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ztck</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $mtext</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $summary</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stats</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $legend</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $centrality</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value.dot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value.bar</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $value.rug</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $poly.line</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $poly.fill</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "#BFBFBF99"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bar.line</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bar.fill</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "grey60"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $kde.line</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $kde.fill</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $grid.major</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "grey80"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $grid.minor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "none"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $border</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $background</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## set Abanico plot title colour to orange</span></span>
+<span class='r-in'><span class='va'>layout.default</span><span class='op'>$</span><span class='va'>abanico</span><span class='op'>$</span><span class='va'>colour</span><span class='op'>$</span><span class='va'>main</span> <span class='op'>&lt;-</span> <span class='st'>"orange"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## create Abanico plot with modofied layout definition</span></span>
+<span class='r-in'><span class='fu'><a href='plot_AbanicoPlot.html'>plot_AbanicoPlot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 layout <span class='op'>=</span> <span class='va'>layout.default</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='get_Layout-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## create Abanico plot with predefined layout "journal"</span></span>
+<span class='r-in'><span class='fu'><a href='plot_AbanicoPlot.html'>plot_AbanicoPlot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 layout <span class='op'>=</span> <span class='st'>"journal"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='get_Layout-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -447,7 +451,7 @@ definitions (<code>user.layout &lt;- get_Layout(data = "empty")</code>).</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

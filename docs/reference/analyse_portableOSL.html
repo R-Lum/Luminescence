@@ -74,7 +74,7 @@ and the IRSL/OSL ratio." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -145,7 +145,7 @@ and the IRSL/OSL ratio.</p>
       <th>signal.integral</th>
       <td><p><a href='https://rdrr.io/r/base/vector.html'>vector</a> (<strong>required</strong>):
 A vector of two values specifying the lower and upper channel used to
-calculate the OSL/IRSL signal. Can be provided in form of <code><a href='https://rdrr.io/r/base/c.html'>c(1, 5)</a></code> or <code>1:5</code>.</p></td>
+calculate the OSL/IRSL signal. Can be provided in form of <code>c(1, 5)</code> or <code>1:5</code>.</p></td>
     </tr>
     <tr>
       <th>invert</th>
@@ -191,70 +191,74 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 , RLum Developer Team</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># (1) load example data set</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.portableOSL"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># (2) merge and plot all RLum.Analysis objects</span>
-<span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_RLum.html'>merge_RLum</a></span><span class='op'>(</span><span class='va'>ExampleData.portableOSL</span><span class='op'>)</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>merged</span>, combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='analyse_portableOSL-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>merged</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Analysis-class]
-#&gt; 	 originator: merge_RLum.Analysis()
-#&gt; 	 protocol: portable OSL
-#&gt; 	 additional info elements:  196
-#&gt; 	 number of records: 70
-#&gt; 	 .. : RLum.Data.Curve : 70
-#&gt; 	 .. .. : #1 USER | #2 IRSL | #3 USER | #4 OSL | #5 USER | #6 USER | #7 IRSL
-#&gt; 	 .. .. : #8 USER | #9 OSL | #10 USER | #11 USER | #12 IRSL | #13 USER | #14 OSL
-#&gt; 	 .. .. : #15 USER | #16 USER | #17 IRSL | #18 USER | #19 OSL | #20 USER | #21 USER
-#&gt; 	 .. .. : #22 IRSL | #23 USER | #24 OSL | #25 USER | #26 USER | #27 IRSL | #28 USER
-#&gt; 	 .. .. : #29 OSL | #30 USER | #31 USER | #32 IRSL | #33 USER | #34 OSL | #35 USER
-#&gt; 	 .. .. : #36 USER | #37 IRSL | #38 USER | #39 OSL | #40 USER | #41 USER | #42 IRSL
-#&gt; 	 .. .. : #43 USER | #44 OSL | #45 USER | #46 USER | #47 IRSL | #48 USER | #49 OSL
-#&gt; 	 .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER
-#&gt; 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER
-#&gt; 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</div><div class='input'>
-<span class='co'># (3) analyse and plot</span>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_portableOSL</span><span class='op'>(</span><span class='va'>merged</span>, signal.integral <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span>, normalise <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='analyse_portableOSL-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           BSL    BSL_error       IRSL   IRSL_error BSL_depletion IRSL_depletion
-#&gt; 1  0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537      0.9158216
-#&gt; 2  1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300      0.9087895
-#&gt; 3  0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200      1.0233685
-#&gt; 4  0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701      1.0190504
-#&gt; 5  1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980      0.9352608
-#&gt; 6  1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504      0.9506562
-#&gt; 7  1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993      1.0143051
-#&gt; 8  0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670      0.9835481
-#&gt; 9  2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499      0.9673997
-#&gt; 10 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100      0.9799674
-#&gt; 11 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796      1.0160485
-#&gt; 12 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572      1.0718821
-#&gt; 13 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319      1.1398779
-#&gt; 14 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829      1.0740241
-#&gt;    IRSL_BSL_RATIO
-#&gt; 1       1.0438371
-#&gt; 2       1.0705490
-#&gt; 3       1.2615183
-#&gt; 4       1.0587828
-#&gt; 5       1.0134461
-#&gt; 6       0.9821737
-#&gt; 7       0.8683659
-#&gt; 8       1.4235234
-#&gt; 9       0.9942316
-#&gt; 10      1.0244482
-#&gt; 11      0.8609933
-#&gt; 12      0.9848262
-#&gt; 13      0.7963831
-#&gt; 14      0.9767372</div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># (1) load example data set</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.portableOSL"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># (2) merge and plot all RLum.Analysis objects</span></span>
+<span class='r-in'><span class='va'>merged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_RLum.html'>merge_RLum</a></span><span class='op'>(</span><span class='va'>ExampleData.portableOSL</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>merged</span>, combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='analyse_portableOSL-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>merged</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Analysis-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: merge_RLum.Analysis()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 protocol: portable OSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  196</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 number of records: 70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. : RLum.Data.Curve : 70</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #1 USER | #2 IRSL | #3 USER | #4 OSL | #5 USER | #6 USER | #7 IRSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #8 USER | #9 OSL | #10 USER | #11 USER | #12 IRSL | #13 USER | #14 OSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #15 USER | #16 USER | #17 IRSL | #18 USER | #19 OSL | #20 USER | #21 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #22 IRSL | #23 USER | #24 OSL | #25 USER | #26 USER | #27 IRSL | #28 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #29 OSL | #30 USER | #31 USER | #32 IRSL | #33 USER | #34 OSL | #35 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #36 USER | #37 IRSL | #38 USER | #39 OSL | #40 USER | #41 USER | #42 IRSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #43 USER | #44 OSL | #45 USER | #46 USER | #47 IRSL | #48 USER | #49 OSL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># (3) analyse and plot</span></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_portableOSL</span><span class='op'>(</span><span class='va'>merged</span>, signal.integral <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span>, normalise <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='analyse_portableOSL-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           BSL    BSL_error       IRSL   IRSL_error BSL_depletion IRSL_depletion</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537      0.9158216</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300      0.9087895</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200      1.0233685</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701      1.0190504</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980      0.9352608</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504      0.9506562</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993      1.0143051</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670      0.9835481</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499      0.9673997</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100      0.9799674</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796      1.0160485</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572      1.0718821</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319      1.1398779</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829      1.0740241</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    IRSL_BSL_RATIO</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       1.0438371</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2       1.0705490</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       1.2615183</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4       1.0587828</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5       1.0134461</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6       0.9821737</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7       0.8683659</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8       1.4235234</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9       0.9942316</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10      1.0244482</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11      0.8609933</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12      0.9848262</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13      0.7963831</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14      0.9767372</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -266,7 +270,7 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

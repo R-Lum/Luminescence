@@ -73,7 +73,7 @@ with the use_DRAC function" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -166,7 +166,7 @@ show or hide the notification</p></td>
     <p>A list.</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., Kreutzer, S., 2021. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., Kreutzer, S., 2021. template_DRAC(): Create a DRAC input data template (v1.2). In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
@@ -180,550 +180,574 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># create a new DRAC input input</span>
-<span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>template_DRAC</span><span class='op'>(</span>preset <span class='op'>=</span> <span class='st'>"DRAC-example_quartz"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'>	 This function returns a DRAC input template to be used in </span></div><div class='output co'>#&gt; <span class='message'>	 conjunction with the use_DRAC() function.  </span></div><div class='output co'>#&gt; <span class='message'>	 The template was reproduced with great care, but we do not</span></div><div class='output co'>#&gt; <span class='message'>	 take any responsibility and we are not liable for any </span></div><div class='output co'>#&gt; <span class='message'>	 mistakes or unforeseen misbehaviour.</span></div><div class='output co'>#&gt; <span class='message'>	 Note that this template is only compatible with DRAC</span></div><div class='output co'>#&gt; <span class='message'>	 version 1.1. Before using this template make sure that</span></div><div class='output co'>#&gt; <span class='message'>	 this is the correct version, otherwise expect unspecified</span></div><div class='output co'>#&gt; <span class='message'>	 errors.</span></div><div class='output co'>#&gt; <span class='message'>	 Please ensure you cite the use of DRAC in your work,</span></div><div class='output co'>#&gt; <span class='message'>	 published or otherwise. Please cite the website name and</span></div><div class='output co'>#&gt; <span class='message'>	 version (e.g. DRAC v1.1) and the accompanying journal</span></div><div class='output co'>#&gt; <span class='message'>	 article:</span></div><div class='output co'>#&gt; <span class='message'>	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span></div><div class='output co'>#&gt; <span class='message'>	 DRAC: Dose rate and age calculation for trapped charge</span></div><div class='output co'>#&gt; <span class='message'>	 dating. Quaternary Geochronology 28, 54-61. </span></div><div class='output co'>#&gt; <span class='message'>	 Set 'notification = FALSE' to hide this message. </span></div><div class='output co'>#&gt; <span class='message'>	-------------------- IMPORTANT NOTE ------------------------</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
-<span class='co'># show content of the input</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; TI:1 =&gt; Project ID 
-#&gt;  	 VALUES = DRAC-example 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are 
-#&gt; 			not permitted. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:2 =&gt; Sample ID 
-#&gt;  	 VALUES = Quartz 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are 
-#&gt; 			not permitted. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:3 =&gt; Mineral 
-#&gt;  	 VALUES = Q 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q' 
-#&gt; 			, 'F' or 'PM'. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Q, F, PM 
-#&gt; 
-#&gt; TI:4 =&gt; Conversion factors 
-#&gt;  	 VALUES = Guerinetal2011 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  The conversion factors required to calculate dose rates from radionuclide conce 
-#&gt; 			ntrations. Users have the option of datasets from Adamiec and Aitken (1998), Gue 
-#&gt; 			rin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998',  
-#&gt; 			'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not requir 
-#&gt; 			ed. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, X 
-#&gt; 
-#&gt; TI:5 =&gt; External U (ppm) 
-#&gt;  	 VALUES = 3.4 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:6 =&gt; errExternal U (ppm) 
-#&gt;  	 VALUES = 0.51 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:7 =&gt; External Th (ppm) 
-#&gt;  	 VALUES = 14.47 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:8 =&gt; errExternal Th (ppm) 
-#&gt;  	 VALUES = 1.69 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:9 =&gt; External K (%) 
-#&gt;  	 VALUES = 1.2 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:10 =&gt; errExternal K (%) 
-#&gt;  	 VALUES = 0.14 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:11 =&gt; External Rb (ppm) 
-#&gt;  	 VALUES = 0 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:12 =&gt; errExternal Rb (ppm) 
-#&gt;  	 VALUES = 0 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid 
-#&gt; 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla 
-#&gt; 			nk. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:13 =&gt; Calculate external Rb from K conc? 
-#&gt;  	 VALUES = N 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Option to calculate a Rubidium concentration from Potassium, using the 270:1 ra 
-#&gt; 			tio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Y, N 
-#&gt; 
-#&gt; TI:14 =&gt; Internal U (ppm) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:15 =&gt; errInternal U (ppm) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:16 =&gt; Internal Th (ppm) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:17 =&gt; errInternal Th (ppm) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:18 =&gt; Internal K (%) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:19 =&gt; errInternal K (%) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:20 =&gt; Rb (ppm) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:21 =&gt; errRb (ppm) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  
-#&gt; 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be 
-#&gt; 			left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:22 =&gt; Calculate internal Rb from K conc? 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Option to calculate an internal Rubidium concentration from Potassium, using th 
-#&gt; 			e 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Y, N, X 
-#&gt; 
-#&gt; TI:23 =&gt; User external alphadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
-#&gt; 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
-#&gt; 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#&gt; 			nd should not be left blank 
-#&gt; 			 
-#&gt;  
-#&gt; TI:24 =&gt; errUser external alphadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
-#&gt; 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
-#&gt; 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#&gt; 			nd should not be left blank 
-#&gt; 			 
-#&gt;  
-#&gt; TI:25 =&gt; User external betadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
-#&gt; 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
-#&gt; 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#&gt; 			nd should not be left blank 
-#&gt; 			 
-#&gt;  
-#&gt; TI:26 =&gt; errUser external betadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
-#&gt; 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
-#&gt; 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#&gt; 			nd should not be left blank 
-#&gt; 			 
-#&gt;  
-#&gt; TI:27 =&gt; User external gamma doserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
-#&gt; 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
-#&gt; 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#&gt; 			nd should not be left blank 
-#&gt; 			 
-#&gt;  
-#&gt; TI:28 =&gt; errUser external gammadoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
-#&gt; 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
-#&gt; 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#&gt; 			nd should not be left blank 
-#&gt; 			 
-#&gt;  
-#&gt; TI:29 =&gt; User internal doserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input an internal dose rate (either alpha, beta or the sum of the two 
-#&gt; 			; in Gy.ka-1). DRAC will assume that this value has already been corrected for a 
-#&gt; 			ttenuation. Inputs in this field will override dose rates calculated from radion 
-#&gt; 			uclide concentrations. Inputs should be 0 or positive and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:30 =&gt; errUser internal doserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input an internal dose rate (either alpha, beta or the sum of the two 
-#&gt; 			; in Gy.ka-1). DRAC will assume that this value has already been corrected for a 
-#&gt; 			ttenuation. Inputs in this field will override dose rates calculated from radion 
-#&gt; 			uclide concentrations. Inputs should be 0 or positive and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:31 =&gt; Scale gammadoserate at shallow depths? 
-#&gt;  	 VALUES = N 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may choose to scale gamma dose rates for samples taken within 0.3 m of th 
-#&gt; 			e ground surface. The scaling factors of Aitken (1985) are used. Input should be 
-#&gt; 			yes 'Y' or no 'N'. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Y, N 
-#&gt; 
-#&gt; TI:32 =&gt; Grain size min (microns) 
-#&gt;  	 VALUES = 90 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The grain size range analysed. DRAC can be used for the grain size ranges betwe 
-#&gt; 			en 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left bl 
-#&gt; 			ank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:33 =&gt; Grain size max (microns) 
-#&gt;  	 VALUES = 125 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The grain size range analysed. DRAC can be used for the grain size ranges betwe 
-#&gt; 			en 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left bl 
-#&gt; 			ank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:34 =&gt; alpha-Grain size attenuation 
-#&gt;  	 VALUES = Brennanetal1991 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The grain size attenuation factors for the alpha dose rate. Users have the opti 
-#&gt; 			on of datasets from Bell (1980) and Brennan et al. (1991). Input must be 'Bell19 
-#&gt; 			80' or 'Brennanetal1991'. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Bell1980, Brennanetal1991 
-#&gt; 
-#&gt; TI:35 =&gt; beta-Grain size attenuation  
-#&gt;  	 VALUES = Guerinetal2012-Q 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The grain size attenuation factors for the beta dose rate. Users have the optio 
-#&gt; 			n of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for q 
-#&gt; 			uartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q 
-#&gt; 			' or 'Guerinetal2012-F' . 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Mejdahl1979, Brennan2003, Guerinetal2012-Q, Guerinetal2012-F 
-#&gt; 
-#&gt; TI:36 =&gt; Etch depth min (microns) 
-#&gt;  	 VALUES = 8 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The user defined etch depth range (microns). Inputs should range between 0 and  
-#&gt; 			30 and not be left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:37 =&gt; Etch depth max (microns) 
-#&gt;  	 VALUES = 10 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  The user defined etch depth range (microns). Inputs should range between 0 and  
-#&gt; 			30 and not be left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:38 =&gt; beta-Etch depth attenuation factor 
-#&gt;  	 VALUES = Bell1979 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  The etch depth attenuation factors for the beta dose rate. Users have the optio 
-#&gt; 			n of datasets from Bell (1979) and Brennan (2003). Input must be 'Bell1979' or ' 
-#&gt; 			Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation  
-#&gt; 			of the alpha dose rate by etching. 
-#&gt; 			 
-#&gt;  	 OPTIONS =  Bell1979, Brennan2003, X 
-#&gt; 
-#&gt; TI:39 =&gt; a-value 
-#&gt;  	 VALUES = 0 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Alpha track efficiency value and uncertainty defined by the user. Inputs should 
-#&gt; 			be 0 or positive and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:40 =&gt; erra-value 
-#&gt;  	 VALUES = 0 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  Alpha track efficiency value and uncertainty defined by the user. Inputs should 
-#&gt; 			be 0 or positive and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:41 =&gt; Water content ((wet weight - dry weight)/dry weight) % 
-#&gt;  	 VALUES = 5 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  Sediment water content (%) over the burial period. Inputs should be 0 or positi 
-#&gt; 			ve and not be left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:42 =&gt; errWater content % 
-#&gt;  	 VALUES = 2 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Sediment water content (%) over the burial period. Inputs should be 0 or positi 
-#&gt; 			ve and not be left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:43 =&gt; Depth (m) 
-#&gt;  	 VALUES = 2.22 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Depth and uncertainty from which sample was extracted beneath the ground surfac 
-#&gt; 			e. Inputs should be 0 or positive and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:44 =&gt; errDepth (m) 
-#&gt;  	 VALUES = 0.05 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Depth and uncertainty from which sample was extracted beneath the ground surfac 
-#&gt; 			e. Inputs should be 0 or positive and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:45 =&gt; Overburden density (g cm-3) 
-#&gt;  	 VALUES = 1.8 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  Density of the overlying sediment matrix from which the sample was taken. Input 
-#&gt; 			s should be 0 or positive and not be left blank. The scaling calculation will us 
-#&gt; 			e the overburden density and uncertainty provided. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:46 =&gt; errOverburden density (g cm-3) 
-#&gt;  	 VALUES = 0.1 
-#&gt;  	 ALLOWS 'X' =  FALSE 
-#&gt;  	 REQUIRED = TRUE 
-#&gt;  	 DESCRIPTION =  Density of the overlying sediment matrix from which the sample was taken. Input 
-#&gt; 			s should be 0 or positive and not be left blank. The scaling calculation will us 
-#&gt; 			e the overburden density and uncertainty provided. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:47 =&gt; Latitude (decimal degrees) 
-#&gt;  	 VALUES = 30 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Latitude and longitude of sample location (in degree decimals). Positive values 
-#&gt; 			should be used for northern latitudes and eastern longitudes and negative value 
-#&gt; 			s for southern latitudes and western longitudes. Inputs should range from -90 to 
-#&gt; 			90 degrees for latitudes and -180 to 180 degrees for longitude. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:48 =&gt; Longitude (decimal degrees) 
-#&gt;  	 VALUES = 70 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Latitude and longitude of sample location (in degree decimals). Positive values 
-#&gt; 			should be used for northern latitudes and eastern longitudes and negative value 
-#&gt; 			s for southern latitudes and western longitudes. Inputs should range from -90 to 
-#&gt; 			90 degrees for latitudes and -180 to 180 degrees for longitude. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:49 =&gt; Altitude (m) 
-#&gt;  	 VALUES = 150 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Altitude of sample location in metres above sea level. Input should be less tha 
-#&gt; 			n 5000 and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:50 =&gt; User cosmicdoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will ov 
-#&gt; 			erride the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if 
-#&gt; 			not required, and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:51 =&gt; errUser cosmicdoserate (Gy.ka-1) 
-#&gt;  	 VALUES = X 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will ov 
-#&gt; 			erride the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if 
-#&gt; 			not required, and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:52 =&gt; De (Gy) 
-#&gt;  	 VALUES = 20 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not requ 
-#&gt; 			ired, and not left blank. 
-#&gt; 			 
-#&gt;  
-#&gt; TI:53 =&gt; errDe (Gy) 
-#&gt;  	 VALUES = 0.2 
-#&gt;  	 ALLOWS 'X' =  TRUE 
-#&gt;  	 REQUIRED = FALSE 
-#&gt;  	 DESCRIPTION =  Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not requ 
-#&gt; 			ired, and not left blank. 
-#&gt; 			 
-#&gt;  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>`Project ID`</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "DRAC-example"
-#&gt; attr(,"required")
-#&gt; [1] TRUE
-#&gt; attr(,"allowsX")
-#&gt; [1] FALSE
-#&gt; attr(,"key")
-#&gt; [1] "TI:1"
-#&gt; attr(,"description")
-#&gt; [1] "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] Guerinetal2011
-#&gt; attr(,"required")
-#&gt; [1] FALSE
-#&gt; attr(,"allowsX")
-#&gt; [1] TRUE
-#&gt; attr(,"key")
-#&gt; [1] TI:4
-#&gt; attr(,"description")
-#&gt; [1] The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required.
-#&gt; Levels: AdamiecAitken1998 Guerinetal2011 Liritzisetal2013 X</div><div class='input'>
-
-<span class='co'>## Example: DRAC Quartz example</span>
-<span class='co'># note that you only have to assign new values where they</span>
-<span class='co'># are different to the default values</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Project ID`</span> <span class='op'>&lt;-</span> <span class='st'>"DRAC-Example"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Sample ID`</span> <span class='op'>&lt;-</span> <span class='st'>"Quartz"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Conversion factors`</span> <span class='op'>&lt;-</span> <span class='st'>"AdamiecAitken1998"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`External U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>3.4</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.51</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`External Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>14.47</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.69</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`External K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.2</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.14</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate external Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate internal Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Scale gammadoserate at shallow depths?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size min (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>90</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size max (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>125</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Water content ((wet weight - dry weight)/dry weight) %`</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errWater content %`</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Depth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>2.2</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errDepth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.22</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Overburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.8</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errOverburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.1</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Latitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>30.0000</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Longitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>70.0000</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`Altitude (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>150</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`De (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>20</span>
-<span class='va'>input</span><span class='op'>$</span><span class='va'>`errDe (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.2</span>
-
-<span class='co'># use DRAC</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='use_DRAC.html'>use_DRAC</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># create a new DRAC input input</span></span>
+<span class='r-in'><span class='va'>input</span> <span class='op'>&lt;-</span> <span class='fu'>template_DRAC</span><span class='op'>(</span>preset <span class='op'>=</span> <span class='st'>"DRAC-example_quartz"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	-------------------- IMPORTANT NOTE ------------------------</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 This function returns a DRAC input template to be used in </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 conjunction with the use_DRAC() function.  </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 The template was reproduced with great care, but we do not</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 take any responsibility and we are not liable for any </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 mistakes or unforeseen misbehaviour.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Note that this template is only compatible with DRAC</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 version 1.1. Before using this template make sure that</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 this is the correct version, otherwise expect unspecified</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 errors.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Please ensure you cite the use of DRAC in your work,</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 published or otherwise. Please cite the website name and</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 version (e.g. DRAC v1.1) and the accompanying journal</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 article:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Durcan, J.A., King, G.E., Duller, G.A.T., 2015.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 DRAC: Dose rate and age calculation for trapped charge</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 dating. Quaternary Geochronology 28, 54-61. </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	 Set 'notification = FALSE' to hide this message. </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 	-------------------- IMPORTANT NOTE ------------------------</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show content of the input</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:1 =&gt; Project ID </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = DRAC-example </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			not permitted. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:2 =&gt; Sample ID </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = Quartz </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			not permitted. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:3 =&gt; Mineral </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = Q </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q' </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			, 'F' or 'PM'. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Q, F, PM </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:4 =&gt; Conversion factors </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = Guerinetal2011 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The conversion factors required to calculate dose rates from radionuclide conce </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ntrations. Users have the option of datasets from Adamiec and Aitken (1998), Gue </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			rin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998',  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not requir </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ed. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:5 =&gt; External U (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 3.4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:6 =&gt; errExternal U (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0.51 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:7 =&gt; External Th (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 14.47 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:8 =&gt; errExternal Th (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 1.69 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:9 =&gt; External K (%) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 1.2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:10 =&gt; errExternal K (%) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0.14 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:11 =&gt; External Rb (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:12 =&gt; errExternal Rb (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Radionuclide concentrations in parts per million for Uranium, Thorium and Rubid </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ium and % for Potassium. Inputs must be 0 or positive and should not be left bla </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nk. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:13 =&gt; Calculate external Rb from K conc? </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = N </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Option to calculate a Rubidium concentration from Potassium, using the 270:1 ra </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			tio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Y, N </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:14 =&gt; Internal U (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:15 =&gt; errInternal U (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:16 =&gt; Internal Th (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:17 =&gt; errInternal Th (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:18 =&gt; Internal K (%) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:19 =&gt; errInternal K (%) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:20 =&gt; Rb (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:21 =&gt; errRb (ppm) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Internal radionuclide concentrations in parts per million for Uranium, Thorium  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:22 =&gt; Calculate internal Rb from K conc? </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Option to calculate an internal Rubidium concentration from Potassium, using th </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Y, N, X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:23 =&gt; User external alphadoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nd should not be left blank </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:24 =&gt; errUser external alphadoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nd should not be left blank </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:25 =&gt; User external betadoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nd should not be left blank </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:26 =&gt; errUser external betadoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nd should not be left blank </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:27 =&gt; User external gamma doserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nd should not be left blank </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:28 =&gt; errUser external gammadoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			es calculated from radionuclide concentrations. Inputs should be 0 or positive a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			nd should not be left blank </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:29 =&gt; User internal doserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input an internal dose rate (either alpha, beta or the sum of the two </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			; in Gy.ka-1). DRAC will assume that this value has already been corrected for a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ttenuation. Inputs in this field will override dose rates calculated from radion </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			uclide concentrations. Inputs should be 0 or positive and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:30 =&gt; errUser internal doserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input an internal dose rate (either alpha, beta or the sum of the two </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			; in Gy.ka-1). DRAC will assume that this value has already been corrected for a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ttenuation. Inputs in this field will override dose rates calculated from radion </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			uclide concentrations. Inputs should be 0 or positive and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:31 =&gt; Scale gammadoserate at shallow depths? </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = N </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may choose to scale gamma dose rates for samples taken within 0.3 m of th </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e ground surface. The scaling factors of Aitken (1985) are used. Input should be </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			yes 'Y' or no 'N'. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Y, N </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:32 =&gt; Grain size min (microns) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 90 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The grain size range analysed. DRAC can be used for the grain size ranges betwe </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			en 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left bl </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:33 =&gt; Grain size max (microns) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 125 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The grain size range analysed. DRAC can be used for the grain size ranges betwe </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			en 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left bl </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:34 =&gt; alpha-Grain size attenuation </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = Brennanetal1991 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The grain size attenuation factors for the alpha dose rate. Users have the opti </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			on of datasets from Bell (1980) and Brennan et al. (1991). Input must be 'Bell19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			80' or 'Brennanetal1991'. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Bell1980, Brennanetal1991 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:35 =&gt; beta-Grain size attenuation  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = Guerinetal2012-Q </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The grain size attenuation factors for the beta dose rate. Users have the optio </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			n of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for q </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			uartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			' or 'Guerinetal2012-F' . </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Mejdahl1979, Brennan2003, Guerinetal2012-Q, Guerinetal2012-F </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:36 =&gt; Etch depth min (microns) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The user defined etch depth range (microns). Inputs should range between 0 and  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			30 and not be left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:37 =&gt; Etch depth max (microns) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 10 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The user defined etch depth range (microns). Inputs should range between 0 and  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			30 and not be left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:38 =&gt; beta-Etch depth attenuation factor </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = Bell1979 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  The etch depth attenuation factors for the beta dose rate. Users have the optio </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			n of datasets from Bell (1979) and Brennan (2003). Input must be 'Bell1979' or ' </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			of the alpha dose rate by etching. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 OPTIONS =  Bell1979, Brennan2003, X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:39 =&gt; a-value </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Alpha track efficiency value and uncertainty defined by the user. Inputs should </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			be 0 or positive and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:40 =&gt; erra-value </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Alpha track efficiency value and uncertainty defined by the user. Inputs should </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			be 0 or positive and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:41 =&gt; Water content ((wet weight - dry weight)/dry weight) % </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Sediment water content (%) over the burial period. Inputs should be 0 or positi </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ve and not be left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:42 =&gt; errWater content % </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Sediment water content (%) over the burial period. Inputs should be 0 or positi </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ve and not be left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:43 =&gt; Depth (m) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 2.22 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Depth and uncertainty from which sample was extracted beneath the ground surfac </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e. Inputs should be 0 or positive and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:44 =&gt; errDepth (m) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0.05 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Depth and uncertainty from which sample was extracted beneath the ground surfac </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e. Inputs should be 0 or positive and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:45 =&gt; Overburden density (g cm-3) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 1.8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Density of the overlying sediment matrix from which the sample was taken. Input </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			s should be 0 or positive and not be left blank. The scaling calculation will us </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e the overburden density and uncertainty provided. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:46 =&gt; errOverburden density (g cm-3) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0.1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Density of the overlying sediment matrix from which the sample was taken. Input </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			s should be 0 or positive and not be left blank. The scaling calculation will us </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			e the overburden density and uncertainty provided. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:47 =&gt; Latitude (decimal degrees) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Latitude and longitude of sample location (in degree decimals). Positive values </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			should be used for northern latitudes and eastern longitudes and negative value </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			s for southern latitudes and western longitudes. Inputs should range from -90 to </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			90 degrees for latitudes and -180 to 180 degrees for longitude. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:48 =&gt; Longitude (decimal degrees) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 70 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Latitude and longitude of sample location (in degree decimals). Positive values </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			should be used for northern latitudes and eastern longitudes and negative value </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			s for southern latitudes and western longitudes. Inputs should range from -90 to </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			90 degrees for latitudes and -180 to 180 degrees for longitude. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:49 =&gt; Altitude (m) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 150 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Altitude of sample location in metres above sea level. Input should be less tha </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			n 5000 and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:50 =&gt; User cosmicdoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will ov </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			erride the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			not required, and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:51 =&gt; errUser cosmicdoserate (Gy.ka-1) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = X </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will ov </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			erride the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			not required, and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:52 =&gt; De (Gy) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 20 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not requ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ired, and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> TI:53 =&gt; errDe (Gy) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 VALUES = 0.2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 ALLOWS 'X' =  TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 REQUIRED = FALSE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 DESCRIPTION =  Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not requ </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			ired, and not left blank. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 			 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>$</span><span class='va'>`Project ID`</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "DRAC-example"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"required")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"allowsX")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"key")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "TI:1"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"description")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] Guerinetal2011</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"required")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"allowsX")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"key")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TI:4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"description")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: AdamiecAitken1998 Guerinetal2011 Liritzisetal2013 X</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Example: DRAC Quartz example</span></span>
+<span class='r-in'><span class='co'># note that you only have to assign new values where they</span></span>
+<span class='r-in'><span class='co'># are different to the default values</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Project ID`</span> <span class='op'>&lt;-</span> <span class='st'>"DRAC-Example"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Sample ID`</span> <span class='op'>&lt;-</span> <span class='st'>"Quartz"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Conversion factors`</span> <span class='op'>&lt;-</span> <span class='st'>"AdamiecAitken1998"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`External U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>3.4</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal U (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.51</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`External Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>14.47</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal Th (ppm)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.69</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`External K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.2</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errExternal K (%)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.14</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate external Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Calculate internal Rb from K conc?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Scale gammadoserate at shallow depths?`</span> <span class='op'>&lt;-</span> <span class='st'>"N"</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size min (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>90</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Grain size max (microns)`</span> <span class='op'>&lt;-</span> <span class='fl'>125</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Water content ((wet weight - dry weight)/dry weight) %`</span> <span class='op'>&lt;-</span> <span class='fl'>5</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errWater content %`</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Depth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>2.2</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errDepth (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.22</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Overburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>1.8</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errOverburden density (g cm-3)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.1</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Latitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>30.0000</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Longitude (decimal degrees)`</span> <span class='op'>&lt;-</span> <span class='fl'>70.0000</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`Altitude (m)`</span> <span class='op'>&lt;-</span> <span class='fl'>150</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`De (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>20</span></span>
+<span class='r-in'><span class='va'>input</span><span class='op'>$</span><span class='va'>`errDe (Gy)`</span> <span class='op'>&lt;-</span> <span class='fl'>0.2</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use DRAC</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='use_DRAC.html'>use_DRAC</a></span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -735,7 +759,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

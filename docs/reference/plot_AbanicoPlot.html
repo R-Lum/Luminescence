@@ -74,7 +74,7 @@ kernel density estimate, histogram and/or dot plot of the dose values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -168,7 +168,7 @@ kernel density estimate, histogram and/or dot plot of the dose values.</p>
       <td><p><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a> or <a href='RLum.Results-class.html'>RLum.Results</a> object (<strong>required</strong>):
 for <code>data.frame</code> two columns: De (<code>data[,1]</code>) and De error (<code>data[,2]</code>).
 To plot several data sets in one plot the data sets must be provided as
-<code>list</code>, e.g. <code><a href='https://rdrr.io/r/base/list.html'>list(data.1, data.2)</a></code>.</p></td>
+<code>list</code>, e.g. <code>list(data.1, data.2)</code>.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -444,7 +444,7 @@ sophisticated. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
 cf. <code><a href='get_Layout.html'>get_Layout()</a></code> or type e.g., for the layout type <code>"journal"</code>
-<code><a href='get_Layout.html'>get_Layout("journal")</a></code>. A layout type can be modified by the user by
+<code>get_Layout("journal")</code>. A layout type can be modified by the user by
 assigning new values to the list object.</p>
 <p>It is possible for the z-scale to specify where ticks are to be drawn
 by using the parameter <code>at</code>, e.g. <code>at = seq(80, 200, 20)</code>, cf. function
@@ -455,7 +455,7 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     <p>0.1.16</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Dietze, M., Kreutzer, S., 2021. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.16. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Galbraith, R. &amp; Green, P., 1990. Estimating the component ages
@@ -476,299 +476,330 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## load example data and recalculate to Gray</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ExampleData.DeValues</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span>
-
-<span class='co'>## plot the example data straightforward</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with linear z-scale</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 log.z <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with output of the plot parameters</span>
-<span class='va'>plot1</span> <span class='op'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                          output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>plot1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 10
-#&gt;  $ xlim         : num [1:2] 0 16.1
-#&gt;  $ ylim         : num [1:2] -36.8 15.9
-#&gt;  $ zlim         : num [1:2] 17.4 132.9
-#&gt;  $ polar.box    : num [1:4] 0 16.1 -20.5 12.2
-#&gt;  $ cartesian.box: num [1:4] 16.6 20.4 -20.5 12.2
-#&gt;  $ plot.ratio   : num 0.788
-#&gt;  $ data         :List of 1
-#&gt;   ..$ :'data.frame':	62 obs. of  10 variables:
-#&gt;   .. ..$ De               : num [1:62] 19.7 26.2 31.5 31.9 36.2 ...
-#&gt;   .. ..$ error            : num [1:62] 2.14 2.04 2.34 2.34 2.95 3.15 8.22 3.23 4.43 4.43 ...
-#&gt;   .. ..$ z                : num [1:62] 2.98 3.27 3.45 3.46 3.59 ...
-#&gt;   .. ..$ se               : num [1:62] 0.1086 0.0779 0.0743 0.0732 0.0816 ...
-#&gt;   .. ..$ z.central        : num [1:62] 4.13 4.13 4.13 4.13 4.13 ...
-#&gt;   .. ..$ precision        : num [1:62] 9.21 12.84 13.45 13.65 12.26 ...
-#&gt;   .. ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
-#&gt;   .. ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
-#&gt;   .. ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...
-#&gt;   .. ..$ data.in.2s       : logi [1:62] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ data.global  :'data.frame':	62 obs. of  10 variables:
-#&gt;   ..$ De               : num [1:62] 19.7 26.2 31.5 31.9 36.2 ...
-#&gt;   ..$ error            : num [1:62] 2.14 2.04 2.34 2.34 2.95 3.15 8.22 3.23 4.43 4.43 ...
-#&gt;   ..$ z                : num [1:62] 2.98 3.27 3.45 3.46 3.59 ...
-#&gt;   ..$ se               : num [1:62] 0.1086 0.0779 0.0743 0.0732 0.0816 ...
-#&gt;   ..$ z.central        : num [1:62] 4.13 4.13 4.13 4.13 4.13 ...
-#&gt;   ..$ precision        : num [1:62] 9.21 12.84 13.45 13.65 12.26 ...
-#&gt;   ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
-#&gt;   ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
-#&gt;   ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...
-#&gt;   ..$ data set         : num [1:62] 1 1 1 1 1 1 1 1 1 1 ...
-#&gt;  $ KDE          :List of 1
-#&gt;   ..$ : num [1:514, 1:2] 2.86 2.86 2.86 2.87 2.87 ...
-#&gt;  $ par          :List of 66
-#&gt;   ..$ xlog     : logi FALSE
-#&gt;   ..$ ylog     : logi FALSE
-#&gt;   ..$ adj      : num 0.5
-#&gt;   ..$ ann      : logi TRUE
-#&gt;   ..$ ask      : logi FALSE
-#&gt;   ..$ bg       : chr "transparent"
-#&gt;   ..$ bty      : chr "o"
-#&gt;   ..$ cex      : num 1
-#&gt;   ..$ cex.axis : num 1
-#&gt;   ..$ cex.lab  : num 1
-#&gt;   ..$ cex.main : num 1.2
-#&gt;   ..$ cex.sub  : num 1
-#&gt;   ..$ col      : chr "black"
-#&gt;   ..$ col.axis : chr "black"
-#&gt;   ..$ col.lab  : chr "black"
-#&gt;   ..$ col.main : chr "black"
-#&gt;   ..$ col.sub  : chr "black"
-#&gt;   ..$ crt      : num 0
-#&gt;   ..$ err      : int 0
-#&gt;   ..$ family   : chr ""
-#&gt;   ..$ fg       : chr "black"
-#&gt;   ..$ fig      : num [1:4] 0 1 0 1
-#&gt;   ..$ fin      : num [1:2] 6.67 6.67
-#&gt;   ..$ font     : int 1
-#&gt;   ..$ font.axis: int 1
-#&gt;   ..$ font.lab : int 1
-#&gt;   ..$ font.main: int 2
-#&gt;   ..$ font.sub : int 1
-#&gt;   ..$ lab      : int [1:3] 5 5 7
-#&gt;   ..$ las      : int 0
-#&gt;   ..$ lend     : chr "round"
-#&gt;   ..$ lheight  : num 1
-#&gt;   ..$ ljoin    : chr "round"
-#&gt;   ..$ lmitre   : num 10
-#&gt;   ..$ lty      : chr "solid"
-#&gt;   ..$ lwd      : num 1
-#&gt;   ..$ mai      : num [1:4] 0.9 0.9 0.7 1.4
-#&gt;   ..$ mar      : num [1:4] 4.5 4.5 3.5 7
-#&gt;   ..$ mex      : num 1
-#&gt;   ..$ mfcol    : int [1:2] 1 1
-#&gt;   ..$ mfg      : int [1:4] 1 1 1 1
-#&gt;   ..$ mfrow    : int [1:2] 1 1
-#&gt;   ..$ mgp      : num [1:3] 3 1 0
-#&gt;   ..$ mkh      : num 0.001
-#&gt;   ..$ new      : logi FALSE
-#&gt;   ..$ oma      : num [1:4] 0 0 0 0
-#&gt;   ..$ omd      : num [1:4] 0 1 0 1
-#&gt;   ..$ omi      : num [1:4] 0 0 0 0
-#&gt;   ..$ pch      : int 1
-#&gt;   ..$ pin      : num [1:2] 4.37 5.07
-#&gt;   ..$ plt      : num [1:4] 0.135 0.79 0.135 0.895
-#&gt;   ..$ ps       : int 12
-#&gt;   ..$ pty      : chr "m"
-#&gt;   ..$ smo      : num 1
-#&gt;   ..$ srt      : num 0
-#&gt;   ..$ tck      : num NA
-#&gt;   ..$ tcl      : num -0.5
-#&gt;   ..$ usr      : num [1:4] 0 20.4 -36.8 15.9
-#&gt;   ..$ xaxp     : num [1:3] 0 20 4
-#&gt;   ..$ xaxs     : chr "r"
-#&gt;   ..$ xaxt     : chr "s"
-#&gt;   ..$ xpd      : logi TRUE
-#&gt;   ..$ yaxp     : num [1:3] -30 10 4
-#&gt;   ..$ yaxs     : chr "r"
-#&gt;   ..$ yaxt     : chr "s"
-#&gt;   ..$ ylbias   : num 0.2</div><div class='input'><span class='va'>plot1</span><span class='op'>$</span><span class='va'>zlim</span>
-</div><div class='output co'>#&gt; [1]  17.41711 132.85700</div><div class='input'>
-<span class='co'>## now with adjusted z-scale limits</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 zlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with adjusted x-scale limits</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with rug to indicate individual values in KDE part</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 rug <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a smaller bandwidth for the KDE plot</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 bw <span class='op'>=</span> <span class='fl'>0.04</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a histogram instead of the KDE plot</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 hist <span class='op'>=</span> <span class='cn'>TRUE</span>,
-                 kde <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a KDE plot and histogram with manual number of bins</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 hist <span class='op'>=</span> <span class='cn'>TRUE</span>,
-                 breaks <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a KDE plot and a dot plot</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 dots <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with user-defined plot ratio</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 plot.ratio <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## now with user-defined central value</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 z.0 <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with median as central value</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 z.0 <span class='op'>=</span> <span class='st'>"median"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-13.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with the 17-83 percentile range as definition of scatter</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 z.0 <span class='op'>=</span> <span class='st'>"median"</span>,
-                 dispersion <span class='op'>=</span> <span class='st'>"p17"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-14.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with user-defined green line for minimum age model</span>
-<span class='va'>CAM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_CentralDose.html'>calc_CentralDose</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>,
-                        plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [calc_CentralDose]
-#&gt; 
-#&gt; ----------- meta data ----------------
-#&gt;  n:                       62
-#&gt;  log:                     TRUE
-#&gt; ----------- dose estimate ------------
-#&gt;  central dose [Gy]:       65.71
-#&gt;  SE [Gy]:                 3.05
-#&gt;  rel. SE [%]:             4.65
-#&gt; ----------- overdispersion -----------
-#&gt;  OD [Gy]:                 22.79
-#&gt;  SE [Gy]:                 2.27
-#&gt;  OD [%]:                  34.69
-#&gt;  SE [%]:                  3.46
-#&gt; -------------------------------------
-#&gt; </div><div class='input'>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 line <span class='op'>=</span> <span class='va'>CAM</span>,
-                 line.col <span class='op'>=</span> <span class='st'>"darkgreen"</span>,
-                 line.label <span class='op'>=</span> <span class='st'>"CAM"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-15.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now create plot with legend, colour, different points and smaller scale</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 legend <span class='op'>=</span> <span class='st'>"Sample 1"</span>,
-                 col <span class='op'>=</span> <span class='st'>"tomato4"</span>,
-                 bar.col <span class='op'>=</span> <span class='st'>"peachpuff"</span>,
-                 pch <span class='op'>=</span> <span class='st'>"R"</span>,
-                 cex <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now without 2-sigma bar, polygon, grid lines and central value line</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 bar.col <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                 polygon.col <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                 grid.col <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                 y.axis <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                 lwd <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-17.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with direct display of De errors, without 2-sigma bar</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 bar.col <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                 ylab <span class='op'>=</span> <span class='st'>""</span>,
-                 y.axis <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                 error.bars <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-18.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with user-defined axes labels</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Data error (%)"</span>,
-                          <span class='st'>"Data precision"</span><span class='op'>)</span>,
-                 ylab <span class='op'>=</span> <span class='st'>"Scatter"</span>,
-                 zlab <span class='op'>=</span> <span class='st'>"Equivalent dose [Gy]"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-19.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with minimum, maximum and median value indicated</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-20.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with a brief statistical summary as subheader</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-21.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with another statistical summary</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span><span class='op'>)</span>,
-                 summary.pos <span class='op'>=</span> <span class='st'>"topleft"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-22.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now a plot with two 2-sigma bars for one data set</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 bar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-23.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now the data set is split into sub-groups, one is manipulated</span>
-<span class='va'>data.1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>,<span class='op'>]</span>
-<span class='va'>data.2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>31</span><span class='op'>:</span><span class='fl'>62</span>,<span class='op'>]</span> <span class='op'>*</span> <span class='fl'>1.3</span>
-
-<span class='co'>## now a common dataset is created from the two subgroups</span>
-<span class='va'>data.3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>data.1</span>, <span class='va'>data.2</span><span class='op'>)</span>
-
-<span class='co'>## now the two data sets are plotted in one plot</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-24.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with some graphical modification</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,
-                 z.0 <span class='op'>=</span> <span class='st'>"median"</span>,
-                 col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span><span class='op'>)</span>,
-                 bar.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span><span class='op'>)</span>,
-                 polygon.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue1"</span>, <span class='st'>"orange1"</span><span class='op'>)</span>,
-                 pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>6</span><span class='op'>)</span>,
-                 angle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>50</span><span class='op'>)</span>,
-                 summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-25.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## create Abanico plot with predefined layout definition</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                 layout <span class='op'>=</span> <span class='st'>"journal"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-26.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## now with predefined layout definition and further modifications</span>
-<span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,
-                 z.0 <span class='op'>=</span> <span class='st'>"median"</span>,
-                 layout <span class='op'>=</span> <span class='st'>"journal"</span>,
-                 col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span><span class='op'>)</span>,
-                 bar.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/adjustcolor.html'>adjustcolor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span><span class='op'>)</span>,
-                                       alpha.f <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>,
-                 polygon.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-27.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## for further information on layout definitions see documentation</span>
-<span class='co'>## of function get_Layout()</span>
-
-<span class='co'>## now with manually added plot content</span>
-<span class='co'>## create empty plot with numeric output</span>
-<span class='va'>AP</span> <span class='op'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,
-                       pch <span class='op'>=</span> <span class='cn'>NA</span>,
-                       output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='co'>## identify data in 2 sigma range</span>
-<span class='va'>in_2sigma</span> <span class='op'>&lt;-</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>data.in.2s</span>
-
-<span class='co'>## restore function-internal plot parameters</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>AP</span><span class='op'>$</span><span class='va'>par</span><span class='op'>)</span>
-
-<span class='co'>## add points inside 2-sigma range</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>precision</span><span class='op'>[</span><span class='va'>in_2sigma</span><span class='op'>]</span>,
-       y <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>std.estimate.plot</span><span class='op'>[</span><span class='va'>in_2sigma</span><span class='op'>]</span>,
-       pch <span class='op'>=</span> <span class='fl'>16</span><span class='op'>)</span>
-</div><div class='input'>
-<span class='co'>## add points outside 2-sigma range</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>precision</span><span class='op'>[</span><span class='op'>!</span><span class='va'>in_2sigma</span><span class='op'>]</span>,
-       y <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>std.estimate.plot</span><span class='op'>[</span><span class='op'>!</span><span class='va'>in_2sigma</span><span class='op'>]</span>,
-       pch <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_AbanicoPlot-28.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## load example data and recalculate to Gray</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ExampleData.DeValues</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>$</span><span class='va'>CA1</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## plot the example data straightforward</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with linear z-scale</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 log.z <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with output of the plot parameters</span></span>
+<span class='r-in'><span class='va'>plot1</span> <span class='op'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                          output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>plot1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ xlim         : num [1:2] 0 16.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ylim         : num [1:2] -36.8 15.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ zlim         : num [1:2] 17.4 132.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ polar.box    : num [1:4] 0 16.1 -20.5 12.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ cartesian.box: num [1:4] 16.6 20.4 -20.5 12.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ plot.ratio   : num 0.788</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ data         :List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ :'data.frame':	62 obs. of  10 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ De               : num [1:62] 19.7 26.2 31.5 31.9 36.2 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ error            : num [1:62] 2.14 2.04 2.34 2.34 2.95 3.15 8.22 3.23 4.43 4.43 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ z                : num [1:62] 2.98 3.27 3.45 3.46 3.59 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ se               : num [1:62] 0.1086 0.0779 0.0743 0.0732 0.0816 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ z.central        : num [1:62] 4.13 4.13 4.13 4.13 4.13 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ precision        : num [1:62] 9.21 12.84 13.45 13.65 12.26 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ data.in.2s       : logi [1:62] FALSE FALSE FALSE FALSE FALSE FALSE ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ data.global  :'data.frame':	62 obs. of  10 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ De               : num [1:62] 19.7 26.2 31.5 31.9 36.2 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ error            : num [1:62] 2.14 2.04 2.34 2.34 2.95 3.15 8.22 3.23 4.43 4.43 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ z                : num [1:62] 2.98 3.27 3.45 3.46 3.59 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ se               : num [1:62] 0.1086 0.0779 0.0743 0.0732 0.0816 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ z.central        : num [1:62] 4.13 4.13 4.13 4.13 4.13 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ precision        : num [1:62] 9.21 12.84 13.45 13.65 12.26 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ data set         : num [1:62] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ KDE          :List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ : num [1:514, 1:2] 2.86 2.86 2.86 2.87 2.87 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ par          :List of 66</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ xlog     : logi FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ ylog     : logi FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ adj      : num 0.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ ann      : logi TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ ask      : logi FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ bg       : chr "transparent"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ bty      : chr "o"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ cex      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ cex.axis : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ cex.lab  : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ cex.main : num 1.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ cex.sub  : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ col      : chr "black"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ col.axis : chr "black"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ col.lab  : chr "black"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ col.main : chr "black"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ col.sub  : chr "black"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ crt      : num 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ err      : int 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ family   : chr ""</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ fg       : chr "black"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ fig      : num [1:4] 0 1 0 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ fin      : num [1:2] 6.67 6.67</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font     : int 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.axis: int 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.lab : int 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.main: int 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ font.sub : int 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ lab      : int [1:3] 5 5 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ las      : int 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ lend     : chr "round"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ lheight  : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ ljoin    : chr "round"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ lmitre   : num 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ lty      : chr "solid"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ lwd      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mai      : num [1:4] 0.9 0.9 0.7 1.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mar      : num [1:4] 4.5 4.5 3.5 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mex      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mfcol    : int [1:2] 1 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mfg      : int [1:4] 1 1 1 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mfrow    : int [1:2] 1 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mgp      : num [1:3] 3 1 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ mkh      : num 0.001</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ new      : logi FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ oma      : num [1:4] 0 0 0 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ omd      : num [1:4] 0 1 0 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ omi      : num [1:4] 0 0 0 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ pch      : int 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ pin      : num [1:2] 4.37 5.07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ plt      : num [1:4] 0.135 0.79 0.135 0.895</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ ps       : int 12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ pty      : chr "m"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ smo      : num 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ srt      : num 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ tck      : num NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ tcl      : num -0.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ usr      : num [1:4] 0 20.4 -36.8 15.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ xaxp     : num [1:3] 0 20 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ xaxs     : chr "r"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ xaxt     : chr "s"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ xpd      : logi TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ yaxp     : num [1:3] -30 10 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ yaxs     : chr "r"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ yaxt     : chr "s"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ ylbias   : num 0.2</span>
+<span class='r-in'><span class='va'>plot1</span><span class='op'>$</span><span class='va'>zlim</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  17.41711 132.85700</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with adjusted z-scale limits</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 zlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with adjusted x-scale limits</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with rug to indicate individual values in KDE part</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 rug <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-6.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a smaller bandwidth for the KDE plot</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 bw <span class='op'>=</span> <span class='fl'>0.04</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-7.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a histogram instead of the KDE plot</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 hist <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>                 kde <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-8.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a KDE plot and histogram with manual number of bins</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 hist <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>                 breaks <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-9.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a KDE plot and a dot plot</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 dots <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-10.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with user-defined plot ratio</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 plot.ratio <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-11.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'>## now with user-defined central value</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 z.0 <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-12.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with median as central value</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 z.0 <span class='op'>=</span> <span class='st'>"median"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-13.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with the 17-83 percentile range as definition of scatter</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 z.0 <span class='op'>=</span> <span class='st'>"median"</span>,</span>
+<span class='r-in'>                 dispersion <span class='op'>=</span> <span class='st'>"p17"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-14.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with user-defined green line for minimum age model</span></span>
+<span class='r-in'><span class='va'>CAM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_CentralDose.html'>calc_CentralDose</a></span><span class='op'>(</span><span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                        plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CentralDose]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- meta data ----------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n:                       62</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  log:                     TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- dose estimate ------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. central dose:       65.71</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. SE:                 3.05</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  rel. SE [%]:             4.65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ----------- overdispersion -----------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. OD:                 22.79</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  abs. SE:                 2.27</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  OD [%]:                  34.69</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  SE [%]:                  3.46</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 line <span class='op'>=</span> <span class='va'>CAM</span>,</span>
+<span class='r-in'>                 line.col <span class='op'>=</span> <span class='st'>"darkgreen"</span>,</span>
+<span class='r-in'>                 line.label <span class='op'>=</span> <span class='st'>"CAM"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-15.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now create plot with legend, colour, different points and smaller scale</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 legend <span class='op'>=</span> <span class='st'>"Sample 1"</span>,</span>
+<span class='r-in'>                 col <span class='op'>=</span> <span class='st'>"tomato4"</span>,</span>
+<span class='r-in'>                 bar.col <span class='op'>=</span> <span class='st'>"peachpuff"</span>,</span>
+<span class='r-in'>                 pch <span class='op'>=</span> <span class='st'>"R"</span>,</span>
+<span class='r-in'>                 cex <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-16.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now without 2-sigma bar, polygon, grid lines and central value line</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 bar.col <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                 polygon.col <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                 grid.col <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                 y.axis <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                 lwd <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-17.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with direct display of De errors, without 2-sigma bar</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 bar.col <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                 ylab <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span class='r-in'>                 y.axis <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                 error.bars <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-18.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with user-defined axes labels</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Data error (%)"</span>,</span>
+<span class='r-in'>                          <span class='st'>"Data precision"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 ylab <span class='op'>=</span> <span class='st'>"Scatter"</span>,</span>
+<span class='r-in'>                 zlab <span class='op'>=</span> <span class='st'>"Equivalent dose [Gy]"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-19.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with minimum, maximum and median value indicated</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min"</span>, <span class='st'>"max"</span>, <span class='st'>"median"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-20.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with a brief statistical summary as subheader</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-21.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with another statistical summary</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mean.weighted"</span>, <span class='st'>"median"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 summary.pos <span class='op'>=</span> <span class='st'>"topleft"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-22.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now a plot with two 2-sigma bars for one data set</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 bar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-23.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now the data set is split into sub-groups, one is manipulated</span></span>
+<span class='r-in'><span class='va'>data.1</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>,<span class='op'>]</span></span>
+<span class='r-in'><span class='va'>data.2</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.DeValues</span><span class='op'>[</span><span class='fl'>31</span><span class='op'>:</span><span class='fl'>62</span>,<span class='op'>]</span> <span class='op'>*</span> <span class='fl'>1.3</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now a common dataset is created from the two subgroups</span></span>
+<span class='r-in'><span class='va'>data.3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>data.1</span>, <span class='va'>data.2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now the two data sets are plotted in one plot</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-24.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with some graphical modification</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,</span>
+<span class='r-in'>                 z.0 <span class='op'>=</span> <span class='st'>"median"</span>,</span>
+<span class='r-in'>                 col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 bar.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 polygon.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue1"</span>, <span class='st'>"orange1"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>6</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 angle <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>50</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 summary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"in.2s"</span>, <span class='st'>"median"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-25.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## create Abanico plot with predefined layout definition</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                 layout <span class='op'>=</span> <span class='st'>"journal"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-26.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with predefined layout definition and further modifications</span></span>
+<span class='r-in'><span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data.3</span>,</span>
+<span class='r-in'>                 z.0 <span class='op'>=</span> <span class='st'>"median"</span>,</span>
+<span class='r-in'>                 layout <span class='op'>=</span> <span class='st'>"journal"</span>,</span>
+<span class='r-in'>                 col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue4"</span>, <span class='st'>"orange4"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 bar.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/adjustcolor.html'>adjustcolor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                       alpha.f <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 polygon.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue3"</span>, <span class='st'>"orange3"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-27.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## for further information on layout definitions see documentation</span></span>
+<span class='r-in'><span class='co'>## of function get_Layout()</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## now with manually added plot content</span></span>
+<span class='r-in'><span class='co'>## create empty plot with numeric output</span></span>
+<span class='r-in'><span class='va'>AP</span> <span class='op'>&lt;-</span> <span class='fu'>plot_AbanicoPlot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ExampleData.DeValues</span>,</span>
+<span class='r-in'>                       pch <span class='op'>=</span> <span class='cn'>NA</span>,</span>
+<span class='r-in'>                       output <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## identify data in 2 sigma range</span></span>
+<span class='r-in'><span class='va'>in_2sigma</span> <span class='op'>&lt;-</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>data.in.2s</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## restore function-internal plot parameters</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>AP</span><span class='op'>$</span><span class='va'>par</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## add points inside 2-sigma range</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>precision</span><span class='op'>[</span><span class='va'>in_2sigma</span><span class='op'>]</span>,</span>
+<span class='r-in'>       y <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>std.estimate.plot</span><span class='op'>[</span><span class='va'>in_2sigma</span><span class='op'>]</span>,</span>
+<span class='r-in'>       pch <span class='op'>=</span> <span class='fl'>16</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## add points outside 2-sigma range</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>precision</span><span class='op'>[</span><span class='op'>!</span><span class='va'>in_2sigma</span><span class='op'>]</span>,</span>
+<span class='r-in'>       y <span class='op'>=</span> <span class='va'>AP</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>std.estimate.plot</span><span class='op'>[</span><span class='op'>!</span><span class='va'>in_2sigma</span><span class='op'>]</span>,</span>
+<span class='r-in'>       pch <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_AbanicoPlot-28.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -780,7 +811,7 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

@@ -75,7 +75,7 @@ changes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -146,13 +146,13 @@ changes.</p>
       <th>depth</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>):
 depth of overburden (m). For more than one absorber use <br />
-<code><a href='https://rdrr.io/r/base/c.html'>c(depth_1, depth_2, ..., depth_n)</a></code></p></td>
+<code>c(depth_1, depth_2, ..., depth_n)</code></p></td>
     </tr>
     <tr>
       <th>density</th>
       <td><p><a href='https://rdrr.io/r/base/numeric.html'>numeric</a> (<strong>required</strong>):
 average overburden density (g/cm^3). For more than one absorber use <br />
-<code><a href='https://rdrr.io/r/base/c.html'>c(density_1, density_2, ..., density_n)</a></code></p></td>
+<code>c(density_1, density_2, ..., density_n)</code></p></td>
     </tr>
     <tr>
       <th>latitude</th>
@@ -292,7 +292,7 @@ function at the time of writing.</p>
     <p>0.5.2</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Burow, C., 2021. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., 2021. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
@@ -322,153 +322,159 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##(1) calculate cosmic dose rate (one absorber)</span>
-<span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fl'>2.78</span>, density <span class='op'>=</span> <span class='fl'>1.7</span>,
-                    latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,
-                    altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt;  [calc_CosmicDoseRate]
-#&gt; 
-#&gt;  ---------------------------------------------------------
-#&gt;  depth (m)              : 2.78
-#&gt;  density (g cm^-3)      : 1.7
-#&gt;  latitude (N deg.)      : 38.06451
-#&gt;  longitude (E deg.)     : 1.49646
-#&gt;  altitude (m)           : 364
-#&gt;  ---------------------------------------------------------
-#&gt;  total absorber (g cm^-2)       : 472.6
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.1518
-#&gt;   [@sea-level &amp; 55 deg. N G.lat]
-#&gt; 
-#&gt;  geomagnetic latitude (deg.)    : 41.1
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.161 +- 0.0161
-#&gt;   [corrected]                 
-#&gt;  ---------------------------------------------------------
-#&gt; </div><div class='input'>
-<span class='co'>##(2a) calculate cosmic dose rate (two absorber)</span>
-<span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>2.78</span><span class='op'>)</span>, density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.65</span>, <span class='fl'>1.7</span><span class='op'>)</span>,
-                    latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,
-                    altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt;  [calc_CosmicDoseRate]
-#&gt; 
-#&gt;  ---------------------------------------------------------
-#&gt;  depth (m)              : 5 
-#&gt;  depth (m)              : 2.78
-#&gt;  density (g cm^-3)      : 2.65 
-#&gt;  density (g cm^-3)      : 1.7
-#&gt;  latitude (N deg.)      : 38.06451
-#&gt;  longitude (E deg.)     : 1.49646
-#&gt;  altitude (m)           : 364
-#&gt;  ---------------------------------------------------------
-#&gt;  total absorber (g cm^-2)       : 1797.6
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.0705
-#&gt;   [@sea-level &amp; 55 deg. N G.lat]
-#&gt; 
-#&gt;  geomagnetic latitude (deg.)    : 41.1
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.0747 +- 0.0075
-#&gt;   [corrected]                 
-#&gt;  ---------------------------------------------------------
-#&gt; </div><div class='input'>
-<span class='co'>##(2b) calculate cosmic dose rate (two absorber) and</span>
-<span class='co'>##correct for geomagnetic field changes</span>
-<span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>2.78</span><span class='op'>)</span>, density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.65</span>, <span class='fl'>1.7</span><span class='op'>)</span>,
-                    latitude <span class='op'>=</span> <span class='fl'>12.04332</span>, longitude <span class='op'>=</span> <span class='fl'>4.43243</span>,
-                    altitude <span class='op'>=</span> <span class='fl'>364</span>, corr.fieldChanges <span class='op'>=</span> <span class='cn'>TRUE</span>,
-                    est.age <span class='op'>=</span> <span class='fl'>67</span>, error <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "corr.fac 1.04562628608 diff.one 0.02 alt.fac 1.281314304"
-#&gt; 
-#&gt; 
-#&gt;  [calc_CosmicDoseRate]
-#&gt; 
-#&gt;  ---------------------------------------------------------
-#&gt;  depth (m)              : 5 
-#&gt;  depth (m)              : 2.78
-#&gt;  density (g cm^-3)      : 2.65 
-#&gt;  density (g cm^-3)      : 1.7
-#&gt;  latitude (N deg.)      : 12.04332
-#&gt;  longitude (E deg.)     : 4.43243
-#&gt;  altitude (m)           : 364
-#&gt;  ---------------------------------------------------------
-#&gt;  total absorber (g cm^-2)       : 1797.6
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.0705
-#&gt;   [@sea-level &amp; 55 deg. N G.lat]
-#&gt; 
-#&gt;  geomagnetic latitude (deg.)    : 15.1
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.072 +- 0.0108
-#&gt;   [corrected]                 
-#&gt;  ---------------------------------------------------------
-#&gt; </div><div class='input'>
-
-<span class='co'>##(3) calculate cosmic dose rate and export results to .csv file</span>
-<span class='co'>#calculate cosmic dose rate and save to variable</span>
-<span class='va'>results</span><span class='op'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fl'>2.78</span>, density <span class='op'>=</span> <span class='fl'>1.7</span>,
-                              latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,
-                              altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt;  [calc_CosmicDoseRate]
-#&gt; 
-#&gt;  ---------------------------------------------------------
-#&gt;  depth (m)              : 2.78
-#&gt;  density (g cm^-3)      : 1.7
-#&gt;  latitude (N deg.)      : 38.06451
-#&gt;  longitude (E deg.)     : 1.49646
-#&gt;  altitude (m)           : 364
-#&gt;  ---------------------------------------------------------
-#&gt;  total absorber (g cm^-2)       : 472.6
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.1518
-#&gt;   [@sea-level &amp; 55 deg. N G.lat]
-#&gt; 
-#&gt;  geomagnetic latitude (deg.)    : 41.1
-#&gt; 
-#&gt;  cosmic dose rate (Gy ka^-1)    : 0.161 +- 0.0161
-#&gt;   [corrected]                 
-#&gt;  ---------------------------------------------------------
-#&gt; </div><div class='input'>
-<span class='co'># the results can be accessed by</span>
-<span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, <span class='st'>"summary"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   depth density latitude longitude altitude total_absorber.gcm2        d0
-#&gt; 1  2.78     1.7 38.06451   1.49646      364               472.6 0.1518269
-#&gt;   geom_lat       dc
-#&gt; 1  41.0685 0.161002</div><div class='input'>
-<span class='co'>#export results to .csv file - uncomment for usage</span>
-<span class='co'>#write.csv(results, file = "c:/users/public/results.csv")</span>
-
-<span class='co'>##(4) calculate cosmic dose rate for 6 samples from the same profile</span>
-<span class='co'>##    and save to .csv file</span>
-<span class='co'>#calculate cosmic dose rate and save to variable</span>
-<span class='va'>results</span><span class='op'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.5</span> , <span class='fl'>2.1</span>, <span class='fl'>2.7</span>, <span class='fl'>4.2</span>, <span class='fl'>6.3</span><span class='op'>)</span>,
-                              density <span class='op'>=</span> <span class='fl'>1.7</span>, latitude <span class='op'>=</span> <span class='fl'>38.06451</span>,
-                              longitude <span class='op'>=</span> <span class='fl'>1.49646</span>, altitude <span class='op'>=</span> <span class='fl'>364</span>,
-                              error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt;  [calc_CosmicDoseRate]
-#&gt; 
-#&gt;  Calculating cosmic dose rate for 6 samples. 
-#&gt; 
-#&gt;   depth (m) d0 (Gy/ka) dc (Gy/ka) dc_error (Gy/ka)
-#&gt; 1       0.1     0.2599     0.2756           0.0276
-#&gt; 2       0.5     0.1999     0.2120           0.0212
-#&gt; 3       2.1     0.1640     0.1739           0.0174
-#&gt; 4       2.7     0.1532     0.1625           0.0162
-#&gt; 5       4.2     0.1299     0.1377           0.0138
-#&gt; 6       6.3     0.1045     0.1109           0.0111</div><div class='input'>
-<span class='co'>#export results to .csv file - uncomment for usage</span>
-<span class='co'>#write.csv(results, file = "c:/users/public/results_profile.csv")</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##(1) calculate cosmic dose rate (one absorber)</span></span>
+<span class='r-in'><span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fl'>2.78</span>, density <span class='op'>=</span> <span class='fl'>1.7</span>,</span>
+<span class='r-in'>                    latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,</span>
+<span class='r-in'>                    altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CosmicDoseRate]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  depth (m)              : 2.78</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  density (g cm^-3)      : 1.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  latitude (N deg.)      : 38.06451</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  longitude (E deg.)     : 1.49646</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  altitude (m)           : 364</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  total absorber (g cm^-2)       : 472.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.1518</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [@sea-level &amp; 55 deg. N G.lat]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  geomagnetic latitude (deg.)    : 41.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.161 +- 0.0161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [corrected]                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2a) calculate cosmic dose rate (two absorber)</span></span>
+<span class='r-in'><span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>2.78</span><span class='op'>)</span>, density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.65</span>, <span class='fl'>1.7</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,</span>
+<span class='r-in'>                    altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CosmicDoseRate]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  depth (m)              : 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  depth (m)              : 2.78</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  density (g cm^-3)      : 2.65 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  density (g cm^-3)      : 1.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  latitude (N deg.)      : 38.06451</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  longitude (E deg.)     : 1.49646</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  altitude (m)           : 364</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  total absorber (g cm^-2)       : 1797.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.0705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [@sea-level &amp; 55 deg. N G.lat]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  geomagnetic latitude (deg.)    : 41.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.0747 +- 0.0075</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [corrected]                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2b) calculate cosmic dose rate (two absorber) and</span></span>
+<span class='r-in'><span class='co'>##correct for geomagnetic field changes</span></span>
+<span class='r-in'><span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.0</span>, <span class='fl'>2.78</span><span class='op'>)</span>, density <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.65</span>, <span class='fl'>1.7</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    latitude <span class='op'>=</span> <span class='fl'>12.04332</span>, longitude <span class='op'>=</span> <span class='fl'>4.43243</span>,</span>
+<span class='r-in'>                    altitude <span class='op'>=</span> <span class='fl'>364</span>, corr.fieldChanges <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>                    est.age <span class='op'>=</span> <span class='fl'>67</span>, error <span class='op'>=</span> <span class='fl'>15</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "corr.fac 1.04562628608 diff.one 0.02 alt.fac 1.281314304"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CosmicDoseRate]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  depth (m)              : 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  depth (m)              : 2.78</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  density (g cm^-3)      : 2.65 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  density (g cm^-3)      : 1.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  latitude (N deg.)      : 12.04332</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  longitude (E deg.)     : 4.43243</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  altitude (m)           : 364</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  total absorber (g cm^-2)       : 1797.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.0705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [@sea-level &amp; 55 deg. N G.lat]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  geomagnetic latitude (deg.)    : 15.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.072 +- 0.0108</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [corrected]                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(3) calculate cosmic dose rate and export results to .csv file</span></span>
+<span class='r-in'><span class='co'>#calculate cosmic dose rate and save to variable</span></span>
+<span class='r-in'><span class='va'>results</span><span class='op'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fl'>2.78</span>, density <span class='op'>=</span> <span class='fl'>1.7</span>,</span>
+<span class='r-in'>                              latitude <span class='op'>=</span> <span class='fl'>38.06451</span>, longitude <span class='op'>=</span> <span class='fl'>1.49646</span>,</span>
+<span class='r-in'>                              altitude <span class='op'>=</span> <span class='fl'>364</span>, error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CosmicDoseRate]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  depth (m)              : 2.78</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  density (g cm^-3)      : 1.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  latitude (N deg.)      : 38.06451</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  longitude (E deg.)     : 1.49646</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  altitude (m)           : 364</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  total absorber (g cm^-2)       : 472.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.1518</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [@sea-level &amp; 55 deg. N G.lat]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  geomagnetic latitude (deg.)    : 41.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  cosmic dose rate (Gy ka^-1)    : 0.161 +- 0.0161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [corrected]                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># the results can be accessed by</span></span>
+<span class='r-in'><span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>results</span>, <span class='st'>"summary"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   depth density latitude longitude altitude total_absorber.gcm2        d0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  2.78     1.7 38.06451   1.49646      364               472.6 0.1518269</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   geom_lat       dc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  41.0685 0.161002</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#export results to .csv file - uncomment for usage</span></span>
+<span class='r-in'><span class='co'>#write.csv(results, file = "c:/users/public/results.csv")</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(4) calculate cosmic dose rate for 6 samples from the same profile</span></span>
+<span class='r-in'><span class='co'>##    and save to .csv file</span></span>
+<span class='r-in'><span class='co'>#calculate cosmic dose rate and save to variable</span></span>
+<span class='r-in'><span class='va'>results</span><span class='op'>&lt;-</span> <span class='fu'>calc_CosmicDoseRate</span><span class='op'>(</span>depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.5</span> , <span class='fl'>2.1</span>, <span class='fl'>2.7</span>, <span class='fl'>4.2</span>, <span class='fl'>6.3</span><span class='op'>)</span>,</span>
+<span class='r-in'>                              density <span class='op'>=</span> <span class='fl'>1.7</span>, latitude <span class='op'>=</span> <span class='fl'>38.06451</span>,</span>
+<span class='r-in'>                              longitude <span class='op'>=</span> <span class='fl'>1.49646</span>, altitude <span class='op'>=</span> <span class='fl'>364</span>,</span>
+<span class='r-in'>                              error <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [calc_CosmicDoseRate]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Calculating cosmic dose rate for 6 samples. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   depth (m) d0 (Gy/ka) dc (Gy/ka) dc_error (Gy/ka)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       0.1     0.2599     0.2756           0.0276</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2       0.5     0.1999     0.2120           0.0212</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       2.1     0.1640     0.1739           0.0174</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4       2.7     0.1532     0.1625           0.0162</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5       4.2     0.1299     0.1377           0.0138</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6       6.3     0.1045     0.1109           0.0111</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#export results to .csv file - uncomment for usage</span></span>
+<span class='r-in'><span class='co'>#write.csv(results, file = "c:/users/public/results_profile.csv")</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -480,7 +486,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

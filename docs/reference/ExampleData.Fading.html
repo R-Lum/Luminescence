@@ -75,7 +75,7 @@ fading correction to." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -173,85 +173,93 @@ doi:10.1016/j.quageo.2016.01.004</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## Load example data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.Fading"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Get fading measurement data of the IR50 signal</span>
-<span class='va'>IR50_fading</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.Fading</span><span class='op'>$</span><span class='va'>fading.data</span><span class='op'>$</span><span class='va'>IR50</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>IR50_fading</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    LxTx LxTx.error timeSinceIrradiation
-#&gt; 1 0.980     0.0490                381.6
-#&gt; 2 0.952     0.0476              12178.8
-#&gt; 3 0.924     0.0462              18183.6
-#&gt; 4 0.912     0.0456              30178.8
-#&gt; 5 0.898     0.0449              54172.8
-#&gt; 6 0.974     0.0487                378.0</div><div class='input'>
-<span class='co'>## Determine g-value and rho' for the IR50 signal</span>
-<span class='va'>IR50_fading.res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span><span class='op'>(</span><span class='va'>IR50_fading</span><span class='op'>)</span>
-</div><div class='img'><img src='ExampleData.Fading-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; [analyse_FadingMeasurement()]
-#&gt; 
-#&gt;  n.MC:	100
-#&gt;  tc:	3.78e+02 s
-#&gt; ---------------------------------------------------
-#&gt; T_0.5 interpolated:	NA
-#&gt; T_0.5 predicted:	4e+11
-#&gt; g-value:		5.18 ± 0.84 (%/decade)
-#&gt; g-value (norm. 2 days):	6.01 ± 0.86 (%/decade)
-#&gt; ---------------------------------------------------
-#&gt; rho':			3.92e-06 ± 5.53e-07
-#&gt; log10(rho'):		-5.41 ± 0.06
-#&gt; ---------------------------------------------------</div><div class='input'>
-<span class='co'>## Show g-value and rho' results</span>
-<span class='va'>gval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>IR50_fading.res</span><span class='op'>)</span>
-<span class='va'>rhop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>IR50_fading.res</span>, <span class='st'>"rho_prime"</span><span class='op'>)</span>
-
-<span class='va'>gval</span>
-</div><div class='output co'>#&gt;        FIT     MEAN        SD  Q_0.025   Q_0.16   Q_0.84  Q_0.975  TC
-#&gt; x 5.182106 5.233444 0.8372966 3.687753 4.405572 6.094602 6.879693 378
-#&gt;   G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED T_0.5_PREDICTED
-#&gt; x      6.010655           0.8563702                 NA    395648134315
-#&gt;   T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER
-#&gt; x           18339400088           18339400088
-#&gt;                                  UID
-#&gt; x 2021-08-24-04:03.0.772521511185914</div><div class='input'><span class='va'>rhop</span>
-</div><div class='output co'>#&gt;           MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975
-#&gt; 1 3.921821e-06 5.528297e-07 3.031493e-06 3.377133e-06 4.454633e-06 4.952239e-06</div><div class='input'>
-<span class='co'>## Get LxTx values of the IR50 DE measurement</span>
-<span class='va'>IR50_De.LxTx</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.Fading</span><span class='op'>$</span><span class='va'>equivalentDose.data</span><span class='op'>$</span><span class='va'>IR50</span>
-
-<span class='co'>## Calculate the De of the IR50 signal</span>
-<span class='va'>IR50_De</span> <span class='op'>&lt;-</span> <span class='fu'><a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></span><span class='op'>(</span><span class='va'>IR50_De.LxTx</span>,
-                                mode <span class='op'>=</span> <span class='st'>"interpolation"</span>,
-                                fit.method <span class='op'>=</span> <span class='st'>"EXP"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47</div><div class='img'><img src='ExampleData.Fading-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Extract the calculated De and its error</span>
-<span class='va'>IR50_De.res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>IR50_De</span><span class='op'>)</span>
-<span class='va'>De</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>IR50_De.res</span><span class='op'>$</span><span class='va'>De</span>, <span class='va'>IR50_De.res</span><span class='op'>$</span><span class='va'>De.Error</span><span class='op'>)</span>
-
-<span class='co'>## Apply fading correction (age conversion greatly simplified)</span>
-<span class='va'>IR50_Age</span> <span class='op'>&lt;-</span> <span class='va'>De</span> <span class='op'>/</span> <span class='fl'>7.00</span>
-<span class='va'>IR50_Age.corr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span><span class='op'>(</span><span class='va'>IR50_Age</span>, g_value <span class='op'>=</span> <span class='va'>IR50_fading.res</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; [calc_FadingCorr()]
-#&gt; 
-#&gt;  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)
-#&gt; 
-#&gt;  .. used g-value:	5.182 ± 0.837 %/decade
-#&gt;  .. used tc:		1.198e-08 ka
-#&gt;  .. used kappa:		0.0225 ± 0.0036
-#&gt;  ----------------------------------------------
-#&gt;  seed: 			NA
-#&gt;  n.MC: 			10000
-#&gt;  observations: 		10000
-#&gt;  ----------------------------------------------
-#&gt;  Age (faded):		139.6261 ka ± 14.8132 ka
-#&gt;  Age (corr.):		288.1629 ka ± 72.5733 ka
-#&gt;  ---------------------------------------------- </div><div class='input'>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## Load example data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"ExampleData.Fading"</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Get fading measurement data of the IR50 signal</span></span>
+<span class='r-in'><span class='va'>IR50_fading</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.Fading</span><span class='op'>$</span><span class='va'>fading.data</span><span class='op'>$</span><span class='va'>IR50</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>IR50_fading</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    LxTx LxTx.error timeSinceIrradiation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.980     0.0490                381.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 0.952     0.0476              12178.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 0.924     0.0462              18183.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 0.912     0.0456              30178.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 0.898     0.0449              54172.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 0.974     0.0487                378.0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Determine g-value and rho' for the IR50 signal</span></span>
+<span class='r-in'><span class='va'>IR50_fading.res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='analyse_FadingMeasurement.html'>analyse_FadingMeasurement</a></span><span class='op'>(</span><span class='va'>IR50_fading</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ExampleData.Fading-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [analyse_FadingMeasurement()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n.MC:	100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  tc:	3.78e+02 s</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T_0.5 interpolated:	NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> T_0.5 predicted:	4e+11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> g-value:		5.18 ± 0.84 (%/decade)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> g-value (norm. 2 days):	6.01 ± 0.86 (%/decade)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> rho':			3.92e-06 ± 5.53e-07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> log10(rho'):		-5.41 ± 0.06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ---------------------------------------------------</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Show g-value and rho' results</span></span>
+<span class='r-in'><span class='va'>gval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>IR50_fading.res</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>rhop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>IR50_fading.res</span>, <span class='st'>"rho_prime"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>gval</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        FIT     MEAN        SD  Q_0.025   Q_0.16   Q_0.84  Q_0.975  TC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x 5.182106 5.233444 0.8372966 3.687753 4.405572 6.094602 6.879693 378</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED T_0.5_PREDICTED</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x      6.010655           0.8563702                 NA    395648134315</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x           18339400088           18339400088</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                  UID</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x 2021-11-25-11:16.0.772521511185914</span>
+<span class='r-in'><span class='va'>rhop</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 3.921821e-06 5.528297e-07 3.031493e-06 3.377133e-06 4.454633e-06 4.952239e-06</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Get LxTx values of the IR50 DE measurement</span></span>
+<span class='r-in'><span class='va'>IR50_De.LxTx</span> <span class='op'>&lt;-</span> <span class='va'>ExampleData.Fading</span><span class='op'>$</span><span class='va'>equivalentDose.data</span><span class='op'>$</span><span class='va'>IR50</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Calculate the De of the IR50 signal</span></span>
+<span class='r-in'><span class='va'>IR50_De</span> <span class='op'>&lt;-</span> <span class='fu'><a href='plot_GrowthCurve.html'>plot_GrowthCurve</a></span><span class='op'>(</span><span class='va'>IR50_De.LxTx</span>,</span>
+<span class='r-in'>                                mode <span class='op'>=</span> <span class='st'>"interpolation"</span>,</span>
+<span class='r-in'>                                fit.method <span class='op'>=</span> <span class='st'>"EXP"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47</span>
+<span class='r-plt img'><img src='ExampleData.Fading-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Extract the calculated De and its error</span></span>
+<span class='r-in'><span class='va'>IR50_De.res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>IR50_De</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>De</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>IR50_De.res</span><span class='op'>$</span><span class='va'>De</span>, <span class='va'>IR50_De.res</span><span class='op'>$</span><span class='va'>De.Error</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Apply fading correction (age conversion greatly simplified)</span></span>
+<span class='r-in'><span class='va'>IR50_Age</span> <span class='op'>&lt;-</span> <span class='va'>De</span> <span class='op'>/</span> <span class='fl'>7.00</span></span>
+<span class='r-in'><span class='va'>IR50_Age.corr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='calc_FadingCorr.html'>calc_FadingCorr</a></span><span class='op'>(</span><span class='va'>IR50_Age</span>, g_value <span class='op'>=</span> <span class='va'>IR50_fading.res</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [calc_FadingCorr()]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used g-value:	5.182 ± 0.837 %/decade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used tc:		1.198e-08 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  .. used kappa:		0.0225 ± 0.0036</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  seed: 			NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  n.MC: 			10000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  observations: 		10000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ----------------------------------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (faded):		139.6261 ka ± 14.8132 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Age (corr.):		288.1629 ka ± 72.5733 ka</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  ---------------------------------------------- </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -263,7 +271,7 @@ doi:10.1016/j.quageo.2016.01.004</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

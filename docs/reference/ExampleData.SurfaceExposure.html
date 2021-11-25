@@ -74,7 +74,7 @@ interactively." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -176,189 +176,203 @@ interactively.</p>
     <p>Unpublished synthetic data</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## ExampleData.SurfaceExposure$sample_1</span>
-<span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span>
-<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fl'>10000</span>
-<span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span><span class='op'>)</span>
-<span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='va'>age</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span>
-<span class='va'>synth_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,
-                      intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
-                      error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>0.01</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## VALIDATE sample_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_1</span>, mu <span class='op'>=</span> <span class='va'>mu</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span><span class='op'>)</span>
-</div><div class='img'><img src='ExampleData.SurfaceExposure-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9890 ± 369
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-
-
-
-<span class='co'>## ExampleData.SurfaceExposure$sample_2</span>
-<span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span>
-<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fl'>10000</span>
-<span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span><span class='op'>)</span>
-<span class='va'>Ddot</span> <span class='op'>&lt;-</span> <span class='fl'>2.5</span>   <span class='op'>/</span> <span class='fl'>1000</span> <span class='op'>/</span> <span class='fl'>365.25</span> <span class='op'>/</span> <span class='fl'>24</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='co'># 2.5 Gy/ka in Seconds</span>
-<span class='va'>D0</span> <span class='op'>&lt;-</span> <span class='fl'>40</span>
-<span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>*</span>
-          <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='op'>(</span><span class='va'>age</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span><span class='op'>)</span> <span class='op'>*</span>
-                <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span> <span class='op'>/</span>
-  <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span>
-<span class='va'>synth_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,
-                      intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
-                      error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>0.01</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## VALIDATE sample_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_2</span>, mu <span class='op'>=</span> <span class='va'>mu</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span>, Ddot <span class='op'>=</span> <span class='fl'>2.5</span>, D0 <span class='op'>=</span> <span class='va'>D0</span><span class='op'>)</span>
-</div><div class='img'><img src='ExampleData.SurfaceExposure-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  age (a):	9800 ± 675
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  sigmaphi:	5e-10
-#&gt;  mu:		0.9
-#&gt; </div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-
-
-<span class='co'>## ExampleData.SurfaceExposure$set_1</span>
-<span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span>
-<span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span><span class='op'>)</span>
-<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span>
-
-<span class='va'>synth_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='va'>age</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>synth_3</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,
-                             intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-
-<span class='co'>## VALIDATE set_1</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_3</span>, age <span class='op'>=</span> <span class='va'>age</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.901 ± 0.00161
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = 0.901)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-
-
-<span class='co'>## ExampleData.SurfaceExposure$set_2</span>
-<span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span>
-<span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span><span class='op'>)</span>
-<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span>
-<span class='va'>Ddot</span> <span class='op'>&lt;-</span> <span class='fl'>1.0</span> <span class='op'>/</span> <span class='fl'>1000</span> <span class='op'>/</span> <span class='fl'>365.25</span> <span class='op'>/</span> <span class='fl'>24</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='co'># 2.0 Gy/ka in Seconds</span>
-<span class='va'>D0</span> <span class='op'>&lt;-</span> <span class='fl'>40</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span>
-
-<span class='va'>synth_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>*</span>
-            <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='op'>(</span><span class='va'>age</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span><span class='op'>)</span> <span class='op'>*</span>
-                  <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span> <span class='op'>/</span>
-    <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span>
-
-  <span class='va'>synth_4</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,
-                             intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-
-<span class='co'>## VALIDATE set_2</span>
-<span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_4</span>, age <span class='op'>=</span> <span class='va'>age</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span>, D0 <span class='op'>=</span> <span class='va'>D0</span>, Ddot <span class='op'>=</span> <span class='fl'>1.0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [fit_SurfaceExposure()] 
-#&gt; 
-#&gt;  Shared estimated paramater(s):
-#&gt;  -----------------------
-#&gt;  mu:		0.899 ± 0.00232
-#&gt; 
-#&gt;  Fixed parameters(s):
-#&gt;  --------------------
-#&gt;  age (a):	100, 1000, 10000, 1e+05, 1e+06
-#&gt;  sigmaphi:	5e-10
-#&gt; </div><div class='output co'>#&gt; <span class='message'>To apply the estimated parameters to a sample of unknown age run:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = 0.899)</span>
-#&gt; <span class='message'></span></div><div class='img'><img src='ExampleData.SurfaceExposure-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt;  [RLum.Results-class]
-#&gt; 	 originator: fit_SurfaceExposure()
-#&gt; 	 data: 5
-#&gt;  	 .. $summary : data.frame
-#&gt; 	 .. $data : data.frame
-#&gt; 	 .. $fit : nls
-#&gt; 	 .. $args : list
-#&gt; 	 .. $call : call
-#&gt; 	 additional info elements:  0 </div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>ExampleData.SurfaceExposure</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-  sample_1 <span class='op'>=</span> <span class='va'>synth_1</span>,
-  sample_2 <span class='op'>=</span> <span class='va'>synth_2</span>,
-  set_1 <span class='op'>=</span> <span class='va'>synth_3</span>,
-  set_2 <span class='op'>=</span> <span class='va'>synth_4</span>
-<span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## ExampleData.SurfaceExposure$sample_1</span></span>
+<span class='r-in'><span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span></span>
+<span class='r-in'><span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fl'>10000</span></span>
+<span class='r-in'><span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='va'>age</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>synth_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,</span>
+<span class='r-in'>                      intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>0.01</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## VALIDATE sample_1</span></span>
+<span class='r-in'><span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_1</span>, mu <span class='op'>=</span> <span class='va'>mu</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ExampleData.SurfaceExposure-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	9890 ± 369</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: fit_SurfaceExposure()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $summary : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $fit : nls</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $args : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $call : call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ExampleData.SurfaceExposure$sample_2</span></span>
+<span class='r-in'><span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span></span>
+<span class='r-in'><span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fl'>10000</span></span>
+<span class='r-in'><span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>Ddot</span> <span class='op'>&lt;-</span> <span class='fl'>2.5</span>   <span class='op'>/</span> <span class='fl'>1000</span> <span class='op'>/</span> <span class='fl'>365.25</span> <span class='op'>/</span> <span class='fl'>24</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='co'># 2.5 Gy/ka in Seconds</span></span>
+<span class='r-in'><span class='va'>D0</span> <span class='op'>&lt;-</span> <span class='fl'>40</span></span>
+<span class='r-in'><span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>*</span></span>
+<span class='r-in'>          <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='op'>(</span><span class='va'>age</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span><span class='op'>)</span> <span class='op'>*</span></span>
+<span class='r-in'>                <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span> <span class='op'>/</span></span>
+<span class='r-in'>  <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>synth_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,</span>
+<span class='r-in'>                      intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span>,</span>
+<span class='r-in'>                      error <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>0.01</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## VALIDATE sample_2</span></span>
+<span class='r-in'><span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_2</span>, mu <span class='op'>=</span> <span class='va'>mu</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span>, Ddot <span class='op'>=</span> <span class='fl'>2.5</span>, D0 <span class='op'>=</span> <span class='va'>D0</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ExampleData.SurfaceExposure-2.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	9800 ± 675</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: fit_SurfaceExposure()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $summary : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $fit : nls</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $args : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $call : call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ExampleData.SurfaceExposure$set_1</span></span>
+<span class='r-in'><span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span></span>
+<span class='r-in'><span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>synth_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='va'>age</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>synth_3</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,</span>
+<span class='r-in'>                             intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## VALIDATE set_1</span></span>
+<span class='r-in'><span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_3</span>, age <span class='op'>=</span> <span class='va'>age</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Shared estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.901 ± 0.00161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	1000, 10000, 1e+05, 1e+06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> To apply the estimated parameters to a sample of unknown age run:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = 0.901)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='ExampleData.SurfaceExposure-3.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: fit_SurfaceExposure()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $summary : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $fit : nls</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $args : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $call : call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ExampleData.SurfaceExposure$set_2</span></span>
+<span class='r-in'><span class='va'>sigmaphi</span> <span class='op'>&lt;-</span> <span class='fl'>5e-10</span></span>
+<span class='r-in'><span class='va'>mu</span> <span class='op'>&lt;-</span> <span class='fl'>0.9</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>15</span>, <span class='fl'>0.2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e2</span>, <span class='fl'>1e3</span>, <span class='fl'>1e4</span>, <span class='fl'>1e5</span>, <span class='fl'>1e6</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>Ddot</span> <span class='op'>&lt;-</span> <span class='fl'>1.0</span> <span class='op'>/</span> <span class='fl'>1000</span> <span class='op'>/</span> <span class='fl'>365.25</span> <span class='op'>/</span> <span class='fl'>24</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='op'>/</span> <span class='fl'>60</span> <span class='co'># 2.0 Gy/ka in Seconds</span></span>
+<span class='r-in'><span class='va'>D0</span> <span class='op'>&lt;-</span> <span class='fl'>40</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>666</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>synth_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>*</span></span>
+<span class='r-in'>            <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='op'>(</span><span class='va'>age</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>*</span> <span class='fl'>365.25</span><span class='op'>*</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>3600</span><span class='op'>)</span> <span class='op'>*</span></span>
+<span class='r-in'>                  <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span> <span class='op'>/</span></span>
+<span class='r-in'>    <span class='op'>(</span><span class='va'>sigmaphi</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>mu</span> <span class='op'>*</span> <span class='va'>x</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>Ddot</span><span class='op'>/</span><span class='va'>D0</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='va'>synth_4</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>depth <span class='op'>=</span> <span class='va'>x</span>,</span>
+<span class='r-in'>                             intensity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/jitter.html'>jitter</a></span><span class='op'>(</span><span class='va'>fun</span>, <span class='fl'>1</span>, <span class='fl'>0.05</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## VALIDATE set_2</span></span>
+<span class='r-in'><span class='fu'><a href='fit_SurfaceExposure.html'>fit_SurfaceExposure</a></span><span class='op'>(</span><span class='va'>synth_4</span>, age <span class='op'>=</span> <span class='va'>age</span>, sigmaphi <span class='op'>=</span> <span class='va'>sigmaphi</span>, D0 <span class='op'>=</span> <span class='va'>D0</span>, Ddot <span class='op'>=</span> <span class='fl'>1.0</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [fit_SurfaceExposure()] </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Shared estimated paramater(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -----------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  mu:		0.899 ± 0.00232</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Fixed parameters(s):</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  --------------------</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  age (a):	100, 1000, 10000, 1e+05, 1e+06</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  sigmaphi:	5e-10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> To apply the estimated parameters to a sample of unknown age run:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = 0.899)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-plt img'><img src='ExampleData.SurfaceExposure-4.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Results-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: fit_SurfaceExposure()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 data: 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  	 .. $summary : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $data : data.frame</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $fit : nls</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $args : list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. $call : call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>ExampleData.SurfaceExposure</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>  sample_1 <span class='op'>=</span> <span class='va'>synth_1</span>,</span>
+<span class='r-in'>  sample_2 <span class='op'>=</span> <span class='va'>synth_2</span>,</span>
+<span class='r-in'>  set_1 <span class='op'>=</span> <span class='va'>synth_3</span>,</span>
+<span class='r-in'>  set_2 <span class='op'>=</span> <span class='va'>synth_4</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -370,7 +384,7 @@ interactively.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

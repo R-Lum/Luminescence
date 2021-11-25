@@ -76,7 +76,7 @@ function read_XSYG2R." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -182,152 +182,158 @@ Climatic Cycle. Boreas, 42, 664--677.</p>
 <a href='plot_RLum.html'>plot_RLum</a>, <a href='plot_RLum.Analysis.html'>plot_RLum.Analysis</a>, <a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>##show data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## =========================================</span>
-<span class='co'>##(1) OSL.SARMeasurement</span>
-<span class='va'>OSL.SARMeasurement</span>
-</div><div class='output co'>#&gt; $Sequence.Header
-#&gt;                                         
-#&gt; state                           finished
-#&gt; parentID                1002220348205854
-#&gt; name      R Luminescence example dataset
-#&gt; position                              30
-#&gt; comment                  example dataset
-#&gt; startDate                 20140222034820
-#&gt; protocol                             SAR
-#&gt; mineral                           quartz
-#&gt; 
-#&gt; $Sequence.Object
-#&gt; 
-#&gt;  [RLum.Analysis-class]
-#&gt; 	 originator: read_XSYG2R()
-#&gt; 	 protocol: SAR
-#&gt; 	 additional info elements:  0
-#&gt; 	 number of records: 124
-#&gt; 	 .. : RLum.Data.Curve : 124
-#&gt; 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 TL (NA) &lt;&gt; #3 TL (NA) 
-#&gt; 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 OSL (NA) &lt;&gt; #6 OSL (NA) &lt;&gt; #7 OSL (NA) &lt;&gt; #8 OSL (NA)
-#&gt; 	 .. .. : #9 irradiation (NA) 
-#&gt; 	 .. .. : #10 TL (UVVIS) &lt;&gt; #11 TL (NA) &lt;&gt; #12 TL (NA) 
-#&gt; 	 .. .. : #13 OSL (UVVIS) &lt;&gt; #14 OSL (NA) &lt;&gt; #15 OSL (NA) &lt;&gt; #16 OSL (NA) &lt;&gt; #17 OSL (NA)
-#&gt; 	 .. .. : #18 irradiation (NA) 
-#&gt; 	 .. .. : #19 TL (UVVIS) &lt;&gt; #20 TL (NA) &lt;&gt; #21 TL (NA)
-#&gt; 	 .. .. : #22 OSL (UVVIS) &lt;&gt; #23 OSL (NA) &lt;&gt; #24 OSL (NA) &lt;&gt; #25 OSL (NA) &lt;&gt; #26 OSL (NA) 
-#&gt; 	 .. .. : #27 irradiation (NA) 
-#&gt; 	 .. .. : #28 TL (UVVIS) &lt;&gt; #29 TL (NA) &lt;&gt; #30 TL (NA)
-#&gt; 	 .. .. : #31 OSL (UVVIS) &lt;&gt; #32 OSL (NA) &lt;&gt; #33 OSL (NA) &lt;&gt; #34 OSL (NA) &lt;&gt; #35 OSL (NA)
-#&gt; 	 .. .. : #36 irradiation (NA) 
-#&gt; 	 .. .. : #37 TL (UVVIS) &lt;&gt; #38 TL (NA) &lt;&gt; #39 TL (NA) 
-#&gt; 	 .. .. : #40 OSL (UVVIS) &lt;&gt; #41 OSL (NA) &lt;&gt; #42 OSL (NA) &lt;&gt; #43 OSL (NA) &lt;&gt; #44 OSL (NA)
-#&gt; 	 .. .. : #45 irradiation (NA) 
-#&gt; 	 .. .. : #46 TL (UVVIS) &lt;&gt; #47 TL (NA) &lt;&gt; #48 TL (NA) 
-#&gt; 	 .. .. : #49 OSL (UVVIS) &lt;&gt; #50 OSL (NA) &lt;&gt; #51 OSL (NA) &lt;&gt; #52 OSL (NA) &lt;&gt; #53 OSL (NA)
-#&gt; 	 .. .. : #54 irradiation (NA) 
-#&gt; 	 .. .. : #55 TL (UVVIS) &lt;&gt; #56 TL (NA) &lt;&gt; #57 TL (NA)
-#&gt; 	 .. .. : #58 OSL (UVVIS) &lt;&gt; #59 OSL (NA) &lt;&gt; #60 OSL (NA) &lt;&gt; #61 OSL (NA) &lt;&gt; #62 OSL (NA) 
-#&gt; 	 .. .. : #63 irradiation (NA)
-#&gt; 	 .. .. : #64 TL (UVVIS) &lt;&gt; #65 TL (NA) &lt;&gt; #66 TL (NA) 
-#&gt; 	 .. .. : #67 OSL (UVVIS) &lt;&gt; #68 OSL (NA) &lt;&gt; #69 OSL (NA) &lt;&gt; #70 OSL (NA) &lt;&gt; #71 OSL (NA)
-#&gt; 	 .. .. : #72 irradiation (NA) 
-#&gt; 	 .. .. : #73 TL (UVVIS) &lt;&gt; #74 TL (NA) &lt;&gt; #75 TL (NA) 
-#&gt; 	 .. .. : #76 OSL (UVVIS) &lt;&gt; #77 OSL (NA) &lt;&gt; #78 OSL (NA) &lt;&gt; #79 OSL (NA) &lt;&gt; #80 OSL (NA)
-#&gt; 	 .. .. : #81 irradiation (NA) 
-#&gt; 	 .. .. : #82 TL (UVVIS) &lt;&gt; #83 TL (NA) &lt;&gt; #84 TL (NA)
-#&gt; 	 .. .. : #85 OSL (UVVIS) &lt;&gt; #86 OSL (NA) &lt;&gt; #87 OSL (NA) &lt;&gt; #88 OSL (NA) &lt;&gt; #89 OSL (NA) 
-#&gt; 	 .. .. : #90 TL (UVVIS) &lt;&gt; #91 TL (NA) &lt;&gt; #92 TL (NA)
-#&gt; 	 .. .. : #93 OSL (UVVIS) &lt;&gt; #94 OSL (NA) &lt;&gt; #95 OSL (NA) &lt;&gt; #96 OSL (NA) &lt;&gt; #97 OSL (NA) 
-#&gt; 	 .. .. : #98 irradiation (NA)
-#&gt; 	 .. .. : #99 TL (UVVIS) &lt;&gt; #100 TL (NA) &lt;&gt; #101 TL (NA) 
-#&gt; 	 .. .. : #102 OSL (UVVIS) &lt;&gt; #103 OSL (NA) &lt;&gt; #104 OSL (NA) &lt;&gt; #105 OSL (NA) &lt;&gt; #106 OSL (NA)
-#&gt; 	 .. .. : #107 irradiation (NA) 
-#&gt; 	 .. .. : #108 TL (UVVIS) &lt;&gt; #109 TL (NA) &lt;&gt; #110 TL (NA) 
-#&gt; 	 .. .. : #111 OSL (UVVIS) &lt;&gt; #112 OSL (NA) &lt;&gt; #113 OSL (NA) &lt;&gt; #114 OSL (NA) &lt;&gt; #115 OSL (NA)
-#&gt; 	 .. .. : #116 irradiation (NA) 
-#&gt; 	 .. .. : #117 TL (UVVIS) &lt;&gt; #118 TL (NA) &lt;&gt; #119 TL (NA)
-#&gt; 	 .. .. : #120 OSL (UVVIS) &lt;&gt; #121 OSL (NA) &lt;&gt; #122 OSL (NA) &lt;&gt; #123 OSL (NA) &lt;&gt; #124 OSL (NA)</div><div class='input'>
-<span class='co'>##show $Sequence.Object</span>
-<span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Analysis-class]
-#&gt; 	 originator: read_XSYG2R()
-#&gt; 	 protocol: SAR
-#&gt; 	 additional info elements:  0
-#&gt; 	 number of records: 124
-#&gt; 	 .. : RLum.Data.Curve : 124
-#&gt; 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 TL (NA) &lt;&gt; #3 TL (NA) 
-#&gt; 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 OSL (NA) &lt;&gt; #6 OSL (NA) &lt;&gt; #7 OSL (NA) &lt;&gt; #8 OSL (NA)
-#&gt; 	 .. .. : #9 irradiation (NA) 
-#&gt; 	 .. .. : #10 TL (UVVIS) &lt;&gt; #11 TL (NA) &lt;&gt; #12 TL (NA) 
-#&gt; 	 .. .. : #13 OSL (UVVIS) &lt;&gt; #14 OSL (NA) &lt;&gt; #15 OSL (NA) &lt;&gt; #16 OSL (NA) &lt;&gt; #17 OSL (NA)
-#&gt; 	 .. .. : #18 irradiation (NA) 
-#&gt; 	 .. .. : #19 TL (UVVIS) &lt;&gt; #20 TL (NA) &lt;&gt; #21 TL (NA)
-#&gt; 	 .. .. : #22 OSL (UVVIS) &lt;&gt; #23 OSL (NA) &lt;&gt; #24 OSL (NA) &lt;&gt; #25 OSL (NA) &lt;&gt; #26 OSL (NA) 
-#&gt; 	 .. .. : #27 irradiation (NA) 
-#&gt; 	 .. .. : #28 TL (UVVIS) &lt;&gt; #29 TL (NA) &lt;&gt; #30 TL (NA)
-#&gt; 	 .. .. : #31 OSL (UVVIS) &lt;&gt; #32 OSL (NA) &lt;&gt; #33 OSL (NA) &lt;&gt; #34 OSL (NA) &lt;&gt; #35 OSL (NA)
-#&gt; 	 .. .. : #36 irradiation (NA) 
-#&gt; 	 .. .. : #37 TL (UVVIS) &lt;&gt; #38 TL (NA) &lt;&gt; #39 TL (NA) 
-#&gt; 	 .. .. : #40 OSL (UVVIS) &lt;&gt; #41 OSL (NA) &lt;&gt; #42 OSL (NA) &lt;&gt; #43 OSL (NA) &lt;&gt; #44 OSL (NA)
-#&gt; 	 .. .. : #45 irradiation (NA) 
-#&gt; 	 .. .. : #46 TL (UVVIS) &lt;&gt; #47 TL (NA) &lt;&gt; #48 TL (NA) 
-#&gt; 	 .. .. : #49 OSL (UVVIS) &lt;&gt; #50 OSL (NA) &lt;&gt; #51 OSL (NA) &lt;&gt; #52 OSL (NA) &lt;&gt; #53 OSL (NA)
-#&gt; 	 .. .. : #54 irradiation (NA) 
-#&gt; 	 .. .. : #55 TL (UVVIS) &lt;&gt; #56 TL (NA) &lt;&gt; #57 TL (NA)
-#&gt; 	 .. .. : #58 OSL (UVVIS) &lt;&gt; #59 OSL (NA) &lt;&gt; #60 OSL (NA) &lt;&gt; #61 OSL (NA) &lt;&gt; #62 OSL (NA) 
-#&gt; 	 .. .. : #63 irradiation (NA)
-#&gt; 	 .. .. : #64 TL (UVVIS) &lt;&gt; #65 TL (NA) &lt;&gt; #66 TL (NA) 
-#&gt; 	 .. .. : #67 OSL (UVVIS) &lt;&gt; #68 OSL (NA) &lt;&gt; #69 OSL (NA) &lt;&gt; #70 OSL (NA) &lt;&gt; #71 OSL (NA)
-#&gt; 	 .. .. : #72 irradiation (NA) 
-#&gt; 	 .. .. : #73 TL (UVVIS) &lt;&gt; #74 TL (NA) &lt;&gt; #75 TL (NA) 
-#&gt; 	 .. .. : #76 OSL (UVVIS) &lt;&gt; #77 OSL (NA) &lt;&gt; #78 OSL (NA) &lt;&gt; #79 OSL (NA) &lt;&gt; #80 OSL (NA)
-#&gt; 	 .. .. : #81 irradiation (NA) 
-#&gt; 	 .. .. : #82 TL (UVVIS) &lt;&gt; #83 TL (NA) &lt;&gt; #84 TL (NA)
-#&gt; 	 .. .. : #85 OSL (UVVIS) &lt;&gt; #86 OSL (NA) &lt;&gt; #87 OSL (NA) &lt;&gt; #88 OSL (NA) &lt;&gt; #89 OSL (NA) 
-#&gt; 	 .. .. : #90 TL (UVVIS) &lt;&gt; #91 TL (NA) &lt;&gt; #92 TL (NA)
-#&gt; 	 .. .. : #93 OSL (UVVIS) &lt;&gt; #94 OSL (NA) &lt;&gt; #95 OSL (NA) &lt;&gt; #96 OSL (NA) &lt;&gt; #97 OSL (NA) 
-#&gt; 	 .. .. : #98 irradiation (NA)
-#&gt; 	 .. .. : #99 TL (UVVIS) &lt;&gt; #100 TL (NA) &lt;&gt; #101 TL (NA) 
-#&gt; 	 .. .. : #102 OSL (UVVIS) &lt;&gt; #103 OSL (NA) &lt;&gt; #104 OSL (NA) &lt;&gt; #105 OSL (NA) &lt;&gt; #106 OSL (NA)
-#&gt; 	 .. .. : #107 irradiation (NA) 
-#&gt; 	 .. .. : #108 TL (UVVIS) &lt;&gt; #109 TL (NA) &lt;&gt; #110 TL (NA) 
-#&gt; 	 .. .. : #111 OSL (UVVIS) &lt;&gt; #112 OSL (NA) &lt;&gt; #113 OSL (NA) &lt;&gt; #114 OSL (NA) &lt;&gt; #115 OSL (NA)
-#&gt; 	 .. .. : #116 irradiation (NA) 
-#&gt; 	 .. .. : #117 TL (UVVIS) &lt;&gt; #118 TL (NA) &lt;&gt; #119 TL (NA)
-#&gt; 	 .. .. : #120 OSL (UVVIS) &lt;&gt; #121 OSL (NA) &lt;&gt; #122 OSL (NA) &lt;&gt; #123 OSL (NA) &lt;&gt; #124 OSL (NA)</div><div class='input'>
-<span class='co'>##grep OSL curves and plot the first curve</span>
-<span class='va'>OSLcurve</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span>,
-recordType<span class='op'>=</span><span class='st'>"OSL"</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-<span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>OSLcurve</span><span class='op'>)</span>
-</div><div class='img'><img src='ExampleData.XSYG-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## =========================================</span>
-<span class='co'>##(2) TL.Spectrum</span>
-<span class='va'>TL.Spectrum</span>
-</div><div class='output co'>#&gt; 
-#&gt;  [RLum.Data.Spectrum-class]
-#&gt; 	 recordType: TL (Spectrometer)
-#&gt; 	 curveType: measured
-#&gt; 	 .. recorded frames: 24
-#&gt; 	 .. .. measured values per frame: 1024
-#&gt; 	 .. .. range wavelength/pixel: 296.5 823.126
-#&gt; 	 .. .. range time/temp.: 0.029 460.007
-#&gt; 	 .. .. range count values: 554 65405
-#&gt; 	 additional info elements: 14</div><div class='input'>
-<span class='co'>##plot simple spectrum (2D)</span>
-<span class='fu'><a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span>,
-                        plot.type<span class='op'>=</span><span class='st'>"contour"</span>,
-                        xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,
-                        ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>,
-                        bin.rows<span class='op'>=</span><span class='fl'>10</span>,
-                        bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: [plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span></div><div class='img'><img src='ExampleData.XSYG-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>##plot 3d spectrum (uncomment for usage)</span>
-<span class='co'># plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",</span>
-<span class='co'># xlim = c(310,750), ylim = c(0,300), bin.rows=10,</span>
-<span class='co'># bin.cols = 1)</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>##show data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.XSYG</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## =========================================</span></span>
+<span class='r-in'><span class='co'>##(1) OSL.SARMeasurement</span></span>
+<span class='r-in'><span class='va'>OSL.SARMeasurement</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Sequence.Header</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> state                           finished</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> parentID                1002220348205854</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> name      R Luminescence example dataset</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> position                              30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> comment                  example dataset</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> startDate                 20140222034820</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> protocol                             SAR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mineral                           quartz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $Sequence.Object</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Analysis-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: read_XSYG2R()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 protocol: SAR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 number of records: 124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. : RLum.Data.Curve : 124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 TL (NA) &lt;&gt; #3 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 OSL (NA) &lt;&gt; #6 OSL (NA) &lt;&gt; #7 OSL (NA) &lt;&gt; #8 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #9 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #10 TL (UVVIS) &lt;&gt; #11 TL (NA) &lt;&gt; #12 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #13 OSL (UVVIS) &lt;&gt; #14 OSL (NA) &lt;&gt; #15 OSL (NA) &lt;&gt; #16 OSL (NA) &lt;&gt; #17 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #18 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #19 TL (UVVIS) &lt;&gt; #20 TL (NA) &lt;&gt; #21 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #22 OSL (UVVIS) &lt;&gt; #23 OSL (NA) &lt;&gt; #24 OSL (NA) &lt;&gt; #25 OSL (NA) &lt;&gt; #26 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #27 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #28 TL (UVVIS) &lt;&gt; #29 TL (NA) &lt;&gt; #30 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #31 OSL (UVVIS) &lt;&gt; #32 OSL (NA) &lt;&gt; #33 OSL (NA) &lt;&gt; #34 OSL (NA) &lt;&gt; #35 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #36 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #37 TL (UVVIS) &lt;&gt; #38 TL (NA) &lt;&gt; #39 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #40 OSL (UVVIS) &lt;&gt; #41 OSL (NA) &lt;&gt; #42 OSL (NA) &lt;&gt; #43 OSL (NA) &lt;&gt; #44 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #45 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #46 TL (UVVIS) &lt;&gt; #47 TL (NA) &lt;&gt; #48 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #49 OSL (UVVIS) &lt;&gt; #50 OSL (NA) &lt;&gt; #51 OSL (NA) &lt;&gt; #52 OSL (NA) &lt;&gt; #53 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #54 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #55 TL (UVVIS) &lt;&gt; #56 TL (NA) &lt;&gt; #57 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #58 OSL (UVVIS) &lt;&gt; #59 OSL (NA) &lt;&gt; #60 OSL (NA) &lt;&gt; #61 OSL (NA) &lt;&gt; #62 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #63 irradiation (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #64 TL (UVVIS) &lt;&gt; #65 TL (NA) &lt;&gt; #66 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #67 OSL (UVVIS) &lt;&gt; #68 OSL (NA) &lt;&gt; #69 OSL (NA) &lt;&gt; #70 OSL (NA) &lt;&gt; #71 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #72 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #73 TL (UVVIS) &lt;&gt; #74 TL (NA) &lt;&gt; #75 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #76 OSL (UVVIS) &lt;&gt; #77 OSL (NA) &lt;&gt; #78 OSL (NA) &lt;&gt; #79 OSL (NA) &lt;&gt; #80 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #81 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #82 TL (UVVIS) &lt;&gt; #83 TL (NA) &lt;&gt; #84 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #85 OSL (UVVIS) &lt;&gt; #86 OSL (NA) &lt;&gt; #87 OSL (NA) &lt;&gt; #88 OSL (NA) &lt;&gt; #89 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #90 TL (UVVIS) &lt;&gt; #91 TL (NA) &lt;&gt; #92 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #93 OSL (UVVIS) &lt;&gt; #94 OSL (NA) &lt;&gt; #95 OSL (NA) &lt;&gt; #96 OSL (NA) &lt;&gt; #97 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #98 irradiation (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #99 TL (UVVIS) &lt;&gt; #100 TL (NA) &lt;&gt; #101 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #102 OSL (UVVIS) &lt;&gt; #103 OSL (NA) &lt;&gt; #104 OSL (NA) &lt;&gt; #105 OSL (NA) &lt;&gt; #106 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #107 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #108 TL (UVVIS) &lt;&gt; #109 TL (NA) &lt;&gt; #110 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #111 OSL (UVVIS) &lt;&gt; #112 OSL (NA) &lt;&gt; #113 OSL (NA) &lt;&gt; #114 OSL (NA) &lt;&gt; #115 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #116 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #117 TL (UVVIS) &lt;&gt; #118 TL (NA) &lt;&gt; #119 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #120 OSL (UVVIS) &lt;&gt; #121 OSL (NA) &lt;&gt; #122 OSL (NA) &lt;&gt; #123 OSL (NA) &lt;&gt; #124 OSL (NA)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##show $Sequence.Object</span></span>
+<span class='r-in'><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Analysis-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 originator: read_XSYG2R()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 protocol: SAR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements:  0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 number of records: 124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. : RLum.Data.Curve : 124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 TL (NA) &lt;&gt; #3 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 OSL (NA) &lt;&gt; #6 OSL (NA) &lt;&gt; #7 OSL (NA) &lt;&gt; #8 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #9 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #10 TL (UVVIS) &lt;&gt; #11 TL (NA) &lt;&gt; #12 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #13 OSL (UVVIS) &lt;&gt; #14 OSL (NA) &lt;&gt; #15 OSL (NA) &lt;&gt; #16 OSL (NA) &lt;&gt; #17 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #18 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #19 TL (UVVIS) &lt;&gt; #20 TL (NA) &lt;&gt; #21 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #22 OSL (UVVIS) &lt;&gt; #23 OSL (NA) &lt;&gt; #24 OSL (NA) &lt;&gt; #25 OSL (NA) &lt;&gt; #26 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #27 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #28 TL (UVVIS) &lt;&gt; #29 TL (NA) &lt;&gt; #30 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #31 OSL (UVVIS) &lt;&gt; #32 OSL (NA) &lt;&gt; #33 OSL (NA) &lt;&gt; #34 OSL (NA) &lt;&gt; #35 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #36 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #37 TL (UVVIS) &lt;&gt; #38 TL (NA) &lt;&gt; #39 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #40 OSL (UVVIS) &lt;&gt; #41 OSL (NA) &lt;&gt; #42 OSL (NA) &lt;&gt; #43 OSL (NA) &lt;&gt; #44 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #45 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #46 TL (UVVIS) &lt;&gt; #47 TL (NA) &lt;&gt; #48 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #49 OSL (UVVIS) &lt;&gt; #50 OSL (NA) &lt;&gt; #51 OSL (NA) &lt;&gt; #52 OSL (NA) &lt;&gt; #53 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #54 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #55 TL (UVVIS) &lt;&gt; #56 TL (NA) &lt;&gt; #57 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #58 OSL (UVVIS) &lt;&gt; #59 OSL (NA) &lt;&gt; #60 OSL (NA) &lt;&gt; #61 OSL (NA) &lt;&gt; #62 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #63 irradiation (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #64 TL (UVVIS) &lt;&gt; #65 TL (NA) &lt;&gt; #66 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #67 OSL (UVVIS) &lt;&gt; #68 OSL (NA) &lt;&gt; #69 OSL (NA) &lt;&gt; #70 OSL (NA) &lt;&gt; #71 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #72 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #73 TL (UVVIS) &lt;&gt; #74 TL (NA) &lt;&gt; #75 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #76 OSL (UVVIS) &lt;&gt; #77 OSL (NA) &lt;&gt; #78 OSL (NA) &lt;&gt; #79 OSL (NA) &lt;&gt; #80 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #81 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #82 TL (UVVIS) &lt;&gt; #83 TL (NA) &lt;&gt; #84 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #85 OSL (UVVIS) &lt;&gt; #86 OSL (NA) &lt;&gt; #87 OSL (NA) &lt;&gt; #88 OSL (NA) &lt;&gt; #89 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #90 TL (UVVIS) &lt;&gt; #91 TL (NA) &lt;&gt; #92 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #93 OSL (UVVIS) &lt;&gt; #94 OSL (NA) &lt;&gt; #95 OSL (NA) &lt;&gt; #96 OSL (NA) &lt;&gt; #97 OSL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #98 irradiation (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #99 TL (UVVIS) &lt;&gt; #100 TL (NA) &lt;&gt; #101 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #102 OSL (UVVIS) &lt;&gt; #103 OSL (NA) &lt;&gt; #104 OSL (NA) &lt;&gt; #105 OSL (NA) &lt;&gt; #106 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #107 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #108 TL (UVVIS) &lt;&gt; #109 TL (NA) &lt;&gt; #110 TL (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #111 OSL (UVVIS) &lt;&gt; #112 OSL (NA) &lt;&gt; #113 OSL (NA) &lt;&gt; #114 OSL (NA) &lt;&gt; #115 OSL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #116 irradiation (NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #117 TL (UVVIS) &lt;&gt; #118 TL (NA) &lt;&gt; #119 TL (NA)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. : #120 OSL (UVVIS) &lt;&gt; #121 OSL (NA) &lt;&gt; #122 OSL (NA) &lt;&gt; #123 OSL (NA) &lt;&gt; #124 OSL (NA)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##grep OSL curves and plot the first curve</span></span>
+<span class='r-in'><span class='va'>OSLcurve</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_RLum.html'>get_RLum</a></span><span class='op'>(</span><span class='va'>OSL.SARMeasurement</span><span class='op'>$</span><span class='va'>Sequence.Object</span>,</span>
+<span class='r-in'>recordType<span class='op'>=</span><span class='st'>"OSL"</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.html'>plot_RLum</a></span><span class='op'>(</span><span class='va'>OSLcurve</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='ExampleData.XSYG-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## =========================================</span></span>
+<span class='r-in'><span class='co'>##(2) TL.Spectrum</span></span>
+<span class='r-in'><span class='va'>TL.Spectrum</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [RLum.Data.Spectrum-class]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 recordType: TL (Spectrometer)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 curveType: measured</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. recorded frames: 24</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. measured values per frame: 1024</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. range wavelength/pixel: 296.5 823.126</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. range time/temp.: 0.029 460.007</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 .. .. range count values: 554 65405</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	 additional info elements: 14</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot simple spectrum (2D)</span></span>
+<span class='r-in'><span class='fu'><a href='plot_RLum.Data.Spectrum.html'>plot_RLum.Data.Spectrum</a></span><span class='op'>(</span><span class='va'>TL.Spectrum</span>,</span>
+<span class='r-in'>                        plot.type<span class='op'>=</span><span class='st'>"contour"</span>,</span>
+<span class='r-in'>                        xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>310</span>,<span class='fl'>750</span><span class='op'>)</span>,</span>
+<span class='r-in'>                        ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>300</span><span class='op'>)</span>,</span>
+<span class='r-in'>                        bin.rows<span class='op'>=</span><span class='fl'>10</span>,</span>
+<span class='r-in'>                        bin.cols <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>[plot_RLum.Data.Spectrum()] 6 channel(s) removed due to row (wavelength) binning.</span>
+<span class='r-plt img'><img src='ExampleData.XSYG-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##plot 3d spectrum (uncomment for usage)</span></span>
+<span class='r-in'><span class='co'># plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",</span></span>
+<span class='r-in'><span class='co'># xlim = c(310,750), ylim = c(0,300), bin.rows=10,</span></span>
+<span class='r-in'><span class='co'># bin.cols = 1)</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -339,7 +345,7 @@ recordType<span class='op'>=</span><span class='st'>"OSL"</span><span class='op'
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">

@@ -77,7 +77,7 @@ published code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.16</span>
       </span>
     </div>
 
@@ -497,7 +497,7 @@ a <code>list</code> with the same number of elements for the following parameter
     <p>0.1.33</p>
     <h2 class="hasAnchor" id="how-to-cite"><a class="anchor" href="#how-to-cite"></a>How to cite</h2>
 
-    <p>Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.15. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Mercier, N., Kreutzer, S., 2021. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
@@ -525,51 +525,51 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>##(1) load package test data set</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>##(2) selecting relevant curves, and limit dataset</span>
-<span class='va'>CWOSL.SAR.Data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span>
-  <span class='va'>CWOSL.SAR.Data</span>,
-  subset <span class='op'>=</span> <span class='va'>POSITION</span><span class='op'>%in%</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='va'>LTYPE</span> <span class='op'>==</span> <span class='st'>"OSL"</span><span class='op'>)</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>##(3) run analysis</span>
-<span class='co'>##please not that the here selected parameters are</span>
-<span class='co'>##choosen for performance, not for reliability</span>
-<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_baSAR</span><span class='op'>(</span>
-  object <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,
-  source_doserate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.04</span>, <span class='fl'>0.001</span><span class='op'>)</span>,
-  signal.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>,
-  background.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>:</span><span class='fl'>100</span><span class='op'>)</span>,
-  fit.method <span class='op'>=</span> <span class='st'>"LIN"</span>,
-  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  n.MCMC <span class='op'>=</span> <span class='fl'>200</span>
-
-<span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
-
-
-<span class='co'>##XLS_file template</span>
-<span class='co'>##copy and paste this the code below in the terminal</span>
-<span class='co'>##you can further use the function write.csv() to export the example</span>
-
-<span class='va'>XLS_file</span> <span class='op'>&lt;-</span>
-<span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
- BIN_FILE <span class='op'>=</span> <span class='cn'>NA_character_</span>,
- DISC <span class='op'>=</span> <span class='cn'>NA_real_</span>,
- GRAIN <span class='op'>=</span> <span class='cn'>NA_real_</span><span class='op'>)</span>,
-   .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"BIN_FILE"</span>, <span class='st'>"DISC"</span>, <span class='st'>"GRAIN"</span><span class='op'>)</span>,
-   class <span class='op'>=</span> <span class='st'>"data.frame"</span>,
-   row.names <span class='op'>=</span> <span class='fl'>1L</span>
-<span class='op'>)</span>
-
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>##(1) load package test data set</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ExampleData.BINfileData</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##(2) selecting relevant curves, and limit dataset</span></span>
+<span class='r-in'><span class='va'>CWOSL.SAR.Data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='va'>CWOSL.SAR.Data</span>,</span>
+<span class='r-in'>  subset <span class='op'>=</span> <span class='va'>POSITION</span><span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>&amp;</span> <span class='va'>LTYPE</span> <span class='op'>==</span> <span class='st'>"OSL"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'>##(3) run analysis</span></span>
+<span class='r-in'><span class='co'>##please not that the here selected parameters are</span></span>
+<span class='r-in'><span class='co'>##choosen for performance, not for reliability</span></span>
+<span class='r-in'><span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>analyse_baSAR</span><span class='op'>(</span></span>
+<span class='r-in'>  object <span class='op'>=</span> <span class='va'>CWOSL.SAR.Data</span>,</span>
+<span class='r-in'>  source_doserate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.04</span>, <span class='fl'>0.001</span><span class='op'>)</span>,</span>
+<span class='r-in'>  signal.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>,</span>
+<span class='r-in'>  background.integral <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>:</span><span class='fl'>100</span><span class='op'>)</span>,</span>
+<span class='r-in'>  fit.method <span class='op'>=</span> <span class='st'>"LIN"</span>,</span>
+<span class='r-in'>  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>  n.MCMC <span class='op'>=</span> <span class='fl'>200</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##XLS_file template</span></span>
+<span class='r-in'><span class='co'>##copy and paste this the code below in the terminal</span></span>
+<span class='r-in'><span class='co'>##you can further use the function write.csv() to export the example</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>XLS_file</span> <span class='op'>&lt;-</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'> BIN_FILE <span class='op'>=</span> <span class='cn'>NA_character_</span>,</span>
+<span class='r-in'> DISC <span class='op'>=</span> <span class='cn'>NA_real_</span>,</span>
+<span class='r-in'> GRAIN <span class='op'>=</span> <span class='cn'>NA_real_</span><span class='op'>)</span>,</span>
+<span class='r-in'>   .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"BIN_FILE"</span>, <span class='st'>"DISC"</span>, <span class='st'>"GRAIN"</span><span class='op'>)</span>,</span>
+<span class='r-in'>   class <span class='op'>=</span> <span class='st'>"data.frame"</span>,</span>
+<span class='r-in'>   row.names <span class='op'>=</span> <span class='fl'>1L</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -581,7 +581,7 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
