@@ -139,10 +139,10 @@ plot_RLum.Results<- function(
 
         xvals <- as.data.frame(profiles@profile[[i]]$par.vals)[[i]]
         xlim <- range(xvals[xvals > 0])
-
         suppressWarnings(
           bbmle::plot(profiles, which = i, xlab = "", xaxt = "n", xlim = xlim)
         )
+
         axis(1, mgp = c(3, 0.5, 0))
         title(xlab = i, line = 1.2)
 
@@ -154,7 +154,7 @@ plot_RLum.Results<- function(
         }
 
       }, error = function(e)  {
-        message(paste("Unable to plot the Likelihood profile for:", i))
+        message(paste("Unable to plot the Likelihood profile for:", i, "(Likelihood probably infinite)"))
       })
     }
     par(mfrow=c(1,1))
