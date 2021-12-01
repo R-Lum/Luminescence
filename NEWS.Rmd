@@ -18,4 +18,4 @@ header-includes:
 * The plot now always draws the lower limit of the z-scale. 
 
 #### `calc_MinDose()`/`calc_MaxDose()`
-* The error message if no likelihood profiling can be done is now more clear. 
+* The error message if no likelihood profiling can be done now reads more clear. 
