@@ -19,3 +19,7 @@ header-includes:
 
 #### `calc_MinDose()`/`calc_MaxDose()`
 * The error message if no likelihood profiling can be done now reads more clear. 
+
+
+#### `plot_RLum.Analysis()`
+* The parameter `records_max` removed more curves than required; fixed. 
