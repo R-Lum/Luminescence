@@ -37,6 +37,21 @@ test_that("test pure success of the plotting without warning or error", {
       sub = "est"
     ))
 
+    ##no plot
+    expect_type(plot(
+      TL.Spectrum,
+      plot.type = "contour",
+      main = "Test",
+      xlab = "test",
+      ylab = "test",
+      mtext = "test",
+      cex = 1.2,
+      pch = 2,
+      lwd = 2,
+      bty = "n",
+      plot = FALSE,
+    ), "double")
+
     ##persp plot
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(

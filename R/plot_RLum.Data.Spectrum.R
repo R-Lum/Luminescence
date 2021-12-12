@@ -137,14 +137,20 @@
 #' possibility to provide own legend text. This argument is only considered for
 #' plot types providing a legend, e.g. `plot.type="transect"`
 #'
+#' @param plot [logical] (*with default*): enables/disables plot output. If the plot
+#' output is disabled, the [matrix] used for the plotting and the calculated colour values
+#' (as attributes) are returned. This way, the (binned, transformed etc.) output can
+#' be used in other functions and packages, such as plotting with the package `'plot3D'`
+#'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.
 #'
-#' @return Returns a plot.
+#' @return Returns a plot if `plot = TRUE`, the default. If `plot = FALSE` the transformed matrix
+#' used for plotting is returned instead.
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.3
+#' @section Function version: 0.6.4
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -233,6 +239,7 @@ plot_RLum.Data.Spectrum <- function(
   limit_counts = NULL,
   xaxis.energy = FALSE,
   legend.text,
+  plot = TRUE,
   ...
 ){
 
@@ -385,7 +392,6 @@ plot_RLum.Data.Spectrum <- function(
   #for plotly::plot_ly
   showscale<- if("showscale" %in% names(extraArgs)) {extraArgs$showscale} else
   {FALSE}
-
 
 
   # prepare values for plot ---------------------------------------------------
@@ -561,7 +567,6 @@ plot_RLum.Data.Spectrum <- function(
 
   }
 
-
   # Normalise if wanted -------------------------------------------------------------------------
   if(!is.null(norm)){
     if(norm == "min")
@@ -577,8 +582,7 @@ plot_RLum.Data.Spectrum <- function(
   zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
   {range(temp.xyz)}
 
-
-  # set color values --------------------------------------------------------
+  # set colour values --------------------------------------------------------
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
     if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
 
@@ -592,7 +596,6 @@ plot_RLum.Data.Spectrum <- function(
         col.red <- c(1.57, 2.00)
         col.infrared <-
           c(1.55, ifelse(min(xlim) >= 1.55, min(xlim), 1.57))
-
 
         #set colour palette
         col <- unlist(sapply(1:length(x), function(i){
@@ -713,11 +716,10 @@ plot_RLum.Data.Spectrum <- function(
   ##z
   if(grepl("z", log)==TRUE){temp.xyz <- log10(temp.xyz)}
 
-
-  # PLOT --------------------------------------------------------------------
-
+# PLOT --------------------------------------------------------------------
+if(plot){
   ##par setting for possible combination with plot method for RLum.Analysis objects
-  if(par.local == TRUE){par(mfrow=c(1,1), cex = cex)}
+  if(par.local) par(mfrow=c(1,1), cex = cex)
 
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1 && plot.type != "single"){
@@ -735,7 +737,7 @@ plot_RLum.Data.Spectrum <- function(
   if(plot.type == "persp" && ncol(temp.xyz) > 1){
     ## Plot: perspective plot ----
     ## ==========================================================================#
-    persp(x, y, temp.xyz,
+    pmat <- persp(x, y, temp.xyz,
           shade = shade,
           phi = phi,
           theta = theta,
@@ -751,6 +753,7 @@ plot_RLum.Data.Spectrum <- function(
           box = box,
           r = r,
           ticktype = ticktype)
+
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
@@ -980,6 +983,14 @@ plot_RLum.Data.Spectrum <- function(
   }else{
     stop("[plot_RLum.Data.Spectrum()] Unknown plot type.", call. = FALSE)
 
-  }
+ }
+
+## option for plotting nothing
+} else {
+  ## if nothing is plotted return the transformed plot object
+  attr(temp.xyz, "colour") <- col
+  return(temp.xyz)
+
+}
 
 }
