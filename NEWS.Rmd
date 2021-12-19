@@ -20,6 +20,9 @@ header-includes:
 #### `calc_MinDose()`/`calc_MaxDose()`
 * The error message if no likelihood profiling can be done now reads more clear. 
 
+#### `fit_EmissionSpectra()` 
+* `method_control = list()` gained a new sub-argument `norm` to enable/disable
+the normalisation of the data. The default is `TRUE`. 
 
 #### `plot_RLum.Analysis()`
 * The parameter `records_max` removed more curves than required; fixed. 
