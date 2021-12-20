@@ -11,6 +11,9 @@ on:
 
 name: GitHub Actions CI
 
+env:
+  cache-version: v6
+
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
@@ -31,7 +34,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
         with:
@@ -48,7 +51,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Restore R package cache
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
           path: |
             ${{ env.R_LIBS_USER }}/*
