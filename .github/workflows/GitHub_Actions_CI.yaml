@@ -45,6 +45,7 @@ jobs:
       - name: Install pak and query dependencies
         run: |
           install.packages('remotes')
+          install.packages('pak')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
         shell: Rscript {0}
 
