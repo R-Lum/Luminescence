@@ -80,7 +80,7 @@ Imports:
     zoo (>= 1.8)
 Suggests:
     spelling (>= 2.2),
-    RLumShiny (>= 0.2.3),
+    RLumShiny (>= 0.2.2),
     plotly (>= 4.10.0),
     rmarkdown (>= 2.11),
     rstudioapi (>= 0.13),
