@@ -19,7 +19,7 @@ header-includes:
 * `method_control = list()` gained a new sub-argument `norm` to enable/disable
 the normalisation of the data. The default is `TRUE`. 
 
-### `plot_AbanicoPlot()`
+#### `plot_AbanicoPlot()`
 * The keyword internally set for the font decoration `'plain'` was not used in `get_Layout()`, 
 where `'normal'` was expected causing the function to crash in R-devel if the argument `legend` was used; fixed (#108). 
 
