@@ -1,6 +1,7 @@
 ## Release summary
 
-This version updates 0.9.13 on CRAN and fixes issues flagged by the CRAN team
+This version updates 0.9.16 on CRAN and fixes an error in `plot_AbanicoPlot()`
+flagged by the CRAN team.
 
 ## Addressed CRAN issues
 
@@ -14,7 +15,7 @@ This version updates 0.9.13 on CRAN and fixes issues flagged by the CRAN team
 
 ## Reverse dependency checks
 
-Reverse depends 4: 
+Reverse depends or suggested 4: 
 
-* 2/3 are ok. 
+* 2/4 are ok. 
 * `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
