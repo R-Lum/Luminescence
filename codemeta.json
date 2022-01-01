@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.16",
+  "version": "0.9.17",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
+  "runtimePlatform": "R Under development (unstable) (2021-12-23 r81414)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -236,7 +236,7 @@
       "@type": "SoftwareApplication",
       "identifier": "plotly",
       "name": "plotly",
-      "version": ">= 4.9.3",
+      "version": ">= 4.10.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -249,7 +249,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
-      "version": ">= 2.10",
+      "version": ">= 2.11",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -275,7 +275,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rjags",
       "name": "rjags",
-      "version": ">= 4-10",
+      "version": ">= 4-12",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -301,7 +301,7 @@
       "@type": "SoftwareApplication",
       "identifier": "pander",
       "name": "pander",
-      "version": ">= 0.6.3",
+      "version": ">= 0.6.4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -314,7 +314,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 3.0.2",
+      "version": ">= 3.1.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -327,7 +327,7 @@
       "@type": "SoftwareApplication",
       "identifier": "tiff",
       "name": "tiff",
-      "version": ">= 0.1-8",
+      "version": ">= 0.1-10",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -340,7 +340,7 @@
       "@type": "SoftwareApplication",
       "identifier": "devtools",
       "name": "devtools",
-      "version": ">= 2.4.1",
+      "version": ">= 2.4.2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -444,7 +444,7 @@
       "@type": "SoftwareApplication",
       "identifier": "matrixStats",
       "name": "matrixStats",
-      "version": ">= 0.60.0",
+      "version": ">= 0.61.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -501,7 +501,7 @@
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
-      "version": ">= 3.4-10",
+      "version": ">= 3.5-2",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
