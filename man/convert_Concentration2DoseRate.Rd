@@ -87,7 +87,7 @@ convert_Concentration2DoseRate(input)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., 2021. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., 2022. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

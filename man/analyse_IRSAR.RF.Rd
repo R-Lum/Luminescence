@@ -357,7 +357,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2021. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

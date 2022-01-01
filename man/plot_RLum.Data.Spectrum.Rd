@@ -18,6 +18,7 @@ plot_RLum.Data.Spectrum(
   limit_counts = NULL,
   xaxis.energy = FALSE,
   legend.text,
+  plot = TRUE,
   ...
 )
 }
@@ -87,11 +88,17 @@ instead the spectrum in terms of intensity is recalculated, s. details.}
 possibility to provide own legend text. This argument is only considered for
 plot types providing a legend, e.g. \code{plot.type="transect"}}
 
+\item{plot}{\link{logical} (\emph{with default}): enables/disables plot output. If the plot
+output is disabled, the \link{matrix} used for the plotting and the calculated colour values
+(as attributes) are returned. This way, the (binned, transformed etc.) output can
+be used in other functions and packages, such as plotting with the package \code{'plot3D'}}
+
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function.}
 }
 \value{
-Returns a plot.
+Returns a plot if \code{plot = TRUE}, the default. If \code{plot = FALSE} the transformed matrix
+used for plotting is returned instead.
 }
 \description{
 The function provides a standardised plot output for spectrum data of an
@@ -173,7 +180,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.3
+ 0.6.4
 }
 
 \examples{
@@ -249,7 +256,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

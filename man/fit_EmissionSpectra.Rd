@@ -141,11 +141,12 @@ run  at least 10,000 iterations (parameter \code{method_control = list(max.runs 
 \code{max.runs} \tab \link{integer} \tab \code{10000} \tab maximum allowed search iterations, if exceed
 the searching stops \cr
 \code{graining} \tab \link{numeric} \tab \code{15} \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
+\code{norm} \tab \link{logical} \tab \code{TRUE} \tab normalises data to the highest count value before fitting \cr
 \code{trace} \tab \link{logical} \tab \code{FALSE} \tab enables/disables the tracing of the minimisation routine
 }
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -185,7 +186,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2021. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

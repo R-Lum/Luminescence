@@ -205,13 +205,13 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Burow, C., 2021. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2021. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.16. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2022. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-dating. Journal of Geophysical Research 117, B09202. \doi{10.1029/2012JB009383}
+dating. Journal of Geophysical Research 117, B09202. doi: 10.1029/2012JB009383
 
 Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 non-terrestrial bodies using optically stimulated luminescence: A new method.
