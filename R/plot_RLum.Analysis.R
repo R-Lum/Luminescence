@@ -19,8 +19,6 @@
 #' is measured with the PMT or not! However, for a fast look it might be
 #' helpful.
 #'
-#'
-#'
 #' @param object [RLum.Analysis-class] (**required**):
 #' S4 object of class `RLum.Analysis`
 #'
@@ -79,7 +77,7 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.13
+#' @section Function version: 0.3.14
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -551,8 +549,7 @@ plot_RLum.Analysis <- function(
       ## limit number of records shown ... show always first and last;
       ## distribute the rest
       if(!is.null(records_max) && records_max[1] > 2){
-        records_max <- records_max[1] - (length(object.list) %% records_max[1])
-        records_show <- ceiling(seq(1, length(object.list), length.out = records_max))
+        records_show <- ceiling(seq(1,length(object.list), length.out = records_max))
         object.list[(1:length(object.list))[-records_show]] <- NULL
 
       }
@@ -857,4 +854,3 @@ plot_RLum.Analysis <- function(
   }
 
 }
-

@@ -1,15 +1,16 @@
 # CI GitHub Action ... adapted from usethis::use_github_actions()
 on:
   push:
-    branches:
-      - dev_*
-      - master
+    branches: [master, dev_*]
+
   pull_request:
-    branches:
-      - master
-      - dev_*
+    branches: [master, dev_*]
 
 name: GitHub Actions CI
+
+## change if caches needs to be refreshed
+env:
+  cache-version: v4
 
 jobs:
   R-CMD-check:
@@ -20,14 +21,15 @@ jobs:
       matrix:
         config:
         - {os: windows-latest, r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        - {os: macOS-latest,   r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        - {os: macOS-latest,   r: 'oldrel', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-        - {os: ubuntu-20.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", http-user-agent: "R/4.2.0 (ubuntu-20.04) R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
+        - {os: macos-11,   r: 'release', rspm: "https://packagemanager.rstudio.com/all/latest"}
+        - {os: macos-10.15,   r: 'oldrel', rspm:  "https://packagemanager.rstudio.com/all/latest"}
+        - {os: ubuntu-20.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
         - {os: ubuntu-20.04,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-18.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+        - {os: ubuntu-20.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: false
       RSPM: ${{ matrix.config.rspm }}
+      _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -40,27 +42,27 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
-      - name: Install pak and query dependencies
+      - name: Install remotes
         run: |
-          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
         shell: Rscript {0}
 
-      - name: Restore R package cache
-        uses: actions/cache@v2
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
         with:
-          path: |
-            ${{ env.R_LIBS_USER }}/*
-            !${{ env.R_LIBS_USER }}/pak
-          key: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
-          restore-keys: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
-          pak::local_system_requirements(execute = TRUE)
-          pak::pkg_system_requirements("rcmdcheck", execute = TRUE)
-        shell: Rscript {0}
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
       - name: Install ghostscript (Linux)
         if: runner.os == 'Linux'
@@ -80,9 +82,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pak::local_install_dev_deps(upgrade = TRUE)
-          pak::pkg_install("rcmdcheck")
-          pak::pkg_install("rlang")
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
         shell: Rscript {0}
 

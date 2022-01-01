@@ -1,8 +1,8 @@
-#' Function to create a Radial Plot
+#' @title Function to create a Radial Plot
 #'
-#' A Galbraith's radial plot is produced on a logarithmic or a linear scale.
+#' @description A Galbraith's radial plot is produced on a logarithmic or a linear scale.
 #'
-#' Details and the theoretical background of the radial plot are given in the
+#' @details Details and the theoretical background of the radial plot are given in the
 #' cited literature. This function is based on an S script of Rex Galbraith. To
 #' reduce the manual adjustments, the function has been rewritten. Thanks to
 #' Rex Galbraith for useful comments on this function. \cr
@@ -125,14 +125,14 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.6
+#' @section Function version: 0.5.7
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
-#' @seealso [plot], [plot_KDE], [plot_Histogram]
+#' @seealso [plot], [plot_KDE], [plot_Histogram], [plot_AbanicoPlot]
 #'
 #' @references
 #' Galbraith, R.F., 1988. Graphical Display of Estimates Having
@@ -164,73 +164,84 @@
 #'
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
-#' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#' ExampleData.DeValues <- Second2Gray(
+#'   ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
 #' ## plot the example data straightforward
 #' plot_RadialPlot(data = ExampleData.DeValues)
 #'
 #' ## now with linear z-scale
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 log.z = FALSE)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   log.z = FALSE)
 #'
 #' ## now with output of the plot parameters
-#' plot1 <- plot_RadialPlot(data = ExampleData.DeValues,
-#'                          log.z = FALSE,
-#'                          output = TRUE)
+#' plot1 <- plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   log.z = FALSE,
+#'   output = TRUE)
 #' plot1
 #' plot1$zlim
 #'
 #' ## now with adjusted z-scale limits
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                log.z = FALSE,
-#'                zlim = c(100, 200))
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   log.z = FALSE,
+#'   zlim = c(100, 200))
 #'
 #' ## now the two plots with serious but seasonally changing fun
 #' #plot_RadialPlot(data = data.3, fun = TRUE)
 #'
 #' ## now with user-defined central value, in log-scale again
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 central.value = 150)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   central.value = 150)
 #'
 #' ## now with a rug, indicating individual De values at the z-scale
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 rug = TRUE)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   rug = TRUE)
 #'
 #' ## now with legend, colour, different points and smaller scale
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 legend.text = "Sample 1",
-#'                 col = "tomato4",
-#'                 bar.col = "peachpuff",
-#'                 pch = "R",
-#'                 cex = 0.8)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   legend.text = "Sample 1",
+#'   col = "tomato4",
+#'   bar.col = "peachpuff",
+#'   pch = "R",
+#'   cex = 0.8)
 #'
 #' ## now without 2-sigma bar, y-axis, grid lines and central value line
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 bar.col = "none",
-#'                 grid.col = "none",
-#'                 y.ticks = FALSE,
-#'                 lwd = 0)
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   bar.col = "none",
+#'   grid.col = "none",
+#'   y.ticks = FALSE,
+#'   lwd = 0)
 #'
 #' ## now with user-defined axes labels
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 xlab = c("Data error (%)",
-#'                          "Data precision"),
-#'                 ylab = "Scatter",
-#'                 zlab = "Equivalent dose [Gy]")
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   xlab = c("Data error (%)", "Data precision"),
+#'   ylab = "Scatter",
+#'   zlab = "Equivalent dose [Gy]")
 #'
 #' ## now with minimum, maximum and median value indicated
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 central.value = 150,
-#'                 stats = c("min", "max", "median"))
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   central.value = 150,
+#'   stats = c("min", "max", "median"))
 #'
 #' ## now with a brief statistical summary
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 summary = c("n", "in.2s"))
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   summary = c("n", "in.2s"))
 #'
 #' ## now with another statistical summary as subheader
-#' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 summary = c("mean.weighted", "median"),
-#'                 summary.pos = "sub")
+#' plot_RadialPlot(
+#'   data = ExampleData.DeValues,
+#'   summary = c("mean.weighted", "median"),
+#'   summary.pos = "sub")
 #'
 #' ## now the data set is split into sub-groups, one is manipulated
 #' data.1 <- ExampleData.DeValues[1:15,]
@@ -243,13 +254,14 @@
 #' plot_RadialPlot(data = data.3)
 #'
 #' ## now with some graphical modification
-#' plot_RadialPlot(data = data.3,
-#'                 col = c("darkblue", "darkgreen"),
-#'                 bar.col = c("lightblue", "lightgreen"),
-#'                 pch = c(2, 6),
-#'                 summary = c("n", "in.2s"),
-#'                 summary.pos = "sub",
-#'                 legend = c("Sample 1", "Sample 2"))
+#' plot_RadialPlot(
+#'   data = data.3,
+#'   col = c("darkblue", "darkgreen"),
+#'   bar.col = c("lightblue", "lightgreen"),
+#'   pch = c(2, 6),
+#'   summary = c("n", "in.2s"),
+#'   summary.pos = "sub",
+#'   legend = c("Sample 1", "Sample 2"))
 #'
 #' @md
 #' @export
@@ -363,7 +375,6 @@ plot_RadialPlot <- function(
   if(min(De.global) < 0) {
 
     if("zlim" %in% names(extraArgs)) {
-
       De.add <- abs(extraArgs$zlim[1])
     } else {
 
@@ -372,7 +383,6 @@ plot_RadialPlot <- function(
 
       ## optionally readjust delta De for extreme values
       if(De.add <= abs(min(De.global))) {
-
         De.add <- De.add * 10
       }
     }
@@ -403,6 +413,7 @@ plot_RadialPlot <- function(
     z.span <- ifelse(z.span > 1, 0.9, z.span)
     limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
+
   }
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
@@ -527,14 +538,9 @@ plot_RadialPlot <- function(
   }
 
   ## create column names
-  colnames(data.global) <- c("De",
-                             "error",
-                             "z",
-                             "se",
-                             "z.central",
-                             "precision",
-                             "std.estimate",
-                             "std.estimate.plot")
+  colnames(data.global) <- c(
+    "De", "error", "z", "se", "z.central", "precision", "std.estimate",
+    "std.estimate.plot")
 
 ## calculate global central value
 if(centrality[1] == "mean") {
@@ -653,6 +659,7 @@ if(centrality[1] == "mean") {
     z.span <- ifelse(z.span > 1, 0.9, z.span)
     limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
                   (1.1 + z.span) * max(data.global[[1]]))
+
   }
 
   if("xlim" %in% names(extraArgs)) {
@@ -729,8 +736,8 @@ if(centrality[1] == "mean") {
   ## define auxiliary plot parameters -----------------------------------------
 
   ## optionally adjust plot ratio
-  if(missing(plot.ratio) == TRUE) {
-    if(log.z == TRUE) {
+  if(missing(plot.ratio)) {
+    if(log.z) {
       plot.ratio <- 1 /  (1 * ((max(data.global[,6]) - min(data.global[,6])) /
         (max(data.global[,7]) - min(data.global[,7]))))
     } else {
@@ -738,14 +745,15 @@ if(centrality[1] == "mean") {
     }
   }
 
-  if(plot.ratio > 10^6) {plot.ratio <- 10^6}
+  ##limit plot ratio
+  plot.ratio <- min(c(1e+06, plot.ratio))
 
   ## calculate conversion factor for plot coordinates
   f <- (max(data.global[,6]) - min(data.global[,6])) /
        (max(data.global[,7]) - min(data.global[,7])) * plot.ratio
 
   ## calculate major and minor z-tick values
-  tick.values.major <- signif(pretty(limits.z, n = 5), 3)
+  tick.values.major <- signif(c(limits.z, pretty(limits.z, n = 5)))
   tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
 
   tick.values.major <- tick.values.major[tick.values.major >=
@@ -773,14 +781,14 @@ if(centrality[1] == "mean") {
   ## calculate major z-tick coordinates
   tick.x1.major <- r / sqrt(1 + f^2 * (
     tick.values.major - z.central.global)^2)
+
   tick.y1.major <- (tick.values.major - z.central.global) * tick.x1.major
   tick.x2.major <- (1 + 0.015 * cex) * r / sqrt(
     1 + f^2 * (tick.values.major - z.central.global)^2)
   tick.y2.major <- (tick.values.major - z.central.global) * tick.x2.major
-  ticks.major <- cbind(tick.x1.major,
-                       tick.x2.major,
-                       tick.y1.major,
-                       tick.y2.major)
+  ticks.major <- cbind(0,
+    tick.x1.major, tick.x2.major, tick.y1.major, tick.y2.major)
+
 
   ## calculate minor z-tick coordinates
   tick.x1.minor <- r / sqrt(1 + f^2 * (
@@ -800,10 +808,12 @@ if(centrality[1] == "mean") {
   label.y <- (tick.values.major - z.central.global) * tick.x2.major
 
   ## create z-axes labels
-  if(log.z == TRUE) {
+  if(log.z) {
     label.z.text <- signif(exp(tick.values.major), 3)
+
   } else {
     label.z.text <- signif(tick.values.major, 3)
+
   }
 
   ## subtract De.add from label values
@@ -830,14 +840,10 @@ if(centrality[1] == "mean") {
   }
 
   ## calculate node coordinates for semi-circle
-  user.limits <- if(log.z == TRUE) {
-    log(limits.z)
-  } else{
-    limits.z
-  }
+  user.limits <- if(log.z) log(limits.z) else limits.z
 
   ellipse.values <- seq(
-    from = min(c(tick.values.major, tick.values.minor, user.limits[2])),
+    from = min(c(tick.values.major, tick.values.minor, user.limits[1])),
     to = max(c(tick.values.major,tick.values.minor, user.limits[2])),
     length.out = 500)
   ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
@@ -901,24 +907,10 @@ if(centrality[1] == "mean") {
 
   ## calculate and paste statistical summary
   De.stats <- matrix(nrow = length(data), ncol = 18)
-  colnames(De.stats) <- c("n",
-                          "mean",
-                          "mean.weighted",
-                          "median",
-                          "median.weighted",
-                          "kde.max",
-                          "sd.abs",
-                          "sd.rel",
-                          "se.abs",
-                          "se.rel",
-                          "q25",
-                          "q75",
-                          "skewness",
-                          "kurtosis",
-                          "sd.abs.weighted",
-                          "sd.rel.weighted",
-                          "se.abs.weighted",
-                          "se.rel.weighted")
+  colnames(De.stats) <- c("n", "mean", "mean.weighted", "median", "median.weighted",
+    "kde.max", "sd.abs", "sd.rel", "se.abs", "se.rel", "q25", "q75", "skewness",
+    "kurtosis", "sd.abs.weighted", "sd.rel.weighted", "se.abs.weighted",
+    "se.rel.weighted")
 
   for(i in 1:length(data)) {
     data_to_stats <- data[[i]]
@@ -949,11 +941,10 @@ if(centrality[1] == "mean") {
                               to = limits.z[2]),
                       silent = TRUE)
 
-    if(class(De.density) == "try-error") {
-
+    if(class(De.density)[1] == "try-error") {
       De.stats[i,6] <- NA
-    } else {
 
+    } else {
       De.stats[i,6] <- De.density$x[which.max(De.density$y)]
     }
   }
@@ -1291,9 +1282,8 @@ label.text[[1]] <- NULL
   }
 
   ## calculate line coordinates and further parameters
-  if(missing(line) == FALSE) {
-
-    line = line + De.add
+  if(!missing(line)) {
+    #line = line + De.add
 
     if(log.z == TRUE) {line <- log(line)}
 

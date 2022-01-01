@@ -567,6 +567,7 @@ calc_MinDose <- function(
                            control = list(iter.max = 1000L),
                            start = start)
       )
+
     }, error = function(e) {
       stop(paste("Sorry, seems like I encountered an error...:", e), call. = FALSE)
     })
@@ -867,7 +868,7 @@ calc_MinDose <- function(
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
     b2mamvec <- as.matrix(sapply(mle[1:N], save_Gamma, simplify = TRUE))
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
-    # Calculate the probality/pseudo-likelihood
+    # Calculate the probability/pseudo-likelihood
     Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
     prodterm <- lapply(Pmat, get_ProductTerm, b2Pmatrix)
     # Save the bootstrap results as dose-likelihood pairs

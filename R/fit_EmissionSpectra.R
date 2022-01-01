@@ -53,6 +53,7 @@
 #' `max.runs` \tab [integer] \tab `10000` \tab maximum allowed search iterations, if exceed
 #' the searching stops \cr
 #' `graining` \tab [numeric] \tab `15` \tab gives control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm \cr
+#' `norm` \tab [logical] \tab `TRUE` \tab normalises data to the highest count value before fitting \cr
 #' `trace` \tab [logical] \tab `FALSE` \tab enables/disables the tracing of the minimisation routine
 #'}
 #'
@@ -127,7 +128,7 @@
 #' parameter estimation. The grey band in the residual plot indicates the
 #' 10% deviation from 0 (means no residual).
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.1.1
 #'
 #'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -330,8 +331,6 @@ fit_EmissionSpectra <- function(
 
   }
 
-  # set data.frame ------------------------------------------------------------------------------
-  df <- data.frame(x = m[,1], y = m[,2]/max(m[,2])) ##normalise values, it is just easier
 
   # Settings ------------------------------------------------------------------------------------
   ##create peak finding function ... this helps to get good start parameters
@@ -366,8 +365,15 @@ fit_EmissionSpectra <- function(
   method_control <- modifyList(x = list(
     max.runs = 10000,
     graining = 15,
+    norm = TRUE,
     trace = FALSE
   ), val = method_control)
+
+  # set data.frame ------------------------------------------------------------------------------
+  df <- data.frame(x = m[,1], y = m[,2]) ##normalise values, it is just easier
+
+  if(method_control$norm[1])
+    df[["y"]] <- df[["y"]]/max(m[,2]) ##normalise values, it is just easier
 
   ##initialise objects
   success_counter <- 0
@@ -563,22 +569,24 @@ fit_EmissionSpectra <- function(
 
     ## add axis normalised
     axis(side = 2,
-         at = axTicks(side = 2),
-         labels = c(axTicks(2)))
+           at = axTicks(side = 2),
+           labels = c(axTicks(2)))
 
     ## add axis with real count vales
-    axis(
-      side = 2,
-      axTicks(side = 2)[-1],
-      labels = format(
-        max(m[, 2]) * axTicks(side = 2)[-1],
-        digit = 1,
-        scientific = TRUE
-      ),
-      line = 0.8,
-      cex.axis = 0.7,
-      tick = FALSE
-    )
+    if(method_control$norm[1]) {
+      axis(
+        side = 2,
+        axTicks(side = 2)[-1],
+        labels = format(
+          max(m[, 2]) * axTicks(side = 2)[-1],
+          digit = 1,
+          scientific = TRUE
+        ),
+        line = 0.8,
+        cex.axis = 0.7,
+        tick = FALSE
+      )
+    }
 
     ##plot sum curve
     lines(x = df[[1]], y = predict(fit), col = col[1], lwd = 1.5)
@@ -689,3 +697,4 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
+
