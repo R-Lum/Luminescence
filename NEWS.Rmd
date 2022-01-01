@@ -32,9 +32,9 @@ where `'normal'` was expected causing the function to crash in R-devel if the ar
 * The parameter `records_max` removed more curves than required; fixed. 
 
 #### `plot_RLum.Data.Spectrum()`
-* The function gained a new argument `plot` that can be used to disable the plot
+* The function gained a new argument `plot` that can disable the plot
 and return the matrix used for the plotting instead. This may sound a little bit awkward, but
-it adds an enormous flexibility. The function does a lot of internal transformations, 
+it adds enormous flexibility. The function does a lot of internal transformations, 
 such as binning or colour calculations, which could not be used in other functions before. 
-Now the function can be 'misused' to create the an output object ready to be passed to other
+Now the function can be 'misused' to create an output object ready to be passed to other
 packages and functions, such as the package `'plot3D'`.
