@@ -69,10 +69,10 @@
 #' @examples
 #'
 #' ##load data
-#' data(ExampleData.RLum.Data.Image, envir = environment())
+#' #data(ExampleData.RLum.Data.Image, envir = environment())
 #'
 #' ##plot data
-#' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
+#' #plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 #'
 #' @md
 #' @export

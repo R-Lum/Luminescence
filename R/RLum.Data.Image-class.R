@@ -41,10 +41,10 @@ NULL
 #'
 #' @examples
 #'
-#' showClass("RLum.Data.Image")
+#' #showClass("RLum.Data.Image")
 #'
 #' ##create empty RLum.Data.Image object
-#' set_RLum(class = "RLum.Data.Image")
+#' #set_RLum(class = "RLum.Data.Image")
 #'
 #' @importClassesFrom raster RasterBrick
 #'

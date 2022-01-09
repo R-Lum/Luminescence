@@ -747,17 +747,17 @@ NULL
 #' }
 #'
 #' Image data is a measurement of fluorescent ceiling lights with a cooled
-#' Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
+#' Princeton Instruments (TM) camera fitted on Risø DA-20 TL/OSL reader.
 #'
 #' @keywords datasets
 #'
 #' @examples
 #'
 #' ##load data
-#' data(ExampleData.RLum.Data.Image, envir = environment())
+#' #data(ExampleData.RLum.Data.Image, envir = environment())
 #'
 #' ##plot data
-#' plot_RLum(ExampleData.RLum.Data.Image)
+#' #plot_RLum(ExampleData.RLum.Data.Image)
 #'
 #' @name ExampleData.RLum.Data.Image
 #' @md
