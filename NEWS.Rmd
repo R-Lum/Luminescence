@@ -25,5 +25,8 @@ the standard raster plot was even improved. Please watch out, however, for chang
 
 ### Bugfixes and changes
 
-* Dummy
+#### `convert_Activity2Concentration()`
+* The function had had-coded conversion factors, now the factors are calculated, which makes it easier
+to include new data, such as updated half-life values.
+* The documentation is extended and should now read more clear. 
 
