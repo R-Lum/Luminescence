@@ -12,6 +12,7 @@ header-includes:
 
 ### Breaking changes
 
+#### Changes in `RLum.Data.Image` and removal of import `'raster'`
 The S4 class `RLum.Data.Image` was heavily revised to strip `'Luminescence'` of the dependency to the package `'raster'` and replace the functionality with base R functions and objects. 
 The `'raster'` package came in at an early stage of `'Luminescence'` to handle image data. However, most of its massive feature set was never used, but `'raster'` caused a lot of trouble to many users and in our automated tests because of its own dependencies. Soon, `'raster'` will be retired and replaced by an even more powerful package called `'terra'`. This was our cue to make some serious changes instead of carrying this unfortunate implementation in `'Luminescence'` forward.
 
@@ -21,6 +22,17 @@ of a `RasterBrick` object.
 the standard raster plot was even improved. Please watch out, however, for changed arguments. 
 * The image format import functions `read_SPE2R()` and `read_TIFF2R()` were modified to support the new class design. 
 * The corresponding example dataset was updated.
+
+#### Removal of function `app_RLum()` 
+This function was essentially a wrapper around `RLumShiny::app_RLum()` written 
+to promote `'RLumShiny'`; a package providing a graphical user interface to `'Luminescence'`.
+`'Luminescence'` is essential for `'RLumShiny'`. However, this two-way dependency caused
+unwanted trouble once the package `'raster'` was removed. By removing 
+ `app_RLum()` `'Luminescence'` comes lighter because it has fewer dependencies 
+this unfortunate reverse dependency can be avoided. `RLumShiny::app_RLum()` will still work as before, 
+but it cannot be called anymore out of `'Luminescence'`. 
+In summary, except one function less, not much has changed since both packages 
+need to be installed to run the shiny applications.
 
 ### Bugfixes and changes
 

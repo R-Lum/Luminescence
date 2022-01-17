@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.18.9000-34
+Version: 0.9.18.9000-36
 Date: 2022-01-17
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
@@ -80,7 +80,6 @@ Imports:
     zoo (>= 1.8)
 Suggests:
     spelling (>= 2.2),
-    RLumShiny (>= 0.2.2),
     plotly (>= 4.10.0),
     rmarkdown (>= 2.11),
     rstudioapi (>= 0.13),
@@ -136,7 +135,6 @@ Collate:
     'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
     'analyse_portableOSL.R'
-    'app_RLum.R'
     'apply_CosmicRayRemoval.R'
     'apply_EfficiencyCorrection.R'
     'calc_AliquotSize.R'
