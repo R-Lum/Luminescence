@@ -1,7 +1,7 @@
 ## Release summary
 
-This version updates 0.9.16 on CRAN and fixes an error in `plot_AbanicoPlot()`
-causing an error on the CRAN check server farm and flagged by the CRAN team.
+This version updates 0.9.17. It essentially drops two dependencies that had
+been causing trouble. 
 
 ## Addressed CRAN issues
 
@@ -17,5 +17,5 @@ causing an error on the CRAN check server farm and flagged by the CRAN team.
 
 Reverse depends or suggests 4: 
 
-* 3/4 are ok. 
+* 3/4 are OK. 
 * `RLumShiny`: The note here is the same as on CRAN and not related to 'Luminescence'
