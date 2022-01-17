@@ -10,7 +10,7 @@ name: GitHub Actions CI
 
 ## change if caches needs to be refreshed
 env:
-  cache-version: v4
+  cache-version: v5
 
 jobs:
   R-CMD-check:
