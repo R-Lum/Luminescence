@@ -20,7 +20,7 @@ fading correction to."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
       </span>
     </div>
 
@@ -121,11 +121,11 @@ doi:10.1016/j.quageo.2016.01.004</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> T_0.5 interpolated:	NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> T_0.5 predicted:	4e+11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> g-value:		5.18 ± 0.72 (%/decade)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> g-value (norm. 2 days):	6.01 ± 0.73 (%/decade)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g-value:		5.18 ± 0.73 (%/decade)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g-value (norm. 2 days):	6.01 ± 0.74 (%/decade)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rho':			3.8e-06 ± 4.77e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> log10(rho'):		-5.42 ± 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rho':			4.02e-06 ± 6.03e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log10(rho'):		-5.4 ± 0.07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Show g-value and rho' results</span></span>
@@ -133,17 +133,17 @@ doi:10.1016/j.quageo.2016.01.004</p>
 <span class="r-in"><span class="va">rhop</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IR50_fading.res</span>, <span class="st">"rho_prime"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">gval</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        FIT     MEAN        SD  Q_0.025   Q_0.16  Q_0.84 Q_0.975  TC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 5.182106 5.171476 0.7153082 3.923732 4.442343 5.91971 6.45872 378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        FIT     MEAN        SD Q_0.025   Q_0.16   Q_0.84  Q_0.975  TC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 5.182106 5.231681 0.7286892 3.60608 4.497444 5.970332 6.297748 378</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED T_0.5_PREDICTED</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x      6.010655           0.7291828                 NA    395648134315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x      6.010655           0.7430929                 NA    395648134315</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x           18339400088           18339400088</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 2022-01-01-05:22.0.274210006697103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 2022-01-17-06:44.0.653591030742973</span>
 <span class="r-in"><span class="va">rhop</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           MEAN           SD      Q_0.025       Q_0.16       Q_0.84      Q_0.975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.798481e-06 4.768207e-07 2.867092e-06 3.307886e-06 4.202268e-06 4.739313e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 4.015402e-06 6.027019e-07 2.806919e-06 3.334094e-06 4.632322e-06 5.133931e-06</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Get LxTx values of the IR50 DE measurement</span></span>
 <span class="r-in"><span class="va">IR50_De.LxTx</span> <span class="op">&lt;-</span> <span class="va">ExampleData.Fading</span><span class="op">$</span><span class="va">equivalentDose.data</span><span class="op">$</span><span class="va">IR50</span></span>
@@ -168,16 +168,16 @@ doi:10.1016/j.quageo.2016.01.004</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  &gt;&gt; Fading correction according to Huntley &amp; Lamothe (2001)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used g-value:	5.182 ± 0.715 %/decade</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used g-value:	5.182 ± 0.729 %/decade</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  .. used tc:		1.198e-08 ka</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used kappa:		0.0225 ± 0.0031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  .. used kappa:		0.0225 ± 0.0032</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ----------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  seed: 			NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  n.MC: 			10000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  observations: 		10000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ----------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		139.6261 ka ± 15.1269 ka</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		288.1629 ka ± 61.8393 ka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		139.6261 ka ± 16.9124 ka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		288.1629 ka ± 64.1254 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
 <span class="r-in"></span>
 <span class="r-in"></span>
@@ -195,7 +195,7 @@ doi:10.1016/j.quageo.2016.01.004</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

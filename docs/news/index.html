@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
       </span>
     </div>
 
@@ -48,38 +48,35 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.17" id="changes-in-version-0917-2022-01-01">Changes in version 0.9.17 (2022-01-01)<a class="anchor" aria-label="anchor" href="#changes-in-version-0917-2022-01-01"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.18" id="changes-in-version-0918-2022-01-17">Changes in version 0.9.18 (2022-01-17)<a class="anchor" aria-label="anchor" href="#changes-in-version-0918-2022-01-17"></a></h2>
 <p><strong>This package version requires R &gt;= 4.0.5</strong></p>
-<div class="section level3">
-<h3 id="bugfixes-and-changes-0-9-17">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-17"></a></h3>
 <div class="section level4">
-<h4 id="calc_mindosecalc_maxdose-0-9-17">
-<code>calc_MinDose()</code>/<code>calc_MaxDose()</code>
-<a class="anchor" aria-label="anchor" href="#calc_mindosecalc_maxdose-0-9-17"></a></h4>
-<ul><li>The error message if no likelihood profiling can be done now reads more clear.</li>
+<h4 id="breaking-changes-0-9-18">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-18"></a></h4>
+<div class="section level5">
+<h5 id="changes-in-rlumdataimage-and-removal-of-import-raster-0-9-18">Changes in <code>RLum.Data.Image</code> and removal of import <code>'raster'</code>
+<a class="anchor" aria-label="anchor" href="#changes-in-rlumdataimage-and-removal-of-import-raster-0-9-18"></a></h5>
+<p>The S4 class <code>RLum.Data.Image</code> was heavily revised to strip <code>'Luminescence'</code> of the dependency to the package <code>'raster'</code> and replace the functionality with base R functions and objects. The <code>'raster'</code> package came in at an early stage of <code>'Luminescence'</code> to handle image data. However, most of its massive feature set was never used, but <code>'raster'</code> caused a lot of trouble to many users and in our automated tests because of its own dependencies. Soon, <code>'raster'</code> will be retired and replaced by an even more powerful package called <code>'terra'</code>. This was our cue to make some serious changes instead of carrying forward this unfortunate implementation in <code>'Luminescence'</code>.</p>
+<ul><li>Within the <code>RLum.Data.Image-class</code> image data are now stored in an <code>array</code> instead of a <code>RasterBrick</code> object.</li>
+<li>The function <code><a href="../reference/plot_RLum.Data.Image.html">plot_RLum.Data.Image()</a></code> does not know any more about a plot type <code>plotRGB</code>. However, the standard raster plot was even improved. Please watch out, however, for changed arguments.</li>
+<li>The image format import functions <code><a href="../reference/read_SPE2R.html">read_SPE2R()</a></code> and <code><a href="../reference/read_TIFF2R.html">read_TIFF2R()</a></code> were modified to support the new class design.</li>
+<li>The corresponding example dataset was updated.</li>
 </ul></div>
+<div class="section level5">
+<h5 id="removal-of-app_rlum-0-9-18">Removal of <code>app_RLum()</code>
+<a class="anchor" aria-label="anchor" href="#removal-of-app_rlum-0-9-18"></a></h5>
+<p>This function was essentially a wrapper around <code><a href="https://tzerk.github.io/RLumShiny/reference/app_RLum.html" class="external-link">RLumShiny::app_RLum()</a></code> written to promote <code>'RLumShiny'</code>; a package providing a graphical user interface to <code>'Luminescence'</code>. <code>'Luminescence'</code> is essential for <code>'RLumShiny'</code>. However, this two-way dependency caused unwanted trouble once the package <code>'raster'</code> was removed. By removing <code>app_RLum()</code> <code>'Luminescence'</code> comes lighter because it has fewer dependencies this unfortunate reverse dependency can be avoided. <code><a href="https://tzerk.github.io/RLumShiny/reference/app_RLum.html" class="external-link">RLumShiny::app_RLum()</a></code> will still work as before, but it cannot be called anymore out of <code>'Luminescence'</code>. In summary, except for one function less, not much has changed since both packages need to be installed to run the shiny applications.</p>
+</div>
+</div>
 <div class="section level4">
-<h4 id="fit_emissionspectra-0-9-17"><code>fit_EmissionSpectra()</code><a class="anchor" aria-label="anchor" href="#fit_emissionspectra-0-9-17"></a></h4>
-<ul><li>
-<code>method_control = list()</code> gained a new sub-argument <code>norm</code> to enable/disable the normalisation of the data. The default is <code>TRUE</code>.</li>
+<h4 id="bugfixes-and-changes-0-9-18">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-18"></a></h4>
+<div class="section level5">
+<h5 id="convert_activity2concentration-0-9-18"><code>convert_Activity2Concentration()</code><a class="anchor" aria-label="anchor" href="#convert_activity2concentration-0-9-18"></a></h5>
+<ul><li>The function had had-coded conversion factors, now the factors are calculated, making it easier to include new data, such as updated half-life values.</li>
+<li>The documentation is extended and should now be read more clear.</li>
 </ul></div>
-<div class="section level4">
-<h4 id="plot_abanicoplot-0-9-17"><code>plot_AbanicoPlot()</code><a class="anchor" aria-label="anchor" href="#plot_abanicoplot-0-9-17"></a></h4>
-<ul><li>The keyword internally set for the font decoration <code>'plain'</code> was not used in <code><a href="../reference/get_Layout.html">get_Layout()</a></code>, where <code>'normal'</code> was expected causing the function to crash in R-devel if the argument <code>legend</code> was used; fixed (<a href="https://github.com/R-Lum/Luminescence/issues/108" class="external-link">#108</a>).</li>
-</ul></div>
-<div class="section level4">
-<h4 id="plot_radioplot-0-9-17"><code>plot_RadioPlot()</code><a class="anchor" aria-label="anchor" href="#plot_radioplot-0-9-17"></a></h4>
-<ul><li>An additional line, e.g., <code>plot_RadialPlot(...,line = 1)</code> was not always drawn where the user expected it to be seen; fixed (<a href="https://github.com/R-Lum/Luminescence/issues/106" class="external-link">#106</a>, reported by Li Bo)</li>
-<li>The radial z-scale did not always extend to the limits of the data, even if limits for the z-scale were set, leading to an odd graphical offset and unsuitable plots; fixed (reported by Christina Neudorf)</li>
-<li>The plot now always draws the lower limit of the z-scale.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="plot_rlumanalysis-0-9-17"><code>plot_RLum.Analysis()</code><a class="anchor" aria-label="anchor" href="#plot_rlumanalysis-0-9-17"></a></h4>
-<ul><li>The parameter <code>records_max</code> removed more curves than required; fixed.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="plot_rlumdataspectrum-0-9-17"><code>plot_RLum.Data.Spectrum()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdataspectrum-0-9-17"></a></h4>
-<ul><li>The function gained a new argument <code>plot</code> that can disable the plot and return the matrix used for the plotting instead. This may sound a little bit awkward, but it adds enormous flexibility. The function does a lot of internal transformations, such as binning or colour calculations, which could not be used in other functions before. Now the function can be ‘misused’ to create an output object ready to be passed to other packages and functions, such as the package <code>'plot3D'</code>.</li>
+<div class="section level5">
+<h5 id="use_drac-0-9-18"><code>use_DRAC()</code><a class="anchor" aria-label="anchor" href="#use_drac-0-9-18"></a></h5>
+<ul><li>The function now supports up to 5000 datasets, instead of before 33. The function <code><a href="../reference/template_DRAC.html">template_DRAC()</a></code> was revised accordingly.</li>
 </ul></div>
 </div>
 </div>
@@ -97,7 +94,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
