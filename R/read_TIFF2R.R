@@ -9,9 +9,9 @@
 #'
 #'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.1.1
 #'
-#'@seealso [tiff::readTIFF], [RLum.Data.Image-class], [raster::raster]
+#'@seealso [tiff::readTIFF], [RLum.Data.Image-class]
 #'
 #'@keywords IO
 #'
@@ -42,13 +42,11 @@ read_TIFF2R <- function(
   ## import
   temp <- tiff::readTIFF(file, all = TRUE, as.is = TRUE)
 
-  ##transform to raster brick
-  raster_brick <- raster::brick(lapply(temp, function(x){
-    raster::raster(x, xmx = nrow(x), ymx = ncol(x))
-  }))
+  if(is(temp, "list"))
+    temp <- as(temp, "RLum.Data.Image")
 
 # Return ------------------------------------------------------------------
-  set_RLum(class = "RLum.Data.Image", data = raster_brick)
+  set_RLum(class = "RLum.Data.Image", data = temp@data)
 
 }
 

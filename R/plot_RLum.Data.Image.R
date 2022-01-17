@@ -1,46 +1,23 @@
 #' @title  Plot function for an `RLum.Data.Image` S4 class object
 #'
-#' @description The function provides a standardised plot output for image data of an
-#' `RLum.Data.Image`S4 class object, mainly using the plot functions
-#' provided by the [raster] package.
+#' @description The function provides very basic plot functionality for image data of an
+#' [RLum.Data.Image-class] object. For more sophisticated plotting it is recommended
+#' to use other very powerful packages for image processing.
 #'
 #' **Details on the plot functions**
-#'
-#' Image is visualised as 2D plot using generic plot types provided by other
-#' packages.
 #'
 #' Supported plot types:
 #'
 #' **`plot.type = "plot.raster"`**
 #'
-#' Uses the standard plot function for raster data from the package
-#' [raster::raster]: [raster::plot]. For each raster layer in a
-#' raster brick one plot is produced.
-#'
-#' Arguments that are passed through the function call:
-#'
-#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,`zlim`, `col`, `stretch` (`NULL` no
-#' stretch)
-#'
-#' **`plot.type = "plotRGB"`**
-#'
-#' Uses the function [raster::plotRGB] from the
-#' [raster::raster] package. Only one image plot is produced as all layers
-#' in a brick a combined.  This plot type is useful to see whether any signal
-#' is recorded by the camera.\cr
-#' Arguments that are passed through the function call:
-#'
-#' `main`,`axes`, `xlab`, `ylab`, `ext`, `interpolate`, `maxpixels`,
-#' `alpha`, `colNA`, `stretch`
+#' Uses the standard plot function of R [graphics::image]. If wanted, the image
+#' is enhanced, using the argument `stretch`. Possible values are `hist`, `lin`, and
+#' `NULL`. The latter does nothing. The argument `useRaster = TRUE` is used by default, but
+#' can be set to `FALSE`.
 #'
 #' **`plot.type = "contour"`**
 #'
-#' Uses the function contour plot function from the [raster]
-#' function ([raster::contour]). For each raster layer one contour
-#' plot is produced. Arguments that are passed through the function call:\cr
-#'
-#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
-#' `col`
+#' This uses the function [graphics::contour]
 #'
 #' @param object [RLum.Data.Image-class] (**required**): S4
 #' object of class `RLum.Data.Image`
@@ -49,20 +26,24 @@
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If `par.local = FALSE` global parameters are inherited.
 #'
+#' @param frames [numeric] (*optional*): sets the frames to be set, by default all
+#' frames are plotted. Can be sequence of numbers, as long as the frame number is valid.
+#'
 #' @param plot.type [character] (*with default*): plot types.
-#' Supported types are `plot.raster`, `plotRGB` or `contour`
+#' Supported types are `plot.raster`, `contour`
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the specific plot functions.
+#' to the specific plot functions. Standard supported parameters are `xlim`, `ylim`, `zlim`,
+#' `xlab`, `ylab`, `main`, `legend` (`TRUE` or `FALSE`), `col`, `cex`, `axes` (`TRUE` or `FALSE`)
 #'
 #' @return Returns a plot.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.2.0
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [RLum.Data.Image-class], [plot], [plot_RLum], [raster::raster]
+#' @seealso [RLum.Data.Image-class], [plot], [plot_RLum], [graphics::image], [graphics::contour]
 #'
 #' @keywords aplot
 #'
@@ -78,6 +59,7 @@
 #' @export
 plot_RLum.Data.Image <- function(
   object,
+  frames = NULL,
   par.local = TRUE,
   plot.type = "plot.raster",
   ...
@@ -91,92 +73,151 @@ plot_RLum.Data.Image <- function(
   ## extract object
   object <- object@data
 
+# Define additional functions ---------------------------------------------
+.stretch <- function(x, type = "lin"){
+  if(is.null(type[1])) return(x[,,1])
+
+  if(type[1] == "lin") {
+    r <- range(x)
+    q <- stats::quantile(x, c(0.05, 0.95), na.rm = TRUE)
+    x <- (r[2] * (x - q[1])) / (q[2] - q[1])
+    x[x < 0] <- r[1]
+    x[x > r[2]] <- r[2]
+  }
+
+  if(type[1] == "hist")
+    x <- matrix(stats::ecdf(x)(x) * 255, ncol = ncol(x))
+
+  return(x)
+}
+
 # Plot settings -----------------------------------------------------------
 plot_settings <- modifyList(x = list(
     main = "RLum.Data.Image",
     axes = TRUE,
     xlab = "Length [px]",
     ylab = "Height [px]",
-    xlim = c(0,dim(object)[2]),
-    ylim = c(0,dim(object)[1]),
-    zlim = range(c(object@data@min, object@data@max)),
-    ext = NULL,
-    interpolate = FALSE,
+    xlim = c(1,dim(object)[1]),
+    ylim = c(1,dim(object)[2]),
+    zlim = range(object),
+    legend = TRUE,
+    useRaster = TRUE,
     stretch = "hist",
-    maxpixels = dim(object)[1]*dim(object)[2],
-    alpha = 255,
-    colNA = "white",
     col = grDevices::hcl.colors(50, palette = "Inferno"),
     cex = 1
   ), val = list(...), keep.null = TRUE)
 
+  ## set frames
+  if(!is.null(frames)) {
+    frames[1] <- max(1,min(frames))
+    frames[length(frames)] <- min(dim(object)[3],max(frames))
+    object <- object[,,frames,drop = FALSE]
+
+  }
+
+  ## enforce xlim, ylim and zlim directly here
+  ## xlim, ylim
+  object[] <- object[
+    max(plot_settings$xlim[1], 1):min(plot_settings$xlim[2], dim(object)[1]),
+    max(plot_settings$ylim[1], 1):min(plot_settings$ylim[2], dim(object)[2]),,
+    drop = FALSE]
+
+  ## zlim
+  object[object <= plot_settings$zlim[1]] <- max(0,plot_settings$zlim[1])
+  object[object >= plot_settings$zlim[2]] <- min(dim(object)[3],plot_settings$zlim[2])
 
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
 
-  if(plot.type == "plotRGB"){
-    ## plot.type: plotRGB -----
-    raster::plotRGB(
-      x = object,
-      main = plot_settings$main,
-      axes = plot_settings$axes,
-      xlab = plot_settings$xlab,
-      ylab = plot_settings$ylab,
-      ext = plot_settings$ext,
-      interpolate = plot_settings$interpolate,
-      maxpixels = plot_settings$maxpixels,
-      alpha = plot_settings$alpha,
-      colNA = plot_settings$colNA,
-      stretch = plot_settings$stretch)
-
-  }else if(plot.type == "plot.raster"){
-    # plot.type: plot.raster -----
-    if(!is.null(plot_settings$stretch)) {
-    object <- raster::stretch(
-      object,
-      minq = .02,
-      maxq = .98,
-      minv = plot_settings$zlim[1],
-      maxv = plot_settings$zlim[2],
-      )
-    }
-
-    if(class(object)[1] != "RasterBrick") object <- raster::brick(object)
-
-    raster::plot(
-      object,
-      main = paste(plot_settings$main, "#", 1:object@data@nlayers),
-      xlim = plot_settings$xlim,
-      ylim = plot_settings$ylim,
-      zlim = plot_settings$zlim,
-      xlab = plot_settings$xlab,
-      ylab = plot_settings$ylab,
-      col = plot_settings$col,
-      interpolate = plot_settings$interpolate
-    )
-
-  }else if(plot.type == "contour"){
-    ## plot.type: contour ----
-    for(i in 1:raster::nlayers(object)){
-      if(!is.null(plot_settings$stretch)) {
-        object <- raster::stretch(
-          object,
-          minq = .02,
-          maxq = .98,
-          minv = plot_settings$zlim[1],
-          maxv = plot_settings$zlim[2]
-        )
-      }
-
-      raster::contour(
-        raster::raster(object, layer = i),
-        main = plot_settings$main,
-        xlim = plot_settings$xlim,
-        ylim = plot_settings$ylim,
+  if (plot.type == "plot.raster") {
+# plot.raster -------------------------------------------------------------
+    for(i in 1:dim(object)[3]) {
+      par.default <- par(mar = c(4.5,4.5,4,3))
+      on.exit(par(par.default))
+      x <- object[, , i, drop = FALSE]
+      graphics::image(
+        x = .stretch(x, type = plot_settings$stretch),
+        useRaster = plot_settings$useRaster,
+        axes = FALSE,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
-        col = plot_settings$col
-      )
+        main = paste0(plot_settings$main, " #",i),
+        col = plot_settings$col)
+      graphics::box()
+
+      ## axes
+      if(plot_settings$axes) {
+        xlab <- pretty(1:dim(x)[1])
+        xlab[c(1,length(xlab))] <- c(0,dim(x)[1])
+        xat <- seq(0,1,length.out = length(xlab))
+        graphics::axis(side = 1, at = xat, labels = xlab)
+
+        ylab <- pretty(1:dim(x)[2])
+        ylab[c(1,length(ylab))] <- c(0,dim(x)[2])
+        yat <- seq(0,1,length.out = length(ylab))
+        graphics::axis(side = 2, at = yat, labels = ylab)
+
+      }
+
+      ## add legend
+      if(plot_settings$legend) {
+        par.default <- c(par.default, par(xpd = TRUE))
+        on.exit(par(par.default))
+        col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 15)]
+        slices <- seq(0,1,length.out = 15)
+        for(s in 1:(length(slices) - 1)){
+          graphics::rect(
+            xleft = par()$usr[4] * 1.01,
+            xright = par()$usr[4] * 1.03,
+            ybottom = slices[s],
+            ytop =  slices[s + 1],
+            col = col_grad[s],
+            border = TRUE)
+        }
+
+        text(
+          x = par()$usr[4] * 1.04,
+          y = par()$usr[2],
+          format(max(x), digits = 1, scientific = TRUE),
+          cex = 0.7,
+          srt = 270,
+          pos = 3)
+        text(
+          x = par()$usr[4] * 1.04,
+          y = par()$usr[3],
+          format(min(x), digits = 1, scientific = TRUE),
+          cex = 0.7,
+          pos = 3,
+          srt = 270)
+      }
+    }
+
+  }else if(plot.type == "contour"){
+     for(i in 1:dim(object)[3]) {
+      x <- object[, , i, drop = FALSE]
+      graphics::contour(
+        x = x[,,1],
+        axes = FALSE,
+        xlab = plot_settings$xlab,
+        ylab = plot_settings$ylab,
+        main = paste0(plot_settings$main, " #",i),
+        col = plot_settings$col)
+      graphics::box()
+
+     }
+
+    ## axes
+    if(plot_settings$axes) {
+      xlab <- pretty(1:dim(x)[1])
+      xlab[c(1,length(xlab))] <- c(0,dim(x)[1])
+      xat <- seq(0,1,length.out = length(xlab))
+      graphics::axis(side = 1, at = xat, labels = xlab)
+
+      ylab <- pretty(1:dim(x)[2])
+      ylab[c(1,length(ylab))] <- c(0,dim(x)[1])
+      yat <- seq(0,1,length.out = length(ylab))
+      graphics::axis(side = 2, at = yat, labels = ylab)
+
     }
 
   }else{

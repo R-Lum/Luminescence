@@ -46,7 +46,7 @@
 #'
 #' The output should be accessed using the function [get_RLum].
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.14
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -126,7 +126,7 @@ use_DRAC <- function(
   # Integrity tests -----------------------------------------------------------------------------
   if (inherits(file, "character")) {
     if(!file.exists(file)){
-      stop("[use_DRAC()] It seems that the file doesn't exist!")
+      stop("[use_DRAC()] It seems that the file doesn't exist!", call. = FALSE)
 
     }
 
@@ -139,7 +139,7 @@ use_DRAC <- function(
     ##check if is the original DRAC table
     if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {
       if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input")
-        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.1 XLSX template. This is currently not supported!")
+        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.1 XLSX template. This is currently not supported!", call. = FALSE)
 
       warning("\n[use_DRAC()] The current DRAC version is 1.2, but you provided the v1.1 excel input template.",
               "\nPlease transfer your data to the new CSV template introduced with DRAC v1.2.", call. = FALSE)
@@ -149,7 +149,7 @@ use_DRAC <- function(
     ## DRAC v1.2 - CSV sheet
     if (tools::file_ext(file) == "csv") {
       if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs")
-        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.2 CSV template. This is currently not supported!")
+        stop("[use_DRAC()] It looks like that you are not using the original DRAC v1.2 CSV template. This is currently not supported!", call. = FALSE)
 
       input.raw <- read.csv(file, skip = 8, check.names = FALSE, header = TRUE, stringsAsFactors = FALSE)[-1, ]
     }
@@ -164,16 +164,15 @@ use_DRAC <- function(
     stop("The provided data object is not a valid DRAC template.", call. = FALSE)
   }
 
-  if (nrow(input.raw) > 50)
-    stop("DRAC can only handle 50 data sets at once. Please reduce the number of rows and re-run this function again.", call. = FALSE)
+  if (nrow(input.raw) > 5000)
+    stop("[use_DRAC()] The limit of allowed datasets is 5000!", call. = FALSE)
 
   # Settings ------------------------------------------------------------------------------------
-  settings <- list(name = ifelse(missing(name),
-                                 paste(sample(if(runif(1,-10,10)>0){LETTERS}else{letters},
-                                              runif(1, 2, 4)), collapse = ""),
-                                 name),
-                   verbose = TRUE,
-                   url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
+  settings <- list(
+    name = ifelse(missing(name),
+                  paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, runif(1, 2, 4))), name),
+   verbose = TRUE,
+   url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
 
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
@@ -183,25 +182,21 @@ use_DRAC <- function(
 
   ##(0) set masking function
   .masking <- function(mean, sd, n) {
-    temp <- rnorm(n = 30 * n, mean = mean,sd = sd)
-    temp.result <-
-      sapply(seq(1, length(temp), by = 30), function(x) {
+    temp <- rnorm(n = 30 * n, mean = mean, sd = sd)
+    t(vapply(seq(1, length(temp), 30), function(x) {
         c(format(mean(temp[x:(x + 29)]), digits = 2),
           format(sd(temp[x:(x + 29)]), digits = 2))
-      })
-    return(t(temp.result))
+      }, character(2)))
   }
 
 
   # Process data --------------------------------------------------------------------------------
   if (settings$verbose) message("\n\t Preparing data...")
-
   ##(1) expand the rows in the data.frame a little bit
   mask.df <-  input.raw[rep(1:nrow(input.raw), each = 3), ]
 
-  ##(2) generate some meaningful randome variables
-  mask.df <- lapply(seq(1, nrow(input.raw), by = 3), function(x) {
-
+  ##(2) generate some meaningful random variables
+  mask.df <- lapply(seq(1, nrow(input.raw), 3), function(x) {
     if (mask.df[x,"TI:52"] != "X") {
       ##replace some values - the De value
       mask.df[x:(x + 2), c("TI:52","TI:53")] <- .masking(
@@ -214,19 +209,19 @@ use_DRAC <- function(
   })
 
   ##(3) bin values
-  DRAC_submission.df <- rbind(input.raw,mask.df[[1]])
-
+  DRAC_submission.df <- rbind(input.raw, mask.df[[1]])
 
   ##(4) replace ID values
-  DRAC_submission.df$`TI:1` <-   paste0(paste0(paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters},
-                                                             runif(1, 2, 4)), collapse = ""),
-                                               ifelse(runif(1,-10,10)>0, "-", "")),
-                                        gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE),
-                                                                     by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))
+  DRAC_submission.df$`TI:1` <- paste0(
+    paste0(
+      paste0(
+        sample(if(runif(1,-10,10)>0) LETTERS else letters, runif(1, 2, 4))),
+      ifelse(runif(1,-10,10)>0, "-", "")),
+    gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE),
+      by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))
 
 
-
-  ##(5) store the real IDs in a sperate object
+  ##(5) store the real IDs in a separate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
 
   ##(6) create DRAC submission string
@@ -379,18 +374,19 @@ use_DRAC <- function(
 
 
   ## return output
-  DRAC.return <- set_RLum("RLum.Results",
-                          data = list(
-                            DRAC = list(highlights = DRAC.highlights,
-                                        header = DRAC.header,
-                                        labels = DRAC.labels,
-                                        content = DRAC.content,
-                                        input = DRAC.content.input,
-                                        output = DRAC.content.output,
-                                        references = references),
-                            data = file,
-                            call = sys.call(),
-                            args = as.list(sys.call()[-1])))
+  DRAC.return <- set_RLum(
+    "RLum.Results",
+    data = list(
+    DRAC = list(highlights = DRAC.highlights,
+          header = DRAC.header,
+          labels = DRAC.labels,
+          content = DRAC.content,
+          input = DRAC.content.input,
+          output = DRAC.content.output,
+          references = references),
+        data = file,
+        call = sys.call(),
+        args = as.list(sys.call()[-1])))
 
   invisible(DRAC.return)
 }

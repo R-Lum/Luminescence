@@ -44,7 +44,7 @@ test_that("check class ", {
   expect_type(as(ExampleData.RLum.Data.Image, "list"), "list")
 
   ## check edge cases
-  expect_message(as(from_array, "matrix"), "No viable coercion to matrix, object contains multiple raster layers. Please convert to array instead.")
-  expect_message(as(from_array, "data.frame"), "No viable coercion to data.frame, object contains multiple raster layers.")
+  expect_error(as(from_array, "matrix"), "No viable coercion to matrix, object contains multiple frames. Please convert to array instead.")
+  expect_error(as(from_array, "data.frame"), "No viable coercion to data.frame, object contains multiple frames.")
 
 })

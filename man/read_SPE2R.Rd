@@ -49,7 +49,7 @@ sums are used to integrate all counts over one channel.
 An object of type \linkS4class{RLum.Data.Image} is returned.  Due to
 performance reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
-\code{frame.frange}.
+\code{frame.range}.
 
 \code{matrix}
 
@@ -76,7 +76,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.3
+ 0.1.4
 }
 
 \examples{
@@ -107,7 +107,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -118,7 +118,7 @@ Hall, C., 2012: readSPE.m.
 \verb{https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe}
 }
 \seealso{
-\link{readBin}, \linkS4class{RLum.Data.Spectrum}, \link[raster:raster]{raster::raster}
+\link{readBin}, \linkS4class{RLum.Data.Spectrum}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)

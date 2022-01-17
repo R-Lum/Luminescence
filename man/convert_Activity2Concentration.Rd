@@ -9,7 +9,7 @@ convert_Activity2Concentration(data, input_unit = "Bq/kg", verbose = TRUE)
 \arguments{
 \item{data}{\link{data.frame} \strong{(required)}:
 provide dose rate data (activity or concentration) in three columns.
-The first column indicates the nuclides, the 2nd column measured value and
+The first column indicates the nuclide, the 2nd column measured value and
 in the 3rd column its error value. Allowed nuclide data are
 \code{'U-238'}, \code{'Th-232'} and \code{'K-40'}. See examples for an example.}
 
@@ -22,7 +22,7 @@ enable or disable verbose mode}
 }
 \description{
 The function performs the conversion of the specific activities into
-concentrations and vice versa for the nuclides U-238, Th-232 and K-40 to
+concentrations and vice versa for the radioelements U, Th, and K to
 harmonise the measurement unit with the required data input unit of
 potential analytical tools for, e.g. dose rate calculation or related
 functions such as \link{use_DRAC}.
@@ -31,11 +31,19 @@ functions such as \link{use_DRAC}.
 The conversion from nuclide activity of a sample to nuclide concentration
 is performed using conversion factors that are based on the mass-related
 specific activity of the respective nuclide.
+
+Constants used in this function were obtained from https://physics.nist.gov/cuu/Constants/
+all atomic weights and composition values from
+https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses
+and the nuclide data from https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version
+
 The factors can be calculated using the equation:
 
 \deqn{
-A = avogadronumber * N.freq / N.mol.mass   *  ln(2) / N.half.life
+A = N_A * N.abund / N.mol.mass   *  ln(2) / N.half.life
 }
+
+to convert in ppm we further use:
 
 \deqn{
 f = A / 10^6
@@ -43,24 +51,34 @@ f = A / 10^6
 
 where:
 \itemize{
-\item \code{A} - specific activity of the nuclide
-\item \code{N.freq} - natural frequency of the isotope
-\item \code{N.mol.mass} molar mass
-\item \code{n.half.life} half-life of the nuclide
+\item \code{N_A} - Avogadro constant in 1/mol
+\item \code{A} - specific activity of the nuclide in Bq/kg
+\item \code{N.abund} - relative natural abundance of the isotope
+\item \code{N.mol.mass} molar mass in kg/mol
+\item \code{n.half.life} half-life of the nuclide in s
 }
 
-example for U238:
+example for calculating the activity of the radionuclide U-238:
 \itemize{
-\item \eqn{avogadronumber = 6.02214199*10^23}
-\item \eqn{uran.half.life = 1.41*10^17} (in s)
-\item \eqn{uran.mol.mass = 0.23802891} (in kg/mol)
-\item \eqn{uran.freq = 0.992745} (in mol)
-\item \eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)
-\item \eqn{f.U = A.kg / 10^6}
+\item \code{N_A} = 6.02214076e+23 (1/mol)
+\item \code{T_0.5} = 1.41e+17 (s)
+\item \code{m_U_238} = 0.23802891 (kg/mol)
+\item `U_abund = 0.992745 (unitless)
 }
+
+\deqn{A_{U} = N_{A} * U_{abund} / m_{U_238} * ln(2) / T_{1/2} = 2347046} (Bq/kg)
+
+\deqn{f.U = A_{U} / 10^6}
+}
+\note{
+Although written otherwise for historical reasons. Input values must be element values.
+For instance, if a value is provided for U-238 the function assumes that this value
+represents the sum (activity or concentration) of U-238, U-235 and U-234.
+In other words, 1 ppm of U means that this is the composition of 0.992 parts of U-238,
+0.000054 parts of U-234, and 0.00072 parts of U-235.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -78,7 +96,7 @@ convert_Activity2Concentration(data)
 } 
 
 \section{How to cite}{
-Fuchs, M.C., 2022. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., 2022. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

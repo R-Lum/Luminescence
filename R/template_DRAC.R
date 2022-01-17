@@ -88,7 +88,7 @@
 #' @md
 #' @export
 template_DRAC <- function(
-  nrow = 1,
+  nrow = 1L,
   preset = NULL,
   notification = TRUE
 ){
@@ -97,8 +97,12 @@ template_DRAC <- function(
   # 1 - allow mineral specific presets; new argument 'mineral'
   # 2 - add option to return the DRAC example data set
 
-  if (nrow < 0 | nrow > 33)
-    stop("'nrow' must be a number between 0 and 33.", call. = FALSE)
+  ## correct incoming to prevent negative values
+  nrow <- max(1, nrow[1])
+
+  ## throw warning
+  if (nrow > 5000)
+    warning("[template_DRAC()] More than 5000 datasets might not be supported!", call. = FALSE)
 
   ## PRESETS ----
   valid_presets <- c("quartz_coarse", "quartz_fine", "feldspar_coarse", "polymineral_fine",

@@ -18,7 +18,7 @@
   .pid,
   recordType = "Image",
   curveType = NA_character_,
-  data = raster::brick(raster::raster(matrix())),
+  data = array(),
   info = list()
 )
 
@@ -66,7 +66,7 @@ Returns an object from class \code{RLum.Data.Image}
 
 \strong{\code{get_RLum}}
 \enumerate{
-\item Returns the data object (\link[raster:brick]{raster::brick})
+\item Returns the data object (\link{array})
 \item only the info object if \code{info.object} was set.
 }
 
@@ -85,9 +85,9 @@ by the function \link{read_SPE2R}
 \item \code{set_RLum}: Construction method for RLum.Data.Image object. The slot info is optional
 and predefined as empty list by default.
 
-\item \code{get_RLum}: Accessor method for RLum.Data.Image object. The argument \code{info.object} is
+\item \code{get_RLum}: Accessor method for \code{RLum.Data.Image} object. The argument \code{info.object} is
 optional to directly access the info elements. If no info element name is
-provided, the raw image data (\code{RasterBrick}) will be returned.
+provided, the raw image data (\code{array}) will be returned.
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
@@ -100,7 +100,7 @@ provided, the raw image data (\code{RasterBrick}) will be returned.
 \item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values
 are measured or predefined}
 
-\item{\code{data}}{Object of class \link[raster:brick]{raster::brick} containing images (raster data).}
+\item{\code{data}}{Object of class \link{array} containing image data.}
 
 \item{\code{info}}{Object of class \link{list} containing further meta information objects}
 }}
@@ -115,7 +115,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Data.Image", ..
 }
 
 \section{Class version}{
- 0.4.3
+ 0.5.0
 }
 
 \examples{
@@ -134,7 +134,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

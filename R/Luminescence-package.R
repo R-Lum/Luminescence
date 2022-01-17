@@ -98,7 +98,8 @@
 #'
 #' @import utils methods data.table
 #'
-#' @importFrom raster nlayers raster contour plot plotRGB brick
+#' @importFrom  Rcpp evalCpp
+#'
 #' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid close.screen screen split.screen
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors xy.coords dev.off
 #' @importFrom stats formula approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames coef confint predict update residuals fitted qf
@@ -723,7 +724,7 @@ NULL
 #' }
 #'
 #' Image data is a measurement of fluorescent ceiling lights with a cooled
-#' Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
+#' Princeton Instruments (TM) camera fitted on Risø DA-20 TL/OSL reader.
 #'
 #' @keywords datasets
 #'

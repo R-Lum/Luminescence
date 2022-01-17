@@ -42,7 +42,7 @@
 #' An object of type [RLum.Data.Image-class] is returned.  Due to
 #' performance reasons the import is aborted for files containing more than 100
 #' frames. This limitation can be overwritten manually by using the argument
-#' `frame.frange`.
+#' `frame.range`.
 #'
 #' `matrix`
 #'
@@ -58,12 +58,12 @@
 #'
 #' *Currently not all information provided by the SPE format are supported.*
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [readBin], [RLum.Data.Spectrum-class], [raster::raster]
+#' @seealso [readBin], [RLum.Data.Spectrum-class]
 #'
 #' @references
 #' Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
@@ -306,7 +306,6 @@ read_SPE2R <- function(
   ##set functions
 
   if(datatype  == 0){
-
     read.data <- function(n.counts){
       readBin(con, what="double", n.counts, size=4, endian="little")
     }
@@ -354,7 +353,6 @@ read_SPE2R <- function(
   temp <- readBin(con, what = "raw", (min(frame.range)-1)*2, size = 1, endian = "little")
 
   for(i in 1:(diff(frame.range)+1)){#NumFrames
-
     temp.data <- matrix(read.data(n.counts = (xdim * ydim)),
                         ncol = ydim,
                         nrow = xdim)
@@ -378,7 +376,6 @@ read_SPE2R <- function(
 
   ##close
   if(txtProgressBar & verbose){close(pb)
-
                            ##output
                            cat(paste("\t >> ",i," records have been read successfully!\n\n", sep=""))
   }
@@ -386,12 +383,10 @@ read_SPE2R <- function(
   # Output ------------------------------------------------------------------
 
   if(output.object == "RLum.Data.Spectrum" | output.object == "matrix"){
-
     ##to create a spectrum object the matrix has to transposed and
     ##the row sums are needed
 
     data.spectrum.vector <- sapply(1:length(data.list), function(x){
-
       rowSums(data.list[[x]])
 
     })
@@ -422,29 +417,11 @@ read_SPE2R <- function(
 
 
   }else if(output.object == "RLum.Data.Image"){
-    ##combine to raster
-    data.raster.list <- lapply(1:length(data.list), function(x){
-      if(txtProgressBar==TRUE){
-        cat(paste("\r Converting to RasterLayer: ", x, "/",length(data.list), sep = ""))
-
-      }
-      raster::raster(t(data.list[[x]]),
-             xmn = 0, xmx = max(xdim),
-             ymn = 0, ymx = max(ydim))
-
-    })
-
-    ##Convert to raster brick
-    data.raster <- raster::brick(x = data.raster.list)
-
-    ##Create RLum.object
-    object <- set_RLum(
-      class = "RLum.Data.Image",
-      originator = "read_SPE2R",
-      recordType = "Image",
-      curveType = "measured",
-      data = data.raster,
-      info = temp.info)
+    object <- as(data.list, "RLum.Data.Image")
+    object@originator <- "read_SPE2R"
+    object@recordType = "Image"
+    object@curveType <- "measured"
+    object@info <- temp.info
 
   }else{
     stop("[read_SPE2R()] Chosen 'output.object' not supported. Please check manual!")

@@ -18,7 +18,7 @@ test_that("check class and length of output", {
 
   ##test objects
   expect_type(get_RLum(temp_RLumDataCurve), "double")
-  expect_s4_class(get_RLum(temp_RLumDataImage), class = "RasterBrick")
+  expect_type(get_RLum(temp_RLumDataImage), "logical")
   expect_type(get_RLum(temp_RLumDataSpectrum), "logical")
   expect_null(suppressWarnings(get_RLum(temp_RLumAnalysis)))
   expect_null(get_RLum(temp_RLumResults))

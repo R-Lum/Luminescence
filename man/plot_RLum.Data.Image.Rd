@@ -4,70 +4,57 @@
 \alias{plot_RLum.Data.Image}
 \title{Plot function for an \code{RLum.Data.Image} S4 class object}
 \usage{
-plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster", ...)
+plot_RLum.Data.Image(
+  object,
+  frames = NULL,
+  par.local = TRUE,
+  plot.type = "plot.raster",
+  ...
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
 object of class \code{RLum.Data.Image}}
+
+\item{frames}{\link{numeric} (\emph{optional}): sets the frames to be set, by default all
+frames are plotted. Can be sequence of numbers, as long as the frame number is valid.}
 
 \item{par.local}{\link{logical} (\emph{with default}): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
 \item{plot.type}{\link{character} (\emph{with default}): plot types.
-Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}}
+Supported types are \code{plot.raster}, \code{contour}}
 
 \item{...}{further arguments and graphical parameters that will be passed
-to the specific plot functions.}
+to the specific plot functions. Standard supported parameters are \code{xlim}, \code{ylim}, \code{zlim},
+\code{xlab}, \code{ylab}, \code{main}, \code{legend} (\code{TRUE} or \code{FALSE}), \code{col}, \code{cex}, \code{axes} (\code{TRUE} or \code{FALSE})}
 }
 \value{
 Returns a plot.
 }
 \description{
-The function provides a standardised plot output for image data of an
-\code{RLum.Data.Image}S4 class object, mainly using the plot functions
-provided by the \link{raster} package.
+The function provides very basic plot functionality for image data of an
+\linkS4class{RLum.Data.Image} object. For more sophisticated plotting it is recommended
+to use other very powerful packages for image processing.
 
 \strong{Details on the plot functions}
-
-Image is visualised as 2D plot using generic plot types provided by other
-packages.
 
 Supported plot types:
 
 \strong{\code{plot.type = "plot.raster"}}
 
-Uses the standard plot function for raster data from the package
-\link[raster:raster]{raster::raster}: \link[raster:plot]{raster::plot}. For each raster layer in a
-raster brick one plot is produced.
-
-Arguments that are passed through the function call:
-
-\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},\code{zlim}, \code{col}, \code{stretch} (\code{NULL} no
-stretch)
-
-\strong{\code{plot.type = "plotRGB"}}
-
-Uses the function \link[raster:plotRGB]{raster::plotRGB} from the
-\link[raster:raster]{raster::raster} package. Only one image plot is produced as all layers
-in a brick a combined.  This plot type is useful to see whether any signal
-is recorded by the camera.\cr
-Arguments that are passed through the function call:
-
-\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext}, \code{interpolate}, \code{maxpixels},
-\code{alpha}, \code{colNA}, \code{stretch}
+Uses the standard plot function of R \link[graphics:image]{graphics::image}. If wanted, the image
+is enhanced, using the argument \code{stretch}. Possible values are \code{hist}, \code{lin}, and
+\code{NULL}. The latter does nothing. The argument \code{useRaster = TRUE} is used by default, but
+can be set to \code{FALSE}.
 
 \strong{\code{plot.type = "contour"}}
 
-Uses the function contour plot function from the \link{raster}
-function (\link[raster:contour]{raster::contour}). For each raster layer one contour
-plot is produced. Arguments that are passed through the function call:\cr
-
-\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
-\code{col}
+This uses the function \link[graphics:contour]{graphics::contour}
 }
 \section{Function version}{
- 0.1.1
+ 0.2.0
 }
 
 \examples{
@@ -80,14 +67,14 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum}, \link[raster:raster]{raster::raster}
+\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum}, \link[graphics:image]{graphics::image}, \link[graphics:contour]{graphics::contour}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.17. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

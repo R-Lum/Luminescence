@@ -18,7 +18,7 @@ NULL
 #' are measured or predefined
 #'
 #' @slot data
-#' Object of class [raster::brick] containing images (raster data).
+#' Object of class [array] containing image data.
 #'
 #' @slot info
 #' Object of class [list] containing further meta information objects
@@ -30,7 +30,7 @@ NULL
 #' @section Objects from the class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
-#' @section Class version: 0.4.3
+#' @section Class version: 0.5.0
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -46,8 +46,6 @@ NULL
 #' ##create empty RLum.Data.Image object
 #' set_RLum(class = "RLum.Data.Image")
 #'
-#' @importClassesFrom raster RasterBrick
-#'
 #' @md
 #' @export
 setClass(
@@ -55,19 +53,17 @@ setClass(
   slots = list(
     recordType = "character",
     curveType = "character",
-    data = "RasterBrick",
+    data = "array",
     info = "list"
   ),
   contains = "RLum.Data",
   prototype = list (
     recordType = character(),
     curveType = character(),
-    data = raster::brick(raster::raster(matrix())),
+    data = array(),
     info = list()
   )
 )
-
-
 
 # as() ----------------------------------------------------------------------------------------
 ##DATA.FRAME
@@ -92,17 +88,19 @@ setAs("data.frame", "RLum.Data.Image",
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
-            data = raster::brick(raster::raster(as.matrix(from))),
+            data = array(unlist(from), dim = c(nrow(from),ncol(from),1)),
             info = list())
       })
 
 ## to data.frame ----
 setAs("RLum.Data.Image", "data.frame",
         function(from){
-          if(raster::nlayers(from@data) == 1) {
-            as.data.frame(matrix(from@data@data@values[,1], ncol = from@data@ncols))
+          if(dim(from@data)[3] == 1) {
+             as.data.frame(from@data[,,1])
+
           } else {
-            message("No viable coercion to data.frame, object contains multiple raster layers.")
+            stop("No viable coercion to data.frame, object contains multiple frames.",
+                 call. = FALSE)
 
           }
         })
@@ -114,70 +112,57 @@ setAs("matrix", "RLum.Data.Image",
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
-            data = raster::brick(raster::raster(as.matrix(from))),
+            data = array(from, c(nrow(from), ncol(from), 1)),
             info = list())
       })
 
 ## to matrix ----
 setAs("RLum.Data.Image", "matrix",
       function(from){
-        if(raster::nlayers(from@data) == 1) {
-          matrix(from@data@data@values[,1], ncol = from@data@ncols)
+        if(dim(from@data)[3] == 1) {
+          from@data[,,1, drop = TRUE]
         } else {
-         message("No viable coercion to matrix, object contains multiple raster layers. Please convert to array instead.")
+         stop("No viable coercion to matrix, object contains multiple frames. Please convert to array instead.", call. = FALSE)
 
         }
-      })
-
-## to array ----
-setAs("RLum.Data.Image", "array",
-      function(from){
-          array(unlist(lapply(1:raster::nlayers(from@data),
-                          function(x) from@data[[x]]@data@values)),
-            dim = c(from@data@nrows, from@data@ncols, raster::nlayers(from@data)))
-
       })
 
 ## from array ----
 setAs("array", "RLum.Data.Image",
       function(from, to){
-        from <- lapply(1:dim(from)[3], function(x) from[,,x])
-
-        raster_brick <- raster::brick(lapply(from, function(x){
-          raster::raster(x, xmx = nrow(x), ymx = ncol(x))
-        }))
-
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
-            data = raster_brick,
+            data = from,
             info = list())
 
       })
 
+## to array ----
+setAs("RLum.Data.Image", "array",
+      function(from) from@data)
 
-## to list ----
-setAs("RLum.Data.Image", "list",
-      function(from){
-       lapply(1:raster::nlayers(from@data), function(x) {
-         matrix(from@data[[x]]@data@values, ncol = from@data[[x]]@ncols)})
-
-    })
 
 ## from list ----
 setAs("list", "RLum.Data.Image",
       function(from, to){
-        raster_brick <- raster::brick(lapply(from, function(x){
-          raster::raster(x, xmx = nrow(x), ymx = ncol(x))
-        }))
+        array_list <- lapply(from, function(x) array(unlist(as.vector(x)), c(nrow(x), ncol(x), 1)))
 
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
-            data = raster_brick,
+            data = array(unlist(array_list),
+                         c(nrow(array_list[[1]]), ncol(array_list[[1]]), length(array_list))),
             info = list())
 
       })
+
+## to list ----
+setAs("RLum.Data.Image", "list",
+      function(from){
+       lapply(1:dim(from@data)[3], function(x) from@data[,,x])
+
+    })
 
 # show() --------------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Image
@@ -191,20 +176,18 @@ setMethod("show",
           signature(object = "RLum.Data.Image"),
           function(object){
 
-            x.rows <- object@data@ncols
-            y.cols <- object@data@nrows
-            z.range <- paste(min(object@data@data@min),":",max(object@data@data@max))
+            ## get dimension
+            dim <- dim(object@data)
 
             ##print information
-
             cat("\n [RLum.Data.Image-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
-            cat("\n\t .. recorded frames:", length(object@data@data@names))
-            cat("\n\t .. .. pixel per frame:", x.rows*y.cols)
-            cat("\n\t .. .. x dimension [px]:", x.rows)
-            cat("\n\t .. .. y dimension [px]:", y.cols)
-            cat("\n\t .. .. full pixel value range:", z.range)
+            cat("\n\t .. recorded frames:", max(1,dim[3], na.rm = TRUE))
+            cat("\n\t .. .. pixel per frame:", dim[1]*dim[2])
+            cat("\n\t .. .. x dimension [px]:", dim[1])
+            cat("\n\t .. .. y dimension [px]:", dim[2])
+            cat("\n\t .. .. full pixel value range:", paste(range(object@data), collapse=":"))
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
           }
@@ -261,7 +244,7 @@ setMethod(
     .pid,
     recordType = "Image",
     curveType = NA_character_,
-    data = raster::brick(raster::raster(matrix())),
+    data = array(),
     info = list()) {
 
     ##The case where an RLum.Data.Image object can be provided
@@ -285,43 +268,40 @@ setMethod(
       ## >> this cannot be changed here, since both would be reset, by
       ## the arguments passed down from set_RLum() ... the generic function
 
-      ##set empty clas form object
+      ##set empty class form object
       newRLumDataImage <- new("RLum.Data.Image")
 
       ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataImage@originator = data@originator
-      newRLumDataImage@recordType = recordType
-      newRLumDataImage@curveType = curveType
-      newRLumDataImage@data = data@data
-      newRLumDataImage@info = info
-      newRLumDataImage@.uid = data@.uid
-      newRLumDataImage@.pid = data@.pid
+      newRLumDataImage@originator <- data@originator
+      newRLumDataImage@recordType <- recordType
+      newRLumDataImage@curveType <- curveType
+      newRLumDataImage@data <- data@data
+      newRLumDataImage@info <- info
+      newRLumDataImage@.uid <- data@.uid
+      newRLumDataImage@.pid <- data@.pid
 
     } else {
       ##set empty class from object
       newRLumDataImage <- new("RLum.Data.Image")
 
       ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataImage@originator = originator
-      newRLumDataImage@recordType = recordType
-      newRLumDataImage@curveType = curveType
-      newRLumDataImage@data = data
-      newRLumDataImage@info = info
-      newRLumDataImage@.uid = .uid
-      newRLumDataImage@.pid = .pid
-
+      newRLumDataImage@originator <- originator
+      newRLumDataImage@recordType <- recordType
+      newRLumDataImage@curveType <- curveType
+      newRLumDataImage@data <- data
+      newRLumDataImage@info <- info
+      newRLumDataImage@.uid <- .uid
+      newRLumDataImage@.pid <- .pid
     }
     return(newRLumDataImage)
   }
 )
 
-
-
 # get_RLum() ----------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Image
-#' Accessor method for RLum.Data.Image object. The argument `info.object` is
+#' Accessor method for `RLum.Data.Image` object. The argument `info.object` is
 #' optional to directly access the info elements. If no info element name is
-#' provided, the raw image data (`RasterBrick`) will be returned.
+#' provided, the raw image data (`array`) will be returned.
 #'
 #' @param object [`get_RLum`], [`names_RLum`] (**required**):
 #' an object of class [RLum.Data.Image-class]
@@ -333,7 +313,7 @@ setMethod(
 #'
 #' **`get_RLum`**
 #'
-#' 1. Returns the data object ([raster::brick])
+#' 1. Returns the data object ([array])
 #' 2. only the info object if `info.object` was set.
 #'
 #' @md
@@ -376,10 +356,8 @@ setMethod("get_RLum",
 #'
 #' @md
 #' @export
-setMethod("names_RLum",
-          "RLum.Data.Image",
-          function(object) {
-            names(object@info)
-
-          })
+setMethod(
+  "names_RLum",
+  "RLum.Data.Image",
+  function(object) names(object@info))
 

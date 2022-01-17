@@ -10,7 +10,7 @@ name: GitHub Actions CI
 
 ## change if caches needs to be refreshed
 env:
-  cache-version: v4
+  cache-version: v5
 
 jobs:
   R-CMD-check:
@@ -72,7 +72,7 @@ jobs:
 
       - name: Install jags (macOS)
         if: runner.os == 'macOS'
-        run: brew install jags gdal proj
+        run: brew install jags
 
       - name: Install jags (Windows)
         if: runner.os == 'windows'
