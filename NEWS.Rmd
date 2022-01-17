@@ -14,7 +14,7 @@ header-includes:
 
 #### Changes in `RLum.Data.Image` and removal of import `'raster'`
 The S4 class `RLum.Data.Image` was heavily revised to strip `'Luminescence'` of the dependency to the package `'raster'` and replace the functionality with base R functions and objects. 
-The `'raster'` package came in at an early stage of `'Luminescence'` to handle image data. However, most of its massive feature set was never used, but `'raster'` caused a lot of trouble to many users and in our automated tests because of its own dependencies. Soon, `'raster'` will be retired and replaced by an even more powerful package called `'terra'`. This was our cue to make some serious changes instead of carrying this unfortunate implementation in `'Luminescence'` forward.
+The `'raster'` package came in at an early stage of `'Luminescence'` to handle image data. However, most of its massive feature set was never used, but `'raster'` caused a lot of trouble to many users and in our automated tests because of its own dependencies. Soon, `'raster'` will be retired and replaced by an even more powerful package called `'terra'`. This was our cue to make some serious changes instead of carrying forward this unfortunate implementation in `'Luminescence'`.
 
 * Within the `RLum.Data.Image-class` image data are now stored in an `array` instead
 of a `RasterBrick` object. 
@@ -31,17 +31,16 @@ unwanted trouble once the package `'raster'` was removed. By removing
  `app_RLum()` `'Luminescence'` comes lighter because it has fewer dependencies 
 this unfortunate reverse dependency can be avoided. `RLumShiny::app_RLum()` will still work as before, 
 but it cannot be called anymore out of `'Luminescence'`. 
-In summary, except one function less, not much has changed since both packages 
+In summary, except for one function less, not much has changed since both packages 
 need to be installed to run the shiny applications.
 
 ### Bugfixes and changes
 
 #### `convert_Activity2Concentration()`
-* The function had had-coded conversion factors, now the factors are calculated, which makes it easier
+* The function had had-coded conversion factors, now the factors are calculated, making it easier
 to include new data, such as updated half-life values.
-* The documentation is extended and should now read more clear. 
+* The documentation is extended and should now be read more clear. 
 
 #### `use_DRAC()`
 * The function now supports up to 5000 datasets, instead of before 33. The function 
 `template_DRAC()` was revised accordingly. 
-
