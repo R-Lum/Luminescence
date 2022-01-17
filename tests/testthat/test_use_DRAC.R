@@ -43,5 +43,13 @@ test_that("Test DRAC", {
  ## print method for DRAC.highlights
  expect_output(print(output$DRAC$highlights), regexp = "TO:GP = errAge")
 
+ ## crash function
+ ## wrong file name
+ expect_error(use_DRAC("error"), "\\[use_DRAC\\(\\)\\] It seems that the file doesn't exist!")
+
+ ## exceed allowed limit
+ input <- suppressWarnings(template_DRAC(preset = "DRAC-example_quartz", nrow = 5001))
+ expect_error(use_DRAC(input), "The limit of allowed datasets is 5000!")
+
 })
 

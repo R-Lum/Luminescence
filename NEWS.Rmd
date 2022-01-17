@@ -13,8 +13,7 @@ header-includes:
 ### Breaking changes
 
 The S4 class `RLum.Data.Image` was heavily revised to strip `'Luminescence'` of the dependency to the package `'raster'` and replace the functionality with base R functions and objects. 
-The `'raster'` package came in at an early stage of `'Luminescence'` to handle image data. However, most of its massive feature set was never used, but `'raster'` caused a lot of trouble to many users in our automated tests because of its own dependencies. Soon, `'raster'` will be retired and replaced by an even more powerful package called `'terra'`. This was our cue to make some serious changes instead
-of carrying this unfortunate implementation in `'Luminescence'` forward.
+The `'raster'` package came in at an early stage of `'Luminescence'` to handle image data. However, most of its massive feature set was never used, but `'raster'` caused a lot of trouble to many users and in our automated tests because of its own dependencies. Soon, `'raster'` will be retired and replaced by an even more powerful package called `'terra'`. This was our cue to make some serious changes instead of carrying this unfortunate implementation in `'Luminescence'` forward.
 
 * Within the `RLum.Data.Image-class` image data are now stored in an `array` instead
 of a `RasterBrick` object. 
@@ -29,4 +28,8 @@ the standard raster plot was even improved. Please watch out, however, for chang
 * The function had had-coded conversion factors, now the factors are calculated, which makes it easier
 to include new data, such as updated half-life values.
 * The documentation is extended and should now read more clear. 
+
+#### `use_DRAC()`
+* The function now supports up to 5000 datasets, instead of before 33. The function 
+`template_DRAC()` was revised accordingly. 
 

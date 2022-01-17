@@ -26,10 +26,11 @@ test_that("Check template creation ", {
   expect_true(!all(is.na(template_DRAC(preset = "DRAC-example_polymineral", notification = FALSE))))
   expect_equal(length(template_DRAC(notification = FALSE)), 53)
   expect_equal(length(template_DRAC(nrow = 10, notification = FALSE)[[1]]), 10)
+  expect_s3_class(template_DRAC(nrow = -1, notification = FALSE), "DRAC.list")
 
   ## expect failure
-  expect_error(template_DRAC(nrow = -1, notification = FALSE))
-  expect_error(template_DRAC(nrow = 34, notification = FALSE))
+  expect_warning(template_DRAC(nrow = 5001, notification = FALSE),
+                 regexp = "\\[template_DRAC\\(\\)\\] More than 5000 datasets might not be supported!")
   expect_error(template_DRAC(preset = "this_one_does_not_exist"))
   expect_error(template_DRAC(preset = c("this_one_does_not_exist", "this_one_neither")))
   expect_error(template_DRAC(preset = 999))
