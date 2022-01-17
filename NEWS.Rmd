@@ -23,7 +23,7 @@ the standard raster plot was even improved. Please watch out, however, for chang
 * The image format import functions `read_SPE2R()` and `read_TIFF2R()` were modified to support the new class design. 
 * The corresponding example dataset was updated.
 
-#### Removal of function `app_RLum()` 
+#### Removal of `app_RLum()` 
 This function was essentially a wrapper around `RLumShiny::app_RLum()` written 
 to promote `'RLumShiny'`; a package providing a graphical user interface to `'Luminescence'`.
 `'Luminescence'` is essential for `'RLumShiny'`. However, this two-way dependency caused
