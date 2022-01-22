@@ -65,16 +65,38 @@ test_that("test pure success of the plotting without warning or error", {
     ))
 
     ##test background subtraction
-    ###TODO: This tests somehow breaks on all external on TRAVIS but for no obvious reasons
-    # expect_warning(plot_RLum.Data.Spectrum(
-    #   TL.Spectrum,
-    #   plot.type = "persp",
-    #   xlim = c(310, 750),
-    #   ylim = c(0, 300),
-    #   bg.spectrum = bg.spectrum,
-    #   bin.rows = 10,
-    #   bin.cols = 1
-    # ), "\\[plot_RLum.Data.Spectrum\\(\\)\\] 6 channel\\(s\\) removed due to row \\(wavelength\\) binning.")
+    expect_warning(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      plot.type = "persp",
+      xlim = c(310, 750),
+      ylim = c(0, 300),
+      bg.spectrum = bg.spectrum,
+      bin.rows = 10,
+      bin.cols = 1
+    ), "\\[plot_RLum.Data.Spectrum\\(\\)\\] 6 channel\\(s\\) removed due to row \\(wavelength\\) binning.")
+
+    ## check output and limit counts
+    expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      plot.type = "persp",
+      xlim = c(310, 750),
+      limit_counts = 10000,
+      bg.spectrum = bg.spectrum,
+      bin.rows = 10,
+      bin.cols = 1
+    )), "double")
+
+    ## check our axes
+    expect_type(suppressWarnings(plot_RLum.Data.Spectrum(
+    TL.Spectrum,
+    plot.type = "persp",
+    xlim = c(310, 750),
+    limit_counts = 10000,
+    bg.spectrum = bg.spectrum,
+    bin.rows = 10,
+    box = "alternate",
+    bin.cols = 1
+    )), "double")
 
     ##test energy axis
     expect_silent(plot_RLum.Data.Spectrum(
@@ -151,7 +173,6 @@ test_that("test pure success of the plotting without warning or error", {
         bin.cols = 1
       )
     ))
-
 
     ## plot: interactive heatmap --------
     expect_silent(suppressWarnings(
