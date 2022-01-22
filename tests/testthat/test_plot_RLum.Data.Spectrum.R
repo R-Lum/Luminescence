@@ -60,8 +60,8 @@ test_that("test pure success of the plotting without warning or error", {
         xlim = c(310, 750),
         ylim = c(0, 100),
         bin.rows = 10,
-        bin.cols = 2
-      )
+        bin.cols = 2,
+        zlab = "test")
     ))
 
     ##test background subtraction
@@ -135,7 +135,7 @@ test_that("test pure success of the plotting without warning or error", {
       )
     ))
 
-    ### plot_image: no contour -------
+  ### plot_image: no contour -------
    expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
@@ -145,8 +145,29 @@ test_that("test pure success of the plotting without warning or error", {
         bin.rows = 10,
         bin.cols = 1,
         contour = FALSE
-      )
-    ))
+      )))
+
+    ## plot: transect ------------
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "transect",
+        xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        bin.cols = 1,
+        contour = FALSE)))
+
+    ## plot: single ------------
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "single",
+        xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        bin.cols = 6,
+        contour = FALSE)))
 
     ### plot_image: colour changes -------
     expect_silent(suppressWarnings(
