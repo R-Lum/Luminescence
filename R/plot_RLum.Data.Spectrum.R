@@ -480,7 +480,7 @@ plot_RLum.Data.Spectrum <- function(
     ##set background object if not available
     if(is.null(bg.spectrum)) bg.xyz <- temp.xyz
 
-    if(max(bg.channels) > ncol(bg.xyz) || bg.channels <= 0){
+    if(max(bg.channels) > ncol(bg.xyz) || any(bg.channels <= 0)){
       ##correct the mess
       bg.channels <- sort(unique(bg.channels))
       bg.channels[bg.channels <= 0] <- 1
