@@ -94,6 +94,11 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
+      - name: Remove depends.Rds
+        run: |
+          unlink("depends.Rds")
+        shell: Rscript {0}
+
       - name: Check package
         env:
           _R_CHECK_CRAN_INCOMING_: false
