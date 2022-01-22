@@ -13,6 +13,8 @@ header-includes:
 ### Bugfixes and changes
 
 #### `plot_RLum.Data.Spectrum()`
+* Fixed a bug that let `plot_RLum.Data.Spectrum()` crash under very particular circumstances 
+due to a wrong conditional statement.
 * If the count limits are oddly chosen, i.e. `limit_counts` is smaller than the actual 
 number of counts on the z-scale, the function does not crash anymore but replaces the value
 with the lowest possible value. 
