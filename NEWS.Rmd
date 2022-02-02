@@ -25,3 +25,8 @@ the argument `plot` is set to `TRUE` or `FALSE`.
 * If the plot type is `persp`, the default, the "viewing transformation matrix" is returned
 as a attribute `pmat`. This can be further used in conjunction with the function `graphics::trans3d`
 to add additional information to the graphic.
+
+#### `plot_FilterCombinations()`
+* The function returned a wrongly calculated optical density, using `log()` instead of `log10`; fixed.= 
+Note: The filter shiny app was not immediately affected, because the values here were taken from a spreadsheet. 
+* The output object is now invisible, since the main purpose of the function is to plot a graphic and not to return an object.
