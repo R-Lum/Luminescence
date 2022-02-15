@@ -261,7 +261,7 @@ fancy_scientific <- function(l) {
 .create_StatisticalSummaryText <- function(
   x = NULL, #insert the output of calc_Statistics
   keywords = NULL,
-  digits = 2, #allow for different digts
+  digits = 2, #allow for different digits
   sep = " \n ",
   prefix = "",
   suffix = ""
