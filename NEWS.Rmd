@@ -12,6 +12,11 @@ header-includes:
 
 ### Bugfixes and changes
 
+#### `plot_DRTResults()`
+* The plot messed with the `par()` settings, which was problematic if, for instance, a second x-axis 
+was wanted; fixed. 
+* The function examples were not anymore up-to-date; fixed.
+
 #### `plot_RLum.Data.Spectrum()`
 * Fixed a bug that let `plot_RLum.Data.Spectrum()` crash under very particular circumstances 
 due to a wrong conditional statement.
