@@ -2,7 +2,7 @@
 #'
 #'
 #' \if{html}{
-#' \figure{Luminescence_logo.png}{options: width="75px" alt="r-luminescence.org"}
+#' \figure{Luminescence_logo.png}{options: width="75" alt="r-luminescence.org"}
 #' }
 #'
 #' @description A collection of various R functions for the purpose of luminescence dating
