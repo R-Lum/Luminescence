@@ -10,6 +10,9 @@ header-includes:
 
 **This package version requires R >= 4.0.5**
 
+### New functions
+* `extract_ROI()`: Light-weighted function to extract pixel values from pre-defined regions-of-interest (ROI) from `RLum.Data.Image-class`, `array` or `matrix` objects and provide simple image processing capacity. 
+
 ### Bugfixes and changes
 
 #### `plot_DRTResults()`
