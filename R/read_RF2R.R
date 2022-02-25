@@ -1,9 +1,9 @@
 #' @title Import RF-files to R
 #'
-#' @description Import files produced by the IR-RF 'ImageJ' macro (#TODO ADD REFERENCE) into R and create a list of [RLum.Analysis-class]
+#' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`; Mittelstraß and Kreutzer, 2021) into R and create a list of [RLum.Analysis-class]
 #' objects
 #'
-#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files (#TODO ADD REFERENCE).
+#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files ((Mittelstraß and Kreutzer, 2021).
 #' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
 #' The output of the function can be passed to the function [analyse_IRSAR.RF]
 #'
@@ -21,7 +21,8 @@
 #'
 #' @keywords IO
 #'
-#' @references #TODO ADD REFERENCE
+#' @references Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluorescence:
+#' single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \doi{10.5194/gchron-3-299-2021}
 #'
 #' @examples
 #'
@@ -223,7 +224,6 @@ read_RF2R <- function(file) {
                  ))
 
     })
-
 
 # Return --------------------------------------------------------------------------------------
 return(object_list)
