@@ -4,7 +4,7 @@
 \alias{extract_ROI}
 \title{Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image}
 \usage{
-extract_ROI(object, roi, plot = FALSE)
+extract_ROI(object, roi, roi_summary = "mean", plot = FALSE)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Image}, \link{array} or \link{matrix} (\strong{required}): input image data}
@@ -13,11 +13,18 @@ extract_ROI(object, roi, plot = FALSE)
 of the ROI (first two columns) and the radius of the circular ROI. All numbers must by of type \link{integer}
 and will forcefully coerced into such numbers using \code{as.integer()} regardless.}
 
+\item{roi_summary}{(\strong{with default}): if \code{"mean"} (the default) defines what is returned
+in the element \code{roi_summary}; alternatively \code{"mean"}, \code{"median"}, \code{"sd"} or \code{"sum"} can be chosen.
+Pixel values are conveniently summarised using the above defined keyword.}
+
 \item{plot}{\link{logical} (\emph{optional}): enables/disables control plot. Only the first
 image frame is shown}
 }
 \value{
-\linkS4class{RLum.Results} object with one element called \code{roi_signals}.
+\linkS4class{RLum.Results} object with the following elements:
+\code{..$roi_signals}: a named \link{list} with all ROI values and their coordinates
+\code{..$roi_summary}: an \link{matrix} where rows are frames from the image, and columns are different ROI
+
 If \code{plot = TRUE} a control plot is returned.
 }
 \description{
@@ -36,7 +43,7 @@ where \eqn{x} and \eqn{y} are integer pixel coordinates and \eqn{r} is the integ
 radius of the circle in pixel.
 }
 \section{Function version}{
- 0.1.14
+ 0.1.0
 }
 
 \examples{
@@ -54,7 +61,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19.9000-8. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19.9000-9. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}
