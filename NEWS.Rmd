@@ -13,6 +13,9 @@ header-includes:
 ### New functions
 * `extract_ROI()`: Light-weighted function to extract pixel values from pre-defined regions-of-interest (ROI) from `RLum.Data.Image-class`, `array` or `matrix` objects and provide simple image processing capacity. 
 
+* `write_R2TIFF()`: Export `RLum.Data.Image` and `RLum.Data.Spectrum` objects or a list of such to TIFF Images. A 
+convenient wrapper around the function `tiff::writeTIFF()`
+
 ### Bugfixes and changes
 
 #### `plot_DRTResults()`
