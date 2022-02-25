@@ -4,6 +4,7 @@ test_that("extract_ROI", {
 
   ## generate random data
   m <- matrix(runif(100,0,255), ncol = 10, nrow = 10)
+  set.seed(12245)
   a <- array(runif(300, 0,255), c(10,10,3))
   RLum <- set_RLum("RLum.Data.Image", data = a)
   RLum_list <- list(RLum, RLum)
@@ -41,4 +42,23 @@ test_that("extract_ROI", {
   roi <- matrix(c(200,400,200,40,60,80,10,10,10), ncol = 3)
   expect_s4_class(extract_ROI(object = ExampleData.RLum.Data.Image, roi), "RLum.Results")
 
+  ## test ROI summary options
+  roi <- matrix(c(2.,4,2,5,6,7,3,1,1), ncol = 3)
+  t_mean <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "mean")@data$roi_summary, "double")
+  expect_equal(sum(t_mean),1132, tolerance = 0.001)
+
+  t_median <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "median")@data$roi_summary, "double")
+  expect_equal(sum(t_median),1111, tolerance = 0.001)
+
+  t_sd <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "sd")@data$roi_summary, "double")
+  expect_equal(sum(t_sd),722, tolerance = 0.001)
+
+  t_sum <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "sum")@data$roi_summary, "double")
+  expect_equal(sum(t_sum), 12241, tolerance = 0.001)
+
+  ## crash
+  expect_error(extract_ROI(object = RLum, roi, roi_summary = "error"),
+               "\\[extract\\_ROI\\(\\)\\] roi\\_summary method not supported, check manual!")
+
 })
+

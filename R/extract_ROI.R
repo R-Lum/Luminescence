@@ -19,13 +19,20 @@
 #'of the ROI (first two columns) and the radius of the circular ROI. All numbers must by of type [integer]
 #'and will forcefully coerced into such numbers using `as.integer()` regardless.
 #'
+#'@param roi_summary (**with default**): if `"mean"` (the default) defines what is returned
+#'in the element `roi_summary`; alternatively `"mean"`, `"median"`, `"sd"` or `"sum"` can be chosen.
+#'Pixel values are conveniently summarised using the above defined keyword.
+#'
 #'@param plot [logical] (*optional*): enables/disables control plot. Only the first
 #'image frame is shown
 #'
-#'@return [RLum.Results-class] object with one element called `roi_signals`.
+#'@return [RLum.Results-class] object with the following elements:
+#'`..$roi_signals`: a named [list] with all ROI values and their coordinates
+#'`..$roi_summary`: an [matrix] where rows are frames from the image, and columns are different ROI
+#'
 #'If `plot = TRUE` a control plot is returned.
 #'
-#'@section Function version: 0.1.14
+#'@section Function version: 0.1.0
 #'
 #'@author
 #'Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -45,6 +52,7 @@
 extract_ROI <- function(
   object,
   roi,
+  roi_summary = "mean",
   plot = FALSE
 ){
 
@@ -141,12 +149,34 @@ extract_ROI <- function(
 
   }
 
+# ROI summary -------------------------------------------------------------
+  ## set roi fun and avoid add input
+  if(!any(roi_summary[1]%in%c("mean", "median", "sd", "sum")))
+    stop("[extract_ROI()] roi_summary method not supported, check manual!", call. = FALSE)
+
+  roi_fun <- roi_summary[1]
+
+  ## create summary using matrixStats
+  roi_summary <- matrix(unlist(
+    switch(roi_fun,
+      "mean" = lapply(roi_signals,  matrixStats::colMeans2),
+      "median" = lapply(roi_signals,  matrixStats::colMedians),
+      "sd" = lapply(roi_signals,  matrixStats::colSds),
+      "sum" = lapply(roi_signals,  matrixStats::colSums2))),
+    ncol = length(roi_signals))
+
+  ## set names to make it easier
+  colnames(roi_summary) <- names(roi_signals)
+  rownames(roi_summary) <- paste0("frame_", 1:nrow(roi_summary))
+  attr(roi_summary, "summary") <- roi_fun
+
 # Return ------------------------------------------------------------------
   return(
     set_RLum(
       class = "RLum.Results",
       data = list(
-        roi_signals = roi_signals),
+        roi_signals = roi_signals,
+        roi_summary = roi_summary),
       info = list(
         call = sys.call())))
 
