@@ -23,6 +23,7 @@
 #'
 #'}
 #'
+#'@md
 #'@export
 read_TIFF2R <- function(
   file
