@@ -30,7 +30,7 @@ NULL
 #' @section Objects from the class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
-#' @section Class version: 0.5.0
+#' @section Class version: 0.5.1
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -187,7 +187,7 @@ setMethod("show",
             cat("\n\t .. .. pixel per frame:", dim[1]*dim[2])
             cat("\n\t .. .. x dimension [px]:", dim[1])
             cat("\n\t .. .. y dimension [px]:", dim[2])
-            cat("\n\t .. .. full pixel value range:", paste(range(object@data), collapse=":"))
+            cat("\n\t .. .. full pixel value range:", paste(format(range(object@data), scientific = TRUE, digits = 2), collapse=" : "))
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
           }
