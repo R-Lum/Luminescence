@@ -29,6 +29,7 @@
 #'@return [RLum.Results-class] object with the following elements:
 #'`..$roi_signals`: a named [list] with all ROI values and their coordinates
 #'`..$roi_summary`: an [matrix] where rows are frames from the image, and columns are different ROI
+#'The element has two attributes: `summary` (the method used to summarise pixels) and `area` (the pixel area)
 #'
 #'If `plot = TRUE` a control plot is returned.
 #'
@@ -169,6 +170,7 @@ extract_ROI <- function(
   colnames(roi_summary) <- names(roi_signals)
   rownames(roi_summary) <- paste0("frame_", 1:nrow(roi_summary))
   attr(roi_summary, "summary") <- roi_fun
+  attr(roi_summary, "area") <- vapply(roi_signals, nrow, numeric(1))
 
 # Return ------------------------------------------------------------------
   return(
