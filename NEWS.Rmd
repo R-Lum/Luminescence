@@ -18,6 +18,14 @@ convenient wrapper around the function `tiff::writeTIFF()`
 
 ### Bugfixes and changes
 
+#### `merge_RLum.Results()`
+* If elements of type `matrix`, `data.frame` or `vector` were merged, usually attributes, 
+additional to the standard attributes (e.g., `class` for `data.frame`) were lost during the 
+merging. Now, such attributes are preserved so far they are not of a similar name as the 
+standard object of the object element (e.g., `dim` for `matrix` or `class` for `data.frame`). 
+This small addition allows to merge more complex objects and retain all attributes for further
+processing.
+
 #### `plot_DRTResults()`
 * The plot messed with the `par()` settings, which was problematic if, for instance, a second x-axis 
 was wanted; fixed. 
