@@ -18,6 +18,10 @@ test_that("Test image plotting", {
     expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster",
                                        stretch = NULL))
 
+    ## check global z-scale
+    expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster",
+                                       stretch = NULL, zlim_image = c(0,1)))
+
     ## contour ---
     expect_silent(plot_RLum.Data.Image(image, plot.type = "contour",
                                        stretch = NULL))

@@ -31,6 +31,10 @@ processing.
 was wanted; fixed. 
 * The function examples were not anymore up-to-date; fixed.
 
+#### `plot_RLum.Data.Image()`
+* Minor correction of the colour legend, which did always show the highest value
+* New `...` argument `zlim_image` to maintain a consistent z-scale over a series of images.
+
 #### `plot_RLum.Data.Spectrum()`
 * Fixed a bug that let `plot_RLum.Data.Spectrum()` crash under very particular circumstances 
 due to a wrong conditional statement.
