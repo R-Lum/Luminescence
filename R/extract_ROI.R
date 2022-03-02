@@ -155,6 +155,7 @@ extract_ROI <- function(
   if(!any(roi_summary[1]%in%c("mean", "median", "sd", "sum")))
     stop("[extract_ROI()] roi_summary method not supported, check manual!", call. = FALSE)
 
+  ## set function
   roi_fun <- roi_summary[1]
 
   ## create summary using matrixStats

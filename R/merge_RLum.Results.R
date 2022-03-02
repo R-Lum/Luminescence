@@ -55,6 +55,11 @@ merge_RLum.Results <- function(
             ##-------------------------------------------------------------
             ##merge objects depending on the data structure
             for(i in 1:length(objects[[1]]@data)){
+              ## shelf list of attributes
+              attr_list <- unlist(
+                lapply(1:length(objects), function(x) attributes(objects[[x]]@data[[i]])),
+                recursive = FALSE)
+
               ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++
               ##numeric vector or data.frame or matrix
               if(is(objects[[1]]@data[[i]], "data.frame")||
@@ -81,11 +86,7 @@ merge_RLum.Results <- function(
 
                 }
 
-                # ## retain attributes
-                attr_list <- unlist(
-                  lapply(1:length(objects), function(x) attributes(objects[[x]]@data[[i]])),
-                  recursive = FALSE)
-
+                ## continue attribute preservation
                 ## remove attributes that stem from the object itself
                 attr_list[names(attr_list) %in% names(attributes(objects[[1]]@data[[i]]))] <- NULL
 
@@ -101,8 +102,9 @@ merge_RLum.Results <- function(
 
                   # set attributes ... we try because some attributes
                   for(n in names(attrs))
-                      attr(objects[[1]]@data[[i]], n) <- attrs[[n]]
+                    attr(objects[[1]]@data[[i]], n) <- attrs[[n]]
                 }
+
 
               }else{
                 ##all other elements
