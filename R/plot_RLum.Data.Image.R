@@ -36,7 +36,7 @@
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions. Standard supported parameters are `xlim`, `ylim`, `zlim`,
 #' `xlab`, `ylab`, `main`, `legend` (`TRUE` or `FALSE`), `col`, `cex`, `axes` (`TRUE` or `FALSE`),
-#' `zlim_image` (adjust the z-scale over different images)
+#' `zlim_image` (adjust the z-scale over different images), `stretch`
 #'
 #' @return Returns a plot
 #'
@@ -86,11 +86,17 @@ plot_RLum.Data.Image <- function(
   if(is.null(type[1])) return(x[,,1])
 
   if(type[1] == "lin") {
+    x <- x[,,1]
     r <- range(x)
     q <- stats::quantile(x, c(0.05, 0.95), na.rm = TRUE)
-    x <- (r[2] * (x - q[1])) / (q[2] - q[1])
-    x[x < 0] <- r[1]
-    x[x > r[2]] <- r[2]
+
+    ## consider special case for q == 0
+    if(sum(q) > 0) {
+      x <- (r[2] * (x - q[1])) / (q[2] - q[1])
+      x[x < 0] <- r[1]
+      x[x > r[2]] <- r[2]
+    }
+
   }
 
   if(type[1] == "hist")
@@ -133,7 +139,7 @@ plot_settings <- modifyList(x = list(
 
   ## zlim
   object[object <= plot_settings$zlim[1]] <- max(0,plot_settings$zlim[1])
-  object[object >= plot_settings$zlim[2]] <- min(dim(object)[3],plot_settings$zlim[2])
+  object[object >= plot_settings$zlim[2]] <- min(max(object),plot_settings$zlim[2])
 
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
@@ -145,6 +151,7 @@ plot_settings <- modifyList(x = list(
       on.exit(par(par.default))
       x <- object[, , i, drop = FALSE]
       image <-.stretch(x, type = plot_settings$stretch)
+
       graphics::image(
         x = image,
         useRaster = plot_settings$useRaster,

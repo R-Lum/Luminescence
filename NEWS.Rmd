@@ -34,6 +34,7 @@ was wanted; fixed.
 #### `plot_RLum.Data.Image()`
 * Minor correction of the colour legend, which did always show the highest value
 * New `...` argument `zlim_image` to maintain a consistent z-scale over a series of images.
+* The colour stretching could fail for `lin` and a lot of zero values; fixed.
 
 #### `plot_RLum.Data.Spectrum()`
 * Fixed a bug that let `plot_RLum.Data.Spectrum()` crash under very particular circumstances 
