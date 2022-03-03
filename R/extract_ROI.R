@@ -143,13 +143,31 @@ extract_ROI <- function(
       xlab = "x-dim [px]",
       useRaster = TRUE,
       main = "extract_ROIs() - control plot")
+    box()
+
+    ## visualise ROIs
+    overlay <- a[,,1]
+    overlay[] <- 0
+    for (i in 1:length(roi_signals))
+      overlay[attr(roi_signals[[i]], "px_coord")[,1], attr(roi_signals[[i]], "px_coord")[,2]] <- 1
+
+    ## marked ROIs
+    graphics::image(
+      x = 1:nrow(a[, , 1]),
+      y = 1:ncol(a[, , 1]),
+      overlay,
+      axes = FALSE,
+      add = TRUE,
+      useRaster = TRUE,
+      col = c(rgb(1, 1, 1, 0), rgb(0, 1, 0, 0.5)))
 
     ## add circles and points
-    for (i in 1:nrow(roi))
-      lines(shape::getellipse(rx = roi[i, 3], mid = c(roi[i, 1:2], dr = 0.1)))
+    for (i in 1:nrow(roi)) {
+      lines(shape::getellipse(rx = roi[i, 3], mid = c(roi[i, 1:2], dr = 0.1)), col = "red", lwd = 1.5)
+      text(x = roi[i,1], y = roi[i,2], i, col = "black", cex = 1.2)
 
-    for (i in 1:length(roi_signals))
-      points(attr(roi_signals[[i]], "px_coord"))
+    }
+
 
   }
 
