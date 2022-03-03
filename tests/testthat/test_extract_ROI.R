@@ -45,16 +45,16 @@ test_that("extract_ROI", {
   ## test ROI summary options
   roi <- matrix(c(2.,4,2,5,6,7,3,1,1), ncol = 3)
   t_mean <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "mean")@data$roi_summary, "double")
-  expect_equal(sum(t_mean),1132, tolerance = 0.001)
+  expect_equal(sum(t_mean),1124, tolerance = 0.001)
 
   t_median <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "median")@data$roi_summary, "double")
-  expect_equal(sum(t_median),1111, tolerance = 0.001)
+  expect_equal(sum(t_median),1104, tolerance = 0.001)
 
   t_sd <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "sd")@data$roi_summary, "double")
-  expect_equal(sum(t_sd),722, tolerance = 0.001)
+  expect_equal(sum(t_sd),730, tolerance = 0.001)
 
   t_sum <- expect_type(extract_ROI(object = RLum, roi, roi_summary = "sum")@data$roi_summary, "double")
-  expect_equal(sum(t_sum), 12241, tolerance = 0.001)
+  expect_equal(sum(t_sum), 8117, tolerance = 0.001)
 
   ## crash
   expect_error(extract_ROI(object = RLum, roi, roi_summary = "error"),

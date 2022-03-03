@@ -8,15 +8,15 @@
 #'a circle or not. It assumes that pixel coordinates are integer values and
 #'that a pixel centring within the circle is satisfied by:
 #'
-#'\deqn{x^2 + y^2 <= r^2}
+#'\deqn{x^2 + y^2 <= (d/2)^2}
 #'
-#'where \eqn{x} and \eqn{y} are integer pixel coordinates and \eqn{r} is the integer
-#'radius of the circle in pixel.
+#'where \eqn{x} and \eqn{y} are integer pixel coordinates and \eqn{d} is the integer
+#'diameter of the circle in pixel.
 #'
 #'@param object [RLum.Data.Image-class], [array] or [matrix] (**required**): input image data
 #'
 #'@param roi [matrix] (**required**): matrix with three columns containing the centre coordinates
-#'of the ROI (first two columns) and the radius of the circular ROI. All numbers must by of type [integer]
+#'of the ROI (first two columns) and the diameter of the circular ROI. All numbers must by of type [integer]
 #'and will forcefully coerced into such numbers using `as.integer()` regardless.
 #'
 #'@param roi_summary (**with default**): if `"mean"` (the default) defines what is returned
@@ -70,8 +70,11 @@ extract_ROI <- function(
   if (!is(object, "matrix") && !is(object, "array") &&  !is(object, "RLum.Data.Image"))
     stop("[extract_ROI()] Input for argument 'object' not supported!", call. = FALSE)
 
-  ## make sure that we have integer values only in the matrix
+  ## calculate the radius
   roi <- roi[,1:3]
+  roi[,3] <- ceiling(roi[,3]/2)
+
+  ## make sure that we have integer values only in the matrix
   roi[] <- as.integer(roi)
 
   ## copy object (to not work on the input data)
