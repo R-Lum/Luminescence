@@ -10,7 +10,7 @@ extract_ROI(object, roi, roi_summary = "mean", plot = FALSE)
 \item{object}{\linkS4class{RLum.Data.Image}, \link{array} or \link{matrix} (\strong{required}): input image data}
 
 \item{roi}{\link{matrix} (\strong{required}): matrix with three columns containing the centre coordinates
-of the ROI (first two columns) and the radius of the circular ROI. All numbers must by of type \link{integer}
+of the ROI (first two columns) and the diameter of the circular ROI. All numbers must by of type \link{integer}
 and will forcefully coerced into such numbers using \code{as.integer()} regardless.}
 
 \item{roi_summary}{(\strong{with default}): if \code{"mean"} (the default) defines what is returned
@@ -38,10 +38,10 @@ The function uses a cheap approach to decide whether a pixel lies within
 a circle or not. It assumes that pixel coordinates are integer values and
 that a pixel centring within the circle is satisfied by:
 
-\deqn{x^2 + y^2 <= r^2}
+\deqn{x^2 + y^2 <= (d/2)^2}
 
-where \eqn{x} and \eqn{y} are integer pixel coordinates and \eqn{r} is the integer
-radius of the circle in pixel.
+where \eqn{x} and \eqn{y} are integer pixel coordinates and \eqn{d} is the integer
+diameter of the circle in pixel.
 }
 \section{Function version}{
  0.1.0
@@ -62,7 +62,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19.9000-19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19.9000-20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}
