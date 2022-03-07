@@ -5,7 +5,7 @@
 #'might be of use to work with reduced data from spatially resolved measurements.
 #'The plot dimensions mimic the original image dimensions
 #'
-#'@param object [RLum.Analysis-class], [RLum.Results] or a [list] of such objects (**required**):
+#'@param object [RLum.Analysis-class], [RLum.Results-class] or a [list] of such objects (**required**):
 #'data input. Please note that to avoid function errors, only input created
 #'by the functions [read_RF2R] or [extract_ROI] is accepted
 #'
