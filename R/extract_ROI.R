@@ -30,6 +30,7 @@
 #'`..$roi_signals`: a named [list] with all ROI values and their coordinates
 #'`..$roi_summary`: an [matrix] where rows are frames from the image, and columns are different ROI
 #'The element has two attributes: `summary` (the method used to summarise pixels) and `area` (the pixel area)
+#'`..$roi_coord`: a [matrix] that can be passed to [plot_ROI]
 #'
 #'If `plot = TRUE` a control plot is returned.
 #'
@@ -168,7 +169,6 @@ extract_ROI <- function(
 
     }
 
-
   }
 
 # ROI summary -------------------------------------------------------------
@@ -194,13 +194,26 @@ extract_ROI <- function(
   attr(roi_summary, "summary") <- roi_fun
   attr(roi_summary, "area") <- vapply(roi_signals, nrow, numeric(1))
 
+  ## add more roi information to the output for further processing
+  roi <- cbind(
+    ROI = 1:nrow(roi),
+    x = roi[,1],
+    y = roi[,2],
+    area = attr(roi_summary, "area"),
+    width = vapply(roi_signals, function(x) diff(range(attr(x, "px_coord")[,"x"])), numeric(1)),
+    height = vapply(roi_signals, function(x) diff(range(attr(x, "px_coord")[,"y"])), numeric(1)),
+    img_width = nrow(a[, , 1]),
+    img_height = ncol(a[, , 1]),
+    grain_d = roi[,3])
+
 # Return ------------------------------------------------------------------
   return(
     set_RLum(
       class = "RLum.Results",
       data = list(
         roi_signals = roi_signals,
-        roi_summary = roi_summary),
+        roi_summary = roi_summary,
+        roi_coord = roi),
       info = list(
         call = sys.call())))
 

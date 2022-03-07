@@ -30,8 +30,9 @@ test_that("extract_ROI", {
   ## list
   results <- expect_s4_class(extract_ROI(object = RLum_list, roi), "RLum.Results")
 
-  ## regression test
+  ## regression test if it fails, we have to amend the documentation
   expect_length(results@data$roi_signals, 6)
+  expect_length(results@data, 3)
 
   ## with plot output
   expect_silent(extract_ROI(object = RLum, roi, plot = TRUE))
