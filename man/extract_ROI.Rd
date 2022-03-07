@@ -25,6 +25,7 @@ image frame is shown}
 \code{..$roi_signals}: a named \link{list} with all ROI values and their coordinates
 \code{..$roi_summary}: an \link{matrix} where rows are frames from the image, and columns are different ROI
 The element has two attributes: \code{summary} (the method used to summarise pixels) and \code{area} (the pixel area)
+\code{..$roi_coord}: a \link{matrix} that can be passed to \link{plot_ROI}
 
 If \code{plot = TRUE} a control plot is returned.
 }
@@ -62,7 +63,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19.9000-27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}
