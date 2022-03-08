@@ -89,6 +89,7 @@ plot_ROI <- function(
       img_height = info$image_height,
       grain_d = info$grain_d)
 
+
   }
 
   if(is(object, "RLum.Results") && object@originator == "extract_ROI") {
@@ -103,6 +104,10 @@ plot_ROI <- function(
 
     ##make numeric
     storage.mode(m) <- "numeric"
+
+    ## correct coordinates (they come in odd from the file)
+    m[,"x"] <- m[,"x"] + m[,"width"] / 2
+    m[,"y"] <- m[,"y"] + m[,"height"] / 2
   }
 
   ##make sure the ROI selection works
@@ -163,10 +168,11 @@ plot_ROI <- function(
       } else {
         a <- a@data
         graphics::image(
-          x = 0:nrow(a[, , 1]),
-          y = 0:ncol(a[, , 1]),
+          x = 1:nrow(a[, , 1]),
+          y = 1:ncol(a[, , 1]),
           a[, , 1],
           add = TRUE,
+          col = hcl.colors(20, "inferno", rev = FALSE),
           useRaster = TRUE)
       }
    }
@@ -200,8 +206,8 @@ plot_ROI <- function(
       if (!i%in%exclude_ROI) {
         ## mark selected pixels
         polygon(
-          x = c(m[i, "x"], m[i, "x"], m[i, "x"] + m[i, "width"], m[i, "x"] + m[i, "width"]),
-          y = c(m[i, "y"], m[i, "y"] + m[i, "height"], m[i, "y"] + m[i, "height"], m[i, "y"]),
+          x = c(m[i, "x"] - m[i, "width"]/ 2, m[i, "x"] - m[i, "width"]/ 2, m[i, "x"] + m[i, "width"]/2, m[i, "x"] + m[i, "width"]/2),
+          y = c(m[i, "y"] - m[i, "height"]/ 2, m[i, "y"] + m[i, "height"]/ 2, m[i, "y"] + m[i, "height"]/ 2, m[i, "y"] - m[i, "height"]/ 2),
           col = plot_settings$col.pixel
         )
       }
@@ -210,7 +216,7 @@ plot_ROI <- function(
       shape::plotellipse(
         rx = m[i, "width"] / 2,
         ry = m[i, "width"] / 2,
-        mid = c(m[i, "x"] + m[i, "width"] / 2, m[i, "y"] + m[i, "height"] / 2),
+        mid = c(m[i, "x"], m[i, "y"]),
         lcol = plot_settings$col.ROI,
         lty = plot_settings$lty.ROI,
         lwd = plot_settings$lwd.ROI)
@@ -231,7 +237,8 @@ plot_ROI <- function(
          y = m[-exclude_ROI, "y"],
          labels = plot_settings$text.labels[-exclude_ROI],
          cex = 0.6,
-         pos = 3,
+         col = if(!is.null(bg_image)) "white" else "black",
+         pos = 1,
          offset = plot_settings$text.offset
        )
     }
@@ -263,3 +270,4 @@ plot_ROI <- function(
     )))
 
 }
+
