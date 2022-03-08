@@ -253,7 +253,7 @@ plot_ROI <- function(
   }##end if plot
 
   ## return results
-  return(set_RLum(
+  invisible(set_RLum(
     class = "RLum.Results",
     data = list(
       ROI = m,

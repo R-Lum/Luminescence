@@ -59,3 +59,4 @@ Note: The filter shiny app was not immediately affected, because the values here
 #### `plot_ROI()`
 * Add support for the new function `extract_ROI()`
 * Add new argument `bg_image` to support background image plotting
+* The numerical output is now consistently `invisble` as it is for all plot functions in the package
