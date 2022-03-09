@@ -170,9 +170,9 @@ plot_ROI <- function(
         graphics::image(
           x = 1:nrow(a[, , 1]),
           y = 1:ncol(a[, , 1]),
-          a[, , 1],
+          z = a[,order(1:dim(a)[2], decreasing = TRUE),1],
           add = TRUE,
-          col = hcl.colors(20, "inferno", rev = FALSE),
+          col = grDevices::hcl.colors(20, "inferno", rev = FALSE),
           useRaster = TRUE)
       }
    }
@@ -270,4 +270,3 @@ plot_ROI <- function(
     )))
 
 }
-
