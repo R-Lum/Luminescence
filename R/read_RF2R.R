@@ -108,7 +108,6 @@ read_RF2R <- function(file) {
       header <- NA
     }
 
-
     ##extract tag boundaries framed by tags +++++++++++++++++++
     ##the 2nd line corrects the inner boundaries
     ##(1) statistics
