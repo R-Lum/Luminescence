@@ -43,18 +43,18 @@ due to a wrong conditional statement.
 * If the count limits are oddly chosen, i.e. `limit_counts` is smaller than the actual 
 number of counts on the z-scale, the function does not crash anymore but replaces the value
 with the lowest possible value. 
-* The argument `box` for the plot `persp` now accepts `alternate` for customized plot without 
+* The argument `box` for the plot `persp` now accepts `alternate` for the customized plot without 
 the box usually drawn around the plot.
-* The function now returns adjusted matrix used for the plotting regardless of whether 
+* The function now returns the adjusted matrix used for the plotting regardless of whether 
 the argument `plot` is set to `TRUE` or `FALSE`.
 * If the plot type is `persp`, the default, the "viewing transformation matrix" is returned
-as a attribute `pmat`. This can be further used in conjunction with the function `graphics::trans3d`
+as an attribute `pmat`. This can be further used in conjunction with the function `graphics::trans3d`
 to add additional information to the graphic.
 
 #### `plot_FilterCombinations()`
 * The function returned a wrongly calculated optical density, using `log()` instead of `log10`; fixed.= 
-Note: The filter shiny app was not immediately affected, because the values here were taken from a spreadsheet. 
-* The output object is now invisible, since the main purpose of the function is to plot a graphic and not to return an object.
+Note: The shiny filter app was not immediately affected because the values here were taken from a spreadsheet. 
+* The output object is now invisible since the function's main purpose is to plot a graphic and not return an object.
 
 #### `plot_ROI()`
 * Add support for the new function `extract_ROI()`
