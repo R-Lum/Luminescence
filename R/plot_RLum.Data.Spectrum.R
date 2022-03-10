@@ -249,15 +249,12 @@ plot_RLum.Data.Spectrum <- function(
   # Integrity check -----------------------------------------------------------
 
   ##check if object is of class RLum.Data.Spectrum
-  if(class(object)[1] != "RLum.Data.Spectrum"){
-
-    if(class(object)[1] == "matrix"){
-
+  if(!inherits(object, "RLum.Data.Spectrum")){
+    if(inherits(object, "matrix")){
       if(is.null(colnames(object))){
         colnames(object) <- 1:ncol(object)
 
       }
-
       if(is.null(rownames(object))){
         rownames(object) <- 1:nrow(object)
 
@@ -435,12 +432,12 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
-    if(class(bg.spectrum)[1] == "RLum.Data.Spectrum" || class(bg.spectrum)[1] == "matrix"){
+    if(inherits(bg.spectrum, "RLum.Data.Spectrum") || inherits(bg.spectrum, "matrix")){
       ##case RLum
-      if(class(bg.spectrum)[1] == "RLum.Data.Spectrum") bg.xyz <- bg.spectrum@data
+      if(inherits(bg.spectrum, "RLum.Data.Spectrum")) bg.xyz <- bg.spectrum@data
 
       ##case matrix
-      if(class(bg.spectrum)[1] == "matrix") bg.xyz <- bg.spectrum
+      if(inherits(bg.spectrum, "matrix")) bg.xyz <- bg.spectrum
 
       ##take care of channel settings, otherwise set bg.channels
       if(is.null(bg.channels))

@@ -81,7 +81,7 @@ setMethod("get_RLum",
 
                 ##it might be the case the object already comes with empty objects, this would
                 ##cause a crash
-                if(class(object[[x]]) == "RLum.Analysis" && length(object[[x]]@records) == 0)
+                if(inherits(object[[x]], "RLum.Analysis") && length(object[[x]]@records) == 0)
                   return(NULL)
 
                 get_RLum(object[[x]], ...)
@@ -103,7 +103,7 @@ setMethod("get_RLum",
 
               ##first set all empty objects to NULL ... for RLum.Analysis objects
               selection <- lapply(1:length(selection), function(x){
-                if(class(selection[[x]]) == "RLum.Analysis" && length(selection[[x]]@records) == 0){
+                if(inherits(selection[[x]], "RLum.Analysis") && length(selection[[x]]@records) == 0){
                   return(NULL)
 
                 }else{

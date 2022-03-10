@@ -470,7 +470,7 @@ plot_RLum.Analysis <- function(
     object.list <- object@records
 
     sapply(object.list, function(o){
-      if(class(o)[1] != "RLum.Data.Curve"){
+      if(!inherits(o, "RLum.Data.Curve")){
         stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.",
              call. = FALSE)
 

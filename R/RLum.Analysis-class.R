@@ -379,7 +379,7 @@ setMethod("get_RLum",
               ), stringsAsFactors = FALSE)
 
               ##check for a logical expression, to avoid problems afterwards
-              # if(class(eval(substitute(subset), envir = envir, enclos = env)) != "logical")
+              # if(class(eval(substitute(subset), envir = envir, enclos = env))[1] != "logical")
               #   stop("[get_RLum] The argument 'subset' does not contain a logical expression!", call. = FALSE)
 
               ##select relevant rows

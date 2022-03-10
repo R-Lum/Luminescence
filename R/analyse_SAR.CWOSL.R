@@ -316,7 +316,7 @@ error.list <- list()
 
 # General Integrity Checks ---------------------------------------------------
   ##MISSING INPUT
-  if(class(object)[1] != "RLum.Analysis")
+  if(!inherits(object, "RLum.Analysis"))
     stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
          call. = FALSE)
 
