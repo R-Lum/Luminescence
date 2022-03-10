@@ -257,7 +257,7 @@ setMethod(
     newRLumAnalysis <- new(Class = "RLum.Analysis")
 
     ##allow self set to reset an RLum.Analysis object
-    if(class(records) == "RLum.Analysis"){
+    if(inherits(records, "RLum.Analysis")){
       #fill slots (this is much faster than the old code!)
       newRLumAnalysis@protocol <- if(missing(protocol)){records@protocol}else{protocol}
       newRLumAnalysis@originator <- originator
@@ -471,7 +471,7 @@ setMethod("get_RLum",
                   unique(vapply(object@records, function(x)
                     x@recordType, character(1)))
 
-              } else if (class(recordType) != "character"){
+              } else if (!inherits(recordType, "character")){
                   stop("[get_RLum()] 'recordType' has to be of type 'character'!", call. = FALSE)
 
               }

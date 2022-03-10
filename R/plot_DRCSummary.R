@@ -86,7 +86,7 @@ plot_DRCSummary <- function(
 
 
 # Self-call -----------------------------------------------------------------------------------
-if(class(object) == "list"){
+if(inherits(object, "list")){
 
   ##catch ... arguments
   plot_settings <- list(...)
@@ -123,7 +123,7 @@ if(class(object) == "list"){
 }
 
 # Check input ---------------------------------------------------------------------------------
-  if(class(object) != "RLum.Results")
+  if(!inherits(object, "RLum.Results"))
     stop("[plot_DRCSummary()] The input is not of class 'RLum.Results'!",call. = FALSE)
 
 

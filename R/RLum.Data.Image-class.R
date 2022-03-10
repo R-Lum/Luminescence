@@ -324,7 +324,7 @@ setMethod("get_RLum",
 
             ##if missing info.object just show the curve values
             if(!missing(info.object)){
-              if(class(info.object) != "character")
+              if(!inherits(info.object, "character"))
                 stop("[get_RLum] 'info.object' has to be a character!", call. = FALSE)
 
               if(info.object %in% names(object@info)){

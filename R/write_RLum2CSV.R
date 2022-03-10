@@ -186,7 +186,7 @@ write_RLum2CSV <- function(
       ##get elements
       object_list <- lapply(object@data, function(e){
         ##only run something on the list of it is worth it and pack it in the list
-        if(class(e) == "matrix" || class(e) == "numeric" || class(e) == "data.frame")
+        if(inherits(e, "matrix") || inherits(e, "numeric") || inherits(e, "data.frame"))
           return(list(e))
 
         ##unlist the rest until the end
@@ -203,7 +203,7 @@ write_RLum2CSV <- function(
 
       ##sort out objects we do not like and we cannot procede ...
       object_list_rm <- vapply(object_list, function(x) {
-         class(x) == "matrix" || class(x) == "numeric" || class(x) == "data.frame"
+         inherits(x, "matrix") || inherits(x, "numeric") || inherits(x, "data.frame")
 
       }, vector(mode = "logical", length = 1))
 

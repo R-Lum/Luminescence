@@ -75,7 +75,7 @@ plot_RLum.Data.Image <- function(
 
 # Integrity check -----------------------------------------------------------
   ##check if object is of class RLum.Data.Image
-  if(class(object) != "RLum.Data.Image")
+  if(!inherits(object, "RLum.Data.Image"))
     stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image.", call. = FALSE)
 
   ## extract object

@@ -35,7 +35,7 @@
 read_RF2R <- function(file) {
 
 # Self-call -----------------------------------------------------------------------------------
-  if(class(file) == "list"){
+  if(inherits(file, "list")){
     results_list <- lapply(file, function(f){
       temp <- try(read_RF2R(file = f), silent = TRUE)
 
@@ -64,7 +64,7 @@ read_RF2R <- function(file) {
   }
 
   ##check input
-  if(class(file) != "character")
+  if(!inherits(file, "character"))
     stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)
 
   ##check whether file is available
@@ -103,7 +103,7 @@ read_RF2R <- function(file) {
     header <- try(.extract_header(temp[1]), silent = TRUE)
 
     ##test the header
-    if(class(header) == 'try-error'){
+    if(inherits(header, 'try-error')){
       try(stop("[read_RF2R()] Header extraction failed, try to continue without ... ", call. = FALSE))
       header <- NA
     }

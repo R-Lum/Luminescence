@@ -439,13 +439,13 @@ analyse_Al2O3C_Measurement <- function(
         (which.max(object@records[[4]]@data[,2])-5):(which.max(object@records[[4]]@data[,2])+5),2]), silent = TRUE)
 
     ##catch errors if the integration fails
-    if(class(NATURAL_TL) == "try-error"){
+    if(inherits(NATURAL_TL, "try-error")){
       NATURAL_TL <- NA
       warning("[analyse_Al2O3_Measurement()] Natural TL signal out of bounds, NA returned!", call. = FALSE, immediate. = TRUE)
 
     }
 
-    if(class(REGENERATED_TL) == "try-error"){
+    if(inherits(REGENERATED_TL, "try-error")){
       REGENERATED_TL <- NA
       warning("[analyse_Al2O3_Measurement()] Regenerated TL signal out of bounds, NA returned!", call. = FALSE, immediate. = TRUE)
 

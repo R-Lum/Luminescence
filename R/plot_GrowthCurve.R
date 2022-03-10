@@ -323,7 +323,7 @@ plot_GrowthCurve <- function(
 
   ##1. Check input variable
   switch(
-    class(sample),
+    class(sample)[1],
     matrix = sample <- as.data.frame(sample),
     list = sample <- as.data.frame(sample),
     numeric = stop(
@@ -571,7 +571,7 @@ plot_GrowthCurve <- function(
   ##    (suppress the warning in case one parameter is negative)
   fit.lm <- try(lm(suppressWarnings(log(data$y))~data$x))
 
-  if(class(fit.lm) == "try-error"){
+  if(inherits(fit.lm, "try-error")){
     b <- 1
 
   }else{
@@ -830,7 +830,7 @@ plot_GrowthCurve <- function(
         ))
 
 
-        if(class(fit.initial)!="try-error"){
+        if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
           parameters<-(coef(fit.initial))
           b.start[i] <- as.vector((parameters["b"]))
@@ -959,7 +959,7 @@ plot_GrowthCurve <- function(
           )
 
           #get parameters out of it including error handling
-          if (class(fit.MC)=="try-error") {
+          if (inherits(fit.MC, "try-error")) {
             x.natural[i] <- NA
 
           }else {
@@ -1005,7 +1005,7 @@ plot_GrowthCurve <- function(
     #set fit object, if fit object was not set before
     if(exists("fit")==FALSE){fit<-NA}
 
-    if ((fit.method=="EXP OR LIN" & class(fit)=="try-error") |
+    if ((fit.method=="EXP OR LIN" & inherits(fit, "try-error")) |
         fit.method=="LIN" | length(data[,1])<2) {
 
       ##Do fitting again as just allows fitting through the origin
@@ -1127,7 +1127,7 @@ plot_GrowthCurve <- function(
                        nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
       ),silent=TRUE)
 
-      if(class(fit.EXP)!="try-error"){
+      if(!inherits(fit.EXP, "try-error")){
         #get parameters out of it
         parameters<-(coef(fit.EXP))
         b<-as.vector((parameters["b"]))
@@ -1149,7 +1149,7 @@ plot_GrowthCurve <- function(
                    nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
       ),silent=TRUE)
 
-      if(class(fit)!="try-error"){
+      if(!inherits(fit, "try-error")){
         #get parameters out of it
         parameters<-(coef(fit))
         b.start[i]<-as.vector((parameters["b"]))
@@ -1194,7 +1194,7 @@ plot_GrowthCurve <- function(
 
 
     #if try error stop calculation
-    if(class(fit)!="try-error"){
+    if(!inherits(fit, "try-error")){
 
       #get parameters out of it
       parameters<-(coef(fit))
@@ -1227,7 +1227,7 @@ plot_GrowthCurve <- function(
 
 
 
-        if (class(temp.De) != "try-error") {
+        if (!inherits(temp.De, "try-error")) {
           De <- temp.De$root
         } else{
           De <- NA
@@ -1253,7 +1253,7 @@ plot_GrowthCurve <- function(
           silent = TRUE)
 
 
-          if (class(temp.De) != "try-error") {
+          if (!inherits(temp.De, "try-error")) {
             De <- temp.De$root
           } else{
             De <- NA
@@ -1320,7 +1320,7 @@ plot_GrowthCurve <- function(
         )
 
         #get parameters out of it including error handling
-        if (class(fit.MC)=="try-error") {
+        if (inherits(fit.MC, "try-error")) {
 
           x.natural[i]<-NA
 
@@ -1347,7 +1347,7 @@ plot_GrowthCurve <- function(
             ),
             silent = TRUE)
 
-            if (class(temp.De.MC) != "try-error") {
+            if (!inherits(temp.De.MC, "try-error")) {
               x.natural[i] <- temp.De.MC$root
             } else{
               x.natural[i] <- NA
@@ -1365,7 +1365,7 @@ plot_GrowthCurve <- function(
             ),
             silent = TRUE)
 
-            if (class(temp.De.MC) != "try-error") {
+            if (!inherits(temp.De.MC, "try-error")) {
               x.natural[i] <- abs(temp.De.MC$root)
             } else{
               x.natural[i] <- NA
@@ -1436,7 +1436,7 @@ plot_GrowthCurve <- function(
       ),silent = TRUE)
 
 
-      if (class(fit.start) != "try-error") {
+      if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
         parameters <- coef(fit.start)
         a1.start[i] <- as.vector((parameters["a1"]))
@@ -1471,7 +1471,7 @@ plot_GrowthCurve <- function(
 
 
     ##insert if for try-error
-    if (class(fit)!="try-error") {
+    if (!inherits(fit, "try-error")) {
 
       #get parameters out of it
       parameters <- (coef(fit))
@@ -1507,7 +1507,7 @@ plot_GrowthCurve <- function(
         silent = TRUE)
 
 
-        if (class(temp.De) != "try-error") {
+        if (!inherits(temp.De, "try-error")) {
           De <- temp.De$root
         } else{
           De <- NA
@@ -1574,7 +1574,7 @@ plot_GrowthCurve <- function(
         )
 
         #get parameters out of it including error handling
-        if (class(fit.MC)=="try-error") {
+        if (inherits(fit.MC, "try-error")) {
           x.natural[i]<-NA
 
         }else {
@@ -1597,7 +1597,7 @@ plot_GrowthCurve <- function(
             LnTn = data.MC.De[i]
           ), silent = TRUE)
 
-          if (class(temp.De.MC) != "try-error") {
+          if (!inherits(temp.De.MC, "try-error")) {
             x.natural[i] <- temp.De.MC$root
           }else{
             x.natural[i] <- NA
@@ -1732,7 +1732,7 @@ plot_GrowthCurve <- function(
         )}, silent = TRUE)
 
         # get parameters out of it including error handling
-        if (class(fit.MC)=="try-error") {
+        if (inherits(fit.MC, "try-error")) {
           x.natural[i] <- NA
 
         } else {

@@ -98,7 +98,7 @@ plot_RLum<- function(
 
   # Run dispatcher ------------------------------------------------------------------------------
   ##call for the list, if not just proceed as normal
-  if(class(object) == "list") {
+  if(inherits(object, "list")) {
     ##(0) we might have plenty of sublists before we have the list containing only
     ##RLum-objects
     object <- .unlist_RLum(object)

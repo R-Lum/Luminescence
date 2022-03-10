@@ -110,7 +110,7 @@ apply_CosmicRayRemoval <- function(
   ##Black magic: The function recalls itself until all RLum.Data.Spectrum objects have been treated
   ##If you want to test the basics of the function please only use a single RLum.Data.Spectrum-object
   ##if it comes in as an RLum.Analysis object ... make a list out of it
-  if(class(object) == "RLum.Analysis"){
+  if(inherits(object, "RLum.Analysis")){
     object <- list(object)
     class_original <- "RLum.Analysis"
 
@@ -120,17 +120,17 @@ apply_CosmicRayRemoval <- function(
   }
 
   ##handle the list and recall
-  if(class(object) == "list"){
+  if(inherits(object, "list")){
     results_list <- lapply(object, function(o){
 
       ##preset objects
       record_id.spectra <- NULL
 
       ##RLum.Analysis
-      if(class(o) == "RLum.Analysis"){
+      if(inherits(o, "RLum.Analysis")){
          ##get id of RLum.Data.Spectrum objects in this object
          record_id.spectra <- which(
-           vapply(o@records, function(x) class(x) == "RLum.Data.Spectrum", logical(1)))
+           vapply(o@records, function(x) inherits(x, "RLum.Data.Spectrum"), logical(1)))
 
          ##rewrite o
          temp_o <- o@records[record_id.spectra]
@@ -178,7 +178,7 @@ apply_CosmicRayRemoval <- function(
   # Integrity check -----------------------------------------------------------
 
   ##check if object is of class RLum.Data.Spectrum
-  if(class(object) != "RLum.Data.Spectrum"){
+  if(!inherits(object,"RLum.Data.Spectrum")){
     stop(paste0("[apply_CosmicRayRemoval()] An object of class '",class(object)[1], "' is not supported as input; please read the manual!"), call. = FALSE)
 
   }

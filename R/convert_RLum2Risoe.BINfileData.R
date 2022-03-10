@@ -60,11 +60,11 @@ convert_RLum2Risoe.BINfileData <- function(
 
   # Integrity tests -----------------------------------------------------------------------------
   ##RLum.Data.Curve
-  if(class(object) == "RLum.Data.Curve")
+  if(inherits(object, "RLum.Data.Curve"))
     object <- set_RLum(class = "RLum.Analysis", records = list(object))
 
    ##RLum.Analysis - final check, from here we just accept RLum.Analysis
-   if(class(object) != "RLum.Analysis")
+   if(!inherits(object, "RLum.Analysis"))
      stop("[convert_RLum2Risoe.BINfileData()] Input object needs to be of class 'RLum.Analysis', 'RLum.Data.Curve' or a 'list' of such objects!", call. = FALSE)
 
 

@@ -140,7 +140,7 @@ convert_Concentration2DoseRate <- function(
   GSA <- BaseDataSet.GrainSizeAttenuation
 
 # Integrity tests ------------------------------------------------------------
-  if(class(input)[1] != "data.frame" & class(input)[1] != "matrix")
+  if(!inherits(input, "data.frame") & !inherits(input, "matrix"))
     stop("[convert_Concentration2DoseRate()] input must be of type 'data.frame or 'matrix'!",
          call. = FALSE)
 
