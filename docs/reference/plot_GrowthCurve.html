@@ -19,7 +19,7 @@ extrapolation to calculate the equivalent dose."><!-- mathjax --><script src="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
       </span>
     </div>
 
@@ -237,7 +237,7 @@ Each error estimation is done with the function of the chosen fitting method.</p
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., Dietze, M., 2022. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., 2022. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -269,10 +269,10 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
 <span class="r-plt img"><img src="plot_GrowthCurve-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc    De.MC Fit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1737.881 62.56593 1766.074  93.36903  NA        NA NA 1744.427 EXP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc   De.MC Fit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1737.881 61.30294 1766.074  92.57868  NA        NA NA 1731.12 EXP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lower  1678.58 1797.942  1609.52 1908.779</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1660.673 1788.935  1610.45  1860.02</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(1b) horizontal plot arrangement</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -406,11 +406,15 @@ Michael Dietze, GFZ Potsdam (Germany)
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
+Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
+Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
+Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

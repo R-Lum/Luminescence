@@ -18,7 +18,7 @@ measurements."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/li
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
       </span>
     </div>
 
@@ -161,11 +161,11 @@ commands.</p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.1.13</p>
+    <p>0.1.14</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., Dietze, M., 2022. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Dietze, M., 2022. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -192,70 +192,84 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot values</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
-<span class="r-in">given.dose <span class="op">=</span> <span class="fl">2800</span>, mtext <span class="op">=</span> <span class="st">"Example data"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  mtext <span class="op">=</span> <span class="st">"Example data"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot values with legend</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                legend <span class="op">=</span> <span class="st">"Test data set"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  legend <span class="op">=</span> <span class="st">"Test data set"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## create and plot two subsets with randomised values</span></span>
 <span class="r-in"><span class="va">x.1</span> <span class="op">&lt;-</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span></span>
 <span class="r-in"><span class="va">x.2</span> <span class="op">&lt;-</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0.9</span>, <span class="fl">1.1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## some more user-defined plot parameters</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>,</span>
-<span class="r-in">                xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span>,</span>
-<span class="r-in">                ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">1.15</span><span class="op">)</span>,</span>
-<span class="r-in">                xlab <span class="op">=</span> <span class="st">"Sample aliquot"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span class="r-in">  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>,</span>
+<span class="r-in">  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span><span class="op">)</span>,</span>
+<span class="r-in">  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">1.15</span><span class="op">)</span>,</span>
+<span class="r-in">  xlab <span class="op">=</span> <span class="st">"Sample aliquot"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot the data with user-defined statistical measures as legend</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean.weighted"</span>, <span class="st">"sd"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"weighted$mean"</span>, <span class="st">"sd.abs"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot the data with user-defined statistical measures as sub-header</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean.weighted"</span>, <span class="st">"sd"</span><span class="op">)</span>,</span>
-<span class="r-in">                summary.pos <span class="op">=</span> <span class="st">"sub"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"weighted$mean"</span>, <span class="st">"sd.abs"</span><span class="op">)</span>,</span>
+<span class="r-in">  summary.pos <span class="op">=</span> <span class="st">"sub"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot the data grouped by preheat temperatures</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                preheat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">240</span>, <span class="fl">240</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  preheat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">240</span>, <span class="fl">240</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co">## read example data set and misapply them for this plot type</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot values</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>, mtext <span class="op">=</span> <span class="st">"Example data"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  mtext <span class="op">=</span> <span class="st">"Example data"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co">## plot two data sets grouped by preheat temperatures</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                preheat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">240</span>, <span class="fl">240</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x.1</span>, <span class="va">x.2</span><span class="op">)</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  preheat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">240</span>, <span class="fl">240</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## plot the data grouped by preheat temperatures as boxplots</span></span>
-<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span>values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
-<span class="r-in">                given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
-<span class="r-in">                preheat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">240</span>, <span class="fl">240</span><span class="op">)</span>,</span>
-<span class="r-in">                boxplot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_DRTResults</span><span class="op">(</span></span>
+<span class="r-in">  values <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span>,</span>
+<span class="r-in">  given.dose <span class="op">=</span> <span class="fl">2800</span>,</span>
+<span class="r-in">  preheat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">200</span>, <span class="fl">240</span>, <span class="fl">240</span><span class="op">)</span>,</span>
+<span class="r-in">  boxplot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_DRTResults-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
@@ -268,11 +282,15 @@ Michael Dietze, GFZ Potsdam (Germany)
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
+Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
+Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
+Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

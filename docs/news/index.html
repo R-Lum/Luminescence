@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
       </span>
     </div>
 
@@ -48,35 +48,88 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.18" id="changes-in-version-0918-2022-01-17">Changes in version 0.9.18 (2022-01-17)<a class="anchor" aria-label="anchor" href="#changes-in-version-0918-2022-01-17"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.19" id="changes-in-version-0919-2022-03-10">Changes in version 0.9.19 (2022-03-10)<a class="anchor" aria-label="anchor" href="#changes-in-version-0919-2022-03-10"></a></h2>
 <p><strong>This package version requires R &gt;= 4.0.5</strong></p>
 <div class="section level4">
-<h4 id="breaking-changes-0-9-18">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-18"></a></h4>
-<div class="section level5">
-<h5 id="changes-in-rlumdataimage-and-removal-of-import-raster-0-9-18">Changes in <code>RLum.Data.Image</code> and removal of import <code>'raster'</code>
-<a class="anchor" aria-label="anchor" href="#changes-in-rlumdataimage-and-removal-of-import-raster-0-9-18"></a></h5>
-<p>The S4 class <code>RLum.Data.Image</code> was heavily revised to strip <code>'Luminescence'</code> of the dependency to the package <code>'raster'</code> and replace the functionality with base R functions and objects. The <code>'raster'</code> package came in at an early stage of <code>'Luminescence'</code> to handle image data. However, most of its massive feature set was never used, but <code>'raster'</code> caused a lot of trouble to many users and in our automated tests because of its own dependencies. Soon, <code>'raster'</code> will be retired and replaced by an even more powerful package called <code>'terra'</code>. This was our cue to make some serious changes instead of carrying forward this unfortunate implementation in <code>'Luminescence'</code>.</p>
-<ul><li>Within the <code>RLum.Data.Image-class</code> image data are now stored in an <code>array</code> instead of a <code>RasterBrick</code> object.</li>
-<li>The function <code><a href="../reference/plot_RLum.Data.Image.html">plot_RLum.Data.Image()</a></code> does not know any more about a plot type <code>plotRGB</code>. However, the standard raster plot was even improved. Please watch out, however, for changed arguments.</li>
-<li>The image format import functions <code><a href="../reference/read_SPE2R.html">read_SPE2R()</a></code> and <code><a href="../reference/read_TIFF2R.html">read_TIFF2R()</a></code> were modified to support the new class design.</li>
-<li>The corresponding example dataset was updated.</li>
+<h4 id="new-functions-0-9-19">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-9-19"></a></h4>
+<ul><li><p><code><a href="../reference/extract_ROI.html">extract_ROI()</a></code>: Light-weighted function to extract
+pixel values from pre-defined regions-of-interest (ROI) from
+<code>RLum.Data.Image-class</code>, <code>array</code> or
+<code>matrix</code> objects and provide simple image processing
+capacity. While the function comes with a simple control plot output,
+the results can be passed also to <code><a href="../reference/plot_ROI.html">plot_ROI()</a></code></p></li>
+<li><p><code><a href="../reference/write_R2TIFF.html">write_R2TIFF()</a></code>: Export <code>RLum.Data.Image</code>
+and <code>RLum.Data.Spectrum</code> objects or a list of such to TIFF
+Images. A convenient wrapper around the function
+<code><a href="https://rdrr.io/pkg/tiff/man/writeTIFF.html" class="external-link">tiff::writeTIFF()</a></code></p></li>
 </ul></div>
-<div class="section level5">
-<h5 id="removal-of-app_rlum-0-9-18">Removal of <code>app_RLum()</code>
-<a class="anchor" aria-label="anchor" href="#removal-of-app_rlum-0-9-18"></a></h5>
-<p>This function was essentially a wrapper around <code><a href="https://tzerk.github.io/RLumShiny/reference/app_RLum.html" class="external-link">RLumShiny::app_RLum()</a></code> written to promote <code>'RLumShiny'</code>; a package providing a graphical user interface to <code>'Luminescence'</code>. <code>'Luminescence'</code> is essential for <code>'RLumShiny'</code>. However, this two-way dependency caused unwanted trouble once the package <code>'raster'</code> was removed. By removing <code>app_RLum()</code> <code>'Luminescence'</code> comes lighter because it has fewer dependencies this unfortunate reverse dependency can be avoided. <code><a href="https://tzerk.github.io/RLumShiny/reference/app_RLum.html" class="external-link">RLumShiny::app_RLum()</a></code> will still work as before, but it cannot be called anymore out of <code>'Luminescence'</code>. In summary, except for one function less, not much has changed since both packages need to be installed to run the shiny applications.</p>
-</div>
-</div>
 <div class="section level4">
-<h4 id="bugfixes-and-changes-0-9-18">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-18"></a></h4>
+<h4 id="bugfixes-and-changes-0-9-19">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-19"></a></h4>
 <div class="section level5">
-<h5 id="convert_activity2concentration-0-9-18"><code>convert_Activity2Concentration()</code><a class="anchor" aria-label="anchor" href="#convert_activity2concentration-0-9-18"></a></h5>
-<ul><li>The function had had-coded conversion factors, now the factors are calculated, making it easier to include new data, such as updated half-life values.</li>
-<li>The documentation is extended and should now be read more clear.</li>
+<h5 id="merge_rlumresults-0-9-19"><code>merge_RLum.Results()</code><a class="anchor" aria-label="anchor" href="#merge_rlumresults-0-9-19"></a></h5>
+<ul><li>If elements of type <code>matrix</code>, <code>data.frame</code> or
+<code>vector</code> were merged, usually attributes, additional to the
+standard attributes (e.g., <code>class</code> for
+<code>data.frame</code>) were lost during the merging. Now, such
+attributes are preserved so far they are not of a similar name as the
+standard object of the object element (e.g., <code>dim</code> for
+<code>matrix</code> or <code>class</code> for <code>data.frame</code>).
+This small addition allows to merge more complex objects and retain all
+attributes for further processing.</li>
 </ul></div>
 <div class="section level5">
-<h5 id="use_drac-0-9-18"><code>use_DRAC()</code><a class="anchor" aria-label="anchor" href="#use_drac-0-9-18"></a></h5>
-<ul><li>The function now supports up to 5000 datasets, instead of before 33. The function <code><a href="../reference/template_DRAC.html">template_DRAC()</a></code> was revised accordingly.</li>
+<h5 id="plot_drtresults-0-9-19"><code>plot_DRTResults()</code><a class="anchor" aria-label="anchor" href="#plot_drtresults-0-9-19"></a></h5>
+<ul><li>The plot messed with the <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code> settings, which was
+problematic if, for instance, a second x-axis was wanted; fixed.</li>
+<li>The function examples were not anymore up-to-date; fixed.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="plot_rlumdataimage-0-9-19"><code>plot_RLum.Data.Image()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdataimage-0-9-19"></a></h5>
+<ul><li>Minor correction of the colour legend, which did always show the
+highest value</li>
+<li>New <code>...</code> argument <code>zlim_image</code> to maintain a
+consistent z-scale over a series of images.</li>
+<li>The colour stretching could fail for <code>lin</code> and a lot of
+zero values; fixed.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="plot_rlumdataspectrum-0-9-19"><code>plot_RLum.Data.Spectrum()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdataspectrum-0-9-19"></a></h5>
+<ul><li>Fixed a bug that let <code><a href="../reference/plot_RLum.Data.Spectrum.html">plot_RLum.Data.Spectrum()</a></code> crash
+under very particular circumstances due to a wrong conditional
+statement.</li>
+<li>If the count limits are oddly chosen, i.e. <code>limit_counts</code>
+is smaller than the actual number of counts on the z-scale, the function
+does not crash anymore but replaces the value with the lowest possible
+value.</li>
+<li>The argument <code>box</code> for the plot <code>persp</code> now
+accepts <code>alternate</code> for the customized plot without the box
+usually drawn around the plot.</li>
+<li>The function now returns the adjusted matrix used for the plotting
+regardless of whether the argument <code>plot</code> is set to
+<code>TRUE</code> or <code>FALSE</code>.</li>
+<li>If the plot type is <code>persp</code>, the default, the “viewing
+transformation matrix” is returned as an attribute <code>pmat</code>.
+This can be further used in conjunction with the function
+<code>graphics::trans3d</code> to add additional information to the
+graphic.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="plot_filtercombinations-0-9-19"><code>plot_FilterCombinations()</code><a class="anchor" aria-label="anchor" href="#plot_filtercombinations-0-9-19"></a></h5>
+<ul><li>The function returned a wrongly calculated optical density, using
+<code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log()</a></code> instead of <code>log10</code>; fixed.= Note: The
+shiny filter app was not immediately affected because the values here
+were taken from a spreadsheet.</li>
+<li>The output object is now invisible since the function’s main purpose
+is to plot a graphic and not return an object.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="plot_roi-0-9-19"><code>plot_ROI()</code><a class="anchor" aria-label="anchor" href="#plot_roi-0-9-19"></a></h5>
+<ul><li>Add support for the new function <code><a href="../reference/extract_ROI.html">extract_ROI()</a></code>
+</li>
+<li>Add new argument <code>bg_image</code> to support background image
+plotting</li>
+<li>The numerical output is now consistently <code>invisble</code> as it
+is for all plot functions in the package</li>
 </ul></div>
 </div>
 </div>
@@ -90,11 +143,15 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
+Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
+Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
+Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

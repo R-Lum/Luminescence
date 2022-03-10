@@ -26,6 +26,8 @@ shade: default is 0.4
 phi: default is 15
 theta: default is -30
 expand: default is 1
+axes: default is TRUE
+box: default is TRUE; accepts &quot;alternate&quot; for a custom plot design
 ticktype: default is detailed, r: default is 10
 
 
@@ -53,7 +55,7 @@ xlim = c(300,310) plot along the summed up count values of channel
 Further arguments that will be passed (depending on the plot type)
 xlab, ylab, zlab, xlim, ylim,
 zlim, main, mtext, pch, type (&quot;single&quot;, &quot;multiple.lines&quot;, &quot;interactive&quot;),
-col, border, box lwd, bty, showscale (&quot;interactive&quot;, &quot;image&quot;)
+col, border, lwd, bty, showscale (&quot;interactive&quot;, &quot;image&quot;)
 contour, contour.col (&quot;image&quot;)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -72,7 +74,7 @@ contour, contour.col (&quot;image&quot;)"><!-- mathjax --><script src="https://c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
       </span>
     </div>
 
@@ -124,6 +126,8 @@ internal R plot functions.</p>
 <li><p><code>phi</code>: default is <code>15</code></p></li>
 <li><p><code>theta</code>: default is <code>-30</code></p></li>
 <li><p><code>expand</code>: default is <code>1</code></p></li>
+<li><p><code>axes</code>: default is <code>TRUE</code></p></li>
+<li><p><code>box</code>: default is <code>TRUE</code>; accepts <code>"alternate"</code> for a custom plot design</p></li>
 <li><p><code>ticktype</code>: default is <code>detailed</code>, <code>r</code>: default is <code>10</code></p></li>
 </ul><p><strong>Note:</strong> Further parameters can be adjusted via <code>par</code>. For example
 to set the background transparent and reduce the thickness of the lines use:
@@ -149,7 +153,7 @@ summed up. To select a transect use the <code>xlim</code> argument, e.g.
 <p><strong>Further arguments that will be passed (depending on the plot type)</strong></p>
 <p><code>xlab</code>, <code>ylab</code>, <code>zlab</code>, <code>xlim</code>, <code>ylim</code>,
 <code>zlim</code>, <code>main</code>, <code>mtext</code>, <code>pch</code>, <code>type</code> (<code>"single"</code>, <code>"multiple.lines"</code>, <code>"interactive"</code>),
-<code>col</code>, <code>border</code>, <code>box</code> <code>lwd</code>, <code>bty</code>, <code>showscale</code> (<code>"interactive"</code>, <code>"image"</code>)
+<code>col</code>, <code>border</code>, <code>lwd</code>, <code>bty</code>, <code>showscale</code> (<code>"interactive"</code>, <code>"image"</code>)
 <code>contour</code>, <code>contour.col</code> (<code>"image"</code>)</p>
     </div>
 
@@ -249,8 +253,8 @@ to the <code>plot</code> function.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns a plot if <code>plot = TRUE</code>, the default. If <code>plot = FALSE</code> the transformed matrix
-used for plotting is returned instead.</p>
+    <p>Returns a plot and the transformed <code>matrix</code> used for plotting with some useful
+attributes such as the <code>colour</code> and <code>pmat</code> (the transpose matrix from <a href="https://rdrr.io/r/graphics/persp.html" class="external-link">graphics::persp</a>)</p>
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -258,7 +262,7 @@ used for plotting is returned instead.</p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.6.4</p>
+    <p>0.6.5</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -271,7 +275,7 @@ used for plotting is returned instead.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
@@ -357,11 +361,15 @@ used for plotting is returned instead.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
+Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
+Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
+Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

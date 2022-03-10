@@ -289,6 +289,9 @@
     <loc>/reference/extract_IrradiationTimes.html</loc>
   </url>
   <url>
+    <loc>/reference/extract_ROI.html</loc>
+  </url>
+  <url>
     <loc>/reference/fit_CWCurve.html</loc>
   </url>
   <url>
@@ -470,6 +473,9 @@
   </url>
   <url>
     <loc>/reference/write_R2BIN.html</loc>
+  </url>
+  <url>
+    <loc>/reference/write_R2TIFF.html</loc>
   </url>
   <url>
     <loc>/reference/write_RLum2CSV.html</loc>

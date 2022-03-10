@@ -19,7 +19,7 @@ by e.g. read_XSYG2R, read_Daybreak2R"><!-- mathjax --><script src="https://cdnjs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
       </span>
     </div>
 
@@ -194,10 +194,10 @@ Returns data.frame showing the structure.
 <ul><li><p><code>show</code>: Show structure of <code>RLum.Analysis</code> object</p></li>
 <li><p><code>set_RLum</code>: Construction method for RLum.Analysis objects.</p></li>
 <li><p><code>get_RLum</code>: Accessor method for RLum.Analysis object.</p>
-<p>The slots record.id, recordType, curveType and RLum.type are optional to allow for records
-limited by their id (list index number), their record type (e.g. recordType = "OSL")
+<p>The slots record.id, <code>@recordType</code>, <code>@curveType</code> and <code>@RLum.type</code> are optional to allow for records
+limited by their id (list index number), their record type (e.g. <code>recordType = "OSL"</code>)
 or object type.</p>
-<p>Example: curve type (e.g. curveType = "predefined" or curveType ="measured")</p>
+<p>Example: curve type (e.g. <code>curveType = "predefined"</code> or <code>curveType ="measured"</code>)</p>
 <p>The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum</p></li>
 <li><p><code>structure_RLum</code>: Method to show the structure of an RLum.Analysis object.</p></li>
@@ -247,7 +247,7 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
@@ -319,11 +319,15 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
+Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
+Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
+Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

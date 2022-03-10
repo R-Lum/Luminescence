@@ -20,7 +20,7 @@ The plot dimensions mimic the original image dimensions"><!-- mathjax --><script
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
       </span>
     </div>
 
@@ -64,6 +64,7 @@ The plot dimensions mimic the original image dimensions</p>
   exclude_ROI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,
   dist_thre <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,
   dim.CCD <span class="op">=</span> <span class="cn">NULL</span>,
+  bg_image <span class="op">=</span> <span class="cn">NULL</span>,
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
@@ -72,9 +73,9 @@ The plot dimensions mimic the original image dimensions</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
-<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects (<strong>required</strong>):
+<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Results-class.html">RLum.Results</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects (<strong>required</strong>):
 data input. Please note that to avoid function errors, only input created
-by the function <a href="read_RF2R.html">read_RF2R</a> is accepted</p></dd>
+by the functions <a href="read_RF2R.html">read_RF2R</a> or <a href="extract_ROI.html">extract_ROI</a> is accepted</p></dd>
 <dt>exclude_ROI</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): option to remove particular ROIs from the
 analysis. Those ROIs are plotted but not coloured and not taken into account
@@ -88,6 +89,9 @@ should include consider the ROIs or grain radius.</p></dd>
 <dt>dim.CCD</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): metric x and y for the recorded (chip)
 surface in µm. For instance <code>c(8192,8192)</code>, if set additional x and y-axes are shown</p></dd>
+<dt>bg_image</dt>
+<dd><p><a href="RLum.Data.Image-class.html">RLum.Data.Image</a> (<em>optional</em>): background image object
+please note that the dimensions are not checked.</p></dd>
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable or disable plot output to use
 the function only to extract the ROI data</p></dd>
@@ -105,7 +109,7 @@ the euclidean distance between the ROIs.</p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.1.0</p>
+    <p>0.2.0</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -119,22 +123,24 @@ the euclidean distance between the ROIs.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2022. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2022. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RF_file.rf"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+<span class="r-in"><span class="co">## simple example</span></span>
+<span class="r-in"><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"RF_file.rf"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_RF2R.html">read_RF2R</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">plot_ROI</span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_ROI-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: plot_ROI()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 data: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  	 .. $ROI : matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $euc_dist : dist</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## in combination with extract_ROI()</span></span>
+<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">255</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">roi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="extract_ROI.html">extract_ROI</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">m</span>, roi <span class="op">=</span> <span class="va">roi</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot_ROI</span><span class="op">(</span><span class="va">t</span>, bg_image <span class="op">=</span> <span class="va">m</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="plot_ROI-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -146,11 +152,15 @@ the euclidean distance between the ROIs.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
+Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
+Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
+Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>
