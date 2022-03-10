@@ -941,7 +941,7 @@ if(centrality[1] == "mean") {
                               to = limits.z[2]),
                       silent = TRUE)
 
-    if(class(De.density)[1] == "try-error") {
+    if(!inherits(De.density, "try-error")) {
       De.stats[i,6] <- NA
 
     } else {

@@ -202,14 +202,12 @@ extract_IrradiationTimes <- function(
     ##check if file is XML file
     if(tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "xsyg" &
          tail(unlist(strsplit(file.XSYG, split = "\\.")), 1) != "XSYG" ){
-
       stop("[extract_IrradiationTimes()] File is not of type 'XSYG'!", call. = FALSE)
 
     }
 
     ##BINX
     if(!missing(file.BINX)){
-
       ##check if file exists
       if(file.exists(file.BINX) == FALSE){
         stop("[extract_IrradiationTimes()] Wrong BINX file name or file does not exist!", call. = FALSE)

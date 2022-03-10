@@ -2,7 +2,7 @@
 #'
 #'
 #' \if{html}{
-#' \figure{Luminescence_logo.png}{options: width="75px" alt="r-luminescence.org"}
+#' \figure{Luminescence_logo.png}{options: width="75" alt="r-luminescence.org"}
 #' }
 #'
 #' @description A collection of various R functions for the purpose of luminescence dating
@@ -61,7 +61,7 @@
 #' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
 #' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
 #'
-#' Between 2020--2021, the work of Sebastian Kreutzer as maintainer of the package has received funding
+#' Between 2020--2022, the work of Sebastian Kreutzer as maintainer of the package has received funding
 #' from the European Union’s Horizon 2020 research and innovation programme under
 #' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit).
 #'

@@ -212,10 +212,10 @@ analyse_FadingMeasurement <- function(
 
     }
 
-  } else if (class(object) == "RLum.Analysis") {
+  } else if (inherits(object, "RLum.Analysis")) {
     object <- list(object)
 
-  } else if(class(object) == "data.frame"){
+  } else if(inherits(object,"data.frame")){
     if (ncol(object) %% 3 != 0) {
       stop("[analyse_FadingMeasurement()] 'object': if you provide a data.frame as input, the number of columns must be a multiple of 3.")
     } else {
@@ -487,7 +487,7 @@ analyse_FadingMeasurement <- function(
       x = MC_matrix[,1],
       y = MC_matrix[,x]))$coefficients, silent = TRUE)
 
-    if(class(fit) == "try-error"){
+    if(inherits(fit, "try-error")){
       return(c(NA_real_, NA_real_))
 
     }else{
@@ -558,7 +558,7 @@ analyse_FadingMeasurement <- function(
 
   ##calculate final g_value
   ##the 2nd term corrects for the (potential) offset from one
-  if(class(fit) == "try-error"){
+  if(inherits(fit, "try-error")){
     g_value_fit <- NA
 
   }else{
@@ -591,7 +591,7 @@ analyse_FadingMeasurement <- function(
                                ties = mean,
                                xout = 0.5), silent = TRUE)
 
-  if(class(T_0.5.interpolated) =='try-error'){
+  if(inherits(T_0.5.interpolated, 'try-error')){
     T_0.5.predict <- NULL
     T_0.5.interpolated <- NULL
 

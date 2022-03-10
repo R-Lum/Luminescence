@@ -70,7 +70,7 @@ The net transmission window of two filters is approximated by
 
 \strong{Optical density}
 
-\deqn{OD = -log(T)}
+\deqn{OD = -log10(T)}
 
 \strong{Total optical density}
 
@@ -129,7 +129,7 @@ can be fully customised by disabling the standard legend and use the function \l
 instead.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.2
 }
 
 \examples{
@@ -169,7 +169,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

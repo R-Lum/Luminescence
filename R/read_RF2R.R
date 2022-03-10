@@ -1,9 +1,9 @@
 #' @title Import RF-files to R
 #'
-#' @description Import files produced by the IR-RF 'ImageJ' macro (#TODO ADD REFERENCE) into R and create a list of [RLum.Analysis-class]
+#' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`; Mittelstraß and Kreutzer, 2021) into R and create a list of [RLum.Analysis-class]
 #' objects
 #'
-#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files (#TODO ADD REFERENCE).
+#' @details The results of spatially resolved IR-RF data are summarised in so-called RF-files ((Mittelstraß and Kreutzer, 2021).
 #' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
 #' The output of the function can be passed to the function [analyse_IRSAR.RF]
 #'
@@ -21,7 +21,8 @@
 #'
 #' @keywords IO
 #'
-#' @references #TODO ADD REFERENCE
+#' @references Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluorescence:
+#' single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \doi{10.5194/gchron-3-299-2021}
 #'
 #' @examples
 #'
@@ -34,7 +35,7 @@
 read_RF2R <- function(file) {
 
 # Self-call -----------------------------------------------------------------------------------
-  if(class(file) == "list"){
+  if(inherits(file, "list")){
     results_list <- lapply(file, function(f){
       temp <- try(read_RF2R(file = f), silent = TRUE)
 
@@ -63,7 +64,7 @@ read_RF2R <- function(file) {
   }
 
   ##check input
-  if(class(file) != "character")
+  if(!inherits(file, "character"))
     stop("[read_RF2R()] 'file' needs to be of type character!", call. = FALSE)
 
   ##check whether file is available
@@ -102,11 +103,10 @@ read_RF2R <- function(file) {
     header <- try(.extract_header(temp[1]), silent = TRUE)
 
     ##test the header
-    if(class(header) == 'try-error'){
+    if(inherits(header, 'try-error')){
       try(stop("[read_RF2R()] Header extraction failed, try to continue without ... ", call. = FALSE))
       header <- NA
     }
-
 
     ##extract tag boundaries framed by tags +++++++++++++++++++
     ##the 2nd line corrects the inner boundaries
@@ -223,7 +223,6 @@ read_RF2R <- function(file) {
                  ))
 
     })
-
 
 # Return --------------------------------------------------------------------------------------
 return(object_list)

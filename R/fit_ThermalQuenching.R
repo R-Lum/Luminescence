@@ -136,7 +136,7 @@ fit_ThermalQuenching <- function(
 
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(data) == "list"){
+  if(inherits(data, "list")){
 
     ##get arguments
     args <- as.list(match.call())
@@ -156,7 +156,7 @@ fit_ThermalQuenching <- function(
 
 
   # Integrity checks ----------------------------------------------------------------------------
-  if(class(data) != 'data.frame'){
+  if(!inherits(data, 'data.frame')){
     stop("[fit_ThermalQuenching()] 'data' must by of type 'data.frame' or list of 'data.frames'!", call. = FALSE)
 
   }else{
@@ -225,7 +225,7 @@ fit_ThermalQuenching <- function(
   ), silent = TRUE)
 
   ##only continue if the first fitting worked out
-  if(class(fit) != "try-error"){
+  if(!inherits(fit, "try-error")){
 
     ##reset n.MC
     if(is.null(n.MC) || n.MC < 1)
@@ -258,7 +258,7 @@ fit_ThermalQuenching <- function(
       ), silent = TRUE)
 
       ##return value
-      if(class(temp) == 'try-error') {
+      if(inherits(temp, 'try-error')) {
         return(NULL)
       } else{
         temp

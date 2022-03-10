@@ -185,7 +185,7 @@ calc_FadingCorr <- function(
   stopifnot(!missing(age.faded), !missing(g_value))
 
   ##check input
-  if(class(g_value)[1] == "RLum.Results"){
+  if(inherits(g_value, "RLum.Results")){
     if(g_value@originator == "analyse_FadingMeasurement"){
       tc <- get_RLum(g_value)[["TC"]]
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])

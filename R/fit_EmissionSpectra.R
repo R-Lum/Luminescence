@@ -185,15 +185,15 @@ fit_EmissionSpectra <- function(
   ## create a list of data treat, frame controls the number of frames analysed
 
   ##input RLum.Data.Spectrum ... make list either way
-  if(class(object)[1] == "RLum.Data.Spectrum")
+  if(inherits(object, "RLum.Data.Spectrum"))
     object <- list(object)
 
   ##stop, mixed input is not allowed
-  if(class(object)[1] == "list" && length(unique(sapply(object, class))) != 1)
+  if(inherits(object, "list") && length(unique(sapply(object, class))) != 1)
      stop("[fit_EmissionSpectra()] List elements of different class detected!", call. = FALSE)
 
   ##deal with RLum.Data.Spectrum lists
-  if(class(object)[1] == "list" && all(sapply(object, class) == "RLum.Data.Spectrum")){
+  if(inherits(object, "list") && all(sapply(object, class) == "RLum.Data.Spectrum")){
     temp <- lapply(object, function(o){
       ##get x-axis
       x <- as.numeric(rownames(o@data))
@@ -232,7 +232,7 @@ fit_EmissionSpectra <- function(
   }
 
   ##handle a single matrix that may have different columns
-  if(class(object)[1] == "matrix" && ncol(object) > 2){
+  if(inherits(object, "matrix") && ncol(object) > 2){
     rownames(object) <- NULL
 
     ##set frame
@@ -259,7 +259,7 @@ fit_EmissionSpectra <- function(
   ##now treat different lists, the aim is to have a list of 2-column matrices
   ##we have two types of lists,
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object)[1] == "list"){
+  if(inherits(object, "list")){
     ##get argument list
     args_list <- list(...)
 
@@ -299,7 +299,7 @@ fit_EmissionSpectra <- function(
 
   # Start main core -----------------------------------------------------------------------------
   ##backstop, from here we allow only a matrix
-  if(class(object)[1] != "matrix")
+  if(!inherits(object, "matrix"))
     stop("[fit_EmissionSpectra()] Input not supported, please read the manual!",call. = FALSE)
 
   ##extract matrix for everything below

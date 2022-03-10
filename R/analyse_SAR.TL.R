@@ -123,7 +123,7 @@ analyse_SAR.TL <- function(
 
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object) == "list"){
+  if(inherits(object, "list")){
    if(!all(sapply(object, class) == "RLum.Analysis"))
      stop("[analyse_SAR.TL()] All elements in the input list need to be of class 'RLum.Analysis'!",
           call. = FALSE)

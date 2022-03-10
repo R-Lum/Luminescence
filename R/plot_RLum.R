@@ -62,19 +62,16 @@ plot_RLum<- function(
   object,
   ...
 ){
-
 # Define dispatcher function ----------------------------------------------------------
 ##check if object is of class RLum
   RLum.dispatcher <- function(object, ...) {
     if (inherits(object, "RLum")) {
-
       ##grep object class
       object.class <- is(object)[1]
 
       ##select which plot function should be used and call it
       switch (
         object.class,
-
         RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
         RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
@@ -89,9 +86,7 @@ plot_RLum<- function(
 
         },
 
-        RLum.Results = plot_RLum.Results(object = object, ...)
-
-      )
+        RLum.Results = plot_RLum.Results(object = object, ...))
 
     }else{
       stop(paste0(
@@ -99,14 +94,11 @@ plot_RLum<- function(
       ), call. = FALSE)
 
     }
-
   }
-
 
   # Run dispatcher ------------------------------------------------------------------------------
   ##call for the list, if not just proceed as normal
-  if(class(object) == "list") {
-
+  if(inherits(object, "list")) {
     ##(0) we might have plenty of sublists before we have the list containing only
     ##RLum-objects
     object <- .unlist_RLum(object)
@@ -152,11 +144,9 @@ plot_RLum<- function(
         }
       }
     }
-
   }else{
     ##dispatch object
     RLum.dispatcher(object = object, ...)
 
   }
 }
-

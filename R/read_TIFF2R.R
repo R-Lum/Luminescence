@@ -1,11 +1,11 @@
 #'@title Import TIFF Image Data into R
 #'
 #'@description Simple wrapper around [tiff::readTIFF] to import TIFF images
-#'and TIFF image stacks to be further processed within the package 'Luminescence'
+#'and TIFF image stacks to be further processed within the package `'Luminescence'`
 #'
 #'@param file [character] (**required**): file name
 #'
-#'@return [RLum.Image.Data-class] object
+#'@return [RLum.Data.Image-class] object
 #'
 #'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -23,6 +23,7 @@
 #'
 #'}
 #'
+#'@md
 #'@export
 read_TIFF2R <- function(
   file
@@ -31,7 +32,7 @@ read_TIFF2R <- function(
   ## most of the users don't need this import, no need to bother them
   ## with required libraries
   if (!requireNamespace("tiff", quietly = TRUE))
-    stop("Importing TIFF files require the package tiff.\n",
+    stop("Importing TIFF files requires the package tiff.\n",
          "To install this package run 'install.packages('tiff')' in your R console.",
          call. = FALSE)
 

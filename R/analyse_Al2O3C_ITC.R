@@ -179,10 +179,10 @@ analyse_Al2O3C_ITC <- function(
 
   }
 
-  # Integretiy check  ---------------------------------------------------------------------------
+  # Integrity check  ---------------------------------------------------------------------------
 
   ##check input object
-  if(class(object) != "RLum.Analysis"){
+  if(!inherits(object, "RLum.Analysis")){
     stop("[analyse_Al2O3C_ITC()] 'object' needs to be of type 'RLum.Analysis'", call. = FALSE)
 
   }

@@ -4,6 +4,7 @@
 #' [RLum.Data.Image-class] object. For more sophisticated plotting it is recommended
 #' to use other very powerful packages for image processing.
 #'
+#'
 #' **Details on the plot functions**
 #'
 #' Supported plot types:
@@ -34,11 +35,18 @@
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions. Standard supported parameters are `xlim`, `ylim`, `zlim`,
-#' `xlab`, `ylab`, `main`, `legend` (`TRUE` or `FALSE`), `col`, `cex`, `axes` (`TRUE` or `FALSE`)
+#' `xlab`, `ylab`, `main`, `legend` (`TRUE` or `FALSE`), `col`, `cex`, `axes` (`TRUE` or `FALSE`),
+#' `zlim_image` (adjust the z-scale over different images), `stretch`
 #'
-#' @return Returns a plot.
+#' @return Returns a plot
 #'
-#' @section Function version: 0.2.0
+#' @note The axes limitations (`xlim`, `zlim`, `zlim`) work directly on the object,
+#' so that regardless of the chosen limits the image parameters can be adjusted for
+#' best visibility. However, in particular for z-scale limitations this is not always
+#' wanted, please use `zlim_image` to maintain a particular value range over a
+#' series of images.
+#'
+#' @section Function version: 0.2.1
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -67,7 +75,7 @@ plot_RLum.Data.Image <- function(
 
 # Integrity check -----------------------------------------------------------
   ##check if object is of class RLum.Data.Image
-  if(class(object) != "RLum.Data.Image")
+  if(!inherits(object, "RLum.Data.Image"))
     stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image.", call. = FALSE)
 
   ## extract object
@@ -78,11 +86,17 @@ plot_RLum.Data.Image <- function(
   if(is.null(type[1])) return(x[,,1])
 
   if(type[1] == "lin") {
+    x <- x[,,1]
     r <- range(x)
     q <- stats::quantile(x, c(0.05, 0.95), na.rm = TRUE)
-    x <- (r[2] * (x - q[1])) / (q[2] - q[1])
-    x[x < 0] <- r[1]
-    x[x > r[2]] <- r[2]
+
+    ## consider special case for q == 0
+    if(sum(q) > 0) {
+      x <- (r[2] * (x - q[1])) / (q[2] - q[1])
+      x[x < 0] <- r[1]
+      x[x > r[2]] <- r[2]
+    }
+
   }
 
   if(type[1] == "hist")
@@ -100,10 +114,11 @@ plot_settings <- modifyList(x = list(
     xlim = c(1,dim(object)[1]),
     ylim = c(1,dim(object)[2]),
     zlim = range(object),
+    zlim_image = NULL,
     legend = TRUE,
     useRaster = TRUE,
     stretch = "hist",
-    col = grDevices::hcl.colors(50, palette = "Inferno"),
+    col = c(grDevices::hcl.colors(50, palette = "Inferno")),
     cex = 1
   ), val = list(...), keep.null = TRUE)
 
@@ -124,7 +139,7 @@ plot_settings <- modifyList(x = list(
 
   ## zlim
   object[object <= plot_settings$zlim[1]] <- max(0,plot_settings$zlim[1])
-  object[object >= plot_settings$zlim[2]] <- min(dim(object)[3],plot_settings$zlim[2])
+  object[object >= plot_settings$zlim[2]] <- min(max(object),plot_settings$zlim[2])
 
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = plot_settings$cex)
@@ -135,10 +150,13 @@ plot_settings <- modifyList(x = list(
       par.default <- par(mar = c(4.5,4.5,4,3))
       on.exit(par(par.default))
       x <- object[, , i, drop = FALSE]
+      image <-.stretch(x, type = plot_settings$stretch)
+
       graphics::image(
-        x = .stretch(x, type = plot_settings$stretch),
+        x = image,
         useRaster = plot_settings$useRaster,
         axes = FALSE,
+        zlim = if(is.null(plot_settings$zlim_image)) range(image) else plot_settings$zlim_image,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
         main = paste0(plot_settings$main, " #",i),
@@ -163,7 +181,7 @@ plot_settings <- modifyList(x = list(
       if(plot_settings$legend) {
         par.default <- c(par.default, par(xpd = TRUE))
         on.exit(par(par.default))
-        col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 15)]
+        col_grad <- plot_settings$col[seq(1, length(plot_settings$col), length.out = 14)]
         slices <- seq(0,1,length.out = 15)
         for(s in 1:(length(slices) - 1)){
           graphics::rect(
@@ -178,14 +196,22 @@ plot_settings <- modifyList(x = list(
         text(
           x = par()$usr[4] * 1.04,
           y = par()$usr[2],
-          format(max(x), digits = 1, scientific = TRUE),
+          labels = if(is.null(plot_settings$zlim_image)) {
+            format(max(x), digits = 1, scientific = TRUE)
+            } else {
+            format(plot_settings$zlim_image[2], digits = 1, scientific = TRUE)
+            },
           cex = 0.7,
           srt = 270,
           pos = 3)
         text(
           x = par()$usr[4] * 1.04,
           y = par()$usr[3],
-          format(min(x), digits = 1, scientific = TRUE),
+          labels = if(is.null(plot_settings$zlim_image)) {
+            format(min(x), digits = 1, scientific = TRUE)
+          } else {
+            format(plot_settings$zlim_image[1], digits = 1, scientific = TRUE)
+          },
           cex = 0.7,
           pos = 3,
           srt = 270)
@@ -198,6 +224,7 @@ plot_settings <- modifyList(x = list(
       graphics::contour(
         x = x[,,1],
         axes = FALSE,
+        zlim = if(is.null(plot_settings$zlim_image)) range(x) else plot_settings$zlim_image,
         xlab = plot_settings$xlab,
         ylab = plot_settings$ylab,
         main = paste0(plot_settings$main, " #",i),

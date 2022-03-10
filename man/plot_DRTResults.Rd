@@ -111,7 +111,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.13
+ 0.1.14
 }
 
 \examples{
@@ -120,66 +120,80 @@ commands.
 data(ExampleData.DeValues, envir = environment())
 
 ## plot values
-plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-given.dose = 2800, mtext = "Example data")
+plot_DRTResults(
+  values = ExampleData.DeValues$BT998[7:11,],
+  given.dose = 2800,
+  mtext = "Example data")
 
 ## plot values with legend
-plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-                given.dose = 2800,
-                legend = "Test data set")
+plot_DRTResults(
+  values = ExampleData.DeValues$BT998[7:11,],
+  given.dose = 2800,
+  legend = "Test data set")
 
 ## create and plot two subsets with randomised values
 x.1 <- ExampleData.DeValues$BT998[7:11,]
 x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 
-plot_DRTResults(values = list(x.1, x.2),
-                given.dose = 2800)
+plot_DRTResults(
+  values = list(x.1, x.2),
+  given.dose = 2800)
 
 ## some more user-defined plot parameters
-plot_DRTResults(values = list(x.1, x.2),
-                given.dose = 2800,
-                pch = c(2, 5),
-                col = c("orange", "blue"),
-                xlim = c(0, 8),
-                ylim = c(0.85, 1.15),
-                xlab = "Sample aliquot")
+plot_DRTResults(
+  values = list(x.1, x.2),
+  given.dose = 2800,
+  pch = c(2, 5),
+  col = c("orange", "blue"),
+  xlim = c(0, 8),
+  ylim = c(0.85, 1.15),
+  xlab = "Sample aliquot")
 
 ## plot the data with user-defined statistical measures as legend
-plot_DRTResults(values = list(x.1, x.2),
-                given.dose = 2800,
-                summary = c("n", "mean.weighted", "sd"))
+plot_DRTResults(
+  values = list(x.1, x.2),
+  given.dose = 2800,
+  summary = c("n", "weighted$mean", "sd.abs"))
 
 ## plot the data with user-defined statistical measures as sub-header
-plot_DRTResults(values = list(x.1, x.2),
-                given.dose = 2800,
-                summary = c("n", "mean.weighted", "sd"),
-                summary.pos = "sub")
+plot_DRTResults(
+  values = list(x.1, x.2),
+  given.dose = 2800,
+  summary = c("n", "weighted$mean", "sd.abs"),
+  summary.pos = "sub")
 
 ## plot the data grouped by preheat temperatures
-plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-                given.dose = 2800,
-                preheat = c(200, 200, 200, 240, 240))
+plot_DRTResults(
+  values = ExampleData.DeValues$BT998[7:11,],
+  given.dose = 2800,
+  preheat = c(200, 200, 200, 240, 240))
+
 ## read example data set and misapply them for this plot type
 data(ExampleData.DeValues, envir = environment())
 
 ## plot values
-plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-                given.dose = 2800, mtext = "Example data")
+plot_DRTResults(
+  values = ExampleData.DeValues$BT998[7:11,],
+  given.dose = 2800,
+  mtext = "Example data")
+
 ## plot two data sets grouped by preheat temperatures
-plot_DRTResults(values = list(x.1, x.2),
-                given.dose = 2800,
-                preheat = c(200, 200, 200, 240, 240))
+plot_DRTResults(
+  values = list(x.1, x.2),
+  given.dose = 2800,
+  preheat = c(200, 200, 200, 240, 240))
 
 ## plot the data grouped by preheat temperatures as boxplots
-plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-                given.dose = 2800,
-                preheat = c(200, 200, 200, 240, 240),
-                boxplot = TRUE)
+plot_DRTResults(
+  values = ExampleData.DeValues$BT998[7:11,],
+  given.dose = 2800,
+  preheat = c(200, 200, 200, 240, 240),
+  boxplot = TRUE)
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2022. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.13. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2022. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

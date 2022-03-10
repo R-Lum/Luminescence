@@ -14,7 +14,7 @@
 #'
 #' **Optical density**
 #'
-#' \deqn{OD = -log(T)}
+#' \deqn{OD = -log10(T)}
 #'
 #' **Total optical density**
 #'
@@ -112,7 +112,7 @@
 #' `call` \tab [call] \tab the original function call
 #' }
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
@@ -247,7 +247,7 @@ plot_FilterCombinations <- function(
   ##add optical density to filter matrix
 
   ##calculate OD
-  OD <- -log(filter_matrix)
+  OD <- -log10(filter_matrix)
 
   ##calculate  total OD
   OD_total <- cbind(wavelength_range, matrixStats::rowSums2(OD))
@@ -410,7 +410,7 @@ plot_FilterCombinations <- function(
 
 
   # Produce output object -----------------------------------------------------------------------
-  return(set_RLum(
+  invisible(set_RLum(
     class = "RLum.Results",
     data = list(
       net_transmission_window = net_transmission_window,

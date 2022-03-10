@@ -5,6 +5,9 @@ been causing trouble.
 
 ## Addressed CRAN issues
 
+Addressed email request Kurt Hornik, received 2022-02-17:
+> Luminescence::Luminescence-package.Rd: Warning: <img> attribute "width" has invalid value "75px"
+
 ## Win-Builder
 
 0 errors | 0 warnings | 0 note

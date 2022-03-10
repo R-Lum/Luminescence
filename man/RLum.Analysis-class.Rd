@@ -162,11 +162,11 @@ by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 
 \item \code{get_RLum}: Accessor method for RLum.Analysis object.
 
-The slots record.id, recordType, curveType and RLum.type are optional to allow for records
-limited by their id (list index number), their record type (e.g. recordType = "OSL")
+The slots record.id, \verb{@recordType}, \verb{@curveType} and \verb{@RLum.type} are optional to allow for records
+limited by their id (list index number), their record type (e.g. \code{recordType = "OSL"})
 or object type.
 
-Example: curve type (e.g. curveType = "predefined" or curveType ="measured")
+Example: curve type (e.g. \code{curveType = "predefined"} or \code{curveType ="measured"})
 
 The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
@@ -230,7 +230,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

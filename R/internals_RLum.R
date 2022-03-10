@@ -261,7 +261,7 @@ fancy_scientific <- function(l) {
 .create_StatisticalSummaryText <- function(
   x = NULL, #insert the output of calc_Statistics
   keywords = NULL,
-  digits = 2, #allow for different digts
+  digits = 2, #allow for different digits
   sep = " \n ",
   prefix = "",
   suffix = ""
@@ -440,7 +440,7 @@ fancy_scientific <- function(l) {
 
 
   # The only check ------------------------------------------------------------------------------
-  if(class(m)[1] != "matrix")
+  if(!inherits(m, "matrix"))
     stop("[.matrix_binning()] Input is not of class 'matrix'!", call. = FALSE)
 
   # transpose in column mode --------------------------------------------------------------------
@@ -551,7 +551,7 @@ fancy_scientific <- function(l) {
 
     ##evaluate and cover special cases
     if(!is.null(args[[i]])) args[[i]] <- eval(args[[i]])
-    if(class(args[i])[1] == "list" & length(args[[i]]) == 0) args[[i]] <- list()
+    if(inherits(args[i],  "list") & length(args[[i]]) == 0) args[[i]] <- list()
 
   }
   ##expand all arguments
@@ -562,7 +562,7 @@ fancy_scientific <- function(l) {
   ##    ... the standard automated expansion
   ##    ... OR it is a list with names (e.g., rejection.criteria = list(recycling.ration = 10))
   for(i in 1:length(args)){
-    if(class(args[[i]]) == "list" & is.null(names(args[[i]]))){
+    if(inherits(args[[i]], "list") & is.null(names(args[[i]]))){
       args[[i]] <- rep(args[[i]], length = len[1])
 
     } else {

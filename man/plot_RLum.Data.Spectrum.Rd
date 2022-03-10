@@ -97,8 +97,8 @@ be used in other functions and packages, such as plotting with the package \code
 to the \code{plot} function.}
 }
 \value{
-Returns a plot if \code{plot = TRUE}, the default. If \code{plot = FALSE} the transformed matrix
-used for plotting is returned instead.
+Returns a plot and the transformed \code{matrix} used for plotting with some useful
+attributes such as the \code{colour} and \code{pmat} (the transpose matrix from \link[graphics:persp]{graphics::persp})
 }
 \description{
 The function provides a standardised plot output for spectrum data of an
@@ -136,6 +136,8 @@ Arguments that will be passed to \link[graphics:persp]{graphics::persp}:
 \item \code{phi}: default is \code{15}
 \item \code{theta}: default is \code{-30}
 \item \code{expand}: default is \code{1}
+\item \code{axes}: default is \code{TRUE}
+\item \code{box}: default is \code{TRUE}; accepts \code{"alternate"} for a custom plot design
 \item \code{ticktype}: default is \code{detailed}, \code{r}: default is \code{10}
 }
 
@@ -173,14 +175,14 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 
 \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
 \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
-\code{col}, \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
+\code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
 \code{contour}, \code{contour.col} (\code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.4
+ 0.6.5
 }
 
 \examples{
@@ -256,7 +258,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

@@ -83,7 +83,7 @@ plot_RLum.Data.Curve<- function(
 # Integrity check -------------------------------------------------------------
 
   ##check if object is of class RLum.Data.Curve
-  if(class(object)[1] != "RLum.Data.Curve")
+  if(!inherits(object, "RLum.Data.Curve"))
     stop("[plot_RLum.Data.Curve()] Input object is not of type RLum.Data.Curve", call. = FALSE)
 
   ## check for NA values

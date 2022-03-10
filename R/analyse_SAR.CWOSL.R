@@ -272,7 +272,7 @@ if(is.list(object)){
 
   ##handle main separately
   if("main"%in% names(list(...))){
-    if(class(list(...)$main) == "list"){
+    if(inherits(list(...)$main, "list")){
       main <- rep(list(...)$main,length = length(object))
 
     }else{
@@ -316,7 +316,7 @@ error.list <- list()
 
 # General Integrity Checks ---------------------------------------------------
   ##MISSING INPUT
-  if(class(object)[1] != "RLum.Analysis")
+  if(!inherits(object, "RLum.Analysis"))
     stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
          call. = FALSE)
 
@@ -1634,10 +1634,10 @@ error.list <- list()
       ##graphical representation of IR-curve
       temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
       if(length(temp.IRSL) != 0){
-        if(class(temp.IRSL) == "RLum.Data.Curve"){
+        if(inherits(temp.IRSL, "RLum.Data.Curve")){
           plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
 
-        }else if(class(temp.IRSL) == "list"){
+        }else if(inherits(temp.IRSL, "list")){
           plot_RLum.Data.Curve(temp.IRSL[[length(temp.IRSL)]], par.local = FALSE)
           warning(
             "[analyse_SAR.CWOSL()] Multiple IRSL curves detected (IRSL test), show only the last one.",

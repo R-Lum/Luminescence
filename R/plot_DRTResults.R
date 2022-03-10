@@ -1,9 +1,9 @@
-#' Visualise dose recovery test results
+#' @title Visualise dose recovery test results
 #'
-#' The function provides a standardised plot output for dose recovery test
+#' @description The function provides a standardised plot output for dose recovery test
 #' measurements.
 #'
-#' Procedure to test the accuracy of a measurement protocol to reliably
+#' @details Procedure to test the accuracy of a measurement protocol to reliably
 #' determine the dose of a specific sample. Here, the natural signal is erased
 #' and a known laboratory dose administered which is treated as unknown. Then
 #' the De measurement is carried out and the degree of congruence between
@@ -84,7 +84,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.13
+#' @section Function version: 0.1.14
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
@@ -106,61 +106,75 @@
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' ## plot values
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#' given.dose = 2800, mtext = "Example data")
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   mtext = "Example data")
 #'
 #' ## plot values with legend
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800,
-#'                 legend = "Test data set")
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   legend = "Test data set")
 #'
 #' ## create and plot two subsets with randomised values
 #' x.1 <- ExampleData.DeValues$BT998[7:11,]
 #' x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 #'
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800)
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800)
 #'
 #' ## some more user-defined plot parameters
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 pch = c(2, 5),
-#'                 col = c("orange", "blue"),
-#'                 xlim = c(0, 8),
-#'                 ylim = c(0.85, 1.15),
-#'                 xlab = "Sample aliquot")
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   pch = c(2, 5),
+#'   col = c("orange", "blue"),
+#'   xlim = c(0, 8),
+#'   ylim = c(0.85, 1.15),
+#'   xlab = "Sample aliquot")
 #'
 #' ## plot the data with user-defined statistical measures as legend
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 summary = c("n", "mean.weighted", "sd"))
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   summary = c("n", "weighted$mean", "sd.abs"))
 #'
 #' ## plot the data with user-defined statistical measures as sub-header
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 summary = c("n", "mean.weighted", "sd"),
-#'                 summary.pos = "sub")
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   summary = c("n", "weighted$mean", "sd.abs"),
+#'   summary.pos = "sub")
 #'
 #' ## plot the data grouped by preheat temperatures
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800,
-#'                 preheat = c(200, 200, 200, 240, 240))
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   preheat = c(200, 200, 200, 240, 240))
+#'
 #' ## read example data set and misapply them for this plot type
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' ## plot values
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800, mtext = "Example data")
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   mtext = "Example data")
+#'
 #' ## plot two data sets grouped by preheat temperatures
-#' plot_DRTResults(values = list(x.1, x.2),
-#'                 given.dose = 2800,
-#'                 preheat = c(200, 200, 200, 240, 240))
+#' plot_DRTResults(
+#'   values = list(x.1, x.2),
+#'   given.dose = 2800,
+#'   preheat = c(200, 200, 200, 240, 240))
 #'
 #' ## plot the data grouped by preheat temperatures as boxplots
-#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
-#'                 given.dose = 2800,
-#'                 preheat = c(200, 200, 200, 240, 240),
-#'                 boxplot = TRUE)
+#' plot_DRTResults(
+#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   given.dose = 2800,
+#'   preheat = c(200, 200, 200, 240, 240),
+#'   boxplot = TRUE)
 #'
 #' @md
 #' @export
@@ -336,7 +350,11 @@ plot_DRTResults <- function(
     values.preheat[[1]] <- NULL
     values.boxplot[[1]] <- NULL
     modes.plot <- rep(modes, each = length(values))
-  } else {modes <- 1}
+
+  } else {
+    modes <- 1
+
+  }
 
   ## assign colour indices
   col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {
@@ -368,7 +386,6 @@ plot_DRTResults <- function(
         sep = " | "
       )
     })
-
 
   }
 
@@ -453,11 +470,10 @@ plot_DRTResults <- function(
 
   ## setup plot area
   if(par.local){
-
     if (shift.lines <= 0)
-      shift.lines <- 1
-    par.default <- par()[c("mfrow", "cex", "oma")]
-    par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
+    shift.lines <- 1
+    par.default <- par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
+    on.exit(par(par.default))
   }
 
   ## optionally plot values and error bars
@@ -472,10 +488,9 @@ plot_DRTResults <- function(
            ylab = ylab,
            xaxt = "n",
            las = las,
-           main = ""
-           )
+           main = "")
 
-      ##add x-axis ... this avoids digits in the axis labeling
+      ##add x-axis ... this avoids digits in the axis labelling
       axis(side = 1, at = 1:(nrow(values[[1]])+1), labels = 1:(nrow(values[[1]])+1), las = las)
 
       ## add title
@@ -618,7 +633,7 @@ plot_DRTResults <- function(
   }
 
   ## optionally, plot boxplot
-  if(boxplot == TRUE) {
+  if(boxplot) {
     ## create empty plot
     boxplot(values.boxplot,
             names = modes.plot,
@@ -635,7 +650,6 @@ plot_DRTResults <- function(
       axis(side = 1, at = 1, labels = modes.plot, las = las)
 
     } else if (length(modes.plot) > length(unique(modes.plot))){
-
       ticks <- seq(from = 1 + ((length(values.boxplot)/length(unique(modes.plot)) - 1)/2),
                    to = length(values.boxplot),
                    by = length(values.boxplot)/length(unique(modes.plot)))
@@ -644,8 +658,7 @@ plot_DRTResults <- function(
         side = 1,
         at = ticks,
         las = las,
-        labels = unique(modes.plot)
-      )
+        labels = unique(modes.plot))
 
       ##polygon for a better graphical representation of the groups
       polygon.x <- seq(
@@ -665,9 +678,7 @@ plot_DRTResults <- function(
             par()$usr[3]
           ),
           col = "grey",
-          border = "grey"
-
-        )
+          border = "grey")
 
       }
 
@@ -737,12 +748,6 @@ plot_DRTResults <- function(
         line = shift.lines,
         text = mtext,
         cex = 0.8 * cex)
-
-  ##reset par()
-  if(par.local){
-    par(par.default)
-    rm(par.default)
-  }
 
   ##FUN by R Luminescence Team
   if(fun == TRUE) {sTeve()}

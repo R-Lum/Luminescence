@@ -118,7 +118,8 @@ plot_Risoe.BINfileData<- function(
 ){
 
   ##check if the object is of type Risoe.BINfileData
-  if(class(BINfileData)!="Risoe.BINfileData"){stop("Wrong object! Object of type Risoe.BINfileData needed.")}
+  if(!inherits(BINfileData, "Risoe.BINfileData"))
+    stop("Wrong object! Object of type Risoe.BINfileData needed.", call. = FALSE)
 
   temp<-BINfileData
 

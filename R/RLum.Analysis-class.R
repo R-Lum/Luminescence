@@ -257,7 +257,7 @@ setMethod(
     newRLumAnalysis <- new(Class = "RLum.Analysis")
 
     ##allow self set to reset an RLum.Analysis object
-    if(class(records) == "RLum.Analysis"){
+    if(inherits(records, "RLum.Analysis")){
       #fill slots (this is much faster than the old code!)
       newRLumAnalysis@protocol <- if(missing(protocol)){records@protocol}else{protocol}
       newRLumAnalysis@originator <- originator
@@ -286,11 +286,11 @@ setMethod(
 #' @describeIn RLum.Analysis
 #' Accessor method for RLum.Analysis object.
 #'
-#' The slots record.id, recordType, curveType and RLum.type are optional to allow for records
-#' limited by their id (list index number), their record type (e.g. recordType = "OSL")
+#' The slots record.id, `@recordType`, `@curveType` and `@RLum.type` are optional to allow for records
+#' limited by their id (list index number), their record type (e.g. `recordType = "OSL"`)
 #' or object type.
 #'
-#' Example: curve type (e.g. curveType = "predefined" or curveType ="measured")
+#' Example: curve type (e.g. `curveType = "predefined"` or `curveType ="measured"`)
 #'
 #' The selection of a specific RLum.type object superimposes the default selection.
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
@@ -379,7 +379,7 @@ setMethod("get_RLum",
               ), stringsAsFactors = FALSE)
 
               ##check for a logical expression, to avoid problems afterwards
-              # if(class(eval(substitute(subset), envir = envir, enclos = env)) != "logical")
+              # if(class(eval(substitute(subset), envir = envir, enclos = env))[1] != "logical")
               #   stop("[get_RLum] The argument 'subset' does not contain a logical expression!", call. = FALSE)
 
               ##select relevant rows
@@ -467,12 +467,11 @@ setMethod("get_RLum",
 
               ##recordType
               if (is.null(recordType)) {
-                recordType <- unique(unlist(lapply(1:length(object@records),
-                                                   function(x) {
-                                                     object@records[[x]]@recordType
-                                                   })))
+                recordType <-
+                  unique(vapply(object@records, function(x)
+                    x@recordType, character(1)))
 
-              } else if (class(recordType) != "character"){
+              } else if (!inherits(recordType, "character")){
                   stop("[get_RLum()] 'recordType' has to be of type 'character'!", call. = FALSE)
 
               }
@@ -516,13 +515,10 @@ setMethod("get_RLum",
 
               }
 
-
               ##-----------------------------------------------------------------##
-
               ##a pre-selection is necessary to support negative index selection
               object@records <- object@records[record.id]
               record.id <- 1:length(object@records)
-
 
               ##select curves according to the chosen parameter
               if (length(record.id) > 1) {
@@ -532,10 +528,7 @@ setMethod("get_RLum",
                     temp <- lapply(1:length(recordType), function(k) {
                       ##translate input to regular expression
                       recordType[k] <- glob2rx(recordType[k])
-                      recordType[k] <- substr(recordType[k],
-                                              start = 2,
-                                              stop = nchar(recordType[k]) -
-                                                1)
+                      recordType[k] <- substr(recordType[k], start = 2, stop = nchar(recordType[k]) - 1)
 
                       if (grepl(recordType[k], object@records[[x]]@recordType) == TRUE &
                           object@records[[x]]@curveType %in% curveType) {
@@ -569,10 +562,8 @@ setMethod("get_RLum",
                 temp <- temp[!sapply(temp, is.null)]
 
                 ##check if the produced object is empty and show warning message
-                if (length(temp) == 0) {
-                  warning("[get_RLum()] This request produced an empty list of records!")
-
-                }
+                if (length(temp) == 0)
+                  warning("[get_RLum()] This request produced an empty list of records!", call. = FALSE)
 
                 ##remove list for get.index
                 if (get.index) {
@@ -630,7 +621,6 @@ setMethod("get_RLum",
             }
 
           })
-
 
 # structure_RLum() ----------------------------------------------------------------------------
 ###

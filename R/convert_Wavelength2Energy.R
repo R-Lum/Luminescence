@@ -42,7 +42,7 @@
 #' @section Function version: 0.1.1
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [plot_RLum]
 #'
@@ -130,7 +130,7 @@ convert_Wavelength2Energy <- function(
 
 
   # Self-call -----------------------------------------------------------------------------------
-  if(class(object)[1] == "list"){
+  if(inherits(object, "list")){
     return(lapply(object, convert_Wavelength2Energy))
 
   }
@@ -156,7 +156,7 @@ convert_Wavelength2Energy <- function(
 
 
   # Treat input data ----------------------------------------------------------------------------
-  if(class(object)[1] == "RLum.Data.Spectrum"){
+  if(inherits(object, "RLum.Data.Spectrum")){
      ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){
@@ -188,7 +188,7 @@ convert_Wavelength2Energy <- function(
     ##return new object
     return(object)
 
-  }else if(class(object)[1] == "matrix" || class(object)[1] == "data.frame"){
+  }else if(inherits(object, "matrix") || inherits(object, "data.frame")){
     temp <- as.matrix(object[,2:ncol(object)])
 
     ##set rownames
@@ -206,7 +206,7 @@ convert_Wavelength2Energy <- function(
     if(order) temp <- temp[order(temp[,1]),]
 
     ##return
-    if(class(object)[1] == "data.frame")
+    if(inherits(object, "data.frame"))
       return(as.data.frame(temp))
 
     return(temp)

@@ -15,11 +15,15 @@ Function merges objects of class \linkS4class{RLum.Results}. The slots in the ob
 are combined depending on the object type, e.g., for \link{data.frame} and \link{matrix}
 rows are appended.
 }
+\details{
+Elements are appended where possible and attributes are preserved if
+not of similar name as the default attributes of, e.g., a \link{data.frame}
+}
 \note{
-The originator is taken from the first element and not reset to \code{merge_RLum}
+The \code{originator} is taken from the first element and not reset to \code{merge_RLum}
 }
 \section{Function version}{
- 0.2.0
+ 0.2.1
 }
 
 \author{
@@ -27,7 +31,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. merge_RLum.Results(): Merge function for RLum.Results S4-class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. merge_RLum.Results(): Merge function for RLum.Results S4-class objects. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{internal}

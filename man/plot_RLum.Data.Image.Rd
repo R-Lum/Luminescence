@@ -28,10 +28,11 @@ Supported types are \code{plot.raster}, \code{contour}}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions. Standard supported parameters are \code{xlim}, \code{ylim}, \code{zlim},
-\code{xlab}, \code{ylab}, \code{main}, \code{legend} (\code{TRUE} or \code{FALSE}), \code{col}, \code{cex}, \code{axes} (\code{TRUE} or \code{FALSE})}
+\code{xlab}, \code{ylab}, \code{main}, \code{legend} (\code{TRUE} or \code{FALSE}), \code{col}, \code{cex}, \code{axes} (\code{TRUE} or \code{FALSE}),
+\code{zlim_image} (adjust the z-scale over different images), \code{stretch}}
 }
 \value{
-Returns a plot.
+Returns a plot
 }
 \description{
 The function provides very basic plot functionality for image data of an
@@ -53,8 +54,15 @@ can be set to \code{FALSE}.
 
 This uses the function \link[graphics:contour]{graphics::contour}
 }
+\note{
+The axes limitations (\code{xlim}, \code{zlim}, \code{zlim}) work directly on the object,
+so that regardless of the chosen limits the image parameters can be adjusted for
+best visibility. However, in particular for z-scale limitations this is not always
+wanted, please use \code{zlim_image} to maintain a particular value range over a
+series of images.
+}
 \section{Function version}{
- 0.2.0
+ 0.2.1
 }
 
 \examples{
@@ -74,7 +82,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

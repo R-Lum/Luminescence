@@ -221,7 +221,7 @@ analyse_pIRIRSequence <- function(
     if("main" %in% names(list(...))){
       main_list <- rep(list(...)$main, length.out = length(object))
 
-      if(class(main_list) != "list"){
+      if(!inherits(main_list, "list")){
         main_list <- as.list(main_list)
 
       }

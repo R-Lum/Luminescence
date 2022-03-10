@@ -253,7 +253,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
     cat(paste("\n abs. OD:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
     cat(paste("\n abs. SE:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
     cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
-    cat(paste("\n SE [%]:                 ", if (class(sig) != "try-error") {
+    cat(paste("\n SE [%]:                 ", if (!inherits(sig, "try-error")) {
       format(out.sesigma * 100, digits = 2, nsmall = 2)
     } else {
       "-"
@@ -265,7 +265,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
   ## RETURN VALUES
   ## ============================================================================##
 
-  if (class(sig) == "try-error") {
+  if (inherits(sig, "try-error")) {
     out.sigma <- 0
     out.sesigma <- NA
   }
@@ -299,7 +299,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, na.rm = FALSE, plot = TRU
   )
 
   ## =========## PLOTTING
-  if (plot && class(sig) != "try-error")
+  if (plot && !inherits(sig, "try-error"))
     try(plot_RLum.Results(newRLumResults.calc_CentralDose, ...))
 
   invisible(newRLumResults.calc_CentralDose)

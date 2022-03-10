@@ -181,10 +181,10 @@ fit_OSLLifeTimes <- function(
 
 
 # Self-call -----------------------------------------------------------------------------------
-if(class(object) == "list" || class(object) == "RLum.Analysis"){
+if(inherits(object, "list") || inherits(object, "RLum.Analysis")){
   ##allow RLum.Analysis objects
   if(all(vapply(object, function(x){
-    class(x) == "RLum.Analysis"}, logical(1)))){
+    inherits(x, "RLum.Analysis")}, logical(1)))){
     object <- lapply(object, function(x){x@records})
     object <- .unlist_RLum(object)
 
@@ -240,7 +240,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
      ), silent = FALSE)
 
-     if(class(temp) == "try-error"){
+     if(inherits(temp, "try-error")){
        return(NULL)
 
      }else{
@@ -262,17 +262,17 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 }
 
 # Input integrity tests ------------------------------------------------------------------
-  if(class(object) == "RLum.Data.Curve"){
+  if(inherits(object, "RLum.Data.Curve")){
    if(!grepl(pattern = "POSL", x = object@recordType, fixed = TRUE))
      stop(paste0("[fit_OSLLifeTime()] recordType ",object@recordType, " not supported for input object!"),
           call. = FALSE)
 
     df <- as.data.frame(object@data)
 
-  }else if(class(object) == "data.frame"){
+  }else if(inherits(object, "data.frame")){
     df <- object[,1:2]
 
-  } else if(class(object) == "matrix"){
+  } else if(inherits(object, "matrix")){
     df <- as.data.frame(object[,1:2])
 
   }else{
@@ -311,7 +311,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
   ##signal_range
   if(!is.null(signal_range)){
-    if(class(signal_range) != "numeric")
+    if(!inherits(signal_range, "numeric"))
       stop("[fit_OSLLifeTimes()] Argument 'signal_range' must by of type numeric!", call. = FALSE)
 
     ##check lengths
@@ -577,7 +577,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 
 # Post-processing -----------------------------------------------------------------------------
 
-  if (class(fit) != 'try-error') {
+  if (!inherits(fit, 'try-error')) {
     ##extract coefficients
     A <- coef(fit)[1:(m)]
     tau <- coef(fit)[(m + 1):(2 * m)]
@@ -619,7 +619,7 @@ if(class(object) == "list" || class(object) == "RLum.Analysis"){
 # Terminal output -----------------------------------------------------------------------------
 if(verbose){
 
-  if (class(fit) != 'try-error') {
+  if (!inherits(fit, 'try-error')) {
     cat("(2) Fitting results (sorted by ascending tau)\n")
     cat("-------------------------------------------------------------------------\n")
     print(summary_matrix)
@@ -687,7 +687,7 @@ if(plot) {
 
 
   ##plot if the fitting was a success
-  if (class(fit)[1] != 'try-error') {
+  if (!inherits(fit, 'try-error')) {
 
     if(!plot_simple){
       ##make sure that the screen closes if something is wrong

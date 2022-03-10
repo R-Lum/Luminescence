@@ -143,7 +143,7 @@ calc_Lamothe2003 <- function(
 
   ##check input type and length
   ##dose_rate.envir
-  if(class(dose_rate.envir) != "numeric" || length(dose_rate.envir) < 2){
+  if(!inherits(dose_rate.envir, "numeric") || length(dose_rate.envir) < 2){
     stop("[calc_Lamothe2003()] Input for 'dose_rate.envir' is not of type 'numeric' and/or of length < 2!", call. = FALSE)
 
   }else{
@@ -155,7 +155,7 @@ calc_Lamothe2003 <- function(
   }
 
   ##dose_rate.source
-  if(class(dose_rate.source) != "numeric" || length(dose_rate.source) < 2){
+  if(!inherits(dose_rate.source, "numeric") || length(dose_rate.source) < 2){
     stop("[calc_Lamothe2003()] Input for 'dose_rate.source' is not of type 'numeric' and/or of length < 2!", call. = FALSE)
 
   }else{
@@ -173,7 +173,7 @@ calc_Lamothe2003 <- function(
   # Input assignment -----------------------------------------------------------------------------
   ## We allow input as data.frame() and RLum.Results objects ... the output from functions listed
   ## below .. if we allow a data.frame it should have at least Dose, Lx/Tx, Lx/Tx Error
-  if(class(object) == "data.frame"){
+  if(inherits(object, "data.frame")){
     data <- object[,1:3]
 
     ##add signal information
@@ -185,7 +185,7 @@ calc_Lamothe2003 <- function(
 
     }
 
-  }else if(class(object) == "RLum.Results"){
+  }else if(inherits(object, "RLum.Results")){
     if(object@originator == "analyse_SAR.CWOSL" || object@originator == "analyse_pIRIRSequence"){
       ##now we do crazy stuff, we make a self-call here since this file can contain a lot of information
 

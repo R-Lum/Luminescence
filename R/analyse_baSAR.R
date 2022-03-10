@@ -1010,7 +1010,7 @@ analyse_baSAR <- function(
     ##      .. S4
 
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
-    if(class(object) == "list" && all(vapply(object, function(x){class(x) == "RLum.Analysis"}, logical(1)))){
+    if(inherits(object, "list") && all(vapply(object, function(x){inherits(x, "RLum.Analysis")}, logical(1)))){
      if(verbose)
        cat("[analyse_baSAR()] List of RLum.Analysis-objects detected .. ")
 
@@ -1019,7 +1019,7 @@ analyse_baSAR <- function(
         stop("[analyse_baSAR()] At least two aliquots are needed for the calculation!", call. = FALSE)
 
       ##set number of objects
-      if(class(object) == "list"){
+      if(inherits(object, "list")){
         n_objects <- length(object)
 
       }else{
@@ -1046,7 +1046,7 @@ analyse_baSAR <- function(
       object <- try(convert_RLum2Risoe.BINfileData(object), silent = TRUE)
 
       ##create fallback
-       if(class(object) == "try-error"){
+       if(inherits(object, "try-error")){
          stop("[analyse_baSAR()] Object conversion failed. Return NULL!", call. = FALSE)
          return(NULL)
        }

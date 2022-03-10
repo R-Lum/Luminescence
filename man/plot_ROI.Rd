@@ -9,14 +9,15 @@ plot_ROI(
   exclude_ROI = c(1),
   dist_thre = -Inf,
   dim.CCD = NULL,
+  bg_image = NULL,
   plot = TRUE,
   ...
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of such objects (\strong{required}):
+\item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} or a \link{list} of such objects (\strong{required}):
 data input. Please note that to avoid function errors, only input created
-by the function \link{read_RF2R} is accepted}
+by the functions \link{read_RF2R} or \link{extract_ROI} is accepted}
 
 \item{exclude_ROI}{\link{numeric} (\emph{with default}): option to remove particular ROIs from the
 analysis. Those ROIs are plotted but not coloured and not taken into account
@@ -30,6 +31,9 @@ should include consider the ROIs or grain radius.}
 
 \item{dim.CCD}{\link{numeric} (\emph{optional}): metric x and y for the recorded (chip)
 surface in µm. For instance \code{c(8192,8192)}, if set additional x and y-axes are shown}
+
+\item{bg_image}{\linkS4class{RLum.Data.Image} (\emph{optional}): background image object
+please note that the dimensions are not checked.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable or disable plot output to use
 the function only to extract the ROI data}
@@ -51,13 +55,21 @@ might be of use to work with reduced data from spatially resolved measurements.
 The plot dimensions mimic the original image dimensions
 }
 \section{Function version}{
- 0.1.0
+ 0.2.0
 }
 
 \examples{
+
+## simple example
 file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 temp <- read_RF2R(file)
 plot_ROI(temp)
+
+## in combination with extract_ROI()
+m <- matrix(runif(100,0,255), ncol = 10, nrow = 10)
+roi <- matrix(c(2.,4,2,5,6,7,3,1,1), ncol = 3)
+t <- extract_ROI(object = m, roi = roi)
+plot_ROI(t, bg_image = m)
 
 }
 \seealso{
@@ -69,7 +81,7 @@ Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth Univer
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.18. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_ROI(): Create Regions of Interest (ROI) Graphic. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

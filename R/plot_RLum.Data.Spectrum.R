@@ -33,6 +33,8 @@
 #' - `phi`: default is `15`
 #' - `theta`: default is `-30`
 #' - `expand`: default is `1`
+#' - `axes`: default is `TRUE`
+#' - `box`: default is `TRUE`; accepts `"alternate"` for a custom plot design
 #' - `ticktype`: default is `detailed`, `r`: default is `10`
 #'
 #' **Note:** Further parameters can be adjusted via `par`. For example
@@ -69,7 +71,7 @@
 #'
 #' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
 #' `zlim`, `main`, `mtext`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
-#' `col`, `border`, `box` `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
+#' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
 #' `contour`, `contour.col` (`"image"`)
 #'
 #' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
@@ -145,12 +147,12 @@
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.
 #'
-#' @return Returns a plot if `plot = TRUE`, the default. If `plot = FALSE` the transformed matrix
-#' used for plotting is returned instead.
+#' @return Returns a plot and the transformed `matrix` used for plotting with some useful
+#' attributes such as the `colour` and `pmat` (the transpose matrix from [graphics::persp])
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.4
+#' @section Function version: 0.6.5
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -247,15 +249,12 @@ plot_RLum.Data.Spectrum <- function(
   # Integrity check -----------------------------------------------------------
 
   ##check if object is of class RLum.Data.Spectrum
-  if(class(object)[1] != "RLum.Data.Spectrum"){
-
-    if(class(object)[1] == "matrix"){
-
+  if(!inherits(object, "RLum.Data.Spectrum")){
+    if(inherits(object, "matrix")){
       if(is.null(colnames(object))){
         colnames(object) <- 1:ncol(object)
 
       }
-
       if(is.null(rownames(object))){
         rownames(object) <- 1:nrow(object)
 
@@ -360,6 +359,9 @@ plot_RLum.Data.Spectrum <- function(
   box <- if("box" %in% names(extraArgs)) {extraArgs$box} else
   {TRUE}
 
+  axes <- if("axes" %in% names(extraArgs)) {extraArgs$axes} else
+  {TRUE}
+
   ticktype <- if("ticktype" %in% names(extraArgs)) {extraArgs$ticktype} else
   {"detailed"}
 
@@ -430,12 +432,12 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background spectrum -------------------------------------------------------------------------
   if(!is.null(bg.spectrum)){
-    if(class(bg.spectrum)[1] == "RLum.Data.Spectrum" || class(bg.spectrum)[1] == "matrix"){
+    if(inherits(bg.spectrum, "RLum.Data.Spectrum") || inherits(bg.spectrum, "matrix")){
       ##case RLum
-      if(class(bg.spectrum)[1] == "RLum.Data.Spectrum") bg.xyz <- bg.spectrum@data
+      if(inherits(bg.spectrum, "RLum.Data.Spectrum")) bg.xyz <- bg.spectrum@data
 
       ##case matrix
-      if(class(bg.spectrum)[1] == "matrix") bg.xyz <- bg.spectrum
+      if(inherits(bg.spectrum, "matrix")) bg.xyz <- bg.spectrum
 
       ##take care of channel settings, otherwise set bg.channels
       if(is.null(bg.channels))
@@ -475,7 +477,7 @@ plot_RLum.Data.Spectrum <- function(
     ##set background object if not available
     if(is.null(bg.spectrum)) bg.xyz <- temp.xyz
 
-    if(max(bg.channels) > ncol(bg.xyz) || bg.channels <= 0){
+    if(max(bg.channels) > ncol(bg.xyz) || any(bg.channels <= 0)){
       ##correct the mess
       bg.channels <- sort(unique(bg.channels))
       bg.channels[bg.channels <= 0] <- 1
@@ -562,10 +564,8 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ##limit z-values if requested, this idea was taken from the Diss. by Thomas Schilles, 2002
-  if(!is.null(limit_counts)){
-    temp.xyz[temp.xyz[]>limit_counts] <- limit_counts
-
-  }
+  if(!is.null(limit_counts[1]))
+    temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
 
   # Normalise if wanted -------------------------------------------------------------------------
   if(!is.null(norm)){
@@ -576,7 +576,6 @@ plot_RLum.Data.Spectrum <- function(
       temp.xyz <- temp.xyz/max(temp.xyz)
 
   }
-
 
   ##check for zlim
   zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
@@ -685,28 +684,21 @@ plot_RLum.Data.Spectrum <- function(
         }else if(diff(c(length(col), nrow(temp.xyz))) > 0){
           col <- col[1:c(length(col) + diff(c(length(col), nrow(temp.xyz))))]
 
-
         }
-
 
       }
 
-
     }else{
-
       col <- "black"
 
     }
 
   }else{
-
     col <- extraArgs$col
 
   }
 
-
   # Do log scaling if needed -------------------------------------------------
-
   ##x
   if(grepl("x", log)==TRUE){x <- log10(x)}
 
@@ -717,6 +709,10 @@ plot_RLum.Data.Spectrum <- function(
   if(grepl("z", log)==TRUE){temp.xyz <- log10(temp.xyz)}
 
 # PLOT --------------------------------------------------------------------
+
+## set variables we need later
+pmat <- NA
+
 if(plot){
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) par(mfrow=c(1,1), cex = cex)
@@ -735,28 +731,136 @@ if(plot){
   }
 
   if(plot.type == "persp" && ncol(temp.xyz) > 1){
+
     ## Plot: perspective plot ----
     ## ==========================================================================#
-    pmat <- persp(x, y, temp.xyz,
-          shade = shade,
-          phi = phi,
-          theta = theta,
-          xlab = xlab,
-          ylab = ylab,
-          zlab = zlab,
-          zlim = zlim,
-          scale = TRUE,
-          col = col[1:(length(x)-1)], ##needed due to recycling of the colours
-          main = main,
-          expand = expand,
-          border = border,
-          box = box,
-          r = r,
-          ticktype = ticktype)
+    pmat <- persp(
+      x, y, temp.xyz,
+      shade = shade,
+      axes = if(box[1] == "alternate") FALSE else axes,
+      phi = phi,
+      theta = theta,
+      xlab = xlab,
+      ylab = ylab,
+      zlab = zlab,
+      zlim = zlim,
+      scale = TRUE,
+      col = col[1:(length(x)-1)], ##needed due to recycling of the colours
+      main = main,
+      expand = expand,
+      border = border,
+      box = if(box[1] == "alternate") FALSE else box,
+      r = r,
+      ticktype = ticktype)
 
+    ## this is custom plot output that might come in handy from time to time
+    if(axes & box[1] == "alternate") {
+      ## add axes manually
+      x_axis <- seq(min(x), max(x), length.out = 20)
+      y_axis <- seq(min(y), max(y), length.out = 20)
+      z_axis <- seq(min(temp.xyz), max(temp.xyz), length.out = 20)
+
+      lines(grDevices::trans3d(x_axis,min(y) - 5, min(temp.xyz),pmat))
+      lines(grDevices::trans3d(min(x) - 5,y_axis, min(temp.xyz),pmat))
+      lines(grDevices::trans3d(min(x) - 5,max(y), z_axis,pmat))
+
+      ## x-axis
+      px_axis <- pretty(x_axis)
+      px_axis <- px_axis[(px_axis) > min(x_axis) & px_axis < max(x_axis)]
+
+      tick_start <- grDevices::trans3d(px_axis, min(y_axis), min(z_axis), pmat)
+      tick_end <- grDevices::trans3d(
+        px_axis, min(y_axis) - max(y_axis) * 0.05, min(z_axis), pmat)
+
+      ## calculate slope angle for xlab and ticks
+      m <- (tick_start$y[2] - tick_start$y[1]) / (tick_start$x[2]  - tick_start$x[1])
+      m <- atan(m) * 360 / (2 * pi)
+
+      segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
+      text(
+        tick_end$x,
+        tick_end$y,
+        adj = c(0.5,1.2),
+        px_axis,
+        xpd = TRUE,
+        cex = 0.85,
+        srt = m)
+
+      ## x-axis label
+      text(
+        mean(tick_end$x),
+        min(tick_end$y),
+        adj = c(0.5, 1),
+        xlab,
+        srt = m,
+        xpd = TRUE)
+
+      ## y-axis
+      py_axis <- pretty(y_axis)
+      py_axis <- py_axis[(py_axis) > min(y_axis) & py_axis < max(y_axis)]
+
+      tick_start <- grDevices::trans3d(min(x_axis), py_axis, min(z_axis), pmat)
+      tick_end <- grDevices::trans3d(
+        min(x_axis) - max(x_axis) * 0.025, py_axis, min(z_axis), pmat)
+      segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
+
+      ## calculate slope angle for xlab and ticks
+      m <- (tick_start$y[2] - tick_start$y[1]) / (tick_start$x[2]  - tick_start$x[1])
+      m <- atan(m) * 360 / (2 * pi)
+
+      text(
+        tick_end$x,
+        tick_end$y,
+        py_axis,
+        adj = c(0.6,1.2),
+        srt = m,
+        cex = 0.85,
+        xpd = TRUE)
+
+      ## y-axis label
+      text(
+        min(tick_end$x),
+        mean(tick_end$y),
+        adj = c(0.5, 1),
+        ylab,
+        srt = m,
+        xpd = TRUE)
+
+      ## z-axis
+      pz_axis <- pretty(z_axis)
+      pz_axis <- pz_axis[(pz_axis) > min(z_axis) & pz_axis < max(z_axis)]
+
+      tick_start <- grDevices::trans3d(min(x_axis), max(y_axis), pz_axis, pmat)
+      tick_end <- grDevices::trans3d(
+        min(x_axis) - max(x_axis) * 0.015, max(y_axis), pz_axis, pmat)
+      segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
+
+      ## calculate slope angle for xlab and ticks
+      m <- (tick_start$y[2] - tick_start$y[1]) / (tick_start$x[2]  - tick_start$x[1])
+      m <- atan(m) * 360 / (2 * pi)
+
+      text(
+        tick_end$x,
+        tick_end$y,
+        format(pz_axis, scientific = TRUE, digits = 1),
+        adj = c(0.5,1.2),
+        srt = m,
+        xpd = TRUE,
+        cex = 0.85)
+
+      ## z-axis label
+      text(
+        min(tick_end$x),
+        mean(tick_end$y),
+        adj = c(0.5, 2.5),
+        zlab,
+        srt = m,
+        xpd = TRUE)
+
+    }
 
     ##plot additional mtext
-    mtext(mtext, side = 3, cex = cex*0.8)
+    mtext(mtext, side = 3, cex = cex * 0.8)
 
   }else if(plot.type == "interactive" && ncol(temp.xyz) > 1) {
     ## ==========================================================================#
@@ -986,11 +1090,15 @@ if(plot){
  }
 
 ## option for plotting nothing
-} else {
-  ## if nothing is plotted return the transformed plot object
-  attr(temp.xyz, "colour") <- col
-  return(temp.xyz)
-
 }
+
+# Return ------------------------------------------------------------------
+
+## add some attributes
+attr(temp.xyz, "colour") <- col
+attr(temp.xyz, "pmat") <- pmat
+
+## return visible or not
+if(plot) invisible(temp.xyz) else   return(temp.xyz)
 
 }

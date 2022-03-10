@@ -1309,12 +1309,12 @@ plot_AbanicoPlot <- function(
                               to = limits.z[2]),
                       silent = TRUE)
 
-    if(class(De.density) == "try-error") {
-
+    if(inherits(De.density, "try-error")) {
       De.stats[i,4] <- NA
-    } else {
 
+    } else {
     De.stats[i,4] <- De.density$x[which.max(De.density$y)]
+
     }
   }
 

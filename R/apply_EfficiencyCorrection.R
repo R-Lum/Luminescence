@@ -56,9 +56,9 @@ apply_EfficiencyCorrection <- function(
   # self-call -----------------------------------------------------------------------------------
 
   ##case we have a list
-  if(class(object) == "list"){
+  if(inherits(object, "list")){
     output_list <- lapply(object, function(o){
-      if(class(o) == "RLum.Data.Spectrum" || class(o) == "RLum.Analysis"){
+      if(inherits(o, "RLum.Data.Spectrum") || inherits(o, "RLum.Analysis")){
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
@@ -73,9 +73,9 @@ apply_EfficiencyCorrection <- function(
   }
 
   ##the case of an RLum.Analysis object
-  if(class(object) == "RLum.Analysis"){
+  if(inherits(object, "RLum.Analysis")){
     object@records <- lapply(object@records, function(o){
-      if(class(o) == "RLum.Data.Spectrum"){
+      if(inherits(o, "RLum.Data.Spectrum")){
         apply_EfficiencyCorrection(object = o, spectral.efficiency = spectral.efficiency)
 
       }else{
@@ -94,11 +94,11 @@ apply_EfficiencyCorrection <- function(
   # Integrity check -----------------------------------------------------------
 
   ##check if object is of class RLum.Data.Spectrum
-  if(class(object) != "RLum.Data.Spectrum")
+  if(!inherits(object, "RLum.Data.Spectrum"))
     stop("[apply_EfficiencyCorrection()] Input object is not of type RLum.Data.Spectrum",call. = FALSE)
 
 
-  if(class(spectral.efficiency) != "data.frame")
+  if(!inherits(spectral.efficiency, "data.frame"))
     stop("[apply_EfficiencyCorrection()] 'spectral.efficiency' is not of type data.frame", call. = FALSE)
 
 
