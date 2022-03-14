@@ -8,5 +8,6 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-* Dummy
+## `plot_RLum.Data.Curve()`
+* Add support for `...`. arguments `las` and `axes`
 
