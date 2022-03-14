@@ -173,7 +173,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 
 \strong{Further arguments that will be passed (depending on the plot type)}
 
-\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
+\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{box},
 \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
 \code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
 \code{contour}, \code{contour.col} (\code{"image"})
@@ -182,7 +182,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.5
+ 0.6.6
 }
 
 \examples{
@@ -258,7 +258,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-1. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-3. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
