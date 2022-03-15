@@ -39,6 +39,11 @@ test_that("Test internals", {
   plot(seq(1e10, 1e20, length.out = 10),1:10, xaxt = "n")
   expect_silent(axis(1, at = axTicks(1),labels = Luminescence:::fancy_scientific(axTicks(1))))
 
+  # .add_fancy_log_axis() -----------------------------------------------------
+  y <- c(0.1, 0.001, 0.0001)
+  plot(1:length(y), y, yaxt = "n", log = "y")
+  expect_silent(Luminescence:::.add_fancy_log_axis(side = 2, las = 1))
+
   # .create_StatisticalSummaryText() ------------------------------------------------------------
   expect_silent(Luminescence:::.create_StatisticalSummaryText())
   expect_type(

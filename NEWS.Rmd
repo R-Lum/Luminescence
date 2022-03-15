@@ -22,3 +22,7 @@ scaling. Both issues were fixed.
 a `...` parameter `box` for removing the outer plot frame. The argument
 was named `box` to avoid a confusion with the term frames used for image stacks. 
 
+## Internals
+* Add new internal function `.add_fancy_log_axis()` to provide a more sophisticated 
+log-axis to plots if needed with minor ticks and proper labelling.
+
