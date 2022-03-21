@@ -144,11 +144,10 @@ read_BIN2R <- function(
   # with that many file can be read in at the same time
   # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
   # directory and import them, if this is detected, we proceed as list
-
   if (is.character(file)) {
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here
-      if (dir.exists(file) & length(dir(file)) > 0) {
+      if (all(dir.exists(file)) & length(dir(file)) > 0) {
         if (verbose) {
           cat(
             "[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n"
@@ -161,12 +160,9 @@ read_BIN2R <- function(
           recursive = FALSE,
           pattern = "\\.bin*",
           full.names = TRUE,
-          ignore.case = TRUE
-        ))
-
+          ignore.case = TRUE))
 
       }
-
 
     }else if(dir.exists(file)){
       file <- as.list(list.files(file, pattern = pattern, full.names = TRUE, recursive = TRUE))
@@ -175,9 +171,7 @@ read_BIN2R <- function(
 
   }
 
-
   if (is.list(file)) {
-
     ##extend list of parameters
 
     ##position
