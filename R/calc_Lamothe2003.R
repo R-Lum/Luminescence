@@ -1,12 +1,27 @@
-#' Apply fading correction after Lamothe et al., 2003
+#'@title Apply fading correction after Lamothe et al., 2003
 #'
-#' This function applies the fading correction for the prediction of long-term fading as suggested
-#' by Lamothe et al., 2003. The function basically adjusts the Ln/Tn values and fit a new dose-response
+#'@description This function applies the fading correction for the prediction of long-term fading as suggested
+#' by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fit a new dose-response
 #' curve using the function [plot_GrowthCurve].
 #'
+#'@details
+#'
+#' **Format of `object` if `data.frame`**
+#'
+#' If `object` is of type [data.frame], all input values most be of type [numeric].
+#' Dose values are excepted in seconds (s) not Gray (Gy). No `NA` values are allowed and
+#' the value for the natural dose (first row) should be `0`. Example for three dose points,
+#' column names are arbitrary:
+#'
+#' ```
+#'  object <- data.frame(
+#'  dose = c(0,25,50),
+#'  LxTx = c(4.2, 2.5, 5.0),
+#'  LxTx_error = c(0.2, 0.1, 0.2))
+#' ```
 #'
 #' @param object [RLum.Results-class] [data.frame] (**required**): Input data for applying the
-#' fading correction. Allow are (1) [data.frame] with three columns (dose, LxTx, LxTx error), (2)
+#' fading correction. Allow are (1) [data.frame] with three columns (`dose`, `LxTx`, `LxTx error`; see details), (2)
 #' [RLum.Results-class] object created by the function [analyse_SAR.CWOSL] or [analyse_pIRIRSequence]
 #'
 #' @param dose_rate.envir [numeric] vector of length 2 (**required**): Environmental dose rate in mGy/a
@@ -21,7 +36,7 @@
 #'
 #' @param tc [numeric] (optional): time in seconds between irradiation and
 #' the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
-#' If set to `NULL` it is assumed that tc is similar for the equivalent dose
+#' If set to `NULL` it is assumed that `tc` is similar for the equivalent dose
 #' estimation and the g-value estimation
 #'
 #' @param tc.g_value [numeric] (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
