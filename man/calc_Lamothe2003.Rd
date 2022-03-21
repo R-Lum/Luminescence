@@ -18,7 +18,7 @@ calc_Lamothe2003(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}): Input data for applying the
-fading correction. Allow are (1) \link{data.frame} with three columns (dose, LxTx, LxTx error), (2)
+fading correction. Allow are (1) \link{data.frame} with three columns (\code{dose}, \code{LxTx}, \verb{LxTx error}; see details), (2)
 \linkS4class{RLum.Results} object created by the function \link{analyse_SAR.CWOSL} or \link{analyse_pIRIRSequence}}
 
 \item{dose_rate.envir}{\link{numeric} vector of length 2 (\strong{required}): Environmental dose rate in mGy/a}
@@ -33,7 +33,7 @@ lead to wrong results}
 
 \item{tc}{\link{numeric} (optional): time in seconds between irradiation and
 the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
-If set to \code{NULL} it is assumed that tc is similar for the equivalent dose
+If set to \code{NULL} it is assumed that \code{tc} is similar for the equivalent dose
 estimation and the g-value estimation}
 
 \item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
@@ -71,8 +71,20 @@ The original function call
 }
 \description{
 This function applies the fading correction for the prediction of long-term fading as suggested
-by Lamothe et al., 2003. The function basically adjusts the Ln/Tn values and fit a new dose-response
+by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fit a new dose-response
 curve using the function \link{plot_GrowthCurve}.
+}
+\details{
+\strong{Format of \code{object} if \code{data.frame}}
+
+If \code{object} is of type \link{data.frame}, all input values most be of type \link{numeric}.
+Dose values are excepted in seconds (s) not Gray (Gy). No \code{NA} values are allowed and
+the value for the natural dose (first row) should be \code{0}. Example for three dose points,
+column names are arbitrary:\preformatted{ object <- data.frame(
+ dose = c(0,25,50),
+ LxTx = c(4.2, 2.5, 5.0),
+ LxTx_error = c(0.2, 0.1, 0.2))
+}
 }
 \section{Function version}{
  0.1.0
@@ -113,7 +125,7 @@ results_corr <- calc_Lamothe2003(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Mercier, N., 2022. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Mercier, N., 2022. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
