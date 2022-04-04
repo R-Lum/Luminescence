@@ -77,27 +77,10 @@ There are furthermore ignored by the function \link{read_BIN2R}.
 \section{Function version}{
  0.5.1
 }
-
-\examples{
-
-\dontrun{
-
-##load exampled dataset
-data(ExampleData.BINfileData, envir = environment())
-
-##create temporary filepath
-##(for usage replace by own path)
-temp_file <- temp_file <- tempfile(pattern = "output", fileext = ".bin")
-
-##export to temporary file path
-write_R2BIN(CWOSL.SAR.Data, file = temp_file)
-
-}
-
-} 
+ 
 
 \section{How to cite}{
-Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -27,19 +27,21 @@ fading correction. Allow are (1) \link{data.frame} with three columns (\code{dos
 which is, according to Lamothe et al. (2003) De/t*.}
 
 \item{g_value}{\link{numeric} vector of length 2 (\strong{required}): g_value in \\%/decade \emph{recalculated at the moment}
-the equivalent dose was calculated, i.e. tc is either similar for the g-value measurement \strong{and} the De measurement or
+the equivalent dose was calculated, i.e. \code{tc} is either similar for the \emph{g}-value measurement \strong{and} the De measurement or
 needs be to recalculated (cf. \link{calc_FadingCorr}). Inserting a normalised g-value, e.g., normalised to 2-days , will
 lead to wrong results}
 
-\item{tc}{\link{numeric} (optional): time in seconds between irradiation and
-the prompt measurement used in the De estimation (cf. Huntley & Lamothe 2001).
+\item{tc}{\link{numeric} (optional): time in seconds between the \strong{end} of the irradiation and
+the prompt measurement used in the equivalent dose estimation (cf. Huntley & Lamothe 2001).
 If set to \code{NULL} it is assumed that \code{tc} is similar for the equivalent dose
-estimation and the g-value estimation}
+estimation and the \emph{g}-value estimation}
 
-\item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
-If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here along with the time used for the
-De estimation. If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
-SAR method and g-values that had been not normalised to 2 days. Note: If this value is not \code{NULL} the functions expects a \link{numeric} value for \code{tc}.}
+\item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation and the
+prompt measurement estimating the \emph{g}-value. If the \emph{g}-value was normalised to, e.g., 2 days,
+this time in seconds (i.e., \code{172800}) should be entered here along with the time used for the
+equivalent dose estimation. If nothing is provided the time is set to \code{tc}, which is the
+usual case for \emph{g}-values obtained using the SAR method and \emph{g}-values that had been not normalised to 2 days.
+Note: If this value is not \code{NULL} the functions expects a \link{numeric} value for \code{tc}.}
 
 \item{verbose}{\link{logical} (with default): Enables/disables terminal verbose mode}
 
@@ -85,6 +87,21 @@ column names are arbitrary:\preformatted{ object <- data.frame(
  LxTx = c(4.2, 2.5, 5.0),
  LxTx_error = c(0.2, 0.1, 0.2))
 }
+
+\strong{Note on the g-value and \code{tc}}
+
+Users new to R and fading measurements are often confused about what to
+enter for \code{tc} and why it may differ from \code{tc.g_value}. The \code{tc} value
+is, by convention (Huntley & Lamothe 2001), the time elapsed between the end of the irradiation and the prompt
+measurement. Usually there is no reason for having a \code{tc} value different for the equivalent dose measurement
+and the \emph{g}-value measurement, except if different equipment was used.
+However, if, for instance, the \emph{g}-value measurement sequence was analysed
+with the \emph{Analyst} (Duller 2015) and the \verb{'Luminescence} is used to correct for fading,
+there is a high chance that the value returned by the \emph{Analyst} comes normalised to 2-days;
+even the \code{tc} values of the measurement were identical.
+In such cases, the fading correction cannot be correct until the \code{tc.g_value} was manually
+set to 2-days (\code{172800} s) because the function will internally recalculate values
+to an identical \code{tc} value.
 }
 \section{Function version}{
  0.1.0
@@ -125,12 +142,15 @@ results_corr <- calc_Lamothe2003(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Mercier, N., 2022. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Mercier, N., 2022. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-10. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
+
+Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and recent improvements.
+Ancient TL 33, 35–42.
 
 Lamothe, M., Auclair, M., Hamzaoui, C., Huot, S., 2003.
 Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation Measurements 37,
