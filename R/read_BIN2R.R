@@ -112,13 +112,11 @@
 #'
 #' @keywords IO
 #'
-#' @examples
+#'@examples
 #'
-#' ##(1) import Risoe BIN-file to R (uncomment for usage)
-#'
-#' #FILE <- file.choose()
-#' #temp <- read_BIN2R(FILE)
-#' #temp
+#'temp <- read_BIN2R(
+#' system.file("extdata/BINfile_V8.binx", package "Luminescence))
+#'temp
 #'
 #' @md
 #' @export

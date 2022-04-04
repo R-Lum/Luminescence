@@ -73,19 +73,17 @@
 #'
 #' @examples
 #'
-#' \dontrun{
-#'
 #' ##load exampled dataset
-#' data(ExampleData.BINfileData, envir = environment())
+#' temp <- read_BIN2R(system.file("extdata/BINfile_V8.binx",
+#'  package "Luminescence))
 #'
-#' ##create temporary filepath
+#' ##create temporary file path
 #' ##(for usage replace by own path)
-#' temp_file <- temp_file <- tempfile(pattern = "output", fileext = ".bin")
+#' temp_file <- tempfile(pattern = "output", fileext = ".bin")
 #'
 #' ##export to temporary file path
-#' write_R2BIN(CWOSL.SAR.Data, file = temp_file)
+#' write_R2BIN(temp, file = temp_file)
 #'
-#' }
 #'
 #' @md
 #' @export

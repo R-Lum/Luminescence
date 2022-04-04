@@ -23,6 +23,15 @@ long-standing issues with the colour rug (both are fixed):
 a `...` parameter `box` for removing the outer plot frame. The argument
 was named `box` to avoid a confusion with the term frames used for image stacks. 
 
+### `read_BIN2R()`
+* The example in the documentation was a little bit too generic and is now replaced by an example
+that works. 
+
+### `write_R2BIN()`
+* The running example was not working because it used outdated example data. The example
+was replaced by a working example using an actual BINX-file.
+(thanks @JohannesFriedrich for reporting, #110)
+
 ## Internals
 * Add new internal function `.add_fancy_log_axis()` to provide a more sophisticated 
 log-axis to plots if needed with minor ticks and proper labelling. 
