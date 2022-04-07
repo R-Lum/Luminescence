@@ -105,17 +105,17 @@
 #' [utils::txtProgressBar], [list.files]
 #'
 #'
-#' @references
-#' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-#' [https://www.fysik.dtu.dk]()
+#'@references
+#'DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
+#'[https://www.fysik.dtu.dk]()
 #'
 #'
-#' @keywords IO
+#'@keywords IO
 #'
 #'@examples
 #'
-#'temp <- read_BIN2R(
-#' system.file("extdata/BINfile_V8.binx", package "Luminescence))
+#'file <- system.file("extdata/BINfile_V8.binx", package "Luminescence"))
+#'temp <- read_BIN2R(file)
 #'temp
 #'
 #' @md
