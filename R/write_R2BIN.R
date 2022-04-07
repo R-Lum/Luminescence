@@ -74,7 +74,7 @@
 #' @examples
 #'
 #' ##load exampled dataset
-#' file <- system.file("extdata/BINfile_V8.binx", package "Luminescence")
+#' file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 #' temp <- read_BIN2R(file)
 #'
 #' ##create temporary file path
