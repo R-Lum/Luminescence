@@ -10,6 +10,10 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_Al2O3C_Measurement()`
+* Add support for sequences **without** TL curves in the sequence; however, the
+function still expects three OSL curves for natural, regenerated, and background signal. 
+
 ### `plot_RLum.Data.Curve()`
 * Add support for `...` arguments `las` and `axes`
 

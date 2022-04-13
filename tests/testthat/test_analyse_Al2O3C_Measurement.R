@@ -17,5 +17,9 @@ test_that("analyse_Al2O3C_Measurements", {
    expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(data_CrossTalk, calculate_TL_dose = TRUE)),
                                     "RLum.Results")
 
+   ##run test without TL curves
+   temp <- get_RLum(data_CrossTalk, recordType = "OSL", drop = FALSE)
+   expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(temp)), "RLum.Results")
+
 })
 
