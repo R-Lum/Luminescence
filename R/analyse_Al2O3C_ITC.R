@@ -119,7 +119,6 @@ analyse_Al2O3C_ITC <- function(
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-
     ##check whether the list contains only RLum.Analysis objects
     if(!all(unique(sapply(object, class)) == "RLum.Analysis")){
       stop("[analyse_Al2O3C()] All objects in the list provided by 'objects' need to be of type 'RLum.Analysis'",
@@ -146,10 +145,8 @@ analyse_Al2O3C_ITC <- function(
     ##verbose
     ##plot
 
-
     ##run analysis
     results_full <- lapply(1:length(object), function(x){
-
       ##run analysis
       results <- try(analyse_Al2O3C_ITC(
         object = object[[x]],
@@ -190,10 +187,8 @@ analyse_Al2O3C_ITC <- function(
 
   # Preparation ---------------------------------------------------------------------------------
   ##select curves based on the recordType selection; if not NULL
-  if(!is.null(recordType[1])){
+  if(!is.null(recordType[1]))
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
-
-  }
 
   #set method control
   method_control_settings <- list(
@@ -214,7 +209,6 @@ analyse_Al2O3C_ITC <- function(
   dose_points <- rep(dose_points, times = length(object)/2)
 
   # Calculation ---------------------------------------------------------------------------------
-
   ##set signal integral
   if(is.null(signal_integral)){
     signal_integral <- c(1:nrow(object[[1]][]))
@@ -233,7 +227,7 @@ analyse_Al2O3C_ITC <- function(
 
   }
 
-  ##calcuate curve sums, assuming the background
+  ##calculate curve sums, assuming the background
   net_SIGNAL <- vapply(1:length(object[seq(1,length(object), by = 2)]), function(x){
     temp_signal <- sum(object[seq(1,length(object), by = 2)][[x]][,2])
     temp_background <- sum(object[seq(2,length(object), by = 2)][[x]][,2])
@@ -242,7 +236,6 @@ analyse_Al2O3C_ITC <- function(
   }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
   ##create data.frames
-
     ##single points
     df <- data.frame(
       DOSE = dose_points,
@@ -389,3 +382,4 @@ analyse_Al2O3C_ITC <- function(
   ))
 
 }
+
