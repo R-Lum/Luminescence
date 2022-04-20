@@ -649,7 +649,7 @@ fit_EmissionSpectra <- function(
     c <- 299792458e+09 #nm/s
     axis(
       side = 1,
-      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), "nm)"),
+      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), " nm)"),
       at = axTicks(side = 3),
       cex.axis = .7,
       line = .8,
