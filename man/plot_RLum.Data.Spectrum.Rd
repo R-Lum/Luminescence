@@ -150,9 +150,15 @@ to set the background transparent and reduce the thickness of the lines use:
 Per frame a single curve is returned. Frames are time or temperature
 steps.
 
+-\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
+this setting before plotting.
+
 \strong{\code{plot.type = "multiple.lines"}}
 
 All frames plotted in one frame.
+
+-\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
+this setting before plotting.
 
 '**\code{plot.type = "image"} or `plot.type = "contour" **
 
@@ -182,7 +188,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.6
+ 0.6.7
 }
 
 \examples{
@@ -258,7 +264,7 @@ Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United K
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

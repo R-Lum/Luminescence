@@ -27,6 +27,10 @@ long-standing issues with the colour rug (both are fixed):
 a `...` parameter `box` for removing the outer plot frame. The argument
 was named `box` to avoid a confusion with the term frames used for image stacks. 
 
+* `plot.types = 'single` and `plot.type = "multiple.lines"` now support 
+a `...` parameter `frames` for picking the frames to be visualised beyond the 
+axis limitation. 
+
 ### `read_BIN2R()`
 * The example in the documentation was a little bit too generic and is now replaced by an example
 that works. 
