@@ -46,9 +46,15 @@
 #' Per frame a single curve is returned. Frames are time or temperature
 #' steps.
 #'
+#' -`frames`: pick the frames to be plotted (depends on the binning!). Check without
+#' this setting before plotting.
+#'
 #'**`plot.type = "multiple.lines"`**
 #'
 #' All frames plotted in one frame.
+#'
+#'-`frames`: pick the frames to be plotted (depends on the binning!). Check without
+#' this setting before plotting.
 #'
 #' '**`plot.type = "image"` or `plot.type = "contour" **
 #'
@@ -152,7 +158,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.6
+#' @section Function version: 0.6.7
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
@@ -948,9 +954,10 @@ if(plot){
     ## set colour rug
     col.rug <- col
     col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {"black"}
-    box <- if("frame" %in% names(extraArgs)) extraArgs$box else TRUE
+    box <- if("box" %in% names(extraArgs)) extraArgs$box[1] else TRUE
+    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
 
-    for(i in 1:length(y)){
+    for(i in frames) {
       if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
       plot(x, temp.xyz[,i],
            xlab = xlab,
@@ -1002,7 +1009,8 @@ if(plot){
     ## ========================================================================#
     col.rug <- col
     col<- if("col" %in% names(extraArgs)) {extraArgs$col} else  {"black"}
-    box <- if("frame" %in% names(extraArgs)) extraArgs$box else TRUE
+    box <- if("box" %in% names(extraArgs)) extraArgs$box else TRUE
+    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
 
     ##change graphic settings
     par.default <- par()[c("mfrow", "mar", "xpd")]
@@ -1038,7 +1046,7 @@ if(plot){
     }
 
     ##add lines
-    for(i in 1:length(y)){
+    for(i in frames){
       lines(x,
             temp.xyz[,i],
             lty = i,
@@ -1055,7 +1063,7 @@ if(plot){
 
     ##for missing values - legend.text
     if(missing(legend.text))
-      legend.text <- as.character(paste(round(y,digits=1), zlab))
+      legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
 
     ##legend
     legend(x = par()$usr[2],
@@ -1064,7 +1072,7 @@ if(plot){
            legend = legend.text,
 
            lwd= lwd,
-           lty = 1:length(y),
+           lty = frames,
            bty = "n",
            cex = 0.6*cex)
 

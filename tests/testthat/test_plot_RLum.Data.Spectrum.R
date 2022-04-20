@@ -122,6 +122,18 @@ test_that("test pure success of the plotting without warning or error", {
       )
     ))
 
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "multiple.lines",
+        xlim = c(310, 750),
+        frames = c(1,3),
+        ylim = c(0, 100),
+        bin.rows = 10,
+        bin.cols = 1
+      )
+    ))
+
     ## plot: image ------------
     ### plot_image: standard -------
     expect_silent(suppressWarnings(
@@ -164,6 +176,18 @@ test_that("test pure success of the plotting without warning or error", {
         TL.Spectrum,
         plot.type = "single",
         xlim = c(310, 750),
+        ylim = c(0, 300),
+        bin.rows = 10,
+        bin.cols = 6,
+        contour = FALSE)))
+
+    ## test frames
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "single",
+        xlim = c(310, 750),
+        frames = 1,
         ylim = c(0, 300),
         bin.rows = 10,
         bin.cols = 6,
