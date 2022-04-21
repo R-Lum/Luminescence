@@ -980,7 +980,7 @@ if(plot){
 
       ## add colour rug
       if(rug){
-        ##rug as continuous rectangle
+          ##rug as continuous rectangle
           i <- floor(seq(1,length(x), length.out = 300))
           graphics::rect(
             xleft = x[i[-length(i)]],
@@ -988,8 +988,30 @@ if(plot){
             ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
             ybottom = par("usr")[3],
             col = col.rug[i],
+            border = col.rug[i],
+            lwd = 1)
+
+          ## add rectangle from zero to first value
+          graphics::rect(
+            xleft = par()$usr[1],
+            xright = x[i[1]],
+            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+            ybottom = par("usr")[3],
+            col = col.rug[1],
+            density = 50,
             border = NULL,
-            lwd = NA)
+            lwd = 1)
+
+          ## add rectangle from the last value to end of plot
+          graphics::rect(
+            xleft = x[i[length(i)]],
+            xright = par()$usr[2],
+            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+            ybottom = par("usr")[3],
+            col = col.rug[length(col.rug)],
+            density = 50,
+            border = NULL,
+            lwd = 1)
       }
 
       ## add y axis to prevent overplotting
@@ -1002,7 +1024,6 @@ if(plot){
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
-
 
   }else if(plot.type == "multiple.lines" && ncol(temp.xyz) > 1) {
     ## Plot: multiple.lines ----
@@ -1043,6 +1064,29 @@ if(plot){
         col = col.rug[i],
         border = NULL,
         lwd = NA)
+
+
+      ## add rectangle from zero to first value
+      graphics::rect(
+        xleft = par()$usr[1],
+        xright = x[i[1]],
+        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+        ybottom = par("usr")[3],
+        col = col.rug[1],
+        density = 50,
+        border = NULL,
+        lwd = 1)
+
+      ## add rectangle from the last value to end of plot
+      graphics::rect(
+        xleft = x[i[length(i)]],
+        xright = par()$usr[2],
+        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+        ybottom = par("usr")[3],
+        col = col.rug[length(col.rug)],
+        density = 50,
+        border = NULL,
+        lwd = 1)
     }
 
     ##add lines
@@ -1128,6 +1172,10 @@ attr(temp.xyz, "colour") <- col
 attr(temp.xyz, "pmat") <- pmat
 
 ## return visible or not
-if(plot) invisible(temp.xyz) else   return(temp.xyz)
+if(plot)
+  invisible(temp.xyz)
+
+else
+  return(temp.xyz)
 
 }
