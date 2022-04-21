@@ -14,6 +14,10 @@ header-includes:
 * Add support for sequences **without** TL curves in the sequence; however, the
 function still expects three OSL curves for natural, regenerated, and background signal. 
 
+### `merge_RLum.Data.Curve()`
+* The functions works better if curves of different lengths are merged, but it still
+throws an error if the resolution is not similar. 
+
 ### `plot_RLum.Data.Curve()`
 * Add support for `...` arguments `las` and `axes`
 
