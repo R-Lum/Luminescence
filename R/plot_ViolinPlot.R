@@ -54,7 +54,7 @@
 #' @section Function version: 0.1.4
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.

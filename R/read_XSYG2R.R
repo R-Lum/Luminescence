@@ -129,7 +129,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
 #' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]

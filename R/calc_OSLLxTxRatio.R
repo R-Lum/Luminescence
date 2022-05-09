@@ -136,7 +136,7 @@
 #' @section Function version: 0.8.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Data.Curve-class], [Analyse_SAR.OSLdata], [plot_GrowthCurve],
 #' [analyse_SAR.CWOSL]

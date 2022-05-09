@@ -22,7 +22,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #' Jean-Michel Galharret, Université de Nantes (France),
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@section Function version: 0.1.0
 #'

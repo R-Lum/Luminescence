@@ -102,7 +102,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom), Norbert Mercier,
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier,
 #' IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @keywords datagen

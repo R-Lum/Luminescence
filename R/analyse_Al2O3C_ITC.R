@@ -83,7 +83,7 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot_GrowthCurve]
 #'

@@ -61,7 +61,7 @@
 #' @section Function version: 0.1.4
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [readBin], [RLum.Data.Spectrum-class]
 #'

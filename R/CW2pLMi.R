@@ -81,7 +81,7 @@
 #' @section Function version: 0.3.1
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' Based on comments and suggestions from:\cr
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands

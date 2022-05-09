@@ -44,7 +44,7 @@
 #' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
 #' Anne Philippe, Université de Nantes, (France),
 #' Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [read.table], [graphics::hist]
 #'

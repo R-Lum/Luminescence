@@ -46,7 +46,7 @@
 #'
 #'*Note: If the input object is a [list] a list of [RLum.Results-class] objects is returned.*
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne
 #'
 #'@seealso [RLum.Results-class], [analyse_SAR.CWOSL]

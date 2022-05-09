@@ -48,7 +48,7 @@
 #'
 #' **Package maintainer**
 #'
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom),\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
 #' \email{sebastian.kreutzer@@aber.ac.uk}
 #'
 #' **Funding**

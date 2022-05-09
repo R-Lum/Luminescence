@@ -114,7 +114,7 @@
 #'
 #' @section Function version: 0.3.2
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Results-class], [approx]
 #'

@@ -323,7 +323,7 @@
 #'
 #' @author
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [read_BIN2R], [calc_OSLLxTxRatio], [plot_GrowthCurve],

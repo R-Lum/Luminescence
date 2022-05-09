@@ -33,7 +33,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #' Jean-Michel Galharret, Université de Nantes (France),
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@examples
 #' n <- 1000
@@ -213,7 +213,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #'Jean-Michel Galharret, Université de Nantes (France),
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#'Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@examples
 #'
@@ -460,7 +460,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #'Jean-Michel Galharret, Université de Nantes (France),
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#'Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [plot_OSLAgeSummary], [rjags::rjags], [mclust-package]
 #'

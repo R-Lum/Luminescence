@@ -231,7 +231,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
 #' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram], [plot_ViolinPlot]

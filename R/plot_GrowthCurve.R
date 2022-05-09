@@ -196,7 +196,7 @@
 #' @section Function version: 1.11.4
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @references

@@ -91,7 +91,7 @@
 #'
 #' @section Function version: 0.2.4
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [analyse_SAR.CWOSL], [calc_OSLLxTxRatio], [plot_GrowthCurve],
 #' [RLum.Analysis-class], [RLum.Results-class] [get_RLum]

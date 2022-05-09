@@ -16,7 +16,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -57,7 +57,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -142,7 +142,7 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -234,7 +234,7 @@ fancy_scientific <- function(l) {
 #'@return
 #'Returns fancy log axis
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@examples
 #'
@@ -302,7 +302,7 @@ fancy_scientific <- function(l) {
 #'
 #'@param suffix [character] (with default): allows to add a suffix to the entire string
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@section Version: 0.1.0
 #'
@@ -389,7 +389,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param x [list] (**required**): list with lists
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #' a <- list(b = list(c = list("test")))
@@ -426,7 +426,7 @@ fancy_scientific <- function(l) {
 #' @param class [character]: class to look for, if nothing is set
 #' it checks for RLum in general
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
@@ -558,7 +558,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param len [numeric] (**required**): length of the parameter expansion
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -645,7 +645,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param ... further arguments passed to [stats::density]
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Hyndman, R.J., 1996. Computing and Graphing Highest Density Regions.

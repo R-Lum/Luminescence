@@ -26,7 +26,7 @@
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot], [plot_RLum]
 #'

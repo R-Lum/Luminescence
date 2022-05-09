@@ -57,7 +57,7 @@
 #' @section Function version: 0.5.1
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @note
 #' ROI definitions (introduced in BIN-file version 8) are not supported!

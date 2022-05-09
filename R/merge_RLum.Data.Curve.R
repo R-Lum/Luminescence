@@ -89,7 +89,7 @@
 #' @section Function version: 0.2.1
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [merge_RLum], [RLum.Data.Curve-class]
 #'

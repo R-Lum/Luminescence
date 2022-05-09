@@ -17,7 +17,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom), Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France);
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France);
 #'
 #'
 #' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]

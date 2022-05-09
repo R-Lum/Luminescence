@@ -19,7 +19,7 @@
 #' @section Function version: 0.1
 #' 
 #' @author 
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #' 
 #' @seealso [Risoe.BINfileData-class]
 #' 

@@ -31,7 +31,7 @@
 #' @section Function version: 0.3.2
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 #'
 #' The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin

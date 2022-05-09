@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.20.9000-27
-Date: 2022-04-21
+Version: 0.9.20.9000-28
+Date: 2022-04-25
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -26,7 +26,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Jean-Michel Galharret [aut] (<https://orcid.org/0000-0003-2219-8727>),
     Markus Fuchs [ths] (<https://orcid.org/0000-0003-4669-6528>)
 Authors@R: c(
-    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
+    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@uni-heidelberg.de", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
     person("Michael", "Dietze", role = c("aut"), comment = c(ORCID = "0000-0001-6063-1726")),
     person("Margret C.", "Fuchs", role = c("aut"), comment = c(ORCID = "0000-0001-7210-1132")),
@@ -48,7 +48,7 @@ Authors@R: c(
     person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
     person("Jean-Michel", "Galharret", role = c("aut"), comment = c(ORCID = "0000-0003-2219-8727")),
     person("Markus", "Fuchs", role = c("ths"), comment = c(ORCID = "0000-0003-4669-6528")))
-Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
+Maintainer: Sebastian Kreutzer <sebastian.kreutzer@uni-heidelberg.de>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
