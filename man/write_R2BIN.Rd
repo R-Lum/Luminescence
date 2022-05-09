@@ -94,7 +94,7 @@ write_R2BIN(temp, file = temp_file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -105,6 +105,6 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{IO}

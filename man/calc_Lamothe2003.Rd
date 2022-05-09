@@ -142,7 +142,7 @@ results_corr <- calc_Lamothe2003(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Mercier, N., 2022. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Mercier, N., 2022. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -160,7 +160,7 @@ Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation M
 \link{plot_GrowthCurve}, \link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom), Norbert Mercier,
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier,
 IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 , RLum Developer Team}
 \keyword{datagen}

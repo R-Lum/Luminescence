@@ -96,12 +96,12 @@ get_RLum(output)
 \linkS4class{RLum.Results}, \link{analyse_SAR.TL}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 Christoph Schmidt, University of Bayreuth (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C., 2022. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C., 2022. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

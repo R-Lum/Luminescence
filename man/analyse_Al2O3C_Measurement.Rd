@@ -146,7 +146,7 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -158,6 +158,6 @@ Geochronometria 45, 56-67.
 \link{analyse_Al2O3C_ITC}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

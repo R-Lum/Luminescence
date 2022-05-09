@@ -411,7 +411,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2022. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-27. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2022. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-29. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -440,7 +440,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 }
 \author{
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) \cr
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team}
 \keyword{datagen}
