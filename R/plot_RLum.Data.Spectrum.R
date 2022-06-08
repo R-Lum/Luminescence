@@ -158,7 +158,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.7
+#' @section Function version: 0.6.8
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -988,7 +988,7 @@ if(plot){
             ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
             ybottom = par("usr")[3],
             col = col.rug[i],
-            border = col.rug[i],
+            border = NA,
             lwd = 1)
 
           ## add rectangle from zero to first value
@@ -999,7 +999,7 @@ if(plot){
             ybottom = par("usr")[3],
             col = col.rug[1],
             density = 50,
-            border = NULL,
+            border = NA,
             lwd = 1)
 
           ## add rectangle from the last value to end of plot
@@ -1010,7 +1010,7 @@ if(plot){
             ybottom = par("usr")[3],
             col = col.rug[length(col.rug)],
             density = 50,
-            border = NULL,
+            border = NA,
             lwd = 1)
       }
 
@@ -1062,7 +1062,7 @@ if(plot){
         ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
         ybottom = par("usr")[3],
         col = col.rug[i],
-        border = NULL,
+        border = NA,
         lwd = NA)
 
 
@@ -1074,7 +1074,7 @@ if(plot){
         ybottom = par("usr")[3],
         col = col.rug[1],
         density = 50,
-        border = NULL,
+        border = NA,
         lwd = 1)
 
       ## add rectangle from the last value to end of plot
@@ -1085,7 +1085,7 @@ if(plot){
         ybottom = par("usr")[3],
         col = col.rug[length(col.rug)],
         density = 50,
-        border = NULL,
+        border = NA,
         lwd = 1)
     }
 
@@ -1172,10 +1172,6 @@ attr(temp.xyz, "colour") <- col
 attr(temp.xyz, "pmat") <- pmat
 
 ## return visible or not
-if(plot)
-  invisible(temp.xyz)
-
-else
-  return(temp.xyz)
+if(plot) invisible(temp.xyz) else return(temp.xyz)
 
 }
