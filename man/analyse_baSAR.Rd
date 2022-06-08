@@ -301,13 +301,15 @@ will break.
 Q: How can I set the seed for the random number generator (RNG)?
 
 A: Use the argument \code{method_control}, e.g., for three MCMC chains
-(as it is the default):\preformatted{method_control = list(
+(as it is the default):
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{method_control = list(
 inits = list(
  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
 ))
-}
+}\if{html}{\out{</div>}}
 
 This sets a reproducible set for every chain separately.\cr
 
@@ -411,7 +413,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2022. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-29. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2022. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-30. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
