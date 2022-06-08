@@ -24,7 +24,7 @@
 #'
 #'@param ... Further arguments and graphical parameters to be passed.
 #'
-#'@section Function version: 0.2.1
+#'@section Function version: 0.2.2
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -103,7 +103,6 @@ if(inherits(object, "list")){
 
   }
 
-
   results <- lapply(1:length(object), function(o){
     plot_DRCSummary(
       object = object[[o]],
@@ -126,9 +125,7 @@ if(inherits(object, "list")){
   if(!inherits(object, "RLum.Results"))
     stop("[plot_DRCSummary()] The input is not of class 'RLum.Results'!",call. = FALSE)
 
-
 # Extract data from object --------------------------------------------------------------------
-
   ##get data from RLum.Results object
   if(object@originator %in% c("analyse_SAR.CWOSL", "analyse_pIRIRSequence")){
     ##set limit
@@ -145,8 +142,17 @@ if(inherits(object, "list")){
 
     }
 
+    ## check the whether the fitting was all the same
+    if(length(unique(object@data[["data"]][["Fit"]])) != 1)
+      stop("[plot_DRCSummary()] I can only visualise dose-response curves based on the same fitting equation!",
+           call. = FALSE)
+
     ##get DRC
     DRC <- object@data$Formula[sel_curves]
+
+    ## check for Lambert W function (we can only do all )
+    if(all(object@data$data[["Fit"]] == "LambertW"))
+      W <- lamW::lambertW0
 
     ##get limits for each set
     dataset_limits <- matrix(
@@ -162,16 +168,15 @@ if(inherits(object, "list")){
 
   }else{
     stop(
-      "[plot_DRCSummary()] 'object' was created by none supported function, cf. manual for allowed originators!",call. = FALSE)
-
+      "[plot_DRCSummary()] 'object' was created by none supported function, cf. manual for allowed originators!",
+      call. = FALSE)
 
   }
 
 # Plotting ------------------------------------------------------------------------------------
-
   ##set default
   plot_settings <- list(
-    xlab = if(is.null(source_dose_rate)){"Dose [s]"}else{"Dose [Gy]"},
+    xlab = if(is.null(source_dose_rate)) {"Dose [s]"} else {"Dose [Gy]"},
     ylab = expression(L[x]/T[x]),
     xlim = c(0,max(vapply(LxTx, function(x){max(x[["Dose"]])}, numeric(1)))),
     ylim = if(show_dose_points){
@@ -180,6 +185,7 @@ if(inherits(object, "list")){
       c(0,max(vapply(1:length(LxTx), function(y){
         x <- max(LxTx[[y]][["Dose"]], na.rm = TRUE)
         eval(DRC[[y]])
+
        },numeric(1)), na.rm = TRUE))
     },
     main = "DRC Summary",
@@ -212,7 +218,6 @@ if(inherits(object, "list")){
     axis(side = 1)
 
   }
-
 
   for(i in 1:length(sel_curves)){
     ##plot natural
