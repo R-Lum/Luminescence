@@ -206,7 +206,12 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                    n.components.max = 4,
                    log = "x")
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2022. fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-39. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.

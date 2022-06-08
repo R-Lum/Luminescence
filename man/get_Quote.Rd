@@ -31,4 +31,9 @@ get_Quote()
 }
 \author{
 Quote credits: Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom), Dirk Mittelstraß, TU Dresden (Germany), Jakob Wallinga (Wageningen University, Netherlands)
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S., 2022. get_Quote(): Function to return essential quotes. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-39. https://CRAN.R-project.org/package=Luminescence
+}
+

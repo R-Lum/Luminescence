@@ -40,5 +40,10 @@ write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile())
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Kreutzer, S., 2022. write_R2TIFF(): Export RLum.Data.Image and RLum.Data.Spectrum objects to TIFF Images. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-39. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{IO}

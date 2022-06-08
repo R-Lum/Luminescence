@@ -40,5 +40,10 @@ convert_SG2MG(CWOSL.SAR.Data)
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France);
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Kreutzer, S., Mercier, N., 2022. convert_SG2MG(): Converts Single-Grain Data to Multiple-Grain Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-39. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{IO}

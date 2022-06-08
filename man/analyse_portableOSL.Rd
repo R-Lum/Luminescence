@@ -74,6 +74,11 @@ get_RLum(results)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Burow, C., 2022. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-39. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{datagen}
 \keyword{plot}

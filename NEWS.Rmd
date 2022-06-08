@@ -24,16 +24,16 @@ throws an error if the resolution is not similar.
 * Add support for `...` arguments `las` and `axes`
 
 ### `plot_RLum.Data.Spectrum()`
-* The `plot.types = 'single` and `plot.type = "multiple.lines"` had two 
+* The `plot.types = "single"` and `plot.type = "multiple.lines"` had two 
 long-standing issues with the colour rug (both are fixed):
   * The colour rug showed ugly overplotting, 
   * the colour rug had a resolution that depended on the x-axis (wavelength) scaling. 
   
-* `plot.types = 'single` and `plot.type = "multiple.lines"` now support 
+* `plot.types = "single"` and `plot.type = "multiple.lines"` now support 
 a `...` parameter `box` for removing the outer plot frame. The argument
 was named `box` to avoid a confusion with the term frames used for image stacks. 
 
-* `plot.types = 'single` and `plot.type = "multiple.lines"` now support 
+* `plot.types = "single"` and `plot.type = "multiple.lines"` now support 
 a `...` parameter `frames` for picking the frames to be visualised beyond the 
 axis limitation. 
 

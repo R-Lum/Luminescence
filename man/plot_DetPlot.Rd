@@ -146,7 +146,12 @@ plot_DetPlot(object,
 )
 }
 
+} 
+
+\section{How to cite}{
+NA, NA, , , 2022. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-39. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 using De as a function of illumination time. Radiation Measurements 37, 511-518.
