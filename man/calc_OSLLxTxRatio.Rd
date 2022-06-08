@@ -170,12 +170,7 @@ results <- calc_OSLLxTxRatio(
 ##get results object
 get_RLum(results)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2022. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-30. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Duller, G., 2018. Analyst v4.57 - User Manual.
 \url{https://users.aber.ac.uk/ggd/}\cr

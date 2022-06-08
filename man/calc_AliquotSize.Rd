@@ -132,12 +132,7 @@ calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100)
 calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
                  grains.counted = c(2525,2312,2880), MC.iter = 100)
 
-} 
-
-\section{How to cite}{
-Burow, C., 2022. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-30. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
 sediments: why aliquot size matters in luminescence dating. Boreas 37,

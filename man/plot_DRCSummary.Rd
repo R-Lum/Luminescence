@@ -63,7 +63,7 @@ If you want plot your DRC on an energy scale (dose in Gy), you can either use th
 below or your can SAR analysis with the dose points in Gy (better axis scaling).
 }
 \section{Function version}{
- 0.2.1
+ 0.2.2
 }
 
 \examples{
@@ -93,9 +93,4 @@ plot_DRCSummary(results)
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 Christoph Burow, University of Cologne
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., Burow, C., 2022. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-30. https://CRAN.R-project.org/package=Luminescence
-}
-
+, RLum Developer Team}

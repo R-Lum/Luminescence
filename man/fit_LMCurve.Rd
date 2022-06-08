@@ -240,12 +240,7 @@ fit_LMCurve(values = values.curve,
             log = "x",
             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2022. fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-30. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bulur, E., 1996. An Alternative Technique For Optically
 Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,
