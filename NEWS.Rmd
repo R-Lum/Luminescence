@@ -8,6 +8,8 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
+**This package version requires R >= 4.1**
+
 ## Bugfixes and changes
 
 ### `analyse_Al2O3C_Measurement()`
