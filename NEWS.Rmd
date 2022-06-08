@@ -35,6 +35,10 @@ was named `box` to avoid a confusion with the term frames used for image stacks.
 a `...` parameter `frames` for picking the frames to be visualised beyond the 
 axis limitation. 
 
+### `plot_GrowthCurve()`
+* The formula returned in the output if `fit.method = "LambertW"` was not correct; fixed. 
+The fit and the fitting was not affected; though. 
+
 ### `read_BIN2R()`
 * The example in the documentation was a little bit too generic and is now replaced by an example
 that works. 

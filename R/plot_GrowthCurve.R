@@ -193,7 +193,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.4
+#' @section Function version: 1.11.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -2022,14 +2022,14 @@ plot_GrowthCurve <- function(
     }
 
     if(fit.method == "LambertW") {
-      f <- paste0(
-        "(1 + W[",format(coef(fit)[1], scientific = TRUE)," - 1 * exp(",
+      f <- parse(text = paste0(
+        "(1 + (W((",format(coef(fit)[1], scientific = TRUE)," - 1) * exp(",
         format(coef(fit)[1], scientific = TRUE), " - 1 - ((x + ",
         format(coef(fit)[4], scientific = TRUE), ") / ",
-        format(coef(fit)[2], scientific = TRUE), "))] / (1 - ",
-        format(coef(fit)[2], scientific = TRUE), ")) * ",
+        format(coef(fit)[2], scientific = TRUE), "))) / (1 - ",
+        format(coef(fit)[1], scientific = TRUE), "))) * ",
         format(coef(fit)[3], scientific = TRUE)
-      )
+      ))
     }
 
   }else{
