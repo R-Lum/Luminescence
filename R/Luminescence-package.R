@@ -53,17 +53,23 @@
 #'
 #' **Funding**
 #'
-#' Cooperation and personal exchange between the developers is gratefully
+#' 2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
+#' was funded through the DFG programme "Rekonstruktion der Umweltbedingungen
+#' des Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen"
+#' (DFG id: 46526743)
+#'
+#' 2014-2018: Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 #'
-#' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
-#' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
+#' 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
+#' by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 #'
-#' Between 01/2020--04/2022, the work of Sebastian Kreutzer as maintainer of the package has received funding
+#' 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
 #' from the European Union’s Horizon 2020 research and innovation programme under
-#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit).
+#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
+#' maintaining the package.
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
