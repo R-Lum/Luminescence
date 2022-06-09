@@ -46,6 +46,9 @@ test_that("Test plotting", {
   ##simple
   expect_silent(plot_DRCSummary(results))
 
+  ##simple with graphical arguments
+  expect_silent(plot_DRCSummary(results, col.lty = "red"))
+
   ##simple with LambertW
   expect_silent(plot_DRCSummary(results_LamW))
 

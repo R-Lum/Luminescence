@@ -22,11 +22,11 @@
 #'@param n [integer] (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 #'down the plotting process and are usually not needed
 #'
-#'@param ... Further arguments and graphical parameters to be passed.
+#'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`
 #'
-#'@section Function version: 0.2.2
+#'@section Function version: 0.2.3
 #'
-#' @return An [RLum.Results-class] object is returned:
+#'@return An [RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**\cr
 #'
@@ -47,7 +47,7 @@
 #'*Note: If the input object is a [list] a list of [RLum.Results-class] objects is returned.*
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
-#' Christoph Burow, University of Cologne
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #'@seealso [RLum.Results-class], [analyse_SAR.CWOSL]
 #'
@@ -175,7 +175,7 @@ if(inherits(object, "list")){
 
 # Plotting ------------------------------------------------------------------------------------
   ##set default
-  plot_settings <- list(
+  plot_settings <-  modifyList(x = list(
     xlab = if(is.null(source_dose_rate)) {"Dose [s]"} else {"Dose [Gy]"},
     ylab = expression(L[x]/T[x]),
     xlim = c(0,max(vapply(LxTx, function(x){max(x[["Dose"]])}, numeric(1)))),
@@ -189,14 +189,18 @@ if(inherits(object, "list")){
        },numeric(1)), na.rm = TRUE))
     },
     main = "DRC Summary",
-    lty = rep(1,length(sel_curves)),
+    lty = 1,
     lwd = 1,
-    pch = rep(20,length(sel_curves)),
-    col = rep(rgb(0,0,0,0.5), length(sel_curves))
-  )
+    pch = 20,
+    col.lty = rgb(0,0,0,0.5),
+    col.pch = rgb(0,0,0,0.5)
+  ), val = list(...))
 
-  ##modify on request
-  plot_settings <- modifyList(x = plot_settings, val = list(...))
+  ## expand parameters
+  plot_settings$col.lty <- rep(plot_settings$col.lty, length(sel_curves))
+  plot_settings$col.pch <- rep(plot_settings$col.pch, length(sel_curves))
+  plot_settings$pch <- rep(plot_settings$pch, length(sel_curves))
+  plot_settings$lty <- rep(plot_settings$lty, length(sel_curves))
 
   ##create empty plot window
   plot(
@@ -210,7 +214,7 @@ if(inherits(object, "list")){
     xaxt = "n"
   )
 
-  #exchange xaxis if source dose rate is set
+  #exchange x-axis if source dose rate is set
   if(!is.null(source_dose_rate)){
     axis(side = 1, at = axTicks(side = 1), labels = round(axTicks(side = 1) * source_dose_rate[1],0))
 
@@ -225,11 +229,11 @@ if(inherits(object, "list")){
       segments(x0 = LxTx[[i]]$Dose[1], x1 = LxTx[[i]]$Dose[1],
                y0 = LxTx[[i]]$LxTx[1] - LxTx[[i]]$LxTx.Error[1],
                y1 = LxTx[[i]]$LxTx[1] + LxTx[[i]]$LxTx.Error[1],
-               col = plot_settings$col[[i]])
+               col = plot_settings$col.pch[[i]])
       points(
         x = LxTx[[i]]$Dose[1],
         y = LxTx[[i]]$LxTx[1],
-        col = plot_settings$col[[i]],
+        col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
 
@@ -240,11 +244,11 @@ if(inherits(object, "list")){
       segments(x0 = LxTx[[i]]$Dose[-1], x1 = LxTx[[i]]$Dose[-1],
                y0 = LxTx[[i]]$LxTx[-1] - LxTx[[i]]$LxTx.Error[-1],
                y1 = LxTx[[i]]$LxTx[-1] + LxTx[[i]]$LxTx.Error[-1],
-               col = plot_settings$col[[i]])
+               col = plot_settings$col.pch[[i]])
       points(
         x = LxTx[[i]]$Dose[-1],
         y = LxTx[[i]]$LxTx[-1],
-        col = plot_settings$col[[i]],
+        col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
 
@@ -263,7 +267,7 @@ if(inherits(object, "list")){
     lines(
       x = x,
       y = eval(DRC[[i]]),
-      col = plot_settings$col[[i]],
+      col = plot_settings$col.lty[[i]],
       lwd = plot_settings$lwd,
       lty = plot_settings$lty[[i]]
     )
@@ -280,8 +284,9 @@ if(inherits(object, "list")){
         ),
       data = object
     ),
-    info = list(call = sys.call(),
-                args = as.list(sys.call())[-1])
+    info = list(
+      call = sys.call(),
+      args = as.list(sys.call())[-1])
   )
 
   ## Return value --------------------------------------------------------------
