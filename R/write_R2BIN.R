@@ -683,7 +683,7 @@ write_R2BIN <- function(
                    size = 1,
                    endian="little")
         }else{
-          writeBin(object = bject@.RESERVED[[ID]][[1]],
+          writeBin(object = object@.RESERVED[[ID]][[1]],
                    con,
                    size = 1,
                    endian="little")
