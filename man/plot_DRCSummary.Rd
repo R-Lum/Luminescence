@@ -29,7 +29,7 @@ be provided for selecting, e.g., only every 2nd curve from the input object}
 \item{n}{\link{integer} (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 down the plotting process and are usually not needed}
 
-\item{...}{Further arguments and graphical parameters to be passed. In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch}, \code{col.pch}, \code{col.lty}}
+\item{...}{Further arguments and graphical parameters to be passed. In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch}, \code{col.pch}, \code{col.lty}, \code{mtext}}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -96,6 +96,6 @@ Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2022. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-46. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2022. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20.9000-47. https://CRAN.R-project.org/package=Luminescence
 }
 
