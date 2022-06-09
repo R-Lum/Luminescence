@@ -22,7 +22,7 @@
 #'@param n [integer] (with default): the number of x-values used to evaluate one curve object. Large numbers slow
 #'down the plotting process and are usually not needed
 #'
-#'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`
+#'@param ... Further arguments and graphical parameters to be passed. In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`
 #'
 #'@section Function version: 0.2.3
 #'
@@ -189,12 +189,13 @@ if(inherits(object, "list")){
        },numeric(1)), na.rm = TRUE))
     },
     main = "DRC Summary",
+    mtext = paste0("n_curves: ",length(sel_curves)),
     lty = 1,
     lwd = 1,
     pch = 20,
     col.lty = rgb(0,0,0,0.5),
     col.pch = rgb(0,0,0,0.5)
-  ), val = list(...))
+  ), val = list(...), keep.null = TRUE)
 
   ## expand parameters
   plot_settings$col.lty <- rep(plot_settings$col.lty, length(sel_curves))
@@ -213,6 +214,9 @@ if(inherits(object, "list")){
     main = plot_settings$main,
     xaxt = "n"
   )
+
+  if(!is.null(plot_settings$mtext))
+    mtext(side = 3, text = plot_settings$mtext, cex = 0.8)
 
   #exchange x-axis if source dose rate is set
   if(!is.null(source_dose_rate)){
