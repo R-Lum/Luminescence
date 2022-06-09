@@ -41,13 +41,13 @@ axis limitation.
 * The function did not know how to hand the output, if the fit was `LambertW`; added. 
 * The function now roughly checks whether all curves have used the same equation for the fitting, 
 if not it throws an error. 
+* The `...` arguments allowed to modify the plot are now mentioned in the documentation.
+* The `...` are better recycled to avoid a function crash in case the user did not provide the
+arguments in the required length.
 
 ### `plot_GrowthCurve()`
 * The formula returned in the output if `fit.method = "LambertW"` was not correct; fixed. 
 The fit and the fitting was not affected; though. 
-* The `...` arguments allowed to modify the plot are now mentioned in the documentation.
-* The `...` are better recycled to avoid a function crash in case the user did not provide the
-arguments in the required length.
 
 ### `read_BIN2R()`
 * The example in the documentation was a little bit too generic and is now replaced by an example
