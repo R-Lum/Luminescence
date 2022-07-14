@@ -371,8 +371,8 @@ setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Spectrum",
           function(object, bin_size.col = 1, bin_size.row = 1) {
 
-            ##makee sure that we have no input problems
-            if (class(bin_size.col) != "numeric" || class(bin_size.row) != "numeric"){
+            ##make sure that we have no input problems
+            if (!inherits(bin_size.col, "numeric") || !inherits(bin_size.row, "numeric")){
               stop("[bin_RLum.Data()] 'bin_size.row' and 'bin_size.col' must be of class 'numeric'!",
                    call. = FALSE)
             }

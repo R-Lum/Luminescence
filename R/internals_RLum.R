@@ -401,7 +401,7 @@ fancy_scientific <- function(l) {
 .unlist_RLum <- function(x){
   stopifnot(class(x) == "list")
 
-  if(length(x) > 0 && class(x[[1]]) == "list"){
+  if(length(x) > 0 && inherits(x[[1]], "list")){
     x <- unlist(x, recursive = FALSE)
     .unlist_RLum(x)
   }else{
