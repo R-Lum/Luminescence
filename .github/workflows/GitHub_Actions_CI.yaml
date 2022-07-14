@@ -23,9 +23,9 @@ jobs:
         - {os: windows-latest, r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
         - {os: macos-11,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
         - {os: macos-10.15,   r: 'oldrel', not_cran: 'true', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-        - {os: ubuntu-20.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-20.04,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-20.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+        - {os: ubuntu-22.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest"}
+        - {os: ubuntu-22.04,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest"}
+        - {os: ubuntu-22.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/jammy/latest"}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: false
       RSPM: ${{ matrix.config.rspm }}
