@@ -87,7 +87,7 @@
 #' @section Function version: 0.1.14
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]

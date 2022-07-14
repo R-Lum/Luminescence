@@ -29,7 +29,7 @@ showClass("RLum.Data")
 \linkS4class{RLum.Data.Spectrum}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{classes}
 \keyword{internal}

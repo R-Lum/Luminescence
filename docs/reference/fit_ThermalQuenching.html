@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,6 +85,7 @@
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fit_ThermalQuenching</span><span class="op">(</span>
   <span class="va">data</span>,
   start_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
@@ -96,6 +129,122 @@ can be further passed to other functions supporting an nls object (cf. details s
 in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">stats::nls</a>)
 <strong>slot:</strong><strong><code>@info</code></strong><code>[.. $call : call]</code><br>The original function call.
 -----------------------------------<br><code>[ GAPHICAL OUTPUT ]</code><br>-----------------------------------<br>Plotted are temperature against the signal and their uncertainties.
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_ThermalQuenching</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  start_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  n.MC <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+    </div>
+
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>data</dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>): input data with three columns, the first column contains
+temperature values in deg. C, columns 2 and 3 the dependent values with its error</p></dd>
+
+
+<dt>start_param</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (optional): option to provide own start parameters for the fitting, see
+details</p></dd>
+
+
+<dt>method_control</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (optional): further options to fine tune the fitting, see details for
+further information</p></dd>
+
+
+<dt>n.MC</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): number of Monte Carlo runs for the error estimation. If <code>n.MC</code> is
+<code>NULL</code> or <code>&lt;=1</code>, the error estimation is skipped</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables/disables terminal output</p></dd>
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables/disables plot output</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further arguments that can be passed to control the plotting, support are <code>main</code>, <code>pch</code>,
+<code>col_fit</code>, <code>col_points</code>, <code>lty</code>, <code>lwd</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>, <code>xaxt</code></p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The function returns numerical output and an (<em>optional</em>) plot.</p>
+
+
+<p>-----------------------------------<br></p>
+
+
+<p><code>[ NUMERICAL OUTPUT ]</code><br></p>
+
+
+<p>-----------------------------------<br></p>
+
+
+
+<p><strong><code>RLum.Results</code></strong>-object</p>
+
+
+<p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@data</code></strong></p>
+
+
+
+<p><code>[.. $data : data.frame]</code><br></p>
+
+
+
+<p>A table with all fitting parameters and the number of Monte Carlo runs used for the error estimation.</p>
+
+
+<p><code>[.. $fit : nls object]</code></p>
+<p></p>
+<p><br></p>
+
+
+
+<p>The nls <a href="https://rdrr.io/r/stats/nls.html" class="external-link">stats::nls</a> object returned by the function <a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a>. This object
+can be further passed to other functions supporting an nls object (cf. details section
+in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">stats::nls</a>)</p>
+
+
+<p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@info</code></strong></p>
+
+
+
+<p><code>[.. $call : call]</code><br></p>
+
+
+
+<p>The original function call.</p>
+
+
+<p>-----------------------------------<br></p>
+
+
+<p><code>[ GAPHICAL OUTPUT ]</code><br></p>
+
+
+<p>-----------------------------------<br></p>
+
+
+
+<p>Plotted are temperature against the signal and their uncertainties.
+>>>>>>> dev_0.9.20
 The fit is shown as dashed-line (can be modified). Please note that for the fitting the absolute
 temperature values are used but are re-calculated to deg. C for the plot.</p>
     </div>
@@ -128,7 +277,11 @@ are applied. The weights are defined by the third column of the input <code>data
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. fit_ThermalQuenching(): Fitting Thermal Quenching Data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -140,12 +293,17 @@ are applied. The weights are defined by the third column of the input <code>data
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##create short example dataset</span></span>
 <span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -157,6 +315,19 @@ are applied. The weights are defined by the third column of the input <code>data
 <span class="r-in"><span class="fu">fit_ThermalQuenching</span><span class="op">(</span></span>
 <span class="r-in"> data <span class="op">=</span> <span class="va">data</span>,</span>
 <span class="r-in"> n.MC <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##create short example dataset</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  T <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">110</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  V <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.06</span>, <span class="fl">0.058</span>, <span class="fl">0.052</span>, <span class="fl">0.051</span>, <span class="fl">0.041</span>, <span class="fl">0.034</span>, <span class="fl">0.035</span>, <span class="fl">0.033</span>, <span class="fl">0.032</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  V_X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.012</span>, <span class="fl">0.009</span>, <span class="fl">0.008</span>, <span class="fl">0.008</span>, <span class="fl">0.007</span>, <span class="fl">0.006</span>, <span class="fl">0.005</span>, <span class="fl">0.005</span>, <span class="fl">0.004</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##fit</span></span></span>
+<span class="r-in"><span><span class="fu">fit_ThermalQuenching</span><span class="op">(</span></span></span>
+<span class="r-in"><span> data <span class="op">=</span> <span class="va">data</span>,</span></span>
+<span class="r-in"><span> n.MC <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_ThermalQuenching()]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -173,7 +344,11 @@ are applied. The weights are defined by the third column of the input <code>data
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 .. $data : data.frame</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -184,6 +359,7 @@ are applied. The weights are defined by the third column of the input <code>data
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -193,6 +369,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

@@ -75,7 +75,7 @@
 #' @section Function version: 0.3.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]

@@ -13,7 +13,7 @@
 #'
 #'@section Function version: 0.1.3
 #'
-#'@author  Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [write_R2BIN]
 #'

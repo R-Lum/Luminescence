@@ -129,7 +129,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
 #' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]
@@ -195,7 +195,6 @@ read_XSYG2R <- function(
   # with that many file can be read in at the same time
   # Option (b): The input is just a path, the function tries to grep ALL xsyg/XSYG files in the
   # directory and import them, if this is detected, we proceed as list
-
   if(is(file, "character")) {
 
     ##If this is not really a path we skip this here
@@ -337,13 +336,11 @@ read_XSYG2R <- function(
 
     })
 
-
     ##change row names (rows are wavelength)
     rownames(spectrum.matrix) <- round(wavelength, digits=3)
 
     ##change column names (columns are time/temp values)
     colnames(spectrum.matrix) <- round(curve.node.time, digits=3)
-
 
     return(spectrum.matrix)
   }
@@ -358,7 +355,6 @@ read_XSYG2R <- function(
     XML::xmlRoot(XML::xmlTreeParse(file, useInternalNodes = TRUE, options = HUGE)), silent = TRUE)
 
 
-
   ##show error
   if(is(temp, "try-error") == TRUE){
     try(stop("[read_XSYG2R()] XML file not readable, nothing imported!)", call. = FALSE))
@@ -371,7 +367,6 @@ read_XSYG2R <- function(
   ##==========================================================================##
   ##SHOW STRUCTURE
   if(import == FALSE){
-
     ##sample information
     temp.sample <- as.data.frame(XML::xmlAttrs(temp), stringsAsFactors = FALSE)
 

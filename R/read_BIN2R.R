@@ -95,7 +95,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
@@ -105,20 +105,18 @@
 #' [utils::txtProgressBar], [list.files]
 #'
 #'
-#' @references
-#' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-#' [https://www.fysik.dtu.dk]()
+#'@references
+#'DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
+#'[https://www.fysik.dtu.dk]()
 #'
 #'
-#' @keywords IO
+#'@keywords IO
 #'
-#' @examples
+#'@examples
 #'
-#' ##(1) import Risoe BIN-file to R (uncomment for usage)
-#'
-#' #FILE <- file.choose()
-#' #temp <- read_BIN2R(FILE)
-#' #temp
+#'file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+#'temp <- read_BIN2R(file)
+#'temp
 #'
 #' @md
 #' @export
@@ -144,11 +142,10 @@ read_BIN2R <- function(
   # with that many file can be read in at the same time
   # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
   # directory and import them, if this is detected, we proceed as list
-
   if (is.character(file)) {
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here
-      if (dir.exists(file) & length(dir(file)) > 0) {
+      if (all(dir.exists(file)) & length(dir(file)) > 0) {
         if (verbose) {
           cat(
             "[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n"
@@ -161,12 +158,9 @@ read_BIN2R <- function(
           recursive = FALSE,
           pattern = "\\.bin*",
           full.names = TRUE,
-          ignore.case = TRUE
-        ))
-
+          ignore.case = TRUE))
 
       }
-
 
     }else if(dir.exists(file)){
       file <- as.list(list.files(file, pattern = pattern, full.names = TRUE, recursive = TRUE))
@@ -175,9 +169,7 @@ read_BIN2R <- function(
 
   }
 
-
   if (is.list(file)) {
-
     ##extend list of parameters
 
     ##position

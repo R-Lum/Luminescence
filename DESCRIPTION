@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.19
-Date: 2022-03-10
+Version: 0.9.20
+Date: 2022-07-14
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -26,7 +26,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-07
     Jean-Michel Galharret [aut] (<https://orcid.org/0000-0003-2219-8727>),
     Markus Fuchs [ths] (<https://orcid.org/0000-0003-4669-6528>)
 Authors@R: c(
-    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@aber.ac.uk", comment = c(ORCID = "0000-0002-0734-2199")),
+    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@uni-heidelberg.de", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
     person("Michael", "Dietze", role = c("aut"), comment = c(ORCID = "0000-0001-6063-1726")),
     person("Margret C.", "Fuchs", role = c("aut"), comment = c(ORCID = "0000-0001-7210-1132")),
@@ -48,7 +48,7 @@ Authors@R: c(
     person("Harrison J.", "Gray", role = c("aut"), comment = c(ORCID = "0000-0002-4555-7473")),
     person("Jean-Michel", "Galharret", role = c("aut"), comment = c(ORCID = "0000-0003-2219-8727")),
     person("Markus", "Fuchs", role = c("ths"), comment = c(ORCID = "0000-0003-4669-6528")))
-Maintainer: Sebastian Kreutzer <sebastian.kreutzer@aber.ac.uk>
+Maintainer: Sebastian Kreutzer <sebastian.kreutzer@uni-heidelberg.de>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
@@ -57,23 +57,23 @@ Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 4.0),
+    R (>= 4.1),
     utils
-LinkingTo: Rcpp (>= 1.0.7),
-    RcppArmadillo (>= 0.10.7.0.0)
+LinkingTo: Rcpp (>= 1.0.9),
+    RcppArmadillo (>= 0.11.2.0.0)
 Imports:
-    bbmle (>= 1.0.24),
-    data.table (>= 1.14.0),
+    bbmle (>= 1.0.25),
+    data.table (>= 1.14.2),
     DEoptim (>= 2.2-6),
-    httr (>= 1.4.2),
-    lamW (>= 2.1.0),
-    matrixStats (>= 0.61.0),
+    httr (>= 1.4.3),
+    lamW (>= 2.1.1),
+    matrixStats (>= 0.62.0),
     methods,
-    minpack.lm (>= 1.2-1),
-    mclust (>= 5.4.7),
-    plotrix (>= 3.8-1),
-    readxl (>= 1.3.1),
-    Rcpp (>= 1.0.7),
+    minpack.lm (>= 1.2-2),
+    mclust (>= 5.4.10),
+    plotrix (>= 3.8-2),
+    readxl (>= 1.4.0),
+    Rcpp (>= 1.0.9),
     shape (>= 1.4.6),
     parallel,
     XML (>= 3.99),
@@ -81,15 +81,15 @@ Imports:
 Suggests:
     spelling (>= 2.2),
     plotly (>= 4.10.0),
-    rmarkdown (>= 2.11),
+    rmarkdown (>= 2.14),
     rstudioapi (>= 0.13),
-    rjags (>= 4-12),
+    rjags (>= 4-13),
     coda (>= 0.19-4),
-    pander (>= 0.6.4),
-    testthat (>= 3.1.0),
-    tiff (>= 0.1-10),
-    devtools (>= 2.4.2),
-    R.rsp (>= 0.44.0)
+    pander (>= 0.6.5),
+    testthat (>= 3.1.4),
+    tiff (>= 0.1-11),
+    devtools (>= 2.4.3),
+    R.rsp (>= 0.45.0)
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
@@ -233,4 +233,4 @@ Collate:
     'write_R2TIFF.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0

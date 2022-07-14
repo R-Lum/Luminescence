@@ -97,7 +97,7 @@
 #' @section Function version: 0.3.2
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [Risoe.BINfileData-class],
 #' [read_XSYG2R], [read_BIN2R], [write_R2BIN]

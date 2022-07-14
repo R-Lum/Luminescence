@@ -70,7 +70,9 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 
 Slot \code{data} contains a \link{list} with the following structure:
 
-\strong{@data}\preformatted{$LxTx.table (data.frame)
+\strong{@data}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{$LxTx.table (data.frame)
 .. $ LnLx
 .. $ LnLx.BG
 .. $ TnTx
@@ -84,10 +86,12 @@ $ calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
 .. $ k
-}
+}\if{html}{\out{</div>}}
 
-\strong{@info}\preformatted{$ call (original function call)
-}
+\strong{@info}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{$ call (original function call)
+}\if{html}{\out{</div>}}
 }
 \description{
 Calculate \code{Lx/Tx} ratios from a given set of CW-OSL curves assuming late light
@@ -169,7 +173,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.8.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -187,6 +191,6 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 \link{analyse_SAR.CWOSL}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

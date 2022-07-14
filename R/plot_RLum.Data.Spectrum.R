@@ -46,9 +46,15 @@
 #' Per frame a single curve is returned. Frames are time or temperature
 #' steps.
 #'
+#' -`frames`: pick the frames to be plotted (depends on the binning!). Check without
+#' this setting before plotting.
+#'
 #'**`plot.type = "multiple.lines"`**
 #'
 #' All frames plotted in one frame.
+#'
+#'-`frames`: pick the frames to be plotted (depends on the binning!). Check without
+#' this setting before plotting.
 #'
 #' '**`plot.type = "image"` or `plot.type = "contour" **
 #'
@@ -69,7 +75,7 @@
 #'
 #' **Further arguments that will be passed (depending on the plot type)**
 #'
-#' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
+#' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `box`,
 #' `zlim`, `main`, `mtext`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
 #' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
 #' `contour`, `contour.col` (`"image"`)
@@ -152,10 +158,10 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.5
+#' @section Function version: 0.6.8
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot], [plot_RLum], [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
 #'
@@ -945,18 +951,22 @@ if(plot){
     ## Plot: single plot ----
     ## ==========================================================================#
 
+    ## set colour rug
     col.rug <- col
-    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else {"black"}
+    col <- if("col" %in% names(extraArgs)) {extraArgs$col} else {"black"}
+    box <- if("box" %in% names(extraArgs)) extraArgs$box[1] else TRUE
+    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
 
-    for(i in 1:length(y)){
+    for(i in frames) {
       if("zlim" %in% names(extraArgs) == FALSE){zlim <- range(temp.xyz[,i])}
-
       plot(x, temp.xyz[,i],
            xlab = xlab,
            ylab = ylab,
            main = main,
            xlim = xlim,
            ylim = zlim,
+           frame = box,
+           xaxt = "n",
            col = col,
            sub = paste(
              "(frame ",i, " | ",
@@ -968,28 +978,60 @@ if(plot){
            type = type,
            pch = pch)
 
-      if(rug == TRUE){
-        ##rug als continous polygons
-        for(i in 1:length(x)){
-          polygon(x = c(x[i],x[i+1],x[i+1],x[i]),
-                  y = c(min(zlim),min(zlim), par("usr")[3], par("usr")[3]),
-                  border = col.rug[i], col = col.rug[i])
-        }
+      ## add colour rug
+      if(rug){
+          ##rug as continuous rectangle
+          i <- floor(seq(1,length(x), length.out = 300))
+          graphics::rect(
+            xleft = x[i[-length(i)]],
+            xright = x[i[-1]],
+            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+            ybottom = par("usr")[3],
+            col = col.rug[i],
+            border = NA,
+            lwd = 1)
+
+          ## add rectangle from zero to first value
+          graphics::rect(
+            xleft = par()$usr[1],
+            xright = x[i[1]],
+            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+            ybottom = par("usr")[3],
+            col = col.rug[1],
+            density = 50,
+            border = NA,
+            lwd = 1)
+
+          ## add rectangle from the last value to end of plot
+          graphics::rect(
+            xleft = x[i[length(i)]],
+            xright = par()$usr[2],
+            ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+            ybottom = par("usr")[3],
+            col = col.rug[length(col.rug)],
+            density = 50,
+            border = NA,
+            lwd = 1)
       }
+
+      ## add y axis to prevent overplotting
+      graphics::axis(side = 1)
+
+      ## add box if needed
+      if(box) graphics::box()
 
     }
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-
   }else if(plot.type == "multiple.lines" && ncol(temp.xyz) > 1) {
     ## Plot: multiple.lines ----
     ## ========================================================================#
-
     col.rug <- col
-    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else
-    {"black"}
+    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else  {"black"}
+    box <- if("box" %in% names(extraArgs)) extraArgs$box else TRUE
+    frames <- if("frames" %in% names(extraArgs)) extraArgs$frames else 1:length(y)
 
     ##change graphic settings
     par.default <- par()[c("mfrow", "mar", "xpd")]
@@ -1005,21 +1047,50 @@ if(plot){
          main = main,
          xlim = xlim,
          ylim = zlim,
+         frame = box,
+         xaxt = "n",
          sub = sub,
          bty = bty)
 
-    if(rug == TRUE){
-      ##rug als continous polygons
-      for(i in 1:length(x)){
-        polygon(x = c(x[i],x[i+1],x[i+1],x[i]),
-                y = c(min(zlim),min(zlim), par("usr")[3], par("usr")[3]),
-                border = col.rug[i], col = col.rug[i])
-      }
+    ## add colour rug
+    if(rug){
+      ##rug as continuous rectangle
+      i <- floor(seq(1,length(x), length.out = 300))
+      graphics::rect(
+        xleft = x[i[-length(i)]],
+        xright = x[i[-1]],
+        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+        ybottom = par("usr")[3],
+        col = col.rug[i],
+        border = NA,
+        lwd = NA)
+
+
+      ## add rectangle from zero to first value
+      graphics::rect(
+        xleft = par()$usr[1],
+        xright = x[i[1]],
+        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+        ybottom = par("usr")[3],
+        col = col.rug[1],
+        density = 50,
+        border = NA,
+        lwd = 1)
+
+      ## add rectangle from the last value to end of plot
+      graphics::rect(
+        xleft = x[i[length(i)]],
+        xright = par()$usr[2],
+        ytop = par("usr")[3] + diff(c(par("usr")[3], min(zlim))) * 0.9,
+        ybottom = par("usr")[3],
+        col = col.rug[length(col.rug)],
+        density = 50,
+        border = NA,
+        lwd = 1)
     }
 
     ##add lines
-    for(i in 1:length(y)){
-
+    for(i in frames){
       lines(x,
             temp.xyz[,i],
             lty = i,
@@ -1028,12 +1099,15 @@ if(plot){
             col = col)
     }
 
+    ## add y axis to prevent overplotting
+    graphics::axis(side = 1)
+
+    ## add box if needed
+    if(box) graphics::box()
+
     ##for missing values - legend.text
-    if(missing(legend.text)){
-
-      legend.text <- as.character(paste(round(y,digits=1), zlab))
-
-    }
+    if(missing(legend.text))
+      legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
 
     ##legend
     legend(x = par()$usr[2],
@@ -1042,7 +1116,7 @@ if(plot){
            legend = legend.text,
 
            lwd= lwd,
-           lty = 1:length(y),
+           lty = frames,
            bty = "n",
            cex = 0.6*cex)
 
@@ -1083,7 +1157,6 @@ if(plot){
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
 
-
   }else{
     stop("[plot_RLum.Data.Spectrum()] Unknown plot type.", call. = FALSE)
 
@@ -1099,6 +1172,6 @@ attr(temp.xyz, "colour") <- col
 attr(temp.xyz, "pmat") <- pmat
 
 ## return visible or not
-if(plot) invisible(temp.xyz) else   return(temp.xyz)
+if(plot) invisible(temp.xyz) else return(temp.xyz)
 
 }

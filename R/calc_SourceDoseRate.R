@@ -84,7 +84,7 @@
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
 #' @seealso [Second2Gray], [get_RLum], [plot_RLum]

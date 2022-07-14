@@ -21,13 +21,25 @@ by plot(object, ...), where object is the RLum.Data.Curve object."><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -38,6 +50,26 @@ by plot(object, ...), where object is the RLum.Data.Curve object."><!-- mathjax 
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -259,6 +291,7 @@ $(x, i)</code></pre></div>
     <dl><dt>x</dt>
 <dd><p><a href="RLum-class.html">RLum</a> or <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
 input object</p></dd>
+<<<<<<< HEAD
 <dt>y</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
 the row index of the matrix, data.frame</p></dd>
@@ -267,21 +300,55 @@ the row index of the matrix, data.frame</p></dd>
 <dt>object</dt>
 <dd><p><a href="RLum-class.html">RLum</a> (<strong>required</strong>):
 input object</p></dd>
+=======
+
+
+<dt>y</dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+the row index of the matrix, data.frame</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further arguments that can be passed to the method</p></dd>
+
+
+<dt>object</dt>
+<dd><p><a href="RLum-class.html">RLum</a> (<strong>required</strong>):
+input object</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>subset</dt>
 <dd><p><code>[subset]</code> <a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a> (<strong>required</strong>):
 logical expression indicating elements or rows to keep, this function works
 in <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> objects like <a href="https://rdrr.io/r/base/subset.html" class="external-link">subset.data.frame</a>, but takes care
 of the object structure. Works also on <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p></dd>
+<<<<<<< HEAD
 <dt>records.rm</dt>
 <dd><p><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 remove records from data set, can be disabled, to just set the column <code>SET</code> to <code>TRUE</code> or <code>FALSE</code></p></dd>
 <dt>row.names</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables row names (<code>as.data.frame</code>)</p></dd>
+=======
+
+
+<dt>records.rm</dt>
+<dd><p><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+remove records from data set, can be disabled, to just set the column <code>SET</code> to <code>TRUE</code> or <code>FALSE</code></p></dd>
+
+
+<dt>row.names</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables row names (<code>as.data.frame</code>)</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>optional</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 logical. If TRUE, setting row names and converting column names
 (to syntactic names: see make.names) is optional (see <a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">base::as.data.frame</a>)</p></dd>
+<<<<<<< HEAD
 <dt>recursive</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables further sub-setting (<code>unlist</code>)</p></dd>
@@ -300,6 +367,39 @@ column of the data matrix in the <code>RLum.Data.Curve</code> object</p></dd>
 <dt>value</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <strong>(required)</strong>:
 numeric value which replace the value in the <code>RLum.Data.Curve</code> object</p></dd>
+=======
+
+
+<dt>recursive</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables further sub-setting (<code>unlist</code>)</p></dd>
+
+
+<dt>z</dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+the column index of the matrix, data.frame</p></dd>
+
+
+<dt>drop</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+keep object structure or drop it</p></dd>
+
+
+<dt>i</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
+name of the wanted record type or data object or row in the <code>RLum.Data.Curve</code> object</p></dd>
+
+
+<dt>j</dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+column of the data matrix in the <code>RLum.Data.Curve</code> object</p></dd>
+
+
+<dt>value</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <strong>(required)</strong>:
+numeric value which replace the value in the <code>RLum.Data.Curve</code> object</p></dd>
+
+>>>>>>> dev_0.9.20
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -318,6 +418,7 @@ surrogates for existing functions in the package.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load example data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Analysis</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -327,6 +428,17 @@ surrogates for existing functions in the package.</p>
 <span class="r-in"><span class="va">curve1</span> <span class="op">&lt;-</span> <span class="va">IRSAR.RF.Data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span class="r-in"><span class="va">curve2</span> <span class="op">&lt;-</span>  <span class="va">IRSAR.RF.Data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span class="r-in"><span class="va">curve1</span> <span class="op">+</span> <span class="va">curve2</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Analysis</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##combine curve is various ways</span></span></span>
+<span class="r-in"><span><span class="va">curve1</span> <span class="op">&lt;-</span> <span class="va">IRSAR.RF.Data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">curve2</span> <span class="op">&lt;-</span>  <span class="va">IRSAR.RF.Data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">curve1</span> <span class="op">+</span> <span class="va">curve2</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
@@ -334,8 +446,13 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 2846.3 2875.6 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
 <span class="r-in"><span class="va">curve1</span> <span class="op">-</span> <span class="va">curve2</span></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-in"><span><span class="va">curve1</span> <span class="op">-</span> <span class="va">curve2</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
@@ -343,8 +460,13 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 0 0 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
 <span class="r-in"><span class="va">curve1</span> <span class="op">/</span> <span class="va">curve2</span></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-in"><span><span class="va">curve1</span> <span class="op">/</span> <span class="va">curve2</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>0 'inf' values have been replaced by 0 in the matrix.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
@@ -353,8 +475,13 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 1 1 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
 <span class="r-in"><span class="va">curve1</span> <span class="op">*</span> <span class="va">curve2</span></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-in"><span><span class="va">curve1</span> <span class="op">*</span> <span class="va">curve2</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
@@ -362,11 +489,19 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 2025356 2067269 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##`$` access curves</span></span>
 <span class="r-in"><span class="va">IRSAR.RF.Data</span><span class="op">$</span><span class="va">RF</span></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##`$` access curves</span></span></span>
+<span class="r-in"><span><span class="va">IRSAR.RF.Data</span><span class="op">$</span><span class="va">RF</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
@@ -375,7 +510,12 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 1423.15 1437.8 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
@@ -384,8 +524,14 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.3768403 715.4821</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 1379.947 2103.4 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
 <span class="r-in"></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -396,6 +542,7 @@ surrogates for existing functions in the package.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -405,6 +552,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

@@ -40,7 +40,7 @@
 #' @section Function version: 0.5.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis], [set_RLum],

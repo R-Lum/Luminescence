@@ -182,7 +182,7 @@ setMethod("show",
                 suppressWarnings(max(object@data[,2], na.rm = TRUE)),
                 if(anyNA(object@data[,2])){"(contains NA values)"}else{""}
                )
-            cat("\n\t additional info elements:", length(object@info))
+            cat("\n\t additional info elements:", length(object@info), "\n")
             #cat("\n\t\t >> names:", names(object@info))
           }
 )

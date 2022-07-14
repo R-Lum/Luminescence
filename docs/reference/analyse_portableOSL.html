@@ -19,13 +19,25 @@ and the IRSL/OSL ratio."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -36,6 +48,26 @@ and the IRSL/OSL ratio."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -57,6 +89,7 @@ and the IRSL/OSL ratio.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_portableOSL</span><span class="op">(</span>
   <span class="va">object</span>,
   <span class="va">signal.integral</span>,
@@ -65,6 +98,16 @@ and the IRSL/OSL ratio.</p>
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_portableOSL</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">signal.integral</span>,</span>
+<span>  invert <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  normalise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -72,17 +115,33 @@ and the IRSL/OSL ratio.</p>
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
 <code>RLum.Analysis</code> object produced by <a href="read_PSL2R.html">read_PSL2R</a>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
 A vector of two values specifying the lower and upper channel used to
 calculate the OSL/IRSL signal. Can be provided in form of <code>c(1, 5)</code> or <code>1:5</code>.</p></dd>
+<<<<<<< HEAD
 <dt>invert</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 <code>TRUE</code> to calculate and plot the data in reverse order.</p></dd>
+=======
+
+
+<dt>invert</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+<code>TRUE</code> to calculate and plot the data in reverse order.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>normalise</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 <code>TRUE</code> to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.</p></dd>
+<<<<<<< HEAD
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enable/disable plot output</p></dd>
@@ -92,6 +151,24 @@ enable/disable plot output</p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>Returns an S4 <a href="RLum.Results-class.html">RLum.Results</a> object.</p>
+=======
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enable/disable plot output</p></dd>
+
+
+<dt>...</dt>
+<dd><p>currently not used.</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns an S4 <a href="RLum.Results-class.html">RLum.Results</a> object.</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -116,11 +193,16 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Burow, C., 2022. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Burow, C., 2022. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># (1) load example data set</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.portableOSL"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -130,6 +212,17 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 <span class="r-in"><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">merged</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="analyse_portableOSL-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="va">merged</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># (1) load example data set</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.portableOSL"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># (2) merge and plot all RLum.Analysis objects</span></span></span>
+<span class="r-in"><span><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="merge_RLum.html">merge_RLum</a></span><span class="op">(</span><span class="va">ExampleData.portableOSL</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">merged</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="analyse_portableOSL-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="va">merged</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Analysis-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: merge_RLum.Analysis()</span>
@@ -147,11 +240,19 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># (3) analyse and plot</span></span>
 <span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_portableOSL</span><span class="op">(</span><span class="va">merged</span>, signal.integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, invert <span class="op">=</span> <span class="cn">FALSE</span>, normalise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="analyse_portableOSL-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># (3) analyse and plot</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_portableOSL</span><span class="op">(</span><span class="va">merged</span>, signal.integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, invert <span class="op">=</span> <span class="cn">FALSE</span>, normalise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="analyse_portableOSL-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>           BSL    BSL_error       IRSL   IRSL_error BSL_depletion IRSL_depletion</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537      0.9158216</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300      0.9087895</span>
@@ -182,9 +283,15 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12      0.9848262</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13      0.7963831</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14      0.9767372</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -195,6 +302,7 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -204,6 +312,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

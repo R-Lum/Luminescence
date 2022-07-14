@@ -19,12 +19,17 @@ dose sample."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -34,6 +39,36 @@ dose sample."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
   <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
+     
+    Articles
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+>>>>>>> dev_0.9.20
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
@@ -57,6 +92,7 @@ dose sample.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">combine_De_Dr</span><span class="op">(</span>
   <span class="va">De</span>,
   <span class="va">s</span>,
@@ -72,12 +108,30 @@ dose sample.</p>
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">combine_De_Dr</span><span class="op">(</span></span>
+<span>  <span class="va">De</span>,</span>
+<span>  <span class="va">s</span>,</span>
+<span>  <span class="va">Dr</span>,</span>
+<span>  <span class="va">int_OD</span>,</span>
+<span>  Age_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">300</span><span class="op">)</span>,</span>
+<span>  outlier_threshold <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  outlier_method <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  outlier_analysis_plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  par_local <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>De</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): a equivalent dose sample</p></dd>
+<<<<<<< HEAD
 <dt>s</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): a vector of measurement errors on the equivalent dose</p></dd>
 <dt>Dr</dt>
@@ -85,15 +139,38 @@ dose sample.</p>
 <dt>int_OD</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): the intrinsic overdispersion, typically the standard deviation
 characterizing a dose-recovery test distribution</p></dd>
+=======
+
+
+<dt>s</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): a vector of measurement errors on the equivalent dose</p></dd>
+
+
+<dt>Dr</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): a dose rate sample</p></dd>
+
+
+<dt>int_OD</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): the intrinsic overdispersion, typically the standard deviation
+characterizing a dose-recovery test distribution</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>Age_range</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): the age range to be investigated by the algorithm, the larger
 the value the more iterations are needed and the longer it takes. Should not be set too narrow, cut
 the algorithm some slack.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>outlier_threshold</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): the required significance level used
 for the outlier detection. If set to <code>1</code>, no outliers are removed. If
 <code>outlier_method = "RousseeuwCroux1993"</code>, the median distance is used as outlier threshold.
 Please see details for further information.</p></dd>
+<<<<<<< HEAD
 <dt>outlier_method</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): select the outlier detection
 method, either <code>"default"</code> or <code>"RousseeuwCroux1993"</code>. See details for further information.</p></dd>
@@ -117,6 +194,95 @@ own <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphics
     <h2>Value</h2>
     <p>The function returns a plot if <code>plot = TRUE</code> and an <a href="RLum.Results-class.html">RLum.Results</a>object with the following slots:
 <code>@data</code><br><code>.. $Ages</code>: a <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vector with the modelled ages to be further analysed or visualised<br><code>.. $Ages_stats</code>: a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with sum HPD, CI 68% and CI 95% for the ages <br><code>.. $outliers_index</code>: the index with the detected outliers<br><code>.. $cdf_ADr_mean</code> : empirical cumulative density distribution A * Dr (mean)<br><code>.. $cdf_ADr_quantiles</code> : empirical cumulative density distribution A * Dr (quantiles .025,.975)<br><code>.. $cdf_De_no_outlier</code> : empirical cumulative density distribution of the De with no outliers<br><code>.. $cdf_De_initial</code> : empirical cumulative density distribution of the initial De<br><code>.. $mcmc_IAM</code> : the MCMC list of the Individual Age Model, only of <code>method_control = list(return_mcmc = TRUE)</code> otherwise <code>NULL</code><br><code>.. $mcmc_BCAM</code> : the MCMC list of the Bayesian Central Age Model, only of <code>method_control = list(return_mcmc = TRUE)</code> otherwise <code>NULL</code><br><code>@info</code><br><code>.. $call</code>: the original function call<br><code>.. $model_IAM</code>: the BUGS model used to derive the individual age<br><code>.. $model_BCAM</code>: the BUGS model used to calculate the Bayesian Central Age<br></p>
+=======
+
+
+<dt>outlier_method</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): select the outlier detection
+method, either <code>"default"</code> or <code>"RousseeuwCroux1993"</code>. See details for further information.</p></dd>
+
+
+<dt>outlier_analysis_plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables/disables the outlier analysis plot. Note: the outlier analysis will happen with or without plot output</p></dd>
+
+
+<dt>method_control</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>with default</em>): named <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of further parameters passed down
+to the <a href="https://rdrr.io/pkg/rjags/man/rjags-package.html" class="external-link">rjags::rjags</a> modelling</p></dd>
+
+
+<dt>par_local</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): if set to <code>TRUE</code> the function uses its
+own <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphics::par</a> settings (which will end in two plots next to each other)</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable terminal feedback</p></dd>
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable plot output</p></dd>
+
+
+<dt>...</dt>
+<dd><p>a few further arguments to fine-tune the plot output such as
+<code>cdf_ADr_quantiles</code> (<code>TRUE</code>/<code>FALSE</code>), <code>legend.pos</code>, <code>legend</code> (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The function returns a plot if <code>plot = TRUE</code> and an <a href="RLum.Results-class.html">RLum.Results</a></p>
+
+
+<p>object with the following slots:</p>
+
+
+<p><code>@data</code><br></p>
+
+
+<p><code>.. $Ages</code>: a <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vector with the modelled ages to be further analysed or visualised<br></p>
+
+
+<p><code>.. $Ages_stats</code>: a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with sum HPD, CI 68% and CI 95% for the ages <br></p>
+
+
+<p><code>.. $outliers_index</code>: the index with the detected outliers<br></p>
+
+
+<p><code>.. $cdf_ADr_mean</code> : empirical cumulative density distribution A * Dr (mean)<br></p>
+
+
+<p><code>.. $cdf_ADr_quantiles</code> : empirical cumulative density distribution A * Dr (quantiles .025,.975)<br></p>
+
+
+<p><code>.. $cdf_De_no_outlier</code> : empirical cumulative density distribution of the De with no outliers<br></p>
+
+
+<p><code>.. $cdf_De_initial</code> : empirical cumulative density distribution of the initial De<br></p>
+
+
+<p><code>.. $mcmc_IAM</code> : the MCMC list of the Individual Age Model, only of <code>method_control = list(return_mcmc = TRUE)</code> otherwise <code>NULL</code><br></p>
+
+
+<p><code>.. $mcmc_BCAM</code> : the MCMC list of the Bayesian Central Age Model, only of <code>method_control = list(return_mcmc = TRUE)</code> otherwise <code>NULL</code><br></p>
+
+
+
+<p><code>@info</code><br></p>
+
+
+<p><code>.. $call</code>: the original function call<br></p>
+
+
+<p><code>.. $model_IAM</code>: the BUGS model used to derive the individual age<br></p>
+
+
+<p><code>.. $model_BCAM</code>: the BUGS model used to calculate the Bayesian Central Age<br></p>
+
+
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -142,7 +308,11 @@ Note: <code>method_control</code> expects a <strong>named</strong> list of param
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2022. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2022. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -154,9 +324,15 @@ a Bayesian hierarchical model: application to the single-grain luminescence dati
 Electronic Journal of Applied Statistics</p>
 <p><strong>Further reading</strong></p>
 <p>Rousseeuw, P.J., Croux, C., 1993. Alternatives to the median absolute deviation.
+<<<<<<< HEAD
 Journal of the American Statistical Association 88, 1273–1283. doi: <a href="https://doi.org/10.2307/2291267" class="external-link">10.2307/2291267</a></p>
 <p>Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and outlier detection in chemometrics.
 Critical Reviews in Analytical Chemistry 36, 221–242. doi: <a href="https://doi.org/10.1080/10408340600969403" class="external-link">10.1080/10408340600969403</a></p>
+=======
+Journal of the American Statistical Association 88, 1273–1283. <a href="https://doi.org/10.2307/2291267" class="external-link">doi:10.2307/2291267</a></p>
+<p>Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and outlier detection in chemometrics.
+Critical Reviews in Analytical Chemistry 36, 221–242. <a href="https://doi.org/10.1080/10408340600969403" class="external-link">doi:10.1080/10408340600969403</a></p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -167,12 +343,17 @@ Critical Reviews in Analytical Chemistry 36, 221–242. doi: <a href="https://do
     <p>Anne Philippe, Université de Nantes (France),
 Jean-Michel Galharret, Université de Nantes (France),
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
+<<<<<<< HEAD
 Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## set parameters</span></span>
 <span class="r-in"><span class="va">Dr</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span> <span class="op">(</span><span class="fl">1000</span>, <span class="fl">0</span>, <span class="fl">0.3</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">De</span> <span class="op">&lt;-</span> <span class="fl">50</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">Dr</span>, <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -196,6 +377,31 @@ Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (Unit
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">results</span><span class="op">@</span><span class="va">info</span><span class="op">$</span><span class="va">model_BCAM</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## set parameters</span></span></span>
+<span class="r-in"><span><span class="va">Dr</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span> <span class="op">(</span><span class="fl">1000</span>, <span class="fl">0</span>, <span class="fl">0.3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">De</span> <span class="op">&lt;-</span> <span class="fl">50</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">Dr</span>, <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## run modelling</span></span></span>
+<span class="r-in"><span><span class="co">## note: modify parameters for more realistic results</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">combine_De_Dr</span><span class="op">(</span></span></span>
+<span class="r-in"><span> Dr <span class="op">=</span> <span class="va">Dr</span>,</span></span>
+<span class="r-in"><span> int_OD <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
+<span class="r-in"><span> <span class="va">De</span>,</span></span>
+<span class="r-in"><span> <span class="va">s</span>,</span></span>
+<span class="r-in"><span> Age_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  n.iter <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  n.chains <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## show models used</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">results</span><span class="op">@</span><span class="va">info</span><span class="op">$</span><span class="va">model_IAM</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">results</span><span class="op">@</span><span class="va">info</span><span class="op">$</span><span class="va">model_BCAM</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -206,6 +412,7 @@ Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (Unit
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -215,6 +422,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

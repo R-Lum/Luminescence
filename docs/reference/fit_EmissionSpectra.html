@@ -22,13 +22,25 @@ the package 'tgcd'."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -39,6 +51,26 @@ the package 'tgcd'."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -63,6 +95,7 @@ the package <code>'tgcd'</code>.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fit_EmissionSpectra</span><span class="op">(</span>
   <span class="va">object</span>,
   frame <span class="op">=</span> <span class="cn">NULL</span>,
@@ -75,6 +108,20 @@ the package <code>'tgcd'</code>.</p>
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_EmissionSpectra</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  frame <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n_components <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sub_negative <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  input_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -82,34 +129,76 @@ the package <code>'tgcd'</code>.</p>
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<strong>required</strong>): input
 object. Please note that an energy spectrum is expected</p></dd>
+<<<<<<< HEAD
 <dt>frame</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): defines the frame to be analysed</p></dd>
+=======
+
+
+<dt>frame</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): defines the frame to be analysed</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>n_components</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): allows a number of the aimed number of
 components. However, it defines rather a maximum than than a minimum. Can be combined with
 other parameters.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>start_parameters</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): allows to provide own start parameters for a
 semi-automated procedure. Parameters need to be provided in eV. Every value provided replaces a
 value from the automated peak finding algorithm (in ascending order).</p></dd>
+<<<<<<< HEAD
 <dt>sub_negative</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): substitute negative values in the input object
 by the number provided here (default: <code>0</code>). Can be set to <code>NULL</code>, i.e. negative values are kept.</p></dd>
+=======
+
+
+<dt>sub_negative</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): substitute negative values in the input object
+by the number provided here (default: <code>0</code>). Can be set to <code>NULL</code>, i.e. negative values are kept.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>input_scale</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>): defines whether your x-values define wavelength or
 energy values. For the analysis an energy scale is expected, allowed values are <code>'wavelength'</code> and
 <code>'energy'</code>. If nothing (<code>NULL</code>) is defined, the function tries to understand the input
 automatically.</p></dd>
+<<<<<<< HEAD
 <dt>method_control</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>): options to control the fit method, see details</p></dd>
 <dt>verbose</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable verbose mode</p></dd>
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable plot output</p></dd>
+=======
+
+
+<dt>method_control</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>): options to control the fit method, see details</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable verbose mode</p></dd>
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable plot output</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>further arguments to be passed to control the plot output
 (supported: <code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>, <code>log</code>, <code>mtext</code>, <code>legend</code> (<code>TRUE</code> or <code>FALSE</code>),
 <code>legend.text</code>, <code>legend.pos</code>)</p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -120,6 +209,73 @@ of the fit</td></tr></table><p><strong>slot:</strong><strong><code>@info</code><
 deconvolution process and the obtained results.
 Terminal output is only shown of the argument <code>verbose = TRUE</code>.
 ---------------------------<br><code>[ PLOT OUTPUT ]</code><br>---------------------------<br>The function returns a plot showing the raw signal with the
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>-----------------------------------<br></p>
+
+
+<p><code>[ NUMERICAL OUTPUT ]</code><br></p>
+
+
+<p>-----------------------------------<br></p>
+
+
+
+<p><strong><code>RLum.Results</code></strong>-object</p>
+
+
+<p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@data</code></strong></p>
+
+
+
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>matrix</code></td><td>the final fit matrix</td></tr><tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fit object returned by <a href="https://rdrr.io/pkg/minpack.lm/man/nls.lm.html" class="external-link">minpack.lm::nls.lm</a></td></tr><tr><td><code>$fit_info</code></td><td><code>list</code></td><td>a few additional parameters that can be used to asses the quality
+of the fit</td></tr></table><p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@info</code></strong></p>
+
+
+
+<p>The original function call</p>
+
+
+<p>---------------------------------<br></p>
+
+
+<p><code>[ TERMINAL OUTPUT ]</code></p>
+<p></p>
+<p><br></p>
+
+
+<p>---------------------------------<br></p>
+
+
+
+<p>The terminal output provides brief information on the
+deconvolution process and the obtained results.
+Terminal output is only shown of the argument <code>verbose = TRUE</code>.</p>
+
+
+<p>---------------------------<br></p>
+
+
+<p><code>[ PLOT OUTPUT ]</code></p>
+<p></p>
+<p><br></p>
+
+
+<p>---------------------------<br></p>
+
+
+
+<p>The function returns a plot showing the raw signal with the
+>>>>>>> dev_0.9.20
 detected components. If the fitting failed, a basic plot is returned
 showing the raw data and indicating the peaks detected for the start
 parameter estimation. The grey band in the residual plot indicates the
@@ -166,16 +322,25 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load example data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -188,6 +353,20 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
 <span class="r-in"> frame <span class="op">=</span> <span class="fl">5</span>,</span>
 <span class="r-in"> method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max.runs <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##subtract background</span></span></span>
+<span class="r-in"><span><span class="va">TL.Spectrum</span><span class="op">@</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">TL.Spectrum</span><span class="op">@</span><span class="va">data</span><span class="op">[</span><span class="op">]</span> <span class="op">-</span> <span class="va">TL.Spectrum</span><span class="op">@</span><span class="va">data</span><span class="op">[</span>,<span class="fl">15</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_EmissionSpectra</span><span class="op">(</span></span></span>
+<span class="r-in"><span> object <span class="op">=</span> <span class="va">TL.Spectrum</span>,</span></span>
+<span class="r-in"><span> frame <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span> method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max.runs <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_EmissionSpectra()]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -205,6 +384,7 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
 <span class="r-out co"><span class="r-pr">#&gt;</span> (use the output in $fit for a more detailed analysis)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="fit_EmissionSpectra-1.png" alt="" width="700" height="433"></span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##deconvolution of a TL spectrum</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
@@ -219,6 +399,22 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
 <span class="r-in"></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##deconvolution of a TL spectrum</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load example data</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##replace 0 values</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_EmissionSpectra</span><span class="op">(</span></span></span>
+<span class="r-in"><span> object <span class="op">=</span> <span class="va">TL.Spectrum</span>,</span></span>
+<span class="r-in"><span> frame <span class="op">=</span> <span class="fl">5</span>, main <span class="op">=</span> <span class="st">"TL spectrum"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -229,6 +425,7 @@ the searching stops</td></tr><tr><td><code>graining</code></td><td><a href="http
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -238,6 +435,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

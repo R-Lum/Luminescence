@@ -18,13 +18,25 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -35,6 +47,26 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -55,6 +87,7 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_SAR.TL</span><span class="op">(</span>
   <span class="va">object</span>,
   <span class="va">object.background</span>,
@@ -67,6 +100,20 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
   log <span class="op">=</span> <span class="st">""</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_SAR.TL</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">object.background</span>,</span>
+<span>  <span class="va">signal.integral.min</span>,</span>
+<span>  <span class="va">signal.integral.max</span>,</span>
+<span>  integral_input <span class="op">=</span> <span class="st">"channel"</span>,</span>
+<span>  sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PREHEAT"</span>, <span class="st">"SIGNAL"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span>,</span>
+<span>  rejection.criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>recycling.ratio <span class="op">=</span> <span class="fl">10</span>, recuperation.rate <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="va">dose.points</span>,</span>
+<span>  log <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -74,40 +121,80 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects (<strong>required</strong>) :
 input object containing data for analysis</p></dd>
+<<<<<<< HEAD
 <dt>object.background</dt>
 <dd><p>currently not used</p></dd>
+=======
+
+
+<dt>object.background</dt>
+<dd><p>currently not used</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral.min</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 requires the channel number for the lower signal integral bound
 (e.g. <code>signal.integral.min = 100</code>)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral.max</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 requires the channel number for the upper signal integral bound
 (e.g. <code>signal.integral.max = 200</code>)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>integral_input</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 defines the input for the the arguments <code>signal.integral.min</code> and
 <code>signal.integral.max</code>. These limits can be either provided <code>'channel'</code>
 number (the default) or <code>'temperature'</code>. If <code>'temperature'</code> is chosen the
 best matching channel is selected.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>sequence.structure</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specifies the general sequence structure. Three steps are allowed
 (<code>"PREHEAT"</code>, <code>"SIGNAL"</code>, <code>"BACKGROUND"</code>), in addition a
 parameter <code>"EXCLUDE"</code>. This allows excluding TL curves which are not
 relevant for the protocol analysis.  (<strong>Note:</strong> None TL are removed by default)</p></dd>
+<<<<<<< HEAD
 <dt>rejection.criteria</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>with default</em>):
 list containing rejection criteria in percentage for the calculation.</p></dd>
 <dt>dose.points</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 option set dose points manually</p></dd>
+=======
+
+
+<dt>rejection.criteria</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>with default</em>):
+list containing rejection criteria in percentage for the calculation.</p></dd>
+
+
+<dt>dose.points</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
+option set dose points manually</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>log</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 a character string which contains <code>"x"</code> if the x-axis is to be logarithmic,
 <code>"y"</code> if the y axis is to be logarithmic and <code>"xy"</code> or <code>"yx"</code> if both axes
 are to be logarithmic. See
 <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a>).</p></dd>
+<<<<<<< HEAD
 <dt>...</dt>
 <dd><p>further arguments that will be passed to the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></dd>
 </dl></div>
@@ -122,6 +209,33 @@ returned containing the following elements:</p>
 <dt>rejection.criteria</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
 </dl><p><strong>note:</strong> the output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+=======
+
+
+<dt>...</dt>
+<dd><p>further arguments that will be passed to the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>A plot (<em>optional</em>) and an <a href="RLum.Results-class.html">RLum.Results</a> object is
+returned containing the following elements:</p>
+<dl><dt>De.values</dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> containing De-values and further parameters</p></dd>
+
+<dt>LnLxTnTx.values</dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> of all calculated <code>Lx/Tx</code> values including signal, background counts and the dose points.</p></dd>
+
+<dt>rejection.criteria</dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
+
+
+</dl><p><strong>note:</strong> the output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+
+
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -148,7 +262,11 @@ from the input object without further warning.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -165,12 +283,17 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -187,6 +310,24 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 <span class="r-in"> sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SIGNAL"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="analyse_SAR.TL-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP OR LIN (interpolation) | De = 416.29 | D01 = 1181596791.4</span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##transform the values from the first position in a RLum.Analysis object</span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">TL.SAR.Data</span>, pos<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##perform analysis</span></span></span>
+<span class="r-in"><span><span class="fu">analyse_SAR.TL</span><span class="op">(</span></span></span>
+<span class="r-in"><span> object <span class="op">=</span> <span class="va">object</span>,</span></span>
+<span class="r-in"><span> signal.integral.min <span class="op">=</span> <span class="fl">210</span>,</span></span>
+<span class="r-in"><span> signal.integral.max <span class="op">=</span> <span class="fl">220</span>,</span></span>
+<span class="r-in"><span> fit.method <span class="op">=</span> <span class="st">"EXP OR LIN"</span>,</span></span>
+<span class="r-in"><span> sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SIGNAL"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="analyse_SAR.TL-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP OR LIN (interpolation) | De = 405.58 | D01 = 8238587.56</span>
+>>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="analyse_SAR.TL-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
@@ -196,7 +337,11 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $LnLxTnTx.table : data.frame</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $rejection.criteria : data.frame</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -207,6 +352,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -216,6 +362,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

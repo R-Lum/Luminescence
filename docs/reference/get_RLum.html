@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,6 +85,7 @@
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_RLum</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S4 method for list</span>
@@ -68,21 +101,59 @@
 <dd><p><a href="RLum-class.html">RLum</a> (<strong>required</strong>):
 S4 object of class <code>RLum</code> or an object of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> containing only objects
 of type <a href="RLum-class.html">RLum</a></p></dd>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_RLum</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for list</span></span>
+<span><span class="fu">get_RLum</span><span class="op">(</span><span class="va">object</span>, class <span class="op">=</span> <span class="cn">NULL</span>, null.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for `NULL`</span></span>
+<span><span class="fu">get_RLum</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    </div>
+
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>object</dt>
+<dd><p><a href="RLum-class.html">RLum</a> (<strong>required</strong>):
+S4 object of class <code>RLum</code> or an object of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> containing only objects
+of type <a href="RLum-class.html">RLum</a></p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>further arguments that will be passed to the object specific methods. For
 further details on the supported arguments please see the class
 documentation: <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>,
 <a href="RLum.Data.Image-class.html">RLum.Data.Image</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a> and <a href="RLum.Results-class.html">RLum.Results</a></p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>class</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>): allows to define the class that gets selected if
 applied to a list, e.g., if a list consists of different type of RLum-class objects, this
 arguments allows to make selection. If nothing is provided, all RLum-objects are treated.</p></dd>
+<<<<<<< HEAD
 <dt>null.rm</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): option to get rid of empty and NULL objects</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>Return is the same as input objects as provided in the list.</p>
+=======
+
+
+<dt>null.rm</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): option to get rid of empty and NULL objects</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Return is the same as input objects as provided in the list.</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -109,16 +180,25 @@ Allowed arguments can be found in the documentations of the corresponding
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. get_RLum(): General accessors function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. get_RLum(): General accessors function for RLum S4 class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##Example based using data and from the calc_CentralDose() function</span></span>
 <span class="r-in"></span>
@@ -127,6 +207,16 @@ Allowed arguments can be found in the documentations of the corresponding
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##apply the central dose model 1st time</span></span>
 <span class="r-in"><span class="va">temp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="calc_CentralDose.html">calc_CentralDose</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##Example based using data and from the calc_CentralDose() function</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##apply the central dose model 1st time</span></span></span>
+<span class="r-in"><span><span class="va">temp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="calc_CentralDose.html">calc_CentralDose</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [calc_CentralDose]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -145,10 +235,17 @@ Allowed arguments can be found in the documentations of the corresponding
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="get_RLum-1.png" alt="" width="700" height="433"></span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##get results and store them in a new object</span></span>
 <span class="r-in"><span class="va">temp.get</span> <span class="op">&lt;-</span> <span class="fu">get_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">temp1</span><span class="op">)</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##get results and store them in a new object</span></span></span>
+<span class="r-in"><span><span class="va">temp.get</span> <span class="op">&lt;-</span> <span class="fu">get_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">temp1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -159,6 +256,7 @@ Allowed arguments can be found in the documentations of the corresponding
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -168,6 +266,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

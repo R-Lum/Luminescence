@@ -19,13 +19,25 @@ update an existing BINX-file."><!-- mathjax --><script src="https://cdnjs.cloudf
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -36,6 +48,26 @@ update an existing BINX-file."><!-- mathjax --><script src="https://cdnjs.cloudf
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -57,6 +89,7 @@ update an existing BINX-file.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">extract_IrradiationTimes</span><span class="op">(</span>
   <span class="va">object</span>,
   <span class="va">file.BINX</span>,
@@ -64,6 +97,15 @@ update an existing BINX-file.</p>
   compatibility.mode <span class="op">=</span> <span class="cn">TRUE</span>,
   txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">extract_IrradiationTimes</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">file.BINX</span>,</span>
+<span>  recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"irradiation (NA)"</span>, <span class="st">"IRSL (UVVIS)"</span>, <span class="st">"OSL (UVVIS)"</span>, <span class="st">"TL (UVVIS)"</span><span class="op">)</span>,</span>
+<span>  compatibility.mode <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -75,6 +117,11 @@ produced by the function <a href="read_XSYG2R.html">read_XSYG2R</a>;
 alternatively a <code>list</code> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> can be provided.</p>
 <p><strong>Note</strong>: If an <a href="RLum.Analysis-class.html">RLum.Analysis</a> is used, any input for
 the arguments <code>file.BINX</code> and <code>recordType</code> will be ignored!</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>file.BINX</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 path and file name of an existing BINX-file. If a file name is provided the
@@ -82,6 +129,11 @@ file will be updated with the information from the XSYG file in the same
 folder as the original BINX-file.</p>
 <p><strong>Note:</strong> The XSYG and the BINX-file have to be originate from the
 same measurement!</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>recordType</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 select relevant curves types from the XSYG file or <a href="RLum.Analysis-class.html">RLum.Analysis</a>
@@ -92,10 +144,16 @@ the relevant curves are selected by using the function
 described for this function.</p>
 <p><strong>Note:</strong> A wrong selection will causes a function error. Please change this
 argument only if you have reasons to do so.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>compatibility.mode</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 this option is parsed only if a BIN/BINX file is produced and it will reset all position
 values to a max. value of 48, cf.<a href="write_R2BIN.html">write_R2BIN</a></p></dd>
+<<<<<<< HEAD
 <dt>txtProgressBar</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables <code>TRUE</code> or disables <code>FALSE</code> the progression bars during import and export</p></dd>
@@ -109,6 +167,35 @@ output the path of the input BINX-file itself is used. Note that this will
 not work if the input object is a file path to an XSYG-file, instead of a
 link to only one file. In this case the argument input for <code>file.BINX</code> is ignored.
 In the self call mode (input is a <code>list</code> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects
+=======
+
+
+<dt>txtProgressBar</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables <code>TRUE</code> or disables <code>FALSE</code> the progression bars during import and export</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>An <a href="RLum.Results-class.html">RLum.Results</a> object is returned with the
+following structure:</p>
+
+
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span><span class="fu">irr.times</span> (data.frame)</span></code></pre><p></p></div>
+
+
+
+<p>If a BINX-file path and name is set, the output will be additionally
+transferred into a new BINX-file with the function name as suffix. For the
+output the path of the input BINX-file itself is used. Note that this will
+not work if the input object is a file path to an XSYG-file, instead of a
+link to only one file. In this case the argument input for <code>file.BINX</code> is ignored.</p>
+
+
+<p>In the self call mode (input is a <code>list</code> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects
+>>>>>>> dev_0.9.20
 a list of <a href="RLum.Results-class.html">RLum.Results</a> is returned.</p>
     </div>
     <div id="details">
@@ -150,7 +237,11 @@ towards a correct time order.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -164,12 +255,17 @@ recent improvements. Ancient TL 33, 35-42.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## (1) - example for your own data</span></span>
@@ -188,6 +284,26 @@ recent improvements. Ancient TL 33, 35-42.</p>
 <span class="r-in"><span class="co">#                   sep = ";",</span></span>
 <span class="r-in"><span class="co">#                   row.names = FALSE)</span></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## (1) - example for your own data</span></span></span>
+<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span><span class="co">## set files and run function</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co">#   file.XSYG &lt;- file.choose()</span></span></span>
+<span class="r-in"><span><span class="co">#   file.BINX &lt;- file.choose()</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co">#     output &lt;- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)</span></span></span>
+<span class="r-in"><span><span class="co">#     get_RLum(output)</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co">## export results additionally to a CSV.file in the same directory as the XSYG-file</span></span></span>
+<span class="r-in"><span><span class="co">#       write.table(x = get_RLum(output),</span></span></span>
+<span class="r-in"><span><span class="co">#                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),</span></span></span>
+<span class="r-in"><span><span class="co">#                   sep = ";",</span></span></span>
+<span class="r-in"><span><span class="co">#                   row.names = FALSE)</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -199,6 +315,7 @@ recent improvements. Ancient TL 33, 35-42.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -208,6 +325,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

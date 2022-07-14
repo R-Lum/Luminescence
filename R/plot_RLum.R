@@ -36,7 +36,7 @@
 #' @section Function version: 0.4.4
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot_RLum.Data.Curve], [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
 #' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image], [RLum.Data.Image-class],

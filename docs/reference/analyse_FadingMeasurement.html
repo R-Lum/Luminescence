@@ -20,13 +20,25 @@ Kars et al. (2008)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -37,6 +49,26 @@ Kars et al. (2008)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -59,6 +91,7 @@ Kars et al. (2008).</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_FadingMeasurement</span><span class="op">(</span>
   <span class="va">object</span>,
   structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lx"</span>, <span class="st">"Tx"</span><span class="op">)</span>,
@@ -71,6 +104,20 @@ Kars et al. (2008).</p>
   plot.single <span class="op">=</span> <span class="cn">FALSE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_FadingMeasurement</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lx"</span>, <span class="st">"Tx"</span><span class="op">)</span>,</span>
+<span>  <span class="va">signal.integral</span>,</span>
+<span>  <span class="va">background.integral</span>,</span>
+<span>  t_star <span class="op">=</span> <span class="st">"half"</span>,</span>
+<span>  n.MC <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -88,16 +135,36 @@ only IRSL curves representing Lx (and Tx)</strong></p>
 Lx/Tx normalisation. <strong>The function assumes that all your measurements are related to
 one (comparable) sample. If you to treat independent samples, you have use this function
 in a loop.</strong></p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>structure</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 sets the structure of the measurement data. Allowed are <code>'Lx'</code> or <code>c('Lx','Tx')</code>.
 Other input is ignored</p></dd>
+<<<<<<< HEAD
 <dt>signal.integral</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>): vector with channels for the signal integral
 (e.g., <code>c(1:10)</code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
 <dt>background.integral</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>): vector with channels for the background integral
 (e.g., <code>c(90:100)</code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
+=======
+
+
+<dt>signal.integral</dt>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>): vector with channels for the signal integral
+(e.g., <code>c(1:10)</code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
+
+
+<dt>background.integral</dt>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>): vector with channels for the background integral
+(e.g., <code>c(90:100)</code>). Not required if a <code>data.frame</code> with <code>LxTx</code> values is provided.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>t_star</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 method for calculating the time elapsed since irradiation if input is <strong>not</strong> a <code>data.frame</code>.
@@ -107,6 +174,7 @@ Alternatively, <code>t_star</code> can be a function with one parameter which wo
 For more information see details. <br></p>
 <p><em><code>t_star</code> has no effect if the input is a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, because this input comes
 without irradiation times.</em></p></dd>
+<<<<<<< HEAD
 <dt>n.MC</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 number for Monte Carlo runs for the error estimation</p></dd>
@@ -116,21 +184,66 @@ enables/disables verbose mode</p></dd>
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables/disables plot output</p></dd>
+=======
+
+
+<dt>n.MC</dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
+number for Monte Carlo runs for the error estimation</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables/disables verbose mode</p></dd>
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables/disables plot output</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>plot.single</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables/disables single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
 <code>plot.single = c(3,4)</code> draws only the last two plots</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>(<em>optional</em>) further arguments that can be passed to internally used functions. Supported arguments:
 <code>xlab</code>, <code>log</code>, <code>mtext</code> and <code>xlim</code> for the two first curve plots, and <code>ylim</code> for the fading
 curve plot. For further plot customization please use the numerical output of the functions for
 own plots.</p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>An <a href="RLum.Results-class.html">RLum.Results</a> object is returned:
 Slot: <strong>@data</strong></p><table class="table table"><tr><td><strong>OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>COMMENT</strong></td></tr><tr><td><code>fading_results</code></td><td><code>data.frame</code></td><td>results of the fading measurement in a table</td></tr><tr><td><code>fit</code></td><td><code>lm</code></td><td>object returned by the used linear fitting function <a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm</a></td></tr><tr><td><code>rho_prime</code></td><td><code>data.frame</code></td><td>results of rho' estimation after Kars et al. (2008)</td></tr><tr><td><code>LxTx_table</code></td><td><code>data.frame</code></td><td>Lx/Tx table, if curve data had been provided</td></tr><tr><td><code>irr.times</code></td><td><code>integer</code></td><td>vector with the irradiation times in seconds</td></tr></table><p>Slot: <strong>@info</strong></p><table class="table table"><tr><td><strong>OBJECT</strong></td><td><code>TYPE</code></td><td><code>COMMENT</code></td></tr><tr><td><code>call</code></td><td><code>call</code></td><td>the original function call</td></tr></table></div>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>An <a href="RLum.Results-class.html">RLum.Results</a> object is returned:</p>
+
+
+<p>Slot: <strong>@data</strong></p>
+
+
+
+<table class="table table"><tr><td><strong>OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>COMMENT</strong></td></tr><tr><td><code>fading_results</code></td><td><code>data.frame</code></td><td>results of the fading measurement in a table</td></tr><tr><td><code>fit</code></td><td><code>lm</code></td><td>object returned by the used linear fitting function <a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm</a></td></tr><tr><td><code>rho_prime</code></td><td><code>data.frame</code></td><td>results of rho' estimation after Kars et al. (2008)</td></tr><tr><td><code>LxTx_table</code></td><td><code>data.frame</code></td><td>Lx/Tx table, if curve data had been provided</td></tr><tr><td><code>irr.times</code></td><td><code>integer</code></td><td>vector with the irradiation times in seconds</td></tr></table><p>Slot: <strong>@info</strong></p>
+
+
+
+<table class="table table"><tr><td><strong>OBJECT</strong></td><td><code>TYPE</code></td><td><code>COMMENT</code></td></tr><tr><td><code>call</code></td><td><code>call</code></td><td>the original function call</td></tr></table></div>
+>>>>>>> dev_0.9.20
     <div id="details">
     <h2>Details</h2>
     <p>All provided output corresponds to the \(tc\) value obtained by this analysis. Additionally
@@ -176,20 +289,32 @@ analyse_FadingMeasurement and provide the already normalised values for <code>ob
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., Burow, C., 2022. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., Burow, C., 2022. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
     <p>Aitken, M.J., 1985. Thermoluminescence dating, Studies in archaeological science.
 Academic Press, London, Orlando.</p>
 <p>Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldspar IRSL using
+<<<<<<< HEAD
 SAR. Radiation Measurements 37, 487-492. doi: <a href="https://doi.org/10.1016/S1350-4487%2803%2900018-0" class="external-link">10.1016/S1350-4487(03)00018-0</a></p>
+=======
+SAR. Radiation Measurements 37, 487-492. <a href="https://doi.org/10.1016/S1350-4487%2803%2900018-0" class="external-link">doi:10.1016/S1350-4487(03)00018-0</a></p>
+>>>>>>> dev_0.9.20
 <p>Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
 1093-1106. doi: <code>10.1139/cjes-38-7-1093</code></p>
 <p>Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
 fading correction for feldspar  IRSL dating-tests on samples in field saturation.
+<<<<<<< HEAD
 Radiation Measurements 43, 786-790. doi: <a href="https://doi.org/10.1016/j.radmeas.2008.01.021" class="external-link">10.1016/j.radmeas.2008.01.021</a></p>
+=======
+Radiation Measurements 43, 786-790. <a href="https://doi.org/10.1016/j.radmeas.2008.01.021" class="external-link">doi:10.1016/j.radmeas.2008.01.021</a></p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -198,13 +323,18 @@ Radiation Measurements 43, 786-790. doi: <a href="https://doi.org/10.1016/j.radm
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br>
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
+>>>>>>> dev_0.9.20
 Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">## load example data (sample UNIL/NB123, see ?ExampleData.Fading)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.Fading"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -218,6 +348,21 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in">plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span class="r-in">verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span class="r-in">n.MC <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## load example data (sample UNIL/NB123, see ?ExampleData.Fading)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.Fading"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(1) get fading measurement data (here a three column data.frame)</span></span></span>
+<span class="r-in"><span><span class="va">fading_data</span> <span class="op">&lt;-</span> <span class="va">ExampleData.Fading</span><span class="op">$</span><span class="va">fading.data</span><span class="op">$</span><span class="va">IR50</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2) run analysis</span></span></span>
+<span class="r-in"><span><span class="va">g_value</span> <span class="op">&lt;-</span> <span class="fu">analyse_FadingMeasurement</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">fading_data</span>,</span></span>
+<span class="r-in"><span>plot <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>n.MC <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="analyse_FadingMeasurement-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [analyse_FadingMeasurement()]</span>
@@ -233,6 +378,7 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> rho':			3.93e-06 ± 3.81e-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> log10(rho'):		-5.41 ± 0.04</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(3) this can be further used in the function</span></span>
 <span class="r-in"><span class="co">## to correct the age according to Huntley &amp; Lamothe, 2001</span></span>
@@ -240,6 +386,15 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in">age.faded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span>,</span>
 <span class="r-in">g_value <span class="op">=</span> <span class="va">g_value</span>,</span>
 <span class="r-in">n.MC <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(3) this can be further used in the function</span></span></span>
+<span class="r-in"><span><span class="co">## to correct the age according to Huntley &amp; Lamothe, 2001</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="calc_FadingCorr.html">calc_FadingCorr</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>age.faded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>g_value <span class="op">=</span> <span class="va">g_value</span>,</span></span>
+<span class="r-in"><span>n.MC <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [calc_FadingCorr()]</span>
@@ -257,8 +412,13 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		100 ka ± 2 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		203.0812 ka ± 13.4105 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -269,6 +429,7 @@ Christoph Burow, University of Cologne (Germany)
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -278,6 +439,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

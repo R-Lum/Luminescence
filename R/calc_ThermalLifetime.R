@@ -95,7 +95,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [graphics::matplot], [stats::rnorm][stats::Normal], [get_RLum]
 #'

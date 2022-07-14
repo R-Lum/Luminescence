@@ -18,7 +18,7 @@ analyse_Al2O3C_ITC(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}:
 results obtained from the measurement.
-Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.}
+Alternatively a list of \linkS4class{RLum.Analysis} objects can be provided to allow an automatic analysis}
 
 \item{signal_integral}{\link{numeric} (\emph{optional}):
 signal integral, used for the signal and the background.
@@ -89,8 +89,8 @@ is taken as real irradiation time.
 
 \strong{\code{method_control}}
 
-To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
-are all preset with meaningful default parameters and can be
+To keep the generic argument list as clear as possible, arguments to allow a
+deeper control of the method are all preset with meaningful default parameters and can be
 handled using the argument \code{method_control} only, e.g.,
 \code{method_control = list(fit.method = "LIN")}. Supported arguments are:
 
@@ -115,7 +115,7 @@ analyse_Al2O3C_ITC(data_ITC)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -127,6 +127,6 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 \link{plot_GrowthCurve}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

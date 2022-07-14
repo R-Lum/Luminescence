@@ -1,9 +1,9 @@
-#' Al2O3 Irradiation Time Correction Analysis
+#' @title Al2O3 Irradiation Time Correction Analysis
 #'
-#' The function provides a very particular analysis to correct the irradiation
+#' @description The function provides a very particular analysis to correct the irradiation
 #' time while irradiating Al2O3:C chips in a luminescence reader.
 #'
-#' Background: Due to their high dose sensitivity Al2O3:C chips are usually
+#' @details Background: Due to their high dose sensitivity Al2O3:C chips are usually
 #' irradiated for only a very short duration or under the closed beta-source
 #' within a luminescence reader. However, due to its high dose sensitivity, during
 #' the movement towards the beta-source, the pellet already receives and non-negligible
@@ -13,8 +13,8 @@
 #'
 #' **`method_control`**
 #'
-#' To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
-#' are all preset with meaningful default parameters and can be
+#' To keep the generic argument list as clear as possible, arguments to allow a
+#' deeper control of the method are all preset with meaningful default parameters and can be
 #' handled using the argument `method_control` only, e.g.,
 #' `method_control = list(fit.method = "LIN")`. Supported arguments are:
 #'
@@ -26,7 +26,7 @@
 #'
 #' @param object [RLum.Analysis-class] or [list] **(required)**:
 #' results obtained from the measurement.
-#' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
+#' Alternatively a list of [RLum.Analysis-class] objects can be provided to allow an automatic analysis
 #'
 #' @param signal_integral [numeric] (*optional*):
 #' signal integral, used for the signal and the background.
@@ -83,7 +83,7 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot_GrowthCurve]
 #'
@@ -119,7 +119,6 @@ analyse_Al2O3C_ITC <- function(
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-
     ##check whether the list contains only RLum.Analysis objects
     if(!all(unique(sapply(object, class)) == "RLum.Analysis")){
       stop("[analyse_Al2O3C()] All objects in the list provided by 'objects' need to be of type 'RLum.Analysis'",
@@ -146,10 +145,8 @@ analyse_Al2O3C_ITC <- function(
     ##verbose
     ##plot
 
-
     ##run analysis
     results_full <- lapply(1:length(object), function(x){
-
       ##run analysis
       results <- try(analyse_Al2O3C_ITC(
         object = object[[x]],
@@ -176,11 +173,9 @@ analyse_Al2O3C_ITC <- function(
     ##return
     return(merge_RLum(results_full))
 
-
   }
 
   # Integrity check  ---------------------------------------------------------------------------
-
   ##check input object
   if(!inherits(object, "RLum.Analysis")){
     stop("[analyse_Al2O3C_ITC()] 'object' needs to be of type 'RLum.Analysis'", call. = FALSE)
@@ -191,12 +186,9 @@ analyse_Al2O3C_ITC <- function(
   ##implement more checks ... if you find some time, somehow, somewhere
 
   # Preparation ---------------------------------------------------------------------------------
-
   ##select curves based on the recordType selection; if not NULL
-  if(!is.null(recordType)){
+  if(!is.null(recordType[1]))
     object <- get_RLum(object, recordType = recordType, drop = FALSE)
-
-  }
 
   #set method control
   method_control_settings <- list(
@@ -217,7 +209,6 @@ analyse_Al2O3C_ITC <- function(
   dose_points <- rep(dose_points, times = length(object)/2)
 
   # Calculation ---------------------------------------------------------------------------------
-
   ##set signal integral
   if(is.null(signal_integral)){
     signal_integral <- c(1:nrow(object[[1]][]))
@@ -236,7 +227,7 @@ analyse_Al2O3C_ITC <- function(
 
   }
 
-  ##calcuate curve sums, assuming the background
+  ##calculate curve sums, assuming the background
   net_SIGNAL <- vapply(1:length(object[seq(1,length(object), by = 2)]), function(x){
     temp_signal <- sum(object[seq(1,length(object), by = 2)][[x]][,2])
     temp_background <- sum(object[seq(2,length(object), by = 2)][[x]][,2])
@@ -245,7 +236,6 @@ analyse_Al2O3C_ITC <- function(
   }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
   ##create data.frames
-
     ##single points
     df <- data.frame(
       DOSE = dose_points,
@@ -283,16 +273,14 @@ analyse_Al2O3C_ITC <- function(
   if(verbose){
     cat("\n[analyse_Al2O3C_ITC()]\n")
     cat(paste0("\n Used fit:\t\t",method_control_settings$fit.method))
-    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", GC$De$De.Error))
+    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", round(GC$De$De.Error, 3)))
     cat("\n\n")
 
   }
 
 
   # Plotting ------------------------------------------------------------------------------------
-
   if(plot){
-
     ##set plot settings
     plot_settings <- list(
       xlab = "Dose [s]",
@@ -306,7 +294,7 @@ analyse_Al2O3C_ITC <- function(
 
     )
 
-    ##modfiy list on request
+    ##modify list on request
     plot_settings <- modifyList(x = plot_settings, val = list(...))
 
     ##make plot area
@@ -315,8 +303,7 @@ analyse_Al2O3C_ITC <- function(
          ylim = plot_settings$ylim,
          xlab = plot_settings$xlab,
          ylab = plot_settings$ylab,
-         main = plot_settings$main
-    )
+         main = plot_settings$main)
 
     ##add zero lines
     abline(v = 0)
@@ -343,18 +330,16 @@ analyse_Al2O3C_ITC <- function(
       arr.type = "triangle",
       arr.adj = -0.5,
       col = 'red',
-      cex = par()$cex
-    )
+      cex = par()$cex)
 
     ##add text
     text(
       x = -GC$De[1] / 2,
       y = eval(GC$Formula),
       pos = 3,
-      labels = paste(round(GC$De[1],3), "\u00B1", GC$De[2]),
+      labels = paste(round(GC$De[1],3), "\u00B1", round(GC$De[2], 3)),
       col = 'red',
-      cex = 0.8
-    )
+      cex = 0.8)
 
     ##add 2nd x-axis
     axis(
@@ -397,3 +382,4 @@ analyse_Al2O3C_ITC <- function(
   ))
 
 }
+

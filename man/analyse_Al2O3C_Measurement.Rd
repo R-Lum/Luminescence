@@ -20,8 +20,7 @@ analyse_Al2O3C_Measurement(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
-measurement input}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):  measurement input}
 
 \item{signal_integral}{\link{numeric} (\emph{optional}): signal integral, used for the signal
 and the background. Example: \code{c(1:10)} for the first 10 channels.
@@ -110,13 +109,15 @@ The function allows to define particular aliquots as travel dosimeters. For exam
 of this dosimeters are combined and automatically subtracted from the obtained dose values
 of the other dosimeters.
 
-**Calculate TL dose **
+\strong{Calculate TL dose}
 
 The argument \code{calculate_TL_dose} provides the possibility to experimentally calculate a TL-dose,
 i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
 this value is only a fall back in case something went wrong during the measurement of the optical
 stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
 but not considered if a travel dosimeter is defined.
+
+Calculating the palaeodose is possible without \strong{any TL} curve in the sequence!
 
 \strong{Test parameters}
 
@@ -132,7 +133,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.2.5
+ 0.2.6
 }
 
 \examples{
@@ -145,7 +146,7 @@ analyse_Al2O3C_Measurement(data_CrossTalk)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -157,6 +158,6 @@ Geochronometria 45, 56-67.
 \link{analyse_Al2O3C_ITC}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

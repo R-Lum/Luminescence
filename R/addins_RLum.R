@@ -28,7 +28,7 @@
 #'
 #'The function uses the GitHub APconnection provided by Christoph Burow
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@noRd
 .installDevelopmentVersion <- function(){
@@ -41,7 +41,7 @@
 #'This add-in is a tool developers may want to use to briefly list all open
 #'issues in the terminal, instead of using search and stepping through the results.
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@noRd
 .listTODO <- function(){

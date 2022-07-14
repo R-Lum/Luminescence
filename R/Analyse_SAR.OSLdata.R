@@ -99,7 +99,7 @@
 #'
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Margret C. Fuchs, HZDR, Freiberg (Germany)
 #'
 #' @seealso [calc_OSLLxTxRatio], [Risoe.BINfileData-class], [read_BIN2R], [plot_GrowthCurve]

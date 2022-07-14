@@ -1,7 +1,9 @@
-#' Al2O3:C Passive Dosimeter Measurement Analysis
+#' @title Al2O3:C Passive Dosimeter Measurement Analysis
 #'
-#' The function provides the analysis routines for measurements on a
+#' @description The function provides the analysis routines for measurements on a
 #' FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018
+#'
+#' @details
 #'
 #' **Working with a travel dosimeter**
 #'
@@ -10,13 +12,15 @@
 #' of this dosimeters are combined and automatically subtracted from the obtained dose values
 #' of the other dosimeters.
 #'
-#' **Calculate TL dose **
+#' **Calculate TL dose**
 #'
 #' The argument `calculate_TL_dose` provides the possibility to experimentally calculate a TL-dose,
 #' i.e. an apparent dose value derived from the TL curve ratio. However, it should be noted that
 #' this value is only a fall back in case something went wrong during the measurement of the optical
 #' stimulation. The TL derived dose value is corrected for cross-talk and for the irradiation time,
 #' but not considered if a travel dosimeter is defined.
+#'
+#' Calculating the palaeodose is possible without **any TL** curve in the sequence!
 #'
 #' **Test parameters**
 #'
@@ -31,9 +35,7 @@
 #' the information from the first curves with all others. If the ratio differs more from
 #' unity than the defined by the threshold, a warning is returned.
 #'
-#'
-#' @param object [RLum.Analysis-class] **(required)**:
-#' measurement input
+#' @param object [RLum.Analysis-class] (**required**):  measurement input
 #'
 #' @param signal_integral [numeric] (*optional*): signal integral, used for the signal
 #' and the background. Example: `c(1:10)` for the first 10 channels.
@@ -109,9 +111,9 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [analyse_Al2O3C_ITC]
 #'
@@ -318,7 +320,8 @@ analyse_Al2O3C_Measurement <- function(
 
   ##set signal integral
   if(is.null(signal_integral)){
-    signal_integral <- c(1:nrow(object[[1]][]))
+   signal_integral <- c(1:nrow(object[[1]][]))
+
 
   }else{
     ##check whether the input is valid, otherwise make it valid
@@ -331,7 +334,6 @@ analyse_Al2O3C_Measurement <- function(
         call. = FALSE
       )
     }
-
   }
 
 
@@ -425,12 +427,12 @@ analyse_Al2O3C_Measurement <- function(
   }
 
   ##calculate integrated light values
-  NATURAL <- sum(object@records[[1]]@data[signal_integral, 2])
-  REGENERATED <- sum(object@records[[3]]@data[signal_integral, 2])
-  BACKGROUND <- sum(object@records[[5]]@data[signal_integral, 2])
+  NATURAL <- sum(get_RLum(object, recordType = "OSL")[[1]]@data[signal_integral, 2])
+  REGENERATED <- sum(get_RLum(object, recordType = "OSL")[[2]]@data[signal_integral, 2])
+  BACKGROUND <- sum(get_RLum(object, recordType = "OSL")[[3]]@data[signal_integral, 2])
 
   ##do the same for the TL
-  if(calculate_TL_dose){
+  if (calculate_TL_dose[1] && any(grepl("TL", names(object)))){
     NATURAL_TL <- try(sum(
       object@records[[2]]@data[
         (which.max(object@records[[2]]@data[,2])-5):(which.max(object@records[[2]]@data[,2])+5),2]), silent = TRUE)
@@ -541,12 +543,11 @@ analyse_Al2O3C_Measurement <- function(
      row.names = NULL
    )
 
-
   ##calculate test parameters
   ##TL_peak_shift
-  ##check TL peak positions, if it differes more than the threshold, return a message
+  ##check TL peak positions, if it differers more than the threshold, return a message
   ##can be done better, but should be enough here.
-  if(any("TL_peak_shift"%in%names(test_parameters))){
+  if (any("TL_peak_shift"%in%names(test_parameters)) && any(grepl("TL", names(object)))){
     ##calculate value
     TP_TL_peak_shift.value <- abs((object[[2]][which.max(object[[2]][,2]),1] -
              object[[4]][which.max(object[[4]][,2]),1]))
@@ -642,12 +643,10 @@ analyse_Al2O3C_Measurement <- function(
 
   }
 
-
   # Plotting ------------------------------------------------------------------------------------
     ##enable or disable plot ... we cannot put the condition higher, because we here
     ##calculate something we are going to need later
     if (plot) {
-
       ##get plot settings
       par.default <- par()$mfrow
       on.exit(par(mfrow = par.default))
@@ -659,12 +658,12 @@ analyse_Al2O3C_Measurement <- function(
         mtext = ""
       )
 
-
      ##modify on request
      plot_settings <- modifyList(x = plot_settings, val = list(...),)
 
      ##plot curves
-     par(mfrow = c(1,2))
+     if(any(grepl("TL", names(object))))
+       par(mfrow = c(1,2))
 
      plot_RLum(
        object,
@@ -677,8 +676,6 @@ analyse_Al2O3C_Measurement <- function(
        main = as.list(plot_settings$main),
        norm = plot_settings$norm
      )
-
-
 
     }
 

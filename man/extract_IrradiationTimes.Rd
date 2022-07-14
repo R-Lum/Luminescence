@@ -49,8 +49,10 @@ enables \code{TRUE} or disables \code{FALSE} the progression bars during import 
 }
 \value{
 An \linkS4class{RLum.Results} object is returned with the
-following structure:\preformatted{.. $irr.times (data.frame)
-}
+following structure:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{.. $irr.times (data.frame)
+}\if{html}{\out{</div>}}
 
 If a BINX-file path and name is set, the output will be additionally
 transferred into a new BINX-file with the function name as suffix. For the
@@ -133,7 +135,7 @@ towards a correct time order.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -145,7 +147,7 @@ recent improvements. Ancient TL 33, 35-42.
 \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{IO}
 \keyword{manip}

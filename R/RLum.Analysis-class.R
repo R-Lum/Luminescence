@@ -28,7 +28,7 @@ NULL
 #' @section Class version: 0.4.16
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis],
 #' [Risoe.BINfileData-class], [RLum-class]

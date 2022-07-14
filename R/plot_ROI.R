@@ -72,7 +72,7 @@ plot_ROI <- function(
   ##helper function to extract content
   .spatial_data <- function(x) {
     ##ignore all none RLum.Analysis
-    if (class(x) != "RLum.Analysis" || x@originator != "read_RF2R")
+    if (!inherits(x, "RLum.Analysis") || x@originator != "read_RF2R")
       stop("[plot_ROI()] Input for 'object' not supported, please check documentation!", call. = FALSE)
 
     ##extract some of the elements

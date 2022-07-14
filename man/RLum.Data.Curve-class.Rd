@@ -149,10 +149,12 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
-deconstructing the object. For example:\preformatted{set_RLum(class = 'RLum.Data.Curve',
+deconstructing the object. For example:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{set_RLum(class = 'RLum.Data.Curve',
          data = Your.RLum.Data.Curve,
          recordType = 'never seen before')
-}
+}\if{html}{\out{</div>}}
 
 would just change the \code{recordType}. Missing arguments  the value is taken
 from the input object in 'data' (which is already an RLum.Data.Curve object
@@ -192,7 +194,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

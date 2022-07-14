@@ -1,7 +1,4 @@
-####################################################################################################
-##                     INTERNAL HELPER FUNCTIONS                                                  ##
-####################################################################################################
-
+# INTERNAL HELPER FUNCTIONS -----------------------------------------------
 #+++++++++++++++++++++
 #+ .set_pid()        +
 #+++++++++++++++++++++
@@ -19,7 +16,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -60,7 +57,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -87,7 +84,7 @@
       assign(x = "warning_collector",
              value = temp,
              envir = env)
-      ##TODO should be replaced tryInvokeRestart if R 4.1 was released
+      ##TODO should be replaced tryInvokeRestart once R 4.1 was released
       invokeRestart("muffleWarning")
     }
   )
@@ -145,7 +142,7 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -205,7 +202,6 @@
 #' @author Jack Aidley
 #'
 #' @examples
-#'
 #' plot(seq(1e10, 1e20, length.out = 10),
 #'      1:10,
 #'      xaxt = "n")
@@ -226,6 +222,61 @@ fancy_scientific <- function(l) {
   l <- gsub("\\+", "", l)
   # return this as an expression
   parse(text=l)
+}
+
+#'Add fancy log axis with minor ticks the fancy axis labelling
+#'
+#'@param side [numeric] (**required**): the side where to plot the axis
+#'
+#'@param ... extra arguments to be passed to [graphics::axis], `side`, `at`and `labels`
+#'are pre-defined and cannot be modified
+#'
+#'@return
+#'Returns fancy log axis
+#'
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#'@examples
+#'
+#'y <- c(0.1, 0.001, 0.0001)
+#'plot(1:length(y), y, yaxt = "n", log = "y")
+#'.add_fancy_log_axis(side = 2, las = 1)
+#'
+#'@md
+#'@noRd
+.add_fancy_log_axis <- function(side, ...){
+  ## do just nothing if it would cause an error
+  if(!(par()$xlog && any(c(1,3) %in% side[1])) && !(par()$ylog && any(c(2,4) %in% side[1])))
+    return(NULL)
+
+  ## get current axis ticks and get exponent
+  ticks <- graphics::axTicks(side, log = TRUE)
+  ticks <- unique(floor(log10(ticks)))
+  minor_ticks <- vapply(ticks, function(x) {
+      seq(10^(x-1),10^x, length.out = 10)[-10]
+  }, numeric(9))
+
+  ## add minor ticks
+  graphics::axis(
+    side,
+    at = as.numeric(minor_ticks),
+    lwd.ticks = 0.5,
+    tcl = -.35,
+    labels = FALSE)
+
+  ## add main axis
+    ## remove settings we set
+    args <- list(...)
+    args$side <- NULL
+    args$at <- NULL
+    args$labels <- NULL
+
+  ## call the axis
+  do.call(what = graphics::axis, args = c(
+    list(side = side,
+    at = 10^ticks,
+    labels = fancy_scientific(10^ticks)),
+    args))
 }
 
 
@@ -251,7 +302,7 @@ fancy_scientific <- function(l) {
 #'
 #'@param suffix [character] (with default): allows to add a suffix to the entire string
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@section Version: 0.1.0
 #'
@@ -267,7 +318,7 @@ fancy_scientific <- function(l) {
   suffix = ""
 ){
 
-  # Grep keyword information --------------------------------------------------------------------
+  ## Grep keyword information
   if (is.null(x)) {
     summary <- calc_Statistics(data.frame(x = 1:2, y = 1:2))
 
@@ -286,7 +337,7 @@ fancy_scientific <- function(l) {
   if(is.null(x))
     return(keywords_allowed)
 
-  # Create call ---------------------------------------------------------------------------------
+  ## Create call
   #create list
   l <- lapply(keywords, function(k) {
     ##strip keyword if necessary
@@ -338,7 +389,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param x [list] (**required**): list with lists
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #' a <- list(b = list(c = list("test")))
@@ -350,7 +401,7 @@ fancy_scientific <- function(l) {
 .unlist_RLum <- function(x){
   stopifnot(class(x) == "list")
 
-  if(length(x) > 0 && class(x[[1]]) == "list"){
+  if(length(x) > 0 && inherits(x[[1]], "list")){
     x <- unlist(x, recursive = FALSE)
     .unlist_RLum(x)
   }else{
@@ -375,7 +426,7 @@ fancy_scientific <- function(l) {
 #' @param class [character]: class to look for, if nothing is set
 #' it checks for RLum in general
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
@@ -438,15 +489,14 @@ fancy_scientific <- function(l) {
   bin_col = FALSE,
   names = NULL) {
 
-
-  # The only check ------------------------------------------------------------------------------
+  #@ The only check
   if(!inherits(m, "matrix"))
     stop("[.matrix_binning()] Input is not of class 'matrix'!", call. = FALSE)
 
-  # transpose in column mode --------------------------------------------------------------------
+  ## transpose in column mode
   if(bin_col) m <- t(m)
 
-  # Binning calculation -------------------------------------------------------------------------
+  ## binning calculation
   ##set groups
   ##with the correction in the 2nd line we
   ##get rid potential problems
@@ -455,7 +505,7 @@ fancy_scientific <- function(l) {
   ##row binning (thats all)
   temp_m <- rowsum(m, group = groups)
 
-  # Correct names -------------------------------------------------------------------------------
+  ## Correct names
   if(!is.null(names[1])){
     if(names[1] == "groups"){
       ##get rownames correct (it is the end of each bin)
@@ -486,10 +536,10 @@ fancy_scientific <- function(l) {
 
   }
 
-  # re-transpose in column mode -----------------------------------------------------------------
+  ## re-transpose in column mode
   if(bin_col) temp_m <- t(temp_m)
 
-  # Return --------------------------------------------------------------------------------------
+  ## return
   return(temp_m)
 }
 
@@ -508,7 +558,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param len [numeric] (**required**): length of the parameter expansion
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
 #'
@@ -595,7 +645,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param ... further arguments passed to [stats::density]
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Hyndman, R.J., 1996. Computing and Graphing Highest Density Regions.

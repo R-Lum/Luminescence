@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,6 +85,7 @@
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for RLum.Data.Curve</span>
 <span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
@@ -92,10 +125,56 @@ an object of class RLum.Data.Curve</p></dd>
 <dt>class</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
 name of the <code>RLum</code> class to create</p></dd>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span></span>
+<span>  <span class="va">class</span>,</span>
+<span>  <span class="va">originator</span>,</span>
+<span>  <span class="va">.uid</span>,</span>
+<span>  <span class="va">.pid</span>,</span>
+<span>  recordType <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  curveType <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">object</span>, info.object <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu"><a href="length_RLum.html">length_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu"><a href="names_RLum.html">names_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu"><a href="bin_RLum.Data.html">bin_RLum.Data</a></span><span class="op">(</span><span class="va">object</span>, bin_size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Curve</span></span>
+<span><span class="fu"><a href="smooth_RLum.html">smooth_RLum</a></span><span class="op">(</span><span class="va">object</span>, k <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NA</span>, align <span class="op">=</span> <span class="st">"right"</span>, method <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></code></pre></div>
+    </div>
+
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>object</dt>
+<dd><p><code><a href="get_RLum.html">get_RLum</a></code>, <code><a href="length_RLum.html">length_RLum</a></code>, <code><a href="names_RLum.html">names_RLum</a></code> (<strong>required</strong>):
+an object of class RLum.Data.Curve</p></dd>
+
+
+<dt>class</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
+name of the <code>RLum</code> class to create</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>originator</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 contains the name of the calling function (the function that produces this object);
 can be set manually.</p></dd>
+<<<<<<< HEAD
 <dt>.uid</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
@@ -108,33 +187,88 @@ record type (e.g., "OSL")</p></dd>
 <dt>curveType</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 curve type (e.g., "predefined" or "measured")</p></dd>
+=======
+
+
+<dt>.uid</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
+sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
+
+
+<dt>.pid</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+option to provide a parent id for nesting at will.</p></dd>
+
+
+<dt>recordType</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
+record type (e.g., "OSL")</p></dd>
+
+
+<dt>curveType</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
+curve type (e.g., "predefined" or "measured")</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>data</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<strong>required</strong>):
 raw curve data. If <code>data</code> itself is a <code>RLum.Data.Curve</code>-object this can be
 used to re-construct the object (s. details), i.e. modified parameters except
 <code>.uid</code>, <code>.pid</code> and <code>originator</code>. The rest will be subject to copy and paste unless provided.</p></dd>
+<<<<<<< HEAD
 <dt>info</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 info elements</p></dd>
 <dt>info.object</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 name of the wanted info element</p></dd>
+=======
+
+
+<dt>info</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
+info elements</p></dd>
+
+
+<dt>info.object</dt>
+<dd><p><code><a href="get_RLum.html">get_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
+name of the wanted info element</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>bin_size</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 set number of channels used for each bin, e.g. <code>bin_size = 2</code> means that
 two channels are binned.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>k</dt>
 <dd><p><code><a href="smooth_RLum.html">smooth_RLum</a></code>; <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 window for the rolling mean; must be odd for <code>rollmedian</code>.
 If nothing is set k is set automatically</p></dd>
+<<<<<<< HEAD
 <dt>fill</dt>
 <dd><p><code><a href="smooth_RLum.html">smooth_RLum</a></code>; <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 a vector defining the left and the right hand data</p></dd>
+=======
+
+
+<dt>fill</dt>
+<dd><p><code><a href="smooth_RLum.html">smooth_RLum</a></code>; <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
+a vector defining the left and the right hand data</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>align</dt>
 <dd><p><code><a href="smooth_RLum.html">smooth_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specifying whether the index of the result should be left- or right-aligned
 or centred (default) compared to the rolling window of observations, allowed
 <code>"right"</code>, <code>"center"</code> and <code>"left"</code></p></dd>
+<<<<<<< HEAD
 <dt>method</dt>
 <dd><p><code><a href="smooth_RLum.html">smooth_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 defines which method should be applied for the smoothing: <code>"mean"</code> or <code>"median"</code></p></dd>
@@ -149,6 +283,56 @@ defines which method should be applied for the smoothing: <code>"mean"</code> or
 Names of the info elements (slot `info`)
 <strong><code>bin_RLum.Data</code></strong>Same object as input, after applying the binning.
 <strong><code>smooth_RLum</code></strong>Same object as input, after smoothing</p>
+=======
+
+
+<dt>method</dt>
+<dd><p><code><a href="smooth_RLum.html">smooth_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+defines which method should be applied for the smoothing: <code>"mean"</code> or <code>"median"</code></p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><strong><code>set_RLum</code></strong></p>
+
+
+
+<p>Returns an RLum.Data.Curve object.</p>
+
+
+<p><strong><code>get_RLum</code></strong></p>
+
+
+<ol><li><p>A <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> with the curve values or</p></li>
+<li><p>only the info object if <code>info.object</code> was set.</p></li>
+</ol><p><strong><code>length_RLum</code></strong></p>
+
+
+
+<p>Number of channels in the curve (row number of the matrix)</p>
+
+
+<p>**`names_RLum`**</p>
+
+
+<p>Names of the info elements (slot `info`)</p>
+
+
+<p><strong><code>bin_RLum.Data</code></strong></p>
+
+
+
+<p>Same object as input, after applying the binning.</p>
+
+
+<p><strong><code>smooth_RLum</code></strong></p>
+
+
+
+<p>Same object as input, after smoothing</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="methods-by-generic-">
     <h2>Methods (by generic)</h2>
@@ -181,10 +365,17 @@ In particular the internal function <code>.smoothing</code> is used.</p></li>
 <dt><code>data</code></dt>
 <dd><p>Object of class <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> containing curve x and y data.
 'data' can also be of type <code>RLum.Data.Curve</code> to change object values without
+<<<<<<< HEAD
 deconstructing the object. For example:</p><div class="sourceCode"><pre><code><span class="fu"><a href="../reference/set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">'RLum.Data.Curve'</span>,
          data <span class="op">=</span> <span class="va">Your.RLum.Data.Curve</span>,
          recordType <span class="op">=</span> <span class="st">'never seen before'</span><span class="op">)</span></code></pre></div>
 
+=======
+deconstructing the object. For example:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_RLum</span>(<span class="at">class =</span> <span class="st">'RLum.Data.Curve'</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> Your.RLum.Data.Curve,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">recordType =</span> <span class="st">'never seen before'</span>)</span></code></pre><p></p></div>
+>>>>>>> dev_0.9.20
 <p>would just change the <code>recordType</code>. Missing arguments  the value is taken
 from the input object in 'data' (which is already an RLum.Data.Curve object
 in this example)</p></dd>
@@ -221,13 +412,22 @@ namely: <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.An
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Data.Curve"</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Data.Curve"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Data.Curve" [package "Luminescence"]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slots:</span>
@@ -241,9 +441,15 @@ namely: <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.An
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extends: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Data", directly</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum", by class "RLum.Data", distance 2</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##set empty curve object</span></span>
 <span class="r-in"><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Data.Curve"</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##set empty curve object</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Data.Curve"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: NA</span>
@@ -251,8 +457,13 @@ namely: <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.An
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 0 0 </span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
 <span class="r-in"></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -263,6 +474,7 @@ namely: <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.An
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -272,6 +484,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

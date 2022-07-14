@@ -18,12 +18,17 @@ RLum-class objects to TIFF images. Per default 16-bit TIFF files are exported.">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -33,6 +38,36 @@ RLum-class objects to TIFF images. Per default 16-bit TIFF files are exported.">
   <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
+     
+    Articles
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+>>>>>>> dev_0.9.20
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
@@ -55,7 +90,11 @@ RLum-class objects to TIFF images. Per default 16-bit TIFF files are exported.</
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">write_R2TIFF</span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, norm <span class="op">=</span> <span class="fl">65535</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_R2TIFF</span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, norm <span class="op">=</span> <span class="fl">65535</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -63,19 +102,42 @@ RLum-class objects to TIFF images. Per default 16-bit TIFF files are exported.</
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Data.Image-class.html">RLum.Data.Image</a> or <a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a> object (<strong>required</strong>):
 input object, can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects</p></dd>
+<<<<<<< HEAD
 <dt>file</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>): the file name and path</p></dd>
+=======
+
+
+<dt>file</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>): the file name and path</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>norm</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): normalisation values. Values in TIFF files must range between 0-1, however, usually
 in imaging applications the pixel values are real integer count values. The normalisation to the
 to the highest 16-bit integer values -1 ensures that the numerical values are retained in the exported
 image. If <code>1</code> nothing is normalised.</p></dd>
+<<<<<<< HEAD
 <dt>...</dt>
 <dd><p>further arguments to be passed to <a href="https://rdrr.io/pkg/tiff/man/writeTIFF.html" class="external-link">tiff::writeTIFF</a>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A TIFF file</p>
+=======
+
+
+<dt>...</dt>
+<dd><p>further arguments to be passed to <a href="https://rdrr.io/pkg/tiff/man/writeTIFF.html" class="external-link">tiff::writeTIFF</a>.</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>A TIFF file</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="function-version">
     <h2>Function version</h2>
@@ -87,19 +149,33 @@ image. If <code>1</code> nothing is normalised.</p></dd>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. write_R2TIFF(): Export RLum.Data.Image and RLum.Data.Spectrum objects to TIFF Images. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. write_R2TIFF(): Export RLum.Data.Image and RLum.Data.Spectrum objects to TIFF Images. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">write_R2TIFF</span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">write_R2TIFF</span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -110,6 +186,7 @@ image. If <code>1</code> nothing is normalised.</p></dd>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -119,6 +196,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

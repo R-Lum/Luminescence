@@ -130,7 +130,7 @@
 #'
 #'@section Function version: 0.1.1
 #'
-#'@author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
 #'[convert_Wavelength2Energy], [minpack.lm::nls.lm]
@@ -649,7 +649,7 @@ fit_EmissionSpectra <- function(
     c <- 299792458e+09 #nm/s
     axis(
       side = 1,
-      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), "nm)"),
+      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), " nm)"),
       at = axTicks(side = 3),
       cex.axis = .7,
       line = .8,

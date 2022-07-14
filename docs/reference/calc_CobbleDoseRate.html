@@ -21,12 +21,17 @@ Water content in the cobble is assumed to be 0."><!-- mathjax --><script src="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -36,6 +41,36 @@ Water content in the cobble is assumed to be 0."><!-- mathjax --><script src="ht
   <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
+     
+    Articles
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+>>>>>>> dev_0.9.20
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
@@ -61,7 +96,11 @@ Water content in the cobble is assumed to be 0.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_CobbleDoseRate</span><span class="op">(</span><span class="va">input</span>, conversion <span class="op">=</span> <span class="st">"Guerinetal2011"</span><span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_CobbleDoseRate</span><span class="op">(</span><span class="va">input</span>, conversion <span class="op">=</span> <span class="st">"Guerinetal2011"</span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -69,12 +108,26 @@ Water content in the cobble is assumed to be 0.</p>
     <dl><dt>input</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>): A table containing all relevant information
 for each individual layer. For the table layout see details.</p></dd>
+<<<<<<< HEAD
 <dt>conversion</dt>
 <dd><p>Which dose rate conversion factors to use. For accepted values see <a href="BaseDataSet.ConversionFactors.html">BaseDataSet.ConversionFactors</a></p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>The function returns an <a href="RLum.Results-class.html">RLum.Results</a> object for which the first element
+=======
+
+
+<dt>conversion</dt>
+<dd><p>Which dose rate conversion factors to use. For accepted values see <a href="BaseDataSet.ConversionFactors.html">BaseDataSet.ConversionFactors</a></p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The function returns an <a href="RLum.Results-class.html">RLum.Results</a> object for which the first element
+>>>>>>> dev_0.9.20
 is a <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<code>DataIndividual</code>) that gives the dose rate results for each slice
 for each decay chain individually, for both, the cobble dose rate and the sediment
 dose rate. The second element is also a <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<code>DataComponent</code>) that gives
@@ -94,7 +147,11 @@ The water content provided by the user should be calculated according to:</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Riedesel, S., Autzen, M., 2022. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Riedesel, S., Autzen, M., 2022. calc_CobbleDoseRate(): Calculate dose rate of slices in a spherical cobble. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -114,11 +171,19 @@ Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## load example data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.CobbleData"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## run function</span></span>
 <span class="r-in"><span class="fu">calc_CobbleDoseRate</span><span class="op">(</span><span class="va">ExampleData.CobbleData</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## load example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.CobbleData"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## run function</span></span></span>
+<span class="r-in"><span><span class="fu">calc_CobbleDoseRate</span><span class="op">(</span><span class="va">ExampleData.CobbleData</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: calc_CobbleDoseRate()</span>
@@ -127,7 +192,11 @@ Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $DataComponent : matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $input : data.frame</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -138,6 +207,7 @@ Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -147,6 +217,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

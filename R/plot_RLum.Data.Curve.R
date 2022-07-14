@@ -47,10 +47,10 @@
 #'
 #' @note Not all arguments of [plot] will be passed!
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [plot], [plot_RLum]
 #'
@@ -95,7 +95,6 @@ plot_RLum.Data.Curve<- function(
 
 
 # Preset plot -------------------------------------------------------------
-
     ## preset
     lab.unit <- "Unknown"
     lab.xlab <- "Independent"
@@ -183,22 +182,23 @@ plot_RLum.Data.Curve<- function(
       sub = sub,
       cex = 1,
       type = "l",
+      las = NULL,
       lwd = 1,
       lty = 1,
       pch = 1,
       col = 1,
+      axes = TRUE,
       xlim = range(object@data[,1], na.rm = TRUE),
       ylim = range(object@data[,2], na.rm = TRUE),
       log = "",
       mtext = ""
 
-    ), val = list(...))
+    ), val = list(...), keep.null = TRUE)
 
 
     ##par setting for possible combination with plot method for RLum.Analysis objects
     if (par.local)
       par(mfrow = c(1,1), cex = plot_settings$cex)
-
 
     ##smooth
     if(smooth){
@@ -221,8 +221,9 @@ plot_RLum.Data.Curve<- function(
       col = plot_settings$col,
       lwd = plot_settings$lwd,
       pch = plot_settings$pch,
-      lty = plot_settings$lty
-    )
+      lty = plot_settings$lty,
+      axes = plot_settings$axes,
+      las = plot_settings$las)
 
     ##plot additional mtext
     mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)

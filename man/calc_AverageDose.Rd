@@ -127,7 +127,7 @@ plot_AbanicoPlot(
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Kreutzer, S., 2022. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Kreutzer, S., 2022. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -148,6 +148,6 @@ and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
 Anne Philippe, Université de Nantes, (France),
 Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}

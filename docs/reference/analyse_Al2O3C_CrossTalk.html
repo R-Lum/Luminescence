@@ -18,13 +18,25 @@ FI lexsyg SMART reader using Al2O3:C chips"><!-- mathjax --><script src="https:/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -35,6 +47,26 @@ FI lexsyg SMART reader using Al2O3:C chips"><!-- mathjax --><script src="https:/
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -55,6 +87,7 @@ FI lexsyg SMART reader using Al2O3:C chips</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_Al2O3C_CrossTalk</span><span class="op">(</span>
   <span class="va">object</span>,
   signal_integral <span class="op">=</span> <span class="cn">NULL</span>,
@@ -65,6 +98,18 @@ FI lexsyg SMART reader using Al2O3:C chips</p>
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_Al2O3C_CrossTalk</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  signal_integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dose_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OSL (UVVIS)"</span><span class="op">)</span>,</span>
+<span>  irradiation_time_correction <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  method_control <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -72,25 +117,51 @@ FI lexsyg SMART reader using Al2O3:C chips</p>
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> <strong>(required)</strong>:
 measurement input</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal_integral</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 signal integral, used for the signal and the background.
 If nothing is provided the full range is used</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>dose_points</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2018</p></dd>
+<<<<<<< HEAD
 <dt>recordType</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): input curve selection, which is passed to
 function <a href="get_RLum.html">get_RLum</a>. To deactivate the automatic selection set the argument to <code>NULL</code></p></dd>
 <dt>irradiation_time_correction</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="RLum.Results-class.html">RLum.Results</a> (<em>optional</em>):
 information on the used irradiation time correction obtained by another experiments.</p></dd>
+=======
+
+
+<dt>recordType</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): input curve selection, which is passed to
+function <a href="get_RLum.html">get_RLum</a>. To deactivate the automatic selection set the argument to <code>NULL</code></p></dd>
+
+
+<dt>irradiation_time_correction</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="RLum.Results-class.html">RLum.Results</a> (<em>optional</em>):
+information on the used irradiation time correction obtained by another experiments.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>method_control</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 optional parameters to control the calculation.
 See details for further explanations</p></dd>
+<<<<<<< HEAD
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enable/disable plot output</p></dd>
@@ -103,6 +174,64 @@ enable/disable plot output</p></dd>
 -----------------------------------<br><code>[ NUMERICAL OUTPUT ]</code><br>-----------------------------------<br><strong><code>RLum.Results</code></strong>-object
 <strong>slot:</strong><strong><code>@data</code></strong></p><table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>data.frame</code></td><td>summed apparent dose table</td></tr><tr><td><code>$data_full</code></td><td><code>data.frame</code></td><td>full apparent dose table</td></tr><tr><td><code>$fit</code></td><td><code>lm</code></td><td>the linear model obtained from fitting</td></tr><tr><td><code>$col.seq</code></td><td><code>numeric</code></td><td>the used colour vector</td></tr></table><p><strong>slot:</strong><strong><code>@info</code></strong>The original function call
 ------------------------<br><code>[ PLOT OUTPUT ]</code><br>------------------------<br></p><ul><li><p>An overview of the obtained apparent dose values</p></li>
+=======
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enable/disable plot output</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further arguments that can be passed to the plot output</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Function returns results numerically and graphically:</p>
+
+
+<p>-----------------------------------<br></p>
+
+
+<p><code>[ NUMERICAL OUTPUT ]</code><br></p>
+
+
+<p>-----------------------------------<br></p>
+
+
+
+<p><strong><code>RLum.Results</code></strong>-object</p>
+
+
+<p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@data</code></strong></p>
+
+
+
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>data.frame</code></td><td>summed apparent dose table</td></tr><tr><td><code>$data_full</code></td><td><code>data.frame</code></td><td>full apparent dose table</td></tr><tr><td><code>$fit</code></td><td><code>lm</code></td><td>the linear model obtained from fitting</td></tr><tr><td><code>$col.seq</code></td><td><code>numeric</code></td><td>the used colour vector</td></tr></table><p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@info</code></strong></p>
+
+
+
+<p>The original function call</p>
+
+
+<p>------------------------<br></p>
+
+
+<p><code>[ PLOT OUTPUT ]</code><br></p>
+
+
+<p>------------------------<br></p>
+
+
+<ul><li><p>An overview of the obtained apparent dose values</p></li>
+>>>>>>> dev_0.9.20
 </ul></div>
     <div id="function-version">
     <h2>Function version</h2>
@@ -110,7 +239,11 @@ enable/disable plot output</p></dd>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -124,12 +257,17 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.Al2O3C</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -138,6 +276,16 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
 <span class="r-in"><span class="fu">analyse_Al2O3C_CrossTalk</span><span class="op">(</span><span class="va">data_CrossTalk</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="analyse_Al2O3C_CrossTalk-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.Al2O3C</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##run analysis</span></span></span>
+<span class="r-in"><span><span class="fu">analyse_Al2O3C_CrossTalk</span><span class="op">(</span><span class="va">data_CrossTalk</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="analyse_Al2O3C_CrossTalk-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -148,6 +296,7 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -157,6 +306,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

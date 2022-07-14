@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,6 +85,7 @@
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for RLum.Data.Spectrum</span>
 <span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
@@ -86,10 +119,50 @@ an object of class RLum.Data.Spectrum</p></dd>
 <dt>class</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 name of the <code>RLum</code> class to create.</p></dd>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for RLum.Data.Spectrum</span></span>
+<span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Spectrum</span></span>
+<span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span></span>
+<span>  <span class="va">class</span>,</span>
+<span>  <span class="va">originator</span>,</span>
+<span>  <span class="va">.uid</span>,</span>
+<span>  <span class="va">.pid</span>,</span>
+<span>  recordType <span class="op">=</span> <span class="st">"Spectrum"</span>,</span>
+<span>  curveType <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Spectrum</span></span>
+<span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">info.object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Spectrum</span></span>
+<span><span class="fu"><a href="names_RLum.html">names_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Spectrum</span></span>
+<span><span class="fu"><a href="bin_RLum.Data.html">bin_RLum.Data</a></span><span class="op">(</span><span class="va">object</span>, bin_size.col <span class="op">=</span> <span class="fl">1</span>, bin_size.row <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+    </div>
+
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>object</dt>
+<dd><p><code><a href="get_RLum.html">get_RLum</a></code>, <code><a href="names_RLum.html">names_RLum</a></code> (<strong>required</strong>):
+an object of class RLum.Data.Spectrum</p></dd>
+
+
+<dt>class</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
+name of the <code>RLum</code> class to create.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>originator</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 contains the name of the calling function (the function that produces this object);
 can be set manually.</p></dd>
+<<<<<<< HEAD
 <dt>.uid</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
@@ -102,27 +175,72 @@ record type (e.g. "OSL")</p></dd>
 <dt>curveType</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
 curve type (e.g. "predefined" or "measured")</p></dd>
+=======
+
+
+<dt>.uid</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
+sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
+
+
+<dt>.pid</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+option to provide a parent id for nesting at will.</p></dd>
+
+
+<dt>recordType</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+record type (e.g. "OSL")</p></dd>
+
+
+<dt>curveType</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+curve type (e.g. "predefined" or "measured")</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>data</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a>:
 raw curve data. If data is of type <code>RLum.Data.Spectrum</code>, this can be used
 to re-construct the object. If the object is reconstructed, <code>.uid</code>, <code>.pid</code> and <code>orginator</code>
 are always taken from the input object</p></dd>
+<<<<<<< HEAD
 <dt>info</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>:
 info elements</p></dd>
 <dt>info.object</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 the name of the info object to be called</p></dd>
+=======
+
+
+<dt>info</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>:
+info elements</p></dd>
+
+
+<dt>info.object</dt>
+<dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
+the name of the info object to be called</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>bin_size.col</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 set number of channels used for each bin, e.g. <code>bin_size.col = 2</code> means that
 two channels are binned. Note: The function does not check the input, very large values
 mean a full column binning (a single sum)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>bin_size.row</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 set number of channels used for each bin, e.g. <code>bin_size.row = 2</code> means that
 two channels are binned. Note: The function does not check the input, very large values
 mean a full row binning (a single sum)</p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -130,6 +248,39 @@ mean a full row binning (a single sum)</p></dd>
 <li><p>only the info object if <code>info.object</code> was set.</p></li>
 </ol><p><strong><code>[names_RLum]</code></strong>The names of the info objects
 <strong><code>[bin_RLum.Data]</code></strong>Same object as input, after applying the binning.</p>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><strong><code>[set_RLum]</code></strong></p>
+
+
+
+<p>An object from the class <code>RLum.Data.Spectrum</code></p>
+
+
+
+<p><strong><code>[get_RLum]</code></strong></p>
+
+
+<ol><li><p>A <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> with the spectrum values or</p></li>
+<li><p>only the info object if <code>info.object</code> was set.</p></li>
+</ol><p><strong><code>[names_RLum]</code></strong></p>
+
+
+
+<p>The names of the info objects</p>
+
+
+<p><strong><code>[bin_RLum.Data]</code></strong></p>
+
+
+
+<p>Same object as input, after applying the binning.</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="methods-by-generic-">
     <h2>Methods (by generic)</h2>
@@ -188,18 +339,31 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Data.Spectrum"</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Data.Spectrum"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Data.Spectrum" [package "Luminescence"]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slots:</span>
@@ -213,10 +377,17 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extends: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Data", directly</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum", by class "RLum.Data", distance 2</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##show example data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">TL.Spectrum</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##show example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">TL.Spectrum</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Spectrum-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: TL (Spectrometer)</span>
@@ -227,9 +398,15 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. range time/temp.: 0.029 460.007</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. range count values: 554 65405</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 14</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##show data matrix</span></span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">TL.Spectrum</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##show data matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">TL.Spectrum</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0.029 20.027 40.025 60.026 80.025 100.023 120.022 140.022 160.02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 296.5     555  556.0    561    568    573     579     573     574    570</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 297.055   555  556.0    560    568    573     579     574     574    570</span>
@@ -3305,12 +3482,21 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 822.114   32509   65261  65267   65288   65298   65334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 822.62    32750   65261  65267   65288   65298   65337</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 823.126   33016   65261  65267   65288   65298   65337</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##plot spectrum</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">TL.Spectrum</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##plot spectrum</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">TL.Spectrum</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -3321,6 +3507,7 @@ created by, e.g., <a href="read_XSYG2R.html">read_XSYG2R</a></p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -3330,6 +3517,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

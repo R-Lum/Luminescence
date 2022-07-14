@@ -20,13 +20,25 @@ from single grain data measurements."><!-- mathjax --><script src="https://cdnjs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -37,6 +49,26 @@ from single grain data measurements."><!-- mathjax --><script src="https://cdnjs
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -58,6 +90,7 @@ from single grain data measurements.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">verify_SingleGrainData</span><span class="op">(</span>
   <span class="va">object</span>,
   threshold <span class="op">=</span> <span class="fl">10</span>,
@@ -66,6 +99,17 @@ from single grain data measurements.</p>
   verbose <span class="op">=</span> <span class="cn">TRUE</span>,
   plot <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">verify_SingleGrainData</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  threshold <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  cleanup <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cleanup_level <span class="op">=</span> <span class="st">"aliquot"</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -73,23 +117,42 @@ from single grain data measurements.</p>
     <dl><dt>object</dt>
 <dd><p><a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> or <a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
 input object. The function also accepts a list with objects of allowed type.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>threshold</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 numeric threshold value for the allowed difference between the <code>mean</code> and
 the <code>var</code> of the count values (see details)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>cleanup</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 if set to <code>TRUE</code> curves identified as zero light level curves are
 automatically removed. Output is an object as same type as the input, i.e.
 either <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> or <a href="RLum.Analysis-class.html">RLum.Analysis</a></p></dd>
+<<<<<<< HEAD
 <dt>cleanup_level</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 selects the level for the cleanup of the input data sets.
+=======
+
+
+<dt>cleanup_level</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+selects the level for the clean-up of the input data sets.
+>>>>>>> dev_0.9.20
 Two options are allowed: <code>"curve"</code> or <code>"aliquot"</code>:</p><ul><li><p>If  <code>"curve"</code> is selected every single curve marked as <code>invalid</code> is removed.</p></li>
 <li><p>If <code>"aliquot"</code> is selected, curves of one aliquot (grain or disc) can be
 marked as invalid, but will not be removed. An aliquot will be only removed
 if all curves of this aliquot are marked as invalid.</p></li>
 </ul></dd>
+<<<<<<< HEAD
 <dt>verbose</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables the terminal feedback</p></dd>
@@ -104,6 +167,65 @@ enables or disables the graphical feedback</p></dd>
 <strong>slot:****<code>@data</code></strong></p><table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$unique_pairs</code></td><td><code>data.frame</code></td><td>the unique position and grain pairs</td></tr><tr><td><code>$selection_id</code></td><td><code>numeric</code></td><td>the selection as record ID</td></tr><tr><td><code>$selection_full</code></td><td><code>data.frame</code></td><td>implemented models used in the baSAR-model core</td></tr></table><p><strong>slot:****<code>@info</code></strong>The original function call
 <strong>Output variation</strong>For <code>cleanup = TRUE</code> the same object as the input is returned, but cleaned up
 (invalid curves were removed). This means: Either an <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a>or an <a href="RLum.Analysis-class.html">RLum.Analysis</a> object is returned in such cases.
+=======
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables the terminal feedback</p></dd>
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables the graphical feedback</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further parameters to control the plot output; if selected.
+Supported arguments <code>main</code>, <code>ylim</code></p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The function returns</p>
+
+
+<p>-----------------------------------<br></p>
+
+
+<p><code>[ NUMERICAL OUTPUT ]</code><br></p>
+
+
+<p>-----------------------------------<br></p>
+
+
+
+<p><strong><code>RLum.Results</code></strong>-object</p>
+
+
+<p><strong>slot:****<code>@data</code></strong></p>
+
+
+
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$unique_pairs</code></td><td><code>data.frame</code></td><td>the unique position and grain pairs</td></tr><tr><td><code>$selection_id</code></td><td><code>numeric</code></td><td>the selection as record ID</td></tr><tr><td><code>$selection_full</code></td><td><code>data.frame</code></td><td>implemented models used in the baSAR-model core</td></tr></table><p><strong>slot:****<code>@info</code></strong></p>
+
+
+
+<p>The original function call</p>
+
+
+<p><strong>Output variation</strong></p>
+
+
+
+<p>For <code>cleanup = TRUE</code> the same object as the input is returned, but cleaned up
+(invalid curves were removed). This means: Either an <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a></p>
+
+
+<p>or an <a href="RLum.Analysis-class.html">RLum.Analysis</a> object is returned in such cases.
+>>>>>>> dev_0.9.20
 An <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> object can be exported to a BIN-file by
 using the function <a href="write_R2BIN.html">write_R2BIN</a>.</p>
     </div>
@@ -136,7 +258,11 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
     </div>
     <div id="function-version">
     <h2>Function version</h2>
+<<<<<<< HEAD
     <p>0.2.2</p>
+=======
+    <p>0.2.3</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -145,16 +271,25 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##01 - basic example I</span></span>
 <span class="r-in"><span class="co">##just show how to apply the function</span></span>
@@ -163,6 +298,16 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 <span class="r-in"><span class="co">##verify and get data.frame out of it</span></span>
 <span class="r-in"><span class="fu">verify_SingleGrainData</span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span><span class="op">$</span><span class="va">selection_full</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!</span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##01 - basic example I</span></span></span>
+<span class="r-in"><span><span class="co">##just show how to apply the function</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##verify and get data.frame out of it</span></span></span>
+<span class="r-in"><span><span class="fu">verify_SingleGrainData</span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span><span class="op">$</span><span class="va">selection_full</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!</span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA    NA  23.66271 2.572619e+02   10.872037        10  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>
@@ -288,6 +433,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> 122       NA    NA 108.15702 6.957128e+02    6.432433        10 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 123       NA    NA  40.00000 0.000000e+00    0.000000        10 FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 124       NA    NA  27.24765 3.470933e+02   12.738468        10  TRUE</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##02 - basic example II</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -309,6 +455,29 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 <span class="r-in"><span class="fu"><a href="write_R2BIN.html">write_R2BIN</a></span><span class="op">(</span><span class="va">object</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,<span class="st">"/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>, <span class="st">"_CLEANED.BIN"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##02 - basic example II</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu">verify_SingleGrainData</span><span class="op">(</span>object <span class="op">=</span> <span class="va">CWOSL.SAR.Data</span>,</span></span>
+<span class="r-in"><span>cleanup_level <span class="op">=</span> <span class="st">"aliquot"</span><span class="op">)</span><span class="op">$</span><span class="va">selection_id</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">##03 - advanced example I</span></span></span>
+<span class="r-in"><span><span class="co">##importing and exporting a BIN-file</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##select and import file</span></span></span>
+<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_BIN2R.html">read_BIN2R</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##remove invalid aliquots(!)</span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu">verify_SingleGrainData</span><span class="op">(</span><span class="va">object</span>, cleanup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##export to new BIN-file</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="write_R2BIN.html">write_R2BIN</a></span><span class="op">(</span><span class="va">object</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,<span class="st">"/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>, <span class="st">"_CLEANED.BIN"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -319,6 +488,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -328,6 +498,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

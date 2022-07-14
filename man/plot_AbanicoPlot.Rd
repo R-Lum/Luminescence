@@ -428,13 +428,14 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
                  layout = "journal")
 
 ## now with predefined layout definition and further modifications
-plot_AbanicoPlot(data = data.3,
-                 z.0 = "median",
-                 layout = "journal",
-                 col = c("steelblue4", "orange4"),
-                 bar.col = adjustcolor(c("steelblue3", "orange3"),
-                                       alpha.f = 0.5),
-                 polygon.col = c("steelblue3", "orange3"))
+plot_AbanicoPlot(
+ data = data.3,
+ z.0 = "median",
+ layout = "journal",
+ col = c("steelblue4", "orange4"),
+ bar.col = adjustcolor(c("steelblue3", "orange3"),
+                         alpha.f = 0.5),
+ polygon.col = c("steelblue3", "orange3"))
 
 ## for further information on layout definitions see documentation
 ## of function get_Layout()
@@ -464,7 +465,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
 } 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S., 2022. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S., 2022. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -482,6 +483,6 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)
 , RLum Developer Team}

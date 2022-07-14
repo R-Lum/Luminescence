@@ -73,11 +73,13 @@ print in the console.
 and the contribution to total gamma dose rate.
 \item RLum Results. If the user wishes to save these results, writing a script
 to run the function and to save the results would look like this:
-}\preformatted{mydata <- read.table("c:/path/to/input/file.txt")
+}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mydata <- read.table("c:/path/to/input/file.txt")
 results <- scale_GammaDose(mydata)
 table <- get_RLum(results)
 write.csv(table, "c:/path/to/results.csv")
-}
+}\if{html}{\out{</div>}}
 
 -----------------------------------\cr
 \verb{[ NUMERICAL OUTPUT ]}\cr
@@ -234,7 +236,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Riedesel, S., Autzen, M., Burow, C., 2022. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Riedesel, S., Autzen, M., Burow, C., 2022. scale_GammaDose(): Calculate the gamma dose deposited within a sample taking layer-to-layer variations in radioactivity into account (according to Aitken, 1985). Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

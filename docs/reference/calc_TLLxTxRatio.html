@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,6 +85,7 @@
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_TLLxTxRatio</span><span class="op">(</span>
   <span class="va">Lx.data.signal</span>,
   Lx.data.background <span class="op">=</span> <span class="cn">NULL</span>,
@@ -61,6 +94,16 @@
   <span class="va">signal.integral.min</span>,
   <span class="va">signal.integral.max</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_TLLxTxRatio</span><span class="op">(</span></span>
+<span>  <span class="va">Lx.data.signal</span>,</span>
+<span>  Lx.data.background <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">Tx.data.signal</span>,</span>
+<span>  Tx.data.background <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">signal.integral.min</span>,</span>
+<span>  <span class="va">signal.integral.max</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -68,25 +111,51 @@
     <dl><dt>Lx.data.signal</dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 TL data (x = temperature, y = counts) (TL signal)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>Lx.data.background</dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<em>optional</em>):
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.</p></dd>
+<<<<<<< HEAD
 <dt>Tx.data.signal</dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 TL data (x = temperature, y = counts) (TL test signal)</p></dd>
+=======
+
+
+<dt>Tx.data.signal</dt>
+<dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
+TL data (x = temperature, y = counts) (TL test signal)</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>Tx.data.background</dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<em>optional</em>):
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral.min</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 channel number for the lower signal integral bound
 (e.g. <code>signal.integral.min = 100</code>)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral.max</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 channel number for the upper signal integral bound
 (e.g. <code>signal.integral.max = 200</code>)</p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -99,6 +168,27 @@ Slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html" cla
 .. $ Net_LnLx
 .. $ Net_LnLx.Error
 </code></pre></div>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.
+Slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with the following structure:</p>
+
+
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> LxTx.table</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> LnLx</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> LnLx.BG</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> TnTx</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> TnTx.BG</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> Net_LnLx</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> Net_LnLx.Error</span></code></pre><p></p></div>
+
+
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -124,17 +214,26 @@ background for both curves results in a zero error and is therefore set to <code
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br>
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
+>>>>>>> dev_0.9.20
 Christoph Schmidt, University of Bayreuth (Germany)
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., Schmidt, C., 2022. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., Schmidt, C., 2022. calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves -beta version-. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load package example data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -155,11 +254,37 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-in">                           <span class="va">Tx.data.signal</span>, <span class="va">Tx.data.background</span>,</span>
 <span class="r-in">                           <span class="va">signal.integral.min</span>, <span class="va">signal.integral.max</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load package example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##convert Risoe.BINfileData into a curve object</span></span></span>
+<span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">TL.SAR.Data</span>, pos <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Lx.data.signal</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, record.id<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Lx.data.background</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, record.id<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Tx.data.signal</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, record.id<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Tx.data.background</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, record.id<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">signal.integral.min</span> <span class="op">&lt;-</span> <span class="fl">210</span></span></span>
+<span class="r-in"><span><span class="va">signal.integral.max</span> <span class="op">&lt;-</span> <span class="fl">230</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">calc_TLLxTxRatio</span><span class="op">(</span><span class="va">Lx.data.signal</span>,</span></span>
+<span class="r-in"><span>                           <span class="va">Lx.data.background</span>,</span></span>
+<span class="r-in"><span>                           <span class="va">Tx.data.signal</span>, <span class="va">Tx.data.background</span>,</span></span>
+<span class="r-in"><span>                           <span class="va">signal.integral.min</span>, <span class="va">signal.integral.max</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>     LnLx LnLx.BG  TnTx TnTx.BG net_LnLx net_LnLx.Error net_TnTx net_TnTx.Error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 257042    4068 82298    2943   252974       49468.92    79355       21449.72</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       LxTx LxTx.Error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.187877   1.485073</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -170,6 +295,7 @@ Christoph Schmidt, University of Bayreuth (Germany)
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -179,6 +305,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

@@ -21,13 +21,25 @@ metadata."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -38,6 +50,26 @@ metadata."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -61,6 +93,7 @@ metadata.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">write_RLum2CSV</span><span class="op">(</span>
   <span class="va">object</span>,
   path <span class="op">=</span> <span class="cn">NULL</span>,
@@ -69,6 +102,16 @@ metadata.</p>
   compact <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_RLum2CSV</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  export <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  compact <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -76,25 +119,46 @@ metadata.</p>
     <dl><dt>object</dt>
 <dd><p><a href="RLum-class.html">RLum</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <code>RLum</code> objects (<strong>required</strong>):
 objects to be written</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>path</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 character string naming folder for the output to be written. If nothing
 is provided <code>path</code> will be set to the working directory.
 <strong>Note:</strong> this argument is ignored if the the argument <code>export</code> is set to <code>FALSE</code>.</p></dd>
+<<<<<<< HEAD
 <dt>prefix</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 optional prefix to name the files. This prefix is valid for all written files</p></dd>
+=======
+
+
+<dt>prefix</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+optional prefix to name the files. This prefix is valid for all written files</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>export</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enable or disable the file export. If set to <code>FALSE</code> nothing is written to
 the file connection, but a list comprising objects of type <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a>
 is returned instead</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>compact</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): if <code>TRUE</code> (the default) the output will be more
 simple but less comprehensive, means not all elements in the objects will be fully broken down.
 This is in particular useful for writing <code>RLum.Results</code> objects to CSV-files, such objects
 can be rather complex and not all information are needed in a CSV-file or can be meaningful translated
 to it.</p></dd>
+<<<<<<< HEAD
 <dt>...</dt>
 <dd><p>further arguments that will be passed to the function
 <a href="https://rdrr.io/r/utils/write.table.html" class="external-link">utils::write.table</a>. All arguments except the argument <code>file</code> are supported</p></dd>
@@ -103,6 +167,23 @@ to it.</p></dd>
     <h2>Value</h2>
     <p>The function returns either a CSV-file (or many of them) or for the
 option <code>export == FALSE</code> a list comprising objects of type <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></p>
+=======
+
+
+<dt>...</dt>
+<dd><p>further arguments that will be passed to the function
+<a href="https://rdrr.io/r/utils/write.table.html" class="external-link">utils::write.table</a>. All arguments except the argument <code>file</code> are supported</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The function returns either a CSV-file (or many of them) or for the
+option <code>export == FALSE</code> a list comprising objects of type <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></p>
+
+
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -129,16 +210,28 @@ as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##transform values to a list (and do not write)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span class="r-in"><span class="fu">write_RLum2CSV</span><span class="op">(</span><span class="va">object</span>, export <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##transform values to a list (and do not write)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">write_RLum2CSV</span><span class="op">(</span><span class="va">object</span>, export <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1_TL`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884    2</span>
@@ -18979,6 +19072,7 @@ as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"></span>
@@ -18991,6 +19085,20 @@ as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p
 <span class="r-in"></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##create temporary filepath</span></span></span>
+<span class="r-in"><span><span class="co">##(for usage replace by own path)</span></span></span>
+<span class="r-in"><span><span class="va">temp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"output"</span>, fileext <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##write CSV-file to working directory</span></span></span>
+<span class="r-in"><span><span class="fu">write_RLum2CSV</span><span class="op">(</span><span class="va">temp_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -19001,6 +19109,7 @@ as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -19010,6 +19119,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

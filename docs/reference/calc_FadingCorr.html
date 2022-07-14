@@ -20,13 +20,25 @@ including the error for a given g-value according to Huntley &amp;amp; Lamothe (
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -37,6 +49,26 @@ including the error for a given g-value according to Huntley &amp;amp; Lamothe (
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -58,6 +90,7 @@ including the error for a given g-value according to Huntley &amp; Lamothe (2001
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_FadingCorr</span><span class="op">(</span>
   <span class="va">age.faded</span>,
   <span class="va">g_value</span>,
@@ -69,6 +102,19 @@ including the error for a given g-value according to Huntley &amp; Lamothe (2001
   txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,
   verbose <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_FadingCorr</span><span class="op">(</span></span>
+<span>  <span class="va">age.faded</span>,</span>
+<span>  <span class="va">g_value</span>,</span>
+<span>  tc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tc.g_value <span class="op">=</span> <span class="va">tc</span>,</span>
+<span>  n.MC <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  interval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">500</span><span class="op">)</span>,</span>
+<span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -76,33 +122,64 @@ including the error for a given g-value according to Huntley &amp; Lamothe (2001
     <dl><dt>age.faded</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
 uncorrected age with error in ka (see example)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>g_value</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
 g-value and error obtained from separate fading measurements (see example).
 Alternatively an <a href="RLum.Results-class.html">RLum.Results</a> object can be provided produced by the function
 <a href="analyse_FadingMeasurement.html">analyse_FadingMeasurement</a>, in this case <code>tc</code> is set automatically</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>tc</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 time in seconds between irradiation and the prompt measurement (cf. Huntley &amp; Lamothe 2001).
 Argument will be ignored if <code>g_value</code> was an <a href="RLum.Results-class.html">RLum.Results</a> object</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>tc.g_value</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
 If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
 If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
 SAR method and g-values that had been not normalised to 2 days.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>n.MC</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 number of Monte Carlo simulation runs for error estimation.
 If <code>n.MC = 'auto'</code> is used the function tries to find a 'stable' error for the age.
 <strong>Note:</strong> This may take a while!</p></dd>
+<<<<<<< HEAD
 <dt>seed</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
 sets the seed for the random number generator in R using <a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></p></dd>
+=======
+
+
+<dt>seed</dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+sets the seed for the random number generator in R using <a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>interval</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 a vector containing the end-points (age interval) of the interval to be searched for the root in 'ka'.
 This argument is passed to the function <a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">stats::uniroot</a> used for solving the equation.</p></dd>
+<<<<<<< HEAD
 <dt>txtProgressBar</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a></p></dd>
@@ -113,6 +190,36 @@ enables or disables terminal output</p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.<br>Slot: <strong><code>@data</code></strong><br></p><table class="table table"><tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Comment</strong></td></tr><tr><td><code>age.corr</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>Corrected age</td></tr><tr><td><code>age.corr.MC</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>MC simulation results with all possible ages from that simulation</td></tr></table><p>Slot: <strong><code>@info</code></strong><br></p><table class="table table"><tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Comment</strong></td></tr><tr><td><code>info</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>the original function call</td></tr></table></div>
+=======
+
+
+<dt>txtProgressBar</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a></p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables terminal output</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.<br></p>
+
+
+
+<p>Slot: <strong><code>@data</code></strong><br></p>
+
+
+<table class="table table"><tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Comment</strong></td></tr><tr><td><code>age.corr</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>Corrected age</td></tr><tr><td><code>age.corr.MC</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>MC simulation results with all possible ages from that simulation</td></tr></table><p>Slot: <strong><code>@info</code></strong><br></p>
+
+
+
+<table class="table table"><tr><td><strong>Object</strong></td><td><strong>Type</strong></td><td><strong>Comment</strong></td></tr><tr><td><code>info</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>the original function call</td></tr></table></div>
+>>>>>>> dev_0.9.20
     <div id="details">
     <h2>Details</h2>
     <p>As the g-value slightly depends on the time between irradiation and the prompt measurement,
@@ -167,7 +274,11 @@ tc value (the one used for estimating the g-value) using the argument <code>tc.g
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. calc_FadingCorr(): Apply a fading correction according to Huntley &amp; Lamothe (2001) for a given g-value and a given tc. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -181,12 +292,17 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##run the examples given in the appendix of Huntley and Lamothe, 2001</span></span>
 <span class="r-in"></span>
@@ -197,6 +313,18 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 <span class="r-in">   tc <span class="op">=</span> <span class="fl">2592000</span>,</span>
 <span class="r-in">   tc.g_value <span class="op">=</span> <span class="fl">172800</span>,</span>
 <span class="r-in">   n.MC <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##run the examples given in the appendix of Huntley and Lamothe, 2001</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(1) faded age: 100 a</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_FadingCorr</span><span class="op">(</span></span></span>
+<span class="r-in"><span>   age.faded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   g_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.0</span>, <span class="fl">1.0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   tc <span class="op">=</span> <span class="fl">2592000</span>,</span></span>
+<span class="r-in"><span>   tc.g_value <span class="op">=</span> <span class="fl">172800</span>,</span></span>
+<span class="r-in"><span>   n.MC <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [calc_FadingCorr()]</span>
@@ -215,6 +343,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		0.1 ka ± 0 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		0.1169 ka ± 0.0042 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(2) faded age: 1 ka</span></span>
 <span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_FadingCorr</span><span class="op">(</span></span>
@@ -223,6 +352,16 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 <span class="r-in">   tc <span class="op">=</span> <span class="fl">2592000</span>,</span>
 <span class="r-in">   tc.g_value <span class="op">=</span> <span class="fl">172800</span>,</span>
 <span class="r-in">   n.MC <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2) faded age: 1 ka</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_FadingCorr</span><span class="op">(</span></span></span>
+<span class="r-in"><span>   age.faded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   g_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.0</span>, <span class="fl">1.0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   tc <span class="op">=</span> <span class="fl">2592000</span>,</span></span>
+<span class="r-in"><span>   tc.g_value <span class="op">=</span> <span class="fl">172800</span>,</span></span>
+<span class="r-in"><span>   n.MC <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [calc_FadingCorr()]</span>
@@ -241,6 +380,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		1 ka ± 0 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		1.2486 ka ± 0.0653 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(3) faded age: 10.0 ka</span></span>
 <span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_FadingCorr</span><span class="op">(</span></span>
@@ -249,6 +389,16 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 <span class="r-in">   tc <span class="op">=</span> <span class="fl">2592000</span>,</span>
 <span class="r-in">   tc.g_value <span class="op">=</span> <span class="fl">172800</span>,</span>
 <span class="r-in">   n.MC <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(3) faded age: 10.0 ka</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_FadingCorr</span><span class="op">(</span></span></span>
+<span class="r-in"><span>   age.faded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   g_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.0</span>, <span class="fl">1.0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   tc <span class="op">=</span> <span class="fl">2592000</span>,</span></span>
+<span class="r-in"><span>   tc.g_value <span class="op">=</span> <span class="fl">172800</span>,</span></span>
+<span class="r-in"><span>   n.MC <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [calc_FadingCorr()]</span>
@@ -267,14 +417,24 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		10 ka ± 0 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		13.402 ka ± 0.8076 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##access the last output</span></span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##access the last output</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>      AGE AGE.ERROR AGE_FADED AGE_FADED.ERROR  G_VALUE G_VALUE.ERROR      KAPPA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 13.402    0.8076        10               0 5.312393      1.011901 0.02307143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   KAPPA.ERROR           TC   TC.G_VALUE n.MC OBSERVATIONS SEED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.00439463 8.213721e-05 5.475814e-06  100          100   NA</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -285,6 +445,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -294,6 +455,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

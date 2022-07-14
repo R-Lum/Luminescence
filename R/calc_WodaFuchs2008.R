@@ -26,7 +26,7 @@
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom),\cr
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [calc_FuchsLang2001], [calc_CentralDose]

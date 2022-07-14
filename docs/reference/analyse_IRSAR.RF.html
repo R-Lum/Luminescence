@@ -18,13 +18,25 @@ using the protocol according to Erfurt et al. (2003) and beyond."><!-- mathjax -
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -35,6 +47,26 @@ using the protocol according to Erfurt et al. (2003) and beyond."><!-- mathjax -
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -55,6 +87,7 @@ using the protocol according to Erfurt et al. (2003) and beyond.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>
   <span class="va">object</span>,
   sequence_structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NATURAL"</span>, <span class="st">"REGENERATED"</span><span class="op">)</span>,
@@ -69,6 +102,22 @@ using the protocol according to Erfurt et al. (2003) and beyond.</p>
   plot_reduced <span class="op">=</span> <span class="cn">FALSE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_IRSAR.RF</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  sequence_structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NATURAL"</span>, <span class="st">"REGENERATED"</span><span class="op">)</span>,</span>
+<span>  RF_nat.lim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RF_reg.lim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"FIT"</span>,</span>
+<span>  method.control <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  test_parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n.MC <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot_reduced <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -79,31 +128,61 @@ input object containing data for protocol analysis. The function expects to
 find at least two curves in the <a href="RLum.Analysis-class.html">RLum.Analysis</a> object: (1) <code>RF_nat</code>, (2) <code>RF_reg</code>.
 If a <code>list</code> is provided as input all other parameters can be provided as
 <code>list</code> as well to gain full control.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>sequence_structure</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specifies the general sequence structure. Allowed steps are <code>NATURAL</code>, <code>REGENERATED</code>.
 In addition any other character is allowed in the sequence structure;
 such curves will be ignored during the analysis.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>RF_nat.lim</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>with default</em>):
 set minimum and maximum channel range for natural signal fitting and sliding.
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>RF_reg.lim</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>with default</em>):
 set minimum and maximum channel range for regenerated signal fitting and sliding.
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>method</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 setting method applied for the data analysis.
 Possible options are <code>"FIT"</code> or <code>"SLIDE"</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>method.control</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 parameters to control the method, that can be passed to the chosen method.
 These are for (1) <code>method = "FIT"</code>: <code>'trace'</code>, <code>'maxiter'</code>, <code>'warnOnly'</code>, <code>'minFactor'</code> and for
 (2) <code>method = "SLIDE"</code>: <code>'correct_onset'</code>, <code>'show_density'</code>,  <code>'show_fit'</code>, <code>'trace'</code>.
 See details.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>test_parameters</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>with default</em>):
 set test parameters. Supported parameters are: <code>curves_ratio</code>, <code>residuals_slope</code> (only for
@@ -111,28 +190,54 @@ set test parameters. Supported parameters are: <code>curves_ratio</code>, <code>
 <code>lambda</code>, <code>beta</code> and <code>delta.phi</code>. All input: <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>
 values, <code>NA</code> and <code>NULL</code> (s. Details)</p>
 <p>(see Details for further information)</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>n.MC</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 set number of Monte Carlo runs for start parameter estimation (<code>method = "FIT"</code>) or
 error estimation (<code>method = "SLIDE"</code>). This value can be set to <code>NULL</code> to skip the
 MC runs. Note: Large values will significantly increase the computation time</p></dd>
+<<<<<<< HEAD
 <dt>txtProgressBar</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar during MC runs</p></dd>
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 plot output (<code>TRUE</code> or <code>FALSE</code>)</p></dd>
+=======
+
+
+<dt>txtProgressBar</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar during MC runs</p></dd>
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+plot output (<code>TRUE</code> or <code>FALSE</code>)</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>plot_reduced</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
 provides a reduced plot output if enabled to allow common R plot combinations,
 e.g., <code>par(mfrow(...))</code>. If <code>TRUE</code> no residual plot
 is returned; it has no effect if <code>plot = FALSE</code></p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>further arguments that will be passed to the plot output.
 Currently supported arguments are <code>main</code>, <code>xlab</code>, <code>ylab</code>,
 <code>xlim</code>, <code>ylim</code>, <code>log</code>, <code>legend</code> (<code>TRUE/FALSE</code>),
 <code>legend.pos</code>, <code>legend.text</code> (passes argument to x,y in
 <a href="https://rdrr.io/r/graphics/legend.html" class="external-link">graphics::legend</a>), <code>xaxt</code></p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -145,6 +250,92 @@ reported with the summary object data. List elements are:</p><table class="table
 algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 vertical sliding range. I can be added as systematic error to the final De error; so far wanted.</td></tr><tr><td><code>vslide_range</code></td><td><code>numeric</code></td><td>the range used for the vertical sliding</td></tr><tr><td><code>squared_residuals</code></td><td><code>numeric</code></td><td>the squared residuals (horizontal sliding)</td></tr></table><p><strong>slot:</strong><strong><code>@info</code></strong>The original function call (methods::language-object)
 The output (<code>data</code>) should be accessed using the function <a href="get_RLum.html">get_RLum</a>------------------------<br><code>[ PLOT OUTPUT ]</code><br>------------------------<br>The slid IR-RF curves with the finally obtained De</p>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The function returns numerical output and an (<em>optional</em>) plot.</p>
+
+
+<p>-----------------------------------<br></p>
+
+
+<p><code>[ NUMERICAL OUTPUT ]</code><br></p>
+
+
+<p>-----------------------------------<br></p>
+
+
+
+<p><strong><code>RLum.Results</code></strong>-object</p>
+
+
+<p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@data</code></strong></p>
+
+
+
+<p><code>[.. $data : data.frame]</code></p>
+
+
+
+<table class="table table"><tr><td><strong>Column</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>DE</code></td><td><code>numeric</code></td><td>the obtained equivalent dose</td></tr><tr><td><code>DE.ERROR</code></td><td><code>numeric</code></td><td>(only <code>method = "SLIDE"</code>) standard deviation obtained from MC runs</td></tr><tr><td><code>DE.LOWER</code></td><td><code>numeric</code></td><td>2.5% quantile for De values obtained by MC runs</td></tr><tr><td><code>DE.UPPER</code></td><td><code>numeric</code></td><td>97.5% quantile for De values obtained by MC runs</td></tr><tr><td><code>DE.STATUS</code></td><td><code>character</code></td><td>test parameter status</td></tr><tr><td><code>RF_NAT.LIM</code></td><td><code>character</code></td><td>used <code>RF_nat</code> curve limits</td></tr><tr><td><code>RF_REG.LIM</code></td><td><code>character</code></td><td>used <code>RF_reg</code> curve limits</td></tr><tr><td><code>POSITION</code></td><td><code>integer</code></td><td>(<em>optional</em>) position of the curves</td></tr><tr><td><code>DATE</code></td><td><code>character</code></td><td>(<em>optional</em>) measurement date</td></tr><tr><td><code>SEQUENCE_NAME</code></td><td><code>character</code></td><td>(<em>optional</em>) sequence name</td></tr><tr><td><code>UID</code></td><td><code>character</code></td><td>unique data set ID</td></tr></table><p><code>[.. $De.MC : numeric]</code></p>
+
+
+
+<p>A <code>numeric</code> vector with all the De values obtained by the MC runs.</p>
+
+
+<p><code>[.. $test_parameters : data.frame]</code></p>
+
+
+
+<table class="table table"><tr><td><strong>Column</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>POSITION</code></td><td><code>numeric</code></td><td>aliquot position</td></tr><tr><td><code>PARAMETER</code></td><td><code>character</code></td><td>test parameter name</td></tr><tr><td><code>THRESHOLD</code></td><td><code>numeric</code></td><td>set test parameter threshold value</td></tr><tr><td><code>VALUE</code></td><td><code>numeric</code></td><td>the calculated test parameter value (to be compared with the threshold)</td></tr><tr><td><code>STATUS</code></td><td><code>character</code></td><td>test parameter status either <code>"OK"</code> or <code>"FAILED"</code></td></tr><tr><td><code>SEQUENCE_NAME</code></td><td><code>character</code></td><td>name of the sequence, so far available</td></tr><tr><td><code>UID</code></td><td><code>character</code></td><td>unique data set ID</td></tr></table><p><code>[.. $fit : data.frame]</code></p>
+
+
+
+<p>An <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a> object produced by the fitting.</p>
+
+
+<p><code>[.. $slide : list]</code></p>
+
+
+
+<p>A <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with data produced during the sliding. Some elements are previously
+reported with the summary object data. List elements are:</p>
+
+
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>De</code></td><td><code>numeric</code></td><td>the final De obtained with the sliding approach</td></tr><tr><td><code>De.MC</code></td><td><code>numeric</code></td><td>all De values obtained by the MC runs</td></tr><tr><td><code>residuals</code></td><td><code>numeric</code></td><td>the obtained residuals for each channel of the curve</td></tr><tr><td><code>trend.fit</code></td><td><code>lm</code></td><td>fitting results produced by the fitting of the residuals</td></tr><tr><td><code>RF_nat.slid</code></td><td><code>matrix</code></td><td>the slid <code>RF_nat</code> curve</td></tr><tr><td><code>t_n.id</code></td><td><code>numeric</code></td><td>the index of the t_n offset</td></tr><tr><td><code>I_n</code></td><td><code>numeric</code></td><td>the vertical intensity offset if a vertical slide was applied</td></tr><tr><td><code>algorithm_error</code></td><td><code>numeric</code></td><td>the vertical sliding suffers from a systematic effect induced by the used
+algorithm. The returned value is the standard deviation of all obtained De values while expanding the
+vertical sliding range. I can be added as systematic error to the final De error; so far wanted.</td></tr><tr><td><code>vslide_range</code></td><td><code>numeric</code></td><td>the range used for the vertical sliding</td></tr><tr><td><code>squared_residuals</code></td><td><code>numeric</code></td><td>the squared residuals (horizontal sliding)</td></tr></table><p><strong>slot:</strong></p>
+<p></p>
+<p><strong><code>@info</code></strong></p>
+
+
+
+<p>The original function call (methods::language-object)</p>
+
+
+<p>The output (<code>data</code>) should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+
+
+
+<p>------------------------<br></p>
+
+
+<p><code>[ PLOT OUTPUT ]</code><br></p>
+
+
+<p>------------------------<br></p>
+
+
+
+<p>The slid IR-RF curves with the finally obtained De</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -262,7 +453,11 @@ findings by Buylaert et al. (2012).</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -307,12 +502,17 @@ Measurements 32, 685-690.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Analysis</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -328,6 +528,23 @@ Measurements 32, 685-690.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DATE SEQUENCE_NAME                               UID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2022-03-10-06:46.0.18945696670562</span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"test_parameters"</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Analysis</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(1) perform analysis using the method 'FIT'</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="analyse_IRSAR.RF-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##show De results and test paramter results</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   DATE SEQUENCE_NAME                               UID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"test_parameters"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2       NA intersection_ratio        NA 5.541736e-03     OK            NA</span>
@@ -338,6 +555,7 @@ Measurements 32, 685-690.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       NA               beta        NA 5.418719e-01     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8       NA          delta.phi        NA 2.103400e+03     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 UID</span>
+<<<<<<< HEAD
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2022-03-10-06:46.0.18945696670562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 2022-03-10-06:46.0.18945696670562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-03-10-06:46.0.18945696670562</span>
@@ -349,11 +567,25 @@ Measurements 32, 685-690.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(2) perform analysis using the method 'SLIDE'</span></span>
 <span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>, method <span class="op">=</span> <span class="st">"SLIDE"</span>, n.MC <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+=======
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2022-07-14-03:40.0.18945696670562</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2) perform analysis using the method 'SLIDE'</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>, method <span class="op">=</span> <span class="st">"SLIDE"</span>, n.MC <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 Run Monte Carlo loops for error estimation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!</span>
 <span class="r-plt img"><img src="analyse_IRSAR.RF-2.png" alt="" width="700" height="433"></span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co">##(3) perform analysis using the method 'SLIDE' and method control option</span></span>
@@ -365,6 +597,19 @@ Measurements 32, 685-690.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">##(3) perform analysis using the method 'SLIDE' and method control option</span></span></span>
+<span class="r-in"><span><span class="co">## 'trace</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span></span></span>
+<span class="r-in"><span> object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>,</span></span>
+<span class="r-in"><span> method <span class="op">=</span> <span class="st">"SLIDE"</span>,</span></span>
+<span class="r-in"><span> method.control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>trace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -375,6 +620,7 @@ Measurements 32, 685-690.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -384,6 +630,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

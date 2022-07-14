@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -53,7 +85,11 @@
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tune_Data</span><span class="op">(</span><span class="va">data</span>, decrease.error <span class="op">=</span> <span class="fl">0</span>, increase.data <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tune_Data</span><span class="op">(</span><span class="va">data</span>, decrease.error <span class="op">=</span> <span class="fl">0</span>, increase.data <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -62,6 +98,7 @@
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 input values, structure: data (<code>values[,1]</code>) and data error (<code>values [,2]</code>)
 are required</p></dd>
+<<<<<<< HEAD
 <dt>decrease.error</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>:
 factor by which the error is decreased, ranges between 0 and 1.</p></dd>
@@ -72,6 +109,25 @@ factor by which the error is decreased, ranges between 0 and <code>Inf</code>.</
     <div id="value">
     <h2>Value</h2>
     <p>Returns a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with tuned values.</p>
+=======
+
+
+<dt>decrease.error</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>:
+factor by which the error is decreased, ranges between 0 and 1.</p></dd>
+
+
+<dt>increase.data</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>:
+factor by which the error is decreased, ranges between 0 and <code>Inf</code>.</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with tuned values.</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -88,11 +144,16 @@ factor by which the error is decreased, ranges between 0 and <code>Inf</code>.</
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Dietze, M., 2022. tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Dietze, M., 2022. tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">## load example data set</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -113,6 +174,28 @@ factor by which the error is decreased, ranges between 0 and <code>Inf</code>.</
 <span class="r-in"><span class="co">#plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,</span></span>
 <span class="r-in"><span class="co">#                summary = c("n", "mean"))</span></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## load example data set</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## plot original data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">x</span>,</span></span>
+<span class="r-in"><span>                 summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="tune_Data-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## decrease error by 10 %</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu">tune_Data</span><span class="op">(</span><span class="va">x</span>, decrease.error <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Dear kreutzer, these activities on your Darwin machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2022-07-14 15:42:24]</span>
+<span class="r-plt img"><img src="tune_Data-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## increase sample size by 200 %</span></span></span>
+<span class="r-in"><span><span class="co">#plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,</span></span></span>
+<span class="r-in"><span><span class="co">#                summary = c("n", "mean"))</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -123,6 +206,7 @@ factor by which the error is decreased, ranges between 0 and <code>Inf</code>.</
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -132,6 +216,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

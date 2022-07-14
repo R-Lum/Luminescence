@@ -58,7 +58,7 @@
 #' @section Function version: 0.6.0
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 #'

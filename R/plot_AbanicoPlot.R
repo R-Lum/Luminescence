@@ -231,7 +231,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
 #' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram], [plot_ViolinPlot]
@@ -393,13 +393,14 @@
 #'                  layout = "journal")
 #'
 #' ## now with predefined layout definition and further modifications
-#' plot_AbanicoPlot(data = data.3,
-#'                  z.0 = "median",
-#'                  layout = "journal",
-#'                  col = c("steelblue4", "orange4"),
-#'                  bar.col = adjustcolor(c("steelblue3", "orange3"),
-#'                                        alpha.f = 0.5),
-#'                  polygon.col = c("steelblue3", "orange3"))
+#' plot_AbanicoPlot(
+#'  data = data.3,
+#'  z.0 = "median",
+#'  layout = "journal",
+#'  col = c("steelblue4", "orange4"),
+#'  bar.col = adjustcolor(c("steelblue3", "orange3"),
+#'                          alpha.f = 0.5),
+#'  polygon.col = c("steelblue3", "orange3"))
 #'
 #' ## for further information on layout definitions see documentation
 #' ## of function get_Layout()

@@ -19,12 +19,17 @@ capacity. The function is limited to circular ROIs."><!-- mathjax --><script src
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -34,6 +39,36 @@ capacity. The function is limited to circular ROIs."><!-- mathjax --><script src
   <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
+     
+    Articles
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+>>>>>>> dev_0.9.20
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
@@ -57,21 +92,36 @@ capacity. The function is limited to circular ROIs.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">extract_ROI</span><span class="op">(</span><span class="va">object</span>, <span class="va">roi</span>, roi_summary <span class="op">=</span> <span class="st">"mean"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">extract_ROI</span><span class="op">(</span><span class="va">object</span>, <span class="va">roi</span>, roi_summary <span class="op">=</span> <span class="st">"mean"</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Data.Image-class.html">RLum.Data.Image</a>, <a href="https://rdrr.io/r/base/array.html" class="external-link">array</a> or <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<strong>required</strong>): input image data</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>roi</dt>
 <dd><p><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<strong>required</strong>): matrix with three columns containing the centre coordinates
 of the ROI (first two columns) and the diameter of the circular ROI. All numbers must by of type <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>
 and will forcefully coerced into such numbers using <code><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer()</a></code> regardless.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>roi_summary</dt>
 <dd><p>(<strong>with default</strong>): if <code>"mean"</code> (the default) defines what is returned
 in the element <code>roi_summary</code>; alternatively <code>"mean"</code>, <code>"median"</code>, <code>"sd"</code> or <code>"sum"</code> can be chosen.
 Pixel values are conveniently summarised using the above defined keyword.</p></dd>
+<<<<<<< HEAD
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>): enables/disables control plot. Only the first
 image frame is shown</p></dd>
@@ -83,6 +133,28 @@ image frame is shown</p></dd>
 <code>..$roi_summary</code>: an <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> where rows are frames from the image, and columns are different ROI
 The element has two attributes: <code>summary</code> (the method used to summarise pixels) and <code>area</code> (the pixel area)
 <code>..$roi_coord</code>: a <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> that can be passed to <a href="plot_ROI.html">plot_ROI</a>If <code>plot = TRUE</code> a control plot is returned.</p>
+=======
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>): enables/disables control plot. Only the first
+image frame is shown</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><a href="RLum.Results-class.html">RLum.Results</a> object with the following elements:
+<code>..$roi_signals</code>: a named <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with all ROI values and their coordinates
+<code>..$roi_summary</code>: an <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> where rows are frames from the image, and columns are different ROI
+The element has two attributes: <code>summary</code> (the method used to summarise pixels) and <code>area</code> (the pixel area)
+<code>..$roi_coord</code>: a <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> that can be passed to <a href="plot_ROI.html">plot_ROI</a></p>
+
+
+
+<p>If <code>plot = TRUE</code> a control plot is returned.</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -103,20 +175,35 @@ diameter of the circle in pixel.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. extract_ROI(): Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">255</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">roi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">extract_ROI</span><span class="op">(</span>object <span class="op">=</span> <span class="va">m</span>, roi <span class="op">=</span> <span class="va">roi</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">0</span>,<span class="fl">255</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">roi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">extract_ROI</span><span class="op">(</span>object <span class="op">=</span> <span class="va">m</span>, roi <span class="op">=</span> <span class="va">roi</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="extract_ROI-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
@@ -126,7 +213,11 @@ diameter of the circle in pixel.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $roi_summary : matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $roi_coord : matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -137,6 +228,7 @@ diameter of the circle in pixel.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -146,6 +238,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

@@ -81,7 +81,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [hist], [plot]
 #'

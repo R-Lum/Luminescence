@@ -21,7 +21,9 @@ fit_SurfaceExposure(
 }
 \arguments{
 \item{data}{\link{data.frame} or \link{list} (\strong{required}):
-Measured OSL surface exposure data with the following structure:\preformatted{                               (optional)
+Measured OSL surface exposure data with the following structure:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{                               (optional)
      | depth (a.u.)| intensity | error |
      |     [ ,1]   |    [ ,2]  | [ ,3] |
      |-------------|-----------|-------|
@@ -30,7 +32,7 @@ Measured OSL surface exposure data with the following structure:\preformatted{  
  ... |     ...     |     ...   |  ...  |
 [x, ]|    ~~~~     |    ~~~~   | ~~~~  |
 
-}
+}\if{html}{\out{</div>}}
 
 Alternatively, a \link{list} of \code{data.frames} can be provided, where each
 \code{data.frame} has the same structure as shown above, with the exception that
@@ -205,7 +207,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Burow, C., 2022. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2022. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

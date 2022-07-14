@@ -28,13 +28,25 @@ This uses the function graphics::contour'><!-- mathjax --><script src="https://c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -45,6 +57,26 @@ This uses the function graphics::contour'><!-- mathjax --><script src="https://c
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -75,6 +107,7 @@ can be set to <code>FALSE</code>.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_RLum.Data.Image</span><span class="op">(</span>
   <span class="va">object</span>,
   frames <span class="op">=</span> <span class="cn">NULL</span>,
@@ -82,6 +115,15 @@ can be set to <code>FALSE</code>.</p>
   plot.type <span class="op">=</span> <span class="st">"plot.raster"</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_RLum.Data.Image</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  frames <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  par.local <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot.type <span class="op">=</span> <span class="st">"plot.raster"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -89,25 +131,55 @@ can be set to <code>FALSE</code>.</p>
     <dl><dt>object</dt>
 <dd><p><a href="RLum.Data.Image-class.html">RLum.Data.Image</a> (<strong>required</strong>): S4
 object of class <code>RLum.Data.Image</code></p></dd>
+<<<<<<< HEAD
 <dt>frames</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): sets the frames to be set, by default all
 frames are plotted. Can be sequence of numbers, as long as the frame number is valid.</p></dd>
+=======
+
+
+<dt>frames</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): sets the frames to be set, by default all
+frames are plotted. Can be sequence of numbers, as long as the frame number is valid.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>par.local</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If <code>par.local = FALSE</code> global parameters are inherited.</p></dd>
+<<<<<<< HEAD
 <dt>plot.type</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): plot types.
 Supported types are <code>plot.raster</code>, <code>contour</code></p></dd>
+=======
+
+
+<dt>plot.type</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): plot types.
+Supported types are <code>plot.raster</code>, <code>contour</code></p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>further arguments and graphical parameters that will be passed
 to the specific plot functions. Standard supported parameters are <code>xlim</code>, <code>ylim</code>, <code>zlim</code>,
 <code>xlab</code>, <code>ylab</code>, <code>main</code>, <code>legend</code> (<code>TRUE</code> or <code>FALSE</code>), <code>col</code>, <code>cex</code>, <code>axes</code> (<code>TRUE</code> or <code>FALSE</code>),
 <code>zlim_image</code> (adjust the z-scale over different images), <code>stretch</code></p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>Returns a plot</p>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns a plot</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="note">
     <h2>Note</h2>
@@ -127,16 +199,25 @@ series of images.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##load data</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -145,6 +226,16 @@ series of images.</p>
 <span class="r-in"><span class="fu">plot_RLum.Data.Image</span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_RLum.Data.Image-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##plot data</span></span></span>
+<span class="r-in"><span><span class="fu">plot_RLum.Data.Image</span><span class="op">(</span><span class="va">ExampleData.RLum.Data.Image</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_RLum.Data.Image-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -155,6 +246,7 @@ series of images.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -164,6 +256,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

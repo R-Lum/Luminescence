@@ -44,7 +44,7 @@ enables or disables \link{txtProgressBar}.}
 Write a binary file.
 }
 \description{
-Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be
+Exports a \code{Risoe.BINfileData} object in a \verb{*.bin} or \verb{*.binx} file that can be
 opened by the Analyst software or other Risø software.
 }
 \details{
@@ -75,29 +75,25 @@ ROI definitions (introduced in BIN-file version 8) are not supported!
 There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
- 0.5.1
+ 0.5.2
 }
 
 \examples{
-
-\dontrun{
-
 ##load exampled dataset
-data(ExampleData.BINfileData, envir = environment())
+file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+temp <- read_BIN2R(file)
 
-##create temporary filepath
+##create temporary file path
 ##(for usage replace by own path)
-temp_file <- temp_file <- tempfile(pattern = "output", fileext = ".bin")
+temp_file <- tempfile(pattern = "output", fileext = ".binx")
 
 ##export to temporary file path
-write_R2BIN(CWOSL.SAR.Data, file = temp_file)
-
-}
+write_R2BIN(temp, file = temp_file)
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -108,6 +104,6 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{IO}

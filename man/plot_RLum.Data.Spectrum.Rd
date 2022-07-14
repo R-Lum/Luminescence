@@ -150,9 +150,15 @@ to set the background transparent and reduce the thickness of the lines use:
 Per frame a single curve is returned. Frames are time or temperature
 steps.
 
+-\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
+this setting before plotting.
+
 \strong{\code{plot.type = "multiple.lines"}}
 
 All frames plotted in one frame.
+
+-\code{frames}: pick the frames to be plotted (depends on the binning!). Check without
+this setting before plotting.
 
 '**\code{plot.type = "image"} or `plot.type = "contour" **
 
@@ -173,7 +179,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 
 \strong{Further arguments that will be passed (depending on the plot type)}
 
-\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
+\code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{box},
 \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
 \code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
 \code{contour}, \code{contour.col} (\code{"image"})
@@ -182,7 +188,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.5
+ 0.6.8
 }
 
 \examples{
@@ -254,11 +260,11 @@ plot_RLum.Data.Spectrum(
 \linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot}, \link{plot_RLum}, \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

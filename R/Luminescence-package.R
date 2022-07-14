@@ -48,22 +48,28 @@
 #'
 #' **Package maintainer**
 #'
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom),\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
 #' \email{sebastian.kreutzer@@aber.ac.uk}
 #'
 #' **Funding**
 #'
-#' Cooperation and personal exchange between the developers is gratefully
+#' 2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
+#' was funded through the DFG programme "Rekonstruktion der Umweltbedingungen
+#' des Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen"
+#' (DFG id: 46526743)
+#'
+#' 2014-2018: Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 #'
-#' Between 2014--2019, the work of Sebastian Kreutzer as maintainer of the package was supported
-#' by LabEx LaScArBxSK (ANR - n. ANR-10-LABX-52).
+#' 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
+#' by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 #'
-#' Between 2020--2022, the work of Sebastian Kreutzer as maintainer of the package has received funding
+#' 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
 #' from the European Union’s Horizon 2020 research and innovation programme under
-#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit).
+#' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
+#' maintaining the package.
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -84,8 +90,13 @@
 #' 30 (1), 1-8.
 #'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
-#' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The ’baSAR’-model and its
+#' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its
 #' implementation in the R package ’Luminescence’. Ancient TL 34 (2), 14-21.
+#'
+#' Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., 2022.
+#' Luminescence age calculation through Bayesian convolution of equivalent dose
+#' and dose-rate distributions: the De_Dr model.
+#' Geochronology 4, 297–310. https://doi.org/10.5194/gchron-4-297-2022
 #'
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL, 33 (1), 16-21.

@@ -311,7 +311,7 @@
 #'
 #' @section Function version: 0.7.8
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
 #' [nls], [minpack.lm::nlsLM], `parallel::mclapply`

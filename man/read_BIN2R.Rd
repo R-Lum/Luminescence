@@ -121,16 +121,14 @@ version number depends on the used Sequence Editor.
 
 \examples{
 
-##(1) import Risoe BIN-file to R (uncomment for usage)
-
-#FILE <- file.choose()
-#temp <- read_BIN2R(FILE)
-#temp
+file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+temp <- read_BIN2R(file)
+temp
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2022. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2022. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -143,7 +141,7 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team}

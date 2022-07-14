@@ -29,7 +29,9 @@ assumed that errors on \code{LxTx} are missing. A third column will be attached
 with an arbitrary 5 \\% error on the provided \code{LxTx} values.
 \item Can also be a \strong{wide table}, i.e. a \link{data.frame} with a number of columns divisible by 3
 and where each triplet has the aforementioned column structure.
-}\preformatted{                        (optional)
+}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{                        (optional)
      | dose (s)| LxTx | LxTx error |
      |  [ ,1]  | [ ,2]|    [ ,3]   |
      |---------|------|------------|
@@ -38,7 +40,7 @@ and where each triplet has the aforementioned column structure.
  ... |    ...  |  ... |     ...    |
 [x, ]|  Rx     | LxTx | LxTx error |
 
-}
+}\if{html}{\out{</div>}}
 
 \strong{NOTE:} The function assumes the first row of the function to be the
 \code{Ln/Tn}-value. If you want to provide more than one \code{Ln/Tn}-value consider
@@ -46,14 +48,16 @@ using the argument \code{LnTn}.}
 
 \item{LnTn}{\link{data.frame} (\strong{optional}):
 This argument should \strong{only} be used to provide more than one \code{Ln/Tn}-value.
-It assumes a two column data frame with the following structure:\preformatted{     |  LnTn  |  LnTn error  |
+It assumes a two column data frame with the following structure:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{     |  LnTn  |  LnTn error  |
      |  [ ,1] |      [ ,2]   |
      |--------|--------------|
 [1, ]| LnTn_1 | LnTn_1 error |
 [2, ]| LnTn_2 | LnTn_2 error |
  ... |   ...  |      ...     |
 [x, ]| LnTn_x | LnTn_x error |
-}
+}\if{html}{\out{</div>}}
 
 The function will calculate a \strong{mean} \code{Ln/Tn}-value and uses either the
 standard deviation or the highest individual error, whichever is larger. If
@@ -276,7 +280,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2022. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., 2022. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

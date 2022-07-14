@@ -18,13 +18,25 @@ by the function read_SPE2R"><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -35,6 +47,26 @@ by the function read_SPE2R"><!-- mathjax --><script src="https://cdnjs.cloudflar
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -55,6 +87,7 @@ by the function <a href="read_SPE2R.html">read_SPE2R</a></p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for RLum.Data.Image</span>
 <span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
 
@@ -84,10 +117,46 @@ by the function <a href="read_SPE2R.html">read_SPE2R</a></p>
 an object of class RLum.Data.Image</p></dd>
 <dt>class</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>: name of the <code>RLum</code> class to create</p></dd>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for RLum.Data.Image</span></span>
+<span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Image</span></span>
+<span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span></span>
+<span>  <span class="va">class</span>,</span>
+<span>  <span class="va">originator</span>,</span>
+<span>  <span class="va">.uid</span>,</span>
+<span>  <span class="va">.pid</span>,</span>
+<span>  recordType <span class="op">=</span> <span class="st">"Image"</span>,</span>
+<span>  curveType <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Image</span></span>
+<span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">info.object</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for RLum.Data.Image</span></span>
+<span><span class="fu"><a href="names_RLum.html">names_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span></code></pre></div>
+    </div>
+
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>object</dt>
+<dd><p><code><a href="get_RLum.html">get_RLum</a></code>, <code><a href="names_RLum.html">names_RLum</a></code> (<strong>required</strong>):
+an object of class RLum.Data.Image</p></dd>
+
+
+<dt>class</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>: name of the <code>RLum</code> class to create</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>originator</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 contains the name of the calling function (the function that produces this object);
 can be set manually.</p></dd>
+<<<<<<< HEAD
 <dt>.uid</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
@@ -100,11 +169,36 @@ record type (e.g. "OSL")</p></dd>
 <dt>curveType</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
 curve type (e.g. "predefined" or "measured")</p></dd>
+=======
+
+
+<dt>.uid</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
+sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
+
+
+<dt>.pid</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+option to provide a parent id for nesting at will.</p></dd>
+
+
+<dt>recordType</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+record type (e.g. "OSL")</p></dd>
+
+
+<dt>curveType</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+curve type (e.g. "predefined" or "measured")</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>data</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a>:
 raw curve data. If data is of type <code>RLum.Data.Image</code> this can be used to
 re-construct the object, i.e. modified parameters except <code>.uid</code> and <code>.pid</code>. The rest
 will be subject to copy and paste unless provided.</p></dd>
+<<<<<<< HEAD
 <dt>info</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>:
 info elements</p></dd>
@@ -117,6 +211,42 @@ name of the info object to returned</p></dd>
     <p><strong><code>set_RLum</code></strong>Returns an object from class <code>RLum.Data.Image</code><strong><code>get_RLum</code></strong></p><ol><li><p>Returns the data object (<a href="https://rdrr.io/r/base/array.html" class="external-link">array</a>)</p></li>
 <li><p>only the info object if <code>info.object</code> was set.</p></li>
 </ol><p><strong><code>names_RLum</code></strong>Returns the names of the info elements</p>
+=======
+
+
+<dt>info</dt>
+<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>:
+info elements</p></dd>
+
+
+<dt>info.object</dt>
+<dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>:
+name of the info object to returned</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><strong><code>set_RLum</code></strong></p>
+
+
+
+<p>Returns an object from class <code>RLum.Data.Image</code></p>
+
+
+
+<p><strong><code>get_RLum</code></strong></p>
+
+
+<ol><li><p>Returns the data object (<a href="https://rdrr.io/r/base/array.html" class="external-link">array</a>)</p></li>
+<li><p>only the info object if <code>info.object</code> was set.</p></li>
+</ol><p><strong><code>names_RLum</code></strong></p>
+
+
+
+<p>Returns the names of the info elements</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="methods-by-generic-">
     <h2>Methods (by generic)</h2>
@@ -172,18 +302,31 @@ elements the slot <code>info</code> can be used.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Data.Image"</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Data.Image"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Data.Image" [package "Luminescence"]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slots:</span>
@@ -197,9 +340,15 @@ elements the slot <code>info</code> can be used.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extends: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Data", directly</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum", by class "RLum.Data", distance 2</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##create empty RLum.Data.Image object</span></span>
 <span class="r-in"><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Data.Image"</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##create empty RLum.Data.Image object</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Data.Image"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Image-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: Image</span>
@@ -210,7 +359,11 @@ elements the slot <code>info</code> can be used.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. y dimension [px]: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. full pixel value range: NA : NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -221,6 +374,7 @@ elements the slot <code>info</code> can be used.</p>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -230,6 +384,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

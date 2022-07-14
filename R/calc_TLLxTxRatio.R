@@ -55,7 +55,7 @@
 #' @section Function version: 0.3.3
 #'
 #' @author
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Schmidt, University of Bayreuth (Germany)
 #'
 #' @seealso [RLum.Results-class], [analyse_SAR.TL]

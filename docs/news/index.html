@@ -17,13 +17,25 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -34,6 +46,26 @@
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -48,6 +80,7 @@
     </div>
 
     <div class="section level2">
+<<<<<<< HEAD
 <h2 class="page-header" data-toc-text="0.9.19" id="changes-in-version-0919-2022-03-10">Changes in version 0.9.19 (2022-03-10)<a class="anchor" aria-label="anchor" href="#changes-in-version-0919-2022-03-10"></a></h2>
 <p><strong>This package version requires R &gt;= 4.0.5</strong></p>
 <div class="section level4">
@@ -132,6 +165,61 @@ plotting</li>
 is for all plot functions in the package</li>
 </ul></div>
 </div>
+=======
+<h2 class="page-header" data-toc-text="0.9.20" id="changes-in-version-0920-2022-07-14">Changes in version 0.9.20 (2022-07-14)<a class="anchor" aria-label="anchor" href="#changes-in-version-0920-2022-07-14"></a></h2>
+<p><strong>This package version requires R &gt;= 4.1</strong></p>
+<div class="section level3">
+<h3 id="bugfixes-and-changes-0-9-20">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-20"></a></h3>
+<div class="section level4">
+<h4 id="analyse_al2o3c_measurement-0-9-20"><code>analyse_Al2O3C_Measurement()</code><a class="anchor" aria-label="anchor" href="#analyse_al2o3c_measurement-0-9-20"></a></h4>
+<ul><li>Add support for sequences <strong>without</strong> TL curves in the sequence; however, the function still expects three OSL curves for natural, regenerated, and background signal.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="merge_rlumdatacurve-0-9-20"><code>merge_RLum.Data.Curve()</code><a class="anchor" aria-label="anchor" href="#merge_rlumdatacurve-0-9-20"></a></h4>
+<ul><li>The functions works better if curves of different lengths are merged, but it still throws an error if the resolution is not similar.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_rlumdatacurve-0-9-20"><code>plot_RLum.Data.Curve()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdatacurve-0-9-20"></a></h4>
+<ul><li>Add support for <code>...</code> arguments <code>las</code> and <code>axes</code>
+</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_rlumdataspectrum-0-9-20"><code>plot_RLum.Data.Spectrum()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdataspectrum-0-9-20"></a></h4>
+<ul><li>
+<p>The <code>plot.types = "single"</code> and <code>plot.type = "multiple.lines"</code> had two long-standing issues with the colour rug (both are fixed):</p>
+<ul><li>The colour rug showed ugly overplotting,</li>
+<li>the colour rug had a resolution that depended on the x-axis (wavelength) scaling.</li>
+</ul></li>
+<li><p><code>plot.types = "single"</code> and <code>plot.type = "multiple.lines"</code> now support a <code>...</code> parameter <code>box</code> for removing the outer plot frame. The argument was named <code>box</code> to avoid a confusion with the term frames used for image stacks.</p></li>
+<li><p><code>plot.types = "single"</code> and <code>plot.type = "multiple.lines"</code> now support a <code>...</code> parameter <code>frames</code> for picking the frames to be visualised beyond the axis limitation.</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_drcsummary-0-9-20"><code>plot_DRCSummary()</code><a class="anchor" aria-label="anchor" href="#plot_drcsummary-0-9-20"></a></h4>
+<ul><li>The function did not know how to hand the output, if the fit was <code>LambertW</code>; added.</li>
+<li>The function now roughly checks whether all curves have used the same equation for the fitting, if not it throws an error.</li>
+<li>The <code>...</code> arguments allowed to modify the plot are now mentioned in the documentation.</li>
+<li>The <code>...</code> are better recycled to avoid a function crash in case the user did not provide the arguments in the required length.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_growthcurve-0-9-20"><code>plot_GrowthCurve()</code><a class="anchor" aria-label="anchor" href="#plot_growthcurve-0-9-20"></a></h4>
+<ul><li>The formula returned in the output if <code>fit.method = "LambertW"</code> was not correct; fixed. The fit and the fitting was not affected; though.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_bin2r-0-9-20"><code>read_BIN2R()</code><a class="anchor" aria-label="anchor" href="#read_bin2r-0-9-20"></a></h4>
+<ul><li>The example in the documentation was a little bit too generic and is now replaced by an example that works.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="write_r2bin-0-9-20"><code>write_R2BIN()</code><a class="anchor" aria-label="anchor" href="#write_r2bin-0-9-20"></a></h4>
+<ul><li>The running example was not working because it used outdated example data. The example was replaced by a working example using an actual BINX-file. (thanks <a href="https://github.com/JohannesFriedrich" class="external-link">@JohannesFriedrich</a> for reporting, <a href="https://github.com/R-Lum/Luminescence/issues/110" class="external-link">#110</a>)</li>
+<li>The terminal output of the function could not be silenced. Now the output (except of the progress bar, which can be switched off) is a <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code>, allowing to disable the terminal output.</li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="internals-0-9-20">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-20"></a></h3>
+<ul><li>Add new internal function <code>.add_fancy_log_axis()</code> to provide a more sophisticated log-axis to plots if needed with minor ticks and proper labelling.</li>
+<li>Fix wrong usage of <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code> where needed</li>
+</ul></div>
+>>>>>>> dev_0.9.20
 </div>
   </div>
 
@@ -143,6 +231,7 @@ is for all plot functions in the package</li>
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -152,6 +241,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

@@ -19,13 +19,25 @@ fitting on RLum.Analysis objects."><!-- mathjax --><script src="https://cdnjs.cl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -36,6 +48,26 @@ fitting on RLum.Analysis objects."><!-- mathjax --><script src="https://cdnjs.cl
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -57,6 +89,7 @@ fitting on <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_pIRIRSequence</span><span class="op">(</span>
   <span class="va">object</span>,
   <span class="va">signal.integral.min</span>,
@@ -69,6 +102,20 @@ fitting on <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p>
   plot.single <span class="op">=</span> <span class="cn">FALSE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_pIRIRSequence</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">signal.integral.min</span>,</span>
+<span>  <span class="va">signal.integral.max</span>,</span>
+<span>  <span class="va">background.integral.min</span>,</span>
+<span>  <span class="va">background.integral.max</span>,</span>
+<span>  dose.points <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TL"</span>, <span class="st">"IR50"</span>, <span class="st">"pIRIR225"</span><span class="op">)</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot.single <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -77,26 +124,56 @@ fitting on <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects.</p>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects (<strong>required</strong>):
 input object containing data for analysis.
 If a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> is provided the functions tries to iterate over the list.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral.min</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 lower bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>signal.integral.max</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 upper bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>background.integral.min</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 lower bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>background.integral.max</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 upper bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>dose.points</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 a numeric vector containing the dose points values. Using this argument overwrites dose point
 values in the signal curves.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>sequence.structure</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specifies the general sequence structure. Allowed values are <code>"TL"</code> and
@@ -104,23 +181,52 @@ any <code>"IR"</code> combination (e.g., <code>"IR50"</code>,<code>"pIRIR225"</c
 Additionally a parameter <code>"EXCLUDE"</code> is allowed to exclude curves from
 the analysis (Note: If a preheat without PMT measurement is used, i.e.
 preheat as none TL, remove the TL step.)</p></dd>
+<<<<<<< HEAD
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables plot output.</p></dd>
+=======
+
+
+<dt>plot</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables plot output.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>plot.single</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in single plot
 windows. Requires <code>plot = TRUE</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>further arguments that will be passed to the function
 <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a> and <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>. Furthermore, the arguments <code>main</code> (headers), <code>log</code> (IRSL curves), <code>cex</code> (control
 the size) and <code>mtext.outer</code> (additional text on the plot area) can be passed to influence the plotting. If the input
 is list, <code>main</code> can be passed as <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>Plots (<em>optional</em>) and an <a href="RLum.Results-class.html">RLum.Results</a> object is
 returned containing the following elements:</p><table class="table table"><tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>..$data</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr><tr><td><code>..$LnLxTnTx.table</code> :</td><td><code>data.frame</code></td><td>with the <code>LnLxTnTx</code> values</td></tr><tr><td><code>..$rejection.criteria</code> :</td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>rejection criteria</td></tr><tr><td><code>..$Formula</code> :</td><td><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></td><td>Function used for fitting of the dose response curve</td></tr><tr><td><code>..$call</code> :</td><td><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a></td><td>the original function call</td></tr></table><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.</p>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Plots (<em>optional</em>) and an <a href="RLum.Results-class.html">RLum.Results</a> object is
+returned containing the following elements:</p>
+
+
+<table class="table table"><tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>..$data</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr><tr><td><code>..$LnLxTnTx.table</code> :</td><td><code>data.frame</code></td><td>with the <code>LnLxTnTx</code> values</td></tr><tr><td><code>..$rejection.criteria</code> :</td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>rejection criteria</td></tr><tr><td><code>..$Formula</code> :</td><td><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></td><td>Function used for fitting of the dose response curve</td></tr><tr><td><code>..$call</code> :</td><td><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a></td><td>the original function call</td></tr></table><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -153,17 +259,29 @@ with the following options:</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
     <p>Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation
+<<<<<<< HEAD
 Measurements 32, 57-73. doi: <a href="https://doi.org/10.1016/S1350-4487%2899%2900253-X" class="external-link">10.1016/S1350-4487(99)00253-X</a></p>
 <p>Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 fading rates of various luminescence signals from feldspar-rich sediment
 extracts. Radiation Measurements 43, 1474-1486.
 doi: <a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-link">10.1016/j.radmeas.2008.06.002</a></p>
+=======
+Measurements 32, 57-73. <a href="https://doi.org/10.1016/S1350-4487%2899%2900253-X" class="external-link">doi:10.1016/S1350-4487(99)00253-X</a></p>
+<p>Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
+fading rates of various luminescence signals from feldspar-rich sediment
+extracts. Radiation Measurements 43, 1474-1486.
+<a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-link">doi:10.1016/j.radmeas.2008.06.002</a></p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -172,12 +290,17 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-lin
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">### NOTE: For this example existing example data are used. These data are non pIRIR data.</span></span>
@@ -216,6 +339,46 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-lin
 <span class="r-in">     sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TL"</span>, <span class="st">"pseudoIRSL1"</span>, <span class="st">"pseudoIRSL2"</span><span class="op">)</span>,</span>
 <span class="r-in">     main <span class="op">=</span> <span class="st">"Pseudo pIRIR data set based on quartz OSL"</span>,</span>
 <span class="r-in">     plot.single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### NOTE: For this example existing example data are used. These data are non pIRIR data.</span></span></span>
+<span class="r-in"><span><span class="co">###</span></span></span>
+<span class="r-in"><span><span class="co">##(1) Compile example data set based on existing example data (SAR quartz measurement)</span></span></span>
+<span class="r-in"><span><span class="co">##(a) Load example data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(b) Transform the values from the first position in a RLum.Analysis object</span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, pos<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(c) Grep curves and exclude the last two (one TL and one IRSL)</span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">object</span>, record.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">29</span>,<span class="op">-</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(d) Define new sequence structure and set new RLum.Analysis object</span></span></span>
+<span class="r-in"><span><span class="va">sequence.structure</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sequence.structure</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>,by <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="va">sequence.structure</span> <span class="op">+</span> <span class="va">x</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">sequence.structure</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">object</span><span class="op">[[</span><span class="va">sequence.structure</span><span class="op">[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Analysis"</span>, records <span class="op">=</span> <span class="va">object</span>, protocol <span class="op">=</span> <span class="st">"pIRIR"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2) Perform pIRIR analysis (for this example with quartz OSL data!)</span></span></span>
+<span class="r-in"><span><span class="co">## Note: output as single plots to avoid problems with this example</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_pIRIRSequence</span><span class="op">(</span><span class="va">object</span>,</span></span>
+<span class="r-in"><span>     signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>     signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>     background.integral.min <span class="op">=</span> <span class="fl">900</span>,</span></span>
+<span class="r-in"><span>     background.integral.max <span class="op">=</span> <span class="fl">1000</span>,</span></span>
+<span class="r-in"><span>     fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span></span>
+<span class="r-in"><span>     sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TL"</span>, <span class="st">"pseudoIRSL1"</span>, <span class="st">"pseudoIRSL2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Pseudo pIRIR data set based on quartz OSL"</span>,</span></span>
+<span class="r-in"><span>     plot.single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="analyse_pIRIRSequence-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-3.png" alt="" width="700" height="433"></span>
@@ -235,6 +398,7 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-lin
 <span class="r-plt img"><img src="analyse_pIRIRSequence-15.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-16.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="analyse_pIRIRSequence-17.png" alt="" width="700" height="433"></span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(3) Perform pIRIR analysis (for this example with quartz OSL data!)</span></span>
@@ -253,6 +417,26 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-lin
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(3) Perform pIRIR analysis (for this example with quartz OSL data!)</span></span></span>
+<span class="r-in"><span><span class="co">## Alternative for PDF output, uncomment and complete for usage</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">tempfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pdf"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tempfile</span>, height <span class="op">=</span> <span class="fl">15</span>, width <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_pIRIRSequence</span><span class="op">(</span><span class="va">object</span>,</span></span>
+<span class="r-in"><span>         signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>         signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>         background.integral.min <span class="op">=</span> <span class="fl">900</span>,</span></span>
+<span class="r-in"><span>         background.integral.max <span class="op">=</span> <span class="fl">1000</span>,</span></span>
+<span class="r-in"><span>         fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span></span>
+<span class="r-in"><span>         main <span class="op">=</span> <span class="st">"Pseudo pIRIR data set based on quartz OSL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -263,6 +447,7 @@ doi: <a href="https://doi.org/10.1016/j.radmeas.2008.06.002" class="external-lin
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -272,6 +457,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

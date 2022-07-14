@@ -18,13 +18,25 @@ reader into R."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -35,6 +47,26 @@ reader into R."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -55,6 +87,7 @@ reader into R.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_BIN2R</span><span class="op">(</span>
   <span class="va">file</span>,
   show.raw.values <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -71,6 +104,24 @@ reader into R.</p>
   verbose <span class="op">=</span> <span class="cn">TRUE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_BIN2R</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  show.raw.values <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  position <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n.records <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zero_data.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  duplicated.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  fastForward <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.record.number <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  forced.VersionNumber <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ignore.RECTYPE <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -81,64 +132,130 @@ BIN/BINX file (URLs are supported). If input is a <code>list</code> it should co
 only <code>character</code>s representing each valid path and BIN/BINX-file names.
 Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all BIN/BINX files found in the directory.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>show.raw.values</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 shows raw values from BIN-file for <code>LTYPE</code>, <code>DTYPE</code> and <code>LIGHTSOURCE</code> without
 translation in characters. Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>position</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 imports only the selected position. Note: the import performance will not
 benefit by any selection made here.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>n.records</dt>
 <dd><p><a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a> (<em>optional</em>):
 limits the number of imported records. Can be used in combination with
 <code>show.record.number</code> for debugging purposes, e.g. corrupt BIN-files.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>zero_data.rm</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 remove erroneous data with no count values. As such data are usually not
 needed for the subsequent data analysis they will be removed by default.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>duplicated.rm</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 remove duplicated entries if <code>TRUE</code>. This may happen due to an erroneous
 produced BIN/BINX-file. This option compares only predecessor and successor.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>fastForward</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 if <code>TRUE</code> for a more efficient data processing only a list of <code>RLum.Analysis</code>
 objects is returned instead of a <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> object.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>show.record.number</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 shows record number of the imported record, for debugging usage only.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
+<<<<<<< HEAD
 <dt>txtProgressBar</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a>.</p></dd>
+=======
+
+
+<dt>txtProgressBar</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a>.</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>forced.VersionNumber</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
 allows to cheat the version number check in the function by own values for
 cases where the BIN-file version is not supported.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p>
 <p><strong>Note:</strong> The usage is at own risk, only supported BIN-file versions have been tested.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>ignore.RECTYPE</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 this argument allows to ignore values in the byte 'RECTYPE' (BIN-file version 08),
 in case there are not documented or faulty set. In this case the corrupted records are skipped.</p></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>pattern</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 argument that is used if only a path is provided. The argument will than be
 passed to the function <a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a> used internally to construct a <code>list</code>
 of wanted files</p></dd>
+<<<<<<< HEAD
 <dt>verbose</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables verbose mode</p></dd>
+=======
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables verbose mode</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>further arguments that will be passed to the function
 <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a>. Please note that any matching argument
 automatically sets <code>fastForward = TRUE</code></p></dd>
+<<<<<<< HEAD
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -151,6 +268,28 @@ slots:</p>
 The ID corresponds to the record ID in METADATA.</p></dd>
 </dl><p>If <code>fastForward = TRUE</code> a list of <a href="RLum.Analysis-class.html">RLum.Analysis</a> object is returned. The
 internal coercing is done using the function <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></p>
+=======
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns an S4 <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> object containing two
+slots:</p>
+<dl><dt>METADATA</dt>
+<dd><p>A <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> containing all variables stored in the BIN-file.</p></dd>
+
+<dt>DATA</dt>
+<dd><p>A <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> containing a numeric <a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> of the measured data.
+The ID corresponds to the record ID in METADATA.</p></dd>
+
+
+</dl><p>If <code>fastForward = TRUE</code> a list of <a href="RLum.Analysis-class.html">RLum.Analysis</a> object is returned. The
+internal coercing is done using the function <a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></p>
+
+
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -171,7 +310,11 @@ version number depends on the used Sequence Editor.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., Fuchs, M.C., 2022. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., Fuchs, M.C., 2022. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -186,7 +329,11 @@ version number depends on the used Sequence Editor.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br>
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+>>>>>>> dev_0.9.20
 Margret C. Fuchs, HZDR Freiberg, (Germany) <br>
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 , RLum Developer Team</p>
@@ -194,6 +341,7 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##(1) import Risoe BIN-file to R (uncomment for usage)</span></span>
 <span class="r-in"></span>
@@ -202,6 +350,33 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 <span class="r-in"><span class="co">#temp</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/BINfile_V8.binx"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">read_BIN2R</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [read_BIN2R()]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/Rtmpr4Ra2F/temp_libpath1de32be7d18/Luminescence/extdata/BINfile_V8.binx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 records have been read successfully!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">temp</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [Risoe.BINfileData object]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	BIN/BINX version      8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	File name:            ExampleData.BINfileData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Object date:          060920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	User:                 Default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	System ID:            0 (unknown)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Overall records:      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Records type:         TL	(n = 2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Position range:       1 : 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Grain range:          0 : 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Run range:            1 : 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	Set range:            2 : 2</span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -212,6 +387,7 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -221,6 +397,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

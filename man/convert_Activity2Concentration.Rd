@@ -32,10 +32,10 @@ The conversion from nuclide activity of a sample to nuclide concentration
 is performed using conversion factors that are based on the mass-related
 specific activity of the respective nuclide.
 
-Constants used in this function were obtained from https://physics.nist.gov/cuu/Constants/
+Constants used in this function were obtained from \verb{https://physics.nist.gov/cuu/Constants/}
 all atomic weights and composition values from
-https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses
-and the nuclide data from https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version
+\verb{https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses}
+and the nuclide data from \verb{https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version}
 
 The factors can be calculated using the equation:
 
@@ -96,7 +96,7 @@ convert_Activity2Concentration(data)
 } 
 
 \section{How to cite}{
-Fuchs, M.C., 2022. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., 2022. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

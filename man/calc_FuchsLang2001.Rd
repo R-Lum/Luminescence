@@ -73,7 +73,7 @@ temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2022. calc_FuchsLang2001(): Apply the model after Fuchs & Lang (2001) to a given De distribution.. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2022. calc_FuchsLang2001(): Apply the model after Fuchs & Lang (2001) to a given De distribution.. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -90,7 +90,7 @@ Quaternary Science Reviews 22, 1161-1167.
 \link{calc_CommonDose}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team}
 \keyword{dplot}

@@ -18,13 +18,25 @@ provides RLum.Data.Image objects as output."><!-- mathjax --><script src="https:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -35,6 +47,26 @@ provides RLum.Data.Image objects as output."><!-- mathjax --><script src="https:
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -55,6 +87,7 @@ provides <a href="RLum.Data.Image-class.html">RLum.Data.Image</a> objects as out
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_SPE2R</span><span class="op">(</span>
   <span class="va">file</span>,
   output.object <span class="op">=</span> <span class="st">"RLum.Data.Image"</span>,
@@ -62,6 +95,15 @@ provides <a href="RLum.Data.Image-class.html">RLum.Data.Image</a> objects as out
   txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,
   verbose <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_SPE2R</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  output.object <span class="op">=</span> <span class="st">"RLum.Data.Image"</span>,</span>
+<span>  <span class="va">frame.range</span>,</span>
+<span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -72,10 +114,16 @@ SPE-file name (including path), e.g.</p><ul><li><p><code>[WIN]</code>: <code>rea
 <li><p><code>[MAC/LINUX]</code>: <code>readSPER("/User/test/Desktop/test.spe")</code>. Additionally internet connections
 are supported.</p></li>
 </ul></dd>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev_0.9.20
 <dt>output.object</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 set <code>RLum</code> output object.  Allowed types are <code>"RLum.Data.Spectrum"</code>,
 <code>"RLum.Data.Image"</code> or <code>"matrix"</code></p></dd>
+<<<<<<< HEAD
 <dt>frame.range</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 limit frame range, e.g. select first 100 frames by <code>frame.range = c(1,100)</code></p></dd>
@@ -96,6 +144,59 @@ performance reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
 <code>frame.range</code>.
 <code>matrix</code>Returns a matrix of the form: Rows = Channels, columns = Frames. For the
+=======
+
+
+<dt>frame.range</dt>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
+limit frame range, e.g. select first 100 frames by <code>frame.range = c(1,100)</code></p></dd>
+
+
+<dt>txtProgressBar</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a>.</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables or disables verbose mode</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Depending on the chosen option the functions returns three different
+type of objects:</p>
+
+
+<p><code>output.object</code></p>
+
+
+
+<p><code>RLum.Data.Spectrum</code></p>
+
+
+
+<p>An object of type <a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a> is returned.  Row
+sums are used to integrate all counts over one channel.</p>
+
+
+<p><code>RLum.Data.Image</code></p>
+
+
+
+<p>An object of type <a href="RLum.Data.Image-class.html">RLum.Data.Image</a> is returned.  Due to
+performance reasons the import is aborted for files containing more than 100
+frames. This limitation can be overwritten manually by using the argument
+<code>frame.range</code>.</p>
+
+
+<p><code>matrix</code></p>
+
+
+
+<p>Returns a matrix of the form: Rows = Channels, columns = Frames. For the
+>>>>>>> dev_0.9.20
 transformation the function <a href="get_RLum.html">get_RLum</a> is used,
 meaning that the same results can be obtained by using the function
 <a href="get_RLum.html">get_RLum</a> on an <code>RLum.Data.Spectrum</code> or <code>RLum.Data.Image</code> object.</p>
@@ -119,7 +220,11 @@ references).</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Kreutzer, S., 2022. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Kreutzer, S., 2022. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -134,12 +239,17 @@ Format Specification, Version 1.A (for document URL please use an internet searc
     </div>
     <div id="author">
     <h2>Author</h2>
+<<<<<<< HEAD
     <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
+=======
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+>>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">## to run examples uncomment lines and run the code</span></span>
 <span class="r-in"></span>
@@ -164,6 +274,32 @@ Format Specification, Version 1.A (for document URL please use an internet searc
 <span class="r-in"><span class="co">#             sep = ";", row.names = FALSE)</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## to run examples uncomment lines and run the code</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(1) Import data as RLum.Data.Spectrum object</span></span></span>
+<span class="r-in"><span><span class="co">#file &lt;- file.choose()</span></span></span>
+<span class="r-in"><span><span class="co">#temp &lt;- read_SPE2R(file)</span></span></span>
+<span class="r-in"><span><span class="co">#temp</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2) Import data as RLum.Data.Image object</span></span></span>
+<span class="r-in"><span><span class="co">#file &lt;- file.choose()</span></span></span>
+<span class="r-in"><span><span class="co">#temp &lt;- read_SPE2R(file, output.object = "RLum.Data.Image")</span></span></span>
+<span class="r-in"><span><span class="co">#temp</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(3) Import data as matrix object</span></span></span>
+<span class="r-in"><span><span class="co">#file &lt;- file.choose()</span></span></span>
+<span class="r-in"><span><span class="co">#temp &lt;- read_SPE2R(file, output.object = "matrix")</span></span></span>
+<span class="r-in"><span><span class="co">#temp</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object</span></span></span>
+<span class="r-in"><span><span class="co"># write.table(x = get_RLum(temp),</span></span></span>
+<span class="r-in"><span><span class="co">#             file = "[your path and filename]",</span></span></span>
+<span class="r-in"><span><span class="co">#             sep = ";", row.names = FALSE)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -175,6 +311,7 @@ Format Specification, Version 1.A (for document URL please use an internet searc
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -184,6 +321,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

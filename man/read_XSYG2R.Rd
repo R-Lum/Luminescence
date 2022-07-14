@@ -69,7 +69,9 @@ Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 The function uses the \link{xml} package to parse the file structure. Each
 sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
 
-\strong{General structure XSYG format}\preformatted{<?xml?>
+\strong{General structure XSYG format}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{<?xml?>
 <Sample>
   <Sequence>
     <Record>
@@ -78,7 +80,7 @@ sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
     </Record>
   </Sequence>
 </Sample>
-}
+}\if{html}{\out{</div>}}
 
 So far, each
 XSYG file can only contain one \verb{<Sample></Sample>}, but multiple
@@ -174,7 +176,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2022. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -189,6 +191,6 @@ XML: \url{https://en.wikipedia.org/wiki/XML}
 \link{xml}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{IO}

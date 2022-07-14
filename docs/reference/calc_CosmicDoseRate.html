@@ -20,13 +20,25 @@ changes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
+>>>>>>> dev_0.9.20
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+<<<<<<< HEAD
   <a href="../reference/index.html">Reference</a>
+=======
+  <a href="../index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+>>>>>>> dev_0.9.20
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -37,6 +49,26 @@ changes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
      
   </a>
 </li>
+<<<<<<< HEAD
+=======
+<li>
+  <a href="../reference/index.html">References</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="../news/index.html">
+    <span class="fa fa-newspaper-o"></span>
+     
+    News
+  </a>
+</li>
+<li>
+  <a href="https://github.com/R-Lum/Luminescence" class="external-link">
+    <span class="fa fa-github"></span>
+     
+    GitHub
+  </a>
+</li>
+>>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -59,6 +91,7 @@ changes.</p>
     </div>
 
     <div id="ref-usage">
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>
   <span class="va">depth</span>,
   <span class="va">density</span>,
@@ -71,6 +104,20 @@ changes.</p>
   error <span class="op">=</span> <span class="fl">10</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span></span>
+<span>  <span class="va">depth</span>,</span>
+<span>  <span class="va">density</span>,</span>
+<span>  <span class="va">latitude</span>,</span>
+<span>  <span class="va">longitude</span>,</span>
+<span>  <span class="va">altitude</span>,</span>
+<span>  corr.fieldChanges <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  est.age <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  half.depth <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+>>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -78,6 +125,7 @@ changes.</p>
     <dl><dt>depth</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 depth of overburden (m). For more than one absorber use <br><code>c(depth_1, depth_2, ..., depth_n)</code></p></dd>
+<<<<<<< HEAD
 <dt>density</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 average overburden density (g/cm^3). For more than one absorber use <br><code>c(density_1, density_2, ..., density_n)</code></p></dd>
@@ -90,18 +138,53 @@ longitude (decimal degree), E positive</p></dd>
 <dt>altitude</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 altitude (m above sea-level)</p></dd>
+=======
+
+
+<dt>density</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
+average overburden density (g/cm^3). For more than one absorber use <br><code>c(density_1, density_2, ..., density_n)</code></p></dd>
+
+
+<dt>latitude</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
+latitude (decimal degree), N positive</p></dd>
+
+
+<dt>longitude</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
+longitude (decimal degree), E positive</p></dd>
+
+
+<dt>altitude</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
+altitude (m above sea-level)</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>corr.fieldChanges</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 correct for geomagnetic field changes after Prescott &amp; Hutton (1994).
 Apply only when justified by the data.</p></dd>
+<<<<<<< HEAD
 <dt>est.age</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 estimated age range (ka) for geomagnetic field change correction (0-80 ka allowed)</p></dd>
+=======
+
+
+<dt>est.age</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
+estimated age range (ka) for geomagnetic field change correction (0-80 ka allowed)</p></dd>
+
+
+>>>>>>> dev_0.9.20
 <dt>half.depth</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 How to overcome with varying overburden thickness. If <code>TRUE</code> only half the
 depth is used for calculation. Apply only when justified, i.e. when a constant
 sedimentation rate can safely be assumed.</p></dd>
+<<<<<<< HEAD
 <dt>error</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 general error (percentage) to be implemented on corrected cosmic dose rate estimate</p></dd>
@@ -111,15 +194,47 @@ general error (percentage) to be implemented on corrected cosmic dose rate estim
     <div id="value">
     <h2>Value</h2>
     <p>Returns a terminal output. In addition an
+=======
+
+
+<dt>error</dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
+general error (percentage) to be implemented on corrected cosmic dose rate estimate</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further arguments (<code>verbose</code> to disable/enable console output).</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>Returns a terminal output. In addition an
+>>>>>>> dev_0.9.20
 <a href="RLum.Results-class.html">RLum.Results</a>-object is returned containing the
 following element:</p>
 <dl><dt>summary</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> summary of all relevant calculation results.</p></dd>
+<<<<<<< HEAD
 <dt>args</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
 <dt>call</dt>
 <dd><p><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a> the function call</p></dd>
 </dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+=======
+
+<dt>args</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
+
+<dt>call</dt>
+<dd><p><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a> the function call</p></dd>
+
+
+</dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
+
+
+>>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -207,7 +322,11 @@ function at the time of writing.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
+<<<<<<< HEAD
     <p>Burow, C., 2022. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
+=======
+    <p>Burow, C., 2022. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
+>>>>>>> dev_0.9.20
     </div>
     <div id="references">
     <h2>References</h2>
@@ -242,11 +361,19 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 
     <div id="ref-examples">
     <h2>Examples</h2>
+<<<<<<< HEAD
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">##(1) calculate cosmic dose rate (one absorber)</span></span>
 <span class="r-in"><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fl">2.78</span>, density <span class="op">=</span> <span class="fl">1.7</span>,</span>
 <span class="r-in">                    latitude <span class="op">=</span> <span class="fl">38.06451</span>, longitude <span class="op">=</span> <span class="fl">1.49646</span>,</span>
 <span class="r-in">                    altitude <span class="op">=</span> <span class="fl">364</span>, error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+=======
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(1) calculate cosmic dose rate (one absorber)</span></span></span>
+<span class="r-in"><span><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fl">2.78</span>, density <span class="op">=</span> <span class="fl">1.7</span>,</span></span>
+<span class="r-in"><span>                    latitude <span class="op">=</span> <span class="fl">38.06451</span>, longitude <span class="op">=</span> <span class="fl">1.49646</span>,</span></span>
+<span class="r-in"><span>                    altitude <span class="op">=</span> <span class="fl">364</span>, error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [calc_CosmicDoseRate]</span>
@@ -269,11 +396,19 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [corrected]                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(2a) calculate cosmic dose rate (two absorber)</span></span>
 <span class="r-in"><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.0</span>, <span class="fl">2.78</span><span class="op">)</span>, density <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.65</span>, <span class="fl">1.7</span><span class="op">)</span>,</span>
 <span class="r-in">                    latitude <span class="op">=</span> <span class="fl">38.06451</span>, longitude <span class="op">=</span> <span class="fl">1.49646</span>,</span>
 <span class="r-in">                    altitude <span class="op">=</span> <span class="fl">364</span>, error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2a) calculate cosmic dose rate (two absorber)</span></span></span>
+<span class="r-in"><span><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.0</span>, <span class="fl">2.78</span><span class="op">)</span>, density <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.65</span>, <span class="fl">1.7</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    latitude <span class="op">=</span> <span class="fl">38.06451</span>, longitude <span class="op">=</span> <span class="fl">1.49646</span>,</span></span>
+<span class="r-in"><span>                    altitude <span class="op">=</span> <span class="fl">364</span>, error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [calc_CosmicDoseRate]</span>
@@ -298,6 +433,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [corrected]                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(2b) calculate cosmic dose rate (two absorber) and</span></span>
 <span class="r-in"><span class="co">##correct for geomagnetic field changes</span></span>
@@ -305,6 +441,15 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-in">                    latitude <span class="op">=</span> <span class="fl">12.04332</span>, longitude <span class="op">=</span> <span class="fl">4.43243</span>,</span>
 <span class="r-in">                    altitude <span class="op">=</span> <span class="fl">364</span>, corr.fieldChanges <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span class="r-in">                    est.age <span class="op">=</span> <span class="fl">67</span>, error <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(2b) calculate cosmic dose rate (two absorber) and</span></span></span>
+<span class="r-in"><span><span class="co">##correct for geomagnetic field changes</span></span></span>
+<span class="r-in"><span><span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.0</span>, <span class="fl">2.78</span><span class="op">)</span>, density <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.65</span>, <span class="fl">1.7</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    latitude <span class="op">=</span> <span class="fl">12.04332</span>, longitude <span class="op">=</span> <span class="fl">4.43243</span>,</span></span>
+<span class="r-in"><span>                    altitude <span class="op">=</span> <span class="fl">364</span>, corr.fieldChanges <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                    est.age <span class="op">=</span> <span class="fl">67</span>, error <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "corr.fac 1.04562628608 diff.one 0.02 alt.fac 1.281314304"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -330,6 +475,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [corrected]                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##(3) calculate cosmic dose rate and export results to .csv file</span></span>
@@ -337,6 +483,15 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-in"><span class="va">results</span><span class="op">&lt;-</span> <span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fl">2.78</span>, density <span class="op">=</span> <span class="fl">1.7</span>,</span>
 <span class="r-in">                              latitude <span class="op">=</span> <span class="fl">38.06451</span>, longitude <span class="op">=</span> <span class="fl">1.49646</span>,</span>
 <span class="r-in">                              altitude <span class="op">=</span> <span class="fl">364</span>, error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(3) calculate cosmic dose rate and export results to .csv file</span></span></span>
+<span class="r-in"><span><span class="co">#calculate cosmic dose rate and save to variable</span></span></span>
+<span class="r-in"><span><span class="va">results</span><span class="op">&lt;-</span> <span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fl">2.78</span>, density <span class="op">=</span> <span class="fl">1.7</span>,</span></span>
+<span class="r-in"><span>                              latitude <span class="op">=</span> <span class="fl">38.06451</span>, longitude <span class="op">=</span> <span class="fl">1.49646</span>,</span></span>
+<span class="r-in"><span>                              altitude <span class="op">=</span> <span class="fl">364</span>, error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [calc_CosmicDoseRate]</span>
@@ -359,13 +514,20 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [corrected]                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># the results can be accessed by</span></span>
 <span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"summary"</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the results can be accessed by</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"summary"</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>   depth density latitude longitude altitude total_absorber.gcm2        d0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.78     1.7 38.06451   1.49646      364               472.6 0.1518269</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   geom_lat       dc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  41.0685 0.161002</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#export results to .csv file - uncomment for usage</span></span>
 <span class="r-in"><span class="co">#write.csv(results, file = "c:/users/public/results.csv")</span></span>
@@ -377,6 +539,19 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-in">                              density <span class="op">=</span> <span class="fl">1.7</span>, latitude <span class="op">=</span> <span class="fl">38.06451</span>,</span>
 <span class="r-in">                              longitude <span class="op">=</span> <span class="fl">1.49646</span>, altitude <span class="op">=</span> <span class="fl">364</span>,</span>
 <span class="r-in">                              error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#export results to .csv file - uncomment for usage</span></span></span>
+<span class="r-in"><span><span class="co">#write.csv(results, file = "c:/users/public/results.csv")</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##(4) calculate cosmic dose rate for 6 samples from the same profile</span></span></span>
+<span class="r-in"><span><span class="co">##    and save to .csv file</span></span></span>
+<span class="r-in"><span><span class="co">#calculate cosmic dose rate and save to variable</span></span></span>
+<span class="r-in"><span><span class="va">results</span><span class="op">&lt;-</span> <span class="fu">calc_CosmicDoseRate</span><span class="op">(</span>depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.5</span> , <span class="fl">2.1</span>, <span class="fl">2.7</span>, <span class="fl">4.2</span>, <span class="fl">6.3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                              density <span class="op">=</span> <span class="fl">1.7</span>, latitude <span class="op">=</span> <span class="fl">38.06451</span>,</span></span>
+<span class="r-in"><span>                              longitude <span class="op">=</span> <span class="fl">1.49646</span>, altitude <span class="op">=</span> <span class="fl">364</span>,</span></span>
+<span class="r-in"><span>                              error <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+>>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [calc_CosmicDoseRate]</span>
@@ -390,10 +565,17 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4       2.7     0.1532     0.1625           0.0162</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5       4.2     0.1299     0.1377           0.0138</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       6.3     0.1045     0.1109           0.0111</span>
+<<<<<<< HEAD
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#export results to .csv file - uncomment for usage</span></span>
 <span class="r-in"><span class="co">#write.csv(results, file = "c:/users/public/results_profile.csv")</span></span>
 <span class="r-in"></span>
+=======
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#export results to .csv file - uncomment for usage</span></span></span>
+<span class="r-in"><span><span class="co">#write.csv(results, file = "c:/users/public/results_profile.csv")</span></span></span>
+<span class="r-in"><span></span></span>
+>>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -404,6 +586,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 
 
       <footer><div class="copyright">
+<<<<<<< HEAD
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
 Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
 Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
@@ -413,6 +596,13 @@ Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 <div class="pkgdown">
   <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
 2.0.2.</p>
+=======
+  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
+</div>
+
+<div class="pkgdown">
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+>>>>>>> dev_0.9.20
 </div>
 
       </footer></div>

@@ -43,7 +43,9 @@ the source dose rate for the next 100 days.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
-Slot \code{data} contains a \link{list} with the following structure:\preformatted{$ dose.rate (data.frame)
+Slot \code{data} contains a \link{list} with the following structure:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{$ dose.rate (data.frame)
 .. $ dose.rate
 .. $ dose.rate.error
 .. $ date (corresponding measurement date)
@@ -52,7 +54,7 @@ $ parameters (list)
 .. $ halflife
 .. $ dose.rate.unit
 $ call (the original function call)
-}
+}\if{html}{\out{</div>}}
 
 The output should be accessed using the function \link{get_RLum}.\cr
 A plot method of the output is provided via \link{plot_RLum}
@@ -137,7 +139,7 @@ xtable::xtable(get_RLum(dose.rate))
 } 
 
 \section{How to cite}{
-Fuchs, M.C., Kreutzer, S., 2022. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., Kreutzer, S., 2022. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -148,6 +150,6 @@ NNDC, Brookhaven National Laboratory \verb{http://www.nndc.bnl.gov/}
 }
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{manip}
