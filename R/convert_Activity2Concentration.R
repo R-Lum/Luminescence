@@ -10,10 +10,10 @@
 #' is performed using conversion factors that are based on the mass-related
 #' specific activity of the respective nuclide.
 #'
-#' Constants used in this function were obtained from https://physics.nist.gov/cuu/Constants/
+#' Constants used in this function were obtained from `https://physics.nist.gov/cuu/Constants/`
 #' all atomic weights and composition values from
-#' https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses
-#' and the nuclide data from https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version
+#' `https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses`
+#' and the nuclide data from `https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version`
 #'
 #' The factors can be calculated using the equation:
 #'
