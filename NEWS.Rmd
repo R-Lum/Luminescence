@@ -64,4 +64,5 @@ the terminal output.
 ## Internals
 * Add new internal function `.add_fancy_log_axis()` to provide a more sophisticated 
 log-axis to plots if needed with minor ticks and proper labelling. 
+* Fix wrong usage of `class()` where needed
 
