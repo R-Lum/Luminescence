@@ -12,4 +12,6 @@ header-includes:
 
 ## Bugfixes and changes
 
-* Dummy
+### `read_BIN2R()`
+* Function crashed under edge conditions while testing very short records returing a 
+subscript out of bounds error; fixed.

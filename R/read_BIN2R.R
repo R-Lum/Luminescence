@@ -91,7 +91,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
 #'
-#' @section Function version: 0.16.5
+#' @section Function version: 0.16.6
 #'
 #'
 #' @author
@@ -1429,7 +1429,7 @@ read_BIN2R <- function(
   }
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
-  if (n.records > 1) {
+  if (n.records >= 2 && length(results.DATA) >= 2) {
     duplication.check <- suppressWarnings(which(c(
       0, vapply(
         2:length(results.DATA),
@@ -1439,7 +1439,6 @@ read_BIN2R <- function(
         FUN.VALUE = 1
       )
     ) == 1))
-
     if (length(duplication.check) != 0) {
       if (duplicated.rm) {
         ##remove records
