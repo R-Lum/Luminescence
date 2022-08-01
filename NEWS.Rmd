@@ -12,6 +12,9 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `plot_RadialPlot()`
+* Fix a few visual problems if the dataset has negative values (thanks to Alice Versendaal for reporting)
+
 ### `read_BIN2R()`
 * Function crashed under edge conditions while testing very short records returning a 
 subscript out of bounds error; fixed.
