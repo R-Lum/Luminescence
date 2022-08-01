@@ -609,7 +609,7 @@ if(centrality[1] == "mean") {
   ## print warning for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
     small.sigma <- TRUE
-    print(paste("Attention, small standardised estimate scatter.",
+    message(paste("Attention, small standardised estimate scatter.",
                 "Toggle off y.ticks?"))
 }
 
@@ -855,7 +855,8 @@ if(centrality[1] == "mean") {
                             min(abs(ellipse.y - polygon_y_min))]
 
   if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
-    print("[plot_RadialPlot] Warning: z-scale touches 2s-polygon. Decrease plot ratio.")
+    warning("[plot_RadialPlot()] Warning: z-scale touches 2s-polygon. Decrease plot ratio.",
+            call. = FALSE)
   }
 
   ## calculate statistical labels
