@@ -372,12 +372,10 @@ plot_RadialPlot <- function(
   }
 
   ## calculate correction dose to shift negative values
-  if(min(De.global) < 0) {
-
+  if(min(De.global) < 0 && log.z) {
     if("zlim" %in% names(extraArgs)) {
       De.add <- abs(extraArgs$zlim[1])
     } else {
-
       ## estimate delta De to add to all data
       De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
 
@@ -394,11 +392,9 @@ plot_RadialPlot <- function(
   De.delta <- ticks[2] - ticks[1]
 
   ## optionally add correction dose to data set and adjust error
-  if(log.z == TRUE) {
-
-    for(i in 1:length(data)) {
+  if(log.z) {
+    for(i in 1:length(data))
       data[[i]][,1] <- data[[i]][,1] + De.add
-    }
 
     De.global <- De.global + De.add
 
@@ -419,7 +415,6 @@ plot_RadialPlot <- function(
   De.delta <- ticks[2] - ticks[1]
 
   ## calculate and append statistical measures --------------------------------
-
   ## z-values based on log-option
   z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
@@ -432,7 +427,6 @@ plot_RadialPlot <- function(
   ## calculate se-values based on log-option
   se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-
       if(De.add != 0) {
         data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
       } else {
@@ -441,6 +435,7 @@ plot_RadialPlot <- function(
     } else {
       data[[x]][,2]
     }}, De.add = De.add)
+
   if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])})
@@ -576,9 +571,8 @@ if(centrality[1] == "mean") {
   z.central.global <- mean(data.global[,3], na.rm = TRUE)
 }
 
-  ## optionally adjust zentral value by user-defined value
+  ## optionally adjust central value by user-defined value
   if(missing(central.value) == FALSE) {
-
     # ## adjust central value for De.add
     central.value <- central.value + De.add
 
@@ -817,9 +811,8 @@ if(centrality[1] == "mean") {
   }
 
   ## subtract De.add from label values
-  if(De.add != 0) {
-    label.z.text <- label.z.text #- De.add
-  }
+  if(De.add != 0)
+    label.z.text <- label.z.text - De.add
 
   labels <- cbind(label.x, label.y, label.z.text)
 
@@ -913,8 +906,11 @@ if(centrality[1] == "mean") {
     "se.rel.weighted")
 
   for(i in 1:length(data)) {
-    data_to_stats <- data[[i]]
-    data_to_stats$De <- data_to_stats$De - De.add
+    data_to_stats <- data[[i]][,1:2]
+
+    ## remove added De
+    if(log.z) data_to_stats$De <- data_to_stats$De - De.add
+
     statistics <- calc_Statistics(data = data_to_stats)
     De.stats[i,1] <- statistics$weighted$n
     De.stats[i,2] <- statistics$unweighted$mean
