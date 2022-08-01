@@ -13,5 +13,8 @@ header-includes:
 ## Bugfixes and changes
 
 ### `read_BIN2R()`
-* Function crashed under edge conditions while testing very short records returing a 
+* Function crashed under edge conditions while testing very short records returning a 
 subscript out of bounds error; fixed.
+
+### Internals
+* Fix outdated URL in `github.R`
