@@ -30,12 +30,22 @@ test_that("dedicated test for the radialplot", {
       log.z = FALSE))
 
   ## trigger message
-  expect_output(
+  expect_message(
     plot_RadialPlot(
       data = data.frame(x = df$x, y = rep(0.0001, nrow(df))),
       centrality = -1,
       log.z = FALSE),
     regexp = "Attention.*")
+
+
+  ## trigger warning
+  expect_warning(plot_RadialPlot(
+      data = df,
+      #centrality = ,
+      central.value = -1,
+      log.z = FALSE),
+      "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
+    )
 
 
 })

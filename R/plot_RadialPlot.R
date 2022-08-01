@@ -125,7 +125,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.7
+#' @section Function version: 0.5.8
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -335,7 +335,6 @@ plot_RadialPlot <- function(
   if(missing(mtext) == TRUE) {
     mtext <- ""
   }
-
 
   ## check z-axis log-option for grouped data sets
   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
@@ -855,7 +854,7 @@ if(centrality[1] == "mean") {
                             min(abs(ellipse.y - polygon_y_min))]
 
   if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
-    warning("[plot_RadialPlot()] Warning: z-scale touches 2s-polygon. Decrease plot ratio.",
+    warning("[plot_RadialPlot()] z-scale touches 2s-polygon. Decrease plot ratio.",
             call. = FALSE)
   }
 
@@ -1596,7 +1595,7 @@ label.text[[1]] <- NULL
     if(fun==TRUE){sTeve()}
   }
 
-  if(output == TRUE) {
+  if(output) {
     return(list(data = data,
                 data.global = data.global,
                 xlim = limits.x,
