@@ -37,7 +37,6 @@ test_that("dedicated test for the radialplot", {
       log.z = FALSE),
     regexp = "Attention.*")
 
-
   ## trigger warning
   expect_warning(plot_RadialPlot(
       data = df,
