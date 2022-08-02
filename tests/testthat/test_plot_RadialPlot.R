@@ -29,6 +29,17 @@ test_that("dedicated test for the radialplot", {
       centrality = 5,
       log.z = FALSE))
 
+
+  ## simple test - unlogged with statistics
+  expect_silent(
+    plot_RadialPlot(
+      data = df,
+      summary = c(
+        "n", "mean", "median", "mean.weighted", "median.weighted", "kdemax", "sdabs",
+        "sdrel", "seabs", "serel", "skewness", "kurtosis", "in.2s", "sdabs.weighted",
+        "sdrel.weighted", "seabs.weighted", "serel.weighted"),
+      log.z = FALSE))
+
   ## simple test - unlogged
   expect_silent(
     plot_RadialPlot(
