@@ -10,7 +10,7 @@ name: GitHub Actions CI
 
 ## change if caches needs to be refreshed
 env:
-  cache-version: v1
+  cache-version: v2
 
 jobs:
   R-CMD-check:
@@ -23,7 +23,7 @@ jobs:
         - {os: windows-latest, r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
         - {os: macos-11,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
         - {os: macos-10.15,   r: 'oldrel', not_cran: 'true', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-        - {os: ubuntu-22.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/__linux__/jammy/latest"}
+        - {os: ubuntu-20.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/__linux__/jammy/latest"}
         - {os: ubuntu-20.04,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
         - {os: ubuntu-20.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
     env:
