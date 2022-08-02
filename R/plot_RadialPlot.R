@@ -125,7 +125,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.8
+#' @section Function version: 0.5.9
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -473,8 +473,7 @@ plot_RadialPlot <- function(
     z.central <- lapply(1:length(data), function(x){
       rep(median.w(y = data[[x]][,3],
                    w = data[[x]][,4]), length(data[[x]][,3]))})
-  } else if(is.numeric(centrality) == TRUE &
-              length(centrality) == length(data)) {
+  } else if(is.numeric(centrality) & length(centrality) == length(data)) {
     z.central.raw <- if(log.z == TRUE) {
       log(centrality + De.add)
     } else {
@@ -487,7 +486,7 @@ plot_RadialPlot <- function(
     z.central <- lapply(1:length(data), function(x){
       rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else {
-    stop("Measure of centrality not supported!")
+    stop("[plot_RadialPlot()] Measure of centrality not supported!", call. = FALSE)
   }
 
   data <- lapply(1:length(data), function(x) {

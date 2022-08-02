@@ -15,6 +15,13 @@ test_that("dedicated test for the radialplot", {
     data = df,
     centrality = 5))
 
+  ## standard data with two datasets
+  ## simple test
+  expect_silent(
+    plot_RadialPlot(
+      data = list(df, df),
+      centrality = c(5,5)))
+
   ## simple test - unlogged
   expect_silent(
     plot_RadialPlot(
@@ -29,6 +36,8 @@ test_that("dedicated test for the radialplot", {
       centrality = -1,
       log.z = FALSE))
 
+
+  # Messages,  Warnings, and Errors -----------------------------------------
   ## trigger message
   expect_message(
     plot_RadialPlot(
@@ -46,5 +55,11 @@ test_that("dedicated test for the radialplot", {
       "\\[plot\\_RadialPlot\\(\\)\\] z-scale touches.*"
     )
 
+  ## trigger stop
+  expect_error(
+    plot_RadialPlot(
+      data = df,
+      centrality = "error"),
+    "\\[plot\\_RadialPlot\\(\\)\\] Measure of centrality not supported\\!")
 
 })
