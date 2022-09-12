@@ -560,8 +560,6 @@ fancy_scientific <- function(l) {
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @examples
-#'
 #' @return [list] with expanded parameters
 #'
 #' @md

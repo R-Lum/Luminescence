@@ -215,8 +215,6 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@examples
-#'
 #'@md
 #'@noRd
 .calc_BayesianCentralAgeModel <- function(
