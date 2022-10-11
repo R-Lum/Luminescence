@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - if: runner.os == 'macOS'
-        run: brew install jags libressl
+        run: brew install jags curl
 
       - if: runner.os == 'windows'
         run: |
