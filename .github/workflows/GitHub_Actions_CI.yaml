@@ -60,8 +60,8 @@ jobs:
 
       - name: Show session info before test
         run: |
-          print(sessionInfo())
-          print(curl::curl_version)
+          print(utils::sessionInfo())
+          print(curl::curl_version())
 
       - uses: r-lib/actions/check-r-package@v2
         with:
