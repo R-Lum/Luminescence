@@ -15,7 +15,9 @@ env:
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
+
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
     strategy:
       fail-fast: false
       matrix:
@@ -27,8 +29,6 @@ jobs:
         - {os: ubuntu-latest,   r: 'release', not_cran: 'true'}
         - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: false
-      RSPM: ${{ matrix.config.rspm }}
       _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
