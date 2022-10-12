@@ -4,8 +4,8 @@ test_that("Test combine_De_Dr", {
 
   ## simple test using the example
   ## set parameters
-  Dr <- stats::rlnorm (1000, 0, 0.3)
-  De <-  50*sample(Dr, 50, replace = TRUE)
+  Dr <- stats::rlnorm(1000, 0, 0.3)
+  De <- 50*sample(Dr, 50, replace = TRUE)
   s <- stats::rnorm(50, 10, 2)
 
   ## set seed
