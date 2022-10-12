@@ -40,9 +40,9 @@ jobs:
 
       - if: runner.os == 'windows'
         run: |
-          curl -s -o 'D:/JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-          C:/JAGS-4.3.1.exe /S
-          del C:/JAGS-4.3.1.exe
+          curl -s -o 'JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          JAGS-4.3.1.exe /S
+        shell: cmd
 
       - uses: actions/checkout@v2
 
