@@ -39,7 +39,7 @@ jobs:
         run: brew install jags curl
 
       - name: Install JAGS on Windows (R release)
-        if: (runner.os == 'windows') && (runner.r != 'oldrel')
+        if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
           curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
           C:\JAGS-4.3.1.exe /S
