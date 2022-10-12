@@ -22,9 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
-        - {os: windows-latest, r: 'release', not_cran: 'true'}
-        - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
+          - {os: windows-latest, r: 'release', not_cran: 'true'}
+          - {os: windows-latest, r: 'devel', not_cran: 'true'}
         # - {os: macOS-latest,   r: 'release', not_cran: 'true'}
         # - {os: macos-10.15,   r: 'oldrel', not_cran: 'true'}
           - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
@@ -40,9 +40,9 @@ jobs:
 
       - if: runner.os == 'windows'
         run: |
-          curl --progress-bar -s -o 'JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-          JAGS-4.3.1.exe /S
-          del JAGS-4.3.1.exe
+          curl --progress-bar -s -o 'install_JAGS.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          install_JAGS.exe /S
+          del install_JAGS.exe
 
       - uses: actions/checkout@v2
 
