@@ -70,7 +70,7 @@ jobs:
 
       - name: Show session info before test
         run: |
-          print(utils::sessionInfo())
+          print(utils::sessionInfo()$platform)
         shell: Rscript {0}
 
       - name: Show session curl info
