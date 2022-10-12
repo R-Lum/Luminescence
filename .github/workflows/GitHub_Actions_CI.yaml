@@ -38,10 +38,12 @@ jobs:
       - if: runner.os == 'macOS'
         run: brew install jags curl
 
-      - if: runner.os == 'windows'
+      - name: Install JAGS on Windows
+        if: runner.os == 'windows'
         run: |
           curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
           C:\JAGS-4.3.1.exe /S
+        shell: cmd
 
       - uses: actions/checkout@v2
 
