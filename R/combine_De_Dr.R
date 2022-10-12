@@ -509,13 +509,13 @@ combine_De_Dr <- function(
 ) {
 
 # Check input data --------------------------------------------------------
-if (!all(t_packages <- c(
+if (!all(t_pkg <- c(
   requireNamespace("rjags", quietly = TRUE),
   requireNamespace("coda", quietly = TRUE),
   requireNamespace("mclust", quietly = TRUE)))) {
-  t_pkg <- c('rjags', 'coda', 'mclust')
+  t_names <- c('rjags', 'coda', 'mclust')
     stop(paste0("[combine_De_Dr()] To use this function you have to first
-         install the package(s) ", paste(t_packages[!t_pkg], collapse = ",")),
+         install the package(s) ", paste(t_names[!t_pkg], collapse = ",")),
          call. = FALSE)
 }
 
