@@ -28,7 +28,7 @@ jobs:
         # - {os: macOS-latest,   r: 'release', not_cran: 'true'}
         # - {os: macos-10.15,   r: 'oldrel', not_cran: 'true'}
         # - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
-        # - {os: ubuntu-latest,   r: 'release', not_cran: 'true'}
+        - {os: ubuntu-latest,   r: 'release', not_cran: 'true'}
         # - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
@@ -57,14 +57,13 @@ jobs:
         with:
           extra-packages: |
             any::rcmdcheck
+            any::XML
             any::covr
-            any::rjags
           needs: check
 
       - name: Show session info before test
         run: |
           print(utils::sessionInfo())
-          print(curl::curl_version())
         shell: Rscript {0}
 
       - name: Show session curl info
