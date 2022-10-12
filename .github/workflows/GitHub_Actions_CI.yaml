@@ -40,9 +40,9 @@ jobs:
 
       - if: runner.os == 'windows'
         run: |
-          curl --progress-bar -s -o 'D:/JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-          D:/JAGS-4.3.1.exe /S
-          del D:/JAGS-4.3.1.exe
+          curl -s -o 'D:/JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          C:/JAGS-4.3.1.exe /S
+          del C:/JAGS-4.3.1.exe
 
       - uses: actions/checkout@v2
 
