@@ -27,9 +27,9 @@ jobs:
         - {os: windows-latest, r: 'devel', not_cran: 'true'}
         # - {os: macOS-latest,   r: 'release', not_cran: 'true'}
         # - {os: macos-10.15,   r: 'oldrel', not_cran: 'true'}
-        # - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
-        - {os: ubuntu-latest,   r: 'release', not_cran: 'true'}
-        # - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
+        # - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
+          - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -40,8 +40,9 @@ jobs:
 
       - if: runner.os == 'windows'
         run: |
-          curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-          C:\JAGS-4.3.1.exe /S
+          curl --progress-bar -s -o 'JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          JAGS-4.3.1.exe /S
+          del JAGS-4.3.1.exe
 
       - uses: actions/checkout@v2
 
