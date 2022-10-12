@@ -509,10 +509,14 @@ combine_De_Dr <- function(
 ) {
 
 # Check input data --------------------------------------------------------
-if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace("mclust"),
-           quietly = TRUE))) {
-    stop("[combine_De_Dr()] To use this function you have to first
-         install the package 'rjags', 'coda', and 'mclust'.", call. = FALSE)
+if (!all(t_packages <- c(
+  requireNamespace("rjags", quietly = TRUE),
+  requireNamespace("coda", quietly = TRUE),
+  requireNamespace("mclust", quietly = TRUE)))) {
+  t_pkg <- c('rjags', 'coda', 'mclust')
+    stop(paste0("[combine_De_Dr()] To use this function you have to first
+         install the package(s) ", paste(t_packages[!t_pkg], collapse = ",")),
+         call. = FALSE)
 }
 
 # Integrity checks --------------------------------------------------------
