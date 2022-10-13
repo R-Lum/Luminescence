@@ -20,7 +20,7 @@ test_that("check values from output example", {
 
   t <- sessionInfo()
   if(grepl(pattern = "Under development", x = t$R.version$status) &&
-     t$R.version$platform == "x86_64-w64-mingw32/x64 (64-bit)") {
+     grepl(pattern = "x86\\_64-w64-mingw32", x = t$R.version$platform)) {
     expect_equal(fit$data$n.components, 2)
     expect_equal(round(fit$data$I01, digits = 0), 3286)
     expect_equal(round(fit$data$lambda1, digits = 1), 3.8)
