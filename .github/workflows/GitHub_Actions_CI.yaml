@@ -24,7 +24,8 @@ jobs:
         config:
           #- {os: windows-latest, r: 'oldrel', not_cran: 'true'}
           #- {os: windows-latest, r: 'release', not_cran: 'true'}
-          - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          # - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          - {os: windows-2019, r: 'devel', not_cran: 'true'}
           #- {os: macos-12,   r: 'release', not_cran: 'true'}
           #- {os: macos-11,   r: 'oldrel', not_cran: 'true'}
           #- {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
@@ -70,7 +71,7 @@ jobs:
 
       - name: Show session info before test
         run: |
-          print(utils::sessionInfo()$platform)
+          print(utils::sessionInfo())
         shell: Rscript {0}
 
       - name: Show session curl info
