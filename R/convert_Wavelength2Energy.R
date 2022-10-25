@@ -1,4 +1,4 @@
-#'@title Emission Spectra Conversion from Wavelength to Energy Scales
+#'@title Emission Spectra Conversion from Wavelength to Energy Scales (Jacobian Conversion)
 #'
 #'@description The function provides a convenient and fast way to convert emission spectra wavelength
 #'to energy scales. The function works on [RLum.Data.Spectrum-class], [data.frame] and [matrix] and
