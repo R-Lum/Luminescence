@@ -29,20 +29,18 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 
 ## Social media and other resources
 
-Follow us on
-[![](http://i.imgur.com/wWzX9uB.png)](https://twitter.com/RLuminescence)
-or visit our [R-Luminescence homepage](https://r-luminescence.org).
+Visit our [R-Luminescence homepage](https://r-luminescence.org).
 
 ## Installation
 
 #### i. Requirements
 
--   *Windows (32/64bit)*:
-    [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (provided
-    by CRAN)
--   *macOS*: [Xcode](https://developer.apple.com/) (provided by Apple)
--   *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in
-    most distributions.
+- *Windows (32/64bit)*:
+  [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (provided by
+  CRAN)
+- *macOS*: [Xcode](https://developer.apple.com/) (provided by Apple)
+- *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in most
+  distributions.
 
 #### ii. Install the package
 
@@ -103,39 +101,36 @@ more details.
 
 ## Funding
 
--   2011-2013: The initial version of the package was developed in the
-    framework of the PhD thesis by Sebastian Kreutzer, while he was
-    funded through the DFG programme “Rekonstruktion der
-    Umweltbedingungen des Spätpleistozäns in Mittelsachsen anhand von
-    Löss-Paläobodensequenzen” ([GEPRIS id:
-    46526743](https://gepris.dfg.de/gepris/projekt/46526743))
+- 2011-2013: The initial version of the package was developed in the
+  framework of the PhD thesis by Sebastian Kreutzer, while he was funded
+  through the DFG programme “Rekonstruktion der Umweltbedingungen des
+  Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen”
+  ([GEPRIS id: 46526743](https://gepris.dfg.de/gepris/projekt/46526743))
 
--   2014-2018: Cooperation and personal exchange between the developers
-    is gratefully funded by the DFG in the framework of the program
-    “Scientific Networks”. Project title: “RLum.Network: Ein
-    Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R”
-    ([GEPRIS id:
-    250974974](https://gepris.dfg.de/gepris/projekt/250974974))
+- 2014-2018: Cooperation and personal exchange between the developers is
+  gratefully funded by the DFG in the framework of the program
+  “Scientific Networks”. Project title: “RLum.Network: Ein
+  Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R” ([GEPRIS
+  id: 250974974](https://gepris.dfg.de/gepris/projekt/250974974))
 
--   05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the
-    package was supported by [LabEx LaScArBx (ANR -
-    n. ANR-10-LABX-52)](https://lascarbx.labex.u-bordeaux.fr/en/).
+- 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the
+  package was supported by [LabEx LaScArBx (ANR -
+  n. ANR-10-LABX-52)](https://lascarbx.labex.u-bordeaux.fr/en/).
 
--   01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has
-    received funding from the European Union’s Horizon 2020 research and
-    innovation programme under the Marie Skłodowska-Curie grant
-    agreement [No 844457
-    (CREDit)](https://cordis.europa.eu/project/id/844457), and could
-    continue maintaining the package.
+- 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has
+  received funding from the European Union’s Horizon 2020 research and
+  innovation programme under the Marie Skłodowska-Curie grant agreement
+  [No 844457 (CREDit)](https://cordis.europa.eu/project/id/844457), and
+  could continue maintaining the package.
 
--   All other authors gratefully received additional funding from
-    various public funding bodies.
+- All other authors gratefully received additional funding from various
+  public funding bodies.
 
 ## Related projects
 
--   [RLumModel](https://github.com/R-Lum/RLumModel)
--   [RLumShiny](https://github.com/R-Lum/RLumShiny)
--   [RLumDocker](https://github.com/R-Lum/RLumDocker)
--   [BayLum](https://github.com/crp2a/BayLum)
--   [RCarb](https://github.com/R-Lum/RCarb)
--   [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
+- [RLumModel](https://github.com/R-Lum/RLumModel)
+- [RLumShiny](https://github.com/R-Lum/RLumShiny)
+- [RLumDocker](https://github.com/R-Lum/RLumDocker)
+- [BayLum](https://github.com/crp2a/BayLum)
+- [RCarb](https://github.com/R-Lum/RCarb)
+- [RLumCarlo](https://github.com/R-Lum/RLumCarlo)
