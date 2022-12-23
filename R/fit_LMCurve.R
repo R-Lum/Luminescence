@@ -657,18 +657,25 @@ fit_LMCurve<- function(
 
     ##CALCULATE 1- sigma CONFIDENCE INTERVAL
     ##------------------------------------------------------------------------##
-    b.error<-rep(NA, n.components)
-    n0.error<-rep(NA, n.components)
+    b.error <- rep(NA, n.components)
+    n0.error <- rep(NA, n.components)
 
-    if(fit.calcError==TRUE){
+    if(fit.calcError){
       ##option for confidence interval
-      values.confint<-confint(fit, level=0.68)
-      Im.confint<-values.confint[1:(length(values.confint[,1])/2),]
-      xm.confint<-values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
+      values.confint <- try(confint(fit, level = 0.68), silent = TRUE)
 
-      ##error calculation
-      b.error<-as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
-      n0.error<-as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
+      if(!inherits(values.confint, "try-error")) {
+        Im.confint <- values.confint[1:(length(values.confint[, 1]) / 2), ]
+        xm.confint <- values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
+
+        ##error calculation
+        b.error < -as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
+        n0.error <- as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
+
+      } else {
+        warning("[fit_LMCurve()] The computation of the parameter confidence intervals failed. Please try to run stats::confint() manually on the $fit output object!", call. = FALSE)
+
+      }
     }
     ##------------------------------------------------------------------------##
 

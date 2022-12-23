@@ -8,7 +8,7 @@ fit <- fit_LMCurve(values = values.curve,
             plot = FALSE)
 
 
-test_that("crash function", {
+test_that("crashs and warnings function", {
   testthat::skip_on_cran()
   local_edition(3)
 
@@ -19,6 +19,9 @@ test_that("crash function", {
   ## not RBR
   expect_error(fit_LMCurve(values = set_RLum("RLum.Data.Curve", recordType = "OSL")),
                regexp = "\\[fit\\_LMCurve\\(\\)\\] recordType should be .+")
+
+  ## warning for failed confint
+  expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE))
 
 })
 

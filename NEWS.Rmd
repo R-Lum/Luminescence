@@ -12,6 +12,11 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `fit_LMCurve()`
+* If the argument `fit.calcError` was set to `TRUE` and the parameter confidence interval 
+calculation failed, the function stopped with an uncontrolled error. Now it shows a meaningful 
+warning instead. 
+
 ### `plot_RadialPlot()`
 * Fix a few visual problems if the dataset has negative values (thanks to Alice Versendaal for reporting)
 
