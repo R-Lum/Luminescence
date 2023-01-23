@@ -63,6 +63,7 @@
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which per
 #' default should not exceed 10\%. The test dose error is calculated as `Tx_net.error/Tx_net`.
+#' The calculation of the $T_{n}$ error is detailed in [calc_OSLLxTxRatio].
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
