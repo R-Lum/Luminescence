@@ -12,6 +12,14 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_portableOSL()`
+* The function can now handle a list of `RLum.Analysis-class` objects and processes 
+them in the conventional way automatically. **Potential breaking change warning**: the `$summary` data frame
+gained an additional column `SAMPLE`, if you access columns index-based you 
+have to double-check your code. The manual was updated accordingly.
+* A new `...` argument `sample` was added to allow adding information on the sample for the plot
+* The function did not like sequences with only one pair of OSL/IRSL and returned an error; fixed. 
+
 ### `fit_LMCurve()`
 * If the argument `fit.calcError` was set to `TRUE` and the parameter confidence interval 
 calculation failed, the function stopped with an uncontrolled error. Now it shows a meaningful 
