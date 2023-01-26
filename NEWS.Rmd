@@ -20,6 +20,10 @@ have to double-check your code. The manual was updated accordingly.
 * A new `...` argument `sample` was added to allow adding information on the sample for the plot
 * The function did not like sequences with only one pair of OSL/IRSL and returned an error; fixed. 
 
+### `convert_PSL2CSV()`
+* Add new argument `single_table` to enable the export of PSL data into a single spreadsheet table (CSV file), 
+each curve is represented by two columns
+
 ### `fit_LMCurve()`
 * If the argument `fit.calcError` was set to `TRUE` and the parameter confidence interval 
 calculation failed, the function stopped with an uncontrolled error. Now it shows a meaningful 
@@ -31,6 +35,11 @@ warning instead.
 ### `read_BIN2R()`
 * Function crashed under edge conditions while testing very short records returning a 
 subscript out of bounds error; fixed.
+
+### `write_RLum2CSV()`
+* The function now accepts `data.frame` objects as input. This has no particular advantage
+over the base R functions, such as `write.csv()` but is used internally in combination with 
+other functions. 
 
 ### Internals
 * Fix outdated URL in `github.R`

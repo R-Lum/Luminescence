@@ -17,6 +17,9 @@ test_that("General test", {
   ##write to temp
   expect_silent(convert_PSL2CSV(file, export = TRUE, path = tempdir()))
 
+  ##test single_table argument
+  expect_type(convert_PSL2CSV(file, export = FALSE, single_table = TRUE), "list")
+
 
 })
 

@@ -9,6 +9,10 @@
 #' @param file [character] (**required**):
 #' name of the PSL-file to be converted to CSV-files
 #'
+#' @param single_table [logical] (*with default*): enable/disable the creation
+#' of single table with n rows and n columns, instead of separate [data.frame]
+#' objects. Eeach curve will be represented by two columns for time and counts
+#'
 #' @param ... further arguments that will be passed to the function
 #' [read_PSL2R] and [write_RLum2CSV]
 #'
@@ -16,7 +20,7 @@
 #' The function returns either a CSV-file (or many of them) or for the option
 #' `export = FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -26,6 +30,11 @@
 #' @keywords IO
 #'
 #' @examples
+#'
+#' ## export into single data.frame
+#' file <- system.file("extdata/DorNie_0016.psl", package="Luminescence")
+#' convert_PSL2CSV(file, export = FALSE, single_table = TRUE)
+#'
 #'
 #' \dontrun{
 #' ##select your BIN-file
@@ -40,6 +49,7 @@
 #' @export
 convert_PSL2CSV <- function(
   file,
+  single_table = FALSE,
   ...
 
 ){
@@ -52,13 +62,12 @@ convert_PSL2CSV <- function(
 
   }
 
-
   ##set input arguments
   convert_PSL2R_settings.default <- list(
     drop_bg = FALSE,
     as_decay_curve = TRUE,
     smooth = FALSE,
-    merge = FALSE,
+    merge = if(single_table) TRUE else FALSE,
     export = TRUE
   )
 
@@ -80,6 +89,31 @@ convert_PSL2CSV <- function(
 
   }
 
+  # single_table ------------------------------------------------------------
+  ## generate a single table
+  if(single_table) {
+    ## run the conversion to CSV objects
+    l <- convert_PSL2CSV(object, export = FALSE, compact = FALSE)
+
+    ## get max row number
+    nrow_max <- vapply(l, nrow, numeric(1))
+
+    ## create super matrix
+    m <- matrix(NA, nrow = max(nrow_max), ncol = length(nrow_max) * 2)
+
+    ## fill matrix
+    s <- matrix(seq_len(length(l)*2), nrow = 2)
+    for(i in 1:length(l)) {
+      m[1:nrow(l[[i]]),s[1,i]:s[2,i]] <- l[[i]]
+
+    }
+
+    ## set column names
+    colnames(m) <- paste0(rep(names(l), each = 2), c("_t", "_cts"))
+    object <- as.data.frame(m)
+
+  }
+
   # Export to CSV -------------------------------------------------------------------------------
 
   ##get all arguments we want to pass and remove the doubled one
@@ -96,3 +130,4 @@ convert_PSL2CSV <- function(
   }
 
 }
+
