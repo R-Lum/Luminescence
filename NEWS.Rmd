@@ -35,6 +35,8 @@ warning instead.
 ### `read_BIN2R()`
 * Function crashed under edge conditions while testing very short records returning a 
 subscript out of bounds error; fixed.
+* The function struggled to read files from downloads (url instead of a local file path) correctly 
+on Windows machines; fixed. 
 
 ### `write_RLum2CSV()`
 * The function now accepts `data.frame` objects as input. This has no particular advantage
