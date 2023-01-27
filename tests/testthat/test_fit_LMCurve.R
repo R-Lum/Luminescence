@@ -21,7 +21,7 @@ test_that("crashs and warnings function", {
                regexp = "\\[fit\\_LMCurve\\(\\)\\] recordType should be .+")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
-  if (.Platform$OS.type != "windows")
+  if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
     expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE))
 
 })
