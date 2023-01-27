@@ -336,7 +336,7 @@ setMethod(f = "show",
               cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
               cat("\n\tGrain range:         ",grain.range[1],":",grain.range[2])
               cat("\n\tRun range:           ",run.range[1],":",run.range[2])
-              cat("\n\tSet range:           ",set.range[1],":",set.range[2])
+              cat("\n\tSet range:           ",set.range[1],":",set.range[2], "\n")
 
             }else{
               cat("\n[Risoe.BINfileData object]")
