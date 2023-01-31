@@ -268,14 +268,13 @@ read_BIN2R <- function(
   ##set file_link for internet downloads
   file_link <- NULL
   on_exit <- function(){
-
     ##unlink internet connection
     if(!is.null(file_link)){
       unlink(file_link)
     }
 
     ##close connection
-    if(!is.null(con)){
+    if(exists("con") && !is.null(con)){
       close(con)
 
     }
