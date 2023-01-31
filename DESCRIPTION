@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.21.9000-21
-Date: 2023-01-27
+Version: 0.9.21
+Date: 2023-01-31
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -59,21 +59,21 @@ BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 4.1),
     utils
-LinkingTo: Rcpp (>= 1.0.9),
-    RcppArmadillo (>= 0.11.2.0.0)
+LinkingTo: Rcpp (>= 1.0.10),
+    RcppArmadillo (>= 0.11.4.0.0)
 Imports:
     bbmle (>= 1.0.25),
-    data.table (>= 1.14.2),
-    DEoptim (>= 2.2-6),
-    httr (>= 1.4.3),
+    data.table (>= 1.14.6),
+    DEoptim (>= 2.2-8),
+    httr (>= 1.4.4),
     lamW (>= 2.1.1),
-    matrixStats (>= 0.62.0),
+    matrixStats (>= 0.63.0),
     methods,
-    minpack.lm (>= 1.2-2),
-    mclust (>= 5.4.10),
+    minpack.lm (>= 1.2-3),
+    mclust (>= 6.0.0),
     plotrix (>= 3.8-2),
-    readxl (>= 1.4.0),
-    Rcpp (>= 1.0.9),
+    readxl (>= 1.4.1),
+    Rcpp (>= 1.0.10),
     shape (>= 1.4.6),
     parallel,
     XML (>= 3.99),
@@ -81,14 +81,14 @@ Imports:
 Suggests:
     spelling (>= 2.2),
     plotly (>= 4.10.0),
-    rmarkdown (>= 2.14),
-    rstudioapi (>= 0.13),
+    rmarkdown (>= 2.20),
+    rstudioapi (>= 0.14),
     rjags (>= 4-13),
     coda (>= 0.19-4),
     pander (>= 0.6.5),
-    testthat (>= 3.1.4),
+    testthat (>= 3.1.6),
     tiff (>= 0.1-11),
-    devtools (>= 2.4.3),
+    devtools (>= 2.4.5),
     R.rsp (>= 0.45.0)
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence

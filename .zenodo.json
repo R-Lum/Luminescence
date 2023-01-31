@@ -16,10 +16,10 @@
       "resource_type": "software"
     }
   ],
-  "version": "0.9.21.9000-21",
+  "version": "0.9.21",
   "upload_type": "software",
   "keywords": ["Luminescence", "Luminescence dating", "Chronology", "Age models"],
-  "publication_date": "2023-01-27",
+  "publication_date": "2023-01-31",
   "creators": [
     {
       "orcid": "0000-0002-0734-2199",
