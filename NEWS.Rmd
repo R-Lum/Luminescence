@@ -23,6 +23,8 @@ have to double-check your code. The manual was updated accordingly.
 ### `convert_PSL2CSV()`
 * Add new argument `single_table` to enable the export of PSL data into a single spreadsheet table (CSV file), 
 each curve is represented by two columns
+* Add new argument `extract_raw_data`, which allows to extract the raw data convienently. Those data are already imported by 
+`read_PSL2R()` but they remain somewhat hidden in the `@info` slots of each `RLum.Data.Curve` object. 
 
 ### `fit_LMCurve()`
 * If the argument `fit.calcError` was set to `TRUE` and the parameter confidence interval 

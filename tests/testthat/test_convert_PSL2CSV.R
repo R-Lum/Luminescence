@@ -20,6 +20,16 @@ test_that("General test", {
   ##test single_table argument
   expect_type(convert_PSL2CSV(file, export = FALSE, single_table = TRUE), "list")
 
+  ##test raw data extraction
+  ## simple raw data extraction
+  t <- expect_type(convert_PSL2CSV(file, export = FALSE, extract_raw_data = TRUE), "list")
+  expect_length(t, 5)
+
+  ## raw data extraction with single_table
+  t <- expect_type(convert_PSL2CSV(file, export = FALSE, extract_raw_data = TRUE, single_table = TRUE), "list")
+  expect_length(t, 1)
+  expect_equal(nrow(t[[1]]), 100)
+
 
 })
 
