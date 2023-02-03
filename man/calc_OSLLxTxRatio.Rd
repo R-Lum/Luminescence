@@ -178,7 +178,7 @@ Kreutzer, S., 2023. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves
 
 \references{
 Duller, G., 2018. Analyst v4.57 - User Manual.
-\url{https://users.aber.ac.uk/ggd/}\cr
+\verb{https://users.aber.ac.uk/ggd}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 count. Ancient TL, 20 (2), 49-51.

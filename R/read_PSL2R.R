@@ -1,8 +1,8 @@
-#' Import PSL files to R
+#' @title Import PSL files to R
 #'
-#' Imports PSL files produced by a SUERC portable OSL reader into R **(BETA)**.
+#' @description Imports PSL files produced by a SUERC portable OSL reader into R **(BETA)**.
 #'
-#' This function provides an import routine for the SUERC portable OSL Reader PSL
+#' @details This function provides an import routine for the SUERC portable OSL Reader PSL
 #' format. PSL files are just plain text and can be viewed with any text editor.
 #' Due to the formatting of PSL files this import function relies heavily on
 #' regular expression to find and extract all relevant information. See **note**.
