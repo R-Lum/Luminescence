@@ -1,12 +1,12 @@
-#' Export RLum-objects to CSV
+#' @title Export RLum-objects to CSV
 #'
-#' This function exports [RLum-class]-objects to CSV-files using the R function
+#' @description This function exports [RLum-class]-objects to CSV-files using the R function
 #' [utils::write.table]. All [RLum-class]-objects are supported, but the
 #' export is lossy, i.e. the pure numerical values are exported only. Information
 #' that cannot be coerced to a [data.frame] or a [matrix] are discarded as well as
 #' metadata.
 #'
-#' However, in combination with the implemented import functions, nearly every
+#' @details However, in combination with the implemented import functions, nearly every
 #' supported import data format can be exported to CSV-files, this gives a great
 #' deal of freedom in terms of compatibility with other tools.
 #'
@@ -46,7 +46,7 @@
 #' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
@@ -101,13 +101,7 @@ write_RLum2CSV <- function(
       path <- rep(list(path), length = length(object))
 
       ##prefix ... create automatic prefix if nothing is provided
-      if(prefix == ""){
-        prefix <- as.list(paste0("[[",1:length(object),"]]_"))
-
-      }else{
-        prefix <- rep(list(prefix), length = length(object))
-
-      }
+      prefix <- as.list(paste0(prefix[1], "[[",1:length(object),"]]_"))
 
       ##export
       export <- rep(list(export), length = length(object))
@@ -227,7 +221,7 @@ write_RLum2CSV <- function(
   } else if (inherits(object, "data.frame")) {
     object_list <- list(object)
 
-    if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  ""
+    if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  filename <- ""
 
     names(object_list) <- paste0("conv_", filename, "_single_table")
 
@@ -262,7 +256,7 @@ write_RLum2CSV <- function(
     for(i in 1:length(object_list)){
       utils::write.table(
         x = object_list[[i]],
-        file = paste0(path,"/",prefix, names(object_list)[i],".csv"),
+        file = paste0(path,"/", prefix, names(object_list)[i],".csv"),
         append = export_settings$append,
         quote =  export_settings$quote,
         sep =  export_settings$sep,
