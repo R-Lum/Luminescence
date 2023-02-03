@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/R-Lum/Luminescence",
   "issueTracker": "https://github.com/R-Lum/Luminescence/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.9.20",
+  "version": "0.9.21",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2022-06-27 r82528)",
+  "runtimePlatform": "R Under development (unstable) (2023-01-03 r83550)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -232,7 +232,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
-      "version": ">= 2.14",
+      "version": ">= 2.20",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -245,7 +245,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rstudioapi",
       "name": "rstudioapi",
-      "version": ">= 0.13",
+      "version": ">= 0.14",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -297,7 +297,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
-      "version": ">= 3.1.4",
+      "version": ">= 3.1.6",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -323,7 +323,7 @@
       "@type": "SoftwareApplication",
       "identifier": "devtools",
       "name": "devtools",
-      "version": ">= 2.4.3",
+      "version": ">= 2.4.5",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -375,7 +375,7 @@
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
-      "version": ">= 1.14.2",
+      "version": ">= 1.14.6",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -388,7 +388,7 @@
       "@type": "SoftwareApplication",
       "identifier": "DEoptim",
       "name": "DEoptim",
-      "version": ">= 2.2-6",
+      "version": ">= 2.2-8",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -401,7 +401,7 @@
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
-      "version": ">= 1.4.3",
+      "version": ">= 1.4.4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -427,7 +427,7 @@
       "@type": "SoftwareApplication",
       "identifier": "matrixStats",
       "name": "matrixStats",
-      "version": ">= 0.62.0",
+      "version": ">= 0.63.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -445,7 +445,7 @@
       "@type": "SoftwareApplication",
       "identifier": "minpack.lm",
       "name": "minpack.lm",
-      "version": ">= 1.2-2",
+      "version": ">= 1.2-3",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -458,7 +458,7 @@
       "@type": "SoftwareApplication",
       "identifier": "mclust",
       "name": "mclust",
-      "version": ">= 5.4.10",
+      "version": ">= 6.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -484,7 +484,7 @@
       "@type": "SoftwareApplication",
       "identifier": "readxl",
       "name": "readxl",
-      "version": ">= 1.4.0",
+      "version": ">= 1.4.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -497,7 +497,7 @@
       "@type": "SoftwareApplication",
       "identifier": "Rcpp",
       "name": "Rcpp",
-      "version": ">= 1.0.9",
+      "version": ">= 1.0.10",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -552,11 +552,11 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4475.225KB",
+  "fileSize": "5060.373KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
-      "datePublished": "2022",
+      "datePublished": "2023",
       "author": [
         {
           "@type": "Person",
@@ -645,7 +645,7 @@
       ],
       "name": "Luminescence: Comprehensive Luminescence Dating Data Analysis",
       "url": "https://CRAN.R-project.org/package=Luminescence",
-      "description": "R package version 0.9.20"
+      "description": "R package version 0.9.21"
     },
     {
       "@type": "ScholarlyArticle",
