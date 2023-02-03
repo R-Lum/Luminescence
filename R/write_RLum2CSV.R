@@ -226,7 +226,10 @@ write_RLum2CSV <- function(
 
   } else if (inherits(object, "data.frame")) {
     object_list <- list(object)
-    names(object_list) <- paste0(strtrim(paste(colnames(object), collapse = ""), 6), "_single_table")
+
+    if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  ""
+
+    names(object_list) <- paste0("conv_", filename, "_single_table")
 
 
   }else{

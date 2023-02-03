@@ -95,6 +95,10 @@ convert_PSL2CSV <- function(
 
   }
 
+  ## try to extract filename from object ... this will be needed later
+  filename <- try({
+    rev(strsplit(object@info$Datafile_Path, "\\", fixed = TRUE)[[1]])[1]
+  }, silent = TRUE)
 
   # raw data ----------------------------------------------------------------
   ## extract raw data instead of conventional data
@@ -135,11 +139,22 @@ convert_PSL2CSV <- function(
       colnames(m) <- paste0(rep(names(l), each = 2), c("_t", "_cts"))
 
     } else {
-      colnames(m) <-  paste0(rep(seq_along(l), each = length(l)), "_" ,names(l), "_", rep(colnames(l[[1]]), length(l)))
+      colnames(m) <- paste0(
+        rep(seq_along(l), each = ncol(l[[1]])),
+        "_" ,
+        rep(names(l), each = ncol(l[[1]])),
+        "_",
+        rep(colnames(l[[1]]), length(l)))
 
     }
 
+
+    ## overwrite object
     object <- as.data.frame(m)
+
+    ## if possible, provide the filename as attribute
+    if(!inherits(filename, "try-error"))
+      attr(object, "filename") <- gsub(".", "_", filename, fixed = TRUE)
 
   }
 

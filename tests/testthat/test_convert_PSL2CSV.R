@@ -30,6 +30,10 @@ test_that("General test", {
   expect_length(t, 1)
   expect_equal(nrow(t[[1]]), 100)
 
+  ## test with files export
+  path <- tempdir()
+  expect_silent(convert_PSL2CSV(file, path = path, export = TRUE, extract_raw_data = TRUE, single_table = TRUE))
 
 })
+
 
