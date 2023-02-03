@@ -120,26 +120,26 @@ Class for representing luminescence curve data.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of \code{RLum.Data.Curve} object
+\item \code{show(RLum.Data.Curve)}: Show structure of \code{RLum.Data.Curve} object
 
-\item \code{set_RLum}: Construction method for RLum.Data.Curve object. The slot info is optional
+\item \code{set_RLum(RLum.Data.Curve)}: Construction method for RLum.Data.Curve object. The slot info is optional
 and predefined as empty list by default.
 
-\item \code{get_RLum}: Accessor method for RLum.Data.Curve object. The argument info.object is
+\item \code{get_RLum(RLum.Data.Curve)}: Accessor method for RLum.Data.Curve object. The argument info.object is
 optional to directly access the info elements. If no info element name is
 provided, the raw curve data (matrix) will be returned.
 
-\item \code{length_RLum}: Returns the length of the curve object, which is the maximum of the
+\item \code{length_RLum(RLum.Data.Curve)}: Returns the length of the curve object, which is the maximum of the
 value time/temperature of the curve (corresponding to the stimulation length)
 
-\item \code{names_RLum}: Returns the names info elements coming along with this curve object
+\item \code{names_RLum(RLum.Data.Curve)}: Returns the names info elements coming along with this curve object
 
-\item \code{bin_RLum.Data}: Allows binning of specific objects
+\item \code{bin_RLum.Data(RLum.Data.Curve)}: Allows binning of specific objects
 
-\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmean]{zoo::rollmedian}.
+\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of RLum.Data.Curve objects using the function \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmean]{zoo::rollmedian}.
 In particular the internal function \code{.smoothing} is used.
-}}
 
+}}
 \section{Slots}{
 
 \describe{
@@ -194,7 +194,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaign
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

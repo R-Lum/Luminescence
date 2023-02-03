@@ -17,42 +17,30 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -65,7 +53,6 @@
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -85,32 +72,6 @@
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for RLum.Results</span>
-<span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Results</span>
-<span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">originator</span>, <span class="va">.uid</span>, <span class="va">.pid</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Results</span>
-<span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">data.object</span>, info.object <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Results</span>
-<span class="fu"><a href="length_RLum.html">length_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Results</span>
-<span class="fu"><a href="names_RLum.html">names_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span></code></pre></div>
-    </div>
-
-    <div id="arguments">
-    <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>; RLum.Results (<strong>required</strong>):
-an object of class RLum.Results to be evaluated</p></dd>
-<dt>class</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> <strong>(required)</strong>:
-name of the <code>RLum</code> class to create</p></dd>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for RLum.Results</span></span>
 <span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
@@ -139,19 +100,10 @@ an object of class RLum.Results to be evaluated</p></dd>
 name of the <code>RLum</code> class to create</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>originator</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 contains the name of the calling function (the function that produces this object);
 can be set manually.</p></dd>
-<<<<<<< HEAD
-<dt>.uid</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
-sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
-<dt>.pid</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-option to provide a parent id for nesting at will.</p></dd>
-=======
 
 
 <dt>.uid</dt>
@@ -164,22 +116,10 @@ sets an unique ID for this object using the internal C++ function <code>create_U
 option to provide a parent id for nesting at will.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>data</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 a list containing the data to
 be stored in the object</p></dd>
-<<<<<<< HEAD
-<dt>info</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code>; <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
-a list containing additional info data for the object</p></dd>
-<dt>data.object</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a>:
-name or index of the data slot to be returned</p></dd>
-<dt>info.object</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-name of the wanted info element</p></dd>
-=======
 
 
 <dt>info</dt>
@@ -197,23 +137,10 @@ name or index of the data slot to be returned</p></dd>
 name of the wanted info element</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>drop</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>; <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 coerce to the next possible layer (which are data objects, <code>drop = FALSE</code>
 keeps the original <code>RLum.Results</code></p></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p><strong><code>set_RLum</code></strong>:
-Returns an object from the class RLum.Results<strong><code>get_RLum</code></strong>:
-Returns:</p><ol><li><p>Data object from the specified slot</p></li>
-<li><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of data objects from the slots if 'data.object' is vector or</p></li>
-<li><p>an RLum.Results for <code>drop = FALSE</code>.</p></li>
-</ol><p><strong><code>length_RLum</code></strong>Returns the number of data elements in the <code>RLum.Results</code> object.
-<strong><code>names_RLum</code></strong>Returns the names of the data elements in the object.</p>
-=======
 
 </dl></div>
     <div id="value">
@@ -245,21 +172,20 @@ Returns:</p><ol><li><p>Data object from the specified slot</p></li>
 
 
 <p>Returns the names of the data elements in the object.</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="methods-by-generic-">
     <h2>Methods (by generic)</h2>
     
-<ul><li><p><code>show</code>: Show structure of <code>RLum.Results</code> object</p></li>
-<li><p><code>set_RLum</code>: Construction method for an RLum.Results object.</p></li>
-<li><p><code>get_RLum</code>: Accessor method for RLum.Results object. The argument data.object allows
+<ul><li><p><code>show(RLum.Results)</code>: Show structure of <code>RLum.Results</code> object</p></li>
+<li><p><code>set_RLum(RLum.Results)</code>: Construction method for an RLum.Results object.</p></li>
+<li><p><code>get_RLum(RLum.Results)</code>: Accessor method for RLum.Results object. The argument data.object allows
 directly accessing objects delivered within the slot data. The default
 return object depends on the object originator (e.g., <code>fit_LMCurve</code>).
 If nothing is specified always the first <code>data.object</code> will be returned.</p>
 <p>Note: Detailed specification should be made in combination with the originator slot in the
 receiving function if results are pipped.</p></li>
-<li><p><code>length_RLum</code>: Returns the length of the object, i.e., number of stored data.objects</p></li>
-<li><p><code>names_RLum</code>: Returns the names data.objects</p></li>
+<li><p><code>length_RLum(RLum.Results)</code>: Returns the length of the object, i.e., number of stored data.objects</p></li>
+<li><p><code>names_RLum(RLum.Results)</code>: Returns the names data.objects</p></li>
 </ul></div>
     <div id="slots">
     <h2>Slots</h2>
@@ -292,31 +218,18 @@ method <code>get_RLum</code>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., 2022. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., 2022. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Results"</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Results"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Results" [package "Luminescence"]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slots:</span>
@@ -325,35 +238,15 @@ method <code>get_RLum</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class:       list  character       list  character  character</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extends: "RLum"</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##create an empty object from this class</span></span>
-<span class="r-in"><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Results"</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##create an empty object from this class</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Results"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: eval()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 data: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 .. $ : list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0 </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##use another function to show how it works</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##Basic calculation of the dose rate for a specific date</span></span>
-<span class="r-in"> <span class="va">dose.rate</span> <span class="op">&lt;-</span>  <span class="fu"><a href="calc_SourceDoseRate.html">calc_SourceDoseRate</a></span><span class="op">(</span></span>
-<span class="r-in">   measurement.date <span class="op">=</span> <span class="st">"2012-01-27"</span>,</span>
-<span class="r-in">   calib.date <span class="op">=</span> <span class="st">"2014-12-19"</span>,</span>
-<span class="r-in">   calib.dose.rate <span class="op">=</span> <span class="fl">0.0438</span>,</span>
-<span class="r-in">   calib.error <span class="op">=</span> <span class="fl">0.0019</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##show object</span></span>
-<span class="r-in"><span class="va">dose.rate</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##use another function to show how it works</span></span></span>
 <span class="r-in"><span></span></span>
@@ -366,7 +259,6 @@ method <code>get_RLum</code>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show object</span></span></span>
 <span class="r-in"><span><span class="va">dose.rate</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: calc_SourceDoseRate()</span>
@@ -375,16 +267,6 @@ method <code>get_RLum</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $parameters : list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $call : call</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0 </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##get results</span></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dose.rate dose.rate.error       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.04695031     0.002036657 2012-01-27</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##get parameters used for the calcualtion from the same object</span></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span>, data.object <span class="op">=</span> <span class="st">"parameters"</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##get results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span><span class="op">)</span></span></span>
@@ -393,7 +275,6 @@ method <code>get_RLum</code>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##get parameters used for the calcualtion from the same object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span>, data.object <span class="op">=</span> <span class="st">"parameters"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> $source.type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Sr-90"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -403,15 +284,9 @@ method <code>get_RLum</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dose.rate.unit</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Gy/s"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##alternatively objects can be accessed using S3 generics, such as</span></span>
-<span class="r-in"><span class="va">dose.rate</span><span class="op">$</span><span class="va">parameters</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##alternatively objects can be accessed using S3 generics, such as</span></span></span>
 <span class="r-in"><span><span class="va">dose.rate</span><span class="op">$</span><span class="va">parameters</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> $source.type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Sr-90"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -421,11 +296,7 @@ method <code>get_RLum</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dose.rate.unit</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Gy/s"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -436,23 +307,11 @@ method <code>get_RLum</code>.</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

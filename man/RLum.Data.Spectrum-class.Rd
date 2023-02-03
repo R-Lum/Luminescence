@@ -97,21 +97,21 @@ Class for representing luminescence spectra data (TL/OSL/RF).
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of \code{RLum.Data.Spectrum} object
+\item \code{show(RLum.Data.Spectrum)}: Show structure of \code{RLum.Data.Spectrum} object
 
-\item \code{set_RLum}: Construction method for RLum.Data.Spectrum object. The slot info is optional
+\item \code{set_RLum(RLum.Data.Spectrum)}: Construction method for RLum.Data.Spectrum object. The slot info is optional
 and predefined as empty list by default
 
-\item \code{get_RLum}: Accessor method for RLum.Data.Spectrum object. The argument info.object
+\item \code{get_RLum(RLum.Data.Spectrum)}: Accessor method for RLum.Data.Spectrum object. The argument info.object
 is optional to directly access the info elements. If no info element name
 is provided, the raw curve data (matrix) will be returned
 
-\item \code{names_RLum}: Returns the names info elements coming along with this curve object
+\item \code{names_RLum(RLum.Data.Spectrum)}: Returns the names info elements coming along with this curve object
 
-\item \code{bin_RLum.Data}: Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
+\item \code{bin_RLum.Data(RLum.Data.Spectrum)}: Allows binning of RLum.Data.Spectrum data. Count values and values on the x-axis are summed-up;
 for wavelength/energy values the mean is calculated.
-}}
 
+}}
 \section{Slots}{
 
 \describe{
@@ -164,7 +164,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

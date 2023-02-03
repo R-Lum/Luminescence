@@ -17,42 +17,30 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -65,7 +53,6 @@
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -85,19 +72,6 @@
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fit_OSLLifeTimes</span><span class="op">(</span>
-  <span class="va">object</span>,
-  tp <span class="op">=</span> <span class="fl">0</span>,
-  signal_range <span class="op">=</span> <span class="cn">NULL</span>,
-  n.components <span class="op">=</span> <span class="cn">NULL</span>,
-  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot_simple <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_OSLLifeTimes</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  tp <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -109,7 +83,6 @@
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -118,40 +91,24 @@
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> <strong>(required)</strong>:
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
 processing. Please note: <code>NA</code> values are automatically removed and the dataset should comprise at least 5 data points.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>tp</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): option to account for the stimulation pulse width. For off-time measurements
 the default value is 0. <code>tp</code> has the same unit as the measurement data, e.g., µs. Please set this parameter
 carefully, if it all, otherwise you may heavily bias your fit results.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>signal_range</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): allows to set a channel range, by default all channels are used, e.g.
 <code>signal_range = c(2,100)</code> considers only channels 2 to 100 and <code>signal_range = c(2)</code> considers only channels
 from channel 2 onwards.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>n.components</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): Fix the number of components. If set the algorithm will try
 to fit the number of predefined components. If nothing is set, the algorithm will try to find the best number
 of components.</p></dd>
-<<<<<<< HEAD
-<dt>method_control</dt>
-<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>): Named to allow a more fine control of the fitting process. See details
-for allowed options.</p></dd>
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable plot output</p></dd>
-=======
 
 
 <dt>method_control</dt>
@@ -163,38 +120,20 @@ for allowed options.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable plot output</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>plot_simple</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable reduced plot output. If <code>TRUE</code>, no
 residual plot is shown, however, plot output can be combined using the standard R layout options,
 such as <code>par(mfrow = c(2,2))</code>.</p></dd>
-<<<<<<< HEAD
-<dt>verbose</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable terminal feedback</p></dd>
-=======
 
 
 <dt>verbose</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Enable/disable terminal feedback</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>parameters passed to <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a> to control the plot output, supported are:
 <code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>log</code>, <code>xlim</code>, <code>ylim</code>, <code>col</code>, <code>lty</code>, <code>legend.pos</code>, <code>legend.text</code>. If the input
 object is of type <a href="RLum.Analysis-class.html">RLum.Analysis</a> this arguments can be provided as a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>-----------------------------------<br><code>[ NUMERICAL OUTPUT ]</code><br>-----------------------------------<br><strong><code>RLum.Results</code></strong>-object
-<strong>slot:</strong><strong><code>@data</code></strong></p><table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>matrix</code></td><td>the final fit matrix</td></tr><tr><td><code>$start_matrix</code></td><td><code>matrix</code></td><td>the start matrix used for the fitting</td></tr><tr><td><code>$total_counts</code></td><td><code>integer</code></td><td>Photon count sum</td></tr><tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fit object returned by <a href="https://rdrr.io/pkg/minpack.lm/man/nls.lm.html" class="external-link">minpack.lm::nls.lm</a></td></tr></table><p><strong>slot:</strong><strong><code>@info</code></strong>The original function call
-------------------------<br><code>[ TERMINAL OUTPUT ]</code><br>------------------------<br>Terminal output is only shown of the argument <code>verbose = TRUE</code>.
-<em>(1) Start parameter and component adaption</em><br>Trave of the parameter adaptation process
-<em>(2) Fitting results (sorted by ascending tau)</em><br>The fitting results sorted by ascending tau value. Please note
-that if you access the <code>nls</code> fitting object, the values are not sorted.
-<em>(3) Further information</em><br></p><ul><li><p>The photon count sum</p></li>
-=======
 
 </dl></div>
     <div id="value">
@@ -259,16 +198,11 @@ that if you access the <code>nls</code> fitting object, the values are not sorte
 
 
 <ul><li><p>The photon count sum</p></li>
->>>>>>> dev_0.9.20
 <li><p>Durbin-Watson residual statistic to asses whether the residuals are correlated, ideally
 the residuals should be not correlated at all. Rough measures are: <br>
 D = 0: the residuals are systematically correlated <br>
 D = 2: the residuals are randomly distributed <br>
 D = 4: the residuals are systematically anti-correlated<br></p></li>
-<<<<<<< HEAD
-</ul><p>You should be suspicious if D differs largely from 2.
-------------------------<br><code>[ PLOT OUTPUT ]</code><br>------------------------<br>A plot showing the original data and the fit so far possible. The lower plot shows the
-=======
 </ul><p>You should be suspicious if D differs largely from 2.</p>
 
 
@@ -283,7 +217,6 @@ D = 4: the residuals are systematically anti-correlated<br></p></li>
 
 
 <p>A plot showing the original data and the fit so far possible. The lower plot shows the
->>>>>>> dev_0.9.20
 residuals of the fit.</p>
     </div>
     <div id="details">
@@ -313,20 +246,12 @@ The default values is <code>TRUE</code></td></tr><tr><td><code>nlsLM.trace</code
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., Schmidt, C., 2022. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., Schmidt, C., 2022. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., Schmidt, C., 2023. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
     <p>Bluszcz, A., Adamiec, G., 2006. Application of differential evolution to fitting OSL decay curves.
-<<<<<<< HEAD
-Radiation Measurements 41, 886-891. doi: <a href="https://doi.org/10.1016/j.radmeas.2006.05.016" class="external-link">10.1016/j.radmeas.2006.05.016</a>
-=======
 Radiation Measurements 41, 886-891. <a href="https://doi.org/10.1016/j.radmeas.2006.05.016" class="external-link">doi:10.1016/j.radmeas.2006.05.016</a>
->>>>>>> dev_0.9.20
 <br></p>
 <p>Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
 Biometrika 37, 409-21. doi:10.2307/2332391</p>
@@ -349,16 +274,6 @@ Christoph Schmidt, University of Bayreuth (Germany)
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.TR_OSL</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##fit lifetimes (short run)</span></span>
-<span class="r-in"><span class="fu">fit_OSLLifeTimes</span><span class="op">(</span></span>
-<span class="r-in"> object <span class="op">=</span> <span class="va">ExampleData.TR_OSL</span>,</span>
-<span class="r-in"> n.components <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##load example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.TR_OSL</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -367,7 +282,6 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-in"><span><span class="fu">fit_OSLLifeTimes</span><span class="op">(</span></span></span>
 <span class="r-in"><span> object <span class="op">=</span> <span class="va">ExampleData.TR_OSL</span>,</span></span>
 <span class="r-in"><span> n.components <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_OSLLifeTime()]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -386,7 +300,7 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Estimate   Std. Error   t value      Pr(&gt;|t|)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A.1   2.118737e+10 9.710554e+07 218.18915  0.000000e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tau.1 8.791461e+01 3.167935e+00  27.75139 1.196538e-143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tau.1 8.791461e+01 3.167935e+00  27.75139 1.196536e-143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (3) Further information</span>
@@ -404,15 +318,6 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $total_counts : numeric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##long example</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">fit_OSLLifeTimes</span><span class="op">(</span></span>
-<span class="r-in">object <span class="op">=</span> <span class="va">ExampleData.TR_OSL</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##long example</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -420,7 +325,6 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-in"><span>object <span class="op">=</span> <span class="va">ExampleData.TR_OSL</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -431,23 +335,11 @@ Christoph Schmidt, University of Bayreuth (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

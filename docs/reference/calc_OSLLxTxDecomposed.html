@@ -18,27 +18,12 @@ CW-OSL curves decomposed by [OSLdecomposition::RLum.OSL_decomposition]"><!-- mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
@@ -56,7 +41,7 @@ CW-OSL curves decomposed by [OSLdecomposition::RLum.OSL_decomposition]"><!-- mat
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,7 +52,6 @@ CW-OSL curves decomposed by [OSLdecomposition::RLum.OSL_decomposition]"><!-- mat
     <span class="fa fa-github"></span>
      
     GitHub
->>>>>>> dev_0.9.20
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
@@ -90,15 +74,6 @@ CW-OSL curves decomposed by <code>[OSLdecomposition::RLum.OSL_decomposition]</co
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_OSLLxTxDecomposed</span><span class="op">(</span>
-  <span class="va">Lx.data</span>,
-  Tx.data <span class="op">=</span> <span class="cn">NULL</span>,
-  OSL.component <span class="op">=</span> <span class="fl">1L</span>,
-  sig0 <span class="op">=</span> <span class="fl">0</span>,
-  digits <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_OSLLxTxDecomposed</span><span class="op">(</span></span>
 <span>  <span class="va">Lx.data</span>,</span>
 <span>  Tx.data <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -106,7 +81,6 @@ CW-OSL curves decomposed by <code>[OSLdecomposition::RLum.OSL_decomposition]</co
 <span>  sig0 <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  digits <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -116,21 +90,15 @@ CW-OSL curves decomposed by <code>[OSLdecomposition::RLum.OSL_decomposition]</co
 <code>[OSLdecomposition::RLum.OSL_decomposition]</code> and per default located
 at <code>object@records[[...]]@info$COMPONENTS</code>.The value of <code>$n[OSL.component]</code>
 is set as <code>LnLx</code>. The value of <code>$n.error[OSL.component]</code> is set as <code>LnLx.error</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>Tx.data</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<em>optional</em>): Component table created by
 <code>[OSLdecomposition::RLum.OSL_decomposition]</code> and per default located at
 <code>object@records[[...]]@info$COMPONENTS</code>. The value of <code>$n[OSL.component]</code>
 is set as <code>TnTx</code>. The value of <code>$n.error[OSL.component]</code> is set as <code>TnTx.error</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>OSL.component</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 a single index or a name describing which OSL signal component shall be evaluated.
@@ -138,30 +106,6 @@ This argument can either be the name of the OSL component assigned by
 <code>[OSLdecomposition::RLum.OSL_global_fitting]</code> or the index of component.
 Then <code>'1'</code> selects the fastest decaying component, <code>'2'</code> the
 second fastest and so on. If not defined, the fastest decaying component is selected.</p></dd>
-<<<<<<< HEAD
-<dt>sig0</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): allows adding an extra error component
-to the final <code>Lx/Tx</code> error value (e.g., instrumental error).</p></dd>
-<dt>digits</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>): round numbers to the specified digits.
-If digits is set to <code>NULL</code> nothing is rounded.</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.
-Slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with the following structure:
-<strong>@data</strong></p><div class="sourceCode"><pre><code>$LxTx.table (data.frame)
-.. $ LnLx
-.. $ TnTx
-.. $ Net_LnLx
-.. $ Net_LnLx.Error
-.. $ Net_TnTx
-.. $ Net_TnTx.Error
-.. $ LxTx
-.. $ LxTx.relError
-.. $ LxTx.Error
-</code></pre></div>
-=======
 
 
 <dt>sig0</dt>
@@ -200,7 +144,6 @@ If digits is set to <code>NULL</code> nothing is rounded.</p></dd>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>.. <span class="sc">$</span> LxTx.Error</span></code></pre><p></p></div>
 
 
->>>>>>> dev_0.9.20
     </div>
     <div id="function-version">
     <h2>Function version</h2>
@@ -208,11 +151,7 @@ If digits is set to <code>NULL</code> nothing is rounded.</p></dd>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Mittelstrass, D., 2022. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Mittelstrass, D., 2022. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Mittelstrass, D., 2023. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -239,23 +178,11 @@ talk presented at DLED 2019, Bingen, Germany
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

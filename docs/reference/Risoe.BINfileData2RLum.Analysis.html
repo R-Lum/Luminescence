@@ -18,42 +18,30 @@ object to an RLum.Analysis object."><!-- mathjax --><script src="https://cdnjs.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -66,7 +54,6 @@ object to an RLum.Analysis object."><!-- mathjax --><script src="https://cdnjs.c
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,20 +74,6 @@ object to an RLum.Analysis object.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Risoe.BINfileData2RLum.Analysis</span><span class="op">(</span>
-  <span class="va">object</span>,
-  pos <span class="op">=</span> <span class="cn">NULL</span>,
-  grain <span class="op">=</span> <span class="cn">NULL</span>,
-  run <span class="op">=</span> <span class="cn">NULL</span>,
-  set <span class="op">=</span> <span class="cn">NULL</span>,
-  ltype <span class="op">=</span> <span class="cn">NULL</span>,
-  dtype <span class="op">=</span> <span class="cn">NULL</span>,
-  protocol <span class="op">=</span> <span class="st">"unknown"</span>,
-  keep.empty <span class="op">=</span> <span class="cn">TRUE</span>,
-  txtProgressBar <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Risoe.BINfileData2RLum.Analysis</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  pos <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -113,7 +86,6 @@ object to an RLum.Analysis object.</p>
 <span>  keep.empty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  txtProgressBar <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -121,92 +93,59 @@ object to an RLum.Analysis object.</p>
     <dl><dt>object</dt>
 <dd><p><a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
 <code>Risoe.BINfileData</code> object</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>pos</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): position number of the <code>Risoe.BINfileData</code>
 object for which the curves are stored in the <code>RLum.Analysis</code> object.
 If <code>length(position)&gt;1</code> a list of <code>RLum.Analysis</code> objects is returned.
 If nothing is provided every position will be converted.
 If the position is not valid <code>NA</code> is returned.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>grain</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a>, <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 grain number from the measurement to limit the converted data set
 (e.g., <code>grain = c(1:48)</code>). Please be aware that this option may lead to
 unwanted effects, as the output is strictly limited to the chosen grain
 number for all position numbers</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>run</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a>, <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 run number from the measurement to limit the converted data set
 (e.g., <code>run = c(1:48)</code>).</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>set</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a>, <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 set number from the measurement to limit the converted data set
 (e.g., <code>set = c(1:48)</code>).</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>ltype</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a>, <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 curve type to limit the converted data. Commonly allowed values are:
 <code>IRSL</code>, <code>OSL</code>, <code>TL</code>, <code>RIR</code>, <code>RBR</code> and <code>USER</code>
 (see also <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a>)</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>dtype</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a>, <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 data type to limit the converted data. Commonly allowed values are
 listed in <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>protocol</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 sets protocol type for analysis object. Value may be used by subsequent
 analysis functions.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>keep.empty</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 If <code>TRUE</code> (default) an <code>RLum.Analysis</code> object is returned even if it does
 not contain any records. Set to <code>FALSE</code> to discard all empty objects.</p></dd>
-<<<<<<< HEAD
-<dt>txtProgressBar</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a>.</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an <a href="RLum.Analysis-class.html">RLum.Analysis</a> object.</p>
-=======
 
 
 <dt>txtProgressBar</dt>
@@ -219,7 +158,6 @@ enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class=
     
 
 <p>Returns an <a href="RLum.Analysis-class.html">RLum.Analysis</a> object.</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -243,33 +181,16 @@ object is set to 'unknown' if not stated otherwise.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., 2022. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., 2022. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##convert values for position 1</span></span>
-<span class="r-in"><span class="fu">Risoe.BINfileData2RLum.Analysis</span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, pos <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##load data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -277,7 +198,6 @@ object is set to 'unknown' if not stated otherwise.</p>
 <span class="r-in"><span><span class="co">##convert values for position 1</span></span></span>
 <span class="r-in"><span><span class="fu">Risoe.BINfileData2RLum.Analysis</span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, pos <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -288,23 +208,11 @@ object is set to 'unknown' if not stated otherwise.</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -18,42 +18,30 @@ as shown in Steffen et al. 2009"><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -66,7 +54,6 @@ as shown in Steffen et al. 2009"><!-- mathjax --><script src="https://cdnjs.clou
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,17 +74,6 @@ as shown in Steffen et al. 2009</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_NRt</span><span class="op">(</span>
-  <span class="va">data</span>,
-  log <span class="op">=</span> <span class="cn">FALSE</span>,
-  smooth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"spline"</span>, <span class="st">"rmean"</span><span class="op">)</span>,
-  k <span class="op">=</span> <span class="fl">3</span>,
-  legend <span class="op">=</span> <span class="cn">TRUE</span>,
-  legend.pos <span class="op">=</span> <span class="st">"topright"</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_NRt</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  log <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -107,7 +83,6 @@ as shown in Steffen et al. 2009</p>
 <span>  legend.pos <span class="op">=</span> <span class="st">"topright"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -115,11 +90,6 @@ as shown in Steffen et al. 2009</p>
     <dl><dt>data</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>, <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> or <a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
 X,Y data of measured values (time and counts). See details on individual data structure.</p></dd>
-<<<<<<< HEAD
-<dt>log</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-logarithmic axes (<code>c("x", "y", "xy")</code>).</p></dd>
-=======
 
 
 <dt>log</dt>
@@ -127,29 +97,11 @@ logarithmic axes (<code>c("x", "y", "xy")</code>).</p></dd>
 logarithmic axes (<code>c("x", "y", "xy")</code>).</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>smooth</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 apply data smoothing. Use <code>"rmean"</code> to calculate the rolling where <code>k</code>
 determines the width of the rolling window (see rollmean). <code>"spline"</code>
 applies a smoothing spline to each curve (see <a href="https://rdrr.io/r/stats/smooth.spline.html" class="external-link">smooth.spline</a>)</p></dd>
-<<<<<<< HEAD
-<dt>k</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-integer width of the rolling window.</p></dd>
-<dt>legend</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-show or hide the plot legend.</p></dd>
-<dt>legend.pos</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-keyword specifying the position of the legend (see <a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a>).</p></dd>
-<dt>...</dt>
-<dd><p>further parameters passed to <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a> (also see <a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a>).</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns a plot and <a href="RLum.Analysis-class.html">RLum.Analysis</a> object.</p>
-=======
 
 
 <dt>k</dt>
@@ -176,7 +128,6 @@ keyword specifying the position of the legend (see <a href="https://rdrr.io/r/gr
     
 
 <p>Returns a plot and <a href="RLum.Analysis-class.html">RLum.Analysis</a> object.</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -191,11 +142,7 @@ the counts of each curve.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Burow, C., 2022. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Burow, C., 2022. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Burow, C., 2023. plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -214,81 +161,6 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.BINfileData"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 1</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## convert Risoe.BINfileData object to RLum.Analysis object</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">CWOSL.SAR.Data</span>, pos <span class="op">=</span> <span class="fl">8</span>, ltype <span class="op">=</span> <span class="st">"OSL"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## extract all OSL curves</span></span>
-<span class="r-in"><span class="va">allCurves</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## keep only the natural and regenerated signal curves</span></span>
-<span class="r-in"><span class="va">pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">9</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">curves</span> <span class="op">&lt;-</span> <span class="va">allCurves</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## plot a standard NR(t) plot</span></span>
-<span class="r-in"><span class="fu">plot_NRt</span><span class="op">(</span><span class="va">curves</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_NRt-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## re-plot with rolling mean data smoothing</span></span>
-<span class="r-in"><span class="fu">plot_NRt</span><span class="op">(</span><span class="va">curves</span>, smooth <span class="op">=</span> <span class="st">"rmean"</span>, k <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_NRt-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## re-plot with a logarithmic x-axis</span></span>
-<span class="r-in"><span class="fu">plot_NRt</span><span class="op">(</span><span class="va">curves</span>, log <span class="op">=</span> <span class="st">"x"</span>, smooth <span class="op">=</span> <span class="st">"rmean"</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_NRt-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## re-plot with custom axes ranges</span></span>
-<span class="r-in"><span class="fu">plot_NRt</span><span class="op">(</span><span class="va">curves</span>, smooth <span class="op">=</span> <span class="st">"rmean"</span>, k <span class="op">=</span> <span class="fl">5</span>,</span>
-<span class="r-in">         xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">1.6</span><span class="op">)</span>,</span>
-<span class="r-in">         legend.pos <span class="op">=</span> <span class="st">"bottomleft"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_NRt-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## re-plot with smoothing spline on log scale</span></span>
-<span class="r-in"><span class="fu">plot_NRt</span><span class="op">(</span><span class="va">curves</span>, smooth <span class="op">=</span> <span class="st">"spline"</span>, log <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">         legend.pos <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_NRt-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 2</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># you may also use this function to check whether all</span></span>
-<span class="r-in"><span class="co"># TD curves follow the same shape (making it a TnTx(t) plot).</span></span>
-<span class="r-in"><span class="va">posTD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">14</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">curves</span> <span class="op">&lt;-</span> <span class="va">allCurves</span><span class="op">[</span><span class="va">posTD</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">plot_NRt</span><span class="op">(</span><span class="va">curves</span>, main <span class="op">=</span> <span class="st">"TnTx(t) Plot"</span>,</span>
-<span class="r-in">         smooth <span class="op">=</span> <span class="st">"rmean"</span>, k <span class="op">=</span> <span class="fl">20</span>,</span>
-<span class="r-in">         ylab <span class="op">=</span> <span class="st">"TD natural / TD regenerated"</span>,</span>
-<span class="r-in">         xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_NRt-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## EXAMPLE 3</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract data from all positions</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">pos</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">   <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, pos <span class="op">=</span> <span class="va">pos</span>, ltype <span class="op">=</span> <span class="st">"OSL"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get individual curve data from each aliquot</span></span>
-<span class="r-in"><span class="va">aliquot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">get_RLum</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># set graphical parameters</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create NR(t) plots for all aliquots</span></span>
-<span class="r-in"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">aliquot</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">   <span class="fu">plot_NRt</span><span class="op">(</span><span class="va">aliquot</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">pos</span><span class="op">]</span>,</span>
-<span class="r-in">            main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Aliquot #"</span>, <span class="va">i</span><span class="op">)</span>,</span>
-<span class="r-in">            smooth <span class="op">=</span> <span class="st">"rmean"</span>, k <span class="op">=</span> <span class="fl">20</span>,</span>
-<span class="r-in">            xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
-<span class="r-in">            cex <span class="op">=</span> <span class="fl">0.6</span>, legend.pos <span class="op">=</span> <span class="st">"bottomleft"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## load example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.BINfileData"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -362,26 +234,17 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.</p>
 <span class="r-in"><span>            xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            cex <span class="op">=</span> <span class="fl">0.6</span>, legend.pos <span class="op">=</span> <span class="st">"bottomleft"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="plot_NRt-7.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="plot_NRt-8.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="plot_NRt-9.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="plot_NRt-10.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="plot_NRt-11.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="plot_NRt-12.png" alt="" width="700" height="433"></span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># reset graphical parameters</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># reset graphical parameters</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -392,23 +255,11 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

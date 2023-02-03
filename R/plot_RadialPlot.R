@@ -125,7 +125,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.7
+#' @section Function version: 0.5.9
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -336,7 +336,6 @@ plot_RadialPlot <- function(
     mtext <- ""
   }
 
-
   ## check z-axis log-option for grouped data sets
   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
     warning(paste("Option 'log.z' is not set to 'TRUE' altough more than one",
@@ -372,12 +371,10 @@ plot_RadialPlot <- function(
   }
 
   ## calculate correction dose to shift negative values
-  if(min(De.global) < 0) {
-
+  if(min(De.global) < 0 && log.z) {
     if("zlim" %in% names(extraArgs)) {
       De.add <- abs(extraArgs$zlim[1])
     } else {
-
       ## estimate delta De to add to all data
       De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
 
@@ -394,11 +391,9 @@ plot_RadialPlot <- function(
   De.delta <- ticks[2] - ticks[1]
 
   ## optionally add correction dose to data set and adjust error
-  if(log.z == TRUE) {
-
-    for(i in 1:length(data)) {
+  if(log.z) {
+    for(i in 1:length(data))
       data[[i]][,1] <- data[[i]][,1] + De.add
-    }
 
     De.global <- De.global + De.add
 
@@ -419,7 +414,6 @@ plot_RadialPlot <- function(
   De.delta <- ticks[2] - ticks[1]
 
   ## calculate and append statistical measures --------------------------------
-
   ## z-values based on log-option
   z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
@@ -432,7 +426,6 @@ plot_RadialPlot <- function(
   ## calculate se-values based on log-option
   se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-
       if(De.add != 0) {
         data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
       } else {
@@ -441,6 +434,7 @@ plot_RadialPlot <- function(
     } else {
       data[[x]][,2]
     }}, De.add = De.add)
+
   if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])})
@@ -479,8 +473,7 @@ plot_RadialPlot <- function(
     z.central <- lapply(1:length(data), function(x){
       rep(median.w(y = data[[x]][,3],
                    w = data[[x]][,4]), length(data[[x]][,3]))})
-  } else if(is.numeric(centrality) == TRUE &
-              length(centrality) == length(data)) {
+  } else if(is.numeric(centrality) & length(centrality) == length(data)) {
     z.central.raw <- if(log.z == TRUE) {
       log(centrality + De.add)
     } else {
@@ -493,7 +486,7 @@ plot_RadialPlot <- function(
     z.central <- lapply(1:length(data), function(x){
       rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else {
-    stop("Measure of centrality not supported!")
+    stop("[plot_RadialPlot()] Measure of centrality not supported!", call. = FALSE)
   }
 
   data <- lapply(1:length(data), function(x) {
@@ -576,9 +569,8 @@ if(centrality[1] == "mean") {
   z.central.global <- mean(data.global[,3], na.rm = TRUE)
 }
 
-  ## optionally adjust zentral value by user-defined value
+  ## optionally adjust central value by user-defined value
   if(missing(central.value) == FALSE) {
-
     # ## adjust central value for De.add
     central.value <- central.value + De.add
 
@@ -615,7 +607,7 @@ if(centrality[1] == "mean") {
   ## print warning for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
     small.sigma <- TRUE
-    print(paste("Attention, small standardised estimate scatter.",
+    message(paste("Attention, small standardised estimate scatter.",
                 "Toggle off y.ticks?"))
 }
 
@@ -817,9 +809,8 @@ if(centrality[1] == "mean") {
   }
 
   ## subtract De.add from label values
-  if(De.add != 0) {
-    label.z.text <- label.z.text #- De.add
-  }
+  if(De.add != 0)
+    label.z.text <- label.z.text - De.add
 
   labels <- cbind(label.x, label.y, label.z.text)
 
@@ -862,7 +853,8 @@ if(centrality[1] == "mean") {
                             min(abs(ellipse.y - polygon_y_min))]
 
   if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
-    print("[plot_RadialPlot] Warning: z-scale touches 2s-polygon. Decrease plot ratio.")
+    warning("[plot_RadialPlot()] z-scale touches 2s-polygon. Decrease plot ratio.",
+            call. = FALSE)
   }
 
   ## calculate statistical labels
@@ -913,8 +905,11 @@ if(centrality[1] == "mean") {
     "se.rel.weighted")
 
   for(i in 1:length(data)) {
-    data_to_stats <- data[[i]]
-    data_to_stats$De <- data_to_stats$De - De.add
+    data_to_stats <- data[[i]][,1:2]
+
+    ## remove added De
+    if(log.z) data_to_stats$De <- data_to_stats$De - De.add
+
     statistics <- calc_Statistics(data = data_to_stats)
     De.stats[i,1] <- statistics$weighted$n
     De.stats[i,2] <- statistics$unweighted$mean
@@ -1599,7 +1594,7 @@ label.text[[1]] <- NULL
     if(fun==TRUE){sTeve()}
   }
 
-  if(output == TRUE) {
+  if(output) {
     return(list(data = data,
                 data.global = data.global,
                 xlim = limits.x,

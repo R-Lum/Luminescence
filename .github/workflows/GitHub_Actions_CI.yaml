@@ -10,112 +10,78 @@ name: GitHub Actions CI
 
 ## change if caches needs to be refreshed
 env:
-  cache-version: v1
+  cache-version: v3
 
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
+
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
     strategy:
       fail-fast: false
       matrix:
         config:
-        - {os: windows-latest, r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        - {os: macos-11,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/all/latest"}
-        - {os: macos-10.15,   r: 'oldrel', not_cran: 'true', rspm:  "https://packagemanager.rstudio.com/all/latest"}
-        - {os: ubuntu-20.04,   r: 'devel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-20.04,   r: 'release', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
-        - {os: ubuntu-20.04,   r: 'oldrel', not_cran: 'true', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
+          - {os: windows-latest, r: 'release', not_cran: 'true'}
+          - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          # - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
+          - {os: macos-12,   r: 'release', not_cran: 'true'}
+          #- {os: macos-11,   r: 'oldrel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
+          - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: false
-      RSPM: ${{ matrix.config.rspm }}
       _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      - if: runner.os == 'macOS'
+        run: brew install jags curl
+
+      - name: Install JAGS on Windows (R release)
+        if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
+        run: |
+          curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          C:\JAGS-4.3.1.exe /S
+
+      - name: Install JAGS on Windows (R oldrel)
+        if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
+        run: |
+          curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
+          C:\JAGS-4.3.0.exe /S
+
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@v1
-
-      - name: Install remotes
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('depends.Rds') }}
-          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ matrix.config.r }}-
+          extra-packages: |
+            any::rcmdcheck
+            any::XML
+            any::covr
+          needs: check
 
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
+      - name: Show session info before test
         run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-
-      - name: Install ghostscript (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y ghostscript
-          sudo apt-get install -y curl
-
-      - name: Install jags (macOS)
-        if: runner.os == 'macOS'
-        run: brew install jags curl
-
-      - name: Install jags (Windows)
-        if: runner.os == 'windows'
-        run: |
-           curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-           C:\JAGS-4.3.1.exe /S
-
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-          remotes::install_cran("covr")
+          print(utils::sessionInfo())
         shell: Rscript {0}
 
-      - name: Show session info
+      - name: Show session curl info
         run: |
-          options(width = 100)
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
+          print(curl::curl_version())
         shell: Rscript {0}
 
-      - name: Remove depends.Rds
-        run: |
-          unlink("depends.Rds")
-        shell: Rscript {0}
-
-      - name: Check package
-        env:
-          _R_CHECK_CRAN_INCOMING_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
+      - uses: r-lib/actions/check-r-package@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          upload-snapshots: true
 
       - name: Test coverage
         run: |

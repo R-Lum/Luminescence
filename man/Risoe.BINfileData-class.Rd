@@ -37,15 +37,15 @@ of the function \link{read_BIN2R}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum and Risoe.BINfile class objects
+\item \code{show(Risoe.BINfileData)}: Show structure of RLum and Risoe.BINfile class objects
 
-\item \code{set_Risoe.BINfileData}: The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
+\item \code{set_Risoe.BINfileData(ANY)}: The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
 This construction method is intended for internal usage only.
 
-\item \code{get_Risoe.BINfileData}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
+\item \code{get_Risoe.BINfileData(Risoe.BINfileData)}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.
-}}
 
+}}
 \section{Slots}{
 
 \describe{
@@ -220,7 +220,7 @@ showClass("Risoe.BINfileData")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -142,7 +142,7 @@
 #' [analyse_SAR.CWOSL]
 #'
 #' @references Duller, G., 2018. Analyst v4.57 - User Manual.
-#' [https://users.aber.ac.uk/ggd/]()\cr
+#' `https://users.aber.ac.uk/ggd`\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 #' count. Ancient TL, 20 (2), 49-51.

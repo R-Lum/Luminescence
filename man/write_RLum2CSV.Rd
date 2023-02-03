@@ -15,7 +15,7 @@ write_RLum2CSV(
 }
 \arguments{
 \item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\strong{required}):
-objects to be written}
+objects to be written. Can be a \link{data.frame} if needed internally.}
 
 \item{path}{\link{character} (\emph{optional}):
 character string naming folder for the output to be written. If nothing
@@ -61,7 +61,7 @@ If the input is a \link{list} of objects all explicit function arguments can be 
 as \link{list}.
 }
 \section{Function version}{
- 0.2.0
+ 0.2.1
 }
 
 \examples{
@@ -92,7 +92,7 @@ Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Ki
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

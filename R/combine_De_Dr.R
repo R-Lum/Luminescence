@@ -215,8 +215,6 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@examples
-#'
 #'@md
 #'@noRd
 .calc_BayesianCentralAgeModel <- function(
@@ -511,10 +509,14 @@ combine_De_Dr <- function(
 ) {
 
 # Check input data --------------------------------------------------------
-if (!all(c(requireNamespace("rjags"), requireNamespace("coda"), requireNamespace("mclust"),
-           quietly = TRUE))) {
-    stop("[combine_De_Dr()] To use this function you have to first
-         install the package 'rjags', 'coda', and 'mclust'.", call. = FALSE)
+if (!all(t_pkg <- c(
+  requireNamespace("rjags", quietly = TRUE),
+  requireNamespace("coda", quietly = TRUE),
+  requireNamespace("mclust", quietly = TRUE)))) {
+  t_names <- c('rjags', 'coda', 'mclust')
+    stop(paste0("[combine_De_Dr()] To use this function you have to first
+         install the package(s) ", paste(t_names[!t_pkg], collapse = ",")),
+         call. = FALSE)
 }
 
 # Integrity checks --------------------------------------------------------

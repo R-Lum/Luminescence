@@ -17,42 +17,30 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -65,7 +53,6 @@
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -85,21 +72,6 @@
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">report_RLum</span><span class="op">(</span>
-  <span class="va">object</span>,
-  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,
-  title <span class="op">=</span> <span class="st">"RLum.Report"</span>,
-  compact <span class="op">=</span> <span class="cn">TRUE</span>,
-  timestamp <span class="op">=</span> <span class="cn">TRUE</span>,
-  show_report <span class="op">=</span> <span class="cn">TRUE</span>,
-  launch.browser <span class="op">=</span> <span class="cn">FALSE</span>,
-  css.file <span class="op">=</span> <span class="cn">NULL</span>,
-  quiet <span class="op">=</span> <span class="cn">TRUE</span>,
-  clean <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">report_RLum</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -113,7 +85,6 @@
 <span>  clean <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -121,20 +92,12 @@
     <dl><dt>object</dt>
 <dd><p>(<strong>required</strong>):
 The object to be reported on, preferably of any <code>RLum</code>-class.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>file</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 A character string naming the output file. If no filename is provided a
 temporary file is created.</p></dd>
-<<<<<<< HEAD
-<dt>title</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-A character string specifying the title of the document.</p></dd>
-=======
 
 
 <dt>title</dt>
@@ -142,21 +105,12 @@ A character string specifying the title of the document.</p></dd>
 A character string specifying the title of the document.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>compact</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 When <code>TRUE</code> the following report components are hidden:
 <code>@.pid</code>, <code>@.uid</code>, <code>'Object structure'</code>, <code>'Session Info'</code>
 and only the first and last 5 rows of long matrices and data frames are shown.
 See details.</p></dd>
-<<<<<<< HEAD
-<dt>timestamp</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to add a timestamp to the filename (suffix).</p></dd>
-<dt>show_report</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): If set to <code>TRUE</code> the function tries to display
-the report output in the local viewer, e.g., within <em>RStudio</em> after rendering.</p></dd>
-=======
 
 
 <dt>timestamp</dt>
@@ -169,29 +123,10 @@ the report output in the local viewer, e.g., within <em>RStudio</em> after rende
 the report output in the local viewer, e.g., within <em>RStudio</em> after rendering.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>launch.browser</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 <code>TRUE</code> to open the HTML file in the system's default web browser after
 it has been rendered.</p></dd>
-<<<<<<< HEAD
-<dt>css.file</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-Path to a CSS file to change the default styling of the HTML document.</p></dd>
-<dt>quiet</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to suppress printing of the pandoc command line.</p></dd>
-<dt>clean</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to clean intermediate files created during rendering.</p></dd>
-<dt>...</dt>
-<dd><p>further arguments passed to or from other methods and to control
-the document's structure (see details).</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Writes a HTML and .Rds file.</p>
-=======
 
 
 <dt>css.file</dt>
@@ -219,7 +154,6 @@ the document's structure (see details).</p></dd>
     
 
 <p>Writes a HTML and .Rds file.</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -255,91 +189,22 @@ CSS styling can be turned of using <code>css = FALSE</code>.</p>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render</a>, <a href="https://rdrr.io/pkg/pander/man/pander_return.html" class="external-link">pander::pander_return</a>,
-<a href="https://rdrr.io/pkg/pander/man/openFileInOS.html" class="external-link">pander::openFileInOS</a>, <a href="https://rdrr.io/pkg/rstudioapi/man/viewer.html" class="external-link">rstudioapi::viewer</a>,
+<a href="https://rdrr.io/pkg/pander/man/openFileInOS.html" class="external-link">pander::openFileInOS</a>, <a href="https://rstudio.github.io/rstudioapi/reference/viewer.html" class="external-link">rstudioapi::viewer</a>,
 <a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
     <p>Christoph Burow, University of Cologne (Germany),
-<<<<<<< HEAD
-Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br>
-=======
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Burow, C., Kreutzer, S., 2022. report_RLum(): Create a HTML-report for (RLum) objects. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Burow, C., Kreutzer, S., 2022. report_RLum(): Create a HTML-report for (RLum) objects. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Burow, C., Kreutzer, S., 2023. report_RLum(): Create a HTML-report for (RLum) objects. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Example: RLum.Results ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.DeValues"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># apply the MAM-3 age model and save results</span></span>
-<span class="r-in"><span class="va">mam</span> <span class="op">&lt;-</span> <span class="fu"><a href="calc_MinDose.html">calc_MinDose</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>, sigmab <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create the HTML report</span></span>
-<span class="r-in"><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">mam</span>, file <span class="op">=</span> <span class="st">"~/CA1_MAM.Rmd"</span>,</span>
-<span class="r-in">            timestamp <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">            title <span class="op">=</span> <span class="st">"MAM-3 for sample CA1"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># when creating a report the input file is automatically saved to a</span></span>
-<span class="r-in"><span class="co"># .Rds file (see saveRDS()).</span></span>
-<span class="r-in"><span class="va">mam_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"~/CA1_MAM.Rds"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">mam</span>, <span class="va">mam_report</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example: Temporary file &amp; Viewer/Browser ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (a)</span></span>
-<span class="r-in"><span class="co"># Specifying a filename is not necessarily required. If no filename is provided,</span></span>
-<span class="r-in"><span class="co"># the report is rendered in a temporary file. If you use the RStudio IDE, the</span></span>
-<span class="r-in"><span class="co"># temporary report is shown in the interactive Viewer pane.</span></span>
-<span class="r-in"><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">mam</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (b)</span></span>
-<span class="r-in"><span class="co"># Additionally, you can view the HTML report in your system's default web browser.</span></span>
-<span class="r-in"><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">mam</span>, launch.browser <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example: RLum.Analysis ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.RLum.Analysis"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create the HTML report (note that specifying a file</span></span>
-<span class="r-in"><span class="co"># extension is not necessary)</span></span>
-<span class="r-in"><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>, file <span class="op">=</span> <span class="st">"~/IRSAR_RF"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example: RLum.Data.Curve ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">data.curve</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IRSAR.RF.Data</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create the HTML report</span></span>
-<span class="r-in"><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">data.curve</span>, file <span class="op">=</span> <span class="st">"~/Data_Curve"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example: Any other object ----</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span class="r-in">          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">          z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">          <span class="cn">NA</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">x</span>, file <span class="op">=</span> <span class="st">"~/arbitray_list"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">## Example: RLum.Results ----</span></span></span>
@@ -399,7 +264,6 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
 <span class="r-in"><span><span class="fu">report_RLum</span><span class="op">(</span>object <span class="op">=</span> <span class="va">x</span>, file <span class="op">=</span> <span class="st">"~/arbitray_list"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -410,23 +274,11 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

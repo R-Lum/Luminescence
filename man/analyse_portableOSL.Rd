@@ -6,7 +6,7 @@
 \usage{
 analyse_portableOSL(
   object,
-  signal.integral,
+  signal.integral = NULL,
   invert = FALSE,
   normalise = FALSE,
   plot = TRUE,
@@ -14,10 +14,11 @@ analyse_portableOSL(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-\code{RLum.Analysis} object produced by \link{read_PSL2R}.}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): \linkS4class{RLum.Analysis} object produced by \link{read_PSL2R}.
+The input can be a \link{list} of such objects, in such case each input is treated as a separate sample
+and the results are merged.}
 
-\item{signal.integral}{\link{vector} (\strong{required}):
+\item{signal.integral}{\link{numeric} (\strong{required}):
 A vector of two values specifying the lower and upper channel used to
 calculate the OSL/IRSL signal. Can be provided in form of \code{c(1, 5)} or \code{1:5}.}
 
@@ -31,10 +32,16 @@ data curves.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable plot output}
 
-\item{...}{currently not used.}
+\item{...}{other parameters, supported are \code{sample} to provide a sample name,
+if the input is a \code{list}, this is set automatically.}
 }
 \value{
-Returns an S4 \linkS4class{RLum.Results} object.
+Returns an S4 \linkS4class{RLum.Results} object with the following elements:
+
+\verb{$data}\cr
+\code{.. $summary}: \link{data.frame} with the results\cr
+\code{.. $data}: \link{list} with the \linkS4class{RLum.Analysis} objects\cr
+\code{.. $args}: \link{list} the input arguments
 }
 \description{
 The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and
@@ -42,14 +49,14 @@ produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion rati
 and the IRSL/OSL ratio.
 }
 \details{
-This function only works with \code{RLum.Analysis} objects produced by \link{read_PSL2R}.
+This function only works with \linkS4class{RLum.Analysis} objects produced by \link{read_PSL2R}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
 the cumulative signal of the last n channels (same number of channels as specified
 by \code{signal.integral}) is divided by cumulative signal of the first n channels (\code{signal.integral}).
 }
 \section{Function version}{
- 0.0.3
+ 0.0.4
 }
 
 \examples{
@@ -59,25 +66,32 @@ data("ExampleData.portableOSL", envir = environment())
 
 # (2) merge and plot all RLum.Analysis objects
 merged <- merge_RLum(ExampleData.portableOSL)
-plot_RLum(merged, combine = TRUE)
+plot_RLum(
+ object = merged,
+ combine = TRUE,
+ records_max = 5,
+ legend.pos = "outside")
 merged
 
 # (3) analyse and plot
-results <- analyse_portableOSL(merged, signal.integral = 1:5, invert = FALSE, normalise = TRUE)
+results <- analyse_portableOSL(
+  merged,
+  signal.integral = 1:5,
+  invert = FALSE,
+  normalise = TRUE)
 get_RLum(results)
-
-
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{read_PSL2R}
 }
 \author{
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
+Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., 2022. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

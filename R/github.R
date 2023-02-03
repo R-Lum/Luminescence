@@ -3,7 +3,7 @@
 # Affiliation: University of Cologne
 # Date: 15/01/2019
 # API version: v3
-# Reference: https://developer.github.com/v3/
+# Reference: https://docs.github.com/v3/
 #  ------------------------------------------------------------------------
 
 #' GitHub API
@@ -34,7 +34,7 @@
 #'
 #' @references
 #'
-#' GitHub Developer API v3. [https://developer.github.com/v3/](), last accessed: 10/01/2017.
+#' GitHub Developer API v3. [https://docs.github.com/v3/](), last accessed: 10/01/2017.
 #'
 #' @examples
 #'

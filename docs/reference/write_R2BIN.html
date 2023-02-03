@@ -18,42 +18,30 @@ opened by the Analyst software or other Risø software."><!-- mathjax --><script
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -66,7 +54,6 @@ opened by the Analyst software or other Risø software."><!-- mathjax --><script
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -82,24 +69,11 @@ opened by the Analyst software or other Risø software."><!-- mathjax --><script
     </div>
 
     <div class="ref-description">
-<<<<<<< HEAD
-    <p>Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be
-=======
     <p>Exports a <code>Risoe.BINfileData</code> object in a <code>*.bin</code> or <code>*.binx</code> file that can be
->>>>>>> dev_0.9.20
 opened by the Analyst software or other Risø software.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">write_R2BIN</span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">file</span>,
-  <span class="va">version</span>,
-  compatibility.mode <span class="op">=</span> <span class="cn">FALSE</span>,
-  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_R2BIN</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">file</span>,</span>
@@ -107,7 +81,6 @@ opened by the Analyst software or other Risø software.</p>
 <span>  compatibility.mode <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -115,32 +88,23 @@ opened by the Analyst software or other Risø software.</p>
     <dl><dt>object</dt>
 <dd><p><a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
 input object to be stored in a bin file.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>file</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
 file name and path of the output file</p><ul><li><p><code>[WIN]</code>: <code>write_R2BIN(object, "C:/Desktop/test.bin")</code></p></li>
 <li><p><code>[MAC/LINUX]</code>: <code>write_R2BIN("/User/test/Desktop/test.bin")</code></p></li>
 </ul></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>version</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 version number for the output file. If no value is provided the highest
 version number from the <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> is taken automatically.</p>
 <p><strong>Note:</strong>
 This argument can be used to convert BIN-file versions.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>compatibility.mode</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 this option recalculates the position values if necessary and set the max.
@@ -148,15 +112,6 @@ value to 48. The old position number is appended as comment (e.g., 'OP: 70).
 This option accounts for potential compatibility problems with the Analyst software.
 It further limits the maximum number of points per curve to 9,999. If a curve contains more
 data the curve data got binned using the smallest possible bin width.</p></dd>
-<<<<<<< HEAD
-<dt>txtProgressBar</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class="external-link">txtProgressBar</a>.</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Write a binary file.</p>
-=======
 
 
 <dt>txtProgressBar</dt>
@@ -169,7 +124,6 @@ enables or disables <a href="https://rdrr.io/r/utils/txtProgressBar.html" class=
     
 
 <p>Write a binary file.</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -197,19 +151,11 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-<<<<<<< HEAD
-    <p>0.5.1</p>
-    </div>
-    <div id="how-to-cite">
-    <h2>How to cite</h2>
-    <p>Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
     <p>0.5.2</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2022. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. write_R2BIN(): Export Risoe.BINfileData into Risø BIN/BINX-file. Function version 0.5.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -222,39 +168,18 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##load exampled dataset</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##create temporary filepath</span></span>
-<span class="r-in"><span class="co">##(for usage replace by own path)</span></span>
-<span class="r-in"><span class="va">temp_file</span> <span class="op">&lt;-</span> <span class="va">temp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"output"</span>, fileext <span class="op">=</span> <span class="st">".bin"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##export to temporary file path</span></span>
-<span class="r-in"><span class="fu">write_R2BIN</span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, file <span class="op">=</span> <span class="va">temp_file</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">##load exampled dataset</span></span></span>
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/BINfile_V8.binx"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_BIN2R.html">read_BIN2R</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [read_BIN2R()]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/Rtmpr4Ra2F/temp_libpath1de32be7d18/Luminescence/extdata/BINfile_V8.binx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpuvVvup/temp_libpathe0eb47006e2a/Luminescence/extdata/BINfile_V8.binx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 records have been read successfully!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -266,12 +191,11 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
 <span class="r-in"><span><span class="co">##export to temporary file path</span></span></span>
 <span class="r-in"><span><span class="fu">write_R2BIN</span><span class="op">(</span><span class="va">temp</span>, file <span class="op">=</span> <span class="va">temp_file</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [write_R2BIN()]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//Rtmprwz3vV/output2e972868fd17.binx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//RtmpBCFuu5/outpute1b6333069bc.binx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2records have been written successfully!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -282,23 +206,11 @@ There are furthermore ignored by the function <a href="read_BIN2R.html">read_BIN
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

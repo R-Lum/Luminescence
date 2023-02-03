@@ -81,11 +81,11 @@ Object class contains results data from functions (e.g., \link{analyse_SAR.CWOSL
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of \code{RLum.Results} object
+\item \code{show(RLum.Results)}: Show structure of \code{RLum.Results} object
 
-\item \code{set_RLum}: Construction method for an RLum.Results object.
+\item \code{set_RLum(RLum.Results)}: Construction method for an RLum.Results object.
 
-\item \code{get_RLum}: Accessor method for RLum.Results object. The argument data.object allows
+\item \code{get_RLum(RLum.Results)}: Accessor method for RLum.Results object. The argument data.object allows
 directly accessing objects delivered within the slot data. The default
 return object depends on the object originator (e.g., \code{fit_LMCurve}).
 If nothing is specified always the first \code{data.object} will be returned.
@@ -93,11 +93,11 @@ If nothing is specified always the first \code{data.object} will be returned.
 Note: Detailed specification should be made in combination with the originator slot in the
 receiving function if results are pipped.
 
-\item \code{length_RLum}: Returns the length of the object, i.e., number of stored data.objects
+\item \code{length_RLum(RLum.Results)}: Returns the length of the object, i.e., number of stored data.objects
 
-\item \code{names_RLum}: Returns the names data.objects
+\item \code{names_RLum(RLum.Results)}: Returns the names data.objects
+
 }}
-
 \section{Slots}{
 
 \describe{
@@ -155,7 +155,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

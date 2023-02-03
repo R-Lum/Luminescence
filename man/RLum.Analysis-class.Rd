@@ -156,11 +156,11 @@ by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of \code{RLum.Analysis} object
+\item \code{show(RLum.Analysis)}: Show structure of \code{RLum.Analysis} object
 
-\item \code{set_RLum}: Construction method for \linkS4class{RLum.Analysis} objects.
+\item \code{set_RLum(RLum.Analysis)}: Construction method for \linkS4class{RLum.Analysis} objects.
 
-\item \code{get_RLum}: Accessor method for RLum.Analysis object.
+\item \code{get_RLum(RLum.Analysis)}: Accessor method for RLum.Analysis object.
 
 The slots record.id, \verb{@recordType}, \verb{@curveType} and \verb{@RLum.type} are optional to allow for records
 limited by their id (list index number), their record type (e.g. \code{recordType = "OSL"})
@@ -171,17 +171,17 @@ Example: curve type (e.g. \code{curveType = "predefined"} or \code{curveType ="m
 The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
-\item \code{structure_RLum}: Method to show the structure of an \linkS4class{RLum.Analysis} object.
+\item \code{structure_RLum(RLum.Analysis)}: Method to show the structure of an \linkS4class{RLum.Analysis} object.
 
-\item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
+\item \code{length_RLum(RLum.Analysis)}: Returns the length of the object, i.e., number of stored records.
 
-\item \code{names_RLum}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
+\item \code{names_RLum(RLum.Analysis)}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
 
-\item \code{smooth_RLum}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
+\item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
 \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmean]{zoo::rollmedian}. In particular the internal
 function \code{.smoothing} is used.
-}}
 
+}}
 \section{Slots}{
 
 \describe{
@@ -230,7 +230,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

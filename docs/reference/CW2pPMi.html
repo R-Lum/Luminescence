@@ -21,42 +21,30 @@ using the interpolation procedure described by Bos &amp;amp; Wallinga (2012)."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -69,7 +57,6 @@ using the interpolation procedure described by Bos &amp;amp; Wallinga (2012)."><
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -92,11 +79,7 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012).</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CW2pPMi</span><span class="op">(</span><span class="va">values</span>, <span class="va">P</span><span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CW2pPMi</span><span class="op">(</span><span class="va">values</span>, <span class="va">P</span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -105,24 +88,13 @@ using the interpolation procedure described by Bos &amp; Wallinga (2012).</p>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <code>data.frame</code> with measured curve data of type
 stimulation time (t) (<code>values[,1]</code>) and measured counts (cts) (<code>values[,2]</code>)</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>P</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 stimulation period in seconds. If no value is given, the optimal value is
 estimated automatically (see details). Greater values of P produce more
 points in the rising tail of the curve.</p></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>The function returns the same data type as the input data type with
-the transformed curve values.
-<code>RLum.Data.Curve</code></p><table class="table table"><tr><td><code>$CW2pPMi.x.t</code></td><td>: transformed time values</td></tr><tr><td><code>$CW2pPMi.method</code></td><td>: used method for the production of the new data points</td></tr></table><p><code>data.frame</code></p><table class="table table"><tr><td><code>$x</code></td><td>: time</td></tr><tr><td><code>$y.t</code></td><td>: transformed count values</td></tr><tr><td><code>$x.t</code></td><td>: transformed time values</td></tr><tr><td><code>$method</code></td><td>: used method for the production of the new data points</td></tr></table></div>
-=======
 
 </dl></div>
     <div id="value">
@@ -142,7 +114,6 @@ the transformed curve values.</p>
 
 
 <table class="table table"><tr><td><code>$x</code></td><td>: time</td></tr><tr><td><code>$y.t</code></td><td>: transformed count values</td></tr><tr><td><code>$x.t</code></td><td>: transformed time values</td></tr><tr><td><code>$method</code></td><td>: used method for the production of the new data points</td></tr></table></div>
->>>>>>> dev_0.9.20
     <div id="details">
     <h2>Details</h2>
     <p>The complete procedure of the transformation is given in Bos &amp; Wallinga
@@ -192,11 +163,7 @@ provided manually, not more than two points are extrapolated.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., 2022. CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., 2022. CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -215,11 +182,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)</p>
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)</p>
->>>>>>> dev_0.9.20
 <p>Based on comments and suggestions from:<br>
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
 , RLum Developer Team</p>
@@ -227,57 +190,6 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(1)</span></span>
-<span class="r-in"><span class="co">##load CW-OSL curve data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.CW_OSL_Curve</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##transform values</span></span>
-<span class="r-in"><span class="va">values.transformed</span> <span class="op">&lt;-</span> <span class="fu">CW2pPMi</span><span class="op">(</span><span class="va">ExampleData.CW_OSL_Curve</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>t' is beyond the time resolution. Only two data points have been extrapolated, the first 0 points have been set to 0!</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">values.transformed</span><span class="op">$</span><span class="va">x</span>,<span class="va">values.transformed</span><span class="op">$</span><span class="va">y.t</span>, log <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="CW2pPMi-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(2) - produce Fig. 4 from Bos &amp; Wallinga (2012)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.CW_OSL_Curve</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">values</span> <span class="op">&lt;-</span> <span class="va">CW_Curve.BosWallinga2012</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##open plot area</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span>,</span>
-<span class="r-in">     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.001</span>,<span class="fl">10</span><span class="op">)</span>,</span>
-<span class="r-in">     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8000</span><span class="op">)</span>,</span>
-<span class="r-in">     ylab <span class="op">=</span> <span class="st">"pseudo OSL (cts/0.01 s)"</span>,</span>
-<span class="r-in">     xlab <span class="op">=</span> <span class="st">"t [s]"</span>,</span>
-<span class="r-in">     log <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">     main <span class="op">=</span> <span class="st">"Fig. 4 - Bos &amp; Wallinga (2012)"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">values.t</span> <span class="op">&lt;-</span> <span class="fu"><a href="CW2pLMi.html">CW2pLMi</a></span><span class="op">(</span><span class="va">values</span>, P <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">20</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">values</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">values.t</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,<span class="fl">1</span><span class="op">]</span>,<span class="fu"><a href="CW2pLMi.html">CW2pLMi</a></span><span class="op">(</span><span class="va">values</span>, P <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">20</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,</span>
-<span class="r-in">      col <span class="op">=</span> <span class="st">"red"</span>,lwd <span class="op">=</span> <span class="fl">1.3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.03</span>,<span class="fl">4500</span>,<span class="st">"LM"</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">values.t</span> <span class="op">&lt;-</span> <span class="fu"><a href="CW2pHMi.html">CW2pHMi</a></span><span class="op">(</span><span class="va">values</span>, delta <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>56  values have been found and replaced the mean of the nearest values.</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">values</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">values.t</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,<span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="CW2pHMi.html">CW2pHMi</a></span><span class="op">(</span><span class="va">values</span>, delta <span class="op">=</span> <span class="fl">40</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,</span>
-<span class="r-in">      col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1.3</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>56  values have been found and replaced the mean of the nearest values.</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.005</span>,<span class="fl">3000</span>,<span class="st">"HM"</span>, cex <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">values.t</span> <span class="op">&lt;-</span> <span class="fu">CW2pPMi</span><span class="op">(</span><span class="va">values</span>, P <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">values</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">values.t</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,<span class="fl">1</span><span class="op">]</span>, <span class="fu">CW2pPMi</span><span class="op">(</span><span class="va">values</span>, P <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>,</span>
-<span class="r-in">      col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">1.3</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>t' is beyond the time resolution. Only two data points have been extrapolated, the first 3 points have been set to 0!</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">6500</span>,<span class="st">"PM"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, cex <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="CW2pPMi-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1)</span></span></span>
@@ -327,7 +239,6 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">6500</span>,<span class="st">"PM"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, cex <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CW2pPMi-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -338,23 +249,11 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

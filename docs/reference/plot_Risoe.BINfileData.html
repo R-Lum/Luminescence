@@ -18,42 +18,30 @@ read_BIN2R function."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -66,7 +54,6 @@ read_BIN2R function."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,21 +74,6 @@ read_BIN2R function."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_Risoe.BINfileData</span><span class="op">(</span>
-  <span class="va">BINfileData</span>,
-  <span class="va">position</span>,
-  <span class="va">run</span>,
-  <span class="va">set</span>,
-  sorter <span class="op">=</span> <span class="st">"POSITION"</span>,
-  ltype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IRSL"</span>, <span class="st">"OSL"</span>, <span class="st">"TL"</span>, <span class="st">"RIR"</span>, <span class="st">"RBR"</span>, <span class="st">"RL"</span><span class="op">)</span>,
-  <span class="va">curve.transformation</span>,
-  <span class="va">dose_rate</span>,
-  <span class="va">temp.lab</span>,
-  cex.global <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_Risoe.BINfileData</span><span class="op">(</span></span>
 <span>  <span class="va">BINfileData</span>,</span>
 <span>  <span class="va">position</span>,</span>
@@ -115,7 +87,6 @@ read_BIN2R function."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
 <span>  cex.global <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -123,86 +94,51 @@ read_BIN2R function."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     <dl><dt>BINfileData</dt>
 <dd><p><a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
 requires an S4 object returned by the <a href="read_BIN2R.html">read_BIN2R</a> function.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>position</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 option to limit the plotted curves by position
 (e.g. <code>position = 1</code>, <code>position = c(1,3,5)</code>).</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>run</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 option to limit the plotted curves by run
 (e.g., <code>run = 1</code>, <code>run = c(1,3,5)</code>).</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>set</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 option to limit the plotted curves by set
 (e.g., <code>set = 1</code>, <code>set = c(1,3,5)</code>).</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>sorter</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 the plot output can be ordered by "POSITION","SET" or "RUN".
 POSITION, SET and RUN are options defined in the Risoe Sequence Editor.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>ltype</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 option to limit the plotted curves by the type of luminescence stimulation.
 Allowed values: <code>"IRSL"</code>, <code>"OSL"</code>,<code>"TL"</code>, <code>"RIR"</code>, <code>"RBR"</code>
 (corresponds to LM-OSL), <code>"RL"</code>.  All type of curves are plotted by
 default.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>curve.transformation</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: <code>CW2pLM</code>, <code>CW2pLMi</code>, <code>CW2pHMi</code> and
 <code>CW2pPMi</code>. See details.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>dose_rate</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 dose rate of the irradiation source at the measurement date.
 If set, the given irradiation dose will be shown in Gy.  See details.</p></dd>
-<<<<<<< HEAD
-<dt>temp.lab</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-option to allow for different temperature units. If no value is set deg. C is chosen.</p></dd>
-<dt>cex.global</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
-global scaling factor.</p></dd>
-<dt>...</dt>
-<dd><p>further undocumented plot arguments.</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns a plot.</p>
-=======
 
 
 <dt>temp.lab</dt>
@@ -224,7 +160,6 @@ global scaling factor.</p></dd>
     
 
 <p>Returns a plot.</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -253,11 +188,7 @@ output version 3 and 4.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., Dietze, M., 2022. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., Dietze, M., 2022. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., Dietze, M., 2023. plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -270,35 +201,13 @@ output version 3 and 4.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br>
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
->>>>>>> dev_0.9.20
 Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##plot all curves from the first position to the desktop</span></span>
-<span class="r-in"><span class="co">#pdf(file = "~/Desktop/CurveOutput.pdf", paper = "a4", height = 11, onefile = TRUE)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##example - load from *.bin file</span></span>
-<span class="r-in"><span class="co">#BINfile&lt;- file.choose()</span></span>
-<span class="r-in"><span class="co">#BINfileData&lt;-read_BIN2R(BINfile)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#par(mfrow = c(4,3), oma = c(0.5,1,0.5,1))</span></span>
-<span class="r-in"><span class="co">#plot_Risoe.BINfileData(CWOSL.SAR.Data,position = 1)</span></span>
-<span class="r-in"><span class="co">#mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)</span></span>
-<span class="r-in"><span class="co">#dev.off()</span></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##load data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -315,7 +224,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-in"><span><span class="co">#mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)</span></span></span>
 <span class="r-in"><span><span class="co">#dev.off()</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -326,23 +234,11 @@ Michael Dietze, GFZ Potsdam (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

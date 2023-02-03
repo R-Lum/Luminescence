@@ -19,42 +19,30 @@ and the IRSL/OSL ratio."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,7 +55,6 @@ and the IRSL/OSL ratio."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,46 +76,28 @@ and the IRSL/OSL ratio.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_portableOSL</span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">signal.integral</span>,
-  invert <span class="op">=</span> <span class="cn">FALSE</span>,
-  normalise <span class="op">=</span> <span class="cn">FALSE</span>,
-  plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_portableOSL</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
-<span>  <span class="va">signal.integral</span>,</span>
+<span>  signal.integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  invert <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  normalise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
-<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
-<code>RLum.Analysis</code> object produced by <a href="read_PSL2R.html">read_PSL2R</a>.</p></dd>
-<<<<<<< HEAD
-=======
+<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>): <a href="RLum.Analysis-class.html">RLum.Analysis</a> object produced by <a href="read_PSL2R.html">read_PSL2R</a>.
+The input can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects, in such case each input is treated as a separate sample
+and the results are merged.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>signal.integral</dt>
-<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 A vector of two values specifying the lower and upper channel used to
 calculate the OSL/IRSL signal. Can be provided in form of <code>c(1, 5)</code> or <code>1:5</code>.</p></dd>
-<<<<<<< HEAD
-<dt>invert</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to calculate and plot the data in reverse order.</p></dd>
-=======
 
 
 <dt>invert</dt>
@@ -136,22 +105,10 @@ calculate the OSL/IRSL signal. Can be provided in form of <code>c(1, 5)</code> o
 <code>TRUE</code> to calculate and plot the data in reverse order.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>normalise</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 <code>TRUE</code> to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.</p></dd>
-<<<<<<< HEAD
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enable/disable plot output</p></dd>
-<dt>...</dt>
-<dd><p>currently not used.</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an S4 <a href="RLum.Results-class.html">RLum.Results</a> object.</p>
-=======
 
 
 <dt>plot</dt>
@@ -160,19 +117,31 @@ enable/disable plot output</p></dd>
 
 
 <dt>...</dt>
-<dd><p>currently not used.</p></dd>
+<dd><p>other parameters, supported are <code>sample</code> to provide a sample name,
+if the input is a <code>list</code>, this is set automatically.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>Returns an S4 <a href="RLum.Results-class.html">RLum.Results</a> object.</p>
->>>>>>> dev_0.9.20
+<p>Returns an S4 <a href="RLum.Results-class.html">RLum.Results</a> object with the following elements:</p>
+
+
+<p><code>$data</code><br></p>
+
+
+<p><code>.. $summary</code>: <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with the results<br></p>
+
+
+<p><code>.. $data</code>: <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with the <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects<br></p>
+
+
+<p><code>.. $args</code>: <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> the input arguments</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>This function only works with <code>RLum.Analysis</code> objects produced by <a href="read_PSL2R.html">read_PSL2R</a>.
+    <p>This function only works with <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects produced by <a href="read_PSL2R.html">read_PSL2R</a>.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
 the cumulative signal of the last n channels (same number of channels as specified
@@ -180,49 +149,38 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.0.3</p>
+    <p>0.0.4</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a></p></div>
+    <div class="dont-index"><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="read_PSL2R.html">read_PSL2R</a></p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
-    <p>Christoph Burow, University of Cologne (Germany)
+    <p>Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
+Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Burow, C., 2022. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Burow, C., 2022. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># (1) load example data set</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.portableOSL"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (2) merge and plot all RLum.Analysis objects</span></span>
-<span class="r-in"><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="merge_RLum.html">merge_RLum</a></span><span class="op">(</span><span class="va">ExampleData.portableOSL</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">merged</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="analyse_portableOSL-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="va">merged</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># (1) load example data set</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.portableOSL"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># (2) merge and plot all RLum.Analysis objects</span></span></span>
 <span class="r-in"><span><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="merge_RLum.html">merge_RLum</a></span><span class="op">(</span><span class="va">ExampleData.portableOSL</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">merged</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> object <span class="op">=</span> <span class="va">merged</span>,</span></span>
+<span class="r-in"><span> combine <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span> records_max <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span> legend.pos <span class="op">=</span> <span class="st">"outside"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_portableOSL-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">merged</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Analysis-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: merge_RLum.Analysis()</span>
@@ -240,58 +198,46 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (3) analyse and plot</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_portableOSL</span><span class="op">(</span><span class="va">merged</span>, signal.integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, invert <span class="op">=</span> <span class="cn">FALSE</span>, normalise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="analyse_portableOSL-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># (3) analyse and plot</span></span></span>
-<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_portableOSL</span><span class="op">(</span><span class="va">merged</span>, signal.integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, invert <span class="op">=</span> <span class="cn">FALSE</span>, normalise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_portableOSL</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">merged</span>,</span></span>
+<span class="r-in"><span>  signal.integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span></span>
+<span class="r-in"><span>  invert <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>  normalise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_portableOSL-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BSL    BSL_error       IRSL   IRSL_error BSL_depletion IRSL_depletion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537      0.9158216</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300      0.9087895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200      1.0233685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701      1.0190504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980      0.9352608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504      0.9506562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993      1.0143051</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670      0.9835481</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499      0.9673997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100      0.9799674</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796      1.0160485</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572      1.0718821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319      1.1398779</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829      1.0740241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    IRSL_BSL_RATIO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       1.0438371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       1.0705490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1.2615183</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       1.0587828</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       1.0134461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.9821737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       0.8683659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       1.4235234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.9942316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      1.0244482</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      0.8609933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      0.9848262</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      0.7963831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      0.9767372</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-=======
+<span class="r-out co"><span class="r-pr">#&gt;</span>       SAMPLE        BSL    BSL_error       IRSL   IRSL_error BSL_depletion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Sample #1 0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Sample #1 1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Sample #1 0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Sample #1 0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Sample #1 1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Sample #1 1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Sample #1 1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Sample #1 0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Sample #1 2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Sample #1 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Sample #1 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Sample #1 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Sample #1 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Sample #1 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    IRSL_depletion IRSL_BSL_RATIO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.9158216      1.0438371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.9087895      1.0705490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1.0233685      1.2615183</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       1.0190504      1.0587828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.9352608      1.0134461</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.9506562      0.9821737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1.0143051      0.8683659</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       0.9835481      1.4235234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.9673997      0.9942316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      0.9799674      1.0244482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1.0160485      0.8609933</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      1.0718821      0.9848262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      1.1398779      0.7963831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      1.0740241      0.9767372</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -302,23 +248,11 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

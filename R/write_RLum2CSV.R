@@ -16,7 +16,7 @@
 #' as [list].
 #'
 #' @param object [RLum-class] or a [list] of `RLum` objects (**required**):
-#' objects to be written
+#' objects to be written. Can be a [data.frame] if needed internally.
 #'
 #' @param path [character] (*optional*):
 #' character string naming folder for the output to be written. If nothing
@@ -46,7 +46,7 @@
 #' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
@@ -95,8 +95,7 @@ write_RLum2CSV <- function(
 
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
-  if(is.list(object)){
-
+  if(is.list(object) && !is.data.frame(object)){
     ##extent the list of arguments if set
       ##path
       path <- rep(list(path), length = length(object))
@@ -178,7 +177,7 @@ write_RLum2CSV <- function(
 
       }
 
-    }else if(is(object, "RLum.Results")){
+    } else if (is(object, "RLum.Results")){
 
       ##unlist what ever comes, but do not break structures like matrices, numerics and
       names <- names(object@data)
@@ -219,11 +218,16 @@ write_RLum2CSV <- function(
       names(object_list) <- paste0(1:length(object_list),"_",names(object_list))
 
 
-    }else{
+    } else {
       try(stop("[write_RLum2CSV()] One particular RLum-object is not yet supported! NULL returned!", call. = FALSE))
       return(NULL)
 
     }
+
+  } else if (inherits(object, "data.frame")) {
+    object_list <- list(object)
+    names(object_list) <- paste0(strtrim(paste(colnames(object), collapse = ""), 6), "_single_table")
+
 
   }else{
    stop("[write_RLum2CSV()] Object needs to be a member of the object class RLum!", call. = FALSE)

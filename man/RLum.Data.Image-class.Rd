@@ -80,18 +80,18 @@ by the function \link{read_SPE2R}
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of \code{RLum.Data.Image} object
+\item \code{show(RLum.Data.Image)}: Show structure of \code{RLum.Data.Image} object
 
-\item \code{set_RLum}: Construction method for RLum.Data.Image object. The slot info is optional
+\item \code{set_RLum(RLum.Data.Image)}: Construction method for RLum.Data.Image object. The slot info is optional
 and predefined as empty list by default.
 
-\item \code{get_RLum}: Accessor method for \code{RLum.Data.Image} object. The argument \code{info.object} is
+\item \code{get_RLum(RLum.Data.Image)}: Accessor method for \code{RLum.Data.Image} object. The argument \code{info.object} is
 optional to directly access the info elements. If no info element name is
 provided, the raw image data (\code{array}) will be returned.
 
-\item \code{names_RLum}: Returns the names info elements coming along with this curve object
-}}
+\item \code{names_RLum(RLum.Data.Image)}: Returns the names info elements coming along with this curve object
 
+}}
 \section{Slots}{
 
 \describe{
@@ -134,7 +134,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

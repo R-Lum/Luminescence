@@ -1,43 +1,50 @@
-#' Analyse portable CW-OSL measurements
+#' @title Analyse portable CW-OSL measurements
 #'
-#' The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and
+#' @description The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and
 #' produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios
 #' and the IRSL/OSL ratio.
 #'
-#' This function only works with `RLum.Analysis` objects produced by [read_PSL2R].
+#' @details This function only works with [RLum.Analysis-class] objects produced by [read_PSL2R].
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
 #' the cumulative signal of the last n channels (same number of channels as specified
 #' by `signal.integral`) is divided by cumulative signal of the first n channels (`signal.integral`).
 #'
-#' @param object [RLum.Analysis-class] (**required**):
-#' `RLum.Analysis` object produced by [read_PSL2R].
+#' @param object [RLum.Analysis-class] (**required**): [RLum.Analysis-class] object produced by [read_PSL2R].
+#' The input can be a [list] of such objects, in such case each input is treated as a separate sample
+#' and the results are merged.
 #'
-#' @param signal.integral [vector] (**required**): 
-#' A vector of two values specifying the lower and upper channel used to 
+#' @param signal.integral [numeric] (**required**):
+#' A vector of two values specifying the lower and upper channel used to
 #' calculate the OSL/IRSL signal. Can be provided in form of `c(1, 5)` or `1:5`.
 #'
-#'
-#' @param invert [logical] (*with default*): 
+#' @param invert [logical] (*with default*):
 #' `TRUE` to calculate and plot the data in reverse order.
 #'
 #' @param normalise [logical] (*with default*):
 #' `TRUE` to normalise the OSL/IRSL signals by the mean of all corresponding
 #' data curves.
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enable/disable plot output
 #'
-#' @param ... currently not used.
+#' @param ... other parameters, supported are `sample` to provide a sample name,
+#' if the input is a `list`, this is set automatically.
 #'
-#' @return 
-#' Returns an S4 [RLum.Results-class] object.
+#' @return
+#' Returns an S4 [RLum.Results-class] object with the following elements:
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class]
+#' `$data`\cr
+#' `.. $summary`: [data.frame] with the results\cr
+#' `.. $data`: [list] with the [RLum.Analysis-class] objects\cr
+#' `.. $args`: [list] the input arguments
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [read_PSL2R]
 #'
-#' @section Function version: 0.0.3
+#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
+#' Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
+#'
+#' @section Function version: 0.0.4
 #'
 #' @keywords datagen plot
 #'
@@ -48,26 +55,49 @@
 #'
 #' # (2) merge and plot all RLum.Analysis objects
 #' merged <- merge_RLum(ExampleData.portableOSL)
-#' plot_RLum(merged, combine = TRUE)
+#' plot_RLum(
+#'  object = merged,
+#'  combine = TRUE,
+#'  records_max = 5,
+#'  legend.pos = "outside")
 #' merged
 #'
 #' # (3) analyse and plot
-#' results <- analyse_portableOSL(merged, signal.integral = 1:5, invert = FALSE, normalise = TRUE)
+#' results <- analyse_portableOSL(
+#'   merged,
+#'   signal.integral = 1:5,
+#'   invert = FALSE,
+#'   normalise = TRUE)
 #' get_RLum(results)
-#'
-#'
 #'
 #' @md
 #' @export
 analyse_portableOSL <-
   function(object,
-           signal.integral,
+           signal.integral = NULL,
            invert = FALSE,
            normalise = FALSE,
            plot = TRUE,
            ...)
   {
 
+# Self-call ---------------------------------------------------------------
+  if (inherits(object, "list")) {
+      temp <- .warningCatcher(lapply(1:length(object), function(x) {
+        analyse_portableOSL(
+          object = object[[x]],
+          signal.integral = signal.integral,
+          invert = invert,
+          normalise = normalise,
+          plot = plot,
+          SAMPLE = paste0("SAMPLE #", x))
+      }))
+
+      return(merge_RLum(temp))
+
+  }
+
+# Start function ----------------------------------------------------------
   ## INPUT VERIFICATION ----
   if (!inherits(object, "RLum.Analysis"))
     stop("Only objects of class 'RLum.Analysis' are allowed.", call. = FALSE)
@@ -76,22 +106,29 @@ analyse_portableOSL <-
   if (!all(sapply(object, function(x) x@originator) == "read_PSL2R"))
     stop("Only objects originating from 'read_PSL2R()' are allowed.", call. = FALSE)
 
-  if (missing(signal.integral)) {
+  if (is.null(signal.integral)) {
     signal.integral <- c(1, 1)
     warning("No value for 'signal.integral' provided. Only the first data point of each curve was used!",
             call. = FALSE)
   }
 
-  ## CALCULATIONS ----
+  ## set SAMPLE
+  if("sample" %in% names(list(...)))
+    sample <- list(...)$sample
+  else
+    sample <- "Sample #1"
 
+  ## CALCULATIONS ----
+  ## Note: the list ... unlist construction is used make sure that get_RLum() always
+  ## returns a list
   # OSL
-  OSL <- get_RLum(object, recordType = "OSL")
+  OSL <- .unlist_RLum(list(get_RLum(object, recordType = "OSL")))
   OSL <- do.call(rbind, lapply(OSL, function(x) {
     posl_get_signal(x, signal.integral)
   }))
 
   # IRSL
-  IRSL <- get_RLum(object, recordType = "IRSL")
+  IRSL <- .unlist_RLum(list(get_RLum(object, recordType = "IRSL")))
   IRSL <- do.call(rbind, lapply(IRSL, function(x) {
     posl_get_signal(x, signal.integral)
   }))
@@ -123,6 +160,8 @@ analyse_portableOSL <-
     par(mar = c(5, 4, 4, 1) + 0.1)
 
     frame()
+
+    mtext(side= 3, sample, cex = 0.7, line = 2)
 
     par(mar = c(5, 0, 4, 1) + 0.1)
 
@@ -204,13 +243,15 @@ analyse_portableOSL <-
   ## RETURN VALUE ----
   call<- sys.call()
   args <- as.list(call)[2:length(call)]
-  summary <- data.frame(BSL = OSL$sum_signal,
-                        BSL_error = OSL$sum_signal_err,
-                        IRSL = IRSL$sum_signal,
-                        IRSL_error = IRSL$sum_signal_err,
-                        BSL_depletion = OSL$sum_signal_depletion,
-                        IRSL_depletion = IRSL$sum_signal_depletion,
-                        IRSL_BSL_RATIO = RATIO)
+  summary <- data.frame(
+    SAMPLE = sample,
+    BSL = OSL$sum_signal,
+    BSL_error = OSL$sum_signal_err,
+    IRSL = IRSL$sum_signal,
+    IRSL_error = IRSL$sum_signal_err,
+    BSL_depletion = OSL$sum_signal_depletion,
+    IRSL_depletion = IRSL$sum_signal_depletion,
+    IRSL_BSL_RATIO = RATIO)
 
 
   newRLumResults <- set_RLum(
@@ -256,7 +297,7 @@ posl_normalise <- function(x) {
   return(x)
 }
 
-## This function invertes the data.frame (useful when the sample are in inverse
+## This function inverters the data.frame (useful when the sample are in inverse
 ## stratigraphic order)
 posl_invert <- function(x) {
   x <- x[nrow(x):1, ]

@@ -91,7 +91,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
 #'
-#' @section Function version: 0.16.5
+#' @section Function version: 0.16.7
 #'
 #'
 #' @author
@@ -268,14 +268,13 @@ read_BIN2R <- function(
   ##set file_link for internet downloads
   file_link <- NULL
   on_exit <- function(){
-
     ##unlink internet connection
     if(!is.null(file_link)){
       unlink(file_link)
     }
 
     ##close connection
-    if(!is.null(con)){
+    if(exists("con") && !is.null(con)){
       close(con)
 
     }
@@ -289,7 +288,6 @@ read_BIN2R <- function(
 
   ##check if file exists
   if(!file.exists(file)){
-
     ##check whether the file as an URL
     if(grepl(pattern = "http", x = file, fixed = TRUE)){
       if(verbose){
@@ -300,9 +298,14 @@ read_BIN2R <- function(
       if(!httr::http_error(file)){
         if(verbose) cat("OK")
 
-        ##dowload file
+        ##download file
         file_link <- tempfile("read_BIN2R_FILE")
-        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
+        utils::download.file(
+          url = file,
+          destfile = file_link,
+          quiet = if(verbose) FALSE else TRUE,
+          mode = "wb",
+          cacheOK = FALSE)
 
       }else{
         cat("FAILED")
@@ -332,10 +335,8 @@ read_BIN2R <- function(
   }
 
   ##set correct file name of file_link was set
-  if(!is.null(file_link)){
+  if(!is.null(file_link))
     file <- file_link
-
-  }
 
   # Config ------------------------------------------------------------------
 
@@ -344,7 +345,6 @@ read_BIN2R <- function(
 
 
   # Short file parsing to get number of records -------------------------------------------------
-
   #open connection
   con <- file(file, "rb")
 
@@ -364,7 +364,6 @@ read_BIN2R <- function(
 
   ##start for BIN-file check up
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
-
      ##force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
@@ -374,7 +373,6 @@ read_BIN2R <- function(
     if((temp.VERSION%in%VERSION.supported) == FALSE){
 
       if(temp.ID > 0){
-
         if(is.null(n.records)){
           warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID," record(s)."),
                   call. = FALSE)
@@ -1429,7 +1427,7 @@ read_BIN2R <- function(
   }
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
-  if (n.records > 1) {
+  if (n.records >= 2 && length(results.DATA) >= 2) {
     duplication.check <- suppressWarnings(which(c(
       0, vapply(
         2:length(results.DATA),
@@ -1439,7 +1437,6 @@ read_BIN2R <- function(
         FUN.VALUE = 1
       )
     ) == 1))
-
     if (length(duplication.check) != 0) {
       if (duplicated.rm) {
         ##remove records

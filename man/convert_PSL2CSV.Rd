@@ -4,11 +4,20 @@
 \alias{convert_PSL2CSV}
 \title{Export PSL-file(s) to CSV-files}
 \usage{
-convert_PSL2CSV(file, ...)
+convert_PSL2CSV(file, extract_raw_data = FALSE, single_table = FALSE, ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
 name of the PSL-file to be converted to CSV-files}
+
+\item{extract_raw_data}{\link{logical} (\emph{with default}): enable/disable raw data
+extraction. The PSL files imported into R contain an element \verb{$raw_data}, which
+provides a few more information (e.g., count errors), sometimes it makes
+sense to use this data of the more compact standard values created by \link{read_PSL2R}}
+
+\item{single_table}{\link{logical} (\emph{with default}): enable/disable the creation
+of single table with n rows and n columns, instead of separate \link{data.frame}
+objects. Each curve will be represented by two columns for time and counts}
 
 \item{...}{further arguments that will be passed to the function
 \link{read_PSL2R} and \link{write_RLum2CSV}}
@@ -25,10 +34,15 @@ If nothing is set for the argument \code{path} (\link{write_RLum2CSV}) the input
 become the output folder.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.2
 }
 
 \examples{
+
+## export into single data.frame
+file <- system.file("extdata/DorNie_0016.psl", package="Luminescence")
+convert_PSL2CSV(file, export = FALSE, single_table = TRUE)
+
 
 \dontrun{
 ##select your BIN-file
@@ -49,7 +63,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2022. convert_PSL2CSV(): Export PSL-file(s) to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. convert_PSL2CSV(): Export PSL-file(s) to CSV-files. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

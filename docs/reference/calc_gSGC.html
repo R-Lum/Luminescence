@@ -18,42 +18,30 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -66,7 +54,6 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,17 +74,6 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_gSGC</span><span class="op">(</span>
-  <span class="va">data</span>,
-  gSGC.type <span class="op">=</span> <span class="st">"0-250"</span>,
-  <span class="va">gSGC.parameters</span>,
-  n.MC <span class="op">=</span> <span class="fl">100</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_gSGC</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  gSGC.type <span class="op">=</span> <span class="st">"0-250"</span>,</span>
@@ -107,7 +83,6 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -116,21 +91,15 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 input data of providing the following columns: <code>LnTn</code>, <code>LnTn.error</code>, <code>Lr1Tr1</code>, <code>Lr1Tr1.error</code>, <code>Dr1</code>
 <strong>Note:</strong> column names are not required. The function expect the input data in the given order</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>gSGC.type</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 define the function parameters that
 should be used for the iteration procedure: Li et al., 2015 (Table 2)
 presented function parameters for two dose ranges: <code>"0-450"</code> and <code>"0-250"</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>gSGC.parameters</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 option to provide own function parameters used for fitting as named list.
@@ -138,24 +107,6 @@ Nomenclature follows Li et al., 2015, i.e. <code>list(A,A.error,D0,D0.error,c,c.
 range requires a vector for the range the function is considered as valid, e.g. <code>range = c(0,250)</code><br>
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 <code>gSGC.type</code> will be without effect</p></dd>
-<<<<<<< HEAD
-<dt>n.MC</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-number of Monte Carlo simulation runs for error estimation, see details.</p></dd>
-<dt>verbose</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
-enable or disable terminal output</p></dd>
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>:
-enable or disable graphical feedback as plot</p></dd>
-<dt>...</dt>
-<dd><p>parameters will be passed to the plot output</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.
-<strong><code>@data</code></strong><br><code>$ De.value</code> (<a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>) <br><code>.. $ De</code><br><code>.. $ De.error</code><br><code>.. $ Eta</code><br><code>$ De.MC</code> (<a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>) contains the matrices from the error estimation.<br><code>$ uniroot</code> (<a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>) contains the <a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a> outputs of the De estimations<br><strong><code>@info</code></strong><br>`$ call`` (<a href="https://rdrr.io/r/base/call.html" class="external-link">call</a>) the original function call</p>
-=======
 
 
 <dt>n.MC</dt>
@@ -216,7 +167,6 @@ enable or disable graphical feedback as plot</p></dd>
 
 
 <p>`$ call`` (<a href="https://rdrr.io/r/base/call.html" class="external-link">call</a>) the original function call</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -230,11 +180,7 @@ Large values for <code>n.MC</code> will significantly increase the computation t
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., 2022. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., 2022. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -248,29 +194,17 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_gSGC</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">LnTn <span class="op">=</span>  <span class="fl">2.361</span>, LnTn.error <span class="op">=</span> <span class="fl">0.087</span>,</span>
-<span class="r-in">Lr1Tr1 <span class="op">=</span> <span class="fl">2.744</span>, Lr1Tr1.error <span class="op">=</span> <span class="fl">0.091</span>,</span>
-<span class="r-in">Dr1 <span class="op">=</span> <span class="fl">34.4</span><span class="op">)</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_gSGC</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>LnTn <span class="op">=</span>  <span class="fl">2.361</span>, LnTn.error <span class="op">=</span> <span class="fl">0.087</span>,</span></span>
 <span class="r-in"><span>Lr1Tr1 <span class="op">=</span> <span class="fl">2.744</span>, Lr1Tr1.error <span class="op">=</span> <span class="fl">0.091</span>,</span></span>
 <span class="r-in"><span>Dr1 <span class="op">=</span> <span class="fl">34.4</span><span class="op">)</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="calc_gSGC-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [calc_gSGC()]</span>
@@ -284,19 +218,11 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ------------------------------ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  De:		28.43 ± 1.92</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ------------------------------ </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"De"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         DE DE.ERROR       ETA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.42881 1.919112 0.1325632</span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"De"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         DE DE.ERROR       ETA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.42881 1.919112 0.1325632</span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -307,23 +233,11 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

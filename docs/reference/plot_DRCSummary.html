@@ -20,42 +20,30 @@ in one single plot."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -68,7 +56,6 @@ in one single plot."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -91,42 +78,6 @@ in one single plot.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_DRCSummary</span><span class="op">(</span>
-  <span class="va">object</span>,
-  source_dose_rate <span class="op">=</span> <span class="cn">NULL</span>,
-  sel_curves <span class="op">=</span> <span class="cn">NULL</span>,
-  show_dose_points <span class="op">=</span> <span class="cn">FALSE</span>,
-  show_natural <span class="op">=</span> <span class="cn">FALSE</span>,
-  n <span class="op">=</span> <span class="fl">51L</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-    </div>
-
-    <div id="arguments">
-    <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p><a href="RLum.Results-class.html">RLum.Results</a> object (<strong>required</strong>): input object created by the function <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a>. The input object can be provided as <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></dd>
-<dt>source_dose_rate</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): allows to modify the axis and show values in Gy, instead seconds. Only a single numerical values is allowed.</p></dd>
-<dt>sel_curves</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (optional): id of the curves to be plotting in its occurring order. A sequence can
-be provided for selecting, e.g., only every 2nd curve from the input object</p></dd>
-<dt>show_dose_points</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (with default): enable or disable plot of dose points in the graph</p></dd>
-<dt>show_natural</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (with default): enable or disable the plot of the natural <code>Lx/Tx</code> values</p></dd>
-<dt>n</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (with default): the number of x-values used to evaluate one curve object. Large numbers slow
-down the plotting process and are usually not needed</p></dd>
-<dt>...</dt>
-<dd><p>Further arguments and graphical parameters to be passed.</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>An <a href="RLum.Results-class.html">RLum.Results</a> object is returned:
-Slot: <strong>@data</strong><br></p><table class="table table"><tr><td><strong>OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>COMMENT</strong></td></tr><tr><td><code>results</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>with dose and LxTx values</td></tr><tr><td><code>data</code></td><td><a href="RLum.Results-class.html">RLum.Results</a></td><td>original input data</td></tr></table><p>Slot: <strong>@info</strong><br></p><table class="table table"><tr><td><strong>OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>COMMENT</strong></td></tr><tr><td><code>call</code></td><td><code>call</code></td><td>the original function call</td></tr><tr><td><code>args</code></td><td><code>list</code></td><td>arguments of the original function call</td></tr></table><p><em>Note: If the input object is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> a list of <a href="RLum.Results-class.html">RLum.Results</a> objects is returned.</em></p>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_DRCSummary</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  source_dose_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -188,7 +139,6 @@ down the plotting process and are usually not needed</p></dd>
 <table class="table table"><tr><td><strong>OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>COMMENT</strong></td></tr><tr><td><code>call</code></td><td><code>call</code></td><td>the original function call</td></tr><tr><td><code>args</code></td><td><code>list</code></td><td>arguments of the original function call</td></tr></table><p><em>Note: If the input object is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> a list of <a href="RLum.Results-class.html">RLum.Results</a> objects is returned.</em></p>
 
 
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -197,11 +147,7 @@ below or your can SAR analysis with the dose points in Gy (better axis scaling).
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-<<<<<<< HEAD
-    <p>0.2.1</p>
-=======
     <p>0.2.3</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -209,47 +155,17 @@ below or your can SAR analysis with the dose points in Gy (better axis scaling).
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br>
-Christoph Burow, University of Cologne
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
 Christoph Burow, University of Cologne (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., Burow, C., 2022. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., Burow, C., 2022. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., Burow, C., 2023. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">#load data example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#transform the values from the first position in a RLum.Analysis object</span></span>
-<span class="r-in"><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, pos<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></span><span class="op">(</span></span>
-<span class="r-in">  object <span class="op">=</span> <span class="va">object</span>,</span>
-<span class="r-in">  signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">   background.integral.min <span class="op">=</span> <span class="fl">900</span>,</span>
-<span class="r-in">   background.integral.max <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span class="r-in">   plot <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"> <span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##plot only DRC</span></span>
-<span class="r-in"><span class="fu">plot_DRCSummary</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#load data example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -269,7 +185,6 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##plot only DRC</span></span></span>
 <span class="r-in"><span><span class="fu">plot_DRCSummary</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="plot_DRCSummary-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
@@ -278,11 +193,7 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  	 .. $results : data.frame</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $data : RLum.Results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  2 </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -293,23 +204,11 @@ Christoph Burow, University of Cologne (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

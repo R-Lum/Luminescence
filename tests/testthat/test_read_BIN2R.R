@@ -44,6 +44,25 @@ test_that("test the import of various BIN-file versions", {
       suppressWarnings(read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V8.binx",
                  txtProgressBar = FALSE)), class = "Risoe.BINfileData")
 
+    ##V8 - as part of the package
+    expect_s4_class(
+      read_BIN2R(system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+                                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
+
+    ##V8 - as part of the package ... with arguments
+    expect_type(
+      read_BIN2R(
+        file = system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+        txtProgressBar = FALSE,
+        position = 1,
+        fastForward = TRUE), "list")
+
+    ##V8 - as part of the package ... with arguments
+    expect_type(
+      read_BIN2R(system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+                 txtProgressBar = FALSE, fastForward = TRUE), "list")
+
+
     ##test further options
     ##n.records and fastForward
     expect_type(

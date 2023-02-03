@@ -20,42 +20,30 @@ to a given De distribution — calc_MinDose"><meta property="og:description" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -68,7 +56,6 @@ to a given De distribution — calc_MinDose"><meta property="og:description" con
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,21 +77,6 @@ to a given De distribution</h1>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_MinDose</span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">sigmab</span>,
-  log <span class="op">=</span> <span class="cn">TRUE</span>,
-  par <span class="op">=</span> <span class="fl">3</span>,
-  bootstrap <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">init.values</span>,
-  level <span class="op">=</span> <span class="fl">0.95</span>,
-  log.output <span class="op">=</span> <span class="cn">FALSE</span>,
-  plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  multicore <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_MinDose</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">sigmab</span>,</span>
@@ -118,7 +90,6 @@ to a given De distribution</h1>
 <span>  multicore <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -126,11 +97,8 @@ to a given De distribution</h1>
     <dl><dt>data</dt>
 <dd><p><a href="RLum.Results-class.html">RLum.Results</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>: two columns with De <code>(data[ ,1])</code> and De error <code>(data[ ,2])</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>sigmab</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 additional spread in De values.
@@ -140,11 +108,6 @@ well-bleached (Cunningham &amp; Walling 2012, p. 100).
 a fraction, e.g. 0.2 (= 20 \<!-- %). If the un-logged model is used (\code{log = FALSE}), -->
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details.</p></dd>
-<<<<<<< HEAD
-<dt>log</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-fit the (un-)logged minimum dose model to De data.</p></dd>
-=======
 
 
 <dt>log</dt>
@@ -152,16 +115,10 @@ fit the (un-)logged minimum dose model to De data.</p></dd>
 fit the (un-)logged minimum dose model to De data.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>par</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 apply the 3- or 4-parameter minimum age model (<code>par=3</code> or <code>par=4</code>). The MAM-3 is
 used by default.</p></dd>
-<<<<<<< HEAD
-<dt>bootstrap</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-apply the recycled bootstrap approach of Cunningham &amp; Wallinga (2012).</p></dd>
-=======
 
 
 <dt>bootstrap</dt>
@@ -169,7 +126,6 @@ apply the recycled bootstrap approach of Cunningham &amp; Wallinga (2012).</p></
 apply the recycled bootstrap approach of Cunningham &amp; Wallinga (2012).</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>init.values</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 a named list with starting values for gamma, sigma, p0 and mu
@@ -177,11 +133,6 @@ a named list with starting values for gamma, sigma, p0 and mu
 are tried to be estimated from the data. <strong>NOTE</strong> that the initial values must always be given
 in the absolute units. The the logged model is applied (<code>log = TRUE</code>), the provided <code>init.values</code>
 are automatically log transformed.</p></dd>
-<<<<<<< HEAD
-<dt>level</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-the confidence level required (defaults to 0.95).</p></dd>
-=======
 
 
 <dt>level</dt>
@@ -189,16 +140,10 @@ the confidence level required (defaults to 0.95).</p></dd>
 the confidence level required (defaults to 0.95).</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>log.output</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 If <code>TRUE</code> the console output will also show the logged values of the final parameter estimates
 and confidence intervals (only applicable if <code>log = TRUE</code>).</p></dd>
-<<<<<<< HEAD
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-plot output (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
-=======
 
 
 <dt>plot</dt>
@@ -206,18 +151,14 @@ plot output (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
 plot output (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>multicore</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
 on the number of available logical CPU cores this may drastically reduce
 the computation time. Note that this option is highly experimental and may not
 work on all machines. (<code>TRUE</code>/<code>FALSE</code>)</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>(<em>optional</em>) further arguments for bootstrapping
 (<code>bs.M, bs.N, bs.h, sigmab.sd</code>). See details for their usage.
@@ -225,12 +166,6 @@ Further arguments are</p><ul><li><p><code>verbose</code> to de-/activate console
 <li><p><code>debug</code> for extended console output (logical) and</p></li>
 <li><p><code>cores</code> (integer) to manually specify the number of cores to be used when <code>multicore=TRUE</code>.</p></li>
 </ul></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns a plot (<em>optional</em>) and terminal output. In addition an
-=======
 
 </dl></div>
     <div id="value">
@@ -238,30 +173,10 @@ Further arguments are</p><ul><li><p><code>verbose</code> to de-/activate console
     
 
 <p>Returns a plot (<em>optional</em>) and terminal output. In addition an
->>>>>>> dev_0.9.20
 <a href="RLum.Results-class.html">RLum.Results</a> object is returned containing the
 following elements:</p>
 <dl><dt>.$summary</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> summary of all relevant model results.</p></dd>
-<<<<<<< HEAD
-<dt>.$data</dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> original input data</p></dd>
-<dt>args</dt>
-<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
-<dt>call</dt>
-<dd><p><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a> the function call</p></dd>
-<dt>.$mle</dt>
-<dd><p>mle2 object containing the maximum log likelihood functions for all parameters</p></dd>
-<dt>BIC</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> BIC score</p></dd>
-<dt>.$confint</dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> confidence intervals for all parameters</p></dd>
-<dt>.$profile</dt>
-<dd><p>profile.mle2 the log likelihood profiles</p></dd>
-<dt>.$bootstrap</dt>
-<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> bootstrap results</p></dd>
-</dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
-=======
 
 <dt>.$data</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> original input data</p></dd>
@@ -291,7 +206,6 @@ following elements:</p>
 </dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a></p>
 
 
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -379,11 +293,7 @@ forwards all internal warning messages.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Burow, C., 2022. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Burow, C., 2022. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Burow, C., 2023. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -437,15 +347,6 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (1) Apply the minimum age model with minimum required parameters.</span></span>
-<span class="r-in"><span class="co"># By default, this will apply the un-logged 3-parameter MAM.</span></span>
-<span class="r-in"><span class="fu">calc_MinDose</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>, sigmab <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Load example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -453,7 +354,6 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 <span class="r-in"><span><span class="co"># (1) Apply the minimum age model with minimum required parameters.</span></span></span>
 <span class="r-in"><span><span class="co"># By default, this will apply the un-logged 3-parameter MAM.</span></span></span>
 <span class="r-in"><span><span class="fu">calc_MinDose</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>, sigmab <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------- meta data -----------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   n par sigmab logged      Lmax      BIC</span>
@@ -477,91 +377,6 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 <span class="r-out co"><span class="r-pr">#&gt;</span>     De error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  34.32  2.55</span>
 <span class="r-plt img"><img src="calc_MinDose-1.png" alt="" width="700" height="433"></span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># (2) Re-run the model, but save results to a variable and turn</span></span>
-<span class="r-in"><span class="co"># plotting of the log-likelihood profiles off.</span></span>
-<span class="r-in"><span class="va">mam</span> <span class="op">&lt;-</span> <span class="fu">calc_MinDose</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>,</span>
-<span class="r-in">                    sigmab <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span class="r-in">                    plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show structure of the RLum.Results object</span></span>
-<span class="r-in"><span class="va">mam</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show summary table that contains the most relevant results</span></span>
-<span class="r-in"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">mam</span>, <span class="st">"summary"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">res</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot the log likelihood profiles retroactively, because before</span></span>
-<span class="r-in"><span class="co"># we set plot = FALSE</span></span>
-<span class="r-in"><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">mam</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot the dose distribution in an abanico plot and draw a line</span></span>
-<span class="r-in"><span class="co"># at the minimum dose estimate</span></span>
-<span class="r-in"><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>,</span>
-<span class="r-in">                 main <span class="op">=</span> <span class="st">"3-parameter Minimum Age Model"</span>,</span>
-<span class="r-in">                 line <span class="op">=</span> <span class="va">mam</span>,polygon.col <span class="op">=</span> <span class="st">"none"</span>,</span>
-<span class="r-in">                 hist <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                 rug <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                 summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"mean.weighted"</span>, <span class="st">"median"</span>, <span class="st">"in.ci"</span><span class="op">)</span>,</span>
-<span class="r-in">                 centrality <span class="op">=</span> <span class="va">res</span><span class="op">$</span><span class="va">de</span>,</span>
-<span class="r-in">                 line.col <span class="op">=</span> <span class="st">"red"</span>,</span>
-<span class="r-in">                 grid.col <span class="op">=</span> <span class="st">"none"</span>,</span>
-<span class="r-in">                 line.label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">de</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"\U00B1"</span>,</span>
-<span class="r-in">                                     <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">de_err</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">" Gy"</span><span class="op">)</span>,</span>
-<span class="r-in">                 bw <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span class="r-in">                 ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">25</span>, <span class="fl">18</span><span class="op">)</span>,</span>
-<span class="r-in">                 summary.pos <span class="op">=</span> <span class="st">"topleft"</span>,</span>
-<span class="r-in">                 mtext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/bquote.html" class="external-link">bquote</a></span><span class="op">(</span><span class="st">"Parameters: "</span> <span class="op">~</span></span>
-<span class="r-in">                                  <span class="va">sigma</span><span class="op">[</span><span class="va">b</span><span class="op">]</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">mam</span>, <span class="st">"args"</span><span class="op">)</span><span class="op">$</span><span class="va">sigmab</span><span class="op">)</span> <span class="op">~</span> <span class="st">", "</span> <span class="op">~</span></span>
-<span class="r-in">                                  <span class="va">gamma</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">de</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">", "</span> <span class="op">~</span></span>
-<span class="r-in">                                  <span class="va">sigma</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">sig</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">", "</span> <span class="op">~</span></span>
-<span class="r-in">                                  <span class="va">rho</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">p0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (3) Run the minimum age model with bootstrap</span></span>
-<span class="r-in"><span class="co"># NOTE: Bootstrapping is computationally intensive</span></span>
-<span class="r-in"><span class="co"># (3.1) run the minimum age model with default values for bootstrapping</span></span>
-<span class="r-in"><span class="fu">calc_MinDose</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>,</span>
-<span class="r-in">             sigmab <span class="op">=</span> <span class="fl">0.15</span>,</span>
-<span class="r-in">             bootstrap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># (3.2) Bootstrap control parameters</span></span>
-<span class="r-in"><span class="va">mam</span> <span class="op">&lt;-</span> <span class="fu">calc_MinDose</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>,</span>
-<span class="r-in">                    sigmab <span class="op">=</span> <span class="fl">0.15</span>,</span>
-<span class="r-in">                    bootstrap <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                    bs.M <span class="op">=</span> <span class="fl">300</span>,</span>
-<span class="r-in">                    bs.N <span class="op">=</span> <span class="fl">500</span>,</span>
-<span class="r-in">                    bs.h <span class="op">=</span> <span class="fl">4</span>,</span>
-<span class="r-in">                    sigmab.sd <span class="op">=</span> <span class="fl">0.06</span>,</span>
-<span class="r-in">                    plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot the results</span></span>
-<span class="r-in"><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">mam</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># save bootstrap results in a separate variable</span></span>
-<span class="r-in"><span class="va">bs</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">mam</span>, <span class="st">"bootstrap"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># show structure of the bootstrap results</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">bs</span>, max.level <span class="op">=</span> <span class="fl">2</span>, give.attr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print summary of minimum dose and likelihood pairs</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bs</span><span class="op">$</span><span class="va">pairs</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show polynomial fits of the bootstrap pairs</span></span>
-<span class="r-in"><span class="va">bs</span><span class="op">$</span><span class="va">poly.fits</span><span class="op">$</span><span class="va">poly.three</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot various statistics of the fit using the generic plot() function</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfcol<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bs</span><span class="op">$</span><span class="va">poly.fits</span><span class="op">$</span><span class="va">poly.three</span>, ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show the fitted values of the polynomials</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bs</span><span class="op">$</span><span class="va">poly.fits</span><span class="op">$</span><span class="va">poly.three</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># (2) Re-run the model, but save results to a variable and turn</span></span></span>
@@ -645,7 +460,6 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bs</span><span class="op">$</span><span class="va">poly.fits</span><span class="op">$</span><span class="va">poly.three</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -656,23 +470,11 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

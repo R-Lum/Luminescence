@@ -21,42 +21,30 @@ functions such as use_DRAC."><!-- mathjax --><script src="https://cdnjs.cloudfla
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -69,7 +57,6 @@ functions such as use_DRAC."><!-- mathjax --><script src="https://cdnjs.cloudfla
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -93,11 +80,7 @@ functions such as <a href="use_DRAC.html">use_DRAC</a>.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">convert_Activity2Concentration</span><span class="op">(</span><span class="va">data</span>, input_unit <span class="op">=</span> <span class="st">"Bq/kg"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_Activity2Concentration</span><span class="op">(</span><span class="va">data</span>, input_unit <span class="op">=</span> <span class="st">"Bq/kg"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -108,44 +91,28 @@ provide dose rate data (activity or concentration) in three columns.
 The first column indicates the nuclide, the 2nd column measured value and
 in the 3rd column its error value. Allowed nuclide data are
 <code>'U-238'</code>, <code>'Th-232'</code> and <code>'K-40'</code>. See examples for an example.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>input_unit</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specify unit of input data given in the dose rate data frame, choose between
 'Bq/kg' and 'ppm/%' the default is 'Bq/kg'</p></dd>
-<<<<<<< HEAD
-<dt>verbose</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enable or disable verbose mode</p></dd>
-=======
 
 
 <dt>verbose</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enable or disable verbose mode</p></dd>
 
->>>>>>> dev_0.9.20
 </dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>The conversion from nuclide activity of a sample to nuclide concentration
 is performed using conversion factors that are based on the mass-related
 specific activity of the respective nuclide.</p>
-<<<<<<< HEAD
-<p>Constants used in this function were obtained from https://physics.nist.gov/cuu/Constants/
-all atomic weights and composition values from
-https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses
-and the nuclide data from https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version</p>
-=======
 <p>Constants used in this function were obtained from <code>https://physics.nist.gov/cuu/Constants/</code>
 all atomic weights and composition values from
 <code>https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses</code>
 and the nuclide data from <code>https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version</code></p>
->>>>>>> dev_0.9.20
 <p>The factors can be calculated using the equation:</p>
 <p>$$
 A = N_A * N.abund / N.mol.mass   *  ln(2) / N.half.life
@@ -180,11 +147,7 @@ In other words, 1 ppm of U means that this is the composition of 0.992 parts of 
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Fuchs, M.C., 2022. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Fuchs, M.C., 2022. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -202,18 +165,6 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##construct data.frame</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in"> NUCLIDES <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"U-238"</span>, <span class="st">"Th-232"</span>, <span class="st">"K-40"</span><span class="op">)</span>,</span>
-<span class="r-in"> VALUE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="fl">80</span>,<span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in"> VALUE_ERROR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">10</span><span class="op">)</span>,</span>
-<span class="r-in"> stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##perform analysis</span></span>
-<span class="r-in"><span class="fu">convert_Activity2Concentration</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##construct data.frame</span></span></span>
 <span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
@@ -224,7 +175,6 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##perform analysis</span></span></span>
 <span class="r-in"><span><span class="fu">convert_Activity2Concentration</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>   NUCLIDE ACTIVIY (Bq/kg) ACTIVIY ERROR (Bq/kg) CONC. (ppm/%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   U-238              40                     4     3.2398475</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Th-232              80                     8    19.6469710</span>
@@ -233,11 +183,7 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          0.32398475</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          1.96469710</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          0.03222668</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -248,23 +194,11 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

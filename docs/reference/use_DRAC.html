@@ -19,42 +19,30 @@ results are re-imported into R."><!-- mathjax --><script src="https://cdnjs.clou
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,7 +55,6 @@ results are re-imported into R."><!-- mathjax --><script src="https://cdnjs.clou
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,11 +76,7 @@ results are re-imported into R.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">use_DRAC</span><span class="op">(</span><span class="va">file</span>, <span class="va">name</span>, print_references <span class="op">=</span> <span class="cn">TRUE</span>, citation_style <span class="op">=</span> <span class="st">"text"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_DRAC</span><span class="op">(</span><span class="va">file</span>, <span class="va">name</span>, print_references <span class="op">=</span> <span class="cn">TRUE</span>, citation_style <span class="op">=</span> <span class="st">"text"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -102,14 +85,6 @@ results are re-imported into R.</p>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
 spreadsheet to be passed to the DRAC website for calculation. Can also be a
 DRAC template object obtained from <code><a href="template_DRAC.html">template_DRAC()</a></code>.</p></dd>
-<<<<<<< HEAD
-<dt>name</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-Optional user name submitted to DRAC. If omitted, a random name will be generated</p></dd>
-<dt>print_references</dt>
-<dd><p>(<em>with default</em>):
-Print all references used in the input data table to the console.</p></dd>
-=======
 
 
 <dt>name</dt>
@@ -122,36 +97,17 @@ Optional user name submitted to DRAC. If omitted, a random name will be generate
 Print all references used in the input data table to the console.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>citation_style</dt>
 <dd><p>(<em>with default</em>):
 If <code>print_references = TRUE</code> this argument determines the output style of the
 used references. Valid options are <code>"Bibtex"</code>, <code>"citation"</code>, <code>"html"</code>, <code>"latex"</code>
 or <code>"R"</code>. Default is <code>"text"</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>Further arguments.</p><ul><li><p><code>url</code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>: provide an alternative URL to DRAC</p></li>
 <li><p><code>verbose</code> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>: show or hide console output</p></li>
 </ul></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an <a href="RLum.Results-class.html">RLum.Results</a> object containing the following elements:</p>
-<dl><dt>DRAC</dt>
-<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>: a named list containing the following elements in slot <code>@data</code>:</p>
-<table class="table table"><tr><td><code>$highlights</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>summary of 25 most important input/output fields</td></tr><tr><td><code>$header</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>HTTP header from the DRAC server response</td></tr><tr><td><code>$labels</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>descriptive headers of all input/output fields</td></tr><tr><td><code>$content</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>complete DRAC input/output table</td></tr><tr><td><code>$input</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>DRAC input table</td></tr><tr><td><code>$output</code></td><td><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></td><td>DRAC output table</td></tr><tr><td><code>references</code></td><td><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></td><td>A list of bib entries of used references</td></tr></table></dd>
-<dt>data</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> path to the input spreadsheet or a DRAC template</p></dd>
-<dt>call</dt>
-<dd><p><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a> the function call</p></dd>
-<dt>args</dt>
-<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
-=======
 
 </dl></div>
     <div id="value">
@@ -173,7 +129,6 @@ or <code>"R"</code>. Default is <code>"text"</code>.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> used arguments</p></dd>
 
 
->>>>>>> dev_0.9.20
 </dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.</p>
     </div>
     <div id="function-version">
@@ -182,11 +137,7 @@ or <code>"R"</code>. Default is <code>"text"</code>.</p></dd>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., Dietze, M., Burow, C., 2022. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., Dietze, M., Burow, C., 2022. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., Dietze, M., Burow, C., 2023. use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -195,11 +146,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br>
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
->>>>>>> dev_0.9.20
 Michael Dietze, GFZ Potsdam (Germany)<br>
 Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team</p>
@@ -207,24 +154,6 @@ Christoph Burow, University of Cologne (Germany)
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## (1) Method using the DRAC spreadsheet</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">file</span> <span class="op">&lt;-</span>  <span class="st">"/PATH/TO/DRAC_Input_Template.csv"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># send the actual IO template spreadsheet to DRAC</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">use_DRAC</span><span class="op">(</span>file <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## (2) Method using an R template object</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create a template</span></span>
-<span class="r-in"><span class="va">input</span> <span class="op">&lt;-</span> <span class="fu"><a href="template_DRAC.html">template_DRAC</a></span><span class="op">(</span>preset <span class="op">=</span> <span class="st">"DRAC-example_quartz"</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## (1) Method using the DRAC spreadsheet</span></span></span>
 <span class="r-in"><span></span></span>
@@ -241,7 +170,6 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a template</span></span></span>
 <span class="r-in"><span><span class="va">input</span> <span class="op">&lt;-</span> <span class="fu"><a href="template_DRAC.html">template_DRAC</a></span><span class="op">(</span>preset <span class="op">=</span> <span class="st">"DRAC-example_quartz"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	-------------------- IMPORTANT NOTE ------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	 This function returns a DRAC input template to be used in </span>
@@ -263,41 +191,6 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	 Set 'notification = FALSE' to hide this message. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	-------------------- IMPORTANT NOTE ------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Fill the template with values</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Project ID`</span> <span class="op">&lt;-</span> <span class="st">"DRAC-Example"</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Sample ID`</span> <span class="op">&lt;-</span> <span class="st">"Quartz"</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Conversion factors`</span> <span class="op">&lt;-</span> <span class="st">"AdamiecAitken1998"</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`External U (ppm)`</span> <span class="op">&lt;-</span> <span class="fl">3.4</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errExternal U (ppm)`</span> <span class="op">&lt;-</span> <span class="fl">0.51</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`External Th (ppm)`</span> <span class="op">&lt;-</span> <span class="fl">14.47</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errExternal Th (ppm)`</span> <span class="op">&lt;-</span> <span class="fl">1.69</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`External K (%)`</span> <span class="op">&lt;-</span> <span class="fl">1.2</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errExternal K (%)`</span> <span class="op">&lt;-</span> <span class="fl">0.14</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Calculate external Rb from K conc?`</span> <span class="op">&lt;-</span> <span class="st">"N"</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Calculate internal Rb from K conc?`</span> <span class="op">&lt;-</span> <span class="st">"N"</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Scale gammadoserate at shallow depths?`</span> <span class="op">&lt;-</span> <span class="st">"N"</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Grain size min (microns)`</span> <span class="op">&lt;-</span> <span class="fl">90</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Grain size max (microns)`</span> <span class="op">&lt;-</span> <span class="fl">125</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Water content ((wet weight - dry weight)/dry weight) %`</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errWater content %`</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Depth (m)`</span> <span class="op">&lt;-</span> <span class="fl">2.2</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errDepth (m)`</span> <span class="op">&lt;-</span> <span class="fl">0.22</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Overburden density (g cm-3)`</span> <span class="op">&lt;-</span> <span class="fl">1.8</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errOverburden density (g cm-3)`</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Latitude (decimal degrees)`</span> <span class="op">&lt;-</span> <span class="fl">30.0000</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Longitude (decimal degrees)`</span> <span class="op">&lt;-</span> <span class="fl">70.0000</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`Altitude (m)`</span> <span class="op">&lt;-</span> <span class="fl">150</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`De (Gy)`</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
-<span class="r-in"><span class="va">input</span><span class="op">$</span><span class="va">`errDe (Gy)`</span> <span class="op">&lt;-</span> <span class="fl">0.2</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use DRAC</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">use_DRAC</span><span class="op">(</span><span class="va">input</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fill the template with values</span></span></span>
 <span class="r-in"><span><span class="va">input</span><span class="op">$</span><span class="va">`Project ID`</span> <span class="op">&lt;-</span> <span class="st">"DRAC-Example"</span></span></span>
@@ -331,7 +224,6 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">use_DRAC</span><span class="op">(</span><span class="va">input</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -342,23 +234,11 @@ Christoph Burow, University of Cologne (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

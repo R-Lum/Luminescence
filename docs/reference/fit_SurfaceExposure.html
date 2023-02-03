@@ -19,42 +19,30 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)."><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,7 +55,6 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)."><!-- m
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,39 +76,6 @@ parameters of either equation 1 in <em>Sohbati et al. (2012a)</em> or equation 1
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fit_SurfaceExposure</span><span class="op">(</span>
-  <span class="va">data</span>,
-  sigmaphi <span class="op">=</span> <span class="cn">NULL</span>,
-  mu <span class="op">=</span> <span class="cn">NULL</span>,
-  age <span class="op">=</span> <span class="cn">NULL</span>,
-  Ddot <span class="op">=</span> <span class="cn">NULL</span>,
-  D0 <span class="op">=</span> <span class="cn">NULL</span>,
-  weights <span class="op">=</span> <span class="cn">FALSE</span>,
-  plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  legend <span class="op">=</span> <span class="cn">TRUE</span>,
-  error_bars <span class="op">=</span> <span class="cn">TRUE</span>,
-  coord_flip <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-    </div>
-
-    <div id="arguments">
-    <h2>Arguments</h2>
-    <dl><dt>data</dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<strong>required</strong>):
-Measured OSL surface exposure data with the following structure:</p><div class="sourceCode"><pre><code>                               (optional)
-     | depth (a.u.)| intensity | error |
-     |     [ ,1]   |    [ ,2]  | [ ,3] |
-     |-------------|-----------|-------|
-[1, ]|    ~~~~     |    ~~~~   | ~~~~  |
-[2, ]|    ~~~~     |    ~~~~   | ~~~~  |
- ... |     ...     |     ...   |  ...  |
-[x, ]|    ~~~~     |    ~~~~   | ~~~~  |
-
-</code></pre></div>
-
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_SurfaceExposure</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  sigmaphi <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -152,82 +106,49 @@ Measured OSL surface exposure data with the following structure:</p>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> ... <span class="sc">|</span>     ...     <span class="sc">|</span>     ...   <span class="sc">|</span>  ...  <span class="sc">|</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>[x, ]<span class="sc">|</span>    <span class="er">~~~~</span>     <span class="er">|</span>    <span class="er">~~~~</span>   <span class="er">|</span> <span class="er">~~~~</span>  <span class="er">|</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span></code></pre><p></p></div>
->>>>>>> dev_0.9.20
 <p>Alternatively, a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <code>data.frames</code> can be provided, where each
 <code>data.frame</code> has the same structure as shown above, with the exception that
 they must <strong>not</strong> include the optional error column. Providing a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> as
 input automatically activates the global fitting procedure (see details).</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>sigmaphi</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 A numeric value for <code>sigmaphi</code>, i.e. the charge detrapping rate.
 Example: <code>sigmaphi = 5e-10</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>mu</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 A numeric value for mu, i.e. the light attenuation coefficient.
 Example: <code>mu = 0.9</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>age</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 The age (a) of the sample, if known. If <code>data</code> is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <em>x</em> samples,
 then <code>age</code> must be a numeric vector of length <em>x</em>.
 Example: <code>age = 10000</code>, or <code>age = c(1e4, 1e5, 1e6)</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>Ddot</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 A numeric value for the environmental dose rate (Gy/ka). For this argument
 to be considered a value for <code>D0</code> must also be provided; otherwise it will be
 ignored.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>D0</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 A numeric value for the characteristic saturation dose (Gy). For this argument
 to be considered a value for <code>Ddot</code> must also be provided; otherwise it will be
 ignored.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>weights</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
 If <code>TRUE</code> the fit will be weighted by the inverse square of the error.
 Requires <code>data</code> to be a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with three columns.</p></dd>
-<<<<<<< HEAD
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
-Show or hide the plot.</p></dd>
-<dt>legend</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
-Show or hide the equation inside the plot.</p></dd>
-<dt>error_bars</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
-Show or hide error bars (only applies if errors were provided).</p></dd>
-<dt>coord_flip</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
-Flip the coordinate system.</p></dd>
-=======
 
 
 <dt>plot</dt>
@@ -250,7 +171,6 @@ Show or hide error bars (only applies if errors were provided).</p></dd>
 Flip the coordinate system.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>Further parameters passed to <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a>.
 Custom parameters include:</p><ul><li><p><code>verbose</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>): show or hide console output</p></li>
@@ -258,15 +178,6 @@ Custom parameters include:</p><ul><li><p><code>verbose</code> (<a href="https://
 <li><p><code>line_lty</code>: Type of the fitted line (see <code>lty</code> in <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">?par</a></code>)</p></li>
 <li><p><code>line_lwd</code>: Line width of the fitted line (see <code>lwd</code> in <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">?par</a></code>)</p></li>
 </ul></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Function returns results numerically and graphically:
------------------------------------<br><code>[ NUMERICAL OUTPUT ]</code><br>-----------------------------------<br><strong><code>RLum.Results</code></strong>-object
-<strong>slot:</strong><strong><code>@data</code></strong></p><table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$summary</code></td><td><code>data.frame</code></td><td>summary of the fitting results</td></tr><tr><td><code>$data</code></td><td><code>data.frame</code></td><td>the original input data</td></tr><tr><td><code>$fit</code></td><td><code>nls</code></td><td>the fitting object produced by <a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a></td></tr><tr><td><code>$args</code></td><td><code>character</code></td><td>arguments of the call</td></tr><tr><td><code>$call</code></td><td><code>call</code></td><td>the original function call</td></tr></table><p><strong>slot:</strong><strong><code>@info</code></strong>Currently unused.
-------------------------<br><code>[ PLOT OUTPUT ]</code><br>------------------------<br>A scatter plot of the provided depth-intensity OSL surface exposure data
-=======
 
 </dl></div>
     <div id="value">
@@ -315,7 +226,6 @@ Custom parameters include:</p><ul><li><p><code>verbose</code> (<a href="https://
 
 
 <p>A scatter plot of the provided depth-intensity OSL surface exposure data
->>>>>>> dev_0.9.20
 with the fitted model.</p>
     </div>
     <div id="details">
@@ -356,11 +266,7 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Burow, C., 2022. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Burow, C., 2022. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Burow, C., 2023. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -383,16 +289,6 @@ Icarus 221, 160-166.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.SurfaceExposure"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 1 - Single sample</span></span>
-<span class="r-in"><span class="co"># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10</span></span>
-<span class="r-in"><span class="va">sample_1</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">sample_1</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sample_1</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Load example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.SurfaceExposure"</span><span class="op">)</span></span></span>
@@ -401,7 +297,6 @@ Icarus 221, 160-166.</p>
 <span class="r-in"><span><span class="co"># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10</span></span></span>
 <span class="r-in"><span><span class="va">sample_1</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">sample_1</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sample_1</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>   depth   intensity      error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0.0  0.05487370 0.08018774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   0.1 -0.06055516 0.17745452</span>
@@ -409,11 +304,7 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   0.3 -0.05973453 0.05593426</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.4 -0.02775111 0.19830218</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.5  0.04852239 0.06168570</span>
-<<<<<<< HEAD
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">sample_1</span>, mu <span class="op">=</span> <span class="fl">0.9</span>, sigmaphi <span class="op">=</span> <span class="fl">5e-10</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">sample_1</span>, mu <span class="op">=</span> <span class="fl">0.9</span>, sigmaphi <span class="op">=</span> <span class="fl">5e-10</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="fit_SurfaceExposure-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [fit_SurfaceExposure()] </span>
@@ -427,18 +318,6 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  sigmaphi:	5e-10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  mu:		0.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<<<<<<< HEAD
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 9892.724  369.0066    5e-10             NA 0.9       NA</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 2 - Single sample and considering dose rate</span></span>
-<span class="r-in"><span class="co"># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,</span></span>
-<span class="r-in"><span class="co"># dose rate = 2.5 Gy/ka, D0 = 40 Gy</span></span>
-<span class="r-in"><span class="va">sample_2</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">sample_2</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sample_2</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 9892.724  369.0066    5e-10             NA 0.9       NA</span>
@@ -449,7 +328,6 @@ Icarus 221, 160-166.</p>
 <span class="r-in"><span><span class="co"># dose rate = 2.5 Gy/ka, D0 = 40 Gy</span></span></span>
 <span class="r-in"><span><span class="va">sample_2</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">sample_2</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sample_2</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>   depth   intensity      error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0.0  0.05881908 0.08018774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   0.1 -0.05623983 0.17745452</span>
@@ -457,13 +335,8 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   0.3 -0.05457253 0.05593426</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.4 -0.02210573 0.19830218</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.5  0.05469614 0.06168570</span>
-<<<<<<< HEAD
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">sample_2</span>, mu <span class="op">=</span> <span class="fl">0.9</span>, sigmaphi <span class="op">=</span> <span class="fl">5e-10</span>,</span>
-<span class="r-in">                               Ddot <span class="op">=</span> <span class="fl">2.5</span>, D0 <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">sample_2</span>, mu <span class="op">=</span> <span class="fl">0.9</span>, sigmaphi <span class="op">=</span> <span class="fl">5e-10</span>,</span></span>
 <span class="r-in"><span>                               Ddot <span class="op">=</span> <span class="fl">2.5</span>, D0 <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="fit_SurfaceExposure-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [fit_SurfaceExposure()] </span>
@@ -477,17 +350,6 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  sigmaphi:	5e-10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  mu:		0.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<<<<<<< HEAD
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 9803.492  674.8362    5e-10             NA 0.9       NA</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 3 - Multiple samples (global fit) to better constrain 'mu'</span></span>
-<span class="r-in"><span class="co"># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span></span>
-<span class="r-in"><span class="va">set_1</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">set_1</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">set_1</span>, max.level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 9803.492  674.8362    5e-10             NA 0.9       NA</span>
@@ -497,7 +359,6 @@ Icarus 221, 160-166.</p>
 <span class="r-in"><span><span class="co"># Known parameters: ages = 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10</span></span></span>
 <span class="r-in"><span><span class="va">set_1</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">set_1</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">set_1</span>, max.level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
@@ -511,13 +372,8 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ intensity: num [1:76] -0.0122 -0.0189 0.0358 -0.0314 -0.0454 ...</span>
-<<<<<<< HEAD
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">set_1</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e3</span>, <span class="fl">1e4</span>, <span class="fl">1e5</span>, <span class="fl">1e6</span><span class="op">)</span>,</span>
-<span class="r-in">                               sigmaphi <span class="op">=</span> <span class="fl">5e-10</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">set_1</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e3</span>, <span class="fl">1e4</span>, <span class="fl">1e5</span>, <span class="fl">1e6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                               sigmaphi <span class="op">=</span> <span class="fl">5e-10</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [fit_SurfaceExposure()] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -535,25 +391,12 @@ Icarus 221, 160-166.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = 0.901)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="fit_SurfaceExposure-3.png" alt="" width="700" height="433"></span>
-<<<<<<< HEAD
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>     age age_error sigmaphi sigmaphi_error        mu    mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1e+03        NA    5e-10             NA 0.9009518 0.001612271</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 1e+04        NA    5e-10             NA 0.9009518 0.001612271</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 1e+05        NA    5e-10             NA 0.9009518 0.001612271</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 1e+06        NA    5e-10             NA 0.9009518 0.001612271</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example 4 - Multiple samples (global fit) and considering dose rate</span></span>
-<span class="r-in"><span class="co"># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span></span>
-<span class="r-in"><span class="co"># dose rate = 1.0 Ga/ka, D0 = 40 Gy</span></span>
-<span class="r-in"><span class="va">set_2</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">set_2</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">set_2</span>, max.level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 4 - Multiple samples (global fit) and considering dose rate</span></span></span>
@@ -561,7 +404,6 @@ Icarus 221, 160-166.</p>
 <span class="r-in"><span><span class="co"># dose rate = 1.0 Ga/ka, D0 = 40 Gy</span></span></span>
 <span class="r-in"><span><span class="va">set_2</span> <span class="op">&lt;-</span> <span class="va">ExampleData.SurfaceExposure</span><span class="op">$</span><span class="va">set_2</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">set_2</span>, max.level <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
@@ -578,13 +420,8 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ :'data.frame':	76 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ depth    : num [1:76] 0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ intensity: num [1:76] -0.00358 0.03918 0.00275 0.04301 -0.04237 ...</span>
-<<<<<<< HEAD
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">set_2</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e2</span>, <span class="fl">1e3</span>, <span class="fl">1e4</span>, <span class="fl">1e5</span>, <span class="fl">1e6</span><span class="op">)</span>,</span>
-<span class="r-in">                               sigmaphi <span class="op">=</span> <span class="fl">5e-10</span>, Ddot <span class="op">=</span> <span class="fl">1</span>, D0 <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">fit_SurfaceExposure</span><span class="op">(</span><span class="va">set_2</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e2</span>, <span class="fl">1e3</span>, <span class="fl">1e4</span>, <span class="fl">1e5</span>, <span class="fl">1e6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                               sigmaphi <span class="op">=</span> <span class="fl">5e-10</span>, Ddot <span class="op">=</span> <span class="fl">1</span>, D0 <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [fit_SurfaceExposure()] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -602,22 +439,14 @@ Icarus 221, 160-166.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = 0.899)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="fit_SurfaceExposure-4.png" alt="" width="700" height="433"></span>
-<<<<<<< HEAD
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>     age age_error sigmaphi sigmaphi_error       mu    mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1e+02        NA    5e-10             NA 0.898662 0.002323752</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 1e+03        NA    5e-10             NA 0.898662 0.002323752</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 1e+04        NA    5e-10             NA 0.898662 0.002323752</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 1e+05        NA    5e-10             NA 0.898662 0.002323752</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 1e+06        NA    5e-10             NA 0.898662 0.002323752</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -628,23 +457,11 @@ Icarus 221, 160-166.</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

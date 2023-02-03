@@ -20,42 +20,30 @@ dose_rate for the function Second2Gray."><!-- mathjax --><script src="https://cd
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -68,7 +56,6 @@ dose_rate for the function Second2Gray."><!-- mathjax --><script src="https://cd
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -91,17 +78,6 @@ dose_rate for the function <a href="Second2Gray.html">Second2Gray</a>.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_SourceDoseRate</span><span class="op">(</span>
-  measurement.date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">calib.date</span>,
-  <span class="va">calib.dose.rate</span>,
-  <span class="va">calib.error</span>,
-  source.type <span class="op">=</span> <span class="st">"Sr-90"</span>,
-  dose.rate.unit <span class="op">=</span> <span class="st">"Gy/s"</span>,
-  predict <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_SourceDoseRate</span><span class="op">(</span></span>
 <span>  measurement.date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">calib.date</span>,</span>
@@ -111,7 +87,6 @@ dose_rate for the function <a href="Second2Gray.html">Second2Gray</a>.</p>
 <span>  dose.rate.unit <span class="op">=</span> <span class="st">"Gy/s"</span>,</span>
 <span>  predict <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -119,17 +94,6 @@ dose_rate for the function <a href="Second2Gray.html">Second2Gray</a>.</p>
     <dl><dt>measurement.date</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a> (with default): Date of measurement in <code>"YYYY-MM-DD"</code>.
 If no value is provided, the date will be set to today. The argument can be provided as vector.</p></dd>
-<<<<<<< HEAD
-<dt>calib.date</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> or <a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a> (<strong>required</strong>):
-date of source calibration in <code>"YYYY-MM-DD"</code></p></dd>
-<dt>calib.dose.rate</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
-dose rate at date of calibration in Gy/s or Gy/min</p></dd>
-<dt>calib.error</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
-error of dose rate at date of calibration Gy/s or Gy/min</p></dd>
-=======
 
 
 <dt>calib.date</dt>
@@ -147,47 +111,24 @@ dose rate at date of calibration in Gy/s or Gy/min</p></dd>
 error of dose rate at date of calibration Gy/s or Gy/min</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>source.type</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specify irradiation source (<code>Sr-90</code>, <code>Co-60</code>, <code>Cs-137</code>, <code>Am-214</code>),
 see details for further information</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>dose.rate.unit</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specify dose rate unit for input (<code>Gy/min</code> or <code>Gy/s</code>), the output is given in
 Gy/s as valid for the function <a href="Second2Gray.html">Second2Gray</a></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>predict</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 option allowing to predict the dose rate of the source over time in days
 set by the provided value. Starting date is the value set with
 <code>measurement.date</code>, e.g., <code>calc_SourceDoseRate(..., predict = 100)</code> calculates
 the source dose rate for the next 100 days.</p></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.
-Slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with the following structure:</p><div class="sourceCode"><pre><code>$ dose.rate (data.frame)
-.. $ dose.rate
-.. $ dose.rate.error
-.. $ date (corresponding measurement date)
-$ parameters (list)
-.. $ source.type
-.. $ halflife
-.. $ dose.rate.unit
-$ call (the original function call)
-</code></pre></div><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.<br>A plot method of the output is provided via <a href="plot_RLum.html">plot_RLum</a></p>
-=======
 
 </dl></div>
     <div id="value">
@@ -216,7 +157,6 @@ Slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html" cla
 <p>A plot method of the output is provided via <a href="plot_RLum.html">plot_RLum</a></p>
 
 
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -248,11 +188,7 @@ are provided.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Fuchs, M.C., Kreutzer, S., 2022. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Fuchs, M.C., Kreutzer, S., 2022. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Fuchs, M.C., Kreutzer, S., 2023. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -265,39 +201,12 @@ are provided.</p>
     <div id="author">
     <h2>Author</h2>
     <p>Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) <br>
-<<<<<<< HEAD
-Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(1) Simple function usage</span></span>
-<span class="r-in"><span class="co">##Basic calculation of the dose rate for a specific date</span></span>
-<span class="r-in"><span class="va">dose.rate</span> <span class="op">&lt;-</span>  <span class="fu">calc_SourceDoseRate</span><span class="op">(</span>measurement.date <span class="op">=</span> <span class="st">"2012-01-27"</span>,</span>
-<span class="r-in">                                  calib.date <span class="op">=</span> <span class="st">"2014-12-19"</span>,</span>
-<span class="r-in">                                  calib.dose.rate <span class="op">=</span> <span class="fl">0.0438</span>,</span>
-<span class="r-in">                                  calib.error <span class="op">=</span> <span class="fl">0.0019</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##show results</span></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dose.rate dose.rate.error       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.04695031     0.002036657 2012-01-27</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(2) Usage in combination with another function (e.g., Second2Gray() )</span></span>
-<span class="r-in"><span class="co">## load example data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## use the calculated variable dose.rate as input argument</span></span>
-<span class="r-in"><span class="co">## to convert De(s) to De(Gy)</span></span>
-<span class="r-in"><span class="fu"><a href="Second2Gray.html">Second2Gray</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span>, <span class="va">dose.rate</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1) Simple function usage</span></span></span>
@@ -319,7 +228,6 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span><span class="co">## use the calculated variable dose.rate as input argument</span></span></span>
 <span class="r-in"><span><span class="co">## to convert De(s) to De(Gy)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Second2Gray.html">Second2Gray</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">BT998</span>, <span class="va">dose.rate</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>        De De.error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  162.37    5.717</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  163.02    5.514</span>
@@ -346,25 +254,6 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23 135.43    4.628</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24 123.79    3.729</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25 128.18    4.090</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(3) source rate prediction and plotting</span></span>
-<span class="r-in"><span class="va">dose.rate</span> <span class="op">&lt;-</span>  <span class="fu">calc_SourceDoseRate</span><span class="op">(</span>measurement.date <span class="op">=</span> <span class="st">"2012-01-27"</span>,</span>
-<span class="r-in">                                  calib.date <span class="op">=</span> <span class="st">"2014-12-19"</span>,</span>
-<span class="r-in">                                  calib.dose.rate <span class="op">=</span> <span class="fl">0.0438</span>,</span>
-<span class="r-in">                                  calib.error <span class="op">=</span> <span class="fl">0.0019</span>,</span>
-<span class="r-in">                                  predict <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="plot_RLum.html">plot_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="calc_SourceDoseRate-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(4) export output to a LaTeX table (example using the package 'xtable')</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">xtable</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xtable/man/xtable.html" class="external-link">xtable</a></span><span class="op">(</span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">dose.rate</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(3) source rate prediction and plotting</span></span></span>
 <span class="r-in"><span><span class="va">dose.rate</span> <span class="op">&lt;-</span>  <span class="fu">calc_SourceDoseRate</span><span class="op">(</span>measurement.date <span class="op">=</span> <span class="st">"2012-01-27"</span>,</span></span>
@@ -382,7 +271,6 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -393,23 +281,11 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

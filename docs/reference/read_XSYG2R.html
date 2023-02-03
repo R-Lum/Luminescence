@@ -17,42 +17,30 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -65,7 +53,6 @@
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -85,17 +72,6 @@
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_XSYG2R</span><span class="op">(</span>
-  <span class="va">file</span>,
-  recalculate.TL.curves <span class="op">=</span> <span class="cn">TRUE</span>,
-  fastForward <span class="op">=</span> <span class="cn">FALSE</span>,
-  import <span class="op">=</span> <span class="cn">TRUE</span>,
-  pattern <span class="op">=</span> <span class="st">".xsyg"</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_XSYG2R</span><span class="op">(</span></span>
 <span>  <span class="va">file</span>,</span>
 <span>  recalculate.TL.curves <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -105,7 +81,6 @@
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -116,31 +91,20 @@ path and file name of the XSYG file. If input is a <code>list</code> it should c
 only <code>character</code>s representing each valid path and XSYG-file names.
 Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all XSYG-files found in the directory.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>recalculate.TL.curves</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 if set to <code>TRUE</code>, TL curves are returned as temperature against count values
 (see details for more information) Note: The option overwrites the time vs.
 count TL curve. Select <code>FALSE</code> to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>fastForward</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 if <code>TRUE</code> for a more efficient data processing only a list of <code>RLum.Analysis</code>
 objects is returned.</p></dd>
-<<<<<<< HEAD
-<dt>import</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-if set to <code>FALSE</code>, only the XSYG file structure is shown.</p></dd>
-=======
 
 
 <dt>import</dt>
@@ -148,25 +112,10 @@ if set to <code>FALSE</code>, only the XSYG file structure is shown.</p></dd>
 if set to <code>FALSE</code>, only the XSYG file structure is shown.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>pattern</dt>
 <dd><p><a href="https://rdrr.io/r/base/regex.html" class="external-link">regex</a> (<em>with default</em>):
 optional regular expression if <code>file</code> is a link to a folder, to select just
 specific XSYG-files</p></dd>
-<<<<<<< HEAD
-<dt>verbose</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable or disable verbose mode. If verbose is <code>FALSE</code>
-the <code>txtProgressBar</code> is also switched off</p></dd>
-<dt>txtProgressBar</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar during import</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p><strong>Using the option <code>import = FALSE</code></strong>A list consisting of two elements is shown:</p><ul><li><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with information on file.</p></li>
-<li><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with information on the sequences stored in the XSYG file.</p></li>
-</ul><p><strong>Using the option <code>import = TRUE</code> (default)</strong>A list is provided, the list elements
-=======
 
 
 <dt>verbose</dt>
@@ -194,40 +143,20 @@ enables <code>TRUE</code> or disables <code>FALSE</code> the progression bar dur
 
 
 <p>A list is provided, the list elements
->>>>>>> dev_0.9.20
 contain:</p>
 <dl><dt>Sequence.Header</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with information on the
 sequence.</p></dd>
-<<<<<<< HEAD
-<dt>Sequence.Object</dt>
-<dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>
-containing the curves.</p></dd>
-=======
  <dt>Sequence.Object</dt>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>
 containing the curves.</p></dd>
 
->>>>>>> dev_0.9.20
 </dl></div>
     <div id="details">
     <h2>Details</h2>
     <p><strong>How does the import function work?</strong></p>
 <p>The function uses the xml package to parse the file structure. Each
 sequence is subsequently translated into an <a href="RLum.Analysis-class.html">RLum.Analysis</a> object.</p>
-<<<<<<< HEAD
-<p><strong>General structure XSYG format</strong></p><div class="sourceCode"><pre><code>&lt;?xml?&gt;
-&lt;Sample&gt;
-  &lt;Sequence&gt;
-    &lt;Record&gt;
-      &lt;Curve name="first curve" /&gt;
-      &lt;Curve name="curve with data"&gt;x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3&lt;/Curve&gt;
-    &lt;/Record&gt;
-  &lt;/Sequence&gt;
-&lt;/Sample&gt;
-</code></pre></div>
-
-=======
 <p><strong>General structure XSYG format</strong></p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>?xml?<span class="sc">&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>Sample<span class="sc">&gt;</span></span>
@@ -238,7 +167,6 @@ sequence is subsequently translated into an <a href="RLum.Analysis-class.html">R
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">&lt;/</span>Record<span class="sc">&gt;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;/</span>Sequence<span class="sc">&gt;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;/</span>Sample<span class="sc">&gt;</span></span></code></pre><p></p></div>
->>>>>>> dev_0.9.20
 <p>So far, each
 XSYG file can only contain one <code>&lt;Sample&gt;&lt;/Sample&gt;</code>, but multiple
 sequences.</p>
@@ -290,11 +218,7 @@ Corresponding values in the XSXG file are skipped.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., 2022. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., 2022. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -309,42 +233,12 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##(1) import XSYG file to R (uncomment for usage)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#FILE &lt;- file.choose()</span></span>
-<span class="r-in"><span class="co">#temp &lt;- read_XSYG2R(FILE)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(2) additional examples for pure XML import using the package XML</span></span>
-<span class="r-in"><span class="co">##    (uncomment for usage)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co">##import entire XML file</span></span>
-<span class="r-in">  <span class="co">#FILE &lt;- file.choose()</span></span>
-<span class="r-in">  <span class="co">#temp &lt;- XML::xmlRoot(XML::xmlTreeParse(FILE))</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co">##search for specific subnodes with curves containing 'OSL'</span></span>
-<span class="r-in">  <span class="co">#getNodeSet(temp, "//Sample/Sequence/Record[@recordType = 'OSL']/Curve")</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(2) How to extract single curves ... after import</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##grep one OSL curves and plot the first curve</span></span>
-<span class="r-in"><span class="va">OSLcurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span>, recordType<span class="op">=</span><span class="st">"OSL"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(3) How to see the structure of an object?</span></span>
-<span class="r-in"><span class="fu"><a href="structure_RLum.html">structure_RLum</a></span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1) import XSYG file to R (uncomment for usage)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -369,7 +263,6 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(3) How to see the structure of an object?</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="structure_RLum.html">structure_RLum</a></span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id       recordType  curveType protocol.step n.channels x.min   x.max</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     1       TL (UVVIS)   measured            NA       1180 0.100 118.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     2          TL (NA) predefined            NA          5 0.000 268.000</span>
@@ -870,11 +763,7 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 122                        state parentID startDate curveType stimulator curveDescripter</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 123                 state parentID startDate curveType stimulator curveDescripter offset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 124                 state parentID startDate curveType stimulator curveDescripter offset</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -885,23 +774,11 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -107,13 +107,13 @@ dataset (see example).
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2022. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
-Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
-Single Images. Astrophysics 116, 148-153.
-\url{https://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
+Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from
+Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
+\doi{10.1086/381786}
 }
 \seealso{
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link{smooth}, \link{smooth.spline},

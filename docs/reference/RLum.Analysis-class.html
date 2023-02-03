@@ -19,42 +19,30 @@ by e.g. read_XSYG2R, read_Daybreak2R"><!-- mathjax --><script src="https://cdnjs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,7 +55,6 @@ by e.g. read_XSYG2R, read_Daybreak2R"><!-- mathjax --><script src="https://cdnjs
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,59 +76,6 @@ by e.g. <a href="read_XSYG2R.html">read_XSYG2R</a>, <a href="read_Daybreak2R.htm
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>
-  <span class="va">class</span>,
-  <span class="va">originator</span>,
-  <span class="va">.uid</span>,
-  <span class="va">.pid</span>,
-  protocol <span class="op">=</span> <span class="cn">NA_character_</span>,
-  records <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  info <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  record.id <span class="op">=</span> <span class="cn">NULL</span>,
-  recordType <span class="op">=</span> <span class="cn">NULL</span>,
-  curveType <span class="op">=</span> <span class="cn">NULL</span>,
-  RLum.type <span class="op">=</span> <span class="cn">NULL</span>,
-  protocol <span class="op">=</span> <span class="st">"UNKNOWN"</span>,
-  get.index <span class="op">=</span> <span class="cn">NULL</span>,
-  drop <span class="op">=</span> <span class="cn">TRUE</span>,
-  recursive <span class="op">=</span> <span class="cn">TRUE</span>,
-  info.object <span class="op">=</span> <span class="cn">NULL</span>,
-  subset <span class="op">=</span> <span class="cn">NULL</span>,
-  env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu"><a href="structure_RLum.html">structure_RLum</a></span><span class="op">(</span><span class="va">object</span>, fullExtent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu"><a href="length_RLum.html">length_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu"><a href="names_RLum.html">names_RLum</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span>
-
-<span class="co"># S4 method for RLum.Analysis</span>
-<span class="fu"><a href="smooth_RLum.html">smooth_RLum</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
-    </div>
-
-    <div id="arguments">
-    <h2>Arguments</h2>
-    <dl><dt>object</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <code><a href="names_RLum.html">names_RLum</a></code>, <code><a href="length_RLum.html">length_RLum</a></code>, <code><a href="structure_RLum.html">structure_RLum</a></code> (<strong>required</strong>):
-an object of class RLum.Analysis</p></dd>
-<dt>class</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
-name of the <code>RLum</code> class to be created</p></dd>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for RLum.Analysis</span></span>
 <span><span class="fu">show</span><span class="op">(</span><span class="va">object</span><span class="op">)</span></span>
 <span></span>
@@ -197,25 +131,10 @@ an object of class RLum.Analysis</p></dd>
 name of the <code>RLum</code> class to be created</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>originator</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
 contains the name of the calling function (the function that produces this object);
 can be set manually.</p></dd>
-<<<<<<< HEAD
-<dt>.uid</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>automatic</em>):
-sets an unique ID for this object using the internal C++ function <code>create_UID</code>.</p></dd>
-<dt>.pid</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-option to provide a parent id for nesting at will.</p></dd>
-<dt>protocol</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-sets protocol type for analysis object. Value may be used by subsequent analysis functions.</p></dd>
-<dt>records</dt>
-<dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<strong>required</strong>):
-list of RLum.Analysis objects</p></dd>
-=======
 
 
 <dt>.uid</dt>
@@ -238,41 +157,23 @@ sets protocol type for analysis object. Value may be used by subsequent analysis
 list of RLum.Analysis objects</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>info</dt>
 <dd><p><code><a href="set_RLum.html">set_RLum</a></code> <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 a list containing additional info data for the object</p>
 <p><strong><code>set_RLum</code></strong>:</p>
 <p>Returns an RLum.Analysis object.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>record.id</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
 IDs of specific records. If of type <code>logical</code> the entire id range is assumed
 and <code>TRUE</code> and <code>FALSE</code> indicates the selection.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>recordType</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 record type (e.g., "OSL"). Can be also a vector, for multiple matching,
 e.g., <code>recordType = c("OSL", "IRSL")</code></p></dd>
-<<<<<<< HEAD
-<dt>curveType</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-curve type (e.g. "predefined" or "measured")</p></dd>
-<dt>RLum.type</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".</p></dd>
-<dt>get.index</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>optional</em>):
-return a numeric vector with the index of each element in the RLum.Analysis object.</p></dd>
-=======
 
 
 <dt>curveType</dt>
@@ -290,27 +191,18 @@ RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".</p></d
 return a numeric vector with the index of each element in the RLum.Analysis object.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>drop</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 coerce to the next possible layer (which are <code>RLum.Data</code>-objects),
 <code>drop = FALSE</code> keeps the original <code>RLum.Analysis</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>recursive</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 if <code>TRUE</code> (the default) and the result of the <code><a href="get_RLum.html">get_RLum()</a></code> request is a single
 object this object will be unlisted, means only the object itself and no
 list containing exactly one object is returned. Mostly this makes things
 easier, however, if this method is used within a loop this might be undesired.</p></dd>
-<<<<<<< HEAD
-<dt>info.object</dt>
-<dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-name of the wanted info element</p></dd>
-=======
 
 
 <dt>info.object</dt>
@@ -318,51 +210,24 @@ name of the wanted info element</p></dd>
 name of the wanted info element</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>subset</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a> (<em>optional</em>):
 logical expression indicating elements or rows to keep: missing values are
 taken as false. This argument takes precedence over all other arguments,
 meaning they are not considered when subsetting the object.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>env</dt>
 <dd><p><code><a href="get_RLum.html">get_RLum</a></code>: <a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a> (<em>with default</em>):
 An environment passed to <a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a> as the enclosure. This argument is only
 relevant when subsetting the object and should not be used manually.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>fullExtent</dt>
 <dd><p><a href="structure_RLum.html">structure_RLum</a>; <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 extents the returned <code>data.frame</code> to its full extent, i.e. all info elements
 are part of the return as well. The default value is <code>FALSE</code> as the data
 frame might become rather big.</p></dd>
-<<<<<<< HEAD
-<dt>...</dt>
-<dd><p>further arguments passed to underlying methods</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p><strong><code>get_RLum</code></strong>:
-Returns:</p><ol><li><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <a href="RLum.Data-class.html">RLum.Data</a> objects or</p></li>
-<li><p>Single <a href="RLum.Data-class.html">RLum.Data</a> object, if only one object is contained and <code>recursive = FALSE</code> or</p></li>
-<li><p>RLum.Analysis objects for <code>drop = FALSE</code></p></li>
-</ol><p><strong><code>structure_RLum</code></strong>:
-Returns data.frame showing the structure.
-<strong><code>length_RLum</code></strong>Returns the number records in this object.
-<strong><code>names_RLum</code></strong>Returns the names of the record types (<code>recordType</code>) in this object.
-<strong><code>smooth_RLum</code></strong>Same object as input, after smoothing</p>
-    </div>
-    <div id="methods-by-generic-">
-    <h2>Methods (by generic)</h2>
-    
-=======
 
 
 <dt>...</dt>
@@ -408,20 +273,19 @@ Returns data.frame showing the structure.
     <div id="methods-by-generic-">
     <h2>Methods (by generic)</h2>
     
->>>>>>> dev_0.9.20
-<ul><li><p><code>show</code>: Show structure of <code>RLum.Analysis</code> object</p></li>
-<li><p><code>set_RLum</code>: Construction method for RLum.Analysis objects.</p></li>
-<li><p><code>get_RLum</code>: Accessor method for RLum.Analysis object.</p>
+<ul><li><p><code>show(RLum.Analysis)</code>: Show structure of <code>RLum.Analysis</code> object</p></li>
+<li><p><code>set_RLum(RLum.Analysis)</code>: Construction method for RLum.Analysis objects.</p></li>
+<li><p><code>get_RLum(RLum.Analysis)</code>: Accessor method for RLum.Analysis object.</p>
 <p>The slots record.id, <code>@recordType</code>, <code>@curveType</code> and <code>@RLum.type</code> are optional to allow for records
 limited by their id (list index number), their record type (e.g. <code>recordType = "OSL"</code>)
 or object type.</p>
 <p>Example: curve type (e.g. <code>curveType = "predefined"</code> or <code>curveType ="measured"</code>)</p>
 <p>The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum</p></li>
-<li><p><code>structure_RLum</code>: Method to show the structure of an RLum.Analysis object.</p></li>
-<li><p><code>length_RLum</code>: Returns the length of the object, i.e., number of stored records.</p></li>
-<li><p><code>names_RLum</code>: Returns the names of the <a href="RLum.Data-class.html">RLum.Data</a> objects objects (same as shown with the show method)</p></li>
-<li><p><code>smooth_RLum</code>: Smoothing of <code>RLum.Data</code> objects contained in this <code>RLum.Analysis</code> object
+<li><p><code>structure_RLum(RLum.Analysis)</code>: Method to show the structure of an RLum.Analysis object.</p></li>
+<li><p><code>length_RLum(RLum.Analysis)</code>: Returns the length of the object, i.e., number of stored records.</p></li>
+<li><p><code>names_RLum(RLum.Analysis)</code>: Returns the names of the <a href="RLum.Data-class.html">RLum.Data</a> objects objects (same as shown with the show method)</p></li>
+<li><p><code>smooth_RLum(RLum.Analysis)</code>: Smoothing of <code>RLum.Data</code> objects contained in this <code>RLum.Analysis</code> object
 <a href="https://rdrr.io/pkg/zoo/man/rollmean.html" class="external-link">zoo::rollmean</a> or <a href="https://rdrr.io/pkg/zoo/man/rollmean.html" class="external-link">zoo::rollmedian</a>. In particular the internal
 function <code>.smoothing</code> is used.</p></li>
 </ul></div>
@@ -460,31 +324,18 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Kreutzer, S., 2022. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., 2023. RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Analysis"</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">showClass</span><span class="op">(</span><span class="st">"RLum.Analysis"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class "RLum.Analysis" [package "Luminescence"]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slots:</span>
@@ -493,15 +344,9 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class:  character       list  character       list  character  character</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extends: "RLum"</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##set empty object</span></span>
-<span class="r-in"><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Analysis"</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##set empty object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="set_RLum.html">set_RLum</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"RLum.Analysis"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Analysis-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: eval()</span>
@@ -509,15 +354,6 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 number of records: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; This is an empty object, which cannot be used for further analysis! &lt;&lt;</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">###use example data</span></span>
-<span class="r-in"><span class="co">##load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.RLum.Analysis</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##show curves in object</span></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IRSAR.RF.Data</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">###use example data</span></span></span>
 <span class="r-in"><span><span class="co">##load data</span></span></span>
@@ -525,7 +361,6 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show curves in object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IRSAR.RF.Data</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
@@ -534,12 +369,8 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 1423.15 1437.8 </span>
-<<<<<<< HEAD
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
-=======
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
@@ -548,18 +379,11 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.3768403 715.4821</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of y-values: 1379.947 2103.4 </span>
-<<<<<<< HEAD
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##show only the first object, but by keeping the object</span></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IRSAR.RF.Data</span>, record.id <span class="op">=</span> <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-=======
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements: 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show only the first object, but by keeping the object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">IRSAR.RF.Data</span>, record.id <span class="op">=</span> <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Analysis-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: NA()</span>
@@ -568,11 +392,7 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 number of records: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. : RLum.Data.Curve : 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 RF</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -583,23 +403,11 @@ containing <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>.</p>
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

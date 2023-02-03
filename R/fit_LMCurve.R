@@ -1,10 +1,11 @@
-#' Nonlinear Least Squares Fit for LM-OSL curves
+#' @title Nonlinear Least Squares Fit for LM-OSL curves
 #'
-#' The function determines weighted nonlinear least-squares estimates of the
+#' @description The function determines weighted nonlinear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
 #' uses the function [nls] with the `port` algorithm.
 #'
+#' @details
 #' **Fitting function**
 #'
 #' The function for the fitting has the general
@@ -187,7 +188,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -265,20 +266,17 @@ fit_LMCurve<- function(
 
   ##(1) data.frame or RLum.Data.Curve object?
   if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-
-    stop("[fit_LMCurve()] 'values' object has to be of type
-         'data.frame' or 'RLum.Data.Curve'!")
+    stop("[fit_LMCurve()] 'values' has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
 
   }else{
 
     if(is(values, "RLum.Data.Curve") == TRUE && (
       values@recordType!="RBR" & values@recordType!="LM-OSL")){
-
       stop("[fit_LMCurve()] recordType should be 'RBR' or 'LM-OSL'!
-           Consider as(object,'data.frame') if you had used the pseudo transformation functions.")
+           Consider using as(object,'data.frame') if you had used a pseudo transformation function.",
+           call. = FALSE)
 
-    }else if(is(values, "RLum.Data.Curve") == TRUE){
-
+    }else if(is(values, "RLum.Data.Curve")){
       values <- as(values,"data.frame")
 
     }
@@ -286,20 +284,16 @@ fit_LMCurve<- function(
 
   ##(2) data.frame or RLum.Data.Curve object?
   if(missing(values.bg)==FALSE){
-
     if(is(values.bg, "data.frame") == FALSE & is(values.bg,
                                                  "RLum.Data.Curve") == FALSE){
-
-      stop("[fit_LMCurve()] 'values.bg' object has to be of type 'data.frame' or 'RLum.Data.Curve'!")
+      stop("[fit_LMCurve()] 'values.bg' object has to be of type 'data.frame' or 'RLum.Data.Curve'!",
+           call. = FALSE)
 
     }else{
-
       if(is(values, "RLum.Data.Curve") == TRUE && values@recordType!="RBR"){
+        stop("[fit_LMCurve()] recordType should be 'RBR'!", call. = FALSE)
 
-        stop("[fit_LMCurve()] recordType should be 'RBR'!")
-
-      }else if(is(values.bg, "RLum.Data.Curve") == TRUE){
-
+      }else if(is(values.bg, "RLum.Data.Curve")){
         values.bg <- as(values.bg,"data.frame")
 
       }
@@ -351,24 +345,24 @@ fit_LMCurve<- function(
 
   fun       <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
 
+  # layout safety settings
+  par.default <- par()[c("mfrow", "cex", "mar", "omi", "oma")]
+  on.exit(par(par.default))
 
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION
   ##============================================================================##
-
-  #   ##perform background subtraction if background LM measurment exists
-
   if(missing(values.bg)==FALSE){
-
     #set graphical parameters
-    par.default <- par(mfrow=c(1,1), cex=1.5*cex)
+    par(mfrow=c(1,1), cex=1.5*cex)
 
     ##check if length of bg and signal is consistent
-    if(length(values[,2])!=length(values.bg[,2])){stop("[fit_LMCurve] Length of values and values.bg differs!")}
+    if(length(values[,2])!=length(values.bg[,2]))
+      stop("[fit_LMCurve] Length of values and values.bg differs!", call. = FALSE)
 
     if(bg.subtraction=="polynomial"){
 
-      #fit polynom function to background
+      #fit polynomial function to background
       glm.fit<-glm(values.bg[,2] ~ values.bg[,1]+I(values.bg[,1]^2)+I(values.bg[,1]^3))
       glm.coef<-coef(glm.fit)
 
@@ -428,11 +422,10 @@ fit_LMCurve<- function(
         mtext(side=3,sample_code,cex=.8*cex)
       }
 
-    }else{stop("Error: Invalid method for background subtraction")}
+    } else {
+      stop("[fit_LMCurve()] Invalid method for background subtraction", call. = FALSE)
+    }
 
-    ##reset par values
-    par(par.default)
-    rm(par.default)
   }
 
 
@@ -576,8 +569,7 @@ fit_LMCurve<- function(
           ), silent = TRUE)
 
         }else{
-
-          stop("[fit_LMCurve()] unknow method for 'fit.method'")
+          stop("[fit_LMCurve()] unknow method for 'fit.method'", call. = FALSE)
 
         }
 
@@ -665,18 +657,25 @@ fit_LMCurve<- function(
 
     ##CALCULATE 1- sigma CONFIDENCE INTERVAL
     ##------------------------------------------------------------------------##
-    b.error<-rep(NA, n.components)
-    n0.error<-rep(NA, n.components)
+    b.error <- rep(NA, n.components)
+    n0.error <- rep(NA, n.components)
 
-    if(fit.calcError==TRUE){
+    if(fit.calcError){
       ##option for confidence interval
-      values.confint<-confint(fit, level=0.68)
-      Im.confint<-values.confint[1:(length(values.confint[,1])/2),]
-      xm.confint<-values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
+      values.confint <- try(confint(fit, level = 0.68), silent = TRUE)
 
-      ##error calculation
-      b.error<-as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
-      n0.error<-as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
+      if(!inherits(values.confint, "try-error")) {
+        Im.confint <- values.confint[1:(length(values.confint[, 1]) / 2), ]
+        xm.confint <- values.confint[((length(values.confint[,1])/2)+1):length(values.confint[,1]),]
+
+        ##error calculation
+        b.error < -as.vector(abs((max(values[,1])/xm.confint[,1]^2)-(max(values[,1])/xm.confint[,2]^2)))
+        n0.error <- as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
+
+      } else {
+        warning("[fit_LMCurve()] The computation of the parameter confidence intervals failed. Please try to run stats::confint() manually on the $fit output object!", call. = FALSE)
+
+      }
     }
     ##------------------------------------------------------------------------##
 
@@ -774,7 +773,6 @@ fit_LMCurve<- function(
     component.contribution.matrix.area <- sapply(
       seq(3,ncol(component.contribution.matrix),by=2),
       function(x){
-
         matrixStats::rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
                        component.contribution.matrix[,x]))
 
@@ -827,7 +825,6 @@ fit_LMCurve<- function(
 
     ##write output table if values exists
     if (exists("fit")){
-
       ##set data.frame for a max value of 7 components
       output.table <- data.frame(NA,NA,NA,NA,NA,NA,NA,NA,
                                  NA,NA,NA,NA,NA,NA,NA,NA,
@@ -884,11 +881,11 @@ fit_LMCurve<- function(
 
       ##----------------------------------------------------------------------------##
     }#endif::exists fit
-  }else{
 
+  }else{
     output.table <- NA
     component.contribution.matrix <- NA
-    writeLines("[fit_LMCurve] Fitting Error: Plot without fit produced!")
+    message("[fit_LMCurve] Fitting Error: Plot without fit produced!")
 
   }
 
@@ -912,7 +909,6 @@ fit_LMCurve<- function(
 
   # Plotting ----------------------------------------------------------------
   if(plot){
-
     ##cheat the R check routine
     x <- NULL; rm(x)
 
@@ -924,15 +920,11 @@ fit_LMCurve<- function(
       warning("[fit_LMCurve()] x-axis limitation change to avoid 0 values for log-scale!", call. = FALSE)
       xlim <- c(2^0.5/2 * max(values[,1])/length(values[,1]), xlim[2])
 
-
     }
 
-
     ##set plot frame
-    par.default <- par(no.readonly = TRUE)
-
-    layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
-    par(oma=c(1,1,1,1),mar=c(0,4,3,0), cex=cex)
+    layout(matrix(c(1,2,3),3,1, byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
+    par(oma = c(1,1,1,1), mar = c(0,4,3,0), cex=cex)
 
     ##==upper plot==##
     ##open plot area
@@ -1044,13 +1036,10 @@ fit_LMCurve<- function(
       }
       rm(stepping)
 
-      ##reset par
-      par(par.default)
-      rm(par.default)
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 
-    if(fun==TRUE){sTeve()}
+    if(fun){sTeve()}
   }
   ##-----------------------------------------------------------------------------
   ##remove objects

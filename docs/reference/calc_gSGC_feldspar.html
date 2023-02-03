@@ -17,27 +17,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
@@ -55,7 +40,7 @@
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -66,7 +51,6 @@
     <span class="fa fa-github"></span>
      
     GitHub
->>>>>>> dev_0.9.20
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
@@ -88,15 +72,6 @@
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_gSGC_feldspar</span><span class="op">(</span>
-  <span class="va">data</span>,
-  gSGC.type <span class="op">=</span> <span class="st">"50LxTx"</span>,
-  <span class="va">gSGC.parameters</span>,
-  n.MC <span class="op">=</span> <span class="fl">100</span>,
-  plot <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_gSGC_feldspar</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  gSGC.type <span class="op">=</span> <span class="st">"50LxTx"</span>,</span>
@@ -104,7 +79,6 @@
 <span>  n.MC <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -112,38 +86,20 @@
     <dl><dt>data</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>): data frame with five columns per sample
 <code>c("LnTn", "LnTn.error", "Lr1Tr1", "Lr1Tr1.error","Dr1")</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>gSGC.type</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): growth curve type to be selected
 according to Table 3 in Li et al. (2015). Allowed options are
 <code>"50LxTx"</code>, <code>"50Lx"</code>, <code>"50Tx"</code>, <code>"100LxTx"</code>, <code>"100Lx"</code>, <code>"100Tx"</code>, <code>"150LxTx"</code>,
 <code>"150Lx"</code>, <code>"150Tx"</code>, <code>"200LxTx"</code>, <code>"200Lx"</code>, <code>"200Tx"</code>, <code>"250LxTx"</code>, <code>"250Lx"</code>,
 <code>"250Tx"</code></p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>gSGC.parameters</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<em>optional</em>): an own parameter set for the
 gSGC with the following columns <code>y1</code>, <code>y1_err</code>, <code>D1</code>
 <code>D1_err</code>, <code>y2</code>, <code>y2_err</code>, <code>y0</code>, <code>y0_err</code>.</p></dd>
-<<<<<<< HEAD
-<dt>n.MC</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>): number of Monte-Carlo runs for the
-error calculation</p></dd>
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enables/disables the control plot output</p></dd>
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Returns an S4 object of type <a href="RLum.Results-class.html">RLum.Results</a>.
-<strong><code>@data</code></strong><br><code>$ df</code> (<a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>) <br><code>.. $DE</code> the calculated equivalent dose<br><code>.. $DE.ERROR</code> error on the equivalent dose, which is the standard deviation of the MC runs<br><code>.. $HPD95_LOWER</code> lower boundary of the highest probability density (95%)<br><code>.. $HPD95_UPPER</code> upper boundary of the highest probability density (95%)<br><code>$ m.MC</code> (<a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>) numeric vector with results from the MC runs.<br><strong><code>@info</code></strong><br>`$ call`` (<a href="https://rdrr.io/r/base/call.html" class="external-link">call</a>) the original function call</p>
-=======
 
 
 <dt>n.MC</dt>
@@ -188,7 +144,6 @@ error calculation</p></dd>
 
 
 <p>`$ call`` (<a href="https://rdrr.io/r/base/call.html" class="external-link">call</a>) the original function call</p>
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -200,21 +155,13 @@ error calculation</p></dd>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Gray, H.J., Kreutzer, S., 2022. calc_gSGC_feldspar(): Calculate Global Standardised Growth Curve (gSGC) for Feldspar MET-pIRIR. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Gray, H.J., Kreutzer, S., 2022. calc_gSGC_feldspar(): Calculate Global Standardised Growth Curve (gSGC) for Feldspar MET-pIRIR. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Gray, H.J., Kreutzer, S., 2023. calc_gSGC_feldspar(): Calculate Global Standardised Growth Curve (gSGC) for Feldspar MET-pIRIR. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
     <p>Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., Guo, Y.-J., 2015.
 Construction of a “global standardised growth curve” (gSGC) for infrared
-<<<<<<< HEAD
-stimulated luminescence dating of K-feldspar 27, 119–130. doi: <a href="https://doi.org/10.1016/j.quageo.2015.02.010" class="external-link">10.1016/j.quageo.2015.02.010</a></p>
-=======
 stimulated luminescence dating of K-feldspar 27, 119–130. <a href="https://doi.org/10.1016/j.quageo.2015.02.010" class="external-link">doi:10.1016/j.quageo.2015.02.010</a></p>
->>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -223,35 +170,12 @@ stimulated luminescence dating of K-feldspar 27, 119–130. <a href="https://doi
     <div id="author">
     <h2>Author</h2>
     <p>Harrison Gray, USGS (United States),
-<<<<<<< HEAD
-Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)
-=======
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
->>>>>>> dev_0.9.20
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##test on a generated random sample</span></span>
-<span class="r-in"><span class="va">n_samples</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  LnTn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n_samples</span>, mean<span class="op">=</span><span class="fl">1.0</span>, sd<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span>,</span>
-<span class="r-in">  LnTn.error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n_samples</span>, mean<span class="op">=</span><span class="fl">0.05</span>, sd<span class="op">=</span><span class="fl">0.002</span><span class="op">)</span>,</span>
-<span class="r-in">  Lr1Tr1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n_samples</span>, mean<span class="op">=</span><span class="fl">1.0</span>, sd<span class="op">=</span><span class="fl">0.02</span><span class="op">)</span>,</span>
-<span class="r-in">  Lr1Tr1.error <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">n_samples</span>, mean<span class="op">=</span><span class="fl">0.05</span>, sd<span class="op">=</span><span class="fl">0.002</span><span class="op">)</span>,</span>
-<span class="r-in">  Dr1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">100</span>,<span class="va">n_samples</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">calc_gSGC_feldspar</span><span class="op">(</span></span>
-<span class="r-in">  data <span class="op">=</span> <span class="va">data</span>, gSGC.type <span class="op">=</span> <span class="st">"50LxTx"</span>,</span>
-<span class="r-in">  plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="calc_gSGC_feldspar-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##test on a generated random sample</span></span></span>
 <span class="r-in"><span><span class="va">n_samples</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
@@ -269,7 +193,6 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="calc_gSGC_feldspar-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -280,23 +203,11 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

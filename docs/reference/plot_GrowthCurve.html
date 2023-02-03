@@ -19,42 +19,30 @@ extrapolation to calculate the equivalent dose."><!-- mathjax --><script src="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,7 +55,6 @@ extrapolation to calculate the equivalent dose."><!-- mathjax --><script src="ht
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,28 +76,6 @@ extrapolation to calculate the equivalent dose.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_GrowthCurve</span><span class="op">(</span>
-  <span class="va">sample</span>,
-  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,
-  mode <span class="op">=</span> <span class="st">"interpolation"</span>,
-  fit.method <span class="op">=</span> <span class="st">"EXP"</span>,
-  fit.force_through_origin <span class="op">=</span> <span class="cn">FALSE</span>,
-  fit.weights <span class="op">=</span> <span class="cn">TRUE</span>,
-  fit.includingRepeatedRegPoints <span class="op">=</span> <span class="cn">TRUE</span>,
-  fit.NumberRegPoints <span class="op">=</span> <span class="cn">NULL</span>,
-  fit.NumberRegPointsReal <span class="op">=</span> <span class="cn">NULL</span>,
-  fit.bounds <span class="op">=</span> <span class="cn">TRUE</span>,
-  NumberIterations.MC <span class="op">=</span> <span class="fl">100</span>,
-  output.plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  output.plotExtended <span class="op">=</span> <span class="cn">TRUE</span>,
-  output.plotExtended.single <span class="op">=</span> <span class="cn">FALSE</span>,
-  cex.global <span class="op">=</span> <span class="fl">1</span>,
-  txtProgressBar <span class="op">=</span> <span class="cn">TRUE</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
 <span>  <span class="va">sample</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -131,7 +96,6 @@ extrapolation to calculate the equivalent dose.</p>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -142,11 +106,6 @@ data frame with three columns for <code>x=Dose</code>,<code>y=LxTx</code>,<code>
 The column for the test dose response is optional, but requires <code>'TnTx'</code> as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.</p></dd>
-<<<<<<< HEAD
-<dt>na.rm</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-excludes <code>NA</code> values from the data set prior to any further operations.</p></dd>
-=======
 
 
 <dt>na.rm</dt>
@@ -154,7 +113,6 @@ excludes <code>NA</code> values from the data set prior to any further operation
 excludes <code>NA</code> values from the data set prior to any further operations.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>mode</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 selects calculation mode of the function.</p><ul><li><p><code>"interpolation"</code> (default) calculates the De by interpolation,</p></li>
@@ -162,11 +120,8 @@ selects calculation mode of the function.</p><ul><li><p><code>"interpolation"</c
 <li><p><code>"alternate"</code> calculates no De and just fits the data points.</p></li>
 </ul><p>Please note that for option <code>"regenerative"</code> the first point is considered
 as natural dose</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>fit.method</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 function used for fitting. Possible options are:</p><ul><li><p><code>LIN</code>,</p></li>
@@ -178,24 +133,13 @@ function used for fitting. Possible options are:</p><ul><li><p><code>LIN</code>,
 <li><p><code>GOK</code>,</p></li>
 <li><p><code>LambertW</code></p></li>
 </ul><p>See details.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>fit.force_through_origin</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
 allow to force the fitted function through the origin.
 For <code>method = "EXP+EXP"</code> and <code>method = "GOK"</code> the function will go through
 the origin in either case, so this option will have no effect.</p></dd>
-<<<<<<< HEAD
-<dt>fit.weights</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-option whether the fitting is done with or without weights. See details.</p></dd>
-<dt>fit.includingRepeatedRegPoints</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-includes repeated points for fitting (<code>TRUE</code>/<code>FALSE</code>).</p></dd>
-=======
 
 
 <dt>fit.weights</dt>
@@ -208,39 +152,24 @@ option whether the fitting is done with or without weights. See details.</p></dd
 includes repeated points for fitting (<code>TRUE</code>/<code>FALSE</code>).</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>fit.NumberRegPoints</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
 set number of regeneration points manually. By default the number of all (!)
 regeneration points is used automatically.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>fit.NumberRegPointsReal</dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
 if the number of regeneration points is provided manually, the value of the
 real, regeneration points = all points (repeated points) including reg 0,
 has to be inserted.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>fit.bounds</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 set lower fit bounds for all fitting parameters to 0. Limited for the use
 with the fit methods <code>EXP</code>, <code>EXP+LIN</code>, <code>EXP OR LIN</code>, <code>GOK</code>, <code>LambertW</code>
 Argument to be inserted for experimental application only!</p></dd>
-<<<<<<< HEAD
-<dt>NumberIterations.MC</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-number of Monte Carlo simulations for error estimation. See details.</p></dd>
-<dt>output.plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-plot output (<code>TRUE/FALSE</code>).</p></dd>
-=======
 
 
 <dt>NumberIterations.MC</dt>
@@ -253,7 +182,6 @@ number of Monte Carlo simulations for error estimation. See details.</p></dd>
 plot output (<code>TRUE/FALSE</code>).</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>output.plotExtended</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 If' <code>TRUE</code>, 3 plots on one plot area are provided:</p><ol><li><p>growth curve,</p></li>
@@ -261,21 +189,13 @@ If' <code>TRUE</code>, 3 plots on one plot area are provided:</p><ol><li><p>grow
 <li><p>a test dose response plot.</p></li>
 </ol><p>If <code>FALSE</code>, just the growth curve will be plotted.
 <strong>Requires:</strong> <code>output.plot = TRUE</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>output.plotExtended.single</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in
 single plot windows. Requires <code>output.plot = TRUE</code> and
 <code>output.plotExtended = TRUE</code>.</p></dd>
-<<<<<<< HEAD
-<dt>cex.global</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
-global scaling factor.</p></dd>
-=======
 
 
 <dt>cex.global</dt>
@@ -283,16 +203,10 @@ global scaling factor.</p></dd>
 global scaling factor.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>txtProgressBar</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables <code>txtProgressBar</code>. If <code>verbose = FALSE</code> also no
 <code>txtProgressBar</code> is shown.</p></dd>
-<<<<<<< HEAD
-<dt>verbose</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables terminal feedback.</p></dd>
-=======
 
 
 <dt>verbose</dt>
@@ -300,18 +214,10 @@ enables or disables terminal feedback.</p></dd>
 enables or disables terminal feedback.</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>Further arguments and graphical parameters to be passed. Note:
 Standard arguments will only be passed to the growth curve plot. Supported:
 <code>xlim</code>, <code>ylim</code>, <code>main</code>, <code>xlab</code>, <code>ylab</code></p></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Along with a plot (so far wanted) an <code>RLum.Results</code> object is returned containing,
-the slot <code>data</code> contains the following elements:</p><table class="table table"><tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>..$De</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr><tr><td><code>..$De.MC</code> :</td><td><code>numeric</code></td><td>Table with De values from MC runs</td></tr><tr><td><code>..$Fit</code> :</td><td><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a> or <a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></td><td>object from the fitting for <code>EXP</code>, <code>EXP+LIN</code> and <code>EXP+EXP</code>.
-=======
 
 </dl></div>
     <div id="value">
@@ -323,7 +229,6 @@ the slot <code>data</code> contains the following elements:</p>
 
 
 <table class="table table"><tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>..$De</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr><tr><td><code>..$De.MC</code> :</td><td><code>numeric</code></td><td>Table with De values from MC runs</td></tr><tr><td><code>..$Fit</code> :</td><td><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a> or <a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></td><td>object from the fitting for <code>EXP</code>, <code>EXP+LIN</code> and <code>EXP+EXP</code>.
->>>>>>> dev_0.9.20
 In case of a resulting  linear fit when using <code>LIN</code>, <code>QDR</code> or <code>EXP OR LIN</code></td></tr><tr><td><code>..$Formula</code> :</td><td><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></td><td>Fitting formula as R expression</td></tr><tr><td><code>..$call</code> :</td><td><code>call</code></td><td>The original function call</td></tr></table></div>
     <div id="details">
     <h2>Details</h2>
@@ -387,19 +292,11 @@ Each error estimation is done with the function of the chosen fitting method.</p
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-<<<<<<< HEAD
-    <p>1.11.4</p>
-    </div>
-    <div id="how-to-cite">
-    <h2>How to cite</h2>
-    <p>Kreutzer, S., Dietze, M., 2022. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
     <p>1.11.5</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., Dietze, M., 2022. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -408,11 +305,7 @@ Each error estimation is done with the function of the chosen fitting method.</p
 Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 from feldspar. Radiation Measurements 81, 224-231.</p>
 <p>Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
-<<<<<<< HEAD
-based on the Lambert W function. Journal of Luminescence 225, 117333. doi: <a href="https://doi.org/10.1016/j.jlumin.2020.117333" class="external-link">10.1016/j.jlumin.2020.117333</a></p>
-=======
 based on the Lambert W function. Journal of Luminescence 225, 117333. <a href="https://doi.org/10.1016/j.jlumin.2020.117333" class="external-link">doi:10.1016/j.jlumin.2020.117333</a></p>
->>>>>>> dev_0.9.20
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -421,39 +314,13 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. <a href="h
     </div>
     <div id="author">
     <h2>Author</h2>
-<<<<<<< HEAD
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom)<br>
-=======
     <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
->>>>>>> dev_0.9.20
 Michael Dietze, GFZ Potsdam (Germany)
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##(1) plot growth curve for a dummy data.set and show De value</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.LxTxData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
-<span class="r-plt img"><img src="plot_GrowthCurve-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc   De.MC Fit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1737.881 61.30294 1766.074  92.57868  NA        NA NA 1731.12 EXP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1660.673 1788.935  1610.45  1860.02</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(1b) horizontal plot arrangement</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>, output.plotExtended.single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
-<span class="r-plt img"><img src="plot_GrowthCurve-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(1c) to access the fitting value try</span></span>
-<span class="r-in"><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, data.object <span class="op">=</span> <span class="st">"Fit"</span><span class="op">)</span></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1) plot growth curve for a dummy data.set and show De value</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.LxTxData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -461,10 +328,10 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
 <span class="r-plt img"><img src="plot_GrowthCurve-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc   De.MC Fit</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1737.881 61.30294 1766.074  92.57869  NA        NA NA 1731.12 EXP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             De De.Error      D01 D01.ERROR D02 D02.ERROR Dc    De.MC Fit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1737.881 57.76516 1766.074   91.1549  NA        NA NA 1743.613 EXP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1660.673 1788.935  1610.45  1860.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lower 1682.939 1788.188 1632.208 1882.079</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1b) horizontal plot arrangement</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span>mat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -474,7 +341,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1c) to access the fitting value try</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, data.object <span class="op">=</span> <span class="st">"Fit"</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-out co"><span class="r-pr">#&gt;</span> Nonlinear regression model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   model: y ~ a * (1 - exp(-(x + c)/b))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    data: data</span>
@@ -484,34 +350,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of iterations to convergence: 4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 1.49e-08</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(2) plot the growth curve only - uncomment to use</span></span>
-<span class="r-in"><span class="co">##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span></span>
-<span class="r-in"><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
-<span class="r-plt img"><img src="plot_GrowthCurve-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##dev.off()</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(3) plot growth curve with pdf output - uncomment to use, single output</span></span>
-<span class="r-in"><span class="co">##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span></span>
-<span class="r-in"><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>, output.plotExtended.single <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
-<span class="r-plt img"><img src="plot_GrowthCurve-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">##dev.off()</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(4) plot resulting function for given intervall x</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10000</span>, by <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span class="r-in"> x <span class="op">=</span> <span class="va">x</span>,</span>
-<span class="r-in"> y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">temp</span><span class="op">$</span><span class="va">Formula</span><span class="op">)</span>,</span>
-<span class="r-in"> type <span class="op">=</span> <span class="st">"l"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(5) plot using the 'extrapolation' mode</span></span>
-<span class="r-in"><span class="va">LxTxData</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>,mode <span class="op">=</span> <span class="st">"extrapolation"</span><span class="op">)</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(2) plot the growth curve only - uncomment to use</span></span></span>
 <span class="r-in"><span><span class="co">##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")</span></span></span>
@@ -538,7 +376,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-in"><span><span class="co">##(5) plot using the 'extrapolation' mode</span></span></span>
 <span class="r-in"><span><span class="va">LxTxData</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.001</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>,mode <span class="op">=</span> <span class="st">"extrapolation"</span><span class="op">)</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="plot_GrowthCurve-5.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [plot_GrowthCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06</span>
 <span class="r-plt img"><img src="plot_GrowthCurve-6.png" alt="" width="700" height="433"></span>
@@ -551,17 +388,10 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Formula : expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(6) plot using the 'alternate' mode</span></span>
-<span class="r-in"><span class="va">LxTxData</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.001</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>,mode <span class="op">=</span> <span class="st">"alternate"</span><span class="op">)</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(6) plot using the 'alternate' mode</span></span></span>
 <span class="r-in"><span><span class="va">LxTxData</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.001</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>,mode <span class="op">=</span> <span class="st">"alternate"</span><span class="op">)</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-plt img"><img src="plot_GrowthCurve-7.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
@@ -572,24 +402,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Formula : expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(7) import and fit test data set by Berger &amp; Huntley 1989</span></span>
-<span class="r-in"><span class="va">QNL84_2_unbleached</span> <span class="op">&lt;-</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/QNL84_2_unbleached.txt"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
-<span class="r-in"> <span class="va">QNL84_2_unbleached</span>,</span>
-<span class="r-in"> mode <span class="op">=</span> <span class="st">"extrapolation"</span>,</span>
-<span class="r-in"> plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in"> verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[plot_GrowthCurve()] 'fit.weights' ignored since the error column is invalid or 0.</span>
-<span class="r-plt img"><img src="plot_GrowthCurve-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#calculate confidence interval for the parameters</span></span>
-<span class="r-in"><span class="co">#as alternative error estimation</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">Fit</span>, level <span class="op">=</span> <span class="fl">0.68</span><span class="op">)</span></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(7) import and fit test data set by Berger &amp; Huntley 1989</span></span></span>
 <span class="r-in"><span><span class="va">QNL84_2_unbleached</span> <span class="op">&lt;-</span></span></span>
@@ -606,46 +418,11 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-in"><span><span class="co">#calculate confidence interval for the parameters</span></span></span>
 <span class="r-in"><span><span class="co">#as alternative error estimation</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">Fit</span>, level <span class="op">=</span> <span class="fl">0.68</span><span class="op">)</span></span></span>
->>>>>>> dev_0.9.20
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           16%         84%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 140543.3024 146731.8471</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b    374.0861    425.5679</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c    116.3499    133.3474</span>
-<<<<<<< HEAD
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">QNL84_2_bleached</span> <span class="op">&lt;-</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/QNL84_2_bleached.txt"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">STRB87_1_unbleached</span> <span class="op">&lt;-</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/STRB87_1_unbleached.txt"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">STRB87_1_bleached</span> <span class="op">&lt;-</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/STRB87_1_bleached.txt"</span>, package <span class="op">=</span> <span class="st">"Luminescence"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span></span>
-<span class="r-in"> <span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
-<span class="r-in"> <span class="va">QNL84_2_bleached</span>,</span>
-<span class="r-in"> mode <span class="op">=</span> <span class="st">"alternate"</span>,</span>
-<span class="r-in"> plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in"> verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">Fit</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span></span>
-<span class="r-in"> <span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
-<span class="r-in"> <span class="va">STRB87_1_unbleached</span>,</span>
-<span class="r-in"> mode <span class="op">=</span> <span class="st">"alternate"</span>,</span>
-<span class="r-in"> plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in"> verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">Fit</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span></span>
-<span class="r-in"> <span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
-<span class="r-in"> <span class="va">STRB87_1_bleached</span>,</span>
-<span class="r-in"> mode <span class="op">=</span> <span class="st">"alternate"</span>,</span>
-<span class="r-in"> plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in"> verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">Fit</span><span class="op">)</span></span>
-<span class="r-in"> <span class="op">}</span></span>
-<span class="r-in"></span>
-=======
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -678,7 +455,6 @@ Michael Dietze, GFZ Potsdam (Germany)
 <span class="r-in"><span> verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">Fit</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -689,23 +465,11 @@ Michael Dietze, GFZ Potsdam (Germany)
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

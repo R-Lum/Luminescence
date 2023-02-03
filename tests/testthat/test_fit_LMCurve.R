@@ -7,6 +7,25 @@ fit <- fit_LMCurve(values = values.curve,
             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)),
             plot = FALSE)
 
+
+test_that("crashs and warnings function", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  ## wrong input type
+  expect_error(object = fit_LMCurve(values = "error"),
+               regexp = "\\[fit\\_LMCurve\\(\\)\\] 'values' has to be of type 'data.frame' or 'RLum.Data.Curve'!")
+
+  ## not RBR
+  expect_error(fit_LMCurve(values = set_RLum("RLum.Data.Curve", recordType = "OSL")),
+               regexp = "\\[fit\\_LMCurve\\(\\)\\] recordType should be .+")
+
+  ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
+  if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
+    expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE))
+
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)

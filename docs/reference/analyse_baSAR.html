@@ -22,42 +22,30 @@ published code."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.19</span>
-=======
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.20</span>
->>>>>>> dev_0.9.20
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-<<<<<<< HEAD
-  <a href="../reference/index.html">Reference</a>
-=======
   <a href="../index.html">
     <span class="fa fa-home"></span>
      
     Home
   </a>
->>>>>>> dev_0.9.20
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/R-Lum/Luminescence/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play"></span>
      
+    Articles
   </a>
 </li>
-<<<<<<< HEAD
-=======
 <li>
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -70,7 +58,6 @@ published code."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/
     GitHub
   </a>
 </li>
->>>>>>> dev_0.9.20
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -95,35 +82,6 @@ published code.</p>
     </div>
 
     <div id="ref-usage">
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">analyse_baSAR</span><span class="op">(</span>
-  <span class="va">object</span>,
-  XLS_file <span class="op">=</span> <span class="cn">NULL</span>,
-  aliquot_range <span class="op">=</span> <span class="cn">NULL</span>,
-  source_doserate <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">signal.integral</span>,
-  signal.integral.Tx <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">background.integral</span>,
-  background.integral.Tx <span class="op">=</span> <span class="cn">NULL</span>,
-  irradiation_times <span class="op">=</span> <span class="cn">NULL</span>,
-  sigmab <span class="op">=</span> <span class="fl">0</span>,
-  sig0 <span class="op">=</span> <span class="fl">0.025</span>,
-  distribution <span class="op">=</span> <span class="st">"cauchy"</span>,
-  baSAR_model <span class="op">=</span> <span class="cn">NULL</span>,
-  n.MCMC <span class="op">=</span> <span class="fl">1e+05</span>,
-  fit.method <span class="op">=</span> <span class="st">"EXP"</span>,
-  fit.force_through_origin <span class="op">=</span> <span class="cn">TRUE</span>,
-  fit.includingRepeatedRegPoints <span class="op">=</span> <span class="cn">TRUE</span>,
-  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">3L</span>,
-  distribution_plot <span class="op">=</span> <span class="st">"kde"</span>,
-  plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot_reduced <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot.single <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_baSAR</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  XLS_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -151,7 +109,6 @@ published code.</p>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
->>>>>>> dev_0.9.20
     </div>
 
     <div id="arguments">
@@ -164,137 +121,96 @@ assumes a file connection and tries to import a BIN/BINX-file using the provided
 provided the list can only contain either <code>Risoe.BINfileData</code> objects or <code>character</code>s
 providing a file connection. Mixing of both types is not allowed. If an <a href="RLum.Results-class.html">RLum.Results</a>
 is provided the function directly starts with the Bayesian Analysis (see details)</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>XLS_file</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 XLS_file with data for the analysis. This file must contain 3 columns:
 the name of the file, the disc position and the grain position
 (the last being 0 for multi-grain measurements).<br>
 Alternatively a <code>data.frame</code> of similar structure can be provided.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>aliquot_range</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
 allows to limit the range of the aliquots used for the analysis.
 This argument has only an effect if the argument <code>XLS_file</code> is used or
 the input is the previous output (i.e. is <a href="RLum.Results-class.html">RLum.Results</a>). In this case the
 new selection will add the aliquots to the removed aliquots table.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>source_doserate</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> <strong>(required)</strong>:
 source dose rate of beta-source used for the measurement and its uncertainty
 in Gy/s, e.g., <code>source_doserate = c(0.12, 0.04)</code>. Parameter can be provided
 as <code>list</code>, for the case that more than one BIN-file is provided, e.g.,
 <code>source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>signal.integral</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
 vector with the limits for the signal integral used for the calculation,
 e.g., <code>signal.integral = c(1:5)</code>. Ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>signal.integral.Tx</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 vector with the limits for the signal integral for the Tx curve. I
 f nothing is provided the value from <code>signal.integral</code> is used and it is ignored
 if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>background.integral</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
 vector with the bounds for the background integral.
 Ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>background.integral.Tx</dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 vector with the limits for the background integral for the Tx curve.
 If nothing is provided the value from <code>background.integral</code> is used.
 Ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>irradiation_times</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): if set this vector replaces all irradiation
 times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
 Please note that if this argument is used, for every(!) single curve
 in the dataset an irradiation time needs to be set.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>sigmab</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 option to set a manual value for the overdispersion (for <code>LnTx</code> and <code>TnTx</code>),
 used for the <code>Lx</code>/<code>Tx</code> error calculation. The value should be provided as
 absolute squared count values, cf. <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>.
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>sig0</dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 allow adding an extra component of error to the final Lx/Tx error value
 (e.g., instrumental error, see details is <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>).
 The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>distribution</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 type of distribution that is used during Bayesian calculations for
 determining the Central dose and overdispersion values.
 Allowed inputs are <code>"cauchy"</code>, <code>"normal"</code> and <code>"log_normal"</code>.</p></dd>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
 <dt>baSAR_model</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 option to provide an own modified or new model for the Bayesian calculation
 (see details). If an own model is provided the argument <code>distribution</code> is
 ignored and set to <code>'user_defined'</code></p></dd>
-<<<<<<< HEAD
-<dt>n.MCMC</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-number of iterations for the Markov chain Monte Carlo (MCMC) simulations</p></dd>
-=======
 
 
 <dt>n.MCMC</dt>
@@ -302,19 +218,10 @@ number of iterations for the Markov chain Monte Carlo (MCMC) simulations</p></dd
 number of iterations for the Markov chain Monte Carlo (MCMC) simulations</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>fit.method</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 equation used for the fitting of the dose-response curve using the function
 <a href="plot_GrowthCurve.html">plot_GrowthCurve</a> and then for the Bayesian modelling. Here supported methods: <code>EXP</code>, <code>EXP+LIN</code> and <code>LIN</code></p></dd>
-<<<<<<< HEAD
-<dt>fit.force_through_origin</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-force fitting through origin</p></dd>
-<dt>fit.includingRepeatedRegPoints</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-includes the recycling point (assumed to be measured during the last cycle)</p></dd>
-=======
 
 
 <dt>fit.force_through_origin</dt>
@@ -327,17 +234,11 @@ force fitting through origin</p></dd>
 includes the recycling point (assumed to be measured during the last cycle)</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>method_control</dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
 named list of control parameters that can be directly
 passed to the Bayesian analysis, e.g., <code>method_control = list(n.chains = 4)</code>.
 See details for further information</p></dd>
-<<<<<<< HEAD
-<dt>digits</dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
-round output to the number of given digits</p></dd>
-=======
 
 
 <dt>digits</dt>
@@ -345,25 +246,10 @@ round output to the number of given digits</p></dd>
 round output to the number of given digits</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>distribution_plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): sets the final distribution plot that
 shows equivalent doses obtained using the frequentist approach and sets in the central dose
 as comparison obtained using baSAR. Allowed input is <code>'abanico'</code> or <code>'kde'</code>. If set to <code>NULL</code> nothing is plotted.</p></dd>
-<<<<<<< HEAD
-<dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables plot output</p></dd>
-<dt>plot_reduced</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables the advanced plot output</p></dd>
-<dt>plot.single</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables single plots or plots arranged by <code>analyse_baSAR</code></p></dd>
-<dt>verbose</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enables or disables verbose mode</p></dd>
-=======
 
 
 <dt>plot</dt>
@@ -386,20 +272,10 @@ enables or disables single plots or plots arranged by <code>analyse_baSAR</code>
 enables or disables verbose mode</p></dd>
 
 
->>>>>>> dev_0.9.20
 <dt>...</dt>
 <dd><p>parameters that can be passed to the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>
 (almost full support), <a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">readxl::read_excel</a> (full support), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
 <code>position</code>, <code>duplicated.rm</code>), see details.</p></dd>
-<<<<<<< HEAD
-</dl></div>
-    <div id="value">
-    <h2>Value</h2>
-    <p>Function returns results numerically and graphically:
------------------------------------<br><code>[ NUMERICAL OUTPUT ]</code><br>-----------------------------------<br><strong><code>RLum.Results</code></strong>-object
-<strong>slot:</strong><strong><code>@data</code></strong></p><table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$summary</code></td><td><code>data.frame</code></td><td>statistical summary, including the central dose</td></tr><tr><td><code>$mcmc</code></td><td><code>mcmc</code></td><td><a href="https://rdrr.io/pkg/coda/man/mcmc.list.html" class="external-link">coda::mcmc.list</a> object including raw output</td></tr><tr><td><code>$models</code></td><td><code>character</code></td><td>implemented models used in the baSAR-model core</td></tr><tr><td><code>$input_object</code></td><td><code>data.frame</code></td><td>summarising table (same format as the XLS-file) including, e.g., Lx/Tx values</td></tr><tr><td><code>$removed_aliquots</code></td><td><code>data.frame</code></td><td>table with removed aliquots (e.g., <code>NaN</code>, or <code>Inf</code> <code>Lx</code>/<code>Tx</code> values). If nothing was removed <code>NULL</code> is returned</td></tr></table><p><strong>slot:</strong><strong><code>@info</code></strong>The original function call
-------------------------<br><code>[ PLOT OUTPUT ]</code><br>------------------------<br></p><ul><li><p>(A) Ln/Tn curves with set integration limits,</p></li>
-=======
 
 </dl></div>
     <div id="value">
@@ -447,7 +323,6 @@ enables or disables verbose mode</p></dd>
 
 
 <ul><li><p>(A) Ln/Tn curves with set integration limits,</p></li>
->>>>>>> dev_0.9.20
 <li><p>(B) trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
 and the resulting kernel density plots. If <code>plot_reduced = FALSE</code> for every(!) dose a trace and
 a density plot is returned (this may take a long time),</p></li>
@@ -460,11 +335,8 @@ is limited to 1000 (random choice) for performance reasons,</p></li>
 and the central dose with the HPDs marked within. This figure is only provided for a comparison,
 no further statistical conclusion should be drawn from it.</p></li>
 </ul><p><strong>Please note: If distribution was set to <code>log_normal</code> the central dose is given as geometric mean!</strong></p>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev_0.9.20
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -528,15 +400,6 @@ will break.</p>
 <p><strong>FAQ</strong></p>
 <p>Q: How can I set the seed for the random number generator (RNG)?</p>
 <p>A: Use the argument <code>method_control</code>, e.g., for three MCMC chains
-<<<<<<< HEAD
-(as it is the default):</p><div class="sourceCode"><pre><code><span class="va">method_control</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-inits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
- <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>.RNG.name <span class="op">=</span> <span class="st">"base::Wichmann-Hill"</span>, .RNG.seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
- <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>.RNG.name <span class="op">=</span> <span class="st">"base::Wichmann-Hill"</span>, .RNG.seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
- <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>.RNG.name <span class="op">=</span> <span class="st">"base::Wichmann-Hill"</span>, .RNG.seed <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="op">)</span><span class="op">)</span></code></pre></div>
-
-=======
 (as it is the default):</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>method_control <span class="ot">=</span> <span class="fu">list</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">inits =</span> <span class="fu">list</span>(</span>
@@ -544,7 +407,6 @@ inits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">list</span>(<span class="at">.RNG.name =</span> <span class="st">"base::Wichmann-Hill"</span>, <span class="at">.RNG.seed =</span> <span class="dv">2</span>),</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">list</span>(<span class="at">.RNG.name =</span> <span class="st">"base::Wichmann-Hill"</span>, <span class="at">.RNG.seed =</span> <span class="dv">3</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>))</span></code></pre><p></p></div>
->>>>>>> dev_0.9.20
 <p>This sets a reproducible set for every chain separately.<br></p>
 <p>Q: How can I modify the output plots?</p>
 <p>A: You can't, but you can use the function output to create own, modified plots.</p>
@@ -572,11 +434,7 @@ a <code>list</code> with the same number of elements for the following parameter
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-<<<<<<< HEAD
-    <p>Mercier, N., Kreutzer, S., 2022. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.19. https://CRAN.R-project.org/package=Luminescence</p>
-=======
-    <p>Mercier, N., Kreutzer, S., 2022. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2022. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.20. https://CRAN.R-project.org/package=Luminescence</p>
->>>>>>> dev_0.9.20
+    <p>Mercier, N., Kreutzer, S., 2023. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -602,63 +460,13 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
     <div id="author">
     <h2>Author</h2>
     <p>Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) <br>
-<<<<<<< HEAD
-Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University (United Kingdom) <br>
-=======
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
->>>>>>> dev_0.9.20
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-<<<<<<< HEAD
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">##(1) load package test data set</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##(2) selecting relevant curves, and limit dataset</span></span>
-<span class="r-in"><span class="va">CWOSL.SAR.Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">CWOSL.SAR.Data</span>,</span>
-<span class="r-in">  subset <span class="op">=</span> <span class="va">POSITION</span><span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">LTYPE</span> <span class="op">==</span> <span class="st">"OSL"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">##(3) run analysis</span></span>
-<span class="r-in"><span class="co">##please not that the here selected parameters are</span></span>
-<span class="r-in"><span class="co">##choosen for performance, not for reliability</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_baSAR</span><span class="op">(</span></span>
-<span class="r-in">  object <span class="op">=</span> <span class="va">CWOSL.SAR.Data</span>,</span>
-<span class="r-in">  source_doserate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.04</span>, <span class="fl">0.001</span><span class="op">)</span>,</span>
-<span class="r-in">  signal.integral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">  background.integral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>,</span>
-<span class="r-in">  fit.method <span class="op">=</span> <span class="st">"LIN"</span>,</span>
-<span class="r-in">  plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">  n.MCMC <span class="op">=</span> <span class="fl">200</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##XLS_file template</span></span>
-<span class="r-in"><span class="co">##copy and paste this the code below in the terminal</span></span>
-<span class="r-in"><span class="co">##you can further use the function write.csv() to export the example</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">XLS_file</span> <span class="op">&lt;-</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in"> BIN_FILE <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
-<span class="r-in"> DISC <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
-<span class="r-in"> GRAIN <span class="op">=</span> <span class="cn">NA_real_</span><span class="op">)</span>,</span>
-<span class="r-in">   .Names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BIN_FILE"</span>, <span class="st">"DISC"</span>, <span class="st">"GRAIN"</span><span class="op">)</span>,</span>
-<span class="r-in">   class <span class="op">=</span> <span class="st">"data.frame"</span>,</span>
-<span class="r-in">   row.names <span class="op">=</span> <span class="fl">1L</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-=======
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1) load package test data set</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -703,7 +511,6 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
->>>>>>> dev_0.9.20
 </code></pre></div>
     </div>
   </div>
@@ -714,23 +521,11 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 
 
       <footer><div class="copyright">
-<<<<<<< HEAD
-  <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze,
-Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes
-Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin
-Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
-</div>
-
-<div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
-=======
   <p></p><p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
->>>>>>> dev_0.9.20
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
