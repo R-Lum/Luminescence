@@ -29,4 +29,5 @@ test_that("test errors and general export function", {
     write_RLum2CSV(object = results, path = tempdir(), compact = TRUE),
     regexp = "elements could not be converted to a CSV-structure!")
 
+
 })
