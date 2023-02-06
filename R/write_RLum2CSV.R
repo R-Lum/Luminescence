@@ -223,7 +223,7 @@ write_RLum2CSV <- function(
 
     if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  filename <- ""
 
-    names(object_list) <- paste0("conv_", filename, "_single_table")
+    names(object_list) <- paste0("conv_", filename)
 
 
   }else{
