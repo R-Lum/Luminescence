@@ -148,7 +148,6 @@ convert_PSL2CSV <- function(
 
     }
 
-
     ## overwrite object
     object <- as.data.frame(m)
 
@@ -161,11 +160,19 @@ convert_PSL2CSV <- function(
 
   # Export to CSV -------------------------------------------------------------------------------
   ##get all arguments we want to pass and remove the doubled one
-  arguments <- c(list(object = object, export = convert_PSL2R_settings$export), list(...))
+  arguments <- c(
+    list(
+      object = object,
+      col.names = if(single_table[1] || extract_raw_data[1]) TRUE else FALSE,
+      export = convert_PSL2R_settings$export),
+    list(...))
   arguments[duplicated(names(arguments))] <- NULL
 
+  ## now modify list again to ensure that the user input is always respected
+  arguments <- modifyList(arguments, val = list(...), keep.null = TRUE)
+
   ##this if-condition prevents NULL in the terminal
-  if(convert_PSL2R_settings$export == TRUE){
+  if(convert_PSL2R_settings$export){
     invisible(do.call("write_RLum2CSV", arguments))
 
   }else{

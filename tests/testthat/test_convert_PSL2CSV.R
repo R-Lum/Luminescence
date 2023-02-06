@@ -31,8 +31,18 @@ test_that("General test", {
   expect_equal(nrow(t[[1]]), 100)
 
   ## test with files export
-  path <- tempdir()
-  expect_silent(convert_PSL2CSV(file, path = path, export = TRUE, extract_raw_data = TRUE, single_table = TRUE))
+  tmp_path <- tempdir()
+  expect_silent(convert_PSL2CSV(file, path = tmp_path, extract_raw_data = TRUE, single_table = TRUE, col.names = TRUE))
+
+  ## test with col.names
+  df <- read.table(file = list.files(path = tmp_path, pattern = "table.csv", full.names = TRUE), sep = ";", header = TRUE)
+  expect_type(colnames(df), "character")
+  expect_true(grepl(pattern = "USER", colnames(df)[1]))
+
+  ## test without colnames
+  expect_silent(convert_PSL2CSV(file, path = tmp_path, extract_raw_data = TRUE, single_table = TRUE, col.names = FALSE))
+  df <- read.table(file = list.files(path = tmp_path, pattern = "table.csv", full.names = TRUE), sep = ";", header = TRUE)
+  expect_false(grepl(pattern = "USER", colnames(df)[1]))
 
 })
 
