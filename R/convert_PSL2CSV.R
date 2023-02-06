@@ -61,7 +61,6 @@ convert_PSL2CSV <- function(
 ){
 
   # General tests -------------------------------------------------------------------------------
-
   ##file is missing?
   if(missing(file)){
     stop("[convert_PSL2CSV()] 'file' is missing!", call. = FALSE)
@@ -95,7 +94,7 @@ convert_PSL2CSV <- function(
 
   }
 
-  ## try to extract filename from object ... this will be needed later
+  ## try to extract file name from object ... this will be needed later
   filename <- try({
     rev(strsplit(object@info$Datafile_Path, "\\", fixed = TRUE)[[1]])[1]
   }, silent = TRUE)
@@ -104,6 +103,7 @@ convert_PSL2CSV <- function(
   ## extract raw data instead of conventional data
   if(extract_raw_data) {
     psl_raw <- lapply(object@records, function(x) x@info$raw_data)
+
     names(psl_raw) <- names(object)
     object <- psl_raw
 
@@ -151,12 +151,11 @@ convert_PSL2CSV <- function(
     ## overwrite object
     object <- as.data.frame(m)
 
-    ## if possible, provide the filename as attribute
+    ## if possible, provide the file name as attribute
     if(!inherits(filename, "try-error"))
       attr(object, "filename") <- gsub(".", "_", filename, fixed = TRUE)
 
   }
-
 
   # Export to CSV -------------------------------------------------------------------------------
   ##get all arguments we want to pass and remove the doubled one

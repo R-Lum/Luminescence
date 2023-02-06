@@ -85,13 +85,11 @@ write_RLum2CSV <- function(
   ...
 
 ){
-
   # General tests -------------------------------------------------------------------------------
   if(missing(object)){
     stop("[write_RLum2CSV()] input object is missing!", call. = FALSE)
 
   }
-
 
   # Self-call -----------------------------------------------------------------------------------
   ##this option allows to work on a list of RLum-objects
@@ -105,6 +103,10 @@ write_RLum2CSV <- function(
 
       ##export
       export <- rep(list(export), length = length(object))
+
+      ## write list name to object
+      for (i in 1:length(object))
+        attr(object[[i]], "list_name") <- names(object)[i]
 
     ##execute the self-call function
       temp <- lapply(1:length(object), function(x){
@@ -130,9 +132,7 @@ write_RLum2CSV <- function(
   }
 
   # Integrity tests -----------------------------------------------------------------------------
-
   ##check path
-
     ##if NULL condition
     if(export == TRUE && is.null(path)){
       path <- getwd()
@@ -172,7 +172,6 @@ write_RLum2CSV <- function(
       }
 
     } else if (is(object, "RLum.Results")){
-
       ##unlist what ever comes, but do not break structures like matrices, numerics and
       names <- names(object@data)
 
@@ -220,11 +219,9 @@ write_RLum2CSV <- function(
 
   } else if (inherits(object, "data.frame")) {
     object_list <- list(object)
-
     if(!is.null(attr(object, "filename"))) filename <- attr(object, "filename") else  filename <- ""
 
-    names(object_list) <- paste0("conv_", filename)
-
+    names(object_list) <- paste0("conv_", attr(object, "list_name"), filename)
 
   }else{
    stop("[write_RLum2CSV()] Object needs to be a member of the object class RLum!", call. = FALSE)
@@ -233,7 +230,6 @@ write_RLum2CSV <- function(
 
   # Export --------------------------------------------------------------------------------------
   if(export){
-
     ##set export settings for write.table
     export_settings.default <- list(
       append = FALSE,
@@ -269,7 +265,6 @@ write_RLum2CSV <- function(
         fileEncoding =  export_settings$fileEncoding)
 
     }
-
 
   }else{
     return(object_list)
