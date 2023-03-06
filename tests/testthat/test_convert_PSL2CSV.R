@@ -35,13 +35,13 @@ test_that("General test", {
   expect_silent(convert_PSL2CSV(file, path = tmp_path, extract_raw_data = TRUE, single_table = TRUE, col.names = TRUE))
 
   ## test with col.names
-  df <- read.table(file = list.files(path = tmp_path, pattern = "table.csv", full.names = TRUE), sep = ";", header = TRUE)
+  df <- read.table(file = rev(list.files(path = tmp_path, pattern = ".csv", full.names = TRUE))[1], sep = ";", header = TRUE)
   expect_type(colnames(df), "character")
   expect_true(grepl(pattern = "USER", colnames(df)[1]))
 
   ## test without column names
   expect_silent(convert_PSL2CSV(file, path = tmp_path, extract_raw_data = TRUE, single_table = TRUE, col.names = FALSE))
-  df <- read.table(file = list.files(path = tmp_path, pattern = "table.csv", full.names = TRUE), sep = ";", header = TRUE)
+  df <- read.table(file = list.files(path = tmp_path, pattern = ".csv", full.names = TRUE)[1], sep = ";", header = TRUE)
   expect_false(grepl(pattern = "USER", colnames(df)[1]))
 
 })
