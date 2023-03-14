@@ -10,7 +10,7 @@
 #' one run. With this, its functionality is strictly limited by the
 #' functionality of the function [analyse_SAR.CWOSL].
 #'
-#' **Defining the sequence structure **
+#' **Defining the sequence structure**
 #'
 #' The argument `sequence.structure` expects a shortened pattern of your sequence structure and was
 #' mainly introduced to ease the use of the function. For example: If your measurement data contains
