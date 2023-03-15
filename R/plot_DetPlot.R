@@ -1,9 +1,11 @@
-#' Create De(t) plot
+#' @title Create De(t) plot
 #'
-#' Plots the equivalent dose (De) in dependency of the chosen signal integral
+#' @description Plots the equivalent dose (De) in dependency of the chosen signal integral
 #' (cf. Bailey et al., 2003). The function is simply passing several arguments
 #' to the function [plot] and the used analysis functions and runs it in a loop.
 #' Example: `legend.pos` for legend position, `legend` for legend text.
+#'
+#' @details
 #'
 #' **method**
 #'
@@ -97,9 +99,9 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
-#' @author Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
 #'
 #' @references
 #' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
@@ -119,13 +121,13 @@
 #' ##transform the values from the first position in a RLum.Analysis object
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
-#' plot_DetPlot(object,
-#'              signal.integral.min = 1,
-#'              signal.integral.max = 3,
-#'              background.integral.min = 900,
-#'              background.integral.max = 1000,
-#'              n.channels = 5,
-#' )
+#' plot_DetPlot(
+#'   object,
+#'   signal.integral.min = 1,
+#'   signal.integral.max = 3,
+#'   background.integral.min = 900,
+#'   background.integral.max = 1000,
+#'   n.channels = 5)
 #' }
 #'
 #' @md
@@ -149,9 +151,12 @@ plot_DetPlot <- function(
 
 
 # Integrity Tests -----------------------------------------------------------------------------
+  ##check input
+  if(!inherits(object, "RLum.Analysis"))
+    stop("[plot_DetPlot()] input must be an RLum.Analysis object!", call. = FALSE)
+
   ##get structure
   object.structure <- structure_RLum(object)
-
 
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels
