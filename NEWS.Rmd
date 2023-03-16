@@ -19,6 +19,9 @@ header-includes:
 * The functions does not crash anymore in cases only one object is handed over to `merge_RLum()` (which 
 does not make sense anyway, but users tend to odd stuff)
 
+### `merge_RisoeBINfileData()` 
+* Does not anymore throw an error if the number of input objects was smaller than two. It just passes the input through unchanged.
+
 ### `plot_DetPlot()` 
 * The function now returns a clear error message if the input object is not of type `RLum.Analysis`
 
