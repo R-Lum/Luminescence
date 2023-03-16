@@ -69,7 +69,7 @@ merge_RLum<- function(
     objects <- objects[!sapply(objects, is.null)]
 
   ##if list is empty afterwards we do nothing
-   if(length(objects) >= 2) {
+   if(length(objects) >= 1) {
       ##check if objects are of class RLum
       temp.class.test <- unique(sapply(1:length(objects), function(x) {
         if (!is(objects[[x]], "RLum")) {

@@ -19,10 +19,9 @@ test_that("Merge tests", {
   expect_error(merge_RLum(list(o1,o2, "test")),
                regexp = "\\[merge\\_RLum\\(\\)\\]: At least element \\#3 is not of class 'RLum' or a derivative class\\!")
 
-  ## single object produces warning
-  expect_warning(
-    merge_RLum(list(o1)),
-    regexp = "\\[merge\\_RLum\\(\\)\\] Nothing was merged as the .+")
+  ## single object
+  expect_s4_class(
+    merge_RLum(list(o1)), "RLum.Analysis")
 
   ## zero objects produces warnings
   expect_warning(
