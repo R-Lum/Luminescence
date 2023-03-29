@@ -112,6 +112,7 @@
 #' .. $ TnTx.BG
 #' .. $ Net_LnLx
 #' .. $ Net_LnLx.Error
+#' .. $ Net_TnTx
 #' .. $ Net_TnTx.Error
 #' .. $ LxTx
 #' .. $ LxTx.Error
