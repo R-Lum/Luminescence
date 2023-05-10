@@ -49,11 +49,11 @@ argument to provide an own signal integral sequence for constructing the De(t) p
 
 \item{analyse_function}{\link{character} (\emph{with default}):
 name of the analyse function to be called. Supported functions are:
-\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
+\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}}
 
 \item{analyse_function.control}{\link{list} (\emph{optional}):
 selected arguments to be passed to the supported analyse functions
-(\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
+(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence})}
 
 \item{n.channels}{\link{integer} (\emph{optional}):
 number of channels used for the De(t) plot. If nothing is provided all
@@ -123,7 +123,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.4
+ 0.1.5
 }
 
 \examples{
@@ -149,7 +149,7 @@ plot_DetPlot(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. plot_DetPlot(): Create De(t) plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22.9000-6. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. plot_DetPlot(): Create De(t) plot. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22.9000-16. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

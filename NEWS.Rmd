@@ -20,6 +20,8 @@ header-includes:
 
 ### `plot_DetPlot()` 
 * The function now returns a clear error message if the input object is not of type `RLum.Analysis`
+* Edge case: the function does not crash anymore if used in a loop and if all equivalent doses were `NA`; 
+it sill throws warnings though. (thanks to Annette Kadereit for reporting)
 
 ### `write_RLum2CSV()`
 * The behaviour of the parameter `prefix` caused confusion, because in combination with multiple files the function 
