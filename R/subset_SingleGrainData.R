@@ -54,7 +54,7 @@ subset_SingleGrainData <- function (
 
   ## pick data
   object@METADATA <- object@METADATA[sel_id,]
-  object@DATA[sel_id] <- NULL
+  object@DATA <- object@DATA[sel_id]
   object@METADATA[["ID"]] <- 1:nrow(object@METADATA)
 
 # Return ------------------------------------------------------------------
