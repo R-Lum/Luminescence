@@ -10,15 +10,17 @@ header-includes:
 
 **This package version requires R >= 4.1**
 
+## New functions
+* `subset_SingleGrainData()`: the function provides a convenient subsetting of `Risoe.BINFileData-class` objects 
+using a table of position and grain pairs 
+
 ## Bugfixes and changes
 
 ### `convert_PSL2CSV()` 
 * The function still contained a bug if the parameters were combined in a certain way; fixed.
 
-
 ### `extract_IrradiationTimes()`
-* Now silently handles `RLum.Analysis-class` objects imported via `read_BIN2R(..., fastFoward = TRUE)`, this allows
-to use the function in a more general manner.
+* Now silently handles `RLum.Analysis-class` objects imported via `read_BIN2R(..., fastFoward = TRUE)`, this allows to use the function in a more general manner.
 
 ### `merge_RisoeBINfileData()` 
 * Does not anymore throw an error if the number of input objects was smaller than two. It just passes the input through unchanged.
