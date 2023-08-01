@@ -51,6 +51,11 @@
 #' @param txtProgressBar [logical] (*with default*):
 #' enables `TRUE` or disables `FALSE` the progression bars during import and export
 #'
+#' @note The function can be also used to extract irradiation times from [RLum.Analysis-class] objects
+#' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with [Risoe.BINfileData2RLum.Analysis].
+#' Unfortunately the timestamp might not be very precise (or even invalid),
+#' but it allows to essentially treat different formats in a similar manner.
+#'
 #' @return
 #' An [RLum.Results-class] object is returned with the
 #' following structure:
@@ -95,7 +100,7 @@
 #' ([read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -265,18 +270,37 @@ extract_IrradiationTimes <- function(
   STEP <- names_RLum(temp.sequence)
 
   #START time of each step
-  temp.START <- vapply(temp.sequence, function(x){
-    get_RLum(x, info.object = c("startDate"))
+  ## we try also to support BIN/BINX files with this function if imported
+  ## accordingly
+  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+    temp.START <- vapply(temp.sequence, function(x) {
+       paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
 
-  }, character(1))
+    }, character(1))
+
+    ##a little bit reformatting.
+    START <- strptime(temp.START, format = "%y%m%d%H%M%S", tz = "GMT")
+
+      ## make another try in case it does not make sense
+      if(any(is.na(START)))
+        START <- strptime(temp.START, format = "%y%m%d%H:%M:%S", tz = "GMT")
+
+  } else {
+    temp.START <- vapply(temp.sequence, function(x) {
+      get_RLum(x, info.object = c("startDate"))
+
+    }, character(1))
+
+    ##a little bit reformatting.
+    START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
+
+  }
 
   ##DURATION of each STEP
   DURATION.STEP <- vapply(temp.sequence, function(x){
     max(get_RLum(x)[,1])
   }, numeric(1))
 
-  ##a little bit reformatting.
-  START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
 
   ##Calculate END time of each STEP
   END <- START + DURATION.STEP
@@ -286,13 +310,18 @@ extract_IrradiationTimes <- function(
     POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
   }else if(!inherits(try(
-    get_RLum(
-      get_RLum(temp.sequence, record.id = 1), info.object = "position"),
+    suppressWarnings(get_RLum(
+      get_RLum(temp.sequence, record.id = 1), info.object = "position")),
     silent = TRUE), "try-error")){
 
     ##POSITION of each STEP
     POSITION <- vapply(temp.sequence, function(x){
-      get_RLum(x, info.object = c("position"))
+      tmp <- suppressWarnings(get_RLum(x, info.object = c("position")))
+
+      if(is.null(tmp))
+        tmp <- get_RLum(x, info.object = c("POSITION"))
+
+      tmp
     }, numeric(1))
 
   }else{
@@ -304,17 +333,21 @@ extract_IrradiationTimes <- function(
   temp.results <- data.frame(POSITION,STEP,START,DURATION.STEP,END)
 
   # Calculate irradiation duration ------------------------------------------------------------
-  IRR_TIME <- numeric(length = nrow(temp.results))
-  temp_last <- 0
-  for(i in 1:nrow(temp.results)){
-    if(grepl("irradiation", temp.results[["STEP"]][i])) {
-      temp_last <- temp.results[["DURATION.STEP"]][i]
-      next()
+  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+    IRR_TIME <- vapply(temp.sequence, function(x) get_RLum(x, info.object = c("IRR_TIME")), numeric(1))
+
+  } else {
+    IRR_TIME <- numeric(length = nrow(temp.results))
+    temp_last <- 0
+    for(i in 1:nrow(temp.results)){
+      if(grepl("irradiation", temp.results[["STEP"]][i])) {
+        temp_last <- temp.results[["DURATION.STEP"]][i]
+        next()
+      }
+
+      IRR_TIME[i] <- temp_last
     }
-
-    IRR_TIME[i] <- temp_last
   }
-
   # Calculate time since irradiation ------------------------------------------------------------
   ##set objects
   time.irr.end <- NA
@@ -345,7 +378,6 @@ extract_IrradiationTimes <- function(
     }
 
   }))
-
 
   # Combine final results -----------------------------------------------------------------------
   ##results table, export as CSV
@@ -388,13 +420,6 @@ extract_IrradiationTimes <- function(
     }
   }
 
-
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
-
-MCA1A <- Luminescence::read_BIN2R("/Users/kreutzer/Documents/Scripts/R/Personen/Justine_Kemp/20230717/Kemp_data/MCA1A/bin.BIN", verbose = FALSE)
-
-MCA1A <- subset(MCA1A, POSITION == 1 & GRAIN %in% c(29,61,77,79,86,88)) |> Luminescence::Risoe.BINfileData2RLum.Analysis()
-
-extract_IrradiationTimes(MCA1A)
