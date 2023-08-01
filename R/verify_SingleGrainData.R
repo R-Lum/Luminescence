@@ -213,7 +213,6 @@ verify_SingleGrainData <- function(
         unique_pairs <- unique(
           selection[selection[["VALID"]], c("POSITION", "GRAIN")])
 
-
         if(cleanup_level == "aliquot"){
           selection_id <- sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
             which(
@@ -235,7 +234,6 @@ verify_SingleGrainData <- function(
 
       ##select output on the chosen input
       if(cleanup){
-
         ##selected wanted elements
         object@DATA <- object@DATA[selection_id]
         object@METADATA <- object@METADATA[selection_id,]
@@ -270,7 +268,6 @@ verify_SingleGrainData <- function(
   ##RLum.Analysis and list with RLum.Analysis objects
   ## ... and yes it make sense not to mix that up with the code above
   }else if(is(object,"RLum.Analysis")){
-
     ##first extract all count values from all curves
     object_list <- lapply(get_RLum(object), function(x){
         ##yes, would work differently, but it is faster
@@ -292,7 +289,7 @@ verify_SingleGrainData <- function(
     ##SEL
     temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
 
-    ##get structure for the RLum.Anlaysis object
+    ##get structure for the RLum.Analysis object
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
 
       ##now we have two cases, depending on where measurement is coming from
@@ -313,9 +310,7 @@ verify_SingleGrainData <- function(
         unique_pairs <- unique(
           selection[selection[["VALID"]], c("POSITION", "GRAIN")])
 
-
       } else if (object@originator == "read_XSYG2R") {
-
         ##combine everything to in a data.frame
         selection <- data.frame(
           POSITION = if(any(grepl(pattern = "position", names(temp_structure)))){
@@ -346,10 +341,9 @@ verify_SingleGrainData <- function(
         if (object@originator == "read_XSYG2R") {
 
           if(!is.na(unique_pairs)){
-
-          selection_id <-
-            sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
-              which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
+            selection_id <-
+              sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
+                which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
 
 
             })))
