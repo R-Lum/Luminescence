@@ -1,9 +1,10 @@
-#' Extract Irradiation Times from an XSYG-file
+#' @title Extract Irradiation Times from an XSYG-file
 #'
-#' Extracts irradiation times, dose and times since last irradiation, from a
+#' @description Extracts irradiation times, dose and times since last irradiation, from a
 #' Freiberg Instruments XSYG-file. These information can be further used to
 #' update an existing BINX-file.
 #'
+#' @details
 #' The function was written to compensate missing information in the BINX-file
 #' output of Freiberg Instruments lexsyg readers. As all information are
 #' available within the XSYG-file anyway, these information can be extracted
@@ -109,8 +110,6 @@
 #' @keywords IO manip
 #'
 #' @examples
-#'
-#'
 #' ## (1) - example for your own data
 #' ##
 #' ## set files and run function
@@ -139,7 +138,6 @@ extract_IrradiationTimes <- function(
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-
     ##show message for non-supported arguments
     if(!missing(file.BINX)){
       warning("[extract_IrradiationTimes()] argument 'file.BINX' is not supported in the self call mode.",
@@ -147,12 +145,11 @@ extract_IrradiationTimes <- function(
 
     }
 
-    ##extent arguments
+    ##extend arguments
       ##extent recordType
       if(is(recordType, "list")){
         recordType <-
           rep(recordType, length = length(object))
-
 
       }else{
         recordType <-
@@ -182,12 +179,11 @@ extract_IrradiationTimes <- function(
   }
 
 # Integrity tests -----------------------------------------------------------------------------
-
   ##check whether an character or an RLum.Analysis object is provided
   if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
     stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.", call. = FALSE)
 
-  }else if(is(object)[1] == "character"){
+  } else if(is(object)[1] == "character"){
 
     ##set object to file.XSYG
     file.XSYG <- object
@@ -217,11 +213,9 @@ extract_IrradiationTimes <- function(
       ##check if file is XML file
       if(tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "binx" &
            tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "BINX" ){
-
         stop("[extract_IrradiationTimes()] File is not of type 'BINX'!", call. = FALSE)
 
       }
-
     }
 
     # Settings and import XSYG --------------------------------------------------------------------
@@ -232,7 +226,6 @@ extract_IrradiationTimes <- function(
       temp.BINX.dirname <- (dirname(file.XSYG))
     }
 
-
     # Some data preparation -----------------------------------------------------------------------
     ##set list
     temp.sequence.list <- list()
@@ -240,10 +233,10 @@ extract_IrradiationTimes <- function(
     ##select all analysis objects and combine them
     for(i in 1:length(temp.XSYG)){
       ##select sequence and reduce the data set to really wanted values
-      temp.sequence.list[[i]] <- get_RLum(temp.XSYG[[i]]$Sequence.Object,
-                                                   recordType = recordType,
-                                                   drop = FALSE)
-
+      temp.sequence.list[[i]] <- get_RLum(
+        object = temp.XSYG[[i]]$Sequence.Object,
+        recordType = recordType,
+        drop = FALSE)
 
       ##get corresponding position number, this will be needed later on
       temp.sequence.position <- as.numeric(as.character(temp.XSYG[[i]]$Sequence.Header["position",]))
@@ -274,13 +267,13 @@ extract_IrradiationTimes <- function(
   #START time of each step
   temp.START <- vapply(temp.sequence, function(x){
     get_RLum(x, info.object = c("startDate"))
+
   }, character(1))
 
   ##DURATION of each STEP
   DURATION.STEP <- vapply(temp.sequence, function(x){
     max(get_RLum(x)[,1])
   }, numeric(1))
-
 
   ##a little bit reformatting.
   START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
@@ -323,7 +316,6 @@ extract_IrradiationTimes <- function(
   }
 
   # Calculate time since irradiation ------------------------------------------------------------
-
   ##set objects
   time.irr.end <- NA
 
@@ -356,7 +348,6 @@ extract_IrradiationTimes <- function(
 
 
   # Combine final results -----------------------------------------------------------------------
-
   ##results table, export as CSV
   results <- cbind(temp.results,IRR_TIME, TIMESINCEIRR,TIMESINCELAST.STEP)
 
@@ -401,3 +392,9 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
+
+MCA1A <- Luminescence::read_BIN2R("/Users/kreutzer/Documents/Scripts/R/Personen/Justine_Kemp/20230717/Kemp_data/MCA1A/bin.BIN", verbose = FALSE)
+
+MCA1A <- subset(MCA1A, POSITION == 1 & GRAIN %in% c(29,61,77,79,86,88)) |> Luminescence::Risoe.BINfileData2RLum.Analysis()
+
+extract_IrradiationTimes(MCA1A)
