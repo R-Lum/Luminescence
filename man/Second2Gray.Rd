@@ -91,12 +91,7 @@ data(ExampleData.DeValues, envir = environment())
 # apply dose.rate to convert De(s) to De(Gy)
 Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., Fuchs, M.C., 2023. Second2Gray(): Converting equivalent dose values from seconds (s) to Gray (Gy). Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 }

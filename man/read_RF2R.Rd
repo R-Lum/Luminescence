@@ -33,12 +33,7 @@ The output of the function can be passed to the function \link{analyse_IRSAR.RF}
 file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
 temp <- read_RF2R(file)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2023. read_RF2R(): Import RF-files to R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluorescence:
 single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \doi{10.5194/gchron-3-299-2021}

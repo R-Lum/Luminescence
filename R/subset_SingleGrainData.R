@@ -50,7 +50,7 @@ subset_SingleGrainData <- function (
 
 # Subset ------------------------------------------------------------------
   ## select ids for subsetting
-  sel_id <- merge(object@METADATA[,c("ID", "POSITION", "GRAIN")], selection)[["ID"]]
+  sel_id <-sort(merge(object@METADATA[,c("POSITION", "GRAIN", "ID")], selection)[["ID"]])
 
   ## pick data
   object@METADATA <- object@METADATA[sel_id,]

@@ -48,11 +48,6 @@ Anne Philippe, Université de Nantes (France),
 Jean-Michel Galharret, Université de Nantes (France),
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2023. plot_OSLAgeSummary(): Plot Posterior OSL-Age Summary. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22.9000-25. https://CRAN.R-project.org/package=Luminescence
-}
-
+, RLum Developer Team}
 \keyword{dplot}
 \keyword{hplot}
