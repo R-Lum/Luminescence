@@ -35,23 +35,23 @@ jobs:
       _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
-    steps:
-      - if: runner.os == 'macOS'
-        run: brew install jags curl
-
-      - name: Install JAGS on Windows (R release)
-        if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
-        run: |
-          curl -s -o C:\JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
-          start /w C:\JAGS-4.3.2.exe
-          set JAGS_HOME=C:\JAGS-4.3.2.exe
-
-
-      - name: Install JAGS on Windows (R oldrel)
-        if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
-        run: |
-          curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
-          C:\JAGS-4.3.0.exe /S
+    # steps:
+    #   - if: runner.os == 'macOS'
+    #     run: brew install jags curl
+    #
+    #   - name: Install JAGS on Windows (R release)
+    #     if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
+    #     run: |
+    #       curl -s -o C:\JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
+    #       start C:\JAGS-4.3.2.exe /S
+    #       set JAGS_HOME=C:\JAGS-4.3.2.exe
+    #
+    #
+    #   - name: Install JAGS on Windows (R oldrel)
+    #     if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
+    #     run: |
+    #       curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
+    #       C:\JAGS-4.3.0.exe /S
 
       - uses: actions/checkout@v3
 
@@ -69,7 +69,13 @@ jobs:
             any::rcmdcheck
             any::XML
             any::covr
+            any::rjags
           needs: check
+
+      - name: Install most Windows system dependencies
+        if: runner.os == 'Windows'
+        run: |
+          pacman -Syu mingw-w64-x86_64-make --noconfirm
 
       - name: Show session info before test
         run: |
