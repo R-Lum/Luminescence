@@ -42,7 +42,7 @@ jobs:
       - name: Install JAGS on Windows (R release)
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
-          curl -o JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
+          curl -o JAGS-4.3.2.exe --url https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe
           JAGS-4.3.2.exe /S
           del JAGS-4.3.2.exe
         shell: cmd
