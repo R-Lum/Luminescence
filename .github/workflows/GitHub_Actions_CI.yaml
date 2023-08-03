@@ -35,9 +35,9 @@ jobs:
       _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
-    # steps:
-    #   - if: runner.os == 'macOS'
-    #     run: brew install jags curl
+    steps:
+      - if: runner.os == 'macOS'
+        run: brew install jags curl
     #
     #   - name: Install JAGS on Windows (R release)
     #     if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
