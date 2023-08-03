@@ -43,8 +43,7 @@ jobs:
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
           curl -s -o JAGS-4.3.2.exe --url https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe
-          echo %cd%
-          JAGS-4.3.2.exe /S
+          & "JAGS-4.3.2.exe /S"
 
       - name: Install JAGS on Windows (R oldrel)
         if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
