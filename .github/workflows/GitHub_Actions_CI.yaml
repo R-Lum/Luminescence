@@ -43,8 +43,10 @@ jobs:
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
           echo "$PWD"
-          curl -s -o JAGS -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
-          JAGS /S
+          curl -s -o C:\JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
+          C:\JAGS-4.3.2.exe /S
+          set JAGS_HOME=C:\JAGS-4.3.2.exe
+        shell: cmd
 
 
       - name: Install JAGS on Windows (R oldrel)
