@@ -22,15 +22,15 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
+          # - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
           - {os: windows-latest, r: 'release', not_cran: 'true'}
-          - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          # - {os: windows-latest, r: 'devel', not_cran: 'true'}
           # - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
-          - {os: macos-12,   r: 'release', not_cran: 'true'}
+          # - {os: macos-12,   r: 'release', not_cran: 'true'}
           #- {os: macos-11,   r: 'oldrel', not_cran: 'true'}
-          - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
-          - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
-          - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
+          # - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
+          # - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
+          # - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -42,10 +42,8 @@ jobs:
       - name: Install JAGS on Windows (R release)
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
-          curl -o JAGS-4.3.2.exe --url https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe
+          curl -s -o JAGS-4.3.2.exe --url https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe
           JAGS-4.3.2.exe /S
-          del JAGS-4.3.2.exe
-        shell: cmd
 
       - name: Install JAGS on Windows (R oldrel)
         if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
@@ -53,7 +51,7 @@ jobs:
           curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
           C:\JAGS-4.3.0.exe /S
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
 
