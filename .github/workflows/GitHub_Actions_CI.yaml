@@ -38,14 +38,12 @@ jobs:
     steps:
       - if: runner.os == 'macOS'
         run: brew install jags curl
-    #
-    #   - name: Install JAGS on Windows (R release)
-    #     if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
-    #     run: |
-    #       curl -s -o C:\JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
-    #       start C:\JAGS-4.3.2.exe /S
-    #       set JAGS_HOME=C:\JAGS-4.3.2.exe
-    #
+
+      - name: Install JAGS on Windows (R release)
+        if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
+        run: |
+          curl -s -o D:\a\_temp\JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
+          D:\a\_temp\JAGS-4.3.2.exe /VERYSILENT /SUPPRESSMSGBOXES /DIR=C:\JAGS-4.3.2
     #
     #   - name: Install JAGS on Windows (R oldrel)
     #     if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
@@ -69,13 +67,7 @@ jobs:
             any::rcmdcheck
             any::XML
             any::covr
-            any::rjags
           needs: check
-
-      - name: Install most Windows system dependencies
-        if: runner.os == 'Windows'
-        run: |
-          pacman -Syu mingw-w64-x86_64-make --noconfirm
 
       - name: Show session info before test
         run: |
