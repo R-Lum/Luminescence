@@ -43,8 +43,8 @@ jobs:
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
           echo "$PWD"
-          curl -s -o 'D:\JAGS-4.3.2.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
-          D:\JAGS-4.3.2.exe /S
+          curl -s -o 'D:\a\Luminescence\Luminescence\JAGS-4.3.2.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
+          D:\a\Luminescence\Luminescence\JAGS-4.3.2.exe /S
 
 
       - name: Install JAGS on Windows (R oldrel)
