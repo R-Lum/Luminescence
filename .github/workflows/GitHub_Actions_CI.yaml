@@ -42,14 +42,14 @@ jobs:
       - name: Install JAGS on Windows (R release)
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
         run: |
-          curl -s -o D:\a\_temp\JAGS-4.3.2.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.2.exe'
-          D:\a\_temp\JAGS-4.3.2.exe /VERYSILENT /SUPPRESSMSGBOXES /DIR=C:\JAGS-4.3.2
-    #
-    #   - name: Install JAGS on Windows (R oldrel)
-    #     if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
-    #     run: |
-    #       curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
-    #       C:\JAGS-4.3.0.exe /S
+          curl -s -o D:\a\_temp\JAGS-4.3.1.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          D:\a\_temp\JAGS-4.3.1.exe /VERYSILENT /SUPPRESSMSGBOXES /DIR=C:\JAGS-4.3.1
+#
+#       - name: Install JAGS on Windows (R oldrel)
+#         if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
+#         run: |
+#           curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
+#           C:\JAGS-4.3.0.exe /S
 
       - uses: actions/checkout@v3
 
