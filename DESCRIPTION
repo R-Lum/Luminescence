@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.22.9000-29
-Date: 2023-08-01
+Version: 0.9.22.9000-30
+Date: 2023-08-04
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -59,34 +59,34 @@ BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 4.1),
     utils
-LinkingTo: Rcpp (>= 1.0.10),
-    RcppArmadillo (>= 0.11.4.0.0)
+LinkingTo: Rcpp (>= 1.0.11),
+    RcppArmadillo (>= 0.12.4.1.0)
 Imports:
     bbmle (>= 1.0.25),
-    data.table (>= 1.14.6),
+    data.table (>= 1.14.6.8),
     DEoptim (>= 2.2-8),
-    httr (>= 1.4.4),
-    lamW (>= 2.1.1),
-    matrixStats (>= 0.63.0),
+    httr (>= 1.4.6),
+    lamW (>= 2.1.2),
+    matrixStats (>= 1.0.0),
     methods,
     minpack.lm (>= 1.2-3),
     mclust (>= 6.0.0),
     plotrix (>= 3.8-2),
-    readxl (>= 1.4.1),
-    Rcpp (>= 1.0.10),
+    readxl (>= 1.4.3),
+    Rcpp (>= 1.0.11),
     shape (>= 1.4.6),
     parallel,
-    XML (>= 3.99),
-    zoo (>= 1.8)
+    XML (>= 3.99-0.14),
+    zoo (>= 1.8-12)
 Suggests:
-    spelling (>= 2.2),
-    plotly (>= 4.10.0),
-    rmarkdown (>= 2.20),
-    rstudioapi (>= 0.14),
-    rjags (>= 4-13),
+    spelling (>= 2.2.1),
+    plotly (>= 4.10.2),
+    rmarkdown (>= 2.23),
+    rstudioapi (>= 0.15.0),
+    rjags (>= 4-14),
     coda (>= 0.19-4),
     pander (>= 0.6.5),
-    testthat (>= 3.1.6),
+    testthat (>= 3.1.10),
     tiff (>= 0.1-11),
     devtools (>= 2.4.5),
     R.rsp (>= 0.45.0)
