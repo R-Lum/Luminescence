@@ -190,7 +190,12 @@ plot_DRTResults(
   preheat = c(200, 200, 200, 240, 240),
   boxplot = TRUE)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., 2023. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 stimulated luminescence characteristics and their relevance in
