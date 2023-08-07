@@ -59,7 +59,7 @@ Johannes Friedrich, University of Bayreuth (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., Friedrich, J., 2023. apply_EfficiencyCorrection(): Function to apply spectral efficiency correction to RLum.Data.Spectrum S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Friedrich, J., 2023. apply_EfficiencyCorrection(): Function to apply spectral efficiency correction to RLum.Data.Spectrum S4 class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}

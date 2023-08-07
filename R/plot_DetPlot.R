@@ -1,9 +1,11 @@
-#' Create De(t) plot
+#' @title Create De(t) plot
 #'
-#' Plots the equivalent dose (De) in dependency of the chosen signal integral
+#' @description Plots the equivalent dose (De) in dependency of the chosen signal integral
 #' (cf. Bailey et al., 2003). The function is simply passing several arguments
 #' to the function [plot] and the used analysis functions and runs it in a loop.
 #' Example: `legend.pos` for legend position, `legend` for legend text.
+#'
+#' @details
 #'
 #' **method**
 #'
@@ -45,11 +47,11 @@
 #'
 #' @param analyse_function [character] (*with default*):
 #' name of the analyse function to be called. Supported functions are:
-#' `'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`
+#' [analyse_SAR.CWOSL], [analyse_pIRIRSequence]
 #'
 #' @param analyse_function.control [list] (*optional*):
 #' selected arguments to be passed to the supported analyse functions
-#' (`'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`)
+#' ([analyse_SAR.CWOSL], [analyse_pIRIRSequence])
 #'
 #' @param n.channels [integer] (*optional*):
 #' number of channels used for the De(t) plot. If nothing is provided all
@@ -97,9 +99,9 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.5
 #'
-#' @author Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
 #'
 #' @references
 #' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
@@ -119,13 +121,13 @@
 #' ##transform the values from the first position in a RLum.Analysis object
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
-#' plot_DetPlot(object,
-#'              signal.integral.min = 1,
-#'              signal.integral.max = 3,
-#'              background.integral.min = 900,
-#'              background.integral.max = 1000,
-#'              n.channels = 5,
-#' )
+#' plot_DetPlot(
+#'   object,
+#'   signal.integral.min = 1,
+#'   signal.integral.max = 3,
+#'   background.integral.min = 900,
+#'   background.integral.max = 1000,
+#'   n.channels = 5)
 #' }
 #'
 #' @md
@@ -149,9 +151,12 @@ plot_DetPlot <- function(
 
 
 # Integrity Tests -----------------------------------------------------------------------------
+  ##check input
+  if(!inherits(object, "RLum.Analysis"))
+    stop("[plot_DetPlot()] input must be an RLum.Analysis object!", call. = FALSE)
+
   ##get structure
   object.structure <- structure_RLum(object)
-
 
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels
@@ -180,7 +185,6 @@ plot_DetPlot <- function(
   if (is.null(signal_integral.seq)) {
     if(signal.integral.min == signal.integral.max){
       signal_integral.seq <- signal.integral.min:(background.integral.min - 1)
-
 
     }else{
       signal_integral.seq <-
@@ -244,7 +248,6 @@ plot_DetPlot <- function(
 
 
 # Plot ----------------------------------------------------------------------------------------
-
   ##get De results
   if(analyse_function == "analyse_pIRIRSequence"){
     pIRIR_signals <- unique(get_RLum(results)$Signal)
@@ -256,15 +259,12 @@ plot_DetPlot <- function(
 
   ##run this in a loop to account for pIRIR data
   df_final <- lapply(1:length(pIRIR_signals), function(i){
-
     ##get data.frame
     df <- get_RLum(results)
 
     ##further limit
-    if(!is.na(pIRIR_signals[1])){
+    if(!is.na(pIRIR_signals[1]))
       df <- df[df$Signal == pIRIR_signals[i],]
-
-    }
 
     ##add shine down curve, which is by definition the first IRSL/OSL curve
     ##and normalise on the highest De value
@@ -275,16 +275,22 @@ plot_DetPlot <- function(
     OSL_curve <- OSL_curve[1:signal_integral.seq[n.channels + 1],]
 
     m <-
-      ((min(df$De - df$De.Error, na.rm = TRUE)) - (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))) / (min(OSL_curve[, 2], na.rm = TRUE) - max(OSL_curve[, 2], na.rm = TRUE))
-    n <- (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE)) - m * max(OSL_curve[, 2])
+      ((min(df$De - df$De.Error, na.rm = TRUE)) -
+         (max(df$De, na.rm = TRUE) +
+            max(df$De.Error, na.rm = TRUE))) /
+      (min(OSL_curve[, 2], na.rm = TRUE) -
+         max(OSL_curve[, 2], na.rm = TRUE))
+    n <- (max(df$De, na.rm = TRUE) +
+            max(df$De.Error, na.rm = TRUE)) - m * max(OSL_curve[, 2])
 
     OSL_curve[, 2] <- m * OSL_curve[, 2] + n
     rm(n, m)
 
-    ##set plot settings
-    plot.settings <- list(
-      ylim = c(min(df$De - df$De.Error, na.rm = TRUE),
-               (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
+    ##set plot setting
+    plot.settings <- modifyList(list(
+      ylim = c(
+        min(df$De - df$De.Error, na.rm = TRUE),
+        (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
       xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
       ylab = expression(paste(D[e] / s, " and ", L[n]/(a.u.))),
       xlab = "Stimulation time [s]",
@@ -295,26 +301,10 @@ plot_DetPlot <- function(
       legend = TRUE,
       legend.text = c(expression(L[n]-signal), expression(D[e])),
       legend.pos = "bottomleft"
-    )
-    plot.settings <- modifyList(plot.settings, list(...))
+    ), list(...))
 
     ##general settings
     par(cex = plot.settings$cex)
-
-    ##open plot area
-    plot(
-      NA,
-      NA,
-      xlim = plot.settings$xlim,
-      ylim = plot.settings$ylim,
-      xlab = plot.settings$xlab,
-      ylab = plot.settings$ylab,
-      main = plot.settings$main
-    )
-
-    if (show_ShineDownCurve) {
-      lines(OSL_curve, type = "b", pch = 20)
-    }
 
     ##set x-axis
     df_x <-
@@ -328,6 +318,19 @@ plot_DetPlot <- function(
 
     }
 
+    ##open plot area
+    plot(
+      NA,
+      NA,
+      xlim = plot.settings$xlim,
+      ylim = if(any(is.infinite(plot.settings$ylim))) c(-1,1) else plot.settings$ylim ,
+      xlab = plot.settings$xlab,
+      ylab = plot.settings$ylab,
+      main = plot.settings$main
+    )
+
+    if (show_ShineDownCurve)
+      lines(OSL_curve, type = "b", pch = 20)
 
     ##ToDo:color failed points red
     ##plot points and error bars
@@ -368,3 +371,4 @@ plot_DetPlot <- function(
   ))
 
 }
+

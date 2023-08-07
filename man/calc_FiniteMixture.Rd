@@ -161,7 +161,7 @@ get_RLum(object = FMM, data.object = "components")
 } 
 
 \section{How to cite}{
-Burow, C., 2023. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2023. calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

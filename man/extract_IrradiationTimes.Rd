@@ -82,6 +82,11 @@ Beside the some simple data transformation steps the function applies the
 functions \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN} for data import and export.
 }
 \note{
+The function can be also used to extract irradiation times from \linkS4class{RLum.Analysis} objects
+previously imported via \link{read_BIN2R} (\code{fastForward = TRUE}) or in combination with \link{Risoe.BINfileData2RLum.Analysis}.
+Unfortunately the timestamp might not be very precise (or even invalid),
+but it allows to essentially treat different formats in a similar manner.
+
 The produced output object contains still the irradiation steps to
 keep the output transparent. However, for the BINX-file export this steps
 are removed as the BINX-file format description does not allow irradiations
@@ -110,12 +115,10 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{
-
-
 ## (1) - example for your own data
 ##
 ## set files and run function
@@ -135,7 +138,7 @@ towards a correct time order.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. extract_IrradiationTimes(): Extract Irradiation Times from an XSYG-file. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

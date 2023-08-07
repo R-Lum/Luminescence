@@ -1,7 +1,8 @@
-  #' Merge Risoe.BINfileData objects or Risoe BIN-files
+#' @title  Merge Risoe.BINfileData objects or Risoe BIN-files
 #'
-#' Function allows merging Risoe BIN/BINX files or `Risoe.BINfileData` objects.
+#' @description Function allows merging Risoe BIN/BINX files or `Risoe.BINfileData` objects.
 #'
+#' @details
 #' The function allows merging different measurements to one file or one
 #' object. The record IDs are recalculated for the new object. Other values
 #' are kept for each object. The number of input objects is not limited.
@@ -37,34 +38,26 @@
 #' File output path and name. If no value is given, a [Risoe.BINfileData-class] is
 #' returned instead of a file.
 #'
-#'
 #' @param keep.position.number [logical] (*with default*):
 #' Allows keeping the original position numbers of the input objects.
 #' Otherwise the position numbers are recalculated.
-#'
 #'
 #' @param position.number.append.gap [integer] (*with default*):
 #' Set the position number gap between merged BIN-file sets, if the option
 #' `keep.position.number = FALSE` is used. See details for further
 #' information.
 #'
-#'
 #' @return Returns a `file` or a [Risoe.BINfileData-class] object.
-#'
 #'
 #' @note
 #' The validity of the output objects is not further checked.
 #'
-#'
-#' @section Function version: 0.2.7
-#'
+#' @section Function version: 0.2.8
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'
 #' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]
-#'
 #'
 #' @references
 #' Duller, G., 2007. Analyst.
@@ -92,21 +85,16 @@ merge_Risoe.BINfileData <- function(
   position.number.append.gap = 0
 ){
 
-
   # Integrity Checks --------------------------------------------------------
-
   if(length(input.objects) < 2){
-
-    stop("[merge_Risoe.BINfileData()] At least two input objects are needed!")
+    message("[merge_Risoe.BINfileData()] Nothing done at least two input objects are needed!")
+    return(input.objects)
 
   }
 
   if(is(input.objects, "character") == TRUE){
-
     for(i in 1:length(input.objects)){
-
       if(file.exists(input.objects[i])==FALSE){
-
         stop("[merge_Risoe.BINfileData()] File ",input.objects[i]," does not exist!", call. = FALSE)
 
       }
@@ -178,7 +166,6 @@ merge_Risoe.BINfileData <- function(
 
 
   # Merge Files -------------------------------------------------------------
-
   ##loop for similar input objects
   for(i in 1:length(input.objects)){
 
@@ -228,7 +215,6 @@ merge_Risoe.BINfileData <- function(
 
   ##TODO version number?
   # Produce BIN file object -------------------------------------------------
-
   temp.new <- set_Risoe.BINfileData(
     METADATA = temp.new.METADATA,
     DATA = temp.new.DATA,
@@ -237,15 +223,11 @@ merge_Risoe.BINfileData <- function(
   )
 
 
-
   # OUTPUT ------------------------------------------------------------------
-
   if(missing(output.file) == FALSE){
-
     write_R2BIN(temp.new, output.file)
 
   }else{
-
     return(temp.new)
 
   }

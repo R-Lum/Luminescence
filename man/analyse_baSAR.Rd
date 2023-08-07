@@ -233,7 +233,7 @@ Finally it does not matter how the information of the BIN/BINX file are provided
 supports \strong{(a)} either a path to a file or directory or a \code{list} of file names or paths or
 \strong{(b)} a \linkS4class{Risoe.BINfileData} object or a list of these objects. The latter one can
 be produced by using the function \link{read_BIN2R}, but this function is called automatically
-if only a filename and/or a path is provided. In both cases it will become the data that can be
+if only a file name and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.
 
 \verb{[XLS_file = NULL]}
@@ -413,7 +413,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S., 2023. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S., 2023. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.33. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

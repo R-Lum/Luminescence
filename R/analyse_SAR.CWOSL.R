@@ -17,7 +17,7 @@
 #' A SAR sequence is basically a set of $L_{x}/T_{x}$ curves. Hence, every 2nd curve
 #' is considered a shine-down curve related to the test dose. It also means that the number of
 #' curves for $L_{x}$ has to be equal to the number of $T_{x}$ curves, and that
-#' hotbleach curves **do not** belong into a SAR sequence; at least not for the analysis.
+#' hot-bleach curves **do not** belong into a SAR sequence; at least not for the analysis.
 #' Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
 #' irradiation curves. The later one indicates the duration of the irradiation, the
 #' dose and test dose points, e.g., as part of XSYG files.
@@ -57,16 +57,16 @@
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
-#' Lx/Tx values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx
+#' Lx/Tx values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
 #' ratio of the natural signal). For methodological background see Aitken and
 #' Smith (1988).
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which per
-#' default should not exceed 10\%. The test dose error is calculated as `Tx_net.error/Tx_net`.
+#' default should not exceed 10%. The test dose error is calculated as `Tx_net.error/Tx_net`.
 #' The calculation of the $T_{n}$ error is detailed in [calc_OSLLxTxRatio].
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
-#' default should not exceed 10\%.
+#' default should not exceed 10%.
 #'
 #' **Irradiation times**
 #'
@@ -98,13 +98,11 @@
 #' as the maximum signal integral for the `Tx` curve. Can be set to `NA`, in this
 #' case no integrals are taken into account.
 #'
-#'
 #' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the minimum background integral for the `Tx` curve. Can be set to `NA`, in this
 #' case no integrals are taken into account.
-#'
 #'
 #' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral. Can be a [list] of [integer]s, if `object` is
@@ -176,7 +174,7 @@
 #' background counts and the dose points}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria.
 #' `NA` is produced if no R0 dose point exists.}
-#' \item{Formula}{[formula] formula that have been used for the growth curve fitting }
+#' \item{Formula}{[formula] formula that have been used for the growth curve fitting}
 #'
 #' The output should be accessed using the function [get_RLum].
 #'

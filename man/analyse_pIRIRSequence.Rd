@@ -88,7 +88,7 @@ this function has been written as extended wrapper function for the function
 one run. With this, its functionality is strictly limited by the
 functionality of the function \link{analyse_SAR.CWOSL}.
 
-**Defining the sequence structure **
+\strong{Defining the sequence structure}
 
 The argument \code{sequence.structure} expects a shortened pattern of your sequence structure and was
 mainly introduced to ease the use of the function. For example: If your measurement data contains
@@ -173,7 +173,7 @@ pdf(file = tempfile, height = 15, width = 15)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. analyse_pIRIRSequence(): Analyse post-IR IRSL measurement sequences. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

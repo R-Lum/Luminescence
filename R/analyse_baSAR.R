@@ -39,7 +39,7 @@
 #' supports **(a)** either a path to a file or directory or a `list` of file names or paths or
 #' **(b)** a [Risoe.BINfileData-class] object or a list of these objects. The latter one can
 #' be produced by using the function [read_BIN2R], but this function is called automatically
-#' if only a filename and/or a path is provided. In both cases it will become the data that can be
+#' if only a file name and/or a path is provided. In both cases it will become the data that can be
 #' used for the analysis.
 #'
 #' `[XLS_file = NULL]`
@@ -555,7 +555,6 @@ analyse_baSAR <- function(
       #  > "The data block is not limited to logical relations, but may also include stochastic relations."
       #  > (Plummer, 2017. JAGS Version 4.3.0 user manual, p. 9)
       baSAR_model <- list(
-
         cauchy = "model {
 
             central_D ~  dunif(lower_centralD,upper_centralD)
@@ -585,7 +584,6 @@ analyse_baSAR <- function(
           }",
 
        normal = "model {
-
             central_D ~  dunif(lower_centralD,upper_centralD)
 
             sigma_D ~ dunif(0.01, 1 * central_D)
@@ -613,7 +611,6 @@ analyse_baSAR <- function(
             }",
 
        log_normal = "model {
-
             central_D ~  dunif(lower_centralD,upper_centralD)
 
             log_central_D <-  log(central_D) - 0.5 * l_sigma_D^2
@@ -1295,16 +1292,13 @@ analyse_baSAR <- function(
 
   # Read EXCEL sheet ----------------------------------------------------------------------------
   if(is.null(XLS_file)){
-
     ##select aliquots giving light only, this function accepts also a list as input
     if(verbose){
       cat("\n[analyse_baSAR()] No XLS-file provided, running automatic grain selection ...")
 
     }
 
-
     for (k in 1:length(fileBIN.list)) {
-
       ##if the uses provides only multiple grain data (GRAIN == 0), the verification
       ##here makes not really sense and should be skipped
       if(length(unique(fileBIN.list[[k]]@METADATA[["GRAIN"]])) > 1){
@@ -1315,7 +1309,6 @@ analyse_baSAR <- function(
             threshold = additional_arguments$threshold,
             cleanup = FALSE
           )
-
 
         ##remove grain position 0 (this are usually TL measurements on the cup or we are talking about multipe aliquot)
         if (sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0, na.rm = TRUE) > 0) {
@@ -1333,7 +1326,6 @@ analyse_baSAR <- function(
           aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0,]
 
         if(nrow(datalu) == 0){
-
           try(stop("[analyse_baSAR()] Sorry, nothing was left after the automatic grain selection! NULL returned!", call. = FALSE))
           return(NULL)
 
@@ -1363,7 +1355,6 @@ analyse_baSAR <- function(
     rm(k)
 
   } else if (is(XLS_file, "data.frame") || is(XLS_file, "character")) {
-
     ##load file if we have an XLS file
     if (is(XLS_file, "character")) {
       ##test for valid file
@@ -1412,7 +1403,6 @@ analyse_baSAR <- function(
 
     }
 
-
     ##limit aliquot range
     if (!is.null(aliquot_range)) {
       datalu <- datalu[aliquot_range,]
@@ -1425,7 +1415,7 @@ analyse_baSAR <- function(
     for (nn in 1:length((datalu[, 1]))) {
       if (!is.na(datalu[nn, 1]))  {
 
-        ##check wether one file fits
+        ##check whether one file fits
         if (any(grepl(
           pattern = strsplit(
             x = basename(datalu[nn, 1]),
@@ -1483,7 +1473,6 @@ analyse_baSAR <- function(
 
   ###################################### loops on files_number
   for (k in 1:length(fileBIN.list)) {
-
     Disc_Grain.list[[k]] <- list()   # data.file number
     n_aliquots_k <- length((Disc[[k]]))
 

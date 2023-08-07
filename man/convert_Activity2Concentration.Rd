@@ -96,7 +96,7 @@ convert_Activity2Concentration(data)
 } 
 
 \section{How to cite}{
-Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -105,7 +105,7 @@ Semiconductor Detectors, Elsevier Science Publishers, p.283
 
 Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen
 Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
-\url{https://www.bmu.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
+\url{https://www.bmuv.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
 }
 \author{
 Margret C. Fuchs, Helmholtz-Institute Freiberg for Resource Technology (Germany)

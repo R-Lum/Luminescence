@@ -4,7 +4,7 @@ test_that("Test merging", {
   local_edition(3)
 
   ##expect error
-  expect_error(merge_Risoe.BINfileData(input.objects = "data"))
+  expect_message(merge_Risoe.BINfileData(input.objects = "data"), regexp = "\\[merge\\_Risoe\\.BINfileData\\(\\)\\] Nothing done.+")
   expect_error(merge_Risoe.BINfileData(input.objects = c("data", "data2")))
   expect_error(merge_Risoe.BINfileData(input.objects = list("data", "data2")), regexp = "[merge_Risoe.BINfileData()] Input list does not contain Risoe.BINfileData objects!", fixed = TRUE)
 

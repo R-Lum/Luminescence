@@ -49,11 +49,11 @@ argument to provide an own signal integral sequence for constructing the De(t) p
 
 \item{analyse_function}{\link{character} (\emph{with default}):
 name of the analyse function to be called. Supported functions are:
-\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
+\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}}
 
 \item{analyse_function.control}{\link{list} (\emph{optional}):
 selected arguments to be passed to the supported analyse functions
-(\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
+(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence})}
 
 \item{n.channels}{\link{integer} (\emph{optional}):
 number of channels used for the De(t) plot. If nothing is provided all
@@ -123,7 +123,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.5
 }
 
 \examples{
@@ -137,19 +137,19 @@ data(ExampleData.BINfileData, envir = environment())
 ##transform the values from the first position in a RLum.Analysis object
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-plot_DetPlot(object,
-             signal.integral.min = 1,
-             signal.integral.max = 3,
-             background.integral.min = 900,
-             background.integral.max = 1000,
-             n.channels = 5,
-)
+plot_DetPlot(
+  object,
+  signal.integral.min = 1,
+  signal.integral.max = 3,
+  background.integral.min = 900,
+  background.integral.max = 1000,
+  n.channels = 5)
 }
 
 } 
 
 \section{How to cite}{
-NA, NA, , , 2023. plot_DetPlot(): Create De(t) plot. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. plot_DetPlot(): Create De(t) plot. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -161,5 +161,5 @@ doi:10.1016/S1350-4487(03)00063-5
 \link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
 , RLum Developer Team}

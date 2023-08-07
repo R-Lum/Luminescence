@@ -1,9 +1,10 @@
-#' Extract Irradiation Times from an XSYG-file
+#' @title Extract Irradiation Times from an XSYG-file
 #'
-#' Extracts irradiation times, dose and times since last irradiation, from a
+#' @description Extracts irradiation times, dose and times since last irradiation, from a
 #' Freiberg Instruments XSYG-file. These information can be further used to
 #' update an existing BINX-file.
 #'
+#' @details
 #' The function was written to compensate missing information in the BINX-file
 #' output of Freiberg Instruments lexsyg readers. As all information are
 #' available within the XSYG-file anyway, these information can be extracted
@@ -50,6 +51,11 @@
 #' @param txtProgressBar [logical] (*with default*):
 #' enables `TRUE` or disables `FALSE` the progression bars during import and export
 #'
+#' @note The function can be also used to extract irradiation times from [RLum.Analysis-class] objects
+#' previously imported via [read_BIN2R] (`fastForward = TRUE`) or in combination with [Risoe.BINfileData2RLum.Analysis].
+#' Unfortunately the timestamp might not be very precise (or even invalid),
+#' but it allows to essentially treat different formats in a similar manner.
+#'
 #' @return
 #' An [RLum.Results-class] object is returned with the
 #' following structure:
@@ -94,7 +100,7 @@
 #' ([read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -109,8 +115,6 @@
 #' @keywords IO manip
 #'
 #' @examples
-#'
-#'
 #' ## (1) - example for your own data
 #' ##
 #' ## set files and run function
@@ -139,7 +143,6 @@ extract_IrradiationTimes <- function(
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-
     ##show message for non-supported arguments
     if(!missing(file.BINX)){
       warning("[extract_IrradiationTimes()] argument 'file.BINX' is not supported in the self call mode.",
@@ -147,12 +150,11 @@ extract_IrradiationTimes <- function(
 
     }
 
-    ##extent arguments
+    ##extend arguments
       ##extent recordType
       if(is(recordType, "list")){
         recordType <-
           rep(recordType, length = length(object))
-
 
       }else{
         recordType <-
@@ -182,12 +184,11 @@ extract_IrradiationTimes <- function(
   }
 
 # Integrity tests -----------------------------------------------------------------------------
-
   ##check whether an character or an RLum.Analysis object is provided
   if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
     stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.", call. = FALSE)
 
-  }else if(is(object)[1] == "character"){
+  } else if(is(object)[1] == "character"){
 
     ##set object to file.XSYG
     file.XSYG <- object
@@ -217,11 +218,9 @@ extract_IrradiationTimes <- function(
       ##check if file is XML file
       if(tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "binx" &
            tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "BINX" ){
-
         stop("[extract_IrradiationTimes()] File is not of type 'BINX'!", call. = FALSE)
 
       }
-
     }
 
     # Settings and import XSYG --------------------------------------------------------------------
@@ -232,7 +231,6 @@ extract_IrradiationTimes <- function(
       temp.BINX.dirname <- (dirname(file.XSYG))
     }
 
-
     # Some data preparation -----------------------------------------------------------------------
     ##set list
     temp.sequence.list <- list()
@@ -240,10 +238,10 @@ extract_IrradiationTimes <- function(
     ##select all analysis objects and combine them
     for(i in 1:length(temp.XSYG)){
       ##select sequence and reduce the data set to really wanted values
-      temp.sequence.list[[i]] <- get_RLum(temp.XSYG[[i]]$Sequence.Object,
-                                                   recordType = recordType,
-                                                   drop = FALSE)
-
+      temp.sequence.list[[i]] <- get_RLum(
+        object = temp.XSYG[[i]]$Sequence.Object,
+        recordType = recordType,
+        drop = FALSE)
 
       ##get corresponding position number, this will be needed later on
       temp.sequence.position <- as.numeric(as.character(temp.XSYG[[i]]$Sequence.Header["position",]))
@@ -272,18 +270,37 @@ extract_IrradiationTimes <- function(
   STEP <- names_RLum(temp.sequence)
 
   #START time of each step
-  temp.START <- vapply(temp.sequence, function(x){
-    get_RLum(x, info.object = c("startDate"))
-  }, character(1))
+  ## we try also to support BIN/BINX files with this function if imported
+  ## accordingly
+  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+    temp.START <- vapply(temp.sequence, function(x) {
+       paste0(get_RLum(x, info.object = c("DATE")), get_RLum(x, info.object = c("TIME")))
+
+    }, character(1))
+
+    ##a little bit reformatting.
+    START <- strptime(temp.START, format = "%y%m%d%H%M%S", tz = "GMT")
+
+      ## make another try in case it does not make sense
+      if(any(is.na(START)))
+        START <- strptime(temp.START, format = "%y%m%d%H:%M:%S", tz = "GMT")
+
+  } else {
+    temp.START <- vapply(temp.sequence, function(x) {
+      get_RLum(x, info.object = c("startDate"))
+
+    }, character(1))
+
+    ##a little bit reformatting.
+    START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
+
+  }
 
   ##DURATION of each STEP
   DURATION.STEP <- vapply(temp.sequence, function(x){
     max(get_RLum(x)[,1])
   }, numeric(1))
 
-
-  ##a little bit reformatting.
-  START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
 
   ##Calculate END time of each STEP
   END <- START + DURATION.STEP
@@ -293,13 +310,18 @@ extract_IrradiationTimes <- function(
     POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
   }else if(!inherits(try(
-    get_RLum(
-      get_RLum(temp.sequence, record.id = 1), info.object = "position"),
+    suppressWarnings(get_RLum(
+      get_RLum(temp.sequence, record.id = 1), info.object = "position")),
     silent = TRUE), "try-error")){
 
     ##POSITION of each STEP
     POSITION <- vapply(temp.sequence, function(x){
-      get_RLum(x, info.object = c("position"))
+      tmp <- suppressWarnings(get_RLum(x, info.object = c("position")))
+
+      if(is.null(tmp))
+        tmp <- get_RLum(x, info.object = c("POSITION"))
+
+      tmp
     }, numeric(1))
 
   }else{
@@ -311,19 +333,22 @@ extract_IrradiationTimes <- function(
   temp.results <- data.frame(POSITION,STEP,START,DURATION.STEP,END)
 
   # Calculate irradiation duration ------------------------------------------------------------
-  IRR_TIME <- numeric(length = nrow(temp.results))
-  temp_last <- 0
-  for(i in 1:nrow(temp.results)){
-    if(grepl("irradiation", temp.results[["STEP"]][i])) {
-      temp_last <- temp.results[["DURATION.STEP"]][i]
-      next()
+  if(any(temp.sequence@originator %in% c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R"))) {
+    IRR_TIME <- vapply(temp.sequence, function(x) get_RLum(x, info.object = c("IRR_TIME")), numeric(1))
+
+  } else {
+    IRR_TIME <- numeric(length = nrow(temp.results))
+    temp_last <- 0
+    for(i in 1:nrow(temp.results)){
+      if(grepl("irradiation", temp.results[["STEP"]][i])) {
+        temp_last <- temp.results[["DURATION.STEP"]][i]
+        next()
+      }
+
+      IRR_TIME[i] <- temp_last
     }
-
-    IRR_TIME[i] <- temp_last
   }
-
   # Calculate time since irradiation ------------------------------------------------------------
-
   ##set objects
   time.irr.end <- NA
 
@@ -354,9 +379,7 @@ extract_IrradiationTimes <- function(
 
   }))
 
-
   # Combine final results -----------------------------------------------------------------------
-
   ##results table, export as CSV
   results <- cbind(temp.results,IRR_TIME, TIMESINCEIRR,TIMESINCELAST.STEP)
 
@@ -396,7 +419,6 @@ extract_IrradiationTimes <- function(
 
     }
   }
-
 
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))

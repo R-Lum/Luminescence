@@ -61,7 +61,6 @@ convert_PSL2CSV <- function(
 ){
 
   # General tests -------------------------------------------------------------------------------
-
   ##file is missing?
   if(missing(file)){
     stop("[convert_PSL2CSV()] 'file' is missing!", call. = FALSE)
@@ -95,11 +94,16 @@ convert_PSL2CSV <- function(
 
   }
 
+  ## try to extract file name from object ... this will be needed later
+  filename <- try({
+    rev(strsplit(object@info$Datafile_Path, "\\", fixed = TRUE)[[1]])[1]
+  }, silent = TRUE)
 
   # raw data ----------------------------------------------------------------
   ## extract raw data instead of conventional data
   if(extract_raw_data) {
     psl_raw <- lapply(object@records, function(x) x@info$raw_data)
+
     names(psl_raw) <- names(object)
     object <- psl_raw
 
@@ -135,22 +139,39 @@ convert_PSL2CSV <- function(
       colnames(m) <- paste0(rep(names(l), each = 2), c("_t", "_cts"))
 
     } else {
-      colnames(m) <-  paste0(rep(seq_along(l), each = length(l)), "_" ,names(l), "_", rep(colnames(l[[1]]), length(l)))
+      colnames(m) <- paste0(
+        rep(seq_along(l), each = ncol(l[[1]])),
+        "_" ,
+        rep(names(l), each = ncol(l[[1]])),
+        "_",
+        rep(colnames(l[[1]]), length(l)))
 
     }
 
+    ## overwrite object
     object <- as.data.frame(m)
+
+    ## if possible, provide the file name as attribute
+    if(!inherits(filename, "try-error"))
+      attr(object, "filename") <- gsub(".", "_", filename, fixed = TRUE)
 
   }
 
-
   # Export to CSV -------------------------------------------------------------------------------
   ##get all arguments we want to pass and remove the doubled one
-  arguments <- c(list(object = object, export = convert_PSL2R_settings$export), list(...))
+  arguments <- c(
+    list(
+      object = object,
+      col.names = if(single_table[1] || extract_raw_data[1]) TRUE else FALSE,
+      export = convert_PSL2R_settings$export),
+    list(...))
   arguments[duplicated(names(arguments))] <- NULL
 
+  ## now modify list again to ensure that the user input is always respected
+  arguments <- modifyList(arguments, val = list(...), keep.null = TRUE)
+
   ##this if-condition prevents NULL in the terminal
-  if(convert_PSL2R_settings$export == TRUE){
+  if(convert_PSL2R_settings$export){
     invisible(do.call("write_RLum2CSV", arguments))
 
   }else{
