@@ -19,7 +19,7 @@ in Kars et al. (2008) or Guralnik et al. (2015)."><!-- mathjax --><script src="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ in Kars et al. (2008) or Guralnik et al. (2015)."><!-- mathjax --><script src="h
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -102,15 +102,15 @@ assumed that errors on <code>LxTx</code> are missing. A third column will be att
 with an arbitrary 5 \<!-- % error on the provided \code{LxTx} values. --></p></li>
 <li><p>Can also be a <strong>wide table</strong>, i.e. a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with a number of columns divisible by 3
 and where each triplet has the aforementioned column structure.</p></li>
-</ul><p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>                        (optional)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="sc">|</span> <span class="fu">dose</span> (s)<span class="sc">|</span> LxTx <span class="sc">|</span> LxTx error <span class="sc">|</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="er">|</span>  [ ,<span class="dv">1</span>]  <span class="sc">|</span> [ ,<span class="dv">2</span>]<span class="sc">|</span>    [ ,<span class="dv">3</span>]   <span class="sc">|</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="er">|</span><span class="sc">---------</span><span class="er">|</span><span class="sc">------</span><span class="er">|</span><span class="sc">------------</span><span class="er">|</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, ]<span class="sc">|</span>  <span class="dv">0</span>      <span class="sc">|</span> LnTn <span class="sc">|</span> LnTn error <span class="sc">|</span> (optional, see arg <span class="st">'LnTn'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>, ]<span class="sc">|</span>  R1     <span class="sc">|</span> L1T1 <span class="sc">|</span> L1T1 error <span class="sc">|</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> ... <span class="sc">|</span>    ...  <span class="sc">|</span>  ... <span class="sc">|</span>     ...    <span class="sc">|</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>[x, ]<span class="sc">|</span>  Rx     <span class="sc">|</span> LxTx <span class="sc">|</span> LxTx error <span class="sc">|</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span></code></pre><p></p></div>
+</ul><p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>                        (optional)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>     <span class="sc">|</span> <span class="fu">dose</span> (s)<span class="sc">|</span> LxTx <span class="sc">|</span> LxTx error <span class="sc">|</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>     <span class="er">|</span>  [ ,<span class="dv">1</span>]  <span class="sc">|</span> [ ,<span class="dv">2</span>]<span class="sc">|</span>    [ ,<span class="dv">3</span>]   <span class="sc">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>     <span class="er">|</span><span class="sc">---------</span><span class="er">|</span><span class="sc">------</span><span class="er">|</span><span class="sc">------------</span><span class="er">|</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>[<span class="dv">1</span>, ]<span class="sc">|</span>  <span class="dv">0</span>      <span class="sc">|</span> LnTn <span class="sc">|</span> LnTn error <span class="sc">|</span> (optional, see arg <span class="st">'LnTn'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>[<span class="dv">2</span>, ]<span class="sc">|</span>  R1     <span class="sc">|</span> L1T1 <span class="sc">|</span> L1T1 error <span class="sc">|</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a> ... <span class="sc">|</span>    ...  <span class="sc">|</span>  ... <span class="sc">|</span>     ...    <span class="sc">|</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>[x, ]<span class="sc">|</span>  Rx     <span class="sc">|</span> LxTx <span class="sc">|</span> LxTx error <span class="sc">|</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span></code></pre><p></p></div>
 <p><strong>NOTE:</strong> The function assumes the first row of the function to be the
 <code>Ln/Tn</code>-value. If you want to provide more than one <code>Ln/Tn</code>-value consider
 using the argument <code>LnTn</code>.</p></dd>
@@ -120,13 +120,13 @@ using the argument <code>LnTn</code>.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>optional</strong>):
 This argument should <strong>only</strong> be used to provide more than one <code>Ln/Tn</code>-value.
 It assumes a two column data frame with the following structure:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>     <span class="sc">|</span>  LnTn  <span class="sc">|</span>  LnTn error  <span class="sc">|</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="er">|</span>  [ ,<span class="dv">1</span>] <span class="sc">|</span>      [ ,<span class="dv">2</span>]   <span class="sc">|</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="er">|</span><span class="sc">--------</span><span class="er">|</span><span class="sc">--------------</span><span class="er">|</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, ]<span class="sc">|</span> LnTn_1 <span class="sc">|</span> LnTn_1 error <span class="sc">|</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>, ]<span class="sc">|</span> LnTn_2 <span class="sc">|</span> LnTn_2 error <span class="sc">|</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> ... <span class="sc">|</span>   ...  <span class="sc">|</span>      ...     <span class="sc">|</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>[x, ]<span class="sc">|</span> LnTn_x <span class="sc">|</span> LnTn_x error <span class="sc">|</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>     <span class="sc">|</span>  LnTn  <span class="sc">|</span>  LnTn error  <span class="sc">|</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>     <span class="er">|</span>  [ ,<span class="dv">1</span>] <span class="sc">|</span>      [ ,<span class="dv">2</span>]   <span class="sc">|</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>     <span class="er">|</span><span class="sc">--------</span><span class="er">|</span><span class="sc">--------------</span><span class="er">|</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>[<span class="dv">1</span>, ]<span class="sc">|</span> LnTn_1 <span class="sc">|</span> LnTn_1 error <span class="sc">|</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>[<span class="dv">2</span>, ]<span class="sc">|</span> LnTn_2 <span class="sc">|</span> LnTn_2 error <span class="sc">|</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a> ... <span class="sc">|</span>   ...  <span class="sc">|</span>      ...     <span class="sc">|</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>[x, ]<span class="sc">|</span> LnTn_x <span class="sc">|</span> LnTn_x error <span class="sc">|</span></span></code></pre><p></p></div>
 <p>The function will calculate a <strong>mean</strong> <code>Ln/Tn</code>-value and uses either the
 standard deviation or the highest individual error, whichever is larger. If
 another mean value (e.g. a weighted mean or median) or error is preferred,
@@ -288,7 +288,7 @@ output this value is denoted by <em>"Age @2D0 (ka):"</em>.</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>King, G.E., Burow, C., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>King, G.E., Burow, C., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -361,10 +361,10 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  D0 [Gy]:	 625.63 ± 12.38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------- Simulated ----------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  DE [Gy]:	 310.48 ± 40.54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  D0 [Gy]:	 570.48 ± 3.39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Age [ka]:	 44.35 ± 6.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Age @2D0 [ka]:	 162.99 ± 8.21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  DE [Gy]:	 310.48 ± 41.48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  D0 [Gy]:	 570.51 ± 3.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Age [ka]:	 44.35 ± 6.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Age @2D0 [ka]:	 163 ± 8.21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  -------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>

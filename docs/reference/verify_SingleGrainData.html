@@ -20,7 +20,7 @@ from single grain data measurements."><!-- mathjax --><script src="https://cdnjs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
       </span>
     </div>
 
@@ -43,7 +43,7 @@ from single grain data measurements."><!-- mathjax --><script src="https://cdnjs
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -83,8 +83,7 @@ from single grain data measurements.</p>
 <span>  cleanup <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  cleanup_level <span class="op">=</span> <span class="st">"aliquot"</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  plot <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -110,7 +109,7 @@ either <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> or <a href="
 
 <dt>cleanup_level</dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-selects the level for the clean-up of the input data sets.
+selects the level for the cleanup of the input data sets.
 Two options are allowed: <code>"curve"</code> or <code>"aliquot"</code>:</p><ul><li><p>If  <code>"curve"</code> is selected every single curve marked as <code>invalid</code> is removed.</p></li>
 <li><p>If <code>"aliquot"</code> is selected, curves of one aliquot (grain or disc) can be
 marked as invalid, but will not be removed. An aliquot will be only removed
@@ -126,11 +125,6 @@ enables or disables the terminal feedback</p></dd>
 <dt>plot</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 enables or disables the graphical feedback</p></dd>
-
-
-<dt>...</dt>
-<dd><p>further parameters to control the plot output; if selected.
-Supported arguments <code>main</code>, <code>ylim</code></p></dd>
 
 </dl></div>
     <div id="value">
@@ -205,7 +199,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.2.3</p>
+    <p>0.2.2</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -219,7 +213,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2023. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2023. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
@@ -231,7 +225,7 @@ strongly recommended to use the argument <code>cleanup = TRUE</code> carefully.<
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##verify and get data.frame out of it</span></span></span>
 <span class="r-in"><span><span class="fu">verify_SingleGrainData</span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span><span class="op">$</span><span class="va">selection_full</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected for removal!</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     POSITION GRAIN      MEAN          VAR       RATIO THRESHOLD VALID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA    NA  23.66271 2.572619e+02   10.872037        10  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA    NA 133.00000 1.364500e+04  102.593985        10  TRUE</span>

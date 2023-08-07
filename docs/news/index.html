@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
       </span>
     </div>
 
@@ -40,7 +40,7 @@
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -67,42 +67,36 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.21" id="changes-in-version-0921-2023-02-03">Changes in version 0.9.21 (2023-02-03)<a class="anchor" aria-label="anchor" href="#changes-in-version-0921-2023-02-03"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.22" id="changes-in-version-0922-2023-08-07">Changes in version 0.9.22 (2023-08-07)<a class="anchor" aria-label="anchor" href="#changes-in-version-0922-2023-08-07"></a></h2>
 <p><strong>This package version requires R &gt;= 4.1</strong></p>
 <div class="section level3">
-<h3 id="bugfixes-and-changes-0-9-21">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-21"></a></h3>
+<h3 id="new-functions-0-9-22">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-9-22"></a></h3>
+<ul><li>
+<code><a href="../reference/subset_SingleGrainData.html">subset_SingleGrainData()</a></code>: the function provides a convenient sub setting of <code>Risoe.BINFileData-class</code> objects using a table of position and grain pairs</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-and-changes-0-9-22">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-22"></a></h3>
 <div class="section level4">
-<h4 id="analyse_portableosl-0-9-21"><code>analyse_portableOSL()</code><a class="anchor" aria-label="anchor" href="#analyse_portableosl-0-9-21"></a></h4>
-<ul><li>The function can now handle a list of <code>RLum.Analysis-class</code> objects and automatically process them in a conventional way. <strong>Potential breaking change warning</strong>: the <code>$summary</code> data frame gained an additional column, <code>SAMPLE</code>. If you access columns index-based, you have to double-check your code. The manual was updated accordingly.</li>
-<li>A new <code>...</code> argument <code>sample</code> was added to allow adding information on the sample for the plot</li>
-<li>The function did not like sequences with only one pair of OSL/IRSL and returned an error; fixed.</li>
+<h4 id="convert_psl2csv-0-9-22"><code>convert_PSL2CSV()</code><a class="anchor" aria-label="anchor" href="#convert_psl2csv-0-9-22"></a></h4>
+<ul><li>The function still contained a bug if the parameters were combined in a certain way; fixed.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="convert_psl2csv-0-9-21"><code>convert_PSL2CSV()</code><a class="anchor" aria-label="anchor" href="#convert_psl2csv-0-9-21"></a></h4>
-<ul><li>Add new argument <code>single_table</code> to enable the export of PSL data into a single spreadsheet table (CSV file), each curve is represented by two columns</li>
-<li>Add new argument <code>extract_raw_data</code>, which allows to extract the raw data convienently. Those data are already imported by <code><a href="../reference/read_PSL2R.html">read_PSL2R()</a></code> but they remain somewhat hidden in the <code>@info</code> slots of each <code>RLum.Data.Curve</code> object.</li>
+<h4 id="extract_irradiationtimes-0-9-22"><code>extract_IrradiationTimes()</code><a class="anchor" aria-label="anchor" href="#extract_irradiationtimes-0-9-22"></a></h4>
+<ul><li>Now silently handles <code>RLum.Analysis-class</code> objects imported via <code>read_BIN2R(..., fastFoward = TRUE)</code>, this allows to use the function in a more general manner.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="fit_lmcurve-0-9-21"><code>fit_LMCurve()</code><a class="anchor" aria-label="anchor" href="#fit_lmcurve-0-9-21"></a></h4>
-<ul><li>If the argument <code>fit.calcError</code> was set to <code>TRUE</code> and the parameter confidence interval calculation failed, the function stopped with an uncontrolled error. Now it shows a meaningful warning instead.</li>
+<h4 id="merge_risoebinfiledata-0-9-22"><code>merge_RisoeBINfileData()</code><a class="anchor" aria-label="anchor" href="#merge_risoebinfiledata-0-9-22"></a></h4>
+<ul><li>Does not anymore throw an error if the number of input objects was smaller than two. It just passes the input through unchanged.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="plot_radialplot-0-9-21"><code>plot_RadialPlot()</code><a class="anchor" aria-label="anchor" href="#plot_radialplot-0-9-21"></a></h4>
-<ul><li>Fix a few visual problems if the dataset has negative values (thanks to Alice Versendaal for reporting)</li>
-</ul></div>
-<div class="section level4">
-<h4 id="read_bin2r-0-9-21"><code>read_BIN2R()</code><a class="anchor" aria-label="anchor" href="#read_bin2r-0-9-21"></a></h4>
-<ul><li>Function crashed under edge conditions while testing concise records returning a subscript out of bounds error; fixed.</li>
-<li>The function struggled to read files from downloads (URL instead of a local file path) correctly on Windows machines; fixed.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="write_rlum2csv-0-9-21"><code>write_RLum2CSV()</code><a class="anchor" aria-label="anchor" href="#write_rlum2csv-0-9-21"></a></h4>
-<ul><li>The function now accepts <code>data.frame</code> objects as input. This has no particular advantage over the base R functions, such as <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code> but is used internally in combination with other functions.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="internals-0-9-21">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-21"></a></h4>
-<ul><li>Fix outdated URL in <code>github.R</code>
+<h4 id="plot_detplot-0-9-22"><code>plot_DetPlot()</code><a class="anchor" aria-label="anchor" href="#plot_detplot-0-9-22"></a></h4>
+<ul><li>The function now returns a clear error message if the input object is not of type <code>RLum.Analysis</code>
 </li>
+<li>Edge case: the function does not crash anymore if used in a loop and if all equivalent doses were <code>NA</code>; it sill throws warnings though. (thanks to Annette Kadereit for reporting)</li>
+</ul></div>
+<div class="section level4">
+<h4 id="write_rlum2csv-0-9-22"><code>write_RLum2CSV()</code><a class="anchor" aria-label="anchor" href="#write_rlum2csv-0-9-22"></a></h4>
+<ul><li>The behaviour of the parameter <code>prefix</code> caused confusion, because in combination with multiple files the function overwrote created files, although this was wanted behaviour now the prefix is always added to the automatically created files names.</li>
 </ul></div>
 </div>
 </div>

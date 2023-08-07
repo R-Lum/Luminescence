@@ -18,7 +18,7 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -241,7 +241,7 @@ used. For <strong>changing the way the Lx/Tx error is calculated</strong> use th
 A SAR sequence is basically a set of $L_x/T_x$ curves. Hence, every 2nd curve
 is considered a shine-down curve related to the test dose. It also means that the number of
 curves for $L_x$ has to be equal to the number of $T_x$ curves, and that
-hotbleach curves <strong>do not</strong> belong into a SAR sequence; at least not for the analysis.
+hot-bleach curves <strong>do not</strong> belong into a SAR sequence; at least not for the analysis.
 Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
 irradiation curves. The later one indicates the duration of the irradiation, the
 dose and test dose points, e.g., as part of XSYG files.</p>
@@ -272,14 +272,14 @@ the <code>pIRIR225</code> curves.</p>
 <p><strong>Supported rejection criteria</strong></p>
 <p><code>[recycling.ratio]</code>: calculated for every repeated regeneration dose point.</p>
 <p><code>[recuperation.rate]</code>: recuperation rate calculated by comparing the
-Lx/Tx values of the zero regeneration point with the <code>Ln/Tn</code> value (the `Lx/Tx
+Lx/Tx values of the zero regeneration point with the <code>Ln/Tn</code> value (the <code>Lx/Tx</code>
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).</p>
 <p><code>[testdose.error]</code>: set the allowed error for the test dose, which per
-default should not exceed 10\<!-- %. The test dose error is calculated as \code{Tx_net.error/Tx_net}. -->
+default should not exceed 10%. The test dose error is calculated as <code>Tx_net.error/Tx_net</code>.
 The calculation of the $T_n$ error is detailed in <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>.</p>
 <p><code>[palaeodose.error]</code>: set the allowed error for the De value, which per
-default should not exceed 10\<!-- %. --></p>
+default should not exceed 10%.</p>
 <p><strong>Irradiation times</strong></p>
 <p>The function makes two attempts to extra irradiation data (dose points)
 automatically from the input object, if the argument <code>dose.points</code> was not
@@ -302,7 +302,7 @@ does <strong>not</strong> overwrite values preset in <code>IRR_TIME</code>.</p><
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2023. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2023. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -367,9 +367,9 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR Dc De.MC Fit HPDI68_L</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 48.06899 1982.757  100.0438  NA        NA NA  1663 EXP 1602.275</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   HPDI68_U HPDI95_L HPDI95_U RC.Status signal.range background.range</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1709.013 1570.493 1761.183        OK        1 : 2       900 : 1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1709.013 1569.894 1761.183        OK        1 : 2       900 : 1000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   signal.range.Tx background.range.Tx                                UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA : NA             NA : NA 2023-02-03-12:40.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA : NA             NA : NA 2023-08-07-10:43.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -390,13 +390,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976 1.61426805 0.027647946</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190 0.01629624 0.002491179</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2023-02-03-12:40.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2023-02-03-12:40.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2023-02-03-12:40.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2023-02-03-12:40.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2023-02-03-12:40.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2023-02-03-12:40.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2023-02-03-12:40.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2023-08-07-10:43.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2023-08-07-10:43.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2023-08-07-10:43.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2023-08-07-10:43.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2023-08-07-10:43.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2023-08-07-10:43.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2023-08-07-10:43.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

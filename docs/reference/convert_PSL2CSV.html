@@ -21,7 +21,7 @@ become the output folder."><!-- mathjax --><script src="https://cdnjs.cloudflare
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@ become the output folder."><!-- mathjax --><script src="https://cdnjs.cloudflare
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/NEWS_Version0.9.0.html">
+  <a href="../news/index.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -133,7 +133,7 @@ objects. Each curve will be represented by two columns for time and counts</p></
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2023. convert_PSL2CSV(): Export PSL-file(s) to CSV-files. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.21. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2023. convert_PSL2CSV(): Export PSL-file(s) to CSV-files. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
@@ -142,7 +142,7 @@ objects. Each curve will be represented by two columns for time and counts</p></
 <span class="r-in"><span><span class="co">## export into single data.frame</span></span></span>
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/DorNie_0016.psl"</span>, package<span class="op">=</span><span class="st">"Luminescence"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">convert_PSL2CSV</span><span class="op">(</span><span class="va">file</span>, export <span class="op">=</span> <span class="cn">FALSE</span>, single_table <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`1_USER_single_table`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $conv_ALU0016_psl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1_USER_t 1_USER_cts 2_IRSL_t 2_IRSL_cts 3_USER_t 3_USER_cts 4_OSL_t</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          1          0        1      16660        1          4       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          2         -2        2      16129        2         10       2</span>
