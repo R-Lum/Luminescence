@@ -22,8 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
-          # - {os: windows-latest, r: 'release', not_cran: 'true'}
+          # - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
+          - {os: windows-latest, r: 'release', not_cran: 'true'}
           # - {os: windows-latest, r: 'devel', not_cran: 'true'}
           # - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
           # - {os: macos-12,   r: 'release', not_cran: 'true'}
@@ -41,9 +41,9 @@ jobs:
 
       - name: Install JAGS on Windows (R release)
         if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
-        run: |
-          curl -s -o D:\a\_temp\JAGS-4.3.1.exe -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-          D:\a\_temp\JAGS-4.3.1.exe /VERYSILENT /SUPPRESSMSGBOXES /DIR=C:\JAGS-4.3.1
+           run: |
+            curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+            C:\JAGS-4.3.1.exe /S
 
       - name: Install JAGS on Windows (R oldrel)
         if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
