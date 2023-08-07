@@ -121,6 +121,10 @@ more details.
   [No 844457 (CREDit)](https://cordis.europa.eu/project/id/844457), and
   could continue maintaining the package.
 
+- since 03/2023: Sebastian Kreutzer as maintainer of the package
+  receives funding from the DFG Heisenberg programme [No
+  505822867](https://gepris.dfg.de/gepris/projekt/505822867).
+
 - All other authors gratefully received additional funding from various
   public funding bodies.
 
