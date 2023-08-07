@@ -1,0 +1,14 @@
+Package: Luminescence
+Version: 0.9.22
+Depends: R (>= 4.1), utils
+Imports: bbmle (>= 1.0.25), data.table (>= 1.14.6.8), DEoptim (>= 2.2-8), httr (>=
+         1.4.6), lamW (>= 2.1.2), matrixStats (>= 1.0.0), methods, minpack.lm (>=
+         1.2-3), mclust (>= 6.0.0), plotrix (>= 3.8-2), readxl (>= 1.4.3), Rcpp (>=
+         1.0.11), shape (>= 1.4.6), parallel, XML (>= 3.99-0.14), zoo (>= 1.8-12)
+LinkingTo: Rcpp (>= 1.0.11), RcppArmadillo (>= 0.12.4.1.0)
+Suggests: spelling (>= 2.2.1), plotly (>= 4.10.2), rmarkdown (>= 2.23), rstudioapi
+         (>= 0.15.0), rjags (>= 4-14), coda (>= 0.19-4), pander (>= 0.6.5), testthat
+         (>= 3.1.10), tiff (>= 0.1-11), devtools (>= 2.4.5), R.rsp (>= 0.45.0)
+License: GPL-3
+MD5sum: bf08ed01a3717bfeb39beb15a6d698d3
+NeedsCompilation: yes

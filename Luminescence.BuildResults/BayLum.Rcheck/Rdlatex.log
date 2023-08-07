@@ -1,0 +1,1883 @@
+Hmm ... looks like a package
+Converting parsed Rd's to LaTeX ...
+Creating pdf output from LaTeX ...
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-06-30> (./Rd2.tex
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
+Writing index file Rd2.idx
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file Rd2.aux.
+(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+Overfull \hbox (204.15952pt too wide) in paragraph at lines 22--23
+\T1/ptm/m/n/10 tions: Combes, B. & Philippe, A. (2017) <[][]doi:10.1016/j.quage
+o.2017.02.003[][]> and Combes et al (2015) <[][]doi:10.1016/j.quageo.2015.04.00
+1[][]>. This in- 
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
+No file Rd2.toc.
+[1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
+ocal/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/20
+23/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
+Underfull \hbox (badness 1466) in paragraph at lines 51--51
+[]\T1/ptm/m/it/10 Chronological Bayesian Mod-els In-te-grat-ing Op-ti-cally Sti
+m-u-lated
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
+
+[2] [3]
+Overfull \hbox (9.2281pt too wide) in paragraph at lines 148--152
+\T1/ptm/m/n/10 de-tails sec-tion for in-struc-tions re-gard-ing how to cor-rect
+ly fill []\T1/zi4/m/n/10 StratiConstraints[]\T1/ptm/m/n/10 ;
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [4]
+Underfull \hbox (badness 10000) in paragraph at lines 210--212
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd) [5{/usr/lo
+cal/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}] [6]
+[7] [8]
+Overfull \hbox (13.288pt too wide) in paragraph at lines 421--422
+[][][]\T1/ptm/m/n/10 character[][][] vec-tor: names of sam-ples. The length of 
+this vec-tor is equal to []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 . 
+
+Overfull \hbox (27.55978pt too wide) in paragraph at lines 425--428
+\T1/ptm/m/n/10 sam-ple (in ka). Note that, []\T1/zi4/m/n/10 length(PriorAge)=2*
+Nb_sample []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 PriorAge[2i-1,2i]
+
+Overfull \hbox (9.2281pt too wide) in paragraph at lines 458--460
+\T1/ptm/m/n/10 de-tails sec-tion for in-struc-tions re-gard-ing how to cor-rect
+ly fill []\T1/zi4/m/n/10 StratiConstraints[]\T1/ptm/m/n/10 ;
+[9]
+Overfull \hbox (185.91916pt too wide) in alignment at lines 514--514
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 544--546
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--548
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 562--563
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 566--567
+
+
+Overfull \hbox (43.12788pt too wide) in paragraph at lines 592--593
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgesMultiCS2_EXPLINZO[]\T1/pt
+m/m/n/10 ): 
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 616--617
+
+[12]
+Overfull \hbox (18.12643pt too wide) in paragraph at lines 709--710
+[][][]\T1/ptm/m/n/10 Generate_DataFile[][][], [][]Gen-er-ate_DataFile_MG[][][],
+ [][]rjags[][][], [][]plot_MCMC[][][], [][]SC-Ma-trix[][][], [][]Age_Computatio
+n[][][], [][]Palaeo-
+[13]
+Underfull \vbox (badness 10000) has occurred while \output is active [14]
+Overfull \hbox (8.50006pt too wide) in paragraph at lines 821--823
+[][][]\T1/ptm/m/n/10 list[][][] of ob-jects: []\T1/zi4/m/n/10 LT[]\T1/ptm/m/n/1
+0 , []\T1/zi4/m/n/10 sLT[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 ITimes[]\T1/ptm/m/n
+/10 , []\T1/zi4/m/n/10 dLab[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 ddot_env[]\T1/pt
+m/m/n/10 , []\T1/zi4/m/n/10 regDose[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 J[]\T1/p
+tm/m/n/10 , []\T1/zi4/m/n/10 K[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Nb_measuremen
+t[]\T1/ptm/m/n/10 ,
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 880--881
+
+[16]
+Overfull \hbox (33.12788pt too wide) in paragraph at lines 905--906
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgeMultiBF_EXPLINZO[]\T1/ptm/
+m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 929--930
+
+[17]
+Overfull \hbox (51.94623pt too wide) in paragraph at lines 1009--1010
+[][][]\T1/ptm/m/n/10 Generate_DataFile[][][], [][]Gen-er-ate_DataFile_MG[][][],
+ [][]rjags[][][], [][]plot_MCMC[][][], [][]AgeS_Computation[][][], [][]Palaeo-d
+ose_Computation[][][] 
+[18] [19]
+Overfull \hbox (22.01988pt too wide) in paragraph at lines 1112--1115
+\T1/ptm/m/n/10 ple \T1/ptm/b/n/10 (in ka)\T1/ptm/m/n/10 . Note that, []\T1/zi4/
+m/n/10 length(PriorAge) = 2*Nb_sample []\T1/ptm/m/n/10 sand []\T1/zi4/m/n/10 Pr
+iorAge[2i-1,2i]
+[20]
+Overfull \hbox (11.73805pt too wide) in paragraph at lines 1145--1150
+\T1/ptm/m/n/10 The length of this vec-tor is equal to the num-ber of OSL sam-pl
+es. []\T1/zi4/m/n/10 BinPerSample[i]
+[21]
+Overfull \hbox (14.5685pt too wide) in paragraph at lines 1219--1221
+[]\T1/ptm/m/n/10 There are ar-gu-ments for in-for-ma-tion con-cern-ing only C14
+ sam-ples: []\T1/zi4/m/n/10 Data_C14Cal[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Data
+_SigmaC14Cal[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (31.85826pt too wide) in paragraph at lines 1222--1225
+[]\T1/ptm/m/n/10 There are ar-gu-ments for in-for-ma-tion con-cern-ing all the 
+sam-ples: []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SampleN
+ames[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SampleNature[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (64.401pt too wide) in paragraph at lines 1222--1225
+[]\T1/zi4/m/n/10 PriorAge[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SavePdf[]\T1/ptm/m
+/n/10 , []\T1/zi4/m/n/10 OutputFileName[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Outp
+utFilePath[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SaveEstimates[]\T1/ptm/m/n/10 , [
+]\T1/zi4/m/n/10 OutputTableName[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 OutputTableP
+ath[]\T1/ptm/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 1222--1225
+
+
+Overfull \hbox (185.91916pt too wide) in alignment at lines 1237--1237
+ [] [] [] [] [] 
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 1239--1240
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1264--1266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1267--1268
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1283
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1284--1285
+
+[23]
+Overfull \hbox (43.12788pt too wide) in paragraph at lines 1309--1310
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgesMultiCS2_EXPLINZO[]\T1/pt
+m/m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1333--1334
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1346--1347
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1357--1358
+
+[24] [25] [26]
+Overfull \hbox (20.59677pt too wide) in paragraph at lines 1503--1508
+[]\T1/ptm/m/n/10 The func-tion al-lows to com-bine data al-ready gen-er-ated by
+ [][]Gen-er-ate_DataFile[][][] or [][]Gen-er-ate_DataFile_MG[][][].
+
+Overfull \hbox (8.35643pt too wide) in paragraph at lines 1534--1536
+[]\T1/ptm/m/n/10 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Uni-ver-sit
+é Bor-deaux Mon-taigne (France),
+[27]
+Overfull \hbox (2.19601pt too wide) in paragraph at lines 1605--1606
+\T1/ptm/m/n/10 log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Stim-u-lat
+ed. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[28] [29]
+Overfull \hbox (4.55698pt too wide) in paragraph at lines 1741--1743
+[]\T1/ptm/m/n/10 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bo
+r-deaux Mon-taigne (France),
+
+Overfull \hbox (7.29648pt too wide) in paragraph at lines 1741--1743
+\T1/ptm/m/n/10 based on an 'MS Ex-cel' sheet by Guil-laume Guérin, IRAMAT-CRP2A
+, UMR 5060, CNRS-Université
+[30] [31] [32] [33] [34] [35]
+Underfull \hbox (badness 10000) in paragraph at lines 2030--2032
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2034
+
+[36]
+Overfull \hbox (0.3185pt too wide) in paragraph at lines 2058--2060
+[]\T1/zi4/m/n/10 nbOfLastCycleToRemove= []\T1/ptm/m/n/10 num-ber of cy-cles at 
+the end of the SAR pro-to-col which should
+
+Underfull \hbox (badness 10000) in paragraph at lines 2058--2060
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Overfull \hbox (0.18973pt too wide) in paragraph at lines 2077--2083
+\T1/ptm/m/n/10 If con-versely, []\T1/zi4/m/n/10 FolderNames=c(noun2,noun1)[]\T1
+/ptm/m/n/10 , the anal-y-sis per-formed by [][][]\T1/zi4/m/n/10 AgeS_Computatio
+n[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2077--2083
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2087--2088
+
+[37]
+Overfull \hbox (49.18745pt too wide) in paragraph at lines 2096--2098
+[]\T1/ptm/m/n/10 For the gen-eral BIN-file struc-ture, the reader is re-ferred 
+to the fol-low-ing web-site: []\T1/zi4/m/n/10 http://www.nutech.dtu.dk/ 
+
+Underfull \hbox (badness 10000) in paragraph at lines 2114--2115
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2119--2120
+
+[38] [39]
+Underfull \hbox (badness 10000) in paragraph at lines 2240--2242
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2243--2244
+
+[40]
+Overfull \hbox (0.3185pt too wide) in paragraph at lines 2268--2270
+[]\T1/zi4/m/n/10 nbOfLastCycleToRemove= \T1/ptm/m/n/10 num-ber of cy-cles at th
+e end of the SAR pro-to-col which should
+
+Underfull \hbox (badness 10000) in paragraph at lines 2268--2270
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2277--2278
+
+
+Overfull \hbox (0.18973pt too wide) in paragraph at lines 2287--2293
+\T1/ptm/m/n/10 If con-versely, []\T1/zi4/m/n/10 FolderNames=c(noun2,noun1)[]\T1
+/ptm/m/n/10 , the anal-y-sis per-formed by [][][]\T1/zi4/m/n/10 AgeS_Computatio
+n[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2287--2293
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2297--2298
+
+[41]
+Overfull \hbox (9.52765pt too wide) in paragraph at lines 2299--2305
+[]\T1/zi4/m/n/10 "Sample1-1" []\T1/ptm/m/n/10 is the name of the sub-folder con
+-tain-ing the first BIN file for Sam-ple1, []\T1/zi4/m/n/10 "Sample1-File2"
+
+Overfull \hbox (49.18745pt too wide) in paragraph at lines 2306--2307
+[]\T1/ptm/m/n/10 For the gen-eral BIN-file struc-ture, the reader is re-ferred 
+to the fol-low-ing web-site: \T1/zi4/m/n/10 http://www.nutech.dtu.dk/ 
+
+Overfull \hbox (84.64099pt too wide) in paragraph at lines 2347--2349
+[][][]\T1/zi4/m/n/10 read_BIN2R[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 co
+mbine_DataFiles[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 LT_RegenDose[][][]
+ [][]Age_Computation[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 AgeS_Computat
+ion[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 Palaeodose_Computation[][][] 
+[42] [43] [44]
+Overfull \hbox (0.29866pt too wide) in paragraph at lines 2469--2470
+[]\T1/zi4/m/n/10 Nb_measurement[]\T1/ptm/m/n/10 , #' pro-vided by [][]Gen-er-at
+e_DataFile[][][] or [][]Gen-er-ate_DataFile_MG[][][]
+
+Overfull \hbox (25.15663pt too wide) in paragraph at lines 2484--2487
+\T1/ptm/m/n/10 BIN files per sam-ple, which was used in [][]Gen-er-ate_DataFile
+[][][] or [][]Gen-er-ate_DataFile_MG[][][]
+[45] [46] [47] [48] [49] [50] [51] [52] [53]
+Overfull \hbox (1.91808pt too wide) in paragraph at lines 2983--2984
+[]\T1/ptm/m/n/10 a list of 4 mod-els that all con-sider a sat-u-rat-ing ex-po-n
+en-tial growth
+[54]
+Overfull \hbox (14.6996pt too wide) in paragraph at lines 3025--3030
+\T1/ptm/m/n/10 vel-oped in Combes et al (2015), based on an out-put of [][][]\T
+1/zi4/m/n/10 Generate_DataFile[][][] []\T1/ptm/m/n/10 or [][][]\T1/zi4/m/n/10 G
+enerate_DataFile_MG[][][]
+
+Overfull \hbox (3.02844pt too wide) in paragraph at lines 3057--3060
+[]\T1/ptm/m/n/10 list of ob-jects: LT, sLT, ITimes, dLab, ddot_env, reg-Dose, J
+, K, Nb_measurement,
+[55]
+Overfull \hbox (9.3981pt too wide) in paragraph at lines 3061--3062
+[]\T1/ptm/m/n/10 character vec-tor: names of sam-ple. The length of this vec-to
+r is equal to []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 . 
+[56]
+Overfull \hbox (73.12788pt too wide) in paragraph at lines 3129--3130
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 PalaeodosesMultiBF_EXPLINZO[]
+\T1/ptm/m/n/10 ): 
+
+Overfull \hbox (11.53857pt too wide) in paragraph at lines 3139--3140
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial growth and fit-ting through the ori-
+gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 PalaeodosesMultiBF_EXPZO[]\T1/ptm/m/n/10 )
+: 
+
+Underfull \hbox (badness 10000) in paragraph at lines 3168--3169
+
+[57]
+Overfull \hbox (0.60666pt too wide) in paragraph at lines 3213--3214
+\T1/ptm/m/n/10 anal-y-sis for the palaeo-dose es-ti-ma-tion of var-i-ous sam-pl
+es. In: Christophe, C., Philippe, A., Kreutzer,
+
+Overfull \hbox (44.64099pt too wide) in paragraph at lines 3233--3236
+[][][]\T1/zi4/m/n/10 Generate_DataFile[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/
+n/10 Generate_DataFile_MG[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 combine_
+DataFiles[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 rjags[][][][]\T1/ptm/m/n
+/10 , [][][]\T1/zi4/m/n/10 plot_MCMC[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/
+10 Age_Computation[][][][]\T1/ptm/m/n/10 ,
+[58]
+Overfull \hbox (31.44725pt too wide) in paragraph at lines 3268--3272
+[][][]\T1/ptm/m/n/10 list[][][] or [][]data.frame[][][] (\T1/ptm/b/n/10 re-quir
+ed\T1/ptm/m/n/10 ): Out-put as cre-ated by func-tions like [][]AgeC14_Computati
+on[][][],
+
+Overfull \hbox (8.18973pt too wide) in paragraph at lines 3282--3285
+[]\T1/zi4/m/n/10 legend []\T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 TRUE[]\T1/ptm/m/n/10
+ /[]\T1/zi4/m/n/10 FALSE[]\T1/ptm/m/n/10 ), []\T1/zi4/m/n/10 legend.text []\T1/
+ptm/m/n/10 ([][]char-ac-ter[][][] in-put needed), []\T1/zi4/m/n/10 legend.pos [
+][][]\T1/ptm/m/n/10 graph-
+
+Overfull \hbox (2.19601pt too wide) in paragraph at lines 3303--3304
+\T1/ptm/m/n/10 log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Stim-u-lat
+ed. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[59] [60]
+Overfull \hbox (11.12689pt too wide) in paragraph at lines 3373--3375
+[][][]\T1/ptm/m/n/10 coda::mcmc.list[][][] or [][]coda::mcmc[][][] (\T1/ptm/b/n
+/10 re-quired\T1/ptm/m/n/10 ): Out-put gen-er-ated by [][]rjags::jags.model[][]
+[],
+
+Overfull \hbox (22.78836pt too wide) in paragraph at lines 3373--3375
+\T1/ptm/m/n/10 e.g., in [][]Age_Computation[][][]. Al-ter-na-tively, lim-ited s
+up-port is pro-vided for []\T1/zi4/m/n/10 BayLum.list
+
+Overfull \hbox (25.95734pt too wide) in paragraph at lines 3406--3408
+[]\T1/ptm/m/n/10 The func-tion is used in the func-tion [][]Age_Computation[][]
+[], [][]AgeS_Computation[][][] and [][]Palaeo-dose_Computation[][][],
+[61]
+Overfull \hbox (8.61803pt too wide) in paragraph at lines 3468--3471
+[][]\T1/ptm/m/n/10 rjags::jags.model[][][] in [][]AgeS_Computation[][][], [][]A
+geC14_Computation[][][] or [][]Age_OSLC14[][][].
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 3498--3499
+
+
+Overfull \hbox (307.23083pt too wide) in alignment at lines 3517--3517
+ [] [] [] 
+[63]
+Overfull \hbox (6.81628pt too wide) in paragraph at lines 3529--3530
+\T1/ptm/m/n/10 grat-ing Op-ti-cally Stim-u-lated. R pack-age ver-sion 0.3.1. ht
+tps://CRAN.r-project.org/package=BayLum 
+[64]
+Overfull \hbox (10.98685pt too wide) in paragraph at lines 3633--3635
+[]\T1/ptm/m/n/10 Construct the strati-graphic ma-trix used in the func-tions []
+[]AgeS_Computation[][][] and [][]AgeC14_Computation[][][]
+[65] [66] [67] [68]
+Overfull \hbox (3.27841pt too wide) in paragraph at lines 3801--3802
+[][][]\T1/ptm/m/n/10 numeric[][][] (\T1/ptm/m/it/10 with de-fault\T1/ptm/m/n/10
+ ): Vec-tor where []\T1/zi4/m/n/10 DRsource.error[i] []\T1/ptm/m/n/10 cor-re-sp
+onds to source
+
+Overfull \hbox (22.02802pt too wide) in paragraph at lines 3803--3804
+\T1/ptm/m/n/10 to the chan-nel num-ber where the OSL sig-nal should be summed f
+rom for[]\T1/zi4/m/n/10 bin-file[i]
+
+Overfull \hbox (0.59874pt too wide) in paragraph at lines 3813--3814
+[][][]\T1/ptm/m/n/10 numeric[][][] (\T1/ptm/m/it/10 with de-fault\T1/ptm/m/n/10
+ ): Vec-tor where []\T1/zi4/m/n/10 nbOfLastCycleToRemove[i] []\T1/ptm/m/n/10 co
+r-re-sponds
+[69]
+Overfull \hbox (32.19589pt too wide) in paragraph at lines 3826--3827
+\T1/ptm/m/n/10 Chrono-log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Sti
+m-u-lated. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[70]
+No file Rd2.ind.
+[71]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+pdfTeX warning (dest): name{Rfn.graphics::contour} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::rug} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::smoothScatter} has been referenced bu
+t does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.hexbin::hexplom} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags::coda.samples} has been referenced but do
+es not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::densplot} has been referenced but does no
+t exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::traceplot} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.plot.default} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.mtext} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.par} has been referenced but does not exist, re
+placed by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rug} has been referenced but does not exist, re
+placed by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.stats::smooth} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.vector} has been referenced but does not exist,
+ replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::mcmc} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::mcmc.list} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::legend} has been referenced but does 
+not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.load} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.save} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.Luminescence} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.Luminescence::read.Rul.BIN2R} has been referenc
+ed but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.utils::read.table} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.utils::write.table} has been referenced but doe
+s not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.jags.model} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::extend.JAGS} has been referenced but d
+oes not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::autorun.jags} has been referenced but 
+does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::run.jags} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags::jags.model} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-
+zi4r.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
+pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/te
+xlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (71 pages, 311761 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (519 entries accepted, 0 rejected).
+Sorting entries.......done (5238 comparisons).
+Generating output file Rd2.ind....done (329 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-06-30> (./Rd2.tex
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
+Writing index file Rd2.idx
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.aux)
+(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.out)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.out)
+Overfull \hbox (204.15952pt too wide) in paragraph at lines 22--23
+\T1/ptm/m/n/10 tions: Combes, B. & Philippe, A. (2017) <[][]doi:10.1016/j.quage
+o.2017.02.003[][]> and Combes et al (2015) <[][]doi:10.1016/j.quageo.2015.04.00
+1[][]>. This in- 
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.toc [1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/p
+dftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr
+/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}])
+Underfull \hbox (badness 1466) in paragraph at lines 51--51
+[]\T1/ptm/m/it/10 Chronological Bayesian Mod-els In-te-grat-ing Op-ti-cally Sti
+m-u-lated
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
+
+[2] [3]
+Overfull \hbox (9.2281pt too wide) in paragraph at lines 148--152
+\T1/ptm/m/n/10 de-tails sec-tion for in-struc-tions re-gard-ing how to cor-rect
+ly fill []\T1/zi4/m/n/10 StratiConstraints[]\T1/ptm/m/n/10 ;
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [4]
+Underfull \hbox (badness 10000) in paragraph at lines 210--212
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd) [5{/usr/lo
+cal/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}] [6]
+[7] [8]
+Overfull \hbox (13.288pt too wide) in paragraph at lines 421--422
+[][][]\T1/ptm/m/n/10 character[][][] vec-tor: names of sam-ples. The length of 
+this vec-tor is equal to []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 . 
+
+Overfull \hbox (27.55978pt too wide) in paragraph at lines 425--428
+\T1/ptm/m/n/10 sam-ple (in ka). Note that, []\T1/zi4/m/n/10 length(PriorAge)=2*
+Nb_sample []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 PriorAge[2i-1,2i]
+[9]
+Overfull \hbox (9.2281pt too wide) in paragraph at lines 458--460
+\T1/ptm/m/n/10 de-tails sec-tion for in-struc-tions re-gard-ing how to cor-rect
+ly fill []\T1/zi4/m/n/10 StratiConstraints[]\T1/ptm/m/n/10 ;
+[10]
+Overfull \hbox (185.91916pt too wide) in alignment at lines 514--514
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 544--546
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--548
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 562--563
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 566--567
+
+
+Overfull \hbox (43.12788pt too wide) in paragraph at lines 592--593
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgesMultiCS2_EXPLINZO[]\T1/pt
+m/m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 616--617
+
+[12] [13]
+Overfull \hbox (18.12643pt too wide) in paragraph at lines 709--710
+[][][]\T1/ptm/m/n/10 Generate_DataFile[][][], [][]Gen-er-ate_DataFile_MG[][][],
+ [][]rjags[][][], [][]plot_MCMC[][][], [][]SC-Ma-trix[][][], [][]Age_Computatio
+n[][][], [][]Palaeo-
+[14] [15]
+Overfull \hbox (8.50006pt too wide) in paragraph at lines 821--823
+[][][]\T1/ptm/m/n/10 list[][][] of ob-jects: []\T1/zi4/m/n/10 LT[]\T1/ptm/m/n/1
+0 , []\T1/zi4/m/n/10 sLT[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 ITimes[]\T1/ptm/m/n
+/10 , []\T1/zi4/m/n/10 dLab[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 ddot_env[]\T1/pt
+m/m/n/10 , []\T1/zi4/m/n/10 regDose[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 J[]\T1/p
+tm/m/n/10 , []\T1/zi4/m/n/10 K[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Nb_measuremen
+t[]\T1/ptm/m/n/10 ,
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 880--881
+
+
+Overfull \hbox (33.12788pt too wide) in paragraph at lines 905--906
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgeMultiBF_EXPLINZO[]\T1/ptm/
+m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 929--930
+
+[17] [18]
+Overfull \hbox (51.94623pt too wide) in paragraph at lines 1009--1010
+[][][]\T1/ptm/m/n/10 Generate_DataFile[][][], [][]Gen-er-ate_DataFile_MG[][][],
+ [][]rjags[][][], [][]plot_MCMC[][][], [][]AgeS_Computation[][][], [][]Palaeo-d
+ose_Computation[][][] 
+[19] [20]
+Overfull \hbox (22.01988pt too wide) in paragraph at lines 1112--1115
+\T1/ptm/m/n/10 ple \T1/ptm/b/n/10 (in ka)\T1/ptm/m/n/10 . Note that, []\T1/zi4/
+m/n/10 length(PriorAge) = 2*Nb_sample []\T1/ptm/m/n/10 sand []\T1/zi4/m/n/10 Pr
+iorAge[2i-1,2i]
+
+Overfull \hbox (11.73805pt too wide) in paragraph at lines 1145--1150
+\T1/ptm/m/n/10 The length of this vec-tor is equal to the num-ber of OSL sam-pl
+es. []\T1/zi4/m/n/10 BinPerSample[i]
+[21]
+Overfull \hbox (14.5685pt too wide) in paragraph at lines 1219--1221
+[]\T1/ptm/m/n/10 There are ar-gu-ments for in-for-ma-tion con-cern-ing only C14
+ sam-ples: []\T1/zi4/m/n/10 Data_C14Cal[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Data
+_SigmaC14Cal[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (31.85826pt too wide) in paragraph at lines 1222--1225
+[]\T1/ptm/m/n/10 There are ar-gu-ments for in-for-ma-tion con-cern-ing all the 
+sam-ples: []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SampleN
+ames[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SampleNature[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (64.401pt too wide) in paragraph at lines 1222--1225
+[]\T1/zi4/m/n/10 PriorAge[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SavePdf[]\T1/ptm/m
+/n/10 , []\T1/zi4/m/n/10 OutputFileName[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Outp
+utFilePath[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SaveEstimates[]\T1/ptm/m/n/10 , [
+]\T1/zi4/m/n/10 OutputTableName[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 OutputTableP
+ath[]\T1/ptm/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 1222--1225
+
+[22]
+Overfull \hbox (185.91916pt too wide) in alignment at lines 1237--1237
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1239--1240
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1264--1266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1267--1268
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1283
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1284--1285
+
+[23]
+Overfull \hbox (43.12788pt too wide) in paragraph at lines 1309--1310
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgesMultiCS2_EXPLINZO[]\T1/pt
+m/m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1333--1334
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1346--1347
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1357--1358
+
+[24] [25] [26]
+Overfull \hbox (20.59677pt too wide) in paragraph at lines 1503--1508
+[]\T1/ptm/m/n/10 The func-tion al-lows to com-bine data al-ready gen-er-ated by
+ [][]Gen-er-ate_DataFile[][][] or [][]Gen-er-ate_DataFile_MG[][][].
+
+Overfull \hbox (8.35643pt too wide) in paragraph at lines 1534--1536
+[]\T1/ptm/m/n/10 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Uni-ver-sit
+é Bor-deaux Mon-taigne (France),
+[27] [28]
+Overfull \hbox (2.19601pt too wide) in paragraph at lines 1605--1606
+\T1/ptm/m/n/10 log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Stim-u-lat
+ed. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[29] [30]
+Overfull \hbox (4.55698pt too wide) in paragraph at lines 1741--1743
+[]\T1/ptm/m/n/10 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bo
+r-deaux Mon-taigne (France),
+
+Overfull \hbox (7.29648pt too wide) in paragraph at lines 1741--1743
+\T1/ptm/m/n/10 based on an 'MS Ex-cel' sheet by Guil-laume Guérin, IRAMAT-CRP2A
+, UMR 5060, CNRS-Université
+[31] [32] [33] [34] [35]
+Underfull \hbox (badness 10000) in paragraph at lines 2030--2032
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2034
+
+[36]
+Overfull \hbox (0.3185pt too wide) in paragraph at lines 2058--2060
+[]\T1/zi4/m/n/10 nbOfLastCycleToRemove= []\T1/ptm/m/n/10 num-ber of cy-cles at 
+the end of the SAR pro-to-col which should
+
+Underfull \hbox (badness 10000) in paragraph at lines 2058--2060
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Overfull \hbox (0.18973pt too wide) in paragraph at lines 2077--2083
+\T1/ptm/m/n/10 If con-versely, []\T1/zi4/m/n/10 FolderNames=c(noun2,noun1)[]\T1
+/ptm/m/n/10 , the anal-y-sis per-formed by [][][]\T1/zi4/m/n/10 AgeS_Computatio
+n[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2077--2083
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2087--2088
+
+[37]
+Overfull \hbox (49.18745pt too wide) in paragraph at lines 2096--2098
+[]\T1/ptm/m/n/10 For the gen-eral BIN-file struc-ture, the reader is re-ferred 
+to the fol-low-ing web-site: []\T1/zi4/m/n/10 http://www.nutech.dtu.dk/ 
+
+Underfull \hbox (badness 10000) in paragraph at lines 2114--2115
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2119--2120
+
+[38] [39]
+Underfull \hbox (badness 10000) in paragraph at lines 2240--2242
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2243--2244
+
+[40]
+Overfull \hbox (0.3185pt too wide) in paragraph at lines 2268--2270
+[]\T1/zi4/m/n/10 nbOfLastCycleToRemove= \T1/ptm/m/n/10 num-ber of cy-cles at th
+e end of the SAR pro-to-col which should
+
+Underfull \hbox (badness 10000) in paragraph at lines 2268--2270
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2277--2278
+
+
+Overfull \hbox (0.18973pt too wide) in paragraph at lines 2287--2293
+\T1/ptm/m/n/10 If con-versely, []\T1/zi4/m/n/10 FolderNames=c(noun2,noun1)[]\T1
+/ptm/m/n/10 , the anal-y-sis per-formed by [][][]\T1/zi4/m/n/10 AgeS_Computatio
+n[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2287--2293
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2297--2298
+
+[41]
+Overfull \hbox (9.52765pt too wide) in paragraph at lines 2299--2305
+[]\T1/zi4/m/n/10 "Sample1-1" []\T1/ptm/m/n/10 is the name of the sub-folder con
+-tain-ing the first BIN file for Sam-ple1, []\T1/zi4/m/n/10 "Sample1-File2"
+
+Overfull \hbox (49.18745pt too wide) in paragraph at lines 2306--2307
+[]\T1/ptm/m/n/10 For the gen-eral BIN-file struc-ture, the reader is re-ferred 
+to the fol-low-ing web-site: \T1/zi4/m/n/10 http://www.nutech.dtu.dk/ 
+
+Overfull \hbox (84.64099pt too wide) in paragraph at lines 2347--2349
+[][][]\T1/zi4/m/n/10 read_BIN2R[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 co
+mbine_DataFiles[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 LT_RegenDose[][][]
+ [][]Age_Computation[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 AgeS_Computat
+ion[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 Palaeodose_Computation[][][] 
+[42] [43] [44]
+Overfull \hbox (0.29866pt too wide) in paragraph at lines 2469--2470
+[]\T1/zi4/m/n/10 Nb_measurement[]\T1/ptm/m/n/10 , #' pro-vided by [][]Gen-er-at
+e_DataFile[][][] or [][]Gen-er-ate_DataFile_MG[][][]
+
+Overfull \hbox (25.15663pt too wide) in paragraph at lines 2484--2487
+\T1/ptm/m/n/10 BIN files per sam-ple, which was used in [][]Gen-er-ate_DataFile
+[][][] or [][]Gen-er-ate_DataFile_MG[][][]
+[45] [46] [47] [48] [49] [50] [51] [52] [53]
+Overfull \hbox (1.91808pt too wide) in paragraph at lines 2983--2984
+[]\T1/ptm/m/n/10 a list of 4 mod-els that all con-sider a sat-u-rat-ing ex-po-n
+en-tial growth
+[54]
+Overfull \hbox (14.6996pt too wide) in paragraph at lines 3025--3030
+\T1/ptm/m/n/10 vel-oped in Combes et al (2015), based on an out-put of [][][]\T
+1/zi4/m/n/10 Generate_DataFile[][][] []\T1/ptm/m/n/10 or [][][]\T1/zi4/m/n/10 G
+enerate_DataFile_MG[][][]
+
+Overfull \hbox (3.02844pt too wide) in paragraph at lines 3057--3060
+[]\T1/ptm/m/n/10 list of ob-jects: LT, sLT, ITimes, dLab, ddot_env, reg-Dose, J
+, K, Nb_measurement,
+[55]
+Overfull \hbox (9.3981pt too wide) in paragraph at lines 3061--3062
+[]\T1/ptm/m/n/10 character vec-tor: names of sam-ple. The length of this vec-to
+r is equal to []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 . 
+[56]
+Overfull \hbox (73.12788pt too wide) in paragraph at lines 3129--3130
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 PalaeodosesMultiBF_EXPLINZO[]
+\T1/ptm/m/n/10 ): 
+
+Overfull \hbox (11.53857pt too wide) in paragraph at lines 3139--3140
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial growth and fit-ting through the ori-
+gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 PalaeodosesMultiBF_EXPZO[]\T1/ptm/m/n/10 )
+: 
+
+Underfull \hbox (badness 10000) in paragraph at lines 3168--3169
+
+[57]
+Overfull \hbox (0.60666pt too wide) in paragraph at lines 3213--3214
+\T1/ptm/m/n/10 anal-y-sis for the palaeo-dose es-ti-ma-tion of var-i-ous sam-pl
+es. In: Christophe, C., Philippe, A., Kreutzer,
+
+Overfull \hbox (44.64099pt too wide) in paragraph at lines 3233--3236
+[][][]\T1/zi4/m/n/10 Generate_DataFile[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/
+n/10 Generate_DataFile_MG[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 combine_
+DataFiles[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 rjags[][][][]\T1/ptm/m/n
+/10 , [][][]\T1/zi4/m/n/10 plot_MCMC[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/
+10 Age_Computation[][][][]\T1/ptm/m/n/10 ,
+[58]
+Overfull \hbox (31.44725pt too wide) in paragraph at lines 3268--3272
+[][][]\T1/ptm/m/n/10 list[][][] or [][]data.frame[][][] (\T1/ptm/b/n/10 re-quir
+ed\T1/ptm/m/n/10 ): Out-put as cre-ated by func-tions like [][]AgeC14_Computati
+on[][][],
+
+Overfull \hbox (8.18973pt too wide) in paragraph at lines 3282--3285
+[]\T1/zi4/m/n/10 legend []\T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 TRUE[]\T1/ptm/m/n/10
+ /[]\T1/zi4/m/n/10 FALSE[]\T1/ptm/m/n/10 ), []\T1/zi4/m/n/10 legend.text []\T1/
+ptm/m/n/10 ([][]char-ac-ter[][][] in-put needed), []\T1/zi4/m/n/10 legend.pos [
+][][]\T1/ptm/m/n/10 graph-
+
+Overfull \hbox (2.19601pt too wide) in paragraph at lines 3303--3304
+\T1/ptm/m/n/10 log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Stim-u-lat
+ed. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[59] [60]
+Overfull \hbox (11.12689pt too wide) in paragraph at lines 3373--3375
+[][][]\T1/ptm/m/n/10 coda::mcmc.list[][][] or [][]coda::mcmc[][][] (\T1/ptm/b/n
+/10 re-quired\T1/ptm/m/n/10 ): Out-put gen-er-ated by [][]rjags::jags.model[][]
+[],
+
+Overfull \hbox (22.78836pt too wide) in paragraph at lines 3373--3375
+\T1/ptm/m/n/10 e.g., in [][]Age_Computation[][][]. Al-ter-na-tively, lim-ited s
+up-port is pro-vided for []\T1/zi4/m/n/10 BayLum.list
+
+Overfull \hbox (25.95734pt too wide) in paragraph at lines 3406--3408
+[]\T1/ptm/m/n/10 The func-tion is used in the func-tion [][]Age_Computation[][]
+[], [][]AgeS_Computation[][][] and [][]Palaeo-dose_Computation[][][],
+[61]
+Overfull \hbox (8.61803pt too wide) in paragraph at lines 3468--3471
+[][]\T1/ptm/m/n/10 rjags::jags.model[][][] in [][]AgeS_Computation[][][], [][]A
+geC14_Computation[][][] or [][]Age_OSLC14[][][].
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 3498--3499
+
+
+Overfull \hbox (307.23083pt too wide) in alignment at lines 3517--3517
+ [] [] [] 
+[63]
+Overfull \hbox (6.81628pt too wide) in paragraph at lines 3529--3530
+\T1/ptm/m/n/10 grat-ing Op-ti-cally Stim-u-lated. R pack-age ver-sion 0.3.1. ht
+tps://CRAN.r-project.org/package=BayLum 
+[64]
+Overfull \hbox (10.98685pt too wide) in paragraph at lines 3633--3635
+[]\T1/ptm/m/n/10 Construct the strati-graphic ma-trix used in the func-tions []
+[]AgeS_Computation[][][] and [][]AgeC14_Computation[][][]
+[65] [66] [67] [68]
+Overfull \hbox (3.27841pt too wide) in paragraph at lines 3801--3802
+[][][]\T1/ptm/m/n/10 numeric[][][] (\T1/ptm/m/it/10 with de-fault\T1/ptm/m/n/10
+ ): Vec-tor where []\T1/zi4/m/n/10 DRsource.error[i] []\T1/ptm/m/n/10 cor-re-sp
+onds to source
+
+Overfull \hbox (22.02802pt too wide) in paragraph at lines 3803--3804
+\T1/ptm/m/n/10 to the chan-nel num-ber where the OSL sig-nal should be summed f
+rom for[]\T1/zi4/m/n/10 bin-file[i]
+
+Overfull \hbox (0.59874pt too wide) in paragraph at lines 3813--3814
+[][][]\T1/ptm/m/n/10 numeric[][][] (\T1/ptm/m/it/10 with de-fault\T1/ptm/m/n/10
+ ): Vec-tor where []\T1/zi4/m/n/10 nbOfLastCycleToRemove[i] []\T1/ptm/m/n/10 co
+r-re-sponds
+[69]
+Overfull \hbox (32.19589pt too wide) in paragraph at lines 3826--3827
+\T1/ptm/m/n/10 Chrono-log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Sti
+m-u-lated. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[70]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.ind [71]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 79.
+
+[72] [73])
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)
+pdfTeX warning (dest): name{Rfn.graphics::contour} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::rug} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::smoothScatter} has been referenced bu
+t does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.hexbin::hexplom} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags::coda.samples} has been referenced but do
+es not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::densplot} has been referenced but does no
+t exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::traceplot} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.plot.default} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.mtext} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.par} has been referenced but does not exist, re
+placed by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rug} has been referenced but does not exist, re
+placed by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.stats::smooth} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.vector} has been referenced but does not exist,
+ replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::mcmc} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::mcmc.list} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::legend} has been referenced but does 
+not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.load} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.save} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.Luminescence} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.Luminescence::read.Rul.BIN2R} has been referenc
+ed but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.utils::read.table} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.utils::write.table} has been referenced but doe
+s not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.jags.model} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::extend.JAGS} has been referenced but d
+oes not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::autorun.jags} has been referenced but 
+does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::run.jags} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags::jags.model} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-
+zi4r.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
+pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/te
+xlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (73 pages, 330112 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (519 entries accepted, 0 rejected).
+Sorting entries.......done (5244 comparisons).
+Generating output file Rd2.ind....done (329 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-06-30> (./Rd2.tex
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
+Writing index file Rd2.idx
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.aux)
+(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.out)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.out)
+Overfull \hbox (204.15952pt too wide) in paragraph at lines 22--23
+\T1/ptm/m/n/10 tions: Combes, B. & Philippe, A. (2017) <[][]doi:10.1016/j.quage
+o.2017.02.003[][]> and Combes et al (2015) <[][]doi:10.1016/j.quageo.2015.04.00
+1[][]>. This in- 
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.toc [1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/p
+dftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr
+/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}])
+Underfull \hbox (badness 1466) in paragraph at lines 51--51
+[]\T1/ptm/m/it/10 Chronological Bayesian Mod-els In-te-grat-ing Op-ti-cally Sti
+m-u-lated
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
+
+[2] [3]
+Overfull \hbox (9.2281pt too wide) in paragraph at lines 148--152
+\T1/ptm/m/n/10 de-tails sec-tion for in-struc-tions re-gard-ing how to cor-rect
+ly fill []\T1/zi4/m/n/10 StratiConstraints[]\T1/ptm/m/n/10 ;
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [4]
+Underfull \hbox (badness 10000) in paragraph at lines 210--212
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd) [5{/usr/lo
+cal/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}] [6]
+[7] [8]
+Overfull \hbox (13.288pt too wide) in paragraph at lines 421--422
+[][][]\T1/ptm/m/n/10 character[][][] vec-tor: names of sam-ples. The length of 
+this vec-tor is equal to []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 . 
+
+Overfull \hbox (27.55978pt too wide) in paragraph at lines 425--428
+\T1/ptm/m/n/10 sam-ple (in ka). Note that, []\T1/zi4/m/n/10 length(PriorAge)=2*
+Nb_sample []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 PriorAge[2i-1,2i]
+[9]
+Overfull \hbox (9.2281pt too wide) in paragraph at lines 458--460
+\T1/ptm/m/n/10 de-tails sec-tion for in-struc-tions re-gard-ing how to cor-rect
+ly fill []\T1/zi4/m/n/10 StratiConstraints[]\T1/ptm/m/n/10 ;
+[10]
+Overfull \hbox (185.91916pt too wide) in alignment at lines 514--514
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 544--546
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--548
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 562--563
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 566--567
+
+
+Overfull \hbox (43.12788pt too wide) in paragraph at lines 592--593
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgesMultiCS2_EXPLINZO[]\T1/pt
+m/m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 616--617
+
+[12] [13]
+Overfull \hbox (18.12643pt too wide) in paragraph at lines 709--710
+[][][]\T1/ptm/m/n/10 Generate_DataFile[][][], [][]Gen-er-ate_DataFile_MG[][][],
+ [][]rjags[][][], [][]plot_MCMC[][][], [][]SC-Ma-trix[][][], [][]Age_Computatio
+n[][][], [][]Palaeo-
+[14] [15]
+Overfull \hbox (8.50006pt too wide) in paragraph at lines 821--823
+[][][]\T1/ptm/m/n/10 list[][][] of ob-jects: []\T1/zi4/m/n/10 LT[]\T1/ptm/m/n/1
+0 , []\T1/zi4/m/n/10 sLT[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 ITimes[]\T1/ptm/m/n
+/10 , []\T1/zi4/m/n/10 dLab[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 ddot_env[]\T1/pt
+m/m/n/10 , []\T1/zi4/m/n/10 regDose[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 J[]\T1/p
+tm/m/n/10 , []\T1/zi4/m/n/10 K[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Nb_measuremen
+t[]\T1/ptm/m/n/10 ,
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 880--881
+
+
+Overfull \hbox (33.12788pt too wide) in paragraph at lines 905--906
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgeMultiBF_EXPLINZO[]\T1/ptm/
+m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 929--930
+
+[17] [18]
+Overfull \hbox (51.94623pt too wide) in paragraph at lines 1009--1010
+[][][]\T1/ptm/m/n/10 Generate_DataFile[][][], [][]Gen-er-ate_DataFile_MG[][][],
+ [][]rjags[][][], [][]plot_MCMC[][][], [][]AgeS_Computation[][][], [][]Palaeo-d
+ose_Computation[][][] 
+[19] [20]
+Overfull \hbox (22.01988pt too wide) in paragraph at lines 1112--1115
+\T1/ptm/m/n/10 ple \T1/ptm/b/n/10 (in ka)\T1/ptm/m/n/10 . Note that, []\T1/zi4/
+m/n/10 length(PriorAge) = 2*Nb_sample []\T1/ptm/m/n/10 sand []\T1/zi4/m/n/10 Pr
+iorAge[2i-1,2i]
+
+Overfull \hbox (11.73805pt too wide) in paragraph at lines 1145--1150
+\T1/ptm/m/n/10 The length of this vec-tor is equal to the num-ber of OSL sam-pl
+es. []\T1/zi4/m/n/10 BinPerSample[i]
+[21]
+Overfull \hbox (14.5685pt too wide) in paragraph at lines 1219--1221
+[]\T1/ptm/m/n/10 There are ar-gu-ments for in-for-ma-tion con-cern-ing only C14
+ sam-ples: []\T1/zi4/m/n/10 Data_C14Cal[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Data
+_SigmaC14Cal[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (31.85826pt too wide) in paragraph at lines 1222--1225
+[]\T1/ptm/m/n/10 There are ar-gu-ments for in-for-ma-tion con-cern-ing all the 
+sam-ples: []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SampleN
+ames[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SampleNature[]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (64.401pt too wide) in paragraph at lines 1222--1225
+[]\T1/zi4/m/n/10 PriorAge[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SavePdf[]\T1/ptm/m
+/n/10 , []\T1/zi4/m/n/10 OutputFileName[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 Outp
+utFilePath[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 SaveEstimates[]\T1/ptm/m/n/10 , [
+]\T1/zi4/m/n/10 OutputTableName[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 OutputTableP
+ath[]\T1/ptm/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 1222--1225
+
+[22]
+Overfull \hbox (185.91916pt too wide) in alignment at lines 1237--1237
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1239--1240
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1264--1266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1267--1268
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1283
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1284--1285
+
+[23]
+Overfull \hbox (43.12788pt too wide) in paragraph at lines 1309--1310
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 AgesMultiCS2_EXPLINZO[]\T1/pt
+m/m/n/10 ): 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1333--1334
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1346--1347
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1357--1358
+
+[24] [25] [26]
+Overfull \hbox (20.59677pt too wide) in paragraph at lines 1503--1508
+[]\T1/ptm/m/n/10 The func-tion al-lows to com-bine data al-ready gen-er-ated by
+ [][]Gen-er-ate_DataFile[][][] or [][]Gen-er-ate_DataFile_MG[][][].
+
+Overfull \hbox (8.35643pt too wide) in paragraph at lines 1534--1536
+[]\T1/ptm/m/n/10 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Uni-ver-sit
+é Bor-deaux Mon-taigne (France),
+[27] [28]
+Overfull \hbox (2.19601pt too wide) in paragraph at lines 1605--1606
+\T1/ptm/m/n/10 log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Stim-u-lat
+ed. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[29] [30]
+Overfull \hbox (4.55698pt too wide) in paragraph at lines 1741--1743
+[]\T1/ptm/m/n/10 Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bo
+r-deaux Mon-taigne (France),
+
+Overfull \hbox (7.29648pt too wide) in paragraph at lines 1741--1743
+\T1/ptm/m/n/10 based on an 'MS Ex-cel' sheet by Guil-laume Guérin, IRAMAT-CRP2A
+, UMR 5060, CNRS-Université
+[31] [32] [33] [34] [35]
+Underfull \hbox (badness 10000) in paragraph at lines 2030--2032
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2033--2034
+
+[36]
+Overfull \hbox (0.3185pt too wide) in paragraph at lines 2058--2060
+[]\T1/zi4/m/n/10 nbOfLastCycleToRemove= []\T1/ptm/m/n/10 num-ber of cy-cles at 
+the end of the SAR pro-to-col which should
+
+Underfull \hbox (badness 10000) in paragraph at lines 2058--2060
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Overfull \hbox (0.18973pt too wide) in paragraph at lines 2077--2083
+\T1/ptm/m/n/10 If con-versely, []\T1/zi4/m/n/10 FolderNames=c(noun2,noun1)[]\T1
+/ptm/m/n/10 , the anal-y-sis per-formed by [][][]\T1/zi4/m/n/10 AgeS_Computatio
+n[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2077--2083
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2087--2088
+
+[37]
+Overfull \hbox (49.18745pt too wide) in paragraph at lines 2096--2098
+[]\T1/ptm/m/n/10 For the gen-eral BIN-file struc-ture, the reader is re-ferred 
+to the fol-low-ing web-site: []\T1/zi4/m/n/10 http://www.nutech.dtu.dk/ 
+
+Underfull \hbox (badness 10000) in paragraph at lines 2114--2115
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2119--2120
+
+[38] [39]
+Underfull \hbox (badness 10000) in paragraph at lines 2240--2242
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2243--2244
+
+[40]
+Overfull \hbox (0.3185pt too wide) in paragraph at lines 2268--2270
+[]\T1/zi4/m/n/10 nbOfLastCycleToRemove= \T1/ptm/m/n/10 num-ber of cy-cles at th
+e end of the SAR pro-to-col which should
+
+Underfull \hbox (badness 10000) in paragraph at lines 2268--2270
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2277--2278
+
+
+Overfull \hbox (0.18973pt too wide) in paragraph at lines 2287--2293
+\T1/ptm/m/n/10 If con-versely, []\T1/zi4/m/n/10 FolderNames=c(noun2,noun1)[]\T1
+/ptm/m/n/10 , the anal-y-sis per-formed by [][][]\T1/zi4/m/n/10 AgeS_Computatio
+n[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2287--2293
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2297--2298
+
+[41]
+Overfull \hbox (9.52765pt too wide) in paragraph at lines 2299--2305
+[]\T1/zi4/m/n/10 "Sample1-1" []\T1/ptm/m/n/10 is the name of the sub-folder con
+-tain-ing the first BIN file for Sam-ple1, []\T1/zi4/m/n/10 "Sample1-File2"
+
+Overfull \hbox (49.18745pt too wide) in paragraph at lines 2306--2307
+[]\T1/ptm/m/n/10 For the gen-eral BIN-file struc-ture, the reader is re-ferred 
+to the fol-low-ing web-site: \T1/zi4/m/n/10 http://www.nutech.dtu.dk/ 
+
+Overfull \hbox (84.64099pt too wide) in paragraph at lines 2347--2349
+[][][]\T1/zi4/m/n/10 read_BIN2R[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 co
+mbine_DataFiles[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 LT_RegenDose[][][]
+ [][]Age_Computation[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 AgeS_Computat
+ion[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 Palaeodose_Computation[][][] 
+[42] [43] [44]
+Overfull \hbox (0.29866pt too wide) in paragraph at lines 2469--2470
+[]\T1/zi4/m/n/10 Nb_measurement[]\T1/ptm/m/n/10 , #' pro-vided by [][]Gen-er-at
+e_DataFile[][][] or [][]Gen-er-ate_DataFile_MG[][][]
+
+Overfull \hbox (25.15663pt too wide) in paragraph at lines 2484--2487
+\T1/ptm/m/n/10 BIN files per sam-ple, which was used in [][]Gen-er-ate_DataFile
+[][][] or [][]Gen-er-ate_DataFile_MG[][][]
+[45] [46] [47] [48] [49] [50] [51] [52] [53]
+Overfull \hbox (1.91808pt too wide) in paragraph at lines 2983--2984
+[]\T1/ptm/m/n/10 a list of 4 mod-els that all con-sider a sat-u-rat-ing ex-po-n
+en-tial growth
+[54]
+Overfull \hbox (14.6996pt too wide) in paragraph at lines 3025--3030
+\T1/ptm/m/n/10 vel-oped in Combes et al (2015), based on an out-put of [][][]\T
+1/zi4/m/n/10 Generate_DataFile[][][] []\T1/ptm/m/n/10 or [][][]\T1/zi4/m/n/10 G
+enerate_DataFile_MG[][][]
+
+Overfull \hbox (3.02844pt too wide) in paragraph at lines 3057--3060
+[]\T1/ptm/m/n/10 list of ob-jects: LT, sLT, ITimes, dLab, ddot_env, reg-Dose, J
+, K, Nb_measurement,
+[55]
+Overfull \hbox (9.3981pt too wide) in paragraph at lines 3061--3062
+[]\T1/ptm/m/n/10 character vec-tor: names of sam-ple. The length of this vec-to
+r is equal to []\T1/zi4/m/n/10 Nb_sample[]\T1/ptm/m/n/10 . 
+[56]
+Overfull \hbox (73.12788pt too wide) in paragraph at lines 3129--3130
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial plus lin-ear growth and fit-ting thr
+ough the ori-gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 PalaeodosesMultiBF_EXPLINZO[]
+\T1/ptm/m/n/10 ): 
+
+Overfull \hbox (11.53857pt too wide) in paragraph at lines 3139--3140
+[]\T1/ptm/b/n/10 Saturating ex-po-nen-tial growth and fit-ting through the ori-
+gin \T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 PalaeodosesMultiBF_EXPZO[]\T1/ptm/m/n/10 )
+: 
+
+Underfull \hbox (badness 10000) in paragraph at lines 3168--3169
+
+[57]
+Overfull \hbox (0.60666pt too wide) in paragraph at lines 3213--3214
+\T1/ptm/m/n/10 anal-y-sis for the palaeo-dose es-ti-ma-tion of var-i-ous sam-pl
+es. In: Christophe, C., Philippe, A., Kreutzer,
+
+Overfull \hbox (44.64099pt too wide) in paragraph at lines 3233--3236
+[][][]\T1/zi4/m/n/10 Generate_DataFile[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/
+n/10 Generate_DataFile_MG[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 combine_
+DataFiles[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/10 rjags[][][][]\T1/ptm/m/n
+/10 , [][][]\T1/zi4/m/n/10 plot_MCMC[][][][]\T1/ptm/m/n/10 , [][][]\T1/zi4/m/n/
+10 Age_Computation[][][][]\T1/ptm/m/n/10 ,
+[58]
+Overfull \hbox (31.44725pt too wide) in paragraph at lines 3268--3272
+[][][]\T1/ptm/m/n/10 list[][][] or [][]data.frame[][][] (\T1/ptm/b/n/10 re-quir
+ed\T1/ptm/m/n/10 ): Out-put as cre-ated by func-tions like [][]AgeC14_Computati
+on[][][],
+
+Overfull \hbox (8.18973pt too wide) in paragraph at lines 3282--3285
+[]\T1/zi4/m/n/10 legend []\T1/ptm/m/n/10 ([]\T1/zi4/m/n/10 TRUE[]\T1/ptm/m/n/10
+ /[]\T1/zi4/m/n/10 FALSE[]\T1/ptm/m/n/10 ), []\T1/zi4/m/n/10 legend.text []\T1/
+ptm/m/n/10 ([][]char-ac-ter[][][] in-put needed), []\T1/zi4/m/n/10 legend.pos [
+][][]\T1/ptm/m/n/10 graph-
+
+Overfull \hbox (2.19601pt too wide) in paragraph at lines 3303--3304
+\T1/ptm/m/n/10 log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Stim-u-lat
+ed. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[59] [60]
+Overfull \hbox (11.12689pt too wide) in paragraph at lines 3373--3375
+[][][]\T1/ptm/m/n/10 coda::mcmc.list[][][] or [][]coda::mcmc[][][] (\T1/ptm/b/n
+/10 re-quired\T1/ptm/m/n/10 ): Out-put gen-er-ated by [][]rjags::jags.model[][]
+[],
+
+Overfull \hbox (22.78836pt too wide) in paragraph at lines 3373--3375
+\T1/ptm/m/n/10 e.g., in [][]Age_Computation[][][]. Al-ter-na-tively, lim-ited s
+up-port is pro-vided for []\T1/zi4/m/n/10 BayLum.list
+
+Overfull \hbox (25.95734pt too wide) in paragraph at lines 3406--3408
+[]\T1/ptm/m/n/10 The func-tion is used in the func-tion [][]Age_Computation[][]
+[], [][]AgeS_Computation[][][] and [][]Palaeo-dose_Computation[][][],
+[61]
+Overfull \hbox (8.61803pt too wide) in paragraph at lines 3468--3471
+[][]\T1/ptm/m/n/10 rjags::jags.model[][][] in [][]AgeS_Computation[][][], [][]A
+geC14_Computation[][][] or [][]Age_OSLC14[][][].
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 3498--3499
+
+
+Overfull \hbox (307.23083pt too wide) in alignment at lines 3517--3517
+ [] [] [] 
+[63]
+Overfull \hbox (6.81628pt too wide) in paragraph at lines 3529--3530
+\T1/ptm/m/n/10 grat-ing Op-ti-cally Stim-u-lated. R pack-age ver-sion 0.3.1. ht
+tps://CRAN.r-project.org/package=BayLum 
+[64]
+Overfull \hbox (10.98685pt too wide) in paragraph at lines 3633--3635
+[]\T1/ptm/m/n/10 Construct the strati-graphic ma-trix used in the func-tions []
+[]AgeS_Computation[][][] and [][]AgeC14_Computation[][][]
+[65] [66] [67] [68]
+Overfull \hbox (3.27841pt too wide) in paragraph at lines 3801--3802
+[][][]\T1/ptm/m/n/10 numeric[][][] (\T1/ptm/m/it/10 with de-fault\T1/ptm/m/n/10
+ ): Vec-tor where []\T1/zi4/m/n/10 DRsource.error[i] []\T1/ptm/m/n/10 cor-re-sp
+onds to source
+
+Overfull \hbox (22.02802pt too wide) in paragraph at lines 3803--3804
+\T1/ptm/m/n/10 to the chan-nel num-ber where the OSL sig-nal should be summed f
+rom for[]\T1/zi4/m/n/10 bin-file[i]
+
+Overfull \hbox (0.59874pt too wide) in paragraph at lines 3813--3814
+[][][]\T1/ptm/m/n/10 numeric[][][] (\T1/ptm/m/it/10 with de-fault\T1/ptm/m/n/10
+ ): Vec-tor where []\T1/zi4/m/n/10 nbOfLastCycleToRemove[i] []\T1/ptm/m/n/10 co
+r-re-sponds
+[69]
+Overfull \hbox (32.19589pt too wide) in paragraph at lines 3826--3827
+\T1/ptm/m/n/10 Chrono-log-i-cal Bayesian Mod-els In-te-grat-ing Op-ti-cally Sti
+m-u-lated. R pack-age ver-sion 0.3.1. https://CRAN.r-
+[70]
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.ind [71]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 80.
+
+[72] [73])
+(/private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/RtmpJog9CK/Rd2pdfcea5
+63f1b372/Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)
+pdfTeX warning (dest): name{Rfn.graphics::contour} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::rug} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::smoothScatter} has been referenced bu
+t does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.hexbin::hexplom} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags::coda.samples} has been referenced but do
+es not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::densplot} has been referenced but does no
+t exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::traceplot} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.plot.default} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.mtext} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.par} has been referenced but does not exist, re
+placed by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rug} has been referenced but does not exist, re
+placed by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.stats::smooth} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.vector} has been referenced but does not exist,
+ replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::mcmc} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.coda::mcmc.list} has been referenced but does n
+ot exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.graphics::legend} has been referenced but does 
+not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.load} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.save} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.Luminescence} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.Luminescence::read.Rul.BIN2R} has been referenc
+ed but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.utils::read.table} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.utils::write.table} has been referenced but doe
+s not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.jags.model} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::extend.JAGS} has been referenced but d
+oes not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::autorun.jags} has been referenced but 
+does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.runjags::run.jags} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.rjags::jags.model} has been referenced but does
+ not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-
+zi4r.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
+pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></us
+r/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/te
+xlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (73 pages, 330373 bytes).
+Transcript written on Rd2.log.
+Saving output to â€˜BayLum-manual.pdfâ€™ ...
+Done
+You may want to clean up by 'rm -Rf /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//RtmpJog9CK/Rd2pdfcea563f1b372'

@@ -11,7 +11,7 @@ header-includes:
 **This package version requires R >= 4.1**
 
 ## New functions
-* `subset_SingleGrainData()`: the function provides a convenient subsetting of `Risoe.BINFileData-class` objects using a table of position and grain pairs 
+* `subset_SingleGrainData()`: the function provides a convenient sub setting of `Risoe.BINFileData-class` objects using a table of position and grain pairs 
 
 ## Bugfixes and changes
 

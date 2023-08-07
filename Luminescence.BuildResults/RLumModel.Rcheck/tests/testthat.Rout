@@ -1,0 +1,59 @@
+
+R Under development (unstable) (2023-07-21 r84719) -- "Unsuffered Consequences"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(RLumModel)
+Loading required package: Luminescence
+Welcome to the R package Luminescence version 0.9.22 [Built: 2023-08-07 07:45:30 UTC]
+The R-package Luminescence manual: 'Call unto me, and I will answer thee, and will shew thee great things, and difficult, which thou knowest not.'
+> 
+> test_check("RLumModel")
+[ FAIL 0 | WARN 0 | SKIP 48 | PASS 0 ]
+
+══ Skipped tests (48) ══════════════════════════════════════════════════════════
+• On CRAN (48): 'test-create_DRT.sequence.R:2:3',
+  'test-create_DRT.sequence.R:18:3', 'test-create_SAR.sequence.R:2:3',
+  'test-create_SAR.sequence.R:16:3', 'test-model_LuminescenceSignals.R:2:3',
+  'test-model_LuminescenceSignals.R:25:3',
+  'test-model_LuminescenceSignals.R:44:3',
+  'test-model_LuminescenceSignals.R:65:3',
+  'test-model_LuminescenceSignals.R:87:3',
+  'test-model_LuminescenceSignals.R:120:3',
+  'test-model_LuminescenceSignals.R:203:3', 'test-own-parameter-sets.R:2:3',
+  'test-read_SEQ2R.R:2:3', 'test-read_SEQ2R.R:13:3', 'test-read_SEQ2R.R:25:3',
+  'test-set_pars.R:2:3', 'test-set_pars.R:14:3', 'test-set_pars.R:30:3',
+  'test-simulate_CW_OSL.R:2:3', 'test-simulate_CW_OSL.R:32:3',
+  'test-simulate_CW_OSL.R:60:3', 'test-simulate_LM_OSL.R:2:3',
+  'test-simulate_LM_OSL.R:30:3', 'test-simulate_LM_OSL.R:57:3',
+  'test-simulate_RF.R:2:3', 'test-simulate_RF.R:28:3',
+  'test-simulate_RF.R:55:3', 'test-simulate_RF.R:84:3',
+  'test-simulate_RF.R:112:3', 'test-simulate_RF.R:136:3',
+  'test-simulate_RF_and_heating.R:2:3', 'test-simulate_RF_and_heating.R:31:3',
+  'test-simulate_RF_and_heating.R:61:3', 'test-simulate_RF_and_heating.R:91:3',
+  'test-simulate_RF_and_heating.R:122:3', 'test-simulate_TL.R:13:3',
+  'test-simulate_TL.R:32:3', 'test-simulate_heating.R:2:3',
+  'test-simulate_heating.R:23:3', 'test-simulate_illumination.R:2:3',
+  'test-simulate_illumination.R:33:3', 'test-simulate_irradiation.R:2:3',
+  'test-simulate_irradiation.R:45:3', 'test-simulate_irradiation.R:67:3',
+  'test-simulate_pause.R:2:3', 'test-simulate_pause.R:23:3',
+  'test-trace_ParameterStateEvolution.R:2:3', 'test-translate_sequence.R:27:3'
+
+[ FAIL 0 | WARN 0 | SKIP 48 | PASS 0 ]
+> 
+> proc.time()
+   user  system elapsed 
+  0.703   0.052   0.754 

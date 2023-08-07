@@ -1,0 +1,7 @@
+  Running ‘testthat.R’
+
+See
+  ‘/Users/kreutzer/GitHub/Luminescence/Luminescence.BuildResults/RLumModel.Rcheck/00check.log’
+for details.
+
+

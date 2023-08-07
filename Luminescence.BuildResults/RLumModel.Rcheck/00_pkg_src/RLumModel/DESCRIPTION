@@ -1,0 +1,42 @@
+Package: RLumModel
+Type: Package
+Title: Solving Ordinary Differential Equations to Understand
+        Luminescence
+Version: 0.2.10
+Date: 2022-02-20
+Author: Johannes Friedrich [aut, trl, cre]
+    (<https://orcid.org/0000-0002-0805-9547>),
+  Sebastian Kreutzer [aut, ths] (<https://orcid.org/0000-0002-0734-2199>),
+  Christoph Schmidt [aut, ths] (<https://orcid.org/0000-0002-2309-3209>)
+Authors@R: c(
+    person("Johannes", "Friedrich", role = c("aut","trl","cre"), comment = c(ORCID = "0000-0002-0805-9547"), 
+    email = "johannes.friedrich@posteo.de"),
+    person("Sebastian", "Kreutzer", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-0734-2199")),
+    person("Christoph", "Schmidt", role = c("aut", "ths"), comment = c(ORCID = "0000-0002-2309-3209"))
+    )
+Maintainer: Johannes Friedrich <johannes.friedrich@posteo.de>
+Description: A collection of functions to simulate luminescence signals in quartz and Al2O3 based on published models.
+Contact: Package Developer Team <developer@model.r-luminescence.de>
+License: GPL-3
+BugReports: https://github.com/R-Lum/RLumModel/issues
+Depends: R (>= 4.0), utils, Luminescence (>= 0.9.18)
+Imports: deSolve (>= 1.30), khroma (>= 1.8.0), methods, Rcpp (>= 1.0.8)
+Suggests: testthat (>= 3.1.0), R.rsp (>= 0.44.0)
+URL: https://CRAN.R-project.org/package=RLumModel
+Collate: RLumModel-package.R RcppExports.R calc_signal.R
+        calc_concentrations.R create_DRT.sequence.R
+        create_SAR.sequence.R extract_pars.R
+        model_LuminescenceSignals.R read_SEQ2R.R set_pars.R
+        simulate_CW_OSL.R simulate_heating.R simulate_illumination.R
+        simulate_irradiation.R simulate_LM_OSL.R simulate_pause.R
+        simulate_RF.R simulate_RF_and_heating.R simulate_TL.R
+        translate_sequence.R trace_ParameterStateEvolution.R
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: R.rsp
+LinkingTo: Rcpp (>= 1.0.1), RcppArmadillo (>= 0.9.400.2.0)
+NeedsCompilation: yes
+Packaged: 2022-02-21 20:27:30 UTC; johannes
+Repository: CRAN
+Date/Publication: 2022-02-22 00:40:07 UTC

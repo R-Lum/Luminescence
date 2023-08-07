@@ -1,0 +1,6 @@
+name	user	system	elapsed
+ExampleData.ModelOutput	0.074	0.007	0.082	
+dot-set_pars	0.001	0.000	0.001	
+model_LuminescenceSignals	0.542	0.026	0.569	
+read_SEQ2R	0.008	0.001	0.010	
+trace_ParameterStateEvolution	0.133	0.007	0.141	
