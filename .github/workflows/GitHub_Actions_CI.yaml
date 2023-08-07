@@ -48,9 +48,8 @@ jobs:
       - name: Install JAGS on Windows (R oldrel)
         if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
         run: |
-          curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
-          C:\JAGS-4.3.0.exe /S
-          Sys.setenv(JAGS_HOME="C:/Program Files/JAGS/JAGS-4.3.0")
+          curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          C:\JAGS-4.3.1.exe /S
 
       - uses: actions/checkout@v3
 
