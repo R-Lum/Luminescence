@@ -51,8 +51,6 @@ jobs:
           curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
           C:\JAGS-4.3.0.exe /S
           Sys.setenv(JAGS_HOME="C:\JAGS-4.3.0")
-        shell: cmd
-
 
       - uses: actions/checkout@v3
 
