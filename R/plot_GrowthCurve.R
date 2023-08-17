@@ -193,7 +193,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.5
+#' @section Function version: 1.11.6
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -802,7 +802,6 @@ plot_GrowthCurve <- function(
     }
 
     if(fit.method!="LIN"){
-
       ##FITTING on GIVEN VALUES##
       #	--use classic R fitting routine to fit the curve
 
@@ -828,7 +827,6 @@ plot_GrowthCurve <- function(
         ),
         silent = TRUE
         ))
-
 
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
@@ -874,7 +872,6 @@ plot_GrowthCurve <- function(
         if(verbose) writeLines("[plot_GrowthCurve()] try-error for EXP fit")
 
       }else{
-
         ##this is to avoid the singular convergence failure due to a perfect fit at the beginning
         ##this may happen especially for simulated data
         if(inherits(fit, "try-error") & !inherits(fit.initial, "try-error")){
@@ -920,7 +917,6 @@ plot_GrowthCurve <- function(
           }
         }
 
-
         #EXP MC -----
         ##Monte Carlo Simulation
         #	--Fit many curves and calculate a new De +/- De_Error
@@ -933,7 +929,6 @@ plot_GrowthCurve <- function(
 
         #start loop
         for (i in 1:NumberIterations.MC) {
-
           ##set data set
           data <- data.frame(x = xy$x,y = data.MC[,i])
 
@@ -963,7 +958,6 @@ plot_GrowthCurve <- function(
             x.natural[i] <- NA
 
           }else {
-
             #get parameters out
             parameters<-coef(fit.MC)
             var.b[i]<-as.vector((parameters["b"])) #D0
@@ -1035,7 +1029,6 @@ plot_GrowthCurve <- function(
 
       }
 
-
       ##remove vector labels
       De <- as.numeric(as.character(De))
 
@@ -1059,7 +1052,6 @@ plot_GrowthCurve <- function(
       #LIN MC ---------
       for (i in 1:NumberIterations.MC) {
         data <- data.frame(x = xy$x, y = data.MC[, i])
-
         if(fit.force_through_origin){
 
           ##do fitting
@@ -1075,10 +1067,8 @@ plot_GrowthCurve <- function(
           }
 
         }else{
-
           ##do fitting
           fit.lmMC <- lm(data$y~ data$x, weights=fit.weights)
-
 
           #calculate x.natural
           if(mode == "interpolation"){
@@ -1092,9 +1082,6 @@ plot_GrowthCurve <- function(
           }
 
         }
-
-
-
 
       }#endfor::loop for MC
 
@@ -1110,8 +1097,6 @@ plot_GrowthCurve <- function(
   #=========================================================================== #
   # EXP+LIN ----
   else if (fit.method=="EXP+LIN") {
-
-
     ##try some start parameters from the input values to makes the fitting more stable
     for(i in 1:length(a.MC)){
       a<-a.MC[i];b<-b.MC[i];c<-c.MC[i];g<-g.MC[i]
@@ -1158,12 +1143,7 @@ plot_GrowthCurve <- function(
         g.start[i]<-as.vector((parameters["g"]))
       }
 
-
-
-
     }##end for loop
-
-
     ##used mean as start parameters for the final fitting
     a<-median(na.exclude(a.start))
     b<-median(na.exclude(b.start))
@@ -1195,7 +1175,6 @@ plot_GrowthCurve <- function(
 
     #if try error stop calculation
     if(!inherits(fit, "try-error")){
-
       #get parameters out of it
       parameters<-(coef(fit))
       b<-as.vector((parameters["b"]))
@@ -1280,7 +1259,6 @@ plot_GrowthCurve <- function(
         }
       }
 
-
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
@@ -1299,7 +1277,6 @@ plot_GrowthCurve <- function(
 
       #start Monto Carlo loops
       for(i in  1:NumberIterations.MC){
-
         data <- data.frame(x=xy$x,y=data.MC[,i])
 
         ##perform MC fitting
@@ -1389,7 +1366,6 @@ plot_GrowthCurve <- function(
       rm(var.b, var.a, var.c, var.g)
 
     }else{
-
       #print message
       if (verbose) {
         if (mode != "alternate") {
@@ -1634,7 +1610,6 @@ plot_GrowthCurve <- function(
   else if (fit.method=="GOK") {
   #==========================================================================
   # GOK -----
-
     # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
       formula = fit.formulaGOK,
@@ -1656,13 +1631,11 @@ plot_GrowthCurve <- function(
       if(verbose) writeLines("[plot_GrowthCurve()] try-error for GOK fit")
 
     }else{
-
       #get parameters out of it
       parameters <- (coef(fit))
       b <- as.vector((parameters["b"]))
       a <- as.vector((parameters["a"]))
       c <- as.vector((parameters["c"]))
-
 
       #calculate De
       if(mode == "interpolation"){
@@ -1696,7 +1669,6 @@ plot_GrowthCurve <- function(
           ))
         }
       }
-
 
       #EXP MC -----
       ##Monte Carlo Simulation
@@ -1762,15 +1734,13 @@ plot_GrowthCurve <- function(
 
       }#end for loop
 
-
       ##write D01.ERROR
       D01.ERROR <- sd(var.b, na.rm = TRUE)
 
       ##remove values
       rm(var.b, var.a, var.c)
       }
-    } else if (fit.method=="LambertW") {
-    #==========================================================================
+    } else if (fit.method == "LambertW") {
     # LambertW -----
     if(mode == "extrapolation"){
       Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
@@ -1841,7 +1811,6 @@ plot_GrowthCurve <- function(
           }
 
           if(inherits(De, "try-error")) De <- NA
-
           if (verbose) {
             if (mode != "alternate") {
               writeLines(paste0(
@@ -1864,7 +1833,6 @@ plot_GrowthCurve <- function(
           ##Monte Carlo Simulation
           #	--Fit many curves and calculate a new De +/- De_Error
           #	--take De_Error
-
           #set variables
           var.R <-  var.Dc <- var.N <- var.Dint <- vector(
             mode = "numeric", length = NumberIterations.MC)
@@ -1933,8 +1901,7 @@ plot_GrowthCurve <- function(
                     silent = TRUE)
                 }
               }##endif extrapolation
-
-              if(!inherits(try, "try-error"))
+              if(!inherits(try, "try-error") && !inherits(try, "function"))
                 x.natural[i] <- try
 
             }
@@ -1951,7 +1918,6 @@ plot_GrowthCurve <- function(
           rm(var.R, var.Dc, var.N, var.Dint)
 
     }#endif::try-error fit
-
   #===========================================================================
   }#End if Fit Method
 
@@ -2283,7 +2249,6 @@ plot_GrowthCurve <- function(
           ""
         }
       }
-
 
       ##TEXT		#Insert fit and result
       try(mtext(side = 3,
