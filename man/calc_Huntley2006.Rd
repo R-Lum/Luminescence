@@ -225,9 +225,6 @@ of the simulated natural DRC. This can be a useful information for
 to obtain at least a "minimum age" estimate of the sample. In the console
 output this value is denoted by \emph{"Age @2D0 (ka):"}.
 }
-\note{
-\strong{This function has BETA status and should not be used for publication work!}
-}
 \section{Function version}{
  0.4.1
 }
@@ -254,11 +251,12 @@ readerDdot <- c(0.134, 0.0067)
 rhop <- analyse_FadingMeasurement(fading_data, plot = TRUE, verbose = FALSE, n.MC = 10)
 
 ## (3) Apply the Kars et al. (2008) model to the data
-kars <- calc_Huntley2006(data = data,
-                         rhop = rhop,
-                         ddot = ddot,
-                         readerDdot = readerDdot,
-                         n.MC = 25)
+kars <- calc_Huntley2006(
+ data = data,
+ rhop = rhop,
+ ddot = ddot,
+ readerDdot = readerDdot,
+ n.MC = 25)
 
 
 \dontrun{
@@ -280,7 +278,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-3. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

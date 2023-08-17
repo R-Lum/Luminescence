@@ -253,11 +253,12 @@
 #' rhop <- analyse_FadingMeasurement(fading_data, plot = TRUE, verbose = FALSE, n.MC = 10)
 #'
 #' ## (3) Apply the Kars et al. (2008) model to the data
-#' kars <- calc_Huntley2006(data = data,
-#'                          rhop = rhop,
-#'                          ddot = ddot,
-#'                          readerDdot = readerDdot,
-#'                          n.MC = 25)
+#' kars <- calc_Huntley2006(
+#'  data = data,
+#'  rhop = rhop,
+#'  ddot = ddot,
+#'  readerDdot = readerDdot,
+#'  n.MC = 25)
 #'
 #'
 #' \dontrun{
