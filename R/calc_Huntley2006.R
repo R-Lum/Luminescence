@@ -208,8 +208,6 @@
 #' Georgina E. King, University of Bern (Switzerland) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @note **This function has BETA status and should not be used for publication work!**
-#'
 #' @keywords datagen
 #'
 #' @references
