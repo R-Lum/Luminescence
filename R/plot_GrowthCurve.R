@@ -56,7 +56,7 @@
 #' \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
-#' \eqn{R} the dimensionless detrapping ratio, \eqn{N} the total concentration
+#' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 #' of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
 #' the offset on the x-axis.
 #'

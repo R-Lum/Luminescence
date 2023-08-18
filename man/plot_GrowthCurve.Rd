@@ -191,7 +191,7 @@ according to Pagonis et al. (2020). The function has the form
 \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
 with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
-\eqn{R} the dimensionless detrapping ratio, \eqn{N} the total concentration
+\eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
 the offset on the x-axis.
 
@@ -312,12 +312,7 @@ print(
  verbose = FALSE)$Fit)
  }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-5. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 
@@ -335,4 +330,4 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-, RLum Developer Team}
+}
