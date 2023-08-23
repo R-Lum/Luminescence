@@ -39,8 +39,8 @@ excludes \code{NA} values from the data set prior to any further operations.}
 selects calculation mode of the function.
 \itemize{
 \item \code{"interpolation"} (default) calculates the De by interpolation,
-\item \code{"extrapolation"} calculates the De by extrapolation and
-\item \code{"alternate"} calculates no De and just fits the data points.
+\item \code{"extrapolation"} calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+\item \code{"alternate"} calculates no equivalent dose and just fits the data points.
 }
 
 Please note that for option \code{"regenerative"} the first point is considered
@@ -193,7 +193,9 @@ according to Pagonis et al. (2020). The function has the form
 with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-the offset on the x-axis.
+the offset on the x-axis. Please not that finding the root in \code{mode = "extrapolation"}
+is a non-easy task due to the shape of the function and the results might be
+unexpected.
 
 \strong{Fit weighting}
 
@@ -224,7 +226,7 @@ To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.11.6
+ 1.11.7
 }
 
 \examples{

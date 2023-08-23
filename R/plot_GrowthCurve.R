@@ -195,7 +195,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.6
+#' @section Function version: 1.11.7
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -1384,9 +1384,7 @@ plot_GrowthCurve <- function(
     } #end if "try-error" Fit Method
 
   } #End if EXP+LIN
-  #==========================================================================
-  #===========================================================================
-  #EXP+EXP#
+  #EXP+EXP ---------------------------------------------------------------------
   else if (fit.method=="EXP+EXP") {
 
     a1.start <- NA
@@ -1610,7 +1608,6 @@ plot_GrowthCurve <- function(
 
   }
   else if (fit.method=="GOK") {
-  #==========================================================================
   # GOK -----
     # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
@@ -1800,6 +1797,12 @@ plot_GrowthCurve <- function(
             ## there are cases where the function cannot calculate the root
             ## due to its shape, here we have to use the minimum
             if(inherits(De, "try-error")){
+              warning(
+                "[plot_GrowthCurve()] Standard root estimation using stats::uniroot() failed.
+                Using stats::optimize() instead, which may lead, however, to unexpected and
+                inconclusive results for fit.method = 'LambertW'!",
+                call. = FALSE)
+
               De <- try(suppressWarnings(stats::optimize(
                 f = function(x, R, Dc, N, Dint) {
                   fit.functionLambertW(R, Dc, N, Dint, x)},
