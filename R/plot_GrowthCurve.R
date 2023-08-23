@@ -58,7 +58,9 @@
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 #' of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-#' the offset on the x-axis.
+#' the offset on the x-axis. Please not that finding the root in `mode = "extrapolation"`
+#' is a non-easy task due to the shape of the function and the results might be
+#' unexpected.
 #'
 #' **Fit weighting**
 #'
@@ -101,8 +103,8 @@
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
 #' - `"interpolation"` (default) calculates the De by interpolation,
-#' - `"extrapolation"` calculates the De by extrapolation and
-#' - `"alternate"` calculates no De and just fits the data points.
+#' - `"extrapolation"` calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+#' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"regenerative"` the first point is considered
 #' as natural dose
