@@ -25,11 +25,16 @@
 #' `TRUE` to normalise the OSL/IRSL signals by the mean of all corresponding
 #' data curves.
 #'
+#' @param mode [character] (*with default*): defines the analysis mode, allowed
+#' are `"profile"` (the default) and `"surface"` for surface interpolation
+#'
 #' @param plot [logical] (*with default*):
 #' enable/disable plot output
 #'
-#' @param ... other parameters, supported are `sample` to provide a sample name,
-#' if the input is a `list`, this is set automatically.
+#' @param ... other parameters, supported are `run` to provide the run name ,
+#' if the input is a `list`, this is set automatically. Further plot parameters for
+#' `mode = 'surface'`
+#' `surface_values = c('ratio', 'OSL', 'IRSL')`, `legend` (`TRUE`/`FALSE`), `col_ramp`
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -44,7 +49,7 @@
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
 #' Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
 #'
-#' @section Function version: 0.0.4
+#' @section Function version: 0.1.0
 #'
 #' @keywords datagen plot
 #'
@@ -72,13 +77,14 @@
 #'
 #' @md
 #' @export
-analyse_portableOSL <-
-  function(object,
-           signal.integral = NULL,
-           invert = FALSE,
-           normalise = FALSE,
-           plot = TRUE,
-           ...)
+analyse_portableOSL <- function(
+  object,
+  signal.integral = NULL,
+  invert = FALSE,
+  normalise = FALSE,
+  mode = "profile",
+  plot = TRUE,
+  ...)
   {
 
 # Self-call ---------------------------------------------------------------
@@ -90,7 +96,7 @@ analyse_portableOSL <-
           invert = invert,
           normalise = normalise,
           plot = plot,
-          SAMPLE = paste0("SAMPLE #", x))
+          run = paste0("RUN #", x))
       }))
 
       return(merge_RLum(temp))
@@ -112,11 +118,16 @@ analyse_portableOSL <-
             call. = FALSE)
   }
 
-  ## set SAMPLE
-  if("sample" %in% names(list(...)))
-    sample <- list(...)$sample
+  ## set SAMPLE --------
+  if("run" %in% names(list(...)))
+    run <- list(...)$run
+  else if (!is.null(object@info$Run_Name))
+    run <- object@info$Run_Name
   else
-    sample <- "Sample #1"
+    run <- "Run #1"
+
+  ## extract  coordinates -------
+  coord <- .extract_PSL_coord(object)
 
   ## CALCULATIONS ----
   ## Note: the list ... unlist construction is used make sure that get_RLum() always
@@ -132,7 +143,6 @@ analyse_portableOSL <-
   IRSL <- do.call(rbind, lapply(IRSL, function(x) {
     posl_get_signal(x, signal.integral)
   }))
-
 
   ## NORMALISE ----
   if (normalise) {
@@ -151,6 +161,108 @@ analyse_portableOSL <-
 
   ## PLOTTING ----
   if (plot) {
+   ##
+   plot_settings <- modifyList(
+     x = list(
+       col_ramp = grDevices::heat.colors(30, rev = TRUE, alpha = 0.5),
+       surface_value = "ratio",
+       legend = TRUE
+
+     ),
+     val = list(...))
+
+   ### mode == "surface" ---------
+   if(mode == "surface") {
+     value <- switch(
+       plot_settings$surface_value,
+       "ratio" = RATIO,
+       "OSL" = OSL,
+       "IRSL" = IRSL
+     )
+
+     ## set matrix
+     m <- cbind(coord[, 1], coord[, 2], value)
+
+     ## interpolate
+     ## TODO make better error message
+     ## TODO add tests
+     s <-
+       try(interp::interp(
+         x = m[, 1],
+         y = m[, 2],
+         z = m[, 3],
+         nx = 200,
+         ny = 200,
+       ), silent = FALSE)
+
+     if(!inherits(s, "try-error")) {
+       par.default <- par(mar = c(4.5,4.5,4,2))
+       on.exit(par(par.default))
+
+       ## plot image
+       graphics::image(
+         s,
+         col = plot_settings$col_ramp,
+         xlab = "x [m]",
+         ylab = "y [m]",
+         main = run
+       )
+
+       ## add points
+       points(m[,1:2], pch = 20)
+
+       ## add what is shown
+       mtext(side = 3, text = plot_settings$surface_value, cex = 0.9)
+
+       ## add legend
+       if(plot_settings$legend) {
+         par.default <- c(par.default, par(xpd = TRUE))
+         on.exit(par(par.default))
+
+         col_grad <- plot_settings$col_ramp[
+           seq(1, length(plot_settings$col_ramp), length.out = 14)]
+
+         slices <- seq(par()$usr[3],par()$usr[4],length.out = 15)
+
+         for(s in 1:(length(slices) - 1)){
+           graphics::rect(
+             xleft = par()$usr[2] * 1.01,
+             xright = par()$usr[2] * 1.03,
+             ybottom = slices[s],
+             ytop =  slices[s + 1],
+             col = col_grad[s],
+             border = TRUE)
+         }
+
+         ## add legend text
+         text(
+           x = par()$usr[2] * 1.04,
+           y = par()$usr[4],
+           labels = if(is.null(plot_settings$zlim_image)) {
+             format(max(m[,3]), digits = 1, scientific = TRUE)
+           } else {
+             format(plot_settings$zlim_image[2], digits = 1, scientific = TRUE)
+           },
+           cex = 0.7,
+           srt = 270,
+           pos = 3)
+         text(
+           x = par()$usr[2] * 1.04,
+           y = par()$usr[3],
+           labels = if(is.null(plot_settings$zlim_image)) {
+             format(min(m[,3]), digits = 1, scientific = TRUE)
+           } else {
+             format(plot_settings$zlim_image[1], digits = 1, scientific = TRUE)
+           },
+           cex = 0.7,
+           pos = 3,
+           srt = 270)
+       }
+
+     }
+
+   ## mode == "profile" --------
+   } else {
     par.old.full <- par(no.readonly = TRUE)
     on.exit(par(par.old.full))
 
@@ -161,7 +273,7 @@ analyse_portableOSL <-
 
     frame()
 
-    mtext(side= 3, sample, cex = 0.7, line = 2)
+    mtext(side= 3, run, cex = 0.7, line = 2)
 
     par(mar = c(5, 0, 4, 1) + 0.1)
 
@@ -177,7 +289,7 @@ analyse_portableOSL <-
       bty = "n",
       yaxt = "n"
     )
-    axis(2, line = 3, at = 1:nrow(OSL))
+    axis(2, line = 3, at = 1:nrow(OSL), labels = if(invert) nrow(OSL):1 else 1:nrow(OSL))
     axis(3)
     mtext("Index", side = 2, line = 6)
 
@@ -238,21 +350,24 @@ analyse_portableOSL <-
       yaxt = "n"
     )
     axis(3)
+   } ## end mode == "profile"
   }
 
   ## RETURN VALUE ----
   call<- sys.call()
   args <- as.list(call)[2:length(call)]
   summary <- data.frame(
-    SAMPLE = sample,
+    RUN = run,
     BSL = OSL$sum_signal,
     BSL_error = OSL$sum_signal_err,
     IRSL = IRSL$sum_signal,
     IRSL_error = IRSL$sum_signal_err,
     BSL_depletion = OSL$sum_signal_depletion,
     IRSL_depletion = IRSL$sum_signal_depletion,
-    IRSL_BSL_RATIO = RATIO)
-
+    IRSL_BSL_RATIO = RATIO,
+    COORD_X = coord[1:nrow(OSL),1],
+    COORD_Y = coord[1:nrow(OSL),2]
+    )
 
   newRLumResults <- set_RLum(
     class = "RLum.Results",
@@ -267,9 +382,7 @@ analyse_portableOSL <-
 
 }
 
-################################################################################
-##                              HELPER FUNCTIONS                              ##
-################################################################################
+# HELPER FUNCTIONS ----------
 
 ## This extracts the relevant curve data information of the RLum.Data.Curve
 ## objects
@@ -301,4 +414,42 @@ posl_normalise <- function(x) {
 ## stratigraphic order)
 posl_invert <- function(x) {
   x <- x[nrow(x):1, ]
+}
+
+## This function extracts the coordinates from the file name
+##
+.extract_PSL_coord <- function(object){
+  ## get settings
+  settings_sample <- vapply(object, function(x) x@info$settings$Sample, character(1)) |>
+    unique()
+
+  ## set character vector
+  tmp_coord <- character(length(settings_sample))
+
+  ## search for pattern match ... why?
+  ## because otherwise the dataset becomes inconsistent
+  pattern_match <- grepl(
+    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    x = settings_sample, perl = TRUE)
+
+  ## extract coordinates
+  tmp_coord[pattern_match] <- regexpr(
+    pattern = "\\_x\\:[0-9].+\\|y\\:[0-9].+",
+    text = settings_sample[pattern_match ], perl = TRUE) |>
+    regmatches(x = settings_sample[pattern_match], m = _)
+
+  ## extract x and y
+  coord_split <- strsplit(tmp_coord, split = "|y:", fixed = TRUE)
+
+  coord <- vapply(coord_split, function(x) {
+    if(length(x) == 0)
+      return(c(NA_real_, NA_real_))
+
+    c(
+      as.numeric(strsplit(x, "_x:", fixed = TRUE)[[1]][[2]]),
+      as.numeric(x[2]))
+      },
+    numeric(2))
+
+  return(t(coord))
 }

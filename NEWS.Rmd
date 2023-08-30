@@ -12,7 +12,21 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_portableOSL()`
+* If `invert = TRUE` the y-axis is now also inverted. 
+* Gained a new argument `mode` with two options `'profil'` and `'surface'`. 
+* Support surface interpolation and coordinates extraction
+* **Potentially breaking changes** `...` argument `sample` was changed to `run` better complying with the 
+terminology of the PSL format
+
+### `read_PSL()`
+* Remove unwanted characters less aggressively from sample name; with this new setting, coordinates 
+can be passed.
+
 ### `plot_GrowthCurve()`
 * The function crashed for the setting `plot_GrowthCurve(..., mode = "alternate", fit.method = "LambertW")`; fixed (#114, @Eiskeil, thanks for reporting).
 * Now throws a warning in `mode = "extrapolation", fit.method = "LambertW"` of the standard root estimation 
 failed and hence the results can become inconclusive. 
+
+## Internals
+* Adding new dependency to 'interp'
