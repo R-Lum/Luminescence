@@ -151,7 +151,7 @@ analyse_portableOSL <- function(
   }
 
   ## INVERT ----
-  if (invert) {
+  if (invert && mode != "surface") {
     OSL <- posl_invert(OSL)
     IRSL <- posl_invert(IRSL)
   }
@@ -183,6 +183,10 @@ analyse_portableOSL <- function(
      ## set matrix
      m <- cbind(coord[, 1], coord[, 2], value)
 
+     ## invert if needed
+     if(invert)
+       m[rev(1:nrow(m)),]
+
      ## interpolate
      ## TODO make better error message
      ## TODO add tests
@@ -205,6 +209,7 @@ analyse_portableOSL <- function(
          col = plot_settings$col_ramp,
          xlab = "x [m]",
          ylab = "y [m]",
+         ylim = rev(range(m[,2])),
          main = run
        )
 
@@ -453,3 +458,23 @@ posl_invert <- function(x) {
 
   return(t(coord))
 }
+
+
+library(Luminescence)
+
+## list files
+file_list <- list.files(path = "~/Lumi/Heidelberg/2023/CONSTRAIN/PSL", pattern = ".psl", full.names = TRUE)
+
+## import
+tmp <- read_PSL2R(file_list, merge = TRUE)
+
+
+## analysis
+results <- analyse_portableOSL(
+  object = tmp,
+  normalise = TRUE,
+  invert = TRUE,
+  mode = "surface",
+  surface_value = "OSL",
+  signal.integral = 1:5,
+  plot = TRUE)
