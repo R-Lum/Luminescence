@@ -356,7 +356,6 @@ analyse_portableOSL <- function(
 
          ## add background image if available -------
          if (!is.null(plot_settings$bg_img)) {
-           print(par()$usr)
            graphics::rasterImage(
              image = plot_settings$bg_img,
              xleft = par()$usr[1],
