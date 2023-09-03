@@ -24,6 +24,7 @@ If nothing is provided, the coordinates are extracted from the file name or an i
 can also be plotted in the surface mode, although it probably does not make much sense. 
 * `invert = TRUE` the y-axis is now also inverted and the inversion works more consistently 
 * `...` argument `sample` was changed to `run` better complying with the terminology of the PSL format, where
+* `...` argument `bg_img` was added to provide a background image (e.g., a profile photo) for overlay
 the sample name is called run.
 * `...` supports a lot more arguments to enable better plot modifications in particular for the newly added
 surface interpolation mode. 

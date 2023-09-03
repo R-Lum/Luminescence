@@ -60,7 +60,8 @@
 #' if the input is a `list`, this is set automatically. Further plot parameters are
 #' `surface_values` ([character] with value to plot), `legend` (`TRUE`/`FALSE`), `col_ramp` (for
 #' surface mode), `col`, `pch` (for profile mode), `xlim` (a name [list] for profile mode), `ylim`,
-#' `zlim` (surface mode only), `ylab`, `xlab`, `zlab` (here x-axis labelling), `main`
+#' `zlim` (surface mode only), `ylab`, `xlab`, `zlab` (here x-axis labelling), `main`, `bg_img` (for
+#' profile mode background image, usually a profile photo; should be a raster object)
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -114,6 +115,10 @@ analyse_portableOSL <- function(
   plot = TRUE,
   ...)
   {
+
+  ## TODO
+  ## - add tests for background image option
+  ## - clear docu
 
 # Self-call ---------------------------------------------------------------
   if (inherits(object, "list")) {
@@ -276,6 +281,7 @@ analyse_portableOSL <- function(
    plot_settings <- modifyList(
      x = list(
        col_ramp = grDevices::heat.colors(30, rev = TRUE, alpha = 0.5),
+       bg_img = NULL,
        surface_value = c("BSL", "IRSL", "IRSL_BSL_RATIO"),
        legend = TRUE,
        col = c("blue", "red", "blue", "red", "black", "grey"),
@@ -288,17 +294,17 @@ analyse_portableOSL <- function(
        zlab = c("BSL", "IRSL", "BSL depl.", "IRSL depl.", "IRSL/BSL", "mean DARK"),
        main = summary$RUN[1]
      ),
-     val = list(...))
+     val = list(...), keep.null = TRUE)
 
    ## mode == "surface" ---------
    if(mode == "surface") {
-     ## check for validity of surface value
+     ### check for validity of surface value -------
      if(!all(plot_settings$surface_value %in% names(m_list)))
        stop(paste0("[analyse_portableOSL()] Unknown value to plot: Valid are: ",
             paste(names(m_list), collapse = ", ")),
             call. = FALSE)
 
-     ## set par
+     ## set par -------
      if(length(plot_settings$surface_value) > 1) {
        par.default <- par(mfrow = c(2,2))
        on.exit(par(par.default))
@@ -317,7 +323,7 @@ analyse_portableOSL <- function(
        if(!all(is.na(plot_settings$zlim)))
          m <- m[m[,3] >= min(plot_settings$zlim) & m[,3] <= max(plot_settings$zlim), ]
 
-       ## interpolate
+       ## interpolate ------
        s <-
          try(interp::interp(
            x = m[, 1],
@@ -338,15 +344,36 @@ analyse_portableOSL <- function(
            par(mar = c(4.5,4.5,4,2)))
          on.exit(par(par.default))
 
-         ## plot image
+         ## open empty plot
+         plot(
+           x = NA,
+           y = NA,
+           ylim = plot_settings$ylim,
+           xlim = plot_settings$xlim,
+           xlab = plot_settings$xlab,
+           ylab = plot_settings$ylab,
+           main = plot_settings$main)
+
+         ## add background image if available -------
+         if (!is.null(plot_settings$bg_img)) {
+           print(par()$usr)
+           graphics::rasterImage(
+             image = plot_settings$bg_img,
+             xleft = par()$usr[1],
+             ybottom = par()$usr[4],
+             xright = par()$usr[2],
+             ytop = par()$usr[3],
+             interpolate = FALSE)
+
+         }
+
+         ## plot image -------
          graphics::image(
            s,
            col = plot_settings$col_ramp,
-           xlab = plot_settings$xlab,
-           ylab = plot_settings$ylab,
-           ylim = plot_settings$ylim,
-           main = plot_settings$main
+           add = TRUE
          )
+
 
          ## add points
          points(m[,1:2], pch = 20)
@@ -660,5 +687,4 @@ analyse_portableOSL <- function(
 
   return(coord)
 }
-
 
