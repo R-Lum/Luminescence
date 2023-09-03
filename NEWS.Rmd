@@ -12,12 +12,21 @@ header-includes:
 
 ## Bugfixes and changes
 
-### `analyse_portableOSL()`
-* If `invert = TRUE` the y-axis is now also inverted. 
-* Gained a new argument `mode` with two options `'profil'` and `'surface'`. 
-* Support surface interpolation and coordinates extraction
-* **Potentially breaking changes** `...` argument `sample` was changed to `run` better complying with the 
-terminology of the PSL format
+### `analyse_portableOSL()` (**potentially breaking changes**)
+The function received a major update, including an updated output object. Please 
+make sure that you read the changes before updating, because it may break your existing code!
+
+* New argument `mode` added with two options `'profile'` (the default) and `'surface'`. The latter is intended for 2D surface interpolation of luminescence signals and was newly added. 
+* New argument `coord` added, to allow the user to provide a list or matrix of xy-coordinates of the sampling position. 
+If nothing is provided, the coordinates are extracted from the file name or an index is calculated. 
+* The function now always translates input order in x and y coordinates, to have the treatment consistent.
+* In profile mode, the function now returns also the dark count values with their standard deviation. The dark counts
+can also be plotted in the surface mode, although it probably does not make much sense. 
+* `invert = TRUE` the y-axis is now also inverted and the inversion works more consistently 
+* `...` argument `sample` was changed to `run` better complying with the terminology of the PSL format, where
+the sample name is called run.
+* `...` supports a lot more arguments to enable better plot modifications in particular for the newly added
+surface interpolation mode. 
 
 ### `read_PSL()`
 * Remove unwanted characters less aggressively from sample name; with this new setting, coordinates 
