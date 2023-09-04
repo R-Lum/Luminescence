@@ -43,8 +43,10 @@ Expected are x and y coordinates, e.g.,
 Supported are \code{run} to provide the run name ,
 if the input is a \code{list}, this is set automatically. Further plot parameters are
 \code{surface_values} (\link{character} with value to plot), \code{legend} (\code{TRUE}/\code{FALSE}), \code{col_ramp} (for
-surface mode), \code{col}, \code{pch} (for profile mode), \code{xlim} (a name \link{list} for profile mode), \code{ylim},
-\code{zlim} (surface mode only), \code{ylab}, \code{xlab}, \code{zlab} (here x-axis labelling), \code{main}}
+surface mode), \code{contour} (contour lines \code{TRUE}/\code{FALSE} in surface mode), \code{grid} (\code{TRUE}/\code{FALSE}), \code{col}, \code{pch} (for profile mode), \code{xlim} (a name \link{list} for profile mode), \code{ylim},
+\code{zlim} (surface mode only), \code{ylab}, \code{xlab}, \code{zlab} (here x-axis labelling), \code{main}, \code{bg_img} (for
+profile mode background image, usually a profile photo; should be a raster object),
+\code{bg_img_positions} (a vector with the four corner positions, cf. \link[graphics:rasterImage]{graphics::rasterImage})}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:
@@ -125,7 +127,7 @@ Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-13. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-19. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

@@ -59,9 +59,10 @@
 #' Supported are `run` to provide the run name ,
 #' if the input is a `list`, this is set automatically. Further plot parameters are
 #' `surface_values` ([character] with value to plot), `legend` (`TRUE`/`FALSE`), `col_ramp` (for
-#' surface mode), `col`, `pch` (for profile mode), `xlim` (a name [list] for profile mode), `ylim`,
+#' surface mode), `contour` (contour lines `TRUE`/`FALSE` in surface mode), `grid` (`TRUE`/`FALSE`), `col`, `pch` (for profile mode), `xlim` (a name [list] for profile mode), `ylim`,
 #' `zlim` (surface mode only), `ylab`, `xlab`, `zlab` (here x-axis labelling), `main`, `bg_img` (for
-#' profile mode background image, usually a profile photo; should be a raster object)
+#' profile mode background image, usually a profile photo; should be a raster object),
+#' `bg_img_positions` (a vector with the four corner positions, cf. [graphics::rasterImage])
 #'
 #' @return
 #' Returns an S4 [RLum.Results-class] object with the following elements:
@@ -282,6 +283,7 @@ analyse_portableOSL <- function(
      x = list(
        col_ramp = grDevices::heat.colors(30, rev = TRUE, alpha = 0.5),
        bg_img = NULL,
+       bg_img_positions = NULL,
        surface_value = c("BSL", "IRSL", "IRSL_BSL_RATIO"),
        legend = TRUE,
        col = c("blue", "red", "blue", "red", "black", "grey"),
@@ -291,6 +293,8 @@ analyse_portableOSL <- function(
        zlim = if(mode == "surface") NA else attr(m_list, "zlim"),
        ylab = if(!any(is.na(summary$COORD_Y))) "Depth [m]" else "Index",
        xlab = "x [m]",
+       grid = TRUE,
+       contour = FALSE,
        zlab = c("BSL", "IRSL", "BSL depl.", "IRSL depl.", "IRSL/BSL", "mean DARK"),
        main = summary$RUN[1]
      ),
@@ -311,6 +315,7 @@ analyse_portableOSL <- function(
 
      }
 
+     ## loop over surface values -------
      for(i in plot_settings$surface_value) {
        ## set matrix for the plot
        m <- m_list[[i]]
@@ -341,7 +346,7 @@ analyse_portableOSL <- function(
        if(!inherits(s, "try-error")) {
          par.default <- c(
            if(exists("par.default")) par.default else NULL,
-           par(mar = c(4.5,4.5,4,2)))
+           par(mar = c(4.5,4.5,4,2), xpd = FALSE))
          on.exit(par(par.default))
 
          ## open empty plot
@@ -356,14 +361,19 @@ analyse_portableOSL <- function(
 
          ## add background image if available -------
          if (!is.null(plot_settings$bg_img)) {
+           ## get corner positions
+           if(!is.null(plot_settings$bg_img_positions))
+             positions <- plot_settings$bg_img_positions[1:4]
+           else
+             positions <- par()$usr
+
            graphics::rasterImage(
              image = plot_settings$bg_img,
-             xleft = par()$usr[1],
-             ybottom = par()$usr[4],
-             xright = par()$usr[2],
-             ytop = par()$usr[3],
-             interpolate = FALSE)
-
+             xleft = positions[1],
+             ybottom = positions[4],
+             xright = positions[2],
+             ytop = positions[3],
+             interpolate = TRUE)
          }
 
          ## plot image -------
@@ -373,6 +383,9 @@ analyse_portableOSL <- function(
            add = TRUE
          )
 
+         ## add contour
+         if (plot_settings$contour)
+           graphics::contour(m, add = TRUE, col = "grey")
 
          ## add points
          points(m[,1:2], pch = 20)
@@ -462,19 +475,24 @@ analyse_portableOSL <- function(
       plot_settings$zlim <- attr(m_list, "zlim")
     }
 
-    ### BSL -------
+    #### BSL -------
     plot(
-      x = m_list[["BSL"]][,"value"],
-      y = m_list[["BSL"]][,"y"],
-      type = "b",
-      pch = plot_settings$pch[1],
-      col = plot_settings$col[1],
+      NA,
+      NA,
       ylim = plot_settings$ylim,
       xlim = plot_settings$zlim[["BSL"]],
       xlab = plot_settings$zlab[1],
       bty = "n",
       yaxt = "n"
     )
+      if(plot_settings$grid) grid()
+      lines(
+        x = m_list[["BSL"]][,"value"],
+        y = m_list[["BSL"]][,"y"],
+        type = "b",
+        pch = plot_settings$pch[1],
+        col = plot_settings$col[1]
+      )
 
       ## add error bars
       segments(
@@ -492,17 +510,21 @@ analyse_portableOSL <- function(
 
     ### IRSL --------------
     plot(
-        x = m_list[["IRSL"]][,"value"],
-        y = m_list[["IRSL"]][,"y"],
-        type = "b",
-        pch = plot_settings$pch[2],
-        col = plot_settings$col[2],
+        NA, NA,
         ylim = plot_settings$ylim,
         xlim = plot_settings$zlim[["IRSL"]],
         xlab = plot_settings$zlab[2],
         bty = "n",
         yaxt = "n"
     )
+      if(plot_settings$grid) grid()
+
+      lines(
+        x = m_list[["IRSL"]][,"value"],
+        y = m_list[["IRSL"]][,"y"],
+        type = "b",
+        pch = plot_settings$pch[2],
+        col = plot_settings$col[2])
 
       ## add error bars
       segments(
@@ -516,45 +538,51 @@ analyse_portableOSL <- function(
 
     ### OSL DEPLETATION -------
     plot(
-      x = m_list[["BSL_depletion"]][,"value"],
-      y = m_list[["BSL_depletion"]][,"y"],
-      type = "b",
-      pch = plot_settings$pch[3],
-      col = plot_settings$col[3],
+      NA, NA,
       ylim = plot_settings$ylim,
       xlim = plot_settings$zlim[["BSL_depletion"]],
       xlab = plot_settings$zlab[3],
       bty = "n",
-      yaxt = "n",
-      lty = 2
+      yaxt = "n"
     )
+
+      if(plot_settings$grid) grid()
+      lines(
+        x = m_list[["BSL_depletion"]][,"value"],
+        y = m_list[["BSL_depletion"]][,"y"],
+        type = "b",
+        lty = 2,
+        pch = plot_settings$pch[3],
+        col = plot_settings$col[3]
+      )
 
       axis(3)
 
     ### IRSL DEPLETION ---------------
     plot(
-      x = m_list[["IRSL_depletion"]][,"value"],
-      y = m_list[["IRSL_depletion"]][,"y"],
-      type = "b",
-      pch = plot_settings$pch[4],
-      col = plot_settings$col[4],
+      NA, NA,
       ylim = plot_settings$ylim,
       xlim = plot_settings$zlim[["IRSL_depletion"]],
       xlab = plot_settings$zlab[4],
       bty = "n",
-      yaxt = "n",
-      lty = 2
+      yaxt = "n"
     )
 
-    axis(3)
+      if(plot_settings$grid) grid()
+
+      lines(
+        x = m_list[["IRSL_depletion"]][,"value"],
+        y = m_list[["IRSL_depletion"]][,"y"],
+        type = "b",
+        lty = 2,
+        pch = plot_settings$pch[4],
+        col = plot_settings$col[4])
+
+      axis(3)
 
     ### RATIO -----------------------------
     plot(
-      x = m_list[["IRSL_BSL_RATIO"]][,"value"],
-      y = m_list[["IRSL_BSL_RATIO"]][,"y"],
-      type = "b",
-      pch = plot_settings$pch,
-      col = plot_settings$col[5],
+      NA, NA,
       ylim = plot_settings$ylim,
       xlim = plot_settings$zlim[["IRSL_BSL_RATIO"]],
       xlab = plot_settings$zlab[5],
@@ -562,7 +590,17 @@ analyse_portableOSL <- function(
       bty = "n",
       yaxt = "n"
     )
-    axis(3)
+
+      if(plot_settings$grid) grid()
+
+      lines(
+        x = m_list[["IRSL_BSL_RATIO"]][,"value"],
+        y = m_list[["IRSL_BSL_RATIO"]][,"y"],
+        type = "b",
+        pch = plot_settings$pch[5],
+        col = plot_settings$col[5])
+
+      axis(3)
 
     ### DARK -----------------------------
     plot(
@@ -686,4 +724,3 @@ analyse_portableOSL <- function(
 
   return(coord)
 }
-
