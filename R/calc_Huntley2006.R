@@ -1,8 +1,11 @@
-#' Apply the Huntley (2006) model
+#' @title Apply the Huntley (2006) model
 #'
+#' @description
 #' A function to calculate the expected sample specific fraction of saturation
 #' based on the model of Huntley (2006) using the approach as implemented
 #' in Kars et al. (2008) or Guralnik et al. (2015).
+#'
+#' @details
 #'
 #' This function applies the approach described in Kars et al. (2008) or Guralnik et al. (2015),
 #' which are both developed from the model of Huntley (2006) to calculate the expected sample
@@ -16,27 +19,27 @@
 #'
 #' To apply the approach after Kars et al. (2008) use `fit.method = "EXP"`.
 #'
-#' Firstly, the unfaded D0 value is determined through applying equation 5 of
-#' Kars et al. (2008) to the measured LxTx data as a function of irradiation
+#' Firstly, the unfaded \eqn{D_0} value is determined through applying equation 5 of
+#' Kars et al. (2008) to the measured \eqn{\frac{L_x}{T_x}} data as a function of irradiation
 #' time, and fitting the data with a single saturating exponential of the form:
 #'
-#' \deqn{LxTx(t*) = A x \phi(t*) x (1 - exp(-(t* / D0)))}
+#' \deqn{LxTx(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
 #'
 #' where
 #'
-#' \deqn{\phi(t*) = exp(-\rho' x ln(1.8 x s_tilde x t*)^3)}
+#' \deqn{\phi(t^*) = exp(-\rho' ln(1.8  \tilde{s} t^*)^3)}
 #'
-#' after King et al. (2016) where `A` is a pre-exponential factor,
-#' `t*` (s) is the irradiation time, starting at the mid-point of
-#' irradiation (Auclair et al. 2003) and `s_tilde` (3x10^15 s^-1) is the athermal
+#' after King et al. (2016) where \eqn{A} is a pre-exponential factor,
+#' \eqn{t^*} (s) is the irradiation time, starting at the mid-point of
+#' irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}}) is the athermal
 #' frequency factor after Huntley (2006). \cr
 #'
-#' Using fit parameters `A` and `D0`, the function then computes a natural dose
-#' response curve using the environmental dose rate, `D_dot` (Gy/s) and equations
-#' `[1]` and `[2]`. Computed LxTx values are then fitted using the
+#' Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
+#' response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
+#' `[1]` and `[2]`. Computed \eqn{\frac{L_x}{T_x}} values are then fitted using the
 #' [plot_GrowthCurve] function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
-#' De value, from which the fading corrected age is calculated.
+#' \eqn{D_e} value, from which the fading corrected age is calculated.
 #'
 #' **Guralnik et al. (2015) - General-order kinetics**
 #'
@@ -46,26 +49,25 @@
 #' Kars et al. (2008), but instead of using a single saturating exponential
 #' the model fits a general-order kinetics function of the form:
 #'
-#' \deqn{LxTx(t*) = A x \phi(t*) x (1-(1+(1/D0) x t* x c)^(-1/c))}
+#' \deqn{LxTx(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
 #'
-#' where `A`, \eqn{\phi}, `t*` and `D0` are the same as above and `c` is a
+#' where \eqn{A}, \eqn{\phi}, \eqn{t^*} and \eqn{D_0} are the same as above and \eqn{c} is a
 #' dimensionless kinetic order modifier (cf. equation 10 in
 #' Guralnik et al., 2015).
 #'
 #' **Level of saturation**
 #'
-#' The `calc_Huntley2006` function also calculates the level of saturation (n/N)
+#' The [calc_Huntley2006] function also calculates the level of saturation (\eqn{\frac{n}{N}})
 #' and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 #' the sample under investigation using the sample specific \eqn{\rho}',
-#' unfaded `D0` and `D_dot` values, following the approach of Kars et al. (2008).
+#' unfaded \eqn{D_0} and \eqn{\dot{D}} values, following the approach of Kars et al. (2008).
 #'
 #' **Uncertainties**
 #'
-#' Uncertainties are reported at 1 sigma and are assumed to be normally
+#' Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
 #' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 1000`)
-#' of \eqn{\rho}' and `LxTx` during dose response curve fitting, and of \eqn{\rho}'
-#' in the derivation of (n/N) and (n/N)_SS.
-#'
+#' of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response curve fitting, and of \eqn{\rho}'
+#' in the derivation of (\eqn{n/N}) and (n/N)_SS.
 #'
 #' **Age calculated from 2D0 of the simulated natural DRC**
 #'
@@ -459,14 +461,15 @@ calc_Huntley2006 <- function(data,
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
 
-  GC.settings <- list(sample = data.tmp,
-                      mode = "interpolation",
-                      fit.method = fit.method,
-                      fit.bounds = TRUE,
-                      output.plot = plot,
-                      main = "Measured dose response curve",
-                      xlab = "Dose (Gy)",
-                      verbose = FALSE)
+  GC.settings <- list(
+    sample = data.tmp,
+    mode = "interpolation",
+    fit.method = fit.method,
+    fit.bounds = TRUE,
+    output.plot = plot,
+    main = "Measured dose response curve",
+    xlab = "Dose (Gy)",
+    verbose = FALSE)
 
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$verbose <- FALSE
@@ -491,23 +494,32 @@ calc_Huntley2006 <- function(data,
 
 
   ## (2) SIMULATED -----------------------------------------------------
-
   # create MC samples
   rhop_MC <- rnorm(n = settings$n.MC, mean = rhop[1], sd = rhop[2])
 
-  #
+  ## do the fitting
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
     if (fit.method == "EXP") {
-      fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
-                                       start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot),
-                                       control = list(maxiter = settings$maxiter)), silent = TRUE)
+      fit_sim <- try({
+        minpack.lm::nlsLM(
+          LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
+          start = list(
+            a = max(LxTx.measured),
+            D0 = D0.measured / readerDdot),
+          control = list(maxiter = settings$maxiter))
+        }, silent = TRUE)
+
     } else if (fit.method == "GOK") {
-      fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
-                                       start = list(a = coef(fit_measured)[["a"]],
-                                                    D0 = D0.measured / readerDdot,
-                                                    c = coef(fit_measured)[["c"]]),
-                                       lower = lower.bounds,
-                                       control = list(maxiter = settings$maxiter)), silent = TRUE)
+      fit_sim <- try({
+        minpack.lm::nlsLM(
+          LxTx.measured ~ a * theta(dosetime, rhop_i) * (1-(1+(1/D0)*dosetime*c)^(-1/c)),
+          start = list(
+            a = coef(fit_measured)[["a"]],
+            D0 = D0.measured / readerDdot,
+            c = coef(fit_measured)[["c"]]),
+          lower = lower.bounds,
+          control = list(maxiter = settings$maxiter))},
+        silent = TRUE)
     }
 
     if (!inherits(fit_sim, "try-error"))
@@ -560,9 +572,11 @@ calc_Huntley2006 <- function(data,
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
       if (fit.method == "EXP") {
-        TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) * (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
+        TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
+                                     (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
       } else if (fit.method == "GOK") {
-        TermA[k,j] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) * (1-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
+        TermA[k,j] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) *
+          (1-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
       }
     }}
 
@@ -579,14 +593,15 @@ calc_Huntley2006 <- function(data,
 
   data.unfaded$LxTx.error[2] <- 0.0001
 
-  GC.settings <- list(sample = data.unfaded,
-                      mode = "interpolation",
-                      fit.method = fit.method,
-                      fit.bounds = TRUE,
-                      output.plot = plot,
-                      verbose = FALSE,
-                      main = "Simulated dose response curve",
-                      xlab = "Dose (Gy)")
+  GC.settings <- list(
+    sample = data.unfaded,
+    mode = "interpolation",
+    fit.method = fit.method,
+    fit.bounds = TRUE,
+    output.plot = plot,
+    verbose = FALSE,
+    main = "Simulated dose response curve",
+    xlab = "Dose (Gy)")
 
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$verbose <- FALSE
@@ -619,12 +634,14 @@ calc_Huntley2006 <- function(data,
   } else {
     De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- fit_simulated <- D0.sim.Gy <- D0.sim.Gy.error <-  NA
     Age.sim.2D0 <- Age.sim.2D0.error <- NA
+
   }
 
 
   if (Ln > max(LxTx.sim) * 1.1)
-    warning("[calc_Huntley2006] Ln is >10 % larger than the maximum computed LxTx value.",
-            " The De and age should be regarded as infinite estimates.", call. = FALSE)
+    warning("[calc_Huntley2006()] Ln is >10 % larger than the maximum computed LxTx value.",
+            " The De and age should be regarded as infinite estimates.",
+            call. = FALSE)
 
   # Estimate nN_(steady state) by Monte Carlo Simulation
   ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
@@ -660,16 +677,21 @@ calc_Huntley2006 <- function(data,
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
   if (fit.method == "EXP") {
-    fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
-                                     start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot),
-                                     control = list(maxiter = settings$maxiter))
+    fit_unfaded <- minpack.lm::nlsLM(
+      LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
+      start = list(
+        a = max(LxTx.unfaded),
+        D0 = D0.measured / readerDdot),
+      control = list(maxiter = settings$maxiter))
   } else if (fit.method == "GOK") {
-    fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
-                                     start = list(a = coef(fit_simulated)[["a"]],
-                                                  D0 = coef(fit_simulated)[["b"]] / readerDdot,
-                                                  c = coef(fit_simulated)[["c"]]),
-                                     lower = lower.bounds,
-                                     control = list(maxiter = settings$maxiter))
+    fit_unfaded <- minpack.lm::nlsLM(
+      LxTx.unfaded ~ a * (1-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
+      start = list(
+        a = coef(fit_simulated)[["a"]],
+        D0 = coef(fit_simulated)[["b"]] / readerDdot,
+        c = coef(fit_simulated)[["c"]]),
+      lower = lower.bounds,
+      control = list(maxiter = settings$maxiter))
   }
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
@@ -708,15 +730,14 @@ calc_Huntley2006 <- function(data,
 
 
   ## Plot settings -------------------------------------------------------------
-  plot.settings <- list(main = "Dose response curves",
-                        xlab = "Dose (Gy)",
-                        ylab = ifelse(normalise, "normalised LxTx (a.u.)", "LxTx (a.u.)")
-  )
-  plot.settings <- modifyList(plot.settings, list(...))
+  plot.settings <- modifyList(list(
+    main = "Dose response curves",
+    xlab = "Dose (Gy)",
+    ylab = ifelse(normalise, "normalised LxTx (a.u.)", "LxTx (a.u.)")
+  ), list(...))
 
   ## Plotting ------------------------------------------------------------------
   if (plot) {
-
     # set plot parameters
     par.old.full <- par(no.readonly = TRUE)
 
@@ -827,15 +848,15 @@ calc_Huntley2006 <- function(data,
            col = "black")
 
     # LxTx error bars
-    segments(x0 = dosetimeGray,
-             y0 = LxTx_unfaded$LxTx + LxTx_unfaded$LxTx.Error,
-             x1 = dosetimeGray,
-             y1 = LxTx_unfaded$LxTx - LxTx_unfaded$LxTx.Error,
-             col = "black")
+    segments(
+      x0 = dosetimeGray,
+      y0 = LxTx_unfaded$LxTx + LxTx_unfaded$LxTx.Error,
+      x1 = dosetimeGray,
+      y1 = LxTx_unfaded$LxTx - LxTx_unfaded$LxTx.Error,
+      col = "black")
 
     # add text
     if (summary) {
-
       # define labels as expressions
       labels.text <- list(
         bquote(dot(D) == .(format(ddot, digits = 2, nsmall = 2)) %+-% .(round(as.numeric(format(ddot.error, digits = 3, nsmall = 3)), 3)) ~ frac(Gy, ka)),
@@ -872,27 +893,28 @@ calc_Huntley2006 <- function(data,
   results <- set_RLum(
     class = "RLum.Results",
     data = list(
-      results = data.frame("nN" = nN,
-                           "nN.error" = nN.error,
-                           "nN_SS" = nN_SS,
-                           "nN_SS.error" = nN_SS.error,
-                           "Meas_De" = De.measured,
-                           "Meas_De.error" = De.measured.error,
-                           "Meas_D0" =  D0.measured,
-                           "Meas_D0.error" = D0.measured.error,
-                           "Meas_Age" = Age.measured,
-                           "Meas_Age.error" = Age.measured.error,
-                           "Sim_De" = De.sim,
-                           "Sim_De.error" = De.error.sim,
-                           "Sim_D0" = D0.sim.Gy,
-                           "Sim_D0.error" = D0.sim.Gy.error,
-                           "Sim_Age" = Age.sim,
-                           "Sim_Age.error" = Age.sim.error,
-                           "Sim_Age_2D0" = Age.sim.2D0,
-                           "Sim_Age_2D0.error" = Age.sim.2D0.error,
-                           "Unfaded_D0" = D0.unfaded,
-                           "Unfaded_D0.error" = D0.error.unfaded,
-                           row.names = NULL),
+      results = data.frame(
+        "nN" = nN,
+        "nN.error" = nN.error,
+        "nN_SS" = nN_SS,
+        "nN_SS.error" = nN_SS.error,
+        "Meas_De" = De.measured,
+        "Meas_De.error" = De.measured.error,
+        "Meas_D0" =  D0.measured,
+        "Meas_D0.error" = D0.measured.error,
+        "Meas_Age" = Age.measured,
+        "Meas_Age.error" = Age.measured.error,
+        "Sim_De" = De.sim,
+        "Sim_De.error" = De.error.sim,
+        "Sim_D0" = D0.sim.Gy,
+        "Sim_D0.error" = D0.sim.Gy.error,
+        "Sim_Age" = Age.sim,
+        "Sim_Age.error" = Age.sim.error,
+        "Sim_Age_2D0" = Age.sim.2D0,
+        "Sim_Age_2D0.error" = Age.sim.2D0.error,
+        "Unfaded_D0" = D0.unfaded,
+        "Unfaded_D0.error" = D0.error.unfaded,
+        row.names = NULL),
       data = data,
       Ln = c(Ln, Ln.error),
       LxTx_tables = list(
@@ -905,8 +927,9 @@ calc_Huntley2006 <- function(data,
         unfaded = fit_unfaded
       )
     ),
-    info = list(call = sys.call(),
-                args = as.list(sys.call())[-1])
+    info = list(
+      call = sys.call(),
+      args = as.list(sys.call())[-1])
   )
 
   ## Console output ------------------------------------------------------------
