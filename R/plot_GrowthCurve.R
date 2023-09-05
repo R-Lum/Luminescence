@@ -17,13 +17,13 @@
 #' The solution is found by transforming the function or using [uniroot].
 #'
 #' `LIN`: fits a linear function to the data using
-#' [lm]: \deqn{y = m*x+n}
+#' [lm]: \deqn{y = mx + n}
 #'
 #' `QDR`: fits a linear function to the data using
-#' [lm]: \deqn{y = a + b * x + c * x^2}
+#' [lm]: \deqn{y = a + bx + cx^2}
 #'
-#' `EXP`: try to fit a function of the form
-#' \deqn{y = a*(1-exp(-(x+c)/b))}
+#' `EXP`: tries to fit a function of the form
+#' \deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
 #' Parameters b and c are approximated by a linear fit using [lm]. Note: b = D0
 #'
 #' `EXP OR LIN`: works for some cases where an `EXP` fit fails.
@@ -32,7 +32,7 @@
 #' `EXP+LIN`: tries to fit an exponential plus linear function of the
 #' form:
 #' \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
-#' The De is calculated by iteration.
+#' The \eqn{D_e} is calculated by iteration.
 #'
 #' **Note:** In the context of luminescence dating, this
 #' function has no physical meaning. Therefore, no D0 value is returned.
@@ -45,7 +45,7 @@
 #' `GOK`: tries to fit the general-order kinetics function after
 #' Guralnik et al. (2015) of the form of
 #'
-#' \deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
+#' \deqn{y = a (1 - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 #'
 #' where **c > 0** is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
@@ -66,7 +66,7 @@
 #'
 #' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
 #' provided signal errors (Lx/Tx error):
-#' \deqn{fit.weights = 1/error/(sum(1/error))}
+#' \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
@@ -624,7 +624,6 @@ plot_GrowthCurve <- function(
   #===========================================================================##
   #QDR#
   if (fit.method == "QDR"){
-
     ##Do fitting with option to force curve through the origin
     if(fit.force_through_origin){
       ##linear fitting ... polynomial
@@ -1055,7 +1054,6 @@ plot_GrowthCurve <- function(
       for (i in 1:NumberIterations.MC) {
         data <- data.frame(x = xy$x, y = data.MC[, i])
         if(fit.force_through_origin){
-
           ##do fitting
           fit.lmMC <- lm(data$y ~ 0 + data$x, weights=fit.weights)
 
@@ -1607,7 +1605,7 @@ plot_GrowthCurve <- function(
 
 
   }
-  else if (fit.method=="GOK") {
+  else if (fit.method[1] == "GOK") {
   # GOK -----
     # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
