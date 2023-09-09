@@ -1137,18 +1137,18 @@ plot_GrowthCurve <- function(
       if(!inherits(fit, "try-error")){
         #get parameters out of it
         parameters<-(coef(fit))
-        b.start[i]<-as.vector((parameters["b"]))
-        a.start[i]<-as.vector((parameters["a"]))
-        c.start[i]<-as.vector((parameters["c"]))
-        g.start[i]<-as.vector((parameters["g"]))
+        b.start[i] <- as.vector((parameters["b"]))
+        a.start[i] <- as.vector((parameters["a"]))
+        c.start[i] <- as.vector((parameters["c"]))
+        g.start[i] <- as.vector((parameters["g"]))
       }
 
     }##end for loop
     ##used mean as start parameters for the final fitting
-    a<-median(na.exclude(a.start))
-    b<-median(na.exclude(b.start))
-    c<-median(na.exclude(c.start))
-    g<-median(na.exclude(g.start))
+    a <- median(na.exclude(a.start))
+    b <- median(na.exclude(b.start))
+    c <- median(na.exclude(c.start))
+    g <- median(na.exclude(g.start))
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
@@ -1176,11 +1176,11 @@ plot_GrowthCurve <- function(
     #if try error stop calculation
     if(!inherits(fit, "try-error")){
       #get parameters out of it
-      parameters<-(coef(fit))
-      b<-as.vector((parameters["b"]))
-      a<-as.vector((parameters["a"]))
-      c<-as.vector((parameters["c"]))
-      g<-as.vector((parameters["g"]))
+      parameters <- coef(fit)
+      b <- as.vector((parameters["b"]))
+      a <- as.vector((parameters["a"]))
+      c <- as.vector((parameters["c"]))
+      g <- as.vector((parameters["g"]))
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
@@ -1203,8 +1203,6 @@ plot_GrowthCurve <- function(
           maxiter = 3000
         ),
         silent = TRUE)
-
-
 
         if (!inherits(temp.De, "try-error")) {
           De <- temp.De$root
@@ -1272,7 +1270,7 @@ plot_GrowthCurve <- function(
       ##set progressbar
       if(txtProgressBar){
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
-        pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
+        pb <- txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
       }
 
       #start Monto Carlo loops
@@ -1298,8 +1296,7 @@ plot_GrowthCurve <- function(
 
         #get parameters out of it including error handling
         if (inherits(fit.MC, "try-error")) {
-
-          x.natural[i]<-NA
+          x.natural[i] <- NA
 
         }else {
           parameters <- coef(fit.MC)
@@ -1310,7 +1307,6 @@ plot_GrowthCurve <- function(
 
           #problem: analytical it is not easy to calculate x,
           #use uniroot to solve this problem
-
           if (mode == "interpolation") {
             temp.De.MC <-  try(uniroot(
               f = f.unirootEXPLIN,
@@ -1329,6 +1325,7 @@ plot_GrowthCurve <- function(
             } else{
               x.natural[i] <- NA
             }
+
           } else if (mode == "extrapolation"){
             temp.De.MC <-  try(uniroot(
               f = f.unirootEXPLIN,
@@ -1383,8 +1380,7 @@ plot_GrowthCurve <- function(
 
   } #End if EXP+LIN
   #EXP+EXP ---------------------------------------------------------------------
-  else if (fit.method=="EXP+EXP") {
-
+  else if (fit.method == "EXP+EXP") {
     a1.start <- NA
     a2.start <- NA
     b1.start <- NA
@@ -1408,7 +1404,6 @@ plot_GrowthCurve <- function(
           maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
         ) #increase max. iterations
       ),silent = TRUE)
-
 
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
@@ -1443,12 +1438,10 @@ plot_GrowthCurve <- function(
     ), silent = TRUE
     )
 
-
     ##insert if for try-error
     if (!inherits(fit, "try-error")) {
-
       #get parameters out of it
-      parameters <- (coef(fit))
+      parameters <- coef(fit)
       b1 <- as.vector((parameters["b1"]))
       b2 <- as.vector((parameters["b2"]))
       a1 <- as.vector((parameters["a1"]))
@@ -1457,7 +1450,6 @@ plot_GrowthCurve <- function(
       ##set D0 values
       D01 <- round(b1,digits = 2)
       D02 <- round(b2,digits = 2)
-
 
       #problem: analytically it is not easy to calculate x, use uniroot
       if (mode == "interpolation") {
@@ -1480,7 +1472,6 @@ plot_GrowthCurve <- function(
         ),
         silent = TRUE)
 
-
         if (!inherits(temp.De, "try-error")) {
           De <- temp.De$root
         } else{
@@ -1489,8 +1480,10 @@ plot_GrowthCurve <- function(
 
         ##remove object
         rm(temp.De)
+
       }else if (mode == "extrapolation"){
-        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!", call. = FALSE)
+        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!",
+             call. = FALSE)
 
       } else{
         De <- NA
@@ -1504,17 +1497,16 @@ plot_GrowthCurve <- function(
         }
       }
 
-
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error from the simulation
       # --comparison of De from the MC and original fitted De gives a value for quality
 
       #set variables
-      var.b1<-vector(mode="numeric", length=NumberIterations.MC)
-      var.b2<-vector(mode="numeric", length=NumberIterations.MC)
-      var.a1<-vector(mode="numeric", length=NumberIterations.MC)
-      var.a2<-vector(mode="numeric", length=NumberIterations.MC)
+      var.b1 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.b2 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.a1 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.a2 <- vector(mode="numeric", length=NumberIterations.MC)
 
       ##progress bar
       if(txtProgressBar){
@@ -1524,7 +1516,6 @@ plot_GrowthCurve <- function(
 
       #start Monto Carlo loops
       for (i in 1:NumberIterations.MC) {
-
         #update progress bar
         if(txtProgressBar) setTxtProgressBar(pb,i)
 
@@ -1589,7 +1580,6 @@ plot_GrowthCurve <- function(
       rm(var.b1, var.b2, var.a1, var.a2)
 
     }else{
-
       #print message
       if(verbose){
         writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = NA (fitting FAILED)"))
@@ -1598,11 +1588,8 @@ plot_GrowthCurve <- function(
 
     } #end if "try-error" Fit Method
 
-
     ##close
     if(txtProgressBar) if(exists("pb")){close(pb)}
-
-
 
   }
   else if (fit.method[1] == "GOK") {
@@ -1679,7 +1666,6 @@ plot_GrowthCurve <- function(
 
       #start loop
       for (i in 1:NumberIterations.MC) {
-
         ##set data set
         data <- data.frame(x = xy$x,y = data.MC[,i])
 
@@ -1705,7 +1691,6 @@ plot_GrowthCurve <- function(
           x.natural[i] <- NA
 
         } else {
-
           # get parameters out
           parameters<-coef(fit.MC)
           var.b[i] <- as.vector((parameters["b"])) #D0
@@ -2066,20 +2051,16 @@ plot_GrowthCurve <- function(
           c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
 
         }
-
       }
-
     }
 
-
     fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
-
 
     ##set plot check
     plot_check <- NULL
 
     ##cheat the R check
-    x<-NULL; rm(x)
+    x <- NULL; rm(x)
 
     #PAR	#open plot area
     if(output.plot == TRUE &
@@ -2105,7 +2086,7 @@ plot_GrowthCurve <- function(
     #PLOT		#Plot input values
 
     ##Make selection to support manual number of reg points input
-    if(exists("fit.RegPointsReal")==TRUE){
+    if(exists("fit.RegPointsReal")){
 
       ##here the object sample has to be used otherwise the first regeneration point is not plotted.
       temp.xy.plot  <- sample[fit.RegPointsReal,]
