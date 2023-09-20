@@ -27,7 +27,7 @@ plot_GrowthCurve(
 }
 \arguments{
 \item{sample}{\link{data.frame} (\strong{required}):
-data frame with three columns for \code{x=Dose},\code{y=LxTx},\code{z=LxTx.Error}, \code{y1=TnTx}.
+data frame with three columns for \code{x = Dose},\code{y = LxTx},\code{z = LxTx.Error}, \code{y1 = TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.}
@@ -152,13 +152,13 @@ simulations partly the function \link{nls} using the \code{port} algorithm.
 The solution is found by transforming the function or using \link{uniroot}.
 
 \code{LIN}: fits a linear function to the data using
-\link{lm}: \deqn{y = m*x+n}
+\link{lm}: \deqn{y = mx + n}
 
 \code{QDR}: fits a linear function to the data using
-\link{lm}: \deqn{y = a + b * x + c * x^2}
+\link{lm}: \deqn{y = a + bx + cx^2}
 
-\code{EXP}: try to fit a function of the form
-\deqn{y = a*(1-exp(-(x+c)/b))}
+\code{EXP}: tries to fit a function of the form
+\deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
 Parameters b and c are approximated by a linear fit using \link{lm}. Note: b = D0
 
 \verb{EXP OR LIN}: works for some cases where an \code{EXP} fit fails.
@@ -167,20 +167,20 @@ If the \code{EXP} fit fails, a \code{LIN} fit is done instead.
 \code{EXP+LIN}: tries to fit an exponential plus linear function of the
 form:
 \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
-The De is calculated by iteration.
+The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this
 function has no physical meaning. Therefore, no D0 value is returned.
 
 \code{EXP+EXP}: tries to fit a double exponential function of the form
-\deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
+\deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
 This fitting procedure is not robust against wrong start parameters and
 should be further improved.
 
 \code{GOK}: tries to fit the general-order kinetics function after
 Guralnik et al. (2015) of the form of
 
-\deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
+\deqn{y = a (1 - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 
 where \strong{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
@@ -201,7 +201,7 @@ unexpected.
 
 If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
 provided signal errors (Lx/Tx error):
-\deqn{fit.weights = 1/error/(sum(1/error))}
+\deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 
 \strong{Error estimation using Monte Carlo simulation}
 
@@ -226,7 +226,7 @@ To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.11.7
+ 1.11.8
 }
 
 \examples{
@@ -314,7 +314,12 @@ print(
  verbose = FALSE)$Fit)
  }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 
@@ -332,4 +337,4 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-}
+, RLum Developer Team}

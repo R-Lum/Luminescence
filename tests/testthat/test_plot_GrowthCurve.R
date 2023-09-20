@@ -27,7 +27,9 @@ test_that("check weird LxTx values", {
 
   ##fit
   expect_warning(Luminescence:::.warningCatcher(
-    plot_GrowthCurve(sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")], output.plot = FALSE)))
+    plot_GrowthCurve(
+      sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")],
+      output.plot = FALSE)))
 
 })
 
