@@ -326,35 +326,32 @@ plot_GrowthCurve <- function(
   ##1. Check input variable
   switch(
     class(sample)[1],
+    data.frame = sample,
     matrix = sample <- as.data.frame(sample),
     list = sample <- as.data.frame(sample),
-    numeric = stop(
-      "[plot_GrowthCurve()] 'sample' needs to be of type 'data.frame'!",
-      call. = FALSE
-    )
+    stop(
+      "[plot_GrowthCurve()] Argument 'sample' needs to be of type 'data.frame'!",
+      call. = FALSE)
   )
 
   ##2. Check supported fit methods
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "LambertW")
   if (!fit.method[1] %in% fit.method_supported) {
     stop(paste0(
-      "[plot_GrowthCurve()] fit method not supported, supported methods are: ",
+      "[plot_GrowthCurve()] Fit method not supported, supported methods are: ",
       paste(fit.method_supported, collapse = ", ")
     ),
     call. = FALSE)
   }
 
   ##2. check if sample contains a least three rows
-  if(length(sample[[1]])<3 & fit.method != "LIN"){
-    stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!", call. = FALSE)
-  }
+  if(length(sample[[1]]) < 3 & fit.method != "LIN")
+    stop("\n [plot_GrowthCurve()] At least two regeneration points are required!", call. = FALSE)
 
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
-  if(ncol(sample) == 2){
+  if(ncol(sample) == 2)
     sample <- cbind(sample, 0)
-
-  }
 
   ##2.2 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
@@ -362,7 +359,6 @@ plot_GrowthCurve <- function(
       #This is slow, but it does not break with previous code
       sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
       warning("[plot_GrowthCurve()] Inf values found, replaced by NA!", call. = FALSE)
-
   }
 
   ##2.3 check whether the dose value is equal all the time
@@ -391,43 +387,44 @@ plot_GrowthCurve <- function(
     }
 
   }else{
-    stop("[plot_GrowthCurve()] Sorry, the argument 'na.rm' is defunct and will be removed in future!", call. = FALSE)
+    stop("[plot_GrowthCurve()] Sorry, the argument 'na.rm' is defunct and will be removed in future!",
+         call. = FALSE)
 
   }
 
   ##3. verbose mode
-  if(!verbose){
+  if(!verbose)
     txtProgressBar <- FALSE
-  }
-
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
   rownames(sample) <- NULL
 
   ##zero values in the data.frame are not allowed for the y-column
   if(length(sample[sample[,2]==0,2])>0){
-    warning(paste("[plot_GrowthCurve()]", length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by ", .Machine$double.eps), call. = FALSE)
+    warning(
+      paste("[plot_GrowthCurve()]",
+            length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by ",
+            .Machine$double.eps),
+      call. = FALSE)
     sample[sample[, 2] == 0, 2] <- .Machine$double.eps
   }
 
   ##1. INPUT
-
   #1.0.1 calculate number of reg points if not set
-  if(is.null(fit.NumberRegPoints)){
-    fit.NumberRegPoints<-length(sample[-1,1])
-  }
+  if(is.null(fit.NumberRegPoints))
+    fit.NumberRegPoints <- length(sample[-1,1])
+
   if(is.null(fit.NumberRegPointsReal)){
     fit.RegPointsReal <- which(!duplicated(sample[,1]) | sample[,1] != 0)
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
-
   }
 
-  #1.1 Produce dataframe from input values, two options for different modes
-  if(mode == "interpolation"){
+  #1.1 Produce data.frame from input values, two options for different modes
+  if(mode[1] == "interpolation"){
     xy <- data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
     y.Error <- sample[2:(fit.NumberRegPoints+1),3]
 
-  }else if (mode == "extrapolation" || mode == "alternate") {
+  } else if (mode[1] == "extrapolation" || mode[1] == "alternate") {
     xy <- data.frame(
       x = sample[1:(fit.NumberRegPoints+1),1],
       y = sample[1:(fit.NumberRegPoints+1),2])
@@ -447,15 +444,14 @@ plot_GrowthCurve <- function(
       warning(
         "[plot_GrowthCurve()] 'fit.weights' ignored since the error column is invalid or 0.",
         call. = FALSE)
-
     }
   }else{
-      fit.weights <- rep(1, length(y.Error))
+    fit.weights <- rep(1, length(y.Error))
 
   }
 
   #1.2 Prepare data sets regeneration points for MC Simulation
-  if (mode == "interpolation") {
+  if (mode[1] == "interpolation") {
     data.MC <- t(vapply(
       X = seq(2, fit.NumberRegPoints + 1, by = 1),
       FUN = function(x) {
@@ -501,37 +497,43 @@ plot_GrowthCurve <- function(
   ##1.4 set initialise variables
   De <- De.Error <- D01 <-  R <-  Dc <- N <- NA
 
-
-  ##============================================================================##
   # FITTING ----------------------------------------------------------------------
-  ##============================================================================##
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
+  ## helper function to create fit formula
+  ## from the function
+  .toFormula <- function(x) {
+    ## deparse
+    tmp <- deparse(x)
+
+    ## get parentheses position
+    id_par <- which(grepl(pattern = "[{}]", x = tmp))
+
+    ## get equation
+    tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
+
+    return(as.formula(paste0("y ~", tmp_eq)))
+  }
 
   ##set functions for fitting
-
   #EXP
   fit.functionEXP <- function(a,b,c,x) { a*(1-exp(-(x+c)/b)) }
-  fit.formulaEXP <- y ~ a * (1 - exp(-(x+c)/b))
 
   #EXP+LIN
-  fit.functionEXPLIN <- function(a,b,c,g,x) {a*(1-exp(-(x+c)/b)+(g*x))}
-  fit.formulaEXPLIN <- y ~ a*(1-exp(-(x+c)/b)+(g*x))
+  fit.functionEXPLIN <- function(a,b,c,g,x) { a*(1-exp(-(x+c)/b)+(g*x))}
 
   #EXP+EXP
   fit.functionEXPEXP<-function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
-  fit.formulaEXPEXP <- y ~ (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
 
   #GOK
   fit.functionGOK <- function(a,b,c,x) { a*(1-(1+(1/b)*x*c)^(-1/c)) }
-  fit.formulaGOK <- y ~ a*(1-(1+(1/b)*x*c)^(-1/c))
 
   #Lambert W
   fit.functionLambertW <- function(R, Dc, N, Dint, x) {
-    (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N }
-  fit.formulaLambertW <- y ~ (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
+    (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
+  }
 
   ##input data for fitting; exclude repeated RegPoints
-  if (fit.includingRepeatedRegPoints == FALSE) {
+  if (!fit.includingRepeatedRegPoints[1]) {
     data <-
       data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
     fit.weights <- fit.weights[!duplicated(xy[[1]])]
@@ -546,9 +548,7 @@ plot_GrowthCurve <- function(
   ## for unknown reasons with only two points the nls() function is trapped in
   ## an endless mode, therefore the minimum length for data is 3
   ## (2016-05-17)
-  if((fit.method == "EXP" | fit.method == "EXP+LIN" | fit.method == "EXP+EXP" | fit.method == "EXP OR LIN")
-     && length(data[,1])<=2){
-
+  if(any(fit.method %in% c("EXP", "EXP+LIN", "EXP+EXP", "EXP OR LIN")) && length(data[,1])<=2) {
     ##set to LIN
     fit.method <- "LIN"
 
@@ -559,9 +559,7 @@ plot_GrowthCurve <- function(
 
     }
 
-
   }
-
 
   ##START PARAMETER ESTIMATION
   ##--------------------------------------------------------------------------##
@@ -850,7 +848,7 @@ plot_GrowthCurve <- function(
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
-        formula = fit.formulaEXP,
+        formula = .toFormula(fit.functionEXP),
         data = data,
         start = list(a = a, b = b,c = 0),
         weights = fit.weights,
@@ -935,7 +933,7 @@ plot_GrowthCurve <- function(
           data <- data.frame(x = xy$x,y = data.MC[,i])
 
           fit.MC <- try(minpack.lm::nlsLM(
-            formula = fit.formulaEXP,
+            formula = .toFormula(fit.functionEXP),
             data = data,
             start = list(a = a, b = b, c = c),
             weights = fit.weights,
@@ -1152,7 +1150,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = fit.formulaEXPLIN,
+      formula = .toFormula(fit.functionEXPLIN),
       data = data,
       start = list(a = a, b = b,c = c, g = g),
       weights = fit.weights,
@@ -1279,7 +1277,7 @@ plot_GrowthCurve <- function(
 
         ##perform MC fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = fit.formulaEXPLIN,
+          formula = .toFormula(fit.functionEXPLIN),
           data = data,
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
@@ -1423,7 +1421,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = fit.formulaEXPEXP,
+      formula = .toFormula(fit.functionEXPEXP),
       data = data,
       start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
       weights = fit.weights,
@@ -1523,7 +1521,7 @@ plot_GrowthCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = fit.formulaEXPEXP,
+          formula = .toFormula(fit.functionEXPEXP),
           data = data,
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
@@ -1596,7 +1594,7 @@ plot_GrowthCurve <- function(
   # GOK -----
     # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
-      formula = fit.formulaGOK,
+      formula = .toFormula(fit.functionGOK),
       data = data,
       start = list(a = a, b = b, c = 1),
       weights = fit.weights,
@@ -1671,7 +1669,7 @@ plot_GrowthCurve <- function(
 
         fit.MC <- try(
         {minpack.lm::nlsLM(
-          formula = fit.formulaGOK,
+          formula = .toFormula(fit.functionGOK),
           data = data,
           start = list(a = a, b = b, c = 1),
           weights = fit.weights,
@@ -1733,7 +1731,7 @@ plot_GrowthCurve <- function(
     }
 
     fit <- try(minpack.lm::nlsLM(
-          formula = fit.formulaLambertW,
+          formula = .toFormula(fit.functionLambertW),
           data = data,
           start = list(R = 0, Dc = b, N = b, Dint = 0),
           weights = fit.weights,
@@ -1830,7 +1828,7 @@ plot_GrowthCurve <- function(
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
-              formula = fit.formulaLambertW,
+              formula = .toFormula(fit.functionLambertW),
               data = data,
               start = list(R = 0, Dc = b, N = 0, Dint = 0),
               weights = fit.weights,
@@ -2378,3 +2376,4 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
+

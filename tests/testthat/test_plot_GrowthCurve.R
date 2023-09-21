@@ -7,11 +7,23 @@ test_that("fail fast", {
 
   ##fit.method
   expect_error(
-    plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
-    regexp = "[plot_GrowthCurve()] fit method not supported, supported methods are: LIN, QDR, EXP, EXP OR LIN, EXP+LIN, EXP+EXP, GOK, LambertW",
-    fixed = TRUE
-  )
+    object = plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Fit method not supported, supported.+")
 
+  ## input object
+  expect_error(
+    object = plot_GrowthCurve("test"),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Argument 'sample' needs to be of type 'data.frame'\\!")
+
+  ## shorten dataframe
+  expect_error(
+    object = plot_GrowthCurve(LxTxData[1:2,]),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least two regeneration points are required!")
+
+  ## wrong argument for mode
+  expect_error(
+    object = plot_GrowthCurve(LxTxData, mode = "fail"),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Unknown input for argument 'mode'")
 })
 
 test_that("check weird LxTx values", {
@@ -30,6 +42,14 @@ test_that("check weird LxTx values", {
     plot_GrowthCurve(
       sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")],
       output.plot = FALSE)))
+
+  ##all points have the same dose ... error but NULL
+  data(ExampleData.LxTxData, envir = environment())
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$Dose <- 10
+
+  expect_null(
+    object = plot_GrowthCurve(tmp_LxTx))
 
 })
 
@@ -51,6 +71,16 @@ test_that("check class and length of output", {
     plot_GrowthCurve(
       LxTxData,
       fit.method = "LIN",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_LIN <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "LIN",
+      mode = "extrapolation",
+      fit.force_through_origin = TRUE,
       output.plot = FALSE,
       verbose = FALSE,
       NumberIterations.MC = 10
@@ -79,7 +109,16 @@ test_that("check class and length of output", {
       verbose = FALSE,
       NumberIterations.MC = 10
     )
-
+  temp_QDR <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      mode = "extrapolation",
+      fit.force_through_origin = TRUE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
   temp_GOK <-
     plot_GrowthCurve(
       LxTxData,
