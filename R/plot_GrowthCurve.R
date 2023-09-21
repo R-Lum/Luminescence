@@ -2082,7 +2082,7 @@ plot_GrowthCurve <- function(
       title(main = main, line = NA)
 
       ## add curve -------
-      if(!is.na(fit_formula)) {
+      if(inherits(fit_formula, "expression")) {
         x <- seq(xlim[1], xlim[2], length.out = 100)
         lines(x, eval(fit_formula))
       }
