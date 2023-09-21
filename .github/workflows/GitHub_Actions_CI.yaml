@@ -85,5 +85,5 @@ jobs:
 
       - name: Test coverage
         run: |
-          covr::codecov()
+          try(covr::codecov())
         shell: Rscript {0}
