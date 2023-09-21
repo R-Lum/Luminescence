@@ -2082,8 +2082,10 @@ plot_GrowthCurve <- function(
       title(main = main, line = NA)
 
       ## add curve -------
-      x <- seq(xlim[1], xlim[2], length.out = 100)
-      lines(x, eval(fit_formula))
+      if(!is.na(fit_formula)) {
+        x <- seq(xlim[1], xlim[2], length.out = 100)
+        lines(x, eval(fit_formula))
+      }
 
       ## add points -------
       ##POINTS	#Plot Reg0 and Repeated Points
@@ -2391,4 +2393,3 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
-
