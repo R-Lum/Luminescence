@@ -813,7 +813,7 @@ plot_GrowthCurve <- function(
         c <- c.MC[i]
 
         fit.initial <- suppressWarnings(try(nls(
-          y ~ fit.functionEXP(a, b, c, x),
+          formula = .toFormula(fit.functionEXP),
           data = data,
           start = c(a = a, b = b, c = c),
           trace = FALSE,
@@ -1101,14 +1101,17 @@ plot_GrowthCurve <- function(
 
       ##---------------------------------------------------------##
       ##start: with EXP function
-      fit.EXP<-try(nls(y~fit.functionEXP(a,b,c,x),
-                       data=data,
-                       start=c(a=a,b=b,c=c),
-                       trace=FALSE,
-                       algorithm="port",
-                       lower=c(a=0,b>10,c=0),
-                       nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
-      ),silent=TRUE)
+      fit.EXP <- try({
+        nls(
+        formula = .toFormula(fit.functionEXP),
+        data = data,
+        start = c(a=a,b=b,c=c),
+        trace = FALSE,
+        algorithm = "port",
+        lower = c(a=0, b>10, c = 0),
+        control = nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
+      )},
+      silent=TRUE)
 
       if(!inherits(fit.EXP, "try-error")){
         #get parameters out of it
@@ -1123,14 +1126,22 @@ plot_GrowthCurve <- function(
 
       }
 
-      fit<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
-                   data=data,
-                   start=c(a=a,b=b,c=c,g=g),
-                   trace=FALSE,
-                   algorithm="port",
-                   lower = if(fit.bounds){c(a=0,b>10,c=0,g=0)}else{c(a = -Inf,b = -Inf,c = -Inf,g = -Inf)},
-                   nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
-      ),silent=TRUE)
+      fit<-try({
+        nls(
+          formula = .toFormula(fit.functionEXPLIN),
+          data = data,
+          start = c(a=a,b=b,c=c,g=g),
+          trace = FALSE,
+          algorithm = "port",
+          lower = if(fit.bounds){
+            c(a=0,b>10,c=0,g=0)}
+          else{c(a = -Inf,b = -Inf,c = -Inf,g = -Inf)
+          },
+          control = nls.control(
+            maxiter = 500,
+            warnOnly = FALSE,
+            minFactor = 1/2048) #increase max. iterations
+      )}, silent=TRUE)
 
       if(!inherits(fit, "try-error")){
         #get parameters out of it
@@ -1389,8 +1400,8 @@ plot_GrowthCurve <- function(
       a1 <- a.MC[i];b1 <- b.MC[i];
       a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
-      fit.start <- try(nls(
-        y ~ fit.functionEXPEXP(a1,a2,b1,b2,x),
+      fit.start <- try({
+        nls(formula = .toFormula(functionEXPEXP),
         data = data,
         start = c(
           a1 = a1,a2 = a2,b1 = b1,b2 = b2
@@ -1401,7 +1412,8 @@ plot_GrowthCurve <- function(
         nls.control(
           maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
         ) #increase max. iterations
-      ),silent = TRUE)
+      )},
+      silent = TRUE)
 
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
@@ -1955,7 +1967,6 @@ plot_GrowthCurve <- function(
   ##5. Plotting if plotOutput==TRUE
   if(output.plot) {
     ## Deal with extra arguments --------------------------
-    ##deal with addition arguments
     extraArgs <- list(...)
 
     main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
@@ -2032,8 +2043,7 @@ plot_GrowthCurve <- function(
       layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
       par(cex = 0.8 * cex.global)
 
-    }else{
-
+    } else {
       par.default.single <- par(no.readonly = TRUE)$cex
       on.exit(par(cex = par.default.single))
       par(cex=cex.global)
@@ -2046,7 +2056,7 @@ plot_GrowthCurve <- function(
       ##here the object sample has to be used otherwise the first regeneration point is not plotted.
       temp.xy.plot  <- sample[fit.RegPointsReal,]
 
-    }else{
+    } else {
       temp.xy.plot  <- xy[1:fit.NumberRegPointsReal,]
 
     }
@@ -2090,12 +2100,17 @@ plot_GrowthCurve <- function(
       }
 
       #repeated Point
-      points(xy[which(duplicated(xy[, 1])), 1], xy[which(duplicated(xy[, 1])), 2],
-             pch = 2)
+      points(
+        x = xy[which(duplicated(xy[, 1])), 1],
+        y = xy[which(duplicated(xy[, 1])), 2],
+        pch = 2)
 
       #reg Point 0
-      points(xy[which(xy == 0), 1], xy[which(xy == 0), 2], pch = 1, cex = 1.5 *
-               cex.global)
+      points(
+        x = xy[which(xy == 0), 1],
+        y = xy[which(xy == 0), 2],
+        pch = 1,
+        cex = 1.5 * cex.global)
 
       ##ARROWS	#y-error Bar
       segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
@@ -2111,7 +2126,7 @@ plot_GrowthCurve <- function(
             lwd = 1.25
           )
 
-        } else{
+        } else {
           try(lines(
             c(0, De),
             c(sample[1, 2], sample[1, 2]),
