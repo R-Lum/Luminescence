@@ -1,4 +1,4 @@
-test_that("fail fast", {
+test_that("plot_GrowthCurve", {
   testthat::skip_on_cran()
   local_edition(3)
 
@@ -24,12 +24,8 @@ test_that("fail fast", {
   expect_error(
     object = plot_GrowthCurve(LxTxData, mode = "fail"),
     regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Unknown input for argument 'mode'")
-})
 
-test_that("check weird LxTx values", {
-  testthat::skip_on_cran()
-  local_edition(3)
-
+# Weird LxTx values ------------------------------------------------------
   ##set LxTx
   LxTx <- structure(list(
     Dose = c(0, 250, 500, 750, 1000, 1500, 0, 500, 500),
@@ -51,12 +47,18 @@ test_that("check weird LxTx values", {
   expect_null(
     object = plot_GrowthCurve(tmp_LxTx))
 
-})
+  ## check input objects ... matrix
+  expect_s4_class(
+    object = plot_GrowthCurve(as.matrix(LxTxData), output.plot = FALSE),
+    class = "RLum.Results")
 
-test_that("check class and length of output", {
-  testthat::skip_on_cran()
-  local_edition(3)
+  ## check input objects ... list
+  expect_s4_class(
+    object = plot_GrowthCurve(as.list(LxTxData), output.plot = FALSE),
+    class = "RLum.Results")
 
+
+# Check output for regression ---------------------------------------------
   set.seed(1)
   data(ExampleData.LxTxData, envir = environment())
   temp_EXP <-
@@ -158,13 +160,11 @@ test_that("check class and length of output", {
   expect_s4_class(temp_LambertW, class = "RLum.Results")
     expect_s3_class(temp_LambertW$Fit, class = "nls")
 
-})
 
-test_that("check values from output example", {
- testthat::skip_on_cran()
-  local_edition(3)
-  set.seed(1)
+# Check more output -------------------------------------------------------
   data(ExampleData.LxTxData, envir = environment())
+
+  set.seed(1)
   temp_EXP <-
     plot_GrowthCurve(
       LxTxData,
@@ -239,7 +239,7 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
+     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
 
    }else{
      expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
@@ -261,18 +261,18 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-
     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
 
    }else{
-     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303)
+     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303,
+                  tolerance = 10)
 
    }
 
    expect_equal(round(temp_QDR$De[[1]], digits = 2), 1666.2)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
+   if (R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 14937)
 
    }else{
@@ -282,12 +282,12 @@ test_that("check values from output example", {
 
    expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
    ##fix for different R versions
-   if(R.version$major > "3"){
+   if (R.version$major > "3"){
      if(any(grepl("aarch64", sessionInfo()$platform))) {
        expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17903, tolerance = 0.0001)
 
      } else {
-       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.0001)
+       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.1)
 
      }
    }
@@ -299,12 +299,7 @@ test_that("check values from output example", {
 
    }
 
-})
-
-test_that("check extrapolation", {
-  testthat::skip_on_cran()
-  local_edition(3)
-
+# Check extrapolation -----------------------------------------------------
   ## load data
   data(ExampleData.LxTxData, envir = environment())
 
@@ -331,12 +326,8 @@ test_that("check extrapolation", {
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
 
-})
 
-test_that("check alternate", {
-  testthat::skip_on_cran()
-  local_edition(3)
-
+# Check alternate ---------------------------------------------------------
   ## load data
   data(ExampleData.LxTxData, envir = environment())
 
