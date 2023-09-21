@@ -522,7 +522,7 @@ plot_GrowthCurve <- function(
   fit.functionEXPLIN <- function(a,b,c,g,x) { a*(1-exp(-(x+c)/b)+(g*x))}
 
   #EXP+EXP
-  fit.functionEXPEXP<-function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
+  fit.functionEXPEXP <- function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
 
   #GOK
   fit.functionGOK <- function(a,b,c,x) { a*(1-(1+(1/b)*x*c)^(-1/c)) }
@@ -1401,7 +1401,7 @@ plot_GrowthCurve <- function(
       a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
       fit.start <- try({
-        nls(formula = .toFormula(functionEXPEXP),
+        nls(formula = .toFormula(fit.functionEXPEXP),
         data = data,
         start = c(
           a1 = a1,a2 = a2,b1 = b1,b2 = b2

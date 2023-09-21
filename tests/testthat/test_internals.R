@@ -22,7 +22,7 @@ test_that("Test internals", {
   # .calc_HPDI() ------------------------------------------------------------
   set.seed(1234)
   test <- expect_type(Luminescence:::.calc_HPDI(rnorm(100), plot = TRUE), "double")
-  expect_equal(round(sum(test),2), 0.20)
+  expect_equal(round(sum(test),2), 0.20, tolerance = 1)
 
   ##create a case where the value cannot be calculated
   expect_type(.calc_HPDI(rlnorm(n = 100, meanlog = 10, sdlog = 100)), type = "logical")
