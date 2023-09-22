@@ -552,17 +552,15 @@ plot_GrowthCurve <- function(
     ##set to LIN
     fit.method <- "LIN"
 
-    warning("[plot_GrowthCurve()] fitting using an exponential term requires at least 3 dose points! fit.method set to 'LIN'")
+    warning("[plot_GrowthCurve()] Fitting using an exponential term requires at
+            least 3 dose points! fit.method set to 'LIN'", call. = FALSE)
 
-    if(verbose){
-      if(verbose) message("[plot_GrowthCurve()] fit.method set to 'LIN', see warnings()")
-
-    }
+    if(verbose)
+      message("[plot_GrowthCurve()] fit.method set to 'LIN', see warnings()")
 
   }
 
   ##START PARAMETER ESTIMATION
-  ##--------------------------------------------------------------------------##
   ##general setting of start parameters for fitting
 
   ##a - estimation for a a the maximum of the y-values (Lx/Tx)
@@ -572,14 +570,10 @@ plot_GrowthCurve <- function(
   ##    (suppress the warning in case one parameter is negative)
   fit.lm <- try(lm(suppressWarnings(log(data$y))~data$x))
 
-  if(inherits(fit.lm, "try-error")){
+  if(inherits(fit.lm, "try-error"))
     b <- 1
-
-  }else{
+  else
     b <- as.numeric(1/fit.lm$coefficients[2])
-
-  }
-
 
   ##c - get start parameters from a linear fit - offset on x-axis
   fit.lm<-lm(data$y~data$x)
@@ -619,9 +613,7 @@ plot_GrowthCurve <- function(
     g.start <- NA
   }
 
-  ##--------------------------------------------------------------------------##
-  #===========================================================================##
-  # QDR ----------
+  # QDR ------------------------------------------------------------------------
   if (fit.method == "QDR"){
     ##Do fitting with option to force curve through the origin
     if(fit.force_through_origin){
@@ -634,10 +626,7 @@ plot_GrowthCurve <- function(
 
       }
 
-
     }else{
-
-
       ##linear fitting ... polynomial
       fit  <- lm(data$y ~  I(data$x) + I(data$x^2), weights = fit.weights)
 
@@ -698,9 +687,6 @@ plot_GrowthCurve <- function(
       De <- NA
     }
 
-
-    # +++++++++++++++++++++++++++++++++++++++++
-
     ##set progressbar
     if(txtProgressBar){
       cat("\n\t Run Monte Carlo loops for error estimation of the QDR fit\n")
@@ -709,8 +695,7 @@ plot_GrowthCurve <- function(
 
     #start loop for Monte Carlo Error estimation
     fit.MC <- sapply(1:NumberIterations.MC, function(i){
-
-      data <- data.frame(x=xy$x, y=data.MC[,i])
+      data <- data.frame(x = xy$x, y = data.MC[,i])
 
       if(fit.force_through_origin){
         ##linear fitting ... polynomial
@@ -723,10 +708,7 @@ plot_GrowthCurve <- function(
 
         }
 
-
       }else{
-
-
         ##linear fitting ... polynomial
         fit.MC  <- lm(data$y ~  I(data$x) + I(data$x^2), weights = fit.weights)
 
@@ -1927,35 +1909,6 @@ plot_GrowthCurve <- function(
   De.Error <- sd(na.exclude(x.natural))
 
   # Formula creation --------------------------------------------------------
-  # helper function to create the formula
-  # helper function to create the formula
-  .replace_coef <- function(f) {
-    ## get formula as character string
-    if(inherits(f, "nls")) {
-      str <- as.character(f$m$formula())[3]
-      param <- coef(f)
-
-    } else {
-      str <- "a * x + b * x^2 + n"
-      param <- c(n = 0, a = 0, b = 0)
-      if(fit.force_through_origin[1])
-        param[2:(length(coef(f))+1)] <- coef(f)
-      else
-        param[1:length(coef(f))] <- coef(f)
-
-    }
-
-    ## replace
-    for(i in 1:length(param))
-      str <- gsub(
-        pattern = names(param)[i],
-        replacement = format(param[i], digits = 3, scientific = TRUE),
-        x = str,
-        fixed = TRUE)
-
-    ## return
-    return(parse(text = str))
-  }
 
   ## This information is part of the fit object output anyway, but
   ## we keep it here for legacy reasons
@@ -2392,4 +2345,44 @@ plot_GrowthCurve <- function(
   )
   invisible(output.final)
 
+}
+
+# Helper functions --------------------------------------------------------
+#'@title Replace coefficients in formula
+#'
+#'@description Replace the parameters in a fitting function by the true, fitted values.
+#'This way the results can be easily used by the other functions
+#'
+#'@param f [nls] or [lm] (**required**): the output object of the fitting
+#'
+#'@returns Returns an [expression]
+#'
+#'@md
+#'@noRd
+.replace_coef <- function(f) {
+  ## get formula as character string
+  if(inherits(f, "nls")) {
+    str <- as.character(f$m$formula())[3]
+    param <- coef(f)
+
+  } else {
+    str <- "a * x + b * x^2 + n"
+    param <- c(n = 0, a = 0, b = 0)
+     if(!"(Intercept)" %in% names(coef(f)))
+      param[2:(length(coef(f))+1)] <- coef(f)
+    else
+      param[1:length(coef(f))] <- coef(f)
+
+  }
+
+  ## replace
+  for(i in 1:length(param))
+    str <- gsub(
+      pattern = names(param)[i],
+      replacement = format(param[i], digits = 3, scientific = TRUE),
+      x = str,
+      fixed = TRUE)
+
+  ## return
+  return(parse(text = str))
 }
