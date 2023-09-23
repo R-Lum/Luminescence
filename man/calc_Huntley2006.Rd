@@ -11,8 +11,8 @@ calc_Huntley2006(
   ddot,
   readerDdot,
   normalise = TRUE,
-  fit.method = c("EXP", "GOK")[1],
-  lower.bounds = c(-Inf, -Inf, -Inf),
+  fit.method = c("EXP", "GOK"),
+  lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
   summary = TRUE,
   plot = TRUE,
   ...
@@ -177,8 +177,7 @@ where
 
 after King et al. (2016) where \eqn{A} is a pre-exponential factor,
 \eqn{t^*} (s) is the irradiation time, starting at the mid-point of
-irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}}) is the athermal
-frequency factor after Huntley (2006). \cr
+irradiation (Auclair et al. 2003) and \eqn{\tilde{s}} (\eqn{3\times10^{15}} s\eqn{^{-1}}) is the athermal frequency factor after Huntley (2006). \cr
 
 Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
 response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
@@ -226,7 +225,7 @@ to obtain at least a "minimum age" estimate of the sample. In the console
 output this value is denoted by \emph{"Age @2D0 (ka):"}.
 }
 \section{Function version}{
- 0.4.1
+ 0.4.2
 }
 
 \examples{
@@ -278,7 +277,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-31. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., Kreutzer, S., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-40. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -301,7 +300,8 @@ Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An att
 for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 }
 \author{
-Georgina E. King, University of Bern (Switzerland) \cr
-Christoph Burow, University of Cologne (Germany)
+Georgina E. King, University of Lausanne (Switzerland) \cr
+Christoph Burow, University of Cologne (Germany) \cr
+Sebastian Kreutzer, Ruprecht-Karl University of Heidelberg (Germany)
 , RLum Developer Team}
 \keyword{datagen}

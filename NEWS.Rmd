@@ -30,6 +30,10 @@ the sample name is called run.
 * `...` supports a lot more arguments to enable better plot modifications in particular for the newly added
 surface interpolation mode. 
 
+### `calc_Huntley2006()`
+* The function can now handle `"extrapolation"` for `fit.method = "GOK"` and is therefore suited to 
+additive measurement protocols.
+
 ### `read_PSL()`
 * Remove unwanted characters less aggressively from sample name; with this new setting, coordinates 
 can be passed.
