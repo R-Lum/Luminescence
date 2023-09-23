@@ -129,7 +129,6 @@ test_that("plot_GrowthCurve", {
       verbose = FALSE,
       NumberIterations.MC = 10
     )
-
   temp_LambertW <-
     plot_GrowthCurve(
       LxTxData,
@@ -205,16 +204,24 @@ test_that("plot_GrowthCurve", {
       verbose = FALSE,
       NumberIterations.MC = 10
     )
-
   temp_GOK <-
     plot_GrowthCurve(
       LxTxData,
       fit.method = "GOK",
       output.plot = FALSE,
       verbose = FALSE,
-      NumberIterations.MC = 10
-    )
-
+      NumberIterations.MC = 10)
+  ## force through the origin
+  temp_LxTx <-LxTxData
+  temp_LxTx$LxTx[[7]] <- 1
+  expect_s4_class(plot_GrowthCurve(
+    temp_LxTx,
+    fit.method = "GOK",
+    output.plot = FALSE,
+    verbose = FALSE,
+    NumberIterations.MC = 10,
+    fit.force_through_origin = TRUE
+  ), "RLum.Results")
   temp_LambertW <-
     plot_GrowthCurve(
       LxTxData,
@@ -284,20 +291,18 @@ test_that("plot_GrowthCurve", {
    ##fix for different R versions
    if (R.version$major > "3"){
      if(any(grepl("aarch64", sessionInfo()$platform))) {
-       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17903, tolerance = 0.0001)
+       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17796,
+                    tolerance = 0.001)
 
      } else {
-       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.1)
+       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9,
+                    tolerance = 0.1)
 
      }
    }
 
    expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
-   ##fix for different R versions
-   if(R.version$major > "3"){
-     expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17662)
-
-   }
+   expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17422)
 
 # Check extrapolation -----------------------------------------------------
   ## load data
@@ -314,8 +319,8 @@ test_that("plot_GrowthCurve", {
       plot_GrowthCurve(
         LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")), "RLum.Results")
 
-  # GOK <- expect_s4_class(
-  #   plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
+  GOK <- expect_s4_class(
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
 
   LambertW <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
@@ -326,7 +331,6 @@ test_that("plot_GrowthCurve", {
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
-
 
 # Check alternate ---------------------------------------------------------
   ## load data

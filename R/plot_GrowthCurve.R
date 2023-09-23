@@ -1,7 +1,7 @@
-#' @title Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
+#' @title Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)
 #'
 #' @description
-#' A dose response curve is produced for luminescence measurements using a
+#' A dose-response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol. The function supports interpolation and
 #' extrapolation to calculate the equivalent dose.
 #'
@@ -31,7 +31,7 @@
 #'
 #' `EXP+LIN`: tries to fit an exponential plus linear function of the
 #' form:
-#' \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
+#' \deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
 #' The \eqn{D_e} is calculated by iteration.
 #'
 #' **Note:** In the context of luminescence dating, this
@@ -45,7 +45,7 @@
 #' `GOK`: tries to fit the general-order kinetics function after
 #' Guralnik et al. (2015) of the form of
 #'
-#' \deqn{y = a (1 - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
+#' \deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 #'
 #' where **c > 0** is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
@@ -124,7 +124,7 @@
 #'
 #' @param fit.force_through_origin [logical] (*with default*)
 #' allow to force the fitted function through the origin.
-#' For `method = "EXP+EXP"` and `method = "GOK"` the function will go through
+#' For `method = "EXP+EXP"` the function will be fixed through
 #' the origin in either case, so this option will have no effect.
 #'
 #' @param fit.weights [logical] (*with default*):
@@ -195,7 +195,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.8
+#' @section Function version: 1.11.9
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -525,7 +525,7 @@ plot_GrowthCurve <- function(
   fit.functionEXPEXP <- function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
 
   #GOK
-  fit.functionGOK <- function(a,b,c,x) { a*(1-(1+(1/b)*x*c)^(-1/c)) }
+  fit.functionGOK <- function(a,b,c,d,x) { a*(d-(1+(1/b)*x*c)^(-1/c)) }
 
   #Lambert W
   fit.functionLambertW <- function(R, Dc, N, Dint, x) {
@@ -1586,20 +1586,15 @@ plot_GrowthCurve <- function(
   }
   else if (fit.method[1] == "GOK") {
   # GOK -----
-    # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionGOK),
       data = data,
-      start = list(a = a, b = b, c = 1),
+      start = list(a = a, b = b, c = 1, d = 1),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
-      lower = if (fit.bounds) {
-        c(0,0,0)
-      }else{
-        c(-Inf,-Inf,-Inf)
-      },
-      upper = c(Inf, Inf, Inf),
+      lower = if (fit.bounds) c(0,0,0,0) else c(-Inf,-Inf,-Inf,-Inf),
+      upper = if(fit.force_through_origin) c(Inf, Inf, Inf, 1) else c(Inf, Inf, Inf, Inf),
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = TRUE)
 
@@ -1612,18 +1607,15 @@ plot_GrowthCurve <- function(
       b <- as.vector((parameters["b"]))
       a <- as.vector((parameters["a"]))
       c <- as.vector((parameters["c"]))
+      d <- as.vector((parameters["d"]))
 
       #calculate De
-      if(mode == "interpolation"){
-        De <- suppressWarnings(-(b * (( (a - sample[1,2])/a)^c - 1) * ( ((a - sample[1,2])/a)^-c  )) / c)
-
-      }else if (mode == "extrapolation"){
-        De <- suppressWarnings(-(b * (( (a - 0)/a)^c - 1) * ( ((a - 0)/a)^-c  )) / c)
-
-      }else{
-        De <- NA
-
-      }
+      y <- sample[1,2]
+      De <- switch(
+        mode,
+        "interpolation" = suppressWarnings(-(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
+        "extrapolation" = suppressWarnings(-(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
+        NA)
 
       #print D01 value
       D01 <- b
@@ -1655,26 +1647,27 @@ plot_GrowthCurve <- function(
       var.b <- vector(mode = "numeric", length = NumberIterations.MC)
       var.a <- vector(mode = "numeric", length = NumberIterations.MC)
       var.c <- vector(mode = "numeric", length = NumberIterations.MC)
+      var.d <- vector(mode = "numeric", length = NumberIterations.MC)
 
       #start loop
       for (i in 1:NumberIterations.MC) {
         ##set data set
         data <- data.frame(x = xy$x,y = data.MC[,i])
 
-        fit.MC <- try(
-        {minpack.lm::nlsLM(
+        fit.MC <- try({
+          minpack.lm::nlsLM(
           formula = .toFormula(fit.functionGOK),
           data = data,
-          start = list(a = a, b = b, c = 1),
+          start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
           lower = if (fit.bounds) {
-            c(0,0,0)
+            c(0,0,0,0)
           }else{
-            c(-Inf,-Inf,-Inf)
+            c(-Inf,-Inf,-Inf, -Inf)
           },
-          upper = c(Inf, Inf, Inf),
+          upper = if(fit.force_through_origin) c(Inf, Inf, Inf, 1) else c(Inf, Inf, Inf, Inf),
           control = minpack.lm::nls.lm.control(maxiter = 500)
         )}, silent = TRUE)
 
@@ -1688,21 +1681,16 @@ plot_GrowthCurve <- function(
           var.b[i] <- as.vector((parameters["b"])) #D0
           var.a[i] <- as.vector((parameters["a"])) #Imax
           var.c[i] <- as.vector((parameters["c"])) #kinetic order modifier
+          var.d[i] <- as.vector((parameters["d"])) #origin
 
           # calculate x.natural for error calculation
-          if(mode == "interpolation"){
-            x.natural[i]<-suppressWarnings(
-                -(var.b[i] * (( (var.a[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i])
-
-          }else if(mode == "extrapolation"){
-            x.natural[i]<-suppressWarnings(
-              abs(-(var.b[i] * (( (var.a[i] - 0)/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])
-            )
-
-          }else{
-            x.natural[i] <- NA
-
-          }
+          x.natural[i] <- switch(
+            mode,
+            "interpolation" = suppressWarnings(-(var.b[i] * (( (var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) *
+                                                   (((var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i]),
+           "extrapolation" = suppressWarnings(abs(-(var.b[i] * (( (var.a[i] * var.d[i] - 0)/var.a[i])^var.c[i] - 1) *
+                                                      ( ((var.a[i] * var.d[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])),
+           NA)
 
         }
 
@@ -2247,13 +2235,10 @@ plot_GrowthCurve <- function(
             silent = TRUE
           )
 
-          if(!is(plot_check,"try-error")){
+          if(!is(plot_check,"try-error"))
             text(5, 5, "not available")
 
-          }
-
         }#end ifelse
-
 
         ##PLOT		#PLOT test dose response curve if available if not plot not available
         #plot Tx/Tn value for sensitvity change
@@ -2283,7 +2268,6 @@ plot_GrowthCurve <- function(
           }#end if else
         }
 
-
         ## FUN by R Luminescence Team
         if (fun == TRUE) {
           sTeve()
@@ -2300,7 +2284,6 @@ plot_GrowthCurve <- function(
     }
 
   }
-
 
 # Output ------------------------------------------------------------------
   ##calculate HPDI
@@ -2386,3 +2369,4 @@ plot_GrowthCurve <- function(
   ## return
   return(parse(text = str))
 }
+

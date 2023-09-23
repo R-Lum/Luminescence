@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_GrowthCurve.R
 \name{plot_GrowthCurve}
 \alias{plot_GrowthCurve}
-\title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
+\title{Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)}
 \usage{
 plot_GrowthCurve(
   sample,
@@ -63,7 +63,7 @@ See details.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default})
 allow to force the fitted function through the origin.
-For \code{method = "EXP+EXP"} and \code{method = "GOK"} the function will go through
+For \code{method = "EXP+EXP"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
 \item{fit.weights}{\link{logical} (\emph{with default}):
@@ -137,7 +137,7 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 }
 }
 \description{
-A dose response curve is produced for luminescence measurements using a
+A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
 extrapolation to calculate the equivalent dose.
 }
@@ -166,7 +166,7 @@ If the \code{EXP} fit fails, a \code{LIN} fit is done instead.
 
 \code{EXP+LIN}: tries to fit an exponential plus linear function of the
 form:
-\deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
+\deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
 The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this
@@ -180,7 +180,7 @@ should be further improved.
 \code{GOK}: tries to fit the general-order kinetics function after
 Guralnik et al. (2015) of the form of
 
-\deqn{y = a (1 - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
+\deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 
 where \strong{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
@@ -226,7 +226,7 @@ To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.11.8
+ 1.11.9
 }
 
 \examples{
@@ -317,7 +317,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-31. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.11.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-38. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

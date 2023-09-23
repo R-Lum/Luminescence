@@ -37,7 +37,8 @@ can be passed.
 ### `plot_GrowthCurve()`
 * The function crashed for the setting `plot_GrowthCurve(..., mode = "alternate", fit.method = "LambertW")`; fixed (#114, @Eiskeil, thanks for reporting).
 * Now throws a warning in `mode = "extrapolation", fit.method = "LambertW"` of the standard root estimation failed and hence the results can become inconclusive. 
-* If the calculated fit weights were invalid, the parameter was not set always correctly; fixed.
+* `fit.method = "GOK"` now supports fits that are not necessarily forced through the origin.
+* If the calculated fit weights were invalid, the parameter was not set always correctly set; fixed.
 * Non-user visible change: the fit formula is now extracted more consistently and less error-prone
 
 ## Internals
