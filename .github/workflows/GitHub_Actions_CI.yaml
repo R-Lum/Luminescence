@@ -33,6 +33,7 @@ jobs:
           - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
+      RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -51,7 +52,7 @@ jobs:
           curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
           C:\JAGS-4.3.1.exe /S
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -69,16 +70,6 @@ jobs:
             any::covr
           needs: check
 
-      - name: Show session info before test
-        run: |
-          print(utils::sessionInfo())
-        shell: Rscript {0}
-
-      - name: Show session curl info
-        run: |
-          print(curl::curl_version())
-        shell: Rscript {0}
-
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
@@ -88,9 +79,3 @@ jobs:
           covr::codecov()
         shell: Rscript {0}
 
-      # - name: Upload test results
-      #   if: failure()
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: coverage-test-failures
-      #     path: ${{ runner.temp }}/package
