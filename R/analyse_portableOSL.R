@@ -13,7 +13,7 @@
 #' **Note:  The function assumes the following sequence pattern: `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`. If you have written a different sequence, the analysis function will (likely) not work!**.
 #'
 #' **Signal processing**
-#' The function processes the signals as follows: BSL and IRSL signals are extracted using the
+#' The function processes the signals as follows: `BSL` and `IRSL` signals are extracted using the
 #' chosen signal integral, dark counts are taken in full.
 #'
 #' **Working with coordinates**
@@ -75,7 +75,7 @@
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [read_PSL2R]
 #'
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-#' Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
+#' Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
 #'
 #' @section Function version: 0.1.0
 #'

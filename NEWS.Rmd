@@ -46,4 +46,4 @@ can be passed.
 * Non-user visible change: the fit formula is now extracted more consistently and less error-prone
 
 ## Internals
-* Adding new dependency to 'interp'
+* Adding new dependency to `'interp'`

@@ -71,7 +71,7 @@ by \code{signal.integral}) is divided by cumulative signal of the first n channe
 \strong{Note:  The function assumes the following sequence pattern: \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}. If you have written a different sequence, the analysis function will (likely) not work!}.
 
 \strong{Signal processing}
-The function processes the signals as follows: BSL and IRSL signals are extracted using the
+The function processes the signals as follows: \code{BSL} and \code{IRSL} signals are extracted using the
 chosen signal integral, dark counts are taken in full.
 
 \strong{Working with coordinates}
@@ -123,11 +123,11 @@ get_RLum(results)
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
+Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-31. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
