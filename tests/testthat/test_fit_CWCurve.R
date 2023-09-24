@@ -1,13 +1,13 @@
-data(ExampleData.CW_OSL_Curve, envir = environment())
-fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
-                   main = "CW Curve Fit",
-                   n.components.max = 4,
-                   log = "x",
-                   plot = FALSE)
-
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
+
+  data(ExampleData.CW_OSL_Curve, envir = environment())
+  fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+                     main = "CW Curve Fit",
+                     n.components.max = 4,
+                     log = "x",
+                     plot = FALSE)
 
   expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 3)
@@ -17,6 +17,13 @@ test_that("check class and length of output", {
 test_that("check values from output example", {
   testthat::skip_on_cran()
   local_edition(3)
+
+  data(ExampleData.CW_OSL_Curve, envir = environment())
+  fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+                     main = "CW Curve Fit",
+                     n.components.max = 4,
+                     log = "x",
+                     plot = FALSE)
 
   t <- sessionInfo()
   #if(grepl(pattern = "apple", x = t$R.version$platform)) {

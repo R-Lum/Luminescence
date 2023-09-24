@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.23.9000-42
+Version: 0.9.23.9000-43
 Date: 2023-09-24
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
@@ -94,7 +94,7 @@ Suggests:
 VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
-Language: en-GB
+Language: en-US
 Collate: 
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
