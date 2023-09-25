@@ -328,6 +328,7 @@ test_that("plot_GrowthCurve", {
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
   expect_equal(round(LambertW$De$De,0),  114)
+  print(paste0("CHECK HERE ->", EXP$Formula))
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
