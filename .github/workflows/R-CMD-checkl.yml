@@ -22,19 +22,20 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
-          # - {os: windows-latest, r: 'release', not_cran: 'true'}
-          # - {os: windows-latest, r: 'devel', not_cran: 'true'}
-          # - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
-          # - {os: macos-12,   r: 'release', not_cran: 'true'}
-          # - {os: macos-11,   r: 'oldrel', not_cran: 'true'}
-          # - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
-           - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
-          #- {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
+          - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
+          - {os: windows-latest, r: 'release', not_cran: 'true'}
+          - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
+          - {os: macos-12,   r: 'release', not_cran: 'true'}
+          - {os: macos-11,   r: 'oldrel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
+          - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
 
     steps:
       - if: runner.os == 'macOS'
@@ -66,33 +67,8 @@ jobs:
         with:
           extra-packages: |
             any::rcmdcheck
-            any::XML
-            any::covr
-          needs: coverage
+          needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-
-      - name: Test coverage
-        run: |
-          covr::codecov(
-            quiet = FALSE,
-            clean = FALSE,
-            install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
-          )
-        shell: Rscript {0}
-
-      - name: Show testthat output
-        if: always()
-        run: |
-          ## --------------------------------------------------------------------
-          find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload test results
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-test-failures
-          path: ${{ runner.temp }}/package
