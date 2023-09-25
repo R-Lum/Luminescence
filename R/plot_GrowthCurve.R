@@ -97,8 +97,7 @@
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.
 #'
-#' @param na.rm [logical] (*with default*):
-#' excludes `NA` values from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*): excludes `NA` values from the data set prior to any further operations. This argument is defunct and will be removed in a future version!
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
@@ -369,20 +368,20 @@ plot_GrowthCurve <- function(
   }
 
   ## optionally, count and exclude NA values and print result
-  if(na.rm) {
-    n.NA <- sum(!complete.cases(sample))
+  if(na.rm[1]) {
+    ## write warning
+    if(sum(!complete.cases(sample)) > 0)
+      warning(paste("[plot_GrowthCurve()]",
+                    sum(!complete.cases(sample)),
+                    "NA value(s) excluded."),
+              call. = FALSE)
 
-    if (n.NA == 1) {
-      warning("[plot_GrowthCurve()] 1 NA value excluded.", call. = FALSE)
-    } else if (n.NA > 1) {
-      warning(paste("[plot_GrowthCurve()]", n.NA, "NA values excluded."), call. = FALSE)
-    }
-
+    ## exclude NA
     sample <- na.exclude(sample)
 
     ##Check if anything is left after removal
     if(nrow(sample) == 0){
-      warning("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set! NULL returned")
+     try(stop("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set! NULL returned!", call. = FALSE))
       return(NULL)
     }
 
@@ -499,23 +498,27 @@ plot_GrowthCurve <- function(
 
   # FITTING ----------------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
-  ##set functions for fitting
+  ## set functions for fitting
+  ## REMINDER: DO NOT ADD {} brackets, otherwise the formula construction will not
+  ## work
+
   ## get current environment, we need that later
   currn_env <- environment()
 
-  #EXP
+  ## Define functions ---------
+  ### EXP -------
   fit.functionEXP <- function(a,b,c,x) a*(1-exp(-(x+c)/b))
 
-  #EXP+LIN
+  ### EXP+LIN -----------
   fit.functionEXPLIN <- function(a,b,c,g,x) a*(1-exp(-(x+c)/b)+(g*x))
 
-  #EXP+EXP
+  ### EXP+EXP ----------
   fit.functionEXPEXP <- function(a1,a2,b1,b2,x) (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
 
-  #GOK
+  ### GOK ----------------
   fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
-  #Lambert W
+  ### Lambert W -------------
   fit.functionLambertW <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ##input data for fitting; exclude repeated RegPoints
@@ -2373,6 +2376,9 @@ plot_GrowthCurve <- function(
   tmp <- deparse(f)
 
   ## set formula
+  ## this is very fragile and works only if the functions are constructed
+  ## without {} brackets, otherwise it will not work in combination
+  ## of covr and testthat
   tmp_formula <- as.formula(paste0("y ~ ", paste(tmp[-1], collapse = "")), env = env)
 
   return(tmp_formula)

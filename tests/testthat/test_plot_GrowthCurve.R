@@ -25,7 +25,8 @@ test_that("plot_GrowthCurve", {
     object = plot_GrowthCurve(LxTxData, mode = "fail"),
     regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Unknown input for argument 'mode'")
 
-# Weird LxTx values ------------------------------------------------------
+# Weird LxTx values --------------------------------------------------------
+
   ##set LxTx
   LxTx <- structure(list(
     Dose = c(0, 250, 500, 750, 1000, 1500, 0, 500, 500),
@@ -57,6 +58,28 @@ test_that("plot_GrowthCurve", {
     object = plot_GrowthCurve(as.list(LxTxData), output.plot = FALSE),
     class = "RLum.Results")
 
+  ## test case for only two columns
+  expect_s4_class(
+    object = suppressWarnings(plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE)),
+    class = "RLum.Results")
+
+  ## test case with all NA
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$LxTx <- NA
+  expect_null(
+    object = suppressWarnings(plot_GrowthCurve(tmp_LxTx, output.plot = FALSE)))
+
+  ## test defunct
+  expect_error(
+    object = plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE, na.rm = FALSE))
+
+  ## do not include reg point
+  expect_s4_class(
+    object = plot_GrowthCurve(
+      sample = LxTxData,
+      output.plot = FALSE,
+      fit.includingRepeatedRegPoints = FALSE),
+    class = "RLum.Results")
 
 # Check output for regression ---------------------------------------------
   set.seed(1)
