@@ -504,21 +504,19 @@ plot_GrowthCurve <- function(
   currn_env <- environment()
 
   #EXP
-  fit.functionEXP <- function(a,b,c,x) { a*(1-exp(-(x+c)/b)) }
+  fit.functionEXP <- function(a,b,c,x) a*(1-exp(-(x+c)/b))
 
   #EXP+LIN
-  fit.functionEXPLIN <- function(a,b,c,g,x) { a*(1-exp(-(x+c)/b)+(g*x))}
+  fit.functionEXPLIN <- function(a,b,c,g,x) a*(1-exp(-(x+c)/b)+(g*x))
 
   #EXP+EXP
-  fit.functionEXPEXP <- function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
+  fit.functionEXPEXP <- function(a1,a2,b1,b2,x) (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
 
   #GOK
-  fit.functionGOK <- function(a,b,c,d,x) { a*(d-(1+(1/b)*x*c)^(-1/c)) }
+  fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
   #Lambert W
-  fit.functionLambertW <- function(R, Dc, N, Dint, x) {
-    (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
-  }
+  fit.functionLambertW <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ##input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
@@ -2374,14 +2372,8 @@ plot_GrowthCurve <- function(
   ## deparse
   tmp <- deparse(f)
 
-  ## get parentheses position
-  id_par <- which(grepl(pattern = "[{}]", x = tmp))
-
-  ## get equation
-  tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
-
   ## set formula
-  tmp_formula <- as.formula(paste0("y ~ ", tmp_eq), env = env)
+  tmp_formula <- as.formula(paste0("y ~ ", paste(tmp[-1], collapse = "")), env = env)
 
   return(tmp_formula)
 }

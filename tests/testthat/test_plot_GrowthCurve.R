@@ -222,14 +222,14 @@ test_that("plot_GrowthCurve", {
     NumberIterations.MC = 10,
     fit.force_through_origin = TRUE
   ), "RLum.Results")
-  temp_LambertW <-
-    plot_GrowthCurve(
-      LxTxData,
-      fit.method = "LambertW",
-      output.plot = FALSE,
-      verbose = FALSE,
-      NumberIterations.MC = 10
-    )
+temp_LambertW <-
+  plot_GrowthCurve(
+    LxTxData,
+    fit.method = "LambertW",
+    output.plot = FALSE,
+    verbose = FALSE,
+    NumberIterations.MC = 10
+  )
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
 
