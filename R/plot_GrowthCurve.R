@@ -794,6 +794,7 @@ plot_GrowthCurve <- function(
         b <- b.MC[i]
         c <- c.MC[i]
 
+        writeLines(paste0("CHECK HERE", .toFormula(fit.functionEXP)))
         fit.initial <- suppressWarnings(try(nls(
           formula = .toFormula(fit.functionEXP),
           data = data,

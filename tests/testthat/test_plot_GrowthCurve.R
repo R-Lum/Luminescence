@@ -311,16 +311,20 @@ test_that("plot_GrowthCurve", {
   set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
   LIN <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"), "RLum.Results")
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"),
+    "RLum.Results")
   EXP <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"), "RLum.Results")
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"),
+    "RLum.Results")
   EXPLIN <- expect_s4_class(
     suppressWarnings(
       plot_GrowthCurve(
-        LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")), "RLum.Results")
+        LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")),
+    "RLum.Results")
 
   GOK <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"),
+    "RLum.Results")
 
   LambertW <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
@@ -328,7 +332,6 @@ test_that("plot_GrowthCurve", {
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
   expect_equal(round(LambertW$De$De,0),  114)
-  print(paste0("CHECK HERE ->", EXP$Formula))
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
