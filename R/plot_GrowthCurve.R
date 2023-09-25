@@ -499,20 +499,6 @@ plot_GrowthCurve <- function(
 
   # FITTING ----------------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
-  ## helper function to create fit formula
-  ## from the function
-  .toFormula <- function(x) {
-    ## deparse
-    tmp <- deparse(x)
-
-    ## get parentheses position
-    id_par <- which(grepl(pattern = "[{}]", x = tmp))
-
-    ## get equation
-    tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
-
-    return(as.formula(paste0("y ~", tmp_eq)))
-  }
 
   ##set functions for fitting
   #EXP
@@ -794,7 +780,6 @@ plot_GrowthCurve <- function(
         b <- b.MC[i]
         c <- c.MC[i]
 
-        writeLines(paste0("CHECK HERE", .toFormula(fit.functionEXP)))
         fit.initial <- suppressWarnings(try(nls(
           formula = .toFormula(fit.functionEXP),
           data = data,
@@ -2331,7 +2316,7 @@ plot_GrowthCurve <- function(
 
 }
 
-# Helper functions --------------------------------------------------------
+# Helper functions in plot_GrowthCurve() --------------------------------------
 #'@title Replace coefficients in formula
 #'
 #'@description Replace the parameters in a fitting function by the true, fitted values.
@@ -2369,5 +2354,35 @@ plot_GrowthCurve <- function(
 
   ## return
   return(parse(text = str))
+}
+
+#'@title Convert function to formula
+#'
+#'@decription The fitting functions are provided as functions, however, later is
+#'easer to work with them as expressions, this functions converts to formula
+#'
+#'@param f [function] (**required**): function to be converted
+#'
+#'@param env [environment] (*with default*): environment for the formula
+#'creation. This argument is required otherwise it can cause all kind of
+#'very complicated to-track-down errors when R tries to access the function
+#'stack
+#'
+#'@md
+#'@noRd
+.toFormula <- function(f, env = parent.frame()) {
+  ## deparse
+  tmp <- deparse(f)
+
+  ## get parentheses position
+  id_par <- which(grepl(pattern = "[{}]", x = tmp))
+
+  ## get equation
+  tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
+
+  ## set formula
+  tmp_formula <- as.formula(paste0("y ~", tmp_eq), env = env)
+
+  return(tmp_formula)
 }
 
