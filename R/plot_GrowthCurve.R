@@ -781,7 +781,7 @@ plot_GrowthCurve <- function(
         c <- c.MC[i]
 
         fit.initial <- suppressWarnings(try(nls(
-          formula = .toFormula(fit.functionEXP),
+          formula = as.formula(.toFormula(fit.functionEXP)),
           data = data,
           start = c(a = a, b = b, c = c),
           trace = FALSE,
@@ -816,7 +816,7 @@ plot_GrowthCurve <- function(
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
-        formula = .toFormula(fit.functionEXP),
+        formula = as.formula(.toFormula(fit.functionEXP)),
         data = data,
         start = list(a = a, b = b,c = 0),
         weights = fit.weights,
@@ -901,7 +901,7 @@ plot_GrowthCurve <- function(
           data <- data.frame(x = xy$x,y = data.MC[,i])
 
           fit.MC <- try(minpack.lm::nlsLM(
-            formula = .toFormula(fit.functionEXP),
+            formula = as.formula(.toFormula(fit.functionEXP)),
             data = data,
             start = list(a = a, b = b, c = c),
             weights = fit.weights,
@@ -1071,7 +1071,7 @@ plot_GrowthCurve <- function(
       ##start: with EXP function
       fit.EXP <- try({
         nls(
-        formula = .toFormula(fit.functionEXP),
+        formula = as.formula(.toFormula(fit.functionEXP)),
         data = data,
         start = c(a=a,b=b,c=c),
         trace = FALSE,
@@ -1096,7 +1096,7 @@ plot_GrowthCurve <- function(
 
       fit<-try({
         nls(
-          formula = .toFormula(fit.functionEXPLIN),
+          formula = as.formula(.toFormula(fit.functionEXPLIN)),
           data = data,
           start = c(a=a,b=b,c=c,g=g),
           trace = FALSE,
@@ -1129,7 +1129,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = .toFormula(fit.functionEXPLIN),
+      formula = as.formula(.toFormula(fit.functionEXPLIN)),
       data = data,
       start = list(a = a, b = b,c = c, g = g),
       weights = fit.weights,
@@ -1256,7 +1256,7 @@ plot_GrowthCurve <- function(
 
         ##perform MC fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionEXPLIN),
+          formula = as.formula(.toFormula(fit.functionEXPLIN)),
           data = data,
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
@@ -1369,7 +1369,7 @@ plot_GrowthCurve <- function(
       a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
       fit.start <- try({
-        nls(formula = .toFormula(fit.functionEXPEXP),
+        nls(formula = as.formula(.toFormula(fit.functionEXPEXP)),
         data = data,
         start = c(
           a1 = a1,a2 = a2,b1 = b1,b2 = b2
@@ -1401,7 +1401,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = .toFormula(fit.functionEXPEXP),
+      formula = as.formula(.toFormula(fit.functionEXPEXP)),
       data = data,
       start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
       weights = fit.weights,
@@ -1501,7 +1501,7 @@ plot_GrowthCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionEXPEXP),
+          formula = as.formula(.toFormula(fit.functionEXPEXP)),
           data = data,
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
@@ -1573,7 +1573,7 @@ plot_GrowthCurve <- function(
   else if (fit.method[1] == "GOK") {
   # GOK -----
     fit <- try(minpack.lm::nlsLM(
-      formula = .toFormula(fit.functionGOK),
+      formula = as.formula(.toFormula(fit.functionGOK)),
       data = data,
       start = list(a = a, b = b, c = 1, d = 1),
       weights = fit.weights,
@@ -1642,7 +1642,7 @@ plot_GrowthCurve <- function(
 
         fit.MC <- try({
           minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionGOK),
+          formula = as.formula(.toFormula(fit.functionGOK)),
           data = data,
           start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
@@ -1699,7 +1699,7 @@ plot_GrowthCurve <- function(
     }
 
     fit <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionLambertW),
+          formula = as.formula(.toFormula(fit.functionLambertW)),
           data = data,
           start = list(R = 0, Dc = b, N = b, Dint = 0),
           weights = fit.weights,
@@ -1796,7 +1796,7 @@ plot_GrowthCurve <- function(
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
-              formula = .toFormula(fit.functionLambertW),
+              formula = as.formula(.toFormula(fit.functionLambertW)),
               data = data,
               start = list(R = 0, Dc = b, N = 0, Dint = 0),
               weights = fit.weights,
@@ -2370,7 +2370,7 @@ plot_GrowthCurve <- function(
 #'
 #'@md
 #'@noRd
-.toFormula <- function(f, env = parent.frame()) {
+.toFormula <- function(f) {
   ## deparse
   tmp <- deparse(f)
 
@@ -2381,7 +2381,7 @@ plot_GrowthCurve <- function(
   tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
 
   ## set formula
-  tmp_formula <- as.formula(paste0("y ~", tmp_eq), env = env)
+  tmp_formula <- paste0("y ~", tmp_eq)
 
   return(tmp_formula)
 }
