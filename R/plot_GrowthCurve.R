@@ -499,8 +499,24 @@ plot_GrowthCurve <- function(
 
   # FITTING ----------------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
-
   ##set functions for fitting
+  .toFormula <- function(f, env = parent.frame()) {
+    ## deparse
+    tmp <- deparse(f)
+
+    ## get parentheses position
+    id_par <- which(grepl(pattern = "[{}]", x = tmp))
+
+    ## get equation
+    tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
+
+    ## set formula
+    tmp_formula <- paste0("y ~ ", tmp_eq)
+
+    return(as.formula(tmp_formula, env))
+
+  }
+
   #EXP
   fit.functionEXP <- function(a,b,c,x) { a*(1-exp(-(x+c)/b)) }
 
@@ -769,7 +785,7 @@ plot_GrowthCurve <- function(
 
     }
 
-    if(fit.method!="LIN"){
+    if(fit.method != "LIN"){
       ##FITTING on GIVEN VALUES##
       #	--use classic R fitting routine to fit the curve
 
@@ -781,7 +797,7 @@ plot_GrowthCurve <- function(
         c <- c.MC[i]
 
         fit.initial <- suppressWarnings(try(nls(
-          formula = as.formula(.toFormula(fit.functionEXP)),
+          formula = .toFormula(fit.functionEXP),
           data = data,
           start = c(a = a, b = b, c = c),
           trace = FALSE,
@@ -816,7 +832,7 @@ plot_GrowthCurve <- function(
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
-        formula = as.formula(.toFormula(fit.functionEXP)),
+        formula = .toFormula(fit.functionEXP),
         data = data,
         start = list(a = a, b = b,c = 0),
         weights = fit.weights,
@@ -901,7 +917,7 @@ plot_GrowthCurve <- function(
           data <- data.frame(x = xy$x,y = data.MC[,i])
 
           fit.MC <- try(minpack.lm::nlsLM(
-            formula = as.formula(.toFormula(fit.functionEXP)),
+            formula = .toFormula(fit.functionEXP),
             data = data,
             start = list(a = a, b = b, c = c),
             weights = fit.weights,
@@ -1071,7 +1087,7 @@ plot_GrowthCurve <- function(
       ##start: with EXP function
       fit.EXP <- try({
         nls(
-        formula = as.formula(.toFormula(fit.functionEXP)),
+        formula = .toFormula(fit.functionEXP),
         data = data,
         start = c(a=a,b=b,c=c),
         trace = FALSE,
@@ -1096,7 +1112,7 @@ plot_GrowthCurve <- function(
 
       fit<-try({
         nls(
-          formula = as.formula(.toFormula(fit.functionEXPLIN)),
+          formula = .toFormula(fit.functionEXPLIN),
           data = data,
           start = c(a=a,b=b,c=c,g=g),
           trace = FALSE,
@@ -1129,7 +1145,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = as.formula(.toFormula(fit.functionEXPLIN)),
+      formula = .toFormula(fit.functionEXPLIN),
       data = data,
       start = list(a = a, b = b,c = c, g = g),
       weights = fit.weights,
@@ -1256,7 +1272,7 @@ plot_GrowthCurve <- function(
 
         ##perform MC fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = as.formula(.toFormula(fit.functionEXPLIN)),
+          formula = .toFormula(fit.functionEXPLIN),
           data = data,
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
@@ -1369,7 +1385,7 @@ plot_GrowthCurve <- function(
       a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
       fit.start <- try({
-        nls(formula = as.formula(.toFormula(fit.functionEXPEXP)),
+        nls(formula = .toFormula(fit.functionEXPEXP, env = parent.framt()),
         data = data,
         start = c(
           a1 = a1,a2 = a2,b1 = b1,b2 = b2
@@ -1401,7 +1417,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = as.formula(.toFormula(fit.functionEXPEXP)),
+      formula = .toFormula(fit.functionEXPEXP),
       data = data,
       start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
       weights = fit.weights,
@@ -1501,7 +1517,7 @@ plot_GrowthCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = as.formula(.toFormula(fit.functionEXPEXP)),
+          formula = .toFormula(fit.functionEXPEXP),
           data = data,
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
@@ -1573,7 +1589,7 @@ plot_GrowthCurve <- function(
   else if (fit.method[1] == "GOK") {
   # GOK -----
     fit <- try(minpack.lm::nlsLM(
-      formula = as.formula(.toFormula(fit.functionGOK)),
+      formula = .toFormula(fit.functionGOK),
       data = data,
       start = list(a = a, b = b, c = 1, d = 1),
       weights = fit.weights,
@@ -1642,7 +1658,7 @@ plot_GrowthCurve <- function(
 
         fit.MC <- try({
           minpack.lm::nlsLM(
-          formula = as.formula(.toFormula(fit.functionGOK)),
+          formula = .toFormula(fit.functionGOK),
           data = data,
           start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
@@ -1699,7 +1715,7 @@ plot_GrowthCurve <- function(
     }
 
     fit <- try(minpack.lm::nlsLM(
-          formula = as.formula(.toFormula(fit.functionLambertW)),
+          formula = .toFormula(fit.functionLambertW),
           data = data,
           start = list(R = 0, Dc = b, N = b, Dint = 0),
           weights = fit.weights,
@@ -1796,7 +1812,7 @@ plot_GrowthCurve <- function(
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
-              formula = as.formula(.toFormula(fit.functionLambertW)),
+              formula = .toFormula(fit.functionLambertW),
               data = data,
               start = list(R = 0, Dc = b, N = 0, Dint = 0),
               weights = fit.weights,
@@ -2354,35 +2370,5 @@ plot_GrowthCurve <- function(
 
   ## return
   return(parse(text = str))
-}
-
-#'@title Convert function to formula
-#'
-#'@decription The fitting functions are provided as functions, however, later is
-#'easer to work with them as expressions, this functions converts to formula
-#'
-#'@param f [function] (**required**): function to be converted
-#'
-#'@param env [environment] (*with default*): environment for the formula
-#'creation. This argument is required otherwise it can cause all kind of
-#'very complicated to-track-down errors when R tries to access the function
-#'stack
-#'
-#'@md
-#'@noRd
-.toFormula <- function(f) {
-  ## deparse
-  tmp <- deparse(f)
-
-  ## get parentheses position
-  id_par <- which(grepl(pattern = "[{}]", x = tmp))
-
-  ## get equation
-  tmp_eq <- paste(trimws(tmp[(id_par[1]+1):(id_par[2]-1)]), collapse = "")
-
-  ## set formula
-  tmp_formula <- paste0("y ~", tmp_eq)
-
-  return(tmp_formula)
 }
 
