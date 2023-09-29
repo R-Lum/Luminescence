@@ -275,7 +275,7 @@ analyse_portableOSL <- function(
       attr(m_list, "xlim") <- range(summary$COORD_X)
     }
 
-  if (!is.null(mode) && plot) {
+  if (!is.null(mode) && plot[1]) {
    ## account for surface case
    ## preset plot settings
    ## plot settings -------
@@ -301,7 +301,7 @@ analyse_portableOSL <- function(
      val = list(...), keep.null = TRUE)
 
    ## mode == "surface" ---------
-   if(mode == "surface") {
+   if(mode[1] == "surface") {
      ### check for validity of surface value -------
      if(!all(plot_settings$surface_value %in% names(m_list)))
        stop(paste0("[analyse_portableOSL()] Unknown value to plot: Valid are: ",
@@ -452,7 +452,7 @@ analyse_portableOSL <- function(
    }
 
    ## mode == "profile" ---------
-   if (!is.null(mode) && mode == "profile") {
+   if (!is.null(mode[1]) && mode == "profile") {
     par.old.full <- par(no.readonly = TRUE)
     on.exit(par(par.old.full))
 
@@ -724,3 +724,16 @@ analyse_portableOSL <- function(
 
   return(coord)
 }
+
+## example profile plot
+# (1) load example data set
+data("ExampleData.portableOSL", envir = environment())
+
+# (2) merge and plot all RLum.Analysis objects
+merged <- merge_RLum(ExampleData.portableOSL)
+results <- analyse_portableOSL(
+  merged,
+  signal.integral = 1:5,
+  invert = FALSE,
+  normalise = TRUE)
+get_RLum(results)
