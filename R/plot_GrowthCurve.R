@@ -855,7 +855,6 @@ plot_GrowthCurve <- function(
         a <- as.vector((parameters["a"]))
         c <- as.vector((parameters["c"]))
 
-
         #calculate De
         if(mode == "interpolation"){
           De <- suppressWarnings(-c-b*log(1-sample[1,2]/a))
@@ -1963,18 +1962,16 @@ plot_GrowthCurve <- function(
        output.plotExtended == TRUE &
        output.plotExtended.single == FALSE){
 
-      ####grep recent plot parameter for later reset
-      par.default.complex <- par()["cex"]
-      on.exit(par(cex = par.default.complex$cex))
+      ## safe par settings
+      par.old.full <- par(no.readonly = TRUE)
+      on.exit(par(par.old.full))
 
       ##set new parameter
       layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
       par(cex = 0.8 * cex.global)
 
     } else {
-      par.default.single <- par(no.readonly = TRUE)$cex
-      on.exit(par(cex = par.default.single))
-      par(cex=cex.global)
+      par(cex = cex.global)
 
     }
 
@@ -2136,7 +2133,7 @@ plot_GrowthCurve <- function(
 
       ##plot only if wanted
       if (output.plot == TRUE & output.plotExtended == TRUE) {
-        ##HIST		#try to plot histogramm of De values from the Monte Carlo simulation
+        ##HIST		#try to plot histogram of De values from the Monte Carlo simulation
 
         if (output.plotExtended.single != TRUE) {
           par(cex = 0.7 * cex.global)
