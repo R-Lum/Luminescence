@@ -43,7 +43,9 @@ can be passed.
 * Now throws a warning in `mode = "extrapolation", fit.method = "LambertW"` of the standard root estimation failed and hence the results can become inconclusive. 
 * `fit.method = "GOK"` now supports fits that are not necessarily forced through the origin.
 * If the calculated fit weights were invalid, the parameter was not set always correctly set; fixed.
-* Non-user visible change: the fit formula is now extracted more consistently and less error-prone
+* Non-user visible change: the fit formula is now extracted more consistently and less error-prone.
+* If the first `Lx/Tx` value was very high, the x-axis origin in the plot was not always shown by default. This was intended behaviour, however, sometimes this causes confusion. Now the axis origin is always shown. Still the axis limits can still be modified using `ylim` and `xlim`. (Thanks to Salome Oehler for flagging this issue).
+* The fitted curve now always extends to the plot margins. 
 
 ## Internals
 * Adding new dependency to `'interp'`

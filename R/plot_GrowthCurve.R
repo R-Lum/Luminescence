@@ -194,7 +194,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.9
+#' @section Function version: 1.11.10
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -1923,7 +1923,7 @@ plot_GrowthCurve <- function(
         c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
 
       }else{
-        c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+        c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
       }
 
     }
@@ -2011,7 +2011,7 @@ plot_GrowthCurve <- function(
 
       ## add curve -------
       if(inherits(fit_formula, "expression")) {
-        x <- seq(xlim[1], xlim[2], length.out = 100)
+        x <- seq(par()$usr[1], par()$usr[2], length.out = 100)
         lines(x, eval(fit_formula))
       }
 
