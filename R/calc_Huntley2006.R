@@ -212,6 +212,9 @@
 #'
 #' @keywords datagen
 #'
+#' @note This function has BETA status, in particular for the GOK implementation. Please verify
+#' your results carefully
+#'
 #' @references
 #'
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
@@ -504,10 +507,12 @@ calc_Huntley2006 <-
     if (fit.method[1] == "EXP") {
       fit_sim <- try({
         minpack.lm::nlsLM(
-          LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
+          LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-(dosetime + c)/ D0)),
           start = list(
-            a = max(LxTx.measured),
+            a = coef(fit_measured)[["a"]],
+            c = coef(fit_measured)[["c"]],
             D0 = D0.measured / readerDdot),
+          lower = lower.bounds[1:3],
           control = list(maxiter = settings$maxiter))
         }, silent = TRUE)
 
@@ -528,7 +533,7 @@ calc_Huntley2006 <-
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
     else
-      coefs <- c(NA, NA)
+      coefs <- c(NA, NA, NA, NA)
     return(coefs)
   }, simplify = FALSE))
 
@@ -537,8 +542,8 @@ calc_Huntley2006 <-
   #                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
 
   # scaling factor
-  A <- mean(fitcoef[, 1], na.rm = TRUE)
-  A.error <- sd(fitcoef[ ,1], na.rm = TRUE)
+  A <- mean(fitcoef[, "a"], na.rm = TRUE)
+  A.error <- sd(fitcoef[ ,"a"], na.rm = TRUE)
 
   # calculate measured fraction of saturation
   nN <- Ln / A
@@ -550,7 +555,7 @@ calc_Huntley2006 <-
   # natdosetimeGray <- natdosetime * ddot / ka
 
   # calculate D0 dose in seconds
-  computedD0 <- (fitcoef[ ,2] * readerDdot) / (ddot / ka)
+  computedD0 <- (fitcoef[ ,"D0"] * readerDdot) / (ddot / ka)
 
   # Legacy code:
   # This is an older approximation to calculate the natural dose response curve,
@@ -568,22 +573,25 @@ calc_Huntley2006 <-
   pr <- 3 * rprime^2 * exp(-rprime^3) # Huntley 2006, eq. 3
   K <- Hs * exp(-rhop[1]^-(1/3) * rprime)
   TermA <- matrix(NA, nrow = length(rprime), ncol = length(natdosetime))
-  UFD0 <- mean(fitcoef[ ,2], na.rm = TRUE) * readerDdot
+  UFD0 <- mean(fitcoef[ ,"D0"], na.rm = TRUE) * readerDdot
 
-  ## d only if available
-  d <- try(mean(fitcoef[ ,4], na.rm = TRUE), silent = TRUE)
+  if(fit.method[1] == "EXP")
+    c_exp <- mean(fitcoef[ ,"c"], na.rm = TRUE)
 
-  if (fit.method[1] == "GOK")
-    c_gok <- mean(fitcoef[ ,3], na.rm = TRUE)
+  if (fit.method[1] == "GOK") {
+    c_gok <- mean(fitcoef[ ,"c"], na.rm = TRUE)
+    d_gok <- mean(fitcoef[ ,"d"], na.rm = TRUE)
+  }
 
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
       if (fit.method[1] == "EXP") {
-        TermA[k,j] <- A * pr[k] * ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
-                                     (1 - exp(-natdosetime[j] * (1 / UFD0 + K[k]/ddots))))
+        TermA[k,j] <- A * pr[k] *
+          ((ddots / UFD0) / (ddots / UFD0 + K[k]) *
+             (1 - exp(-(natdosetime[j] + c_exp) * (1 / UFD0 + K[k]/ddots))))
       } else if (fit.method[1] == "GOK") {
         TermA[k,j] <- A * pr[k] * (ddots / UFD0) / (ddots / UFD0 + K[k]) *
-          (d-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
+          (d_gok-(1+(1/UFD0 + K[k]/ddots) * natdosetime[j] * c_gok)^(-1/c_gok))
       }
     }}
 
@@ -684,9 +692,10 @@ calc_Huntley2006 <-
   dosetimeGray <- dosetime * readerDdot
   if (fit.method[1] == "EXP") {
     fit_unfaded <- minpack.lm::nlsLM(
-      LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
+      LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
-        a = max(LxTx.unfaded),
+        a = coef(fit_simulated)[["a"]],
+        c = coef(fit_simulated)[["c"]],
         D0 = D0.measured / readerDdot),
       control = list(maxiter = settings$maxiter))
   } else if (fit.method[1] == "GOK") {
@@ -744,24 +753,30 @@ calc_Huntley2006 <-
 
   ## Plotting ------------------------------------------------------------------
   if (plot) {
+    ### par settings ---------
     # set plot parameters
     par.old.full <- par(no.readonly = TRUE)
 
     # set graphical parameters
-    par(mar = c(5, 4, 4, 4),
-        cex = 0.8)
+    par(mfrow = c(1,1), mar = c(4.5, 4, 4, 4), cex = 0.8)
     if (summary)
       par(oma = c(0, 3, 0, 9))
     else
       par(oma = c(0, 9, 0, 9))
 
     # Find a good estimate of the x-axis limits
+    if(GC.settings$mode == "extrapolation") {
+      dosetimeGray <- c(-De.measured - De.measured.error, dosetimeGray)
+      De.measured <- -De.measured
+    }
+
     xlim <- range(pretty(dosetimeGray))
     if (!is.na(De.sim) & De.sim > xlim[2])
       xlim <- range(pretty(c(min(dosetimeGray), De.sim)))
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
-    plot(dosetimeGray, LxTx_measured$LxTx,
+    ## open plot window ------------
+    plot(dosetimeGray[dosetimeGray >= 0], LxTx_measured$LxTx,
          main = plot.settings$main,
          xlab = plot.settings$xlab,
          ylab = plot.settings$ylab,
@@ -770,10 +785,14 @@ calc_Huntley2006 <-
          xlim = xlim
     )
 
+    ##add ablines for extrapolation
+    if(GC.settings$mode == "extrapolation")
+      abline(v = 0, h = 0, col = "gray")
+
     # LxTx error bars
-    segments(x0 = dosetimeGray,
+    segments(x0 = dosetimeGray[dosetimeGray >= 0],
              y0 = LxTx_measured$LxTx + LxTx_measured$LxTx.Error,
-             x1 = dosetimeGray,
+             x1 = dosetimeGray[dosetimeGray >= 0],
              y1 = LxTx_measured$LxTx - LxTx_measured$LxTx.Error,
              col = "black")
 
@@ -784,7 +803,7 @@ calc_Huntley2006 <-
     if (normalise)
       yNew <- yNew / A
 
-    # add line
+    ## add measured curve -------
     lines(xNew, yNew, col  = "black")
 
     # add error polygon
@@ -793,15 +812,24 @@ calc_Huntley2006 <-
                   rev(LxTx_simulated$LxTx - LxTx_simulated$LxTx.Error)),
             col = adjustcolor("grey", alpha.f = 0.5), border = NA)
 
-    # computed LxTx values
-    points(natdosetimeGray, LxTx_simulated$LxTx,
-           type = "l",
-           lty = 2)
+    ## add simulated LxTx values
+    points(
+      x = natdosetimeGray,
+      y = LxTx_simulated$LxTx,
+      type = "l",
+      lty = 2)
 
     # Ln and DE as points
-    points(x = c(0, De.measured),
-           y = c(Ln, Ln),
-           col = "red", pch = c(1, 16))
+    points(x = if(GC.settings$mode == "extrapolation")
+                rep(De.measured, 2)
+               else
+                 c(0, De.measured),
+           y = if(GC.settings$mode == "extrapolation")
+                c(0,0)
+               else
+                c(Ln, Ln),
+           col = "red",
+           pch = c(1, 16))
 
     # Ln error bar
     segments(x0 = 0, y0 = Ln - Ln.error,
@@ -809,30 +837,40 @@ calc_Huntley2006 <-
              col = "red")
 
     # Ln as a horizontal line
-    lines(x = c(0, max(c(De.measured, De.sim), na.rm = TRUE)),
+    lines(x = if(GC.settings$mode == "extrapolation")
+                c(0, min(c(De.measured, De.sim), na.rm = TRUE))
+              else
+                c(0, max(c(De.measured, De.sim), na.rm = TRUE)),
           y = c(Ln, Ln),
           col = "black", lty = 3)
 
     # vertical line of measured DE
     lines(x = c(De.measured, De.measured),
           y = c(0, Ln),
-          col = "black", lty = 3)
+          col = "black",
+          lty = 3)
 
     # add legends
     legend("bottomright",
-           legend = c("Unfaded DRC",
-                      "Measured DRC",
-                      "Simulated natural DRC"),
+           legend = c(
+             "Unfaded DRC",
+             "Measured DRC",
+             "Simulated natural DRC"),
            lty = c(5, 1, 2),
-           bty = "n")
+           bty = "n",
+           cex = 0.8)
 
     # add vertical line of simulated De
     if (!is.na(De.sim)) {
-      lines(x = c(De.sim, De.sim),
+      lines(x = if(GC.settings$mode == "extrapolation")
+                  c(-De.sim, -De.sim)
+                else
+                  c(De.sim, De.sim),
             y = c(0, Ln),
             col = "black", lty = 3)
-      points(x = De.sim,
-             y = Ln,
+
+      points(x = if(GC.settings$mode == "extrapolation") -De.sim else De.sim,
+             y = if(GC.settings$mode == "extrapolation") 0 else Ln,
              col = "red" , pch = 16)
     } else {
       lines(x = c(De.measured, xlim[2]),
@@ -849,15 +887,15 @@ calc_Huntley2006 <-
 
     lines(xNew, yNew, col  = "black", lty = 5)
 
-    points(x = dosetimeGray,
+    points(x = dosetimeGray[dosetimeGray >= 0],
            y = LxTx_unfaded$LxTx,
            col = "black")
 
     # LxTx error bars
     segments(
-      x0 = dosetimeGray,
+      x0 = dosetimeGray[dosetimeGray >= 0],
       y0 = LxTx_unfaded$LxTx + LxTx_unfaded$LxTx.Error,
-      x1 = dosetimeGray,
+      x1 = dosetimeGray[dosetimeGray >= 0],
       y1 = LxTx_unfaded$LxTx - LxTx_unfaded$LxTx.Error,
       col = "black")
 
@@ -904,7 +942,7 @@ calc_Huntley2006 <-
         "nN.error" = nN.error,
         "nN_SS" = nN_SS,
         "nN_SS.error" = nN_SS.error,
-        "Meas_De" = De.measured,
+        "Meas_De" = abs(De.measured),
         "Meas_De.error" = De.measured.error,
         "Meas_D0" =  D0.measured,
         "Meas_D0.error" = D0.measured.error,

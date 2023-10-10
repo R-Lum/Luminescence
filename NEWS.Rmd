@@ -31,8 +31,8 @@ the sample name is called run.
 surface interpolation mode. 
 
 ### `calc_Huntley2006()`
-* The function can now handle `"extrapolation"` for `fit.method = "GOK"` and is therefore suited to 
-additive measurement protocols.
+* The function can now handle `"extrapolation"` for `fit.method = "GOK"` or  `fit.method = "EXP"` and is therefore suited to
+additive measurement protocols. This implementation has beta character and needs further testing. 
 
 ### `read_PSL()`
 * Remove unwanted characters less aggressively from sample name; with this new setting, coordinates 
