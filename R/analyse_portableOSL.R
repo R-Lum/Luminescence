@@ -724,16 +724,3 @@ analyse_portableOSL <- function(
 
   return(coord)
 }
-
-## example profile plot
-# (1) load example data set
-data("ExampleData.portableOSL", envir = environment())
-
-# (2) merge and plot all RLum.Analysis objects
-merged <- merge_RLum(ExampleData.portableOSL)
-results <- analyse_portableOSL(
-  merged,
-  signal.integral = 1:5,
-  invert = FALSE,
-  normalise = TRUE)
-get_RLum(results)
