@@ -50,9 +50,14 @@
 #'
 #' Be aware that this function will always normalise all `Lx/Tx` values by the `Lx/Tx` value of the
 #' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-#' inter-aliquot variations in `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
+#' inter-aliquot variations in the `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
 #' of each aliquot by its individual prompt measurement please do so **before** running
 #' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
+#'
+#' **Shine-down curve plots**
+#' Please note that the shine-down curve plots are for information only. As such
+#' not all pause steps are plotted to avoid graphically overloaded plots.
+#' However, *all* pause times are taken into consideration for the analysis.
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
@@ -177,7 +182,6 @@
 #' g_value = g_value,
 #' n.MC = 10)
 #'
-#'
 #' @md
 #' @export
 analyse_FadingMeasurement <- function(
@@ -236,7 +240,8 @@ analyse_FadingMeasurement <- function(
 
   }else{
     stop(
-      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!", call. = FALSE
+      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!",
+      call. = FALSE
     )
 
   }
@@ -244,7 +249,6 @@ analyse_FadingMeasurement <- function(
 
   # Prepare data --------------------------------------------------------------------------------
   if(!is.null(object)){
-
     ##support read_XSYG2R()
     if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
        unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
@@ -368,7 +372,6 @@ analyse_FadingMeasurement <- function(
     rm(t_star)
 
     # Calculation ---------------------------------------------------------------------------------
-
     ##calculate Lx/Tx or ... just Lx, it depends on the pattern ... set IRR_TIME
     if(length(structure) == 2){
       Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
@@ -447,7 +450,6 @@ analyse_FadingMeasurement <- function(
        LxTx_table[["Net_LnLx.Error"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR == tc)[1]]
 
   }
-
 
   ##normalise time since irradtion
   TIMESINCEIRR_NORM <- TIMESINCEIRR/tc
