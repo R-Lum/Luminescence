@@ -1,6 +1,7 @@
 #' @title Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)
 #'
 #' @description
+#'
 #' A dose-response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol. The function supports interpolation and
 #' extrapolation to calculate the equivalent dose.
@@ -2317,7 +2318,9 @@ plot_GrowthCurve <- function(
 # Helper functions in plot_GrowthCurve() --------------------------------------
 #'@title Replace coefficients in formula
 #'
-#'@description Replace the parameters in a fitting function by the true, fitted values.
+#'@description
+#'
+#'Replace the parameters in a fitting function by the true, fitted values.
 #'This way the results can be easily used by the other functions
 #'
 #'@param f [nls] or [lm] (**required**): the output object of the fitting
@@ -2356,7 +2359,7 @@ plot_GrowthCurve <- function(
 
 #'@title Convert function to formula
 #'
-#'@decription The fitting functions are provided as functions, however, later is
+#'@description The fitting functions are provided as functions, however, later is
 #'easer to work with them as expressions, this functions converts to formula
 #'
 #'@param f [function] (**required**): function to be converted
