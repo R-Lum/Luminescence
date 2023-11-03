@@ -114,22 +114,22 @@ for each value with the value as the mean and the provided uncertainty as standa
 \strong{The options for \code{t_star}}
 
 \itemize{
-\item{\code{t_star = "half"} (the default)}{ The calculation follows the simplified
+\item \code{t_star = "half"} (the default) The calculation follows the simplified
 version in Auclair et al. (2003), which reads
-\deqn{t_{star} := t_1 + (t_2 - t_1)/2}}
-\item{\code{t_star = "half_complex"}}{ This option applies the complex function shown in Auclair et al. (2003),
+\deqn{t_{star} := t_1 + (t_2 - t_1)/2}
+\item \code{t_star = "half_complex"} This option applies the complex function shown in Auclair et al. (2003),
 which is derived from Aitken (1985) appendix F, equations 9 and 11.
-It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}}
+It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}
 where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 1.
 Please note that the equation in Auclair et al. (2003) is incorrect
 insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
 Here we use the correct version (base 10).
-\item{\code{t_star = "end"}}{ This option uses the simplest possible form for \code{t_star} which is the time since
-irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)}
-\item{\verb{t_star = <function>}}{ This last option allows you to provide an R function object that works on t1 and
+\item \code{t_star = "end"} This option uses the simplest possible form for \code{t_star} which is the time since
+irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)
+\item \verb{t_star = <function>} This last option allows you to provide an R function object that works on t1 and
 gives you all possible freedom. For instance, you may want to define the following
 function \code{fun <- function(x) {x^2}}, this would square all values of t1, because internally
-it calls \code{fun(t1)}. The name of the function does not matter.}
+it calls \code{fun(t1)}. The name of the function does not matter.
 }
 
 \strong{Density of recombination centres}
@@ -143,9 +143,14 @@ procedure as for the g-value is applied (see above).
 
 Be aware that this function will always normalise all \code{Lx/Tx} values by the \code{Lx/Tx} value of the
 prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-inter-aliquot variations in \code{Lx/Tx} values. If deemed necessary to normalise the \code{Lx/Tx} values
+inter-aliquot variations in the \code{Lx/Tx} values. If deemed necessary to normalise the \code{Lx/Tx} values
 of each aliquot by its individual prompt measurement please do so \strong{before} running
 \link{analyse_FadingMeasurement} and provide the already normalised values for \code{object} instead.
+
+\strong{Shine-down curve plots}
+Please note that the shine-down curve plots are for information only. As such
+not all pause steps are plotted to avoid graphically overloaded plots.
+However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
  0.1.21
@@ -173,11 +178,10 @@ age.faded = c(100,2),
 g_value = g_value,
 n.MC = 10)
 
-
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2023. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2023. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

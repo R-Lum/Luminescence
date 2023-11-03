@@ -21,22 +21,22 @@
 #' **The options for `t_star`**
 #'
 #' \itemize{
-#'  \item{`t_star = "half"` (the default)}{ The calculation follows the simplified
+#'  \item `t_star = "half"` (the default) The calculation follows the simplified
 #'  version in Auclair et al. (2003), which reads
-#'  \deqn{t_{star} := t_1 + (t_2 - t_1)/2}}
-#'  \item{`t_star = "half_complex"`}{ This option applies the complex function shown in Auclair et al. (2003),
+#'  \deqn{t_{star} := t_1 + (t_2 - t_1)/2}
+#'  \item `t_star = "half_complex"` This option applies the complex function shown in Auclair et al. (2003),
 #'  which is derived from Aitken (1985) appendix F, equations 9 and 11.
-#'  It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}}
+#'  It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}
 #'  where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 1.
 #'  Please note that the equation in Auclair et al. (2003) is incorrect
 #'  insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
 #'  Here we use the correct version (base 10).
-#'  \item{`t_star = "end"`}{ This option uses the simplest possible form for `t_star` which is the time since
-#'  irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)}
-#'  \item{`t_star = <function>`}{ This last option allows you to provide an R function object that works on t1 and
+#'  \item `t_star = "end"` This option uses the simplest possible form for `t_star` which is the time since
+#'  irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)
+#'  \item `t_star = <function>` This last option allows you to provide an R function object that works on t1 and
 #'  gives you all possible freedom. For instance, you may want to define the following
 #'  function `fun <- function(x) {x^2}`, this would square all values of t1, because internally
-#'  it calls `fun(t1)`. The name of the function does not matter.}
+#'  it calls `fun(t1)`. The name of the function does not matter.
 #' }
 #'
 #' **Density of recombination centres**
@@ -50,9 +50,14 @@
 #'
 #' Be aware that this function will always normalise all `Lx/Tx` values by the `Lx/Tx` value of the
 #' prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-#' inter-aliquot variations in `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
+#' inter-aliquot variations in the `Lx/Tx` values. If deemed necessary to normalise the `Lx/Tx` values
 #' of each aliquot by its individual prompt measurement please do so **before** running
 #' [analyse_FadingMeasurement] and provide the already normalised values for `object` instead.
+#'
+#' **Shine-down curve plots**
+#' Please note that the shine-down curve plots are for information only. As such
+#' not all pause steps are plotted to avoid graphically overloaded plots.
+#' However, *all* pause times are taken into consideration for the analysis.
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
@@ -177,7 +182,6 @@
 #' g_value = g_value,
 #' n.MC = 10)
 #'
-#'
 #' @md
 #' @export
 analyse_FadingMeasurement <- function(
@@ -236,7 +240,8 @@ analyse_FadingMeasurement <- function(
 
   }else{
     stop(
-      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!", call. = FALSE
+      "[analyse_FadingMeasurement()] 'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!",
+      call. = FALSE
     )
 
   }
@@ -244,7 +249,6 @@ analyse_FadingMeasurement <- function(
 
   # Prepare data --------------------------------------------------------------------------------
   if(!is.null(object)){
-
     ##support read_XSYG2R()
     if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
        unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
@@ -368,7 +372,6 @@ analyse_FadingMeasurement <- function(
     rm(t_star)
 
     # Calculation ---------------------------------------------------------------------------------
-
     ##calculate Lx/Tx or ... just Lx, it depends on the pattern ... set IRR_TIME
     if(length(structure) == 2){
       Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
@@ -447,7 +450,6 @@ analyse_FadingMeasurement <- function(
        LxTx_table[["Net_LnLx.Error"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR == tc)[1]]
 
   }
-
 
   ##normalise time since irradtion
   TIMESINCEIRR_NORM <- TIMESINCEIRR/tc

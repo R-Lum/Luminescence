@@ -134,9 +134,9 @@ used. For \strong{changing the way the Lx/Tx error is calculated} use the argume
 \strong{What is part of a SAR sequence?}
 
 The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
-A SAR sequence is basically a set of $L_{x}/T_{x}$ curves. Hence, every 2nd curve
+A SAR sequence is basically a set of \eqn{L_{x}/T_{x}} curves. Hence, every 2nd curve
 is considered a shine-down curve related to the test dose. It also means that the number of
-curves for $L_{x}$ has to be equal to the number of $T_{x}$ curves, and that
+curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves, and that
 hot-bleach curves \strong{do not} belong into a SAR sequence; at least not for the analysis.
 Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
 irradiation curves. The later one indicates the duration of the irradiation, the
@@ -177,13 +177,13 @@ the \code{pIRIR225} curves.
 \verb{[recycling.ratio]}: calculated for every repeated regeneration dose point.
 
 \verb{[recuperation.rate]}: recuperation rate calculated by comparing the
-Lx/Tx values of the zero regeneration point with the \code{Ln/Tn} value (the \code{Lx/Tx}
+\code{Lx/Tx} values of the zero regeneration point with the \code{Ln/Tn} value (the \code{Lx/Tx}
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).
 
 \verb{[testdose.error]}: set the allowed error for the test dose, which per
 default should not exceed 10\%. The test dose error is calculated as \code{Tx_net.error/Tx_net}.
-The calculation of the $T_{n}$ error is detailed in \link{calc_OSLLxTxRatio}.
+The calculation of the \eqn{T_{n}} error is detailed in \link{calc_OSLLxTxRatio}.
 
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\%.
@@ -248,7 +248,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2023. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

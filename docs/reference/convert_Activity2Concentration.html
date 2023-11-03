@@ -21,7 +21,7 @@ functions such as use_DRAC."><!-- mathjax --><script src="https://cdnjs.cloudfla
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@ functions such as use_DRAC."><!-- mathjax --><script src="https://cdnjs.cloudfla
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -115,7 +115,7 @@ all atomic weights and composition values from
 and the nuclide data from <code>https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version</code></p>
 <p>The factors can be calculated using the equation:</p>
 <p>$$
-A = N_A * N.abund / N.mol.mass   *  ln(2) / N.half.life
+A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 $$</p>
 <p>to convert in ppm we further use:</p>
 <p>$$
@@ -125,11 +125,11 @@ $$</p>
 <li><p><code>A</code> - specific activity of the nuclide in Bq/kg</p></li>
 <li><p><code>N.abund</code> - relative natural abundance of the isotope</p></li>
 <li><p><code>N.mol.mass</code> molar mass in kg/mol</p></li>
-<li><p><code>n.half.life</code> half-life of the nuclide in s</p></li>
+<li><p><code>N.half.life</code> half-life of the nuclide in s</p></li>
 </ul><p>example for calculating the activity of the radionuclide U-238:</p><ul><li><p><code>N_A</code> = 6.02214076e+23 (1/mol)</p></li>
 <li><p><code>T_0.5</code> = 1.41e+17 (s)</p></li>
 <li><p><code>m_U_238</code> = 0.23802891 (kg/mol)</p></li>
-<li><p>`U_abund = 0.992745 (unitless)</p></li>
+<li><p><code>U_abund</code> = 0.992745 (unitless)</p></li>
 </ul><p>$$A_{U} = N_{A} * U_{abund} / m_{U_238} * ln(2) / T_{1/2} = 2347046$$ (Bq/kg)</p>
 <p>$$f.U = A_{U} / 10^6$$</p>
     </div>
@@ -147,7 +147,7 @@ In other words, 1 ppm of U means that this is the composition of 0.992 parts of 
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>

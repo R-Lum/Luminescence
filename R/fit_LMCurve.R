@@ -446,7 +446,7 @@ fit_LMCurve<- function(
   ##------------------------------------------------------------------------##
 
   ##set formula elements for fitting functions
-  ## the upper two funtions should be removed ... but chances are needed ... TODO
+  ## the upper two functions should be removed ... but chances are needed ... TODO
   ##////equation used for fitting////(start)
   fit.formula <- function(n.components){
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_GrowthCurve.R
 \name{plot_GrowthCurve}
 \alias{plot_GrowthCurve}
-\title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
+\title{Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)}
 \usage{
 plot_GrowthCurve(
   sample,
@@ -27,20 +27,19 @@ plot_GrowthCurve(
 }
 \arguments{
 \item{sample}{\link{data.frame} (\strong{required}):
-data frame with three columns for \code{x=Dose},\code{y=LxTx},\code{z=LxTx.Error}, \code{y1=TnTx}.
+data frame with three columns for \code{x = Dose},\code{y = LxTx},\code{z = LxTx.Error}, \code{y1 = TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided.}
 
-\item{na.rm}{\link{logical} (\emph{with default}):
-excludes \code{NA} values from the data set prior to any further operations.}
+\item{na.rm}{\link{logical} (\emph{with default}): excludes \code{NA} values from the data set prior to any further operations. This argument is defunct and will be removed in a future version!}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
 \itemize{
 \item \code{"interpolation"} (default) calculates the De by interpolation,
-\item \code{"extrapolation"} calculates the De by extrapolation and
-\item \code{"alternate"} calculates no De and just fits the data points.
+\item \code{"extrapolation"} calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+\item \code{"alternate"} calculates no equivalent dose and just fits the data points.
 }
 
 Please note that for option \code{"regenerative"} the first point is considered
@@ -63,7 +62,7 @@ See details.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default})
 allow to force the fitted function through the origin.
-For \code{method = "EXP+EXP"} and \code{method = "GOK"} the function will go through
+For \code{method = "EXP+EXP"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
 \item{fit.weights}{\link{logical} (\emph{with default}):
@@ -137,7 +136,7 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 }
 }
 \description{
-A dose response curve is produced for luminescence measurements using a
+A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol. The function supports interpolation and
 extrapolation to calculate the equivalent dose.
 }
@@ -152,13 +151,13 @@ simulations partly the function \link{nls} using the \code{port} algorithm.
 The solution is found by transforming the function or using \link{uniroot}.
 
 \code{LIN}: fits a linear function to the data using
-\link{lm}: \deqn{y = m*x+n}
+\link{lm}: \deqn{y = mx + n}
 
 \code{QDR}: fits a linear function to the data using
-\link{lm}: \deqn{y = a + b * x + c * x^2}
+\link{lm}: \deqn{y = a + bx + cx^2}
 
-\code{EXP}: try to fit a function of the form
-\deqn{y = a*(1-exp(-(x+c)/b))}
+\code{EXP}: tries to fit a function of the form
+\deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
 Parameters b and c are approximated by a linear fit using \link{lm}. Note: b = D0
 
 \verb{EXP OR LIN}: works for some cases where an \code{EXP} fit fails.
@@ -166,21 +165,21 @@ If the \code{EXP} fit fails, a \code{LIN} fit is done instead.
 
 \code{EXP+LIN}: tries to fit an exponential plus linear function of the
 form:
-\deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
-The De is calculated by iteration.
+\deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
+The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this
 function has no physical meaning. Therefore, no D0 value is returned.
 
 \code{EXP+EXP}: tries to fit a double exponential function of the form
-\deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
+\deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
 This fitting procedure is not robust against wrong start parameters and
 should be further improved.
 
 \code{GOK}: tries to fit the general-order kinetics function after
 Guralnik et al. (2015) of the form of
 
-\deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
+\deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 
 where \strong{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
@@ -191,15 +190,17 @@ according to Pagonis et al. (2020). The function has the form
 \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
 with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
-\eqn{R} the dimensionless detrapping ratio, \eqn{N} the total concentration
+\eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-the offset on the x-axis.
+the offset on the x-axis. Please not that finding the root in \code{mode = "extrapolation"}
+is a non-easy task due to the shape of the function and the results might be
+unexpected.
 
 \strong{Fit weighting}
 
 If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
 provided signal errors (Lx/Tx error):
-\deqn{fit.weights = 1/error/(sum(1/error))}
+\deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 
 \strong{Error estimation using Monte Carlo simulation}
 
@@ -224,7 +225,7 @@ To avoid plotting the subtitle information, provide an empty user \code{mtext}
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.11.5
+ 1.11.10
 }
 
 \examples{
@@ -315,7 +316,7 @@ print(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.11.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., 2023. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.11.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

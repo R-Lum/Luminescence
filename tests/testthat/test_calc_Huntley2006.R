@@ -120,6 +120,21 @@ test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
     )
   })#EndOf::expect_identical
 
+  ## check extrapolation
+  set.seed(1)
+  expect_s4_class(
+    object = suppressWarnings(
+      calc_Kars2008(
+        data = data,
+        rhop = rhop,
+        ddot = ddot,
+        readerDdot = readerDdot,
+        n.MC = 500,
+        fit.method = "GOK",
+        mode = "extrapolation",
+        plot = FALSE, verbose = FALSE)),
+  class = "RLum.Results")
+
 })
 
 })

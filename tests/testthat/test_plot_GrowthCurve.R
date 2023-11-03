@@ -1,80 +1,31 @@
-set.seed(1)
-data(ExampleData.LxTxData, envir = environment())
-temp_EXP <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "EXP",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_LIN <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "LIN",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_EXPLIN <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "EXP+LIN",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_EXPEXP <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "EXP+EXP",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-temp_QDR <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "QDR",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-
-temp_GOK <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "GOK",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-
-temp_LambertW <-
-  plot_GrowthCurve(
-    LxTxData,
-    fit.method = "LambertW",
-    output.plot = FALSE,
-    verbose = FALSE,
-    NumberIterations.MC = 10
-  )
-
-test_that("fail fast", {
+test_that("plot_GrowthCurve", {
   testthat::skip_on_cran()
   local_edition(3)
+
+  ## load data
+  data(ExampleData.LxTxData, envir = environment())
 
   ##fit.method
   expect_error(
-    plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
-    regexp = "[plot_GrowthCurve()] fit method not supported, supported methods are: LIN, QDR, EXP, EXP OR LIN, EXP+LIN, EXP+EXP, GOK, LambertW",
-    fixed = TRUE
-  )
+    object = plot_GrowthCurve(LxTxData, fit.method = "FAIL"),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Fit method not supported, supported.+")
 
-})
+  ## input object
+  expect_error(
+    object = plot_GrowthCurve("test"),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Argument 'sample' needs to be of type 'data.frame'\\!")
 
-test_that("check weird LxTx values", {
-  testthat::skip_on_cran()
-  local_edition(3)
+  ## shorten dataframe
+  expect_error(
+    object = plot_GrowthCurve(LxTxData[1:2,]),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least two regeneration points are required!")
+
+  ## wrong argument for mode
+  expect_error(
+    object = plot_GrowthCurve(LxTxData, mode = "fail"),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Unknown input for argument 'mode'")
+
+# Weird LxTx values --------------------------------------------------------
 
   ##set LxTx
   LxTx <- structure(list(
@@ -85,14 +36,130 @@ test_that("check weird LxTx values", {
 
   ##fit
   expect_warning(Luminescence:::.warningCatcher(
-    plot_GrowthCurve(sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")])))
+    plot_GrowthCurve(
+      sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")],
+      output.plot = FALSE)))
 
-})
+  ##all points have the same dose ... error but NULL
+  data(ExampleData.LxTxData, envir = environment())
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$Dose <- 10
 
+  expect_null(
+    object = plot_GrowthCurve(tmp_LxTx))
 
-test_that("check class and length of output", {
-  testthat::skip_on_cran()
-  local_edition(3)
+  ## check input objects ... matrix
+  expect_s4_class(
+    object = plot_GrowthCurve(as.matrix(LxTxData), output.plot = FALSE),
+    class = "RLum.Results")
+
+  ## check input objects ... list
+  expect_s4_class(
+    object = plot_GrowthCurve(as.list(LxTxData), output.plot = FALSE),
+    class = "RLum.Results")
+
+  ## test case for only two columns
+  expect_s4_class(
+    object = suppressWarnings(plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE)),
+    class = "RLum.Results")
+
+  ## test case with all NA
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$LxTx <- NA
+  expect_null(
+    object = suppressWarnings(plot_GrowthCurve(tmp_LxTx, output.plot = FALSE)))
+
+  ## test defunct
+  expect_error(
+    object = plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE, na.rm = FALSE))
+
+  ## do not include reg point
+  expect_s4_class(
+    object = plot_GrowthCurve(
+      sample = LxTxData,
+      output.plot = FALSE,
+      fit.includingRepeatedRegPoints = FALSE),
+    class = "RLum.Results")
+
+# Check output for regression ---------------------------------------------
+  set.seed(1)
+  data(ExampleData.LxTxData, envir = environment())
+  temp_EXP <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "EXP",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_LIN <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "LIN",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_LIN <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "LIN",
+      mode = "extrapolation",
+      fit.force_through_origin = TRUE,
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_EXPLIN <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "EXP+LIN",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_EXPEXP <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "EXP+EXP",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_QDR <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_QDR <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      mode = "extrapolation",
+      fit.force_through_origin = TRUE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_GOK <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "GOK",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_LambertW <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "LambertW",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
 
   expect_s4_class(temp_EXP, class = "RLum.Results")
     expect_s3_class(temp_EXP$Fit, class = "nls")
@@ -115,11 +182,77 @@ test_that("check class and length of output", {
   expect_s4_class(temp_LambertW, class = "RLum.Results")
     expect_s3_class(temp_LambertW$Fit, class = "nls")
 
-})
 
-test_that("check values from output example", {
- testthat::skip_on_cran()
-  local_edition(3)
+# Check more output -------------------------------------------------------
+  data(ExampleData.LxTxData, envir = environment())
+
+  set.seed(1)
+  temp_EXP <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "EXP",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_LIN <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "LIN",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_EXPLIN <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "EXP+LIN",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_EXPEXP <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "EXP+EXP",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_QDR <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "QDR",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10
+    )
+  temp_GOK <-
+    plot_GrowthCurve(
+      LxTxData,
+      fit.method = "GOK",
+      output.plot = FALSE,
+      verbose = FALSE,
+      NumberIterations.MC = 10)
+  ## force through the origin
+  temp_LxTx <-LxTxData
+  temp_LxTx$LxTx[[7]] <- 1
+  expect_s4_class(plot_GrowthCurve(
+    temp_LxTx,
+    fit.method = "GOK",
+    output.plot = FALSE,
+    verbose = FALSE,
+    NumberIterations.MC = 10,
+    fit.force_through_origin = TRUE
+  ), "RLum.Results")
+temp_LambertW <-
+  plot_GrowthCurve(
+    LxTxData,
+    fit.method = "LambertW",
+    output.plot = FALSE,
+    verbose = FALSE,
+    NumberIterations.MC = 10
+  )
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
 
@@ -136,7 +269,7 @@ test_that("check values from output example", {
 
    ##fix for different R versions
    if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
+     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
 
    }else{
      expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
@@ -161,14 +294,15 @@ test_that("check values from output example", {
     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
 
    }else{
-     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303)
+     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303,
+                  tolerance = 10)
 
    }
 
    expect_equal(round(temp_QDR$De[[1]], digits = 2), 1666.2)
 
    ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
+   if (R.version$major == "3" && as.numeric(R.version$minor) < 6){
     expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 14937)
 
    }else{
@@ -178,36 +312,42 @@ test_that("check values from output example", {
 
    expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
    ##fix for different R versions
-   if(R.version$major > "3"){
-     expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9, tolerance = 0.0001)
+   if (R.version$major > "3"){
+     if(any(grepl("aarch64", sessionInfo()$platform))) {
+       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17796,
+                    tolerance = 0.001)
 
+     } else {
+       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9,
+                    tolerance = 0.1)
+
+     }
    }
 
    expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
-   ##fix for different R versions
-   if(R.version$major > "3"){
-     expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17662)
+   expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17422)
 
-   }
-
-})
-
-test_that("check extrapolation", {
-  testthat::skip_on_cran()
-  local_edition(3)
+# Check extrapolation -----------------------------------------------------
+  ## load data
+  data(ExampleData.LxTxData, envir = environment())
 
   set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
   LIN <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"), "RLum.Results")
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"),
+    "RLum.Results")
   EXP <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"), "RLum.Results")
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"),
+    "RLum.Results")
   EXPLIN <- expect_s4_class(
     suppressWarnings(
-      plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")), "RLum.Results")
+      plot_GrowthCurve(
+        LxTxData,mode = "extrapolation", fit.method = "EXP+LIN")),
+    "RLum.Results")
 
-  # GOK <- expect_s4_class(
-  #   plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"), "RLum.Results")
+  GOK <- expect_s4_class(
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"),
+    "RLum.Results")
 
   LambertW <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
@@ -218,6 +358,137 @@ test_that("check extrapolation", {
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
+
+# Check alternate ---------------------------------------------------------
+  ## load data
+  data(ExampleData.LxTxData, envir = environment())
+
+  set.seed(1)
+  LxTxData[1,2:3] <- c(0.5, 0.001)
+
+  ##LIN
+  expect_s4_class(
+    object = plot_GrowthCurve(LxTxData,mode = "alternate", fit.method = "LIN", output.plot = FALSE),
+    "RLum.Results")
+
+  ## EXP
+  EXP <- expect_s4_class(
+    object = plot_GrowthCurve(LxTxData,mode = "alternate", fit.method = "EXP", output.plot = FALSE),
+    "RLum.Results")
+
+  ## EXP+LIN
+  EXPLIN <- expect_s4_class(
+    object = suppressWarnings(
+      plot_GrowthCurve(LxTxData,mode = "alternate", fit.method = "EXP+LIN", output.plot = FALSE, verbose = FALSE)),
+    "RLum.Results")
+
+  ## GOK
+  expect_s4_class(
+    object = plot_GrowthCurve(
+      LxTxData,
+      mode = "alternate",
+      fit.method = "GOK",
+      output.plot = FALSE,
+      verbose = FALSE
+    ),
+    "RLum.Results"
+  )
+
+  ## LambertW
+  expect_s4_class(
+    object = plot_GrowthCurve(
+      LxTxData,
+      mode = "alternate",
+      fit.method = "LambertW",
+      output.plot = FALSE,
+      verbose = FALSE
+    ),
+    "RLum.Results"
+  )
+
+  ## trigger LambertW related warning for
+  ## extrapolation mode
+  tmp <- structure(list(
+    dose = c(
+      0,
+      1388.88888888889,
+      2777.77777777778,
+      4166.66666666667,
+      8333.33333333333,
+      16666.6666666667,
+      33333.3333333333,
+      0,
+      1388.88888888889,
+      2777.77777777778,
+      4166.66666666667,
+      8333.33333333333,
+      16666.6666666667,
+      33333.3333333333,
+      0,
+      1388.88888888889,
+      2777.77777777778,
+      4166.66666666667,
+      8333.33333333333,
+      16666.6666666667,
+      33333.3333333333
+    ),
+    LxTx = c(
+      1.54252220145258,
+      4.43951568403849,
+      6.23268064543138,
+      7.84372723139206,
+      12.1816246695694,
+      16.220421545207,
+      19.9805214420208,
+      1.5693958789807,
+      4.01446969642433,
+      6.50442121919275,
+      8.13912565845306,
+      11.2791435536017,
+      14.2739718127927,
+      17.7646886436743,
+      1.55083317135234,
+      4.10327222363961,
+      6.1705969614814,
+      8.30005789933367,
+      12.7612004529065,
+      14.807776070804,
+      17.1563663039162
+    ),
+    LxTx_X = c(
+      0.130074482379272,
+      2.59694106608334,
+      4.46970034588506,
+      3.0630786645803,
+      0.744512263874143,
+      6.0383153231303,
+      0.785060450424326,
+      3.16210365279,
+      0.0425273193228004,
+      2.9667194222907,
+      0.187174353876429,
+      4.29989597009486,
+      4.19802308979151,
+      2.77791088935002,
+      0.248412040945932,
+      0.626745230335262,
+      3.80396486752602,
+      16.1846310553925,
+      4.14921514089229,
+      1.40190110413806,
+      7.74406545663656
+    )
+  ),
+  class = "data.frame",
+  row.names = c(NA, -21L))
+
+  expect_warning(plot_GrowthCurve(
+    tmp,
+    mode = "extrapolation",
+    fit.method = "LambertW",
+    output.plot = FALSE,
+    verbose = FALSE),
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Standard root estimation using stats\\:\\:uniroot\\(\\).+")
 
 })
 

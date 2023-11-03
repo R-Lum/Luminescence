@@ -9,6 +9,8 @@ analyse_portableOSL(
   signal.integral = NULL,
   invert = FALSE,
   normalise = FALSE,
+  mode = "profile",
+  coord = NULL,
   plot = TRUE,
   ...
 )
@@ -18,22 +20,33 @@ analyse_portableOSL(
 The input can be a \link{list} of such objects, in such case each input is treated as a separate sample
 and the results are merged.}
 
-\item{signal.integral}{\link{numeric} (\strong{required}):
-A vector of two values specifying the lower and upper channel used to
-calculate the OSL/IRSL signal. Can be provided in form of \code{c(1, 5)} or \code{1:5}.}
+\item{signal.integral}{\link{numeric} (\strong{required}): A vector of two values specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can be provided in form of \code{c(1, 5)} or \code{1:5}.}
 
-\item{invert}{\link{logical} (\emph{with default}):
-\code{TRUE} to calculate and plot the data in reverse order.}
+\item{invert}{\link{logical} (\emph{with default}): \code{TRUE} flip the plot the data in reverse order.}
 
-\item{normalise}{\link{logical} (\emph{with default}):
-\code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
-data curves.}
+\item{normalise}{\link{logical} (\emph{with default}): \code{TRUE} to normalise the OSL/IRSL signals
+to the \emph{mean} of all corresponding data curves.}
 
-\item{plot}{\link{logical} (\emph{with default}):
-enable/disable plot output}
+\item{mode}{\link{character} (\emph{with default}): defines the analysis mode, allowed
+are \code{"profile"} (the default) and \code{"surface"} for surface interpolation. If you select
+something else, nothing will be plotted (similar to \code{plot = FALSE}).}
 
-\item{...}{other parameters, supported are \code{sample} to provide a sample name,
-if the input is a \code{list}, this is set automatically.}
+\item{coord}{\link{list} \link{matrix} (\emph{optional}): a list or matrix of the same length as
+number of samples measured with coordinates for the sampling positions. Coordinates
+are expected to be provided in meter (unit: m).
+Expected are x and y coordinates, e.g.,
+\verb{coord = list(samp1 = c(0.1, 0.2)}. If you have not measured x coordinates, please x should be 0.}
+
+\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output}
+
+\item{...}{other parameters to be passed to modify the plot output.
+Supported are \code{run} to provide the run name ,
+if the input is a \code{list}, this is set automatically. Further plot parameters are
+\code{surface_values} (\link{character} with value to plot), \code{legend} (\code{TRUE}/\code{FALSE}), \code{col_ramp} (for
+surface mode), \code{contour} (contour lines \code{TRUE}/\code{FALSE} in surface mode), \code{grid} (\code{TRUE}/\code{FALSE}), \code{col}, \code{pch} (for profile mode), \code{xlim} (a name \link{list} for profile mode), \code{ylim},
+\code{zlim} (surface mode only), \code{ylab}, \code{xlab}, \code{zlab} (here x-axis labelling), \code{main}, \code{bg_img} (for
+profile mode background image, usually a profile photo; should be a raster object),
+\code{bg_img_positions} (a vector with the four corner positions, cf. \link[graphics:rasterImage]{graphics::rasterImage})}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Results} object with the following elements:
@@ -54,13 +67,36 @@ It further assumes (or rather requires) an equal amount of OSL and IRSL curves t
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
 the cumulative signal of the last n channels (same number of channels as specified
 by \code{signal.integral}) is divided by cumulative signal of the first n channels (\code{signal.integral}).
+
+\strong{Note:  The function assumes the following sequence pattern: \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}. If you have written a different sequence, the analysis function will (likely) not work!}.
+
+\strong{Signal processing}
+The function processes the signals as follows: \code{BSL} and \code{IRSL} signals are extracted using the
+chosen signal integral, dark counts are taken in full.
+
+\strong{Working with coordinates}
+Usually samples are taken from a profile with a certain stratigraphy. In the past the function
+calculated an index. With this newer version, you have two option of passing on xy-coordinates
+to the function:
+\itemize{
+\item (1) Add coordinates to the sample name during measurement. The form is rather
+strict and has to follow the scheme \verb{_x:<number>|y:<number>}. Example:
+\code{sample_x:0.2|y:0.4}.
+\item (2) Alternatively, you can provide a \link{list} or \link{matrix} with the sample coordinates.
+Example: \code{coord = list(c(0.2, 1), c(0.3,1.2))}
+}
+
+Please note that the unit is meter (m) and the function expects always xy-coordinates.
+The latter one is useful for surface interpolations. If you have measured a profile where
+the x-coordinates to not measure, x-coordinates should be 0.
 }
 \section{Function version}{
- 0.0.4
+ 0.1.0
 }
 
 \examples{
 
+## example profile plot
 # (1) load example data set
 data("ExampleData.portableOSL", envir = environment())
 
@@ -87,11 +123,11 @@ get_RLum(results)
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
+Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}

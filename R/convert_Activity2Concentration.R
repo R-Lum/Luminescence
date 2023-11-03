@@ -18,7 +18,7 @@
 #' The factors can be calculated using the equation:
 #'
 #' \deqn{
-#' A = N_A * N.abund / N.mol.mass   *  ln(2) / N.half.life
+#' A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 #' }
 #'
 #' to convert in ppm we further use:
@@ -33,14 +33,14 @@
 #' - `A` - specific activity of the nuclide in Bq/kg
 #' - `N.abund` - relative natural abundance of the isotope
 #' - `N.mol.mass` molar mass in kg/mol
-#' - `n.half.life` half-life of the nuclide in s
+#' - `N.half.life` half-life of the nuclide in s
 #'
 #' example for calculating the activity of the radionuclide U-238:
 #'
 #'  * `N_A` = 6.02214076e+23 (1/mol)
 #'  * `T_0.5` = 1.41e+17 (s)
 #'  * `m_U_238` = 0.23802891 (kg/mol)
-#'  * `U_abund = 0.992745 (unitless)
+#'  * `U_abund` = 0.992745 (unitless)
 #'
 #' \deqn{A_{U} = N_{A} * U_{abund} / m_{U_238} * ln(2) / T_{1/2} = 2347046} (Bq/kg)
 #'

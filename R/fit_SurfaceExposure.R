@@ -148,7 +148,8 @@
 #'
 #' Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 #' Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-#' dating. Journal of Geophysical Research 117, B09202. doi: 10.1029/2012JB009383
+#' dating. Journal of Geophysical Research 117, B09202. doi:
+#' \doi{10.1029/2012JB009383}
 #'
 #' Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of
 #' non-terrestrial bodies using optically stimulated luminescence: A new method.

@@ -59,7 +59,7 @@
 #'
 #' - An overview of the obtained apparent dose values
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -240,6 +240,8 @@ analyse_Al2O3C_CrossTalk <- function(
   data_full <- as.data.frame(data.table::rbindlist(signal_table_list), stringsAsFactors = FALSE)
 
   # Plotting ------------------------------------------------------------------------------------
+    ## set colours
+    col_pal <- grDevices::hcl.colors(100, palette = "RdYlGn", rev = TRUE)
 
     ##get plot settings
     par.default <- par(no.readonly = TRUE)
@@ -268,9 +270,10 @@ analyse_Al2O3C_CrossTalk <- function(
     }, FUN.VALUE = vector(mode = "numeric", length = 3)))
 
     ##create colour ramp
-    col.seq <- data.frame(POSITION = AD_matrix[order(AD_matrix[,2]),1],
-                          COLOUR = plotrix::smoothColors("green", nrow(AD_matrix) - 2, "red"),
-                          stringsAsFactors = FALSE)
+    col.seq <- data.frame(
+      POSITION = AD_matrix[order(AD_matrix[,2]),1],
+      COLOUR = col_pal[seq(1,100, length.out = nrow(AD_matrix))],
+      stringsAsFactors = FALSE)
 
     col.seq <- col.seq[["COLOUR"]][order(col.seq[["POSITION"]])]
 
@@ -343,14 +346,14 @@ analyse_Al2O3C_CrossTalk <- function(
 
       ##add colour legend
       shape::emptyplot(c(-1.2, 1.2), frame.plot = FALSE)
-      plotrix::gradient.rect(
-        xleft = -0.6,
-        ybottom = -1.2,
-        xright = 0,
-        ytop = 1.2,
-        col = plotrix::smoothColors("green", 40, "red"),
-        gradient = "y",
-        border = NA
+      graphics::rect(
+        xleft = rep(-0.6, 100),
+        ybottom = seq(-1.2,1.1,length.out = 100),
+        xright = rep(0, 100),
+        ytop = seq(-1.1,1.2,length.out = 100),
+        col = col_pal,
+        lwd = 0,
+        border = FALSE
       )
 
       ##add scale text

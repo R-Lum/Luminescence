@@ -39,7 +39,7 @@
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
-#' @section Function version: 0.0.1
+#' @section Function version: 0.0.2
 #'
 #' @note
 #' Because this function relies heavily on regular expressions to parse
@@ -92,7 +92,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
 
     ## OFFENDING LINE: this deletes the line with sample name and time and date
     sample_and_date <- lines_with_slashes[length(lines_with_slashes)]
-    sample <- gsub("[^0-9a-zA-Z\\-_]", "",strsplit(sample_and_date, "@")[[1]][1], perl = TRUE)
+    sample <- trimws(gsub("\\\\", "", strsplit(sample_and_date, "@")[[1]][1]))
     date_and_time <- strsplit(strsplit(sample_and_date, "@")[[1]][2], " ")[[1]]
     date_and_time_clean <- date_and_time[date_and_time != "" & date_and_time != "/" & date_and_time != "PM" & date_and_time != "AM"]
     date <- as.Date(date_and_time_clean[1], "%m/%d/%Y")

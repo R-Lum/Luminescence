@@ -213,14 +213,11 @@ analyse_SAR.TL <- function(
   }
 
   ##check if the wanted curves are a multiple of the structure
-  if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0){
-    stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.")
-
-  }
-
+  if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0)
+    stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.",
+         call. = FALSE)
 
   # # Calculate LnLxTnTx values  --------------------------------------------------
-
   ##grep IDs for signal and background curves
   TL.preheat.ID <- temp.sequence.structure[
     temp.sequence.structure[,"protocol.step"] == "PREHEAT","id"]
@@ -682,8 +679,7 @@ analyse_SAR.TL <- function(
 
   }
 
-
-  ##add recjection status
+  ##add rejection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
     temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
 

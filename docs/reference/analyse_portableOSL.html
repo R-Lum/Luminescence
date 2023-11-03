@@ -19,7 +19,7 @@ and the IRSL/OSL ratio."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
       </span>
     </div>
 
@@ -42,7 +42,7 @@ and the IRSL/OSL ratio."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -81,6 +81,8 @@ and the IRSL/OSL ratio.</p>
 <span>  signal.integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  invert <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  normalise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  mode <span class="op">=</span> <span class="st">"profile"</span>,</span>
+<span>  coord <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -95,30 +97,45 @@ and the results are merged.</p></dd>
 
 
 <dt>signal.integral</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
-A vector of two values specifying the lower and upper channel used to
-calculate the OSL/IRSL signal. Can be provided in form of <code>c(1, 5)</code> or <code>1:5</code>.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): A vector of two values specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can be provided in form of <code>c(1, 5)</code> or <code>1:5</code>.</p></dd>
 
 
 <dt>invert</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to calculate and plot the data in reverse order.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): <code>TRUE</code> flip the plot the data in reverse order.</p></dd>
 
 
 <dt>normalise</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to normalise the OSL/IRSL signals by the mean of all corresponding
-data curves.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): <code>TRUE</code> to normalise the OSL/IRSL signals
+to the <em>mean</em> of all corresponding data curves.</p></dd>
+
+
+<dt>mode</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): defines the analysis mode, allowed
+are <code>"profile"</code> (the default) and <code>"surface"</code> for surface interpolation. If you select
+something else, nothing will be plotted (similar to <code>plot = FALSE</code>).</p></dd>
+
+
+<dt>coord</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> (<em>optional</em>): a list or matrix of the same length as
+number of samples measured with coordinates for the sampling positions. Coordinates
+are expected to be provided in meter (unit: m).
+Expected are x and y coordinates, e.g.,
+<code>coord = list(samp1 = c(0.1, 0.2)</code>. If you have not measured x coordinates, please x should be 0.</p></dd>
 
 
 <dt>plot</dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enable/disable plot output</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): enable/disable plot output</p></dd>
 
 
 <dt>...</dt>
-<dd><p>other parameters, supported are <code>sample</code> to provide a sample name,
-if the input is a <code>list</code>, this is set automatically.</p></dd>
+<dd><p>other parameters to be passed to modify the plot output.
+Supported are <code>run</code> to provide the run name ,
+if the input is a <code>list</code>, this is set automatically. Further plot parameters are
+<code>surface_values</code> (<a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> with value to plot), <code>legend</code> (<code>TRUE</code>/<code>FALSE</code>), <code>col_ramp</code> (for
+surface mode), <code>contour</code> (contour lines <code>TRUE</code>/<code>FALSE</code> in surface mode), <code>grid</code> (<code>TRUE</code>/<code>FALSE</code>), <code>col</code>, <code>pch</code> (for profile mode), <code>xlim</code> (a name <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> for profile mode), <code>ylim</code>,
+<code>zlim</code> (surface mode only), <code>ylab</code>, <code>xlab</code>, <code>zlab</code> (here x-axis labelling), <code>main</code>, <code>bg_img</code> (for
+profile mode background image, usually a profile photo; should be a raster object),
+<code>bg_img_positions</code> (a vector with the four corner positions, cf. <a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">graphics::rasterImage</a>)</p></dd>
 
 </dl></div>
     <div id="value">
@@ -146,10 +163,25 @@ It further assumes (or rather requires) an equal amount of OSL and IRSL curves t
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
 the cumulative signal of the last n channels (same number of channels as specified
 by <code>signal.integral</code>) is divided by cumulative signal of the first n channels (<code>signal.integral</code>).</p>
+<p><strong>Note:  The function assumes the following sequence pattern: <code>DARK COUNT</code>, <code>IRSL</code>, <code>DARK COUNT</code>, <code>BSL</code>, <code>DARK COUNT</code>. If you have written a different sequence, the analysis function will (likely) not work!</strong>.</p>
+<p><strong>Signal processing</strong>
+The function processes the signals as follows: <code>BSL</code> and <code>IRSL</code> signals are extracted using the
+chosen signal integral, dark counts are taken in full.</p>
+<p><strong>Working with coordinates</strong>
+Usually samples are taken from a profile with a certain stratigraphy. In the past the function
+calculated an index. With this newer version, you have two option of passing on xy-coordinates
+to the function:</p><ul><li><p>(1) Add coordinates to the sample name during measurement. The form is rather
+strict and has to follow the scheme <code>_x:&lt;number&gt;|y:&lt;number&gt;</code>. Example:
+<code>sample_x:0.2|y:0.4</code>.</p></li>
+<li><p>(2) Alternatively, you can provide a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> or <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> with the sample coordinates.
+Example: <code>coord = list(c(0.2, 1), c(0.3,1.2))</code></p></li>
+</ul><p>Please note that the unit is meter (m) and the function expects always xy-coordinates.
+The latter one is useful for surface interpolations. If you have measured a profile where
+the x-coordinates to not measure, x-coordinates should be 0.</p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.0.4</p>
+    <p>0.1.0</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -158,17 +190,18 @@ by <code>signal.integral</code>) is divided by cumulative signal of the first n 
     <div id="author">
     <h2>Author</h2>
     <p>Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
+Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
 , RLum Developer Team</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Burow, C., Kreutzer, S., 2023. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## example profile plot</span></span></span>
 <span class="r-in"><span><span class="co"># (1) load example data set</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ExampleData.portableOSL"</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -207,36 +240,36 @@ Institute of Geography, Ruprecht-Karls-University of Heidelberg, Germany
 <span class="r-in"><span>  normalise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_portableOSL-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       SAMPLE        BSL    BSL_error       IRSL   IRSL_error BSL_depletion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Sample #1 0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Sample #1 1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Sample #1 0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Sample #1 0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Sample #1 1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Sample #1 1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Sample #1 1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Sample #1 0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Sample #1 2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Sample #1 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Sample #1 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Sample #1 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Sample #1 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Sample #1 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    IRSL_depletion IRSL_BSL_RATIO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.9158216      1.0438371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.9087895      1.0705490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1.0233685      1.2615183</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       1.0190504      1.0587828</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.9352608      1.0134461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.9506562      0.9821737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1.0143051      0.8683659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       0.9835481      1.4235234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.9673997      0.9942316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      0.9799674      1.0244482</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1.0160485      0.8609933</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      1.0718821      0.9848262</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      1.1398779      0.7963831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      1.0740241      0.9767372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ID RUN        BSL    BSL_error       IRSL   IRSL_error BSL_depletion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 ALU 0.66751034 0.0016178539 0.69677206 0.0035040643     0.8675537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 ALU 1.33608934 0.0022884430 1.43034913 0.0050268167     0.8811300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 ALU 0.35999022 0.0011869945 0.45413426 0.0028330832     1.1992200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 ALU 0.39980864 0.0012483733 0.42331051 0.0027004844     1.0490701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 ALU 1.91016028 0.0027332907 1.93584455 0.0058476153     0.9097980</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6 ALU 1.87047105 0.0027051257 1.83712738 0.0056976151     0.9659504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7 ALU 1.10402143 0.0020801568 0.95869456 0.0041114642     0.9922993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 ALU 0.27824348 0.0010434799 0.39608610 0.0026434540     1.1796670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 ALU 2.09649886 0.0028644330 2.08440551 0.0060688839     0.9090499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 ALU 2.12595947 0.0028889095 2.17793540 0.0062025491     0.9572100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11 ALU 1.63105170 0.0025284109 1.40432450 0.0049269556     0.8899796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 12 ALU 0.10425127 0.0006390972 0.10266938 0.0013732741     1.1011572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 13 ALU 0.08261577 0.0005690871 0.06579380 0.0010890682     1.0486319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 14 ALU 0.03332815 0.0003606878 0.03255285 0.0007974928     1.0492829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    IRSL_depletion IRSL_BSL_RATIO       DARK DARK_error COORD_X COORD_Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.9158216      1.0438371  1.1111111   8.568500       0       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.9087895      1.0705490 -0.8222222  12.384537       0       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       1.0233685      1.2615183 -0.2444444   8.931954       0       3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       1.0190504      1.0587828 -0.1555556   8.355607       0       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.9352608      1.0134461 -7.5333333  39.122535       0       5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.9506562      0.9821737  0.5111111  14.822621       0       6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       1.0143051      0.8683659 -2.8888889  11.954882       0       7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       0.9835481      1.4235234  0.5333333   7.322444       0       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       0.9673997      0.9942316 -2.6444444  11.790126       0       9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      0.9799674      1.0244482  1.4000000  12.498000       0      10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1.0160485      0.8609933  0.2666667  11.993180       0      11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      1.0718821      0.9848262 -6.4222222  38.856665       0      12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      1.1398779      0.7963831  1.0222222   6.471929       0      13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      1.0740241      0.9767372 -1.0666667   4.750120       0      14</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

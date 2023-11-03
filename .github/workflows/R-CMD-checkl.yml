@@ -10,7 +10,7 @@ name: GitHub Actions CI
 
 ## change if caches needs to be refreshed
 env:
-  cache-version: v4
+  cache-version: v2
 
 jobs:
   R-CMD-check:
@@ -23,17 +23,19 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'oldrel', not_cran: 'true'}
-          # - {os: windows-latest, r: 'release', not_cran: 'true'}
-          # - {os: windows-latest, r: 'devel', not_cran: 'true'}
+          - {os: windows-latest, r: 'release', not_cran: 'true'}
+          - {os: windows-latest, r: 'devel', not_cran: 'true'}
           - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
-          # - {os: macos-12,   r: 'release', not_cran: 'true'}
-          # - {os: macos-11,   r: 'oldrel', not_cran: 'true'}
-          # - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
-          # - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
-          # - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
+          - {os: macos-12,   r: 'release', not_cran: 'true'}
+          - {os: macos-11,   r: 'oldrel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
+          - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
+          - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
+      RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
 
     steps:
       - if: runner.os == 'macOS'
@@ -48,8 +50,8 @@ jobs:
       - name: Install JAGS on Windows (R oldrel)
         if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
         run: |
-          curl --progress-bar -s -o 'C:\JAGS-4.3.0.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.0.exe'
-          C:\JAGS-4.3.0.exe /S
+          curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
+          C:\JAGS-4.3.1.exe /S
 
       - uses: actions/checkout@v3
 
@@ -65,26 +67,8 @@ jobs:
         with:
           extra-packages: |
             any::rcmdcheck
-            any::XML
-            any::covr
-            any::rjags
           needs: check
-
-      - name: Show session info before test
-        run: |
-          print(utils::sessionInfo())
-        shell: Rscript {0}
-
-      - name: Show session curl info
-        run: |
-          print(curl::curl_version())
-        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-
-      - name: Test coverage
-        run: |
-          covr::codecov()
-        shell: Rscript {0}

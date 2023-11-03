@@ -186,7 +186,8 @@ extract_IrradiationTimes <- function(
 # Integrity tests -----------------------------------------------------------------------------
   ##check whether an character or an RLum.Analysis object is provided
   if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
-    stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.", call. = FALSE)
+    stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.",
+         call. = FALSE)
 
   } else if(is(object)[1] == "character"){
 
@@ -196,7 +197,8 @@ extract_IrradiationTimes <- function(
     ##XSYG
     ##check if file exists
     if(file.exists(file.XSYG) == FALSE){
-      stop("[extract_IrradiationTimes()] Wrong XSYG file name or file does not exsits!", call. = FALSE)
+      stop("[extract_IrradiationTimes()] Wrong XSYG file name or file does not exsits!",
+           call. = FALSE)
 
     }
 
@@ -280,7 +282,6 @@ extract_IrradiationTimes <- function(
 
     ##a little bit reformatting.
     START <- strptime(temp.START, format = "%y%m%d%H%M%S", tz = "GMT")
-
       ## make another try in case it does not make sense
       if(any(is.na(START)))
         START <- strptime(temp.START, format = "%y%m%d%H:%M:%S", tz = "GMT")

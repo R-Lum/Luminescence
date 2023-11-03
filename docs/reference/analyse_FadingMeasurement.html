@@ -20,7 +20,7 @@ Kars et al. (2008)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
       </span>
     </div>
 
@@ -43,7 +43,7 @@ Kars et al. (2008)."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
   <a href="../reference/index.html">References</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="../news/index.html">
+  <a href="../news/NEWS_Version0.9.0.html">
     <span class="fa fa-newspaper-o"></span>
      
     News
@@ -216,9 +216,13 @@ procedure as for the g-value is applied (see above).</p>
 <p><strong>Multiple aliquots &amp; Lx/Tx normalisation</strong></p>
 <p>Be aware that this function will always normalise all <code>Lx/Tx</code> values by the <code>Lx/Tx</code> value of the
 prompt measurement of the first aliquot. This implicitly assumes that there are no systematic
-inter-aliquot variations in <code>Lx/Tx</code> values. If deemed necessary to normalise the <code>Lx/Tx</code> values
+inter-aliquot variations in the <code>Lx/Tx</code> values. If deemed necessary to normalise the <code>Lx/Tx</code> values
 of each aliquot by its individual prompt measurement please do so <strong>before</strong> running
 analyse_FadingMeasurement and provide the already normalised values for <code>object</code> instead.</p>
+<p><strong>Shine-down curve plots</strong>
+Please note that the shine-down curve plots are for information only. As such
+not all pause steps are plotted to avoid graphically overloaded plots.
+However, <em>all</em> pause times are taken into consideration for the analysis.</p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
@@ -226,7 +230,7 @@ analyse_FadingMeasurement and provide the already normalised values for <code>ob
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., Burow, C., 2023. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.22. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Burow, C., 2023. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -307,7 +311,6 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (faded):		100 ka ± 2 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Age (corr.):		203.0812 ka ± 13.4105 ka</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------- </span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -1,7 +1,8 @@
-#' @title Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
+#' @title Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)
 #'
 #' @description
-#' A dose response curve is produced for luminescence measurements using a
+#'
+#' A dose-response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol. The function supports interpolation and
 #' extrapolation to calculate the equivalent dose.
 #'
@@ -17,13 +18,13 @@
 #' The solution is found by transforming the function or using [uniroot].
 #'
 #' `LIN`: fits a linear function to the data using
-#' [lm]: \deqn{y = m*x+n}
+#' [lm]: \deqn{y = mx + n}
 #'
 #' `QDR`: fits a linear function to the data using
-#' [lm]: \deqn{y = a + b * x + c * x^2}
+#' [lm]: \deqn{y = a + bx + cx^2}
 #'
-#' `EXP`: try to fit a function of the form
-#' \deqn{y = a*(1-exp(-(x+c)/b))}
+#' `EXP`: tries to fit a function of the form
+#' \deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
 #' Parameters b and c are approximated by a linear fit using [lm]. Note: b = D0
 #'
 #' `EXP OR LIN`: works for some cases where an `EXP` fit fails.
@@ -31,21 +32,21 @@
 #'
 #' `EXP+LIN`: tries to fit an exponential plus linear function of the
 #' form:
-#' \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
-#' The De is calculated by iteration.
+#' \deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
+#' The \eqn{D_e} is calculated by iteration.
 #'
 #' **Note:** In the context of luminescence dating, this
 #' function has no physical meaning. Therefore, no D0 value is returned.
 #'
 #' `EXP+EXP`: tries to fit a double exponential function of the form
-#' \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
+#' \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
 #' This fitting procedure is not robust against wrong start parameters and
 #' should be further improved.
 #'
 #' `GOK`: tries to fit the general-order kinetics function after
 #' Guralnik et al. (2015) of the form of
 #'
-#' \deqn{y = a*(1-(1+(1/b)*x*c)^(-1/c))}
+#' \deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
 #'
 #' where **c > 0** is a kinetic order modifier
 #' (not to be confused with **c** in `EXP` or `EXP+LIN`!).
@@ -56,15 +57,17 @@
 #' \deqn{y ~ (1 + (W((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert W function, calculated using the package [lamW::lambertW0],
-#' \eqn{R} the dimensionless detrapping ratio, \eqn{N} the total concentration
+#' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 #' of trappings states in cm^-3 and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-#' the offset on the x-axis.
+#' the offset on the x-axis. Please not that finding the root in `mode = "extrapolation"`
+#' is a non-easy task due to the shape of the function and the results might be
+#' unexpected.
 #'
 #' **Fit weighting**
 #'
 #' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
 #' provided signal errors (Lx/Tx error):
-#' \deqn{fit.weights = 1/error/(sum(1/error))}
+#' \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
@@ -90,19 +93,18 @@
 #' `mtext = ""`. To plot any other subtitle text, use `mtext`.
 #'
 #' @param sample [data.frame] (**required**):
-#' data frame with three columns for `x=Dose`,`y=LxTx`,`z=LxTx.Error`, `y1=TnTx`.
+#' data frame with three columns for `x = Dose`,`y = LxTx`,`z = LxTx.Error`, `y1 = TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.
 #'
-#' @param na.rm [logical] (*with default*):
-#' excludes `NA` values from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*): excludes `NA` values from the data set prior to any further operations. This argument is defunct and will be removed in a future version!
 #'
 #' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
 #' - `"interpolation"` (default) calculates the De by interpolation,
-#' - `"extrapolation"` calculates the De by extrapolation and
-#' - `"alternate"` calculates no De and just fits the data points.
+#' - `"extrapolation"` calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+#' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"regenerative"` the first point is considered
 #' as natural dose
@@ -122,7 +124,7 @@
 #'
 #' @param fit.force_through_origin [logical] (*with default*)
 #' allow to force the fitted function through the origin.
-#' For `method = "EXP+EXP"` and `method = "GOK"` the function will go through
+#' For `method = "EXP+EXP"` the function will be fixed through
 #' the origin in either case, so this option will have no effect.
 #'
 #' @param fit.weights [logical] (*with default*):
@@ -193,7 +195,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.5
+#' @section Function version: 1.11.10
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -324,35 +326,32 @@ plot_GrowthCurve <- function(
   ##1. Check input variable
   switch(
     class(sample)[1],
+    data.frame = sample,
     matrix = sample <- as.data.frame(sample),
     list = sample <- as.data.frame(sample),
-    numeric = stop(
-      "[plot_GrowthCurve()] 'sample' needs to be of type 'data.frame'!",
-      call. = FALSE
-    )
+    stop(
+      "[plot_GrowthCurve()] Argument 'sample' needs to be of type 'data.frame'!",
+      call. = FALSE)
   )
 
   ##2. Check supported fit methods
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "LambertW")
   if (!fit.method[1] %in% fit.method_supported) {
     stop(paste0(
-      "[plot_GrowthCurve()] fit method not supported, supported methods are: ",
+      "[plot_GrowthCurve()] Fit method not supported, supported methods are: ",
       paste(fit.method_supported, collapse = ", ")
     ),
     call. = FALSE)
   }
 
   ##2. check if sample contains a least three rows
-  if(length(sample[[1]])<3 & fit.method != "LIN"){
-    stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!", call. = FALSE)
-  }
+  if(length(sample[[1]]) < 3 & fit.method != "LIN")
+    stop("\n [plot_GrowthCurve()] At least two regeneration points are required!", call. = FALSE)
 
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
-  if(ncol(sample) == 2){
+  if(ncol(sample) == 2)
     sample <- cbind(sample, 0)
-
-  }
 
   ##2.2 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
@@ -360,7 +359,6 @@ plot_GrowthCurve <- function(
       #This is slow, but it does not break with previous code
       sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
       warning("[plot_GrowthCurve()] Inf values found, replaced by NA!", call. = FALSE)
-
   }
 
   ##2.3 check whether the dose value is equal all the time
@@ -371,61 +369,62 @@ plot_GrowthCurve <- function(
   }
 
   ## optionally, count and exclude NA values and print result
-  if(na.rm) {
-    n.NA <- sum(!complete.cases(sample))
+  if(na.rm[1]) {
+    ## write warning
+    if(sum(!complete.cases(sample)) > 0)
+      warning(paste("[plot_GrowthCurve()]",
+                    sum(!complete.cases(sample)),
+                    "NA value(s) excluded."),
+              call. = FALSE)
 
-    if (n.NA == 1) {
-      warning("[plot_GrowthCurve()] 1 NA value excluded.", call. = FALSE)
-    } else if (n.NA > 1) {
-      warning(paste("[plot_GrowthCurve()]", n.NA, "NA values excluded."), call. = FALSE)
-    }
-
+    ## exclude NA
     sample <- na.exclude(sample)
 
     ##Check if anything is left after removal
     if(nrow(sample) == 0){
-      warning("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set! NULL returned")
+     try(stop("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set! NULL returned!", call. = FALSE))
       return(NULL)
     }
 
   }else{
-    stop("[plot_GrowthCurve()] Sorry, the argument 'na.rm' is defunct and will be removed in future!", call. = FALSE)
+    stop("[plot_GrowthCurve()] Sorry, the argument 'na.rm' is defunct and will be removed in future!",
+         call. = FALSE)
 
   }
 
   ##3. verbose mode
-  if(!verbose){
+  if(!verbose)
     txtProgressBar <- FALSE
-  }
-
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
   rownames(sample) <- NULL
 
   ##zero values in the data.frame are not allowed for the y-column
   if(length(sample[sample[,2]==0,2])>0){
-    warning(paste("[plot_GrowthCurve()]", length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by ", .Machine$double.eps), call. = FALSE)
+    warning(
+      paste("[plot_GrowthCurve()]",
+            length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by ",
+            .Machine$double.eps),
+      call. = FALSE)
     sample[sample[, 2] == 0, 2] <- .Machine$double.eps
   }
 
   ##1. INPUT
-
   #1.0.1 calculate number of reg points if not set
-  if(is.null(fit.NumberRegPoints)){
-    fit.NumberRegPoints<-length(sample[-1,1])
-  }
+  if(is.null(fit.NumberRegPoints))
+    fit.NumberRegPoints <- length(sample[-1,1])
+
   if(is.null(fit.NumberRegPointsReal)){
     fit.RegPointsReal <- which(!duplicated(sample[,1]) | sample[,1] != 0)
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
-
   }
 
-  #1.1 Produce dataframe from input values, two options for different modes
-  if(mode == "interpolation"){
+  #1.1 Produce data.frame from input values, two options for different modes
+  if(mode[1] == "interpolation"){
     xy <- data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
     y.Error <- sample[2:(fit.NumberRegPoints+1),3]
 
-  }else if (mode == "extrapolation" || mode == "alternate") {
+  } else if (mode[1] == "extrapolation" || mode[1] == "alternate") {
     xy <- data.frame(
       x = sample[1:(fit.NumberRegPoints+1),1],
       y = sample[1:(fit.NumberRegPoints+1),2])
@@ -441,18 +440,18 @@ plot_GrowthCurve <- function(
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
     if(any(is.na(fit.weights))){
-      fit.weights <- 1
-      warning("[plot_GrowthCurve()] 'fit.weights' ignored since the error column is invalid or 0.", call. = FALSE)
-
+      fit.weights <- rep(1, length(y.Error))
+      warning(
+        "[plot_GrowthCurve()] 'fit.weights' ignored since the error column is invalid or 0.",
+        call. = FALSE)
     }
   }else{
-      fit.weights <- rep(1, length(y.Error))
+    fit.weights <- rep(1, length(y.Error))
 
   }
 
-
   #1.2 Prepare data sets regeneration points for MC Simulation
-  if (mode == "interpolation") {
+  if (mode[1] == "interpolation") {
     data.MC <- t(vapply(
       X = seq(2, fit.NumberRegPoints + 1, by = 1),
       FUN = function(x) {
@@ -498,37 +497,33 @@ plot_GrowthCurve <- function(
   ##1.4 set initialise variables
   De <- De.Error <- D01 <-  R <-  Dc <- N <- NA
 
-
-  ##============================================================================##
   # FITTING ----------------------------------------------------------------------
-  ##============================================================================##
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
+  ## set functions for fitting
+  ## REMINDER: DO NOT ADD {} brackets, otherwise the formula construction will not
+  ## work
 
-  ##set functions for fitting
+  ## get current environment, we need that later
+  currn_env <- environment()
 
-  #EXP
-  fit.functionEXP <- function(a,b,c,x) {a*(1-exp(-(x+c)/b))}
-  fit.formulaEXP <- y ~ a * (1 - exp(-(x+c)/b))
+  ## Define functions ---------
+  ### EXP -------
+  fit.functionEXP <- function(a,b,c,x) a*(1-exp(-(x+c)/b))
 
-  #EXP+LIN
-  fit.functionEXPLIN<-function(a,b,c,g,x) {a*(1-exp(-(x+c)/b)+(g*x))}
-  fit.formulaEXPLIN <- y ~ a*(1-exp(-(x+c)/b)+(g*x))
+  ### EXP+LIN -----------
+  fit.functionEXPLIN <- function(a,b,c,g,x) a*(1-exp(-(x+c)/b)+(g*x))
 
-  #EXP+EXP
-  fit.functionEXPEXP<-function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
-  fit.formulaEXPEXP <- y ~ (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
+  ### EXP+EXP ----------
+  fit.functionEXPEXP <- function(a1,a2,b1,b2,x) (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))
 
-  #GOK
-  fit.functionGOK <- function(a,b,c,x) { a*(1-(1+(1/b)*x*c)^(-1/c)) }
-  fit.formulaGOK <- y ~ a*(1-(1+(1/b)*x*c)^(-1/c))
+  ### GOK ----------------
+  fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
-  #Lambert W
-  fit.functionLambertW <- function(R, Dc, N, Dint, x) {
-    (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N }
-  fit.formulaLambertW <- y ~ (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
+  ### Lambert W -------------
+  fit.functionLambertW <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ##input data for fitting; exclude repeated RegPoints
-  if (fit.includingRepeatedRegPoints == FALSE) {
+  if (!fit.includingRepeatedRegPoints[1]) {
     data <-
       data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
     fit.weights <- fit.weights[!duplicated(xy[[1]])]
@@ -543,25 +538,19 @@ plot_GrowthCurve <- function(
   ## for unknown reasons with only two points the nls() function is trapped in
   ## an endless mode, therefore the minimum length for data is 3
   ## (2016-05-17)
-  if((fit.method == "EXP" | fit.method == "EXP+LIN" | fit.method == "EXP+EXP" | fit.method == "EXP OR LIN")
-     && length(data[,1])<=2){
-
+  if(any(fit.method %in% c("EXP", "EXP+LIN", "EXP+EXP", "EXP OR LIN")) && length(data[,1])<=2) {
     ##set to LIN
     fit.method <- "LIN"
 
-    warning("[plot_GrowthCurve()] fitting using an exponential term requires at least 3 dose points! fit.method set to 'LIN'")
+    warning("[plot_GrowthCurve()] Fitting using an exponential term requires at
+            least 3 dose points! fit.method set to 'LIN'", call. = FALSE)
 
-    if(verbose){
-      if(verbose) message("[plot_GrowthCurve()] fit.method set to 'LIN', see warnings()")
-
-    }
-
+    if(verbose)
+      message("[plot_GrowthCurve()] fit.method set to 'LIN', see warnings()")
 
   }
 
-
   ##START PARAMETER ESTIMATION
-  ##--------------------------------------------------------------------------##
   ##general setting of start parameters for fitting
 
   ##a - estimation for a a the maximum of the y-values (Lx/Tx)
@@ -571,14 +560,10 @@ plot_GrowthCurve <- function(
   ##    (suppress the warning in case one parameter is negative)
   fit.lm <- try(lm(suppressWarnings(log(data$y))~data$x))
 
-  if(inherits(fit.lm, "try-error")){
+  if(inherits(fit.lm, "try-error"))
     b <- 1
-
-  }else{
+  else
     b <- as.numeric(1/fit.lm$coefficients[2])
-
-  }
-
 
   ##c - get start parameters from a linear fit - offset on x-axis
   fit.lm<-lm(data$y~data$x)
@@ -618,11 +603,8 @@ plot_GrowthCurve <- function(
     g.start <- NA
   }
 
-  ##--------------------------------------------------------------------------##
-  #===========================================================================##
-  #QDR#
+  # QDR ------------------------------------------------------------------------
   if (fit.method == "QDR"){
-
     ##Do fitting with option to force curve through the origin
     if(fit.force_through_origin){
       ##linear fitting ... polynomial
@@ -634,10 +616,7 @@ plot_GrowthCurve <- function(
 
       }
 
-
     }else{
-
-
       ##linear fitting ... polynomial
       fit  <- lm(data$y ~  I(data$x) + I(data$x^2), weights = fit.weights)
 
@@ -698,9 +677,6 @@ plot_GrowthCurve <- function(
       De <- NA
     }
 
-
-    # +++++++++++++++++++++++++++++++++++++++++
-
     ##set progressbar
     if(txtProgressBar){
       cat("\n\t Run Monte Carlo loops for error estimation of the QDR fit\n")
@@ -709,8 +685,7 @@ plot_GrowthCurve <- function(
 
     #start loop for Monte Carlo Error estimation
     fit.MC <- sapply(1:NumberIterations.MC, function(i){
-
-      data <- data.frame(x=xy$x, y=data.MC[,i])
+      data <- data.frame(x = xy$x, y = data.MC[,i])
 
       if(fit.force_through_origin){
         ##linear fitting ... polynomial
@@ -723,10 +698,7 @@ plot_GrowthCurve <- function(
 
         }
 
-
       }else{
-
-
         ##linear fitting ... polynomial
         fit.MC  <- lm(data$y ~  I(data$x) + I(data$x^2), weights = fit.weights)
 
@@ -793,7 +765,6 @@ plot_GrowthCurve <- function(
   }
   #===========================================================================##
   #EXP ---------------
-
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
     if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
       try(stop("[plot_GrowthCurve()] Fit could not be applied for this data set. NULL returned!", call. = FALSE))
@@ -801,8 +772,7 @@ plot_GrowthCurve <- function(
 
     }
 
-    if(fit.method!="LIN"){
-
+    if(fit.method != "LIN"){
       ##FITTING on GIVEN VALUES##
       #	--use classic R fitting routine to fit the curve
 
@@ -812,9 +782,8 @@ plot_GrowthCurve <- function(
         a <- a.MC[i]
         b <- b.MC[i]
         c <- c.MC[i]
-
         fit.initial <- suppressWarnings(try(nls(
-          y ~ fit.functionEXP(a, b, c, x),
+          formula = .toFormula(fit.functionEXP, env = currn_env),
           data = data,
           start = c(a = a, b = b, c = c),
           trace = FALSE,
@@ -828,7 +797,6 @@ plot_GrowthCurve <- function(
         ),
         silent = TRUE
         ))
-
 
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
@@ -850,7 +818,7 @@ plot_GrowthCurve <- function(
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
-        formula = fit.formulaEXP,
+        formula = .toFormula(fit.functionEXP, env = currn_env),
         data = data,
         start = list(a = a, b = b,c = 0),
         weights = fit.weights,
@@ -874,7 +842,6 @@ plot_GrowthCurve <- function(
         if(verbose) writeLines("[plot_GrowthCurve()] try-error for EXP fit")
 
       }else{
-
         ##this is to avoid the singular convergence failure due to a perfect fit at the beginning
         ##this may happen especially for simulated data
         if(inherits(fit, "try-error") & !inherits(fit.initial, "try-error")){
@@ -888,7 +855,6 @@ plot_GrowthCurve <- function(
         b <- as.vector((parameters["b"]))
         a <- as.vector((parameters["a"]))
         c <- as.vector((parameters["c"]))
-
 
         #calculate De
         if(mode == "interpolation"){
@@ -920,7 +886,6 @@ plot_GrowthCurve <- function(
           }
         }
 
-
         #EXP MC -----
         ##Monte Carlo Simulation
         #	--Fit many curves and calculate a new De +/- De_Error
@@ -933,14 +898,13 @@ plot_GrowthCurve <- function(
 
         #start loop
         for (i in 1:NumberIterations.MC) {
-
           ##set data set
           data <- data.frame(x = xy$x,y = data.MC[,i])
 
           fit.MC <- try(minpack.lm::nlsLM(
-            formula = fit.formulaEXP,
+            formula = .toFormula(fit.functionEXP, env = currn_env),
             data = data,
-            start = list(a = a, b = b,c = c),
+            start = list(a = a, b = b, c = c),
             weights = fit.weights,
             trace = FALSE,
             algorithm = "LM",
@@ -963,7 +927,6 @@ plot_GrowthCurve <- function(
             x.natural[i] <- NA
 
           }else {
-
             #get parameters out
             parameters<-coef(fit.MC)
             var.b[i]<-as.vector((parameters["b"])) #D0
@@ -998,7 +961,6 @@ plot_GrowthCurve <- function(
       }#endif::try-error fit
 
     }#endif:fit.method!="LIN"
-    # ======================================================================== #
     ##LIN -----
     ##two options: just linear fit or LIN fit after the EXP fit failed
 
@@ -1035,7 +997,6 @@ plot_GrowthCurve <- function(
 
       }
 
-
       ##remove vector labels
       De <- as.numeric(as.character(De))
 
@@ -1059,9 +1020,7 @@ plot_GrowthCurve <- function(
       #LIN MC ---------
       for (i in 1:NumberIterations.MC) {
         data <- data.frame(x = xy$x, y = data.MC[, i])
-
         if(fit.force_through_origin){
-
           ##do fitting
           fit.lmMC <- lm(data$y ~ 0 + data$x, weights=fit.weights)
 
@@ -1075,10 +1034,8 @@ plot_GrowthCurve <- function(
           }
 
         }else{
-
           ##do fitting
           fit.lmMC <- lm(data$y~ data$x, weights=fit.weights)
-
 
           #calculate x.natural
           if(mode == "interpolation"){
@@ -1092,9 +1049,6 @@ plot_GrowthCurve <- function(
           }
 
         }
-
-
-
 
       }#endfor::loop for MC
 
@@ -1110,22 +1064,23 @@ plot_GrowthCurve <- function(
   #=========================================================================== #
   # EXP+LIN ----
   else if (fit.method=="EXP+LIN") {
-
-
     ##try some start parameters from the input values to makes the fitting more stable
     for(i in 1:length(a.MC)){
       a<-a.MC[i];b<-b.MC[i];c<-c.MC[i];g<-g.MC[i]
 
       ##---------------------------------------------------------##
       ##start: with EXP function
-      fit.EXP<-try(nls(y~fit.functionEXP(a,b,c,x),
-                       data=data,
-                       start=c(a=a,b=b,c=c),
-                       trace=FALSE,
-                       algorithm="port",
-                       lower=c(a=0,b>10,c=0),
-                       nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
-      ),silent=TRUE)
+      fit.EXP <- try({
+        nls(
+        formula = .toFormula(fit.functionEXP, env = currn_env),
+        data = data,
+        start = c(a=a,b=b,c=c),
+        trace = FALSE,
+        algorithm = "port",
+        lower = c(a=0, b>10, c = 0),
+        control = nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
+      )},
+      silent=TRUE)
 
       if(!inherits(fit.EXP, "try-error")){
         #get parameters out of it
@@ -1140,39 +1095,42 @@ plot_GrowthCurve <- function(
 
       }
 
-      fit<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
-                   data=data,
-                   start=c(a=a,b=b,c=c,g=g),
-                   trace=FALSE,
-                   algorithm="port",
-                   lower = if(fit.bounds){c(a=0,b>10,c=0,g=0)}else{c(a = -Inf,b = -Inf,c = -Inf,g = -Inf)},
-                   nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
-      ),silent=TRUE)
+      fit<-try({
+        nls(
+          formula = .toFormula(fit.functionEXPLIN, env = currn_env),
+          data = data,
+          start = c(a=a,b=b,c=c,g=g),
+          trace = FALSE,
+          algorithm = "port",
+          lower = if(fit.bounds){
+            c(a=0,b>10,c=0,g=0)}
+          else{c(a = -Inf,b = -Inf,c = -Inf,g = -Inf)
+          },
+          control = nls.control(
+            maxiter = 500,
+            warnOnly = FALSE,
+            minFactor = 1/2048) #increase max. iterations
+      )}, silent=TRUE)
 
       if(!inherits(fit, "try-error")){
         #get parameters out of it
         parameters<-(coef(fit))
-        b.start[i]<-as.vector((parameters["b"]))
-        a.start[i]<-as.vector((parameters["a"]))
-        c.start[i]<-as.vector((parameters["c"]))
-        g.start[i]<-as.vector((parameters["g"]))
+        b.start[i] <- as.vector((parameters["b"]))
+        a.start[i] <- as.vector((parameters["a"]))
+        c.start[i] <- as.vector((parameters["c"]))
+        g.start[i] <- as.vector((parameters["g"]))
       }
 
-
-
-
     }##end for loop
-
-
     ##used mean as start parameters for the final fitting
-    a<-median(na.exclude(a.start))
-    b<-median(na.exclude(b.start))
-    c<-median(na.exclude(c.start))
-    g<-median(na.exclude(g.start))
+    a <- median(na.exclude(a.start))
+    b <- median(na.exclude(b.start))
+    c <- median(na.exclude(c.start))
+    g <- median(na.exclude(g.start))
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = fit.formulaEXPLIN,
+      formula = .toFormula(fit.functionEXPLIN, env = currn_env),
       data = data,
       start = list(a = a, b = b,c = c, g = g),
       weights = fit.weights,
@@ -1195,13 +1153,12 @@ plot_GrowthCurve <- function(
 
     #if try error stop calculation
     if(!inherits(fit, "try-error")){
-
       #get parameters out of it
-      parameters<-(coef(fit))
-      b<-as.vector((parameters["b"]))
-      a<-as.vector((parameters["a"]))
-      c<-as.vector((parameters["c"]))
-      g<-as.vector((parameters["g"]))
+      parameters <- coef(fit)
+      b <- as.vector((parameters["b"]))
+      a <- as.vector((parameters["a"]))
+      c <- as.vector((parameters["c"]))
+      g <- as.vector((parameters["g"]))
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
@@ -1224,8 +1181,6 @@ plot_GrowthCurve <- function(
           maxiter = 3000
         ),
         silent = TRUE)
-
-
 
         if (!inherits(temp.De, "try-error")) {
           De <- temp.De$root
@@ -1280,7 +1235,6 @@ plot_GrowthCurve <- function(
         }
       }
 
-
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
@@ -1294,17 +1248,16 @@ plot_GrowthCurve <- function(
       ##set progressbar
       if(txtProgressBar){
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
-        pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
+        pb <- txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
       }
 
       #start Monto Carlo loops
       for(i in  1:NumberIterations.MC){
-
         data <- data.frame(x=xy$x,y=data.MC[,i])
 
         ##perform MC fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = fit.formulaEXPLIN,
+          formula = .toFormula(fit.functionEXPLIN, env = currn_env),
           data = data,
           start = list(a = a, b = b,c = c, g = g),
           weights = fit.weights,
@@ -1321,8 +1274,7 @@ plot_GrowthCurve <- function(
 
         #get parameters out of it including error handling
         if (inherits(fit.MC, "try-error")) {
-
-          x.natural[i]<-NA
+          x.natural[i] <- NA
 
         }else {
           parameters <- coef(fit.MC)
@@ -1333,7 +1285,6 @@ plot_GrowthCurve <- function(
 
           #problem: analytical it is not easy to calculate x,
           #use uniroot to solve this problem
-
           if (mode == "interpolation") {
             temp.De.MC <-  try(uniroot(
               f = f.unirootEXPLIN,
@@ -1352,6 +1303,7 @@ plot_GrowthCurve <- function(
             } else{
               x.natural[i] <- NA
             }
+
           } else if (mode == "extrapolation"){
             temp.De.MC <-  try(uniroot(
               f = f.unirootEXPLIN,
@@ -1389,7 +1341,6 @@ plot_GrowthCurve <- function(
       rm(var.b, var.a, var.c, var.g)
 
     }else{
-
       #print message
       if (verbose) {
         if (mode != "alternate") {
@@ -1406,11 +1357,8 @@ plot_GrowthCurve <- function(
     } #end if "try-error" Fit Method
 
   } #End if EXP+LIN
-  #==========================================================================
-  #===========================================================================
-  #EXP+EXP#
-  else if (fit.method=="EXP+EXP") {
-
+  #EXP+EXP ---------------------------------------------------------------------
+  else if (fit.method == "EXP+EXP") {
     a1.start <- NA
     a2.start <- NA
     b1.start <- NA
@@ -1421,8 +1369,8 @@ plot_GrowthCurve <- function(
       a1 <- a.MC[i];b1 <- b.MC[i];
       a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
-      fit.start <- try(nls(
-        y ~ fit.functionEXPEXP(a1,a2,b1,b2,x),
+      fit.start <- try({
+        nls(formula = .toFormula(fit.functionEXPEXP, env = currn_env),
         data = data,
         start = c(
           a1 = a1,a2 = a2,b1 = b1,b2 = b2
@@ -1433,8 +1381,8 @@ plot_GrowthCurve <- function(
         nls.control(
           maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
         ) #increase max. iterations
-      ),silent = TRUE)
-
+      )},
+      silent = TRUE)
 
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
@@ -1454,7 +1402,7 @@ plot_GrowthCurve <- function(
 
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
-      formula = fit.formulaEXPEXP,
+      formula = .toFormula(fit.functionEXPEXP, env = currn_env),
       data = data,
       start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
       weights = fit.weights,
@@ -1469,12 +1417,10 @@ plot_GrowthCurve <- function(
     ), silent = TRUE
     )
 
-
     ##insert if for try-error
     if (!inherits(fit, "try-error")) {
-
       #get parameters out of it
-      parameters <- (coef(fit))
+      parameters <- coef(fit)
       b1 <- as.vector((parameters["b1"]))
       b2 <- as.vector((parameters["b2"]))
       a1 <- as.vector((parameters["a1"]))
@@ -1483,7 +1429,6 @@ plot_GrowthCurve <- function(
       ##set D0 values
       D01 <- round(b1,digits = 2)
       D02 <- round(b2,digits = 2)
-
 
       #problem: analytically it is not easy to calculate x, use uniroot
       if (mode == "interpolation") {
@@ -1506,7 +1451,6 @@ plot_GrowthCurve <- function(
         ),
         silent = TRUE)
 
-
         if (!inherits(temp.De, "try-error")) {
           De <- temp.De$root
         } else{
@@ -1515,8 +1459,10 @@ plot_GrowthCurve <- function(
 
         ##remove object
         rm(temp.De)
+
       }else if (mode == "extrapolation"){
-        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!", call. = FALSE)
+        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!",
+             call. = FALSE)
 
       } else{
         De <- NA
@@ -1530,17 +1476,16 @@ plot_GrowthCurve <- function(
         }
       }
 
-
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error from the simulation
       # --comparison of De from the MC and original fitted De gives a value for quality
 
       #set variables
-      var.b1<-vector(mode="numeric", length=NumberIterations.MC)
-      var.b2<-vector(mode="numeric", length=NumberIterations.MC)
-      var.a1<-vector(mode="numeric", length=NumberIterations.MC)
-      var.a2<-vector(mode="numeric", length=NumberIterations.MC)
+      var.b1 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.b2 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.a1 <- vector(mode="numeric", length=NumberIterations.MC)
+      var.a2 <- vector(mode="numeric", length=NumberIterations.MC)
 
       ##progress bar
       if(txtProgressBar){
@@ -1550,7 +1495,6 @@ plot_GrowthCurve <- function(
 
       #start Monto Carlo loops
       for (i in 1:NumberIterations.MC) {
-
         #update progress bar
         if(txtProgressBar) setTxtProgressBar(pb,i)
 
@@ -1558,7 +1502,7 @@ plot_GrowthCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = fit.formulaEXPEXP,
+          formula = .toFormula(fit.functionEXPEXP, env = currn_env),
           data = data,
           start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
           weights = fit.weights,
@@ -1615,7 +1559,6 @@ plot_GrowthCurve <- function(
       rm(var.b1, var.b2, var.a1, var.a2)
 
     }else{
-
       #print message
       if(verbose){
         writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = NA (fitting FAILED)"))
@@ -1624,31 +1567,21 @@ plot_GrowthCurve <- function(
 
     } #end if "try-error" Fit Method
 
-
     ##close
     if(txtProgressBar) if(exists("pb")){close(pb)}
 
-
-
   }
-  else if (fit.method=="GOK") {
-  #==========================================================================
+  else if (fit.method[1] == "GOK") {
   # GOK -----
-
-    # FINAL Fit
     fit <- try(minpack.lm::nlsLM(
-      formula = fit.formulaGOK,
+      formula = .toFormula(fit.functionGOK, env = currn_env),
       data = data,
-      start = list(a = a, b = b, c = 1),
+      start = list(a = a, b = b, c = 1, d = 1),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
-      lower = if (fit.bounds) {
-        c(0,0,0)
-      }else{
-        c(-Inf,-Inf,-Inf)
-      },
-      upper = c(Inf, Inf, Inf),
+      lower = if (fit.bounds) c(0,0,0,0) else c(-Inf,-Inf,-Inf,-Inf),
+      upper = if(fit.force_through_origin) c(Inf, Inf, Inf, 1) else c(Inf, Inf, Inf, Inf),
       control = minpack.lm::nls.lm.control(maxiter = 500)
     ), silent = TRUE)
 
@@ -1656,25 +1589,20 @@ plot_GrowthCurve <- function(
       if(verbose) writeLines("[plot_GrowthCurve()] try-error for GOK fit")
 
     }else{
-
       #get parameters out of it
       parameters <- (coef(fit))
       b <- as.vector((parameters["b"]))
       a <- as.vector((parameters["a"]))
       c <- as.vector((parameters["c"]))
-
+      d <- as.vector((parameters["d"]))
 
       #calculate De
-      if(mode == "interpolation"){
-        De <- suppressWarnings(-(b * (( (a - sample[1,2])/a)^c - 1) * ( ((a - sample[1,2])/a)^-c  )) / c)
-
-      }else if (mode == "extrapolation"){
-        De <- suppressWarnings(-(b * (( (a - 0)/a)^c - 1) * ( ((a - 0)/a)^-c  )) / c)
-
-      }else{
-        De <- NA
-
-      }
+      y <- sample[1,2]
+      De <- switch(
+        mode,
+        "interpolation" = suppressWarnings(-(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
+        "extrapolation" = suppressWarnings(-(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
+        NA)
 
       #print D01 value
       D01 <- b
@@ -1697,7 +1625,6 @@ plot_GrowthCurve <- function(
         }
       }
 
-
       #EXP MC -----
       ##Monte Carlo Simulation
       #	--Fit many curves and calculate a new De +/- De_Error
@@ -1707,27 +1634,27 @@ plot_GrowthCurve <- function(
       var.b <- vector(mode = "numeric", length = NumberIterations.MC)
       var.a <- vector(mode = "numeric", length = NumberIterations.MC)
       var.c <- vector(mode = "numeric", length = NumberIterations.MC)
+      var.d <- vector(mode = "numeric", length = NumberIterations.MC)
 
       #start loop
       for (i in 1:NumberIterations.MC) {
-
         ##set data set
         data <- data.frame(x = xy$x,y = data.MC[,i])
 
-        fit.MC <- try(
-        {minpack.lm::nlsLM(
-          formula = fit.formulaGOK,
+        fit.MC <- try({
+          minpack.lm::nlsLM(
+          formula = .toFormula(fit.functionGOK, env = currn_env),
           data = data,
-          start = list(a = a, b = b, c = 1),
+          start = list(a = a, b = b, c = 1, d = 1),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
           lower = if (fit.bounds) {
-            c(0,0,0)
+            c(0,0,0,0)
           }else{
-            c(-Inf,-Inf,-Inf)
+            c(-Inf,-Inf,-Inf, -Inf)
           },
-          upper = c(Inf, Inf, Inf),
+          upper = if(fit.force_through_origin) c(Inf, Inf, Inf, 1) else c(Inf, Inf, Inf, Inf),
           control = minpack.lm::nls.lm.control(maxiter = 500)
         )}, silent = TRUE)
 
@@ -1736,32 +1663,25 @@ plot_GrowthCurve <- function(
           x.natural[i] <- NA
 
         } else {
-
           # get parameters out
           parameters<-coef(fit.MC)
           var.b[i] <- as.vector((parameters["b"])) #D0
           var.a[i] <- as.vector((parameters["a"])) #Imax
           var.c[i] <- as.vector((parameters["c"])) #kinetic order modifier
+          var.d[i] <- as.vector((parameters["d"])) #origin
 
           # calculate x.natural for error calculation
-          if(mode == "interpolation"){
-            x.natural[i]<-suppressWarnings(
-                -(var.b[i] * (( (var.a[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i])
-
-          }else if(mode == "extrapolation"){
-            x.natural[i]<-suppressWarnings(
-              abs(-(var.b[i] * (( (var.a[i] - 0)/var.a[i])^var.c[i] - 1) * ( ((var.a[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])
-            )
-
-          }else{
-            x.natural[i] <- NA
-
-          }
+          x.natural[i] <- switch(
+            mode,
+            "interpolation" = suppressWarnings(-(var.b[i] * (( (var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^var.c[i] - 1) *
+                                                   (((var.a[i] * var.d[i] - data.MC.De[i])/var.a[i])^-var.c[i]  )) / var.c[i]),
+           "extrapolation" = suppressWarnings(abs(-(var.b[i] * (( (var.a[i] * var.d[i] - 0)/var.a[i])^var.c[i] - 1) *
+                                                      ( ((var.a[i] * var.d[i] - 0)/var.a[i])^-var.c[i]  )) / var.c[i])),
+           NA)
 
         }
 
       }#end for loop
-
 
       ##write D01.ERROR
       D01.ERROR <- sd(var.b, na.rm = TRUE)
@@ -1769,8 +1689,7 @@ plot_GrowthCurve <- function(
       ##remove values
       rm(var.b, var.a, var.c)
       }
-    } else if (fit.method=="LambertW") {
-    #==========================================================================
+    } else if (fit.method == "LambertW") {
     # LambertW -----
     if(mode == "extrapolation"){
       Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
@@ -1781,7 +1700,7 @@ plot_GrowthCurve <- function(
     }
 
     fit <- try(minpack.lm::nlsLM(
-          formula = fit.formulaLambertW,
+          formula = .toFormula(fit.functionLambertW, env = currn_env),
           data = data,
           start = list(R = 0, Dc = b, N = b, Dint = 0),
           weights = fit.weights,
@@ -1828,6 +1747,12 @@ plot_GrowthCurve <- function(
             ## there are cases where the function cannot calculate the root
             ## due to its shape, here we have to use the minimum
             if(inherits(De, "try-error")){
+              warning(
+                "[plot_GrowthCurve()] Standard root estimation using stats::uniroot() failed.
+                Using stats::optimize() instead, which may lead, however, to unexpected and
+                inconclusive results for fit.method = 'LambertW'!",
+                call. = FALSE)
+
               De <- try(suppressWarnings(stats::optimize(
                 f = function(x, R, Dc, N, Dint) {
                   fit.functionLambertW(R, Dc, N, Dint, x)},
@@ -1841,7 +1766,6 @@ plot_GrowthCurve <- function(
           }
 
           if(inherits(De, "try-error")) De <- NA
-
           if (verbose) {
             if (mode != "alternate") {
               writeLines(paste0(
@@ -1864,7 +1788,6 @@ plot_GrowthCurve <- function(
           ##Monte Carlo Simulation
           #	--Fit many curves and calculate a new De +/- De_Error
           #	--take De_Error
-
           #set variables
           var.R <-  var.Dc <- var.N <- var.Dint <- vector(
             mode = "numeric", length = NumberIterations.MC)
@@ -1874,7 +1797,7 @@ plot_GrowthCurve <- function(
             ##set data set
             data <- data.frame(x = xy$x,y = data.MC[,i])
             fit.MC <- try(minpack.lm::nlsLM(
-              formula = fit.formulaLambertW,
+              formula = .toFormula(fit.functionLambertW, env = currn_env),
               data = data,
               start = list(R = 0, Dc = b, N = 0, Dint = 0),
               weights = fit.weights,
@@ -1933,8 +1856,7 @@ plot_GrowthCurve <- function(
                     silent = TRUE)
                 }
               }##endif extrapolation
-
-              if(!inherits(try, "try-error"))
+              if(!inherits(try, "try-error") && !inherits(try, "function"))
                 x.natural[i] <- try
 
             }
@@ -1951,8 +1873,6 @@ plot_GrowthCurve <- function(
           rm(var.R, var.Dc, var.N, var.Dint)
 
     }#endif::try-error fit
-
-  #===========================================================================
   }#End if Fit Method
 
   #Get De values from Monte Carlo simulation
@@ -1964,87 +1884,17 @@ plot_GrowthCurve <- function(
   De.Error <- sd(na.exclude(x.natural))
 
   # Formula creation --------------------------------------------------------
-  if(!is(fit,"try-error") & !is.na(fit[1])){
-    if(fit.method == "EXP") {
-      f <- parse(text = paste0(format(coef(fit)[1], scientific = TRUE), " * (1 - exp( - ( x + ",
-                               format(coef(fit)[3], scientific = TRUE), ") / ",
-                               format(coef(fit)[2], scientific = TRUE), "))"))
 
-    }
-
-    if(fit.method == "EXP+LIN") {
-      f <- parse(text = paste0(format(coef(fit)[1], scientific = TRUE), " * (1-exp(-(x+",
-                               format(coef(fit)[3], scientific = TRUE), ") / ",
-                               format(coef(fit)[2], scientific = TRUE), ")+(",
-                               format(coef(fit)[4], scientific = TRUE), " * x))"))
-    }
-
-    if(fit.method == "EXP+EXP") {
-      f <- parse(text = paste0(format(coef(fit)[1], scientific = TRUE), " * (1 - exp( -x / ",
-                               format(coef(fit)[2], scientific = TRUE), ")) + ",
-                               format(coef(fit)[3], scientific = TRUE), " * (1 - exp( -x / ",
-                               format(coef(fit)[4], scientific = TRUE), "))"))
-    }
-
-    if(fit.method == "LIN" &  fit.force_through_origin) {
-      f <- parse(text = paste0(format(fit.lm$coefficients[1], scientific = TRUE), " * x"))
-
-    }
-
-    if(fit.method == "LIN" &  !fit.force_through_origin) {
-      f <- parse(text = paste0(format(fit.lm$coefficients[2], scientific = TRUE),
-                               "* x + ", format(fit.lm$coefficients[1], scientific = TRUE)))
-
-    }
-
-    if(fit.method == "QDR"  &  fit.force_through_origin) {
-      f <- parse(text = paste0(format(coef(fit)[1], scientific = TRUE), " * x ",
-                               " + ", format(coef(fit)[2], scientific = TRUE), " * x^2"
-      ))
-
-    }
-
-    if(fit.method == "QDR" & !fit.force_through_origin) {
-      f <- parse(text = paste0(format(coef(fit)[1], scientific = TRUE),
-                               " + ", format(coef(fit)[2], scientific = TRUE), " * x ",
-                               " + ", format(coef(fit)[3], scientific = TRUE), " * x^2"
-      ))
-
-    }
-
-    if(fit.method == "GOK") {
-      f <- parse(text = paste0(
-        format(coef(fit)[1], scientific = TRUE), " * (1 - (1 + (1/",
-        format(coef(fit)[2], scientific = TRUE), ") * x * ",
-        format(coef(fit)[3], scientific = TRUE), ")^(-1 / ",
-        format(coef(fit)[3], scientific = TRUE), "))"
-        ))
-    }
-
-    if(fit.method == "LambertW") {
-      f <- parse(text = paste0(
-        "(1 + (W((",format(coef(fit)[1], scientific = TRUE)," - 1) * exp(",
-        format(coef(fit)[1], scientific = TRUE), " - 1 - ((x + ",
-        format(coef(fit)[4], scientific = TRUE), ") / ",
-        format(coef(fit)[2], scientific = TRUE), "))) / (1 - ",
-        format(coef(fit)[1], scientific = TRUE), "))) * ",
-        format(coef(fit)[3], scientific = TRUE)
-      ))
-    }
-
-  }else{
-    f <- NA
-
-  }
-
+  ## This information is part of the fit object output anyway, but
+  ## we keep it here for legacy reasons
+  fit_formula <- NA
+  if(!inherits(fit, "try-error") && !is.na(fit[1]))
+    fit_formula <- .replace_coef(fit)
 
 # Plotting ------------------------------------------------------------------------------------
-
   ##5. Plotting if plotOutput==TRUE
   if(output.plot) {
-
-    # Deal with extra arguments -----------------------------------------------
-    ##deal with addition arguments
+    ## Deal with extra arguments --------------------------
     extraArgs <- list(...)
 
     main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
@@ -2073,7 +1923,7 @@ plot_GrowthCurve <- function(
         c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
 
       }else{
-        c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+        c(0,(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
       }
 
     }
@@ -2097,51 +1947,42 @@ plot_GrowthCurve <- function(
           c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
 
         }
-
       }
-
     }
 
-
     fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
-
 
     ##set plot check
     plot_check <- NULL
 
     ##cheat the R check
-    x<-NULL; rm(x)
+    x <- NULL; rm(x)
 
     #PAR	#open plot area
     if(output.plot == TRUE &
        output.plotExtended == TRUE &
        output.plotExtended.single == FALSE){
 
-      ####grep recent plot parameter for later reset
-      par.default.complex <- par()["cex"]
-      on.exit(par(cex = par.default.complex$cex))
+      ## safe par settings
+      par.old.full <- par(no.readonly = TRUE)
+      on.exit(par(par.old.full))
 
       ##set new parameter
       layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)
       par(cex = 0.8 * cex.global)
 
-    }else{
-
-      par.default.single <- par(no.readonly = TRUE)$cex
-      on.exit(par(cex = par.default.single))
-      par(cex=cex.global)
+    } else {
+      par(cex = cex.global)
 
     }
 
     #PLOT		#Plot input values
-
     ##Make selection to support manual number of reg points input
-    if(exists("fit.RegPointsReal")==TRUE){
-
+    if(exists("fit.RegPointsReal")){
       ##here the object sample has to be used otherwise the first regeneration point is not plotted.
       temp.xy.plot  <- sample[fit.RegPointsReal,]
 
-    }else{
+    } else {
       temp.xy.plot  <- xy[1:fit.NumberRegPointsReal,]
 
     }
@@ -2163,50 +2004,16 @@ plot_GrowthCurve <- function(
 
       }
 
-      #ADD HEADER
+      ### add header --------
       title(main = main, line = NA)
 
-      #CURVE	#plot fitted curve
-      if (fit.method == "EXP+LIN") {
-        try(curve(a * (1 - exp(-(x + c) / b) + (g * x)), lwd = 1.5, add = TRUE))
-      }
-      else
-        if (fit.method  ==  "LIN" &
-            fit.force_through_origin)
-        {
-          curve(fit.lm$coefficients[1]  *  x, lwd  =  1.5,
-                add  =  TRUE)
-        }
-      else if (fit.method == "LIN") {
-        curve(fit.lm$coefficients[2] * x + fit.lm$coefficients[1],
-              lwd = 1.5,
-              add = TRUE)
-      }
-      else if (fit.method == "QDR" & fit.force_through_origin) {
-        curve(coef(fit)[1] * x + coef(fit)[2] * x ^ 2,
-              lwd = 1.5,
-              add = TRUE)
-      }
-      else if (fit.method == "QDR") {
-        curve(coef(fit)[1] + coef(fit)[2] * x + coef(fit)[3] * x ^ 2,
-              lwd = 1.5,
-              add = TRUE)
-      }
-      else if (fit.method == "EXP") {
-        try(curve(fit.functionEXP(a, b, c, x), lwd = 1.5, add = TRUE))
-      }
-      else if (fit.method  ==  "EXP+EXP") {
-          try(curve(fit.functionEXPEXP(a1, a2, b1, b2, x),
-                    lwd  =  1.5,
-                    add  =  TRUE))
-      }
-      else if (fit.method == "GOK") {
-        try(curve(fit.functionGOK(a, b, c, x), lwd = 1.5, add = TRUE))
-      }
-      else if (fit.method == "LambertW") {
-        try(curve(fit.functionLambertW(R, Dc, N, Dint, x), lwd = 1.5, add = TRUE, n = 10000))
+      ## add curve -------
+      if(inherits(fit_formula, "expression")) {
+        x <- seq(par()$usr[1], par()$usr[2], length.out = 100)
+        lines(x, eval(fit_formula))
       }
 
+      ## add points -------
       ##POINTS	#Plot Reg0 and Repeated Points
 
       #Natural value
@@ -2220,13 +2027,18 @@ plot_GrowthCurve <- function(
 
       }
 
-      #Repeated Point
-      points(xy[which(duplicated(xy[, 1])), 1], xy[which(duplicated(xy[, 1])), 2],
-             pch = 2)
+      #repeated Point
+      points(
+        x = xy[which(duplicated(xy[, 1])), 1],
+        y = xy[which(duplicated(xy[, 1])), 2],
+        pch = 2)
 
-      #Reg Point 0
-      points(xy[which(xy == 0), 1], xy[which(xy == 0), 2], pch = 1, cex = 1.5 *
-               cex.global)
+      #reg Point 0
+      points(
+        x = xy[which(xy == 0), 1],
+        y = xy[which(xy == 0), 2],
+        pch = 1,
+        cex = 1.5 * cex.global)
 
       ##ARROWS	#y-error Bar
       segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
@@ -2242,7 +2054,7 @@ plot_GrowthCurve <- function(
             lwd = 1.25
           )
 
-        } else{
+        } else {
           try(lines(
             c(0, De),
             c(sample[1, 2], sample[1, 2]),
@@ -2260,11 +2072,9 @@ plot_GrowthCurve <- function(
         try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
 
       } else if (mode == "extrapolation"){
-
         if(!is.na(De)){
           abline(v = De, lty = 2, col = "red")
           lines(x = c(0,De), y = c(0,0), lty = 2, col = "red")
-
 
         }
 
@@ -2283,7 +2093,6 @@ plot_GrowthCurve <- function(
           ""
         }
       }
-
 
       ##TEXT		#Insert fit and result
       try(mtext(side = 3,
@@ -2325,7 +2134,7 @@ plot_GrowthCurve <- function(
 
       ##plot only if wanted
       if (output.plot == TRUE & output.plotExtended == TRUE) {
-        ##HIST		#try to plot histogramm of De values from the Monte Carlo simulation
+        ##HIST		#try to plot histogram of De values from the Monte Carlo simulation
 
         if (output.plotExtended.single != TRUE) {
           par(cex = 0.7 * cex.global)
@@ -2411,13 +2220,10 @@ plot_GrowthCurve <- function(
             silent = TRUE
           )
 
-          if(!is(plot_check,"try-error")){
+          if(!is(plot_check,"try-error"))
             text(5, 5, "not available")
 
-          }
-
         }#end ifelse
-
 
         ##PLOT		#PLOT test dose response curve if available if not plot not available
         #plot Tx/Tn value for sensitvity change
@@ -2447,7 +2253,6 @@ plot_GrowthCurve <- function(
           }#end if else
         }
 
-
         ## FUN by R Luminescence Team
         if (fun == TRUE) {
           sTeve()
@@ -2464,7 +2269,6 @@ plot_GrowthCurve <- function(
     }
 
   }
-
 
 # Output ------------------------------------------------------------------
   ##calculate HPDI
@@ -2501,7 +2305,7 @@ plot_GrowthCurve <- function(
       De = output,
       De.MC = x.natural,
       Fit = fit,
-      Formula = f
+      Formula = fit_formula
     ),
     info = list(
       call = sys.call()
@@ -2510,3 +2314,73 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
+
+# Helper functions in plot_GrowthCurve() --------------------------------------
+#'@title Replace coefficients in formula
+#'
+#'@description
+#'
+#'Replace the parameters in a fitting function by the true, fitted values.
+#'This way the results can be easily used by the other functions
+#'
+#'@param f [nls] or [lm] (**required**): the output object of the fitting
+#'
+#'@returns Returns an [expression]
+#'
+#'@md
+#'@noRd
+.replace_coef <- function(f) {
+  ## get formula as character string
+  if(inherits(f, "nls")) {
+    str <- as.character(f$m$formula())[3]
+    param <- coef(f)
+
+  } else {
+    str <- "a * x + b * x^2 + n"
+    param <- c(n = 0, a = 0, b = 0)
+     if(!"(Intercept)" %in% names(coef(f)))
+      param[2:(length(coef(f))+1)] <- coef(f)
+    else
+      param[1:length(coef(f))] <- coef(f)
+
+  }
+
+  ## replace
+  for(i in 1:length(param))
+    str <- gsub(
+      pattern = names(param)[i],
+      replacement = format(param[i], digits = 3, scientific = TRUE),
+      x = str,
+      fixed = TRUE)
+
+  ## return
+  return(parse(text = str))
+}
+
+#'@title Convert function to formula
+#'
+#'@description The fitting functions are provided as functions, however, later is
+#'easer to work with them as expressions, this functions converts to formula
+#'
+#'@param f [function] (**required**): function to be converted
+#'
+#'@param env [environment] (*with default*): environment for the formula
+#'creation. This argument is required otherwise it can cause all kind of
+#'very complicated to-track-down errors when R tries to access the function
+#'stack
+#'
+#'@md
+#'@noRd
+.toFormula <- function(f, env) {
+  ## deparse
+  tmp <- deparse(f)
+
+  ## set formula
+  ## this is very fragile and works only if the functions are constructed
+  ## without {} brackets, otherwise it will not work in combination
+  ## of covr and testthat
+  tmp_formula <- as.formula(paste0("y ~ ", paste(tmp[-1], collapse = "")), env = env)
+
+  return(tmp_formula)
+}
+
