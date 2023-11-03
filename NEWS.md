@@ -7,7 +7,7 @@
 
 # Changes in version 0.9.23 (2023-11-03)
 
-**This package version requires R \>= 4.1**
+**This package version requires R \>= 4.2**
 
 ## Bugfixes and changes
 
