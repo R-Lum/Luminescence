@@ -49,3 +49,4 @@ can be passed.
 
 ## Internals
 * Adding new dependency to `'interp'`
+* Remove dependency to orphaned package `'plotrix'`; the code in one affected function was replaced using base R code
