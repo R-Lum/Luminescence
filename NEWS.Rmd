@@ -8,45 +8,8 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-**This package version requires R >= 4.1**
+**This package version requires R >= 4.2**
 
 ## Bugfixes and changes
 
-### `analyse_portableOSL()` (**potentially breaking changes**)
-The function received a major update, including an updated output object. Please 
-make sure that you read the changes before updating, because it may break your existing code!
-
-* New argument `mode` added with two options `'profile'` (the default) and `'surface'`. The latter is intended for 2D surface interpolation of luminescence signals and was newly added. 
-* New argument `coord` added, to allow the user to provide a list or matrix of xy-coordinates of the sampling position. 
-If nothing is provided, the coordinates are extracted from the file name or an index is calculated. 
-* The function now always translates input order in x and y coordinates, to have the treatment consistent.
-* In profile mode, the function now returns also the dark count values with their standard deviation. The dark counts
-can also be plotted in the surface mode, although it probably does not make much sense. 
-* `invert = TRUE` the y-axis is now also inverted and the inversion works more consistently 
-* `...` argument `grid` (enabled by default) for better parameter reading
-* `...` argument `sample` was changed to `run` better complying with the terminology of the PSL format, where
-* `...` argument `bg_img` was added to provide a background image (e.g., a profile photo) for overlay
-the sample name is called run.
-* `...` supports a lot more arguments to enable better plot modifications in particular for the newly added
-surface interpolation mode. 
-
-### `calc_Huntley2006()`
-* The function can now handle `"extrapolation"` for `fit.method = "GOK"` or  `fit.method = "EXP"` and is therefore suited to
-additive measurement protocols. This implementation has beta character and needs further testing. 
-
-### `read_PSL()`
-* Remove unwanted characters less aggressively from sample name; with this new setting, coordinates 
-can be passed.
-
-### `plot_GrowthCurve()`
-* The function crashed for the setting `plot_GrowthCurve(..., mode = "alternate", fit.method = "LambertW")`; fixed (#114, @Eiskeil, thanks for reporting).
-* Now throws a warning in `mode = "extrapolation", fit.method = "LambertW"` of the standard root estimation failed and hence the results can become inconclusive. 
-* `fit.method = "GOK"` now supports fits that are not necessarily forced through the origin.
-* If the calculated fit weights were invalid, the parameter was not set always correctly set; fixed.
-* Non-user visible change: the fit formula is now extracted more consistently and less error-prone.
-* If the first `Lx/Tx` value was very high, the x-axis origin in the plot was not always shown by default. This was intended behaviour, however, sometimes this causes confusion. Now the axis origin is always shown. Still the axis limits can still be modified using `ylim` and `xlim`. (Thanks to Salome Oehler for flagging this issue).
-* The fitted curve now always extends to the plot margins. 
-
-## Internals
-* Adding new dependency to `'interp'`
-* Remove dependency to orphaned package `'plotrix'`; the code in one affected function was replaced using base R code
+* Dummy
