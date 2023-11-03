@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
       </span>
     </div>
 
@@ -67,44 +67,55 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.21" id="changes-in-version-0921-2023-02-03">Changes in version 0.9.21 (2023-02-03)<a class="anchor" aria-label="anchor" href="#changes-in-version-0921-2023-02-03"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.23" id="changes-in-version-0923-2023-11-03">Changes in version 0.9.23 (2023-11-03)<a class="anchor" aria-label="anchor" href="#changes-in-version-0923-2023-11-03"></a></h2>
 <p><strong>This package version requires R &gt;= 4.1</strong></p>
 <div class="section level3">
-<h3 id="bugfixes-and-changes-0-9-21">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-21"></a></h3>
+<h3 id="bugfixes-and-changes-0-9-23">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-23"></a></h3>
 <div class="section level4">
-<h4 id="analyse_portableosl-0-9-21"><code>analyse_portableOSL()</code><a class="anchor" aria-label="anchor" href="#analyse_portableosl-0-9-21"></a></h4>
-<ul><li>The function can now handle a list of <code>RLum.Analysis-class</code> objects and automatically process them in a conventional way. <strong>Potential breaking change warning</strong>: the <code>$summary</code> data frame gained an additional column, <code>SAMPLE</code>. If you access columns index-based, you have to double-check your code. The manual was updated accordingly.</li>
-<li>A new <code>...</code> argument <code>sample</code> was added to allow adding information on the sample for the plot</li>
-<li>The function did not like sequences with only one pair of OSL/IRSL and returned an error; fixed.</li>
+<h4 id="analyse_portableosl-potentially-breaking-changes-0-9-23">
+<code>analyse_portableOSL()</code> (<strong>potentially breaking changes</strong>)<a class="anchor" aria-label="anchor" href="#analyse_portableosl-potentially-breaking-changes-0-9-23"></a></h4>
+<p>The function received a major update, including an updated output object. Please make sure that you read the changes before updating, because it may break your existing code!</p>
+<ul><li>New argument <code>mode</code> added with two options <code>'profile'</code> (the default) and <code>'surface'</code>. The latter is intended for 2D surface interpolation of luminescence signals and was newly added.</li>
+<li>New argument <code>coord</code> added, to allow the user to provide a list or matrix of xy-coordinates of the sampling position. If nothing is provided, the coordinates are extracted from the file name or an index is calculated.</li>
+<li>The function now always translates input order in x and y coordinates, to have the treatment consistent.</li>
+<li>In profile mode, the function now returns also the dark count values with their standard deviation. The dark counts can also be plotted in the surface mode, although it probably does not make much sense.</li>
+<li>
+<code>invert = TRUE</code> the y-axis is now also inverted and the inversion works more consistently</li>
+<li>
+<code>...</code> argument <code>grid</code> (enabled by default) for better parameter reading</li>
+<li>
+<code>...</code> argument <code>sample</code> was changed to <code>run</code> better complying with the terminology of the PSL format, where</li>
+<li>
+<code>...</code> argument <code>bg_img</code> was added to provide a background image (e.g., a profile photo) for overlay the sample name is called run.</li>
+<li>
+<code>...</code> supports a lot more arguments to enable better plot modifications in particular for the newly added surface interpolation mode.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="convert_psl2csv-0-9-21"><code>convert_PSL2CSV()</code><a class="anchor" aria-label="anchor" href="#convert_psl2csv-0-9-21"></a></h4>
-<ul><li>Add new argument <code>single_table</code> to enable the export of PSL data into a single spreadsheet table (CSV file), each curve is represented by two columns</li>
-<li>Add new argument <code>extract_raw_data</code>, which allows to extract the raw data convienently. Those data are already imported by <code><a href="../reference/read_PSL2R.html">read_PSL2R()</a></code> but they remain somewhat hidden in the <code>@info</code> slots of each <code>RLum.Data.Curve</code> object.</li>
+<h4 id="calc_huntley2006-0-9-23"><code>calc_Huntley2006()</code><a class="anchor" aria-label="anchor" href="#calc_huntley2006-0-9-23"></a></h4>
+<ul><li>The function can now handle <code>"extrapolation"</code> for <code>fit.method = "GOK"</code> or <code>fit.method = "EXP"</code> and is therefore suited to additive measurement protocols. This implementation has beta character and needs further testing.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="fit_lmcurve-0-9-21"><code>fit_LMCurve()</code><a class="anchor" aria-label="anchor" href="#fit_lmcurve-0-9-21"></a></h4>
-<ul><li>If the argument <code>fit.calcError</code> was set to <code>TRUE</code> and the parameter confidence interval calculation failed, the function stopped with an uncontrolled error. Now it shows a meaningful warning instead.</li>
+<h4 id="read_psl-0-9-23"><code>read_PSL()</code><a class="anchor" aria-label="anchor" href="#read_psl-0-9-23"></a></h4>
+<ul><li>Remove unwanted characters less aggressively from sample name; with this new setting, coordinates can be passed.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="plot_radialplot-0-9-21"><code>plot_RadialPlot()</code><a class="anchor" aria-label="anchor" href="#plot_radialplot-0-9-21"></a></h4>
-<ul><li>Fix a few visual problems if the dataset has negative values (thanks to Alice Versendaal for reporting)</li>
-</ul></div>
-<div class="section level4">
-<h4 id="read_bin2r-0-9-21"><code>read_BIN2R()</code><a class="anchor" aria-label="anchor" href="#read_bin2r-0-9-21"></a></h4>
-<ul><li>Function crashed under edge conditions while testing concise records returning a subscript out of bounds error; fixed.</li>
-<li>The function struggled to read files from downloads (URL instead of a local file path) correctly on Windows machines; fixed.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="write_rlum2csv-0-9-21"><code>write_RLum2CSV()</code><a class="anchor" aria-label="anchor" href="#write_rlum2csv-0-9-21"></a></h4>
-<ul><li>The function now accepts <code>data.frame</code> objects as input. This has no particular advantage over the base R functions, such as <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code> but is used internally in combination with other functions.</li>
-</ul></div>
-<div class="section level4">
-<h4 id="internals-0-9-21">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-21"></a></h4>
-<ul><li>Fix outdated URL in <code>github.R</code>
-</li>
+<h4 id="plot_growthcurve-0-9-23"><code>plot_GrowthCurve()</code><a class="anchor" aria-label="anchor" href="#plot_growthcurve-0-9-23"></a></h4>
+<ul><li>The function crashed for the setting <code>plot_GrowthCurve(..., mode = "alternate", fit.method = "LambertW")</code>; fixed (<a href="https://github.com/R-Lum/Luminescence/issues/114" class="external-link">#114</a>, <a href="https://github.com/Eiskeil" class="external-link">@Eiskeil</a>, thanks for reporting).</li>
+<li>Now throws a warning in <code>mode = "extrapolation", fit.method = "LambertW"</code> of the standard root estimation failed and hence the results can become inconclusive.</li>
+<li>
+<code>fit.method = "GOK"</code> now supports fits that are not necessarily forced through the origin.</li>
+<li>If the calculated fit weights were invalid, the parameter was not set always correctly set; fixed.</li>
+<li>Non-user visible change: the fit formula is now extracted more consistently and less error-prone.</li>
+<li>If the first <code>Lx/Tx</code> value was very high, the x-axis origin in the plot was not always shown by default. This was intended behaviour, however, sometimes this causes confusion. Now the axis origin is always shown. Still the axis limits can still be modified using <code>ylim</code> and <code>xlim</code>. (Thanks to Salome Oehler for flagging this issue).</li>
+<li>The fitted curve now always extends to the plot margins.</li>
 </ul></div>
 </div>
+<div class="section level3">
+<h3 id="internals-0-9-23">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-23"></a></h3>
+<ul><li>Adding new dependency to <code>'interp'</code>
+</li>
+<li>Remove dependency to orphaned package <code>'plotrix'</code>; the code in one affected function was replaced using base R code</li>
+</ul></div>
 </div>
   </div>
 
