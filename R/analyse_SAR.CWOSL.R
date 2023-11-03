@@ -14,9 +14,9 @@
 #' **What is part of a SAR sequence?**
 #'
 #' The function is rather picky when it comes down to accepted curve input (OSL,IRSL,...) and structure.
-#' A SAR sequence is basically a set of $L_{x}/T_{x}$ curves. Hence, every 2nd curve
+#' A SAR sequence is basically a set of \eqn{L_{x}/T_{x}} curves. Hence, every 2nd curve
 #' is considered a shine-down curve related to the test dose. It also means that the number of
-#' curves for $L_{x}$ has to be equal to the number of $T_{x}$ curves, and that
+#' curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves, and that
 #' hot-bleach curves **do not** belong into a SAR sequence; at least not for the analysis.
 #' Other curves allowed and processed are preheat curves, or preheat curves measured as TL, and
 #' irradiation curves. The later one indicates the duration of the irradiation, the
@@ -57,13 +57,13 @@
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
-#' Lx/Tx values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
+#' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
 #' ratio of the natural signal). For methodological background see Aitken and
 #' Smith (1988).
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which per
 #' default should not exceed 10%. The test dose error is calculated as `Tx_net.error/Tx_net`.
-#' The calculation of the $T_{n}$ error is detailed in [calc_OSLLxTxRatio].
+#' The calculation of the \eqn{T_{n}} error is detailed in [calc_OSLLxTxRatio].
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10%.
