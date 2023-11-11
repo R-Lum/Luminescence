@@ -12,4 +12,9 @@ header-includes:
 
 ## Bugfixes and changes
 
-* Dummy
+### `read_BIN2R()`
+* Argument `n.records` can now be provided as a vector to specifically 
+select records for the import. All other records are skipped and not imported. 
+This can be useful in particular for very large BIN/BINX-files because
+allows importing single records very quickly without parsing the entire 
+file
