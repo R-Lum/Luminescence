@@ -767,7 +767,8 @@ read_BIN2R <- function(
 
       ##COMMENT
       COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.COMMENT<-readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
+      temp.COMMENT <- suppressWarnings(
+        readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
 
       #step forward in con
       if(80-c(COMMENT_SIZE)>0){
@@ -801,7 +802,7 @@ read_BIN2R <- function(
       ##correct for 0 user size length
       if (length(USER_SIZE) > 0) {
         temp.USER <-
-          readChar(con, USER_SIZE, useBytes = TRUE) #set to 30 (manual)
+          suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
       }else{
         USER_SIZE <- 0
 
@@ -842,7 +843,7 @@ read_BIN2R <- function(
       ##date size corrections for wrong date formats; set n to 6 for all values
       ##according the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
-      temp.DATE <- readChar(con, DATE_SIZE, useBytes = TRUE)
+      temp.DATE <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
 
       ##(4) Analysis
       ##DTYPE
@@ -1547,3 +1548,5 @@ read_BIN2R <- function(
    return(object)
 
 }
+
+

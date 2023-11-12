@@ -302,22 +302,24 @@ setMethod(f = "show",
           definition = function(object){
 
             if(nrow(object@METADATA) != 0){
-              version<-paste(unique(object@METADATA[,"VERSION"]), collapse = ", ")
-              systemID<-paste(unique(object@METADATA[,"SYSTEMID"]), collapse = ", ")
-              filename <- as.character(object@METADATA[1,"FNAME"])
-              records.overall<-length(object@DATA)
-              records.type<-table(object@METADATA[,"LTYPE"])
-              user<-paste(unique(as.character(object@METADATA[,"USER"])), collapse = ", ")
-              date<-paste(unique(as.character(object@METADATA[,"DATE"])), collapse = ", ")
-              run.range<-range(object@METADATA[,"RUN"])
-              set.range<-range(object@METADATA[,"SET"])
-              grain.range <- range(object@METADATA[,"GRAIN"])
-              pos.range<-range(object@METADATA[,"POSITION"])
+              ## check if image/ROI data are present; get ID and remove information
+              id_128 <- object@METADATA[["RECTYPE"]] != 128
 
-              records.type.count <- sapply(1:length(records.type),
-                function(x){paste(
-                names(records.type)[x],"\t(n = ",records.type[x],")",sep="")
-                })
+              version <- suppressWarnings(paste(unique(object@METADATA[id_128,"VERSION"]), collapse = ", "))
+              systemID <- suppressWarnings(paste(unique(object@METADATA[id_128,"SYSTEMID"]), collapse = ", "))
+              filename <- as.character(object@METADATA[1,"FNAME"])
+              records.overall <- length(object@DATA)
+              records.type <- table(object@METADATA[id_128,"LTYPE"])
+              user <- paste(unique(as.character(object@METADATA[id_128,"USER"])), collapse = ", ")
+              date <- paste(unique(as.character(object@METADATA[id_128,"DATE"])), collapse = ", ")
+              run.range <- suppressWarnings(range(object@METADATA[id_128,"RUN"]))
+              set.range <- suppressWarnings(range(object@METADATA[id_128,"SET"]))
+              grain.range <- suppressWarnings(range(object@METADATA[id_128,"GRAIN"]))
+              pos.range <- suppressWarnings(range(object@METADATA[id_128,"POSITION"]))
+
+              records.type.count <- vapply(seq_along(records.type), function(x){
+                paste0(names(records.type[x]),"\t(n = ", records.type[x],")")
+               }, character(1))
 
               records.type.count <- paste(records.type.count,
                                           collapse="\n\t                      ")
@@ -336,7 +338,10 @@ setMethod(f = "show",
               cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
               cat("\n\tGrain range:         ",grain.range[1],":",grain.range[2])
               cat("\n\tRun range:           ",run.range[1],":",run.range[2])
-              cat("\n\tSet range:           ",set.range[1],":",set.range[2], "\n")
+
+              ## if id_128
+              if(any(!id_128))
+                cat("\n\t + additional ROI data found in record(s):", paste(which(!id_128), collapse = ", "))
 
             }else{
               cat("\n[Risoe.BINfileData object]")
