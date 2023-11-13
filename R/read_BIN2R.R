@@ -94,7 +94,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
 #'
-#' @section Function version: 0.16.8
+#' @section Function version: 0.17.0
 #'
 #'
 #' @author
@@ -382,7 +382,7 @@ read_BIN2R <- function(
         }
 
         ##set or reset n.records
-        n.records <- temp.ID
+        n.records <- seq_len(temp.ID)
         break()
 
       }else{
@@ -402,12 +402,12 @@ read_BIN2R <- function(
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what = "int", 1, size = 4, endian = "little")
-      STEPPING <- readBin(con, what = "raw", temp.LENGTH-6, size = 1, endian = "little")
+      STEPPING <- readBin(con, what = "raw", max(c(0,temp.LENGTH - 6)), size = 1, endian = "little")
 
     }else{
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what = "int", 1, size = 2, endian = "little")
-      STEPPING <- readBin(con, what = "raw", temp.LENGTH-4, size = 1, endian = "little")
+      STEPPING <- readBin(con, what = "raw", temp.LENGTH - 4, size = 1, endian = "little")
 
     }
 
@@ -415,13 +415,11 @@ read_BIN2R <- function(
 
   }
 
-  ##set n.records is not given
-  if(is.null(n.records))
-    n.records <- seq_len(temp.ID)
+  ##set n.length we will need it later
+  n.length <- temp.ID
 
   rm(temp.ID)
   close(con) ##we have to close the connection here
-
 
 # Set Lookup tables  --------------------------------------------------------------------------
 
@@ -512,18 +510,13 @@ read_BIN2R <- function(
   temp.MARKPOS_Y3 <- NA
   temp.EXTR_START <- NA
   temp.EXTR_END <- NA
-  temp.ROI_NOFPOINTS <- NA_integer_
-  temp.ROI_USEDFOR <- raw(length = 48)
-  temp.ROI_SHOWNFOR <- raw(length = 48)
-  temp.ROI_COLOR <- NA_integer_
-  temp.ROI_X <- numeric(length = 50)
-  temp.ROI_Y <- numeric(length = 50)
 
   ## set TIME_SIZE
   TIME_SIZE <- 0
 
-  ##SET length of entire record
-  n.length <- length(n.records)
+  ##overwrite length if required
+  if(!is.null(n.records))
+    n.length <- length(n.records)
 
   ## set index for entry row in table
   id_row <- 1
@@ -704,7 +697,10 @@ read_BIN2R <- function(
       temp.NPOINTS <- temp[3]
 
       ## skip record if not selected
-      if(!(temp.ID + 1) %in% n.records) {
+      ## the first condition boosts the speed of reading if n.records is not
+      ## used; otherwise for each record the condition is checked whether
+      ## used or not.
+      if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
         temp.ID <- temp.ID + 1
         readBin(con, what = "raw", n = temp.LENGTH - 14, size = 1, endian = "little")
         next()
@@ -743,7 +739,7 @@ read_BIN2R <- function(
 
       ##(2) Sample characteristics
       ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
-      temp <- readBin(con, what="int", 7, size=2, endian="little")
+      temp <- readBin(con, what = "int", 7, size = 2, endian = "little")
 
       temp.RUN <- temp[1]
       temp.SET <- temp[2]
@@ -1222,22 +1218,13 @@ read_BIN2R <- function(
    ## ROI ... it depends on the number of POINTS
    if (temp.RECTYPE == 128){
     temp.DPOINTS <- lapply(1:temp.NPOINTS, function(x) {
-
-    temp.ROI_NOFPOINTS <- readBin(con, what = "integer", 1, size = 4, endian = "little")
-    temp.ROI_USEDFOR[] <- readBin(con, what = "raw", 48, size = 1, endian = "little")
-    temp.ROI_SHOWNFOR[] <- readBin(con, what = "raw", 48, size = 1, endian = "little")
-    temp.ROI_COLOR <- readBin(con, what = "integer", 1, size = 4, endian = "little")
-    temp.ROI_X[] <- readBin(con, what = "double", 50, size = 4, endian = "little")
-    temp.ROI_Y <- readBin(con, what = "double", 50, size = 4, endian = "little")
-
-    ## combine in a list
-    list(
-      NOFPOINTS = temp.ROI_NOFPOINTS,
-      USEDFOR = temp.ROI_USEDFOR,
-      SHOWFOR = temp.ROI_SHOWNFOR,
-      ROICOLOR = temp.ROI_COLOR,
-      X = temp.ROI_X,
-      Y = temp.ROI_X)
+      list(
+        NOFPOINTS = readBin(con, what = "int", 1, size = 4, endian = "little"),
+        USEDFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
+        SHOWFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
+        ROICOLOR = readBin(con, what = "integer", 1, size = 4, endian = "little"),
+        X = readBin(con, what = "double", 50, size = 4, endian = "little"),
+        Y = readBin(con, what = "double", 50, size = 4, endian = "little"))
 
     })
    }
@@ -1261,7 +1248,7 @@ read_BIN2R <- function(
     if(!is.na(temp.LIGHTPOWER)){temp.LPOWER <- temp.LIGHTPOWER}
     if(!is.na(temp.LPOWER)){temp.LIGHTPOWER <- temp.LPOWER}
 
-    temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
+    temp.SEL <- if(temp.TAG == 1) TRUE else FALSE
 
     ##replace values in the data.table with values
     results.METADATA[id_row, `:=` (
@@ -1358,8 +1345,7 @@ read_BIN2R <- function(
     ## update id row
     id_row <- id_row + 1
 
-
-  }#endwhile::end lopp
+  }#endwhile::end loop
 
   ##close
   if(txtProgressBar & verbose){close(pb)}
@@ -1548,5 +1534,4 @@ read_BIN2R <- function(
    return(object)
 
 }
-
 
