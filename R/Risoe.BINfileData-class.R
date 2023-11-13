@@ -167,12 +167,36 @@ NULL
 #' `[6]` \tab Green laser (single grain) \cr
 #' `[7]` \tab IR laser (single grain) }
 #'
+#' **Internal DATA - object structure**
+#'
+#' With version 8 of the BIN/BINX file format, slot `@DATA` (byte array `DPOINTS`) can
+#' contain two different values:
+#'
+#' 1. `DPOINTS` (standard for `RECTYPE` := (0,1)): is a vector with the length defined
+#' through `NPOINTS`. This is the standard for xy-curves since version 03.
+#'
+#' 2. `DPOINTS` (`RECTYPE` := 128) is contains no count values but information about
+#' the definition of the regions of interest (ROI). Each definition is 504 bytes long.
+#' The number of definitions is defined by `NPOINTS` in `@METADATA`. The record
+#' describes basically the geometric features of the regions of interest.
+#' The representation in R is a nested [list].
+#'
+#' \tabular{rllll}{
+#' **#** \tab **Name** \tab **Data Type** \tab **V** \tab **Description** \cr
+#'`[,1]` \tab `NOFPOINTS`  \tab `numeric` \tab 08 \tab number of points in the definition (e.g., if the ROI is a rectangle: 4)\cr
+#'`[,2]` \tab `USEDFOR`  \tab `logical` \tab 08 \tab samples for which the ROI is used for; a maximum of 48 samples are allowed.\cr
+#'`[,3]` \tab `SHOWNFOR`  \tab `logical` \tab 08 \tab samples for which the ROI is shown for; a maximum of 48 samples are allowed.\cr
+#'`[,4]` \tab `COLOR`  \tab `numeric` \tab 08 \tab The colour values of the ROI.\cr
+#'`[,5]` \tab `X`  \tab `numeric` \tab 08 \tab The x coordinates used to draw the ROI geometry (up to 50 points are allowed).\cr
+#'`[,6]` \tab `Y`  \tab `numeric` \tab 08 \tab The y coordinates used to draw the ROI geometry (up to 50 points are allowed).\cr
+#' }
+#'
 #' (information on the BIN/BINX file format are kindly provided by Risø, DTU Nutech)
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' `new("Risoe.BINfileData", ...)`.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
@@ -303,7 +327,10 @@ setMethod(f = "show",
 
             if(nrow(object@METADATA) != 0){
               ## check if image/ROI data are present; get ID and remove information
-              id_128 <- object@METADATA[["RECTYPE"]] != 128
+              if(!is.null(object@METADATA[["RECTYPE"]]))
+                id_128 <- object@METADATA[["RECTYPE"]] != 128
+              else
+                id_128 <- rep(TRUE, nrow(object@METADATA))
 
               version <- suppressWarnings(paste(unique(object@METADATA[id_128,"VERSION"]), collapse = ", "))
               systemID <- suppressWarnings(paste(unique(object@METADATA[id_128,"SYSTEMID"]), collapse = ", "))
@@ -315,6 +342,7 @@ setMethod(f = "show",
               run.range <- suppressWarnings(range(object@METADATA[id_128,"RUN"]))
               set.range <- suppressWarnings(range(object@METADATA[id_128,"SET"]))
               grain.range <- suppressWarnings(range(object@METADATA[id_128,"GRAIN"]))
+
               pos.range <- suppressWarnings(range(object@METADATA[id_128,"POSITION"]))
 
               records.type.count <- vapply(seq_along(records.type), function(x){
@@ -326,7 +354,7 @@ setMethod(f = "show",
 
               ##print
               cat("\n[Risoe.BINfileData object]")
-              cat("\n\n\tBIN/BINX version     ", version)
+              cat("\n\n\tBIN/BINX version:    ", version)
               if(version>=6){
                 cat("\n\tFile name:           ", filename)
               }
@@ -335,9 +363,11 @@ setMethod(f = "show",
               cat("\n\tSystem ID:           ", ifelse(systemID == 0,"0 (unknown)", systemID))
               cat("\n\tOverall records:     ", records.overall)
               cat("\n\tRecords type:        ", records.type.count)
-              cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
-              cat("\n\tGrain range:         ",grain.range[1],":",grain.range[2])
-              cat("\n\tRun range:           ",run.range[1],":",run.range[2])
+              cat("\n\tPosition range:      ", pos.range[1],":",pos.range[2])
+                if(max(grain.range) > 0)
+                  cat("\n\tGrain range:         ", grain.range[1],":",grain.range[2])
+
+              cat("\n\tRun range:           ", run.range[1],":",run.range[2])
 
               ## if id_128
               if(any(!id_128))

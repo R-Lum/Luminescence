@@ -18,3 +18,6 @@ select records for the import. All other records are skipped and not imported.
 This can be useful in particular for very large BIN/BINX-files because
 allows importing single records very quickly without parsing the entire 
 file
+
+### `Riso.BINfileData-class()`
+* The `show` method now knows about `RECTYPE` 128 and will account for it.
