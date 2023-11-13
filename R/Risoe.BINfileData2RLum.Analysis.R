@@ -57,7 +57,7 @@
 #' The `protocol` argument of the [RLum.Analysis-class]
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -293,7 +293,11 @@ Risoe.BINfileData2RLum.Analysis<- function(
         object <- set_RLum(
           class = "RLum.Analysis",
           records = lapply(temp_id,function(x) {
-            .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
+            ## skip ROI information
+            if(!is.null(object@METADATA[["RECTYPE"]]) && object@METADATA[["RECTYPE"]][x] == 128)
+              set_RLum(class = "RLum.Data.Curve")
+            else
+              .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
           }),
           protocol = protocol,
           originator = "Risoe.BINfileData2RLum.Analysis"

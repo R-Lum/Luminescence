@@ -19,5 +19,10 @@ This can be useful in particular for very large BIN/BINX-files because
 allows importing single records very quickly without parsing the entire 
 file
 
-### `Riso.BINfileData-class()`
+### `Risoe.BINfileData-class()`
 * The `show` method now knows about `RECTYPE` 128 and will account for it.
+
+### `Risoe.BINFfileData2RLum.Analysis()` 
+* The function learned about `RECTYPE` 128 records. Those records contain ROI 
+data from camera measurements and are skipped for the moment because they do not 
+really belong to measurement data. This may change future.
