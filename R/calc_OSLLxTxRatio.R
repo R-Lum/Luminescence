@@ -190,11 +190,12 @@ calc_OSLLxTxRatio <- function(
   if(!is.null(Tx.data)){
     ##(a) - check data type
     if(is(Lx.data)[1]!=is(Tx.data)[1]){
-      stop("[calc_OSLLxTxRatio()] Data type of Lx and Tx data differs!", call. = FALSE)
+      stop("[calc_OSLLxTxRatio()] Data type of Lx and Tx data differs!",
+           call. = FALSE)
     }
 
     ##(b) - test if data.type is valid in general
-    if(is(Lx.data)[1] == "RLum.Data.Curve"){
+    if(inherits(Lx.data, "RLum.Data.Curve")){
       Lx.data <- as(Lx.data, "data.frame")
       Tx.data <- as(Tx.data, "data.frame")
 
@@ -210,19 +211,20 @@ calc_OSLLxTxRatio <- function(
     ##(c) - convert vector to data.frame if necessary
     if(is(Lx.data)[1] != "data.frame" &
        is(Lx.data)[1] != "matrix"){
-      Lx.data <- data.frame(x=1:length(Lx.data),y=Lx.data)
-      Tx.data <- data.frame(x=1:length(Tx.data),y=Tx.data)
+      Lx.data <- data.frame(x = 1:length(Lx.data), y = Lx.data)
+      Tx.data <- data.frame(x = 1:length(Tx.data), y = Tx.data)
     }
 
     ##(d) - check if Lx and Tx curves have the same channel length
-    if(length(Lx.data[,2]) != length(Tx.data[,2])){
-      stop("[calc_OSLLxTxRatio()] Channel numbers of Lx and Tx data differ!")}
+    if(length(Lx.data[,2]) != length(Tx.data[,2]))
+      stop("[calc_OSLLxTxRatio()] Channel numbers of Lx and Tx data differ!",
+           call. = FALSE)
 
   }else{
     Tx.data <- data.frame(x = NA,y = NA)
 
     ##support RLum.objects
-    if(is(Lx.data)[1] == "RLum.Data.Curve"){
+    if(inherits(Lx.data, "RLum.Data.Curve")){
       Lx.data <- as(Lx.data, "data.frame")
 
     }
