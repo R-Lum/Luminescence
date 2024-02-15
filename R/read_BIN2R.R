@@ -1015,7 +1015,7 @@ read_BIN2R <- function(
       temp.NPOINTS <- temp[3]
 
       ## set temp ID if within select
-      if(!(temp.ID + 1) %in% n.records) {
+      if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
         readBin(con, what = "raw", n =  temp.LENGTH - 8, size = 1, endian = "little")
         next()
       }
