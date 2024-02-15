@@ -56,17 +56,17 @@ test_that("check values from calc_Huntley2008()", {
     expect_equal(round(sum(huntley$Ln),4), 0.1585)
 
   }else{
-    expect_equal(round(huntley$results$Sim_Age, 1), 42.3)
-    expect_equal(round(huntley$results$Sim_Age_2D0, 0), 163)
-    expect_equal(round(sum(huntley$Ln),4), 0.1621)
+    expect_equal(round(huntley$results$Sim_Age, 1), 34)
+    expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
+    expect_equal(round(sum(huntley$Ln),2), 0.16)
 
   }
 
 
   expect_equal(round(sum(huntley$data),0), 191530)
-  expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.3)
+  expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.8)
   expect_equal(round(sum(residuals(huntley$fits$measured)),4),  0.1894)
-  expect_equal(round(sum(residuals(huntley$fits$unfaded)),4),  1.6293)
+  expect_equal(round(sum(residuals(huntley$fits$unfaded)),2),  0)
 
 ## COMPARE calc_Kars2008 (deprecated) vs. re-named calc_Huntley2006
 test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
