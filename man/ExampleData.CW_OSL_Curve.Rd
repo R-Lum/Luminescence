@@ -7,10 +7,9 @@
 \title{Example CW-OSL curve data for the package Luminescence}
 \format{
 Data frame with 1000 observations on the following 2 variables:
-
-\describe{
-\item{list("x")}{a numeric vector, time}
-\item{list("y")}{a numeric vector, counts}
+\itemize{
+\item \code{list("x")}: a numeric vector, time
+\item \code{list("y")}: a numeric vector, counts
 }
 }
 \source{

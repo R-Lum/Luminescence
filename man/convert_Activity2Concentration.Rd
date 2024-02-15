@@ -93,12 +93,7 @@ data <- data.frame(
 ##perform analysis
 convert_Activity2Concentration(data)
 
-} 
-
-\section{How to cite}{
-Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-7. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with
 Semiconductor Detectors, Elsevier Science Publishers, p.283

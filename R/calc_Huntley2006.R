@@ -817,7 +817,7 @@ calc_Huntley2006 <-
       x = natdosetimeGray,
       y = LxTx_simulated$LxTx,
       type = "l",
-      lty = 2)
+      lty = 3)
 
     # Ln and DE as points
     points(x = if(GC.settings$mode == "extrapolation")
@@ -856,7 +856,7 @@ calc_Huntley2006 <-
              "Unfaded DRC",
              "Measured DRC",
              "Simulated natural DRC"),
-           lty = c(5, 1, 2),
+           lty = c(5, 1, 3),
            bty = "n",
            cex = 0.8)
 
@@ -1035,3 +1035,17 @@ calc_Huntley2006 <-
   ## Return value --------------------------------------------------------------
   return(results)
 }
+
+
+## (3) Apply the Kars et al. (2008) model to the data
+# kars <- calc_Huntley2006(
+#   data = data,
+#   rhop = rhop,
+#   ddot = ddot,
+#   readerDdot = readerDdot,
+#   n.MC = 25)
+
+
+# DRC <- read.csv("~/Documents/Scripts/R/Personen/Christina_Neudorf/20240215/input_calcHuntely.csv")
+#
+# calc_Huntley2006(DRC, LnTn = NULL, rhop = c(0.0000121549740899913, 4.91596040125088E-07), ddot = c(6.96, 0.29), readerDdot = c(0.094, 0.01), normalise = TRUE, fit.method = "EXP", summary = TRUE, n.MC = 100)
