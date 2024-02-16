@@ -203,7 +203,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -359,6 +359,7 @@ calc_Huntley2006 <-
                             setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError"))
                           })
       )
+
       # extract the LnTn values (assumed to be the first row) and calculate the column mean
       LnTn_tmp <- do.call(rbind,
                           lapply(seq(1, ncol(data), 3), function(col) {
@@ -376,7 +377,6 @@ calc_Huntley2006 <-
       data[1, 3] <- LnTn_error_tmp
       data <- data[complete.cases(data), ]
     }
-
 
   } else {
     stop("\n[calc_Huntley2006()] 'data' must be a data frame.",
@@ -596,7 +596,6 @@ calc_Huntley2006 <-
     }}
 
   LxTx.sim <- colSums(TermA) / sum(pr)
-
   # warning("LxTx Curve (new): ", round(max(LxTx.sim) / A, 3), call. = FALSE)
 
   # calculate Age
@@ -617,11 +616,13 @@ calc_Huntley2006 <-
     output.plot = plot,
     verbose = FALSE,
     main = "Simulated dose response curve",
-    xlab = "Dose (Gy)")
+    xlab = "Dose (Gy)"
+    )
 
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$verbose <- FALSE
 
+  ## calculate simulated DE
   suppressWarnings(
     GC.simulated <- try(do.call(plot_GrowthCurve, GC.settings))
   )
@@ -656,6 +657,14 @@ calc_Huntley2006 <-
     warning("[calc_Huntley2006()] Ln is >10 % larger than the maximum computed LxTx value.",
             " The De and age should be regarded as infinite estimates.",
             call. = FALSE)
+
+  if (Ln < min(LxTx.sim) * 0.95)
+    warning("[calc_Huntley2006()] Ln/Tn is smaller than the minimum computed LxTx value.
+            If, in consequence, your age result is NA, either your input values are
+            unsuitable, or you should consider using a different model for your dataset!",
+            call. = FALSE)
+
+
 
   # Estimate nN_(steady state) by Monte Carlo Simulation
   ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
@@ -697,6 +706,8 @@ calc_Huntley2006 <-
         a = coef(fit_simulated)[["a"]],
         c = coef(fit_simulated)[["c"]],
         D0 = D0.measured / readerDdot),
+        upper = c(Inf, Inf, max(dosetimeGray)),
+        lower = lower.bounds[1:3],
       control = list(maxiter = settings$maxiter))
   } else if (fit.method[1] == "GOK") {
     fit_unfaded <- minpack.lm::nlsLM(
@@ -742,7 +753,6 @@ calc_Huntley2006 <-
     dose = dosetimeGray,
     LxTx = LxTx.unfaded,
     LxTx.Error = LxTx.unfaded * A.error / A)
-
 
   ## Plot settings -------------------------------------------------------------
   plot.settings <- modifyList(list(
@@ -797,8 +807,7 @@ calc_Huntley2006 <-
              col = "black")
 
     # re-calculate the measured dose response curve in Gray
-    xRange <- range(pretty(dosetimeGray))
-    xNew <- seq(xRange[1], xRange[2], length.out = 200)
+    xNew <- seq(par()$usr[1],par()$usr[2], length.out = 200)
     yNew <- predict(GC.measured@data$Fit, list(x = xNew))
     if (normalise)
       yNew <- yNew / A
@@ -812,7 +821,7 @@ calc_Huntley2006 <-
                   rev(LxTx_simulated$LxTx - LxTx_simulated$LxTx.Error)),
             col = adjustcolor("grey", alpha.f = 0.5), border = NA)
 
-    ## add simulated LxTx values
+    ## add simulated curve -------
     points(
       x = natdosetimeGray,
       y = LxTx_simulated$LxTx,
@@ -829,7 +838,7 @@ calc_Huntley2006 <-
                else
                 c(Ln, Ln),
            col = "red",
-           pch = c(1, 16))
+           pch = c(2, 16))
 
     # Ln error bar
     segments(x0 = 0, y0 = Ln - Ln.error,
@@ -840,14 +849,14 @@ calc_Huntley2006 <-
     lines(x = if(GC.settings$mode == "extrapolation")
                 c(0, min(c(De.measured, De.sim), na.rm = TRUE))
               else
-                c(0, max(c(De.measured, De.sim), na.rm = TRUE)),
+                c(par()$usr[1], max(c(De.measured, De.sim), na.rm = TRUE)),
           y = c(Ln, Ln),
-          col = "black", lty = 3)
+          col = "red ", lty = 3)
 
-    # vertical line of measured DE
+    #vertical line of measured DE
     lines(x = c(De.measured, De.measured),
-          y = c(0, Ln),
-          col = "black",
+          y = c(par()$usr[3], Ln),
+          col = "red",
           lty = 3)
 
     # add legends
@@ -866,8 +875,8 @@ calc_Huntley2006 <-
                   c(-De.sim, -De.sim)
                 else
                   c(De.sim, De.sim),
-            y = c(0, Ln),
-            col = "black", lty = 3)
+            y = c(par()$usr[3], Ln),
+            col = "red", lty = 3)
 
       points(x = if(GC.settings$mode == "extrapolation") -De.sim else De.sim,
              y = if(GC.settings$mode == "extrapolation") 0 else Ln,
@@ -878,9 +887,7 @@ calc_Huntley2006 <-
             col = "black", lty = 3)
     }
 
-    # add unfaded DRC
-    xRange <- range(pretty(dosetimeGray))
-    xNew <- seq(xRange[1], xRange[2], length.out = 200)
+    # add unfaded DRC --------
     yNew <- predict(fit_unfaded, list(dosetimeGray = xNew))
     if (normalise)
       yNew <- yNew / A
@@ -1035,17 +1042,3 @@ calc_Huntley2006 <-
   ## Return value --------------------------------------------------------------
   return(results)
 }
-
-
-## (3) Apply the Kars et al. (2008) model to the data
-# kars <- calc_Huntley2006(
-#   data = data,
-#   rhop = rhop,
-#   ddot = ddot,
-#   readerDdot = readerDdot,
-#   n.MC = 25)
-
-
-# DRC <- read.csv("~/Documents/Scripts/R/Personen/Christina_Neudorf/20240215/input_calcHuntely.csv")
-#
-# calc_Huntley2006(DRC, LnTn = NULL, rhop = c(0.0000121549740899913, 4.91596040125088E-07), ddot = c(6.96, 0.29), readerDdot = c(0.094, 0.01), normalise = TRUE, fit.method = "EXP", summary = TRUE, n.MC = 100)

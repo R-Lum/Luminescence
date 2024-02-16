@@ -12,6 +12,11 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `calc_Huntely2006()`
+* If the age is `NA` due to `Ln/Tn` values lower than the smallest simulated `Lx/Tx` value, 
+a warning with an explanation is returned. Thanks to Christina Neudorf for providing the test
+dataset.
+
 ### `read_BIN2R()`
 * Argument `n.records` can now be provided as a vector to specifically 
 select records for the import. All other records are skipped and not imported. 

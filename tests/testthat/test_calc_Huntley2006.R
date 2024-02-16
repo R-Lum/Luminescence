@@ -135,7 +135,32 @@ test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
         plot = FALSE, verbose = FALSE)),
   class = "RLum.Results")
 
-})
+
+  ## check warning for failed fits
+  ## dataset provided by Christine Neudorf
+  df <- structure(list(V1 = c(0L, 0L, 200L, 800L, 1500L, 3000L, 8000L
+  ), V2 = c(0.439, -0.046720922, 1.988131642, 7.577744961, 12.87699795,
+            18.50187874, 32.72443771),
+  V3 = c(0.029, 0.01269548, 0.090232208,
+         0.322242141, 0.546595156, 0.739308178, 1.285979033)),
+  class = "data.frame", row.names = c(NA, -7L))
+
+  set.seed(1)
+  expect_warning(calc_Huntley2006(
+    data = df,
+    LnTn = NULL,
+    rhop = c(0.0000121549740899913, 4.91596040125088E-07),
+    ddot = c(6.96, 0.29),
+    readerDdot = c(0.094, 0.01),
+    normalise = FALSE,
+    fit.method = "EXP",
+    summary = TRUE,
+    plot = FALSE,
+    n.MC = 100),
+    regexp = "\\[calc\\_Huntley2006\\(\\)\\] Ln\\/Tn is smaller than the minimum computed LxTx value.")
+
+
+ })
 
 })
 
