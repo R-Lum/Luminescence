@@ -134,7 +134,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.21
+#' @section Function version: 0.1.22
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -253,6 +253,20 @@ analyse_FadingMeasurement <- function(
     if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
        unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
 
+      ## extract start date of each element
+      o_start_date <- order(
+        vapply(object[[1]]@records, function(x) x@info$startDate, character(1)))
+
+      if(any(diff(o_start_date) < 0)) {
+        ## prompt warning
+        warning("[analyse_FadingMeasurement()] The input curves were not provided in chronological order.
+                -> Curves were re-ordered using the start date! Please check the results!",
+                call. = FALSE)
+
+        ## sort object by start date
+        object[[1]]@records <- object[[1]]@records[o_start_date]
+      }
+
       ## extract irradiation times
       irradiation_times <- extract_IrradiationTimes(object)
 
@@ -270,7 +284,6 @@ analyse_FadingMeasurement <- function(
                                            fixed = TRUE)]
 
       }))
-
 
       ##clean object by removing the irradiation step ... and yes, we drop!
       object_clean <- unlist(get_RLum(object, curveType = "measured"))
@@ -1065,3 +1078,4 @@ analyse_FadingMeasurement <- function(
   ))
 
 }
+

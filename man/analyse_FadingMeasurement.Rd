@@ -153,7 +153,7 @@ not all pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.21
+ 0.1.22
 }
 
 \examples{
