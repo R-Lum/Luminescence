@@ -195,7 +195,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.10
+#' @section Function version: 1.11.11
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -859,6 +859,11 @@ plot_GrowthCurve <- function(
         #calculate De
         if(mode == "interpolation"){
           De <- suppressWarnings(-c-b*log(1-sample[1,2]/a))
+
+          ## account for the fact that we can still calculate a De that is negative
+          ## even it does not make sense
+          if(De < 0)
+            De <- NA
 
         }else if (mode == "extrapolation"){
           De <- suppressWarnings(-c-b*log(1-0/a))
@@ -2383,4 +2388,3 @@ plot_GrowthCurve <- function(
 
   return(tmp_formula)
 }
-
