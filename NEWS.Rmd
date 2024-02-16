@@ -12,10 +12,6 @@ header-includes:
 
 ## Bugfixes and changes
 
-### `analyse_FadingMeasurement()` 
-* If the input was created via `read_XSYG2R()` the function checks the chronological order
-of the input data and re-orders the data with a warning if needed.
-
 ### `calc_Huntely2006()`
 * If the age is `NA` due to `Ln/Tn` values lower than the smallest simulated `Lx/Tx` value, 
 a warning with an explanation is returned. Thanks to Christina Neudorf for providing the test
