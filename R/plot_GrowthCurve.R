@@ -2298,7 +2298,8 @@ plot_GrowthCurve <- function(
     HPDI68_L = HPDI[1,1],
     HPDI68_U = HPDI[1,2],
     HPDI95_L = HPDI[1,3],
-    HPDI95_U = HPDI[1,4]
+    HPDI95_U = HPDI[1,4],
+    row.names = NULL
   ),
   silent = TRUE
   )
