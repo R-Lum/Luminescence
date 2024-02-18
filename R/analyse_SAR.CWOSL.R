@@ -139,6 +139,11 @@
 #' overwrites dose point values extracted from other data. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
 #'
+#' @param trim_channels [logical] (*with default*): trim channels per record category
+#' to the lowest number of channels in the category by using [trim_RLum.Data].
+#' Applies only to `OSL` and `IRSL` curves. For a more granular control use [trim_RLum.Data]
+#' before passing the input object.
+#'
 #' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin `mtext`. Can be a [list] of [character]s,
 #' if `object` is of type [list]
@@ -185,10 +190,9 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.14
+#' @section Function version: 0.10.0
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
-#' (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
@@ -255,6 +259,7 @@ analyse_SAR.CWOSL<- function(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
@@ -292,6 +297,7 @@ if(is.list(object)){
       background.integral.max = parm$background.integral.max[[x]],
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
+      trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
       rejection.criteria = parm$rejection.criteria[[x]],
@@ -318,6 +324,19 @@ error.list <- list()
   if(!inherits(object, "RLum.Analysis"))
     stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
          call. = FALSE)
+
+  ## trim OSL or IRSL channels
+  if(trim_channels[1]) {
+    ## fetch names with OSL and IRSL
+    tmp_names <- unique(vapply(object@records, function(x) x@recordType, character(1)))
+
+    ## grep only the one with OSL and IRSL in it
+    tmp_names <- tmp_names[grepl(pattern = "(?:OSL|IRSL)", x = tmp_names, perl = TRUE)]
+
+    ## trim
+    object <- trim_RLum.Data(object, recordType = tmp_names)
+
+  }
 
   ##skip all those tests if signal integral is NA
   if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){

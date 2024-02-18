@@ -259,7 +259,37 @@ test_that("simple run", {
      verbose = FALSE
    ), regexp = "Background integral out of bounds")
 
-  local_edition(3)
+   ## check different curve numbers by shorten one OSL curve
+   object_short <- object
+   object_short[[1]]@records[[2]]@data <- object_short[[1]]@records[[2]]@data[-nrow(object_short[[1]]@records[[2]]@data),]
+
+   ## without fix
+   t <- testthat::expect_warning(
+     object = analyse_SAR.CWOSL(
+       object = object_short[[1]],
+       signal.integral.min = 1,
+       signal.integral.max = 2,
+       background.integral.min = 800,
+       background.integral.max = 9900,
+       fit.method = "LIN",
+       plot = FALSE,
+       verbose = FALSE),
+     regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Input curves lengths differ\\.")
+
+   ## with new parameter
+   testthat::expect_s4_class(
+     object = analyse_SAR.CWOSL(
+       object = object_short[[1]],
+       signal.integral.min = 1,
+       signal.integral.max = 2,
+       background.integral.min = 800,
+       background.integral.max = 999,
+       fit.method = "LIN",
+       trim_channels = TRUE,
+       plot = FALSE,
+       verbose = FALSE),
+   class = "RLum.Results")
+
 })
 
 test_that("advance tests run", {
@@ -292,6 +322,7 @@ test_that("advance tests run", {
   #   ),
   #   class = "RLum.Results"
   # )
+
 
   ##test rejection criteria is a list without(!) names,
   ##this should basically lead to no fail

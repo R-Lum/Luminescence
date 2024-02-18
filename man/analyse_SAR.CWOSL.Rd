@@ -13,6 +13,7 @@ analyse_SAR.CWOSL(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
@@ -79,6 +80,11 @@ the RC.Status becomes always \code{'OK'}}
 a numeric vector containing the dose points values. Using this argument
 overwrites dose point values extracted from other data. Can be a \link{list} of
 \link{numeric} vectors, if \code{object} is of type \link{list}}
+
+\item{trim_channels}{\link{logical} (\emph{with default}): trim channels per record category
+to the lowest number of channels in the category by using \link{trim_RLum.Data}.
+Applies only to \code{OSL} and \code{IRSL} curves. For a more granular control use \link{trim_RLum.Data}
+before passing the input object.}
 
 \item{mtext.outer}{\link{character} (\emph{optional}):
 option to provide an outer margin \code{mtext}. Can be a \link{list} of \link{character}s,
@@ -209,7 +215,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.9.14
+ 0.10.0
 }
 
 \examples{
@@ -267,8 +273,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
-(United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}
