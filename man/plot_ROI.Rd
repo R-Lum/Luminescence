@@ -76,8 +76,7 @@ plot_ROI(t, bg_image = m)
 \link{read_RF2R}, \link{analyse_IRSAR.RF}
 }
 \author{
-Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
-(United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

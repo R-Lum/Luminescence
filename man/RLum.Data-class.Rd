@@ -26,7 +26,7 @@ showClass("RLum.Data")
 }
 \seealso{
 \linkS4class{RLum}, \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

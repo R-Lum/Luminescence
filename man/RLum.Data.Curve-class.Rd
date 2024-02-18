@@ -103,9 +103,9 @@ Returns an \linkS4class{RLum.Data.Curve} object.
 
 Number of channels in the curve (row number of the matrix)
 
-**`names_RLum`**
+\strong{\code{names_RLum}}
 
-Names of the info elements (slot `info`)
+Names of the info elements (slot \code{info})
 
 \strong{\code{bin_RLum.Data}}
 
@@ -190,7 +190,7 @@ set_RLum(class = "RLum.Data.Curve")
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Insitut of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{classes}
 \keyword{internal}

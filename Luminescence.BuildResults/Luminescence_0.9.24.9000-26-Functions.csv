@@ -15,8 +15,8 @@
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "analyse_portableOSL","Analyse portable CW-OSL measurements","The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios and the IRSL/OSL ratio.","0.1.0
 ",NA,NA,"Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,<br /> Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany<br /> , RLum Developer Team",NA
-"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","The function performs a SAR CW-OSL analysis on an RLum.Analysis  object including growth curve fitting.","0.9.14
-",NA,NA,"Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University<br /> (United Kingdom)<br /> , RLum Developer Team",NA
+"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","The function performs a SAR CW-OSL analysis on an RLum.Analysis  object including growth curve fitting.","0.10.0
+",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","The function analyses SAR CW-OSL curve data and provides a summary of the measured data for every position. The output of the function is optimised for SAR OSL measurements on quartz.","0.2.17
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br /> Margret C. Fuchs, HZDR, Freiberg (Germany)<br /> , RLum Developer Team",NA
 "analyse_SAR.TL","Analyse SAR TL measurements","The function performs a SAR TL analysis on a RLum.Analysis  object including growth curve fitting.","0.3.0
@@ -210,7 +210,7 @@
 "plot_RLum.Results","Plot function for an RLum.Results S4 class object","The function provides a standardised plot output for data of an RLum.Results S4 class object","0.2.1
 ",NA,NA,"Christoph Burow, University of Cologne (Germany)  <br /> Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "plot_ROI","Create Regions of Interest (ROI) Graphic","Create ROI graphic with data extracted from the data imported via  read_RF2R . This function is used internally by  analyse_IRSAR.RF  but might be of use to work with reduced data from spatially resolved measurements. The plot dimensions mimic the original image dimensions","0.2.0
-",NA,NA,"Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University<br /> (United Kingdom)<br /> , RLum Developer Team",NA
+",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "plot_ViolinPlot","Create a violin plot","Draws a kernel density plot in combination with a boxplot in its middle. The shape of the violin is constructed using a mirrored density curve. This plot is especially designed for cases where the individual errors are zero or to small to be visualised. The idea for this plot is based on the the 'volcano plot' in the ggplot2 package by Hadley Wickham and Winston Chang. The general idea for the violin plot seems to be introduced by Hintze and Nelson (1998).  The function is passing several arguments to the function  plot , stats::density ,  graphics::boxplot :  Supported arguments are: xlim ,  main ,  xlab ,  ylab ,  col.violin ,  col.boxplot ,  mtext ,  cex ,  mtext   Valid summary keywords   'n' ,  'mean' ,  'median' ,  'sd.abs' ,  'sd.rel' ,  'se.abs' ,  'se.rel' . 'skewness' ,  'kurtosis'","0.1.4
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "PSL2Risoe.BINfileData","Convert portable OSL data to an Risoe.BINfileData object","Converts an  RLum.Analysis  object produced by the function  read_PSL2R()  to an  Risoe.BINfileData  object  (BETA) .","0.0.1
@@ -240,7 +240,7 @@
 "RLum-class","Class  \"RLum\"","Abstract class for data in the package Luminescence Subclasses are:",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Analysis-class","Class  \"RLum.Analysis\"","Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc. from one measurements. Objects from this class are produced, by e.g.  read_XSYG2R ,  read_Daybreak2R",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Data-class","Class  \"RLum.Data\"","Generalized virtual data class for luminescence data.",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
-"RLum.Data.Curve-class","Class  \"RLum.Data.Curve\"","Class for representing luminescence curve data.",NA,NA,NA,"Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)<br /> , RLum Developer Team",NA
+"RLum.Data.Curve-class","Class  \"RLum.Data.Curve\"","Class for representing luminescence curve data.",NA,NA,NA,"Sebastian Kreutzer, Insitut of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Data.Image-class","Class  \"RLum.Data.Image\"","Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced by the function  read_SPE2R",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Data.Spectrum-class","Class  \"RLum.Data.Spectrum\"","Class for representing luminescence spectra data (TL/OSL/RF).",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Results-class","Class  \"RLum.Results\"","Object class contains results data from functions (e.g.,  analyse_SAR.CWOSL ).",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
@@ -260,6 +260,8 @@
 "subset_SingleGrainData","Simple Subsetting of Single Grain Data from Risø BIN/BINX files","Most measured single grains do not exhibit light and it makes usually sense to subset single grain datasets using a table of position and grain pairs","0.1.0
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "template_DRAC","Create a DRAC input data template (v1.2)","This function returns a DRAC input template (v1.2) to be used in conjunction with the  use_DRAC  function",NA,NA,NA,"Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
+"trim_RLum.Data","Trim Channels of RLum.Data-class Objects","Trim Channels of RLum.Data-class Objects","0.1.0
+",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "tune_Data","Tune data for experimental purpose","The error can be reduced and sample size increased for specific purpose.","0.5.0
 ",NA,NA,"Michael Dietze, GFZ Potsdam (Germany)<br /> , RLum Developer Team",NA
 "use_DRAC","Use DRAC to calculate dose rate data","The function provides an interface from R to DRAC. An R-object or a pre-formatted XLS/XLSX file is passed to the DRAC website and the results are re-imported into R.","0.14
