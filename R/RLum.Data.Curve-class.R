@@ -42,7 +42,7 @@ NULL
 #'
 #' @section Class version: 0.5.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Insitut of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [merge_RLum]
 #'
@@ -380,6 +380,7 @@ setMethod("length_RLum",
 #'
 #' Names of the info elements (slot `info`)
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Curve",
