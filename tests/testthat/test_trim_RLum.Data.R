@@ -56,6 +56,11 @@ test_that("RLum.Data.Curve", {
   testthat::expect_s4_class(
     object = trim_RLum.Data(temp@records[[1]], trim_range = c(-1)),
     class = "RLum.Data.Curve")
+  ## c(1,2,3)
+  testthat::expect_s4_class(
+    object = trim_RLum.Data(temp@records[[1]], trim_range = c(1:3)),
+    class = "RLum.Data.Curve")
+
 
 })
 
