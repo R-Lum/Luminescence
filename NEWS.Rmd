@@ -10,6 +10,13 @@ header-includes:
 
 **This package version requires R >= 4.2**
 
+## New functions
+* `trim_RLum.Data()`: This new function enables to trim off the number of channels of all supported `RLum.Data-class` on the time domain. For instance, an OSL curve (`RLum.Data.Curve-class`) has 1000 channels, one may
+want to extract only channels 10 to 100. Moreover, sometimes, `RLum.Data-class` objects have a different number
+of channels but are otherwise measured with the same time resolution. Until now,
+it was possible to merge those curves, but the subsequent analysis usually failed because
+most of the analysis functions check whether the number of channels matches. 
+
 ## Bugfixes and changes
 
 ### `calc_Huntely2006()`

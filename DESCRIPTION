@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.24.9000-18
-Date: 2024-02-16
+Version: 0.9.24.9000-24
+Date: 2024-02-18
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -226,6 +226,7 @@ Collate:
     'scale_GammaDose.R'
     'subset_SingleGrainData.R'
     'template_DRAC.R'
+    'trim_RLum.Data.R'
     'tune_Data.R'
     'use_DRAC.R'
     'utils_DRAC.R'
