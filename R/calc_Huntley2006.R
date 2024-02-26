@@ -203,7 +203,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.4
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -481,8 +481,8 @@ calc_Huntley2006 <-
 
   GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
 
-  if (inherits(GC.measured, "try-error"))
-    stop("\n[calc_Huntley2006()] Unable to fit growth curve to measured data",
+  if (inherits(GC.measured$Fit, "try-error"))
+    stop("\n[calc_Huntley2006()] Unable to fit growth curve to measured data. Try to set fit.bounds to FALSE!",
          call. = FALSE)
 
   # extract results and calculate age
@@ -523,7 +523,7 @@ calc_Huntley2006 <-
           start = list(
             a = coef(fit_measured)[["a"]],
             D0 = D0.measured / readerDdot,
-            c = coef(fit_measured)[["c"]],
+            c = coef(fit_measured)[["c"]] * ddot,
             d = coef(fit_measured)[["d"]]),
           lower = lower.bounds,
           control = list(maxiter = settings$maxiter))},
@@ -533,7 +533,7 @@ calc_Huntley2006 <-
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
     else
-      coefs <- c(NA, NA, NA, NA)
+      coefs <- c(a = NA, D0 = NA, c = NA, d = NA)
     return(coefs)
   }, simplify = FALSE))
 
@@ -580,8 +580,13 @@ calc_Huntley2006 <-
 
   if (fit.method[1] == "GOK") {
     c_gok <- mean(fitcoef[ ,"c"], na.rm = TRUE)
+
+    ## prevent negative c_gok values, which will cause NaN values
+    if(c_gok < 0) c_gok <- 1
+
     d_gok <- mean(fitcoef[ ,"d"], na.rm = TRUE)
   }
+
 
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
@@ -710,16 +715,23 @@ calc_Huntley2006 <-
         lower = lower.bounds[1:3],
       control = list(maxiter = settings$maxiter))
   } else if (fit.method[1] == "GOK") {
-    fit_unfaded <- minpack.lm::nlsLM(
+    fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (d-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
       start = list(
         a = coef(fit_simulated)[["a"]],
         D0 = coef(fit_simulated)[["b"]] / readerDdot,
         c = coef(fit_simulated)[["c"]],
         d = coef(fit_simulated)[["d"]]),
-      lower = lower.bounds,
-      control = list(maxiter = settings$maxiter))
+      upper = c(Inf, max(dosetimeGray), Inf, Inf),
+      lower = lower.bounds[1:4],
+      control = list(maxiter = settings$maxiter)), silent = TRUE)
+
+    if(inherits(fit_unfaded, "try-error"))
+      stop("[calc_Huntely2006()] Could not fit simulated curve.
+           -> Check suitability of the model and the parameters!",
+           call. = FALSE)
   }
+
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
 
@@ -1041,4 +1053,5 @@ calc_Huntley2006 <-
 
   ## Return value --------------------------------------------------------------
   return(results)
-}
+  }
+

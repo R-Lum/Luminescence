@@ -229,7 +229,7 @@ This function has BETA status, in particular for the GOK implementation. Please 
 your results carefully
 }
 \section{Function version}{
- 0.4.3
+ 0.4.4
 }
 
 \examples{
