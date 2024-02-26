@@ -88,7 +88,6 @@ plot_ROI <- function(
       img_height = info$image_height,
       grain_d = info$grain_d)
 
-
   }
 
   if(is(object, "RLum.Results") && object@originator == "extract_ROI") {

@@ -15,7 +15,7 @@
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "analyse_portableOSL","Analyse portable CW-OSL measurements","The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios and the IRSL/OSL ratio.","0.1.0
 ",NA,NA,"Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,<br /> Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany<br /> , RLum Developer Team",NA
-"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","The function performs a SAR CW-OSL analysis on an RLum.Analysis  object including growth curve fitting.","0.10.0
+"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","The function performs a SAR CW-OSL analysis on an RLum.Analysis  object including growth curve fitting.","0.10.1
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","The function analyses SAR CW-OSL curve data and provides a summary of the measured data for every position. The output of the function is optimised for SAR OSL measurements on quartz.","0.2.17
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br /> Margret C. Fuchs, HZDR, Freiberg (Germany)<br /> , RLum Developer Team",NA
@@ -58,7 +58,7 @@
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "calc_HomogeneityTest","Apply a simple homogeneity test after Galbraith (2003)","A simple homogeneity test for De estimates","0.3.0
 ",NA,NA,"Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Université Bordeaux Montaigne (France)<br /> , RLum Developer Team",NA
-"calc_Huntley2006","Apply the Huntley (2006) model","A function to calculate the expected sample specific fraction of saturation based on the model of Huntley (2006) using the approach as implemented in Kars et al. (2008) or Guralnik et al. (2015).","0.4.3
+"calc_Huntley2006","Apply the Huntley (2006) model","A function to calculate the expected sample specific fraction of saturation based on the model of Huntley (2006) using the approach as implemented in Kars et al. (2008) or Guralnik et al. (2015).","0.4.4
 ",NA,NA,"Georgina E. King, University of Lausanne (Switzerland)  <br /> Christoph Burow, University of Cologne (Germany)  <br /> Sebastian Kreutzer, Ruprecht-Karl University of Heidelberg (Germany)<br /> , RLum Developer Team",NA
 "calc_IEU","Apply the internal-external-uncertainty (IEU) model after Thomsen et al.<br /> (2007) to a given De distribution","Function to calculate the IEU De for a De data set.","0.1.1
 ",NA,NA,"Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom)  <br /> Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen.<br /> , RLum Developer Team",NA
