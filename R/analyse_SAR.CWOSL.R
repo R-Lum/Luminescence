@@ -190,7 +190,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.10.0
+#' @section Function version: 0.10.1
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -655,7 +655,7 @@ error.list <- list()
 
     #generate unique dose id - this are also the # for the generated points
     temp.DoseID <- c(0:(length(LnLxTnTx$Dose) - 1))
-    temp.DoseName <- paste("R",temp.DoseID,sep = "")
+    temp.DoseName <- paste0("R",temp.DoseID)
     temp.DoseName <-
       cbind(Name = temp.DoseName,Dose = LnLxTnTx$Dose)
 
@@ -689,8 +689,9 @@ error.list <- list()
     temp.DoseName[temp.DoseName[,"Dose"] == 0,"Repeated"] <- FALSE
 
     ##combine in the data frame
-    temp.LnLxTnTx <- data.frame(Name = temp.DoseName[,"Name"],
-                                Repeated = as.logical(temp.DoseName[,"Repeated"]))
+    temp.LnLxTnTx <- data.frame(
+      Name = factor(x = temp.DoseName[,"Name"], levels = temp.DoseName[,"Name"]),
+      Repeated = as.logical(temp.DoseName[,"Repeated"]))
 
     LnLxTnTx <- cbind(temp.LnLxTnTx,LnLxTnTx)
     LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
