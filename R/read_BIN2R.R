@@ -326,10 +326,8 @@ read_BIN2R <- function(
   ##check if file is a BIN or BINX file
   if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%sub(pattern = "%20", replacement = "", x = tail(
     unlist(strsplit(file, split = "\\.")), n = 1), fixed = TRUE)))){
-    try(
-      stop(
-        paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"),
-        call. = FALSE))
+    message(paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"))
+
     con <- NULL
     return(NULL)
 
