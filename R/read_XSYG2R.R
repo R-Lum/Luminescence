@@ -357,7 +357,7 @@ read_XSYG2R <- function(
 
   ##show error
   if(is(temp, "try-error") == TRUE){
-    try(stop("[read_XSYG2R()] XML file not readable, nothing imported!)", call. = FALSE))
+    message("[read_XSYG2R()] XML file not readable, nothing imported!)")
     return(NULL)
 
   }
