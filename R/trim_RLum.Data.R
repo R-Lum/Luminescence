@@ -1,6 +1,6 @@
 #'@title Trim Channels of RLum.Data-class Objects
 #'
-#'@decription Trim off the number of channels of [RLum.Data-class] objects of similar record type
+#'@description Trim off the number of channels of [RLum.Data-class] objects of similar record type
 #' on the time domain. This function is useful in cases where objects have different lengths (short/longer
 #'measurement time) but should be analysed jointly by other functions.
 #'
