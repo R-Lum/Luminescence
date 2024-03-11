@@ -23,7 +23,9 @@ maximum length. Can be provided as \link{list}.}
 A trimmed object or \link{list} of such objects similar to the input objects
 }
 \description{
-Trim Channels of RLum.Data-class Objects
+Trim off the number of channels of \linkS4class{RLum.Data} objects of similar record type
+on the time domain. This function is useful in cases where objects have different lengths (short/longer
+measurement time) but should be analysed jointly by other functions.
 }
 \details{
 The function has two modes of operation:

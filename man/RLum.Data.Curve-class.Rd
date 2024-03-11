@@ -149,7 +149,7 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
-deconstructing the object. For example:
+de-constructing the object. For example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{set_RLum(class = 'RLum.Data.Curve',
          data = Your.RLum.Data.Curve,
@@ -190,7 +190,7 @@ set_RLum(class = "RLum.Data.Curve")
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, Insitut of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{classes}
 \keyword{internal}

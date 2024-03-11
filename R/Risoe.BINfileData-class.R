@@ -315,7 +315,7 @@ setClass("Risoe.BINfileData",
          )
 
 
-##set generic S4 function for object
+# show method --------
 #' @describeIn Risoe.BINfileData
 #' Show structure of RLum and Risoe.BINfile class objects
 #'
@@ -355,7 +355,7 @@ setMethod(f = "show",
               ##print
               cat("\n[Risoe.BINfileData object]")
               cat("\n\n\tBIN/BINX version:    ", version)
-              if(version>=6){
+              if(version >= 6){
                 cat("\n\tFile name:           ", filename)
               }
               cat("\n\tObject date:         ", date)
@@ -382,7 +382,7 @@ setMethod(f = "show",
           )#end setMethod
 
 
-# constructor (set) method for object class -----------------------------------
+# set method for object class -----------------------------------
 
 #' @describeIn Risoe.BINfileData
 #' The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
@@ -418,7 +418,7 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
-# accessor (get) method for object class -----------------------------------
+# get method for object class -----------------------------------
 
 #' @describeIn Risoe.BINfileData
 #' Formal get-method for Risoe.BINfileData object. It does not allow accessing

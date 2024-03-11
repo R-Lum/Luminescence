@@ -240,7 +240,7 @@
 "RLum-class","Class  \"RLum\"","Abstract class for data in the package Luminescence Subclasses are:",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Analysis-class","Class  \"RLum.Analysis\"","Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc. from one measurements. Objects from this class are produced, by e.g.  read_XSYG2R ,  read_Daybreak2R",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Data-class","Class  \"RLum.Data\"","Generalized virtual data class for luminescence data.",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
-"RLum.Data.Curve-class","Class  \"RLum.Data.Curve\"","Class for representing luminescence curve data.",NA,NA,NA,"Sebastian Kreutzer, Insitut of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
+"RLum.Data.Curve-class","Class  \"RLum.Data.Curve\"","Class for representing luminescence curve data.",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Data.Image-class","Class  \"RLum.Data.Image\"","Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced by the function  read_SPE2R",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Data.Spectrum-class","Class  \"RLum.Data.Spectrum\"","Class for representing luminescence spectra data (TL/OSL/RF).",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "RLum.Results-class","Class  \"RLum.Results\"","Object class contains results data from functions (e.g.,  analyse_SAR.CWOSL ).",NA,NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
@@ -260,7 +260,7 @@
 "subset_SingleGrainData","Simple Subsetting of Single Grain Data from Risø BIN/BINX files","Most measured single grains do not exhibit light and it makes usually sense to subset single grain datasets using a table of position and grain pairs","0.1.0
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "template_DRAC","Create a DRAC input data template (v1.2)","This function returns a DRAC input template (v1.2) to be used in conjunction with the  use_DRAC  function",NA,NA,NA,"Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
-"trim_RLum.Data","Trim Channels of RLum.Data-class Objects","Trim Channels of RLum.Data-class Objects","0.1.0
+"trim_RLum.Data","Trim Channels of RLum.Data-class Objects","Trim off the number of channels of  RLum.Data  objects of similar record type on the time domain. This function is useful in cases where objects have different lengths (short/longer measurement time) but should be analysed jointly by other functions.","0.1.0
 ",NA,NA,"Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br /> , RLum Developer Team",NA
 "tune_Data","Tune data for experimental purpose","The error can be reduced and sample size increased for specific purpose.","0.5.0
 ",NA,NA,"Michael Dietze, GFZ Potsdam (Germany)<br /> , RLum Developer Team",NA
