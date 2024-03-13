@@ -100,7 +100,7 @@
 #' @param ... further arguments passed to or from other methods and to control
 #' the document's structure (see details).
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),
@@ -426,7 +426,7 @@ report_RLum <- function(
           table <- as.character(table)
 
         # exception: surround objects of class "call" with <pre> tags to prevent
-        # HTML autoformatting
+        # HTML auto formatting
         if (elements$class[i] == "call") {
           table <- capture.output(table)
           writeLines("<pre>", tmp)
@@ -451,7 +451,7 @@ report_RLum <- function(
         }
 
         # write table using pander and end each table with a horizontal line
-        writeLines(pander::pander_return(table), tmp)
+        writeLines(suppressWarnings(pander::pander_return(table)), tmp)
         writeLines("\n\n<hr>", tmp)
 
       }
@@ -475,14 +475,15 @@ report_RLum <- function(
     writeLines(paste("<hr># File \n\n"), tmp)
 
     writeLines(paste0("<code>",
-                      "<a href='", paste0("file:///", gsub("\\~\\/", "", file.rds)),"' download>",
+                      "<a href='", normalizePath(file.rds),"' download>",
                       "Click here to access the data file", "</a>",
                       "</code>"), tmp)
 
-    writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", file.rds, "</span>.",
+    writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", normalizePath(file.rds),
+                     "</span>.",
                      "To import the object into your R session with the following command:",
                      paste0("<pre>",
-                            "x <- readRDS('", file.rds, "')",
+                            "x <- readRDS('", normalizePath(file.rds), "')",
                             "</pre>"),
                      "**NOTE:** If you moved the file to another directory or",
                      "renamed the file you need to change the path/filename in the",
@@ -519,7 +520,7 @@ report_RLum <- function(
       writeLines(paste0(
         "```{r}\n",
         "library(Luminescence) \n",
-        "x <- readRDS('", file.rds,"') \n",
+        "x <- readRDS('", normalizePath(file.rds),"') \n",
         plotCommand,
         "```"),
         tmp)

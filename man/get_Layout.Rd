@@ -58,4 +58,9 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Dietze, M., 2024. get_Layout(): Collection of layout definitions. Function version 0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-33. https://CRAN.R-project.org/package=Luminescence
+}
+

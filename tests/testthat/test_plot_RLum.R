@@ -22,4 +22,19 @@ test_that("test_plot_RLum", {
 
   expect_silent(plot_RLum(l, main = list("test", "test2"), mtext = "test"))
 
+  ## plot results objects
+  data(ExampleData.BINfileData, envir = environment())
+  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1:3)
+  results <- analyse_SAR.CWOSL(
+    object = object,
+    signal.integral.min = 1,
+    signal.integral.max = 2,
+    plot = FALSE,
+    verbose = FALSE,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    fit.method = "LIN")
+  expect_null(plot_RLum.Results(results))
+
+
 })

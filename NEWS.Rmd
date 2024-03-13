@@ -49,6 +49,14 @@ them (before those records were skipped). As it is in the original format, these
 the function still returned a positive equivalent dose for `mode = interpolation`. Now the returned value
 is `NA` since no interpolation was possible.
 
+### `plot_RLum()`
+* The function knows how to process results produces by `analyse_SAR.CWOSL()`, `analyse_pIRIRSequence()` and `analyse_IRSARRF()`; 
+the functionality is very basic and for fast reporting situations only.
+
+### `report_RLum()`
+* The file `*.Rds` file path download did not function anymore; fixed.
+* The function threw an non-conclusive warning; fixed. 
+
 ### `Risoe.BINfileData-class()`
 * The `show` method now knows about `RECTYPE` 128 and will account for it.
 

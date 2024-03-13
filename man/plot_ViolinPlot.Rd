@@ -79,7 +79,12 @@ ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019)
 ## create plot straightforward
 plot_ViolinPlot(data = ExampleData.DeValues)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2024. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-33. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
 R package version 0.2 http://CRAN.R-project.org/package=violplot

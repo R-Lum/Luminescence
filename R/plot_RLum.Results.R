@@ -111,11 +111,19 @@ plot_RLum.Results<- function(
   ##============================================================================##
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 1: Minimum Age Model / Maximum Age Model
+  ## CASE 0: General plot dispatcher ----------
+  switch(object@originator,
+      "analyse_SAR.CWOSL" = plot_AbanicoPlot(object),
+      "analyse_pIRIRSequence" = plot_AbanicoPlot(object),
+      "analyse_IRSARRF" = plot_AbanicoPlot(object),
+    NULL
+    )
+
+  ## CASE 1: Minimum Age Model / Maximum Age Model -------
   if(object@originator=="calc_MinDose" || object@originator=="calc_MaxDose") {
 
     ## single MAM estimate
-    # plot profile log likelhood
+    # plot profile log likelihood
 
     profiles <- object@data$profile
     if (object@data$args$log) {
@@ -452,7 +460,7 @@ plot_RLum.Results<- function(
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 2: Central Age Model
+  ## CASE 2: Central Age Model ---------
   if(object@originator=="calc_CentralDose") {
 
     # get profile log likelihood data
@@ -494,7 +502,7 @@ plot_RLum.Results<- function(
 
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 3: Fuchs & Lang 2001
+  ## CASE 3: Fuchs & Lang 2001 --------
   if(object@originator=="calc_FuchsLang2001") {
 
     ##deal with addition arguments
@@ -949,7 +957,7 @@ plot_RLum.Results<- function(
   }##EndOf::Case 4 - Finite Mixture Model
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 5: Aliquot Size
+  ## CASE 5: Aliquot Size ---------
   if(object@originator=="calc_AliquotSize") {
     if(!is.null(object@data$MC$estimates)) {
       extraArgs <- list(...)
@@ -1021,7 +1029,7 @@ plot_RLum.Results<- function(
   }#EndOf::Case 5 - calc_AliqoutSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 6: calc_SourceDoseRate()
+  ## CASE 6: calc_SourceDoseRate() ----------
   if(object@originator=="calc_SourceDoseRate") {
 
     ##prepare data
@@ -1097,7 +1105,7 @@ plot_RLum.Results<- function(
   }#EndOf::Case 6 - calc_SourceDoseRate()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 7: Fast Ratio
+  ## CASE 7: Fast Ratio ----------
   if (object@originator=="calc_FastRatio") {
 
     # graphical settings
