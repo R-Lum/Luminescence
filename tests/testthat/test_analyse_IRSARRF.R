@@ -33,7 +33,7 @@ test_that("check class and length of output", {
 
 })
 
-test_that("test controlled chrash conditions", {
+test_that("test controlled crash conditions", {
   testthat::skip_on_cran()
   local_edition(3)
 
@@ -77,14 +77,36 @@ test_that("test edge cases", {
   RF_nat@data[,2] <- runif(length(RF_nat@data[,2]), 65.4, 76.7)
   RF_nat@data <- RF_nat@data[1:50,]
 
-  expect_s4_class(analyse_IRSAR.RF(
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
     set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE),
     RF_nat.lim = 2,
     RF_reg.lim = 2,
-    plot = FALSE,
+    plot = TRUE,
     txtProgressBar = FALSE
-  ), "RLum.Results")
+  )), "RLum.Results")
+
+  ## this RF_nat.lim after
+  ##  'length = 2' in coercion to 'logical(1)' error
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    method = "SLIDE",
+    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    RF_nat.lim = c(10,100),
+    #RF_reg.lim = c(),
+    plot = TRUE,
+    txtProgressBar = FALSE
+  )), "RLum.Results")
+
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    method = "SLIDE",
+    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    #RF_nat.lim = c(10,100),
+    RF_reg.lim = c(10,100),
+    plot = TRUE,
+    txtProgressBar = FALSE
+  )), "RLum.Results")
 
 })

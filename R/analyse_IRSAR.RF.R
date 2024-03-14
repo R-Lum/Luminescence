@@ -309,7 +309,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.8
+#' @section Function version: 0.7.9
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -628,7 +628,7 @@ analyse_IRSAR.RF<- function(
 
   ##02 - check boundaris
   ##RF_nat.lim
-  if (is.null(RF_nat.lim) || is.na(RF_nat.lim)) {
+  if (is.null(RF_nat.lim) || any(is.na(RF_nat.lim))) {
     RF_nat.lim <- RF_nat.lim.default
 
   }else {
