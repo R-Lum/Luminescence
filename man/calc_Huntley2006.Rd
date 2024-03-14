@@ -281,7 +281,7 @@ kars <- calc_Huntley2006(data = LxTx,
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-33. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-36. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
