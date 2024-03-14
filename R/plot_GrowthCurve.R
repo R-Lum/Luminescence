@@ -862,7 +862,7 @@ plot_GrowthCurve <- function(
 
           ## account for the fact that we can still calculate a De that is negative
           ## even it does not make sense
-          if(De < 0)
+          if(!is.na(De) && De < 0)
             De <- NA
 
         }else if (mode == "extrapolation"){
