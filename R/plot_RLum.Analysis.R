@@ -48,7 +48,8 @@
 #' @param records_max [numeric] (*optional*): limits number of records
 #' shown if `combine = TRUE`. Shown are always the first and the last curve,
 #' the other number of curves to be shown a distributed evenly, this may result
-#' in less number of curves plotted as specified.
+#' in less number of curves plotted as specified. This parameter has only
+#' an effect for  n > 2.
 #'
 #' @param curve.transformation [character] (*optional*):
 #' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
