@@ -56,6 +56,12 @@
 #' Here the sliding is done by searching for the minimum of the squared residuals.
 #' For the mathematical details of the implementation see Frouin et al., 2017
 #'
+#' **`method = "VSLIDE"`**
+#'
+#' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
+#' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+#' range will is set to `"auto"` (see `method.control`).
+#'
 #' **`method.control`**
 #'
 #' To keep the generic argument list as clear as possible, arguments to control the methods
@@ -180,9 +186,8 @@
 #' If only one value is provided this will be treated as minimum value and the
 #' maximum limit will be added automatically.
 #'
-#' @param method [character] (*with default*):
-#' setting method applied for the data analysis.
-#' Possible options are `"FIT"` or `"SLIDE"`.
+#' @param method [character] (*with default*): select method applied for the data analysis.
+#' Possible options are `"FIT"`, `"SLIDE"`, `"VSLIDE"`.
 #'
 #' @param method.control [list] (*optional*):
 #' parameters to control the method, that can be passed to the chosen method.
@@ -309,7 +314,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.9
+#' @section Function version: 0.7.10
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -342,6 +347,14 @@
 #' An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
 #' Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
 #'
+#' Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
+#' Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
+#' Ancient TL 35, 20–30.
+#'
+#' Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
+#' Dose recovery and correction. Radiation Measurements 120, 110–119.
+#' doi: 10.1016/j.radmeas.2018.04.017
+#'
 #' Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 #' luminescence measurement facilities in retrospective dosimetry. Radiation
 #' Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
@@ -362,9 +375,14 @@
 #' radioluminescence properties of single feldspar grains. Radiation
 #' Measurements 32, 685-690.
 #'
+#' ** Further reading**
+#'
+#' Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
+#' Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
+#' Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
+#' 101155. doi: 10.1016/j.quageo.2021.101155
 #'
 #' @keywords datagen
-#'
 #'
 #' @examples
 #'
@@ -388,7 +406,6 @@
 #'  object = IRSAR.RF.Data,
 #'  method = "SLIDE",
 #'  method.control = list(trace = TRUE))
-#'
 #' }
 #'
 #' @md
@@ -416,7 +433,6 @@ analyse_IRSAR.RF<- function(
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
-
     ##extent the list of arguments if set
 
     ##sequence_structure
@@ -442,7 +458,6 @@ analyse_IRSAR.RF<- function(
      test_parameters <- rep(list(test_parameters), length = length(object))
 
     }
-
 
     ##n.MC
     n.MC <- rep(list(n.MC), length = length(object))
@@ -529,7 +544,6 @@ analyse_IRSAR.RF<- function(
     }
 
 
-
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
   if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
@@ -539,7 +553,7 @@ analyse_IRSAR.RF<- function(
 
   ##INVESTIGATE SEQUENCE OBJECT STRUCTURE
 
-  ##grep object strucute
+  ##grep object structure
   temp.sequence_structure <- structure_RLum(object)
 
   ##check whether both curve have the same length, in this case we cannot proceed (sliding
@@ -560,7 +574,6 @@ analyse_IRSAR.RF<- function(
     aliquot.sequence_name <- NA
 
   }
-
 
   ##position
   if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "position")))){
@@ -590,7 +603,6 @@ analyse_IRSAR.RF<- function(
     aliquot.date <- NA
 
   }
-
 
   ##set structure values
   temp.sequence_structure$protocol.step <-
@@ -683,7 +695,6 @@ analyse_IRSAR.RF<- function(
 
   }
 
-
   # Method Control Settings ---------------------------------------------------------------------
   ##===============================================================================================#
   ## SET METHOD CONTROL PARAMETER - FOR BOTH METHODS
@@ -700,13 +711,12 @@ analyse_IRSAR.RF<- function(
     show_density = TRUE,
     show_fit = FALSE,
     n.MC = if(is.null(n.MC)){NULL}else{1000},
-    vslide_range = NULL,
+    vslide_range = if(method[1] == "VSLIDE") "auto" else NULL,
     cores = NULL
   )
 
   ##modify list if necessary
   if(!is.null(method.control)){
-
     if(!is(method.control, "list")){
       stop("[analyse_IRSAR.RF()] 'method.control' has to be of type 'list'!", call. = FALSE)
 
@@ -740,7 +750,6 @@ analyse_IRSAR.RF<- function(
 
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
   resolution.RF <- round(mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),digits=1)
-
 
   plot.settings <- list(
     main = "IR-RF",
@@ -985,7 +994,7 @@ analyse_IRSAR.RF<- function(
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD SLIDE - ANALYSIS
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-  else if(method == "SLIDE"){
+  else if(method == "SLIDE" || method == "VSLIDE"){
 
     ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
     ##we correct this ... again)

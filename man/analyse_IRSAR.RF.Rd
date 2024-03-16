@@ -41,9 +41,8 @@ set minimum and maximum channel range for regenerated signal fitting and sliding
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{method}{\link{character} (\emph{with default}):
-setting method applied for the data analysis.
-Possible options are \code{"FIT"} or \code{"SLIDE"}.}
+\item{method}{\link{character} (\emph{with default}): select method applied for the data analysis.
+Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"}.}
 
 \item{method.control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
@@ -219,6 +218,12 @@ and Lapp et al., 2012.
 Here the sliding is done by searching for the minimum of the squared residuals.
 For the mathematical details of the implementation see Frouin et al., 2017
 
+\strong{\code{method = "VSLIDE"}}
+
+Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
+See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+range will is set to \code{"auto"} (see \code{method.control}).
+
 \strong{\code{method.control}}
 
 To keep the generic argument list as clear as possible, arguments to control the methods
@@ -326,7 +331,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.9
+ 0.7.10
 }
 
 \examples{
@@ -351,13 +356,12 @@ results <- analyse_IRSAR.RF(
  object = IRSAR.RF.Data,
  method = "SLIDE",
  method.control = list(trace = TRUE))
-
 }
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-36. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-37. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -385,6 +389,14 @@ Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Merci
 An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
 Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
 
+Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
+Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
+Ancient TL 35, 20–30.
+
+Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
+Dose recovery and correction. Radiation Measurements 120, 110–119.
+doi: 10.1016/j.radmeas.2018.04.017
+
 Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
 Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
@@ -404,6 +416,13 @@ of Luminescence 85, 45-58.
 Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.
+
+** Further reading**
+
+Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
+Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
+Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
+101155. doi: 10.1016/j.quageo.2021.101155
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
