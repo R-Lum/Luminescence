@@ -60,7 +60,8 @@
 #'
 #' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
 #' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
-#' range will is set to `"auto"` (see `method.control`).
+#' range will is set to `"auto"` (see `method.control`). This seetting can be still
+#' changed with `method.control`.
 #'
 #' **`method.control`**
 #'
@@ -71,22 +72,22 @@
 #'
 #' \tabular{lll}{
 #' **ARGUMENT** \tab **METHOD** \tab **DESCRIPTION**\cr
-#' `trace`   \tab `FIT`, `SLIDE` \tab as in [nls]; shows sum of squared residuals\cr
-#' `trace_vslide` \tab `SLIDE` \tab [logical] argument to enable or disable the tracing of the vertical sliding\cr
+#' `trace`   \tab `FIT`, `SLIDE` or `VSLIDE` \tab as in [nls]; shows sum of squared residuals\cr
+#' `trace_vslide` \tab `SLIDE` or `VSLIDE` \tab [logical] argument to enable or disable the tracing of the vertical sliding\cr
 #' `maxiter` \tab `FIT` \tab as in [nls]\cr
 #' `warnOnly` \tab `FIT` \tab as in [nls]\cr
 #' `minFactor` \tab `FIT` \tab as in [nls]\cr
-#' `correct_onset` \tab `SLIDE` \tab The logical argument shifts the curves along the x-axis by the first channel,
+#' `correct_onset` \tab `SLIDE` or `VSLIDE` \tab The logical argument shifts the curves along the x-axis by the first channel,
 #' as light is expected in the first channel. The default value is `TRUE`.\cr
-#' `show_density` \tab `SLIDE` \tab [logical] (*with default*)
+#' `show_density` \tab `SLIDE` or `VSLIDE` \tab [logical] (*with default*)
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-#' `show_fit` \tab `SLIDE` \tab [logical] (*with default*)
+#' `show_fit` \tab `SLIDE` or `VSLIDE` \tab [logical] (*with default*)
 #' enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-#' `n.MC` \tab `SLIDE` \tab [integer] (*with default*):
+#' `n.MC` \tab `SLIDE` or `VSLIDE` \tab [integer] (*with default*):
 #' This controls the number of MC runs within the sliding (assessing the possible minimum values).
 #' The default `n.MC = 1000`. Note: This parameter is not the same as controlled by the
 #' function argument `n.MC`. \cr
-#' `vslide_range` \tab `SLDE` \tab [logical] or [numeric] or [character] (*with default*):
+#' `vslide_range` \tab `SLIDE` or `VSLIDE` \tab [logical] or [numeric] or [character] (*with default*):
 #' This argument sets the boundaries for a vertical curve
 #' sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., `c(-1000,1000)`).
 #' Alternatively the values `NULL` and `'auto'` are allowed. The automatic mode detects the
@@ -710,7 +711,7 @@ analyse_IRSAR.RF<- function(
     correct_onset = TRUE,
     show_density = TRUE,
     show_fit = FALSE,
-    n.MC = if(is.null(n.MC)){NULL}else{1000},
+    n.MC = if(is.null(n.MC)) NULL else 1000,
     vslide_range = if(method[1] == "VSLIDE") "auto" else NULL,
     cores = NULL
   )
@@ -739,7 +740,10 @@ analyse_IRSAR.RF<- function(
     }
 
     ##modify list
-    method.control.settings <- modifyList(x = method.control.settings, val = method.control)
+    method.control.settings <- modifyList(
+      x = method.control.settings,
+      val = method.control,
+      keep.null = TRUE)
 
   }
 
@@ -995,8 +999,8 @@ analyse_IRSAR.RF<- function(
   ##METHOD SLIDE - ANALYSIS
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   else if(method == "SLIDE" || method == "VSLIDE"){
-
-    ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
+    ##convert to matrix (in fact above the matrix data were first transferred to
+    ##data.frames ... here
     ##we correct this ... again)
     RF_nat.limited <- as.matrix(RF_nat.limited)
     RF_reg.limited <- matrix(c(RF_reg.x, RF_reg.y), ncol = 2)
@@ -1012,7 +1016,6 @@ analyse_IRSAR.RF<- function(
                         vslide_range = method.control.settings$vslide_range,
                         trace = method.control.settings$trace_vslide,
                         numerical.only = FALSE){
-
 
       ##check for odd user input
       if(length(vslide_range) > 2){
@@ -1125,7 +1128,7 @@ analyse_IRSAR.RF<- function(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
           vslide_range = vslide_range,
-          n_MC = if(is.null(n.MC)){0}else{n.MC},
+          n_MC = if(is.null(n.MC)) 0 else n.MC,
           trace = trace
       )
 
@@ -1313,15 +1316,14 @@ analyse_IRSAR.RF<- function(
         }
 
         ##return message
-        if (cores == 1)
+        if (cores[1] == 1)
           message(paste("[analyse_IRSAR.RF()] Singlecore mode"))
         else
           message(paste("[analyse_IRSAR.RF()] Multicore mode using", cores, "cores..."))
       }
 
       ## SINGLE CORE -----
-      if (cores == 1) {
-
+      if (cores[1] == 1) {
         if(txtProgressBar){
           ##progress bar
           cat("\n\t Run Monte Carlo loops for error estimation\n")
@@ -1361,7 +1363,6 @@ analyse_IRSAR.RF<- function(
         ##destroy multicore cluster
         parallel::stopCluster(cl)
       }
-
       ##calculate absolute deviation between De and the here newly calculated De.MC
       ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
       De.diff <- diff(x = c(De, De.MC))
@@ -1370,7 +1371,6 @@ analyse_IRSAR.RF<- function(
       De.upper <- De - quantile(De.diff, 0.025, na.rm = TRUE)
 
     }else{
-
       De.diff <- NA_integer_
       De.error <- NA_integer_
       De.lower <- NA_integer_
@@ -1380,7 +1380,6 @@ analyse_IRSAR.RF<- function(
     }
 
   }else{
-
     warning("[analyse_IRSAR.RF()] Analysis skipped: Unknown method or threshold of test parameter exceeded.",
             call. = FALSE)
 
@@ -1610,8 +1609,8 @@ analyse_IRSAR.RF<- function(
       def.par <- par(no.readonly = TRUE)
       on.exit(par(def.par))
 
-      ##set plot frame, if a method was choosen
-      if (method == "SLIDE" | method == "FIT") {
+      ##set plot frame, if a method was chosen
+      if (any(method %in% c("SLIDE", "FIT", "VSLIDE"))) {
         layout(matrix(c(1, 2), 2, 1, byrow = TRUE), c(2), c(1.3, 0.4), TRUE)
         par(
           oma = c(1, 1, 1, 1),
@@ -1656,8 +1655,8 @@ analyse_IRSAR.RF<- function(
       NA,NA,
       xlim = xlim,
       ylim = ylim,
-      xlab = ifelse((method != "SLIDE" & method != "FIT") | plot_reduced, plot.settings$xlab," "),
-      xaxt = ifelse((method != "SLIDE" & method != "FIT") | plot_reduced, plot.settings$xaxt,"n"),
+      xlab = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xlab," "),
+      xaxt = ifelse((!any(method %in% c("SLIDE", "FIT", "VSLIDE"))) | plot_reduced, plot.settings$xaxt,"n"),
       yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
@@ -1691,8 +1690,7 @@ analyse_IRSAR.RF<- function(
     points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
 
     ##show natural points if no analysis was done
-    if(method != "SLIDE" & method != "FIT"){
-
+    if(!any(method %in% c("SLIDE", "FIT", "VSLIDE"))){
       ##add points
       points(RF_nat, pch = 20, col = "grey")
       points(RF_nat.limited, pch = 20, col = "red")
@@ -1886,8 +1884,7 @@ analyse_IRSAR.RF<- function(
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     ## PLOT - METHOD SLIDE
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-    else if(method == "SLIDE"){
-
+    else if(method == "SLIDE" || method == "VSLIDE"){
       ##(0) density plot
       if (method.control.settings$show_density) {
         ##showing the density makes only sense when we see at least 10 data points
@@ -2156,10 +2153,6 @@ analyse_IRSAR.RF<- function(
   }#endif::plot
 
   # Return --------------------------------------------------------------------------------------
-  ##=============================================================================#
-  ## RETURN
-  ##=============================================================================#
-
   ##catch up worst case scenarios ... means something went wrong
   if(!exists("De")){De  <- NA}
   if(!exists("De.error")){De.error  <- NA}

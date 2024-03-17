@@ -222,7 +222,8 @@ For the mathematical details of the implementation see Frouin et al., 2017
 
 Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
 See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
-range will is set to \code{"auto"} (see \code{method.control}).
+range will is set to \code{"auto"} (see \code{method.control}). This seetting can be still
+changed with \code{method.control}.
 
 \strong{\code{method.control}}
 
@@ -233,22 +234,22 @@ handled using the argument \code{method.control} only, e.g.,
 
 \tabular{lll}{
 \strong{ARGUMENT} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
-\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
-\code{trace_vslide} \tab \code{SLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
+\code{trace}   \tab \code{FIT}, \code{SLIDE} or \code{VSLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
+\code{trace_vslide} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
 \code{maxiter} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{warnOnly} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{minFactor} \tab \code{FIT} \tab as in \link{nls}\cr
-\code{correct_onset} \tab \code{SLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
+\code{correct_onset} \tab \code{SLIDE} or \code{VSLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
+\code{show_density} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
+\code{show_fit} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
 enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC} \tab \code{SLIDE} \tab \link{integer} (\emph{with default}):
+\code{n.MC} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
+\code{vslide_range} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
@@ -361,7 +362,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-37. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-42. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
