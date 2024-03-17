@@ -93,7 +93,7 @@
 #' Alternatively the values `NULL` and `'auto'` are allowed. The automatic mode detects the
 #' reasonable vertical sliding range (**recommended**). `NULL` applies no vertical sliding.
 #' The default is `NULL`.\cr
-#' `cores` \tab `SLIDE` \tab `number` or `character` (*with default*): set number of cores to be allocated
+#' `cores` \tab `SLIDE` or `VSLIDE` \tab `number` or `character` (*with default*): set number of cores to be allocated
 #' for a parallel processing of the Monte-Carlo runs. The default value is `NULL` (single thread),
 #' the recommended values is `'auto'`. An optional number (e.g., `cores` = 8) assigns a value manually.
 #' }
@@ -1283,21 +1283,22 @@ analyse_IRSAR.RF<- function(
       if(is.null(method.control.settings$cores)){
         cores <- 1
 
-      }else{
+      } else {
         ##case 'auto'
         if(method.control.settings$cores == 'auto'){
           if(parallel::detectCores() <= 2){
-            warning("[analyse_IRSAR.RF()] For the multicore auto mode at least 4 cores are needed!", call. = FALSE)
+            warning("[analyse_IRSAR.RF()] For the multicore auto mode at least 4 cores are needed!",
+                    call. = FALSE)
             cores <- 1
 
           }else{
             cores <- parallel::detectCores() - 2
           }
 
-        }else if(is.numeric(method.control.settings$cores)){
-
+        }else if(is.numeric(method.control.settings$cores[1])){
           if(method.control.settings$cores > parallel::detectCores()){
-            warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"), call. = FALSE)
+            warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"),
+                    call. = FALSE)
 
             ##assign all they have, it is not our problem
             cores <- parallel::detectCores()
@@ -1311,8 +1312,9 @@ analyse_IRSAR.RF<- function(
           }
 
         }else{
-          try(stop("[analyse_IRSAR.RF()] Invalid value for control argument 'cores'. Value set to 1", call. = FALSE))
+          message("[analyse_IRSAR.RF()] Invalid value for control argument 'cores'. Value set to 1")
           cores <- 1
+
         }
 
         ##return message
