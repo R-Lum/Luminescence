@@ -1,6 +1,6 @@
 #' @title  Merge Risoe.BINfileData objects or Risoe BIN-files
 #'
-#' @description Function allows merging Risoe BIN/BINX files or `Risoe.BINfileData` objects.
+#' @description Function allows merging Risoe BIN/BINX files or [Risoe.BINfileData-class] objects.
 #'
 #' @details
 #' The function allows merging different measurements to one file or one
@@ -52,7 +52,7 @@
 #' @note
 #' The validity of the output objects is not further checked.
 #'
-#' @section Function version: 0.2.8
+#' @section Function version: 0.2.9
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -60,7 +60,7 @@
 #' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]
 #'
 #' @references
-#' Duller, G., 2007. Analyst.
+#' Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, Aberystwyth.
 #'
 #'
 #' @keywords IO manip
@@ -104,9 +104,7 @@ merge_Risoe.BINfileData <- function(
   }else{
 
     if(is(input.objects, "list") == TRUE){
-
       for(i in 1:length(input.objects)){
-
         if(is(input.objects[[i]], "Risoe.BINfileData") == FALSE){
 
           stop("[merge_Risoe.BINfileData()] Input list does not contain Risoe.BINfileData objects!")
@@ -131,7 +129,7 @@ merge_Risoe.BINfileData <- function(
   ##or the input is already a list
 
   if(is(input.objects, "character") == TRUE){
-    temp <- lapply(input.objects, read_BIN2R)
+    temp <- lapply(input.objects, read_BIN2R, txtProgressBar = FALSE)
 
   }else{
     temp <- input.objects
@@ -168,7 +166,6 @@ merge_Risoe.BINfileData <- function(
   # Merge Files -------------------------------------------------------------
   ##loop for similar input objects
   for(i in 1:length(input.objects)){
-
     if(exists("temp.new.METADATA") == FALSE){
 
       temp.new.METADATA <- temp[[i]]@METADATA
