@@ -121,7 +121,8 @@ iterations for the results to converge. Decreasing the number of iterations
 will often result in unstable estimates.
 }
 
-All other arguments are passed to \link{plot} and \link{plot_GrowthCurve}.}
+All other arguments are passed to \link{plot} and \link{plot_GrowthCurve} (in particular
+\code{mode} for the fit mode and \code{fit.force_through_origin})}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -229,7 +230,7 @@ This function has BETA status, in particular for the GOK implementation. Please 
 your results carefully
 }
 \section{Function version}{
- 0.4.4
+ 0.4.5
 }
 
 \examples{
@@ -266,22 +267,24 @@ kars <- calc_Huntley2006(
 # You can also provide LnTn values separately via the 'LnTn' argument.
 # Note, however, that the data frame for 'data' must then NOT contain
 # a LnTn value. See argument descriptions!
-LnTn <- data.frame(LnTn = c(1.84833, 2.24833),
-                   LnTn.error = c(0.17, 0.22))
+LnTn <- data.frame(
+ LnTn = c(1.84833, 2.24833),
+ nTn.error = c(0.17, 0.22))
 
 LxTx <- data[2:nrow(data), ]
 
-kars <- calc_Huntley2006(data = LxTx,
-                      LnTn = LnTn,
-                      rhop = rhop,
-                      ddot = ddot,
-                      readerDdot = readerDdot,
-                      n.MC = 25)
+kars <- calc_Huntley2006(
+ data = LxTx,
+ LnTn = LnTn,
+ rhop = rhop,
+ ddot = ddot,
+ readerDdot = readerDdot,
+ n.MC = 25)
 }
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-43. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-45. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

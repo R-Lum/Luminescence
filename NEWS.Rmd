@@ -38,6 +38,11 @@ a warning with an explanation is returned. Thanks to Christina Neudorf for provi
 dataset.
 * Better catch a few uncontrolled errors and improve the success of the fitting (thanks to Salome Oehler for 
 providing scripts and datasets)
+* Regression: The changes in the last version led to unexpected function behaviour in cases where 
+users tried the fading correction with only a few dose points in the lower part of the dose-response curve because
+the fits were no longer forced through the origin. This issue is now corrected, and the user 
+can use the argument `fit.force_through_origin` (which is passed down to `plot_GrowthCurve()`) to force
+the fit again through the origin (thanks to Junjie Zhang for reporting the issue).
 
 ### `read_BIN2R()`
 * Argument `n.records` can now be provided as a vector to specifically 

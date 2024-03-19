@@ -119,12 +119,16 @@ test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
         plot = FALSE, verbose = FALSE)$results
     )
   })#EndOf::expect_identical
+})
+
+test_that("Further tests calc_Huntley2006", {
+  testthat::skip_on_cran()
 
   ## check extrapolation
   set.seed(1)
   expect_s4_class(
     object = suppressWarnings(
-      calc_Kars2008(
+      calc_Huntley2006(
         data = data,
         rhop = rhop,
         ddot = ddot,
@@ -135,6 +139,56 @@ test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
         plot = FALSE, verbose = FALSE)),
   class = "RLum.Results")
 
+  ## check force through origin EXP with wrong mode settings
+  set.seed(1)
+  expect_s4_class(
+    object = suppressWarnings(
+      calc_Huntley2006(
+        data = data,
+        rhop = rhop,
+        ddot = ddot,
+        readerDdot = readerDdot,
+        n.MC = 500,
+        fit.method = "EXP",
+        fit.force_through_origin = TRUE,
+        mode = "extrapolation",
+        plot = FALSE,
+        verbose = FALSE)),
+    class = "RLum.Results")
+
+  ## EXP ... normal
+  set.seed(1)
+  expect_s4_class(
+    object = suppressWarnings(
+      calc_Huntley2006(
+        data = data,
+        rhop = rhop,
+        ddot = ddot,
+        readerDdot = readerDdot,
+        n.MC = 500,
+        fit.method = "EXP",
+        fit.force_through_origin = TRUE,
+        mode = "interpolation",
+        plot = FALSE,
+        verbose = FALSE)),
+    class = "RLum.Results")
+
+  ## GOK normal
+  set.seed(1)
+  expect_s4_class(
+    object = suppressWarnings(
+      calc_Huntley2006(
+        data = data,
+        rhop = rhop,
+        ddot = ddot,
+        readerDdot = readerDdot,
+        n.MC = 500,
+        fit.method = "GOK",
+        fit.force_through_origin = TRUE,
+        mode = "interpolation",
+        plot = FALSE,
+        verbose = FALSE)),
+    class = "RLum.Results")
 
   ## check warning for failed fits
   ## dataset provided by Christine Neudorf

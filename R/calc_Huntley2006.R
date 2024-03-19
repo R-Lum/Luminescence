@@ -178,7 +178,8 @@
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
 #'
-#' All other arguments are passed to [plot] and [plot_GrowthCurve].
+#' All other arguments are passed to [plot] and [plot_GrowthCurve] (in particular
+#' `mode` for the fit mode and `fit.force_through_origin`)
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -203,7 +204,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.4
+#' @section Function version: 0.4.5
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -270,17 +271,19 @@
 #' # You can also provide LnTn values separately via the 'LnTn' argument.
 #' # Note, however, that the data frame for 'data' must then NOT contain
 #' # a LnTn value. See argument descriptions!
-#' LnTn <- data.frame(LnTn = c(1.84833, 2.24833),
-#'                    LnTn.error = c(0.17, 0.22))
+#' LnTn <- data.frame(
+#'  LnTn = c(1.84833, 2.24833),
+#'  nTn.error = c(0.17, 0.22))
 #'
 #' LxTx <- data[2:nrow(data), ]
 #'
-#' kars <- calc_Huntley2006(data = LxTx,
-#'                       LnTn = LnTn,
-#'                       rhop = rhop,
-#'                       ddot = ddot,
-#'                       readerDdot = readerDdot,
-#'                       n.MC = 25)
+#' kars <- calc_Huntley2006(
+#'  data = LxTx,
+#'  LnTn = LnTn,
+#'  rhop = rhop,
+#'  ddot = ddot,
+#'  readerDdot = readerDdot,
+#'  n.MC = 25)
 #' }
 #' @md
 #' @export
@@ -474,11 +477,16 @@ calc_Huntley2006 <-
     output.plot = plot,
     main = "Measured dose response curve",
     xlab = "Dose (Gy)",
+    fit.force_through_origin = FALSE,
     verbose = FALSE)
 
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$verbose <- FALSE
 
+  ## take of force_through origin settings
+  force_through_origin <- GC.settings$fit.force_through_origin
+
+  ## call the fitting
   GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
 
   if (inherits(GC.measured$Fit, "try-error"))
@@ -513,6 +521,7 @@ calc_Huntley2006 <-
             c = coef(fit_measured)[["c"]],
             D0 = D0.measured / readerDdot),
           lower = lower.bounds[1:3],
+          upper = if(force_through_origin) c(a = Inf, c = 0, D0 = Inf) else rep(Inf,3),
           control = list(maxiter = settings$maxiter))
         }, silent = TRUE)
 
@@ -525,6 +534,10 @@ calc_Huntley2006 <-
             D0 = D0.measured / readerDdot,
             c = coef(fit_measured)[["c"]] * ddot,
             d = coef(fit_measured)[["d"]]),
+          upper = if(force_through_origin) {
+             c(a = Inf, D0 = Inf, c = Inf, d = 1)
+            } else {
+            rep(Inf, 4)},
           lower = lower.bounds,
           control = list(maxiter = settings$maxiter))},
         silent = TRUE)
@@ -587,7 +600,6 @@ calc_Huntley2006 <-
     d_gok <- mean(fitcoef[ ,"d"], na.rm = TRUE)
   }
 
-
   for (j in 1:length(natdosetime)) {
     for (k in 1:length(rprime)) {
       if (fit.method[1] == "EXP") {
@@ -619,12 +631,14 @@ calc_Huntley2006 <-
     fit.method = fit.method[1],
     fit.bounds = TRUE,
     output.plot = plot,
+    fit.force_through_origin = FALSE,
     verbose = FALSE,
     main = "Simulated dose response curve",
     xlab = "Dose (Gy)"
     )
 
   GC.settings <- modifyList(GC.settings, list(...))
+
   GC.settings$verbose <- FALSE
 
   ## calculate simulated DE
@@ -636,6 +650,7 @@ calc_Huntley2006 <-
     GC.simulated.results <- get_RLum(GC.simulated)
     fit_simulated <- get_RLum(GC.simulated, "Fit")
     De.sim <- GC.simulated.results$De
+
     De.error.sim <- GC.simulated.results$De.Error
 
     # derive simulated D0
@@ -711,7 +726,11 @@ calc_Huntley2006 <-
         a = coef(fit_simulated)[["a"]],
         c = coef(fit_simulated)[["c"]],
         D0 = D0.measured / readerDdot),
-        upper = c(Inf, Inf, max(dosetimeGray)),
+        upper = if(force_through_origin) {
+           c(a = Inf, c = 0, D0 = max(dosetimeGray))
+          } else {
+           c(Inf, Inf, max(dosetimeGray))
+          },
         lower = lower.bounds[1:3],
       control = list(maxiter = settings$maxiter))
   } else if (fit.method[1] == "GOK") {
@@ -722,7 +741,10 @@ calc_Huntley2006 <-
         D0 = coef(fit_simulated)[["b"]] / readerDdot,
         c = coef(fit_simulated)[["c"]],
         d = coef(fit_simulated)[["d"]]),
-      upper = c(Inf, max(dosetimeGray), Inf, Inf),
+      upper = if(force_through_origin) {
+        c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
+       } else {
+        c(Inf, max(dosetimeGray), Inf, Inf)},
       lower = lower.bounds[1:4],
       control = list(maxiter = settings$maxiter)), silent = TRUE)
 
@@ -787,7 +809,7 @@ calc_Huntley2006 <-
       par(oma = c(0, 9, 0, 9))
 
     # Find a good estimate of the x-axis limits
-    if(GC.settings$mode == "extrapolation") {
+    if(GC.settings$mode == "extrapolation" & !force_through_origin) {
       dosetimeGray <- c(-De.measured - De.measured.error, dosetimeGray)
       De.measured <- -De.measured
     }
@@ -798,13 +820,15 @@ calc_Huntley2006 <-
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     ## open plot window ------------
-    plot(dosetimeGray[dosetimeGray >= 0], LxTx_measured$LxTx,
-         main = plot.settings$main,
-         xlab = plot.settings$xlab,
-         ylab = plot.settings$ylab,
-         pch = 16,
-         ylim = c(0, max(do.call(rbind, list(LxTx_measured, LxTx_unfaded))[["LxTx"]])),
-         xlim = xlim
+    plot(
+      x = dosetimeGray[dosetimeGray >= 0],
+      y = LxTx_measured$LxTx,
+      main = plot.settings$main,
+      xlab = plot.settings$xlab,
+      ylab = plot.settings$ylab,
+      pch = 16,
+      ylim = c(0, max(do.call(rbind, list(LxTx_measured, LxTx_unfaded))[["LxTx"]])),
+      xlim = xlim
     )
 
     ##add ablines for extrapolation
@@ -1054,4 +1078,3 @@ calc_Huntley2006 <-
   ## Return value --------------------------------------------------------------
   return(results)
   }
-
