@@ -23,7 +23,7 @@
 #' Kars et al. (2008) to the measured \eqn{\frac{L_x}{T_x}} data as a function of irradiation
 #' time, and fitting the data with a single saturating exponential of the form:
 #'
-#' \deqn{LxTx(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
+#' \deqn{\frac{L_x}{T_x}(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
 #'
 #' where
 #'
@@ -48,7 +48,7 @@
 #' Kars et al. (2008), but instead of using a single saturating exponential
 #' the model fits a general-order kinetics function of the form:
 #'
-#' \deqn{LxTx(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
+#' \deqn{\frac{L_x}{T_x}(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
 #'
 #' where \eqn{A}, \eqn{\phi}, \eqn{t^*} and \eqn{D_0} are the same as above and \eqn{c} is a
 #' dimensionless kinetic order modifier (cf. equation 10 in
@@ -71,10 +71,10 @@
 #' **Age calculated from 2D0 of the simulated natural DRC**
 #'
 #' In addition to the age calculated from the equivalent dose derived from
-#' `Ln/Tn` projected on the simulated natural dose response curve (DRC), this function
+#' \eqn{\frac{L_n}{T_n}} projected on the simulated natural dose response curve (DRC), this function
 #' also calculates an age from twice the characteristic saturation dose (`D0`)
 #' of the simulated natural DRC. This can be a useful information for
-#' (over)saturated samples (i.e., no intersect of `Ln/Tn` on the natural DRC)
+#' (over)saturated samples (i.e., no intersect of \eqn{\frac{L_n}{T_n}} on the natural DRC)
 #' to obtain at least a "minimum age" estimate of the sample. In the console
 #' output this value is denoted by *"Age @2D0 (ka):"*.
 #'
@@ -145,7 +145,7 @@
 #' or `GOK`. Note that `EXP` (single saturating exponential) is the original
 #' function the model after Huntley (2006) and Kars et al. (2008) was
 #' designed to use. The use of a general-order kinetics function (`GOK`)
-#' is an experimental adaption of the model and should be used
+#' is an experimental adaptation of the model and should be used
 #' with great care.
 #'
 #' @param lower.bounds [numeric] (*with default*):
@@ -158,9 +158,7 @@
 #' `a`, `D0` and `c` in that particular order (see details in
 #' [Luminescence::plot_GrowthCurve]).
 #'
-#' @param normalise [logical] (*with default*):
-#' If `TRUE` (the default) all measured and computed LxTx values are
-#' normalised by the pre-exponential factor A (see details).
+#' @param normalise [logical] (*with default*): If `TRUE` (the default) all measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the pre-exponential factor `A` (see details).
 #'
 #' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
