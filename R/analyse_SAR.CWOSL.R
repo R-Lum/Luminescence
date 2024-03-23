@@ -190,7 +190,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.10.1
+#' @section Function version: 0.10.2
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -307,6 +307,9 @@ if(is.list(object)){
       main = main[[x]],
       ...)
   }))
+
+  ## add aliquot number
+  results@data$data$ALQ <- seq_along(object)
 
   ##return
   ##DO NOT use invisible here, this will prevent the function from stopping
@@ -1437,10 +1440,21 @@ error.list <- list()
     ##generate unique identifier
     UID <- create_UID()
 
+    ## get position numbers
+    POSITION <- unique(unlist(lapply(object@records, function(x){
+      chk <- grepl(pattern = "position", tolower(names(x@info)), fixed = TRUE)
+      if (any(chk))
+        return(x@info[chk])
+      else
+        return(NA)
+    })))[1]
+
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
-        data = as.data.frame(c(temp.GC, temp.GC.extended, UID = UID), stringsAsFactors = FALSE),
+        data = as.data.frame(
+          c(temp.GC, temp.GC.extended, ALQ = 1, POS = POSITION, UID = UID),
+          stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
         Formula = temp.GC.fit.Formula

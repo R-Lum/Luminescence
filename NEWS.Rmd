@@ -31,6 +31,9 @@ number of channels on the curves and then all curves are trimmed accordingly usi
 due to different channel numbers erroneously produced by the luminescence readers.
 * The dose points names are returned as `factors` (which they are) instead of `characters`, with 
 their class in the correct order. If you expect character values this may break existing code.
+* The `$data` element gained two new columns `ALQ` and `POS` where the functions tries to store
+data about the running aliquot number and the position of the aliquot in the reader. The latter
+can only be accessed if this information was provided in measurement data (e.g., XSYG or BIN/BINX)
 
 ### `calc_Huntely2006()`
 * If the age is `NA` due to `Ln/Tn` values lower than the smallest simulated `Lx/Tx` value, 

@@ -215,7 +215,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.10.1
+ 0.10.2
 }
 
 \examples{
@@ -254,7 +254,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-45. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-61. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
