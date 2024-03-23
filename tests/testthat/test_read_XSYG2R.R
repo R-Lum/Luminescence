@@ -3,8 +3,8 @@ test_that("test import of XSYG files", {
   local_edition(3)
 
   ##force error
-  expect_type(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg", fastForward = TRUE), type = "NULL")
-  expect_type(read_XSYG2R("/Test", fastForward = TRUE), type = "NULL")
+  expect_null(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg", fastForward = TRUE))
+  expect_null(read_XSYG2R("/Test", fastForward = TRUE))
 
   ##successful import
   expect_type(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extdata/TLSpectrum.xsyg", import = FALSE), type = "list")
@@ -15,6 +15,9 @@ test_that("test import of XSYG files", {
   expect_type(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extdata/TLSpectrum.xsyg", fastForward = FALSE), type = "list")
   results <- expect_type(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extdata/TLSpectrum.xsyg", fastForward = TRUE), type = "list")
   expect_output(print(results))
+
+  ## check file and file path
+  expect_type(results[[1]]@info$file, type = "character")
 
 })
 

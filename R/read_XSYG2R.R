@@ -1,7 +1,8 @@
-#' Import XSYG files to R
+#' @title Import XSYG files to R
 #'
-#' Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
+#' @description Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 #'
+#' @details
 #' **How does the import function work?**
 #'
 #' The function uses the [xml] package to parse the file structure. Each
@@ -86,7 +87,7 @@
 #' lexsyg. Works for TL curves and spectra.
 #'
 #' @param fastForward [logical] (*with default*):
-#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis`
+#' if `TRUE` for a more efficient data processing only a list of [RLum.Analysis-class]
 #' objects is returned.
 #'
 #' @param import [logical] (*with default*):
@@ -125,7 +126,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.8
+#' @section Function version: 0.6.9
 #'
 #'
 #' @author
@@ -196,10 +197,9 @@ read_XSYG2R <- function(
   # Option (b): The input is just a path, the function tries to grep ALL xsyg/XSYG files in the
   # directory and import them, if this is detected, we proceed as list
   if(is(file, "character")) {
-
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      if(verbose) ("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
+      if(verbose) cat("\n[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
       file <-
         as.list(paste0(file,dir(
           file, recursive = TRUE, pattern = pattern
@@ -256,36 +256,34 @@ read_XSYG2R <- function(
   on.exit(expr = on_exit())
 
   # Consistency check -------------------------------------------------------
+  file <- suppressWarnings(normalizePath(file))
 
   ##check if file exists
   if(!file.exists(file)){
-
     ##check if the file as an URL ... you never know
     if(grepl(pattern = "http", x = file, fixed = TRUE)){
       if(verbose){
-        cat("[read_XSYG2R()] URL detected, checking connection ... ")
+        cat("\n[read_XSYG2R()] URL detected, checking connection ... ")
       }
 
       ##check URL
       if(!httr::http_error(file)){
-        if(verbose) cat("OK")
-
-        ##dowload file
+        if(verbose) cat("OK\n")
+        ##download file
         file_link <- tempfile("read_XSYG2R_FILE")
         download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
         file <- file_link
 
-      }else{
-        cat("FAILED")
+      } else {
         file <- NULL
-        try(stop("[read_XSYG2R()] File does not exist! Return NULL!", call. = FALSE))
+        message("[read_XSYG2R()] File does not exist! Return NULL!")
         return(NULL)
 
       }
 
-    }else{
+    } else {
       file <- NULL
-      try(stop("[read_XSYG2R()] File does not exist, return NULL!", call. = FALSE))
+      message("[read_XSYG2R()] File does not exist, return NULL!")
       return(NULL)
 
     }
@@ -762,7 +760,8 @@ read_XSYG2R <- function(
           originator = "read_XSYG2R",
           class = "RLum.Analysis",
           records = temp.sequence.object,
-          protocol = as.character(temp.sequence.header["protocol",1])
+          protocol = as.character(temp.sequence.header["protocol",1]),
+          info = list(file = file)
         )
 
         ##set parent uid of RLum.Anlaysis as parent ID of the records

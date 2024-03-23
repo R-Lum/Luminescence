@@ -53,6 +53,10 @@ file
 * The function learned about `RECTYPE` 128 records and can now import
 them (before those records were skipped). As it is in the original format, these information are only appended to the BIN/BINX file, means they do not really represent measurement data. 
 
+### `read_XSYG2R()`
+* Tries a little bit harder to determine the correct file path.
+* Returns the file path as `@info` object in the `RLum.Analysis-class` output.
+
 ### `plot_GrowthCurve()`
 * Edge case: If the `Ln/Tn` values was way below the fit and `fit.method = EXP` was chosen for the fitting,
 the function still returned a positive equivalent dose for `mode = interpolation`. Now the returned value
