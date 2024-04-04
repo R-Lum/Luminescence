@@ -64,6 +64,7 @@ them (before those records were skipped). As it is in the original format, these
 * Edge case: If the `Ln/Tn` values was way below the fit and `fit.method = EXP` was chosen for the fitting,
 the function still returned a positive equivalent dose for `mode = interpolation`. Now the returned value
 is `NA` since no interpolation was possible.
+* Minor graphical polish: the dashed lines are drawn to the end of the plot area. 
 
 ### `plot_RLum()`
 * The function knows how to process results produces by `analyse_SAR.CWOSL()`, `analyse_pIRIRSequence()` and `analyse_IRSARRF()`; 

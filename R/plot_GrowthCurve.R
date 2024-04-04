@@ -195,7 +195,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.11
+#' @section Function version: 1.11.12
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -2052,16 +2052,15 @@ plot_GrowthCurve <- function(
       if (mode == "interpolation") {
         if (is.na(De)) {
           lines(
-            c(0, max(sample[, 1]) * 2),
+            c(par()$usr[1], max(sample[, 1]) * 2),
             c(sample[1, 2], sample[1, 2]),
             col = "red",
             lty = 2,
-            lwd = 1.25
-          )
+            lwd = 1.25)
 
         } else {
           try(lines(
-            c(0, De),
+            c(par()$usr[1], De),
             c(sample[1, 2], sample[1, 2]),
             col = "red",
             lty = 2,
@@ -2069,11 +2068,12 @@ plot_GrowthCurve <- function(
           ), silent = TRUE)
 
         }
-        try(lines(c(De, De),
-                  c(0, sample[1, 2]),
-                  col = "red",
-                  lty = 2,
-                  lwd = 1.25), silent = TRUE)
+        try(lines(
+          c(De, De),
+          c(par()$usr[3], sample[1, 2]),
+          col = "red",
+          lty = 2,
+          lwd = 1.25), silent = TRUE)
         try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
 
       } else if (mode == "extrapolation"){
