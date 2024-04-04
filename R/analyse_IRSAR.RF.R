@@ -60,7 +60,7 @@
 #'
 #' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
 #' See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
-#' range will is set to `"auto"` (see `method.control`). This seetting can be still
+#' range will is set to `"auto"` (see `method.control`). This setting can be still
 #' changed with `method.control`.
 #'
 #' **`method.control`**
