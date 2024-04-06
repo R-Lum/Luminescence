@@ -222,7 +222,7 @@ For the mathematical details of the implementation see Frouin et al., 2017
 
 Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
 See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
-range will is set to \code{"auto"} (see \code{method.control}). This seetting can be still
+range will is set to \code{"auto"} (see \code{method.control}). This setting can be still
 changed with \code{method.control}.
 
 \strong{\code{method.control}}
@@ -362,7 +362,7 @@ results <- analyse_IRSAR.RF(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-66. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-69. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
