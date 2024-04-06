@@ -1,6 +1,6 @@
 #' @title Create De(t) plot
 #'
-#' @description Plots the equivalent dose (De) in dependency of the chosen signal integral
+#' @description Plots the equivalent dose (\eqn{D_e}) in dependency of the chosen signal integral
 #' (cf. Bailey et al., 2003). The function is simply passing several arguments
 #' to the function [plot] and the used analysis functions and runs it in a loop.
 #' Example: `legend.pos` for legend position, `legend` for legend text.
@@ -74,14 +74,14 @@
 #' `legend.text`, `legend.pos`
 #'
 #' @return
-#' A plot and an [RLum.Results-class] object with the produced De values
+#' A plot and an [RLum.Results-class] object with the produced \eqn{D_e} values
 #'
 #' `@data`:
 #'
 #' \tabular{lll}{
 #' **Object** \tab **Type** \tab **Description**\cr
-#' De.values \tab `data.frame` \tab table with De values \cr
-#' signal_integral.seq \tab `numeric` \tab integral sequence used for the calculation
+#' `De.values` \tab `data.frame` \tab table with De values \cr
+#' `signal_integral.seq` \tab `numeric` \tab integral sequence used for the calculation
 #' }
 #'
 #' `@info`:
@@ -196,7 +196,6 @@ plot_DetPlot <- function(
 
   }
 
-
   if(analyse_function  == "analyse_SAR.CWOSL"){
     results <- merge_RLum(lapply(1:n.channels, function(x){
       analyse_SAR.CWOSL(
@@ -219,7 +218,6 @@ plot_DetPlot <- function(
 
   }
   else if(analyse_function  == "analyse_pIRIRSequence"){
-
     results <- merge_RLum(lapply(1:n.channels, function(x){
       analyse_pIRIRSequence(
         object = object,
@@ -292,14 +290,20 @@ plot_DetPlot <- function(
         min(df$De - df$De.Error, na.rm = TRUE),
         (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
       xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
-      ylab = expression(paste(D[e] / s, " and ", L[n]/(a.u.))),
+      ylab = if(show_ShineDownCurve[1])
+              expression(paste(D[e], " [s] and ", L[n], " [a.u.]"))
+            else
+              expression(paste(D[e], " [s]")),
       xlab = "Stimulation time [s]",
       main = "De(t) plot",
       pch = 1,
       mtext = ifelse(is.na(pIRIR_signals[1]), "", paste0("Signal: ",pIRIR_signals[i])),
       cex = 1,
-      legend = TRUE,
-      legend.text = c(expression(L[n]-signal), expression(D[e])),
+      legend = if(show_ShineDownCurve[1]) TRUE else FALSE,
+      legend.text = if(show_ShineDownCurve[1])
+                      c(expression(D[e]), expression(L[n]-signal))
+                    else
+                      expression(D[e]),
       legend.pos = "bottomleft"
     ), list(...))
 
@@ -360,6 +364,8 @@ plot_DetPlot <- function(
 
   })
 
+
+# Return ------------------------------------------------------------------
   ##merge results
   return(set_RLum(
     class = "RLum.Results",
@@ -367,7 +373,8 @@ plot_DetPlot <- function(
       De.values = as.data.frame(data.table::rbindlist(df_final)),
       signal_integral.seq = signal_integral.seq
       ),
-    info = list(call = sys.call())
+    info = list(
+      call = sys.call())
   ))
 
 }

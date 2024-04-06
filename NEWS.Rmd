@@ -60,6 +60,11 @@ them (before those records were skipped). As it is in the original format, these
 * Tries a little bit harder to determine the correct file path.
 * Returns the file path as `@info` object in the `RLum.Analysis-class` output.
 
+### `plot_DetPlot()`
+* The legend displayed the wrong labels for the equivalent dose and the `Ln/Tn` values; fixed.
+* The legend is now disabled by default if no shine-down curve is shown; it can be activated again 
+manually using `legend`.
+
 ### `plot_GrowthCurve()`
 * Edge case: If the `Ln/Tn` values was way below the fit and `fit.method = EXP` was chosen for the fitting,
 the function still returned a positive equivalent dose for `mode = interpolation`. Now the returned value

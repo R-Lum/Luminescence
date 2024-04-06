@@ -76,14 +76,14 @@ Plot control parameters are: \code{ylim}, \code{xlim}, \code{ylab}, \code{xlab},
 \code{legend.text}, \code{legend.pos}}
 }
 \value{
-A plot and an \linkS4class{RLum.Results} object with the produced De values
+A plot and an \linkS4class{RLum.Results} object with the produced \eqn{D_e} values
 
 \verb{@data}:
 
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
-De.values \tab \code{data.frame} \tab table with De values \cr
-signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
+\code{De.values} \tab \code{data.frame} \tab table with De values \cr
+\code{signal_integral.seq} \tab \code{numeric} \tab integral sequence used for the calculation
 }
 
 \verb{@info}:
@@ -94,7 +94,7 @@ call \tab \code{call} \tab the original function call
 }
 }
 \description{
-Plots the equivalent dose (De) in dependency of the chosen signal integral
+Plots the equivalent dose (\eqn{D_e}) in dependency of the chosen signal integral
 (cf. Bailey et al., 2003). The function is simply passing several arguments
 to the function \link{plot} and the used analysis functions and runs it in a loop.
 Example: \code{legend.pos} for legend position, \code{legend} for legend text.
@@ -149,7 +149,7 @@ plot_DetPlot(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-66. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-67. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
