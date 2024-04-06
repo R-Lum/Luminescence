@@ -66,6 +66,7 @@ them (before those records were skipped). As it is in the original format, these
 * The legend is now disabled by default if no shine-down curve is shown; it can be activated again 
 manually using `legend`.
 * The par settings were not correctly reset; fixed.
+* The function now supports the `trim_channel` argument from `analyse_SAR.CWOSL()`
 
 ### `plot_GrowthCurve()`
 * Edge case: If the `Ln/Tn` values was way below the fit and `fit.method = EXP` was chosen for the fitting,

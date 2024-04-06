@@ -41,6 +41,21 @@ test_that("plot_DetPlot", {
     plot = FALSE),
     "RLum.Results")
 
+  results <- expect_s4_class(plot_DetPlot(
+    object,
+    method = "shift",
+    signal.integral.min = 1,
+    signal.integral.max = 3,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    analyse_function.control = list(
+      fit.method = "LIN",
+      trim_channels = TRUE
+      ),
+    n.channels = 2,
+    plot = FALSE),
+    "RLum.Results")
+
   ## simple run with default
   results <- expect_s4_class(plot_DetPlot(
     object,

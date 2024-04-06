@@ -178,6 +178,7 @@ plot_DetPlot <- function(
      mtext.outer = "",
      fit.method = "EXP",
      fit.force_through_origin = FALSE,
+     trim_channels = FALSE,
      plot = FALSE,
      plot.single = FALSE
   )
@@ -213,6 +214,7 @@ plot_DetPlot <- function(
         mtext.outer = analyse_function.settings$mtext.outer,
         fit.force_through_origin = analyse_function.settings$fit.force_through_origin,
         fit.method = analyse_function.settings$fit.method,
+        trim_channels = analyse_function.settings$trim_channels,
         plot = analyse_function.settings$plot,
         plot.single = analyse_function.settings$plot.single,
         verbose = verbose
