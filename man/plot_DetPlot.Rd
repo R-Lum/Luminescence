@@ -18,6 +18,7 @@ plot_DetPlot(
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
   verbose = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -69,6 +70,10 @@ remove De-values with 'FAILED' RC.Status from the plot
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enables or disables terminal feedback}
+
+\item{plot}{\link{logical} (\emph{with default}): enables/disables plot output
+Disabling the plot is useful in cases where the output need to be processed
+differently.}
 
 \item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence} (see details for further information).
@@ -123,7 +128,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.5
+ 0.1.6
 }
 
 \examples{
@@ -149,7 +154,7 @@ plot_DetPlot(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-67. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-68. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
