@@ -41,6 +41,7 @@ test_that("plot_DetPlot", {
     plot = FALSE),
     "RLum.Results")
 
+  ## test with trim channels
   results <- expect_s4_class(plot_DetPlot(
     object,
     method = "shift",
@@ -52,6 +53,23 @@ test_that("plot_DetPlot", {
       fit.method = "LIN",
       trim_channels = TRUE
       ),
+    n.channels = 2,
+    plot = FALSE),
+    "RLum.Results")
+
+  ## test self call with multi core
+  results <- expect_s4_class(plot_DetPlot(
+    object = list(x = object, y = object),
+    method = "shift",
+    signal.integral.min = 1,
+    signal.integral.max = 3,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    analyse_function.control = list(
+      fit.method = "LIN",
+      trim_channels = TRUE
+    ),
+    multicore = 1,
     n.channels = 2,
     plot = FALSE),
     "RLum.Results")

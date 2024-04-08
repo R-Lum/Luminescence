@@ -22,8 +22,8 @@
 #' The argument `analyse_function.control` currently supports the following arguments
 #' `sequence.structure`, `dose.points`, `mtext.outer`, `fit.method`, `fit.force_through_origin`, `plot`, `plot.single`
 #'
-#' @param object [RLum.Analysis-class] (**required**):
-#' input object containing data for analysis
+#' @param object [RLum.Analysis-class] (**required**): input object containing data for analysis
+#' Can be provided as a [list] of such objects.
 #'
 #' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral.
@@ -68,6 +68,10 @@
 #' @param verbose [logical] (*with default*):
 #' enables or disables terminal feedback
 #'
+#' @param multicore [logical] (*with default*) : enables/disables multi core
+#' calculation if `object` is a [list] of [RLum.Analysis-class] objects. Can be an
+#' [integer] specifying the number of cores
+#'
 #' @param plot [logical] (*with default*): enables/disables plot output
 #' Disabling the plot is useful in cases where the output need to be processed
 #' differently.
@@ -103,7 +107,7 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
 #'
@@ -149,11 +153,49 @@ plot_DetPlot <- function(
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
+  multicore = TRUE,
   verbose = TRUE,
   plot = TRUE,
   ...
 ) {
 
+
+# SELF CALL ---------------------------------------------------------------
+  if(inherits(object, "list")) {
+   ## remove all RLum.Analysis objects
+   object <- .rm_nonRLum(x = object, class = "RLum.Analysis")
+
+   ## get parameters to be passed on
+   f_def <- sys.call(sys.parent(n = -1))
+   args_default <- as.list(f_def)[-(1:2)]
+
+   ## detect cores
+   cores <- if(inherits(multicore[1], "logical") && multicore[1]) {
+     parallel::detectCores()
+    } else {
+      max(c(as.numeric(multicore[1])), 1)
+    }
+
+   cl <- parallel::makeCluster(cores)
+   on.exit(parallel::stopCluster(cl), add = TRUE)
+
+   if(!multicore) {
+     cores <- parallel::detectCores()
+     cl <- parallel::makeCluster(cores)
+   }
+
+   ##terminal return
+   if(verbose) cat("\n[plot_DetPlot()] Running mulitcore session with", cores, "core(s) ...")
+
+   ## run in parallel
+   return_list <- parallel::parLapply(
+     cl = cl,
+     X = object,
+     fun = function(x, arg = args_default) do.call(plot_DetPlot, c(list(object = x), arg)))
+
+   return(merge_RLum(return_list))
+
+  }
 
 # Integrity Tests -----------------------------------------------------------------------------
   ##check input
@@ -184,7 +226,6 @@ plot_DetPlot <- function(
   )
 
   analyse_function.settings <- modifyList(analyse_function.settings, analyse_function.control)
-
 
 # Analyse -------------------------------------------------------------------------------------
   ##set integral sequence
@@ -328,7 +369,7 @@ plot_DetPlot <- function(
         ##general settings
         old_par <- par(no.readonly = TRUE)
         par(cex = plot.settings$cex)
-        on.exit(par(old_par))
+        on.exit(par(old_par), add = TRUE)
 
         ##open plot area
         plot(
@@ -366,7 +407,7 @@ plot_DetPlot <- function(
             bty = "n"
           )
         }
-      } ## ent plot
+      } ## end plot
       ##set return
       return(df_final)
 
@@ -387,4 +428,3 @@ plot_DetPlot <- function(
   ))
 
 }
-

@@ -61,7 +61,9 @@ them (before those records were skipped). As it is in the original format, these
 * Returns the file path as `@info` object in the `RLum.Analysis-class` output.
 
 ### `plot_DetPlot()`
-* The function gained the new parameter `plot` to provide the possibility to disable the plot output for more complex operations
+* New argument `plot`: The function gained the new parameter `plot` to provide the possibility to disable the plot output for more complex operations
+* Additional input: The function now understands lists of `RLum.Analysis-class` objects and iterates over those objects automatically. 
+* New argument `multicore`: As an addition to the list operation, the function can let it run in a multi core session
 * The legend displayed the wrong labels for the equivalent dose and the `Ln/Tn` values; fixed.
 * The legend is now disabled by default if no shine-down curve is shown; it can be activated again 
 manually using `legend`.

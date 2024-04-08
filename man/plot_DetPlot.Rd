@@ -17,14 +17,15 @@ plot_DetPlot(
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
+  multicore = TRUE,
   verbose = TRUE,
   plot = TRUE,
   ...
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-input object containing data for analysis}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input object containing data for analysis
+Can be provided as a \link{list} of such objects.}
 
 \item{signal.integral.min}{\link{integer} (\strong{required}):
 lower bound of the signal integral.}
@@ -67,6 +68,10 @@ enables or disables shine down curve in the plot output}
 \item{respect_RC.Status}{\link{logical} (\emph{with default}):
 remove De-values with 'FAILED' RC.Status from the plot
 (cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
+
+\item{multicore}{\link{logical} (\emph{with default}) : enables/disables multi core
+calculation if \code{object} is a \link{list} of \linkS4class{RLum.Analysis} objects. Can be an
+\link{integer} specifying the number of cores}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enables or disables terminal feedback}
@@ -128,7 +133,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.6
+ 0.1.7
 }
 
 \examples{
@@ -154,7 +159,7 @@ plot_DetPlot(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-70. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-74. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
