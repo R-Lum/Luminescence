@@ -47,6 +47,15 @@ the fits were no longer forced through the origin. This issue is now corrected, 
 can use the argument `fit.force_through_origin` (which is passed down to `plot_GrowthCurve()`) to force
 the fit again through the origin (thanks to Junjie Zhang for reporting the issue).
 
+### `convert_Activity2Concentration()`
+* The function did not work as expected if input was provided as abundance and the output 
+data frame was missing values; fixed.
+* The parameter `input_unit` now expects either `"activity"` (the default) or `"abundance"` instead
+of `"Bq/kg"` or `"ppm/%'`. The old input parameters are still silently accepted. 
+* **Potentially breaking change**: The naming of the output data frame now reports SI unit conform values, 
+i.e. we `ppm` is no longer acceptable because it might have different interpretations. To 
+reflect this change, in the function title we replaced "concentration" with "abundance".
+
 ### `read_BIN2R()`
 * Argument `n.records` can now be provided as a vector to specifically 
 select records for the import. All other records are skipped and not imported. 
