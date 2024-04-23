@@ -17,6 +17,9 @@ of channels but are otherwise measured with the same time resolution. Until now,
 it was possible to merge those curves, but the subsequent analysis usually failed because
 most of the analysis functions check whether the number of channels matches. 
 
+## The Thermochronometry functions (internal)
+* Add internal function to import thermochronometry XLSX sheets into R; an R implementation of `STAGE1, ExcelToStructure`
+
 ## Bugfixes and changes
 
 ### `analyse_IRSARRF()`
