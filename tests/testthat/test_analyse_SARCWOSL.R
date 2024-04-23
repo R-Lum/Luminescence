@@ -229,6 +229,52 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+  ##check recuperation point selection
+  t <- expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria= list(
+        recycling.ratio = NA,
+        recuperation.rate = 1,
+        palaeodose.error = 1,
+        testdose.error = 1,
+        recuperation_reference = "R1",
+        test = "new",
+        exceed.max.regpoint = FALSE),
+      plot = TRUE,
+    ),
+    class = "RLum.Results"
+  )
+
+  ## check if a different point was selected
+  expect_equal(round(t$rejection.criteria$Value[2],2), expected = 0.01)
+
+  ## trigger stop of recuperation reference point
+  expect_error(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria= list(
+        recycling.ratio = NA,
+        recuperation.rate = 1,
+        palaeodose.error = 1,
+        testdose.error = 1,
+        recuperation_reference = "stop",
+        test = "new",
+        exceed.max.regpoint = FALSE),
+      plot = TRUE,
+    ),
+    regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Recuperation reference invalid, valid are")
+
    # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters
    ##object

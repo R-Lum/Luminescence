@@ -59,7 +59,8 @@
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
 #' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
 #' ratio of the natural signal). For methodological background see Aitken and
-#' Smith (1988).
+#' Smith (1988). As a variant with the argument `recuperation_reference` another dose point can be
+#' selected as reference instead of `Ln/Tn`.
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which per
 #' default should not exceed 10%. The test dose error is calculated as `Tx_net.error/Tx_net`.
@@ -128,7 +129,8 @@
 #' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
-#' `palaeodose.error`, `testdose.error` and `exceed.max.regpoint = TRUE/FALSE`.
+#' `palaeodose.error`, `testdose.error`, `exceed.max.regpoint = TRUE/FALSE`,
+#' `recuperation_reference = "Natural"` (or any other dose point, e.g., `"R1"`).
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
 #' Per default all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
 #' Every criterion can be set to `NA`. In this value are calculated, but not considered, i.e.
@@ -190,7 +192,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.10.2
+#' @section Function version: 0.10.3
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -239,6 +241,7 @@
 #'   recuperation.rate = 10,
 #'   testdose.error = 10,
 #'   palaeodose.error = 10,
+#'   recuperation_reference = "Natural",
 #'   exceed.max.regpoint = TRUE)
 #')
 #'
@@ -418,10 +421,12 @@ error.list <- list()
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
-      exceed.max.regpoint = TRUE
+      exceed.max.regpoint = TRUE,
+      recuperation_reference = "Natural"
     ),
     val = rejection.criteria,
   keep.null = TRUE)
+
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
@@ -741,29 +746,33 @@ error.list <- list()
       RecyclingRatio <- NA
     }
 
-
     # Calculate Recuperation Rate ---------------------------------------------
-    ##Recuperation Rate (capable to handle multiple type of recuperation values)
+    ## check for incorrect key words
+    if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
+      stop(paste("[analyse_SAR.CWOSL()] Recuperation reference invalid, valid are: ",
+                 paste(LnLxTnTx[,"Name"], collapse = ", ")), call. = FALSE)
+
+
+    ##Recuperation Rate (capable of handling multiple type of recuperation values)
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
       Recuperation <-
-        sapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
+        vapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
                function(x) {
                  round(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","LxTx"][x] /
-                         LnLxTnTx[LnLxTnTx[,"Name"] == "Natural","LxTx"],
+                         LnLxTnTx[LnLxTnTx[,"Name"] == rejection.criteria$recuperation_reference[1],"LxTx"],
                        digits = 4)
-               })
+               }, numeric(1))
       ##Just transform the matrix and add column names
       Recuperation  <-  t(Recuperation)
       colnames(Recuperation)  <-
         unlist(strsplit(paste(
-          "Recuperation rate",
+          paste0("Recuperation rate (", rejection.criteria$recuperation_reference[1], ")"),
           1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"
         ), ";"))
 
     }else{
       Recuperation <- NA
     }
-
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
     temp.criteria <- c(
@@ -1256,7 +1265,6 @@ error.list <- list()
       TnTx = LnLxTnTx$Net_TnTx
     )
 
-
     ##overall plot option selection for plot.single.sel
     if (plot == TRUE && 6 %in% plot.single.sel) {
       plot  <-  TRUE
@@ -1314,7 +1322,6 @@ error.list <- list()
           }
 
         }else{
-
           ##grep information on the fit object
           temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
@@ -1343,10 +1350,8 @@ error.list <- list()
                 "OK", "FAILED"
               )
 
-
             }else{
               palaeodose.error.status <- "OK"
-
 
             }
 
@@ -1359,7 +1364,6 @@ error.list <- list()
             Status =  palaeodose.error.status,
             stringsAsFactors = FALSE
           )
-
 
           ##add exceed.max.regpoint
           if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
@@ -1383,7 +1387,6 @@ error.list <- list()
               },
             Status =  status.exceed.max.regpoint
           )
-
 
           ##add to RejectionCriteria data.frame
           RejectionCriteria <- rbind(RejectionCriteria,

@@ -34,6 +34,8 @@ their class in the correct order. If you expect character values this may break 
 * The `$data` element gained two new columns `ALQ` and `POS` where the functions tries to store
 data about the running aliquot number and the position of the aliquot in the reader. The latter
 can only be accessed if this information was provided in measurement data (e.g., XSYG or BIN/BINX)
+* The argument `rejection.criteria` gained a new option `recuperation_refrence` preset to `"Natural"` to specify 
+the regeneration reference dose point taken into account for calculating the recuperation rate (suggested by Anna-Maartje Boer and Jakob Wallinga)
 
 ### `calc_Huntely2006()`
 * If the age is `NA` due to `Ln/Tn` values lower than the smallest simulated `Lx/Tx` value, 
