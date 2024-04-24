@@ -17,6 +17,9 @@ of channels but are otherwise measured with the same time resolution. Until now,
 it was possible to merge those curves, but the subsequent analysis usually failed because
 most of the analysis functions check whether the number of channels matches. 
 
+* `import_Data()`: A convenience wrapper around all functions commencing with `read_`. The functions steps through all functions
+and the one that can import a file is chosen. This function simplifies writing of scripts for different data formats.
+
 ## Bugfixes and changes
 
 ### `analyse_IRSARRF()`
