@@ -67,7 +67,17 @@ file
 * The function learned about `RECTYPE` 128 records and can now import
 them (before those records were skipped). As it is in the original format, these information are only appended to the BIN/BINX file, means they do not really represent measurement data. 
 
+### `read_Daybreak2R()`
+* The function gained the `...` argument for compatibility reasons
+
 ### `read_RF2R()`
+* The function gained the `...` argument for compatibility reasons
+
+### `read_SPE2R()`
+* The function gained the `...` argument for compatibility reasons
+* The argument verbose was not fully respected; fixed
+
+### `read_TIFF2R()`
 * The function gained the `...` argument for compatibility reasons
 
 ### `read_XSYG2R()`
