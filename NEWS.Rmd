@@ -20,6 +20,8 @@ and the one that can import a file is chosen. This function simplifies writing o
 
 ## The Thermochronometry functions (internal)
 * Add internal function to import thermochronometry XLSX sheets into R; an R implementation of `STAGE1, ExcelToStructure`
+* `import_Data()`: A convenience wrapper around all functions commencing with `read_`. The functions steps through all functions
+and the one that can import a file is chosen. This function simplifies writing of scripts for different data formats.
 
 ## Bugfixes and changes
 
