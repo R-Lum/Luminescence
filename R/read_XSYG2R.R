@@ -126,7 +126,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.9
+#' @section Function version: 0.6.10
 #'
 #'
 #' @author
@@ -223,7 +223,6 @@ read_XSYG2R <- function(
 
     ##return
     if (fastForward) {
-
       if(import){
         return(unlist(temp.return, recursive = FALSE))
 
@@ -350,8 +349,8 @@ read_XSYG2R <- function(
 
   ##parse XML tree using the package XML
   temp <- try(
-    XML::xmlRoot(XML::xmlTreeParse(file, useInternalNodes = TRUE, options = HUGE)), silent = TRUE)
-
+    XML::xmlRoot(XML::xmlTreeParse(file, useInternalNodes = TRUE, options = HUGE, error = NULL)),
+    silent = TRUE)
 
   ##show error
   if(is(temp, "try-error") == TRUE){

@@ -70,6 +70,7 @@ them (before those records were skipped). As it is in the original format, these
 ### `read_XSYG2R()`
 * Tries a little bit harder to determine the correct file path.
 * Returns the file path as `@info` object in the `RLum.Analysis-class` output.
+* If the file is not readable it only shows the R error and not anymore the internal error.
 
 ### `plot_DetPlot()`
 * New argument `plot`: The function gained the new parameter `plot` to provide the possibility to disable the plot output for more complex operations
