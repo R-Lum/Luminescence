@@ -67,6 +67,9 @@ file
 * The function learned about `RECTYPE` 128 records and can now import
 them (before those records were skipped). As it is in the original format, these information are only appended to the BIN/BINX file, means they do not really represent measurement data. 
 
+### `read_RF2R()`
+* The function gained the `...` argument for compatibility reasons
+
 ### `read_XSYG2R()`
 * Tries a little bit harder to determine the correct file path.
 * Returns the file path as `@info` object in the `RLum.Analysis-class` output.
