@@ -709,7 +709,7 @@ read_BIN2R <- function(
       #RECTYPE
       if(temp.VERSION == 08){
         temp.RECTYPE <- readBin(con, what = "int", 1, size = 1, endian = "little", signed = FALSE)
-        if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128){
+        if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
 
           ##jump to the next record by stepping the record length minus the already read bytes
           STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
@@ -719,7 +719,7 @@ read_BIN2R <- function(
                 paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"!
                        Check your BIN/BINX file!"), call. = FALSE)
 
-            }else{
+            } else {
               if(verbose)
                 cat(paste0("\n[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,", record skipped!"))
 
@@ -747,10 +747,22 @@ read_BIN2R <- function(
       temp.XCOORD <- temp[6]
       temp.YCOORD <- temp[7]
 
+        ## BINX files with RECTYPE 128 seem to be sometimes broken
+        ## check the input here and then skip the record
+        if(temp.RUN < 0 || temp.SET < 0) {
+          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 19)
+          warning(paste0("\n[read_BIN2R()] Record ", temp.ID, " broken. Import of further records stopped!"),
+                  call. = FALSE)
+
+          break()
+
+        }
+
       ##SAMPLE, COMMENT
       ##SAMPLE
-      SAMPLE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.SAMPLE<-readChar(con, SAMPLE_SIZE, useBytes=TRUE)
+      SAMPLE_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+      temp.SAMPLE <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
+
       #however it should be set to 20
 
       #step forward in con
@@ -1058,7 +1070,7 @@ read_BIN2R <- function(
       DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
 
       ##date size corrections for wrong date formats; set n to 6 for all values
-      ##accoording the handbook of Geoff Duller, 2007
+      ##according the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
       temp.DATE<-readChar(con, DATE_SIZE, useBytes=TRUE)
 
@@ -1398,9 +1410,8 @@ read_BIN2R <- function(
 
       warning(
         paste0(
-          "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed: ",
-          paste(zero_data.check, collapse = ", "),
-          ". \n\n >> Record index re-calculated."
+          "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed! ",
+          "\n >> Record index re-calculated."
         ), call. = FALSE
       )
 
