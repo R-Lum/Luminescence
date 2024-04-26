@@ -78,12 +78,7 @@ Dr1 = 34.4))
 
 get_RLum(results, data.object = "De")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-91. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.
