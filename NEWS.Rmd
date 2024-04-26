@@ -8,7 +8,7 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-**This package version requires R >= 4.2**
+**This package version requires R >= 4.3**
 
 ## New functions
 * `trim_RLum.Data()`: This new function enables to trim off the number of channels of all supported `RLum.Data-class` on the time domain. For instance, an OSL curve (`RLum.Data.Curve-class`) has 1000 channels, one may
