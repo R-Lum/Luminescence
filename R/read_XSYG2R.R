@@ -251,43 +251,11 @@ read_XSYG2R <- function(
 # Consistency check -----------------------------------------------------------
   file <- suppressWarnings(normalizePath(file))
 
-  ##check if file exists
-  if(!file.exists(file)){
-    tmp_file <- file
-    file <- NULL
-
-    ##check if the file as an URL ... you never know
-    if(grepl(pattern = "http", x = tmp_file, fixed = TRUE)){
-      if(verbose)
-        cat("\n[read_XSYG2R()] URL detected, checking connection ... ")
-
-      ##check URL
-      file_link <- tempfile("read_XSYG2R_FILE")
-      req <- try({
-        suppressWarnings(download.file(tmp_file, destfile = file_link, quiet = if(verbose) FALSE else TRUE ))
-
-      })
-
-      if(inherits(req, "try-error")) {
-        if(verbose) cat("FAILED\n")
-
-      } else {
-        if(verbose) cat("OK\n")
-        file <- file_link
-
-      }
-
-    }
-
-  }
-
-  ## message
-  if(is.null(file)) {
-    if(verbose) message("[read_XSYG2R()] File does not exist! Return NULL!")
-    return(NULL)
-
-  }
-
+  ## check for URL and attempt download
+  if(verbose)
+    file <- .download_file(file, tempfile("read_XSYG2R_FILE"))
+  else
+    file <- suppressMessages(.download_file(file, tempfile("read_XSYG2R_FILE")))
 
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")
