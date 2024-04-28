@@ -201,12 +201,11 @@ read_XSYG2R <- function(
     if (dir.exists(file) & length(dir(file)) > 0) {
       if(verbose) cat("\n[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
       file <-
-        as.list(paste0(file,dir(
+        as.list(paste0(file, dir(
           file, recursive = TRUE, pattern = pattern
         )))
 
     }
-
   }
 
   if (is(file, "list")) {
@@ -226,78 +225,66 @@ read_XSYG2R <- function(
       if(import){
         return(unlist(temp.return, recursive = FALSE))
 
-      }else{
+      } else{
         return(as.data.frame(data.table::rbindlist(temp.return)))
 
       }
 
-
-    }else{
+    } else{
       return(temp.return)
 
     }
 
   }
 
-
-  # On exit case --------------------------------------------------------------------------------
-
+# On exit case -----------------------------------------------------------------
   ##set file_link for internet downloads
   file_link <- NULL
   on_exit <- function(){
-
     ##unlink internet connection
-    if(!is.null(file_link)){
+    if(!is.null(file_link))
       unlink(file_link)
-    }
 
   }
   on.exit(expr = on_exit())
 
-  # Consistency check -------------------------------------------------------
+# Consistency check -----------------------------------------------------------
   file <- suppressWarnings(normalizePath(file))
 
   ##check if file exists
   if(!file.exists(file)){
+    tmp_file <- file
+    file <- NULL
+
     ##check if the file as an URL ... you never know
-    if(grepl(pattern = "http", x = file, fixed = TRUE)){
-      if(verbose){
+    if(grepl(pattern = "http", x = tmp_file, fixed = TRUE)){
+      if(verbose)
         cat("\n[read_XSYG2R()] URL detected, checking connection ... ")
-      }
 
       ##check URL
-      if(!httr::http_error(file)){
+      if(!httr::http_error(tmp_file)){
         if(verbose) cat("OK\n")
         ##download file
         file_link <- tempfile("read_XSYG2R_FILE")
-        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
+        download.file(tmp_file, destfile = file_link, quiet = if(verbose) FALSE else TRUE )
         file <- file_link
 
       } else {
-        file <- NULL
-        message("[read_XSYG2R()] File does not exist! Return NULL!")
-        return(NULL)
+        if(verbose) cat("FAILED\n")
 
       }
-
-    } else {
-      file <- NULL
-      message("[read_XSYG2R()] File does not exist, return NULL!")
-      return(NULL)
 
     }
 
   }
 
-  #TODO to be included again in a future version, if the format is given in the file itself
-  # ##check if file is XML file
-  # if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" &
-  #    tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
-  #
-  #   warning("[read_XSYG2R()] File is not of type 'XSYG', nothing imported!")
-  #   return(NULL)
-  #
-  # }
+  ## message
+  if(is.null(file)) {
+    if(verbose) message("[read_XSYG2R()] File does not exist! Return NULL!")
+    return(NULL)
+
+  }
+
 
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")
@@ -306,7 +293,6 @@ read_XSYG2R <- function(
   #get spectrum values
   # TODO: This function could be written also in C++, however, not necessary due to a low demand
   get_XSYG.spectrum.values <- function(curve.node){
-
     ##1st grep wavelength table
     wavelength <- XML::xmlAttrs(curve.node)["wavelengthTable"]
 
@@ -354,7 +340,7 @@ read_XSYG2R <- function(
 
   ##show error
   if(is(temp, "try-error") == TRUE){
-    message("[read_XSYG2R()] XML file not readable, nothing imported!)")
+    if(verbose) message("[read_XSYG2R()] XML file not readable, nothing imported!)")
     return(NULL)
 
   }
@@ -394,14 +380,11 @@ read_XSYG2R <- function(
       }else{
         output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
 
-
       }
 
     return(output)
 
-  }else{
-
-
+  } else {
     ##==========================================================================##
     ##IMPORT XSYG FILE
 
