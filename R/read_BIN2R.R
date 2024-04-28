@@ -283,9 +283,7 @@ read_BIN2R <- function(
 
 
   ## check if file is a BIN or BINX file
-  file_ending <- tolower(tools::file_ext(file))
-
-  if(!any(file_ending %in%  c("bin", "binx"))) {
+  if(!any(tolower(tools::file_ext(file)) %in%  c("bin", "binx"))) {
       message(paste0("[read_BIN2R()] '", file, "'is not a file or not of type 'BIN' or 'BINX'!
                      Skipped and NULL returned!"))
 
