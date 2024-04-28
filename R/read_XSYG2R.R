@@ -249,8 +249,6 @@ read_XSYG2R <- function(
   on.exit(expr = on_exit())
 
 # Consistency check -----------------------------------------------------------
-  file <- suppressWarnings(normalizePath(file))
-
   ## check for URL and attempt download
   if(verbose)
     url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"))
@@ -259,6 +257,9 @@ read_XSYG2R <- function(
 
   if(!is.null(url_file))
     file <- url_file
+
+  ## normalise path, just in case
+  file <- suppressWarnings(normalizePath(file))
 
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")
@@ -314,7 +315,7 @@ read_XSYG2R <- function(
 
   ##show error
   if(is(temp, "try-error") == TRUE){
-    if(verbose) message("[read_XSYG2R()] XML file not readable, nothing imported!)")
+    if(verbose) message("[read_XSYG2R()] XML file not readable, nothing imported!")
     return(NULL)
 
   }
