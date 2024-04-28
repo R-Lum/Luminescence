@@ -745,8 +745,14 @@ fancy_scientific <- function(l) {
     ## use internal download
     t <- tryCatch(
       expr = download.file(url = url, destfile = destfile, quiet = TRUE),
-      warning = function(w) message("FAILED ", appendLF = TRUE),
-      error = function(e) message("FAILED ", appendLF = TRUE))
+      warning = function(w) {
+        message("FAILED ", appendLF = TRUE)
+        return(NULL)
+      },
+      error = function(e) {
+        message("FAILED ", appendLF = TRUE)
+        return(NULL)
+      })
 
     if(!is.null(t) && t == 0) {
       message("OK ", appendLF = TRUE)
