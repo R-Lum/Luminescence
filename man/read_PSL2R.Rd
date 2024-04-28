@@ -76,5 +76,10 @@ plot(psl, combine = TRUE)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-, RLum Developer Team}
+, RLum Developer Team} 
+
+\section{How to cite}{
+Burow, C., 2024. read_PSL2R(): Import PSL files to R. Function version 0.0.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-93. https://CRAN.R-project.org/package=Luminescence
+}
+
 \keyword{IO}
