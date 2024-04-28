@@ -126,7 +126,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.10
+#' @section Function version: 0.6.11
 #'
 #'
 #' @author
@@ -253,9 +253,12 @@ read_XSYG2R <- function(
 
   ## check for URL and attempt download
   if(verbose)
-    file <- .download_file(file, tempfile("read_XSYG2R_FILE"))
+    url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"))
   else
-    file <- suppressMessages(.download_file(file, tempfile("read_XSYG2R_FILE")))
+    url_file <- suppressMessages(.download_file(file, tempfile("read_XSYG2R_FILE")))
+
+  if(!is.null(url_file))
+    file <- url_file
 
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")

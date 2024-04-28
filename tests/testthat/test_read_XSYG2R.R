@@ -16,6 +16,11 @@ test_that("test import of XSYG files", {
   results <- expect_type(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extdata/TLSpectrum.xsyg", fastForward = TRUE), type = "list")
   expect_output(print(results))
 
+  ## check also internal files
+  expect_type(
+    object = read_XSYG2R(system.file("extdata/XSYG_file.xsyg", package = "Luminescence"), fastForward = TRUE),
+    type = "list")
+
   ## check file and file path
   expect_type(results[[1]]@info$file, type = "character")
 
