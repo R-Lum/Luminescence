@@ -727,11 +727,10 @@ fancy_scientific <- function(l) {
     url,
     destfile = tempfile()
 ) {
+
   ## get name of calling function
   caller <- paste0("[", as.character(sys.call(which = -1)[[1]]), "()]")
-
-  ## set output
-  file <- NULL
+  out_file_path <- NULL
 
   ## detect and extract URL
   if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
@@ -744,7 +743,12 @@ fancy_scientific <- function(l) {
 
     ## use internal download
     t <- tryCatch(
-      expr = download.file(url = url, destfile = destfile, quiet = TRUE),
+      expr = download.file(
+        url = url,
+        destfile = destfile,
+        quiet = TRUE,
+        method = "auto",
+        cacheOK = FALSE),
       warning = function(w) {
         message("FAILED ", appendLF = TRUE)
         return(NULL)
@@ -756,14 +760,15 @@ fancy_scientific <- function(l) {
 
     if(!is.null(t) && t == 0) {
       message("OK ", appendLF = TRUE)
-      file <- destfile
+      out_file_path <- destfile
+      unlink(url)
 
     }
 
   }
 
-  ## return file
-  return(file)
+  ## return file path
+  return(out_file_path)
 
 }
 

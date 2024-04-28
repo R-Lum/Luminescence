@@ -237,17 +237,6 @@ read_XSYG2R <- function(
 
   }
 
-# On exit case -----------------------------------------------------------------
-  ##set file_link for internet downloads
-  file_link <- NULL
-  on_exit <- function(){
-    ##unlink internet connection
-    if(!is.null(file_link))
-      unlink(file_link)
-
-  }
-  on.exit(expr = on_exit())
-
 # Consistency check -----------------------------------------------------------
   ## check for URL and attempt download
   if(verbose)
