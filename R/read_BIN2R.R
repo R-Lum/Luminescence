@@ -92,10 +92,7 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
-#'
-#' @section Function version: 0.17.0
-#'
+#' @section Function version: 0.17.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -268,74 +265,34 @@ read_BIN2R <- function(
 
 
   # Config --------------------------------------------------------------------------------------
-  ##set file_link for internet downloads
-  file_link <- NULL
-  on_exit <- function(){
-    ##unlink internet connection
-    if(!is.null(file_link)){
-      unlink(file_link)
-    }
+  ## check for URL and attempt download
+  if(verbose)
+    url_file <- .download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx"))
+  else
+    url_file <- suppressMessages(.download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx")))
 
-    ##close connection
-    if(exists("con") && !is.null(con)){
-      close(con)
+  if(!is.null(url_file))
+    file <- url_file
 
-    }
+  ## normalise path, just in case
+  file <- suppressWarnings(normalizePath(file))
 
-  }
-  on.exit(expr = on_exit())
+  ## check whether file exists
+  if(!file.exists(file))
+     stop("[read_BIN2R()] File does not exist!", call. = FALSE)
 
-  # Integrity checks ------------------------------------------------------
 
-  ##check if file exists
-  if(!file.exists(file)){
-    ##check whether the file as an URL
-    if(grepl(pattern = "http", x = file, fixed = TRUE)){
-      if(verbose){
-        cat("[read_BIN2R()] URL detected, checking connection ... ")
-      }
+  ## check if file is a BIN or BINX file
+  file_ending <- tolower(tools::file_ext(file))
 
-      ##check URL
-      if(!httr::http_error(file)){
-        if(verbose) cat("OK")
-
-        ##download file
-        file_link <- tempfile("read_BIN2R_FILE")
-        utils::download.file(
-          url = file,
-          destfile = file_link,
-          quiet = if(verbose) FALSE else TRUE,
-          mode = "wb",
-          cacheOK = FALSE)
-
-      }else{
-        cat("FAILED")
-        con <- NULL
-        stop("[read_BIN2R()] File does not exist!", call. = FALSE)
-
-      }
-
-    }else{
-      con <- NULL
-      stop("[read_BIN2R()] File does not exist!", call. = FALSE)
-
-    }
-
-  }
-
-  ##check if file is a BIN or BINX file
-  if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%sub(pattern = "%20", replacement = "", x = tail(
-    unlist(strsplit(file, split = "\\.")), n = 1), fixed = TRUE)))){
-    message(paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"))
+  if(!any(file_ending %in%  c("bin", "binx"))) {
+      message(paste0("[read_BIN2R()] '", file, "'is not a file or not of type 'BIN' or 'BINX'!
+                     Skipped and NULL returned!"))
 
     con <- NULL
     return(NULL)
 
   }
-
-  ##set correct file name of file_link was set
-  if(!is.null(file_link))
-    file <- file_link
 
   # Config ------------------------------------------------------------------
 

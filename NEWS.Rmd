@@ -72,6 +72,7 @@ file
 them (before those records were skipped). As it is in the original format, 
 these information are only appended to the BIN/BINX file, means they do not really represent measurement data. 
 *Please note that this support is highly experimental!*  
+* The download of files now uses the new internal function `.download_file()`
 
 ### `read_Daybreak2R()`
 * The function gained the `...` argument for compatibility reasons
