@@ -262,15 +262,18 @@ read_XSYG2R <- function(
         cat("\n[read_XSYG2R()] URL detected, checking connection ... ")
 
       ##check URL
-      if(!httr::http_error(tmp_file)){
-        if(verbose) cat("OK\n")
-        ##download file
-        file_link <- tempfile("read_XSYG2R_FILE")
-        download.file(tmp_file, destfile = file_link, quiet = if(verbose) FALSE else TRUE )
-        file <- file_link
+      file_link <- tempfile("read_XSYG2R_FILE")
+      req <- try({
+        suppressWarnings(download.file(tmp_file, destfile = file_link, quiet = if(verbose) FALSE else TRUE ))
+
+      })
+
+      if(inherits(req, "try-error")) {
+        if(verbose) cat("FAILED\n")
 
       } else {
-        if(verbose) cat("FAILED\n")
+        if(verbose) cat("OK\n")
+        file <- file_link
 
       }
 
