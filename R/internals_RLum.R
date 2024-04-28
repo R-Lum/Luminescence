@@ -446,8 +446,9 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
-#
-#' This function allows efficient binning of matrices including
+#' @title Efficient binning of matricies
+#'
+#' @description This function allows efficient binning of matrices including
 #' row and column name handling. Internally, the function uses [rowsum],
 #' means the binning is always applied on the rows. For column binning the function
 #' internally transposes the matrix first
@@ -695,10 +696,13 @@ fancy_scientific <- function(l) {
   return(HPDI)
 }
 
+#++++++++++++++++++++++++++++++
+#+ .download_file             +
+#++++++++++++++++++++++++++++++
 #'@title Internal File Download Handler
 #'
-#'@decription For file imports using function commencing with `read_` the file download
-#'was little consistent and suprinsingly error-prone. This function should keep the requirements
+#'@description For file imports using function commencing with `read_` the file download
+#'was little consistent and surprisingly error-prone. This function should keep the requirements
 #'more consistent
 #'
 #'@param url [character] (**required**)
