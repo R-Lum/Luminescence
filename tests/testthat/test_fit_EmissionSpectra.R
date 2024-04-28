@@ -35,7 +35,7 @@ test_that("standard check", {
     frame = 5,
     main = "TL spectrum",
     n_components = 3,
-    plot = FALSE,
+    plot = TRUE,
     start_parameters = c(2.17),
     method_control = list(max.runs = 100)), "RLum.Results")
 
