@@ -694,3 +694,70 @@ fancy_scientific <- function(l) {
 
   return(HPDI)
 }
+
+#'@title Internal File Download Handler
+#'
+#'@decription For file imports using function commencing with `read_` the file download
+#'was little consistent and suprinsingly error-prone. This function should keep the requirements
+#'more consistent
+#'
+#'@param url [character] (**required**)
+#'
+#'@param dest [character] (*with default*)
+#'
+#'@returns Returns either nothing (no URL) or the file path of the downloaded file
+#'
+#'@author Sebastian Kreutzer, Insitut of Geography, Heidelberg University, Germany
+#'
+#'@examples
+#'
+#'## returns just NULL (no URL detected)
+#'.download_file(url = "teststs")
+#'
+#'## attempts download
+#'.download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg")
+#'
+#'## attempts download silently
+#' suppressMessages(
+#' .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
+#'
+#'@md
+#'@noRd
+.download_file <- function(
+    url,
+    destfile = tempfile()
+) {
+  ## get name of calling function
+  caller <- paste0("[", as.character(sys.call(which = -1)[[1]]), "()]")
+
+  ## set output
+  file <- NULL
+
+  ## detect and extract URL
+  if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
+    ## status reports
+    message(paste0(caller, " URL detected: ", url), appendLF = TRUE)
+    message(paste0(caller, " Attempting download ... "), appendLF = FALSE)
+
+    ## extract URL from string only
+    url <- regmatches(x = url, m = regexec(pattern = "https?\\:\\/\\/.+", text = url, perl = TRUE))[[1]]
+
+    ## use internal download
+    t <- tryCatch(
+      expr = download.file(url = url, destfile = destfile, quiet = TRUE),
+      warning = function(w) message("FAILED ", appendLF = TRUE),
+      error = function(e) message("FAILED ", appendLF = TRUE))
+
+    if(!is.null(t) && t == 0) {
+      message("OK ", appendLF = TRUE)
+      file <- destfile
+
+    }
+
+  }
+
+  ## return file
+  return(file)
+
+}
+

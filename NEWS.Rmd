@@ -122,3 +122,6 @@ the functionality is very basic and for fast reporting situations only.
 * The function learned about `RECTYPE` 128 records. Those records contain ROI 
 data from camera measurements and are skipped for the moment because they do not 
 really belong to measurement data. This may change future.
+
+### Internals
+* Add internal download helper `.download_file()` for a more consistent approach to detect urls and download file across the package

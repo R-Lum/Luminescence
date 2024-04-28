@@ -88,6 +88,16 @@ test_that("Test internals", {
     ##clean-up
     rm(m)
 
+   # .download_file ---------------------------------------------------------------------------
+   ## returns just NULL (no URL detected)
+   expect_null(.download_file(url = "_url"))
+
+   ## attempts download
+   expect_message(.download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
+
+    ## attempts download silently
+   expect_null(suppressMessages(
+    .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg")))
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
