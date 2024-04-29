@@ -30,12 +30,13 @@ test_that("standard check", {
 
   # plain run -------
   # #somewhat the plotting does not work for Github Actions
+  # Somehow releated to the splot screen
   results <-  expect_s4_class(fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5,
     main = "TL spectrum",
     n_components = 3,
-    plot = TRUE,
+    plot = FALSE,
     start_parameters = c(2.17),
     method_control = list(max.runs = 100)), "RLum.Results")
 
