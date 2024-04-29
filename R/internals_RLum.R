@@ -751,8 +751,7 @@ fancy_scientific <- function(l) {
         url = url,
         destfile = destfile,
         quiet = TRUE,
-        method = "auto",
-        cacheOK = FALSE),
+        method = "auto"),
       warning = function(w) {
         message("FAILED ", appendLF = TRUE)
         return(NULL)
