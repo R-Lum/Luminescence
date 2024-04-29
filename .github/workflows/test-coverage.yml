@@ -8,6 +8,9 @@ on:
 
 name: test-coverage
 
+env:
+  cache-version: v1
+
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
@@ -48,3 +51,4 @@ jobs:
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
+
