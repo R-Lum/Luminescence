@@ -300,6 +300,7 @@ read_BIN2R <- function(
   # Short file parsing to get number of records -------------------------------------------------
   #open connection
   con <- file(file, "rb")
+  on.exit(close(con))
 
   ##get information about file size
   file.size <- file.info(file)
@@ -315,14 +316,14 @@ read_BIN2R <- function(
   temp.ID <- 0
 
   ##start for BIN-file check up
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
+  while(length(temp.VERSION <- readBin(con, what="raw", 1, size=1, endian="little"))>0) {
      ##force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
     ##stop input if wrong VERSION
-    if((temp.VERSION%in%VERSION.supported) == FALSE){
+    if(!all((temp.VERSION %in% VERSION.supported))){
       if(temp.ID > 0){
         if(is.null(n.records)){
           warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID," record(s)."),
