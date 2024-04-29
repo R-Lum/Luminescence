@@ -751,7 +751,7 @@ fancy_scientific <- function(l) {
         url = url,
         destfile = destfile,
         quiet = TRUE,
-        mode = "wb",
+        mode = "wb", ## this is needed for Windows otherwise the download does not work
         cacheOK = FALSE,
         method = "auto"),
       warning = function(w) {

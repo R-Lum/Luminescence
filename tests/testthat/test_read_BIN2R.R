@@ -11,7 +11,8 @@ test_that("test the import of various BIN-file versions", {
     ##V3
     expect_s4_class(
       suppressWarnings(read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V3.bin",
-                 txtProgressBar = FALSE)), class = "Risoe.BINfileData")
+                 txtProgressBar = FALSE)),
+      class = "Risoe.BINfileData")
 
     ##V4
     expect_s4_class(
