@@ -265,6 +265,24 @@ read_BIN2R <- function(
 
 
   # Config --------------------------------------------------------------------------------------
+  ##set file_link for internet downloads
+  url_file <- NULL
+  on_exit <- function(){
+    ##unlink internet connection
+    if(!is.null(url_file)){
+      unlink(url_file)
+    }
+
+    ##close connection
+    if(exists("con") && !is.null(con)){
+      close(con)
+
+    }
+
+
+  }
+  on.exit(expr = on_exit())
+
   ## check for URL and attempt download
   if(verbose)
     url_file <- .download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx"))
@@ -300,7 +318,6 @@ read_BIN2R <- function(
   # Short file parsing to get number of records -------------------------------------------------
   #open connection
   con <- file(file, "rb")
-  on.exit(close(con))
 
   ##get information about file size
   file.size <- file.info(file)
