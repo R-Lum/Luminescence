@@ -249,7 +249,7 @@ calc_FadingCorr <- function(
     )), silent = TRUE)
 
   if(inherits(temp, "try-error")){
-    message("[calc_FadingCorr()] No solution found, return NULL. This usually happens for very large, unrealistic g-values.")
+    message("[calc_FadingCorr()] No solution found, return NULL. This usually happens for very large, unrealistic g-values. Please consider another model for the fading correction!")
     return(NULL)
 
   }
@@ -458,4 +458,3 @@ calc_FadingCorr <- function(
   ))
 
 }
-
