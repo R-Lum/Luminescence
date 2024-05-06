@@ -570,6 +570,10 @@ fancy_scientific <- function(l) {
   f_def <- sys.function(sys.parent())
   f_call <- sys.call(sys.parent())
 
+  ## get parent environment because we have to evaluate
+  ## objects in the parent environment.
+  p_env <- parent.env(environment())
+
   ##extract arguments (do not consider the first argument, this might be a very
   ##large object)
   args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
@@ -579,8 +583,12 @@ fancy_scientific <- function(l) {
   ##before passing them further down
   if(length(args_new) > 0){
     for(i in 1:length(args_new)){
-      if(class(args_new[[i]])[1] == "name" | class(args_new[[i]])[1] == "call")
-        args_new[[i]] <- eval(args_new[[i]])
+      if(class(args_new[[i]])[1] == "name" |
+         class(args_new[[i]])[1] == "call" |
+         class(args_new[[i]])[1] == "(" ) {
+        args_new[[i]] <- eval(args_new[[i]], envir = p_env)
+
+      }
     }
   }
 
