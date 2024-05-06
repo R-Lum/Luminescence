@@ -11,11 +11,9 @@ header-includes:
 **This package version requires R >= 4.3**
 
 ## New functions
-* `trim_RLum.Data()`: This new function enables to trim off the number of channels of all supported `RLum.Data-class` on the time domain. For instance, an OSL curve (`RLum.Data.Curve-class`) has 1000 channels, one may
+* `trim_RLum.Data()`: This new function enables trimming off the number of channels of all supported `RLum.Data-class` on the time domain. For instance, an OSL curve (`RLum.Data.Curve-class`) has 1000 channels; one may
 want to extract only channels 10 to 100. Moreover, sometimes, `RLum.Data-class` objects have a different number
-of channels but are otherwise measured with the same time resolution. Until now,
-it was possible to merge those curves, but the subsequent analysis usually failed because
-most of the analysis functions check whether the number of channels matches. 
+of channels but are otherwise measured with the exact time resolution. Until now, it was possible to merge those curves, but the subsequent analysis usually failed because most of the analysis functions check whether the number of channels matches. 
 
 * `import_Data()`: A convenience wrapper around all functions commencing with `read_`. The functions steps through all functions
 and the one that can import a file is chosen. This function simplifies writing of scripts for different data formats.
@@ -124,10 +122,7 @@ the functionality is very basic and for fast reporting situations only.
 data from camera measurements and are skipped for the moment because they do not 
 really belong to measurement data. This may change future.
 
-### Internals
-* Add internal download helper `.download_file()` for a more consistent approach to detect URL schemes and download file across the package
-* Cover tricky edge case for the internal function `.expand_parameters()`. The function is used
-to recycle and expand function parameters if the input is a list object. It apparently showed odd behaviour if a function was used in a loop with objects if its own, e.g., `f(x = i + 1)` then the function would recycle `i + 1` and then evaluate `i + 1` in the function environment. Usually 
-this should throw an error but in particular `i` is an object name commonly used in loops, so the function went upwards in the environments until if found the first `i`. However, this is not 
-the `i` inserted by the use. The results was that the loop did not seem to work for no apparent 
-reason. Now `.expand_parameters()` evaluates input in the parent environment before passing it down. 
+## Internals
+* Add internal download helper `.download_file()` for a more consistent approach to detect URL schemes and download files across the package
+* Cover tricky edge case for the internal function `.expand_parameters()`. The function is used to recycle and expand function parameters if the input is a list object. It apparently showed odd behaviour if a function was used in a loop with objects of its own, e.g., `f(x = i + 1)`, then the function would recycle `i + 1` and then evaluate `i + 1` in the function environment. Usually, this should throw an error, but in particular, `i` is an object name commonly used in loops, so the function went upwards in the environments until it found the first `i`. However, this is not 
+the `i` inserted by the user. The result was that the loop did not seem to work for no apparent reason. Now, `.expand_parameters()` evaluates input in the parent environment before passing it down.  
