@@ -18,6 +18,8 @@ test_that("Test internals", {
   ##check whether the objects are properly recycled
   expect_type(f(object, a = 1), "list")
   expect_length(f(object, a = 1, c = list(a = 1, b = 2, c = 3))$c, 3)
+  expect_length(f(object, a = (1), c = list(a = 1, b = 2, c = 3))$c, 3)
+  expect_equal(f(object, a = (1 + 10), c = list(a = 1, b = 2, c = 3))$a[[1]], 11)
 
   # .calc_HPDI() ------------------------------------------------------------
   set.seed(1234)
