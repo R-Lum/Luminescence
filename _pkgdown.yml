@@ -4,9 +4,6 @@ navbar:
     - icon: fa-home
       text: "Home"
       href: index.html
-    - icon: fa-play
-      text: "Articles"
-      href: articles/index.html
     - text: "References"
       href: reference/index.html
   right:
@@ -16,14 +13,6 @@ navbar:
     - icon: fa-github
       text: "GitHub"
       href: https://github.com/R-Lum/Luminescence
-
-
-articles:
-- title: All vignettes
-  desc: ~
-  contents:
-  - '`HowTo_analyse_Al2O3`'
-  - '`HowTo_analyse_pIRIRMeasurements`'
 
 template:
   params:

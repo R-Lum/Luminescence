@@ -70,9 +70,6 @@
     <loc>/reference/ExampleData.LxTxOSLData.html</loc>
   </url>
   <url>
-    <loc>/reference/ExampleData.MortarData.html</loc>
-  </url>
-  <url>
     <loc>/reference/ExampleData.RLum.Analysis.html</loc>
   </url>
   <url>
@@ -161,9 +158,6 @@
   </url>
   <url>
     <loc>/reference/analyse_portableOSL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/app_RLum.html</loc>
   </url>
   <url>
     <loc>/reference/apply_CosmicRayRemoval.html</loc>
