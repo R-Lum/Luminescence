@@ -51,7 +51,9 @@
 #'
 #' @param analyse_function.control [list] (*optional*):
 #' selected arguments to be passed to the supported analyse functions
-#' ([analyse_SAR.CWOSL], [analyse_pIRIRSequence])
+#' ([analyse_SAR.CWOSL], [analyse_pIRIRSequence]). The arguments must be provided
+#' as named [list], e.g., `list(dose.points = c(0,10,20,30,0,10)` will set the
+#' regeneration dose points.
 #'
 #' @param n.channels [integer] (*optional*):
 #' number of channels used for the De(t) plot. If nothing is provided all

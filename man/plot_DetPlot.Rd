@@ -55,7 +55,9 @@ name of the analyse function to be called. Supported functions are:
 
 \item{analyse_function.control}{\link{list} (\emph{optional}):
 selected arguments to be passed to the supported analyse functions
-(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence})}
+(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}). The arguments must be provided
+as named \link{list}, e.g., \verb{list(dose.points = c(0,10,20,30,0,10)} will set the
+regeneration dose points.}
 
 \item{n.channels}{\link{integer} (\emph{optional}):
 number of channels used for the De(t) plot. If nothing is provided all
@@ -159,7 +161,7 @@ plot_DetPlot(
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-78. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24.9000-106. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

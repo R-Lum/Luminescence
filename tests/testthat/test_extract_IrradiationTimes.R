@@ -14,7 +14,7 @@ test_that("Test the extraction of irradiation times", {
   ##check whether it makes sense
   expect_equal(sum(results$irr.times$IRR_TIME), 80)
 
-  ## apply the function to something previoulsy imported via read_BIN2R
+  ## apply the function to something previously imported via read_BIN2R
   file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   temp <- read_BIN2R(file, fastForward = TRUE)
   temp <- expect_s4_class(extract_IrradiationTimes(temp)[[1]], "RLum.Results")

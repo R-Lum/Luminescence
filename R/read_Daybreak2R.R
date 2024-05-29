@@ -20,6 +20,8 @@
 #' @param txtProgressBar [logical] (*with default*):
 #' enables or disables [txtProgressBar].
 #'
+#' @param ... not in use, for compatibility reasons only
+#'
 #' @return
 #' A list of [RLum.Analysis-class] objects (each per position) is provided.
 #'
@@ -53,13 +55,14 @@ read_Daybreak2R <- function(
   file,
   raw = FALSE,
   verbose = TRUE,
-  txtProgressBar = TRUE
+  txtProgressBar = TRUE,
+  ...
 ){
 
   ##TODO
   ## - run tests
-  ## - check where the warning messages are comming from
-  ## - implement further integegrity tests  (ASCII import)
+  ## - check where the warning messages are coming from
+  ## - implement further integrity tests  (ASCII import)
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -68,7 +71,6 @@ read_Daybreak2R <- function(
   # directory and import them, if this is detected, we proceed as list
 
   if(is(file, "character")) {
-
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
       if(verbose){

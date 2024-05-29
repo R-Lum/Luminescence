@@ -117,7 +117,7 @@
 #' **Further reading**
 #'
 #' Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
-#' Theorem on Circle Packing. [https://arxiv.org/pdf/1009.4322v1.pdf](),
+#' Theorem on Circle Packing. [https://arxiv.org/pdf/1009.4322v1](),
 #' 2013-09-13.
 #'
 #' Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,

@@ -7,31 +7,10 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/HowTo_analyse_Al2O3.html</loc>
-  </url>
-  <url>
-    <loc>/articles/HowTo_analyse_pIRIRMeasurements.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
     <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/NEWS_Version0.7.0.html</loc>
-  </url>
-  <url>
-    <loc>/news/NEWS_Version0.8.0.html</loc>
-  </url>
-  <url>
-    <loc>/news/NEWS_Version0.9.0.html</loc>
   </url>
   <url>
     <loc>/news/index.html</loc>
@@ -182,9 +161,6 @@
   </url>
   <url>
     <loc>/reference/analyse_portableOSL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/app_RLum.html</loc>
   </url>
   <url>
     <loc>/reference/apply_CosmicRayRemoval.html</loc>
@@ -349,6 +325,9 @@
     <loc>/reference/get_rightAnswer.html</loc>
   </url>
   <url>
+    <loc>/reference/import_Data.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -374,9 +353,6 @@
   </url>
   <url>
     <loc>/reference/methods_RLum.html</loc>
-  </url>
-  <url>
-    <loc>/reference/model_LuminescenceSignals.html</loc>
   </url>
   <url>
     <loc>/reference/names_RLum.html</loc>
@@ -491,6 +467,9 @@
   </url>
   <url>
     <loc>/reference/template_DRAC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/trim_RLum.Data.html</loc>
   </url>
   <url>
     <loc>/reference/tune_Data.html</loc>

@@ -30,6 +30,7 @@ test_that("standard check", {
 
   # plain run -------
   # #somewhat the plotting does not work for Github Actions
+  # Somehow releated to the splot screen
   results <-  expect_s4_class(fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5,

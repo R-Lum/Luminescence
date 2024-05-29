@@ -5,11 +5,13 @@
 #'
 #'@param file [character] (**required**): file name
 #'
+#'@param ... not in use, for compatibility reasons only
+#'
 #'@return [RLum.Data.Image-class] object
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@section Function version: 0.1.1
+#'@section Function version: 0.1.2
 #'
 #'@seealso [tiff::readTIFF], [RLum.Data.Image-class]
 #'
@@ -26,7 +28,8 @@
 #'@md
 #'@export
 read_TIFF2R <- function(
-  file
+  file,
+  ...
 ){
 # Integrity ---------------------------------------------------------------
   ## most of the users don't need this import, no need to bother them

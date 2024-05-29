@@ -25,6 +25,9 @@ test_that("Basic test", {
   ##run with no output
   expect_silent(plot_OSLAgeSummary(object, verbose = FALSE))
 
+  ##run with rug option
+  expect_silent(plot_OSLAgeSummary(object, verbose = FALSE, rug = TRUE))
+
   ##check the results
   expect_length(results, 3)
 

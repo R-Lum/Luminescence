@@ -446,8 +446,9 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
-#
-#' This function allows efficient binning of matrices including
+#' @title Efficient binning of matricies
+#'
+#' @description This function allows efficient binning of matrices including
 #' row and column name handling. Internally, the function uses [rowsum],
 #' means the binning is always applied on the rows. For column binning the function
 #' internally transposes the matrix first
@@ -569,6 +570,10 @@ fancy_scientific <- function(l) {
   f_def <- sys.function(sys.parent())
   f_call <- sys.call(sys.parent())
 
+  ## get parent environment because we have to evaluate
+  ## objects in the parent environment.
+  p_env <- parent.env(environment())
+
   ##extract arguments (do not consider the first argument, this might be a very
   ##large object)
   args_default <- as.list(f_def)[-length(as.list(f_def))][-1]
@@ -578,8 +583,12 @@ fancy_scientific <- function(l) {
   ##before passing them further down
   if(length(args_new) > 0){
     for(i in 1:length(args_new)){
-      if(class(args_new[[i]])[1] == "name" | class(args_new[[i]])[1] == "call")
-        args_new[[i]] <- eval(args_new[[i]])
+      if(class(args_new[[i]])[1] == "name" |
+         class(args_new[[i]])[1] == "call" |
+         class(args_new[[i]])[1] == "(" ) {
+        args_new[[i]] <- eval(args_new[[i]], envir = p_env)
+
+      }
     }
   }
 
@@ -694,3 +703,85 @@ fancy_scientific <- function(l) {
 
   return(HPDI)
 }
+
+#++++++++++++++++++++++++++++++
+#+ .download_file             +
+#++++++++++++++++++++++++++++++
+#'@title Internal File Download Handler
+#'
+#'@description For file imports using function commencing with `read_` the file download
+#'was little consistent and surprisingly error-prone. This function should keep the requirements
+#'more consistent
+#'
+#'@param url [character] (**required**)
+#'
+#'@param dest [character] (*with default*)
+#'
+#'@returns Returns either nothing (no URL) or the file path of the downloaded file
+#'
+#'@author Sebastian Kreutzer, Insitut of Geography, Heidelberg University, Germany
+#'
+#'@examples
+#'
+#'## returns just NULL (no URL detected)
+#'.download_file(url = "teststs")
+#'
+#'## attempts download
+#'.download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg")
+#'
+#'## attempts download silently
+#' suppressMessages(
+#' .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
+#'
+#'@md
+#'@noRd
+.download_file <- function(
+    url,
+    destfile = tempfile()
+) {
+
+  ## get name of calling function
+  caller <- paste0("[", as.character(sys.call(which = -1)[[1]]), "()]")
+  out_file_path <- NULL
+
+  ## detect and extract URL
+  if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
+    ## status reports
+    message(paste0(caller, " URL detected: ", url), appendLF = TRUE)
+    message(paste0(caller, " Attempting download ... "), appendLF = FALSE)
+
+    ## extract URL from string only
+    url <- regmatches(x = url, m = regexec(pattern = "https?\\:\\/\\/.+", text = url, perl = TRUE))[[1]]
+
+    ## use internal download
+    t <- tryCatch(
+      expr = download.file(
+        url = url,
+        destfile = destfile,
+        quiet = TRUE,
+        mode = "wb", ## this is needed for Windows otherwise the download does not work
+        cacheOK = FALSE,
+        method = "auto"),
+      warning = function(w) {
+        message("FAILED ", appendLF = TRUE)
+        return(NULL)
+      },
+      error = function(e) {
+        message("FAILED ", appendLF = TRUE)
+        return(NULL)
+      })
+
+    if(!is.null(t) && t == 0) {
+      message("OK ", appendLF = TRUE)
+      out_file_path <- destfile
+      unlink(url)
+
+    }
+
+  }
+
+  ## return file path
+  return(out_file_path)
+
+}
+
