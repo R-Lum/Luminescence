@@ -19,9 +19,8 @@ of channels but are otherwise measured with the exact time resolution. Until now
 and the one that can import a file is chosen. This function simplifies writing of scripts for different data formats.
 
 ## The Thermochronometry functions (internal)
-* Add internal function to import thermochronometry XLSX sheets into R; an R implementation of `STAGE1, ExcelToStructure`
-* `import_Data()`: A convenience wrapper around all functions commencing with `read_`. The functions steps through all functions
-and the one that can import a file is chosen. This function simplifies writing of scripts for different data formats.
+* Add internal function to import thermochronometry XLSX sheets into R; an R implementation of `STAGE1, ExcelToStructure`; the
+function has no user visible use for the moment.
 
 ## Bugfixes and changes
 
