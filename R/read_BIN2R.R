@@ -1,7 +1,9 @@
-#' Import Risø BIN/BINX-files into R
+#' @title Import Risø BIN/BINX-files into R
 #'
-#' Import a *.bin or a *.binx file produced by a Risø DA15 and DA20 TL/OSL
+#' @description Import a `*.bin` or a `*.binx` file produced by a Risø DA15 and DA20 TL/OSL
 #' reader into R.
+#'
+#' @details
 #'
 #' The binary data file is parsed byte by byte following the data structure
 #' published in the Appendices of the Analyst manual p. 42.
@@ -19,8 +21,9 @@
 #' shows raw values from BIN-file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
 #' translation in characters. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param n.records [raw] (*optional*):
-#' limits the number of imported records. Can be used in combination with
+#' @param n.records [numeric] (*optional*): limits the number of imported records
+#' to the provided record id (e.g., `n.records = 1:10` imports the first ten records,
+#' while `n.records = 3` imports only record number 3. Can be used in combination with
 #' `show.record.number` for debugging purposes, e.g. corrupt BIN-files.
 #' Can be provided as `list` if `file` is a `list`.
 #'
@@ -89,10 +92,7 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' **ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.**
-#'
-#' @section Function version: 0.16.7
-#'
+#' @section Function version: 0.17.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -266,11 +266,11 @@ read_BIN2R <- function(
 
   # Config --------------------------------------------------------------------------------------
   ##set file_link for internet downloads
-  file_link <- NULL
+  url_file <- NULL
   on_exit <- function(){
     ##unlink internet connection
-    if(!is.null(file_link)){
-      unlink(file_link)
+    if(!is.null(url_file)){
+      unlink(url_file)
     }
 
     ##close connection
@@ -283,66 +283,37 @@ read_BIN2R <- function(
   }
   on.exit(expr = on_exit())
 
+  ## check for URL and attempt download
+  if(verbose)
+    url_file <- .download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx"))
+  else
+    url_file <- suppressMessages(.download_file(file, tempfile("read_BIN22R_FILE", fileext = ".binx")))
 
-  # Integrity checks ------------------------------------------------------
+  if(!is.null(url_file))
+    file <- url_file
 
-  ##check if file exists
-  if(!file.exists(file)){
-    ##check whether the file as an URL
-    if(grepl(pattern = "http", x = file, fixed = TRUE)){
-      if(verbose){
-        cat("[read_BIN2R()] URL detected, checking connection ... ")
-      }
+  ## normalise path, just in case
+  file <- suppressWarnings(normalizePath(file))
 
-      ##check URL
-      if(!httr::http_error(file)){
-        if(verbose) cat("OK")
+  ## check whether file exists
+  if(!file.exists(file))
+     stop("[read_BIN2R()] File does not exist!", call. = FALSE)
 
-        ##download file
-        file_link <- tempfile("read_BIN2R_FILE")
-        utils::download.file(
-          url = file,
-          destfile = file_link,
-          quiet = if(verbose) FALSE else TRUE,
-          mode = "wb",
-          cacheOK = FALSE)
 
-      }else{
-        cat("FAILED")
-        con <- NULL
-        stop("[read_BIN2R()] File does not exist!", call. = FALSE)
+  ## check if file is a BIN or BINX file
+  if(!any(tolower(tools::file_ext(file)) %in%  c("bin", "binx"))) {
+      message(paste0("[read_BIN2R()] '", file, "'is not a file or not of type 'BIN' or 'BINX'!
+                     Skipped and NULL returned!"))
 
-      }
-
-    }else{
-      con <- NULL
-      stop("[read_BIN2R()] File does not exist!", call. = FALSE)
-
-    }
-
-  }
-
-  ##check if file is a BIN or BINX file
-  if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%sub(pattern = "%20", replacement = "", x = tail(
-    unlist(strsplit(file, split = "\\.")), n = 1), fixed = TRUE)))){
-    try(
-      stop(
-        paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"),
-        call. = FALSE))
     con <- NULL
     return(NULL)
 
   }
 
-  ##set correct file name of file_link was set
-  if(!is.null(file_link))
-    file <- file_link
-
   # Config ------------------------------------------------------------------
 
   ##set supported BIN format version
   VERSION.supported <- as.raw(c(03, 04, 05, 06, 07, 08))
-
 
   # Short file parsing to get number of records -------------------------------------------------
   #open connection
@@ -358,20 +329,18 @@ read_BIN2R <- function(
   }
 
   ##read data up to the end of con
-
   ##set ID
   temp.ID <- 0
 
   ##start for BIN-file check up
-  while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="little"))>0) {
+  while(length(temp.VERSION <- readBin(con, what="raw", 1, size=1, endian="little"))>0) {
      ##force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
     ##stop input if wrong VERSION
-    if((temp.VERSION%in%VERSION.supported) == FALSE){
-
+    if(!all((temp.VERSION %in% VERSION.supported))){
       if(temp.ID > 0){
         if(is.null(n.records)){
           warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID," record(s)."),
@@ -384,7 +353,7 @@ read_BIN2R <- function(
         }
 
         ##set or reset n.records
-        n.records <- temp.ID
+        n.records <- seq_len(temp.ID)
         break()
 
       }else{
@@ -398,42 +367,30 @@ read_BIN2R <- function(
 
     }
 
-
     #empty byte position
-    EMPTY<-readBin(con, what = "raw", 1, size = 1, endian = "little")
+    EMPTY <- readBin(con, what = "raw", 1, size = 1, endian = "little")
 
     if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-
       ##GET record LENGTH
-      temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
-      STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="little")
+      temp.LENGTH  <- readBin(con, what = "int", 1, size = 4, endian = "little")
+      STEPPING <- readBin(con, what = "raw", max(c(0,temp.LENGTH - 6)), size = 1, endian = "little")
 
     }else{
-
       ##GET record LENGTH
-      temp.LENGTH  <- readBin(con, what="int", 1, size=2, endian="little")
-      STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="little")
+      temp.LENGTH  <- readBin(con, what = "int", 1, size = 2, endian = "little")
+      STEPPING <- readBin(con, what = "raw", temp.LENGTH - 4, size = 1, endian = "little")
 
     }
 
-    temp.ID<-temp.ID+1
-
-    if(!is.null(n.records) && temp.ID == n.records){
-      break()
-
-    }
+    temp.ID <- temp.ID + 1
 
   }
 
-  ##set n.records
-  if(is.null(n.records)){
-    n.records <- temp.ID
+  ##set n.length we will need it later
+  n.length <- temp.ID
 
-  }
   rm(temp.ID)
   close(con) ##we have to close the connection here
-
-
 
 # Set Lookup tables  --------------------------------------------------------------------------
 
@@ -525,12 +482,18 @@ read_BIN2R <- function(
   temp.EXTR_START <- NA
   temp.EXTR_END <- NA
 
-  ##SET length of entire record
-  n.length <- n.records
+  ## set TIME_SIZE
+  TIME_SIZE <- 0
+
+  ##overwrite length if required
+  if(!is.null(n.records))
+    n.length <- length(n.records)
+
+  ## set index for entry row in table
+  id_row <- 1
 
   ##initialise data.frame
   results.METADATA <- data.table::data.table(
-
     ##1 to 7
     ID = integer(length = n.length),
     SEL = logical(length = n.length),
@@ -661,7 +624,6 @@ read_BIN2R <- function(
   ##set ID
   temp.ID <- 0
 
-
   # LOOP --------------------------------------------------------------------
   ##start loop for import BIN data
   while(length(temp.VERSION <- readBin(con, what="raw", 1, size=1, endian="little"))>0) {
@@ -691,7 +653,6 @@ read_BIN2R <- function(
       }
    }
 
-
     #empty byte position
     EMPTY <- readBin(con, what="raw", 1, size=1, endian="little")
 
@@ -701,49 +662,55 @@ read_BIN2R <- function(
 
       ##(1) Header size and structure
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
-      temp <- readBin(con, what="int", 3, size=4, endian="little")
-
+      temp <- readBin(con, what = "int", 3, size = 4, endian = "little")
       temp.LENGTH <- temp[1]
       temp.PREVIOUS <- temp[2]
       temp.NPOINTS <- temp[3]
 
+      ## skip record if not selected
+      ## the first condition boosts the speed of reading if n.records is not
+      ## used; otherwise for each record the condition is checked whether
+      ## used or not.
+      if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
+        temp.ID <- temp.ID + 1
+        readBin(con, what = "raw", n = temp.LENGTH - 14, size = 1, endian = "little")
+        next()
+
+      }
+
       #for temp.VERSION == 08
       #RECTYPE
       if(temp.VERSION == 08){
-        temp.RECTYPE <- readBin(con, what="int", 1, size=1, endian="little", signed = FALSE)
-        if(temp.RECTYPE != 0 & temp.RECTYPE != 1){
+        temp.RECTYPE <- readBin(con, what = "int", 1, size = 1, endian = "little", signed = FALSE)
+        if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
+
           ##jump to the next record by stepping the record length minus the already read bytes
           STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
 
-          if(temp.RECTYPE == 128){
-            warning(paste0("[read_BIN2R()] ROI definition in data set #",temp.ID+1, " detected, but currently not supported, record skipped!"), call. = FALSE)
-
-          }else{
             if(!ignore.RECTYPE){
               stop(
                 paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"!
                        Check your BIN/BINX file!"), call. = FALSE)
 
-            }else{
+            } else {
               if(verbose)
                 cat(paste0("\n[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,", record skipped!"))
 
+              ## update and jump to next record, to avoid further trouble
+              ## we set the VERSION to NA and remove it later, otherwise we
+              ## break expected functionality
+              temp.ID <- temp.ID + 1
+              results.METADATA[temp.ID,`:=` (VERSION = NA)]
+              next()
+
             }
 
-          }
-
-          ## update and jump to next record, to avoid further trouble
-          ## we set the VERSION to NA and remove it later, otherwise we
-          ## break expected functionality
-          temp.ID <- temp.ID + 1
-          results.METADATA[temp.ID,`:=` (VERSION = NA)]
-          next()
         }
       }
 
       ##(2) Sample characteristics
       ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
-      temp <- readBin(con, what="int", 7, size=2, endian="little")
+      temp <- readBin(con, what = "int", 7, size = 2, endian = "little")
 
       temp.RUN <- temp[1]
       temp.SET <- temp[2]
@@ -753,10 +720,22 @@ read_BIN2R <- function(
       temp.XCOORD <- temp[6]
       temp.YCOORD <- temp[7]
 
+        ## BINX files with RECTYPE 128 seem to be sometimes broken
+        ## check the input here and then skip the record
+        if(temp.RUN < 0 || temp.SET < 0) {
+          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 19)
+          warning(paste0("\n[read_BIN2R()] Record ", temp.ID, " broken. Import of further records stopped!"),
+                  call. = FALSE)
+
+          break()
+
+        }
+
       ##SAMPLE, COMMENT
       ##SAMPLE
-      SAMPLE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.SAMPLE<-readChar(con, SAMPLE_SIZE, useBytes=TRUE)
+      SAMPLE_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+      temp.SAMPLE <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
+
       #however it should be set to 20
 
       #step forward in con
@@ -767,7 +746,8 @@ read_BIN2R <- function(
 
       ##COMMENT
       COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.COMMENT<-readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
+      temp.COMMENT <- suppressWarnings(
+        readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
 
       #step forward in con
       if(80-c(COMMENT_SIZE)>0){
@@ -801,7 +781,7 @@ read_BIN2R <- function(
       ##correct for 0 user size length
       if (length(USER_SIZE) > 0) {
         temp.USER <-
-          readChar(con, USER_SIZE, useBytes = TRUE) #set to 30 (manual)
+          suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
       }else{
         USER_SIZE <- 0
 
@@ -817,7 +797,7 @@ read_BIN2R <- function(
       TIME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
 
       ##time size corrections for wrong time formats; set n to 6 for all values
-      ##accoording the handbook by Geoff Duller, 2007
+      ##according the handbook by Geoff Duller, 2007
       if(length(TIME_SIZE)>0){
         temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
 
@@ -842,11 +822,9 @@ read_BIN2R <- function(
       ##date size corrections for wrong date formats; set n to 6 for all values
       ##according the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
-      temp.DATE <- readChar(con, DATE_SIZE, useBytes = TRUE)
-
+      temp.DATE <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
 
       ##(4) Analysis
-
       ##DTYPE
       temp.DTYPE<-readBin(con, what="int", 1, size=1, endian="little")
 
@@ -950,7 +928,6 @@ read_BIN2R <- function(
 
       ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
       temp <- readBin(con, what="double", 4, size=4, endian="little")
-
       temp.DEADTIME <- temp[1]
       temp.MAXLPOWER <- temp[2]
       temp.XRF_ACQTIME <- temp[3]
@@ -978,7 +955,6 @@ read_BIN2R <- function(
 
         ##LOWERFILTER_ID, UPPERFILTER_ID
         temp <- readBin(con, what="int", 2, size=2, endian="little")
-
         temp.LOWERFILTER_ID <- temp[1]
         temp.UPPERFILTER_ID <- temp[2]
 
@@ -987,15 +963,12 @@ read_BIN2R <- function(
 
         ##CHECK FOR VERSION 08
         if(temp.VERSION == 07){
-
            ##RESERVED for version 07
           temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
 
-        }else{
-
+        }else {
           ##MARKER_POSITION
           temp <- readBin(con, what="double", 6, size=4, endian="little")
-
             temp.MARPOS_X1 <- temp[1]
             temp.MARPOS_Y1 <- temp[2]
             temp.MARPOS_X2 <- temp[3]
@@ -1003,10 +976,8 @@ read_BIN2R <- function(
             temp.MARPOS_X3 <- temp[5]
             temp.MARPOS_Y3 <- temp[6]
 
-
           ###EXTR_START, EXTR_END
           temp <- readBin(con, what="double", 2, size=4, endian="little")
-
             temp.EXTR_START <- temp[1]
             temp.EXTR_END <- temp[2]
 
@@ -1014,11 +985,7 @@ read_BIN2R <- function(
 
         }
 
-
       }
-
-      #DPOINTS
-      temp.DPOINTS<-readBin(con, what="integer", temp.NPOINTS, size=4, endian="little")
 
     }else if(temp.VERSION == 04 | temp.VERSION == 03){
       ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1026,34 +993,34 @@ read_BIN2R <- function(
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
 
       temp <- readBin(con, what="int", 3, size=2, endian="little")
-
       temp.LENGTH <- temp[1]
       temp.PREVIOUS <- temp[2]
       temp.NPOINTS <- temp[3]
 
+      ## set temp ID if within select
+      if(!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
+        readBin(con, what = "raw", n =  temp.LENGTH - 8, size = 1, endian = "little")
+        next()
+      }
+
       ##LTYPE
       temp.LTYPE<-readBin(con, what="int", 1, size=1, endian="little")
 
-
       ##LOW, HIGH, RATE
       temp <- readBin(con, what="double", 3, size=4, endian="little")
-
       temp.LOW <- temp[1]
       temp.HIGH <- temp[2]
       temp.RATE <- temp[3]
-
 
       temp.TEMPERATURE<-readBin(con, what="integer", 1, size=2, endian="little")
 
       ##XCOORD, YCOORD, TOLDELAY, TOLON, TOLOFF
       temp <- readBin(con, what="integer", 5, size=2, endian="little")
-
       temp.XCOORD <- temp[1]
       temp.YCOORD <- temp[2]
       temp.TOLDELAY <- temp[3]
       temp.TOLON <- temp[4]
       temp.TOLOFF <- temp[5]
-
 
       ##POSITION
       temp.POSITION <- readBin(
@@ -1067,18 +1034,16 @@ read_BIN2R <- function(
       TIME_SIZE <- readBin(
         con, what="int", 1, size=1, endian="little")
 
-
       ##time size corrections for wrong time formats; set n to 6 for all values
       ##according to the handbook of Geoff Duller, 2007
       TIME_SIZE<-6
       temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
 
-
       ##DATE
       DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
 
       ##date size corrections for wrong date formats; set n to 6 for all values
-      ##accoording the handbook of Geoff Duller, 2007
+      ##according the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
       temp.DATE<-readChar(con, DATE_SIZE, useBytes=TRUE)
 
@@ -1092,7 +1057,6 @@ read_BIN2R <- function(
         STEPPING<-readBin(con, what="raw", (8-c(SEQUENCE_SIZE)),size=1, endian="little")
       }
 
-
       ##USER
       USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
       temp.USER<-readChar(con, USER_SIZE, useBytes=FALSE)
@@ -1103,10 +1067,10 @@ read_BIN2R <- function(
       }
 
       ##DTYPE
-      temp.DTYPE<-readBin(con, what="int", 1, size=1, endian="little")
+      temp.DTYPE <- readBin(con, what="int", 1, size=1, endian="little")
 
       ##IRR_TIME
-      temp.IRR_TIME<-readBin(con, what="double", 1, size=4, endian="little")
+      temp.IRR_TIME <- readBin(con, what="double", 1, size=4, endian="little")
 
       ##IRR_TYPE
       temp.IRR_TYPE<-readBin(con, what="int", 1, size=1, endian="little")
@@ -1143,8 +1107,8 @@ read_BIN2R <- function(
       }
 
       ##COMMENT
-      COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.COMMENT<-readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
+      COMMENT_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+      temp.COMMENT <- readChar(con, COMMENT_SIZE, useBytes=TRUE) #set to 80 (manual)
 
       #step forward in con
       if(80-c(COMMENT_SIZE)>0){
@@ -1153,11 +1117,9 @@ read_BIN2R <- function(
 
       ##LIGHTSOURCE, SET, TAG
       temp <- readBin(con, what="int", 3, size=1, endian="little")
-
       temp.LIGHTSOURCE <- temp[1]
       temp.SET <- temp[2]
       temp.TAG <- temp[3]
-
 
       ##GRAIN
       temp.GRAIN<-readBin(con, what="integer", 1, size=2, endian="little")
@@ -1170,7 +1132,6 @@ read_BIN2R <- function(
 
       ##Unfortunately an inconsitent BIN-file structure forces a differenciation ...
       if(temp.VERSION == 03){
-
         ##RESERVED
         temp.RESERVED1<-readBin(con, what="raw", 36, size=1, endian="little")
 
@@ -1179,7 +1140,6 @@ read_BIN2R <- function(
 
         temp.ONTIME <- temp[1]
         temp.OFFTIME <- temp[2]
-
 
         ##Enable flags  #GateEnabled for v 06
         temp.ENABLE_FLAGS <- readBin(con, what="raw", 1, size=1, endian="little")
@@ -1194,9 +1154,7 @@ read_BIN2R <- function(
         ##RESERVED
         temp.RESERVED2<-readBin(con, what="raw", 1, size=1, endian="little")
 
-
       }else{
-
         ##RESERVED
         temp.RESERVED1<-readBin(con, what="raw", 20, size=1, endian="little")
 
@@ -1230,14 +1188,29 @@ read_BIN2R <- function(
 
       }
 
-      #DPOINTS
-      temp.DPOINTS<-readBin(con, what="integer", temp.NPOINTS, size=4, endian="little")
-
-
     }else{
       stop("[read_BIN2R()] Unsupported BIN/BINX-file version.", call. = FALSE)
 
     }
+
+   #DPOINTS or ROI ... depending on RECTYPE SETTING
+   ##DPOINTS
+   if(temp.RECTYPE != 128)
+    temp.DPOINTS <- readBin(con, what = "integer", temp.NPOINTS, size = 4, endian = "little")
+
+   ## ROI ... it depends on the number of POINTS
+   if (temp.RECTYPE == 128){
+    temp.DPOINTS <- lapply(1:temp.NPOINTS, function(x) {
+      list(
+        NOFPOINTS = readBin(con, what = "int", 1, size = 4, endian = "little"),
+        USEDFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
+        SHOWFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
+        ROICOLOR = readBin(con, what = "integer", 1, size = 4, endian = "little"),
+        X = readBin(con, what = "double", 50, size = 4, endian = "little"),
+        Y = readBin(con, what = "double", 50, size = 4, endian = "little"))
+
+    })
+   }
 
     #endif:format support
     ##END BIN FILE FORMAT SUPPORT
@@ -1258,10 +1231,10 @@ read_BIN2R <- function(
     if(!is.na(temp.LIGHTPOWER)){temp.LPOWER <- temp.LIGHTPOWER}
     if(!is.na(temp.LPOWER)){temp.LIGHTPOWER <- temp.LPOWER}
 
-    temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
+    temp.SEL <- if(temp.TAG == 1) TRUE else FALSE
 
     ##replace values in the data.table with values
-    results.METADATA[temp.ID, `:=` (
+    results.METADATA[id_row, `:=` (
       ID = temp.ID,
       SEL = temp.SEL,
       VERSION = as.numeric(temp.VERSION),
@@ -1343,26 +1316,19 @@ read_BIN2R <- function(
 
     )]
 
-    results.DATA[[temp.ID]] <- temp.DPOINTS
+    results.DATA[[id_row]] <- temp.DPOINTS
 
-    results.RESERVED[[temp.ID]][[1]] <- temp.RESERVED1
-    results.RESERVED[[temp.ID]][[2]] <- temp.RESERVED2
-
-    ##BREAK
-    ##stop loop if record limit is reached
-    if (!is.null(n.records)) {
-      if (n.records == temp.ID) {
-        break()
-      }
-
-    }
+    results.RESERVED[[id_row]][[1]] <- temp.RESERVED1
+    results.RESERVED[[id_row]][[2]] <- temp.RESERVED2
 
     ##reset values
     temp.GRAINNUMBER <- NA
     temp.GRAIN <- NA
 
+    ## update id row
+    id_row <- id_row + 1
 
-  }#endwhile::end lopp
+  }#endwhile::end loop
 
   ##close
   if(txtProgressBar & verbose){close(pb)}
@@ -1371,14 +1337,13 @@ read_BIN2R <- function(
   results.METADATA <- na.omit(results.METADATA, cols = "VERSION")
 
   ##output
-  if(verbose){cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))}
+  if(verbose)
+    cat(paste0("\t >> ", length(results.DATA) ," record(s) have been read successfully!\n\n"))
 
   # Further limitation --------------------------------------------------------------------------
   if(!is.null(position)){
-
     ##check whether the position is valid at all
     if (all(position %in% results.METADATA[["POSITION"]])) {
-
       results.METADATA <- results.METADATA[which(results.METADATA[["POSITION"]] %in% position),]
       results.DATA <- results.DATA[results.METADATA[["ID"]]]
 
@@ -1387,7 +1352,6 @@ read_BIN2R <- function(
 
         ##show a message
         message("[read_BIN2R()] The record index has been recalculated!")
-
 
     }else{
       valid.position <-
@@ -1401,7 +1365,6 @@ read_BIN2R <- function(
 
   }
 
-
   ##check for position that have no data at all (error during the measurement)
   if(zero_data.rm){
     zero_data.check <- which(vapply(results.DATA, length, numeric(1)) == 0)
@@ -1411,14 +1374,17 @@ read_BIN2R <- function(
       results.METADATA <- results.METADATA[-zero_data.check, ]
       results.DATA[zero_data.check] <- NULL
 
+      ## if nothing is left, remove empty record
+      if(nrow(results.METADATA) == 0)
+        return(set_Risoe.BINfileData())
+
       ##recalculate record index
       results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
 
       warning(
         paste0(
-          "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed: ",
-          paste(zero_data.check, collapse = ", "),
-          ". \n\n >> Record index re-calculated."
+          "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed! ",
+          "\n >> Record index re-calculated."
         ), call. = FALSE
       )
 
@@ -1427,7 +1393,8 @@ read_BIN2R <- function(
   }
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
-  if (n.records >= 2 && length(results.DATA) >= 2) {
+  ##this check is skipped for results with a RECTYPE 128, which steems from camera measurements
+  if (n.length >= 2 && length(results.DATA) >= 2 && all(results.METADATA[["RECTYPE"]] != 128)) {
     duplication.check <- suppressWarnings(which(c(
       0, vapply(
         2:length(results.DATA),
@@ -1479,7 +1446,6 @@ read_BIN2R <- function(
     .RESERVED =  results.RESERVED)
 
   # Convert Translation Matrix Values ---------------------------------------
-
   if (!show.raw.values) {
     ##LIGHTSOURCE CONVERSION
     object@METADATA[["LIGHTSOURCE"]] <-
@@ -1527,7 +1493,6 @@ read_BIN2R <- function(
 
   }
 
-
   # Fast Forward --------------------------------------------------------------------------------
   ## set fastForward to TRUE if one of this arguments is used
   if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
@@ -1542,16 +1507,13 @@ read_BIN2R <- function(
   if(fastForward){
      object <- Risoe.BINfileData2RLum.Analysis(object, ...)
 
-
      ##because we expect a list
-     if(!is.list(object)){
+     if(!inherits(object, "list"))
        object <- list(object)
-
-     }
-
 
   }
 
    return(object)
 
 }
+

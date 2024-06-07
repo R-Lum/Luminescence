@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.24</span>
       </span>
     </div>
 
@@ -60,54 +60,113 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.23" id="changes-in-version-0923-2023-11-03">Changes in version 0.9.23 (2023-11-03)<small>2023-11-03</small><a class="anchor" aria-label="anchor" href="#changes-in-version-0923-2023-11-03"></a></h2>
-<p><strong>This package version requires R &gt;= 4.2</strong></p>
+<h2 class="page-header" data-toc-text="0.9.24" id="changes-in-version-0924-2024-06-07">Changes in version 0.9.24 (2024-06-07)<a class="anchor" aria-label="anchor" href="#changes-in-version-0924-2024-06-07"></a></h2>
+<p><strong>This package version requires R &gt;= 4.3</strong></p>
 <div class="section level3">
-<h3 id="bugfixes-and-changes-0-9-23">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-23"></a></h3>
+<h3 id="new-functions-0-9-24">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-9-24"></a></h3>
+<ul><li><p><code><a href="../reference/trim_RLum.Data.html">trim_RLum.Data()</a></code>: This new function enables trimming off the number of channels of all supported <code>RLum.Data-class</code> on the time domain. For instance, an OSL curve (<code>RLum.Data.Curve-class</code>) has 1000 channels; one may want to extract only channels 10 to 100. Moreover, sometimes, <code>RLum.Data-class</code> objects have a different number of channels but are otherwise measured with the exact time resolution. Until now, it was possible to merge those curves, but the subsequent analysis usually failed because most of the analysis functions check whether the number of channels matches.</p></li>
+<li><p><code><a href="../reference/import_Data.html">import_Data()</a></code>: A convenience wrapper around all functions commencing with <code>read_</code>. The functions steps through all functions and the one that can import a file is chosen. This function simplifies writing of scripts for different data formats.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="the-thermochronometry-functions-internal-0-9-24">The Thermochronometry functions (internal)<a class="anchor" aria-label="anchor" href="#the-thermochronometry-functions-internal-0-9-24"></a></h3>
+<ul><li>Add internal function to import thermochronometry XLSX sheets into R; an R implementation of <code>STAGE1, ExcelToStructure</code>; the function has no user visible use for the moment.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-and-changes-0-9-24">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-0-9-24"></a></h3>
 <div class="section level4">
-<h4 id="analyse_portableosl-potentially-breaking-changes-0-9-23">
-<code>analyse_portableOSL()</code> (<strong>potentially breaking changes</strong>)<a class="anchor" aria-label="anchor" href="#analyse_portableosl-potentially-breaking-changes-0-9-23"></a></h4>
-<p>The function received a major update, including an updated output object. Please make sure that you read the changes before updating, because it may break your existing code!</p>
-<ul><li>New argument <code>mode</code> added with two options <code>'profile'</code> (the default) and <code>'surface'</code>. The latter is intended for 2D surface interpolation of luminescence signals and was newly added.</li>
-<li>New argument <code>coord</code> added, to allow the user to provide a list or matrix of xy-coordinates of the sampling position. If nothing is provided, the coordinates are extracted from the file name or an index is calculated.</li>
-<li>The function now always translates input order in x and y coordinates, to have the treatment consistent.</li>
-<li>In profile mode, the function now returns also the dark count values with their standard deviation. The dark counts can also be plotted in the surface mode, although it probably does not make much sense.</li>
-<li>
-<code>invert = TRUE</code> the y-axis is now also inverted and the inversion works more consistently</li>
-<li>
-<code>...</code> argument <code>grid</code> (enabled by default) for better parameter reading</li>
-<li>
-<code>...</code> argument <code>sample</code> was changed to <code>run</code> better complying with the terminology of the PSL format, where</li>
-<li>
-<code>...</code> argument <code>bg_img</code> was added to provide a background image (e.g., a profile photo) for overlay the sample name is called run.</li>
-<li>
-<code>...</code> supports a lot more arguments to enable better plot modifications in particular for the newly added surface interpolation mode.</li>
+<h4 id="analyse_irsarrf-0-9-24"><code>analyse_IRSARRF()</code><a class="anchor" aria-label="anchor" href="#analyse_irsarrf-0-9-24"></a></h4>
+<ul><li>The function crashed for <code>RF_nat.lim</code> settings with two parameters; fixed (thanks to Mariana Sontag-Gonzalez for reporting)</li>
+<li>The function gained a new argument option for <code>method</code>: <code>"VSLIDE"</code>. If set, the vertical sliding with the range set to <code>"auto"</code> is used for the estimation of the equivalent dose.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="calc_huntley2006-0-9-23"><code>calc_Huntley2006()</code><a class="anchor" aria-label="anchor" href="#calc_huntley2006-0-9-23"></a></h4>
-<ul><li>The function can now handle <code>"extrapolation"</code> for <code>fit.method = "GOK"</code> or <code>fit.method = "EXP"</code> and is therefore suited to additive measurement protocols. This implementation has beta character and needs further testing.</li>
+<h4 id="analyse_sarcwosl-0-9-24"><code>analyse_SAR.CWOSL()</code><a class="anchor" aria-label="anchor" href="#analyse_sarcwosl-0-9-24"></a></h4>
+<ul><li>The function gained a new argument <code>trim_channels</code>. The default is <code>FALSE</code> to do not break existing code. If <code>TRUE</code> OSL and IRSL are curves are checked for the lowest number of channels on the curves and then all curves are trimmed accordingly using <code><a href="../reference/trim_RLum.Data.html">trim_RLum.Data()</a></code>. This should fix an issue where data could not be analysed due to different channel numbers erroneously produced by the luminescence readers.</li>
+<li>The dose points names are returned as <code>factors</code> (which they are) instead of <code>characters</code>, with their class in the correct order. If you expect character values this may break existing code.</li>
+<li>The <code>$data</code> element gained two new columns <code>ALQ</code> and <code>POS</code> where the functions tries to store data about the running aliquot number and the position of the aliquot in the reader. The latter can only be accessed if this information was provided in measurement data (e.g., XSYG or BIN/BINX)</li>
+<li>The argument <code>rejection.criteria</code> gained a new option <code>recuperation_reference</code> preset to <code>"Natural"</code> to specify the regeneration reference dose point taken into account for calculating the recuperation rate (suggested by Anna-Maartje Boer and Jakob Wallinga)</li>
 </ul></div>
 <div class="section level4">
-<h4 id="read_psl-0-9-23"><code>read_PSL()</code><a class="anchor" aria-label="anchor" href="#read_psl-0-9-23"></a></h4>
-<ul><li>Remove unwanted characters less aggressively from sample name; with this new setting, coordinates can be passed.</li>
+<h4 id="calc_huntely2006-0-9-24"><code>calc_Huntely2006()</code><a class="anchor" aria-label="anchor" href="#calc_huntely2006-0-9-24"></a></h4>
+<ul><li>If the age is <code>NA</code> due to <code>Ln/Tn</code> values lower than the smallest simulated <code>Lx/Tx</code> value, a warning with an explanation is returned. Thanks to Christina Neudorf for providing the test dataset.</li>
+<li>Better catch a few uncontrolled errors and improve the success of the fitting (thanks to Salome Oehler for providing scripts and datasets)</li>
+<li>Regression: The changes in the last version led to unexpected function behaviour in cases where users tried the fading correction with only a few dose points in the lower part of the dose-response curve because the fits were no longer forced through the origin. This issue is now corrected, and the user can use the argument <code>fit.force_through_origin</code> (which is passed down to <code><a href="../reference/plot_GrowthCurve.html">plot_GrowthCurve()</a></code>) to force the fit again through the origin (thanks to Junjie Zhang for reporting the issue).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="plot_growthcurve-0-9-23"><code>plot_GrowthCurve()</code><a class="anchor" aria-label="anchor" href="#plot_growthcurve-0-9-23"></a></h4>
-<ul><li>The function crashed for the setting <code>plot_GrowthCurve(..., mode = "alternate", fit.method = "LambertW")</code>; fixed (<a href="https://github.com/R-Lum/Luminescence/issues/114" class="external-link">#114</a>, <a href="https://github.com/Eiskeil" class="external-link">@Eiskeil</a>, thanks for reporting).</li>
-<li>Now throws a warning in <code>mode = "extrapolation", fit.method = "LambertW"</code> of the standard root estimation failed and hence the results can become inconclusive.</li>
+<h4 id="convert_activity2concentration-0-9-24"><code>convert_Activity2Concentration()</code><a class="anchor" aria-label="anchor" href="#convert_activity2concentration-0-9-24"></a></h4>
+<ul><li>The function did not work as expected if input was provided as abundance and the output data frame was missing values; fixed.</li>
+<li>The parameter <code>input_unit</code> now expects either <code>"activity"</code> (the default) or <code>"abundance"</code> instead of <code>"Bq/kg"</code> or <code>"ppm/%'</code>. The old input parameters are still silently accepted.</li>
 <li>
-<code>fit.method = "GOK"</code> now supports fits that are not necessarily forced through the origin.</li>
-<li>If the calculated fit weights were invalid, the parameter was not set always correctly set; fixed.</li>
-<li>Non-user visible change: the fit formula is now extracted more consistently and less error-prone.</li>
-<li>If the first <code>Lx/Tx</code> value was very high, the x-axis origin in the plot was not always shown by default. This was intended behaviour, however, sometimes this causes confusion. Now the axis origin is always shown. Still the axis limits can still be modified using <code>ylim</code> and <code>xlim</code>. (Thanks to Salome Oehler for flagging this issue).</li>
-<li>The fitted curve now always extends to the plot margins.</li>
+<strong>Potentially breaking change</strong>: The naming of the output data frame now reports SI unit conform values, i.e. we <code>ppm</code> is no longer acceptable because it might have different interpretations. To reflect this change, in the function title we replaced “concentration” with “abundance”.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_bin2r-0-9-24"><code>read_BIN2R()</code><a class="anchor" aria-label="anchor" href="#read_bin2r-0-9-24"></a></h4>
+<ul><li>Argument <code>n.records</code> can now be provided as a vector to specifically select records for the import. All other records are skipped and not imported. This can be useful in particular for very large BIN/BINX-files because allows importing single records very quickly without parsing the entire file</li>
+<li>The function is now less talkative for zero byte records and stopped spamming the console.</li>
+<li>The function learned about <code>RECTYPE</code> 128 records and can now import them (before those records were skipped). As it is in the original format, these information are only appended to the BIN/BINX file, means they do not really represent measurement data. <em>Please note that this support is highly experimental!</em><br></li>
+<li>The download of files now uses the new internal function <code>.download_file()</code>
+</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_daybreak2r-0-9-24"><code>read_Daybreak2R()</code><a class="anchor" aria-label="anchor" href="#read_daybreak2r-0-9-24"></a></h4>
+<ul><li>The function gained the <code>...</code> argument for compatibility reasons</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_rf2r-0-9-24"><code>read_RF2R()</code><a class="anchor" aria-label="anchor" href="#read_rf2r-0-9-24"></a></h4>
+<ul><li>The function gained the <code>...</code> argument for compatibility reasons</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_spe2r-0-9-24"><code>read_SPE2R()</code><a class="anchor" aria-label="anchor" href="#read_spe2r-0-9-24"></a></h4>
+<ul><li>The function gained the <code>...</code> argument for compatibility reasons</li>
+<li>The argument verbose was not fully respected; fixed</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_tiff2r-0-9-24"><code>read_TIFF2R()</code><a class="anchor" aria-label="anchor" href="#read_tiff2r-0-9-24"></a></h4>
+<ul><li>The function gained the <code>...</code> argument for compatibility reasons</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_xsyg2r-0-9-24"><code>read_XSYG2R()</code><a class="anchor" aria-label="anchor" href="#read_xsyg2r-0-9-24"></a></h4>
+<ul><li>Tries a little bit harder to determine the correct file path.</li>
+<li>Returns the file path as <code>@info</code> object in the <code>RLum.Analysis-class</code> output.</li>
+<li>If the file is not readable it only shows the R error and not anymore the internal error.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_detplot-0-9-24"><code>plot_DetPlot()</code><a class="anchor" aria-label="anchor" href="#plot_detplot-0-9-24"></a></h4>
+<ul><li>New argument <code>plot</code>: The function gained the new parameter <code>plot</code> to provide the possibility to disable the plot output for more complex operations</li>
+<li>Additional input: The function now understands lists of <code>RLum.Analysis-class</code> objects and iterates over those objects automatically.</li>
+<li>New argument <code>multicore</code>: As an addition to the list operation, the function can let it run in a multi core session</li>
+<li>The legend displayed the wrong labels for the equivalent dose and the <code>Ln/Tn</code> values; fixed.</li>
+<li>The legend is now disabled by default if no shine-down curve is shown; it can be activated again manually using <code>legend</code>.</li>
+<li>The par settings were not correctly reset; fixed.</li>
+<li>The function now supports the <code>trim_channel</code> argument from <code><a href="../reference/analyse_SAR.CWOSL.html">analyse_SAR.CWOSL()</a></code>
+</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_growthcurve-0-9-24"><code>plot_GrowthCurve()</code><a class="anchor" aria-label="anchor" href="#plot_growthcurve-0-9-24"></a></h4>
+<ul><li>Edge case: If the <code>Ln/Tn</code> values was way below the fit and <code>fit.method = EXP</code> was chosen for the fitting, the function still returned a positive equivalent dose for <code>mode = interpolation</code>. Now the returned value is <code>NA</code> since no interpolation was possible.</li>
+<li>Minor graphical polish: the dashed lines are drawn to the end of the plot area.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_rlum-0-9-24"><code>plot_RLum()</code><a class="anchor" aria-label="anchor" href="#plot_rlum-0-9-24"></a></h4>
+<ul><li>The function knows how to process results produces by <code><a href="../reference/analyse_SAR.CWOSL.html">analyse_SAR.CWOSL()</a></code>, <code><a href="../reference/analyse_pIRIRSequence.html">analyse_pIRIRSequence()</a></code> and <code>analyse_IRSARRF()</code>; the functionality is very basic and for fast reporting situations only.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="report_rlum-0-9-24"><code>report_RLum()</code><a class="anchor" aria-label="anchor" href="#report_rlum-0-9-24"></a></h4>
+<ul><li>The file <code>*.Rds</code> file path download did not function anymore; fixed.</li>
+<li>The function threw an non-conclusive warning; fixed.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="risoebinfiledata-class-0-9-24"><code>Risoe.BINfileData-class()</code><a class="anchor" aria-label="anchor" href="#risoebinfiledata-class-0-9-24"></a></h4>
+<ul><li>The <code>show</code> method now knows about <code>RECTYPE</code> 128 and will account for it.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="risoebinffiledata2rlumanalysis-0-9-24"><code>Risoe.BINFfileData2RLum.Analysis()</code><a class="anchor" aria-label="anchor" href="#risoebinffiledata2rlumanalysis-0-9-24"></a></h4>
+<ul><li>The function learned about <code>RECTYPE</code> 128 records. Those records contain ROI data from camera measurements and are skipped for the moment because they do not really belong to measurement data. This may change future.</li>
 </ul></div>
 </div>
 <div class="section level3">
-<h3 id="internals-0-9-23">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-23"></a></h3>
-<ul><li>Adding new dependency to <code>'interp'</code>
-</li>
-<li>Remove dependency to orphaned package <code>'plotrix'</code>; the code in one affected function was replaced using base R code</li>
+<h3 id="internals-0-9-24">Internals<a class="anchor" aria-label="anchor" href="#internals-0-9-24"></a></h3>
+<ul><li>Add internal download helper <code>.download_file()</code> for a more consistent approach to detect URL schemes and download files across the package</li>
+<li>Cover tricky edge case for the internal function <code>.expand_parameters()</code>. The function is used to recycle and expand function parameters if the input is a list object. It apparently showed odd behaviour if a function was used in a loop with objects of its own, e.g., <code>f(x = i + 1)</code>, then the function would recycle <code>i + 1</code> and then evaluate <code>i + 1</code> in the function environment. Usually, this should throw an error, but in particular, <code>i</code> is an object name commonly used in loops, so the function went upwards in the environments until it found the first <code>i</code>. However, this is not the <code>i</code> inserted by the user. The result was that the loop did not seem to work for no apparent reason. Now, <code>.expand_parameters()</code> evaluates input in the parent environment before passing it down.</li>
 </ul></div>
 </div>
   </div>

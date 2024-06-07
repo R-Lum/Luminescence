@@ -14,8 +14,6 @@
 #'
 #' @aliases Luminescence-package Luminescence
 #'
-#' @docType package
-#'
 #' @details
 #'
 #' **Supervisor of the initial version in 2012**
@@ -24,52 +22,53 @@
 #'
 #' **Support contact**
 #'
-#' - \email{developers@@r-luminescence.org}
-#' - [https://github.com/R-Lum/Luminescence/discussions]()
+#' * \email{developers@@r-luminescence.org}
+#' * [https://github.com/R-Lum/Luminescence/discussions]()
 #'
 #' **Bug reporting**
 #'
-#' - \email{developers@@r-luminescence.org} or
-#' - [https://github.com/R-Lum/Luminescence/issues]()
+#' * \email{developers@@r-luminescence.org} or
+#' * [https://github.com/R-Lum/Luminescence/issues]()
 #'
 #' **Project website**
 #'
-#' - [https://r-luminescence.org]()
+#' * [https://r-luminescence.org]()
 #'
 #' **Project source code repository**
 #'
-#' - [https://github.com/R-Lum/Luminescence]()
+#' * [https://github.com/R-Lum/Luminescence]()
 #'
 #' **Related package projects**
 #'
-#' - [https://cran.r-project.org/package=RLumShiny]()
-#' - [https://cran.r-project.org/package=RLumModel]()
-#' - [https://cran.r-project.org/package=RLumCarlo]()
-#'
-#' **Package maintainer**
-#'
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
-#' \email{sebastian.kreutzer@@aber.ac.uk}
+#' * [https://cran.r-project.org/package=RLumShiny]()
+#' * [https://cran.r-project.org/package=RLumModel]()
+#' * [https://cran.r-project.org/package=RLumCarlo]()
+#' * [https://cran.r-project.org/package=RCarb]()
 #'
 #' **Funding**
 #'
-#' 2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
+#' * 2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
 #' was funded through the DFG programme "Rekonstruktion der Umweltbedingungen
 #' des Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen"
 #' (DFG id: 46526743)
 #'
-#' 2014-2018: Cooperation and personal exchange between the developers is gratefully
+#' * 2014-2018: Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 #'
-#' 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
+#' * 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
 #' by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 #'
-#' 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
+#' * 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
 #' from the European Union’s Horizon 2020 research and innovation programme under
 #' the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
 #' maintaining the package.
+#'
+#' * since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
+#' DFG Heisenberg programme No 505822867.
+#'
+#' * All other authors gratefully received additional funding from various public funding bodies.
 #'
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -120,7 +119,7 @@
 #' @useDynLib Luminescence, .registration = TRUE
 #'
 #' @md
-NULL
+"_PACKAGE"
 
 #' Base data set of dose-rate conversion factors
 #'
@@ -493,10 +492,10 @@ NULL
 #'
 #' @format Data frame with 1000 observations on the following 2 variables:
 #'
-#' \describe{
-#' \item{list("x")}{a numeric vector, time}
-#' \item{list("y")}{a numeric vector, counts}
-#' }
+#'
+#' - `list("x")`: a numeric vector, time
+#' - `list("y")`: a numeric vector, counts
+#'
 #'
 #' @references
 #' Baartman, J.E.M., Veldkamp, A., Schoorl, J.M., Wallinga, J.,

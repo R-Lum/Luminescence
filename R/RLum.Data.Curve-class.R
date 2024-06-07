@@ -18,7 +18,7 @@ NULL
 #' @slot data
 #' Object of class [matrix] containing curve x and y data.
 #' 'data' can also be of type `RLum.Data.Curve` to change object values without
-#' deconstructing the object. For example:
+#' de-constructing the object. For example:
 #' ```
 #' set_RLum(class = 'RLum.Data.Curve',
 #'          data = Your.RLum.Data.Curve,
@@ -42,7 +42,7 @@ NULL
 #'
 #' @section Class version: 0.5.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [merge_RLum]
 #'
@@ -143,7 +143,6 @@ setAs("RLum.Data.Curve", "data.frame",
 ##COERCE RLum.Data.Curve >> matrix AND matrix >> RLum.Data.Curve
 setAs("matrix", "RLum.Data.Curve",
       function(from,to){
-
         new(to,
             recordType = "unkown curve type",
             curveType = NA_character_,
@@ -151,7 +150,6 @@ setAs("matrix", "RLum.Data.Curve",
             info = list())
 
       })
-
 
 setAs("RLum.Data.Curve", "matrix",
       function(from){
@@ -186,8 +184,6 @@ setMethod("show",
             #cat("\n\t\t >> names:", names(object@info))
           }
 )
-
-
 
 # set_RLum() ----------------------------------------------------------------------------------
 #' @describeIn RLum.Data.Curve
@@ -380,6 +376,7 @@ setMethod("length_RLum",
 #'
 #' Names of the info elements (slot `info`)
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Curve",

@@ -18,7 +18,7 @@ of the function read_BIN2R."><!-- mathjax --><script src="https://cdnjs.cloudfla
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.24</span>
       </span>
     </div>
 
@@ -147,7 +147,16 @@ the BIN-file data import! Data types are converted during data import.<br></p>
 <p><strong>LTYPE</strong> values</p>
 <table class="table table"><tr><td>VALUE</td><td>TYPE</td><td>DESCRIPTION</td></tr><tr><td><code>[0]</code></td><td><code>TL</code></td><td>: Thermoluminescence</td></tr><tr><td><code>[1]</code></td><td><code>OSL</code></td><td>: Optically stimulated luminescence</td></tr><tr><td><code>[2]</code></td><td><code>IRSL</code></td><td>: Infrared stimulated luminescence</td></tr><tr><td><code>[3]</code></td><td><code>M-IR</code></td><td>: Infrared monochromator scan</td></tr><tr><td><code>[4]</code></td><td><code>M-VIS</code></td><td>: Visible monochromator scan</td></tr><tr><td><code>[5]</code></td><td><code>TOL</code></td><td>: Thermo-optical luminescence</td></tr><tr><td><code>[6]</code></td><td><code>TRPOSL</code></td><td>: Time Resolved Pulsed OSL</td></tr><tr><td><code>[7]</code></td><td><code>RIR</code></td><td>: Ramped IRSL</td></tr><tr><td><code>[8]</code></td><td><code>RBR</code></td><td>: Ramped (Blue) LEDs</td></tr><tr><td><code>[9]</code></td><td><code>USER</code></td><td>: User defined</td></tr><tr><td><code>[10]</code></td><td><code>POSL</code></td><td>: Pulsed OSL</td></tr><tr><td><code>[11]</code></td><td><code>SGOSL</code></td><td>: Single Grain OSL</td></tr><tr><td><code>[12]</code></td><td><code>RL</code></td><td>: Radio Luminescence</td></tr><tr><td><code>[13]</code></td><td><code>XRF</code></td><td>: X-ray Fluorescence</td></tr></table><p><strong>DTYPE</strong> values</p>
 <table class="table table"><tr><td>VALUE</td><td>DESCRIPTION</td></tr><tr><td><code>[0]</code></td><td>Natural</td></tr><tr><td><code>[1]</code></td><td>N+dose</td></tr><tr><td><code>[2]</code></td><td>Bleach</td></tr><tr><td><code>[3]</code></td><td>Bleach+dose</td></tr><tr><td><code>[4]</code></td><td>Natural (Bleach)</td></tr><tr><td><code>[5]</code></td><td>N+dose (Bleach)</td></tr><tr><td><code>[6]</code></td><td>Dose</td></tr><tr><td><code>[7]</code></td><td>Background</td></tr></table><p><strong>LIGHTSOURCE</strong> values</p>
-<table class="table table"><tr><td>VALUE</td><td>DESCRIPTION</td></tr><tr><td><code>[0]</code></td><td>None</td></tr><tr><td><code>[1]</code></td><td>Lamp</td></tr><tr><td><code>[2]</code></td><td>IR diodes/IR Laser</td></tr><tr><td><code>[3]</code></td><td>Calibration LED</td></tr><tr><td><code>[4]</code></td><td>Blue Diodes</td></tr><tr><td><code>[5]</code></td><td>White light</td></tr><tr><td><code>[6]</code></td><td>Green laser (single grain)</td></tr><tr><td><code>[7]</code></td><td>IR laser (single grain)</td></tr></table><p>(information on the BIN/BINX file format are kindly provided by Risø, DTU Nutech)</p>
+<table class="table table"><tr><td>VALUE</td><td>DESCRIPTION</td></tr><tr><td><code>[0]</code></td><td>None</td></tr><tr><td><code>[1]</code></td><td>Lamp</td></tr><tr><td><code>[2]</code></td><td>IR diodes/IR Laser</td></tr><tr><td><code>[3]</code></td><td>Calibration LED</td></tr><tr><td><code>[4]</code></td><td>Blue Diodes</td></tr><tr><td><code>[5]</code></td><td>White light</td></tr><tr><td><code>[6]</code></td><td>Green laser (single grain)</td></tr><tr><td><code>[7]</code></td><td>IR laser (single grain)</td></tr></table><p><strong>Internal DATA - object structure</strong></p>
+<p>With version 8 of the BIN/BINX file format, slot <code>@DATA</code> (byte array <code>DPOINTS</code>) can
+contain two different values:</p><ol><li><p><code>DPOINTS</code> (standard for <code>RECTYPE</code> := (0,1)): is a vector with the length defined
+through <code>NPOINTS</code>. This is the standard for xy-curves since version 03.</p></li>
+<li><p><code>DPOINTS</code> (<code>RECTYPE</code> := 128) is contains no count values but information about
+the definition of the regions of interest (ROI). Each definition is 504 bytes long.
+The number of definitions is defined by <code>NPOINTS</code> in <code>@METADATA</code>. The record
+describes basically the geometric features of the regions of interest.
+The representation in R is a nested <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
+</ol><table class="table table"><tr><td><strong>#</strong></td><td><strong>Name</strong></td><td><strong>Data Type</strong></td><td><strong>V</strong></td><td><strong>Description</strong></td></tr><tr><td><code>[,1]</code></td><td><code>NOFPOINTS</code></td><td><code>numeric</code></td><td>08</td><td>number of points in the definition (e.g., if the ROI is a rectangle: 4)</td></tr><tr><td><code>[,2]</code></td><td><code>USEDFOR</code></td><td><code>logical</code></td><td>08</td><td>samples for which the ROI is used for; a maximum of 48 samples are allowed.</td></tr><tr><td><code>[,3]</code></td><td><code>SHOWNFOR</code></td><td><code>logical</code></td><td>08</td><td>samples for which the ROI is shown for; a maximum of 48 samples are allowed.</td></tr><tr><td><code>[,4]</code></td><td><code>COLOR</code></td><td><code>numeric</code></td><td>08</td><td>The colour values of the ROI.</td></tr><tr><td><code>[,5]</code></td><td><code>X</code></td><td><code>numeric</code></td><td>08</td><td>The x coordinates used to draw the ROI geometry (up to 50 points are allowed).</td></tr><tr><td><code>[,6]</code></td><td><code>Y</code></td><td><code>numeric</code></td><td>08</td><td>The y coordinates used to draw the ROI geometry (up to 50 points are allowed).</td></tr></table><p>(information on the BIN/BINX file format are kindly provided by Risø, DTU Nutech)</p>
     </div>
     <div id="objects-from-the-class">
     <h2>Objects from the Class</h2>
@@ -156,11 +165,11 @@ the BIN-file data import! Data types are converted during data import.<br></p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.4.0</p>
+    <p>0.4.1</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2023. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2024. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>

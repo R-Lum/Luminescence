@@ -4,10 +4,12 @@
 \alias{read_TIFF2R}
 \title{Import TIFF Image Data into R}
 \usage{
-read_TIFF2R(file)
+read_TIFF2R(file, ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}): file name}
+
+\item{...}{not in use, for compatibility reasons only}
 }
 \value{
 \linkS4class{RLum.Data.Image} object
@@ -17,7 +19,7 @@ Simple wrapper around \link[tiff:readTIFF]{tiff::readTIFF} to import TIFF images
 and TIFF image stacks to be further processed within the package \code{'Luminescence'}
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -37,7 +39,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2023. read_TIFF2R(): Import TIFF Image Data into R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. read_TIFF2R(): Import TIFF Image Data into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}

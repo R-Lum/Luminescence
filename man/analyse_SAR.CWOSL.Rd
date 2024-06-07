@@ -13,6 +13,7 @@ analyse_SAR.CWOSL(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
@@ -69,7 +70,8 @@ for further calculation. Can be a \link{list} in a \link{list}, if \code{object}
 Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
 
 Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
-\code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
+\code{palaeodose.error}, \code{testdose.error}, \code{exceed.max.regpoint = TRUE/FALSE},
+\code{recuperation_reference = "Natural"} (or any other dose point, e.g., \code{"R1"}).
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
 Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
 Every criterion can be set to \code{NA}. In this value are calculated, but not considered, i.e.
@@ -79,6 +81,11 @@ the RC.Status becomes always \code{'OK'}}
 a numeric vector containing the dose points values. Using this argument
 overwrites dose point values extracted from other data. Can be a \link{list} of
 \link{numeric} vectors, if \code{object} is of type \link{list}}
+
+\item{trim_channels}{\link{logical} (\emph{with default}): trim channels per record category
+to the lowest number of channels in the category by using \link{trim_RLum.Data}.
+Applies only to \code{OSL} and \code{IRSL} curves. For a more granular control use \link{trim_RLum.Data}
+before passing the input object.}
 
 \item{mtext.outer}{\link{character} (\emph{optional}):
 option to provide an outer margin \code{mtext}. Can be a \link{list} of \link{character}s,
@@ -179,7 +186,8 @@ the \code{pIRIR225} curves.
 \verb{[recuperation.rate]}: recuperation rate calculated by comparing the
 \code{Lx/Tx} values of the zero regeneration point with the \code{Ln/Tn} value (the \code{Lx/Tx}
 ratio of the natural signal). For methodological background see Aitken and
-Smith (1988).
+Smith (1988). As a variant with the argument \code{recuperation_reference} another dose point can be
+selected as reference instead of \code{Ln/Tn}.
 
 \verb{[testdose.error]}: set the allowed error for the test dose, which per
 default should not exceed 10\%. The test dose error is calculated as \code{Tx_net.error/Tx_net}.
@@ -209,7 +217,7 @@ This function must not be mixed up with the function
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \section{Function version}{
- 0.9.14
+ 0.10.3
 }
 
 \examples{
@@ -236,6 +244,7 @@ rejection.criteria = list(
   recuperation.rate = 10,
   testdose.error = 10,
   palaeodose.error = 10,
+  recuperation_reference = "Natural",
   exceed.max.regpoint = TRUE)
 )
 
@@ -248,7 +257,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -272,8 +281,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
-(United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

@@ -2,6 +2,7 @@
 set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
+
 results <- analyse_SAR.CWOSL(
   object = object[[1]],
   signal.integral.min = 1,
@@ -51,6 +52,10 @@ test_that("regression test LxTx table", {
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx), digits = 5),  20.92051)
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx.Error), digits = 2), 0.34)
 
+  expect_type(object = results$data$POS, "integer")
+  expect_equal(object = results$data$POS, 1)
+  expect_type(object = results$data$ALQ, "double")
+
 })
 
 test_that("regression test - check rejection criteria", {
@@ -73,7 +78,7 @@ test_that("simple run", {
   local_edition(3)
 
   ##verbose and plot off
-  expect_s4_class(
+  t <- expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[1:2],
       signal.integral.min = 1,
@@ -87,7 +92,33 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
-  local_edition(3)
+  ## check aliquot numbers
+  expect_equal(sum(t@data$data$ALQ), 3)
+
+  ##remove position information from the curve
+  ##data
+  object_f <- object[[1]]
+  object_f@records <- lapply(object_f@records, function(x){
+    x@info$POSITION <- NULL
+    x
+
+  })
+  t <- expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object_f,
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+    ),
+    class = "RLum.Results"
+  )
+
+  expect_type(t@data$data$POS, "logical")
+
   ##signal integral set to NA
   expect_warning(
     analyse_SAR.CWOSL(
@@ -198,6 +229,52 @@ test_that("simple run", {
     class = "RLum.Results"
   )
 
+  ##check recuperation point selection
+  t <- expect_s4_class(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria= list(
+        recycling.ratio = NA,
+        recuperation.rate = 1,
+        palaeodose.error = 1,
+        testdose.error = 1,
+        recuperation_reference = "R1",
+        test = "new",
+        exceed.max.regpoint = FALSE),
+      plot = TRUE,
+    ),
+    class = "RLum.Results"
+  )
+
+  ## check if a different point was selected
+  expect_equal(round(t$rejection.criteria$Value[2],2), expected = 0.01)
+
+  ## trigger stop of recuperation reference point
+  expect_error(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria= list(
+        recycling.ratio = NA,
+        recuperation.rate = 1,
+        palaeodose.error = 1,
+        testdose.error = 1,
+        recuperation_reference = "stop",
+        test = "new",
+        exceed.max.regpoint = FALSE),
+      plot = TRUE,
+    ),
+    regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Recuperation reference invalid, valid are")
+
    # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters
    ##object
@@ -259,7 +336,37 @@ test_that("simple run", {
      verbose = FALSE
    ), regexp = "Background integral out of bounds")
 
-  local_edition(3)
+   ## check different curve numbers by shorten one OSL curve
+   object_short <- object
+   object_short[[1]]@records[[2]]@data <- object_short[[1]]@records[[2]]@data[-nrow(object_short[[1]]@records[[2]]@data),]
+
+   ## without fix
+   t <- testthat::expect_warning(
+     object = analyse_SAR.CWOSL(
+       object = object_short[[1]],
+       signal.integral.min = 1,
+       signal.integral.max = 2,
+       background.integral.min = 800,
+       background.integral.max = 9900,
+       fit.method = "LIN",
+       plot = FALSE,
+       verbose = FALSE),
+     regexp = "\\[analyse\\_SAR.CWOSL\\(\\)\\] Input curves lengths differ\\.")
+
+   ## with new parameter
+   testthat::expect_s4_class(
+     object = analyse_SAR.CWOSL(
+       object = object_short[[1]],
+       signal.integral.min = 1,
+       signal.integral.max = 2,
+       background.integral.min = 800,
+       background.integral.max = 999,
+       fit.method = "LIN",
+       trim_channels = TRUE,
+       plot = FALSE,
+       verbose = FALSE),
+   class = "RLum.Results")
+
 })
 
 test_that("advance tests run", {
@@ -292,6 +399,7 @@ test_that("advance tests run", {
   #   ),
   #   class = "RLum.Results"
   # )
+
 
   ##test rejection criteria is a list without(!) names,
   ##this should basically lead to no fail

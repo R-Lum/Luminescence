@@ -7,7 +7,7 @@ test_that("check class and length of output", {
   results_fit <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "FIT")
   results_slide <- suppressWarnings(
     analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "SLIDE", n.MC = NULL))
-  results_slide_alt <-
+  results_slide_alt <- expect_s4_class(
     analyse_IRSAR.RF(
       object = IRSAR.RF.Data,
       plot = FALSE,
@@ -15,8 +15,17 @@ test_that("check class and length of output", {
       n.MC = 10,
       method.control = list(vslide_range = 'auto', trace_vslide = TRUE),
       txtProgressBar = FALSE
-    )
+    ), class = "RLum.Results")
 
+  results_slide_alt2 <- expect_s4_class(
+    analyse_IRSAR.RF(
+      object = IRSAR.RF.Data,
+      plot = FALSE,
+      method = "VSLIDE",
+      n.MC = 10,
+      method.control = list(vslide_range = 'auto', trace_vslide = FALSE),
+      txtProgressBar = FALSE
+    ), class = "RLum.Results")
 
   expect_equal(is(results_fit), c("RLum.Results", "RLum"))
   expect_equal(length(results_fit), 5)
@@ -29,11 +38,11 @@ test_that("check class and length of output", {
   expect_equal(results_fit$data$DE.LOWER, 600.63)
   expect_equal(results_slide$data$DE, 610.17)
   expect_equal(round(results_slide_alt$data$DE, digits = 0), 384)
-
+  expect_equal(round(results_slide_alt2$data$DE, digits = 0), 384)
 
 })
 
-test_that("test controlled chrash conditions", {
+test_that("test controlled crash conditions", {
   testthat::skip_on_cran()
   local_edition(3)
 
@@ -48,6 +57,31 @@ test_that("test controlled chrash conditions", {
       method.control = list(vslide_range = c(0,1e+07)),
       txtProgressBar = FALSE
     ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
+
+
+  ## test multi-core error
+  ## This does not seem to work on the GitHub Actions platform
+  # expect_warning(
+  #   analyse_IRSAR.RF(
+  #     object = IRSAR.RF.Data,
+  #     plot = FALSE,
+  #     method = "VSLIDE",
+  #     n.MC = 2,
+  #     method.control = list(cores = 10000),
+  #     txtProgressBar = FALSE
+  #   ), regexp = "\\[analyse\\_IRSAR.RF\\(\\)] What do you want\\?")
+
+  ## test wrong input for multicore
+  ## test multi-core error
+  expect_message(
+    analyse_IRSAR.RF(
+      object = IRSAR.RF.Data,
+      plot = FALSE,
+      method = "VSLIDE",
+      n.MC = 2,
+      method.control = list(cores = "4"),
+      txtProgressBar = FALSE
+    ), regexp = "\\[analyse\\_IRSAR\\.RF\\(\\)\\] Invalid value for control argument \\'cores\\'")
 
 
 })
@@ -77,14 +111,36 @@ test_that("test edge cases", {
   RF_nat@data[,2] <- runif(length(RF_nat@data[,2]), 65.4, 76.7)
   RF_nat@data <- RF_nat@data[1:50,]
 
-  expect_s4_class(analyse_IRSAR.RF(
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
     set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
     method = "SLIDE",
     method.control = list(vslide_range = 'auto', correct_onset = FALSE),
     RF_nat.lim = 2,
     RF_reg.lim = 2,
-    plot = FALSE,
+    plot = TRUE,
     txtProgressBar = FALSE
-  ), "RLum.Results")
+  )), "RLum.Results")
+
+  ## this RF_nat.lim after
+  ##  'length = 2' in coercion to 'logical(1)' error
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    method = "SLIDE",
+    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    RF_nat.lim = c(10,100),
+    #RF_reg.lim = c(),
+    plot = TRUE,
+    txtProgressBar = FALSE
+  )), "RLum.Results")
+
+  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+    set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
+    method = "SLIDE",
+    method.control = list(vslide_range = 'auto', correct_onset = FALSE),
+    #RF_nat.lim = c(10,100),
+    RF_reg.lim = c(10,100),
+    plot = TRUE,
+    txtProgressBar = FALSE
+  )), "RLum.Results")
 
 })

@@ -26,6 +26,8 @@
 #'
 #' @param verbose [logical] (*with default*): enables or disables verbose mode
 #'
+#' @param ... not used, for compatibility reasons only
+#'
 #' @return
 #' Depending on the chosen option the functions returns three different
 #' type of objects:
@@ -58,7 +60,7 @@
 #'
 #' *Currently not all information provided by the SPE format are supported.*
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -106,7 +108,8 @@ read_SPE2R <- function(
   output.object = "RLum.Data.Image",
   frame.range,
   txtProgressBar = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 ){
 
   # Consistency check -------------------------------------------------------
@@ -342,7 +345,8 @@ read_SPE2R <- function(
 
   ##loop over all frames
   ##output
-  cat(paste("\n[read_SPE2R.R]\n\t >> ",file,sep=""), fill=TRUE)
+  if(verbose)
+    cat(paste("\n[read_SPE2R()]\n\t >> ",file,sep=""), fill=TRUE)
 
   ##set progressbar
   if(txtProgressBar & verbose){

@@ -10,6 +10,8 @@
 #' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
 #' names can be provided.
 #'
+#' @param ... not used, only for compatible reasons
+#'
 #' @return Returns an S4 [RLum.Analysis-class] object containing
 #' [RLum.Data.Curve-class] objects for each curve.
 #'
@@ -17,7 +19,7 @@
 #'
 #' @author Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @keywords IO
 #'
@@ -32,7 +34,10 @@
 #'
 #' @md
 #' @export
-read_RF2R <- function(file) {
+read_RF2R <- function(
+  file,
+  ...
+) {
 
 # Self-call -----------------------------------------------------------------------------------
   if(inherits(file, "list")){

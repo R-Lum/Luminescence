@@ -18,7 +18,7 @@ reader into R."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.24</span>
       </span>
     </div>
 
@@ -62,7 +62,7 @@ reader into R."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
     </div>
 
     <div class="ref-description">
-    <p>Import a *.bin or a *.binx file produced by a Risø DA15 and DA20 TL/OSL
+    <p>Import a <code>*.bin</code> or a <code>*.binx</code> file produced by a Risø DA15 and DA20 TL/OSL
 reader into R.</p>
     </div>
 
@@ -109,8 +109,9 @@ Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>
 
 
 <dt>n.records</dt>
-<dd><p><a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a> (<em>optional</em>):
-limits the number of imported records. Can be used in combination with
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): limits the number of imported records
+to the provided record id (e.g., <code>n.records = 1:10</code> imports the first ten records,
+while <code>n.records = 3</code> imports only record number 3. Can be used in combination with
 <code>show.record.number</code> for debugging purposes, e.g. corrupt BIN-files.
 Can be provided as <code>list</code> if <code>file</code> is a <code>list</code>.</p></dd>
 
@@ -209,15 +210,14 @@ Risø website: <a href="https://www.fysik.dtu.dk" class="external-link">https://
     <h2>Note</h2>
     <p>The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.</p>
-<p><strong>ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.</strong></p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.16.7</p>
+    <p>0.17.1</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., Fuchs, M.C., 2023. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., Fuchs, M.C., 2024. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.17.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -245,15 +245,15 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">read_BIN2R</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [read_BIN2R()]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/Rtmp8HmRwV/temp_libpath1e923d86b34b/Luminescence/extdata/BINfile_V8.binx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; /private/var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T/Rtmpubl0S2/temp_libpath11b4cbf5cb35/Luminescence/extdata/BINfile_V8.binx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 records have been read successfully!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 &gt;&gt; 2 record(s) have been read successfully!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">temp</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [Risoe.BINfileData object]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	BIN/BINX version      8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	BIN/BINX version:     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	File name:            ExampleData.BINfileData</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Object date:          060920</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	User:                 Default</span>
@@ -261,9 +261,7 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø D
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Overall records:      2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Records type:         TL	(n = 2)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Position range:       1 : 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Grain range:          0 : 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Run range:            1 : 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Set range:            2 : 2 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

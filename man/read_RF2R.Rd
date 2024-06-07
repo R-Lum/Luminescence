@@ -4,11 +4,13 @@
 \alias{read_RF2R}
 \title{Import RF-files to R}
 \usage{
-read_RF2R(file)
+read_RF2R(file, ...)
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}): path and file name of the RF file. Alternatively a list of file
 names can be provided.}
+
+\item{...}{not used, only for compatible reasons}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Analysis} object containing
@@ -24,7 +26,7 @@ This functions provides an easy import to process the data seamlessly with the R
 The output of the function can be passed to the function \link{analyse_IRSAR.RF}
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -36,7 +38,7 @@ temp <- read_RF2R(file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. read_RF2R(): Import RF-files to R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. read_RF2R(): Import RF-files to R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

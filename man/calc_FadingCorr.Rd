@@ -2,8 +2,7 @@
 % Please edit documentation in R/calc_FadingCorr.R
 \name{calc_FadingCorr}
 \alias{calc_FadingCorr}
-\title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
-g-value and a given tc}
+\title{Fading Correction after Huntley & Lamothe (2001)}
 \usage{
 calc_FadingCorr(
   age.faded,
@@ -34,7 +33,7 @@ Argument will be ignored if \code{g_value} was an \linkS4class{RLum.Results} obj
 the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
 If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
 If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
-SAR method and g-values that had been not normalised to 2 days.}
+SAR method and \eqn{g}-values that had been not normalised to 2 days.}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
 number of Monte Carlo simulation runs for error estimation.
@@ -72,23 +71,40 @@ Slot: \strong{\verb{@info}}\cr
 }
 }
 \description{
-This function solves the equation used for correcting the fading affected age
-including the error for a given g-value according to Huntley & Lamothe (2001).
+Apply a fading correction according to Huntley & Lamothe (2001) for a given
+\eqn{g}-value and a given \eqn{t_{c}}
 }
 \details{
-As the g-value slightly depends on the time between irradiation and the prompt measurement,
-this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
-time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-for the g-value needs to be provided (argument \code{tc.g_value} and then the g-value is recalculated
-to tc of the measurement used for estimating the age applying the following equation:
+This function solves the equation used for correcting the fading affected age
+including the error for a given \eqn{g}-value according to Huntley & Lamothe (2001):
 
-\deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))}
+\deqn{
+\frac{A_{f}}{A} = 1 - \kappa * \Big[ln(\frac{A}{t_c}) - 1\Big]
+}
+
+with \eqn{\kappa} defined as
+
+\deqn{
+\kappa = \frac{\frac{\mathrm{g\_value}}{ln(10)}}{100}
+}
+
+\eqn{A} and \eqn{A_{f}} are given in ka. \eqn{t_c} is given in s, however, it
+is internally recalculated to ka.
+
+As the \eqn{g}-value slightly depends on the time between irradiation and the
+prompt measurement, this is \eqn{t_{c}}, always a \eqn{t_{c}} value needs to be provided.
+If the \eqn{g}-value was normalised to a distinct
+time or evaluated with a different tc value (e.g., external irradiation), also
+the \eqn{t_{c}} value for the \eqn{g}-value needs to be provided (argument \code{tc.g_value}
+and then the \eqn{g}-value is recalculated
+to \eqn{t_{c}} of the measurement used for estimating the age applying the
+following equation:
+
+\deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * ln(tc/tc.g))}
 
 where
 
-\deqn{\kappa_{tc.g} = g / 100 / log(10)}
-
-with \code{log} the natural logarithm.
+\deqn{\kappa_{tc.g} = g / 100 / ln(10)}
 
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is realised using
@@ -97,21 +113,24 @@ increase the computation time.\cr
 
 \strong{\code{n.MC = 'auto'}}
 
-The error estimation based on a stochastic process, i.e. for a small number of MC runs the calculated
-error varies considerably every time the function is called, even with the same input values.
+The error estimation based on a stochastic process, i.e. for a small number of
+MC runs the calculated error varies considerably every time the function is called,
+even with the same input values.
 The argument option \code{n.MC = 'auto'} tries to find a stable value for the standard error, i.e.
 the standard deviation of values calculated during the MC runs (\code{age.corr.MC}),
 within a given precision (2 digits) by increasing the number of MC runs stepwise and
 calculating the corresponding error.
 
 If the determined error does not differ from the 9 values calculated previously
-within a precision of (here) 3 digits the calculation is stopped as it is assumed that the error
-is stable. Please note that (a) the duration depends on the input values as well as on
-the provided computation resources and it may take a while, (b) the length (size) of the output
-vector \code{age.corr.MC}, where all the single values produced during the MC runs are stored,
-equals the number of MC runs (here termed observations).
+within a precision of (here) 3 digits the calculation is stopped as it is assumed
+that the error is stable. Please note that (a) the duration depends on the input
+values as well as on the provided computation resources and it may take a while,
+(b) the length (size) of the output
+vector \code{age.corr.MC}, where all the single values produced during the MC runs
+are stored, equals the number of MC runs (here termed observations).
 
-To avoid an endless loop the calculation is stopped if the number of observations exceeds 10^7.
+To avoid an endless loop the calculation is stopped if the number of observations
+exceeds 10^7.
 This limitation can be overwritten by setting the number of MC runs manually,
 e.g. \code{n.MC = 10000001}. Note: For this case the function is not checking whether the calculated
 error is stable.\cr
@@ -125,12 +144,21 @@ appear similar, but they are not comparable!\cr
 
 \strong{FAQ}\cr
 
-Q: Which tc value is expected?\cr
+\strong{Q}: Which \eqn{t_{c}} value is expected?\cr
 
-A: tc is the time in seconds between irradiation and the prompt measurement applied during your
-De measurement. However, this tc might differ from the tc used for estimating the g-value. In the
-case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
-tc value (the one used for estimating the g-value) using the argument \code{tc.g_value}.\cr
+\strong{A}: \eqn{t_{c}} is the time in seconds between irradiation and the prompt measurement
+applied during your \eqn{D_{e}} measurement. However, this \eqn{t_{c}} might
+differ from the \eqn{t_{c}} used for estimating the \eqn{g}-value. In the
+case of an SAR measurement \eqn{t_{c}} should be similar, however,
+if it differs, you have to provide this
+\eqn{t_{c}}  value (the one used for estimating the \eqn{g}-value) using
+the argument \code{tc.g_value}.\cr
+
+\strong{Q}: The function could not find a solution, what should I do?\cr
+
+\strong{A}: This usually happens for model parameters exceeding the boundaries of the
+fading correction model (e.g., very high \eqn{g}-value). Please check
+whether another fading correction model might be more appropriate.
 }
 \note{
 Special thanks to Sébastien Huot for his support and clarification via e-mail.
@@ -173,7 +201,7 @@ get_RLum(results)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. calc_FadingCorr(): Fading Correction after Huntley & Lamothe (2001). Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -322,6 +322,9 @@
     <loc>/reference/get_rightAnswer.html</loc>
   </url>
   <url>
+    <loc>/reference/import_Data.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -461,6 +464,9 @@
   </url>
   <url>
     <loc>/reference/template_DRAC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/trim_RLum.Data.html</loc>
   </url>
   <url>
     <loc>/reference/tune_Data.html</loc>

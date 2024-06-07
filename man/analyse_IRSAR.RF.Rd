@@ -41,9 +41,8 @@ set minimum and maximum channel range for regenerated signal fitting and sliding
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{method}{\link{character} (\emph{with default}):
-setting method applied for the data analysis.
-Possible options are \code{"FIT"} or \code{"SLIDE"}.}
+\item{method}{\link{character} (\emph{with default}): select method applied for the data analysis.
+Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"}.}
 
 \item{method.control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
@@ -219,6 +218,13 @@ and Lapp et al., 2012.
 Here the sliding is done by searching for the minimum of the squared residuals.
 For the mathematical details of the implementation see Frouin et al., 2017
 
+\strong{\code{method = "VSLIDE"}}
+
+Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
+See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+range will is set to \code{"auto"} (see \code{method.control}). This setting can be still
+changed with \code{method.control}.
+
 \strong{\code{method.control}}
 
 To keep the generic argument list as clear as possible, arguments to control the methods
@@ -228,28 +234,28 @@ handled using the argument \code{method.control} only, e.g.,
 
 \tabular{lll}{
 \strong{ARGUMENT} \tab \strong{METHOD} \tab \strong{DESCRIPTION}\cr
-\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
-\code{trace_vslide} \tab \code{SLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
+\code{trace}   \tab \code{FIT}, \code{SLIDE} or \code{VSLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
+\code{trace_vslide} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
 \code{maxiter} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{warnOnly} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{minFactor} \tab \code{FIT} \tab as in \link{nls}\cr
-\code{correct_onset} \tab \code{SLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
+\code{correct_onset} \tab \code{SLIDE} or \code{VSLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
+\code{show_density} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
+\code{show_fit} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} (\emph{with default})
 enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC} \tab \code{SLIDE} \tab \link{integer} (\emph{with default}):
+\code{n.MC} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{integer} (\emph{with default}):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
+\code{vslide_range} \tab \code{SLIDE} or \code{VSLIDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
 reasonable vertical sliding range (\strong{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
-\code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
+\code{cores} \tab \code{SLIDE} or \code{VSLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
 for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
 the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
 }
@@ -326,7 +332,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.8
+ 0.7.10
 }
 
 \examples{
@@ -351,13 +357,12 @@ results <- analyse_IRSAR.RF(
  object = IRSAR.RF.Data,
  method = "SLIDE",
  method.control = list(trace = TRUE))
-
 }
 
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -385,6 +390,14 @@ Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Merci
 An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
 Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
 
+Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
+Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
+Ancient TL 35, 20–30.
+
+Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
+Dose recovery and correction. Radiation Measurements 120, 110–119.
+doi: 10.1016/j.radmeas.2018.04.017
+
 Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
 Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
@@ -404,6 +417,13 @@ of Luminescence 85, 45-58.
 Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.
+
+** Further reading**
+
+Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
+Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
+Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
+101155. doi: 10.1016/j.quageo.2021.101155
 }
 \seealso{
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},

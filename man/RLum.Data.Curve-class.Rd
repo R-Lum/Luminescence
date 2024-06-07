@@ -103,9 +103,9 @@ Returns an \linkS4class{RLum.Data.Curve} object.
 
 Number of channels in the curve (row number of the matrix)
 
-**`names_RLum`**
+\strong{\code{names_RLum}}
 
-Names of the info elements (slot `info`)
+Names of the info elements (slot \code{info})
 
 \strong{\code{bin_RLum.Data}}
 
@@ -149,7 +149,7 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without
-deconstructing the object. For example:
+de-constructing the object. For example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{set_RLum(class = 'RLum.Data.Curve',
          data = Your.RLum.Data.Curve,
@@ -190,11 +190,11 @@ set_RLum(class = "RLum.Data.Curve")
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS - Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2023. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{classes}

@@ -1,8 +1,9 @@
-#' Attempts to install the development version of the 'Luminescence' package
+#' @title Attempts to install the development version of the 'Luminescence' package
 #'
-#' This function is a convenient method for installing the development
+#' @description This function is a convenient method for installing the development
 #' version of the R package 'Luminescence' directly from GitHub.
 #'
+#' @details
 #' This function uses [Luminescence::github_branches][Luminescence::GitHub-API] to check
 #' which development branches of the R package 'Luminescence' are currently
 #' available on GitHub. The user is then prompted to choose one of the branches
@@ -12,9 +13,9 @@
 #' to install the desired development version of the package.
 #'
 #'
-#' If `force_install=TRUE` the functions checks if 'devtools' is available
+#' If `force_install = TRUE` the functions checks if 'devtools' is available
 #' and then attempts to install the chosen development branch via
-#' [devtools::remote-reexports].
+#' [devtools::install_github].
 #'
 #' @param force_install [logical] (*optional*):
 #' If `FALSE` (the default) the function produces and prints the required

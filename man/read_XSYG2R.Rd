@@ -28,7 +28,7 @@ count TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} for a more efficient data processing only a list of \code{RLum.Analysis}
+if \code{TRUE} for a more efficient data processing only a list of \linkS4class{RLum.Analysis}
 objects is returned.}
 
 \item{import}{\link{logical} (\emph{with default}):
@@ -144,7 +144,7 @@ be done using the functions provided with the package \link{xml}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.8
+ 0.6.11
 }
 
 \examples{
@@ -176,7 +176,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. read_XSYG2R(): Import XSYG files to R. Function version 0.6.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. read_XSYG2R(): Import XSYG files to R. Function version 0.6.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -18,7 +18,7 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.24</span>
       </span>
     </div>
 
@@ -76,6 +76,7 @@ RLum.Analysis object including growth curve fitting."><!-- mathjax --><script sr
 <span>  OSL.component <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rejection.criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  dose.points <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trim_channels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  mtext.outer <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_onePage <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -146,7 +147,8 @@ provide a <em>named</em> list and set rejection criteria in <strong>percentage</
 for further calculation. Can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> in a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>, if <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.
 Note: If an <em>unnamed</em> <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> is provided the new settings are ignored!</p>
 <p>Allowed arguments are <code>recycling.ratio</code>, <code>recuperation.rate</code>,
-<code>palaeodose.error</code>, <code>testdose.error</code> and <code>exceed.max.regpoint = TRUE/FALSE</code>.
+<code>palaeodose.error</code>, <code>testdose.error</code>, <code>exceed.max.regpoint = TRUE/FALSE</code>,
+<code>recuperation_reference = "Natural"</code> (or any other dose point, e.g., <code>"R1"</code>).
 Example: <code>rejection.criteria = list(recycling.ratio = 10)</code>.
 Per default all numerical values are set to 10, <code>exceed.max.regpoint = TRUE</code>.
 Every criterion can be set to <code>NA</code>. In this value are calculated, but not considered, i.e.
@@ -158,6 +160,13 @@ the RC.Status becomes always <code>'OK'</code></p></dd>
 a numeric vector containing the dose points values. Using this argument
 overwrites dose point values extracted from other data. Can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of
 <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> vectors, if <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></p></dd>
+
+
+<dt>trim_channels</dt>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): trim channels per record category
+to the lowest number of channels in the category by using <a href="trim_RLum.Data.html">trim_RLum.Data</a>.
+Applies only to <code>OSL</code> and <code>IRSL</code> curves. For a more granular control use <a href="trim_RLum.Data.html">trim_RLum.Data</a>
+before passing the input object.</p></dd>
 
 
 <dt>mtext.outer</dt>
@@ -267,7 +276,8 @@ the <code>pIRIR225</code> curves.</p>
 <p><code>[recuperation.rate]</code>: recuperation rate calculated by comparing the
 <code>Lx/Tx</code> values of the zero regeneration point with the <code>Ln/Tn</code> value (the <code>Lx/Tx</code>
 ratio of the natural signal). For methodological background see Aitken and
-Smith (1988).</p>
+Smith (1988). As a variant with the argument <code>recuperation_reference</code> another dose point can be
+selected as reference instead of <code>Ln/Tn</code>.</p>
 <p><code>[testdose.error]</code>: set the allowed error for the test dose, which per
 default should not exceed 10%. The test dose error is calculated as <code>Tx_net.error/Tx_net</code>.
 The calculation of the \(T_{n}\) error is detailed in <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>.</p>
@@ -291,11 +301,11 @@ does <strong>not</strong> overwrite values preset in <code>IRR_TIME</code>.</p><
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.9.14</p>
+    <p>0.10.3</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2023. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.9.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2024. analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.10.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -318,8 +328,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
     </div>
     <div id="author">
     <h2>Author</h2>
-    <p>Sebastian Kreutzer, Geography &amp; Earth Sciences, Aberystwyth University
-(United Kingdom)
+    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -348,6 +357,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-in"><span>  recuperation.rate <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  testdose.error <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  palaeodose.error <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>  recuperation_reference <span class="op">=</span> <span class="st">"Natural"</span>,</span></span>
 <span class="r-in"><span>  exceed.max.regpoint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_SAR.CWOSL-1.png" alt="" width="700" height="433"></span>
@@ -361,8 +371,10 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 48.06899 1982.757  100.0438  NA        NA NA  1663 EXP 1602.275</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   HPDI68_U HPDI95_L HPDI95_U RC.Status signal.range background.range</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1709.013 1569.894 1761.183        OK        1 : 2       900 : 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   signal.range.Tx background.range.Tx                                UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA : NA             NA : NA 2024-05-18-12:12.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   signal.range.Tx background.range.Tx ALQ POS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA : NA             NA : NA   1   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-06-07-03:54.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -383,13 +395,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976 1.61426805 0.027647946</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190 0.01629624 0.002491179</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-05-18-12:12.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-05-18-12:12.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-05-18-12:12.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-05-18-12:12.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-05-18-12:12.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-05-18-12:12.0.878804486710578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-05-18-12:12.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-06-07-03:54.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-06-07-03:54.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-06-07-03:54.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-06-07-03:54.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-06-07-03:54.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-06-07-03:54.0.878804486710578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-06-07-03:54.0.878804486710578</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

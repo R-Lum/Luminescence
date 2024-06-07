@@ -10,7 +10,7 @@ name: GitHub Actions CI
 
 ## change if caches needs to be refreshed
 env:
-  cache-version: v2
+  cache-version: v1
 
 jobs:
   R-CMD-check:
@@ -26,10 +26,10 @@ jobs:
           - {os: windows-latest, r: 'release', not_cran: 'true'}
           - {os: windows-latest, r: 'devel', not_cran: 'true'}
           - {os: windows-2019, r: 'oldrel', not_cran: 'true'}
-          - {os: macos-12,   r: 'release', not_cran: 'true'}
-          - {os: macos-11,   r: 'oldrel', not_cran: 'true'}
+          - {os: macos-13,   r: 'release', not_cran: 'true'}
+          - {os: macos-12,   r: 'oldrel', not_cran: 'true'}
           - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
-          - {os: ubuntu-latest,   r: 'release', not_cran: 'true'} #OK
+          - {os: ubuntu-latest,   r: 'release', not_cran: 'true'}
           - {os: ubuntu-latest,   r: 'oldrel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
@@ -41,19 +41,13 @@ jobs:
       - if: runner.os == 'macOS'
         run: brew install jags curl
 
-      - name: Install JAGS on Windows (R release)
-        if: (runner.os == 'windows') && (matrix.config.r != 'oldrel')
+      - name: Install JAGS on Windows
+        if: runner.os == 'windows'
         run: |
           curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
           C:\JAGS-4.3.1.exe /S
 
-      - name: Install JAGS on Windows (R oldrel)
-        if: (runner.os == 'windows') && (matrix.config.r == 'oldrel')
-        run: |
-          curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
-          C:\JAGS-4.3.1.exe /S
-
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 

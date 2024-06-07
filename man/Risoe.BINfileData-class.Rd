@@ -202,6 +202,30 @@ VALUE \tab DESCRIPTION \cr
 \verb{[6]} \tab Green laser (single grain) \cr
 \verb{[7]} \tab IR laser (single grain) }
 
+\strong{Internal DATA - object structure}
+
+With version 8 of the BIN/BINX file format, slot \verb{@DATA} (byte array \code{DPOINTS}) can
+contain two different values:
+\enumerate{
+\item \code{DPOINTS} (standard for \code{RECTYPE} := (0,1)): is a vector with the length defined
+through \code{NPOINTS}. This is the standard for xy-curves since version 03.
+\item \code{DPOINTS} (\code{RECTYPE} := 128) is contains no count values but information about
+the definition of the regions of interest (ROI). Each definition is 504 bytes long.
+The number of definitions is defined by \code{NPOINTS} in \verb{@METADATA}. The record
+describes basically the geometric features of the regions of interest.
+The representation in R is a nested \link{list}.
+}
+
+\tabular{rllll}{
+\strong{#} \tab \strong{Name} \tab \strong{Data Type} \tab \strong{V} \tab \strong{Description} \cr
+\verb{[,1]} \tab \code{NOFPOINTS}  \tab \code{numeric} \tab 08 \tab number of points in the definition (e.g., if the ROI is a rectangle: 4)\cr
+\verb{[,2]} \tab \code{USEDFOR}  \tab \code{logical} \tab 08 \tab samples for which the ROI is used for; a maximum of 48 samples are allowed.\cr
+\verb{[,3]} \tab \code{SHOWNFOR}  \tab \code{logical} \tab 08 \tab samples for which the ROI is shown for; a maximum of 48 samples are allowed.\cr
+\verb{[,4]} \tab \code{COLOR}  \tab \code{numeric} \tab 08 \tab The colour values of the ROI.\cr
+\verb{[,5]} \tab \code{X}  \tab \code{numeric} \tab 08 \tab The x coordinates used to draw the ROI geometry (up to 50 points are allowed).\cr
+\verb{[,6]} \tab \code{Y}  \tab \code{numeric} \tab 08 \tab The y coordinates used to draw the ROI geometry (up to 50 points are allowed).\cr
+}
+
 (information on the BIN/BINX file format are kindly provided by Risø, DTU Nutech)
 }
 \section{Objects from the Class}{
@@ -210,7 +234,7 @@ VALUE \tab DESCRIPTION \cr
 }
 
 \section{Function version}{
- 0.4.0
+ 0.4.1
 }
 
 \examples{
@@ -220,7 +244,7 @@ showClass("Risoe.BINfileData")
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

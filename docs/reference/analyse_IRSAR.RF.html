@@ -18,7 +18,7 @@ using the protocol according to Erfurt et al. (2003) and beyond."><!-- mathjax -
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Luminescence</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.24</span>
       </span>
     </div>
 
@@ -115,9 +115,8 @@ maximum limit will be added automatically.</p></dd>
 
 
 <dt>method</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-setting method applied for the data analysis.
-Possible options are <code>"FIT"</code> or <code>"SLIDE"</code>.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): select method applied for the data analysis.
+Possible options are <code>"FIT"</code>, <code>"SLIDE"</code>, <code>"VSLIDE"</code>.</p></dd>
 
 
 <dt>method.control</dt>
@@ -288,23 +287,28 @@ model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.</p>
 <p>Here the sliding is done by searching for the minimum of the squared residuals.
 For the mathematical details of the implementation see Frouin et al., 2017</p>
+<p><strong><code>method = "VSLIDE"</code></strong></p>
+<p>Same as <code>"SLIDE"</code> but searching also vertically for the best match (i.e. in xy-direction.)
+See Kreutzer et al. (2017) and Murari et al. (2021). By default the vertical sliding
+range will is set to <code>"auto"</code> (see <code>method.control</code>). This setting can be still
+changed with <code>method.control</code>.</p>
 <p><strong><code>method.control</code></strong></p>
 <p>To keep the generic argument list as clear as possible, arguments to control the methods
 for De estimation are all pre set with meaningful default parameters and can be
 handled using the argument <code>method.control</code> only, e.g.,
 <code>method.control = list(trace = TRUE)</code>. Supported arguments are:</p>
-<table class="table table"><tr><td><strong>ARGUMENT</strong></td><td><strong>METHOD</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>trace</code></td><td><code>FIT</code>, <code>SLIDE</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>; shows sum of squared residuals</td></tr><tr><td><code>trace_vslide</code></td><td><code>SLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> argument to enable or disable the tracing of the vertical sliding</td></tr><tr><td><code>maxiter</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>warnOnly</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>minFactor</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>correct_onset</code></td><td><code>SLIDE</code></td><td>The logical argument shifts the curves along the x-axis by the first channel,
-as light is expected in the first channel. The default value is <code>TRUE</code>.</td></tr><tr><td><code>show_density</code></td><td><code>SLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
-enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.</td></tr><tr><td><code>show_fit</code></td><td><code>SLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
-enables or disables the plot of the fitted curve routinely obtained during the evaluation.</td></tr><tr><td><code>n.MC</code></td><td><code>SLIDE</code></td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
+<table class="table table"><tr><td><strong>ARGUMENT</strong></td><td><strong>METHOD</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>trace</code></td><td><code>FIT</code>, <code>SLIDE</code> or <code>VSLIDE</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>; shows sum of squared residuals</td></tr><tr><td><code>trace_vslide</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> argument to enable or disable the tracing of the vertical sliding</td></tr><tr><td><code>maxiter</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>warnOnly</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>minFactor</code></td><td><code>FIT</code></td><td>as in <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></td></tr><tr><td><code>correct_onset</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td>The logical argument shifts the curves along the x-axis by the first channel,
+as light is expected in the first channel. The default value is <code>TRUE</code>.</td></tr><tr><td><code>show_density</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
+enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.</td></tr><tr><td><code>show_fit</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>)
+enables or disables the plot of the fitted curve routinely obtained during the evaluation.</td></tr><tr><td><code>n.MC</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default <code>n.MC = 1000</code>. Note: This parameter is not the same as controlled by the
-function argument <code>n.MC</code>.</td></tr><tr><td><code>vslide_range</code></td><td><code>SLDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+function argument <code>n.MC</code>.</td></tr><tr><td><code>vslide_range</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., <code>c(-1000,1000)</code>).
 Alternatively the values <code>NULL</code> and <code>'auto'</code> are allowed. The automatic mode detects the
 reasonable vertical sliding range (<strong>recommended</strong>). <code>NULL</code> applies no vertical sliding.
-The default is <code>NULL</code>.</td></tr><tr><td><code>cores</code></td><td><code>SLIDE</code></td><td><code>number</code> or <code>character</code> (<em>with default</em>): set number of cores to be allocated
+The default is <code>NULL</code>.</td></tr><tr><td><code>cores</code></td><td><code>SLIDE</code> or <code>VSLIDE</code></td><td><code>number</code> or <code>character</code> (<em>with default</em>): set number of cores to be allocated
 for a parallel processing of the Monte-Carlo runs. The default value is <code>NULL</code> (single thread),
 the recommended values is <code>'auto'</code>. An optional number (e.g., <code>cores</code> = 8) assigns a value manually.</td></tr></table><p><strong>Error estimation</strong></p>
 <p>For <strong><code>method = "FIT"</code></strong> the asymmetric error range is obtained by using the 2.5 % (lower) and
@@ -364,11 +368,11 @@ findings by Buylaert et al. (2012).</p>
     </div>
     <div id="function-version">
     <h2>Function version</h2>
-    <p>0.7.8</p>
+    <p>0.7.10</p>
     </div>
     <div id="how-to-cite">
     <h2>How to cite</h2>
-    <p>Kreutzer, S., 2023. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence</p>
+    <p>Kreutzer, S., 2024. analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -390,6 +394,12 @@ B: Beam Interactions with Materials and Atoms 207, 487-499.</p>
 <p>Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017.
 An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
 Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004</p>
+<p>Kreutzer, S., Murari, M.K., Frouin, M., Fuchs, M., Mercier, N., 2017.
+Always remain suspicious: a case study on tracking down a technical artefact while measuring IR-RF.
+Ancient TL 35, 20–30.</p>
+<p>Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
+Dose recovery and correction. Radiation Measurements 120, 110–119.
+doi: 10.1016/j.radmeas.2018.04.017</p>
 <p>Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
 Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006</p>
@@ -405,6 +415,11 @@ of Luminescence 85, 45-58.</p>
 <p>Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.</p>
+<p>** Further reading**</p>
+<p>Murari, M.K., Kreutzer, S., King, G.E., Frouin, M., Tsukamoto, S., Schmidt, C., Lauer, T.,
+Klasen, N., Richter, D., Friedrich, J., Mercier, N., Fuchs, M., 2021.
+Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64,
+101155. doi: 10.1016/j.quageo.2021.101155</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -432,7 +447,7 @@ Measurements 32, 685-690.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   DATE SEQUENCE_NAME                               UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2024-05-18-12:12.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA            NA 2024-06-07-03:54.0.18945696670562</span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"test_parameters"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA</span>
@@ -444,14 +459,14 @@ Measurements 32, 685-690.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       NA               beta        NA 5.418719e-01     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8       NA          delta.phi        NA 2.103400e+03     OK            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-05-18-12:12.0.18945696670562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2024-05-18-12:12.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-06-07-03:54.0.18945696670562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2024-06-07-03:54.0.18945696670562</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(2) perform analysis using the method 'SLIDE'</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_IRSAR.RF</span><span class="op">(</span>object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>, method <span class="op">=</span> <span class="st">"SLIDE"</span>, n.MC <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
@@ -468,7 +483,6 @@ Measurements 32, 685-690.</p>
 <span class="r-in"><span> object <span class="op">=</span> <span class="va">IRSAR.RF.Data</span>,</span></span>
 <span class="r-in"><span> method <span class="op">=</span> <span class="st">"SLIDE"</span>,</span></span>
 <span class="r-in"><span> method.control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>trace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

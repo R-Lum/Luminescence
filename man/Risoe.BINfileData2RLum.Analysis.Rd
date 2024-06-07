@@ -79,7 +79,7 @@ The \code{protocol} argument of the \linkS4class{RLum.Analysis}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.3
 }
 
 \examples{
@@ -99,7 +99,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2023. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{manip}

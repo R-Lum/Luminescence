@@ -59,7 +59,8 @@
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
 #' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the `Lx/Tx`
 #' ratio of the natural signal). For methodological background see Aitken and
-#' Smith (1988).
+#' Smith (1988). As a variant with the argument `recuperation_reference` another dose point can be
+#' selected as reference instead of `Ln/Tn`.
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which per
 #' default should not exceed 10%. The test dose error is calculated as `Tx_net.error/Tx_net`.
@@ -128,7 +129,8 @@
 #' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
-#' `palaeodose.error`, `testdose.error` and `exceed.max.regpoint = TRUE/FALSE`.
+#' `palaeodose.error`, `testdose.error`, `exceed.max.regpoint = TRUE/FALSE`,
+#' `recuperation_reference = "Natural"` (or any other dose point, e.g., `"R1"`).
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
 #' Per default all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
 #' Every criterion can be set to `NA`. In this value are calculated, but not considered, i.e.
@@ -138,6 +140,11 @@
 #' a numeric vector containing the dose points values. Using this argument
 #' overwrites dose point values extracted from other data. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
+#'
+#' @param trim_channels [logical] (*with default*): trim channels per record category
+#' to the lowest number of channels in the category by using [trim_RLum.Data].
+#' Applies only to `OSL` and `IRSL` curves. For a more granular control use [trim_RLum.Data]
+#' before passing the input object.
 #'
 #' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin `mtext`. Can be a [list] of [character]s,
@@ -185,10 +192,9 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.9.14
+#' @section Function version: 0.10.3
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University
-#' (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
@@ -235,6 +241,7 @@
 #'   recuperation.rate = 10,
 #'   testdose.error = 10,
 #'   palaeodose.error = 10,
+#'   recuperation_reference = "Natural",
 #'   exceed.max.regpoint = TRUE)
 #')
 #'
@@ -255,6 +262,7 @@ analyse_SAR.CWOSL<- function(
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
+  trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
   plot_onePage = FALSE,
@@ -292,6 +300,7 @@ if(is.list(object)){
       background.integral.max = parm$background.integral.max[[x]],
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
+      trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
       rejection.criteria = parm$rejection.criteria[[x]],
@@ -301,6 +310,9 @@ if(is.list(object)){
       main = main[[x]],
       ...)
   }))
+
+  ## add aliquot number
+  results@data$data$ALQ <- seq_along(object)
 
   ##return
   ##DO NOT use invisible here, this will prevent the function from stopping
@@ -318,6 +330,19 @@ error.list <- list()
   if(!inherits(object, "RLum.Analysis"))
     stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analysis'!",
          call. = FALSE)
+
+  ## trim OSL or IRSL channels
+  if(trim_channels[1]) {
+    ## fetch names with OSL and IRSL
+    tmp_names <- unique(vapply(object@records, function(x) x@recordType, character(1)))
+
+    ## grep only the one with OSL and IRSL in it
+    tmp_names <- tmp_names[grepl(pattern = "(?:OSL|IRSL)", x = tmp_names, perl = TRUE)]
+
+    ## trim
+    object <- trim_RLum.Data(object, recordType = tmp_names)
+
+  }
 
   ##skip all those tests if signal integral is NA
   if(any(is.na(c(signal.integral.min, signal.integral.max, background.integral.min, background.integral.max)))){
@@ -396,10 +421,12 @@ error.list <- list()
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
-      exceed.max.regpoint = TRUE
+      exceed.max.regpoint = TRUE,
+      recuperation_reference = "Natural"
     ),
     val = rejection.criteria,
   keep.null = TRUE)
+
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
@@ -636,7 +663,7 @@ error.list <- list()
 
     #generate unique dose id - this are also the # for the generated points
     temp.DoseID <- c(0:(length(LnLxTnTx$Dose) - 1))
-    temp.DoseName <- paste("R",temp.DoseID,sep = "")
+    temp.DoseName <- paste0("R",temp.DoseID)
     temp.DoseName <-
       cbind(Name = temp.DoseName,Dose = LnLxTnTx$Dose)
 
@@ -670,8 +697,9 @@ error.list <- list()
     temp.DoseName[temp.DoseName[,"Dose"] == 0,"Repeated"] <- FALSE
 
     ##combine in the data frame
-    temp.LnLxTnTx <- data.frame(Name = temp.DoseName[,"Name"],
-                                Repeated = as.logical(temp.DoseName[,"Repeated"]))
+    temp.LnLxTnTx <- data.frame(
+      Name = factor(x = temp.DoseName[,"Name"], levels = temp.DoseName[,"Name"]),
+      Repeated = as.logical(temp.DoseName[,"Repeated"]))
 
     LnLxTnTx <- cbind(temp.LnLxTnTx,LnLxTnTx)
     LnLxTnTx[,"Name"] <- as.character(LnLxTnTx[,"Name"])
@@ -718,29 +746,33 @@ error.list <- list()
       RecyclingRatio <- NA
     }
 
-
     # Calculate Recuperation Rate ---------------------------------------------
-    ##Recuperation Rate (capable to handle multiple type of recuperation values)
+    ## check for incorrect key words
+    if(any(!rejection.criteria$recuperation_reference[1] %in% LnLxTnTx[,"Name"]))
+      stop(paste("[analyse_SAR.CWOSL()] Recuperation reference invalid, valid are: ",
+                 paste(LnLxTnTx[,"Name"], collapse = ", ")), call. = FALSE)
+
+
+    ##Recuperation Rate (capable of handling multiple type of recuperation values)
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
       Recuperation <-
-        sapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
+        vapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
                function(x) {
                  round(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","LxTx"][x] /
-                         LnLxTnTx[LnLxTnTx[,"Name"] == "Natural","LxTx"],
+                         LnLxTnTx[LnLxTnTx[,"Name"] == rejection.criteria$recuperation_reference[1],"LxTx"],
                        digits = 4)
-               })
+               }, numeric(1))
       ##Just transform the matrix and add column names
       Recuperation  <-  t(Recuperation)
       colnames(Recuperation)  <-
         unlist(strsplit(paste(
-          "Recuperation rate",
+          paste0("Recuperation rate (", rejection.criteria$recuperation_reference[1], ")"),
           1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"
         ), ";"))
 
     }else{
       Recuperation <- NA
     }
-
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
     temp.criteria <- c(
@@ -1233,7 +1265,6 @@ error.list <- list()
       TnTx = LnLxTnTx$Net_TnTx
     )
 
-
     ##overall plot option selection for plot.single.sel
     if (plot == TRUE && 6 %in% plot.single.sel) {
       plot  <-  TRUE
@@ -1291,7 +1322,6 @@ error.list <- list()
           }
 
         }else{
-
           ##grep information on the fit object
           temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
@@ -1320,10 +1350,8 @@ error.list <- list()
                 "OK", "FAILED"
               )
 
-
             }else{
               palaeodose.error.status <- "OK"
-
 
             }
 
@@ -1336,7 +1364,6 @@ error.list <- list()
             Status =  palaeodose.error.status,
             stringsAsFactors = FALSE
           )
-
 
           ##add exceed.max.regpoint
           if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
@@ -1360,7 +1387,6 @@ error.list <- list()
               },
             Status =  status.exceed.max.regpoint
           )
-
 
           ##add to RejectionCriteria data.frame
           RejectionCriteria <- rbind(RejectionCriteria,
@@ -1417,10 +1443,21 @@ error.list <- list()
     ##generate unique identifier
     UID <- create_UID()
 
+    ## get position numbers
+    POSITION <- unique(unlist(lapply(object@records, function(x){
+      chk <- grepl(pattern = "position", tolower(names(x@info)), fixed = TRUE)
+      if (any(chk))
+        return(x@info[chk])
+      else
+        return(NA)
+    })))[1]
+
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
-        data = as.data.frame(c(temp.GC, temp.GC.extended, UID = UID), stringsAsFactors = FALSE),
+        data = as.data.frame(
+          c(temp.GC, temp.GC.extended, ALQ = 1, POS = POSITION, UID = UID),
+          stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
         Formula = temp.GC.fit.Formula

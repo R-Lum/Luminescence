@@ -1,7 +1,7 @@
-#' @title Convert Nuclide Activities to Concentrations and Vice Versa
+#' @title Convert Nuclide Activities to Abundance and Vice Versa
 #'
 #' @description The function performs the conversion of the specific activities into
-#' concentrations and vice versa for the radioelements U, Th, and K to
+#' mass abundance and vice versa for the radioelements U, Th, and K to
 #' harmonise the measurement unit with the required data input unit of
 #' potential analytical tools for, e.g. dose rate calculation or related
 #' functions such as [use_DRAC].
@@ -21,7 +21,7 @@
 #' A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 #' }
 #'
-#' to convert in ppm we further use:
+#' to convert in µg/g we further use:
 #'
 #' \deqn{
 #' f = A / 10^6
@@ -54,12 +54,13 @@
 #'
 #' @param input_unit [character] (*with default*):
 #' specify unit of input data given in the dose rate data frame, choose between
-#' 'Bq/kg' and 'ppm/%' the default is 'Bq/kg'
+#' `"activity"` (considered as given Bq/kg) and `"abundance"` (considered as given in mug/g or mass. %).
+#' The default value is `"activity"`
 #'
 #' @param verbose [logical] (*with default*):
 #' enable or disable verbose mode
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Margret C. Fuchs, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 #'
@@ -75,9 +76,14 @@
 #'
 #' @note Although written otherwise for historical reasons. Input values must be element values.
 #' For instance, if a value is provided for U-238 the function assumes that this value
-#' represents the sum (activity or concentration) of U-238, U-235 and U-234.
-#' In other words, 1 ppm of U means that this is the composition of 0.992 parts of U-238,
+#' represents the sum (activity or abundance) of U-238, U-235 and U-234.
+#' In other words, 1 µg/g of U means that this is the composition of 0.992 parts of U-238,
 #' 0.000054 parts of U-234, and 0.00072 parts of U-235.
+#'
+#' @return Returns an [RLum.Results-class] object with a [data.frame] containing
+#' input and newly calculated values. Please not that in the column header µg/g
+#' is written as `mug/g` due to the R requirement to maintain packages portable using
+#' ASCII characters only.
 #'
 #' @examples
 #'
@@ -95,12 +101,10 @@
 #' @export
 convert_Activity2Concentration <- function(
   data,
-  input_unit = "Bq/kg",
+  input_unit = "activity",
   verbose = TRUE
 
 ){
-
-
   # Integrity checks ----------------------------------------------------------------------------
   if(missing(data))
     stop("[convert_Activity2Concentration()] I'm still waiting for input data ...", call. = FALSE)
@@ -121,12 +125,20 @@ convert_Activity2Concentration <- function(
   ##set column names
   colnames(output) <- c(
     "NUCLIDE",
-    "ACTIVIY (Bq/kg)", "ACTIVIY ERROR (Bq/kg)",
-    "CONC. (ppm/%)",
-    "CONC. ERROR (ppm/%)")
+    "ACTIVIY (Bq/kg)",
+    "ACTIVIY ERROR (Bq/kg)",
+    "ABUND. (mug/g or mass. %)",
+    "ABUND. ERROR (mug/g or mass. %)")
 
   ##set column for output
   output$NUCLIDE = data[[1]]
+
+  ## check input unit
+  ## we silently let the old input values unflagged for back compatibility reasons
+  input_unit <- tolower(input_unit[1])
+  if(!input_unit[1] %in% c("activity", "abundance", "bq/kg", "ppm/%"))
+    stop("[convert_Activity2Concentrations()] Input for parameter 'input_unit' invalid. Valid are 'activity' or 'abundance'!",
+         call. = FALSE)
 
   # Set conversion factors ----------------------------------------------------------------------
 
@@ -146,7 +158,7 @@ convert_Activity2Concentration <- function(
   K <- which(data$NUCLIDE == "K-40")
 
   ##Activity to concentration
-  if(input_unit == "Bq/kg"){
+  if(input_unit == "activity" || input_unit == "bq/kg"){
     output[U,4:5] <- data[U,2:3] / convers.factor.U238
     output[Th,4:5] <- data[Th,2:3] / convers.factor.Th232
     output[K,4:5] <- data[K,2:3] / convers.factor.K40
@@ -158,14 +170,14 @@ convert_Activity2Concentration <- function(
   }
 
   ##Concentration to activity
-  if(input_unit == "ppm/%"){
-    data[U,2:3] <- data[U,2:3] * convers.factor.U238
-    data[Th,2:3] <- data[Th,2:3] * convers.factor.Th232
-    data[K,2:3] <- data[K,2:3] * convers.factor.K40
+  if(input_unit == "abundance" || input_unit == "ppm/%"){
+    output[U,2:3] <- data[U,2:3] * convers.factor.U238
+    output[Th,2:3] <- data[Th,2:3] * convers.factor.Th232
+    output[K,2:3] <- data[K,2:3] * convers.factor.K40
 
-    output[U,5:6] <- data[U,2:3]
-    output[Th,5:6] <- data[Th,2:3]
-    output[K,5:6] <- data[K,2:3]
+    output[U,4:5] <- data[U,2:3]
+    output[Th,4:5] <- data[Th,2:3]
+    output[K,4:5] <- data[K,2:3]
 
   }
 
@@ -178,4 +190,3 @@ convert_Activity2Concentration <- function(
     info = list(call = sys.call())))
 
 }
-

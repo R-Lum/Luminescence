@@ -82,16 +82,14 @@ Dose rate of the irradiation source of the OSL reader and its error,
 given as a numeric vector of length two.
 Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
 
-\item{normalise}{\link{logical} (\emph{with default}):
-If \code{TRUE} (the default) all measured and computed LxTx values are
-normalised by the pre-exponential factor A (see details).}
+\item{normalise}{\link{logical} (\emph{with default}): If \code{TRUE} (the default) all measured and computed \eqn{\frac{L_x}{T_x}} values are normalised by the pre-exponential factor \code{A} (see details).}
 
 \item{fit.method}{\link{character} (\emph{with default}):
 Fit function of the dose response curve. Can either be \code{EXP} (the default)
 or \code{GOK}. Note that \code{EXP} (single saturating exponential) is the original
 function the model after Huntley (2006) and Kars et al. (2008) was
 designed to use. The use of a general-order kinetics function (\code{GOK})
-is an experimental adaption of the model and should be used
+is an experimental adaptation of the model and should be used
 with great care.}
 
 \item{lower.bounds}{\link{numeric} (\emph{with default}):
@@ -121,7 +119,8 @@ iterations for the results to converge. Decreasing the number of iterations
 will often result in unstable estimates.
 }
 
-All other arguments are passed to \link{plot} and \link{plot_GrowthCurve}.}
+All other arguments are passed to \link{plot} and \link{plot_GrowthCurve} (in particular
+\code{mode} for the fit mode and \code{fit.force_through_origin})}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -169,7 +168,7 @@ Firstly, the unfaded \eqn{D_0} value is determined through applying equation 5 o
 Kars et al. (2008) to the measured \eqn{\frac{L_x}{T_x}} data as a function of irradiation
 time, and fitting the data with a single saturating exponential of the form:
 
-\deqn{LxTx(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
+\deqn{\frac{L_x}{T_x}(t^*) = A  \phi(t^*) \{1 - exp(-\frac{t^*}{D_0}))\}}
 
 where
 
@@ -194,7 +193,7 @@ The approach of Guralnik et al. (2015) is very similar to that of
 Kars et al. (2008), but instead of using a single saturating exponential
 the model fits a general-order kinetics function of the form:
 
-\deqn{LxTx(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
+\deqn{\frac{L_x}{T_x}(t^*) = A \phi (t^*)(1 - (1 + (\frac{1}{D_0}) t^* c)^{-1/c})}
 
 where \eqn{A}, \eqn{\phi}, \eqn{t^*} and \eqn{D_0} are the same as above and \eqn{c} is a
 dimensionless kinetic order modifier (cf. equation 10 in
@@ -217,10 +216,10 @@ in the derivation of (\eqn{n/N}) and (n/N)_SS.
 \strong{Age calculated from 2D0 of the simulated natural DRC}
 
 In addition to the age calculated from the equivalent dose derived from
-\code{Ln/Tn} projected on the simulated natural dose response curve (DRC), this function
+\eqn{\frac{L_n}{T_n}} projected on the simulated natural dose response curve (DRC), this function
 also calculates an age from twice the characteristic saturation dose (\code{D0})
 of the simulated natural DRC. This can be a useful information for
-(over)saturated samples (i.e., no intersect of \code{Ln/Tn} on the natural DRC)
+(over)saturated samples (i.e., no intersect of \eqn{\frac{L_n}{T_n}} on the natural DRC)
 to obtain at least a "minimum age" estimate of the sample. In the console
 output this value is denoted by \emph{"Age @2D0 (ka):"}.
 }
@@ -229,7 +228,7 @@ This function has BETA status, in particular for the GOK implementation. Please 
 your results carefully
 }
 \section{Function version}{
- 0.4.2
+ 0.4.5
 }
 
 \examples{
@@ -266,22 +265,24 @@ kars <- calc_Huntley2006(
 # You can also provide LnTn values separately via the 'LnTn' argument.
 # Note, however, that the data frame for 'data' must then NOT contain
 # a LnTn value. See argument descriptions!
-LnTn <- data.frame(LnTn = c(1.84833, 2.24833),
-                   LnTn.error = c(0.17, 0.22))
+LnTn <- data.frame(
+ LnTn = c(1.84833, 2.24833),
+ nTn.error = c(0.17, 0.22))
 
 LxTx <- data[2:nrow(data), ]
 
-kars <- calc_Huntley2006(data = LxTx,
-                      LnTn = LnTn,
-                      rhop = rhop,
-                      ddot = ddot,
-                      readerDdot = readerDdot,
-                      n.MC = 25)
+kars <- calc_Huntley2006(
+ data = LxTx,
+ LnTn = LnTn,
+ rhop = rhop,
+ ddot = ddot,
+ readerDdot = readerDdot,
+ n.MC = 25)
 }
 } 
 
 \section{How to cite}{
-King, G.E., Burow, C., Kreutzer, S., 2023. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -9,7 +9,8 @@ read_SPE2R(
   output.object = "RLum.Data.Image",
   frame.range,
   txtProgressBar = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}
 enables or disables \link{txtProgressBar}.}
 
 \item{verbose}{\link{logical} (\emph{with default}): enables or disables verbose mode}
+
+\item{...}{not used, for compatibility reasons only}
 }
 \value{
 Depending on the chosen option the functions returns three different
@@ -76,7 +79,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.4
+ 0.1.5
 }
 
 \examples{
@@ -107,7 +110,7 @@ The function has been successfully tested for SPE format versions 2.x.
 } 
 
 \section{How to cite}{
-Kreutzer, S., 2023. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

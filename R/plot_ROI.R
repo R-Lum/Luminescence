@@ -39,8 +39,7 @@
 #'
 #'@section Function version: 0.2.0
 #'
-#'@author Sebastian Kreutzer, Department of Geography & Earth Sciences, Aberystwyth University
-#' (United Kingdom)
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [read_RF2R], [analyse_IRSAR.RF]
 #'
@@ -88,7 +87,6 @@ plot_ROI <- function(
       img_width = info$image_width,
       img_height = info$image_height,
       grain_d = info$grain_d)
-
 
   }
 

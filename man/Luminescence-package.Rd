@@ -47,32 +47,29 @@ Markus Fuchs, Justus-Liebig-University Giessen, Germany
 \item \url{https://cran.r-project.org/package=RLumShiny}
 \item \url{https://cran.r-project.org/package=RLumModel}
 \item \url{https://cran.r-project.org/package=RLumCarlo}
+\item \url{https://cran.r-project.org/package=RCarb}
 }
 
-\strong{Package maintainer}
-
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
-\email{sebastian.kreutzer@aber.ac.uk}
-
 \strong{Funding}
-
-2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
+\itemize{
+\item 2011-2013:  The initial version of the package was developed, while Sebastian Kreutzer
 was funded through the DFG programme "Rekonstruktion der Umweltbedingungen
 des Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen"
 (DFG id: 46526743)
-
-2014-2018: Cooperation and personal exchange between the developers is gratefully
+\item 2014-2018: Cooperation and personal exchange between the developers is gratefully
 funded by the DFG (SCHM 3051/3-1) in the framework of the program
 "Scientific Networks". Project title: "RLum.Network: Ein
 Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
-
-05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
+\item 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
 by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
-
-01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
+\item 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
 from the European Union’s Horizon 2020 research and innovation programme under
 the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
 maintaining the package.
+\item since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
+DFG Heisenberg programme No 505822867.
+\item All other authors gratefully received additional funding from various public funding bodies.
+}
 }
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -107,5 +104,46 @@ Ancient TL, 33 (1), 16-21.
 King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., 2018. Age determination
 using feldspar: evaluating fading-correction model performance. Radiation Measurements 119, 58-73.
 https://doi.org/10.1016/j.radmeas.2018.07.013
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://CRAN.R-project.org/package=Luminescence}
+  \item Report bugs at \url{https://github.com/R-Lum/Luminescence/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Sebastian Kreutzer \email{sebastian.kreutzer@uni-heidelberg.de} (\href{https://orcid.org/0000-0002-0734-2199}{ORCID}) [translator, data contributor]
+
+Authors:
+\itemize{
+  \item Christoph Burow (\href{https://orcid.org/0000-0002-5023-4046}{ORCID}) [translator, data contributor]
+  \item Michael Dietze (\href{https://orcid.org/0000-0001-6063-1726}{ORCID})
+  \item Margret C. Fuchs (\href{https://orcid.org/0000-0001-7210-1132}{ORCID})
+  \item Christoph Schmidt (\href{https://orcid.org/0000-0002-2309-3209}{ORCID})
+  \item Manfred Fischer [translator]
+  \item Johannes Friedrich (\href{https://orcid.org/0000-0002-0805-9547}{ORCID})
+  \item Norbert Mercier (\href{https://orcid.org/0000-0002-6375-9108}{ORCID})
+  \item Anne Philippe (\href{https://orcid.org/0000-0002-5331-5087}{ORCID})
+  \item Svenja Riedesel (\href{https://orcid.org/0000-0003-2936-8776}{ORCID})
+  \item Martin Autzen (\href{https://orcid.org/0000-0001-6249-426X}{ORCID})
+  \item Dirk Mittelstrass (\href{https://orcid.org/0000-0002-9567-8791}{ORCID})
+  \item Harrison J. Gray (\href{https://orcid.org/0000-0002-4555-7473}{ORCID})
+  \item Jean-Michel Galharret (\href{https://orcid.org/0000-0003-2219-8727}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Rachel K. Smedley (\href{https://orcid.org/0000-0001-7773-5193}{ORCID}) [contributor]
+  \item Claire Christophe [contributor]
+  \item Antoine Zink (\href{https://orcid.org/0000-0001-7146-1101}{ORCID}) [contributor]
+  \item Julie Durcan (\href{https://orcid.org/0000-0001-8724-8022}{ORCID}) [contributor]
+  \item Georgina E. King (\href{https://orcid.org/0000-0003-1059-8192}{ORCID}) [contributor, data contributor]
+  \item Guillaume Guerin (\href{https://orcid.org/0000-0001-6298-5579}{ORCID}) [contributor]
+  \item Pierre Guibert (\href{https://orcid.org/0000-0001-8969-8684}{ORCID}) [contributor]
+  \item Markus Fuchs (\href{https://orcid.org/0000-0003-4669-6528}{ORCID}) [thesis advisor]
+}
+
 }
 \keyword{package}

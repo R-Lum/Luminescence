@@ -135,7 +135,7 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 } 
 
 \section{How to cite}{
-Burow, C., 2023. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Burow, C., 2024. calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -149,7 +149,7 @@ are there on a single aliquot?. Ancient TL 30, 9-16.
 \strong{Further reading}
 
 Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
-Theorem on Circle Packing. \url{https://arxiv.org/pdf/1009.4322v1.pdf},
+Theorem on Circle Packing. \url{https://arxiv.org/pdf/1009.4322v1},
 2013-09-13.
 
 Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,

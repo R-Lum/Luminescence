@@ -2,9 +2,9 @@
 % Please edit documentation in R/convert_Activity2Concentration.R
 \name{convert_Activity2Concentration}
 \alias{convert_Activity2Concentration}
-\title{Convert Nuclide Activities to Concentrations and Vice Versa}
+\title{Convert Nuclide Activities to Abundance and Vice Versa}
 \usage{
-convert_Activity2Concentration(data, input_unit = "Bq/kg", verbose = TRUE)
+convert_Activity2Concentration(data, input_unit = "activity", verbose = TRUE)
 }
 \arguments{
 \item{data}{\link{data.frame} \strong{(required)}:
@@ -15,14 +15,21 @@ in the 3rd column its error value. Allowed nuclide data are
 
 \item{input_unit}{\link{character} (\emph{with default}):
 specify unit of input data given in the dose rate data frame, choose between
-'Bq/kg' and 'ppm/\%' the default is 'Bq/kg'}
+\code{"activity"} (considered as given Bq/kg) and \code{"abundance"} (considered as given in mug/g or mass. \%).
+The default value is \code{"activity"}}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable or disable verbose mode}
 }
+\value{
+Returns an \linkS4class{RLum.Results} object with a \link{data.frame} containing
+input and newly calculated values. Please not that in the column header µg/g
+is written as \code{mug/g} due to the R requirement to maintain packages portable using
+ASCII characters only.
+}
 \description{
 The function performs the conversion of the specific activities into
-concentrations and vice versa for the radioelements U, Th, and K to
+mass abundance and vice versa for the radioelements U, Th, and K to
 harmonise the measurement unit with the required data input unit of
 potential analytical tools for, e.g. dose rate calculation or related
 functions such as \link{use_DRAC}.
@@ -43,7 +50,7 @@ The factors can be calculated using the equation:
 A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 }
 
-to convert in ppm we further use:
+to convert in µg/g we further use:
 
 \deqn{
 f = A / 10^6
@@ -73,12 +80,12 @@ example for calculating the activity of the radionuclide U-238:
 \note{
 Although written otherwise for historical reasons. Input values must be element values.
 For instance, if a value is provided for U-238 the function assumes that this value
-represents the sum (activity or concentration) of U-238, U-235 and U-234.
-In other words, 1 ppm of U means that this is the composition of 0.992 parts of U-238,
+represents the sum (activity or abundance) of U-238, U-235 and U-234.
+In other words, 1 µg/g of U means that this is the composition of 0.992 parts of U-238,
 0.000054 parts of U-234, and 0.00072 parts of U-235.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -96,7 +103,7 @@ convert_Activity2Concentration(data)
 } 
 
 \section{How to cite}{
-Fuchs, M.C., 2023. convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Fuchs, M.C., 2024. convert_Activity2Concentration(): Convert Nuclide Activities to Abundance and Vice Versa. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

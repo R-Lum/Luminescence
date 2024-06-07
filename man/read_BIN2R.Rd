@@ -37,8 +37,9 @@ imports only the selected position. Note: the import performance will not
 benefit by any selection made here.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{n.records}{\link{raw} (\emph{optional}):
-limits the number of imported records. Can be used in combination with
+\item{n.records}{\link{numeric} (\emph{optional}): limits the number of imported records
+to the provided record id (e.g., \code{n.records = 1:10} imports the first ten records,
+while \code{n.records = 3} imports only record number 3. Can be used in combination with
 \code{show.record.number} for debugging purposes, e.g. corrupt BIN-files.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
@@ -99,7 +100,7 @@ If \code{fastForward = TRUE} a list of \linkS4class{RLum.Analysis} object is ret
 internal coercing is done using the function \link{Risoe.BINfileData2RLum.Analysis}
 }
 \description{
-Import a *.bin or a *.binx file produced by a Risø DA15 and DA20 TL/OSL
+Import a \verb{*.bin} or a \verb{*.binx} file produced by a Risø DA15 and DA20 TL/OSL
 reader into R.
 }
 \details{
@@ -112,11 +113,9 @@ Risø website: \url{https://www.fysik.dtu.dk}
 \note{
 The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
-
-\strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped during import.}
 }
 \section{Function version}{
- 0.16.7
+ 0.17.1
 }
 
 \examples{
@@ -128,7 +127,7 @@ temp
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2023. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.16.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2023. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.23. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., 2024. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.17.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.24. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
