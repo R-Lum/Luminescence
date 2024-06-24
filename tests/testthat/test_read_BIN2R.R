@@ -103,4 +103,11 @@ test_that("test the import of various BIN-file versions", {
    expect_error(read_BIN2R(t), regexp = "\\[read\\_BIN2R\\(\\)\\] Found BIN\\/BINX-format version \\(..\\) is not supported or the BIN/BINX-file is broken! Supported version numbers are: 03, 04, 05, 06, 07, 08.")
    file.remove(t)
 
+   ## check ignore RECTYPE settings
+   t <- expect_s4_class(
+     read_BIN2R(system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+                txtProgressBar = FALSE, ignore.RECTYPE = 1), class = "Risoe.BINfileData")
+
+    ## should be zero now
+    expect_length(t@DATA, n = 0)
 })

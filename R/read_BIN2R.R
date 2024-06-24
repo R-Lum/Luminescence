@@ -61,9 +61,11 @@
 #'
 #' **Note:** The usage is at own risk, only supported BIN-file versions have been tested.
 #'
-#' @param ignore.RECTYPE [logical] (*with default*):
+#' @param ignore.RECTYPE [logical] or [numeric] (*with default*):
 #' this argument allows to ignore values in the byte 'RECTYPE' (BIN-file version 08),
 #' in case there are not documented or faulty set. In this case the corrupted records are skipped.
+#' If the setting is [numeric] (e.g., `ignore.RECTYPE = 128`), records of those type are ignored
+#' for import.
 #'
 #' @param pattern [character] (*optional*):
 #' argument that is used if only a path is provided. The argument will than be
@@ -92,7 +94,7 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' @section Function version: 0.17.1
+#' @section Function version: 0.17.2
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -263,7 +265,6 @@ read_BIN2R <- function(
 
   }
 
-
   # Config --------------------------------------------------------------------------------------
   ##set file_link for internet downloads
   url_file <- NULL
@@ -278,7 +279,6 @@ read_BIN2R <- function(
       close(con)
 
     }
-
 
   }
   on.exit(expr = on_exit())
@@ -311,7 +311,6 @@ read_BIN2R <- function(
   }
 
   # Config ------------------------------------------------------------------
-
   ##set supported BIN format version
   VERSION.supported <- as.raw(c(03, 04, 05, 06, 07, 08))
 
@@ -659,7 +658,6 @@ read_BIN2R <- function(
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
     if(temp.VERSION == 05 | temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
-
       ##(1) Header size and structure
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
       temp <- readBin(con, what = "int", 3, size = 4, endian = "little")
@@ -682,11 +680,18 @@ read_BIN2R <- function(
       #RECTYPE
       if(temp.VERSION == 08){
         temp.RECTYPE <- readBin(con, what = "int", 1, size = 1, endian = "little", signed = FALSE)
-        if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
 
+        ## we can check for a specific value for temp.RECTYPE
+        if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
+          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
+          if(verbose)
+            cat(paste0("\n[read_BIN2R()] Record #",temp.ID+1,", skipped due to ignore.RECTYPE setting!"))
+          next()
+        }
+
+        if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
           STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
-
             if(!ignore.RECTYPE){
               stop(
                 paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"!
@@ -704,14 +709,13 @@ read_BIN2R <- function(
               next()
 
             }
-
         }
       }
+
 
       ##(2) Sample characteristics
       ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
       temp <- readBin(con, what = "int", 7, size = 2, endian = "little")
-
       temp.RUN <- temp[1]
       temp.SET <- temp[2]
       temp.POSITION <- temp[3]
@@ -760,7 +764,7 @@ read_BIN2R <- function(
       temp.SYSTEMID <- readBin(con, what="int", 1, size=2, endian="little")
 
       ##FNAME
-      FNAME_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+      FNAME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
 
       ##correct for 0 file name length
       if(length(FNAME_SIZE)>0){
@@ -1215,7 +1219,6 @@ read_BIN2R <- function(
     #endif:format support
     ##END BIN FILE FORMAT SUPPORT
     ## ==========================================================================#
-
     #SET UNIQUE ID
     temp.ID <- temp.ID + 1
 
@@ -1393,7 +1396,7 @@ read_BIN2R <- function(
   }
 
   ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
-  ##this check is skipped for results with a RECTYPE 128, which steems from camera measurements
+  ##this check is skipped for results with a RECTYPE 128, which stems from camera measurements
   if (n.length >= 2 && length(results.DATA) >= 2 && all(results.METADATA[["RECTYPE"]] != 128)) {
     duplication.check <- suppressWarnings(which(c(
       0, vapply(
@@ -1516,4 +1519,3 @@ read_BIN2R <- function(
    return(object)
 
 }
-
