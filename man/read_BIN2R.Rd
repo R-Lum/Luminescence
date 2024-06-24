@@ -72,9 +72,11 @@ Can be provided as \code{list} if \code{file} is a \code{list}.
 
 \strong{Note:} The usage is at own risk, only supported BIN-file versions have been tested.}
 
-\item{ignore.RECTYPE}{\link{logical} (\emph{with default}):
+\item{ignore.RECTYPE}{\link{logical} or \link{numeric} (\emph{with default}):
 this argument allows to ignore values in the byte 'RECTYPE' (BIN-file version 08),
-in case there are not documented or faulty set. In this case the corrupted records are skipped.}
+in case there are not documented or faulty set. In this case the corrupted records are skipped.
+If the setting is \link{numeric} (e.g., \code{ignore.RECTYPE = 128}), records of those type are ignored
+for import.}
 
 \item{pattern}{\link{character} (\emph{optional}):
 argument that is used if only a path is provided. The argument will than be
@@ -115,7 +117,7 @@ The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
 }
 \section{Function version}{
- 0.17.1
+ 0.17.2
 }
 
 \examples{
@@ -124,12 +126,7 @@ file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 temp <- read_BIN2R(file)
 temp
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Fuchs, M.C., 2024. read_BIN2R(): Import Risø BIN/BINX-files into R. Function version 0.17.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-1. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \url{https://www.fysik.dtu.dk}
@@ -143,5 +140,5 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
-, RLum Developer Team}
+}
 \keyword{IO}
