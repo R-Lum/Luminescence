@@ -785,3 +785,49 @@ fancy_scientific <- function(l) {
 
 }
 
+#'@title Extract named element from nested list
+#'
+#'@description The function extracts a named element from a nested list. It assumes
+#'that the name is unique in the nested list
+#'
+#'@param l [list] (**required**): input list for which we search the elements
+#'
+#'@param element [character] (**required**): name of the element we are looking for
+#'
+#'@returns Returns a flat [list] with only the elements with a particular name
+#'
+#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany);
+#'inspired by a ChatGPT request (2024-07-01)
+#'
+#'@md
+#'@noRd
+.get_named_list_element <- function(l, element) {
+  ## set helper function to iterate over list
+  f_iterate <- function(x, env) {
+    if (inherits(x, "list")) {
+      ## if name is in element, return element and update out
+      if (element %in% names(x)) {
+        tmp <- c(out, list(x[names(x) %in% element]))
+        assign(x = "out", value = tmp, envir = env)
+      }
+
+      ## call the helper function with lapply
+      lapply(x, f_iterate, env = env)
+    }
+  }
+
+  ## set output list and get current environment
+  out <- list()
+  env <- environment()
+
+  ## call recursive function
+  f_iterate(l, env)
+
+  ## unlist output (and keep NA)
+  out <- unlist(out, recursive = FALSE)
+
+  ## return
+  return(out)
+
+}
+
