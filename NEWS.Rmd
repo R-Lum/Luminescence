@@ -15,3 +15,8 @@ header-includes:
 ### read_BIN2R()
 * `ignore.RECTYPE` now supports numeric values, e.g., 128. Records for this type
 will be ignored during import.
+
+
+## Internals
+* New internal function + tests added `.get_named_list_element()`. It just does what 
+the names says.
