@@ -61,5 +61,3 @@
 
   return(records)
 }
-
-a <- .ExcelToStruct(file = "~/Downloads/OSLThermo-main/Data/CLBR.xlsx")
