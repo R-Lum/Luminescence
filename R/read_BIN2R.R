@@ -94,7 +94,7 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' @section Function version: 0.17.2
+#' @section Function version: 0.17.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -682,12 +682,12 @@ read_BIN2R <- function(
         temp.RECTYPE <- readBin(con, what = "int", 1, size = 1, endian = "little", signed = FALSE)
 
         ## we can check for a specific value for temp.RECTYPE
-        if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
-          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
-          if(verbose)
-            cat(paste0("\n[read_BIN2R()] Record #",temp.ID+1,", skipped due to ignore.RECTYPE setting!"))
-          next()
-        }
+          if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
+            STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
+            if(verbose)
+              cat(paste0("\n[read_BIN2R()] Record #",temp.ID+1,", skipped due to ignore.RECTYPE setting!"))
+            next()
+          }
 
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
           ##jump to the next record by stepping the record length minus the already read bytes
@@ -712,285 +712,282 @@ read_BIN2R <- function(
         }
       }
 
+      ## RECTYPE == 128
+      ## If the RECTYPE is 128, only the the header bytes until here make any sense,
+      ## the rest are just random bytes (e-mail K.B., 2024-07-04)
+      ## the header length is 507, hence we have to jump 507 - 15 to get
+      ## the data
+      ## This is a very ugly construction and the function should be refactored
+      if (temp.RECTYPE == 128){
+        readBin(con, what = "raw", size = 1, n = 492)
 
-      ##(2) Sample characteristics
-      ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
-      temp <- readBin(con, what = "int", 7, size = 2, endian = "little")
-      temp.RUN <- temp[1]
-      temp.SET <- temp[2]
-      temp.POSITION <- temp[3]
-      temp.GRAINNUMBER <- temp[4]
-      temp.CURVENO <- temp[5]
-      temp.XCOORD <- temp[6]
-      temp.YCOORD <- temp[7]
+      } else {
+        ##(2) Sample characteristics
+        ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
+        temp <- readBin(con, what = "int", 7, size = 2, endian = "little")
+        temp.RUN <- temp[1]
+        temp.SET <- temp[2]
+        temp.POSITION <- temp[3]
+        temp.GRAINNUMBER <- temp[4]
+        temp.CURVENO <- temp[5]
+        temp.XCOORD <- temp[6]
+        temp.YCOORD <- temp[7]
 
-        ## BINX files with RECTYPE 128 seem to be sometimes broken
-        ## check the input here and then skip the record
-        if(temp.RUN < 0 || temp.SET < 0) {
-          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 19)
-          warning(paste0("\n[read_BIN2R()] Record ", temp.ID, " broken. Import of further records stopped!"),
-                  call. = FALSE)
+        ##SAMPLE, COMMENT
+        ##SAMPLE
+        SAMPLE_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+        temp.SAMPLE <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
 
-          break()
+        #however it should be set to 20
+
+        #step forward in con
+        if(20-c(SAMPLE_SIZE)>0){
+          STEPPING<-readBin(con, what="raw", (20-c(SAMPLE_SIZE)),
+                            size=1, endian="little")
+        }
+
+        ##COMMENT
+        COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+        temp.COMMENT <- suppressWarnings(
+          readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
+
+        #step forward in con
+        if(80-c(COMMENT_SIZE)>0){
+          STEPPING<-readBin(con, what="raw", (80-c(COMMENT_SIZE)),
+                            size=1, endian="little")
+        }
+
+        ##(3) Instrument and sequence characteristic
+        ##SYSTEMID
+        temp.SYSTEMID <- readBin(con, what="int", 1, size=2, endian="little")
+
+        ##FNAME
+        FNAME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+
+        ##correct for 0 file name length
+        if(length(FNAME_SIZE)>0){
+          temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
+        }else{
+          FNAME_SIZE <- 0
+        }
+
+        #step forward in con
+        if(100-c(FNAME_SIZE)>0){
+          STEPPING<-readBin(con, what="raw", (100-c(FNAME_SIZE)),
+                            size=1, endian="little")
+        }
+
+        ##USER
+        USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+
+        ##correct for 0 user size length
+        if (length(USER_SIZE) > 0) {
+          temp.USER <-
+            suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
+        }else{
+          USER_SIZE <- 0
 
         }
 
-      ##SAMPLE, COMMENT
-      ##SAMPLE
-      SAMPLE_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-      temp.SAMPLE <- readChar(con, SAMPLE_SIZE, useBytes = TRUE)
-
-      #however it should be set to 20
-
-      #step forward in con
-      if(20-c(SAMPLE_SIZE)>0){
-        STEPPING<-readBin(con, what="raw", (20-c(SAMPLE_SIZE)),
-                          size=1, endian="little")
-      }
-
-      ##COMMENT
-      COMMENT_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.COMMENT <- suppressWarnings(
-        readChar(con, COMMENT_SIZE, useBytes=TRUE)) #set to 80 (manual)
-
-      #step forward in con
-      if(80-c(COMMENT_SIZE)>0){
-        STEPPING<-readBin(con, what="raw", (80-c(COMMENT_SIZE)),
-                          size=1, endian="little")
-      }
-
-      ##(3) Instrument and sequence characteristic
-      ##SYSTEMID
-      temp.SYSTEMID <- readBin(con, what="int", 1, size=2, endian="little")
-
-      ##FNAME
-      FNAME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-
-      ##correct for 0 file name length
-      if(length(FNAME_SIZE)>0){
-        temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
-      }else{
-        FNAME_SIZE <- 0
-      }
-
-      #step forward in con
-      if(100-c(FNAME_SIZE)>0){
-        STEPPING<-readBin(con, what="raw", (100-c(FNAME_SIZE)),
-                          size=1, endian="little")
-      }
-
-      ##USER
-      USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-
-      ##correct for 0 user size length
-      if (length(USER_SIZE) > 0) {
-        temp.USER <-
-          suppressWarnings(readChar(con, USER_SIZE, useBytes = TRUE)) #set to 30 (manual)
-      }else{
-        USER_SIZE <- 0
-
-      }
-
-      #step forward in con
-      if(30-c(USER_SIZE)>0){
-        STEPPING<-readBin(con, what="raw", (30-c(USER_SIZE)),
-                          size=1, endian="little")
-      }
-
-      ##TIME
-      TIME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
-
-      ##time size corrections for wrong time formats; set n to 6 for all values
-      ##according the handbook by Geoff Duller, 2007
-      if(length(TIME_SIZE)>0){
-        temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
-
-        ##correct the mess by others
-        if(nchar(temp.TIME) == 5)
-          temp.TIME <- paste(c("0", temp.TIME), collapse = "")
-
-      }else{
-        TIME_SIZE <- 0
-
-      }
-
-      if(6-TIME_SIZE>0){
-        STEPPING<-readBin(con, what="raw", (6-TIME_SIZE),
-                          size=1, endian="little")
-      }
-
-
-      ##DATE
-      DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-
-      ##date size corrections for wrong date formats; set n to 6 for all values
-      ##according the handbook of Geoff Duller, 2007
-      DATE_SIZE<-6
-      temp.DATE <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
-
-      ##(4) Analysis
-      ##DTYPE
-      temp.DTYPE<-readBin(con, what="int", 1, size=1, endian="little")
-
-      ##BL_TIME
-      temp.BL_TIME<-readBin(con, what="double", 1, size=4, endian="little")
-
-      ##BL_UNIT
-      temp.BL_UNIT<-readBin(con, what="int", 1, size=1, endian="little")
-
-      ##NORM1, NORM2, NORM3, BG
-      temp <- readBin(con, what="double", 4, size=4, endian="little")
-
-      temp.NORM1 <- temp[1]
-      temp.NORM2 <- temp[2]
-      temp.NORM3 <- temp[3]
-      temp.BG <- temp[4]
-
-      ##SHIFT
-      temp.SHIFT<- readBin(con, what="integer", 1, size=2, endian="little")
-
-      ##TAG
-      temp.TAG <- readBin(con, what="int", 1, size=1, endian="little")
-
-      ##RESERVED
-      temp.RESERVED1 <-readBin(con, what="raw", 20, size=1, endian="little")
-
-      ##(5) Measurement characteristics
-
-      ##LTYPE
-      temp.LTYPE <- readBin(con, what="int", 1, size=1, endian="little")
-
-      ##LTYPESOURCE
-      temp.LIGHTSOURCE <- readBin(con, what="int", 1, size=1, endian="little")
-
-      ##LIGHTPOWER, LOW, HIGH, RATE
-      temp <- readBin(con, what="double", 4, size=4, endian="little")
-
-      temp.LIGHTPOWER <- temp[1]
-      temp.LOW <- temp[2]
-      temp.HIGH <- temp[3]
-      temp.RATE <- temp[4]
-
-      ##TEMPERATURE
-      temp.TEMPERATURE <- readBin(con, what="int", 1, size=2, endian="little")
-
-      ##MEASTEMP
-      temp.MEASTEMP <- readBin(con, what="integer", 1, size=2, endian="little")
-
-      ##AN_TEMP
-      temp.AN_TEMP <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ##AN_TIME
-      temp.AN_TIME <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ##DELAY, ON, OFF
-      temp <- readBin(con, what="int", 3, size=2, endian="little")
-
-      temp.TOLDELAY <- temp[1]
-      temp.TOLON <- temp[2]
-      temp.TOLOFF <- temp[3]
-
-      ##IRR_TIME
-      temp.IRR_TIME <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ##IRR_TYPE
-      temp.IRR_TYPE <- readBin(con, what="int", 1, size=1, endian="little")
-
-      ##IRR_DOSERATE
-      temp.IRR_DOSERATE <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ##IRR_DOSERATEERR
-      if(temp.VERSION != 05)
-        temp.IRR_DOSERATEERR <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ##TIMESINCEIRR
-      temp.TIMESINCEIRR <- readBin(con, what="integer", 1, size=4, endian="little")
-
-      ##TIMETICK
-      temp.TIMETICK <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ##ONTIME
-      temp.ONTIME <- readBin(con, what="integer", 1, size=4, endian="little")
-
-      ##STIMPERIOD
-      temp.STIMPERIOD <- readBin(con, what="integer", 1, size=4, endian="little")
-
-      ##GATE_ENABLED
-      temp.GATE_ENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
-
-      ##GATE_START
-      temp.GATE_START <- readBin(con, what="integer", 1, size=4, endian="little")
-
-      ##GATE_STOP
-      temp.GATE_STOP <- readBin(con, what="integer", 1, size=4, endian="little")
-
-      ##PTENABLED
-      temp.PTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
-
-      ##DTENABLED
-      temp.DTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
-
-      ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
-      temp <- readBin(con, what="double", 4, size=4, endian="little")
-      temp.DEADTIME <- temp[1]
-      temp.MAXLPOWER <- temp[2]
-      temp.XRF_ACQTIME <- temp[3]
-      temp.XRF_HV <- temp[4]
-
-      ##XRF_CURR
-      temp.XRF_CURR <- readBin(con, what="integer", 1, size=4, endian="little")
-
-      ##XRF_DEADTIMEF
-      temp.XRF_DEADTIMEF <- readBin(con, what="double", 1, size=4, endian="little")
-
-      ###Account for differences between V5, V6 and V7
-      if(temp.VERSION == 06){
-        ##RESERVED
-        temp.RESERVED2<-readBin(con, what="raw", 24, size=1, endian="little")
-
-      }else if(temp.VERSION == 05){
-        ##RESERVED
-        temp.RESERVED2<-readBin(con, what="raw", 4, size=1, endian="little")
-
-      }else{
-
-        ##DETECTOR_ID
-        temp.DETECTOR_ID <- readBin(con, what="int", 1, size=1, endian="little")
-
-        ##LOWERFILTER_ID, UPPERFILTER_ID
-        temp <- readBin(con, what="int", 2, size=2, endian="little")
-        temp.LOWERFILTER_ID <- temp[1]
-        temp.UPPERFILTER_ID <- temp[2]
-
-        ##ENOISEFACTOR
-        temp.ENOISEFACTOR <- readBin(con, what="double", 1, size=4, endian="little")
-
-        ##CHECK FOR VERSION 08
-        if(temp.VERSION == 07){
-           ##RESERVED for version 07
-          temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
-
-        }else {
-          ##MARKER_POSITION
-          temp <- readBin(con, what="double", 6, size=4, endian="little")
-            temp.MARPOS_X1 <- temp[1]
-            temp.MARPOS_Y1 <- temp[2]
-            temp.MARPOS_X2 <- temp[3]
-            temp.MARPOS_Y2 <- temp[4]
-            temp.MARPOS_X3 <- temp[5]
-            temp.MARPOS_Y3 <- temp[6]
-
-          ###EXTR_START, EXTR_END
-          temp <- readBin(con, what="double", 2, size=4, endian="little")
-            temp.EXTR_START <- temp[1]
-            temp.EXTR_END <- temp[2]
-
-          temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
+        #step forward in con
+        if(30-c(USER_SIZE)>0){
+          STEPPING<-readBin(con, what="raw", (30-c(USER_SIZE)),
+                            size=1, endian="little")
+        }
+
+        ##TIME
+        TIME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
+
+        ##time size corrections for wrong time formats; set n to 6 for all values
+        ##according the handbook by Geoff Duller, 2007
+        if(length(TIME_SIZE)>0){
+          temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+
+          ##correct the mess by others
+          if(nchar(temp.TIME) == 5)
+            temp.TIME <- paste(c("0", temp.TIME), collapse = "")
+
+        }else{
+          TIME_SIZE <- 0
 
         }
 
-      }
+        if(6-TIME_SIZE>0){
+          STEPPING<-readBin(con, what="raw", (6-TIME_SIZE),
+                            size=1, endian="little")
+        }
 
+
+        ##DATE
+        DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+
+        ##date size corrections for wrong date formats; set n to 6 for all values
+        ##according the handbook of Geoff Duller, 2007
+        DATE_SIZE<-6
+        temp.DATE <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
+
+        ##(4) Analysis
+        ##DTYPE
+        temp.DTYPE<-readBin(con, what="int", 1, size=1, endian="little")
+
+        ##BL_TIME
+        temp.BL_TIME<-readBin(con, what="double", 1, size=4, endian="little")
+
+        ##BL_UNIT
+        temp.BL_UNIT<-readBin(con, what="int", 1, size=1, endian="little")
+
+        ##NORM1, NORM2, NORM3, BG
+        temp <- readBin(con, what="double", 4, size=4, endian="little")
+
+        temp.NORM1 <- temp[1]
+        temp.NORM2 <- temp[2]
+        temp.NORM3 <- temp[3]
+        temp.BG <- temp[4]
+
+        ##SHIFT
+        temp.SHIFT<- readBin(con, what="integer", 1, size=2, endian="little")
+
+        ##TAG
+        temp.TAG <- readBin(con, what="int", 1, size=1, endian="little")
+
+        ##RESERVED
+        temp.RESERVED1 <-readBin(con, what="raw", 20, size=1, endian="little")
+
+        ##(5) Measurement characteristics
+
+        ##LTYPE
+        temp.LTYPE <- readBin(con, what="int", 1, size=1, endian="little")
+
+        ##LTYPESOURCE
+        temp.LIGHTSOURCE <- readBin(con, what="int", 1, size=1, endian="little")
+
+        ##LIGHTPOWER, LOW, HIGH, RATE
+        temp <- readBin(con, what="double", 4, size=4, endian="little")
+
+        temp.LIGHTPOWER <- temp[1]
+        temp.LOW <- temp[2]
+        temp.HIGH <- temp[3]
+        temp.RATE <- temp[4]
+
+        ##TEMPERATURE
+        temp.TEMPERATURE <- readBin(con, what="int", 1, size=2, endian="little")
+
+        ##MEASTEMP
+        temp.MEASTEMP <- readBin(con, what="integer", 1, size=2, endian="little")
+
+        ##AN_TEMP
+        temp.AN_TEMP <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ##AN_TIME
+        temp.AN_TIME <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ##DELAY, ON, OFF
+        temp <- readBin(con, what="int", 3, size=2, endian="little")
+
+        temp.TOLDELAY <- temp[1]
+        temp.TOLON <- temp[2]
+        temp.TOLOFF <- temp[3]
+
+        ##IRR_TIME
+        temp.IRR_TIME <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ##IRR_TYPE
+        temp.IRR_TYPE <- readBin(con, what="int", 1, size=1, endian="little")
+
+        ##IRR_DOSERATE
+        temp.IRR_DOSERATE <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ##IRR_DOSERATEERR
+        if(temp.VERSION != 05)
+          temp.IRR_DOSERATEERR <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ##TIMESINCEIRR
+        temp.TIMESINCEIRR <- readBin(con, what="integer", 1, size=4, endian="little")
+
+        ##TIMETICK
+        temp.TIMETICK <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ##ONTIME
+        temp.ONTIME <- readBin(con, what="integer", 1, size=4, endian="little")
+
+        ##STIMPERIOD
+        temp.STIMPERIOD <- readBin(con, what="integer", 1, size=4, endian="little")
+
+        ##GATE_ENABLED
+        temp.GATE_ENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+
+        ##GATE_START
+        temp.GATE_START <- readBin(con, what="integer", 1, size=4, endian="little")
+
+        ##GATE_STOP
+        temp.GATE_STOP <- readBin(con, what="integer", 1, size=4, endian="little")
+
+        ##PTENABLED
+        temp.PTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+
+        ##DTENABLED
+        temp.DTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+
+        ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
+        temp <- readBin(con, what="double", 4, size=4, endian="little")
+        temp.DEADTIME <- temp[1]
+        temp.MAXLPOWER <- temp[2]
+        temp.XRF_ACQTIME <- temp[3]
+        temp.XRF_HV <- temp[4]
+
+        ##XRF_CURR
+        temp.XRF_CURR <- readBin(con, what="integer", 1, size=4, endian="little")
+
+        ##XRF_DEADTIMEF
+        temp.XRF_DEADTIMEF <- readBin(con, what="double", 1, size=4, endian="little")
+
+        ###Account for differences between V5, V6 and V7
+        if(temp.VERSION == 06){
+          ##RESERVED
+          temp.RESERVED2<-readBin(con, what="raw", 24, size=1, endian="little")
+
+        }else if(temp.VERSION == 05){
+          ##RESERVED
+          temp.RESERVED2<-readBin(con, what="raw", 4, size=1, endian="little")
+
+        }else{
+
+          ##DETECTOR_ID
+          temp.DETECTOR_ID <- readBin(con, what="int", 1, size=1, endian="little")
+
+          ##LOWERFILTER_ID, UPPERFILTER_ID
+          temp <- readBin(con, what="int", 2, size=2, endian="little")
+          temp.LOWERFILTER_ID <- temp[1]
+          temp.UPPERFILTER_ID <- temp[2]
+
+          ##ENOISEFACTOR
+          temp.ENOISEFACTOR <- readBin(con, what="double", 1, size=4, endian="little")
+
+          ##CHECK FOR VERSION 08
+          if(temp.VERSION == 07){
+             ##RESERVED for version 07
+            temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
+
+          }else {
+            ##MARKER_POSITION
+            temp <- readBin(con, what="double", 6, size=4, endian="little")
+              temp.MARPOS_X1 <- temp[1]
+              temp.MARPOS_Y1 <- temp[2]
+              temp.MARPOS_X2 <- temp[3]
+              temp.MARPOS_Y2 <- temp[4]
+              temp.MARPOS_X3 <- temp[5]
+              temp.MARPOS_Y3 <- temp[6]
+
+            ###EXTR_START, EXTR_END
+            temp <- readBin(con, what="double", 2, size=4, endian="little")
+              temp.EXTR_START <- temp[1]
+              temp.EXTR_END <- temp[2]
+
+            temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
+
+          }
+        }# end RECTYPE 128
+      }
     }else if(temp.VERSION == 04 | temp.VERSION == 03){
       ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ##START BIN FILE FORMAT SUPPORT  (vers. 03 and 04)
@@ -1188,7 +1185,7 @@ read_BIN2R <- function(
         temp.PTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
 
         ##RESERVED
-        temp.RESERVED2<-readBin(con, what="raw", 10, size=1, endian="little")
+        temp.RESERVED2 <- readBin(con, what="raw", 10, size=1, endian="little")
 
       }
 
@@ -1197,24 +1194,22 @@ read_BIN2R <- function(
 
     }
 
-   #DPOINTS or ROI ... depending on RECTYPE SETTING
-   ##DPOINTS
-   if(temp.RECTYPE != 128)
-    temp.DPOINTS <- readBin(con, what = "integer", temp.NPOINTS, size = 4, endian = "little")
+     #DPOINTS
+     if(temp.RECTYPE != 128) {
+       temp.DPOINTS <- readBin(con, what = "integer", temp.NPOINTS, size = 4, endian = "little")
 
-   ## ROI ... it depends on the number of POINTS
-   if (temp.RECTYPE == 128){
-    temp.DPOINTS <- lapply(1:temp.NPOINTS, function(x) {
-      list(
-        NOFPOINTS = readBin(con, what = "int", 1, size = 4, endian = "little"),
-        USEDFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
-        SHOWFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
-        ROICOLOR = readBin(con, what = "integer", 1, size = 4, endian = "little"),
-        X = readBin(con, what = "double", 50, size = 4, endian = "little"),
-        Y = readBin(con, what = "double", 50, size = 4, endian = "little"))
+     } else {
+       temp.DPOINTS <- lapply(1:temp.NPOINTS, function(x) {
+         list(
+           NOFPOINTS = readBin(con, what = "int", 1, size = 4, endian = "little"),
+           USEDFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
+           SHOWFOR = as.logical(readBin(con, what = "raw", 48, size = 1, endian = "little")),
+           ROICOLOR = readBin(con, what = "integer", 1, size = 4, endian = "little"),
+           X = readBin(con, what = "double", 50, size = 4, endian = "little"),
+           Y = readBin(con, what = "double", 50, size = 4, endian = "little"))
 
-    })
-   }
+       })
+     }
 
     #endif:format support
     ##END BIN FILE FORMAT SUPPORT
