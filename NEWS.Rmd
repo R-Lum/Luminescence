@@ -15,6 +15,7 @@ header-includes:
 ### read_BIN2R()
 * `ignore.RECTYPE` now supports numeric values, e.g., 128. Records for this type
 will be ignored during import.
+* BINX-files with `RECTYPE = 128` will not crash anymore, thanks for asking Anna-Maartje Boer and replying Karsten Bracht.
 
 
 ## Internals
