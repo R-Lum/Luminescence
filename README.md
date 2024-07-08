@@ -114,8 +114,7 @@ more details.
   id: 250974974](https://gepris.dfg.de/gepris/projekt/250974974))
 
 - 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the
-  package was supported by [LabEx LaScArBx (ANR -
-  n. ANR-10-LABX-52)](https://lascarbx.labex.u-bordeaux.fr/en/).
+  package was supported by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 
 - 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has
   received funding from the European Union’s Horizon 2020 research and
