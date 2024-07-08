@@ -148,11 +148,8 @@ read_BIN2R <- function(
     if (is.null(pattern)) {
       ##If this is not really a path we skip this here
       if (all(dir.exists(file)) & length(dir(file)) > 0) {
-        if (verbose) {
-          cat(
-            "[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n"
-          )
-        }
+        if (verbose)
+          cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
 
         ##get files
         file <- as.list(list.files(
@@ -608,10 +605,22 @@ read_BIN2R <- function(
   con <- file(file, "rb")
 
   ##get information about file size
-  file.size<-file.info(file)
+  file.size <- file.info(file)
 
   ##output
-  if(verbose){cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)}
+  if(verbose) {
+     file_name <- file
+     len_str <- nchar(basename(file_name))
+     if(len_str > 50)
+       file_name <- paste0(
+         substr(basename(file_name), start = 1, stop = 10),
+         "...",
+         substr(basename(file_name), start = len_str - 40, stop = len_str))
+
+     cat("\n[read_BIN2R()]\n path: ", dirname(file))
+     cat("\n file: ", file_name)
+     cat("\n n_rec:", n.length, fill = TRUE)
+  }
 
   ##set progress bar
   if(txtProgressBar & verbose){
@@ -1514,3 +1523,4 @@ read_BIN2R <- function(
    return(object)
 
 }
+
