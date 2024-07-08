@@ -126,7 +126,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.11
+#' @section Function version: 0.6.12
 #'
 #'
 #' @author
@@ -265,29 +265,41 @@ read_XSYG2R <- function(
 
     ##2nd grep time values
     curve.node <- unlist(strsplit(XML::xmlValue(curve.node), split = ";", fixed = TRUE))
-    curve.node <- unlist(strsplit(curve.node, split = ",", fixed = TRUE), recursive = FALSE)
+    curve.node <- strsplit(curve.node, split = ",", fixed = TRUE)
+    curve.node.time <- as.numeric(vapply(curve.node, function(x) x[1], character(1)))
 
-    curve.node.time <- as.numeric(curve.node[seq(1,length(curve.node),2)])
+    curve.node.time <- as.numeric(vapply(curve.node, function(x) x[1], character(1)))
 
     ##3rd grep count values
-    curve.node.count <- as.character(curve.node[seq(2,length(curve.node),2)])
+    curve.node.count <- vapply(curve.node, function(x) {
+      if(length(x) == 2)
+        x[2]
+      else
+        x[3]
+    }, character(1))
 
     ##remove from pattern...
     curve.node.count <- do.call("gsub", list(pattern="[[]|[]]", replacement=" ",
                                              x=curve.node.count))
 
     ##4th combine to spectrum matrix
-    spectrum.matrix <- matrix(0,length(wavelength),length(curve.node.time))
-    spectrum.matrix <- sapply(1:length(curve.node.time), function(x){
-      as.numeric(unlist(strsplit(curve.node.count[x], "[|]")))
+    spectrum.matrix <- matrix(NA, nrow = length(wavelength), ncol = length(curve.node.time))
+    for(i in 1:length(curve.node.time)) {
+      tmp <- as.numeric(unlist(strsplit(curve.node.count[i], "[|]")))
+      if(length(tmp) == length(wavelength))
+        spectrum.matrix[,i] <- tmp
 
-    })
+    }
+
+    ## remove NA values from matrix
+    id_NA <- colSums(is.na(spectrum.matrix)) != nrow(spectrum.matrix)
+    spectrum.matrix <- spectrum.matrix[, id_NA]
 
     ##change row names (rows are wavelength)
-    rownames(spectrum.matrix) <- round(wavelength, digits=3)
+    rownames(spectrum.matrix) <- round(wavelength, digits = 3)
 
     ##change column names (columns are time/temp values)
-    colnames(spectrum.matrix) <- round(curve.node.time, digits=3)
+    colnames(spectrum.matrix) <- round(curve.node.time[id_NA], digits=3)
 
     return(spectrum.matrix)
   }
@@ -498,9 +510,6 @@ read_XSYG2R <- function(
 
               }
 
-
-
-
               ## calculate corresponding heating rate, this makes only sense
               ## for linear heating, therefore is has to be the maximum value
 
@@ -523,16 +532,13 @@ read_XSYG2R <- function(
               temp.sequence.object.info <- c(temp.sequence.object.info,
                                              RATE = heating.rate)
 
-
               ##PERFORM RECALCULATION
               ##check which object contains more data
 
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
-
                 ##CASE (1)
                 if(nrow(temp.sequence.object.curveValue.PMT) >
                    nrow(temp.sequence.object.curveValue.heating.element)){
-
                   temp.sequence.object.curveValue.heating.element.i <- approx(
                     x = temp.sequence.object.curveValue.heating.element[,1],
                     y = temp.sequence.object.curveValue.heating.element[,2],
@@ -594,7 +600,8 @@ read_XSYG2R <- function(
                     y = temp.sequence.object.curveValue.heating.element[,2],
                     xout = temp.sequence.object.curveValue.spectrum.time,
                     rule = 2,
-                    ties = mean)
+                    ties = mean,
+                    na.rm = FALSE)
 
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element.i$y
@@ -738,7 +745,7 @@ read_XSYG2R <- function(
     ##close ProgressBar
     if(verbose && txtProgressBar ){close(pb)}
 
-    ##show output informatioj
+    ##show output information
     if(length(output[sapply(output, is.null)]) == 0){
 
       if(verbose)
@@ -765,3 +772,4 @@ read_XSYG2R <- function(
   return(output[!sapply(output,is.null)])
 
 }
+
