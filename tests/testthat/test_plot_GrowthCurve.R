@@ -209,6 +209,9 @@ test_that("plot_GrowthCurve", {
   expect_s4_class(temp_LambertW, class = "RLum.Results")
     expect_s3_class(temp_LambertW$Fit, class = "nls")
 
+  ## check n_N calculation
+  expect_equal(round(temp_EXP$De$n_N, 1), 0.5)
+  expect_equal(round(temp_LambertW$De$n_N, 1), 0.6)
 
 # Check more output -------------------------------------------------------
   data(ExampleData.LxTxData, envir = environment())
@@ -353,6 +356,7 @@ temp_LambertW <-
 
    expect_equal(round(temp_LambertW$De[[1]], digits = 2),  1784.78)
    expect_equal(round(sum(temp_LambertW$De.MC, na.rm = TRUE), digits = 0), 17422)
+
 
 # Check extrapolation -----------------------------------------------------
   ## load data

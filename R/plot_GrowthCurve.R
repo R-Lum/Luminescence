@@ -195,7 +195,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.11.12
+#' @section Function version: 1.11.13
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -2285,6 +2285,26 @@ plot_GrowthCurve <- function(
 
   }
 
+  ## calculate the n/N value (the relative saturation level)
+  ## the absolute intensity is the integral of curve
+      ## define the function
+      f_int <- function(x) eval(fit_formula)
+
+      ## run integrations (they may fail; so we have to check)
+      N <- try({
+        suppressWarnings(
+          stats::integrate(f_int, lower = 0, upper = max(xy$x, na.rm = TRUE))$value)
+      }, silent = TRUE)
+      n <- try({
+        suppressWarnings(
+          stats::integrate(f_int, lower = 0, upper = max(De, na.rm = TRUE))$value)
+      }, silent = TRUE)
+
+      if(inherits(N, "try-error") || inherits(n, "try-error"))
+        n_N <- NA
+      else
+        n_N <- n/N
+
   output <- try(data.frame(
     De = abs(De),
     De.Error = De.Error,
@@ -2293,6 +2313,7 @@ plot_GrowthCurve <- function(
     D02 = D02,
     D02.ERROR = D02.ERROR,
     Dc = Dc,
+    n_N = n_N,
     De.MC = De.MonteCarlo,
     Fit = fit.method,
     HPDI68_L = HPDI[1,1],
@@ -2389,3 +2410,4 @@ plot_GrowthCurve <- function(
 
   return(tmp_formula)
 }
+
