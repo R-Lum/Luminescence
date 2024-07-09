@@ -586,7 +586,6 @@ read_XSYG2R <- function(
 
 
               }else{
-
                 ##CASE (1) here different approach. in contrast to the PMT measurements, as
                 ##         usually the resolution should be much, much lower for such measurements
                 ##         Otherwise we would introduce some pseudo signals, as we have to
@@ -612,16 +611,13 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
 
-                    warning("[read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
+                    warning("[read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K",
+                            FALSE)
 
                   }
 
-
-
-
                   ##CASE (2)  (equal)
                 }else{
-
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element[,2]
 
