@@ -612,7 +612,7 @@ read_XSYG2R <- function(
                       temperature.values[which(duplicated(temperature.values))]+1
 
                     warning("[read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K",
-                            FALSE)
+                            call. = FALSE)
 
                   }
 
