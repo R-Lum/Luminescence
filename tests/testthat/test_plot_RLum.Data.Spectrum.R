@@ -21,6 +21,12 @@ test_that("test pure success of the plotting without warning or error", {
     expect_message(plot_RLum.Data.Spectrum(object = m),
         regexp = "Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
 
+    ## test duplicated column names
+    t <- TL.Spectrum
+    colnames(t@data) <- rep(50, ncol(t@data))
+    expect_warning(
+      object = plot_RLum.Data.Spectrum(t),
+      regexp = "\\[plot\\_RLum.Analysis\\(\\)\\] Duplicated column names found")
 
     ##standard plot with some settings
     expect_silent(plot(
