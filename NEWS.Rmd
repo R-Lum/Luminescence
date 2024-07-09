@@ -16,6 +16,9 @@ header-includes:
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
 The values is part of the output table. 
 
+### `plot_RLum.Data.Spectrum()`
+* The plot function can now handle non-increasing column values for plotting (with a warning).
+
 ### `read_BIN2R()`
 * `ignore.RECTYPE` now supports numeric values, e.g., 128. Records for this type
 will be ignored during import.

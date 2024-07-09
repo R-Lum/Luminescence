@@ -311,6 +311,13 @@ plot_RLum.Data.Spectrum <- function(
 
   }
 
+  ## check for duplicated column names (e.g., temperature not increasing)
+  if(any(duplicated(colnames(object@data)))) {
+    warning("[plot_RLum.Analysis()] Duplicated column names found, replaced by index!",
+            call. = FALSE)
+    colnames(object@data) <- 1:ncol(object@data[])
+
+  }
 
   ##deal with addition arguments
   extraArgs <- list(...)
@@ -407,19 +414,14 @@ plot_RLum.Data.Spectrum <- function(
   temp.xyz <- object@data
 
   ##check for NULL column names
-  if(is.null(colnames(temp.xyz))){
+  if(is.null(colnames(temp.xyz)))
     colnames(temp.xyz) <- 1:ncol(temp.xyz)
 
-  }
-
-  if(is.null(rownames(temp.xyz))){
+  if(is.null(rownames(temp.xyz)))
     rownames(temp.xyz) <- 1:nrow(temp.xyz)
-
-  }
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
-
     ##reduce for xlim
     temp.xyz <- temp.xyz[as.numeric(rownames(temp.xyz)) >= xlim[1] &
                            as.numeric(rownames(temp.xyz)) <= xlim[2],]
@@ -472,7 +474,8 @@ plot_RLum.Data.Spectrum <- function(
                              as.numeric(rownames(bg.xyz)) <= xlim[2],,drop = FALSE]
 
     }else{
-      stop("[plot_RLum.Data.Spectrum()] Input for 'bg.spectrum' not supported, please check manual!", call. = FALSE)
+      stop("[plot_RLum.Data.Spectrum()] Input for 'bg.spectrum' not supported, please check manual!",
+           call. = FALSE)
 
     }
 
