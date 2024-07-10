@@ -87,7 +87,6 @@ plot_RLum<- function(
         },
 
         RLum.Results = plot_RLum.Results(object = object, ...))
-
     }else{
       stop(paste0(
         "[plot_RLum()] Sorry, I don't know what to do for object of type '", is(object)[1], "'."
@@ -127,7 +126,6 @@ plot_RLum<- function(
         mtext <- rep(list(...)$mtext, length.out = length(object))
 
       }
-
       if(exists("main.list")){
         ##dispatch objects
         for (i in 1:length(object)) {
