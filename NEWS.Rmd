@@ -12,6 +12,10 @@ header-includes:
 
 ## Bugfixes
 
+### `calc_Huntley2006()`
+* Improve success rate of GOK fitting of the unfaded data using a two step approach: first 
+an exponential fit is applied then this values are used as start parameters. 
+
 ### `plot_GrowthCurve()`
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
 The values is part of the output table. 
