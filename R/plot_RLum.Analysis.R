@@ -1,6 +1,6 @@
-#' Plot function for an RLum.Analysis S4 class object
+#' @title Plot function for an RLum.Analysis S4 class object
 #'
-#' The function provides a standardised plot output for curve data of an
+#' @description The function provides a standardised plot output for curve data of an
 #' RLum.Analysis S4 class object
 #'
 #' The function produces a multiple plot output. A file output is recommended
@@ -78,7 +78,7 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.14
+#' @section Function version: 0.3.15
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -176,15 +176,10 @@ plot_RLum.Analysis <- function(
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
-
-  if(combine){
+  if(combine)
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
-
-  }else{
+  else
     n.plots <- length_RLum(object)
-
-  }
-
 
   if (missing(ncols) | missing(nrows)) {
     if (missing(ncols) & !missing(nrows)) {
@@ -238,7 +233,6 @@ plot_RLum.Analysis <- function(
 
 
   # Plotting ------------------------------------------------------------------
-
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ## (1) NORMAL (combine == FALSE) --------
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -252,7 +246,6 @@ plot_RLum.Analysis <- function(
 
     ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
     temp <- lapply(1:length(object@records), function(x){
-
       if(is(object@records[[x]], "RLum.Data.Curve") ||
          is(object@records[[x]], "RLum.Data.Spectrum")){
 
@@ -401,7 +394,6 @@ plot_RLum.Analysis <- function(
         ##PLOT
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##plot RLum.Data.Curve curve
-
           ##we have to do this via this way, otherwise we run into a duplicated arguments
           ##problem
           ##check and remove duplicated arguments
@@ -442,21 +434,16 @@ plot_RLum.Analysis <- function(
 
         }
 
+      } else if(inherits(temp[[i]], "RLum.Data.Spectrum")) {
+        ## remove already provided arguments
+        args <- list(...)[!names(list(...)) %in% c("object", "mtext", "par.local", "main")]
 
-      } else if(is(temp[[i]], "RLum.Data.Spectrum")) {
-
-        plot_RLum.Data.Spectrum(temp[[i]],
-                                mtext =  if(!is.null(plot.settings$mtext[[i]])){
-                                  plot.settings$mtext[[i]]
-                                }else{
-                                  paste("#", i, sep = "")
-                                },
-                                par.local = FALSE,
-                                main = if(!is.null(plot.settings$main)){
-                                  plot.settings$main
-                                }else{
-                                  temp[[i]]@recordType
-                                })
+        do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
+            object = temp[[i]],
+            mtext =  if(!is.null(plot.settings$mtext[[i]])) plot.settings$mtext[[i]] else paste("#", i, sep = ""),
+            par.local = FALSE,
+            main = if(!is.null(plot.settings$main)) plot.settings$main else temp[[i]]@recordType
+        ), args))
 
       }
 
@@ -835,7 +822,7 @@ plot_RLum.Analysis <- function(
           cex = 0.8 * plot.settings$cex[[k]]
         )
 
-        # revert the overplotting
+        # revert the over plotting
         if (legend.pos == "outside")
           par(xpd = FALSE)
       }

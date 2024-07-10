@@ -25,6 +25,13 @@ test_that("Test the basic plot functionality", {
     abline = list(v = c(110))
   ))
 
+  ## Basic plot with spectrum
+  data(ExampleData.XSYG, envir = environment())
+  expect_silent(
+    plot_RLum.Analysis(
+      set_RLum(class = "RLum.Analysis", records = list(TL.Spectrum, temp[[1]])),
+      plot.type = "persp"))
+
   ## test norm = "max"
   expect_silent(plot_RLum.Analysis(
     temp,

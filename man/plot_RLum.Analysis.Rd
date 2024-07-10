@@ -76,8 +76,7 @@ Returns multiple plots.
 \description{
 The function provides a standardised plot output for curve data of an
 RLum.Analysis S4 class object
-}
-\details{
+
 The function produces a multiple plot output. A file output is recommended
 (e.g., \link{pdf}).
 
@@ -100,7 +99,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.14
+ 0.3.15
 }
 
 \examples{
@@ -140,7 +139,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Kreutzer, S., 2024. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-14. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., 2024. plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.15. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-15. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}
