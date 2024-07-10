@@ -717,7 +717,8 @@ calc_Huntley2006 <-
   LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
-  if (fit.method[1] == "EXP") {
+  if (fit.method[1] == "EXP" || fit.method[1] == "GOK") {
+    ## we let it run regardless of the selection
     fit_unfaded <- minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
@@ -730,14 +731,15 @@ calc_Huntley2006 <-
            c(Inf, Inf, max(dosetimeGray))
           },
         lower = lower.bounds[1:3],
-      control = list(maxiter = settings$maxiter))
-  } else if (fit.method[1] == "GOK") {
+      control = list(maxiter = settings$maxiter)) }
+
+  if (fit.method[1] == "GOK") {
     fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (d-(1+(1/D0)*dosetimeGray*c)^(-1/c)),
       start = list(
-        a = coef(fit_simulated)[["a"]],
-        D0 = coef(fit_simulated)[["b"]] / readerDdot,
-        c = coef(fit_simulated)[["c"]],
+        a = coef(fit_unfaded)[["a"]],
+        D0 = coef(fit_unfaded)[["D0"]],
+        c = coef(fit_unfaded)[["c"]],
         d = coef(fit_simulated)[["d"]]),
       upper = if(force_through_origin) {
         c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
@@ -1076,3 +1078,5 @@ calc_Huntley2006 <-
   ## Return value --------------------------------------------------------------
   return(results)
   }
+
+
