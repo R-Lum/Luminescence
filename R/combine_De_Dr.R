@@ -460,7 +460,7 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [plot_OSLAgeSummary], [rjags::rjags], [mclust-package]
+#'@seealso [plot_OSLAgeSummary], [rjags::rjags], [mclust::mclust-package]
 #'
 #'@section Function version: 0.1.0
 #'

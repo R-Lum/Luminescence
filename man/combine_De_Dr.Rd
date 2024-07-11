@@ -147,7 +147,12 @@ writeLines(results@info$model_IAM)
 writeLines(results@info$model_BCAM)
 }
 
+} 
+
+\section{How to cite}{
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2024. combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., preprint.
 Luminescence age calculation through Bayesian convolution of equivalent dose and
@@ -166,7 +171,7 @@ Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and out
 Critical Reviews in Analytical Chemistry 36, 221–242. \doi{10.1080/10408340600969403}
 }
 \seealso{
-\link{plot_OSLAgeSummary}, \link[rjags:rjags-package]{rjags::rjags}, \link{mclust-package}
+\link{plot_OSLAgeSummary}, \link[rjags:rjags-package]{rjags::rjags}, \link[mclust:mclust-package]{mclust::mclust-package}
 }
 \author{
 Anne Philippe, Université de Nantes (France),

@@ -5,7 +5,7 @@
 #' @details
 #' **How does the import function work?**
 #'
-#' The function uses the [xml] package to parse the file structure. Each
+#' The function uses the `'XML'` package to parse the file structure. Each
 #' sequence is subsequently translated into an [RLum.Analysis-class] object.
 #'
 #' **General structure XSYG format**
@@ -120,7 +120,7 @@
 #' @note
 #' This function is a beta version as the XSYG file format is not yet
 #' fully specified. Thus, further file operations (merge, export, write) should
-#' be done using the functions provided with the package [xml].
+#' be done using the functions provided with the package `'XML'`.
 #'
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSXG file are skipped.
@@ -133,7 +133,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
-#' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]
+#' @seealso `'XML'`, [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]
 #'
 #'
 #' @references

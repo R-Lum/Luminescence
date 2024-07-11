@@ -83,10 +83,10 @@ following elements:
 \item{.$data}{\link{data.frame} original input data}
 \item{args}{\link{list} used arguments}
 \item{call}{\link{call} the function call}
-\item{.$mle}{\link{mle2} object containing the maximum log likelihood functions for all parameters}
+\item{.$mle}{\link[bbmle:mle2]{bbmle::mle2} object containing the maximum log likelihood functions for all parameters}
 \item{BIC}{\link{numeric} BIC score}
 \item{.$confint}{\link{data.frame} confidence intervals for all parameters}
-\item{.$profile}{\link{profile.mle2} the log likelihood profiles}
+\item{.$profile}{\link[stats:profile]{stats::profile} the log likelihood profiles}
 \item{.$bootstrap}{\link{list} bootstrap results}
 
 The output should be accessed using the function \link{get_RLum}
@@ -212,9 +212,10 @@ calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1)
 \dontrun{
 # (2) Re-run the model, but save results to a variable and turn
 # plotting of the log-likelihood profiles off.
-mam <- calc_MinDose(data = ExampleData.DeValues$CA1,
-                    sigmab = 0.1,
-                    plot = FALSE)
+mam <- calc_MinDose(
+ data = ExampleData.DeValues$CA1,
+ sigmab = 0.1,
+ plot = FALSE)
 
 # Show structure of the RLum.Results object
 mam
@@ -291,7 +292,12 @@ plot(bs$poly.fits$poly.three, ask = FALSE)
 summary(bs$poly.fits$poly.three$fitted.values)
 }
 
+} 
+
+\section{How to cite}{
+Burow, C., 2024. calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young
