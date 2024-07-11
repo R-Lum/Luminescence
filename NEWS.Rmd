@@ -10,6 +10,10 @@ header-includes:
 
 **This package version requires R >= 4.3**
 
+## New functions
+* `read_HeliosOSL2R()`: New import function to support the new zero rad Helios luminescence reader
+and its `.osl` file format. The output is an `RLum.Analysis-class` object. 
+
 ## Bugfixes
 
 ### `calc_Huntley2006()`
