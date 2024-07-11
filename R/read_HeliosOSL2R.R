@@ -10,6 +10,8 @@
 #'
 #'@param ... not in use, for compatibility reasons only
 #'
+#'@note Thanks to Krzysztof Maternicki for providing example data.
+#'
 #'@return [RLum.Analysis-class] object
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -21,7 +23,8 @@
 #'@keywords IO
 #'
 #'@examples
-#'##TODO
+#'file <- system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")
+#'read_HeliosOSL2R(file)
 #'
 #'@md
 #'@export

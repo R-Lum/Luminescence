@@ -21,12 +21,16 @@ for further processing}
 Straightforward import of files with the ending \code{.osl} produced
 by the zero rad Helios luminescence reader and conversion to \linkS4class{RLum.Analysis} objects.
 }
+\note{
+Thanks to Krzysztof Maternicki for providing example data.
+}
 \section{Function version}{
  0.1.0
 }
 
 \examples{
-##TODO
+file <- system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")
+read_HeliosOSL2R(file)
 
 }
 \seealso{
