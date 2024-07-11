@@ -22,7 +22,7 @@ Convenience wrapper function to provide a quicker and more standardised way of
 reading data into R by looping through all in the package available data import functions starting with \code{read_}.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -42,10 +42,5 @@ temp <- import_Data(file)
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. import_Data(): Import Luminescence Data into R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-16. https://CRAN.R-project.org/package=Luminescence
-}
-
+, RLum Developer Team}
 \keyword{datagen}

@@ -37,4 +37,9 @@ test_that("Test general import", {
     object = import_Data(system.file("extdata/TIFFfile.tif", package = "Luminescence")),
     class = "RLum.Data.Image")
 
+  ## OSL
+  expect_s4_class(
+    object = import_Data(system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")),
+    class = "RLum.Analysis")
+
 })

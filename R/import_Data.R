@@ -14,7 +14,7 @@
 #'
 #'@param verbose [logical] (*with default*): enable/disable verbose mode
 #'
-#'@section Function version: 0.1.0
+#'@section Function version: 0.1.1
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -49,7 +49,8 @@ import_Data <- function (
     "read_Daybreak2R",
     "read_RF2R",
     "read_SPE2R",
-    "read_TIFF2R")
+    "read_TIFF2R",
+    "read_HeliosOSL2R")
 
   ## get arguments of functions
   args <- c(list(file = file, fastForward = fastForward, verbose = verbose), list(...))
