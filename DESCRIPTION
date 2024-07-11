@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.9.25.9000-16
-Date: 2024-07-10
+Version: 0.9.25.9000-17
+Date: 2024-07-11
 Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
     Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
     Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
@@ -219,6 +219,7 @@ Collate:
     'plot_ViolinPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
+    'read_HeliosOSL2R.R'
     'read_PSL2R.R'
     'read_RF2R.R'
     'read_SPE2R.R'
