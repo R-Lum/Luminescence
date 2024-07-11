@@ -143,12 +143,7 @@ lines(values[1:length(values.t[,1]),1], CW2pPMi(values, P = 1/10)[,2],
       col = "blue", lwd = 1.3)
 text(0.5,6500,"PM", col = "blue", cex = .8)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-16. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.

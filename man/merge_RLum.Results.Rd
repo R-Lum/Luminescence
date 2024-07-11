@@ -28,10 +28,5 @@ The \code{originator} is taken from the first element and not reset to \code{mer
 
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. merge_RLum.Results(): Merge function for RLum.Results S4-class objects. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-16. https://CRAN.R-project.org/package=Luminescence
-}
-
+, RLum Developer Team}
 \keyword{internal}
