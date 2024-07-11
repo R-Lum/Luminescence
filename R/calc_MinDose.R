@@ -154,10 +154,10 @@
 #' \item{.$data}{[data.frame] original input data}
 #' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
-#' \item{.$mle}{[mle2] object containing the maximum log likelihood functions for all parameters}
+#' \item{.$mle}{[bbmle::mle2] object containing the maximum log likelihood functions for all parameters}
 #' \item{BIC}{[numeric] BIC score}
 #' \item{.$confint}{[data.frame] confidence intervals for all parameters}
-#' \item{.$profile}{[profile.mle2] the log likelihood profiles}
+#' \item{.$profile}{[stats::profile] the log likelihood profiles}
 #' \item{.$bootstrap}{[list] bootstrap results}
 #'
 #' The output should be accessed using the function [get_RLum]
@@ -243,9 +243,10 @@
 #' \dontrun{
 #' # (2) Re-run the model, but save results to a variable and turn
 #' # plotting of the log-likelihood profiles off.
-#' mam <- calc_MinDose(data = ExampleData.DeValues$CA1,
-#'                     sigmab = 0.1,
-#'                     plot = FALSE)
+#' mam <- calc_MinDose(
+#'  data = ExampleData.DeValues$CA1,
+#'  sigmab = 0.1,
+#'  plot = FALSE)
 #'
 #' # Show structure of the RLum.Results object
 #' mam

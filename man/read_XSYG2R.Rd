@@ -66,7 +66,7 @@ Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 \details{
 \strong{How does the import function work?}
 
-The function uses the \link{xml} package to parse the file structure. Each
+The function uses the \code{'XML'} package to parse the file structure. Each
 sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
 
 \strong{General structure XSYG format}
@@ -138,7 +138,7 @@ is supported as this may lead to endless loops.
 \note{
 This function is a beta version as the XSYG file format is not yet
 fully specified. Thus, further file operations (merge, export, write) should
-be done using the functions provided with the package \link{xml}.
+be done using the functions provided with the package \code{'XML'}.
 
 \strong{So far, no image data import is provided!} \cr
 Corresponding values in the XSXG file are skipped.
@@ -173,7 +173,12 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2024. read_XSYG2R(): Import XSYG files to R. Function version 0.6.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany
@@ -183,7 +188,7 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\link{xml}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
+\code{'XML'}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

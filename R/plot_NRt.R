@@ -21,8 +21,8 @@
 #'
 #' @param smooth [character] (*optional*):
 #' apply data smoothing. Use `"rmean"` to calculate the rolling where `k`
-#' determines the width of the rolling window (see [rollmean]). `"spline"`
-#' applies a smoothing spline to each curve (see [smooth.spline])
+#' determines the width of the rolling window (see [zoo::rollmean]). `"spline"`
+#' applies a smoothing spline to each curve (see [stats::smooth.spline])
 #'
 #' @param k [integer] (*with default*):
 #' integer width of the rolling window.
