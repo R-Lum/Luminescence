@@ -89,7 +89,12 @@ data(ExampleData.Al2O3C, envir = environment())
 ##run analysis
 analyse_Al2O3C_CrossTalk(data_CrossTalk)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2024. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-25. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
