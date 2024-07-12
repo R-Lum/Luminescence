@@ -1,11 +1,11 @@
 #' @title Import PSL files to R
 #'
-#' @description Imports PSL files produced by a SUERC portable OSL reader into R **(BETA)**.
+#' @description Imports PSL files produced by a SUERC portable OSL reader into R.
 #'
 #' @details This function provides an import routine for the SUERC portable OSL Reader PSL
-#' format. PSL files are just plain text and can be viewed with any text editor.
-#' Due to the formatting of PSL files this import function relies heavily on
-#' regular expression to find and extract all relevant information. See **note**.
+#' format (measurement data and sequence). PSL files are just plain text and can be
+#' viewed with any text editor.  Due to the formatting of PSL files this import
+#' function relies heavily on regular expression to find and extract all relevant information. See **note**.
 #'
 #' @param file [character] (**required**):
 #' path and file name of the PSL file. If input is a `vector` it should comprise
@@ -37,9 +37,10 @@
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [RLum.Data.Curve-class]
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author Christoph Burow, University of Cologne (Germany),
+#'  Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.0.2
+#' @section Function version: 0.1.0
 #'
 #' @note
 #' Because this function relies heavily on regular expressions to parse
@@ -61,7 +62,6 @@
 #' @md
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
-
   ## INPUT VALIDATION ----
   if (length(file) == 1) {
     if (!grepl(".psl$", file, ignore.case = TRUE)) {
@@ -75,9 +75,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
 
   ## MAIN ----
   results <- vector("list", length(file))
-
   for (i in 1:length(file)) {
-
     ## Read in file ----
     doc <- readLines(file[i])
 
@@ -101,7 +99,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
                 "", fixed = TRUE, doc)
 
     # last delimiting line before measurements are only apostrophes and dashes
-    lines_with_apostrophes <- doc[grepl("'", doc, fixed = TRUE)]
+    lines_with_apostrophes <-doc[grepl("'", doc, fixed = TRUE)]
     doc <- gsub(lines_with_apostrophes[length(lines_with_apostrophes)],
                 "", fixed = TRUE, doc)
 
@@ -121,7 +119,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     header$Time <- time
     header$Sample <- sample
 
-    # Parse and format the easurement values
+    # Parse and format the measurement values
     measurements_split <- vector("list", number_of_measurements)
 
     # save lines of each measurement to individual list elements
@@ -155,11 +153,39 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
       })
     }
 
+    ## get measurement sequence
+    measurement_sequence <- lapply(seq_along(measurements_split), function(x) {
+      ## remove measurement
+      tmp <- gsub(
+        pattern = "Measurement : ",
+        replacement = "",
+        x = measurements_split[[x]][1],
+        fixed = TRUE)
+
+    ## split entries
+     tmp <- strsplit(x = tmp, split = " | ", fixed = TRUE)[[1]]
+
+     ## data.frame
+     data.frame(
+       RUN = x,
+       NAME = trimws(tmp[1]),
+       STIM = strsplit(tmp[2], split = " ", fixed = TRUE)[[1]][2],
+       ON_OFF = strsplit(tmp[3], split = "(us)", fixed = TRUE)[[1]][2],
+       CYCLE = strsplit(tmp[4], split = "(ms),", fixed = TRUE)[[1]][2])
+
+    })
+
+    #merge
+    measurement_sequence <- do.call("rbind", measurement_sequence)
+
     ## RETURN ----
-    results[[i]] <- set_RLum("RLum.Analysis",
-                             protocol = "portable OSL",
-                             info = header,
-                             records = measurements_formatted)
+    results[[i]] <- set_RLum(
+      "RLum.Analysis",
+       protocol = "portable OSL",
+       info = c(
+         header,
+         list(Sequence = measurement_sequence)),
+       records = measurements_formatted)
   }#Eof::Loop
 
   ## MERGE ----
@@ -180,8 +206,6 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
 
 ## ------------------------- FORMAT MEASUREMENT ----------------------------- ##
 format_Measurements <- function(x, convert, header) {
-
-
   ## measurement parameters are given in the first line
   settings <- x[1]
 
@@ -247,13 +271,14 @@ format_Measurements <- function(x, convert, header) {
     recordType <- "OSL"
   }
 
-  object <- set_RLum(class = "RLum.Data.Curve",
-                     originator = "read_PSL2R",
-                     recordType = recordType,
-                     curveType = "measured",
-                     data = data,
-                     info = list(settings = c(settings_list, header),
-                                 raw_data = df))
+  object <- set_RLum(
+    class = "RLum.Data.Curve",
+    originator = "read_PSL2R",
+    recordType = recordType,
+    curveType = "measured",
+    data = data,
+    info = list(settings = c(settings_list, header),
+    raw_data = df))
 
   return(object)
 
@@ -261,17 +286,15 @@ format_Measurements <- function(x, convert, header) {
 
 ## ---------------------------- FORMAT HEADER ------------------------------- ##
 format_Header <- function(x) {
-
   header_formatted <- list()
 
   # split by double blanks
   header_split <- strsplit(x, "  ", fixed = TRUE)
 
-  # check wether there are twice as many values
+  # check whether there are twice as many values
   # as colons; if there is an equal amount, the previous split was not sufficient
   # and we need to further split by a colon (that is followed by a blank)
   header_split_clean <- lapply(header_split, function(x) {
-
     x <- x[x != ""]
     n_elements <- length(x)
     n_properties <- length(grep(":", x, fixed = TRUE))
@@ -281,7 +304,6 @@ format_Header <- function(x) {
 
     return(x)
   })
-
 
   # format parameter/settings names and corresponding values
   values <- vector(mode = "character")
