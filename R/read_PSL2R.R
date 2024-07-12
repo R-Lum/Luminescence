@@ -154,7 +154,8 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     }
 
     ## get measurement sequence
-    measurement_sequence <- lapply(seq_along(measurements_split), function(x) {
+    measurement_sequence <- data.table::rbindlist(
+      lapply(seq_along(measurements_split), function(x) {
       ## remove measurement
       tmp <- gsub(
         pattern = "Measurement : ",
@@ -173,10 +174,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
        ON_OFF = strsplit(tmp[3], split = "(us)", fixed = TRUE)[[1]][2],
        CYCLE = strsplit(tmp[4], split = "(ms),", fixed = TRUE)[[1]][2])
 
-    })
-
-    #merge
-    measurement_sequence <- do.call("rbind", measurement_sequence)
+    }))
 
     ## RETURN ----
     results[[i]] <- set_RLum(
