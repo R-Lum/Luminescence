@@ -43,13 +43,13 @@ Returns an S4 \linkS4class{RLum.Analysis} object containing
 \linkS4class{RLum.Data.Curve} objects for each curve.
 }
 \description{
-Imports PSL files produced by a SUERC portable OSL reader into R \strong{(BETA)}.
+Imports PSL files produced by a SUERC portable OSL reader into R.
 }
 \details{
 This function provides an import routine for the SUERC portable OSL Reader PSL
-format. PSL files are just plain text and can be viewed with any text editor.
-Due to the formatting of PSL files this import function relies heavily on
-regular expression to find and extract all relevant information. See \strong{note}.
+format (measurement data and sequence). PSL files are just plain text and can be
+viewed with any text editor.  Due to the formatting of PSL files this import
+function relies heavily on regular expression to find and extract all relevant information. See \strong{note}.
 }
 \note{
 Because this function relies heavily on regular expressions to parse
@@ -58,7 +58,7 @@ a specific PSL file please report to \verb{<christoph.burow@gmx.net>} so the
 function can be updated.
 }
 \section{Function version}{
- 0.0.2
+ 0.1.0
 }
 
 \examples{
@@ -75,11 +75,12 @@ plot(psl, combine = TRUE)
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany),
+Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., 2024. read_PSL2R(): Import PSL files to R. Function version 0.0.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-25. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2024. read_PSL2R(): Import PSL files to R. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-27. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{IO}
