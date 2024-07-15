@@ -33,7 +33,6 @@
   ## consistently extract numerical data
   .extract_numerics <- function(x) {
     tmp <- suppressWarnings(as.numeric(na.exclude(as.numeric(x))))
-
     if(length(tmp) == 0)
       tmp <- NA
 
@@ -45,7 +44,7 @@
 
 # Import ------------------------------------------------------------------
   ## preset records
-  records <- file
+  records <- file[1]
 
   if (inherits(file, "character")) {
   ## get number of sheets in the file
@@ -132,7 +131,7 @@
     })))
 
     ## ITL ---------
-    ITL <- lapply(seq_along(records), function(x) {
+    ITL <- as.data.frame(data.table::rbindlist(lapply(seq_along(records), function(x) {
       ## extract variables
       TEMP <- .get_named_list_element(records[[x]], "T")[id_l[[x]]$ITL]
       TIME <- .get_named_list_element(records[[x]], "t")[id_l[[x]]$ITL]
@@ -149,7 +148,7 @@
         LxTx = unlist(LxTx),
         LxTx_ERROR = NA)
 
-    })
+    })))
 
     ## FAD ---------
     FAD <- as.data.frame(data.table::rbindlist(lapply(seq_along(records), function(x) {
@@ -200,3 +199,4 @@
   ## always return records
   return(records)
 }
+
