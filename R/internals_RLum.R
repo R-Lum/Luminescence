@@ -831,3 +831,33 @@ fancy_scientific <- function(l) {
 
 }
 
+#'@title Throws a Custom Tailored Error Message
+#'
+#'@param ... the error message to throw
+#'
+#'@md
+#'@noRd
+.throw_error <- function(...) {
+  ## get name of calling function
+  f_calling <- paste0("[", as.character(sys.call(-1)), "()] ")
+
+  ## stop
+  stop(paste0(f_calling, ...), call. = FALSE)
+
+}
+
+#'@title Throws a Custom Tailored Warning Message
+#'
+#'@param ... the warning message to throw
+#'
+#'@md
+#'@noRd
+.throw_warning <- function(...) {
+  ## get name of calling function
+  f_calling <- paste0("[", as.character(sys.call(-1)), "()] ")
+
+  ## stop
+  warning(paste0(f_calling, ...), call. = FALSE)
+
+}
+
