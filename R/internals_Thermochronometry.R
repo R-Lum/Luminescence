@@ -190,6 +190,7 @@
         FAD = FAD),
       info = list(
         call = sys.call(),
+        sample_names = unique(names(records)),
         Ddot_DRC = Ddot_DRC,
         nat_Ddot = nat_Ddot)
       )
