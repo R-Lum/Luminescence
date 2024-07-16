@@ -109,7 +109,8 @@
 #' `plot.single = c(3,4)` draws only the last two plots
 #'
 #' @param ... (*optional*) further arguments that can be passed to internally used functions. Supported arguments:
-#' `xlab`, `log`, `mtext` and `xlim` for the two first curve plots, and `ylim` for the fading
+#' `xlab`, `log`, `mtext`, `plot.trend` (enable/disable trend blue line), and `xlim` for the
+#' two first curve plots, and `ylim` for the fading
 #' curve plot. For further plot customization please use the numerical output of the functions for
 #' own plots.
 #'
@@ -134,7 +135,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.21
+#' @section Function version: 0.1.22
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -630,7 +631,8 @@ analyse_FadingMeasurement <- function(
       ylim = NULL,
       xlim = NULL,
       log = "",
-      mtext = ""
+      mtext = "",
+      plot.trend = TRUE
 
     )
 
@@ -928,14 +930,17 @@ analyse_FadingMeasurement <- function(
         )
 
         ##add power law curve
-        curve(
-          x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x * fit_power$coefficient[4] + fit_power$coefficient[1],
-          add = TRUE,
-          col = "blue",
-          lty = 2
-        )
+        if(plot_settings$plot.trend) {
+          curve(
+            x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x
+            * fit_power$coefficient[4] + fit_power$coefficient[1],
+            add = TRUE,
+            col = "blue",
+            lty = 2
+          )
+        }
 
-        ##addpoints
+        ##add points
         points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                y = LxTx_table[["LxTx_NORM"]],
                pch = 21,
@@ -954,9 +959,9 @@ analyse_FadingMeasurement <- function(
         ##add legend
         legend(
           "bottom",
-          legend = c("fit", "fit MC", "trend"),
-          col = c("red", "grey", "blue"),
-          lty = c(1, 1, 2),
+          legend = c("fit", "fit MC", if(plot_settings$plot.trend) "trend" else NULL),
+          col = c("red", "grey", if(plot_settings$plot.trend) "blue" else NULL),
+          lty = c(1, 1, if(plot_settings$plot.trend) 2 else NULL),
           bty = "n",
           horiz = TRUE
         )

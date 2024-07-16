@@ -68,7 +68,8 @@ Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot.single = c(3,4)} draws only the last two plots}
 
 \item{...}{(\emph{optional}) further arguments that can be passed to internally used functions. Supported arguments:
-\code{xlab}, \code{log}, \code{mtext} and \code{xlim} for the two first curve plots, and \code{ylim} for the fading
+\code{xlab}, \code{log}, \code{mtext}, \code{plot.trend} (enable/disable trend blue line), and \code{xlim} for the
+two first curve plots, and \code{ylim} for the fading
 curve plot. For further plot customization please use the numerical output of the functions for
 own plots.}
 }
@@ -153,7 +154,7 @@ not all pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.21
+ 0.1.22
 }
 
 \examples{
@@ -181,7 +182,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C., 2024. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-27. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C., 2024. analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.22. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-31. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
