@@ -91,7 +91,7 @@ The latter one is useful for surface interpolations. If you have measured a prof
 the x-coordinates to not measure, x-coordinates should be 0.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -127,7 +127,7 @@ Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
 , RLum Developer Team} 
 
 \section{How to cite}{
-Burow, C., Kreutzer, S., 2024. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-31. https://CRAN.R-project.org/package=Luminescence
+Burow, C., Kreutzer, S., 2024. analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-32. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
