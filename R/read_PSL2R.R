@@ -40,7 +40,7 @@
 #' @author Christoph Burow, University of Cologne (Germany),
 #'  Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @note
 #' Because this function relies heavily on regular expressions to parse
@@ -66,7 +66,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
   if (length(file) == 1) {
     if (!grepl(".psl$", file, ignore.case = TRUE)) {
       file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE)
-      message("The following files were found and imported: \n", paste(file, collapse = "\n"))
+      message("[read_PSL2R(): The following files were found and imported: \n", paste(" ..", file, collapse = "\n"))
     }
   }
   if (!all(file.exists(file)))
@@ -333,3 +333,4 @@ format_Header <- function(x) {
 
   return(header)
 }
+
