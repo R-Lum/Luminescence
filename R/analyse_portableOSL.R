@@ -77,7 +77,7 @@
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
 #' Institute of Geography, Ruprecht-Karl University of Heidelberg, Germany
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @keywords datagen plot
 #'
@@ -463,7 +463,7 @@ analyse_portableOSL <- function(
 
     frame()
 
-    mtext(side= 3, run, cex = 0.7, line = 2)
+    mtext(side= 3, plot_settings$main, cex = 0.7, line = 2)
 
     par(mar = c(5, 0, 4, 1) + 0.1)
 
