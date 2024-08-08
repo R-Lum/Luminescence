@@ -22,7 +22,7 @@ test_that("Force function to break", {
     suppressWarnings(calc_Lamothe2003(
       object = data.frame(
         x = c(0,10,20), y = c(1.4,0.7,2.3), z = c(0.01,0.02, 0.03)),
-      dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1))),
+      dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1,1))),
     "RLum.Results")
 
   ##g_value
@@ -34,6 +34,11 @@ test_that("Force function to break", {
     ),
     regexp = "Input for 'g_value' missing but required!"
   )
+  expect_error(
+    calc_Lamothe2003(object = NULL, dose_rate.envir = c(1,2),
+                     dose_rate.source = c(1,2), g_value = 1),
+    "Input for 'g_value' is not of type 'numeric' and/or of length < 2"
+  )
 
   ##object
   expect_error(suppressWarnings(
@@ -41,19 +46,21 @@ test_that("Force function to break", {
       object = NULL,
       dose_rate.envir = c(1, 2, 3),
       dose_rate.source = c(1, 2, 3),
-      g_value = NULL
-    ),
+      g_value = c(1, 2)
+    )),
     regexp = "Unsupported data type for 'object'"
-  ))
+  )
 
   expect_error(suppressWarnings(
     calc_Lamothe2003(
       object = set_RLum("RLum.Results"),
       dose_rate.envir = c(1, 2, 3),
       dose_rate.source = c(1, 2, 3),
-      g_value = NULL
-    )
-  ))
+      g_value = c(1, 2)
+    )),
+    "Input for 'object' created by function calc_Lamothe2003() not supported",
+    fixed=TRUE
+  )
 
   ##tc
   expect_error(
@@ -63,9 +70,9 @@ test_that("Force function to break", {
       dose_rate.source = c(1, 2, 3),
       g_value = c(1, 1),
       tc.g_value = 1000
-    ),
-    regexp = "If you set 'tc.g_value' you have to provide a value for 'tc' too!"
-  ))
+    )),
+    "If you set 'tc.g_value' you have to provide a value for 'tc' too!"
+  )
 
 
 })
