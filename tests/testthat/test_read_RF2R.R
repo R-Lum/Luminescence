@@ -18,4 +18,18 @@ test_that("Test functionality", {
   ##import false list
   expect_warning(read_RF2R(c(file, file)), regexp = "'file' has a length > 1. Only the first element was taken!")
 
+  ## create a file with unsupported version
+  file.wrong <- "RF_wrong_version.Rf"
+  writeLines(gsub("17-10-2018", "wrong-version", readLines(file)),
+             file.wrong)
+  expect_error(read_RF2R(file.wrong),
+               "File format not supported")
+  file.remove(file.wrong)
+
+  ## create a file with malformed header
+  file.wrong <- "RF_wrong_header.Rf"
+  writeLines(gsub("grain_d=20", "grain_d=", readLines(file)),
+             file.wrong)
+  read_RF2R(file.wrong)
+  file.remove(file.wrong)
 })
