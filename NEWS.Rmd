@@ -51,8 +51,9 @@ will be ignored during import.
 
 ### `read_PSL2R()`
 * The function is out of the beta status, hence the flag was removed. 
-* The `RLum.Analysis-class` object returned by the function gained a new element `Sequence`, which is a data frame 
+* The `RLum.Analysis-class` object returned by the function gained a new element `Sequence`, which is a data frame. 
 with the measured sequence. This way, if the original sequence was lost, it can still be extracted from the `.psl` data.
+* If no `.psl` file was found the function got trapped in an infinite loop (#127); fixed with #128 (thanks to @mcol)
 
 ### `read_XSYG2R()`
 * Fix spectrometer data import for basically broken files.
