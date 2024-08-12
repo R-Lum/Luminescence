@@ -200,6 +200,17 @@ calc_Lamothe2003 <- function(
     }
   }
 
+  ## g_value
+  if (!inherits(g_value, "numeric") || length(g_value) < 2) {
+    stop("[calc_Lamothe2003()] Input for 'g_value' is not of type 'numeric' and/or of length < 2!", call. = FALSE)
+  } else {
+    if (length(g_value) > 2) {
+      warning("[calc_Lamothe2003()] 'g_value' has length > 2. Take only the first two entries.",
+              call. = FALSE, immediate. = TRUE)
+      g_value <- g_value[1:2]
+    }
+  }
+
   ##tc
   if(is.null(tc) && !is.null(tc.g_value))
     stop("[calc_Lamothe2003()] If you set 'tc.g_value' you have to provide a value for 'tc' too!", call. = FALSE)
