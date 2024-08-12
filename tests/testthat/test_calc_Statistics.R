@@ -21,6 +21,10 @@ test_that("Test certain input scenarios", {
   expect_is(calc_Statistics(temp_RLum), "list")
 
   df <- ExampleData.DeValues$BT998
+  df[, 2] <- NULL
+  expect_warning(calc_Statistics(df))
+
+  df <- ExampleData.DeValues$BT998
   df[,2] <- 0
   expect_warning(calc_Statistics(df))
 
