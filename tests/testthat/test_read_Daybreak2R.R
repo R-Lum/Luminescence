@@ -8,6 +8,13 @@ test_that("Test functionality", {
     file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence")
   ), "list")
 
+  ## directory
+  expect_error(
+    expect_output(read_Daybreak2R(
+      file = system.file("extdata", package = "Luminescence")),
+      "Directory detected, trying to extract"),
+  "file name does not seem to exist")
+
   ##verbose off
   expect_type(read_Daybreak2R(
     file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence"),
@@ -25,6 +32,10 @@ test_that("Test functionality", {
   expect_type(read_Daybreak2R(
     file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence")
   ), "list")
+
+  expect_s3_class(read_Daybreak2R(
+    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence"), raw = TRUE
+  ), "data.table")
 
   ##test silence
   expect_silent(read_Daybreak2R(
