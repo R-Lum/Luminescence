@@ -54,8 +54,8 @@ test_that("check weighted values from output", {
   local_edition(3)
 
   expect_equal(temp$weighted$n, 25)
-  expect_equal(sum(unlist(temp_alt1)),24535.72)
-  expect_equal(sum(unlist(temp_alt2)),24534.1)
+  expect_equal(sum(unlist(temp_alt1)),18558.37)
+  expect_equal(sum(unlist(temp_alt2)),18555.994)
   expect_equal(round(temp$weighted$mean, digits = 3), 2896.036)
   expect_equal(round(temp$weighted$median, digits = 2), 2884.46)
   expect_equal(round(temp$weighted$sd.abs, digits = 4), 240.2228)
@@ -93,8 +93,8 @@ test_that("check MCM values from output", {
   expect_equal(round(temp$MCM$sd.rel, digits = 6), 9.999137)
   expect_equal(round(temp$MCM$se.abs, digits = 5), 59.01474)
   expect_equal(round(temp$MCM$se.rel, digits = 6), 1.999827)
-  expect_equal(round(temp$MCM$skewness, digits = 3), 1286.082)
-  expect_equal(round(temp$MCM$kurtosis, digits = 3), 4757.097)
+  expect_equal(round(temp$MCM$skewness, digits = 3), 1.286)
+  expect_equal(round(temp$MCM$kurtosis, digits = 3), 4.757)
 
 
 })

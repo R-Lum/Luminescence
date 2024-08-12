@@ -126,6 +126,7 @@ calc_Statistics <- function(
 
   ## calculate n
   S.n <- nrow(data)
+  S.m.n <- S.n * ncol(data.MCM)
 
   ## calculate mean
   S.mean <- mean(x = data[,1],
@@ -183,12 +184,12 @@ calc_Statistics <- function(
   ## calculate skewness
   S.skewness <- 1 / S.n * sum(((data[,1] - S.mean) / S.sd.abs)^3)
 
-  S.m.skewness <- 1 / S.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^3)
+  S.m.skewness <- 1 / S.m.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^3)
 
   ## calculate kurtosis
   S.kurtosis <- 1 / S.n * sum(((data[,1] - S.mean) / S.sd.abs)^4)
 
-  S.m.kurtosis <- 1 / S.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^4)
+  S.m.kurtosis <- 1 / S.m.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^4)
 
   ## create list objects of calculation output
   S.weighted <- list(n = S.n,
