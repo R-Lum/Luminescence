@@ -149,6 +149,7 @@ calc_TLLxTxRatio <- function(
 # Calculate Lx/Tx values --------------------------------------------------
     ## preset variables
     net_LnLx <- net_LnLx.Error <- net_TnTx <- net_TnTx.Error <- NA
+    BG.Error <- NA
 
     ## calculate values
     LnLx <- sum(Lx.data.signal[signal.integral.min:signal.integral.max, 2])

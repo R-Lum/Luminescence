@@ -102,4 +102,11 @@ test_that("calc_TLLxTxRatio", {
   expect_equal(round(results$LxTx, digits =  6), 3.187877)
   expect_equal(round(results$LxTx.Error, digits = 6), 1.485073)
 
+  expect_s4_class(calc_TLLxTxRatio(
+    Lx.data.signal,
+    Lx.data.background=NULL,
+    Tx.data.signal,
+    Tx.data.background=NULL,
+    signal.integral.min,
+    signal.integral.max), class = "RLum.Results")
 })
