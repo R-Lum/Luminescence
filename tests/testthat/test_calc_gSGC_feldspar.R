@@ -27,6 +27,16 @@ test_that("test errors", {
     "\\[calc_gSGC_feldspar\\(\\)\\] 'gSGC.type' needs to be one of the accepted values"
   )
 
+  ## incorrect number of columns
+  expect_error(
+    calc_gSGC_feldspar(
+      data = data.frame(a  = 1, b = 1, c = 1, d = 1),
+      gSGC.type = "50LxTx",
+      plot = FALSE
+    ),
+    "Structure of 'data' does not fit the expectations"
+  )
+
  ##finally run with plot output
  #test on a generated random sample
  set.seed(1234)
