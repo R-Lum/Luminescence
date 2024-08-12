@@ -173,7 +173,8 @@ convert_Wavelength2Energy <- function(
 
     #sort values if needed
     if(order){
-      object@data <-  object@data[order(as.numeric(rownames(object@data))),]
+      object@data <- object@data[order(as.numeric(rownames(object@data))), ,
+                                 drop = FALSE]
       rownames(object@data) <- sort(as.numeric(rownames(object@data)))
 
     }

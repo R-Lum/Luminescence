@@ -34,6 +34,9 @@ test_that("test convert functions", {
 
   ##test order argument
   expect_type(convert_Wavelength2Energy(data, order = TRUE), "double")
+  res <- convert_Wavelength2Energy(object, order = TRUE)
+  expect_equal(order(rownames(res@data)),
+               1:nrow(res@data))
 
   ##test special treatment of RLum.Data.Spectrum objects
   object@info[["curveDescripter"]] <- "energy"
