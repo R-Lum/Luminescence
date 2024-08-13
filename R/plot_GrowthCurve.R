@@ -345,8 +345,8 @@ plot_GrowthCurve <- function(
   }
 
   ##2. check if sample contains a least three rows
-  if(length(sample[[1]]) < 3 & fit.method != "LIN")
-    stop("\n [plot_GrowthCurve()] At least two regeneration points are required!", call. = FALSE)
+  if(length(sample[[1]]) < 3 && fit.method != "LIN")
+    stop("\n [plot_GrowthCurve()] At least three regeneration points are required!", call. = FALSE)
 
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
@@ -587,10 +587,6 @@ plot_GrowthCurve <- function(
 
     if (!is.na(b)) {
       b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
-
-    } else{
-      b <- NA
-
     }
 
     c.MC <- suppressWarnings(rnorm(50, mean = c, sd = c / 100))
@@ -2410,4 +2406,3 @@ plot_GrowthCurve <- function(
 
   return(tmp_formula)
 }
-
