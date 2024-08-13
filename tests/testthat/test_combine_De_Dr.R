@@ -63,4 +63,21 @@ test_that("Test combine_De_Dr", {
   ## try to plot the results again
   plot_OSLAgeSummary(results)
 
+  ## diag = TRUE
+  expect_error(combine_De_Dr(
+    Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
+    method_control = list(n.iter = 100, n.chains = 1, diag = TRUE)),
+    "You need at least two chains")
+  expect_s4_class(combine_De_Dr(
+    Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
+    method_control = list(n.iter = 100, n.chains = 2, diag = TRUE)),
+    "RLum.Results")
+
+  ## cdf_ADr_quantiles = TRUE and outlier_method = "RousseeuwCroux1993"
+  expect_s4_class(combine_De_Dr(
+    Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
+    cdf_ADr_quantiles = TRUE,
+    outlier_method = "RousseeuwCroux1993",
+    method_control = list(n.iter = 100, n.chains = 1)),
+    "RLum.Results")
 })

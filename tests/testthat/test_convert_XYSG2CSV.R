@@ -3,6 +3,8 @@ test_that("test convert functions", {
   local_edition(3)
 
   ##test for errors
+  expect_error(convert_BIN2CSV(),
+               "file is missing")
   expect_error(convert_BIN2CSV(file = "", export = FALSE),
                regexp = "[read_BIN2R()] File does not exist!",
                fixed = TRUE)
@@ -16,6 +18,8 @@ test_that("test convert functions", {
     ##BIN2CSV
     data(ExampleData.BINfileData, envir = environment())
     expect_type(convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE), "list")
+    expect_null(convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1),
+                                export = TRUE))
 
     ##XSYG2CSV
     data(ExampleData.XSYG, envir = environment())

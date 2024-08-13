@@ -122,5 +122,24 @@ test_that("Test the function itself", {
     plot = TRUE,
     fit.method = "EXP"), class = "RLum.Results")
 
+  ## pretend to have an analyse_pIRIRSequence originator to increase coverage
+  results.mod <- results
+  results.mod@originator <- "analyse_pIRIRSequence"
+  results.mod@data$LnLxTnTx.table$Signal <- 1
+  expect_s4_class(calc_Lamothe2003(
+    object = results.mod,
+    dose_rate.envir =  c(1.676 , 0.180),
+    dose_rate.source = c(0.184, 0.003),
+    g_value =  c(2.36, 0.6),
+    plot = FALSE,
+    fit.method = "EXP"), class = "RLum.Results")
 
- })
+  ## signal information present
+  res <- suppressWarnings(
+    calc_Lamothe2003(
+      object = data.frame(x = c(0,10,20), y = c(1.4,0.7,2.3),
+                          z = c(0.01,0.02, 0.03), Signal=1:3),
+      dose_rate.envir = c(1,2), dose_rate.source = c(1,2),
+      g_value = c(1,1)))
+  expect_equal(res$data$SIGNAL, 1:3)
+})
