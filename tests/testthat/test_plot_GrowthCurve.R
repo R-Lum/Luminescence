@@ -18,7 +18,7 @@ test_that("plot_GrowthCurve", {
   ## shorten dataframe
   expect_error(
     object = plot_GrowthCurve(LxTxData[1:2,]),
-    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least two regeneration points are required!")
+    regexp = "\\[plot\\_GrowthCurve\\(\\)\\] At least three regeneration points are required!")
 
   ## wrong argument for mode
   expect_error(
