@@ -131,6 +131,7 @@ Authors:
   \item Dirk Mittelstrass (\href{https://orcid.org/0000-0002-9567-8791}{ORCID})
   \item Harrison J. Gray (\href{https://orcid.org/0000-0002-4555-7473}{ORCID})
   \item Jean-Michel Galharret (\href{https://orcid.org/0000-0003-2219-8727}{ORCID})
+  \item Marco Colombo (\href{https://orcid.org/0000-0001-6672-0623}{ORCID})
 }
 
 Other contributors:
