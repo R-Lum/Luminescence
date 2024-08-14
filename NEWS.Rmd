@@ -61,6 +61,9 @@ with the measured sequence. This way, if the original sequence was lost, it can 
 ### `read_XSYG2R()`
 * Fix spectrometer data import for basically broken files.
 
+### `read_Daybreak2R()`
+* Fix #135 to improve detection of non-ASCII files (#140, @mcol).
+
 ## Internals
 * New internal function + tests added `.get_named_list_element()`. It just does what 
 the names says.

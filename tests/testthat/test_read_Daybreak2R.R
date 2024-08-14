@@ -41,4 +41,17 @@ test_that("Test functionality", {
   expect_silent(read_Daybreak2R(
     file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence"), verbose = FALSE))
 
+  ## test presence of non-ascii characters
+  expect_error(read_Daybreak2R(
+    file = system.file("extdata/BINfile_V8.binx", package = "Luminescence"),
+    verbose = FALSE),
+    "The provided file is no ASCII-file and cannot be imported")
+
+  file.nonascii <- tempfile()
+  writeLines(gsub("ScriptFile", "ScriptFile ö",
+                  readLines(system.file("extdata/Daybreak_TestFile.txt",
+                                        package = "Luminescence"))),
+             file.nonascii)
+  expect_error(read_Daybreak2R(file = file.nonascii, verbose = FALSE),
+    "The provided file is no ASCII-file and cannot be imported")
 })
