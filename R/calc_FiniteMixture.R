@@ -196,41 +196,34 @@ calc_FiniteMixture <- function(
   ...
 ){
 
-
   ## CONSISTENCY CHECK OF INPUT DATA --------
   ##============================================================================##
-  if(missing(data)==FALSE){
-
-    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_FiniteMixture] Error: 'data' object has to be of type
-           'data.frame' or 'RLum.Results'!")
-    } else {
-      if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum(data, "data")
-      }
-    }
+  if (!is(data, "data.frame") && !is(data,"RLum.Results")) {
+    stop("[calc_FiniteMixture()] 'data' object has to be of type ",
+         "'data.frame' or 'RLum.Results'!", call. = FALSE)
   }
-  try(colnames(data)<- c("ED","ED_Error"),silent=TRUE)
-  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") {
-    cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
-    stop(domain=NA)
+  if (is(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
   }
-  if(sigmab <0 | sigmab >1) {
-    cat(paste("sigmab needs to be given as a fraction between",
-              "0 and 1 (e.g. 0.2)"), fill = FALSE)
-    stop(domain=NA)
+  if (ncol(data) < 2) {
+    stop("[calc_FiniteMixture()] 'data' object must have two columns",
+         call. = FALSE)
+  }
+  if (sigmab < 0 || sigmab > 1) {
+    stop("[calc_FiniteMixture()] 'sigmab' must be a value between 0 and 1",
+         call. = FALSE)
   }
   if(any(n.components<2) == TRUE) {
-    cat(paste("Atleast two components need to be fitted"), fill = FALSE)
-    stop(domain=NA)
+    stop("[calc_FiniteMixture()] At least two components need to be fitted",
+         call. = FALSE)
   }
-  if(pdf.sigma!="se" ) {
-    if(pdf.sigma!="sigmab") {
-      cat(paste("Only 'se' or 'sigmab' allowed for the pdf.sigma argument"),
-          fill = FALSE)
-      stop(domain=NA)
-    }
+  if (pdf.sigma != "se" && pdf.sigma != "sigmab") {
+    stop("Only 'se' or 'sigmab' allowed for the pdf.sigma argument",
+         call. = FALSE)
   }
+
+  ## set expected column names
+  colnames(data)[1:2] <- c("ED", "ED_Error")
 
   ## ... ARGUMENTS ------------
   ##============================================================================##
