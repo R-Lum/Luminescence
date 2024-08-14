@@ -25,6 +25,12 @@ test_that("plot_GrowthCurve", {
     object = plot_GrowthCurve(LxTxData, mode = "fail"),
     regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Unknown input for argument 'mode'")
 
+  ## wrong combination of fit.method and mode
+  expect_error(
+    plot_GrowthCurve(LxTxData, fit.method = "EXP+EXP",
+                     mode = "extrapolation"),
+    "mode 'extrapolation' for this fitting method currently not supported")
+
 # Weird LxTx values --------------------------------------------------------
 
   ##set LxTx
@@ -68,6 +74,13 @@ test_that("plot_GrowthCurve", {
   tmp_LxTx$LxTx <- NA
   expect_null(
     object = suppressWarnings(plot_GrowthCurve(tmp_LxTx, output.plot = FALSE)))
+
+  ## test case without TnTx column
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$TnTx <- NULL
+  expect_s4_class(
+    plot_GrowthCurve(tmp_LxTx, output.plot = TRUE),
+    "RLum.Results")
 
   ## test defunct
   expect_error(
@@ -141,6 +154,8 @@ test_that("plot_GrowthCurve", {
     plot_GrowthCurve(
       LxTxData,
       fit.method = "EXP+LIN",
+      fit.bounds = FALSE,
+      fit.force_through_origin = TRUE,
       output.plot = FALSE,
       verbose = FALSE,
       NumberIterations.MC = 10
@@ -150,7 +165,7 @@ test_that("plot_GrowthCurve", {
       LxTxData,
       fit.method = "EXP+EXP",
       output.plot = FALSE,
-      verbose = FALSE,
+      verbose = TRUE,
       NumberIterations.MC = 10
     )
   temp_QDR <-
@@ -158,7 +173,7 @@ test_that("plot_GrowthCurve", {
       LxTxData,
       fit.method = "QDR",
       output.plot = FALSE,
-      verbose = FALSE,
+      verbose = TRUE,
       NumberIterations.MC = 10
     )
   temp_QDR <-
@@ -168,7 +183,7 @@ test_that("plot_GrowthCurve", {
       output.plot = FALSE,
       mode = "extrapolation",
       fit.force_through_origin = TRUE,
-      verbose = FALSE,
+      verbose = TRUE,
       NumberIterations.MC = 10
     )
   temp_GOK <-
@@ -365,7 +380,9 @@ temp_LambertW <-
   set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
   LIN <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"),
+    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN",
+                     main = "Title", xlab = "x-axis", ylab = "y-axis",
+                     xlim = c(0, 10), ylim = c(0, 10), fun = TRUE),
     "RLum.Results")
   EXP <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "EXP"),
@@ -377,7 +394,7 @@ temp_LambertW <-
     "RLum.Results")
 
   GOK <- expect_s4_class(
-    plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "GOK"),
+    plot_GrowthCurve(LxTxData,mode = "interpolation", fit.method = "GOK"),
     "RLum.Results")
 
   LambertW <- expect_s4_class(
@@ -521,5 +538,18 @@ temp_LambertW <-
     verbose = FALSE),
     regexp = "\\[plot\\_GrowthCurve\\(\\)\\] Standard root estimation using stats\\:\\:uniroot\\(\\).+")
 
+  ## only two valid points provided: this generates two warnings, hence
+  ## we cannot use expect_warning(), which can only capture one at a time
+  warnings <- capture_warnings(expect_message(plot_GrowthCurve(
+    data.frame(
+        dose = c(0, 1388.88888888889, NA),
+        LxTx = c(1.54252220145258, 4.43951568403849, NA),
+        LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
+    output.plot = FALSE,
+    verbose = TRUE),
+    "fit.method set to 'LIN'"))
+  expect_match(warnings, "1 NA value(s) excluded",
+               all = FALSE, fixed = TRUE)
+  expect_match(warnings, "Fitting using an exponential term requires",
+               all = FALSE, fixed = TRUE)
 })
-
