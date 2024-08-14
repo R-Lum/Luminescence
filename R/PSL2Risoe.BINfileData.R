@@ -1,10 +1,10 @@
-#' Convert portable OSL data to an Risoe.BINfileData object
+#' Convert portable OSL data to a Risoe.BINfileData object
 #'
 #' Converts an `RLum.Analysis` object produced by the function `read_PSL2R()` to
-#' an `Risoe.BINfileData` object **(BETA)**.
+#' a `Risoe.BINfileData` object **(BETA)**.
 #'
 #' This function converts an [RLum.Analysis-class] object that was produced
-#' by the [read_PSL2R] function to an [Risoe.BINfileData-class].
+#' by the [read_PSL2R] function to a [Risoe.BINfileData-class].
 #' The `Risoe.BINfileData` can be used to write a Risoe BIN file via
 #' [write_R2BIN].
 #'
@@ -13,14 +13,14 @@
 #'
 #' @param ... currently not used.
 #'
-#' @return 
-#' Returns an S4 [Risoe.BINfileData-class] object that can be used to write a 
+#' @return
+#' Returns an S4 [Risoe.BINfileData-class] object that can be used to write a
 #' BIN file using [write_R2BIN].
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], 
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
 #' [Risoe.BINfileData-class]
 #'
-#' @author 
+#' @author
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @section Function version: 0.0.1
@@ -184,6 +184,3 @@ PSL2Risoe.BINfileData <- function(object, ...) {
   ## RETURN VALUE ----
   return(bin)
 }
-
-
-

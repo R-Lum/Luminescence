@@ -51,7 +51,7 @@ convert_XSYG2CSV <- function(
 
   ##file is missing?
   if(missing(file)){
-    stop("[convert_XSYG2R()] file is missing!", call. = FALSE)
+    stop("[convert_XSYG2CSV()] file is missing!", call. = FALSE)
 
   }
 

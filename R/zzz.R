@@ -160,7 +160,7 @@ sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
                    to = 2 * pi - angles_mouth[i] + 3,
                    col = "yellow")
 
-      # dinfine eyes for pacman
+      # define eyes for pacman
       points(x1[i] + 0.2, y1[i] + 0.75, pch = 21, bg = 1, cex = 0.7)
       points(x2[i] + 0.2, y2[i] + 0.75, pch = 21, bg = 1, cex = 0.7)
       points(x4[i] - 0.05, y4[i] + 0.75, pch = 21, bg = 1, cex = 0.7)

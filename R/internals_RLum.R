@@ -446,7 +446,7 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
-#' @title Efficient binning of matricies
+#' @title Efficient binning of matrices
 #'
 #' @description This function allows efficient binning of matrices including
 #' row and column name handling. Internally, the function uses [rowsum],
@@ -550,7 +550,7 @@ fancy_scientific <- function(l) {
 #' @title Expand function parameters of self-call
 #'
 #' @description For the self-call, the function parameters need to
-#' be expended, this was done, so far in a non-consistent way and
+#' be expanded, this was done, so far in a non-consistent way and
 #' repeated in every function using the self-call. This functions
 #' does it once and for all similar in all functions.
 #'
@@ -860,4 +860,3 @@ fancy_scientific <- function(l) {
   warning(paste0(f_calling, ...), call. = FALSE)
 
 }
-
