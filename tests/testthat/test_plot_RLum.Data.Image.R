@@ -17,6 +17,10 @@ test_that("Test image plotting", {
     expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster"))
     expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster",
                                        stretch = NULL))
+    expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster",
+                                       stretch = "lin"))
+    expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster",
+                                       frames = c(2, 4)))
 
     ## check global z-scale
     expect_silent(plot_RLum.Data.Image(image, plot.type = "plot.raster",
@@ -25,6 +29,4 @@ test_that("Test image plotting", {
     ## contour ---
     expect_silent(plot_RLum.Data.Image(image, plot.type = "contour",
                                        stretch = NULL))
-
 })
-

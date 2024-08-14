@@ -234,25 +234,25 @@ calc_FiniteMixture <- function(
 
   ## ... ARGUMENTS ------------
   ##============================================================================##
+
   extraArgs <- list(...)
+
+  ## default values
+  verbose <- TRUE
+  trace <- FALSE
+  main <- "Finite Mixture Model"
 
   ## console output
   if("verbose" %in% names(extraArgs)) {
     verbose<- extraArgs$verbose
-  } else {
-    verbose<- TRUE
   }
   # trace calculations
   if("trace" %in% names(extraArgs)) {
     trace<- extraArgs$trace
-  } else {
-    trace<- FALSE
   }
   # plot title
   if("main" %in% names(extraArgs)) {
     main<- extraArgs$main
-  } else {
-    main<- "Finite Mixture Model"
   }
 
   ##============================================================================##
@@ -454,7 +454,6 @@ calc_FiniteMixture <- function(
     cat("\n [calc_FiniteMixture]")
 
     ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
-
     if(length(n.components) == 1) {
 
       # covariance matrix

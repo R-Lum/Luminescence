@@ -3,6 +3,8 @@ test_that("test convert functions", {
   local_edition(3)
 
   ##test for errors
+  expect_error(convert_XSYG2CSV(),
+               "file is missing")
   expect_error(convert_BIN2CSV(),
                "file is missing")
   expect_error(convert_BIN2CSV(file = "", export = FALSE),
@@ -19,10 +21,12 @@ test_that("test convert functions", {
     data(ExampleData.BINfileData, envir = environment())
     expect_type(convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE), "list")
     expect_null(convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1),
-                                export = TRUE))
+                                export = TRUE, path = tempdir()))
 
     ##XSYG2CSV
     data(ExampleData.XSYG, envir = environment())
-    expect_type(convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE), "list")
-
+    expect_type(convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10],
+                                 export = FALSE), "list")
+    expect_null(convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10],
+                                 export = TRUE, path = tempdir()))
 })

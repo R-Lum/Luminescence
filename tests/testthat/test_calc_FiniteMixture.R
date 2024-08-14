@@ -31,6 +31,8 @@ test_that("check class and length of output", {
     sigmab = 0.2,
     n.components = 2:3,
     grain.probability = TRUE,
-    verbose = FALSE), "RLum.Results")
+    trace = TRUE,
+    main = "Plot title",
+    verbose = TRUE), "RLum.Results")
 
 })
