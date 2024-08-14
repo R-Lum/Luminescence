@@ -317,10 +317,10 @@ read_Daybreak2R <- function(
     ##read file
     file2read <- suppressWarnings(readLines(file))
 
-    ##check whether this is a binary file
-    if(!all(charToRaw(file2read[1]) <= as.raw(127))){
+    ## check whether the file contains non-ASCII characters: the [^ -~]
+    ## regexp matches all ASCII characters from space to tilde
+    if (any(grepl("[^ -~]", file2read[1]))) {
       stop("[read_Daybreak2R()] The provided file is no ASCII-file and cannot be imported!", call. = FALSE)
-
     }
 
     ##(0) get rid off all the empty lines
