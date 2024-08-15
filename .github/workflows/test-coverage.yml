@@ -10,7 +10,7 @@ on:
 name: test-coverage
 
 env:
-  cache-version: v1
+  cache-version: v2
 
 jobs:
   test-coverage:

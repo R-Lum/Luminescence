@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - if: runner.os == 'macOS'
-        run: brew install jags curl
+        run: brew install jags
 
       - name: Install JAGS on Windows
         if: runner.os == 'windows'
