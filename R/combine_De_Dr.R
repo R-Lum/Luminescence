@@ -1,7 +1,7 @@
 #'@title Estimate Individual Age using Bayesian Inference
 #'
 #'@description A Bayesian robust estimation of central age from equivalent dose
-#' measurements under the assumption that the dose rate is modelled by
+#' measurements under the assumption that the dose rate is modelled by a
 #' finite Gaussian mixture model.
 #'
 #'@param theta [numeric] (**required**): the weight vector of the Gaussian mixture

@@ -2,7 +2,7 @@
 #' variations in radioactivity into account (according to Aitken, 1985)
 #'
 #' This function calculates the gamma dose deposited in a luminescence sample
-#' taking into account layer-to-layer variations in sediment radioactivity .
+#' taking into account layer-to-layer variations in sediment radioactivity.
 #' The function scales user inputs of uranium, thorium and potassium based on
 #' input parameters for sediment density, water content and given layer
 #' thicknesses and distances to the sample.
@@ -27,7 +27,7 @@
 #' of the layer of interest. If the whole layer was sampled insert `0`. If the
 #' sample was taken from *within* the layer, insert a numerical value `>0`,
 #' which describes the distance from the middle of the sample to the bottom of
-#' the layer in cm. Columns 4 to 9 should  contain radionuclide concentrations
+#' the layer in cm. Columns 4 to 9 should contain radionuclide concentrations
 #' and their standard errors for
 #' potassium (in %), thorium (in ppm) and uranium (in ppm). Columns 10 and 11
 #' give information on the water content and its uncertainty (standard error)

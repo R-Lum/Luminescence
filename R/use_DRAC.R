@@ -118,7 +118,7 @@ use_DRAC <- function(
 ){
   ## TODO:
   ## (1) Keep the data set as unmodified as possible. Check structure and order of parameters
-  ## for meaningful cominbination.
+  ## for meaningful combination.
   ##
   ## (2)
   ## Leave it to the user where the calculations made in our package should be used
@@ -319,7 +319,7 @@ use_DRAC <- function(
   DRAC.content.input <- DRAC.content[ ,grep("TI:", names(DRAC.content))]
   DRAC.content.output <- DRAC.content[ ,grep("TO:", names(DRAC.content))]
 
-  ## The DRAC ouput also contains a hightlight table, which results in
+  ## The DRAC ouput also contains a highlight table, which results in
   ## duplicate columns. When creating the data.frame duplicate columns
   ## are automatically appended '.1' in their names, so we can identify
   ## and remove them easily

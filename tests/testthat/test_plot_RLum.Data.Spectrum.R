@@ -253,6 +253,12 @@ test_that("test pure success of the plotting without warning or error", {
       )
     ))
 
+    ## bg.channels
+    expect_warning(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum, xlim = c(310, 750), ylim = c(0, 300),
+        bg.channels = -2),
+     "'bg.channels' out of range")
 
     ##create more error
     expect_error(plot(
@@ -266,4 +272,3 @@ test_that("test pure success of the plotting without warning or error", {
 
 
 })
-

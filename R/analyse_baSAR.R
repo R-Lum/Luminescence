@@ -1963,7 +1963,7 @@ analyse_baSAR <- function(
     OUTPUT_results <- OUTPUT_results[!is.na(OUTPUT_results[,2]),]
 
     ##clean up NaN values in the LxTx and corresponding error values
-    ##the transposition of the matrix may increase the performance for very large matricies
+    ##the transposition of the matrix may increase the performance for very large matrices
     OUTPUT_results_reduced <- t(OUTPUT_results)
     selection <- vapply(X = 1:ncol(OUTPUT_results_reduced), FUN = function(x){
         !any(is.nan(OUTPUT_results_reduced[9:(8+3*max_cycles), x]) | is.infinite(OUTPUT_results_reduced[9:(8+3*max_cycles), x]))

@@ -23,7 +23,7 @@ and its `.osl` file format. The output is an `RLum.Analysis-class` object.
 * Function did not respect argument `main`; fixed.
 
 ### `convert_Wavelength2Energy()`
-* Fix #133 that addressing cases where R throws an uncontained error when R drops
+* Fix #133 addressing cases where R throws an uncontained error when R drops
 the object structure in very rare cases (#134; thanks @mcol)
 
 ### `calc_Huntley2006()`

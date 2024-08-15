@@ -142,7 +142,7 @@ write_RLum2CSV <- function(
 
     ##non NULL conditon
     if(export == TRUE && !dir.exists(path)){
-      stop("[write_RLum2CSV()] Diretory provided via the argument 'path' does not exist!", call. = FALSE)
+      stop("[write_RLum2CSV()] Directory provided via the argument 'path' does not exist!", call. = FALSE)
 
     }
 
