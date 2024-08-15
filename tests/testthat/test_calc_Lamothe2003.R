@@ -58,8 +58,7 @@ test_that("Force function to break", {
       dose_rate.source = c(1, 2, 3),
       g_value = c(1, 2)
     )),
-    "Input for 'object' created by function calc_Lamothe2003() not supported",
-    fixed=TRUE
+    regexp = "Input for 'object' created by"
   )
 
   ##tc
