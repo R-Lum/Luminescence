@@ -50,7 +50,7 @@ Authors@R: c(
     person("Jean-Michel", "Galharret", role = c("aut"), comment = c(ORCID = "0000-0003-2219-8727")),
     person("Marco", "Colombo", role = c("aut"), comment = c(ORCID = "0000-0001-6672-0623")),
     person("Markus", "Fuchs", role = c("ths"), comment = c(ORCID = "0000-0003-4669-6528")))
-Maintainer: Sebastian Kreutzer <sebastian.kreutzer@uni-heidelberg.de>
+Maintainer: Sebastian Kreutzer <maintainer_luminescence@r-luminescence.org>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
