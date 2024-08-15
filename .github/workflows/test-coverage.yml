@@ -36,6 +36,7 @@ jobs:
           covr::codecov(
             quiet = FALSE,
             clean = TRUE,
+            token = "${{ secrets.CODECOV_TOKEN }}",
             install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
           )
         shell: Rscript {0}
