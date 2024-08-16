@@ -14,7 +14,7 @@
 #' **Basic steps of the approach**
 #'
 #' 1. Estimate natural relative variation of the sample using a dose recovery test
-#' 2. Sort the input values ascendantly
+#' 2. Sort the input values in ascending order
 #' 3. Calculate a running mean, starting with the lowermost two values and add values iteratively.
 #' 4. Stop if the calculated `c[v]` exceeds the specified `cvThreshold`
 #'

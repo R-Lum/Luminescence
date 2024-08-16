@@ -135,7 +135,7 @@ Second2Gray <- function(
 
     if(dose.rate@originator != "calc_SourceDoseRate"){
 
-      stop("[Second2Gray()]  Wrong originator for dose.rate 'RLum.Results' object.")
+      stop("[Second2Gray()] Wrong originator for dose.rate 'RLum.Results' object.")
 
     }else{
 

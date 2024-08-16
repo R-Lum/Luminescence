@@ -24,7 +24,7 @@ file name and path of the output file
 }}
 
 \item{version}{\link{character} (\emph{optional}):
-version number for the output file. If no value is provided the highest
+version number for the output file. If no value is provided, the highest
 version number from the \linkS4class{Risoe.BINfileData} is taken automatically.
 
 \strong{Note:}
@@ -35,7 +35,7 @@ this option recalculates the position values if necessary and set the max.
 value to 48. The old position number is appended as comment (e.g., 'OP: 70).
 This option accounts for potential compatibility problems with the Analyst software.
 It further limits the maximum number of points per curve to 9,999. If a curve contains more
-data the curve data got binned using the smallest possible bin width.}
+data the curve data get binned using the smallest possible bin width.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables or disables \link{txtProgressBar}.}
@@ -65,10 +65,10 @@ chosen input and output data (e.g., conversion from version 08 to 07 to 06 to 05
 
 \strong{Warning}
 
-Although the coding was done carefully it seems that the BIN/BINX-files
+Although the coding was done carefully, it seems that the BIN/BINX-files
 produced by Risø DA 15/20 TL/OSL readers slightly differ on the byte level.
 No obvious differences are observed in the METADATA, however, the
-BIN/BINX-file may not fully compatible, at least not similar to the once
+BIN/BINX-file may not fully compatible, at least not similar to the ones
 directly produced by the Risø readers!
 
 ROI definitions (introduced in BIN-file version 8) are not supported!
@@ -79,7 +79,7 @@ There are furthermore ignored by the function \link{read_BIN2R}.
 }
 
 \examples{
-##load exampled dataset
+##load example dataset
 file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 temp <- read_BIN2R(file)
 

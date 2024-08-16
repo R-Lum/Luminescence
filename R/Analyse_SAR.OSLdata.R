@@ -145,7 +145,7 @@ Analyse_SAR.OSLdata <- function(
   set,
   dtype,
   keep.SEL = FALSE,
-  info.measurement = "unkown measurement",
+  info.measurement = "unknown measurement",
   output.plot = FALSE,
   output.plot.single = FALSE,
   cex.global = 1,

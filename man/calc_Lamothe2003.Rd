@@ -73,7 +73,7 @@ The original function call
 }
 \description{
 This function applies the fading correction for the prediction of long-term fading as suggested
-by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fit a new dose-response
+by Lamothe et al., 2003. The function basically adjusts the $L_n/T_n$ values and fits a new dose-response
 curve using the function \link{plot_GrowthCurve}.
 }
 \details{

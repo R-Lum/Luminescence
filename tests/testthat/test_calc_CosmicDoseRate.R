@@ -3,6 +3,40 @@ temp <- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                             altitude = 364, error = 10)
 
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  expect_error(calc_CosmicDoseRate(depth = -2),
+               "No negative values allowed for depth and density")
+  expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+                                   corr.fieldChanges = TRUE),
+               "requires an age estimate")
+  expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+                                   corr.fieldChanges = TRUE, est.age = 20,
+                                   latitude = 38.06451),
+               "is missing, with no default")
+  expect_error(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+                                   corr.fieldChanges = TRUE, est.age = 20,
+                                   latitude = 38.06451, longitude = 1.49646),
+               "is missing, with no default")
+  expect_error(calc_CosmicDoseRate(depth = 2.78, density = c(1.7, 2.9),
+                                   corr.fieldChanges = TRUE, est.age = 20,
+                                   latitude = 38.06451, longitude = 1.49646,
+                                   altitude = 364),
+               "If you provide more than one value for density")
+  expect_output(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+                                    corr.fieldChanges = TRUE, est.age = 100,
+                                    latitude = 38.0645, longitude = 1.4964,
+                                    altitude = 364),
+                "No geomagnetic field change correction for samples older >80 ka possible")
+  expect_output(calc_CosmicDoseRate(depth = 2.78, density = 1.7,
+                                    corr.fieldChanges = TRUE, est.age = 20,
+                                    latitude = 38.0645, longitude = 1.4964,
+                                    altitude = 364, half.depth = TRUE),
+                "No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees")
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
@@ -10,6 +44,11 @@ test_that("check class and length of output", {
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 3)
 
+  ## length(depth) > length(density), half.depth
+  calc_CosmicDoseRate(depth = c(2.78, 3.12), density = 1.7,
+                      corr.fieldChanges = TRUE, est.age = 20,
+                      latitude = 28.06451, longitude = 1.49646,
+                      altitude = 364, half.depth = TRUE)
 })
 
 test_that("check values from output example 1", {

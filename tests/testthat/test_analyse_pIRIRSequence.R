@@ -32,6 +32,46 @@ results <- analyse_pIRIRSequence(
   verbose = FALSE
 )
 
+## plot.single = FALSE && plot == TRUE
+suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and plot_GrowthCurve
+  analyse_pIRIRSequence(
+    object,
+    signal.integral.min = c(1, 2),
+    signal.integral.max = c(2, 3),
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    fit.method = "EXP",
+    sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+    main = "Pseudo pIRIR data set based on quartz OSL",
+    plot = TRUE,
+    plot.single = FALSE,
+    verbose = FALSE
+  )
+)
+
+test_that("input validation", {
+  expect_error(analyse_pIRIRSequence(),
+               "No value set for 'object'")
+  expect_error(analyse_pIRIRSequence("test"),
+               "Input object is not of type 'RLum.Analyis'")
+  expect_error(analyse_pIRIRSequence(list("test"),
+                                     signal.integral.min = 1,
+                                     signal.integral.max = 2,
+                                     background.integral.min = 900,
+                                     background.integral.max = 1000),
+               "Input object is not of type 'RLum.Analyis'")
+  expect_warning(analyse_pIRIRSequence(list(object),
+                                       signal.integral.max = 2,
+                                       background.integral.min = 900,
+                                       background.integral.max = 1000),
+                 "'signal.integral.min' missing, set to 1")
+  expect_warning(analyse_pIRIRSequence(list(object),
+                                       signal.integral.min = 1,
+                                       background.integral.min = 900,
+                                       background.integral.max = 1000),
+                 "'signal.integral.max' missing, set to 2")
+})
+
 test_that("check class and length of output", {
     testthat::skip_on_cran()
     local_edition(3)

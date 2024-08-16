@@ -50,7 +50,7 @@ calculation (e.g. 2nd or 3rd value).
 \strong{Basic steps of the approach}
 \enumerate{
 \item Estimate natural relative variation of the sample using a dose recovery test
-\item Sort the input values ascendantly
+\item Sort the input values in ascending order
 \item Calculate a running mean, starting with the lowermost two values and add values iteratively.
 \item Stop if the calculated \code{c[v]} exceeds the specified \code{cvThreshold}
 }

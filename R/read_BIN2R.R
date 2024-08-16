@@ -808,7 +808,7 @@ read_BIN2R <- function(
         TIME_SIZE <- readBin(con, what="int", 1, size=1, endian="little")
 
         ##time size corrections for wrong time formats; set n to 6 for all values
-        ##according the handbook by Geoff Duller, 2007
+        ##according to the handbook by Geoff Duller, 2007
         if(length(TIME_SIZE)>0){
           temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
 
@@ -831,7 +831,7 @@ read_BIN2R <- function(
         DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
 
         ##date size corrections for wrong date formats; set n to 6 for all values
-        ##according the handbook of Geoff Duller, 2007
+        ##according to the handbook of Geoff Duller, 2007
         DATE_SIZE<-6
         temp.DATE <- suppressWarnings(readChar(con, DATE_SIZE, useBytes = TRUE))
 
@@ -1053,7 +1053,7 @@ read_BIN2R <- function(
       DATE_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
 
       ##date size corrections for wrong date formats; set n to 6 for all values
-      ##according the handbook of Geoff Duller, 2007
+      ##according to the handbook of Geoff Duller, 2007
       DATE_SIZE<-6
       temp.DATE<-readChar(con, DATE_SIZE, useBytes=TRUE)
 

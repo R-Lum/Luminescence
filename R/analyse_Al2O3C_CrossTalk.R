@@ -121,6 +121,10 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##modify on request
   if(!is.null(method_control)){
+    if (!is.list(method_control)) {
+      stop("[analyse_Al2O3C_CrossTalk()] 'method_control' is expected ",
+           "to be a list", call. = FALSE)
+    }
     method_control_settings <- modifyList(x = method_control_settings, val = method_control)
 
   }
@@ -146,6 +150,14 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##check irradiation time correction
   if (!is.null(irradiation_time_correction)) {
+
+    if (!is.numeric(irradiation_time_correction) &&
+        !is(irradiation_time_correction, "RLum.Results")) {
+      stop("[analyse_Al2O3C_CrossTalk()] 'irradiation_time_correction' ",
+           "is expected to be a numeric value or an RLum.Results object",
+           call. = FALSE)
+    }
+
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -164,9 +176,7 @@ analyse_Al2O3C_CrossTalk <- function(
           "[analyse_Al2O3C_CrossTalk()] The object provided for the argument 'irradiation_time_correction' was created by an unsupported function!",
           call. = FALSE
         )
-
       }
-
     }
   }
 
