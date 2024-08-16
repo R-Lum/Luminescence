@@ -114,7 +114,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Sebastian Kreutzer \email{sebastian.kreutzer@uni-heidelberg.de} (\href{https://orcid.org/0000-0002-0734-2199}{ORCID}) [translator, data contributor]
+\strong{Maintainer}: Sebastian Kreutzer \email{maintainer_luminescence@r-luminescence.org} (\href{https://orcid.org/0000-0002-0734-2199}{ORCID}) [translator, data contributor]
 
 Authors:
 \itemize{
