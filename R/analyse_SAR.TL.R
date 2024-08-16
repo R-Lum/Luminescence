@@ -121,11 +121,14 @@ analyse_SAR.TL <- function(
   ...
 ){
 
+  if (missing("object")) {
+    stop("[analyse_SAR.TL()] No value set for 'object'!", call. = FALSE)
+  }
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
    if(!all(sapply(object, class) == "RLum.Analysis"))
-     stop("[analyse_SAR.TL()] All elements in the input list need to be of class 'RLum.Analysis'!",
+     stop("[analyse_SAR.TL()] All elements in the input list must be of class 'RLum.Analysis'!",
           call. = FALSE)
 
     ##run sequence
@@ -160,13 +163,7 @@ analyse_SAR.TL <- function(
   ##=============================================================================#
   # General Integrity Checks ---------------------------------------------------
 
-  ##GENERAL
-
   ##MISSING INPUT
-  if(missing("object")==TRUE){
-    stop("[analyse_SAR.TL()] No value set for 'object'!", call. = FALSE)
-  }
-
   if(missing("signal.integral.min") == TRUE){
     stop("[analyse_SAR.TL()] No value set for 'signal.integral.min'!", call. = FALSE)
   }
@@ -321,9 +318,7 @@ analyse_SAR.TL <- function(
   LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
 
   # Calculate Recycling Ratio -----------------------------------------------
-
-  ##Calculate Recycling Ratio
-
+  RecyclingRatio <- NA
   if(length(LnLxTnTx[LnLxTnTx[,"Repeated"]==TRUE,"Repeated"])>0){
 
     ##identify repeated doses
@@ -351,19 +346,14 @@ analyse_SAR.TL <- function(
     ##Just transform the matrix and add column names
     RecyclingRatio<-t(RecyclingRatio)
     colnames(RecyclingRatio)<-temp.ColNames
-
-  }else{RecyclingRatio<-NA}
-
+  }
 
   # Calculate Recuperation Rate ---------------------------------------------
-
-
-  ##Recuperation Rate
+  Recuperation <- NA
   if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
     Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
                           LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)
-  }else{Recuperation<-NA}
-
+  }
 
   # Combine and Evaluate Rejection Criteria ---------------------------------
 
@@ -702,4 +692,3 @@ analyse_SAR.TL <- function(
   return(newRLumResults.analyse_SAR.TL)
 
 }
-
