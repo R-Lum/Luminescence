@@ -23,7 +23,7 @@
 #' y = (observed - median(background)) / (max(observed) - median(background))
 #' }
 #'
-#' The background of the curve is defined as the last 20 % of the count values
+#' The background of the curve is defined as the last 20% of the count values
 #' of a curve.
 #'
 #' @param object [RLum.Data.Curve-class] (**required**):

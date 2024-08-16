@@ -86,7 +86,7 @@ setClass(
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = "NA",
             data = array(unlist(from), dim = c(nrow(from),ncol(from),1)),
             info = list())
@@ -110,7 +110,7 @@ setAs("RLum.Data.Image", "data.frame",
 setAs("matrix", "RLum.Data.Image",
       function(from,to){
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = "NA",
             data = array(from, c(nrow(from), ncol(from), 1)),
             info = list())
@@ -131,7 +131,7 @@ setAs("RLum.Data.Image", "matrix",
 setAs("array", "RLum.Data.Image",
       function(from, to){
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = "NA",
             data = from,
             info = list())
@@ -149,7 +149,7 @@ setAs("list", "RLum.Data.Image",
         array_list <- lapply(from, function(x) array(unlist(as.vector(x)), c(nrow(x), ncol(x), 1)))
 
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = "NA",
             data = array(unlist(array_list),
                          c(nrow(array_list[[1]]), ncol(array_list[[1]]), length(array_list))),

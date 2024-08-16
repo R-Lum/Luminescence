@@ -114,9 +114,9 @@
 #+ .smoothing()      +
 #+++++++++++++++++++++
 
-#' Allows smmoothing of data based on the function zoo::rollmean
+#' Allows smoothing of data based on the function zoo::rollmean
 #'
-#' The function just allows a direct and meaningfull access to the functionality of the zoo::rollmean()
+#' The function just allows a direct and meaningful access to the functionality of the zoo::rollmean()
 #' function. Arguments of the function are only partly valid.
 #'
 #' @param x [numeric] (**required**):

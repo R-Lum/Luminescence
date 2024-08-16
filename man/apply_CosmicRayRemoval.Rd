@@ -19,7 +19,7 @@ apply_CosmicRayRemoval(
 \item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}): input
 object to be treated. This can be also provided as \link{list}. If an \linkS4class{RLum.Analysis} object
 is provided, only the \linkS4class{RLum.Data.Spectrum} objects are treated. Please note: this mixing of
-objects do not work for a list of \code{RLum.Data} objects.}
+objects does not work for a list of \code{RLum.Data} objects.}
 
 \item{method}{\link{character} (\emph{with default}):
 Defines method that is applied for cosmic ray removal. Allowed methods are

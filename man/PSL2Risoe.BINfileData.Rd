@@ -2,7 +2,7 @@
 % Please edit documentation in R/PSL2Risoe.BINfileData.R
 \name{PSL2Risoe.BINfileData}
 \alias{PSL2Risoe.BINfileData}
-\title{Convert portable OSL data to an Risoe.BINfileData object}
+\title{Convert portable OSL data to a Risoe.BINfileData object}
 \usage{
 PSL2Risoe.BINfileData(object, ...)
 }
@@ -18,11 +18,11 @@ BIN file using \link{write_R2BIN}.
 }
 \description{
 Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
-an \code{Risoe.BINfileData} object \strong{(BETA)}.
+a \code{Risoe.BINfileData} object \strong{(BETA)}.
 }
 \details{
 This function converts an \linkS4class{RLum.Analysis} object that was produced
-by the \link{read_PSL2R} function to an \linkS4class{Risoe.BINfileData}.
+by the \link{read_PSL2R} function to a \linkS4class{Risoe.BINfileData}.
 The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
 \link{write_R2BIN}.
 }

@@ -105,7 +105,7 @@ setAs("list", "RLum.Data.Curve",
       function(from,to){
 
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = NA_character_,
             data = matrix(unlist(from), ncol = 2),
             info = list())
@@ -124,7 +124,7 @@ setAs("data.frame", "RLum.Data.Curve",
       function(from,to){
 
               new(to,
-                  recordType = "unkown curve type",
+                  recordType = "unknown curve type",
                   curveType = NA_character_,
                   data = as.matrix(from),
                   info = list())
@@ -144,7 +144,7 @@ setAs("RLum.Data.Curve", "data.frame",
 setAs("matrix", "RLum.Data.Curve",
       function(from,to){
         new(to,
-            recordType = "unkown curve type",
+            recordType = "unknown curve type",
             curveType = NA_character_,
             data = from,
             info = list())

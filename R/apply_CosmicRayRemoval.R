@@ -34,7 +34,7 @@
 #' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**): input
 #' object to be treated. This can be also provided as [list]. If an [RLum.Analysis-class] object
 #' is provided, only the [RLum.Data.Spectrum-class] objects are treated. Please note: this mixing of
-#' objects do not work for a list of `RLum.Data` objects.
+#' objects does not work for a list of `RLum.Data` objects.
 #'
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
@@ -334,14 +334,7 @@ apply_CosmicRayRemoval <- function(
           mtext(side = 3, paste0("Frame: ", x, " (",
                                  colnames(object.data.temp)[x],
                                  ") - no threshold applied!"))
-
-
-
         }
-
-
-
-
       }
 
       ##(9) - return information on the amount of removed cosmic-rays
@@ -366,7 +359,7 @@ apply_CosmicRayRemoval <- function(
 
   }else{
 
-    stop("[apply_CosmicRayRemoval()] Unkown method for cosmic ray removal.")
+    stop("[apply_CosmicRayRemoval()] Unknown method for cosmic ray removal.")
 
   }
 

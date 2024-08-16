@@ -38,12 +38,12 @@ The function provides a standardised plot output for curve data of an
 \code{RLum.Data.Curve} S4-class object.
 }
 \details{
-Only single curve data can be plotted with this function.Arguments
+Only single curve data can be plotted with this function. Arguments
 according to \link{plot}.
 
 \strong{Curve normalisation}
 
-The argument \code{norm} normalises all count values, to date the following
+The argument \code{norm} normalises all count values. To date the following
 options are supported:
 
 \code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
@@ -58,7 +58,7 @@ via GitHub:
 y = (observed - median(background)) / (max(observed) - median(background))
 }
 
-The background of the curve is defined as the last 20 \% of the count values
+The background of the curve is defined as the last 20\% of the count values
 of a curve.
 }
 \note{
