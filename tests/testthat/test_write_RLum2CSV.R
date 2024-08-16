@@ -14,10 +14,14 @@ test_that("test errors and general export function", {
   expect_error(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE,
                               path = "non-existing"),
                "Directory provided via the argument 'path' does not exist")
+
+  ## move temporarily to avoid polluting the working directory
+  cwd <- setwd(tempdir())
   expect_message(
       expect_null(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE)),
     "Path automatically set to")
   expect_type(write_RLum2CSV(ExampleData.portableOSL, export = FALSE), "list")
+  setwd(cwd)
 
   data("ExampleData.RLum.Data.Image", envir = environment())
   write_RLum2CSV(ExampleData.RLum.Data.Image, path = tempdir())
