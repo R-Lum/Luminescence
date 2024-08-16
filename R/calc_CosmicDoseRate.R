@@ -260,19 +260,18 @@ calc_CosmicDoseRate<- function(
   ##============================================================================##
 
   if(any(depth < 0) || any(density < 0)) {
-    cat(paste("\nNo negative values allowed for depth and density"))
-    stop(domain=NA)
+    stop("[calc_CosmicDoseRate()] No negative values allowed for ",
+         "depth and density", call. = FALSE)
   }
 
   if(corr.fieldChanges == TRUE) {
     if(is.na(est.age) == TRUE) {
-      cat(paste("\nCorrection for geomagnetic field changes requires",
-                "an age estimate."), fill = FALSE)
-      stop(domain=NA)
+      stop("[calc_CosmicDoseRate()] Correction for geomagnetic field ",
+           "changes requires an age estimate.", call. = FALSE)
     }
     if(est.age > 80) {
-      cat(paste("\nCAUTION: No geomagnetic field change correction for samples",
-                "older >80 ka possible!"), fill = FALSE)
+      cat("\nCAUTION: No geomagnetic field change correction for samples",
+          "older >80 ka possible!")
       corr.fieldChanges<- FALSE
     }
   }
