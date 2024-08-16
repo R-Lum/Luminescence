@@ -220,11 +220,8 @@ calc_FadingCorr <- function(
       g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
 
     }else{
-      try({
-        stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!",
-             call. = FALSE)
-
-      })
+      message("[calc_FadingCorr()] Error: Unknown originator for the ",
+              "provided RLum.Results object via 'g_value'!")
       return(NULL)
     }
   }
@@ -350,11 +347,11 @@ calc_FadingCorr <- function(
 
       ##otherwise the automatic error value finding
       ##will never work
+      res <- NA
       if(!is(temp,"try-error") && temp$root<1e8) {
-        return(temp$root)
-      } else{
-        return(NA)
+        res <- temp$root
       }
+      return(res)
 
     }, FUN.VALUE = 1))
 
