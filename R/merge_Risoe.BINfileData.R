@@ -87,7 +87,7 @@ merge_Risoe.BINfileData <- function(
 
   # Integrity Checks --------------------------------------------------------
   if(length(input.objects) < 2){
-    message("[merge_Risoe.BINfileData()] Nothing done at least two input objects are needed!")
+    message("[merge_Risoe.BINfileData()] Nothing done: at least two input objects are needed!")
     return(input.objects)
 
   }
@@ -95,10 +95,9 @@ merge_Risoe.BINfileData <- function(
   if(is(input.objects, "character") == TRUE){
     for(i in 1:length(input.objects)){
       if(file.exists(input.objects[i])==FALSE){
-        stop("[merge_Risoe.BINfileData()] File ",input.objects[i]," does not exist!", call. = FALSE)
-
+        stop("[merge_Risoe.BINfileData()] File '", input.objects[i],
+             "' does not exist!", call. = FALSE)
       }
-
     }
 
   }else{
@@ -114,12 +113,8 @@ merge_Risoe.BINfileData <- function(
       }
 
     }else{
-
-      stop("[merge_Risoe.BINfileData()]
-                Input object is not a 'character' nor a 'list'!")
-
+      stop("[merge_Risoe.BINfileData()] Input object is neither a character nor a list!")
     }
-
   }
 
 
