@@ -180,6 +180,10 @@ analyse_pIRIRSequence <- function(
   ...
 ){
 
+  if (missing("object")) {
+    stop("[analyse_pIRIRSequence()] No value set for 'object'!")
+  }
+
 # SELF CALL -----------------------------------------------------------------------------------
  if(is.list(object)){
 
@@ -267,14 +271,10 @@ analyse_pIRIRSequence <- function(
 
   ##GENERAL
 
-    ##MISSING INPUT
-    if(missing("object")==TRUE){
-      stop("[analyse_pIRIRSequence()] No value set for 'object'!")
-    }
-
     ##INPUT OBJECTS
     if(is(object, "RLum.Analysis")==FALSE){
-      stop("[analyse_pIRIRSequence()] Input object is not of type 'RLum.Analyis'!")
+      stop("[analyse_pIRIRSequence()] Input object is not of type 'RLum.Analyis'!",
+           call. = FALSE)
     }
 
     ##CHECK ALLOWED VALUES IN SEQUENCE STRUCTURE
@@ -293,20 +293,18 @@ analyse_pIRIRSequence <- function(
 
 # Deal with extra arguments -------------------------------------------------------------------
 
+  ## default values
+  mtext.outer <- "MEASUREMENT INFO"
+  main <- ""
+  log <- ""
+  cex <- 0.7
+
   ##deal with addition arguments
   extraArgs <- list(...)
-
-  mtext.outer <- if("mtext.outer" %in% names(extraArgs)) {extraArgs$mtext.outer} else
-  {"MEASUREMENT INFO"}
-
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {""}
-
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {.7}
+  mtext.outer <- if ("mtext.outer" %in% names(extraArgs)) extraArgs$mtext.outer
+  main <- if ("main" %in% names(extraArgs)) extraArgs$main
+  log <- if ("log" %in% names(extraArgs)) extraArgs$log
+  cex <- if ("cex" %in% names(extraArgs)) extraArgs$cex
 
 
 # Protocol Integrity Checks --------------------------------------------------
@@ -526,7 +524,7 @@ analyse_pIRIRSequence <- function(
       temp.signal.integral.min <- signal.integral.min[i]
       temp.signal.integral.max <- signal.integral.max[i]
       temp.background.integral.min <- background.integral.min[i]
-      temp.backbround.integral.max <- background.integral.max[i]
+      temp.background.integral.max <- background.integral.max[i]
 
     }else{
 
