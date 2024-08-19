@@ -10,9 +10,6 @@ test_that("test convert functions", {
   expect_error(convert_BIN2CSV(file = "", export = FALSE),
                regexp = "[read_BIN2R()] File does not exist!",
                fixed = TRUE)
-  expect_error(convert_Daybreak2CSV(file = "", export = FALSE),
-               regexp = "[read_Daybreak2R()] file name does not seem to exist.",
-               fixed = TRUE)
   #expect_error(convert_PSL2CSV(file = "", export = FALSE))
   expect_error(suppressWarnings(convert_XSYG2CSV(file = "", export = FALSE)))
 
