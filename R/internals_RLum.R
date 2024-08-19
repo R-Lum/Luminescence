@@ -875,7 +875,7 @@ fancy_scientific <- function(l) {
       (int && val != as.integer(val))) {
     if (is.null(name))
       name <- all.vars(match.call())[1]
-    .throw_error("'", name, "' must be a positive ", if (int) "integer ",
-         "scalar")
+    stop("'", name, "' must be a positive ", if (int) "integer ",
+         "scalar", call. = FALSE)
   }
 }
