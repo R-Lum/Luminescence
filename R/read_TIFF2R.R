@@ -35,9 +35,11 @@ read_TIFF2R <- function(
   ## most of the users don't need this import, no need to bother them
   ## with required libraries
   if (!requireNamespace("tiff", quietly = TRUE))
+    # nocov start
     stop("Importing TIFF files requires the package tiff.\n",
          "To install this package run 'install.packages('tiff')' in your R console.",
          call. = FALSE)
+    # nocov end
 
   if(!file.exists(file))
     stop("[read_TIFF2R()] File does not exist or is not readable!", call. = FALSE)
@@ -53,4 +55,3 @@ read_TIFF2R <- function(
   set_RLum(class = "RLum.Data.Image", data = temp@data)
 
 }
-
