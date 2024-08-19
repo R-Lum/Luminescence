@@ -35,6 +35,13 @@ test_that("Test internals", {
 
   # .smoothing ----------------------------------------------------------------------------------
   expect_silent(Luminescence:::.smoothing(runif(100), k = 5, method = "median"))
+  suppressWarnings( # suppress second warning: number of items to replace
+                    #   is not a multiple of replacement length
+  expect_warning(.smoothing(runif(100), k = 4, method = "median"),
+                 "'k' must be odd")
+  )
+  expect_silent(.smoothing(runif(200), method = "median"))
+  expect_silent(.smoothing(runif(100), k = 4, method = "mean"))
   expect_error(Luminescence:::.smoothing(runif(100), method = "test"))
 
   # fancy_scientific ()--------------------------------------------------------------------------
@@ -45,12 +52,21 @@ test_that("Test internals", {
   y <- c(0.1, 0.001, 0.0001)
   plot(1:length(y), y, yaxt = "n", log = "y")
   expect_silent(Luminescence:::.add_fancy_log_axis(side = 2, las = 1))
+  expect_null(.add_fancy_log_axis(side = 1, las = 1))
 
   # .create_StatisticalSummaryText() ------------------------------------------------------------
+  stats <- calc_Statistics(data.frame(1:10,1:10))
   expect_silent(Luminescence:::.create_StatisticalSummaryText())
-  expect_type(
-    Luminescence:::.create_StatisticalSummaryText(
-      calc_Statistics(data.frame(1:10,1:10)), keywords = "mean"), "character")
+  expect_equal(.create_StatisticalSummaryText(stats,
+                                              keywords = "mean"),
+               "mean = 5.5")
+  expect_equal(.create_StatisticalSummaryText(stats,
+                                              keywords = "unweighted$mean"),
+               "mean = 5.5")
+  expect_equal(.create_StatisticalSummaryText(stats,
+                                              keywords = "weighted$mean"),
+               "weighted$mean = 1.89")
+
 
   # .unlist_RLum() ------------------------------------------------------------------------------
   expect_length(Luminescence:::.unlist_RLum(list(a = list(b = list(c = list(d = 1, e = 2))))), 2)
@@ -90,16 +106,27 @@ test_that("Test internals", {
     ##clean-up
     rm(m)
 
-   # .download_file ---------------------------------------------------------------------------
-   ## returns just NULL (no URL detected)
-   expect_null(.download_file(url = "_url"))
+  # .download_file() --------------------------------------------------------
 
-   ## attempts download
-   expect_message(.download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
+  ## returns just NULL (no URL detected)
+  expect_null(.download_file(url = "_url"))
 
-    ## attempts download silently
-   expect_null(suppressMessages(
-    .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg")))
+  ## attempts download but fails
+  url.404 <- "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"
+  expect_message(
+      expect_message(
+          expect_message(expect_null(.download_file(url = url.404)),
+                         "URL detected:"),
+          "Attempting download ..."),
+      "FAILED")
+
+  ## attempts download and succeeds
+  url.ok <- "https://raw.githubusercontent.com/R-Lum/rxylib/master/codecov.yml"
+  suppressMessages( # silence other messages already tested above
+      expect_message(expect_type(.download_file(url = url.ok),
+                                 "character"),
+                     "OK")
+  )
 
   # .get_named_list_element  ------------------------------------------------
   ## create random named list element
@@ -110,6 +137,14 @@ test_that("Test internals", {
   )
   t <- expect_type(.get_named_list_element(l, element = "x"), type = "list")
   expect_equal(sum(unlist(t)), expected = 110)
+
+  ## .throw_error() ---------------------------------------------------------
+  expect_error(.throw_error("Error message"),
+               "Error message")
+
+  ## .throw_warning() -------------------------------------------------------
+  expect_warning(.throw_warning("Warning message"),
+                 "Warning message")
 
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
