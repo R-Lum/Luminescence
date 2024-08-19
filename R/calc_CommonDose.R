@@ -105,31 +105,29 @@ calc_CommonDose <- function(
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
-  
-  if(missing(data)==FALSE){
-    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_CentralDose] Error: 'data' object has to be of type
-           'data.frame' or 'RLum.Results'!")
-    }else{
-      if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum(data, "data")
-      }
-    }
+
+  if (!is.data.frame(data) && !is(data,"RLum.Results")) {
+    stop("[calc_CentralDose] Error: 'data' object has to be of type ",
+         "'data.frame' or 'RLum.Results'!")
   }
-  try(colnames(data)<- c("ED","ED_Error"), silent = TRUE)
-  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") {
-    cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
-    stop(domain=NA)
+  if (is(data, "RLum.Results")) {
+    data <- get_RLum(data, "data")
+  }
+  if (ncol(data) < 2) {
+    stop("[calc_FiniteMixture()] 'data' object must have two columns",
+         call. = FALSE)
   }
   if(!missing(sigmab)) {
-    if(sigmab <0 | sigmab >1) {
-      cat(paste("sigmab needs to be given as a fraction between",
-                "0 and 1 (e.g. 0.2)"), fill = FALSE)
-      stop(domain=NA)
+    if (sigmab < 0 || sigmab > 1) {
+      stop("[calc_FiniteMixture()] 'sigmab' must be a value between 0 and 1",
+           call. = FALSE)
     }
   }
-  
-  
+
+  ## set expected column names
+  colnames(data)[1:2] <- c("ED", "ED_Error")
+
+
   ##============================================================================##
   ## ADDITIONAL ARGUMENTS
   ##============================================================================##

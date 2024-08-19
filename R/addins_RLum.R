@@ -3,12 +3,12 @@
 ##################################################################################
 ##<<Prerequisite>>
 ##
-## - Add-ins should support more expierenced users. For all others we have the package 'RLumShiny'
+## - Add-ins should support more experienced users. For all others we have the package 'RLumShiny'
 ##
 ## - Add-ins should be provided as non-exported function only, having the a name with a leading dot, e.g., .addin.
 ##   This prevents further chaos in the manuel.
 ##
-## - Interative add-ins are not desired, except they are implemented in the package 'RLumShiny' or they
+## - Interactive add-ins are not desired, except they are implemented in the package 'RLumShiny' or they
 ##   are only available if the package 'RLumShiny' is available.
 ##
 ##

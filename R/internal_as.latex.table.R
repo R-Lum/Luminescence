@@ -1,7 +1,7 @@
 #' Create LaTex tables from data.frames and RLum objects
 #'
 #' This function takes a data.frame and returns a table in LaTex code that
-#' can be copied in any tex document.
+#' can be copied into any tex document.
 #'
 #' @param x [data.frame] or `RLum` object (**required**)
 #'
@@ -28,7 +28,7 @@
 #'
 #' @param split [integer] (*optional*):
 #' an [integer] specifying the number of individual tables
-#' the data frame is split into. Useful for wide tables. Currently unnused.
+#' the data frame is split into. Useful for wide tables. Currently unused.
 #'
 #' @param tabular_only [logical] (*with default*): if `TRUE` on the tablular but not the
 #' table environment is returned. This gives a lot of additional flexibility at hand

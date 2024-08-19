@@ -3,8 +3,8 @@
 #' Function allows merging of RLum.Analysis objects and adding of allowed
 #' objects to an RLum.Analysis.
 #'
-#' This function simply allowing to merge [RLum.Analysis-class]
-#' objects.  Additionally other [RLum-class] objects can be added
+#' This function simply allows to merge [RLum.Analysis-class]
+#' objects. Moreover, other [RLum-class] objects can be added
 #' to an existing [RLum.Analysis-class] object. Supported objects
 #' to be added are: [RLum.Data.Curve-class],
 #' [RLum.Data.Spectrum-class] and
@@ -59,13 +59,9 @@ merge_RLum.Analysis<- function(
   temp.class.test <- sapply(1:length(objects), function(x){
 
     if(is(objects[[x]], "RLum") == FALSE){
-
-      temp.text <- paste("[merge_RLum.Analysis()]: At least element", x, "is not of class 'RLum' or a derivative class!")
-      stop(temp.text)
+      stop("[merge_RLum.Analysis()]: At least element #", x,
+           " is not of class 'RLum' or a derivative class!", call. = FALSE)
     }
-
-
-
 
     ##provide class of objects
     is(objects[[x]])[1]
@@ -74,10 +70,8 @@ merge_RLum.Analysis<- function(
 
   ##check if at least one object of RLum.Analysis is provided
   if(!"RLum.Analysis"%in%temp.class.test){
-
-    stop("[merge_RLum.Analysis()] At least one input object in the list has to be of class
-           'RLum.Analysis'!")
-
+    stop("[merge_RLum.Analysis()] At least one input object in the list ",
+         "has to be of class 'RLum.Analysis'!")
   }
 
 
@@ -113,7 +107,8 @@ merge_RLum.Analysis<- function(
 
     }else{
 
-      stop("[merge_RLum.Anlysis()] What ever was provided, this 'RLum' object is not supported!")
+      stop("[merge_RLum.Analysis()] Object of class '",
+           class(objects[[x]]), "' not supported!")
 
     }
 
