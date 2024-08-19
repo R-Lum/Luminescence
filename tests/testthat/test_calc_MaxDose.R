@@ -2,7 +2,7 @@ data(ExampleData.DeValues, envir = environment())
 temp <- calc_MaxDose(ExampleData.DeValues$CA1,
                      sigmab = 0.2,
                      par = 3,
-                     plot = FALSE,
+                     plot = TRUE,
                      verbose = FALSE)
 
 test_that("check class and length of output", {
