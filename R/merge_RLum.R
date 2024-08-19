@@ -2,10 +2,10 @@
 #'
 #' Function calls object-specific merge functions for RLum S4 class objects.
 #'
-#' The function provides a generalised access point for merge specific
+#' The function provides a generalised access point for merging specific
 #' [RLum-class] objects. Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
-#' found in the documentations of each merge function.
+#' found in the documentation of each merge function.
 #' Empty list elements (`NULL`) are automatically removed from the input `list`.
 #'
 #' \tabular{lll}{
@@ -65,7 +65,7 @@ merge_RLum<- function(
            call. = FALSE)
 
     ##we are friendly and remove all empty list elements, this helps a lot if we place things
-    ##we DO NOT provide a warning as this lower the computation speed in particular cases.
+    ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
     objects <- objects[!sapply(objects, is.null)]
 
   ##if list is empty afterwards we do nothing

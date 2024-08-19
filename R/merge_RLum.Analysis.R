@@ -3,8 +3,8 @@
 #' Function allows merging of RLum.Analysis objects and adding of allowed
 #' objects to an RLum.Analysis.
 #'
-#' This function simply allowing to merge [RLum.Analysis-class]
-#' objects.  Additionally other [RLum-class] objects can be added
+#' This function simply allows to merge [RLum.Analysis-class]
+#' objects. Moreover, other [RLum-class] objects can be added
 #' to an existing [RLum.Analysis-class] object. Supported objects
 #' to be added are: [RLum.Data.Curve-class],
 #' [RLum.Data.Spectrum-class] and

@@ -12,9 +12,9 @@
 #' be further used by other software, e.g., Analyst (Geoff Duller).
 #'
 #' Typical application example: g-value estimation from fading measurements
-#' using the Analyst or any other self written script.
+#' using the Analyst or any other self-written script.
 #'
-#' Beside the some simple data transformation steps the function applies the
+#' Beside some simple data transformation steps, the function applies
 #' functions [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
 #'
 #' @param object [character], [RLum.Analysis-class] or [list] (**required**):
@@ -30,7 +30,7 @@
 #' file will be updated with the information from the XSYG file in the same
 #' folder as the original BINX-file.
 #'
-#' **Note:** The XSYG and the BINX-file have to be originate from the
+#' **Note:** The XSYG and the BINX-file must originate from the
 #' same measurement!
 #'
 #' @param recordType [character] (*with default*):
