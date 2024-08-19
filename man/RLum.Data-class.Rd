@@ -30,6 +30,6 @@ showClass("RLum.Data")
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+}
 \keyword{classes}
 \keyword{internal}

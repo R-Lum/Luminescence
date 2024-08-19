@@ -146,6 +146,23 @@ test_that("Test internals", {
   expect_warning(.throw_warning("Warning message"),
                  "Warning message")
 
+  # .validate_positive_scalar() ---------------------------------------------
+  expect_silent(.validate_positive_scalar(1.3))
+  expect_silent(.validate_positive_scalar(2, int = TRUE))
+
+  expect_error(.validate_positive_scalar(test <- "a"),
+               "'test' must be a positive scalar")
+  expect_error(.validate_positive_scalar(iris),
+               "'iris' must be a positive scalar")
+  expect_error(.validate_positive_scalar(1:2, name = "var"),
+               "'var' must be a positive scalar")
+  expect_error(.validate_positive_scalar(0, name = "var"),
+               "'var' must be a positive scalar")
+  expect_error(.validate_positive_scalar(-1, name = "var"),
+               "'var' must be a positive scalar")
+  expect_error(.validate_positive_scalar(1.5, int = TRUE, name = "var"),
+               "'var' must be a positive integer")
+
   ## C++ code ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##
   # src_create_RLumDataCurve_matrix -------------------------------------------------------------

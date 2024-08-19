@@ -72,12 +72,7 @@ results <- calc_gSGC_feldspar(
 
 plot_AbanicoPlot(results)
 
-} 
-
-\section{How to cite}{
-Gray, H.J., Kreutzer, S., 2024. calc_gSGC_feldspar(): Calculate Global Standardised Growth Curve (gSGC) for Feldspar MET-pIRIR. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-41. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., Guo, Y.-J., 2015.
 Construction of a “global standardised growth curve” (gSGC) for infrared
@@ -89,5 +84,5 @@ stimulated luminescence dating of K-feldspar 27, 119–130. \doi{10.1016/j.quage
 \author{
 Harrison Gray, USGS (United States),
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
-, RLum Developer Team}
+}
 \keyword{datagen}

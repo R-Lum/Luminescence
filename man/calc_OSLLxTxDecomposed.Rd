@@ -62,11 +62,6 @@ CW-OSL curves decomposed by \verb{[OSLdecomposition::RLum.OSL_decomposition]}
 \section{Function version}{
  0.1.0
 }
- 
-
-\section{How to cite}{
-Mittelstrass, D., 2024. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-41. https://CRAN.R-project.org/package=Luminescence
-}
 
 \references{
 Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019.
@@ -79,5 +74,5 @@ talk presented at DLED 2019, Bingen, Germany
 }
 \author{
 Dirk Mittelstrass
-, RLum Developer Team}
+}
 \keyword{datagen}

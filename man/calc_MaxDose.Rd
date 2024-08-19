@@ -93,12 +93,7 @@ data(ExampleData.DeValues, envir = environment())
 # apply the maximum dose model
 calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 
-} 
-
-\section{How to cite}{
-Burow, C., 2024. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-41. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young
@@ -149,4 +144,4 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010
-, RLum Developer Team}
+}

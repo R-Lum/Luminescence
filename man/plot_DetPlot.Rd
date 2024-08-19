@@ -158,12 +158,7 @@ plot_DetPlot(
   n.channels = 5)
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., 2024. plot_DetPlot(): Create De(t) plot. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-41. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 using De as a function of illumination time. Radiation Measurements 37, 511-518.
@@ -174,4 +169,4 @@ doi:10.1016/S1350-4487(03)00063-5
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
-, RLum Developer Team}
+}
