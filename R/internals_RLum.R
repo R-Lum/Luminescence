@@ -861,11 +861,11 @@ fancy_scientific <- function(l) {
 
 }
 
-#' Validate scalar variables expected to be positive
+#' @title Validate Scalar Variables Expected to be Positive
 #'
-#' @param val Value to validate
-#' @param int Whether the value has to be an integer (`FALSE` by default)
-#' @param name Variable name to report in case of error; if not specified
+#' @param val [numeric] (**required**): value to validate
+#' @param int [logical] (*with default*): whether the value has to be an integer (`FALSE` by default)
+#' @param name [character] (*with default*): Variable name to report in case of error; if not specified
 #'        it's inferred from the name of the name of the variable tested
 #'
 #' @md
@@ -875,7 +875,7 @@ fancy_scientific <- function(l) {
       (int && val != as.integer(val))) {
     if (is.null(name))
       name <- all.vars(match.call())[1]
-    stop("'", name, "' must be a positive ", if (int) "integer ",
-         "scalar", call. = FALSE)
+    .throw_error("'", name, "' must be a positive ", if (int) "integer ",
+         "scalar")
   }
 }
