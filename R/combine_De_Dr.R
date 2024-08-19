@@ -513,10 +513,12 @@ if (!all(t_pkg <- c(
   requireNamespace("rjags", quietly = TRUE),
   requireNamespace("coda", quietly = TRUE),
   requireNamespace("mclust", quietly = TRUE)))) {
+  # nocov start
   t_names <- c('rjags', 'coda', 'mclust')
     stop(paste0("[combine_De_Dr()] To use this function you have to first
          install the package(s) ", paste(t_names[!t_pkg], collapse = ",")),
          call. = FALSE)
+  # nocov end
 }
 
 # Integrity checks --------------------------------------------------------

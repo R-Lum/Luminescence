@@ -195,6 +195,7 @@ report_RLum <- function(
   ## PRE-CHECKS ----
 
   # check if required namespace(s) are available
+  # nocov start
   if (!requireNamespace("rmarkdown", quietly = TRUE))
     stop("Creating object reports requires the 'rmarkdown' package.",
          " To install this package run 'install.packages('rmarkdown')' in your R console.",
@@ -211,6 +212,7 @@ report_RLum <- function(
   } else {
     isRStudio <- TRUE
   }
+  # nocov end
 
   # check if files exist
   if (!is.null(css.file))

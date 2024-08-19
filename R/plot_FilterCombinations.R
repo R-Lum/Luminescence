@@ -295,8 +295,10 @@ plot_FilterCombinations <- function(
 
       ##check for plotly
       if (!requireNamespace("plotly", quietly = TRUE)) {
+        # nocov start
         stop("[plot_FilterCombinations()] Package 'plotly' needed interactive plot functionality. Please install it.",
              call. = FALSE)
+        # nocov end
       }
 
       ##create basic plot

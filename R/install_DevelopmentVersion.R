@@ -74,7 +74,7 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
 
     message("Please copy and run the following code in your R command-line:\n")
     if (!requireNamespace("devtools", quietly = TRUE))
-      message("install.packages('devtools')")
+      message("install.packages('devtools')") # nocov
 
     message(branches$INSTALL[as.numeric(index)], "\n")
 
@@ -96,9 +96,11 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
 
     # check if 'devtools' is available and install if not
     if (!requireNamespace("devtools", quietly = TRUE)) {
+      # nocov start
       message("Please install the 'devtools' package first by running the following command:\n",
               "install.packages('devtools')")
       return(NULL)
+      # nocov end
     }
 
     # detach the 'Luminescence' package

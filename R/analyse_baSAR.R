@@ -788,6 +788,7 @@ analyse_baSAR <- function(
   ##check whether rjags is available
   ##code snippet taken from
   ##http://r-pkgs.had.co.nz/description.html
+  # nocov start
   if (!requireNamespace("rjags", quietly = TRUE)) {
     stop("[analyse_baSAR()] To use this function you have to first install the package 'rjags'.",
          call. = FALSE)
@@ -797,6 +798,7 @@ analyse_baSAR <- function(
     stop("[analyse_baSAR()] To use this function you have to first install the package 'coda'.",
          call. = FALSE)
   }
+  # nocov end
 
   #capture additional piped arguments
   additional_arguments <- list(

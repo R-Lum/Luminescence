@@ -3578,9 +3578,11 @@ plot_AbanicoPlot <- function(
   ## INTERACTIVE PLOT ----------------------------------------------------------
   if (interactive) {
     if (!requireNamespace("plotly", quietly = TRUE))
+      # nocov start
       stop("The interactive abanico plot requires the 'plotly' package. To install",
            " this package run 'install.packages('plotly')' in your R console.",
            call. = FALSE)
+      # nocov end
 
     ##cheat R check (global visible binding error)
     x <- NA

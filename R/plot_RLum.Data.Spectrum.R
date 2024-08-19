@@ -879,8 +879,10 @@ if(plot){
     ## Plot: interactive ----
     ##http://r-pkgs.had.co.nz/description.html
     if (!requireNamespace("plotly", quietly = TRUE)) {
+      # nocov start
       stop("[plot_RLum.Data.Spectrum()] Package 'plotly' needed for this plot type. Please install it.",
            call. = FALSE)
+      # nocov end
     }
 
        ##set up plot

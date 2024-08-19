@@ -48,6 +48,7 @@
 
   ##check if package is installed
   if(!requireNamespace("rstudioapi", quietly = TRUE)){
+    # nocov start
     message("Package 'rstudioapi' is not installed but needed to search for TODOs, do you want to install it?\n\n",
             " [n/N]: No (default)\n",
             " [y/Y]: Yes\n")
@@ -58,7 +59,7 @@
     if(tolower(answer) == "y"){
       utils::install.packages("rstudioapi", dependencies = TRUE)
     }
-
+    # nocov end
   }else{
 
   ##parse code
