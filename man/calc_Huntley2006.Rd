@@ -279,12 +279,7 @@ kars <- calc_Huntley2006(
  readerDdot = readerDdot,
  n.MC = 25)
 }
-} 
-
-\section{How to cite}{
-King, G.E., Burow, C., Kreutzer, S., 2024. calc_Huntley2006(): Apply the Huntley (2006) model. Function version 0.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., 2024. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.9.25.9000-41. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -308,5 +303,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 Georgina E. King, University of Lausanne (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany) \cr
 Sebastian Kreutzer, Ruprecht-Karl University of Heidelberg (Germany)
-, RLum Developer Team}
+}
 \keyword{datagen}
