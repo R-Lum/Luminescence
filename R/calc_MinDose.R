@@ -344,25 +344,31 @@ calc_MinDose <- function(
   ## ============================================================================##
   if (!missing(data)) {
     if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
-      stop("[calc_MinDose] Error: 'data' object has to be of type\n
-           'data.frame' or 'RLum.Results'!")
-    } else {
-      if (is(data, "RLum.Results")) {
-        data <- get_RLum(data, "data")
-      }
+      stop("[calc_MinDose()] Error: 'data' object has to be of type ",
+           "'data.frame' or 'RLum.Results'!")
+    }
+    if (is(data, "RLum.Results")) {
+      data <- get_RLum(data, "data")
     }
   }
 
   if (any(!complete.cases(data))) {
-    message(paste("\n[calc_MinDose] Warning:\nInput data contained NA/NaN values,",
-                  "which were removed prior to calculations!"))
+    message("\n[calc_MinDose] Warning: Input data contained NA/NaN values, ",
+            "which were removed prior to calculations!")
     data <- data[complete.cases(data), ]
   }
 
-  if (!missing(init.values) && length(init.values) != 4) {
-    stop("[calc_MinDose] Error: Please provide initial values for all model parameters. ",
-         "Missing parameter(s): ", paste(setdiff(c("gamma", "sigma", "p0", "mu"), names(init.values)), collapse = ", "),
-         call. = FALSE)
+  if (!missing(init.values)) {
+    if (!is.list(init.values)) {
+      .throw_error("'init.values' is expected to be a named list")
+    }
+    exp.names <- c("gamma", "sigma", "p0", "mu")
+    mis.names <- setdiff(exp.names, names(init.values))
+    if (length(init.values) != length(exp.names) || length(mis.names) > 0) {
+      .throw_error("Please provide initial values for all model parameters. ",
+                   "\nMissing parameters: ",
+                   paste(mis.names, collapse = ", "))
+    }
   }
 
   ##============================================================================##

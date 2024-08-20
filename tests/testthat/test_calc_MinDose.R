@@ -4,6 +4,26 @@ temp <- calc_MinDose(data = ExampleData.DeValues$CA1,
                      verbose = FALSE,
                      plot = FALSE)
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  expect_error(calc_MinDose(),
+               "is missing, with no default")
+  expect_error(calc_MinDose("test"),
+               "'data' object has to be of type 'data.frame' or 'RLum.Results'")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1),
+               "is missing, with no default")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, init.values = 1:4),
+               "'init.values' is expected to be a named list")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1,
+                            init.values = list(1, 2, 3)),
+               "Please provide initial values for all model parameters")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1,
+                            init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
+               "Missing parameters: gamma, sigma")
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
@@ -11,6 +31,22 @@ test_that("check class and length of output", {
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 9)
 
+  ## invert
+  expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                             invert = TRUE, verbose = FALSE, plot = FALSE))
+  expect_output(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                             invert = TRUE, log = FALSE, log.output = TRUE,
+                             verbose = TRUE, plot = FALSE),
+                "'log' was automatically changed to TRUE")
+
+  ## bootstrap
+  expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              bootstrap = TRUE, bs.M = 10, par = 4),
+                 "Recycled Bootstrap")
+  expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              bootstrap = TRUE, bs.M = 10,
+                              multicore = TRUE, cores = 2),
+                 "Spawning 2 instances of R for parallel computation")
 })
 
 test_that("check values from output example", {
