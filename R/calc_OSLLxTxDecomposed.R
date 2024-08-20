@@ -89,7 +89,8 @@ calc_OSLLxTxDecomposed <- function(
   #written in the documentation
   OSL.component <- as.integer(OSL.component[1])
 
-  if (!(is.numeric(OSL.component) || is.character(OSL.component)))
+  if (!(is.numeric(OSL.component) || is.character(OSL.component)) ||
+      is.na(OSL.component))
     stop("[calc_OSLLxTxDecomposed()] Type error! No valid data type for OSL.component", call. = FALSE)
 
   # get component index from component name
@@ -111,11 +112,9 @@ calc_OSLLxTxDecomposed <- function(
       # insert background-signal-component check here
 
     } else {
-      stop(paste0("[calc_OSLLxTxDecomposed()] Invalid OSL component index!
-                  Component table has ", nrow(Lx.data), " rows."))
-
+      stop("[calc_OSLLxTxDecomposed()] Invalid OSL component index! ",
+           "Component table has ", nrow(Lx.data), " rows.")
     }
-
   }
 
   ##--------------------------------------------------------------------------##
