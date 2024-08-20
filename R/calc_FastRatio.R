@@ -249,19 +249,19 @@ calc_FastRatio <- function(object,
     ## Counts in channels L1, L2, L3
     # L1 ----
     Cts_L1 <- A[Ch_L1, 2]
-    
+
     # L2 ----
     if (Ch_L2 > nrow(A)) {
-      msg <- sprintf(paste("The calculated channel for L2 (%i) is equal", 
-                           "to or larger than the number of available channels (%i).",
+      msg <- sprintf(paste("The calculated channel for L2 (%i) exceeds",
+                           "the number of available channels (%i).",
                            "Returned NULL."), Ch_L2, nrow(A))
       settings$info <- modifyList(settings$info, list(L2 = msg))
       warning(msg, call. = FALSE)
       return(NULL)
-    } 
-  
+    }
+
     Cts_L2 <- A[Ch_L2, 2]
-    
+
     # optional: predict the counts from the fitted curve
     if (fitCW.curve) {
       if (!inherits(fitCW.res, "try-error")) {
@@ -270,11 +270,11 @@ calc_FastRatio <- function(object,
       }
     }
 
-    
+
     # L3 ----
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
-      msg <- sprintf(paste("The calculated channels for L3 (%i, %i) are equal to or", 
-                           "larger than the number of available channels (%i).",
+      msg <- sprintf(paste("The calculated channels for L3 (%i, %i) exceed",
+                           "the number of available channels (%i).",
                            "\nThe background has instead been estimated from the last",
                            "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
       settings$info <- modifyList(settings$info, list(L3 = msg))

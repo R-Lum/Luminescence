@@ -2,6 +2,26 @@ data("ExampleData.CW_OSL_Curve")
 temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
 
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve,
+                              Ch_L3 = 50),
+               "Input for 'Ch_L3' must be a vector of length 2")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve,
+                              Ch_L3 = c(40, 50, 60)),
+               "Input for 'Ch_L3' must be a vector of length 2")
+  expect_warning(expect_null(calc_FastRatio(ExampleData.CW_OSL_Curve,
+                                            Ch_L2 = 2000)),
+                 "The calculated channel for L2 (2000) exceeds the number",
+                 fixed = TRUE)
+  expect_warning(calc_FastRatio(ExampleData.CW_OSL_Curve,
+                                Ch_L3 = c(1000, 1000)),
+                 "The calculated channels for L3 (1000, 1000) exceed",
+                 fixed = TRUE)
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
   local_edition(3)
@@ -9,6 +29,17 @@ test_that("check class and length of output", {
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 5)
 
+  ## fitCW.sigma and fitCW.curve
+  calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
+                 fitCW.sigma = TRUE, fitCW.curve = TRUE)
+
+  ## RLum.Analysis object
+  data(ExampleData.XSYG, envir = environment())
+  calc_FastRatio(get_RLum(OSL.SARMeasurement$Sequence.Object)[[1]])
+
+  expect_warning(calc_FastRatio(get_RLum(TL.Spectrum)),
+                 "L3 contains more counts (566) than L2 (562)",
+                 fixed = TRUE)
 })
 
 test_that("check values from output", {
