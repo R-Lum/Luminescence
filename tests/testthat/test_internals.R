@@ -139,14 +139,32 @@ test_that("Test internals", {
   expect_equal(sum(unlist(t)), expected = 110)
 
   ## .throw_error() ---------------------------------------------------------
-  expect_error(.throw_error("Error message"),
-               "Error message")
+  fun.int <- function() .throw_error("Error message")
+  fun.ext <- function() fun.int()
+  expect_error(fun.int(),
+               "[fun.int()] Error message", fixed = TRUE)
+  expect_error(fun.ext(),
+               "[fun.int()] Error message", fixed = TRUE)
+
+  fun.int <- function() .throw_error("Error message", nframe = 2)
+  fun.ext <- function() fun.int()
+  expect_error(fun.ext(),
+               "[fun.ext()] Error message", fixed = TRUE)
 
   ## .throw_warning() -------------------------------------------------------
-  expect_warning(.throw_warning("Warning message"),
-                 "Warning message")
+  fun.int <- function() .throw_warning("Warning message")
+  fun.ext <- function() fun.int()
+  expect_warning(fun.int(),
+                 "[fun.int()] Warning message", fixed = TRUE)
+  expect_warning(fun.ext(),
+                 "[fun.int()] Warning message", fixed = TRUE)
 
-  # .validate_positive_scalar() ---------------------------------------------
+  fun.int <- function() .throw_warning("Warning message", nframe = 2)
+  fun.ext <- function() fun.int()
+  expect_warning(fun.ext(),
+                 "[fun.ext()] Warning message", fixed = TRUE)
+
+  ## .validate_positive_scalar() --------------------------------------------
   expect_silent(.validate_positive_scalar(1.3))
   expect_silent(.validate_positive_scalar(2, int = TRUE))
 
