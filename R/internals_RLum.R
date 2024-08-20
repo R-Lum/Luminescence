@@ -834,12 +834,17 @@ fancy_scientific <- function(l) {
 #'@title Throws a Custom Tailored Error Message
 #'
 #'@param ... the error message to throw
+#'@param nframe [numeric] (*with default*): the frame where the function
+#'       name to return in the error message should be searched: the
+#'       default value of 1 is generally fine, unless [throw_error] is
+#'       called from an internal function (whose name is not of interest
+#'       to the user), in which case a value of 2 should be used.
 #'
 #'@md
 #'@noRd
-.throw_error <- function(...) {
+.throw_error <- function(..., nframe = 1) {
   ## get name of calling function
-  f_calling <- paste0("[", as.character(sys.call(-1)), "()] ")
+  f_calling <- paste0("[", deparse(sys.call(-nframe)[1]), "] ")
 
   ## stop
   stop(paste0(f_calling, ...), call. = FALSE)
@@ -849,12 +854,17 @@ fancy_scientific <- function(l) {
 #'@title Throws a Custom Tailored Warning Message
 #'
 #'@param ... the warning message to throw
+#'@param nframe [numeric] (*with default*): the frame where the function
+#'       name to return in the warning message should be searched: the
+#'       default value of 1 is generally fine, unless [throw_warning] is
+#'       called from an internal function (whose name is not of interest
+#'       to the user), in which case a value of 2 should be used
 #'
 #'@md
 #'@noRd
-.throw_warning <- function(...) {
+.throw_warning <- function(..., nframe = 1) {
   ## get name of calling function
-  f_calling <- paste0("[", as.character(sys.call(-1)), "()] ")
+  f_calling <- paste0("[", deparse(sys.call(-nframe)[1]), "] ")
 
   ## stop
   warning(paste0(f_calling, ...), call. = FALSE)
@@ -875,7 +885,7 @@ fancy_scientific <- function(l) {
       (int && val != as.integer(val))) {
     if (is.null(name))
       name <- all.vars(match.call())[1]
-    stop("'", name, "' must be a positive ", if (int) "integer ",
-         "scalar", call. = FALSE)
+    .throw_error("'", name, "' must be a positive ", if (int) "integer ",
+                 "scalar", nframe = 2)
   }
 }
