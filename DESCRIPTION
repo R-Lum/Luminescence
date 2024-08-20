@@ -3,29 +3,6 @@ Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
 Version: 0.9.25.9000-43
 Date: 2024-08-19
-Author: Sebastian Kreutzer [aut, trl, cre, dtc] (<https://orcid.org/0000-0002-0734-2199>),
-    Christoph Burow [aut, trl, dtc] (<https://orcid.org/0000-0002-5023-4046>),
-    Michael Dietze [aut] (<https://orcid.org/0000-0001-6063-1726>),
-    Margret C. Fuchs [aut] (<https://orcid.org/0000-0001-7210-1132>), 
-    Christoph Schmidt [aut] (<https://orcid.org/0000-0002-2309-3209>),
-    Manfred Fischer [aut, trl],
-    Johannes Friedrich [aut] (<https://orcid.org/0000-0002-0805-9547>),
-    Norbert Mercier [aut] (<https://orcid.org/0000-0002-6375-9108>),
-    Rachel K. Smedley [ctb] (<https://orcid.org/0000-0001-7773-5193>),
-    Claire Christophe [ctb],
-    Antoine Zink [ctb] (<https://orcid.org/0000-0001-7146-1101>),
-    Julie Durcan [ctb] (<https://orcid.org/0000-0001-8724-8022>),
-    Georgina E. King [ctb, dtc] (<https://orcid.org/0000-0003-1059-8192>),
-    Anne Philippe [aut] (<https://orcid.org/0000-0002-5331-5087>),
-    Guillaume Guerin [ctb] (<https://orcid.org/0000-0001-6298-5579>),
-    Svenja Riedesel [aut] (<https://orcid.org/0000-0003-2936-8776>),
-    Martin Autzen [aut] (<https://orcid.org/0000-0001-6249-426X>),
-    Pierre Guibert [ctb] (<https://orcid.org/0000-0001-8969-8684>),
-    Dirk Mittelstrass [aut] (<https://orcid.org/0000-0002-9567-8791>),
-    Harrison J. Gray [aut] (<https://orcid.org/0000-0002-4555-7473>),
-    Jean-Michel Galharret [aut] (<https://orcid.org/0000-0003-2219-8727>),
-    Marco Colombo [aut] (<https://orcid.org/0000-0001-6672-0623>),
-    Markus Fuchs [ths] (<https://orcid.org/0000-0003-4669-6528>)
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
