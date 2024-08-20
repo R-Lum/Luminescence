@@ -26,7 +26,7 @@ path and file name of an existing BINX-file. If a file name is provided the
 file will be updated with the information from the XSYG file in the same
 folder as the original BINX-file.
 
-\strong{Note:} The XSYG and the BINX-file have to be originate from the
+\strong{Note:} The XSYG and the BINX-file must originate from the
 same measurement!}
 
 \item{recordType}{\link{character} (\emph{with default}):
@@ -76,9 +76,9 @@ and used for further analysis or/and to stored in a new BINX-file, which can
 be further used by other software, e.g., Analyst (Geoff Duller).
 
 Typical application example: g-value estimation from fading measurements
-using the Analyst or any other self written script.
+using the Analyst or any other self-written script.
 
-Beside the some simple data transformation steps the function applies the
+Beside some simple data transformation steps, the function applies
 functions \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN} for data import and export.
 }
 \note{

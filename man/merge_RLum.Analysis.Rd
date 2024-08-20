@@ -19,8 +19,8 @@ Function allows merging of RLum.Analysis objects and adding of allowed
 objects to an RLum.Analysis.
 }
 \details{
-This function simply allowing to merge \linkS4class{RLum.Analysis}
-objects.  Additionally other \linkS4class{RLum} objects can be added
+This function simply allows to merge \linkS4class{RLum.Analysis}
+objects. Moreover, other \linkS4class{RLum} objects can be added
 to an existing \linkS4class{RLum.Analysis} object. Supported objects
 to be added are: \linkS4class{RLum.Data.Curve},
 \linkS4class{RLum.Data.Spectrum} and

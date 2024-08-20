@@ -19,10 +19,10 @@ Return is the same as input objects as provided in the list.
 Function calls object-specific merge functions for RLum S4 class objects.
 }
 \details{
-The function provides a generalised access point for merge specific
+The function provides a generalised access point for merging specific
 \linkS4class{RLum} objects. Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
-found in the documentations of each merge function.
+found in the documentation of each merge function.
 Empty list elements (\code{NULL}) are automatically removed from the input \code{list}.
 
 \tabular{lll}{
