@@ -30,12 +30,13 @@
 #' 
 #' @param Ch_L2 [numeric] (*optional*): 
 #' An integer specifying the channel for L2.
-#' 
-#' @param Ch_L3 [numeric] (*optional*): 
-#' A vector of length 2 with integer values specifying the start and end channels for L3 
-#' (e.g., `c(40, 50)`).
-#' 
 #' @param x [numeric] (*with default*): 
+#'
+#' @param Ch_L3 [numeric] (*optional*):
+#' A vector of length 2 with integer values specifying the start and end
+#' channels for L3 (e.g., `c(40, 50)`), with the second component greater
+#' than or equal to the first.
+#'
 #' \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
 #' 
@@ -122,15 +123,25 @@ calc_FastRatio <- function(object,
                            fitCW.curve = FALSE,
                            plot = TRUE,
                            ...) {
-  
+
   ## Input verification --------------------------------------------------------
-  if (!is.null(Ch_L3) && length(Ch_L3) != 2)
-    stop("Input for 'Ch_L3' must be a vector of length 2 (e.g., c(40, 50).", call. = FALSE)
-  
+  .validate_positive_scalar(Ch_L1, int = TRUE)
+  .validate_positive_scalar(Ch_L2, int = TRUE, null.ok = TRUE)
+  if (!is.null(Ch_L3)) {
+    if (!is.numeric(Ch_L3) || length(Ch_L3) != 2) {
+      .throw_error("Input for 'Ch_L3' must be a vector of length 2")
+    }
+    .validate_positive_scalar(Ch_L3[1], int = TRUE, name = "Ch_L3[1]")
+    .validate_positive_scalar(Ch_L3[2], int = TRUE, name = "Ch_L3[2]")
+    if (Ch_L3[1] > Ch_L3[2]) {
+      .throw_error("Ch_L3[2] must be greater than or equal to Ch_L3[1]")
+    }
+  }
+
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))
     object <- get_RLum(object)
-  
+
   if (inherits(object, "RLum.Results"))
     object <- get_RLum(object, "data")
   
@@ -222,15 +233,20 @@ calc_FastRatio <- function(object,
       t_L2 <- (log(x / 100)) / (-sigmaF * I0)
     else 
       t_L2 <- A[Ch_L2, 1]
-    
+
     if (is.null(Ch_L3)) {
       t_L3_start <- (log(x / 100)) / (-sigmaM * I0)
       t_L3_end <- (log(x2 / 100)) / (-sigmaM * I0)
     } else {
+      if (any(Ch_L3 > nrow(A))) {
+        .throw_error("Value in Ch_L3 (", paste(Ch_L3, collapse = ", "),
+                     ") exceeds number of available channels (", nrow(A), ")",
+                     nframe = 3) # we are inside an lapply closure
+      }
       t_L3_start <- A[Ch_L3[1], 1]
       t_L3_end <- A[Ch_L3[2], 1]
     }
-    
+
     ## Channel number(s) of L2 and L3
     if (is.null(Ch_L2))
       Ch_L2 <- which.min(abs(A[,1] - t_L2))
@@ -304,10 +320,12 @@ calc_FastRatio <- function(object,
     FR <- (Cts_L1 - Cts_L3) / (Cts_L2 - Cts_L3)
     if (length(FR) != 1)
       FR <- NA
-    
+
     ## Fast Ratio - Error calculation
+    FR_se <- NA
+    FR_rse <- NA
     if (!is.na(FR)) {
-      
+
       # number of channels the background was derived from
       nBG <- abs(Ch_L3end - Ch_L3st)
       
@@ -318,16 +336,12 @@ calc_FastRatio <- function(object,
       # absolute standard errors
       se_L1 <- rse_L1 * (Cts_L1 - Cts_L3)
       se_L2 <- rse_L2 * (Cts_L2 - Cts_L3)
-      
+
       # absolute standard error on fast ratio
       FR_se <- (sqrt((se_L1 / (Cts_L1 - Cts_L3))^2 + ((se_L2 / (Cts_L2 - Cts_L3))^2) )) * FR
       FR_rse <- FR_se / FR * 100
-      
-    } else {
-      FR_se <- NA
-      FR_rse <- NA
     }
-    
+
     ## Return values -----------------------------------------------------------
     summary <- data.frame(fast.ratio = FR,
                           fast.ratio.se = FR_se,
