@@ -54,5 +54,10 @@ test_that("standard check", {
  expect_s3_class(results$fit[[1]], "nls")
  expect_type(results$data, "double")
 
+  ## input_scale
+  expect_s4_class(
+      fit_EmissionSpectra(object = TL.Spectrum, frame = 5,
+                          input_scale = "wavelength", plot = FALSE,
+                          method_control = list(max.runs = 10)),
+      "RLum.Results")
 })
-
