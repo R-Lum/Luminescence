@@ -874,13 +874,19 @@ fancy_scientific <- function(l) {
 #' @title Validate Scalar Variables Expected to be Positive
 #'
 #' @param val [numeric] (**required**): value to validate
-#' @param int [logical] (*with default*): whether the value has to be an integer (`FALSE` by default)
+#' @param int [logical] (*with default*): whether the value has to be an
+#'        integer (`FALSE` by default)
+#' @param null.ok [logical] (*with default*): whether a `NULL` value should be
+#'        considered valid (`FALSE` by default)
 #' @param name [character] (*with default*): Variable name to report in case of error; if not specified
 #'        it's inferred from the name of the name of the variable tested
 #'
 #' @md
 #' @noRd
-.validate_positive_scalar <- function(val, int = FALSE, name = NULL) {
+.validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
+                                      name = NULL) {
+  if (is.null(val) && null.ok)
+    return()
   if (!is.numeric(val) || length(val) != 1 || is.na(val) || val <= 0 ||
       (int && val != as.integer(val))) {
     if (is.null(name))
