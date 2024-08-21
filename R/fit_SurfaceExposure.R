@@ -255,7 +255,7 @@ fit_SurfaceExposure <- function(
     # TODO: Support weighted fitting for global fit
     if (weights) {
       if (settings$verbose)
-        warning("Argument 'weights' is not supported when multiple data sets are provided for global fitting.", call. = FALSE)
+        warning("[fit_SurfaceExposure()] Argument 'weights' is not supported when multiple data sets are provided for global fitting.", call. = FALSE)
       weights <- FALSE
     }
 
@@ -293,7 +293,7 @@ fit_SurfaceExposure <- function(
   if (any(is.na(data))) {
     data <- data[complete.cases(data), ]
     if (settings$verbose)
-      warning("NA values in 'data' were removed.", call. = FALSE)
+      warning("[fit_SurfaceExposure()] NA values in 'data' were removed.", call. = FALSE)
   }
 
   ## extract errors into separate variable
