@@ -4,6 +4,14 @@ d2 <- ExampleData.SurfaceExposure$sample_2
 d3 <- ExampleData.SurfaceExposure$set_1
 d4 <- ExampleData.SurfaceExposure$set_2
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+  local_edition(3)
+
+  expect_warning(fit_SurfaceExposure(rbind(d1, NA)),
+                 "NA values in 'data' were removed")
+})
+
 ## Example data 1
 fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
                            plot = FALSE, verbose = FALSE)

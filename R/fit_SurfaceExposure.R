@@ -289,7 +289,14 @@ fit_SurfaceExposure <- function(
   else
     wi <- rep(1, times = nrow(data))
 
-  # extract errors into seperate variable
+  ## remove rows with NA
+  if (any(is.na(data))) {
+    data <- data[complete.cases(data), ]
+    if (settings$verbose)
+      warning("NA values in 'data' were removed.", call. = FALSE)
+  }
+
+  ## extract errors into separate variable
   if (ncol(data) >= 3 && !global_fit)
     error <- data[ ,3]
   else
@@ -298,13 +305,6 @@ fit_SurfaceExposure <- function(
   ## Take only the first to columns (depth, signal)
   if (ncol(data) > 2 && !global_fit)
     data <- data[ ,1:2]
-
-  ## remove rows with NA
-  if (any(is.na(data))) {
-    data <- data[complete.cases(data), ]
-    if (settings$verbose)
-      warning("NA values in 'data' were removed.", call. = FALSE)
-  }
 
   ## Data preprocessing ----
 
