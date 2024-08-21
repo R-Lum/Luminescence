@@ -281,6 +281,7 @@ fit_EmissionSpectra <- function(
           start_parameters = start_parameters,
           n_components = n_components,
           sub_negative = sub_negative,
+          input_scale = input_scale,
           method_control = method_control,
           frame = frame,
           mtext = mtext[[o]]),
@@ -697,4 +698,3 @@ fit_EmissionSpectra <- function(
   return(results)
 
 }
-

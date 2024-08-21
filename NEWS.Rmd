@@ -36,6 +36,10 @@ an exponential fit is applied then this values are used as start parameters.
 ### `calc_TLLxTxRatio()`
 * Function crashed for `Tx.data.background = NULL` (#129); fixed with #130 thanks to @mcol
 
+### `fit_EmissionSpectra()`
+* Parameter `input_scale` was not correctly propagated when the function would
+self-call (#160, @mcol).
+
 ### `plot_GrowthCurve()`
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
 The values is part of the output table. 
