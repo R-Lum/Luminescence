@@ -9,7 +9,7 @@ test_that("input validation", {
   local_edition(3)
 
   expect_warning(fit_SurfaceExposure(rbind(d1, NA)),
-                 "NA values in 'data' were removed")
+                 "\\[fit\\_SurfaceExposure\\(\\)\\] NA values in 'data' were removed")
 })
 
 ## Example data 1
