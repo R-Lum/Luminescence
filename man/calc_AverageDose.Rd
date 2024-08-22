@@ -6,7 +6,7 @@
 \usage{
 calc_AverageDose(
   data,
-  sigma_m = NULL,
+  sigma_m,
   Nb_BE = 500,
   na.rm = TRUE,
   plot = TRUE,

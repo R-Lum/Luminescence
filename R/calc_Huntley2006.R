@@ -303,35 +303,33 @@ calc_Huntley2006 <-
 
   ## Check fit method
   if (!fit.method[1] %in% c("EXP", "GOK"))
-    stop("[calc_Huntley2006] Invalid fit option ('", fit.method[1], "'). Only 'EXP' and 'GOK' allowed for argument 'fit.method'.",
-         call. = FALSE)
+    .throw_error("Invalid fit option '", fit.method[1],
+                 "'. Only 'EXP' and 'GOK' allowed for argument 'fit.method'.")
 
   ## Check length of lower.bounds
   if (fit.method[1] == "GOK" && length(lower.bounds) != 4)
-    stop("[calc_Huntley2006] Argument 'lower.bounds' must be of length 3 exactly.",
-         call. = FALSE)
+    .throw_error("Argument 'lower.bounds' must be of length 4.")
 
   ## Check 'data'
   # must be a data frame
   if (is.data.frame(data)) {
 
     if (ncol(data) == 2) {
-      warning("[calc_Huntley2006] 'data' only had two columns. We assumed that",
-              " the errors on LxTx were missing and automatically added a",
-              " 5 % error.\n Please provide a data frame with three columns",
-              " if you wish to use actually measured LxTx errors.", call. = FALSE)
+      .throw_warning("'data' only had two columns. We assumed that the ",
+                     "errors on LxTx were missing and automatically added ",
+                     "a 5% error.\n",
+                     "Please provide a data frame with three columns ",
+                     "if you wish to use actually measured LxTx errors.")
       data[ ,3] <- data[ ,2] * 0.05
     }
 
     # Check if 'LnTn' is used and overwrite 'data'
     if (!is.null(LnTn)) {
-
-      if (!is.data.frame(LnTn))
-        stop("Value for 'LnTn' must be a data frame!", call. = FALSE)
-      if (ncol(LnTn) != 2)
-        stop("Data frame for 'LnTn' must have two columns!", call. = FALSE)
+      if (!is.data.frame(LnTn) || ncol(LnTn) != 2)
+        .throw_error("'LnTn' must be a data frame with 2 columns")
       if (ncol(data) > 3)
-        stop("Argument 'LnTn' requires the data frame 'data' to have 2 or 3 columns only!", call. = FALSE)
+        .throw_error("When 'LnTn' is specified, the 'data' data frame ",
+                     "must have only 2 or 3 columns")
 
       # case 1: only one LnTn value
       if (nrow(LnTn) == 1) {
@@ -351,8 +349,7 @@ calc_Huntley2006 <-
 
     # check number of columns
     if (ncol(data) %% 3 != 0) {
-      stop("[calc_Huntley2006] the number of columns in 'data' must be a multiple of 3.",
-           call. = FALSE)
+      .throw_error("The number of columns in 'data' must be a multiple of 3.")
     } else {
       # extract all LxTx values
       data_tmp <- do.call(rbind,
@@ -380,8 +377,7 @@ calc_Huntley2006 <-
     }
 
   } else {
-    stop("\n[calc_Huntley2006()] 'data' must be a data frame.",
-         call. = FALSE)
+    .throw_error("'data' must be a data frame.")
   }
 
   ## Check 'rhop'
@@ -390,8 +386,7 @@ calc_Huntley2006 <-
 
     ### TODO: can be of length 2 if error
     if (length(rhop) != 2)
-      stop("\n[calc_Huntley2006()] 'rhop' must be a vector of length two.",
-           call. = FALSE)
+      .throw_error("'rhop' must be a vector of length 2.")
 
     # alternatively, and RLum.Results object produced by analyse_FadingMeasurement()
     # can be provided
@@ -401,27 +396,25 @@ calc_Huntley2006 <-
       rhop <- c(rhop@data$rho_prime$MEAN,
                 rhop@data$rho_prime$SD)
     else
-      stop("\n[calc_Huntley2006] Only an 'RLum.Results' object produced by",
-           " 'analyse_FadingMeasurement()' is allowed as input for 'rhop'.",
-           call. = FALSE)
+      .throw_error("'rhop' accepts RLum.Results objects only if produced ",
+                   "by 'analyse_FadingMeasurement()'")
+  } else {
+    .throw_error("'rhop' must be a numeric vector or an RLum.Results object")
   }
 
   # check if 'rhop' is actually a positive value
   if (any(is.na(rhop)) || !rhop[1] > 0 || any(is.infinite(rhop))) {
-    stop("\n[calc_Huntley2006] 'rhop' must be a positive number. Provided value",
-         " was: ", signif(rhop[1], 3), " \u2213 " , signif(rhop[2], 3),
-         call. = FALSE)
+    .throw_error("'rhop' must be a positive number. Provided value ",
+                 "was: ", signif(rhop[1], 3), " \u2213 ", signif(rhop[2], 3))
   }
 
   ## Check ddot & readerDdot
   # check if numeric
   if (any(sapply(list(ddot, readerDdot), is.numeric) == FALSE))
-    stop("\n[calc_Huntley2006] 'ddot' and 'readerDdot' must be numeric values.",
-         call. = FALSE)
+    .throw_error("'ddot' and 'readerDdot' must be numeric vectors.")
   # check if length == 2
   if (any(sapply(list(ddot, readerDdot), function(x) length(x) == 2) == FALSE))
-    stop("\n[calc_Huntley2006] 'ddot' and 'readerDdot' must be of length 2.",
-         call. = FALSE)
+    .throw_error("'ddot' and 'readerDdot' must be of length 2.")
 
   ## Settings ------------------------------------------------------------------
   settings <- modifyList(
@@ -1078,5 +1071,3 @@ calc_Huntley2006 <-
   ## Return value --------------------------------------------------------------
   return(results)
   }
-
-

@@ -37,7 +37,7 @@ test_that("Test combine_De_Dr", {
   expect_null(results$mcmc_BCAM)
 
   ## run the same with different par settings
-  par(mfrow = c(2,2))
+  oldpar <- par(mfrow = c(2,2))
   results <- expect_s4_class(combine_De_Dr(
     Dr = Dr,
     int_OD = 0.1,
@@ -80,4 +80,7 @@ test_that("Test combine_De_Dr", {
     outlier_method = "RousseeuwCroux1993",
     method_control = list(n.iter = 100, n.chains = 1)),
     "RLum.Results")
+
+  ## reset the graphical parameters to the original values
+  par(oldpar)
 })

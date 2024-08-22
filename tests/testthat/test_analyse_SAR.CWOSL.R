@@ -278,13 +278,8 @@ test_that("simple run", {
    # Trigger stops -----------------------------------------------------------
    ##trigger stops for parameters
    ##object
-   expect_error(analyse_SAR.CWOSL(
-      object = "fail",
-      background.integral.min = 900,
-      fit.method = "LIN",
-      plot = FALSE,
-      verbose = FALSE
-    ), regexp = "Input object is not of type 'RLum.Analysis'!")
+  expect_error(analyse_SAR.CWOSL("fail"),
+               "Input object is not of type 'RLum.Analysis'")
 
     ##check stop for OSL.components ... failing
     expect_null(analyse_SAR.CWOSL(
@@ -313,8 +308,9 @@ test_that("simple run", {
    ), regexp = "length 'dose.points' differs from number of curves")
 
 
+  expect_message(
    expect_null(analyse_SAR.CWOSL(
-     object = set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve", recordType = "false"))),
+     object = set_RLum("RLum.Analysis",records = list(set_RLum("RLum.Data.Curve", recordType = "false"))),
      signal.integral.min = 1,
      signal.integral.max = 2,
      background.integral.min = 800,
@@ -322,7 +318,8 @@ test_that("simple run", {
      fit.method = "LIN",
      plot = FALSE,
      verbose = FALSE
-   ))
+   )),
+   "No record of type 'OSL', 'IRSL', 'POSL' detected")
 
    ##check background integral
    expect_warning(analyse_SAR.CWOSL(
@@ -335,6 +332,63 @@ test_that("simple run", {
      plot = FALSE,
      verbose = FALSE
    ), regexp = "Background integral out of bounds")
+
+  expect_warning(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 1,
+      background.integral.min = 800,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+  ), "integral signal limits cannot be equal")
+
+  expect_warning(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = c(600, 800),
+      background.integral.max = c(900, 1000),
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+  ), "background integral for Tx curves set, but not for the signal integral")
+
+  expect_warning(expect_message(
+      analyse_SAR.CWOSL(
+          object = object[[1]],
+          signal.integral.min = c(1, 1500),
+          signal.integral.max = c(2, 2000),
+          background.integral.min = 800,
+          background.integral.max = 1000,
+          fit.method = "LIN",
+          plot = FALSE,
+          verbose = FALSE
+      ), "Something went wrong while generating the LxTx table"),
+  "signal integral for Tx curves set, but not for the background integral")
+
+  ## this generates multiple warnings
+  warnings <- capture_warnings(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = c(1, 70),
+      signal.integral.max = c(2, 80),
+      background.integral.min = 800,
+      background.integral.max = 1200,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE))
+  expect_match(warnings, all = FALSE,
+               "Background integral for Tx out of bounds")
+
+  ## plot.single
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 plot.single = list()),
+               "Invalid data type for 'plot.single'")
 
    ## check different curve numbers by shorten one OSL curve
    object_short <- object
@@ -464,5 +518,3 @@ test_that("advance tests run", {
   )
 
 })
-
-
