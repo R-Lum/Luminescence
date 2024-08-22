@@ -1170,7 +1170,7 @@ error.list <- list()
                  diff(c(object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1],
                       object@records[[OSL.Curves.ID.Tx[[x]]]]@data[2,1]))
 
-            .throw_warnings("curves shifted by one channel for log-plot.")
+            .throw_warning("curves shifted by one channel for log-plot.")
           }
 
           lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
@@ -1283,7 +1283,7 @@ error.list <- list()
 
         ##if null
         if(is.null(temp.GC)){
-          temp.GC <- temp.gc.all.na
+          temp.GC <- temp.GC.all.na
           temp.GC.fit.Formula <- NA
 
           ##create empty plots if needed, otherwise subsequent functions may crash
