@@ -402,10 +402,9 @@ error.list <- list()
     m = regexpr("(OSL[a-zA-Z]*|IRSL[a-zA-Z]*|POSL[a-zA-Z]*)", names(object), perl = TRUE))
 
   if(length(CWcurve.type) == 0) {
-    try(stop("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' detected! NULL returned.",
-             call. = FALSE))
-     return(NULL)
-
+    message("[analyse_SAR.CWOSL()] No record of type 'OSL', 'IRSL', 'POSL' ",
+            "detected! NULL returned.")
+    return(NULL)
   }
 
   ## now get the type which is used most
@@ -625,9 +624,8 @@ error.list <- list()
     ##this is basically for the OSL.component case to avoid that everything
     ##fails if something goes wrong therein
     if(inherits(LnLxTnTx, "try-error")){
-      try(stop(
-        "[analyse_SAR.CWOSL()] Something went wrong while generating the LxTx-table. Return NULL.",
-         call. = FALSE))
+      message("[analyse_SAR.CWOSL()] Something went wrong while generating ",
+              "the LxTx table. Return NULL.")
       return(NULL)
     }
 
@@ -706,6 +704,7 @@ error.list <- list()
 
     # Calculate Recycling Ratio -----------------------------------------------
     ##Calculate Recycling Ratio
+    RecyclingRatio <- NA
     if (length(LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,"Repeated"]) > 0) {
       ##identify repeated doses
       temp.Repeated <-
@@ -741,9 +740,6 @@ error.list <- list()
       ##Just transform the matrix and add column names
       RecyclingRatio <- t(RecyclingRatio)
       colnames(RecyclingRatio) <- temp.ColNames
-
-    }else{
-      RecyclingRatio <- NA
     }
 
     # Calculate Recuperation Rate ---------------------------------------------
@@ -754,6 +750,7 @@ error.list <- list()
 
 
     ##Recuperation Rate (capable of handling multiple type of recuperation values)
+    Recuperation <- NA
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
       Recuperation <-
         vapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
@@ -769,9 +766,6 @@ error.list <- list()
           paste0("Recuperation rate (", rejection.criteria$recuperation_reference[1], ")"),
           1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"
         ), ";"))
-
-    }else{
-      Recuperation <- NA
     }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
@@ -798,23 +792,17 @@ error.list <- list()
       temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (rejection.criteria$recycling.ratio / 100)] <- "FAILED"
 
     ##Recuperation
+    temp.status.Recuperation <- "OK"
     if (!is.na(Recuperation)[1] &
         !is.na(rejection.criteria$recuperation.rate)) {
       temp.status.Recuperation  <-
         sapply(1:length(Recuperation), function(x) {
           if (Recuperation[x] > rejection.criteria$recuperation.rate / 100) {
             "FAILED"
-
           } else{
             "OK"
-
           }
-
         })
-
-    } else{
-      temp.status.Recuperation <- "OK"
-
     }
 
 
@@ -828,17 +816,13 @@ error.list <- list()
       testdose.error.status <- "FAILED"
 
     }else{
+      testdose.error.status <- "OK"
       if(!is.na(testdose.error.threshold)){
         testdose.error.status <- ifelse(
           testdose.error.calculated <= testdose.error.threshold,
           "OK", "FAILED"
         )
-
-      }else{
-        testdose.error.status <- "OK"
-
       }
-
     }
 
     testdose.error.data.frame <- data.frame(
@@ -903,6 +887,10 @@ error.list <- list()
 
 
       # Plotting - old way config -------------------------------------------------------
+      if (!is(plot.single, "logical") && !is(plot.single, "numeric")) {
+        .throw_error("Invalid data type for 'plot.single'.")
+      }
+
       if (plot.single[1] == FALSE) {
         on.exit(on_exit())
         layout(matrix(
@@ -929,27 +917,18 @@ error.list <- list()
       }else{
         ##check for values in the single output of the function and convert
         if (!is(plot.single, "logical")) {
-          if (!is(plot.single, "numeric")) {
-            stop("[analyse_SAR.CWOSL()] Invalid data type for 'plot.single'.")
-          }
-
           plot.single.sel  <- plot.single
 
         }else{
           plot.single.sel <- c(1,2,3,4,5,6,7,8)
 
         }
-
       }
 
       ##warning if number of curves exceed colour values
       if (length(col) < length(OSL.Curves.ID) / 2) {
-        temp.message  <-
-          paste(
-            "\n[analyse_SAR.CWOSL()] To many curves! Only the first",
-            length(col),"curves are plotted!"
-          )
-        warning(temp.message)
+        .throw_warning("Too many curves! Only the first ", length(col),
+                       " curves are plotted!")
       }
 
       ##legend text
@@ -1191,8 +1170,7 @@ error.list <- list()
                  diff(c(object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1],
                       object@records[[OSL.Curves.ID.Tx[[x]]]]@data[2,1]))
 
-            warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
-
+            .throw_warnings("curves shifted by one channel for log-plot.")
           }
 
           lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
@@ -1274,6 +1252,23 @@ error.list <- list()
 
     }
 
+    temp.GC.all.na <- data.frame(
+        De = NA,
+        De.Error = NA,
+        D01 = NA,
+        D01.ERROR = NA,
+        D02 = NA,
+        D02.ERROR = NA,
+        Dc = NA,
+        De.MC = NA,
+        Fit = NA,
+        HPDI68_L = NA,
+        HPDI68_U = NA,
+        HPDI95_L = NA,
+        HPDI95_U = NA,
+        RC.Status = NA,
+        stringsAsFactors = FALSE)
+
     ##Fit and plot growth curve
     if(!onlyLxTxTable){
       temp.GC <- do.call(plot_GrowthCurve, args = modifyList(
@@ -1288,23 +1283,7 @@ error.list <- list()
 
         ##if null
         if(is.null(temp.GC)){
-          temp.GC <- data.frame(
-            De = NA,
-            De.Error = NA,
-            D01 = NA,
-            D01.ERROR = NA,
-            D02 = NA,
-            D02.ERROR = NA,
-            Dc = NA,
-            De.MC = NA,
-            Fit = NA,
-            HPDI68_L = NA,
-            HPDI68_U = NA,
-            HPDI95_L = NA,
-            HPDI95_U = NA,
-            RC.Status = NA,
-            stringsAsFactors = FALSE
-          )
+          temp.GC <- temp.gc.all.na
           temp.GC.fit.Formula <- NA
 
           ##create empty plots if needed, otherwise subsequent functions may crash
@@ -1406,21 +1385,7 @@ error.list <- list()
 
      ##end onlyLxTxTable
      }else{
-       temp.GC <- data.frame(
-         De = NA,
-         De.Error = NA,
-         D01 = NA,
-         D01.ERROR = NA,
-         D02 = NA,
-         D02.ERROR = NA,
-         Dc = NA,
-         De.MC = NA,
-         Fit = NA,
-         HPDI68_L = NA,
-         HPDI68_U = NA,
-         HPDI95_L = NA,
-         HPDI95_U = NA,
-         RC.Status = NA)
+       temp.GC <- temp.GC.all.na
        temp.GC.fit.Formula <- NULL
      }
 
