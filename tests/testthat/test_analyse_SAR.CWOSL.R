@@ -34,15 +34,7 @@ test_that("regression tests De values", {
   testthat::skip_on_cran()
   local_edition(3)
 
-  ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
-
-  }else{
-    expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
-
-  }
-
+  expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
 })
 
 test_that("regression test LxTx table", {
@@ -62,15 +54,8 @@ test_that("regression test - check rejection criteria", {
   testthat::skip_on_cran()
   local_edition(3)
 
-  ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 0),  1669)
-
-  }else{
-    expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 0),  1669)
-
-  }
-
+  expect_equal(round(sum(results$rejection.criteria$Value), digits = 0),
+               1669)
 })
 
 test_that("simple run", {

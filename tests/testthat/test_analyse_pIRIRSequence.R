@@ -88,15 +88,6 @@ test_that("check output", {
    testthat::skip_on_cran()
    local_edition(3)
 
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-     expect_equal(round(sum(results$data[1:2, 1:4]), 0),7583)
-
-   }else{
-     expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
-
-   }
-
+   expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)
-
 })

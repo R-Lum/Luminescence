@@ -300,61 +300,16 @@ temp_LambertW <-
   )
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17441)
-
-   }else{
-     expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
-
-   }
-
+   expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
    expect_equal(round(temp_LIN$De[[1]], digits = 2), 1811.33)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18238)
-
-   }else{
-     expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
-
-   }
-
+   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
    expect_equal(round(temp_EXPLIN$De[[1]], digits = 2), 1791.53)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),17474)
-
-   }else{
-     expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),18045)
-
-   }
-
+   expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),18045)
    expect_equal(round(temp_EXPEXP$De[[1]], digits = 2), 1787.15)
-
-   ##fix for different R versions
-   if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
-
-   }else{
-     expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303,
-                  tolerance = 10)
-
-   }
-
+   expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303,
+                tolerance = 10)
    expect_equal(round(temp_QDR$De[[1]], digits = 2), 1666.2)
-
-   ##fix for different R versions
-   if (R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 14937)
-
-   }else{
-    expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16476)
-
-   }
-
+   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16476)
    expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
    ##fix for different R versions
    if (R.version$major > "3"){
