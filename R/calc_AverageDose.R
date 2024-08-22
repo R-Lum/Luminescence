@@ -127,7 +127,7 @@
 #' @export
 calc_AverageDose <- function(
   data,
-  sigma_m = NULL,
+  sigma_m,
   Nb_BE = 500,
   na.rm = TRUE,
   plot = TRUE,
@@ -233,21 +233,18 @@ calc_AverageDose <- function(
   # Integrity checks ----------------------------------------------------------------------------
 
   if(!is(data, "RLum.Results") & !is(data, "data.frame")){
-    stop("[calc_AverageDose()] input is neither of type 'RLum.Results' nor of type 'data.frame'!")
-
+    .throw_error("Input must be of type 'RLum.Results' or 'data.frame'")
   }else {
 
     if(is(data, "RLum.Results")){
       data <- get_RLum(data)
 
     }
-
   }
 
-  if(is.null(sigma_m)){
-    stop("[calc_AverageDose()] 'sigma_m' is missing but required")
+  .validate_positive_scalar(sigma_m)
+  .validate_positive_scalar(Nb_BE, int = TRUE)
 
-  }
 
   # Data preparation -----------------------------------------------------------------------------
 
@@ -257,29 +254,30 @@ calc_AverageDose <- function(
 
   ##check for number of columns
   if(ncol(data)<2){
-    try(stop("[calc_AverageDose()] data set contains < 2 columns! NULL returned!", call. = FALSE))
+    message("[calc_AverageDose()] Error: data set contains < 2 columns! ",
+            "NULL returned!")
     return(NULL)
-
   }
 
   ##used only the first two colums
   if(ncol(data)>2){
     data <- data[,1:2]
-    warning("[calc_AverageDose()] number of columns in data set > 2. Only the first two columns were used.", call. = FALSE)
+    .throw_warning("number of columns in data set > 2. ",
+                   "Only the first two columns were used.")
   }
 
   ##exclude NA values
   if(any(is.na(data))){
     data <- na.exclude(data)
-    warning("[calc_AverageDose()] NA values in data set detected. Rows with NA values removed!", call. = FALSE)
-
+    .throw_warning("NA values in data set detected. ",
+                   "Rows with NA values removed!")
   }
 
   ##check data set
   if(nrow(data) == 0){
-    try(stop("[calc_AverageDose()] data set contains 0 rows! NULL returned!", call. = FALSE))
+    message("[calc_AverageDose()] Error: data set contains 0 rows! ",
+            "NULL returned!")
     return(NULL)
-
   }
 
   ##data becomes to dat (thus, make the code compatible with the code by Claire and Anne)
