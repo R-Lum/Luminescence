@@ -2,11 +2,25 @@ test_that("Test functionality", {
   testthat::skip_on_cran()
   local_edition(3)
 
-  ##TXT
-  ##basic import options
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence")
-  ), "list")
+  txt.file <- system.file("extdata/Daybreak_TestFile.txt",
+                          package = "Luminescence")
+  dat.file <- system.file("extdata/Daybreak_TestFile.DAT",
+                          package = "Luminescence")
+
+  ## TXT
+  expect_type(read_Daybreak2R(txt.file), "list")
+  expect_silent(read_Daybreak2R(txt.file, verbose = FALSE))
+  expect_type(read_Daybreak2R(txt.file, txtProgressBar = FALSE),
+              "list")
+
+  ## DAT
+  expect_type(read_Daybreak2R(dat.file), "list")
+  expect_s3_class(read_Daybreak2R(dat.file, raw = TRUE),
+                  "data.table")
+  expect_silent(read_Daybreak2R(dat.file, verbose = FALSE))
+
+  ## list
+  expect_type(read_Daybreak2R(list(dat.file)), "list")
 
   ## directory
   expect_error(
@@ -14,32 +28,6 @@ test_that("Test functionality", {
       file = system.file("extdata", package = "Luminescence")),
       "Directory detected, trying to extract"),
   "file name does not seem to exist")
-
-  ##verbose off
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence"),
-    verbose = FALSE
-  ), "list")
-
-  ##txtProgressbar off
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.txt", package = "Luminescence"),
-    txtProgressBar = FALSE
-  ), "list")
-
-  ##DAT
-  ##basic import options
-  expect_type(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence")
-  ), "list")
-
-  expect_s3_class(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence"), raw = TRUE
-  ), "data.table")
-
-  ##test silence
-  expect_silent(read_Daybreak2R(
-    file = system.file("extdata/Daybreak_TestFile.DAT", package = "Luminescence"), verbose = FALSE))
 
   ## test presence of non-ascii characters
   expect_error(read_Daybreak2R(
