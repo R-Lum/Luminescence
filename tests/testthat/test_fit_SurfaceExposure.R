@@ -126,4 +126,10 @@ test_that("not enough parameters provided", {
                                             log = "y", plot = TRUE),
                  "Original error from minpack.lm::nlsLM(): evaluation of fn",
                  fixed = TRUE)
+  expect_message(fit_SurfaceExposure(res),
+                 "Original error from minpack.lm::nlsLM(): singular gradient",
+                 fixed = TRUE)
+  expect_message(fit_SurfaceExposure(as.matrix(d1), log = "y"),
+                 "Original error from minpack.lm::nlsLM(): singular gradient",
+                 fixed = TRUE)
 })
