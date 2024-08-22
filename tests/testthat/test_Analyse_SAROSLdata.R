@@ -1,6 +1,5 @@
 test_that("full example test", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.BINfileData, envir = environment())
   output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data,

@@ -1,7 +1,6 @@
 ##Full check
 test_that("Full check", {
   skip_on_cran()
-  local_edition(3)
 
    ##check stops
    ##RLum-object
@@ -21,4 +20,3 @@ test_that("Full check", {
    expect_s4_class(analyse_Al2O3C_ITC(data_ITC), "RLum.Results")
 
 })
-

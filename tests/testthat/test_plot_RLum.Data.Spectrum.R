@@ -1,6 +1,5 @@
 test_that("test pure success of the plotting without warning or error", {
   testthat::skip_on_cran()
-  local_edition(3)
 
     ##RLum.Data.Spectrum -------
     data(ExampleData.XSYG, envir = environment())

@@ -1,6 +1,5 @@
 test_that("Check subset_SingleGrain", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## get example ready
   data(ExampleData.BINfileData, envir = environment())

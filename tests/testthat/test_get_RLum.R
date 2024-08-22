@@ -11,7 +11,6 @@ temp_RLumResults <- set_RLum(class = "RLum.Results")
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s3_class(get_RLum(temp), class = "data.frame")
   expect_type(get_RLum(temp, data.object = "args"), "list")
@@ -26,7 +25,6 @@ test_that("check class and length of output", {
 
 test_that("check get_RLum on a list and NULL", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   object <- set_RLum(class = "RLum.Analysis", records = rep(set_RLum(class = "RLum.Data.Curve"), 10))
   expect_warning(get_RLum(object, recordType = "test"),

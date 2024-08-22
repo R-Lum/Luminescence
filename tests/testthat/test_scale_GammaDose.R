@@ -9,7 +9,6 @@ results <- scale_GammaDose(data = d,
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
@@ -18,7 +17,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9242")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2131")
@@ -32,7 +30,6 @@ results <- scale_GammaDose(data = d,
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
@@ -41,7 +38,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9214")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2124")
@@ -55,7 +51,6 @@ results <- scale_GammaDose(data = d,
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(results), c("RLum.Results", "RLum"))
   expect_equal(length(results), 6)
@@ -64,7 +59,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(formatC(results$summary$dose_rate_total, 4), "0.9123")
   expect_equal(formatC(results$summary$dose_rate_total_err, 4), "0.2097")
@@ -82,7 +76,6 @@ test_that("console & plot", {
 ## WARNINGS & FAILURES
 test_that("check input data", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(
     scale_GammaDose(NA, plot = FALSE, verbose = TRUE),
@@ -158,4 +151,3 @@ test_that("check input data", {
   "Invalid 'fractional_gamma_dose'. Valid options:"
   )
 })
-

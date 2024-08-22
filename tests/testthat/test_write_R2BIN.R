@@ -1,6 +1,5 @@
 test_that("write to empty connection", {
   testthat::skip_on_cran()
-  local_edition(3)
 
 #Unit test for write_BIN2R() function
 

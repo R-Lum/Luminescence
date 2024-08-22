@@ -22,7 +22,6 @@ huntley <- calc_Huntley2006(
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   rhop.test <- rhop
   rhop.test@originator <- "unexpected"
@@ -74,7 +73,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##rhop
   expect_s4_class(rhop, class = "RLum.Results")

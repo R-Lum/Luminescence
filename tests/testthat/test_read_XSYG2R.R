@@ -1,6 +1,5 @@
 test_that("test import of XSYG files", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##force error
   expect_null(read_XSYG2R("https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg", fastForward = TRUE))
@@ -27,5 +26,3 @@ test_that("test import of XSYG files", {
   expect_type(results[[1]]@info$file, type = "character")
 
 })
-
-

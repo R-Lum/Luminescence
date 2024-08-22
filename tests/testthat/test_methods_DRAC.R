@@ -1,7 +1,6 @@
 ##Full check
 test_that("methods_DRAC", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   input <- template_DRAC()
 
@@ -73,4 +72,3 @@ test_that("methods_DRAC", {
 
 
 })
-

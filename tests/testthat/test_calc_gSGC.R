@@ -9,7 +9,6 @@ temp <- calc_gSGC(data = data.frame(
 
 test_that("plot and verbose and so", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(calc_gSGC(data = data.frame(
     LnTn =  2.361, LnTn.error = 0.087,
@@ -24,7 +23,6 @@ test_that("plot and verbose and so", {
 
 test_that("test errors", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_gSGC(data = NA))
   expect_error(calc_gSGC(data = data.frame(
@@ -43,9 +41,9 @@ test_that("test errors", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  expect_is(temp, class = "RLum.Results", info = NULL, label = NULL)
-  expect_is(temp$De, class = "data.frame", info = NULL, label = NULL)
-  expect_is(temp$De.MC, class = "list", info = NULL, label = NULL)
+  expect_s4_class(temp, "RLum.Results")
+  expect_s3_class(temp$De, "data.frame")
+  expect_type(temp$De.MC, "list")
   expect_equal(length(temp), 3)
 
 })

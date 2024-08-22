@@ -1,6 +1,5 @@
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   set.seed(1)
   data(ExampleData.RLum.Analysis, envir = environment())
@@ -44,7 +43,6 @@ test_that("check class and length of output", {
 
 test_that("test controlled crash conditions", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##the sliding range should not exceed a certain value ... test it
   data(ExampleData.RLum.Analysis, envir = environment())
@@ -88,7 +86,6 @@ test_that("test controlled crash conditions", {
 
 test_that("test support for IR-RF data", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## get needed data
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
@@ -103,7 +100,6 @@ test_that("test support for IR-RF data", {
 
 test_that("test edge cases", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.RLum.Analysis, envir = environment())
   RF_nat <- RF_reg <- IRSAR.RF.Data[[2]]

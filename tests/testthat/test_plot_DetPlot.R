@@ -1,6 +1,5 @@
 test_that("plot_DetPlot", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##ExampleData.BINfileData contains two BINfileData objects
   ##CWOSL.SAR.Data and TL.SAR.Data

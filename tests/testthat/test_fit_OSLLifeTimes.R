@@ -7,7 +7,6 @@ temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
 
 test_that("standard check", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##trigger errors
   expect_null(fit_OSLLifeTimes(object = "test"))
@@ -58,4 +57,3 @@ test_that("standard check", {
     n.components = 1), regexp = "log-scale requires x-values > 0, set min xlim to 0.01!")
 
 })
-

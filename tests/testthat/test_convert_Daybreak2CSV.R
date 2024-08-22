@@ -1,6 +1,5 @@
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(convert_Daybreak2CSV(),
                "file is missing")
@@ -10,7 +9,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   res <- read_Daybreak2R(file = system.file("extdata/Daybreak_TestFile.txt",
                                             package = "Luminescence"))[[1]]

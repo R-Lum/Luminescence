@@ -1,6 +1,5 @@
 test_that("check class ", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load example data
   data(ExampleData.RLum.Data.Image, envir = environment())

@@ -2,7 +2,6 @@ psl.file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
 
 test_that("Test functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## default values
   expect_s4_class(read_PSL2R(
@@ -18,7 +17,6 @@ test_that("Test functionality", {
 
 test_that("Input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## directory given (assumes that we have a .psl file under inst/extdata)
   expect_message(

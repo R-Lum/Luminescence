@@ -10,7 +10,6 @@ fit <- fit_LMCurve(values = values.curve,
 
 test_that("crashs and warnings function", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## wrong input type
   expect_error(object = fit_LMCurve(values = "error"),
@@ -28,7 +27,6 @@ test_that("crashs and warnings function", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 4)
@@ -40,7 +38,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$Im1, digits = 0), 169)
@@ -61,7 +58,6 @@ fit <- fit_LMCurve(values = values.curve,
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 4)
@@ -70,7 +66,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$Im1, digits = 0), 169)
@@ -80,4 +75,3 @@ test_that("check values from output example", {
 
 
 })
-

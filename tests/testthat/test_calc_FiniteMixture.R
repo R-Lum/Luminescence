@@ -1,6 +1,5 @@
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## load example data
   data(ExampleData.DeValues, envir = environment())

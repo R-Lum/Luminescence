@@ -1,7 +1,6 @@
 ##Full check
 test_that("Full check of analyse_baSAR function", {
   skip_on_cran()
-  local_edition(3)
 
     set.seed(1)
     ##(1) load package test data set
@@ -39,4 +38,3 @@ test_that("Full check of analyse_baSAR function", {
     expect_type(round(sum(results$summary[, c(6:9)]), 2),type = "double")
 
 })
-

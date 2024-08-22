@@ -1,6 +1,5 @@
 test_that("Test general import", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## BINX
   expect_type(

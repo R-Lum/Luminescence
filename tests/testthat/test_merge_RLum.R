@@ -1,6 +1,5 @@
 test_that("Merge tests", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load data
   data(ExampleData.RLum.Analysis, envir = environment())

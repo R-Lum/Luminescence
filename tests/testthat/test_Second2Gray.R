@@ -12,7 +12,7 @@ Second2Gray(ExampleData.DeValues$BT998, results, error.prop = "absolute")
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
+
   expect_s3_class(results, class = "data.frame")
 
   expect_error(Second2Gray("test"),
@@ -33,7 +33,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(sum(results[[1]]), 14754.09)
   expect_equal(sum(results[[2]]), 507.692)

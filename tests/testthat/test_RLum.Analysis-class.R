@@ -1,6 +1,5 @@
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load example data
   data("ExampleData.RLum.Analysis")
@@ -65,4 +64,3 @@ test_that("Check the example and the numerical values", {
     "Only 'RLum.Data.Curve' objects are allowed!")
 
 })
-

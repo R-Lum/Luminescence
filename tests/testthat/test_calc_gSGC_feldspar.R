@@ -1,6 +1,5 @@
 test_that("test errors", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##crash function
   ##no data.frame
@@ -73,4 +72,3 @@ test_that("test errors", {
   expect_true(all(is.na(unlist(results$m.MC))))
 
 })
-

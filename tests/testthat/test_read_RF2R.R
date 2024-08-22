@@ -1,6 +1,5 @@
 test_that("Test functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load file path
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")

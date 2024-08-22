@@ -1,6 +1,5 @@
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
-  local_edition(3)
 
    ## load example data and recalculate to Gray
   data(ExampleData.DeValues, envir = environment())
@@ -165,7 +164,6 @@ test_that("Test examples from the example page", {
 
 test_that("Cause full function stop", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##wrong input data
   expect_error(plot_AbanicoPlot(data = "Michael"),
@@ -173,4 +171,3 @@ test_that("Cause full function stop", {
 
 
 })
-

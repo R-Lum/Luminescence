@@ -6,7 +6,6 @@ temp <- calc_MinDose(data = ExampleData.DeValues$CA1,
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_MinDose(),
                "is missing, with no default")
@@ -26,7 +25,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 9)
@@ -51,7 +49,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 

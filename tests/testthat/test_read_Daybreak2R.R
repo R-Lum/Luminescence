@@ -1,6 +1,5 @@
 test_that("Test functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   txt.file <- system.file("extdata/Daybreak_TestFile.txt",
                           package = "Luminescence")

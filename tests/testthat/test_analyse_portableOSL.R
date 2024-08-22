@@ -1,6 +1,5 @@
 test_that("check class and length of output", {
     testthat::skip_on_cran()
-    local_edition(3)
 
     ## generate test data set for profile
     data("ExampleData.portableOSL", envir = environment())
@@ -166,7 +165,6 @@ test_that("check class and length of output", {
 
 test_that("check output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data("ExampleData.portableOSL", envir = environment())
   merged <- merge_RLum(ExampleData.portableOSL)

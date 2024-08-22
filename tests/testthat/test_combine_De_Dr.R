@@ -1,6 +1,5 @@
 test_that("Test combine_De_Dr", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## simple test using the example
   ## set parameters

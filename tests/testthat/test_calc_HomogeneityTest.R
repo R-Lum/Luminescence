@@ -9,7 +9,6 @@ temp <- calc_HomogeneityTest(df, verbose = FALSE)
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_HomogeneityTest(TRUE),
                "'data' object has to be of type 'data.frame' or 'RLum.Results'")
@@ -24,7 +23,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 

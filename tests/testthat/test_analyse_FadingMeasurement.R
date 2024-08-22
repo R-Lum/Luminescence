@@ -1,6 +1,5 @@
 test_that("general test", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
   data("ExampleData.Fading", envir = environment())
@@ -44,7 +43,6 @@ test_that("general test", {
 
 test_that("test XSYG file fading data", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   # Create artificial object ------------------------------------------------
   l <- list()
@@ -121,4 +119,3 @@ test_that("test XSYG file fading data", {
   ), "RLum.Results")
 
 })
-

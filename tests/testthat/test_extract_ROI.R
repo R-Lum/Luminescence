@@ -1,6 +1,5 @@
 test_that("extract_ROI", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## generate random data
   m <- matrix(runif(100,0,255), ncol = 10, nrow = 10)
@@ -62,4 +61,3 @@ test_that("extract_ROI", {
                "\\[extract\\_ROI\\(\\)\\] roi\\_summary method not supported, check manual!")
 
 })
-

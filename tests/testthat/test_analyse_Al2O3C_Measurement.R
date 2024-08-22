@@ -1,7 +1,6 @@
 ##Full check
 test_that("analyse_Al2O3C_Measurements", {
   skip_on_cran()
-  local_edition(3)
 
    ##load data
    data(ExampleData.Al2O3C, envir = environment())
@@ -22,4 +21,3 @@ test_that("analyse_Al2O3C_Measurements", {
    expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(temp)), "RLum.Results")
 
 })
-

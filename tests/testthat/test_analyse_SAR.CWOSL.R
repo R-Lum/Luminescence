@@ -20,7 +20,6 @@ object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
 
 test_that("tests class elements", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(results, "RLum.Results")
   expect_equal(length(results), 4)
@@ -32,14 +31,12 @@ test_that("tests class elements", {
 
 test_that("regression tests De values", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(object = round(sum(results$data[1:2]), digits = 0), 1716)
 })
 
 test_that("regression test LxTx table", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx), digits = 5),  20.92051)
   expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx.Error), digits = 2), 0.34)
@@ -52,7 +49,6 @@ test_that("regression test LxTx table", {
 
 test_that("regression test - check rejection criteria", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(round(sum(results$rejection.criteria$Value), digits = 0),
                1669)
@@ -60,7 +56,6 @@ test_that("regression test - check rejection criteria", {
 
 test_that("simple run", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##verbose and plot off
   t <- expect_s4_class(
@@ -410,7 +405,6 @@ test_that("simple run", {
 
 test_that("advance tests run", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##this tests basically checks the parameter expansion and make
   ##sure everything is evaluated properly

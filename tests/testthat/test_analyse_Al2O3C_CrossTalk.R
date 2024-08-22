@@ -1,6 +1,5 @@
 test_that("Full check", {
   skip_on_cran()
-   local_edition(3)
 
    ##load data
    data(ExampleData.Al2O3C, envir = environment())
