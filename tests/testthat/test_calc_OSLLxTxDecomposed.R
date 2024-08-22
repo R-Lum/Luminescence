@@ -2,7 +2,6 @@ data(ExampleData.LxTxOSLData, envir = environment())
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_OSLLxTxDecomposed(),
                "is missing, with no default")

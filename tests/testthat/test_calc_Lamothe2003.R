@@ -1,6 +1,5 @@
 test_that("Force function to break", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##argument check
 
@@ -78,7 +77,6 @@ test_that("Force function to break", {
 
 test_that("Test the function itself", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##This is based on the package example
   ##load data

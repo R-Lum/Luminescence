@@ -10,7 +10,6 @@ temp_RLum <- set_RLum(class = "RLum.Results", data = list(data = ExampleData.DeV
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_type(temp, "list")
   expect_equal(length(temp), 3)
@@ -18,7 +17,7 @@ test_that("check class and length of output", {
 })
 
 test_that("Test certain input scenarios", {
-  expect_is(calc_Statistics(temp_RLum), "list")
+  expect_type(calc_Statistics(temp_RLum), "list")
 
   df <- ExampleData.DeValues$BT998
   df[, 2] <- NULL
@@ -30,14 +29,11 @@ test_that("Test certain input scenarios", {
 
   df <- ExampleData.DeValues$BT998
   expect_silent(calc_Statistics(df, weight.calc = "reciprocal"))
-
-
 })
 
 
 test_that("check error messages", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   df <- ExampleData.DeValues$BT998
 
@@ -51,7 +47,6 @@ test_that("check error messages", {
 
 test_that("check weighted values from output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(temp$weighted$n, 25)
   expect_equal(sum(unlist(temp_alt1)),18558.37)

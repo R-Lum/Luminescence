@@ -1,6 +1,5 @@
 test_that("Test zzz functions ... they should still work", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##get right answer
   expect_equal(get_rightAnswer(), 46)

@@ -1,6 +1,5 @@
 test_that("test errors and general export function", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##test error
   expect_error(write_RLum2CSV(),

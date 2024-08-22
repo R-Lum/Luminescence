@@ -8,7 +8,6 @@ temp <- calc_OSLLxTxRatio(
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
@@ -17,7 +16,6 @@ test_that("check class and length of output", {
 
 test_that("test arguments", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##digits
   expect_silent(calc_OSLLxTxRatio(
@@ -50,7 +48,6 @@ test_that("test arguments", {
 
 test_that("test input", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##RLum.Curve
   expect_silent(calc_OSLLxTxRatio(
@@ -99,7 +96,6 @@ test_that("test input", {
 
 test_that("force function break", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data[1:10,],
@@ -201,7 +197,6 @@ test_that("force function break", {
 
 test_that("create warnings", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -244,7 +239,6 @@ test_that("create warnings", {
 
 test_that("check weird circumstances", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##(1) - Lx curve 0
   expect_type(calc_OSLLxTxRatio(
@@ -300,7 +294,6 @@ test_that("check weird circumstances", {
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 
@@ -319,7 +312,6 @@ test_that("check values from output example", {
 
 test_that("test NA mode with no signal integrals", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.LxTxOSLData, envir = environment())
   temp <- expect_s4_class(calc_OSLLxTxRatio(

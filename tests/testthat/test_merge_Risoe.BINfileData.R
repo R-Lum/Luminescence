@@ -1,6 +1,5 @@
 test_that("Test merging", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##expect error
   expect_error(merge_Risoe.BINfileData(input.objects = c("data", "data2")),

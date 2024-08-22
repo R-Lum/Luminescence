@@ -1,6 +1,5 @@
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##construct empty object
   temp <-

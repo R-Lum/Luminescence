@@ -1,6 +1,5 @@
 test_that("Basic test", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##cause error
   expect_error(plot_OSLAgeSummary("error"),

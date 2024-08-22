@@ -6,7 +6,6 @@ object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
 
 test_that("Input validation", {
   skip_on_cran()
-  local_edition(3)
 
   expect_error(analyse_SAR.TL(),
                "No value set for 'object'")
@@ -26,7 +25,6 @@ test_that("Input validation", {
 
 test_that("Test examples", {
   skip_on_cran()
-  local_edition(3)
 
   ##perform analysis
   expect_s4_class(

@@ -1,6 +1,5 @@
 test_that("check function", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load data
   data(ExampleData.XSYG, envir = environment())

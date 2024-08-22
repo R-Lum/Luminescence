@@ -1,6 +1,5 @@
 test_that("Various function test", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(verify_SingleGrainData("test"),
                "Input type 'character' is not allowed for this function")

@@ -1,6 +1,5 @@
 test_that("Test the extraction of irradiation times", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##set file
   file <- system.file("extdata/XSYG_file.xsyg", package="Luminescence")
@@ -21,5 +20,3 @@ test_that("Test the extraction of irradiation times", {
   expect_type(temp$irr.times$START, "double")
 
 })
-
-

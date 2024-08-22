@@ -1,7 +1,6 @@
 # RLum.Analysis -----------------------------------------------------------
 test_that("subset RLum.Analysis", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data("ExampleData.RLum.Analysis")
   temp <- IRSAR.RF.Data

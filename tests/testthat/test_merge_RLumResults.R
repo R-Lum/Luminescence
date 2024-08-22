@@ -1,6 +1,5 @@
 test_that("Merge RLum.Results", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## check whether arguments are retained
   a <- array(runif(300, 0,255), c(10,10,3))

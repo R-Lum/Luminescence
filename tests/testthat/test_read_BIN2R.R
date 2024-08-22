@@ -1,6 +1,5 @@
 test_that("test the import of various BIN-file versions", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##test for various errors
   expect_error(read_BIN2R(file = ""), "[read_BIN2R()] File does not exist!", fixed = TRUE)

@@ -1,6 +1,5 @@
 test_that("Test general functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load example data
   ## read example data set

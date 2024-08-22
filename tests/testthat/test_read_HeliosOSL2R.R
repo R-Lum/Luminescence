@@ -1,6 +1,5 @@
 test_that("Test functionality", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## crash function
   expect_error(

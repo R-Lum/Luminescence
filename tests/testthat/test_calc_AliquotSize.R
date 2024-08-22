@@ -8,7 +8,6 @@ temp <- calc_AliquotSize(
 
 test_that("consistency checks", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_AliquotSize(grain.size = 1:3))
   expect_error(calc_AliquotSize(grain.size = 100, packing.density = 2))
@@ -30,7 +29,6 @@ test_that("consistency checks", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
@@ -41,7 +39,6 @@ test_that("check class and length of output", {
 
 test_that("check summary output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   result <- get_RLum(temp)
 
@@ -54,7 +51,7 @@ test_that("check summary output", {
 
 test_that("check MC run", {
   testthat::skip_on_cran()
-  local_edition(3)
+
   expect_equal(round(temp$MC$statistics$n), 100)
   expect_equal(round(temp$MC$statistics$mean), 43)
   expect_equal(round(temp$MC$statistics$median), 39)

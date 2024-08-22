@@ -1,6 +1,5 @@
 test_that("General test", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##get file
   file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
@@ -45,5 +44,3 @@ test_that("General test", {
   expect_false(grepl(pattern = "USER", colnames(df)[1]))
 
 })
-
-

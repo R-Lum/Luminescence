@@ -7,7 +7,6 @@
 
 test_that("Check github_commits()", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   response <- tryCatch(github_commits(), error = function(e) return(e))
 
@@ -22,7 +21,6 @@ test_that("Check github_commits()", {
 
 test_that("Check github_branches()", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   response <- tryCatch(github_branches(), error = function(e) return(e))
 
@@ -37,7 +35,6 @@ test_that("Check github_branches()", {
 
 test_that("Check github_issues()", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   response <- tryCatch(github_issues(), error = function(e) return(e))
 

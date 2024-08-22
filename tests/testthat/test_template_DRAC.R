@@ -1,7 +1,6 @@
 ##Full check
 test_that("Check template creation ", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## test output class
   expect_s3_class(template_DRAC(), "DRAC.list")
@@ -36,4 +35,3 @@ test_that("Check template creation ", {
   expect_error(template_DRAC(preset = 999))
 
 })
-

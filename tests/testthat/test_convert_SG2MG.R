@@ -1,6 +1,5 @@
 test_that("test conversion from single grain data to multiple grain data", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## load example dataset
   data(ExampleData.BINfileData, envir = environment())

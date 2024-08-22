@@ -1,6 +1,5 @@
 test_that("plot_GrowthCurve", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## load data
   data(ExampleData.LxTxData, envir = environment())

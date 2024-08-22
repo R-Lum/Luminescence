@@ -6,7 +6,6 @@ d4 <- ExampleData.SurfaceExposure$set_2
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(fit_SurfaceExposure("test"),
                "'data' must be of class data.frame")
@@ -25,7 +24,6 @@ fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
@@ -42,7 +40,6 @@ fit <- fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9, weights = TRUE
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(round(fit$summary$age), 9624)
   expect_equal(round(fit$summary$age_error), 273)
@@ -56,7 +53,6 @@ fit <- fit_SurfaceExposure(data = data.table(d2), age = 1e4,
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 5)
@@ -73,7 +69,6 @@ fit <- fit_SurfaceExposure(data = d3, age = c(1e3, 1e4, 1e5, 1e6), sigmaphi = 5e
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(nrow(fit$summary), 4)
@@ -104,7 +99,6 @@ test_that("check values from output example", {
 #### WARNINGS & FAILURES
 test_that("not enough parameters provided", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_message(
     fit_SurfaceExposure(data = d1, plot = FALSE, verbose = TRUE),

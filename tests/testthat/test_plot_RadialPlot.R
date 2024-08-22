@@ -1,6 +1,5 @@
 test_that("dedicated test for the radialplot", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##distribution plots
   set.seed(12310)

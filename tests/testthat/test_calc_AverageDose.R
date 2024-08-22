@@ -6,7 +6,6 @@ temp <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data <- ExampleData.DeValues$CA1
   expect_error(calc_AverageDose(),
@@ -33,7 +32,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 3)
@@ -42,7 +40,6 @@ test_that("check class and length of output", {
 
 test_that("check summary output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 

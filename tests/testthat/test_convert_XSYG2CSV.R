@@ -1,6 +1,5 @@
 test_that("test convert functions", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##test for errors
   expect_error(convert_XSYG2CSV(),

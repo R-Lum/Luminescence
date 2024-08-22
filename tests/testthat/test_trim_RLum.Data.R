@@ -1,6 +1,5 @@
 test_that("RLum.Data.Curve", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.BINfileData, envir = environment())
   temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
@@ -66,7 +65,6 @@ test_that("RLum.Data.Curve", {
 
 test_that("RLum.Data.Spectrum", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## simple test for RLum.Data.Spectrum ... this can be kept
   ## simple because everything else was tested already
@@ -82,7 +80,6 @@ test_that("RLum.Data.Spectrum", {
 
 test_that("RLum.Data.Image", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## simple test for RLum.Data.Spectrum ... this can be kept
   ## simple because everything else was tested already
@@ -96,7 +93,6 @@ test_that("RLum.Data.Image", {
 
 test_that("RLum.Analysis", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load example data
   data(ExampleData.BINfileData, envir = environment())
@@ -142,15 +138,9 @@ test_that("RLum.Analysis", {
 
 test_that("Crash function", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## trigger stop
   testthat::expect_error(
     object = trim_RLum.Data("error"),
     regexp = "\\[trim\\_RLum.Data\\(\\)\\] Unsupported input class\\!")
-
-
-
 })
-
-

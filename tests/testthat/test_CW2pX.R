@@ -4,7 +4,6 @@ values <- CW_Curve.BosWallinga2012
 
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   values_pLM <- CW2pLM(values)
   values_pLMi <- CW2pLMi(values, P = 1/20)
@@ -28,7 +27,6 @@ test_that("Check the example and the numerical values", {
 
 test_that("Test RLum.Types", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load CW-OSL curve data
   data(ExampleData.CW_OSL_Curve, envir = environment())

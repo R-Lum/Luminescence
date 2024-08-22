@@ -74,7 +74,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
     testthat::skip_on_cran()
-    local_edition(3)
 
     expect_s4_class(results, "RLum.Results")
     expect_equal(length(results), 4)
@@ -86,7 +85,6 @@ test_that("check class and length of output", {
 
 test_that("check output", {
    testthat::skip_on_cran()
-   local_edition(3)
 
    expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)

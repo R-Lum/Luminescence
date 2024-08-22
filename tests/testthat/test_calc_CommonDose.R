@@ -5,7 +5,6 @@ temp.nolog <- calc_CommonDose(ExampleData.DeValues$CA1, log = FALSE,
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_error(calc_CommonDose(),
                "is missing, with no default")
@@ -21,7 +20,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 4)
@@ -30,7 +28,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   all.equal(calc_CommonDose(temp, verbose = FALSE),
             temp)

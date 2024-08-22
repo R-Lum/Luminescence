@@ -1,6 +1,5 @@
 test_that("Test internals", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   # .expand_parameters() ------------------------------------------------------
   ##create empty function ... reminder

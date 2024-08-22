@@ -4,7 +4,6 @@ temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
 
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   obj <- ExampleData.CW_OSL_Curve
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
@@ -53,7 +52,6 @@ test_that("input validation", {
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 5)
@@ -73,7 +71,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   results <- get_RLum(temp)
 

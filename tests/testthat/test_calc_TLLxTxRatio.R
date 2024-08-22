@@ -1,6 +1,5 @@
 test_that("calc_TLLxTxRatio", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##load package example data
   data(ExampleData.BINfileData, envir = environment())

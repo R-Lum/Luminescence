@@ -1,6 +1,5 @@
 test_that("basic checks", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## template
   template <- expect_s3_class(convert_Concentration2DoseRate(), "data.frame")

@@ -1,7 +1,6 @@
 ##Full check
 test_that("Test DRAC", {
   testthat::skip_on_cran()
-  local_edition(3)
 
  ##use manual example
  ##create template
@@ -52,4 +51,3 @@ test_that("Test DRAC", {
  expect_error(use_DRAC(input), "The limit of allowed datasets is 5000!")
 
 })
-

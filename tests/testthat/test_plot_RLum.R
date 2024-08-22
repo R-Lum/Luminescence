@@ -1,6 +1,5 @@
 test_that("test_plot_RLum", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## create dataset to test
   image <- as(array(rnorm(1000), dim = c(10,10,10)), "RLum.Data.Image")

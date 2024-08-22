@@ -1,6 +1,5 @@
 test_that("input validation", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.RLum.Analysis, envir = environment())
   o1 <- IRSAR.RF.Data

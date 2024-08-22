@@ -1,6 +1,5 @@
 test_that("test convert functions", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   # Set up test scenario ------------------------------------------------------------------------
   #create artifical dataset according to Mooney et al. (2013)

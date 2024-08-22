@@ -11,7 +11,6 @@ temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##standard tests
   expect_s4_class(temp, class = "RLum.Data.Curve")
@@ -31,7 +30,6 @@ test_that("check class and length of output", {
 
 test_that("check values from output example", {
  testthat::skip_on_cran()
-  local_edition(3)
 
  expect_equal(round(mean(smooth_RLum(temp, k = 5)[,2], na.rm = TRUE), 0), 100)
  expect_equal(round(mean(smooth_RLum(temp, k = 10)[,2], na.rm = TRUE), 0), 85)

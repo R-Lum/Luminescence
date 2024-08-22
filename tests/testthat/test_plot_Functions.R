@@ -1,6 +1,5 @@
 test_that("test pure success of the plotting without warning or error", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##distribution plots
   data(ExampleData.DeValues, envir = environment())
@@ -127,15 +126,10 @@ test_that("test pure success of the plotting without warning or error", {
                              sigmab = 0.2, n.components = c(2:4),
                              pdf.weight = TRUE, dose.scale = c(0, 100))
     plot_RLum(FMM)
-
-
-
-
 })
 
 test_that("test for return values, if any", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   data(ExampleData.DeValues, envir = environment())
   output <- plot_AbanicoPlot(ExampleData.DeValues, output = TRUE)

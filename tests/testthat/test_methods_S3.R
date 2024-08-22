@@ -1,6 +1,5 @@
 test_that("Test various S3 methods", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ## create test data
   data(ExampleData.CW_OSL_Curve, envir = environment())
@@ -21,8 +20,4 @@ test_that("Test various S3 methods", {
   expect_silent(plot(list(temp, temp)))
   expect_silent(plot(subset(CWOSL.SAR.Data, ID == 1)))
   expect_silent(hist(dose.rate))
-
-
-
-
 })

@@ -11,7 +11,6 @@ data_NA[1,] <- NA
 
 test_that("standard check", {
   testthat::skip_on_cran()
-  local_edition(3)
 
   ##trigger errors
   expect_error(fit_ThermalQuenching(data = "test"))
@@ -61,4 +60,3 @@ test_that("standard check", {
 
 
 })
-
