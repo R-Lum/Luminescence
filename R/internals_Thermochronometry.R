@@ -143,7 +143,7 @@
       ## the number of rows are determined automatically
       data.frame(
         SAMPLE = names(records)[x],
-        TEMP = unlist(mapply(rep, TEMP, n_length)),
+        TEMP = unlist(mapply(rep, TEMP, n_length, SIMPLIFY = FALSE)),
         TIME = unlist(TIME),
         LxTx = unlist(LxTx),
         LxTx_ERROR = NA)
@@ -200,4 +200,3 @@
   ## always return records
   return(records)
 }
-
