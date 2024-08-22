@@ -101,19 +101,9 @@ test_that("check values from analyse_FadingMeasurement()", {
 test_that("check values from calc_Huntley2008()", {
   testthat::skip_on_cran()
 
-  ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(huntley$results$Sim_Age, 1), 41.3)
-    expect_equal(round(huntley$results$Sim_Age_2D0, 0), 164)
-    expect_equal(round(sum(huntley$Ln),4), 0.1585)
-
-  }else{
-    expect_equal(round(huntley$results$Sim_Age, 1), 34)
-    expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
-    expect_equal(round(sum(huntley$Ln),2), 0.16)
-
-  }
-
+  expect_equal(round(huntley$results$Sim_Age, 1), 34)
+  expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
+  expect_equal(round(sum(huntley$Ln),2), 0.16)
 
   expect_equal(round(sum(huntley$data),0), 191530)
   expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.8)

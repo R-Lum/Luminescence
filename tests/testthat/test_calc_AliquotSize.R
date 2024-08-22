@@ -58,19 +58,10 @@ test_that("check MC run", {
   expect_equal(round(temp$MC$statistics$n), 100)
   expect_equal(round(temp$MC$statistics$mean), 43)
   expect_equal(round(temp$MC$statistics$median), 39)
-
-  ##fix for different R versions
-  if(R.version$major == "3" && as.numeric(R.version$minor) < 6){
-    expect_equal(round(temp$MC$statistics$sd.abs), 20)
-
-  }else{
-    expect_equal(round(temp$MC$statistics$sd.abs), 19)
-
-  }
+  expect_equal(round(temp$MC$statistics$sd.abs), 19)
   expect_equal(round(temp$MC$statistics$sd.rel), 45)
   expect_equal(round(temp$MC$statistics$se.abs), 2)
   expect_equal(round(temp$MC$statistics$se.rel), 5)
   expect_length(temp$MC$kde$x, 10000)
   expect_length(temp$MC$kde$y, 10000)
 })
-
