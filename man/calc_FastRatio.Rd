@@ -47,12 +47,14 @@ An integer specifying the channel for L1.}
 An integer specifying the channel for L2.}
 
 \item{Ch_L3}{\link{numeric} (\emph{optional}):
-A vector of length 2 with integer values specifying the start and end channels for L3
-(e.g., \code{c(40, 50)}).}
+A vector of length 2 with integer values specifying the start and end
+channels for L3 (e.g., \code{c(40, 50)}), with the second component greater
+than or equal to the first.
 
-\item{x}{\link{numeric} (\emph{with default}):
 \\% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
+
+\item{x}{\link{numeric} (\emph{with default}):}
 
 \item{x2}{\link{numeric} (\emph{with default}):
 \\% of signal remaining from the medium component.

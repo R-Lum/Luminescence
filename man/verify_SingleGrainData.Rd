@@ -24,7 +24,7 @@ numeric threshold value for the allowed difference between the \code{mean} and
 the \code{var} of the count values (see details)}
 
 \item{cleanup}{\link{logical} (\emph{with default}):
-if set to \code{TRUE} curves identified as zero light level curves are
+if set to \code{TRUE}, curves identified as zero light level curves are
 automatically removed. Output is an object as same type as the input, i.e.
 either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 
@@ -32,7 +32,7 @@ either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 selects the level for the clean-up of the input data sets.
 Two options are allowed: \code{"curve"} or \code{"aliquot"}:
 \itemize{
-\item If  \code{"curve"} is selected every single curve marked as \code{invalid} is removed.
+\item If  \code{"curve"} is selected, every single curve marked as \code{invalid} is removed.
 \item If \code{"aliquot"} is selected, curves of one aliquot (grain or disc) can be
 marked as invalid, but will not be removed. An aliquot will be only removed
 if all curves of this aliquot are marked as invalid.
@@ -72,9 +72,9 @@ The original function call
 \strong{Output variation}
 
 For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up
-(invalid curves were removed). This means: Either an \linkS4class{Risoe.BINfileData}
+(invalid curves were removed). This means: Either a \linkS4class{Risoe.BINfileData}
 or an \linkS4class{RLum.Analysis} object is returned in such cases.
-An \linkS4class{Risoe.BINfileData} object can be exported to a BIN-file by
+A \linkS4class{Risoe.BINfileData} object can be exported to a BIN-file by
 using the function \link{write_R2BIN}.
 }
 \description{
@@ -86,7 +86,7 @@ from single grain data measurements.
 
 The function compares the expected values (\eqn{E(X)}) and the variance
 (\eqn{Var(X)}) of the count values for each curve. Assuming that the
-background roughly follows a Poisson distribution the absolute difference
+background roughly follows a Poisson distribution, the absolute difference
 of both values should be zero or at least around zero as
 
 \deqn{E(x) = Var(x) = \lambda}
@@ -96,7 +96,7 @@ Thus the function checks for:
 \deqn{abs(E(x) - Var(x)) >= \Theta}
 
 With \eqn{\Theta} an arbitrary, user defined, threshold. Values above the
-threshold indicating curves comprising a signal.
+threshold indicate curves comprising a signal.
 
 Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the
 ratio was chosen as both terms can become 0 which would result in 0 or \code{Inf},
