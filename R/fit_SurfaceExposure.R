@@ -446,7 +446,9 @@ fit_SurfaceExposure <- function(
 
     if (grepl("y", plot_settings$log)) {
       plot_settings$ylim[1] <- 0.01
-      plot_settings$x <- data[which(data[ ,2] > 0),]
+      pos.idx <- which(data[, 2] > 0)
+      error <- error[pos.idx]
+      plot_settings$x <- data[pos.idx, ]
     }
 
     ## create main plot
