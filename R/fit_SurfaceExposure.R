@@ -237,7 +237,7 @@ fit_SurfaceExposure <- function(
 
   ## Data type validation
   if (inherits(data, "RLum.Results"))
-    object <- get_RLum(data, "data")
+    data <- get_RLum(data, "data")
 
   if (inherits(data, "matrix"))
     data <- as.data.frame(data)
