@@ -42,12 +42,31 @@ test_that("Test DRAC", {
  ## print method for DRAC.highlights
  expect_output(print(output$DRAC$highlights), regexp = "TO:GP = errAge")
 
+ ## DRAC.data.frame
+ input.df <- as.data.frame(input)
+ class(input.df) <- c("data.frame", "DRAC.data.frame")
+ expect_s4_class(use_DRAC(input.df, verbose = FALSE),
+                 "RLum.Results")
+
+ ## CSV input
+ expect_s4_class(use_DRAC(test_path("_data/DRAC_Input_Template.csv"),
+                          verbose = FALSE),
+                 "RLum.Results")
+
+ ## XLS input
+ fake.xls <- system.file("extdata/clippy.xls", package = "readxl")
+ expect_error(use_DRAC(fake.xls),
+              "you are not using the original DRAC v1.1 XLSX template")
+
  ## crash function
  ## wrong file name
  expect_error(use_DRAC("error"), "\\[use_DRAC\\(\\)\\] It seems that the file doesn't exist!")
+ expect_error(use_DRAC(NA),
+              "The provided data object is not a valid DRAC template")
 
  ## exceed allowed limit
- input <- suppressWarnings(template_DRAC(preset = "DRAC-example_quartz", nrow = 5001))
+ expect_warning(input <- template_DRAC(preset = "DRAC-example_quartz",
+                                       nrow = 5001),
+                "More than 5000 datasets might not be supported")
  expect_error(use_DRAC(input), "The limit of allowed datasets is 5000!")
-
 })

@@ -145,9 +145,7 @@ extract_IrradiationTimes <- function(
   if(is.list(object)){
     ##show message for non-supported arguments
     if(!missing(file.BINX)){
-      warning("[extract_IrradiationTimes()] argument 'file.BINX' is not supported in the self call mode.",
-              call. = FALSE)
-
+      .throw_warning("argument 'file.BINX' is not supported in self-call mode.")
     }
 
     ##extend arguments
@@ -186,20 +184,16 @@ extract_IrradiationTimes <- function(
 # Integrity tests -----------------------------------------------------------------------------
   ##check whether an character or an RLum.Analysis object is provided
   if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
-    stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.",
-         call. = FALSE)
-
+    .throw_error("Input object is neither of type 'character' nor ",
+                 "of type 'RLum.Analysis'.")
   } else if(is(object)[1] == "character"){
 
     ##set object to file.XSYG
     file.XSYG <- object
 
     ##XSYG
-    ##check if file exists
-    if(file.exists(file.XSYG) == FALSE){
-      stop("[extract_IrradiationTimes()] Wrong XSYG file name or file does not exsits!",
-           call. = FALSE)
-
+    if (!file.exists(file.XSYG)) {
+      .throw_error("Wrong XSYG file name or file does not exist!")
     }
 
     ##check if file is XML file
@@ -211,10 +205,8 @@ extract_IrradiationTimes <- function(
 
     ##BINX
     if(!missing(file.BINX)){
-      ##check if file exists
-      if(file.exists(file.BINX) == FALSE){
-        stop("[extract_IrradiationTimes()] Wrong BINX file name or file does not exist!", call. = FALSE)
-
+      if (!file.exists(file.BINX)) {
+        .throw_error("Wrong BINX file name or file does not exist!")
       }
 
       ##check if file is XML file
@@ -412,12 +404,10 @@ extract_IrradiationTimes <- function(
           message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
         }
 
-
       }
     }else{
-      try(
-        stop("[extract_IrradiationTimes()] XSYG-file and BINX-file did not contain similar entries. BINX-file update skipped!",call. = FALSE))
-
+      message("[extract_IrradiationTimes()] XSYG-file and BINX-file ",
+              "did not contain similar entries. BINX-file update skipped!")
     }
   }
 
