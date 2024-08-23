@@ -94,7 +94,7 @@ analyse_Al2O3C_CrossTalk <- function(
   ...
 ){
 
-  # Integretiy check  ---------------------------------------------------------------------------
+  # Integrity check  ---------------------------------------------------------------------------
 
   ##check input object
   if(!all(unlist(lapply(object, function(x){is(x, "RLum.Analysis")})))){
