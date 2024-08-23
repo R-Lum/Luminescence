@@ -17,7 +17,7 @@ test_that("test conversion from single grain data to multiple grain data", {
   dir <- tempdir()
   tmp <- paste0(dir, "/test.bin")
   write_file_test <- write_R2BIN(
-  read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V4.bin"),
+  read_BIN2R(file = test_path("_data/BINfile_V4.bin")),
   tmp)
 
   expect_s4_class(convert_SG2MG(tmp, write_file = TRUE, txtProgressBar = FALSE), "Risoe.BINfileData")
