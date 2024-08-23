@@ -121,15 +121,12 @@ analyse_Al2O3C_ITC <- function(
   if(is.list(object)){
     ##check whether the list contains only RLum.Analysis objects
     if(!all(unique(sapply(object, class)) == "RLum.Analysis")){
-      stop("[analyse_Al2O3C()] All objects in the list provided by 'objects' need to be of type 'RLum.Analysis'",
-           call. = FALSE)
-
+      .throw_error("All elements in the 'object' list must be of type 'RLum.Analysis'")
     }
 
     ##expand input arguments
     if(!is.null(signal_integral)){
       signal_integral <- rep(list(signal_integral, length = length(object)))
-
     }
 
     ##dose points
@@ -178,8 +175,7 @@ analyse_Al2O3C_ITC <- function(
   # Integrity check  ---------------------------------------------------------------------------
   ##check input object
   if(!inherits(object, "RLum.Analysis")){
-    stop("[analyse_Al2O3C_ITC()] 'object' needs to be of type 'RLum.Analysis'", call. = FALSE)
-
+    .throw_error("'object' must be of type 'RLum.Analysis'")
   }
 
   ##TODO
@@ -197,8 +193,11 @@ analyse_Al2O3C_ITC <- function(
 
   )
 
-    ##modify on request
-    if(!is.null(method_control)){
+  ## modify on request
+  if (!is.null(method_control)) {
+    if (!is.list(method_control)) {
+      .throw_error("'method_control' is expected to be a list")
+    }
       method_control_settings <- modifyList(x = method_control_settings, val = method_control)
 
     }
@@ -217,13 +216,9 @@ analyse_Al2O3C_ITC <- function(
     ##check whether the input is valid, otherwise make it valid
     if(min(signal_integral) < 1 | max(signal_integral) > nrow(object[[1]][])){
       signal_integral <- c(1:nrow(object[[1]][]))
-      warning(
-        paste0(
-          "[analyse_Al2O3C_ITC()] Input for 'signal_integral' corrected to 1:", nrow(object[[1]][])
-        ),
-        call. = FALSE
-      )
-    }
+      .throw_warning("Input for 'signal_integral' corrected to 1:",
+                     max(signal_integral))
+   }
 
   }
 
@@ -382,4 +377,3 @@ analyse_Al2O3C_ITC <- function(
   ))
 
 }
-
