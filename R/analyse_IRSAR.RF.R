@@ -66,7 +66,7 @@
 #' **`method.control`**
 #'
 #' To keep the generic argument list as clear as possible, arguments to control the methods
-#' for De estimation are all pre set with meaningful default parameters and can be
+#' for De estimation are all preset with meaningful default parameters and can be
 #' handled using the argument `method.control` only, e.g.,
 #' `method.control = list(trace = TRUE)`. Supported arguments are:
 #'
@@ -524,26 +524,18 @@ analyse_IRSAR.RF<- function(
   ## INTEGRITY TESTS AND SEQUENCE STRUCTURE TESTS
   ##===============================================================================================#
 
-  ##MISSING INPUT
-  if(missing("object")){
-    stop("[analyse_IRSAR.RF()] No input 'object' set!", call. = FALSE)
-  }
-
   ##INPUT OBJECTS
   if(!is(object, "RLum.Analysis")){
-    stop("[analyse_IRSAR.RF()] Input object is not of type 'RLum.Analysis'!", call. = FALSE)
+    .throw_error("Input object must be of type 'RLum.Analysis'")
   }
 
   ##CHECK OTHER ARGUMENTS
-  if(!is(sequence_structure, "character")){
-    stop("[analyse_IRSAR.RF()] argument 'sequence_structure' needs to be of type character.", call. = FALSE)
+  if (!is.character(sequence_structure)) {
+    .throw_error("'sequence_structure' must be of type 'character'")
   }
 
-    ##n.MC
-    if((!is(n.MC, "numeric") || n.MC <= 0) && !is.null(n.MC)){
-      stop("[analyse_IRSAR.RF()] argument 'n.MC' has to be of type integer and >= 0", call. = FALSE)
-    }
-
+  ## n.MC
+  .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
@@ -567,42 +559,34 @@ analyse_IRSAR.RF<- function(
 
   ##grep name of the sequence and the position this will be useful later on
   ##name
-  if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "name")))) {
-    aliquot.sequence_name <-
-      get_RLum(get_RLum(object, record.id = 1), info.object = "name")
-
-  }else{
+  aliquot.sequence_name <- suppressWarnings(get_RLum(get_RLum(object,
+                                                              record.id = 1),
+                                                     info.object = "name"))
+  if (is.null(aliquot.sequence_name)) {
     aliquot.sequence_name <- NA
-
   }
 
   ##position
-  if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "position")))){
-    aliquot.position <-
-      get_RLum(get_RLum(object, record.id = 1), info.object = "position")
-
-  }else{
+  aliquot.position <- suppressWarnings(get_RLum(get_RLum(object,
+                                                         record.id = 1),
+                                                info.object = "position"))
+  if (is.null(aliquot.position)) {
     aliquot.position <- NA
-
   }
 
   ##date
-  if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "startDate")))){
-    aliquot.date <-
-      get_RLum(get_RLum(object, record.id = 1), info.object = "startDate")
-
+  aliquot.date <- suppressWarnings(get_RLum(get_RLum(object,
+                                                     record.id = 1),
+                                            info.object = "startDate"))
+  if (!is.null(aliquot.date)) {
     ##transform so far the format can be identified
     if (nchar(aliquot.date) == 14) {
-      aliquot.date <-
-        paste(c(
-          substr(aliquot.date, 1,4),substr(aliquot.date, 5,6), substr(aliquot.date, 7,8)
-        ), collapse = "-")
-
+      aliquot.date <- paste(c(substr(aliquot.date, 1, 4),
+                              substr(aliquot.date, 5, 6),
+                              substr(aliquot.date, 7, 8)), collapse = "-")
     }
-
   }else{
     aliquot.date <- NA
-
   }
 
   ##set structure values
@@ -639,7 +623,7 @@ analyse_IRSAR.RF<- function(
   ))
 
 
-  ##02 - check boundaris
+  ## 02 - check boundaries
   ##RF_nat.lim
   if (is.null(RF_nat.lim) || any(is.na(RF_nat.lim))) {
     RF_nat.lim <- RF_nat.lim.default
@@ -655,10 +639,8 @@ analyse_IRSAR.RF<- function(
         max(RF_nat.lim) > RF_nat.lim.default[2]) {
       RF_nat.lim <- RF_nat.lim.default
 
-      warning(paste0(
-        "RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
-        paste(range(RF_nat.lim), collapse = ":")
-      ),")", call. = FALSE)
+      .throw_warning("RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
+                     paste(range(RF_nat.lim), collapse = ":"),")")
     }
 
   }
@@ -679,21 +661,17 @@ analyse_IRSAR.RF<- function(
         max(RF_reg.lim) > RF_reg.lim.default[2]) {
       RF_reg.lim <- RF_reg.lim.default
 
-      warning(paste0(
-        "RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
-        paste(range(RF_reg.lim), collapse = ":")
-      ),")", call. = FALSE)
-
+      .throw_warning("RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
+                     paste(range(RF_reg.lim), collapse = ":"), ")")
     }
   }
 
-  ##check if intervalls make sense at all
+  ## check if intervals make sense at all
   if(length(RF_reg.lim[1]:RF_reg.lim[2]) < RF_nat.lim[2]){
     RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
 
-    warning(paste0("Length intervall RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
-                   paste(range(RF_reg.lim), collapse=":")),")", call. = FALSE)
-
+    .throw_warning("Length interval RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
+                   paste(range(RF_reg.lim), collapse=":"), ")")
   }
 
   # Method Control Settings ---------------------------------------------------------------------
@@ -719,24 +697,17 @@ analyse_IRSAR.RF<- function(
   ##modify list if necessary
   if(!is.null(method.control)){
     if(!is(method.control, "list")){
-      stop("[analyse_IRSAR.RF()] 'method.control' has to be of type 'list'!", call. = FALSE)
-
+      .throw_error("'method.control' has to be of type 'list'!")
     }
 
     ##check whether this arguments are supported at all
-    if (length(which(
-      names(method.control) %in% names(method.control.settings) == FALSE
-    ) != 0)) {
-      temp.text <- paste0(
-        "[analyse_IRSAR.RF()] Argument(s) '",
-        paste(names(method.control)[which(names(method.control) %in% names(method.control.settings) == FALSE)], collapse = " and "),
-        "' are not supported for 'method.control'. Supported arguments are: ",
-        paste(names(method.control.settings), collapse = ", ")
-      )
-
-      warning(temp.text, call. = FALSE)
-      rm(temp.text)
-
+    unsupported.idx <- which(!names(method.control) %in%
+                             names(method.control.settings))
+    if (length(unsupported.idx) > 0) {
+      .throw_warning("'",  paste(names(method.control)[unsupported.idx],
+                                 collapse = ", "),
+                     "' not supported for 'method.control'. Supported arguments are: ",
+                     paste(names(method.control.settings), collapse = ", "))
     }
 
     ##modify list
@@ -948,16 +919,16 @@ analyse_IRSAR.RF<- function(
 
     # get parameters ----------------------------------------------------------
     # and with that the final De
-
+    fit.parameters.results <- NA
     if (!inherits(fit,"try-error")) {
       fit.parameters.results <- coef(fit)
-
-    }else{
-      fit.parameters.results <- NA
-
     }
 
     ##calculate De value
+    De <- NA
+    De.error <- NA
+    De.lower <- NA
+    De.upper <- NA
     if (!is.na(fit.parameters.results[1])) {
       De <- suppressWarnings(round(log(
         -((RF_nat.mean - fit.parameters.results["phi.0"]) /
@@ -985,13 +956,6 @@ analyse_IRSAR.RF<- function(
         ) ^ (1 / fit.parameters.results["beta"]) + 1
       ) /
         -fit.parameters.results["lambda"],digits = 2))
-
-    }else{
-      De <- NA
-      De.error <- NA
-      De.lower <- NA
-      De.upper <- NA
-
     }
   }
 
@@ -1020,8 +984,8 @@ analyse_IRSAR.RF<- function(
       ##check for odd user input
       if(length(vslide_range) > 2){
         vslide_range <- vslide_range[1:2]
-        warning("[anlayse_IRSAR.RF()] method.control = list(vslide_range) has more than 2 elements. Only the first two were used!", call. = FALSE)
-
+        .throw_warning("'vslide_range' in 'method.control' has more ",
+                       "than 2 elements. Only the first two were used")
       }
 
       ##(0) set objects ... nomenclature as used in Frouin et al., please note that here the index
@@ -1136,9 +1100,8 @@ analyse_IRSAR.RF<- function(
       index_min <- which.min(temp.sum.residuals$sliding_vector)
       if(length(index_min) == 0) t_n.id <- 1 else t_n.id <- index_min
 
-      if (is.null(vslide_range)) {
-        I_n <- 0
-      } else{
+      I_n <- 0
+      if (!is.null(vslide_range)) {
         I_n <- vslide_range[temp.sum.residuals$vslide_index]
       }
 
@@ -1253,6 +1216,7 @@ analyse_IRSAR.RF<- function(
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
     ##(i.e., bootstrap from the natural curve distribution)
 
+    De.diff <- De.error <- De.lower <- De.upper <- De.MC <- NA_integer_
     if(!is.null(n.MC)){
       slide.MC.list <- lapply(1:n.MC,function(x) {
 
@@ -1284,26 +1248,28 @@ analyse_IRSAR.RF<- function(
         cores <- 1
 
       } else {
+        available.cores <- parallel::detectCores()
+
         ##case 'auto'
         if(method.control.settings$cores == 'auto'){
-          if(parallel::detectCores() <= 2){
-            warning("[analyse_IRSAR.RF()] For the multicore auto mode at least 4 cores are needed!",
-                    call. = FALSE)
+          cores <- available.cores - 2
+          if (cores <= 0) {
+            # nocov start
+            .throw_warning("Multicore 'auto' mode needs at least 4 cores")
             cores <- 1
-
-          }else{
-            cores <- parallel::detectCores() - 2
+            # nocov end
           }
 
         }else if(is.numeric(method.control.settings$cores[1])){
-          if(method.control.settings$cores > parallel::detectCores()){
-            warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"),
-                    call. = FALSE)
+          if (method.control.settings$cores > available.cores) {
+            .throw_warning("What do you want? Your machine has only ",
+                           available.cores, " cores")
 
             ##assign all they have, it is not our problem
-            cores <- parallel::detectCores()
+            cores <- available.cores
 
-          } else if (method.control.settings$cores >= 1 && method.control.settings$cores <= parallel::detectCores()) {
+          } else if (method.control.settings$cores >= 1 &&
+                     method.control.settings$cores <= available.cores) {
             cores <- method.control.settings$cores
 
           } else { # Negative values
@@ -1319,9 +1285,9 @@ analyse_IRSAR.RF<- function(
 
         ##return message
         if (cores[1] == 1)
-          message(paste("[analyse_IRSAR.RF()] Singlecore mode"))
+          message("[analyse_IRSAR.RF()] Singlecore mode")
         else
-          message(paste("[analyse_IRSAR.RF()] Multicore mode using", cores, "cores..."))
+          message("[analyse_IRSAR.RF()] Multicore mode using ", cores, " cores...")
       }
 
       ## SINGLE CORE -----
@@ -1371,20 +1337,10 @@ analyse_IRSAR.RF<- function(
       De.error <- round(sd(De.MC), digits = 2)
       De.lower <- De - quantile(De.diff, 0.975, na.rm = TRUE)
       De.upper <- De - quantile(De.diff, 0.025, na.rm = TRUE)
-
-    }else{
-      De.diff <- NA_integer_
-      De.error <- NA_integer_
-      De.lower <- NA_integer_
-      De.upper <- NA_integer_
-      De.MC <- NA_integer_
-
     }
 
   }else{
-    warning("[analyse_IRSAR.RF()] Analysis skipped: Unknown method or threshold of test parameter exceeded.",
-            call. = FALSE)
-
+    .throw_warning("Analysis skipped: Unknown method or threshold of test parameter exceeded.")
   }
 
   ##===============================================================================================#
@@ -1573,7 +1529,9 @@ analyse_IRSAR.RF<- function(
 
 
   ##Combine everything in a data.frame
-    if(length(TP) != 0) {
+  De.status <- "OK"
+  TP.data.frame <- NULL
+  if (length(TP) != 0) {
       TP.data.frame <- as.data.frame(
         cbind(
           POSITION =  as.integer(aliquot.position),
@@ -1587,15 +1545,8 @@ analyse_IRSAR.RF<- function(
       ##set De.status to indicate whether there is any problem with the De according to the test parameter
       if ("FAILED" %in% TP.data.frame$STATUS) {
         De.status <- "FAILED"
-      }else{
-        De.status <- "OK"
       }
-
-    }else{
-      De.status <- "OK"
-      TP.data.frame <- NULL
-
-    }
+  }
 
   ##===============================================================================================#
   # Plotting ------------------------------------------------------------------------------------
@@ -1730,11 +1681,8 @@ analyse_IRSAR.RF<- function(
 
         rm(fit.lambda_coef)
       }else{
-        warning("[analyse_IRSAR.RF()] No fit possible, no fit shown.", call. = FALSE)
-
-
+        .throw_warning("No fit possible, no fit shown.")
       }
-
     }
 
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
@@ -1923,10 +1871,9 @@ analyse_IRSAR.RF<- function(
                   col = rgb(0,0.4,0.8,0.5))
 
         }else{
-          warning("[analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!", call. = FALSE)
-
+          .throw_warning("Narrow density distribution, ",
+                         "no density distribution plotted")
         }
-
       }
 
       ##(1) plot unused points in grey ... unused points are points outside of the set limit
@@ -2000,7 +1947,6 @@ analyse_IRSAR.RF<- function(
         )
 
       }
-
 
 
       ##write information on the De in the plot
@@ -2142,12 +2088,10 @@ analyse_IRSAR.RF<- function(
             xaxt = plot.settings$xaxt,
             axes = FALSE,
             xlim = xlim,
+            ylim = ylim,
             log = "y"
           )
-
-
         }
-
       }
 
     }
@@ -2163,12 +2107,9 @@ analyse_IRSAR.RF<- function(
   if(!exists("De.upper")){De.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
   if (!exists("fit")) {
-  if (exists("fit.lambda")) {
+    fit  <- list()
+    if (exists("fit.lambda")) {
       fit <- fit.lambda
-
-    }else{
-      fit  <- list()
-
     }
   }
   if(!exists("slide")){slide <- list()}
