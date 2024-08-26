@@ -13,6 +13,8 @@ test_that("input validation", {
                "'n.MC' must be a positive integer scalar")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method.control = 3),
                "'method.control' has to be of type 'list'")
+
+  SW({
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data,
                                   method.control = list(unknown = "test")),
                  "'unknown' not supported for 'method.control'")
@@ -25,11 +27,9 @@ test_that("input validation", {
                  "Your machine has only [0-9]* cores")
   }
 
-  suppressWarnings(
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(vslide_range = 1:4)),
                  "'vslide_range' in 'method.control' has more than 2 elements")
-  )
 
   expect_message(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method.control = list(cores = "4")),
@@ -37,12 +37,14 @@ test_that("input validation", {
 
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "UNKNOWN"),
                  "Analysis skipped: Unknown method or threshold of test")
+  })
 })
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   set.seed(1)
+  SW({
   results_fit <- analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "FIT")
   results_slide <- suppressWarnings(
     analyse_IRSAR.RF(object = IRSAR.RF.Data, plot = TRUE, method = "SLIDE", n.MC = NULL))
@@ -65,6 +67,7 @@ test_that("check class and length of output", {
       method.control = list(vslide_range = 'auto', trace_vslide = FALSE),
       txtProgressBar = FALSE
     ), class = "RLum.Results")
+  })
 
   expect_equal(is(results_fit), c("RLum.Results", "RLum"))
   expect_equal(length(results_fit), 5)
@@ -100,12 +103,13 @@ test_that("test support for IR-RF data", {
   file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
   temp <- read_RF2R(file)
 
-  suppressWarnings(
+  SW({
   expect_warning(expect_s4_class(
       analyse_IRSAR.RF(object = temp[1:3], method = "SLIDE",
                        plot_reduced = TRUE, n.MC = 1),
       "RLum.Results"),
-      "Narrow density distribution, no density distribution plotted"))
+      "Narrow density distribution, no density distribution plotted")
+  })
 })
 
 test_that("test edge cases", {
@@ -117,6 +121,7 @@ test_that("test edge cases", {
   RF_nat@data[,2] <- runif(length(RF_nat@data[,2]), 65.4, 76.7)
   RF_nat@data <- RF_nat@data[1:50,]
 
+  SW({
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
     set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg)),
     method = "SLIDE",
@@ -128,6 +133,7 @@ test_that("test edge cases", {
     mtext = "Subtitle",
     txtProgressBar = FALSE
   )), "RLum.Results")
+  })
 
   ## this RF_nat.lim after
   ##  'length = 2' in coercion to 'logical(1)' error

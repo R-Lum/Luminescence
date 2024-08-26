@@ -32,6 +32,7 @@ test_that("check class and length of output", {
   ## invert
   expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                              invert = TRUE, verbose = FALSE, plot = FALSE))
+  SW({
   expect_output(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                              invert = TRUE, log = FALSE, log.output = TRUE,
                              verbose = TRUE, plot = FALSE),
@@ -45,6 +46,7 @@ test_that("check class and length of output", {
                               bootstrap = TRUE, bs.M = 10,
                               multicore = TRUE, cores = 2),
                  "Spawning 2 instances of R for parallel computation")
+  })
 })
 
 test_that("check values from output example", {

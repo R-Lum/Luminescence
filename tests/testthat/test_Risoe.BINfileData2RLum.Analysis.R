@@ -25,13 +25,17 @@ test_that("input validation", {
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  SW({
   res <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data,
                                          txtProgressBar = TRUE)
+  })
   expect_type(res, "list")
   expect_length(res, 24)
 
+  SW({
   res <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:3,
                                          txtProgressBar = TRUE)
+  })
   expect_type(res, "list")
   expect_length(res, 3)
 

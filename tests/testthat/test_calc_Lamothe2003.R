@@ -17,12 +17,14 @@ test_that("Force function to break", {
                regexp = "Input for 'dose_rate.source' is not of type 'numeric' and/or of length < 2!")
 
   ##check warnings
+  SW({
   expect_s4_class(
     suppressWarnings(calc_Lamothe2003(
       object = data.frame(
         x = c(0,10,20), y = c(1.4,0.7,2.3), z = c(0.01,0.02, 0.03)),
       dose_rate.envir = c(1,2,3), dose_rate.source = c(1,2,3), g_value = c(1,1,1))),
     "RLum.Results")
+  })
 
   ##g_value
   expect_error(
@@ -100,6 +102,7 @@ test_that("Test the function itself", {
   )
 
   ##run fading correction
+  SW({
   expect_s4_class(calc_Lamothe2003(
     object = results,
     dose_rate.envir =  c(1.676 , 0.180),
@@ -107,8 +110,10 @@ test_that("Test the function itself", {
     g_value =  c(2.36, 0.6),
     plot = TRUE,
     fit.method = "EXP"), class = "RLum.Results")
+  })
 
   ##run fading correction
+  SW({
   expect_s4_class(calc_Lamothe2003(
     object = results,
     dose_rate.envir =  c(1.676 , 0.180),
@@ -118,11 +123,13 @@ test_that("Test the function itself", {
     tc.g_value = 1200,
     plot = TRUE,
     fit.method = "EXP"), class = "RLum.Results")
+  })
 
   ## pretend to have an analyse_pIRIRSequence originator to increase coverage
   results.mod <- results
   results.mod@originator <- "analyse_pIRIRSequence"
   results.mod@data$LnLxTnTx.table$Signal <- 1
+  SW({
   expect_s4_class(calc_Lamothe2003(
     object = results.mod,
     dose_rate.envir =  c(1.676 , 0.180),
@@ -130,13 +137,16 @@ test_that("Test the function itself", {
     g_value =  c(2.36, 0.6),
     plot = FALSE,
     fit.method = "EXP"), class = "RLum.Results")
+  })
 
   ## signal information present
+  SW({
   res <- suppressWarnings(
     calc_Lamothe2003(
       object = data.frame(x = c(0,10,20), y = c(1.4,0.7,2.3),
                           z = c(0.01,0.02, 0.03), Signal=1:3),
       dose_rate.envir = c(1,2), dose_rate.source = c(1,2),
       g_value = c(1,1)))
+  })
   expect_equal(res$data$SIGNAL, 1:3)
 })

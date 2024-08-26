@@ -18,18 +18,22 @@ test_that("input validation", {
 #  expect_error(analyse_Al2O3C_ITC(data_ITC, dose_points = list(NA)),
 #               "At least three regeneration points are required") XXX!
 
+  SW({
   expect_warning(analyse_Al2O3C_ITC(data_ITC, signal_integral = 0),
                  "Input for 'signal_integral' corrected to 1:99")
+  })
 })
 
 test_that("Full check", {
   skip_on_cran()
 
   ##run analysis
+  SW({
   expect_s4_class(analyse_Al2O3C_ITC(data_ITC), "RLum.Results")
   expect_s4_class(analyse_Al2O3C_ITC(list(data_ITC), signal_integral = 2,
                                      method_control = list(fit.method = "EXP")),
                   "RLum.Results")
+  })
 
   expect_warning(expect_null(analyse_Al2O3C_ITC(list(data_ITC),
                                                 dose_points = list(2))),

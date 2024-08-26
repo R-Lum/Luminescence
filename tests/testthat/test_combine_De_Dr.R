@@ -11,6 +11,7 @@ test_that("Test combine_De_Dr", {
   set.seed(1276)
 
   ## break function
+  SW({
   expect_error(combine_De_Dr(
     Dr = Dr,
     int_OD = 0.1,
@@ -30,6 +31,7 @@ test_that("Test combine_De_Dr", {
     legend = TRUE,
     method_control = list(n.iter = 100,
                           n.chains = 1)), "RLum.Results")
+  })
 
   ## check whether mcmc is NULL
   expect_null(results$mcmc_IAM)
@@ -37,6 +39,7 @@ test_that("Test combine_De_Dr", {
 
   ## run the same with different par settings
   oldpar <- par(mfrow = c(2,2))
+  SW({
   results <- expect_s4_class(combine_De_Dr(
     Dr = Dr,
     int_OD = 0.1,
@@ -50,7 +53,7 @@ test_that("Test combine_De_Dr", {
       n.chains = 1,
       return_mcmc = TRUE
       )), "RLum.Results")
-
+  })
 
   ## check the length of the output
   expect_length(results, 9)
@@ -60,9 +63,12 @@ test_that("Test combine_De_Dr", {
   expect_s3_class(results$mcmc_BCAM, "mcmc.list")
 
   ## try to plot the results again
+  SW({
   plot_OSLAgeSummary(results)
+  })
 
   ## diag = TRUE
+  SW({
   expect_error(combine_De_Dr(
     Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
     method_control = list(n.iter = 100, n.chains = 1, diag = TRUE)),
@@ -71,14 +77,17 @@ test_that("Test combine_De_Dr", {
     Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
     method_control = list(n.iter = 100, n.chains = 2, diag = TRUE)),
     "RLum.Results")
+  })
 
   ## cdf_ADr_quantiles = TRUE and outlier_method = "RousseeuwCroux1993"
+  SW({
   expect_s4_class(combine_De_Dr(
     Dr = Dr, int_OD = 0.1, De, s, Age_range = c(0, 100),
     cdf_ADr_quantiles = TRUE,
     outlier_method = "RousseeuwCroux1993",
     method_control = list(n.iter = 100, n.chains = 1)),
     "RLum.Results")
+  })
 
   ## reset the graphical parameters to the original values
   par(oldpar)

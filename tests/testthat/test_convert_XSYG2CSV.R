@@ -10,7 +10,9 @@ test_that("test convert functions", {
                regexp = "[read_BIN2R()] File does not exist!",
                fixed = TRUE)
   #expect_error(convert_PSL2CSV(file = "", export = FALSE))
-  expect_error(suppressWarnings(convert_XSYG2CSV(file = "", export = FALSE)))
+  expect_error(expect_message(convert_XSYG2CSV(file = "", export = FALSE),
+                              "XML file not readable, nothing imported"),
+               "Object needs to be a member of the object class RLum")
 
   ##test conversion itself
     ##BIN2CSV
