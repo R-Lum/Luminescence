@@ -1040,7 +1040,7 @@ analyse_IRSAR.RF<- function(
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
         temp_minium_list <- lapply(1:10, function(x){
-          src_analyse_IRSARRF_SRS(
+          Luminescence:::src_analyse_IRSARRF_SRS(
             values_regenerated_limited =  RF_reg.limited[,2],
             values_natural_limited = RF_nat.limited[,2],
             vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
@@ -1088,7 +1088,7 @@ analyse_IRSAR.RF<- function(
 
       ##now run the final sliding with the identified range that corresponds to the minimum value
       temp.sum.residuals <-
-        src_analyse_IRSARRF_SRS(
+        Luminescence:::src_analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
           vslide_range = vslide_range,

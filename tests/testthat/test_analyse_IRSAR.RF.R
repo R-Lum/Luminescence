@@ -16,6 +16,9 @@ test_that("input validation", {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data,
                                   method.control = list(unknown = "test")),
                  "'unknown' not supported for 'method.control'")
+  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                  method.control = list(cores = 10000)),
+                 "Your machine has only [0-9]* cores")
 
   suppressWarnings(
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
@@ -83,18 +86,6 @@ test_that("test controlled crash conditions", {
       method = "SLIDE",
       method.control = list(vslide_range = c(0,1e+07)),
     ), regexp = "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)!", fixed = TRUE)
-
-  ## test multi-core error
-  ## This does not seem to work on the GitHub Actions platform
-  # expect_warning(
-  #   analyse_IRSAR.RF(
-  #     object = IRSAR.RF.Data,
-  #     plot = FALSE,
-  #     method = "VSLIDE",
-  #     n.MC = 2,
-  #     method.control = list(cores = 10000),
-  #     txtProgressBar = FALSE
-  #   ), regexp = "\\[analyse\\_IRSAR.RF\\(\\)] What do you want\\?")
 })
 
 test_that("test support for IR-RF data", {
