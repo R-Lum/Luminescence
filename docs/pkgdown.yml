@@ -1,6 +1,8 @@
-pandoc: '3.2'
-pkgdown: 2.0.9
+pandoc: '3.3'
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-05-18T10:19Z
-
+last_built: 2024-08-26T19:05Z
+urls:
+  reference: https://r-lum.github.io/Luminescence/reference
+  article: https://r-lum.github.io/Luminescence/articles
