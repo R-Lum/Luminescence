@@ -186,9 +186,9 @@ calc_gSGC_feldspar <- function (
 
       ## in case the initial uniroot solve does not work
       if(inherits(temp, "try-error")) {
-        try(stop(paste0("[calc_gSGC_feldspar()] No solution was found for dataset: #", i,"! NA returned"), call. = FALSE))
+        message("[calc_gSGC_feldspar()] Error: No solution found for ",
+                "dataset #", i, ", NA returned")
         return(NA)
-
       }
 
       De <- temp$root
