@@ -98,7 +98,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##check input object
   if(!all(unlist(lapply(object, function(x){is(x, "RLum.Analysis")})))){
-    stop("[analyse_Al2O3C_CrossTalk()] The elements in 'object' are not all of type 'RLum.Analsyis'", call. = FALSE)
+    stop("[analyse_Al2O3C_CrossTalk()] The elements in 'object' are not all of type 'RLum.Analysis'", call. = FALSE)
 
   }
 

@@ -13,7 +13,7 @@ test_that("Full check", {
 
   ## input validation
   expect_error(analyse_Al2O3C_CrossTalk("test"),
-               "The elements in 'object' are not all of type 'RLum.Analsyis'")
+               "The elements in 'object' are not all of type 'RLum.Analysis'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         method_control = "EXP"),
                "'method_control' is expected to be a list")
