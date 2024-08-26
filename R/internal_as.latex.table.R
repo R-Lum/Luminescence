@@ -30,7 +30,7 @@
 #' an [integer] specifying the number of individual tables
 #' the data frame is split into. Useful for wide tables. Currently unused.
 #'
-#' @param tabular_only [logical] (*with default*): if `TRUE` on the tablular but not the
+#' @param tabular_only [logical] (*with default*): if `TRUE` only the tabular but not the
 #' table environment is returned. This gives a lot of additional flexibility at hand
 #'
 #' @param ... options: `verbose`
@@ -152,7 +152,7 @@
     text <- gsub(pattern = "Internal \\\\ doserate", replacement = "$\\dot{D}_{int.}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "Environmental \\\\ Dose \\\\ Rate", replacement = "$\\dot{D}_{env.}$", x = text, fixed = TRUE)
 
-    ##retrun result
+    ## return result
     return(text)
 
   }# EndOf::use_DRAC
@@ -174,16 +174,13 @@
                                        ...) {
   ## Integrity checks ----
   if (!is.data.frame(x))
-    stop("x must be a data frame", call. = FALSE)
+    .throw_error("'x' must be a data frame")
   if (!is.null(col.names) && length(col.names) != ncol(x))
-    stop("length of col.names does not match the number of columns",
-         call. = FALSE)
+    .throw_error("Length of 'col.names' does not match the number of columns")
   if (!is.null(row.names) && length(row.names) != nrow(x))
-    stop("length of row.names does not match the number of rows",
-         call. = FALSE)
+    .throw_error("Length of 'row.names' does not match the number of rows")
   if (length(pos) != 1)
-    stop("length of pos does not match the number of columns",
-         call. = FALSE)
+    .throw_error("Length of 'pos' does not match the number of columns")
 
   ## Default settings ----
   options <- list(verbose = TRUE)
@@ -195,8 +192,8 @@
   if (!missing(select)) {
     is.name <- select %in% names(x)
     if (any(!is.name))
-      stop("Undefined columns selected. Please check provided column names in 'select'.",
-           call. = FALSE)
+      .throw_error("Undefined columns selected. Please check provided ",
+                   "column names in 'select'.")
     x <- subset(x, select = select)
   }
 
@@ -266,7 +263,6 @@
       tex.table.end <-  paste0("     \\hline \n",
                                "   \\end{tabular}")
 
-
     }else{
       tex.table.begin <- paste0("\\begin{table}[ht] \n",
                                 "  \\centering \n",
@@ -297,7 +293,7 @@
 }
 
 # This function takes a data.frame, checks each column and tries to
-# force the specified amount of digits if numeric or coercable to numeric
+# force the specified amount of digits if numeric or coerceable to numeric
 .digits <- function(x, digits) {
   for (i in 1:ncol(x)) {
     if (is.factor(x[ ,i]))

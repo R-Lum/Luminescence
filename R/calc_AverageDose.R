@@ -352,7 +352,7 @@ calc_AverageDose <- function(
   dstar <- na.exclude(dstar)
 
 
-  ##calculate confidence intervalls
+  ## calculate confidence intervals
   IC_delta <- .CredibleInterval(dstar[,1],0.95)
   IC_sigma_d <- .CredibleInterval(dstar[,2],0.95)
   IC <- rbind(IC_delta, IC_sigma_d)

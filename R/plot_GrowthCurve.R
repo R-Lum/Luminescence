@@ -239,7 +239,7 @@
 #' plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 #' ##dev.off()
 #'
-#' ##(4) plot resulting function for given intervall x
+#' ##(4) plot resulting function for given interval x
 #' x <- seq(1,10000, by = 100)
 #' plot(
 #'  x = x,

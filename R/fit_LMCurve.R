@@ -265,39 +265,31 @@ fit_LMCurve<- function(
   # (0) Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-    stop("[fit_LMCurve()] 'values' has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
+  if (!is(values, "data.frame") && !is(values, "RLum.Data.Curve")) {
+    .throw_error("'values' has to be of type 'data.frame' or 'RLum.Data.Curve'")
+  }
 
-  }else{
-
-    if(is(values, "RLum.Data.Curve") == TRUE && (
-      values@recordType!="RBR" & values@recordType!="LM-OSL")){
-      stop("[fit_LMCurve()] recordType should be 'RBR' or 'LM-OSL'!
-           Consider using as(object,'data.frame') if you had used a pseudo transformation function.",
-           call. = FALSE)
-
-    }else if(is(values, "RLum.Data.Curve")){
-      values <- as(values,"data.frame")
-
+  if (is(values, "RLum.Data.Curve")) {
+    if (values@recordType != "RBR" && values@recordType != "LM-OSL") {
+      .throw_error("recordType should be 'RBR' or 'LM-OSL'. ",
+                   "Consider using as(object,'data.frame') if you had used ",
+                   "a pseudo transformation function.")
     }
+
+    values <- as(values,"data.frame")
   }
 
   ##(2) data.frame or RLum.Data.Curve object?
-  if(missing(values.bg)==FALSE){
-    if(is(values.bg, "data.frame") == FALSE & is(values.bg,
-                                                 "RLum.Data.Curve") == FALSE){
-      stop("[fit_LMCurve()] 'values.bg' object has to be of type 'data.frame' or 'RLum.Data.Curve'!",
-           call. = FALSE)
-
-    }else{
-      if(is(values, "RLum.Data.Curve") == TRUE && values@recordType!="RBR"){
-        stop("[fit_LMCurve()] recordType should be 'RBR'!", call. = FALSE)
+  if (!missing(values.bg)) {
+    if (!is(values.bg, "data.frame") && !is(values.bg, "RLum.Data.Curve")) {
+      .throw_error("'values.bg' must be of type 'data.frame' or 'RLum.Data.Curve'")
+    }
+    if (is(values, "RLum.Data.Curve") && values@recordType != "RBR") {
+      .throw_error("'recordType' should be 'RBR'!")
 
       }else if(is(values.bg, "RLum.Data.Curve")){
         values.bg <- as(values.bg,"data.frame")
-
       }
-    }
   }
 
   ## Set plot format parameters -----------------------------------------------
@@ -358,7 +350,7 @@ fit_LMCurve<- function(
 
     ##check if length of bg and signal is consistent
     if(length(values[,2])!=length(values.bg[,2]))
-      stop("[fit_LMCurve] Length of values and values.bg differs!", call. = FALSE)
+      .throw_error("Lengths of 'values' and 'values.bg' differ")
 
     if(bg.subtraction=="polynomial"){
 
@@ -423,15 +415,16 @@ fit_LMCurve<- function(
       }
 
     } else {
-      stop("[fit_LMCurve()] Invalid method for background subtraction", call. = FALSE)
+      .throw_error("Invalid method for background subtraction")
     }
-
   }
 
 
   ##============================================================================##
   ##  FITTING
   ##============================================================================##
+
+  .validate_positive_scalar(n.components, int = TRUE)
 
   ##------------------------------------------------------------------------##
   ##set function for fit equation (according Kitis and Pagonis, 2008)
@@ -569,10 +562,8 @@ fit_LMCurve<- function(
           ), silent = TRUE)
 
         }else{
-          stop("[fit_LMCurve()] unknow method for 'fit.method'", call. = FALSE)
-
+          .throw_error("Unknown method for 'fit.method'")
         }
-
 
       }#endifelse::fit.advanced
 
@@ -629,7 +620,7 @@ fit_LMCurve<- function(
       print(c(xm, Im))
 
       #print some additional information
-      writeLines("\n(equation used for fitting according Kitis & Pagonis, 2008)")
+      writeLines("\n(equation used for fitting according to Kitis & Pagonis, 2008)")
     }#end if
 
     ##============================================================================##
@@ -673,8 +664,9 @@ fit_LMCurve<- function(
         n0.error <- as.vector(abs(((Im.confint[,1]/exp(-0.5))*xm.confint[,1]) - ((Im.confint[,2]/exp(-0.5))*xm.confint[,2])))
 
       } else {
-        warning("[fit_LMCurve()] The computation of the parameter confidence intervals failed. Please try to run stats::confint() manually on the $fit output object!", call. = FALSE)
-
+        .throw_warning("The computation of the parameter confidence intervals ",
+                       "failed. Please try to run stats::confint() manually ",
+                       "on the $fit output object")
       }
     }
     ##------------------------------------------------------------------------##
@@ -797,7 +789,7 @@ fit_LMCurve<- function(
     if (verbose){
       ##write fill lines
       writeLines("------------------------------------------------------------------------------")
-      writeLines("(1) Corresponding values according the equation in Bulur, 1996 for b and n0:\n")
+      writeLines("(1) Corresponding values according to the equation in Bulur, 1996 for b and n0:\n")
       for (i in 1:length(b)){
         writeLines(paste("b",i," = ",format(b[i],scientific=TRUE)," +/- ",format(b.error[i],scientific=TRUE),sep=""))
         writeLines(paste("n0",i," = ",format(n0[i],scientific=TRUE)," +/- ",format(n0.error[i],scientific=TRUE),"\n",sep=""))
@@ -904,7 +896,6 @@ fit_LMCurve<- function(
         xm[i] * exp(-values[, 1] ^ 2 / (2 * xm[i] ^ 2))
 
     }
-
   }
 
   # Plotting ----------------------------------------------------------------
@@ -1039,7 +1030,9 @@ fit_LMCurve<- function(
       ##------------------------------------------------------------------------##
     }#end if try-error for fit
 
+    # nocov start
     if(fun){sTeve()}
+    # nocov end
   }
   ##-----------------------------------------------------------------------------
   ##remove objects
