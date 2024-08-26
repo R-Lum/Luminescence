@@ -34,6 +34,7 @@ Description: A collection of various R functions for the purpose of Luminescence
     plotting of equivalent dose distributions.
 Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
+URL: https://r-lum.github.io/Luminescence/
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 4.3),
@@ -70,7 +71,6 @@ Suggests:
     devtools (>= 2.4.5),
     R.rsp (>= 0.46.0)
 VignetteBuilder: R.rsp
-URL: https://CRAN.R-project.org/package=Luminescence
 Encoding: UTF-8
 Language: en-US
 Collate: 
