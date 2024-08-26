@@ -15,6 +15,7 @@ navbar:
       href: https://github.com/R-Lum/Luminescence
 
 template:
+  bootstrap: 5
   params:
    bootswatch: cosmo
 
