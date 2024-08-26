@@ -18,10 +18,12 @@ test_that("standard check", {
 
 
   ## wrong graining argument -------
+  SW({
   expect_error(fit_EmissionSpectra(TL.Spectrum, frame = 5,
       method_control = list(graining = 10000)),
       "method_control$graining cannot exceed the available channels (1024)",
       fixed = TRUE)
+  })
 
   ## for matrix input -------
   expect_error(fit_EmissionSpectra("fail"),
@@ -30,12 +32,15 @@ test_that("standard check", {
   mat <- get_RLum(TL.Spectrum)[, 1:4]
   expect_error(fit_EmissionSpectra(object = mat, frame = 1000),
                "'frame' invalid. Allowed range min: 1 and max: 3")
+  SW({
   expect_s4_class(
       fit_EmissionSpectra(object = mat, plot = FALSE, verbose = FALSE,
                           method_control = list(max.runs = 5)),
       "RLum.Results")
+  })
 
   # plain run -------
+  SW({
   results <-  expect_s4_class(fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5,
@@ -44,6 +49,7 @@ test_that("standard check", {
     plot = TRUE,
     start_parameters = c(2.17),
     method_control = list(max.runs = 100)), "RLum.Results")
+  })
 
   # silent mode -------
   expect_silent(fit_EmissionSpectra(
@@ -60,17 +66,21 @@ test_that("standard check", {
  expect_type(results$data, "double")
 
   ## input_scale
+  SW({
   expect_s4_class(
       fit_EmissionSpectra(object = TL.Spectrum, frame = 5,
                           input_scale = "wavelength", plot = FALSE,
                           method_control = list(max.runs = 5)),
       "RLum.Results")
+  })
 
   ## plot
   set.seed(1)
+  SW({
   expect_s4_class(
       fit_EmissionSpectra(object = TL.Spectrum, frame = 5, plot = TRUE,
                           n_components = 3, verbose = FALSE, mtext = "Subtitle",
                           method_control = list(max.runs = 5)),
       "RLum.Results")
+  })
 })

@@ -4,7 +4,9 @@ test_that("Test DRAC", {
 
  ##use manual example
  ##create template
+ SW({
  input <- template_DRAC(preset = "DRAC-example_quartz")
+ })
 
  ##test
  expect_s3_class(input, "DRAC.list")
@@ -37,7 +39,9 @@ test_that("Test DRAC", {
  input$`errDe (Gy)` <- 0.2
 
  ##run DRAC
+ SW({
  output <- expect_s4_class(use_DRAC(input), "RLum.Results")
+ })
 
  ## print method for DRAC.highlights
  expect_output(print(output$DRAC$highlights), regexp = "TO:GP = errAge")
@@ -65,8 +69,10 @@ test_that("Test DRAC", {
               "The provided data object is not a valid DRAC template")
 
  ## exceed allowed limit
+ SW({
  expect_warning(input <- template_DRAC(preset = "DRAC-example_quartz",
                                        nrow = 5001),
                 "More than 5000 datasets might not be supported")
+ })
  expect_error(use_DRAC(input), "The limit of allowed datasets is 5000!")
 })

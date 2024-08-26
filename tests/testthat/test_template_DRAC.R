@@ -3,7 +3,11 @@ test_that("Check template creation ", {
   testthat::skip_on_cran()
 
   ## test output class
-  expect_s3_class(template_DRAC(), "DRAC.list")
+  SW({
+  expect_message(res <- template_DRAC(),
+                 "IMPORTANT NOTE")
+  })
+  expect_s3_class(res, "DRAC.list")
   expect_s3_class(template_DRAC(notification = FALSE), "DRAC.list")
   expect_s3_class(template_DRAC(nrow = 10, notification = FALSE), "DRAC.list")
 

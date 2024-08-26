@@ -4,6 +4,7 @@ data(ExampleData.Al2O3C, envir = environment())
 test_that("input validation", {
   skip_on_cran()
 
+  SW({
   expect_error(analyse_Al2O3C_Measurement(),
                "is missing, with no default")
   expect_error(analyse_Al2O3C_Measurement("error"),
@@ -27,15 +28,18 @@ test_that("input validation", {
 
   expect_warning(Luminescence:::.warningCatcher(
                                      analyse_Al2O3C_Measurement(object = data_CrossTalk, signal_integral = 1000)))
+  })
 })
 
 test_that("analyse_Al2O3C_Measurements", {
   skip_on_cran()
 
-   ##run analysis
+  ## run analysis
+  SW({
    expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(data_CrossTalk)), "RLum.Results")
    expect_s4_class(suppressWarnings(analyse_Al2O3C_Measurement(data_CrossTalk, calculate_TL_dose = TRUE)),
                                     "RLum.Results")
+   })
   expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
                         test_parameter = list(stimulation_power = 0.01)))
   expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
@@ -43,6 +47,7 @@ test_that("analyse_Al2O3C_Measurements", {
 
   ## tests without TL curves
   temp <- get_RLum(data_CrossTalk, recordType = "OSL", drop = FALSE)
+  SW({
   expect_s4_class(analyse_Al2O3C_Measurement(temp),
                   "RLum.Results")
   expect_output(analyse_Al2O3C_Measurement(temp, travel_dosimeter = 2),
@@ -51,4 +56,5 @@ test_that("analyse_Al2O3C_Measurements", {
                  "'travel_dosimeter' specifies every position")
   expect_message(analyse_Al2O3C_Measurement(temp, travel_dosimeter = 2000),
                  "Invalid position in 'travel_dosimeter', nothing corrected")
+  })
 })
