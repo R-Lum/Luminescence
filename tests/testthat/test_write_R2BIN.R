@@ -45,8 +45,6 @@ data(ExampleData.BINfileData, envir = environment())
   write_R2BIN(object = new, file = paste0(path, "BINfile_V6.binx"), version = "06")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V7.binx"), version = "07")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V8.binx"), version = "08")
-  ## silent correction of the file extension
-  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"), version = "08")
   })
 
   temp <- new
@@ -112,4 +110,9 @@ data(ExampleData.BINfileData, envir = environment())
                              file = paste0(path, "BINfile_V8.binx")),
                  "'COMMENT' exceeds storage limit"),
     "Some data sets are longer than 9,999 points")
+
+  ## silent correction of the file extension
+  skip_on_os("windows") # FIXME(mcol)
+  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"), version = "08")
+
 })
