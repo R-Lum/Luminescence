@@ -163,18 +163,14 @@ analyse_SAR.TL <- function(
   ##=============================================================================#
   # General Integrity Checks ---------------------------------------------------
 
-  ##MISSING INPUT
-  if(missing("signal.integral.min") == TRUE){
-    stop("[analyse_SAR.TL()] No value set for 'signal.integral.min'!", call. = FALSE)
+  if (!is(object, "RLum.Analysis")) {
+    .throw_error("Input object is not of type 'RLum.Analyis'")
   }
-
-  if(missing("signal.integral.max") == TRUE){
-    stop("[analyse_SAR.TL()] No value set for 'signal.integral.max'!", call. = FALSE)
+  if (missing("signal.integral.min")) {
+    .throw_error("No value set for 'signal.integral.min'")
   }
-
-  ##INPUT OBJECTS
-  if(is(object, "RLum.Analysis") == FALSE){
-    stop("[analyse_SAR.TL()] Input object is not of type 'RLum.Analyis'!", call. = FALSE)
+  if (missing("signal.integral.max")) {
+    .throw_error("No value set for 'signal.integral.max'")
   }
 
 
@@ -188,7 +184,7 @@ analyse_SAR.TL <- function(
   ##set vector for sequence structure
   temp.protocol.step <- rep(sequence.structure,length(object@records))[1:length(object@records)]
 
-  ##grep object strucute
+  ## grep object structure
   temp.sequence.structure <- structure_RLum(object)
 
   ##set values for step
@@ -197,22 +193,18 @@ analyse_SAR.TL <- function(
   ##remove TL curves which are excluded
   temp.sequence.structure <- temp.sequence.structure[which(
     temp.sequence.structure[,"protocol.step"]!="EXCLUDE"),]
-
   ##check integrity; signal and bg range should be equal
   if(length(
     unique(
       temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","n.channels"]))>1){
 
-    stop(paste(
-      "[analyse_SAR.TL()] Signal range differs. Check sequence structure.\n",
-      temp.sequence.structure
-    ))
+    .throw_error("Signal range differs, check sequence structure.\n",
+                 temp.sequence.structure)
   }
 
   ##check if the wanted curves are a multiple of the structure
   if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0)
-    stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.",
-         call. = FALSE)
+    .throw_error("Input TL curves are not a multiple of the sequence structure")
 
   # # Calculate LnLxTnTx values  --------------------------------------------------
   ##grep IDs for signal and background curves
@@ -413,10 +405,10 @@ analyse_SAR.TL <- function(
                                      object@records[[TL.signal.ID[1]]]@data[signal.integral.max,1])
 
 
-  ##warning if number of curves exceed colour values
+  ## warning if number of curves exceeds colour values
   if(length(col)<length(TL.signal.ID/2)){
-    cat("\n[analyse_SAR.TL.R] Warning: To many curves! Only the first",
-        length(col),"curves are plotted!")
+    message("\n[analyse_SAR.TL.R()] Warning: Too many curves, ",
+            "only the first ", length(col), " curves are plotted")
   }
 
 
@@ -634,8 +626,6 @@ analyse_SAR.TL <- function(
     ##set failed text and mark De as failed
     if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
       mtext("[FAILED]", col = "red")
-
-
     }
   }
 

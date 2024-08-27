@@ -28,7 +28,8 @@ test_that("plot_GrowthCurve", {
   expect_error(
     plot_GrowthCurve(LxTxData, fit.method = "EXP+EXP",
                      mode = "extrapolation"),
-    "mode 'extrapolation' for this fitting method currently not supported")
+    "mode 'extrapolation' for fitting method 'EXP+EXP' currently not supported",
+    fixed = TRUE)
 
 # Weird LxTx values --------------------------------------------------------
 
@@ -40,46 +41,57 @@ test_that("plot_GrowthCurve", {
     class = "data.frame", row.names = c(NA, -9L))
 
   ##fit
-  expect_warning(Luminescence:::.warningCatcher(
+  SW({
+  expect_warning(
     plot_GrowthCurve(
       sample = LxTx[,c("Dose", "LxTx", "LxTx.Error")],
-      output.plot = FALSE)))
+      output.plot = TRUE),
+    "Inf values found, replaced by NA")
+  })
 
   ##all points have the same dose ... error but NULL
   data(ExampleData.LxTxData, envir = environment())
   tmp_LxTx <- LxTxData
   tmp_LxTx$Dose <- 10
 
-  expect_null(
-    object = plot_GrowthCurve(tmp_LxTx))
+  expect_message(expect_null(
+      object = plot_GrowthCurve(tmp_LxTx)),
+      "Error: All points have the same dose, NULL returned")
 
   ## check input objects ... matrix
+  SW({
   expect_s4_class(
     object = plot_GrowthCurve(as.matrix(LxTxData), output.plot = FALSE),
     class = "RLum.Results")
+  })
 
   ## check input objects ... list
   expect_s4_class(
-    object = plot_GrowthCurve(as.list(LxTxData), output.plot = FALSE),
+    object = plot_GrowthCurve(as.list(LxTxData), output.plot = FALSE,
+                              verbose = FALSE),
     class = "RLum.Results")
 
   ## test case for only two columns
   expect_s4_class(
-    object = suppressWarnings(plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE)),
+    suppressWarnings(plot_GrowthCurve(LxTxData[,1:2], output.plot = FALSE,
+                                      verbose = FALSE)),
     class = "RLum.Results")
 
   ## test case with all NA
   tmp_LxTx <- LxTxData
   tmp_LxTx$LxTx <- NA
-  expect_null(
-    object = suppressWarnings(plot_GrowthCurve(tmp_LxTx, output.plot = FALSE)))
+  expect_message(expect_null(
+      suppressWarnings(plot_GrowthCurve(tmp_LxTx, output.plot = FALSE))),
+      "Error: After NA removal, nothing is left from the data set")
 
   ## test case without TnTx column
   tmp_LxTx <- LxTxData
   tmp_LxTx$TnTx <- NULL
+  SW({
   expect_s4_class(
-    plot_GrowthCurve(tmp_LxTx, output.plot = TRUE),
+    plot_GrowthCurve(tmp_LxTx, output.plot = TRUE, verbose = FALSE),
     "RLum.Results")
+  })
 
   ## test defunct
   expect_error(
@@ -89,7 +101,7 @@ test_that("plot_GrowthCurve", {
   expect_s4_class(
     object = plot_GrowthCurve(
       sample = LxTxData,
-      output.plot = FALSE,
+      output.plot = FALSE, verbose = FALSE,
       fit.includingRepeatedRegPoints = FALSE),
     class = "RLum.Results")
 
@@ -115,6 +127,7 @@ test_that("plot_GrowthCurve", {
   t <- expect_s4_class(
     object = plot_GrowthCurve(
       sample = df_odd,
+      verbose = FALSE,
       output.plot = FALSE),
     class = "RLum.Results")
 
@@ -123,6 +136,7 @@ test_that("plot_GrowthCurve", {
 # Check output for regression ---------------------------------------------
   set.seed(1)
   data(ExampleData.LxTxData, envir = environment())
+  SW({
   temp_EXP <-
     plot_GrowthCurve(
       LxTxData,
@@ -201,6 +215,7 @@ test_that("plot_GrowthCurve", {
       verbose = FALSE,
       NumberIterations.MC = 10
     )
+  })
 
   expect_s4_class(temp_EXP, class = "RLum.Results")
     expect_s3_class(temp_EXP$Fit, class = "nls")
@@ -231,6 +246,7 @@ test_that("plot_GrowthCurve", {
   data(ExampleData.LxTxData, envir = environment())
 
   set.seed(1)
+  SW({
   temp_EXP <-
     plot_GrowthCurve(
       LxTxData,
@@ -297,6 +313,7 @@ temp_LambertW <-
     verbose = FALSE,
     NumberIterations.MC = 10
   )
+  })
 
    expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
    expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
@@ -333,6 +350,7 @@ temp_LambertW <-
 
   set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
+  SW({
   LIN <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LIN",
                      main = "Title", xlab = "x-axis", ylab = "y-axis",
@@ -353,6 +371,7 @@ temp_LambertW <-
 
   LambertW <- expect_s4_class(
     plot_GrowthCurve(LxTxData,mode = "extrapolation", fit.method = "LambertW"), "RLum.Results")
+  })
 
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
@@ -494,6 +513,7 @@ temp_LambertW <-
 
   ## only two valid points provided: this generates two warnings, hence
   ## we cannot use expect_warning(), which can only capture one at a time
+  SW({
   warnings <- capture_warnings(expect_message(plot_GrowthCurve(
     data.frame(
         dose = c(0, 1388.88888888889, NA),
@@ -502,6 +522,7 @@ temp_LambertW <-
     output.plot = FALSE,
     verbose = TRUE),
     "fit.method set to 'LIN'"))
+  })
   expect_match(warnings, "1 NA value(s) excluded",
                all = FALSE, fixed = TRUE)
   expect_match(warnings, "Fitting using an exponential term requires",
