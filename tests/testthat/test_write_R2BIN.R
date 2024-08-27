@@ -38,12 +38,14 @@ data(ExampleData.BINfileData, envir = environment())
 
   ##create files
   path <- tempfile()
+  SW({
   write_R2BIN(object = new, file = paste0(path, "BINfile_V3.bin"), version = "03")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V4.bin"), version = "04")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V5.binx"), version = "05")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V6.binx"), version = "06")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V7.binx"), version = "07")
   write_R2BIN(object = new, file = paste0(path, "BINfile_V8.binx"), version = "08")
+  })
 
   temp <- new
   temp@METADATA[1, "TIME"] <- "1215"
@@ -51,6 +53,7 @@ data(ExampleData.BINfileData, envir = environment())
   temp@METADATA[1, "SAMPLE"] <- ""
   temp@METADATA[1, "COMMENT"] <- ""
   temp@.RESERVED <- list(val1 = c("a", "b"), val2 = c("c", "d"))
+  SW({
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V3.bin"),
               version = "03")
   temp@METADATA[, "VERSION"] <- 4
@@ -69,6 +72,7 @@ data(ExampleData.BINfileData, envir = environment())
   temp@METADATA[, "VERSION"] <- 8
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V8.binx"),
               version = "08")
+  })
 
   ##catch errors
   expect_error(write_R2BIN(object = new, file = FALSE),
@@ -97,7 +101,7 @@ data(ExampleData.BINfileData, envir = environment())
                "'SAMPLE' exceeds storage limit")
 
   temp <- new
-  temp@DATA[[2]] <- 1:10000
+  temp@DATA[[2]] <- 1:25000
   temp@METADATA[1, "POSITION"] <- paste0(rep("a", 50), collapse="")
   expect_error(write_R2BIN(object = temp, file = "test"),
                "records contain more than 9,999 data points")
@@ -106,4 +110,9 @@ data(ExampleData.BINfileData, envir = environment())
                              file = paste0(path, "BINfile_V8.binx")),
                  "'COMMENT' exceeds storage limit"),
     "Some data sets are longer than 9,999 points")
+
+  ## silent correction of the file extension
+  skip_on_os("windows") # FIXME(mcol)
+  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"), version = "08")
+
 })

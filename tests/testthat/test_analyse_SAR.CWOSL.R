@@ -130,6 +130,7 @@ test_that("simple run", {
 
   ##verbose and plot on
   ##full dataset
+  SW({
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
@@ -230,6 +231,7 @@ test_that("simple run", {
     ),
     class = "RLum.Results"
   )
+  })
 
   ## check if a different point was selected
   expect_equal(round(t$rejection.criteria$Value[2],2), expected = 0.01)
@@ -261,8 +263,9 @@ test_that("simple run", {
   expect_error(analyse_SAR.CWOSL("fail"),
                "Input object is not of type 'RLum.Analysis'")
 
-    ##check stop for OSL.components ... failing
-    expect_null(analyse_SAR.CWOSL(
+  ## check stop for OSL.components ... failing
+  SW({
+  expect_null(analyse_SAR.CWOSL(
        object = object[[1]],
        signal.integral.min = 1,
        signal.integral.max = 2,
@@ -274,6 +277,7 @@ test_that("simple run", {
        plot = FALSE,
        verbose = FALSE
      ))
+  })
 
    expect_error(analyse_SAR.CWOSL(
      object = object[[1]],
@@ -495,5 +499,4 @@ test_that("advance tests run", {
     ),
     class = "RLum.Results"
   )
-
 })

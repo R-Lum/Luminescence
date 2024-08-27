@@ -163,6 +163,16 @@ test_that("Test internals", {
   expect_warning(fun.ext(),
                  "[fun.ext()] Warning message", fixed = TRUE)
 
+  ## SW() ------------------------------------------------------------------
+  expect_silent(SW(cat("silenced message")))
+  expect_silent(SW(message("silenced message")))
+  expect_silent(SW(warning("silenced message")))
+  expect_silent(SW(.throw_warning("silenced message")))
+  expect_error(SW(stop("error message")),
+               "error message")
+  expect_error(SW(.throw_error("error message")),
+               "error message")
+
   ## .validate_positive_scalar() --------------------------------------------
   expect_silent(.validate_positive_scalar(1.3))
   expect_silent(.validate_positive_scalar(2, int = TRUE))
@@ -201,5 +211,4 @@ test_that("Test internals", {
       TOLOFF = 0
     )
   )
-
 })

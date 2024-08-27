@@ -24,10 +24,13 @@ test_that("input validation", {
   expect_message(expect_null(
       calc_AverageDose(data[0, ], sigma_m = 0.1)),
       "Error: data set contains 0 rows")
+
+  SW({
   expect_warning(calc_AverageDose(cbind(data, data), sigma_m = 0.1),
                  "number of columns in data set > 2")
   expect_warning(calc_AverageDose(rbind(data, NA), sigma_m = 0.1),
                  "NA values in data set detected")
+  })
 })
 
 test_that("check class and length of output", {

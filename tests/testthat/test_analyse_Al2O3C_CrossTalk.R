@@ -28,7 +28,9 @@ test_that("Full check", {
                  "Input for 'signal_integral' corrected to")
 
   ## irradiation_time_correction
+  SW({
   corr <- analyse_Al2O3C_ITC(data_ITC)
+  })
   expect_s4_class(
       analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                irradiation_time_correction = corr),

@@ -210,11 +210,12 @@ write_RLum2CSV <- function(
       ##adjust the names
       names(object_list) <- paste0(1:length(object_list),"_",names(object_list))
 
-
     } else {
-      try(stop("[write_RLum2CSV()] One particular RLum-object is not yet supported! NULL returned!", call. = FALSE))
+      # nocov start
+      message("[write_RLum2CSV()] Error: One particular RLum-object ",
+              "is not yet supported, NULL returned")
       return(NULL)
-
+      # nocov end
     }
 
   } else if (inherits(object, "data.frame")) {

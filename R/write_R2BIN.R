@@ -142,7 +142,7 @@ write_R2BIN <- function(
         ##we want to have a minimum binning (smallest number possible)
         bin_width <- ceiling(length(x)/9999)
 
-        ##it should be symatric, thus, remove values
+        ##it should be symmetric, thus, remove values
         if((length(x)/bin_width)%%2 != 0){
           x <- x[-length(x)]
 
@@ -253,7 +253,6 @@ write_R2BIN <- function(
     if(temp.file.name[length(temp.file.name)]=="bin"){
       temp.file.name[length(temp.file.name)] <- "binx"
       file <- paste(temp.file.name, collapse=".")
-
     }
   }
 
@@ -1329,6 +1328,5 @@ write_R2BIN <- function(
   if(txtProgressBar) close(pb)
 
   ##output
-  message(paste0("\t >> ",ID-1,"records have been written successfully!\n\n"))
-
+  message("\t >> ", ID - 1, " records have been written successfully!\n\n")
 }

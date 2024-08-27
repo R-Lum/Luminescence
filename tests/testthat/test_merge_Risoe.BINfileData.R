@@ -23,6 +23,8 @@ test_that("Test merging", {
 
   binx <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   output.file <- tempfile()
+  SW({
   merge_Risoe.BINfileData(c(binx, binx), output.file)
+  })
   expect_true(file.exists(output.file))
 })

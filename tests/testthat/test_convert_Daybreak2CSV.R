@@ -10,8 +10,10 @@ test_that("input validation", {
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
+  SW({
   res <- read_Daybreak2R(file = system.file("extdata/Daybreak_TestFile.txt",
                                             package = "Luminescence"))[[1]]
+  })
   expect_null(convert_Daybreak2CSV(res, path = tempdir()))
   expect_type(convert_Daybreak2CSV(res, path = tempdir(), export = FALSE),
               "list")

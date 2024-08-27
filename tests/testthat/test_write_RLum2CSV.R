@@ -28,7 +28,9 @@ test_that("test errors and general export function", {
   ##test RLum.Results objects
   ## load example data
   data(ExampleData.DeValues, envir = environment())
+  SW({
   results <-  calc_CommonDose(ExampleData.DeValues$CA1)
+  })
 
   ##using option compact
   expect_warning(write_RLum2CSV(object = results,export = FALSE),

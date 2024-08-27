@@ -1,7 +1,8 @@
+SW({
 temp <- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                             latitude = 38.06451, longitude = 1.49646,
                             altitude = 364, error = 10)
-
+})
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -43,10 +44,12 @@ test_that("check class and length of output", {
   expect_equal(length(temp), 3)
 
   ## length(depth) > length(density), half.depth
+  SW({
   calc_CosmicDoseRate(depth = c(2.78, 3.12), density = 1.7,
                       corr.fieldChanges = TRUE, est.age = 20,
                       latitude = 28.06451, longitude = 1.49646,
                       altitude = 364, half.depth = TRUE)
+  })
 })
 
 test_that("check values from output example 1", {
@@ -69,10 +72,12 @@ test_that("check values from output example 1", {
 test_that("check values from output example 2b", {
   testthat::skip_on_cran()
 
+  SW({
   temp <- calc_CosmicDoseRate(depth = c(5.0, 2.78), density = c(2.65, 1.7),
                               latitude = 12.04332, longitude = 4.43243,
                               altitude = 364, corr.fieldChanges = TRUE,
                               est.age = 67, error = 15)
+  })
   results <- get_RLum(temp)
 
   expect_equal(results$depth.1, 5)
