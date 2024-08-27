@@ -32,10 +32,14 @@ test_that("Check template creation ", {
   expect_s3_class(template_DRAC(nrow = -1, notification = FALSE), "DRAC.list")
 
   ## expect failure
+  expect_error(template_DRAC("preset"),
+               "'nrow' must be a positive integer scalar")
   expect_warning(template_DRAC(nrow = 5001, notification = FALSE),
                  regexp = "\\[template_DRAC\\(\\)\\] More than 5000 datasets might not be supported!")
-  expect_error(template_DRAC(preset = "this_one_does_not_exist"))
-  expect_error(template_DRAC(preset = c("this_one_does_not_exist", "this_one_neither")))
-  expect_error(template_DRAC(preset = 999))
-
+  expect_error(template_DRAC(preset = "does_not_exist"),
+               "Invalid preset")
+  expect_error(template_DRAC(preset = c("does_not_exist", "neither_this_one")),
+               "'preset' must be a 'character' of length 1")
+  expect_error(template_DRAC(preset = 999),
+               "'preset' must be a 'character' of length 1")
 })
