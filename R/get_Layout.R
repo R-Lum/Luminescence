@@ -637,8 +637,8 @@ get_Layout <- function(
         )
       )
     } else {
-      warning("Layout definition not supported! Default layout is used.")
-      
+      .throw_warning("Layout definition not supported, ",
+                     "default layout is used.")
       layout <- get_Layout(layout = "default")
     }
   } else if(is.list(layout) == TRUE) {
@@ -650,4 +650,3 @@ get_Layout <- function(
   ## return layout parameters
   return(layout)
 }
-
