@@ -98,6 +98,9 @@ template_DRAC <- function(
   # 2 - add option to return the DRAC example data set
 
   ## correct incoming to prevent negative values
+  if (!is.numeric(nrow)) {
+    .throw_error("'nrow' must be a positive integer scalar")
+  }
   nrow <- max(1, nrow[1])
 
   ## throw warning
