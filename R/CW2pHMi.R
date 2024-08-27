@@ -267,16 +267,15 @@ CW2pHMi<- function(
   ##combine t.transformed and CW_OSL.interpolated in a data.frame
   temp <- data.frame(x=t.transformed, y=unlist(CW_OSL.interpolated$y))
 
-  ##Problem: I some cases the interpolation algorithm is not working properely
+  ##Problem: In some cases the interpolation algorithm is not working properly
   ##and Inf or NaN values are returned
 
   ##fetch row number of the invalid values
   invalid_values.id <- c(which(is.infinite(temp[,2]) | is.nan(temp[,2])))
 
   if(length(invalid_values.id) > 0){
-
-    warning(paste(length(invalid_values.id)," values have been found and replaced the mean of the nearest values." ))
-
+    .throw_warning(length(invalid_values.id), " values have been found ",
+                   "and replaced by the mean of the nearest values")
   }
 
   ##interpolate between the lower and the upper value

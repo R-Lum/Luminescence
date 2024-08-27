@@ -119,7 +119,7 @@ plot_Risoe.BINfileData<- function(
 
   ##check if the object is of type Risoe.BINfileData
   if(!inherits(BINfileData, "Risoe.BINfileData"))
-    stop("Wrong object! Object of type Risoe.BINfileData needed.", call. = FALSE)
+    .throw_error("'object' is expected to be of type 'Risoe.BINfileData'")
 
   temp<-BINfileData
 
@@ -136,7 +136,7 @@ plot_Risoe.BINfileData<- function(
 
   ##fun
   extraArgs <- list(...) # read out additional arguments list
-  fun       <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+  fun       <- if ("fun" %in% names(extraArgs)) extraArgs$fun else FALSE # nocov
 
   # Ordering --------------------------------------------------------------------
 
@@ -204,11 +204,9 @@ plot_Risoe.BINfileData<- function(
           values.xy <- CW2pPMi(values.xy)[,1:2]
 
         }else{
-
-          warning("Function for curve.transformation is unknown. No transformation is performed.")
-
+          .throw_warning("Unknown 'curve.transformation', ",
+                         "no transformation performed")
         }
-
       }
 
       ##plot graph
@@ -257,6 +255,5 @@ plot_Risoe.BINfileData<- function(
 
   }#endforloop
 
-  if(fun==TRUE){sTeve()}
-
+  if (fun) sTeve() # nocov
 }
