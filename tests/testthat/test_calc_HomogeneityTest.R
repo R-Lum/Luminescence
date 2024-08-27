@@ -17,8 +17,10 @@ test_that("check class and length of output", {
   expect_equal(length(temp), 3)
 
   ## using an RLum.Results object as input
+  SW({
   expect_s4_class(calc_HomogeneityTest(temp),
                   "RLum.Results")
+  })
 })
 
 test_that("check values from output example", {
@@ -33,6 +35,8 @@ test_that("check values from output example", {
   expect_equal(round(results$P.value,3), 0.004)
 
   ##test the unlogged version
+  SW({
   temp <- calc_HomogeneityTest(df, log = FALSE)$summary
+  })
   expect_equal(round(temp$P.value,3),0.001)
 })

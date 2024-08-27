@@ -18,6 +18,8 @@ object <-
   set_RLum(class = "RLum.Analysis",
            records = object,
            protocol = "pIRIR")
+
+SW({
 results <- analyse_pIRIRSequence(
   object,
   signal.integral.min = 1,
@@ -48,6 +50,7 @@ suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and plot_GrowthCurve
     verbose = FALSE
   )
 )
+})
 
 test_that("input validation", {
   expect_error(analyse_pIRIRSequence(),
@@ -60,6 +63,8 @@ test_that("input validation", {
                                      background.integral.min = 900,
                                      background.integral.max = 1000),
                "Input object is not of type 'RLum.Analyis'")
+
+  SW({
   expect_warning(analyse_pIRIRSequence(list(object),
                                        signal.integral.max = 2,
                                        background.integral.min = 900,
@@ -70,6 +75,7 @@ test_that("input validation", {
                                        background.integral.min = 900,
                                        background.integral.max = 1000),
                  "'signal.integral.max' missing, set to 2")
+  })
 })
 
 test_that("check class and length of output", {

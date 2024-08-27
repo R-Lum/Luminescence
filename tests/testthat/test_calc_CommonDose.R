@@ -1,7 +1,9 @@
 data(ExampleData.DeValues, envir = environment())
+SW({
 temp <- calc_CommonDose(ExampleData.DeValues$CA1, plot = FALSE, verbose = TRUE)
 temp.nolog <- calc_CommonDose(ExampleData.DeValues$CA1, log = FALSE,
                               plot = FALSE, verbose = TRUE)
+})
 
 test_that("input validation", {
   testthat::skip_on_cran()

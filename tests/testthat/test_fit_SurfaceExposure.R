@@ -14,8 +14,10 @@ test_that("input validation", {
   expect_error(fit_SurfaceExposure(d4, age = 1e4),
                "'age' must be of the same length")
 
+  SW({
   expect_warning(fit_SurfaceExposure(rbind(d1, NA), mu = 0.9),
                  "\\[fit\\_SurfaceExposure\\(\\)\\] NA values in 'data' were removed")
+  })
 })
 
 ## Example data 1
@@ -100,6 +102,7 @@ test_that("check values from output example", {
 test_that("not enough parameters provided", {
   testthat::skip_on_cran()
 
+  SW({
   expect_message(
     fit_SurfaceExposure(data = d1, plot = FALSE, verbose = TRUE),
     "Unable to fit the data"
@@ -126,4 +129,5 @@ test_that("not enough parameters provided", {
   expect_message(fit_SurfaceExposure(as.matrix(d1), log = "y"),
                  "Original error from minpack.lm::nlsLM(): singular gradient",
                  fixed = TRUE)
+  })
 })

@@ -44,10 +44,12 @@ test_that("input validation", {
                                             Ch_L2 = 2000)),
                  "The calculated channel for L2 (2000) exceeds the number",
                  fixed = TRUE)
+  SW({
   expect_warning(calc_FastRatio(ExampleData.CW_OSL_Curve,
                                 Ch_L3 = c(1000, 1000)),
                  "The calculated channels for L3 (1000, 1000) exceed",
                  fixed = TRUE)
+  })
 })
 
 test_that("check class and length of output", {
@@ -57,6 +59,7 @@ test_that("check class and length of output", {
   expect_equal(length(temp), 5)
 
   ## fitCW.sigma and fitCW.curve
+  SW({
   calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
                  fitCW.sigma = TRUE, fitCW.curve = TRUE)
 
@@ -67,6 +70,7 @@ test_that("check class and length of output", {
   expect_warning(calc_FastRatio(get_RLum(TL.Spectrum)),
                  "L3 contains more counts (566) than L2 (562)",
                  fixed = TRUE)
+  })
 })
 
 test_that("check values from output", {

@@ -65,10 +65,12 @@ test_that("input validation", {
                                 ddot = ddot, readerDdot = "test"),
                "'ddot' and 'readerDdot' must be numeric vectors")
 
+  SW({
   expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 2,
                                   ddot = ddot, readerDdot = readerDdot,
                                   fit.method = "GOK"),
                  "'data' only had two columns")
+  })
 })
 
 test_that("check class and length of output", {
@@ -107,6 +109,7 @@ test_that("check values from calc_Huntley2008()", {
   expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.8)
   expect_equal(round(sum(residuals(huntley$fits$measured)),4),  0.1894)
   expect_equal(round(sum(residuals(huntley$fits$unfaded)),2),  0)
+})
 
 ## COMPARE calc_Kars2008 (deprecated) vs. re-named calc_Huntley2006
 test_that("compare deprecated calc_Kars2008 and calc_Huntley2006", {
@@ -240,6 +243,7 @@ test_that("Further tests calc_Huntley2006", {
   class = "data.frame", row.names = c(NA, -7L))
 
   set.seed(1)
+  SW({
   expect_warning(calc_Huntley2006(
     data = df,
     LnTn = NULL,
@@ -252,6 +256,5 @@ test_that("Further tests calc_Huntley2006", {
     plot = FALSE,
     n.MC = 100),
     regexp = "\\[calc\\_Huntley2006\\(\\)\\] Ln\\/Tn is smaller than the minimum computed LxTx value.")
- })
-
+  })
 })
