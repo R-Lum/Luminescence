@@ -10,7 +10,7 @@
 #'
 #' @param data [data.frame] (**required**):
 #' input data of providing the following columns: `LnTn`, `LnTn.error`, `Lr1Tr1`, `Lr1Tr1.error`, `Dr1`
-#' **Note:** column names are not required. The function expect the input data in the given order
+#' **Note:** column names are not required. The function expects the input data in the given order
 #'
 #' @param gSGC.type [character] (*with default*):
 #' define the function parameters that
@@ -88,11 +88,12 @@ calc_gSGC<- function(
 ##CHECK INPUT DATA
 ##============================================================================##
 
-  if(!is(data, "data.frame")) stop("[calc_gSGC()] 'data' needs to be of type data.frame.", call. = FALSE)
-  if(!is(gSGC.type, "character")) stop("[calc_gSGC()] 'gSGC.type' needs to be of type character.", call. = FALSE)
-
-  ##check length of input data
-  if(ncol(data) != 5) stop("[calc_gSGC()] Structure of 'data' does not fit the expectations.", call. = FALSE)
+  if (!is.data.frame(data))
+    .throw_error("'data' must be a data.frame")
+  if (ncol(data) != 5)
+    .throw_error("'data' is expected to have 5 columns")
+  if (!is.character(gSGC.type))
+    .throw_error("'gSGC.type' must be of type 'character'")
 
   ##rename columns for consistency reasons
   colnames(data) <- c('LnTn', 'LnTn.error', 'Lr1Tr1', 'Lr1Tr1.error', 'Dr1')
@@ -146,10 +147,8 @@ calc_gSGC<- function(
         range <- c(0.1,250)
 
       }else{
-        stop("[calc_gSGC()] Unknown input for 'gSGC.type'", call. = FALSE)
-
+        .throw_error("Unknown 'gSGC.type'")
       }
-
     }
 
     ##Define size of output objects
@@ -263,8 +262,6 @@ for(i in 1:nrow(data)){
       mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
       sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
     ), ncol = 6, byrow = TRUE)
-
-
   }
 
 
@@ -348,22 +345,14 @@ for(i in 1:nrow(data)){
               arr.type = "triangle",
               col = "red"
             )
-
-
         }
 
         mtext(side = 1, text = "Out of bounds!", col = "red")
-
-
       }
-
 
     }else{
       mtext(side = 1, text = "No solution found!", col = "red")
-
     }
-
-
   }
 
 
@@ -380,7 +369,6 @@ for(i in 1:nrow(data)){
       cat(paste0(" ------------------------------ \n"))
       cat(paste0(" De:\t\t",round(De,digits = 2)," \u00B1 ",round(De.error,digits = 2),"\n"))
       cat(paste0(" ------------------------------ \n"))
-
     }
 
 
