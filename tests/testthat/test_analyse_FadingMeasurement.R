@@ -1,22 +1,31 @@
+## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
+data("ExampleData.Fading", envir = environment())
+fading_data <- ExampleData.Fading$fading.data$IR50
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(analyse_FadingMeasurement(object = "test"),
+               "'object' must be an 'RLum.Analysis' object or a 'list' of such objects")
+  expect_error(expect_warning(
+      analyse_FadingMeasurement(list(fading_data, "test")),
+      "2 non-supported records removed"),
+      "'object' must be an 'RLum.Analysis' object or a 'list' of such objects")
+  expect_error(analyse_FadingMeasurement(cbind(fading_data, fading_data[, 1])),
+               "if you provide a data.frame as input, the number of columns")
+})
+
 test_that("general test", {
   testthat::skip_on_cran()
 
-  ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
-  data("ExampleData.Fading", envir = environment())
-
-  ##(1) get fading measurement data (here a three column data.frame)
-  fading_data <- ExampleData.Fading$fading.data$IR50
-
-  ##break function
-  expect_error(analyse_FadingMeasurement(object = "test"),
-               regexp = "'object' needs to be of type 'RLum.Analysis' or a 'list' of such objects!")
-
   ## run routine analysis
+  SW({
   expect_s4_class(analyse_FadingMeasurement(
     fading_data,
     plot = TRUE,
     verbose = TRUE,
     n.MC = 10), class = "RLum.Results")
+  })
 
   ##no plot not verbose
   expect_s4_class(analyse_FadingMeasurement(
@@ -83,23 +92,23 @@ test_that("test XSYG file fading data", {
   object <- set_RLum("RLum.Analysis", records = l, originator = "read_XSYG2R")
 
   # Test --------------------------------------------------------------------
+  SW({
   expect_s4_class(analyse_FadingMeasurement(
     object,
     signal.integral = 1:2,
     background.integral = 10:40,
     structure = "Lx"
   ), "RLum.Results")
+  })
 
   ## check various for t_star
   ## stop t_star
   expect_error(analyse_FadingMeasurement(
     object,
-    signal.integral = 1:2,
     t_star = "error",
-    background.integral = 10:40,
-    structure = "Lx"
   ), "\\[analyse_FadingMeasurement\\(\\)\\] Invalid input for t_star.")
 
+  SW({
   expect_s4_class(analyse_FadingMeasurement(
     object,
     signal.integral = 1:2,
@@ -108,7 +117,6 @@ test_that("test XSYG file fading data", {
     structure = "Lx",
     plot = FALSE
   ), "RLum.Results")
-
   expect_s4_class(analyse_FadingMeasurement(
     object,
     signal.integral = 1:2,
@@ -117,5 +125,20 @@ test_that("test XSYG file fading data", {
     structure = "Lx",
     plot = FALSE
   ), "RLum.Results")
+  })
 
+  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
+                                         background.integral = 2),
+               "Overlapping of 'signal.integral' and 'background.integral'")
+
+  SW({
+  expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
+                                           background.integral = 3,
+                                           structure = "Lx"),
+                 "Number of background channels for Lx < 25")
+  })
+
+  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
+                                         background.integral = 3,
+                                         structure = c("Lx", "error")))
 })
