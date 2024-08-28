@@ -6,10 +6,19 @@ curves <- get_RLum(obj)[seq(1, 9, 2)]
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  expect_error(plot_NRt("error"),
+               "'data' is expected to be a list, matrix, data.frame or")
+  expect_error(plot_NRt(obj[[2]]),
+               "'data' is expected to be a list, matrix, data.frame or")
   expect_error(plot_NRt(curves[1]),
                 "The provided list only contains curve data of the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),
                "The provided matrix only contains curve data of the natural signal")
+
+  data(ExampleData.XSYG, envir = environment())
+  obj.mixed <- merge_RLum.Analysis(list(obj, TL.Spectrum))
+  expect_error(plot_NRt(obj.mixed),
+               "The provided 'RLum.Analysis' object must exclusively contain")
 })
 
 test_that("check", {

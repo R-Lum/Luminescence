@@ -151,6 +151,9 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     if (length(curves) < 2)
       .throw_error("The provided 'RLum.Analysis' object ",
                    "only contains curve data of the natural signal")
+  } else {
+    .throw_error("'data' is expected to be a list, matrix, data.frame or ",
+                 "'RLum.Analysis' object")
   }
 
   ## BASIC SETTINGS ------
