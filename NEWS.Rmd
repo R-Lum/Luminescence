@@ -50,6 +50,11 @@ which would generate unexpected warnings (#163, @mcol).
 * The function now calculates the relative saturation (`n/N`) using the ration of the two integrates.
 The values is part of the output table. 
 
+### `plot_NRt()`
+* The function reports an helpful message rather than crashing when applied
+to an object of unexpected type or when there is a mismatch in time values
+(#177, fixed with #179 by @mcol).
+
 ### `plot_RLum.Data.Analysis()`
 * The function now supports all arguments from `plot_RLum.Data.Spectrum()`; before it 
 had only basic functionality for `RLum.Data.Spectrum-class` data. 
