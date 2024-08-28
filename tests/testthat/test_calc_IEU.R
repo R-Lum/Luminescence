@@ -19,6 +19,7 @@ test_that("Test general behaviour", {
   ))
 
   ##enable plot
+  SW({
   expect_message(calc_IEU(
     ExampleData.DeValues$CA1,
     a = 0.2,
@@ -27,6 +28,7 @@ test_that("Test general behaviour", {
     trace = TRUE,
     verbose = TRUE, plot = TRUE
   ))
+  })
 
   ##verbose without setting
   expect_message(calc_IEU(
@@ -55,8 +57,6 @@ test_that("Test general behaviour", {
     interval = 1,
     verbose = FALSE, plot = FALSE
   ))
-
-
 })
 
 test_that("check class and length of output", {
@@ -64,11 +64,6 @@ test_that("check class and length of output", {
 
   expect_s4_class(temp, "RLum.Results")
   expect_equal(length(temp), 5)
-
-})
-
-test_that("check values from output example", {
-  testthat::skip_on_cran()
 
   results <- get_RLum(temp)
 

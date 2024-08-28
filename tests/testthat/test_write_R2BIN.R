@@ -112,7 +112,9 @@ data(ExampleData.BINfileData, envir = environment())
     "Some data sets are longer than 9,999 points")
 
   ## silent correction of the file extension
+  SW({
   skip_on_os("windows") # FIXME(mcol)
-  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"), version = "08")
-
+  write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"),
+              version = "08")
+  })
 })

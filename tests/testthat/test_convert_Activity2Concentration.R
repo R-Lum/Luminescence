@@ -29,9 +29,12 @@ test_that("check class and length of output", {
     regexp = "\\[convert\\_Activity2Concentrations\\(\\)\\] Input for parameter 'input_unit' invalid.")
 
   ## check for standard input
-  results <- expect_s4_class(convert_Activity2Concentration(data_activity), c("RLum.Results"))
+  SW({
+  results <- expect_s4_class(convert_Activity2Concentration(data_activity),
+                             c("RLum.Results"))
+  })
   expect_s4_class(convert_Activity2Concentration(data_activity, verbose = FALSE), c("RLum.Results"))
-  expect_equal(length(convert_Activity2Concentration(data_activity)), 1)
+  expect_equal(length(results), 1)
 
   ## this test should flag if constants were changed, so that this is
   ## not forgotten in the NEWS
@@ -39,18 +42,21 @@ test_that("check class and length of output", {
   expect_equal(round(sum(results$data$`ABUND. ERROR (mug/g or mass. %)`),5),  2.32091)
 
   ## check for concentration input
+  SW({
   results_abundance <- expect_s4_class(
     object = convert_Activity2Concentration(data_abundance, input_unit = "abundance"),
     class = "RLum.Results")
+  })
 
   expect_equal(round(sum(results_abundance$data$`ABUND. (mug/g or mass. %)`),5),  13)
   expect_equal(round(sum(results_abundance$data$`ABUND. ERROR (mug/g or mass. %)`),5),  0.3)
 
   ## additional checks for input
-    ## capitalized input units
+  ## capitalized input units
+  SW({
     expect_s4_class(convert_Activity2Concentration(data_activity, input_unit = "ACTIVITY"), c("RLum.Results"))
 
     ## check backwards compatibility
     expect_s4_class(convert_Activity2Concentration(data_activity, input_unit = "Bq/kg"), c("RLum.Results"))
-
+  })
 })

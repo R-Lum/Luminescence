@@ -2,15 +2,19 @@
 test_that("methods_DRAC", {
   testthat::skip_on_cran()
 
-  input <- template_DRAC()
+  input <- template_DRAC(notification = FALSE)
 
   ## print
-  expect_output(print(input, blueprint = TRUE))
+  expect_message(
+      expect_output(print(input, blueprint = TRUE)),
+      "You can copy all lines above to your script and fill in the data")
   expect_output(print(input, blueprint = FALSE))
 
   ## as.data.frame
   expect_s3_class(as.data.frame(input), "data.frame")
   expect_s3_class(as.data.frame(input), "DRAC.data.frame")
+
+  SW({
 
   ## [[<-
   expect_warning({
@@ -69,6 +73,5 @@ test_that("methods_DRAC", {
       input$`Project ID` <- NA_character_
       input
     })
-
-
+  })
 })

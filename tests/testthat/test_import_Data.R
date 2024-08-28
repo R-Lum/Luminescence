@@ -2,9 +2,11 @@ test_that("Test general import", {
   testthat::skip_on_cran()
 
   ## BINX
+  SW({
   expect_type(
     object = import_Data(system.file("extdata/BINfile_V8.binx", package = "Luminescence")),
     type = "list")
+  })
 
   ## XSYG
   expect_type(

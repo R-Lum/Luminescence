@@ -54,6 +54,7 @@ test_that("test errors", {
     "RLum.Results")
 
   ## test own curve parameters
+  SW({
   expect_message(results <- calc_gSGC_feldspar(
     data = data,
     gSGC.parameters = data.frame(
@@ -67,6 +68,7 @@ test_that("test errors", {
       y0_err = 0.0001
     )),
     "No solution found for dataset")
+  })
 
   ##regression tests
   expect_s4_class(results, "RLum.Results")

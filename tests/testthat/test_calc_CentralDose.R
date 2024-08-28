@@ -13,10 +13,13 @@ test_that("errors and warnings function", {
 
   expect_error(calc_CentralDose(data = "error"), "'data' has to be of type 'data.frame' or 'RLum.Results'!")
   expect_error(calc_CentralDose(temp, sigmab = 10), "sigmab needs to be given as a fraction between 0 and 1")
+  expect_error(calc_CentralDose(data.frame()),
+               "should have at least two columns and two rows")
+
+  SW({
   expect_s4_class(calc_CentralDose(temp_NA), "RLum.Results")
   expect_warning(calc_CentralDose(temp_NA, na.rm = TRUE))
-  expect_error(calc_CentralDose(data.frame()), "should have at least two columns and two rows!")
-
+  })
 })
 
 
@@ -27,8 +30,9 @@ test_that("standard and output", {
   expect_equal(length(temp), 4)
 
   ##log and trace
+  SW({
   expect_s4_class(calc_CentralDose(ExampleData.DeValues$CA1, log = FALSE, trace = TRUE), "RLum.Results")
-
+  })
 })
 
 test_that("check summary output", {

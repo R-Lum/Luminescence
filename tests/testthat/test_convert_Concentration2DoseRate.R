@@ -2,7 +2,9 @@ test_that("basic checks", {
   testthat::skip_on_cran()
 
   ## template
+  SW({
   template <- expect_s3_class(convert_Concentration2DoseRate(), "data.frame")
+  })
 
   ## break function
   expect_error(convert_Concentration2DoseRate(input = "fail"),

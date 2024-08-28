@@ -36,7 +36,9 @@ test_that("Check github_branches()", {
 test_that("Check github_issues()", {
   testthat::skip_on_cran()
 
+  SW({
   response <- tryCatch(github_issues(), error = function(e) return(e))
+  })
 
   if (inherits(response, "error")){
     expect_output(print(response), regexp = "status code 403")

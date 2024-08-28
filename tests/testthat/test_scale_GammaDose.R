@@ -85,13 +85,15 @@ test_that("check input data", {
     scale_GammaDose(d[ ,1:10], plot = FALSE, verbose = TRUE),
     "must have 12 columns"
   )
+  SW({
   expect_warning({
     tmp <- d
     colnames(tmp) <- letters[1:ncol(tmp)]
     scale_GammaDose(tmp, plot = FALSE, verbose = TRUE)
     },
     "Unexpected column names"
-  )
+    )
+  })
   expect_error({
     tmp <- d
     tmp$sample_offset <- NA

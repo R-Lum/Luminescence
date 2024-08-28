@@ -51,7 +51,7 @@
 #' \eqn{\mu = sample.diameter} and \eqn{\sigma = 0.2} to take into account
 #' variations in sample disc preparation (i.e. applying silicon spray to the
 #' disc). A lower truncation point at `x = 0.5` is used, which assumes
-#' that aliqouts with smaller sample diameters of 0.5 mm are discarded.
+#' that aliquots with smaller sample diameters of 0.5 mm are discarded.
 #' Likewise, the normal distribution is truncated at 9.8 mm, which is the
 #' diameter of the sample disc.
 #'
@@ -152,27 +152,24 @@ calc_AliquotSize <- function(
   ## CONSISTENCY CHECK OF INPUT DATA
   ##==========================================================================##
 
-  if(length(grain.size) == 0 | length(grain.size) > 2) {
-    cat(paste("\nPlease provide the mean grain size or a range",
-              "of grain sizes (in microns).\n"), fill = FALSE)
-    stop(domain=NA)
+  if (missing(grain.size) ||
+      length(grain.size) == 0 || length(grain.size) > 2) {
+    .throw_error("Please provide the mean grain size or a range ",
+                 "of grain sizes (in microns)")
   }
 
   if(packing.density < 0 | packing.density > 1) {
     if(packing.density == "inf") {
     } else {
-      cat(paste("\nOnly values between 0 and 1 allowed for packing density!\n"))
-      stop(domain=NA)
+      .throw_error("'packing.density' expects values between 0 and 1")
     }
   }
 
-  if(sample.diameter < 0) {
-    cat(paste("\nPlease provide only positive integers.\n"))
-    stop(domain=NA)
-  }
+  .validate_positive_scalar(sample.diameter)
 
   if (sample.diameter > 9.8)
-    warning("\n A sample diameter of ", sample.diameter ," mm was specified, but common sample discs are 9.8 mm in diameter.", call. = FALSE)
+    .throw_warning("A sample diameter of ", sample.diameter,  " mm was ",
+                  "specified, but common sample discs are 9.8 mm in diameter")
 
   if(missing(grains.counted) == FALSE) {
     if(MC == TRUE) {
@@ -184,9 +181,8 @@ calc_AliquotSize <- function(
   }
 
   if(MC == TRUE && length(grain.size) != 2) {
-    cat(paste("\nPlease provide a vector containing the min and max grain",
-              "grain size(e.g. c(100,150) when using Monte Carlo simulations.\n"))
-    stop(domain=NA)
+    .throw_error("'grain.size' must be a vector containing the min and max ",
+                 "grain size when using Monte Carlo simulations")
   }
 
 
