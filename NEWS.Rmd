@@ -52,7 +52,8 @@ The values is part of the output table.
 
 ### `plot_NRt()`
 * The function reports an helpful message rather than crashing when applied
-to an object of unexpected type (#177, @mcol).
+to an object of unexpected type or when there is a mismatch in time values
+(#177, fixed with #179 by @mcol).
 
 ### `plot_RLum.Data.Analysis()`
 * The function now supports all arguments from `plot_RLum.Data.Spectrum()`; before it 

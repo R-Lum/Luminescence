@@ -161,6 +161,10 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   regCurves <- curves[2:length(curves)]
   time <- curves[[1]][ ,1]
 
+  if (any(sapply(regCurves, nrow) != nrow(natural))) {
+    .throw_error("The time values for the natural signal don't match ",
+                 "those for the regenerated signal")
+  }
 
   ## DATA TRANSFORMATION -----
 

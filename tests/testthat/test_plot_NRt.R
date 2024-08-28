@@ -19,6 +19,12 @@ test_that("input validation", {
   obj.mixed <- merge_RLum.Analysis(list(obj, TL.Spectrum))
   expect_error(plot_NRt(obj.mixed),
                "The provided 'RLum.Analysis' object must exclusively contain")
+
+  data("ExampleData.RLum.Analysis", envir = environment())
+  expect_error(plot_NRt(IRSAR.RF.Data),
+               "The time values for the natural signal don't match those for")
+  expect_error(plot_NRt(merge_RLum.Analysis(list(obj, IRSAR.RF.Data))),
+               "The time values for the natural signal don't match those for")
 })
 
 test_that("check", {
