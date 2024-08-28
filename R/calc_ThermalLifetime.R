@@ -153,15 +153,11 @@ calc_ThermalLifetime <- function(
 
 ){
 
-
-
-
 # Integrity -----------------------------------------------------------------------------------
 
-    if(missing(E) | missing(s)){
-      stop("[calc_ThermalLifetime()] 'E' or 's' or both are missing, but required.", call. = FALSE)
-
-    }
+  if (missing(E) || missing(s)) {
+    .throw_error("'E' or 's' or both are missing, but required.")
+  }
 
 
 # Set variables -------------------------------------------------------------------------------
@@ -191,9 +187,8 @@ calc_ThermalLifetime <- function(
   ##check for odd input values
   if (profiling_settings$n < 1000){
     profiling_settings$n <- 1000
-
-    warning("[calc_ThermalLifetime()] minimum MC runs are 1000, parameter 'n' in profiling_config reset to 1000.")
-
+    .throw_warning("Minimum MC runs are 1000, parameter 'n' ",
+                   "in profiling_config reset to 1000.")
   }
 
 # Calculation ---------------------------------------------------------------------------------
@@ -217,8 +212,7 @@ calc_ThermalLifetime <- function(
         rnorm(profiling_settings$n, mean = E[1], sd = E[2])
 
       }else{
-        stop("[calc_ThermalLifetime()] unknown distribution setting for E profiling")
-
+        .throw_error("Unknown distribution setting for E profiling")
       }
 
 
@@ -228,8 +222,7 @@ calc_ThermalLifetime <- function(
         rnorm(profiling_settings$n, mean = s[1], sd = s[2])
 
       } else{
-        stop("[calc_ThermalLifetime()] unknown distribution setting for s profiling")
-
+        .throw_error("Unknown distribution setting for s profiling")
       }
 
     ##T
@@ -298,9 +291,7 @@ calc_ThermalLifetime <- function(
   ##check for invalid values
   if(is.null(temp.lifetimes)){
     output_unit <- "s"
-    warning("[calc_ThermalLifetime()] 'output_unit' unknown, reset to 's'")
-
-
+    .throw_warning("'output_unit' unknown, reset to 's'")
   }else{
     lifetimes <- temp.lifetimes
     rm(temp.lifetimes)
@@ -336,7 +327,6 @@ calc_ThermalLifetime <- function(
     cat("\n\t--------------------------")
     cat(paste0("\n\t(", length(lifetimes), " lifetimes calculated in total)"))
 
-
   }
 
 
@@ -354,7 +344,6 @@ calc_ThermalLifetime <- function(
       lwd = 1,
       lty = 1,
       col = rgb(0, 0, 0, 0.25)
-
     )
 
     ##modify on request

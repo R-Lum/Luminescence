@@ -6,7 +6,9 @@ test_that("check class", {
 
   ## <RLum.Results>
   data(ExampleData.DeValues, envir = environment())
+  SW({
   temp <- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5, plot = FALSE)
+  })
   expect_output(show(temp))
 
   ## test coercion

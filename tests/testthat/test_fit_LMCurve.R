@@ -21,10 +21,8 @@ test_that("input validation", {
                "Unknown method for 'fit.method'")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
-  SW({
   if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
     expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE))
-  })
 })
 
 test_that("check class and length of output", {

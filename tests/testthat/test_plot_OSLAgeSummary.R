@@ -10,7 +10,9 @@ test_that("Basic test", {
   object <- rnorm(1000, 100, 10)
 
   ##run as numeric
+  SW({
   results <- expect_s4_class(plot_OSLAgeSummary(object), "RLum.Results")
+  })
 
   ##run from S4-class
   object1 <- set_RLum("RLum.Results",
@@ -18,8 +20,10 @@ test_that("Basic test", {
   object2 <- set_RLum("RLum.Results",
                       data = list(A = object), originator = ".calc_IndividualAgeModel")
 
+  SW({
   expect_s4_class(plot_OSLAgeSummary(object1), "RLum.Results")
   expect_s4_class(plot_OSLAgeSummary(object2), "RLum.Results")
+  })
 
   ##run with no output
   expect_silent(plot_OSLAgeSummary(object, verbose = FALSE))
