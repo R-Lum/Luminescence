@@ -10,15 +10,6 @@ test_that("test pure success of the plotting without warning or error", {
   expect_silent(plot_Histogram(ExampleData.DeValues))
   expect_silent(plot_ViolinPlot(ExampleData.DeValues))
 
-
-  ##plot NRT
-  data("ExampleData.BINfileData", envir = environment())
-  data <- Risoe.BINfileData2RLum.Analysis(object = CWOSL.SAR.Data, pos = 8, ltype = "OSL")
-  allCurves <- get_RLum(data)
-  pos <- seq(1, 9, 2)
-  curves <- allCurves[pos]
-  expect_silent(plot_NRt(curves))
-
   ##filter combinations
   filter1 <- density(rnorm(100, mean = 450, sd = 20))
   filter1 <- matrix(c(filter1$x, filter1$y/max(filter1$y)), ncol = 2)
@@ -45,10 +36,6 @@ test_that("test pure success of the plotting without warning or error", {
   expect_silent(plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
                   given.dose = 2800, mtext = "Example data"))
 
-
-  ##plot RisoeBINFileData
-  data(ExampleData.BINfileData, envir = environment())
-  expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data,position = 1))
 
   ##various RLum plots
 

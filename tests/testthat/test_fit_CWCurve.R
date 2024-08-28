@@ -1,27 +1,37 @@
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(fit_CWCurve("error"),
+               "Input object is not of type 'RLum.Data.Curve' or 'data.frame'")
+})
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   data(ExampleData.CW_OSL_Curve, envir = environment())
+  SW({
   fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                      main = "CW Curve Fit",
                      n.components.max = 4,
                      log = "x",
                      plot = FALSE)
+  })
 
   expect_s4_class(fit, "RLum.Results")
   expect_equal(length(fit), 3)
-
 })
 
 test_that("check values from output example", {
   testthat::skip_on_cran()
 
   data(ExampleData.CW_OSL_Curve, envir = environment())
+  SW({
   fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                      main = "CW Curve Fit",
                      n.components.max = 4,
                      log = "x",
                      plot = FALSE)
+  })
 
   t <- sessionInfo()
   #if(grepl(pattern = "apple", x = t$R.version$platform)) {
@@ -38,4 +48,13 @@ test_that("check values from output example", {
   #
   # }
 
+  SW({
+  fit_CWCurve(ExampleData.CW_OSL_Curve,
+              fit.method = "LM", fit.calcError = TRUE,
+              output.path = tempdir())
+  fit_CWCurve(ExampleData.CW_OSL_Curve,
+              fit.method = "LM", fit.calcError = TRUE,
+              log = "xy",
+              output.path = tempdir())
+  })
 })
