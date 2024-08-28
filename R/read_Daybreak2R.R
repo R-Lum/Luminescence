@@ -481,7 +481,8 @@ read_Daybreak2R <- function(
 
     ##TERMINAL FEEDBACK
     if(verbose){
-      cat(paste0("\n ",length(unlist(get_RLum(RLum.Analysis.list))), " records have been read sucessfully!\n"))
+      cat("\n ", length(unlist(get_RLum(RLum.Analysis.list))),
+          "records have been read successfully!\n")
     }
 
     return(RLum.Analysis.list)
