@@ -128,9 +128,7 @@ merge_RLum.Data.Curve<- function(
   ##(1) check if object is of class RLum.Data.Curve
   temp.recordType.test <- sapply(1:length(object), function(x){
     if(!inherits(object[[x]], "RLum.Data.Curve")){
-      temp.text <- paste(
-        "[merge_RLum.Data.Curve()]: At least object", x, "is not of class 'RLum.Data.Curve'!")
-      stop(temp.text, call. = FALSE)
+      .throw_error("At least object ", x, " is not of class 'RLum.Data.Curve'")
     }
 
     ##provide class of objects
@@ -139,10 +137,10 @@ merge_RLum.Data.Curve<- function(
   })
 
   ##(2) Check for similar record types
-  if(length(unique(temp.recordType.test))>1){
-    stop.text <- paste0("[merge_RLum.Data.Curve()] only similar record types are supported, you are trying to merge: ", paste0("'",unique(temp.recordType.test),"'", collapse = ", "))
-
-    stop(stop.text)
+  record.types <- unique(temp.recordType.test)
+  if (length(record.types) > 1) {
+    .throw_error("Only similar record types are supported; you are trying to merge: ",
+                 paste0("'", record.types, "'", collapse = ", "))
   }
 
 # Merge objects ----------------------------------------------------------------
@@ -159,12 +157,11 @@ merge_RLum.Data.Curve<- function(
       if (length(unique(check.length)) != 1) {
         ##but we have to at least check the resolution (roughly)
         if (round(diff(object[[x]]@data[,1]),1)[1] != round(diff(object[[1]]@data[,1]),1)[1])
-          stop("[merge_RLum.Data.Curve()] The objects do not seem to have the same channel resolution!",
-               call. = FALSE)
+          .throw_error("The objects do not seem to have the same channel resolution")
 
         ## either way, throw a warning
-        warning("[merge_RLum.Data.Curve()] The number of channels between the curves differs.
-                Resulting curve has the length of shortest curve.", call. = FALSE)
+        .throw_warning("The number of channels between the curves differs. ",
+                       "Resulting curve has the length of shortest curve.")
 
       ##if this is OK, we can continue and shorten the rest of the objects
       return(object[[x]]@data[1:min(check.length),2])
@@ -208,7 +205,6 @@ merge_RLum.Data.Curve<- function(
       temp.matrix <-  temp.matrix[,1] - temp.matrix[,2]
     }
 
-
   }else if(merge.method == "*"){
     if(ncol(temp.matrix) > 2){
       temp.matrix  <- temp.matrix[,1] * rowSums(temp.matrix[,-1])
@@ -227,13 +223,13 @@ merge_RLum.Data.Curve<- function(
     id.inf <- which(is.infinite(temp.matrix) == TRUE)
 
     ##replace with 0 and throw warning
-    temp.matrix[id.inf]  <- 0
-    warning(paste0(length(id.inf), " 'inf' values have been replaced by 0 in the matrix."),
-            call. = FALSE)
-
+    if (length(id.inf) > 0) {
+      temp.matrix[id.inf]  <- 0
+      .throw_warning(length(id.inf),
+                     " 'inf' values have been replaced by 0 in the matrix.")
+    }
   }else{
-    stop("[merge_RLum.Data.Curve()] unsupported or unknown merge method!", call. = FALSE)
-
+    .throw_error("Unsupported or unknown merge method")
   }
 
   ##add first column
