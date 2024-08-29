@@ -37,4 +37,8 @@ test_that("Full check of analyse_baSAR function", {
     expect_type(results$models, "list")
     expect_type(round(sum(results$summary[, c(6:9)]), 2),type = "double")
 
+  expect_error(suppressWarnings(
+      analyse_baSAR(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data),
+                    verbose = FALSE)),
+      "No records of the appropriate type were found")
 })

@@ -16,6 +16,10 @@ and its `.osl` file format. The output is an `RLum.Analysis-class` object.
 
 ## Bugfixes
 
+### `analyse_baSAR()`
+* Fix #183 addressing an edge-case crash when the function was called on
+an object containing no records of the appropriate type (#184, @mcol).
+
 ### `analyse_FadingMeasurements()`
 * Add `...` support to disable the blue trend line via `plot.trend = FALSE` 
 
