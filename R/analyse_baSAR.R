@@ -1031,6 +1031,11 @@ analyse_baSAR <- function(
         cat("\n\t\t  .. extract 'OSL (UVVIS)' and 'irradiation (NA)'")
       object <- get_RLum(object, recordType = c("OSL (UVVIS)", "irradiation (NA)"), drop = FALSE)
 
+      ## check that we are not left with empty records
+      if (length(object[[1]]@records) == 0) {
+        .throw_error("No records of the appropriate type were found")
+      }
+
       ##extract irradiation times
       if(is.null(irradiation_times)){
         if(verbose)
