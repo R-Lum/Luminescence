@@ -2,7 +2,7 @@
 test_that("subset RLum.Analysis", {
   testthat::skip_on_cran()
 
-  data("ExampleData.RLum.Analysis")
+  data(ExampleData.RLum.Analysis, envir = environment())
   temp <- IRSAR.RF.Data
 
 
