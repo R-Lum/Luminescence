@@ -1,4 +1,4 @@
-data("ExampleData.CW_OSL_Curve")
+data(ExampleData.CW_OSL_Curve, envir = environment())
 temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
 
 

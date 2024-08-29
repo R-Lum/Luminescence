@@ -2,7 +2,7 @@ test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
 
   ##load example data
-  data("ExampleData.RLum.Analysis")
+  data(ExampleData.RLum.Analysis, envir = environment())
   obj <- IRSAR.RF.Data
 
   ## set_RLum()
